@@ -122,10 +122,18 @@ struct WaveformView: View {
 
         switch style {
         case .recording:
-            // Highly reactive to actual audio input with slight per-bar variation
-            let barVariation = sin((normalizedIndex * .pi * 8) + (animationPhase * 0.5)) * 0.2
-            let audioReactiveHeight = baseLevel * (1.0 + barVariation)
-            return CGFloat(max(0.1, audioReactiveHeight))
+            // Dynamic per-bar variation like music equalizer
+            // Use pseudo-random based on bar index + animation phase
+            let seed = Double(index) * 3.7 + animationPhase * 2.0
+            let random1 = sin(seed * 7.3) * 0.6
+            let random2 = cos(seed * 5.1) * 0.4
+            let randomVariation = random1 + random2  // Range: -1.0 to 1.0
+
+            // Scale variation to 40%-120% of base level for dynamic effect
+            let variationFactor = 0.8 + (randomVariation * 0.4 + 0.4)
+            let audioReactiveHeight = baseLevel * variationFactor
+
+            return CGFloat(max(0.1, min(1.0, audioReactiveHeight)))
 
         case .playing:
             // Smooth flowing left-to-right wave - music equalizer feel
