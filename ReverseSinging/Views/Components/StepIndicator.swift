@@ -9,13 +9,12 @@ import SwiftUI
 
 struct StepIndicator: View {
     let currentStep: Int
-    let totalSteps: Int = 4
+    let totalSteps: Int = 3
 
     private let stepTitles = [
         "Record Original",
-        "Reverse Audio",
-        "Record Attempt",
-        "Compare Results"
+        "Record Your Attempt",
+        "See Results"
     ]
 
     var body: some View {

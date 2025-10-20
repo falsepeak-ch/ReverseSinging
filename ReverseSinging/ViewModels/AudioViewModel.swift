@@ -176,6 +176,14 @@ final class AudioViewModel: ObservableObject {
                 let recording = Recording(url: savedURL, duration: duration, type: type)
                 appState.currentSession?.addRecording(recording)
                 print("✅ Recording saved: \(type.rawValue), duration: \(duration)s")
+
+                // Auto-reverse if this was the original recording
+                if type == .original {
+                    print("🔄 Auto-reversing original recording...")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        self.reverseCurrentRecording()
+                    }
+                }
             } catch {
                 print("❌ Failed to save recording: \(error)")
                 handleError(error)
@@ -348,24 +356,22 @@ final class AudioViewModel: ObservableObject {
 
         player.stop()
 
+        // 3-step flow navigation
         switch currentStep {
         case 2:
-            // Step 2 → Step 1: Delete original recording
+            // Step 2 → Step 1: Delete original AND reversed (auto-created together)
             if let original = session.originalRecording {
                 try? fileManager.deleteRecording(at: original.url)
             }
-            appState.currentSession?.removeRecording(ofType: .original)
-
-        case 3:
-            // Step 3 → Step 2: Delete reversed recording
             if let reversed = session.reversedRecording {
                 try? fileManager.deleteRecording(at: reversed.url)
             }
+            appState.currentSession?.removeRecording(ofType: .original)
             appState.currentSession?.removeRecording(ofType: .reversed)
             appState.practiceListenCount = 0
 
-        case 4:
-            // Step 4 → Step 3: Delete attempt and reversed attempt
+        case 3:
+            // Step 3 → Step 2: Delete attempt and reversed attempt
             if let attempt = session.attemptRecording {
                 try? fileManager.deleteRecording(at: attempt.url)
             }

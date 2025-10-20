@@ -145,8 +145,8 @@ struct MainViewPremium: View {
                 Text(viewModel.errorMessage ?? "")
             }
             .onChange(of: viewModel.appState.currentGameStep) { oldStep, newStep in
-                // Auto-play reversed audio when entering Step 3
-                if newStep == 3 && oldStep != 3 {
+                // Auto-play reversed audio when entering Step 2 (after auto-reverse completes)
+                if newStep == 2 && oldStep != 2 {
                     // Delay slightly to let the UI update
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                         viewModel.autoPlayReversedAudio()
@@ -401,10 +401,11 @@ struct MainViewPremium: View {
         VStack(spacing: 16) {
             let session = viewModel.appState.currentSession
             let currentStep = viewModel.appState.currentGameStep
+            let isRecording = viewModel.appState.recordingState == .recording
 
-            // STEP 1: Record Original
-            if session?.originalRecording == nil {
-                if case .recording = viewModel.appState.recordingState {
+            // STEP 1: Record Original (auto-reverses when done)
+            if session?.reversedRecording == nil {
+                if isRecording {
                     BigButton(
                         title: "Stop Recording",
                         icon: "stop.circle.fill",
@@ -423,42 +424,45 @@ struct MainViewPremium: View {
                 }
                 // No back button on Step 1
             }
-            // STEP 2: Reverse Audio
-            else if session?.reversedRecording == nil {
-                BigButton(
-                    title: "Reverse Audio",
-                    icon: "arrow.triangle.2.circlepath",
-                    color: .rsGold,
-                    action: { viewModel.reverseCurrentRecording() },
-                    isLoading: viewModel.isReversing,
-                    style: .primary
-                )
-
-                backButton(currentStep: currentStep)
-            }
-            // STEP 3: Record Your Attempt
+            // STEP 2: Record Your Attempt (after auto-reverse)
             else if session?.attemptRecording == nil {
-                if case .recording = viewModel.appState.recordingState {
-                    BigButton(
-                        title: "Stop Recording",
-                        icon: "stop.circle.fill",
-                        color: .rsRecording,
-                        action: { viewModel.stopRecording(type: .attempt) },
-                        style: .primary
-                    )
-                } else {
-                    BigButton(
-                        title: "Record Your Attempt",
-                        icon: "mic.fill",
-                        color: .rsRecording,
-                        action: { viewModel.startRecording() },
-                        style: .primary
-                    )
+                VStack(spacing: 12) {
+                    // Primary action
+                    if isRecording {
+                        BigButton(
+                            title: "Stop Recording",
+                            icon: "stop.circle.fill",
+                            color: .rsRecording,
+                            action: { viewModel.stopRecording(type: .attempt) },
+                            style: .primary
+                        )
+                    } else {
+                        BigButton(
+                            title: "Record Your Attempt",
+                            icon: "mic.fill",
+                            color: .rsRecording,
+                            action: { viewModel.startRecording() },
+                            style: .primary
+                        )
+                    }
+
+                    // Secondary: Listen Again (only when not recording)
+                    if !isRecording {
+                        CompactButton(
+                            title: "Listen Again",
+                            icon: "play.fill",
+                            action: {
+                                if let reversed = session?.reversedRecording {
+                                    viewModel.playRecording(reversed)
+                                }
+                            }
+                        )
+                    }
                 }
 
                 backButton(currentStep: currentStep)
             }
-            // STEP 4: See Results
+            // STEP 3: See Results
             else {
                 BigButton(
                     title: "See Results",

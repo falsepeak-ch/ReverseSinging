@@ -33,16 +33,15 @@ struct AppState {
     var currentGameStep: Int {
         guard let session = currentSession else { return 1 }
 
+        // 3-step flow: Record → Record Attempt → Results
         if session.reversedAttempt != nil {
-            return 4 // Comparison step
+            return 3 // See results (comparison)
         } else if session.attemptRecording != nil {
-            return 4 // Ready to reverse and compare
+            return 3 // See results (ready to reverse attempt)
         } else if session.reversedRecording != nil {
-            return 3 // Ready to record attempt
-        } else if session.originalRecording != nil {
-            return 2 // Ready to reverse original
+            return 2 // Record your attempt
         } else {
-            return 1 // Need to record/import original
+            return 1 // Record original (auto-reverses when done)
         }
     }
 

@@ -122,12 +122,10 @@ struct WaveformView: View {
 
         switch style {
         case .recording:
-            // Pulsing bars with audio reactivity - energetic feel
-            let pulse = 1.0 + sin(animationPhase * 3) * 0.3
-            let wave1 = sin((normalizedIndex * .pi * 4) + (animationPhase * 2))
-            let wave2 = cos((normalizedIndex * .pi * 6) + (animationPhase * 1.5))
-            let wavePattern = (wave1 * 0.6 + wave2 * 0.4) * 0.5 + 0.5
-            return baseLevel * CGFloat(wavePattern * pulse)
+            // Highly reactive to actual audio input with slight per-bar variation
+            let barVariation = sin((normalizedIndex * .pi * 8) + (animationPhase * 0.5)) * 0.2
+            let audioReactiveHeight = baseLevel * (1.0 + barVariation)
+            return CGFloat(max(0.1, audioReactiveHeight))
 
         case .playing:
             // Smooth flowing left-to-right wave - music equalizer feel
