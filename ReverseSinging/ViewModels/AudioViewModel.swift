@@ -235,9 +235,12 @@ final class AudioViewModel: ObservableObject {
 
     func reverseAttempt() {
         guard let session = appState.currentSession,
-              let attemptRecording = session.attemptRecording else {
+              let attemptRecording = session.attemptRecording,
+              let originalRecording = session.originalRecording else {
             return
         }
+
+        print("🔄 Reversing attempt and calculating similarity...")
 
         isReversing = true
         appState.recordingState = .reversing
@@ -252,12 +255,32 @@ final class AudioViewModel: ObservableObject {
                 do {
                     if let duration = self.fileManager.getAudioDuration(from: reversedURL) {
                         let savedURL = try self.fileManager.saveRecording(from: reversedURL)
-                        let recording = Recording(url: savedURL, duration: duration, type: .reversed)
+                        let recording = Recording(url: savedURL, duration: duration, type: .reversedAttempt)
                         self.appState.currentSession?.addRecording(recording)
+
+                        // Calculate similarity score asynchronously
+                        Task {
+                            let score = await AudioSimilarityCalculator.shared.calculateSimilarity(
+                                original: originalRecording.url,
+                                comparison: savedURL
+                            )
+
+                            await MainActor.run {
+                                self.appState.similarityScore = score
+                                self.appState.incrementAttemptCount()
+                                print("✅ Similarity score: \(String(format: "%.1f", score))%")
+
+                                // Celebrate if score is good
+                                if score > 70 {
+                                    HapticManager.shared.success()
+                                } else {
+                                    HapticManager.shared.medium()
+                                }
+                            }
+                        }
 
                         // Load for playback
                         try? self.player.loadAudio(from: savedURL)
-                        HapticManager.shared.success()
                     }
                 } catch {
                     self.handleError(error)
@@ -301,6 +324,20 @@ final class AudioViewModel: ObservableObject {
 
     func toggleLooping() {
         player.isLooping.toggle()
+    }
+
+    // MARK: - Game Flow
+
+    func incrementPracticeListens() {
+        appState.incrementPracticeListens()
+        print("🎧 Practice listen count: \(appState.practiceListenCount)")
+    }
+
+    func reRecordAttempt() {
+        print("🔁 Re-recording attempt (removing previous attempt)")
+        appState.resetAttempt()
+        player.stop()
+        HapticManager.shared.medium()
     }
 
     // MARK: - Session Management
