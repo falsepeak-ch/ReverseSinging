@@ -434,26 +434,26 @@ struct MainViewPremium: View {
             }
             // Step 2: Reverse the original
             else if session?.reversedRecording == nil {
-                HStack(spacing: 12) {
+                VStack(spacing: 12) {
+                    // Primary action - prominent and clear
                     BigButton(
-                        title: "Listen",
-                        icon: "play.fill",
-                        color: .rsPlaying,
-                        action: {
-                            if let recording = session?.originalRecording {
-                                viewModel.playRecording(recording)
-                            }
-                        },
-                        style: .secondary
-                    )
-
-                    BigButton(
-                        title: "Reverse",
+                        title: "Reverse Audio",
                         icon: "arrow.triangle.2.circlepath",
                         color: .rsGold,
                         action: { viewModel.reverseCurrentRecording() },
                         isLoading: viewModel.isReversing,
                         style: .primary
+                    )
+
+                    // Secondary action - smaller preview option
+                    CompactButton(
+                        title: "Preview Original",
+                        icon: "play.fill",
+                        action: {
+                            if let recording = session?.originalRecording {
+                                viewModel.playRecording(recording)
+                            }
+                        }
                     )
                 }
             }

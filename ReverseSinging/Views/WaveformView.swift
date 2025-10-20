@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct WaveformView: View {
     let level: Float // 0.0 to 1.0
@@ -15,6 +16,10 @@ struct WaveformView: View {
 
     @State private var heights: [CGFloat] = []
     @State private var isAnimating = false
+    @State private var animationPhase: Double = 0
+
+    // Timer for continuous animation
+    private let timer = Timer.publish(every: 0.05, on: .main, in: .common).autoconnect()
 
     enum WaveformStyle {
         case recording  // Red, reactive bars
@@ -60,6 +65,13 @@ struct WaveformView: View {
             .onChange(of: level) { _, newValue in
                 updateWaveform(level: newValue)
             }
+            .onReceive(timer) { _ in
+                // Continuously update animation phase for flowing effect
+                animationPhase += 0.1
+                if isAnimating {
+                    updateWaveform(level: level)
+                }
+            }
         }
         .onAppear {
             isAnimating = true
@@ -90,34 +102,45 @@ struct WaveformView: View {
     }
 
     private func animationDelay(for index: Int) -> Double {
-        // Stagger animation from center outward
+        // Stagger animation from center outward - 10x more visible
         let center = Double(barCount) / 2.0
         let distanceFromCenter = abs(Double(index) - center)
-        return distanceFromCenter * 0.002
+        return distanceFromCenter * 0.02
     }
 
     // MARK: - Waveform Update
 
     private func updateWaveform(level: Float) {
+        heights = (0..<barCount).map { index in
+            flowingHeight(for: index, level: level)
+        }
+    }
+
+    private func flowingHeight(for index: Int, level: Float) -> CGFloat {
+        let normalizedIndex = Double(index) / Double(barCount)
         let baseLevel = CGFloat(max(0.15, min(1.0, level)))
 
-        heights = (0..<barCount).map { index in
-            let normalizedIndex = Double(index) / Double(barCount)
+        switch style {
+        case .recording:
+            // Pulsing bars with audio reactivity - energetic feel
+            let pulse = 1.0 + sin(animationPhase * 3) * 0.3
+            let wave1 = sin((normalizedIndex * .pi * 4) + (animationPhase * 2))
+            let wave2 = cos((normalizedIndex * .pi * 6) + (animationPhase * 1.5))
+            let wavePattern = (wave1 * 0.6 + wave2 * 0.4) * 0.5 + 0.5
+            return baseLevel * CGFloat(wavePattern * pulse)
 
-            // Create natural waveform pattern
-            let wave1 = sin(normalizedIndex * .pi * 3) * 0.4
-            let wave2 = cos(normalizedIndex * .pi * 5) * 0.2
-            let wave3 = sin(normalizedIndex * .pi * 7) * 0.1
+        case .playing:
+            // Smooth flowing left-to-right wave - music equalizer feel
+            let flow = sin((normalizedIndex * .pi * 3) + animationPhase)
+            let flow2 = cos((normalizedIndex * .pi * 5) + (animationPhase * 0.7))
+            let combinedFlow = (flow * 0.7 + flow2 * 0.3) * 0.5 + 0.5
+            return baseLevel * CGFloat(combinedFlow) * 0.9
 
-            let wavePattern = wave1 + wave2 + wave3 + 0.3
-
-            // Add randomness for organic feel
-            let randomFactor = CGFloat.random(in: 0.8...1.2)
-
-            // Combine everything
-            let height = baseLevel * CGFloat(wavePattern) * randomFactor
-
-            return min(1.0, max(0.1, height))
+        case .idle:
+            // Gentle breathing effect - calm and subtle
+            let breathe = 1.0 + sin(animationPhase * 0.5) * 0.2
+            let subtleWave = sin((normalizedIndex * .pi * 2) + (animationPhase * 0.3)) * 0.1
+            return CGFloat(0.3 * breathe + subtleWave)
         }
     }
 }
