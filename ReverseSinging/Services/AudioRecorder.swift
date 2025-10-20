@@ -336,9 +336,14 @@ final class AudioRecorder: NSObject, ObservableObject {
     // MARK: - Level Monitoring
 
     private func startTimers() {
-        levelTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { [weak self] _ in
+        // Create level timer and add to .common RunLoop mode
+        // This ensures it fires during UI updates and scrolling
+        let levelTimerInstance = Timer(timeInterval: 0.05, repeats: true) { [weak self] _ in
             self?.updateLevel()
         }
+        RunLoop.main.add(levelTimerInstance, forMode: .common)
+        levelTimer = levelTimerInstance
+        print("🔊 Level timer started on .common RunLoop mode")
 
         durationTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
             self?.updateDuration()
@@ -360,10 +365,22 @@ final class AudioRecorder: NSObject, ObservableObject {
         }
 
         recorder.updateMeters()
-        let averagePower = recorder.averagePower(forChannel: 0)
-        // Convert dB to 0-1 range (better normalization)
-        let normalizedLevel = pow(10, averagePower / 20)
+        let averagePower = recorder.averagePower(forChannel: 0)  // dB value (typically -160 to 0)
+
+        // Convert dB to 0-1 range with better normalization for speech
+        // Speech typically ranges from -40 dB (quiet) to -10 dB (loud)
+        // Map this to a visible range
+        let minDb: Float = -50.0  // Noise floor
+        let maxDb: Float = -10.0  // Loud speech
+        let clampedDb = max(minDb, min(maxDb, averagePower))
+        let normalizedLevel = (clampedDb - minDb) / (maxDb - minDb)
+
         recordingLevel = max(0, min(1, normalizedLevel))
+
+        // Debug logging (only log every 10th sample to avoid spam)
+        if Int(recorder.currentTime * 20) % 10 == 0 {
+            print("🔊 Level: dB=\(String(format: "%.1f", averagePower)), normalized=\(String(format: "%.3f", recordingLevel))")
+        }
     }
 
     private func updateDuration() {
