@@ -51,6 +51,7 @@ struct BigButton: View {
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             .cardShadow(isEnabled && !isPressed ? .card : .subtle)
             .scaleEffect(isPressed ? 0.97 : 1.0)
+            .contentShape(Rectangle())  // Makes entire button area tappable
         }
         .buttonStyle(PressButtonStyle(isPressed: $isPressed))
         .disabled(!isEnabled || isLoading)
@@ -121,6 +122,7 @@ struct CompactButton: View {
             .background(color.opacity(0.1))
             .clipShape(Capsule())
             .scaleEffect(isPressed ? 0.95 : 1.0)
+            .contentShape(Capsule())  // Makes entire button area tappable
         }
         .buttonStyle(PressButtonStyle(isPressed: $isPressed))
         .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isPressed)
