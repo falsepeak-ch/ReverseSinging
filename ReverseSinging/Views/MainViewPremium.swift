@@ -6,11 +6,9 @@
 //
 
 import SwiftUI
-import UniformTypeIdentifiers
 
 struct MainViewPremium: View {
     @StateObject private var viewModel = AudioViewModel()
-    @State private var showFilePicker = false
     @State private var showSuccessToast = false
     @State private var showCelebration = false
     @State private var showComparisonView = false
@@ -74,13 +72,8 @@ struct MainViewPremium: View {
                     // Action buttons
                     actionButtonsSection
                         .padding(.horizontal, 24)
-                        .padding(.bottom, 24)
-                        .animation(.rsSpring, value: viewModel.appState.recordingState)
-
-                    // Bottom control bar
-                    bottomBar
-                        .padding(.horizontal, 24)
                         .padding(.bottom, 32)
+                        .animation(.rsSpring, value: viewModel.appState.recordingState)
                 }
             }
             .background(Color.rsBackground.ignoresSafeArea())
@@ -122,9 +115,6 @@ struct MainViewPremium: View {
             .sheet(isPresented: $viewModel.showSessionList) {
                 SessionListView(viewModel: viewModel)
             }
-            .sheet(isPresented: $showFilePicker) {
-                DocumentPicker(viewModel: viewModel)
-            }
             .sheet(isPresented: $showComparisonView) {
                 if let session = viewModel.appState.currentSession,
                    let originalRecording = session.originalRecording,
@@ -153,6 +143,15 @@ struct MainViewPremium: View {
                 }
             } message: {
                 Text(viewModel.errorMessage ?? "")
+            }
+            .onChange(of: viewModel.appState.currentGameStep) { oldStep, newStep in
+                // Auto-play reversed audio when entering Step 3
+                if newStep == 3 && oldStep != 3 {
+                    // Delay slightly to let the UI update
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        viewModel.autoPlayReversedAudio()
+                    }
+                }
             }
         }
     }
@@ -399,10 +398,11 @@ struct MainViewPremium: View {
     // MARK: - Action Buttons
 
     private var actionButtonsSection: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 16) {
             let session = viewModel.appState.currentSession
+            let currentStep = viewModel.appState.currentGameStep
 
-            // Step 1: Record or import original
+            // STEP 1: Record Original
             if session?.originalRecording == nil {
                 if case .recording = viewModel.appState.recordingState {
                     BigButton(
@@ -413,161 +413,98 @@ struct MainViewPremium: View {
                         style: .primary
                     )
                 } else {
-                    HStack(spacing: 12) {
-                        BigButton(
-                            title: "Record",
-                            icon: "mic.fill",
-                            color: .rsRecording,
-                            action: { viewModel.startRecording() },
-                            style: .primary
-                        )
-
-                        BigButton(
-                            title: "Import",
-                            icon: "square.and.arrow.down",
-                            color: .rsGold,
-                            action: { showFilePicker = true },
-                            style: .secondary
-                        )
-                    }
-                }
-            }
-            // Step 2: Reverse the original
-            else if session?.reversedRecording == nil {
-                VStack(spacing: 12) {
-                    // Primary action - prominent and clear
                     BigButton(
-                        title: "Reverse Audio",
-                        icon: "arrow.triangle.2.circlepath",
-                        color: .rsGold,
-                        action: { viewModel.reverseCurrentRecording() },
-                        isLoading: viewModel.isReversing,
+                        title: "Record Original",
+                        icon: "mic.fill",
+                        color: .rsRecording,
+                        action: { viewModel.startRecording() },
                         style: .primary
                     )
-
-                    // Secondary action - smaller preview option
-                    CompactButton(
-                        title: "Preview Original",
-                        icon: "play.fill",
-                        action: {
-                            if let recording = session?.originalRecording {
-                                viewModel.playRecording(recording)
-                            }
-                        }
-                    )
                 }
+                // No back button on Step 1
             }
-            // Step 3: Record attempt (with practice mode)
+            // STEP 2: Reverse Audio
+            else if session?.reversedRecording == nil {
+                BigButton(
+                    title: "Reverse Audio",
+                    icon: "arrow.triangle.2.circlepath",
+                    color: .rsGold,
+                    action: { viewModel.reverseCurrentRecording() },
+                    isLoading: viewModel.isReversing,
+                    style: .primary
+                )
+
+                backButton(currentStep: currentStep)
+            }
+            // STEP 3: Record Your Attempt
             else if session?.attemptRecording == nil {
                 if case .recording = viewModel.appState.recordingState {
                     BigButton(
-                        title: "Stop Attempt",
+                        title: "Stop Recording",
                         icon: "stop.circle.fill",
                         color: .rsRecording,
                         action: { viewModel.stopRecording(type: .attempt) },
                         style: .primary
                     )
                 } else {
-                    // Practice mode card
-                    PracticeModeCard(
-                        listenCount: viewModel.appState.practiceListenCount,
-                        onListen: {
-                            if let recording = session?.reversedRecording {
-                                viewModel.playRecording(recording)
-                                viewModel.incrementPracticeListens()
-                            }
-                        },
-                        onRecord: {
-                            viewModel.startRecording()
-                        }
+                    BigButton(
+                        title: "Record Your Attempt",
+                        icon: "mic.fill",
+                        color: .rsRecording,
+                        action: { viewModel.startRecording() },
+                        style: .primary
                     )
                 }
+
+                backButton(currentStep: currentStep)
             }
-            // Step 4: Compare or view results
+            // STEP 4: See Results
             else {
-                if session?.reversedAttempt == nil {
-                    // Ready to reverse attempt and compare
-                    BigButton(
-                        title: "Reverse & Compare",
-                        icon: "arrow.triangle.2.circlepath",
-                        color: .rsGold,
-                        action: {
+                BigButton(
+                    title: "See Results",
+                    icon: "chart.bar.fill",
+                    color: .rsGold,
+                    action: {
+                        // If not yet reversed, reverse and calculate
+                        if session?.reversedAttempt == nil {
                             viewModel.reverseAttempt()
-                            // Show comparison view once similarity is calculated
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                                 if viewModel.appState.similarityScore != nil {
                                     showComparisonView = true
                                 }
                             }
-                        },
-                        isLoading: viewModel.isReversing,
-                        style: .primary
-                    )
-                } else {
-                    // Already compared - show results button and actions
-                    VStack(spacing: 12) {
-                        BigButton(
-                            title: "View Results",
-                            icon: "chart.bar.fill",
-                            color: .rsGold,
-                            action: { showComparisonView = true },
-                            style: .primary
-                        )
-
-                        HStack(spacing: 12) {
-                            BigButton(
-                                title: "Try Again",
-                                icon: "arrow.counterclockwise",
-                                color: .rsGold,
-                                action: { viewModel.reRecordAttempt() },
-                                style: .secondary
-                            )
-
-                            BigButton(
-                                title: "Save",
-                                icon: "checkmark.circle.fill",
-                                color: .rsSuccess,
-                                action: {
-                                    viewModel.saveSession()
-                                    withAnimation(.rsSpring) {
-                                        showCelebration = true
-                                    }
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                        showSuccessToast = true
-                                    }
-                                },
-                                style: .primary
-                            )
+                        } else {
+                            // Already calculated, just show results
+                            showComparisonView = true
                         }
-                    }
-                }
+                    },
+                    isLoading: viewModel.isReversing,
+                    style: .primary
+                )
+
+                backButton(currentStep: currentStep)
             }
         }
     }
 
-    // MARK: - Bottom Bar
+    // MARK: - Back Button
 
-    private var bottomBar: some View {
+    private func backButton(currentStep: Int) -> some View {
         HStack {
-            if case .playing = viewModel.appState.recordingState {
-                CompactButton(
-                    title: "Stop",
-                    icon: "stop.fill",
-                    action: { viewModel.stopPlayback() },
-                    color: .rsError
-                )
+            Button(action: {
+                viewModel.goBackOneStep()
+            }) {
+                HStack(spacing: 6) {
+                    Image(systemName: "chevron.left")
+                        .font(.rsBodySmall)
+                    Text("Back")
+                        .font(.rsBodyMedium)
+                }
+                .foregroundColor(.rsSecondaryText)
             }
+            .padding(.top, 8)
 
             Spacer()
-
-            if let session = viewModel.appState.currentSession,
-               !session.recordings.isEmpty {
-                CompactButton(
-                    title: "New",
-                    icon: "plus.circle",
-                    action: { viewModel.startNewSession() }
-                )
-            }
         }
     }
 
@@ -576,40 +513,6 @@ struct MainViewPremium: View {
     private func openSettings() {
         if let url = URL(string: UIApplication.openSettingsURLString) {
             UIApplication.shared.open(url)
-        }
-    }
-}
-
-// MARK: - Document Picker
-
-struct DocumentPicker: UIViewControllerRepresentable {
-    let viewModel: AudioViewModel
-
-    func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
-        let picker = UIDocumentPickerViewController(
-            forOpeningContentTypes: [.audio],
-            asCopy: true
-        )
-        picker.delegate = context.coordinator
-        return picker
-    }
-
-    func updateUIViewController(_ uiViewController: UIDocumentPickerViewController, context: Context) {}
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(viewModel: viewModel)
-    }
-
-    class Coordinator: NSObject, UIDocumentPickerDelegate {
-        let viewModel: AudioViewModel
-
-        init(viewModel: AudioViewModel) {
-            self.viewModel = viewModel
-        }
-
-        func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-            guard let url = urls.first else { return }
-            viewModel.importAudio(from: url)
         }
     }
 }

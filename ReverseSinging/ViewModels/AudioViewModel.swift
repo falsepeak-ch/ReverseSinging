@@ -340,6 +340,57 @@ final class AudioViewModel: ObservableObject {
         HapticManager.shared.medium()
     }
 
+    func goBackOneStep() {
+        guard let session = appState.currentSession else { return }
+
+        let currentStep = appState.currentGameStep
+        print("⬅️ Going back from step \(currentStep)")
+
+        player.stop()
+
+        switch currentStep {
+        case 2:
+            // Step 2 → Step 1: Delete original recording
+            if let original = session.originalRecording {
+                try? fileManager.deleteRecording(at: original.url)
+            }
+            appState.currentSession?.removeRecording(ofType: .original)
+
+        case 3:
+            // Step 3 → Step 2: Delete reversed recording
+            if let reversed = session.reversedRecording {
+                try? fileManager.deleteRecording(at: reversed.url)
+            }
+            appState.currentSession?.removeRecording(ofType: .reversed)
+            appState.practiceListenCount = 0
+
+        case 4:
+            // Step 4 → Step 3: Delete attempt and reversed attempt
+            if let attempt = session.attemptRecording {
+                try? fileManager.deleteRecording(at: attempt.url)
+            }
+            if let reversedAttempt = session.reversedAttempt {
+                try? fileManager.deleteRecording(at: reversedAttempt.url)
+            }
+            appState.resetAttempt()
+
+        default:
+            break
+        }
+
+        HapticManager.shared.light()
+    }
+
+    func autoPlayReversedAudio() {
+        guard let session = appState.currentSession,
+              let reversedRecording = session.reversedRecording else {
+            return
+        }
+
+        print("🎵 Auto-playing reversed audio for practice")
+        playRecording(reversedRecording)
+    }
+
     // MARK: - Session Management
 
     func saveSession() {

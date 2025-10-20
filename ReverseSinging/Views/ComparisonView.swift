@@ -222,7 +222,19 @@ struct ComparisonView: View {
 
     private var actionButtons: some View {
         VStack(spacing: 12) {
-            // Try Again
+            // Primary: Save Session
+            BigButton(
+                title: "Save Session",
+                icon: "checkmark.circle.fill",
+                color: .rsSuccess,
+                action: {
+                    viewModel.saveSession()
+                    dismiss()
+                },
+                style: .primary
+            )
+
+            // Secondary: Try Again
             BigButton(
                 title: "Try Again",
                 icon: "arrow.counterclockwise",
@@ -231,34 +243,8 @@ struct ComparisonView: View {
                     viewModel.reRecordAttempt()
                     dismiss()
                 },
-                style: .primary
+                style: .secondary
             )
-
-            HStack(spacing: 12) {
-                // New Session
-                BigButton(
-                    title: "New Session",
-                    icon: "plus.circle",
-                    color: .rsGold,
-                    action: {
-                        viewModel.startNewSession()
-                        dismiss()
-                    },
-                    style: .secondary
-                )
-
-                // Save Session
-                BigButton(
-                    title: "Save",
-                    icon: "checkmark.circle.fill",
-                    color: .rsSuccess,
-                    action: {
-                        viewModel.saveSession()
-                        dismiss()
-                    },
-                    style: .primary
-                )
-            }
         }
         .animatedCard(delay: 0.8)
     }

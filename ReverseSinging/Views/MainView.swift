@@ -6,11 +6,9 @@
 //
 
 import SwiftUI
-import UniformTypeIdentifiers
 
 struct MainView: View {
     @StateObject private var viewModel = AudioViewModel()
-    @State private var showFilePicker = false
 
     var body: some View {
         NavigationStack {
@@ -46,9 +44,6 @@ struct MainView: View {
             }
             .sheet(isPresented: $viewModel.showSessionList) {
                 SessionListView(viewModel: viewModel)
-            }
-            .sheet(isPresented: $showFilePicker) {
-                DocumentPicker(viewModel: viewModel)
             }
             .alert("Microphone Access Required", isPresented: $viewModel.showPermissionAlert) {
                 Button("Settings", action: openSettings)
@@ -260,21 +255,12 @@ struct MainView: View {
                         action: { viewModel.stopRecording() }
                     )
                 } else {
-                    HStack(spacing: 12) {
-                        BigButton(
-                            title: "Record",
-                            icon: "mic.fill",
-                            color: .red,
-                            action: { viewModel.startRecording() }
-                        )
-
-                        BigButton(
-                            title: "Import",
-                            icon: "square.and.arrow.down",
-                            color: .blue,
-                            action: { showFilePicker = true }
-                        )
-                    }
+                    BigButton(
+                        title: "Record Original",
+                        icon: "mic.fill",
+                        color: .red,
+                        action: { viewModel.startRecording() }
+                    )
                 }
             }
             // Step 2: Reverse the original
