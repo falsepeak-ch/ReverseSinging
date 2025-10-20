@@ -11,6 +11,8 @@ import UniformTypeIdentifiers
 struct MainViewPremium: View {
     @StateObject private var viewModel = AudioViewModel()
     @State private var showFilePicker = false
+    @State private var showSuccessToast = false
+    @State private var showCelebration = false
 
     var body: some View {
         NavigationStack {
@@ -26,12 +28,17 @@ struct MainViewPremium: View {
                     waveformCard
                         .padding(.horizontal, 24)
                         .padding(.bottom, 24)
+                        .animatedCard(delay: 0.1)
 
                     // Timer card (prominent when recording/playing)
                     if shouldShowTimer {
                         timerCard
                             .padding(.horizontal, 24)
                             .padding(.bottom, 24)
+                            .transition(.asymmetric(
+                                insertion: .scale.combined(with: .opacity),
+                                removal: .scale.combined(with: .opacity)
+                            ))
                     }
 
                     // Stage progress (when idle/between steps)
@@ -39,6 +46,11 @@ struct MainViewPremium: View {
                         stageProgressView
                             .padding(.horizontal, 24)
                             .padding(.bottom, 24)
+                            .animatedCard(delay: 0.2)
+                            .transition(.asymmetric(
+                                insertion: .move(edge: .top).combined(with: .opacity),
+                                removal: .scale.combined(with: .opacity)
+                            ))
                     }
 
                     // Playback controls
@@ -46,12 +58,15 @@ struct MainViewPremium: View {
                         playbackControlsCard
                             .padding(.horizontal, 24)
                             .padding(.bottom, 24)
+                            .animatedCard(delay: 0.25)
+                            .transition(.move(edge: .bottom).combined(with: .opacity))
                     }
 
                     // Action buttons
                     actionButtonsSection
                         .padding(.horizontal, 24)
                         .padding(.bottom, 24)
+                        .animation(.rsSpring, value: viewModel.appState.recordingState)
 
                     // Bottom control bar
                     bottomBar
@@ -60,6 +75,41 @@ struct MainViewPremium: View {
                 }
             }
             .background(Color.rsBackground.ignoresSafeArea())
+            .overlay(alignment: .top) {
+                if showSuccessToast {
+                    SuccessToast(message: "Session saved!", isPresented: $showSuccessToast)
+                        .padding(.horizontal, 24)
+                        .padding(.top, 60)
+                }
+            }
+            .overlay {
+                if showCelebration {
+                    ZStack {
+                        Color.black.opacity(0.3)
+                            .ignoresSafeArea()
+                            .onTapGesture {
+                                withAnimation {
+                                    showCelebration = false
+                                }
+                            }
+
+                        SuccessCelebration()
+                            .onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                    withAnimation {
+                                        showCelebration = false
+                                    }
+                                }
+                            }
+                    }
+                }
+            }
+            .overlay(alignment: .center) {
+                if viewModel.isReversing {
+                    ProcessingIndicator(message: "Reversing audio...")
+                        .transition(.scale.combined(with: .opacity))
+                }
+            }
             .sheet(isPresented: $viewModel.showSessionList) {
                 SessionListView(viewModel: viewModel)
             }
@@ -115,6 +165,7 @@ struct MainViewPremium: View {
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 16)
+                .transition(.move(edge: .top).combined(with: .opacity))
             }
 
             // Waveform
@@ -442,7 +493,15 @@ struct MainViewPremium: View {
                         title: "Save",
                         icon: "checkmark.circle.fill",
                         color: .rsSuccess,
-                        action: { viewModel.saveSession() },
+                        action: {
+                            viewModel.saveSession()
+                            withAnimation(.rsSpring) {
+                                showCelebration = true
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                showSuccessToast = true
+                            }
+                        },
                         style: .primary
                     )
                 }

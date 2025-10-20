@@ -42,13 +42,13 @@ struct TimerCard: View {
             .padding(.bottom, 8)
 
             // Timer display
-            Text(formattedTime)
-                .font(.rsTimerLarge)
-                .foregroundColor(textColor)
-                .monospacedDigit()
-                .padding(.vertical, 20)
-                .padding(.horizontal, 20)
-                .animation(.none, value: duration)
+            AnimatedCounter(
+                value: duration,
+                font: .rsTimerLarge,
+                color: textColor
+            )
+            .padding(.vertical, 20)
+            .padding(.horizontal, 20)
 
             // Time labels
             HStack(spacing: 0) {
@@ -68,6 +68,8 @@ struct TimerCard: View {
         .background(backgroundColor)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .cardShadow(.elevated)
+        .animation(.rsSpring, value: backgroundColor)
+        .scaleIn(delay: 0.1)
     }
 
     // MARK: - Computed Properties
@@ -146,10 +148,11 @@ struct CompactTimerCard: View {
                 .font(.rsBodyMedium)
                 .foregroundColor(textColor)
 
-            Text(formattedTime)
-                .font(.rsTimerSmall)
-                .foregroundColor(textColor)
-                .monospacedDigit()
+            CompactAnimatedCounter(
+                value: duration,
+                font: .rsTimerSmall,
+                color: textColor
+            )
 
             Spacer()
         }
@@ -158,6 +161,7 @@ struct CompactTimerCard: View {
         .background(backgroundColor)
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .cardShadow(.card)
+        .animation(.rsSpring, value: backgroundColor)
     }
 
     private var formattedTime: String {
