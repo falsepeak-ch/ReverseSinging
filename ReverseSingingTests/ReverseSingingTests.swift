@@ -258,6 +258,10 @@ struct HapticManagerTests {
 struct AudioViewModelTests {
 
     @Test func initialization() async {
+        // Clear UserDefaults to ensure clean state
+        UserDefaults.standard.removeObject(forKey: "savedSessions")
+        UserDefaults.standard.removeObject(forKey: "hasCompletedOnboarding")
+
         let viewModel = AudioViewModel()
 
         #expect(viewModel.appState.savedSessions.isEmpty)
