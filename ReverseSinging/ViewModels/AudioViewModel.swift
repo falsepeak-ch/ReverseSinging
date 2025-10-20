@@ -117,8 +117,20 @@ final class AudioViewModel: ObservableObject {
     // MARK: - Recording
 
     func startRecording() {
+        print("🎬 StartRecording called from UI")
+
+        // Re-check permissions before each recording (user may revoke in Settings)
         guard hasRecordingPermission else {
+            print("⚠️ No microphone permission")
+            errorMessage = "Microphone permission is required. Please enable it in Settings."
             showPermissionAlert = true
+            return
+        }
+
+        // Validate recorder state
+        guard recorder.canStartRecording() else {
+            print("⚠️ Cannot start recording - recorder not ready")
+            errorMessage = "Cannot start recording right now. Please try again."
             return
         }
 
@@ -131,13 +143,29 @@ final class AudioViewModel: ObservableObject {
             let url = try recorder.startRecording()
             currentRecordingURL = url
             HapticManager.shared.heavy()
+            print("✅ Recording started from ViewModel")
+        } catch let error as RecordingError {
+            handleRecordingError(error)
         } catch {
             handleError(error)
         }
     }
 
     func stopRecording(type: Recording.RecordingType = .original) {
-        guard let url = recorder.stopRecording() else { return }
+        print("⏹️ StopRecording called from UI (type: \(type.rawValue))")
+
+        // Validate recorder state
+        guard recorder.canStopRecording() else {
+            print("⚠️ Cannot stop recording - not currently recording")
+            errorMessage = "No recording in progress."
+            return
+        }
+
+        guard let url = recorder.stopRecording() else {
+            print("❌ Failed to get recording URL")
+            errorMessage = "Failed to stop recording properly."
+            return
+        }
 
         HapticManager.shared.heavy()
 
@@ -147,15 +175,21 @@ final class AudioViewModel: ObservableObject {
                 let savedURL = try fileManager.saveRecording(from: url)
                 let recording = Recording(url: savedURL, duration: duration, type: type)
                 appState.currentSession?.addRecording(recording)
+                print("✅ Recording saved: \(type.rawValue), duration: \(duration)s")
             } catch {
+                print("❌ Failed to save recording: \(error)")
                 handleError(error)
             }
+        } else {
+            print("❌ Failed to get audio duration")
+            errorMessage = "Failed to process recording."
         }
 
         currentRecordingURL = nil
     }
 
     func cancelRecording() {
+        print("🚫 CancelRecording called")
         recorder.cancelRecording()
         currentRecordingURL = nil
         HapticManager.shared.light()
@@ -345,7 +379,20 @@ final class AudioViewModel: ObservableObject {
 
     // MARK: - Error Handling
 
+    private func handleRecordingError(_ error: RecordingError) {
+        print("❌ Recording error: \(error.localizedDescription ?? "Unknown error")")
+        errorMessage = error.localizedDescription
+        appState.recordingState = .error(error.localizedDescription ?? "Recording failed")
+        HapticManager.shared.error()
+
+        // Show permission alert if permission was denied
+        if case .permissionDenied = error {
+            showPermissionAlert = true
+        }
+    }
+
     private func handleError(_ error: Error) {
+        print("❌ Error: \(error.localizedDescription)")
         errorMessage = error.localizedDescription
         appState.recordingState = .error(error.localizedDescription)
         HapticManager.shared.error()

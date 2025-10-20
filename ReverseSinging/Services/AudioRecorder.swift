@@ -2,74 +2,294 @@
 //  AudioRecorder.swift
 //  ReverseSinging
 //
-//  Audio recording service
+//  Audio recording service with robust session management
 //
 
 import AVFoundation
 import Combine
 
+// MARK: - Recording Errors
+
+enum RecordingError: LocalizedError {
+    case permissionDenied
+    case sessionActivationFailed(Error)
+    case recorderInitializationFailed(Error)
+    case alreadyRecording
+    case notRecording
+    case interruptedBySystem
+
+    var errorDescription: String? {
+        switch self {
+        case .permissionDenied:
+            return "Microphone permission is required to record audio. Please enable it in Settings."
+        case .sessionActivationFailed(let error):
+            return "Failed to activate audio session: \(error.localizedDescription)"
+        case .recorderInitializationFailed(let error):
+            return "Failed to initialize recorder: \(error.localizedDescription)"
+        case .alreadyRecording:
+            return "Already recording. Please stop the current recording first."
+        case .notRecording:
+            return "No recording in progress."
+        case .interruptedBySystem:
+            return "Recording was interrupted by the system."
+        }
+    }
+}
+
+// MARK: - Recording State
+
+enum RecordingLifecycleState {
+    case idle
+    case preparing
+    case recording
+    case stopping
+    case interrupted
+}
+
+// MARK: - Audio Recorder
+
 final class AudioRecorder: NSObject, ObservableObject {
     @Published var isRecording = false
     @Published var recordingDuration: TimeInterval = 0
     @Published var recordingLevel: Float = 0
+    @Published var lifecycleState: RecordingLifecycleState = .idle
 
     private var audioRecorder: AVAudioRecorder?
     private var levelTimer: Timer?
     private var durationTimer: Timer?
     private let audioFileManager = AudioFileManager.shared
+    private var wasInterrupted = false
 
     override init() {
         super.init()
-        setupAudioSession()
+        setupNotifications()
     }
 
-    // MARK: - Audio Session Setup
+    deinit {
+        removeNotifications()
+        cleanup()
+    }
 
-    private func setupAudioSession() {
-        let audioSession = AVAudioSession.sharedInstance()
-        do {
-            try audioSession.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker])
-            try audioSession.setActive(true)
-        } catch {
-            print("Failed to setup audio session: \(error)")
+    // MARK: - Notifications
+
+    private func setupNotifications() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleInterruption),
+            name: AVAudioSession.interruptionNotification,
+            object: AVAudioSession.sharedInstance()
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleRouteChange),
+            name: AVAudioSession.routeChangeNotification,
+            object: AVAudioSession.sharedInstance()
+        )
+    }
+
+    private func removeNotifications() {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    // MARK: - Interruption Handling
+
+    @objc private func handleInterruption(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
+              let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
+            return
+        }
+
+        print("📱 Audio interruption: \(type == .began ? "began" : "ended")")
+
+        switch type {
+        case .began:
+            // Interruption began (phone call, alarm, etc.)
+            if isRecording {
+                print("⚠️ Recording interrupted by system")
+                wasInterrupted = true
+                lifecycleState = .interrupted
+                // Stop recording gracefully
+                _ = stopRecording()
+            }
+
+        case .ended:
+            // Interruption ended
+            guard let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt else {
+                return
+            }
+            let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
+
+            if options.contains(.shouldResume) {
+                print("💡 Could resume recording, but letting user restart manually")
+                wasInterrupted = false
+            }
+
+        @unknown default:
+            break
         }
     }
 
-    // MARK: - Recording
+    @objc private func handleRouteChange(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
+              let reason = AVAudioSession.RouteChangeReason(rawValue: reasonValue) else {
+            return
+        }
+
+        print("🎧 Audio route changed: \(reason.rawValue)")
+
+        switch reason {
+        case .oldDeviceUnavailable:
+            // Headphones unplugged or bluetooth disconnected
+            if isRecording {
+                print("⚠️ Recording device disconnected")
+                // Continue recording with built-in mic
+            }
+        default:
+            break
+        }
+    }
+
+    // MARK: - Audio Session Management
+
+    private func activateAudioSession() throws {
+        let audioSession = AVAudioSession.sharedInstance()
+
+        print("🎤 Activating audio session...")
+
+        do {
+            // Use .playAndRecord for recording, .allowBluetooth for better device support
+            try audioSession.setCategory(
+                .playAndRecord,
+                mode: .default,
+                options: [.defaultToSpeaker, .allowBluetooth]
+            )
+            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+            print("✅ Audio session activated successfully")
+        } catch {
+            print("❌ Failed to activate audio session: \(error)")
+            throw RecordingError.sessionActivationFailed(error)
+        }
+    }
+
+    private func deactivateAudioSession() {
+        let audioSession = AVAudioSession.sharedInstance()
+
+        do {
+            try audioSession.setActive(false, options: .notifyOthersOnDeactivation)
+            print("✅ Audio session deactivated")
+        } catch {
+            print("⚠️ Failed to deactivate audio session: \(error)")
+        }
+    }
+
+    // MARK: - Permission
 
     func requestPermission(completion: @escaping (Bool) -> Void) {
         AVAudioApplication.requestRecordPermission { granted in
             DispatchQueue.main.async {
+                print(granted ? "✅ Microphone permission granted" : "❌ Microphone permission denied")
                 completion(granted)
             }
         }
     }
 
+    // MARK: - State Validation
+
+    func canStartRecording() -> Bool {
+        return lifecycleState == .idle && !isRecording
+    }
+
+    func canStopRecording() -> Bool {
+        return lifecycleState == .recording && isRecording
+    }
+
+    // MARK: - Recording
+
     func startRecording() throws -> URL {
+        print("🎙️ Attempting to start recording...")
+
+        // Validate state
+        guard canStartRecording() else {
+            print("❌ Cannot start recording - invalid state: \(lifecycleState)")
+            throw RecordingError.alreadyRecording
+        }
+
+        lifecycleState = .preparing
+
+        // Activate audio session
+        do {
+            try activateAudioSession()
+        } catch {
+            lifecycleState = .idle
+            throw error
+        }
+
+        // Create recording URL
         let url = audioFileManager.createTemporaryAudioURL()
 
+        // Configure recording settings
         let settings: [String: Any] = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
             AVSampleRateKey: 44100.0,
-            AVNumberOfChannelsKey: 2,
-            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+            AVNumberOfChannelsKey: 1,  // Mono for voice
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue,
+            AVEncoderBitRateKey: 128000  // 128 kbps
         ]
 
-        audioRecorder = try AVAudioRecorder(url: url, settings: settings)
-        audioRecorder?.delegate = self
-        audioRecorder?.isMeteringEnabled = true
-        audioRecorder?.record()
+        // Initialize recorder
+        do {
+            audioRecorder = try AVAudioRecorder(url: url, settings: settings)
+            audioRecorder?.delegate = self
+            audioRecorder?.isMeteringEnabled = true
 
-        isRecording = true
-        recordingDuration = 0
+            guard let recorder = audioRecorder else {
+                lifecycleState = .idle
+                deactivateAudioSession()
+                throw RecordingError.recorderInitializationFailed(
+                    NSError(domain: "AudioRecorder", code: -1, userInfo: nil)
+                )
+            }
 
-        startTimers()
+            // Start recording
+            let success = recorder.record()
 
-        return url
+            if success {
+                isRecording = true
+                recordingDuration = 0
+                lifecycleState = .recording
+                startTimers()
+                print("✅ Recording started successfully")
+                return url
+            } else {
+                lifecycleState = .idle
+                deactivateAudioSession()
+                throw RecordingError.recorderInitializationFailed(
+                    NSError(domain: "AudioRecorder", code: -2, userInfo: [
+                        NSLocalizedDescriptionKey: "Failed to start recording"
+                    ])
+                )
+            }
+        } catch {
+            lifecycleState = .idle
+            deactivateAudioSession()
+            print("❌ Failed to initialize recorder: \(error)")
+            throw RecordingError.recorderInitializationFailed(error)
+        }
     }
 
     func stopRecording() -> URL? {
-        guard let recorder = audioRecorder else { return nil }
+        print("🛑 Attempting to stop recording...")
+
+        guard let recorder = audioRecorder else {
+            print("⚠️ No recorder instance to stop")
+            lifecycleState = .idle
+            return nil
+        }
+
+        lifecycleState = .stopping
 
         recorder.stop()
         isRecording = false
@@ -77,12 +297,24 @@ final class AudioRecorder: NSObject, ObservableObject {
 
         let url = recorder.url
         audioRecorder = nil
+
+        lifecycleState = .idle
+
+        // Deactivate audio session to free resources
+        deactivateAudioSession()
+
+        print("✅ Recording stopped successfully")
 
         return url
     }
 
     func cancelRecording() {
-        guard let recorder = audioRecorder else { return }
+        print("❌ Cancelling recording...")
+
+        guard let recorder = audioRecorder else {
+            lifecycleState = .idle
+            return
+        }
 
         let url = recorder.url
         recorder.stop()
@@ -90,9 +322,15 @@ final class AudioRecorder: NSObject, ObservableObject {
         stopTimers()
 
         audioRecorder = nil
+        lifecycleState = .idle
+
+        // Deactivate audio session
+        deactivateAudioSession()
 
         // Delete the temporary file
         try? FileManager.default.removeItem(at: url)
+
+        print("✅ Recording cancelled")
     }
 
     // MARK: - Level Monitoring
@@ -116,23 +354,34 @@ final class AudioRecorder: NSObject, ObservableObject {
     }
 
     private func updateLevel() {
-        guard let recorder = audioRecorder else { return }
+        guard let recorder = audioRecorder, recorder.isRecording else {
+            recordingLevel = 0
+            return
+        }
 
         recorder.updateMeters()
         let averagePower = recorder.averagePower(forChannel: 0)
-        let normalizedLevel = max(0, (averagePower + 160) / 160)
-        recordingLevel = normalizedLevel
+        // Convert dB to 0-1 range (better normalization)
+        let normalizedLevel = pow(10, averagePower / 20)
+        recordingLevel = max(0, min(1, normalizedLevel))
     }
 
     private func updateDuration() {
-        guard let recorder = audioRecorder else { return }
+        guard let recorder = audioRecorder, recorder.isRecording else {
+            return
+        }
         recordingDuration = recorder.currentTime
     }
 
     // MARK: - Cleanup
 
     func cleanup() {
-        _ = stopRecording()
+        print("🧹 Cleaning up AudioRecorder...")
+        stopTimers()
+        if isRecording {
+            cancelRecording()
+        }
+        deactivateAudioSession()
     }
 }
 
@@ -140,14 +389,16 @@ final class AudioRecorder: NSObject, ObservableObject {
 
 extension AudioRecorder: AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        if !flag {
-            print("Recording failed")
+        if flag {
+            print("✅ Recording finished successfully")
+        } else {
+            print("❌ Recording finished with error")
         }
     }
 
     func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
         if let error = error {
-            print("Recording error: \(error)")
+            print("❌ Recording encode error: \(error.localizedDescription)")
         }
     }
 }
