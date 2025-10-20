@@ -13,6 +13,7 @@ struct MainViewPremium: View {
     @State private var showFilePicker = false
     @State private var showSuccessToast = false
     @State private var showCelebration = false
+    @State private var showComparisonView = false
 
     var body: some View {
         NavigationStack {
@@ -23,6 +24,14 @@ struct MainViewPremium: View {
                         .padding(.horizontal, 24)
                         .padding(.top, 8)
                         .padding(.bottom, 20)
+
+                    // Step indicator
+                    if viewModel.appState.currentSession != nil {
+                        StepIndicator(currentStep: viewModel.appState.currentGameStep)
+                            .padding(.horizontal, 24)
+                            .padding(.bottom, 24)
+                            .animatedCard(delay: 0.05)
+                    }
 
                     // Waveform visualization
                     waveformCard
@@ -115,6 +124,19 @@ struct MainViewPremium: View {
             }
             .sheet(isPresented: $showFilePicker) {
                 DocumentPicker(viewModel: viewModel)
+            }
+            .sheet(isPresented: $showComparisonView) {
+                if let session = viewModel.appState.currentSession,
+                   let originalRecording = session.originalRecording,
+                   let reversedAttempt = session.reversedAttempt,
+                   let score = viewModel.appState.similarityScore {
+                    ComparisonView(
+                        viewModel: viewModel,
+                        originalRecording: originalRecording,
+                        reversedAttempt: reversedAttempt,
+                        similarityScore: score
+                    )
+                }
             }
             .alert("Microphone Access Required", isPresented: $viewModel.showPermissionAlert) {
                 Button("Settings", action: openSettings)
@@ -435,7 +457,7 @@ struct MainViewPremium: View {
                     )
                 }
             }
-            // Step 3: Record attempt
+            // Step 3: Record attempt (with practice mode)
             else if session?.attemptRecording == nil {
                 if case .recording = viewModel.appState.recordingState {
                     BigButton(
@@ -446,64 +468,78 @@ struct MainViewPremium: View {
                         style: .primary
                     )
                 } else {
-                    HStack(spacing: 12) {
-                        BigButton(
-                            title: "Play Reversed",
-                            icon: "play.fill",
-                            color: .rsPlaying,
-                            action: {
-                                if let recording = session?.reversedRecording {
-                                    viewModel.playRecording(recording)
-                                }
-                            },
-                            style: .secondary
-                        )
-
-                        BigButton(
-                            title: "Record Attempt",
-                            icon: "mic.fill",
-                            color: .rsGold,
-                            action: { viewModel.startRecording() },
-                            style: .primary
-                        )
-                    }
-                }
-            }
-            // Step 4: Compare
-            else {
-                BigButton(
-                    title: "Reverse & Compare",
-                    icon: "arrow.triangle.2.circlepath",
-                    color: .rsGold,
-                    action: { viewModel.reverseAttempt() },
-                    isLoading: viewModel.isReversing,
-                    style: .primary
-                )
-
-                HStack(spacing: 12) {
-                    BigButton(
-                        title: "New Session",
-                        icon: "arrow.counterclockwise",
-                        color: .rsGold,
-                        action: { viewModel.startNewSession() },
-                        style: .secondary
-                    )
-
-                    BigButton(
-                        title: "Save",
-                        icon: "checkmark.circle.fill",
-                        color: .rsSuccess,
-                        action: {
-                            viewModel.saveSession()
-                            withAnimation(.rsSpring) {
-                                showCelebration = true
-                            }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                showSuccessToast = true
+                    // Practice mode card
+                    PracticeModeCard(
+                        listenCount: viewModel.appState.practiceListenCount,
+                        onListen: {
+                            if let recording = session?.reversedRecording {
+                                viewModel.playRecording(recording)
+                                viewModel.incrementPracticeListens()
                             }
                         },
+                        onRecord: {
+                            viewModel.startRecording()
+                        }
+                    )
+                }
+            }
+            // Step 4: Compare or view results
+            else {
+                if session?.reversedAttempt == nil {
+                    // Ready to reverse attempt and compare
+                    BigButton(
+                        title: "Reverse & Compare",
+                        icon: "arrow.triangle.2.circlepath",
+                        color: .rsGold,
+                        action: {
+                            viewModel.reverseAttempt()
+                            // Show comparison view once similarity is calculated
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                if viewModel.appState.similarityScore != nil {
+                                    showComparisonView = true
+                                }
+                            }
+                        },
+                        isLoading: viewModel.isReversing,
                         style: .primary
                     )
+                } else {
+                    // Already compared - show results button and actions
+                    VStack(spacing: 12) {
+                        BigButton(
+                            title: "View Results",
+                            icon: "chart.bar.fill",
+                            color: .rsGold,
+                            action: { showComparisonView = true },
+                            style: .primary
+                        )
+
+                        HStack(spacing: 12) {
+                            BigButton(
+                                title: "Try Again",
+                                icon: "arrow.counterclockwise",
+                                color: .rsGold,
+                                action: { viewModel.reRecordAttempt() },
+                                style: .secondary
+                            )
+
+                            BigButton(
+                                title: "Save",
+                                icon: "checkmark.circle.fill",
+                                color: .rsSuccess,
+                                action: {
+                                    viewModel.saveSession()
+                                    withAnimation(.rsSpring) {
+                                        showCelebration = true
+                                    }
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        showSuccessToast = true
+                                    }
+                                },
+                                style: .primary
+                            )
+                        }
+                    }
                 }
             }
         }

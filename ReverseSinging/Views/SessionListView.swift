@@ -244,6 +244,7 @@ struct RecordingRowButton: View {
         case .original: return "mic.fill"
         case .reversed: return "arrow.triangle.2.circlepath"
         case .attempt: return "person.wave.2.fill"
+        case .reversedAttempt: return "waveform.circle.fill"
         case .imported: return "square.and.arrow.down"
         }
     }
@@ -253,6 +254,7 @@ struct RecordingRowButton: View {
         case .original: return .rsGold
         case .reversed: return .rsGold.opacity(0.8)
         case .attempt: return .rsGold.opacity(0.7)
+        case .reversedAttempt: return .rsGold.opacity(0.65)
         case .imported: return .rsGold.opacity(0.6)
         }
     }
