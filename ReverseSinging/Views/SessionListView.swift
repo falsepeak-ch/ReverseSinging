@@ -41,16 +41,19 @@ struct SessionListView: View {
             Image(systemName: "music.note.list")
                 .font(.system(size: 60))
                 .foregroundColor(.rsSecondaryText)
+                .scaleIn(delay: 0.1)
 
             Text("No Saved Sessions")
                 .font(.rsHeadingMedium)
                 .foregroundColor(.rsText)
+                .fadeIn(delay: 0.2)
 
             Text("Complete a reverse singing session and save it to see it here.")
                 .font(.rsBodyMedium)
                 .foregroundColor(.rsSecondaryText)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
+                .fadeIn(delay: 0.3)
         }
     }
 
@@ -58,11 +61,12 @@ struct SessionListView: View {
 
     private var sessionListView: some View {
         List {
-            ForEach(viewModel.appState.savedSessions) { session in
+            ForEach(Array(viewModel.appState.savedSessions.enumerated()), id: \.element.id) { index, session in
                 SessionRow(session: session, viewModel: viewModel)
                     .listRowBackground(Color.rsSecondaryBackground)
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                    .slideIn(delay: Double(index) * 0.1)
             }
             .onDelete(perform: deleteSessions)
         }
@@ -103,42 +107,61 @@ struct SessionRow: View {
 
                 Spacer()
 
-                Button(action: { withAnimation { isExpanded.toggle() } }) {
+                Button(action: {
+                    withAnimation(.rsSpring) {
+                        isExpanded.toggle()
+                    }
+                    HapticManager.shared.light()
+                }) {
                     Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
                         .font(.rsBodyMedium)
                         .foregroundColor(.rsGold)
+                        .rotationEffect(.degrees(isExpanded ? 180 : 0))
                 }
             }
 
             // Recording badges
             HStack(spacing: 8) {
                 if session.originalRecording != nil {
-                    recordingBadge("Original", color: .blue)
+                    recordingBadge("Original", color: .rsGold)
+                        .transition(.scale.combined(with: .opacity))
                 }
                 if session.reversedRecording != nil {
-                    recordingBadge("Reversed", color: .purple)
+                    recordingBadge("Reversed", color: .rsGold.opacity(0.8))
+                        .transition(.scale.combined(with: .opacity))
                 }
                 if session.attemptRecording != nil {
-                    recordingBadge("Attempt", color: .orange)
+                    recordingBadge("Attempt", color: .rsGold.opacity(0.6))
+                        .transition(.scale.combined(with: .opacity))
                 }
             }
+            .animation(.rsSpring, value: isExpanded)
 
             // Expanded details
             if isExpanded {
                 Divider()
+                    .transition(.opacity)
 
                 VStack(spacing: 12) {
-                    ForEach(session.recordings) { recording in
+                    ForEach(Array(session.recordings.enumerated()), id: \.element.id) { index, recording in
                         RecordingRowButton(recording: recording, viewModel: viewModel)
+                            .transition(.asymmetric(
+                                insertion: .move(edge: .top).combined(with: .opacity),
+                                removal: .opacity
+                            ))
+                            .animation(.rsSpring.delay(Double(index) * 0.05), value: isExpanded)
                     }
                 }
+                .transition(.move(edge: .top).combined(with: .opacity))
             }
         }
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color.rsTertiaryBackground)
+                .cardShadow(.subtle)
         )
+        .animation(.rsSpring, value: isExpanded)
     }
 
     private func recordingBadge(_ title: String, color: Color) -> some View {
@@ -149,7 +172,7 @@ struct SessionRow: View {
             .padding(.vertical, 4)
             .background(
                 Capsule()
-                    .fill(color.opacity(0.2))
+                    .fill(color.opacity(0.15))
             )
     }
 }
@@ -159,9 +182,13 @@ struct SessionRow: View {
 struct RecordingRowButton: View {
     let recording: Recording
     @ObservedObject var viewModel: AudioViewModel
+    @State private var isPressed = false
 
     var body: some View {
-        Button(action: { viewModel.playRecording(recording) }) {
+        Button(action: {
+            viewModel.playRecording(recording)
+            HapticManager.shared.light()
+        }) {
             HStack {
                 Image(systemName: iconForType(recording.type))
                     .font(.rsBodyLarge)
@@ -183,7 +210,9 @@ struct RecordingRowButton: View {
                 if case .playing = viewModel.appState.recordingState {
                     Image(systemName: "speaker.wave.2.fill")
                         .font(.rsBodyMedium)
-                        .foregroundColor(.rsPlaying)
+                        .foregroundColor(.rsGold)
+                        .scaleEffect(1.1)
+                        .transition(.scale.combined(with: .opacity))
                 }
             }
             .padding(12)
@@ -191,7 +220,23 @@ struct RecordingRowButton: View {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(Color.rsSecondaryBackground)
             )
+            .scaleEffect(isPressed ? 0.97 : 1.0)
         }
+        .buttonStyle(.plain)
+        .simultaneousGesture(
+            DragGesture(minimumDistance: 0)
+                .onChanged { _ in
+                    withAnimation(.rsQuick) {
+                        isPressed = true
+                    }
+                }
+                .onEnded { _ in
+                    withAnimation(.rsQuick) {
+                        isPressed = false
+                    }
+                }
+        )
+        .animation(.rsSpring, value: viewModel.appState.recordingState)
     }
 
     private func iconForType(_ type: Recording.RecordingType) -> String {
@@ -205,10 +250,10 @@ struct RecordingRowButton: View {
 
     private func colorForType(_ type: Recording.RecordingType) -> Color {
         switch type {
-        case .original: return .blue
-        case .reversed: return .purple
-        case .attempt: return .orange
-        case .imported: return .green
+        case .original: return .rsGold
+        case .reversed: return .rsGold.opacity(0.8)
+        case .attempt: return .rsGold.opacity(0.7)
+        case .imported: return .rsGold.opacity(0.6)
         }
     }
 }
