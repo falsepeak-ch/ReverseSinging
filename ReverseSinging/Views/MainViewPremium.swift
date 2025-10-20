@@ -405,6 +405,11 @@ struct MainViewPremium: View {
 
             // STEP 1: Record Original (auto-reverses when done)
             if session?.reversedRecording == nil {
+                // Tip
+                tipText(isRecording
+                    ? "Sing clearly - the waveform shows your voice level"
+                    : "Record yourself singing a phrase or saying something fun")
+
                 if isRecording {
                     BigButton(
                         title: "Stop Recording",
@@ -427,6 +432,11 @@ struct MainViewPremium: View {
             // STEP 2: Record Your Attempt (after auto-reverse)
             else if session?.attemptRecording == nil {
                 VStack(spacing: 12) {
+                    // Tip
+                    tipText(isRecording
+                        ? "Match the rhythm and melody you heard in the reversed version"
+                        : "Listen to the reversed audio, then try to sing it backwards")
+
                     // Primary action
                     if isRecording {
                         BigButton(
@@ -464,6 +474,9 @@ struct MainViewPremium: View {
             }
             // STEP 3: See Results
             else {
+                // Tip
+                tipText("Ready to see how close you got? Let's compare your recordings!")
+
                 BigButton(
                     title: "See Results",
                     icon: "chart.bar.fill",
@@ -510,6 +523,18 @@ struct MainViewPremium: View {
 
             Spacer()
         }
+    }
+
+    // MARK: - Tip Text
+
+    private func tipText(_ text: String) -> some View {
+        Text(text)
+            .font(.rsCaption)
+            .foregroundColor(.rsSecondaryText)
+            .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
+            .frame(maxWidth: 300)
+            .padding(.vertical, 10)
     }
 
     // MARK: - Helpers
