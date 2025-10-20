@@ -18,6 +18,7 @@ struct Recording: Identifiable, Codable {
         case original = "Original"
         case reversed = "Reversed"
         case attempt = "Attempt"
+        case reversedAttempt = "Reversed Attempt"
         case imported = "Imported"
     }
 

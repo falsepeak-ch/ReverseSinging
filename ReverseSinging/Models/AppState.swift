@@ -23,8 +23,36 @@ struct AppState {
     var playbackSpeed: Double = 1.0
     var isLooping: Bool = false
 
+    // Game tracking
+    var similarityScore: Double? = nil
+    var attemptCount: Int = 0
+    var practiceListenCount: Int = 0
+
+    // MARK: - Computed Properties
+
+    var currentGameStep: Int {
+        guard let session = currentSession else { return 1 }
+
+        if session.reversedAttempt != nil {
+            return 4 // Comparison step
+        } else if session.attemptRecording != nil {
+            return 4 // Ready to reverse and compare
+        } else if session.reversedRecording != nil {
+            return 3 // Ready to record attempt
+        } else if session.originalRecording != nil {
+            return 2 // Ready to reverse original
+        } else {
+            return 1 // Need to record/import original
+        }
+    }
+
+    // MARK: - Methods
+
     mutating func startNewSession() {
         currentSession = AudioSession()
+        similarityScore = nil
+        attemptCount = 0
+        practiceListenCount = 0
     }
 
     mutating func saveCurrentSession() {
@@ -34,9 +62,28 @@ struct AppState {
         }
         savedSessions.insert(session, at: 0)
         currentSession = nil
+        similarityScore = nil
+        attemptCount = 0
+        practiceListenCount = 0
     }
 
     mutating func deleteSession(_ session: AudioSession) {
         savedSessions.removeAll { $0.id == session.id }
+    }
+
+    mutating func incrementPracticeListens() {
+        practiceListenCount += 1
+    }
+
+    mutating func incrementAttemptCount() {
+        attemptCount += 1
+    }
+
+    mutating func resetAttempt() {
+        // Remove attempt and reversed attempt, keep original recordings
+        currentSession?.removeRecording(ofType: .attempt)
+        currentSession?.removeRecording(ofType: .reversedAttempt)
+        similarityScore = nil
+        practiceListenCount = 0
     }
 }

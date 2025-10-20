@@ -39,11 +39,19 @@ struct AudioSession: Identifiable, Codable {
         recordings.first { $0.type == .attempt }
     }
 
+    var reversedAttempt: Recording? {
+        recordings.first { $0.type == .reversedAttempt }
+    }
+
     mutating func addRecording(_ recording: Recording) {
         recordings.append(recording)
     }
 
     mutating func removeRecording(_ recording: Recording) {
         recordings.removeAll { $0.id == recording.id }
+    }
+
+    mutating func removeRecording(ofType type: Recording.RecordingType) {
+        recordings.removeAll { $0.type == type }
     }
 }
