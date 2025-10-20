@@ -2,7 +2,7 @@
 //  WaveformView.swift
 //  ReverseSinging
 //
-//  Dynamic audio waveform visualization
+//  Premium stylized waveform visualization
 //
 
 import SwiftUI
@@ -11,29 +11,47 @@ struct WaveformView: View {
     let level: Float // 0.0 to 1.0
     let barCount: Int
     let color: Color
+    let style: WaveformStyle
 
     @State private var heights: [CGFloat] = []
+    @State private var isAnimating = false
 
-    init(level: Float, barCount: Int = 50, color: Color = .rsWaveform) {
+    enum WaveformStyle {
+        case recording  // Red, reactive bars
+        case playing    // Blue, flowing bars
+        case idle       // Gray, subtle bars
+    }
+
+    init(level: Float, barCount: Int = 80, color: Color? = nil, style: WaveformStyle = .idle) {
         self.level = level
         self.barCount = barCount
-        self.color = color
+        self.style = style
+
+        // Auto-select color based on style if not provided
+        self.color = color ?? {
+            switch style {
+            case .recording: return .rsWaveformRecording
+            case .playing: return .rsWaveformPlaying
+            case .idle: return .rsWaveformInactive
+            }
+        }()
+
         _heights = State(initialValue: Array(repeating: 0.1, count: barCount))
     }
 
     var body: some View {
         GeometryReader { geometry in
-            HStack(alignment: .center, spacing: 2) {
+            HStack(alignment: .center, spacing: 1) {
                 ForEach(0..<barCount, id: \.self) { index in
-                    RoundedRectangle(cornerRadius: 2)
-                        .fill(color)
+                    Capsule()
+                        .fill(barColor(for: index, geometry: geometry))
                         .frame(
-                            width: (geometry.size.width / CGFloat(barCount)) - 2,
+                            width: barWidth(for: geometry),
                             height: heights[index] * geometry.size.height
                         )
                         .animation(
-                            .easeInOut(duration: 0.1)
-                            .delay(Double(index) * 0.005),
+                            .spring(response: 0.3, dampingFraction: 0.7)
+                            .delay(animationDelay(for: index)),
                             value: heights[index]
                         )
                 }
@@ -44,19 +62,62 @@ struct WaveformView: View {
             }
         }
         .onAppear {
+            isAnimating = true
             updateWaveform(level: level)
         }
     }
 
+    // MARK: - Styling
+
+    private func barWidth(for geometry: GeometryProxy) -> CGFloat {
+        max(2, (geometry.size.width / CGFloat(barCount)) - 1)
+    }
+
+    private func barColor(for index: Int, geometry: GeometryProxy) -> Color {
+        // Create gradient effect across the waveform
+        let normalizedIndex = CGFloat(index) / CGFloat(barCount)
+        let opacity = 0.3 + (heights[index] * 0.7) // More visible when taller
+
+        switch style {
+        case .recording:
+            return color.opacity(opacity)
+        case .playing:
+            // Gradient from blue to lighter blue
+            return color.opacity(0.4 + (1.0 - normalizedIndex) * 0.6)
+        case .idle:
+            return color.opacity(0.4)
+        }
+    }
+
+    private func animationDelay(for index: Int) -> Double {
+        // Stagger animation from center outward
+        let center = Double(barCount) / 2.0
+        let distanceFromCenter = abs(Double(index) - center)
+        return distanceFromCenter * 0.002
+    }
+
+    // MARK: - Waveform Update
+
     private func updateWaveform(level: Float) {
-        let baseLevel = CGFloat(max(0.1, level))
+        let baseLevel = CGFloat(max(0.15, min(1.0, level)))
 
         heights = (0..<barCount).map { index in
-            let phase = Double(index) / Double(barCount)
-            let randomVariation = CGFloat.random(in: 0.7...1.3)
-            let waveEffect = sin(phase * .pi * 2) * 0.3 + 0.7
+            let normalizedIndex = Double(index) / Double(barCount)
 
-            return baseLevel * randomVariation * CGFloat(waveEffect)
+            // Create natural waveform pattern
+            let wave1 = sin(normalizedIndex * .pi * 3) * 0.4
+            let wave2 = cos(normalizedIndex * .pi * 5) * 0.2
+            let wave3 = sin(normalizedIndex * .pi * 7) * 0.1
+
+            let wavePattern = wave1 + wave2 + wave3 + 0.3
+
+            // Add randomness for organic feel
+            let randomFactor = CGFloat.random(in: 0.8...1.2)
+
+            // Combine everything
+            let height = baseLevel * CGFloat(wavePattern) * randomFactor
+
+            return min(1.0, max(0.1, height))
         }
     }
 }
@@ -70,7 +131,7 @@ struct StaticWaveformView: View {
 
     @State private var samples: [Float] = []
 
-    init(url: URL, color: Color = .rsWaveform, barCount: Int = 100) {
+    init(url: URL, color: Color = .rsWaveformActive, barCount: Int = 100) {
         self.url = url
         self.color = color
         self.barCount = barCount

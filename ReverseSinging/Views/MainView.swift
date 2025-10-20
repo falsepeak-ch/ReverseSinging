@@ -88,7 +88,7 @@ struct MainView: View {
             Button(action: { viewModel.showSessionList = true }) {
                 Image(systemName: "list.bullet")
                     .font(.rsHeadingMedium)
-                    .foregroundColor(.rsPrimary)
+                    .foregroundColor(.rsGold)
             }
         }
     }
@@ -210,7 +210,7 @@ struct MainView: View {
 
                     Text(String(format: "%.1fx", viewModel.appState.playbackSpeed))
                         .font(.rsBodyMedium)
-                        .foregroundColor(.rsPrimary)
+                        .foregroundColor(.rsGold)
                         .monospacedDigit()
                 }
 
@@ -222,7 +222,7 @@ struct MainView: View {
                     in: 0.5...2.0,
                     step: 0.1
                 )
-                .tint(.rsPrimary)
+                .tint(.rsGold)
             }
 
             // Loop toggle
@@ -234,7 +234,7 @@ struct MainView: View {
                     Text(viewModel.appState.isLooping ? "Loop: On" : "Loop: Off")
                         .font(.rsBodyMedium)
                 }
-                .foregroundColor(viewModel.appState.isLooping ? .rsPrimary : .rsSecondaryText)
+                .foregroundColor(viewModel.appState.isLooping ? .rsGold : .rsSecondaryText)
             }
         }
         .padding()
@@ -385,7 +385,7 @@ struct MainView: View {
                         Text("New Session")
                     }
                     .font(.rsBodyMedium)
-                    .foregroundColor(.rsPrimary)
+                    .foregroundColor(.rsGold)
                 }
             }
         }
@@ -396,40 +396,6 @@ struct MainView: View {
     private func openSettings() {
         if let url = URL(string: UIApplication.openSettingsURLString) {
             UIApplication.shared.open(url)
-        }
-    }
-}
-
-// MARK: - Document Picker
-
-struct DocumentPicker: UIViewControllerRepresentable {
-    let viewModel: AudioViewModel
-
-    func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
-        let picker = UIDocumentPickerViewController(
-            forOpeningContentTypes: [.audio],
-            asCopy: true
-        )
-        picker.delegate = context.coordinator
-        return picker
-    }
-
-    func updateUIViewController(_ uiViewController: UIDocumentPickerViewController, context: Context) {}
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(viewModel: viewModel)
-    }
-
-    class Coordinator: NSObject, UIDocumentPickerDelegate {
-        let viewModel: AudioViewModel
-
-        init(viewModel: AudioViewModel) {
-            self.viewModel = viewModel
-        }
-
-        func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-            guard let url = urls.first else { return }
-            viewModel.importAudio(from: url)
         }
     }
 }

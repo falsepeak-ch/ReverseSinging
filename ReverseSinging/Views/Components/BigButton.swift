@@ -2,7 +2,7 @@
 //  BigButton.swift
 //  ReverseSinging
 //
-//  Large, tappable button with haptic feedback
+//  Premium large button with refined styling
 //
 
 import SwiftUI
@@ -14,6 +14,15 @@ struct BigButton: View {
     let action: () -> Void
     var isEnabled: Bool = true
     var isLoading: Bool = false
+    var style: ButtonStyle = .primary
+
+    enum ButtonStyle {
+        case primary    // Gold background
+        case secondary  // Gray background
+        case destructive // Red background
+    }
+
+    @State private var isPressed = false
 
     var body: some View {
         Button(action: {
@@ -25,27 +34,109 @@ struct BigButton: View {
             HStack(spacing: 12) {
                 if isLoading {
                     ProgressView()
-                        .tint(.white)
+                        .tint(textColor)
                 } else {
                     Image(systemName: icon)
-                        .font(.rsHeadingMedium)
+                        .font(.rsButtonLarge)
+                        .fontWeight(.semibold)
                 }
 
                 Text(title)
                     .font(.rsButtonLarge)
             }
             .frame(maxWidth: .infinity)
-            .frame(height: 64)
-            .foregroundColor(.white)
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(isEnabled && !isLoading ? color : Color.rsButtonDisabled)
-            )
-            .shadow(color: color.opacity(isEnabled ? 0.3 : 0), radius: 12, x: 0, y: 4)
+            .frame(height: 56)
+            .foregroundColor(textColor)
+            .background(backgroundColor)
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .cardShadow(isEnabled && !isPressed ? .card : .subtle)
+            .scaleEffect(isPressed ? 0.97 : 1.0)
         }
+        .buttonStyle(PressButtonStyle(isPressed: $isPressed))
         .disabled(!isEnabled || isLoading)
+        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isPressed)
         .animation(.easeInOut(duration: 0.2), value: isEnabled)
         .animation(.easeInOut(duration: 0.2), value: isLoading)
+    }
+
+    private var backgroundColor: Color {
+        guard isEnabled && !isLoading else {
+            return Color.rsButtonDisabled
+        }
+
+        switch style {
+        case .primary:
+            return color
+        case .secondary:
+            return Color.rsButtonSecondary
+        case .destructive:
+            return Color.rsButtonDestructive
+        }
+    }
+
+    private var textColor: Color {
+        if !isEnabled || isLoading {
+            return .rsSecondaryText
+        }
+
+        switch style {
+        case .primary:
+            // Check if color is gold/yellow for dark text
+            if color == .rsGold || color == .rsButtonPrimary {
+                return .rsTextOnGold
+            }
+            return .white
+        case .secondary:
+            return .rsText
+        case .destructive:
+            return .white
+        }
+    }
+}
+
+// MARK: - Compact Button
+
+struct CompactButton: View {
+    let title: String
+    let icon: String
+    let action: () -> Void
+    var color: Color = .rsGold
+
+    @State private var isPressed = false
+
+    var body: some View {
+        Button(action: {
+            HapticManager.shared.light()
+            action()
+        }) {
+            HStack(spacing: 8) {
+                Image(systemName: icon)
+                    .font(.rsButtonMedium)
+                Text(title)
+                    .font(.rsButtonMedium)
+            }
+            .foregroundColor(color)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .background(color.opacity(0.1))
+            .clipShape(Capsule())
+            .scaleEffect(isPressed ? 0.95 : 1.0)
+        }
+        .buttonStyle(PressButtonStyle(isPressed: $isPressed))
+        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isPressed)
+    }
+}
+
+// MARK: - Press Button Style
+
+struct PressButtonStyle: ButtonStyle {
+    @Binding var isPressed: Bool
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .onChange(of: configuration.isPressed) { _, newValue in
+                isPressed = newValue
+            }
     }
 }
 
@@ -56,26 +147,41 @@ struct BigButton: View {
         BigButton(
             title: "Record",
             icon: "mic.fill",
-            color: .red,
-            action: {}
+            color: .rsRecording,
+            action: {},
+            style: .primary
         )
 
         BigButton(
-            title: "Reverse",
+            title: "Reverse Audio",
             icon: "arrow.triangle.2.circlepath",
-            color: .purple,
+            color: .rsGold,
             action: {},
-            isEnabled: true,
-            isLoading: true
+            isLoading: true,
+            style: .primary
         )
 
         BigButton(
-            title: "Play",
-            icon: "play.fill",
-            color: .green,
+            title: "Import",
+            icon: "square.and.arrow.down",
+            color: .rsPlaying,
             action: {},
-            isEnabled: false
+            style: .secondary
         )
+
+        BigButton(
+            title: "Delete",
+            icon: "trash",
+            color: .rsError,
+            action: {},
+            style: .destructive
+        )
+
+        HStack {
+            CompactButton(title: "Speed", icon: "gauge", action: {})
+            CompactButton(title: "Loop", icon: "repeat", action: {})
+        }
     }
     .padding()
+    .background(Color.rsBackground)
 }

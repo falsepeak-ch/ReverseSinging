@@ -2,7 +2,7 @@
 //  RecordingIndicator.swift
 //  ReverseSinging
 //
-//  Pulsing recording indicator
+//  Minimal, elegant recording indicator
 //
 
 import SwiftUI
@@ -14,32 +14,58 @@ struct RecordingIndicator: View {
         HStack(spacing: 8) {
             Circle()
                 .fill(Color.rsRecording)
-                .frame(width: 12, height: 12)
-                .scaleEffect(isPulsing ? 1.2 : 1.0)
-                .opacity(isPulsing ? 0.6 : 1.0)
+                .frame(width: 8, height: 8)
+                .scaleEffect(isPulsing ? 1.4 : 1.0)
+                .opacity(isPulsing ? 0.4 : 1.0)
                 .animation(
-                    .easeInOut(duration: 0.8)
+                    .easeInOut(duration: 1.0)
                     .repeatForever(autoreverses: true),
                     value: isPulsing
                 )
                 .onAppear { isPulsing = true }
 
-            Text("Recording...")
-                .font(.rsBodyMedium)
+            Text("RECORDING")
+                .font(.rsCaption)
+                .tracking(1.5)
                 .foregroundColor(.rsRecording)
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 8)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 7)
         .background(
             Capsule()
-                .fill(Color.rsRecording.opacity(0.1))
+                .fill(Color.rsRecording.opacity(0.08))
         )
+    }
+}
+
+// MARK: - Minimal Indicator
+
+struct MinimalRecordingDot: View {
+    @State private var isPulsing = false
+
+    var body: some View {
+        Circle()
+            .fill(Color.rsRecording)
+            .frame(width: 10, height: 10)
+            .scaleEffect(isPulsing ? 1.5 : 1.0)
+            .opacity(isPulsing ? 0.3 : 1.0)
+            .animation(
+                .easeInOut(duration: 1.0)
+                .repeatForever(autoreverses: true),
+                value: isPulsing
+            )
+            .onAppear { isPulsing = true }
     }
 }
 
 // MARK: - Preview
 
 #Preview {
-    RecordingIndicator()
-        .padding()
+    VStack(spacing: 30) {
+        RecordingIndicator()
+
+        MinimalRecordingDot()
+    }
+    .padding()
+    .background(Color.rsBackground)
 }

@@ -13,7 +13,7 @@ struct ContentView: View {
     var body: some View {
         Group {
             if viewModel.appState.hasCompletedOnboarding {
-                MainView()
+                MainViewPremium()
                     .environmentObject(viewModel)
             } else {
                 OnboardingView(viewModel: viewModel)

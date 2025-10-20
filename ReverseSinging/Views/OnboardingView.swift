@@ -41,7 +41,7 @@ struct OnboardingView: View {
                 HStack(spacing: 8) {
                     ForEach(0..<pages.count, id: \.self) { index in
                         Circle()
-                            .fill(index == currentPage ? Color.rsPrimary : Color.rsSecondaryText)
+                            .fill(index == currentPage ? Color.rsGold : Color.rsSecondaryText)
                             .frame(width: 8, height: 8)
                             .animation(.easeInOut, value: currentPage)
                     }
@@ -62,7 +62,7 @@ struct OnboardingView: View {
                         BigButton(
                             title: "Get Started",
                             icon: "arrow.right.circle.fill",
-                            color: .rsPrimary,
+                            color: .rsGold,
                             action: {
                                 withAnimation {
                                     viewModel.completeOnboarding()
@@ -82,7 +82,7 @@ struct OnboardingView: View {
                             BigButton(
                                 title: "Next",
                                 icon: "arrow.right",
-                                color: .rsPrimary,
+                                color: .rsGold,
                                 action: nextPage
                             )
                         }

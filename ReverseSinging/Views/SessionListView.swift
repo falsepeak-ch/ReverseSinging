@@ -106,7 +106,7 @@ struct SessionRow: View {
                 Button(action: { withAnimation { isExpanded.toggle() } }) {
                     Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
                         .font(.rsBodyMedium)
-                        .foregroundColor(.rsPrimary)
+                        .foregroundColor(.rsGold)
                 }
             }
 

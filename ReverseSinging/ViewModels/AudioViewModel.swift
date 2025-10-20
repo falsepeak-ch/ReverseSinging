@@ -19,6 +19,7 @@ final class AudioViewModel: ObservableObject {
 
     // Audio levels and progress
     @Published var recordingLevel: Float = 0
+    @Published var recordingDuration: TimeInterval = 0
     @Published var playbackProgress: Double = 0
     @Published var playbackDuration: Double = 0
 
@@ -52,6 +53,9 @@ final class AudioViewModel: ObservableObject {
         // Recorder bindings
         recorder.$recordingLevel
             .assign(to: &$recordingLevel)
+
+        recorder.$recordingDuration
+            .assign(to: &$recordingDuration)
 
         recorder.$isRecording
             .sink { [weak self] isRecording in

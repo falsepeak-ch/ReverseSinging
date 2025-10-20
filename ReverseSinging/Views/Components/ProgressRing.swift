@@ -12,7 +12,7 @@ struct ProgressRing: View {
     let lineWidth: CGFloat
     let color: Color
 
-    init(progress: Double, lineWidth: CGFloat = 8, color: Color = .rsPrimary) {
+    init(progress: Double, lineWidth: CGFloat = 8, color: Color = .rsGold) {
         self.progress = progress
         self.lineWidth = lineWidth
         self.color = color
