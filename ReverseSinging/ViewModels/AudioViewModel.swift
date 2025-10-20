@@ -52,7 +52,14 @@ final class AudioViewModel: ObservableObject {
     private func setupBindings() {
         // Recorder bindings
         recorder.$recordingLevel
-            .assign(to: &$recordingLevel)
+            .sink { [weak self] level in
+                self?.recordingLevel = level
+                // Debug: Log level changes (sample every 10th update)
+                if Int(Date().timeIntervalSince1970 * 20) % 10 == 0 {
+                    print("📊 ViewModel received level: \(String(format: "%.3f", level))")
+                }
+            }
+            .store(in: &cancellables)
 
         recorder.$recordingDuration
             .assign(to: &$recordingDuration)
