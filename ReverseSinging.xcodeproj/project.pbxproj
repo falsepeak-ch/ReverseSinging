@@ -14,19 +14,11 @@
 			remoteGlobalIDString = FFA267C52EA6B026008518FC;
 			remoteInfo = ReverseSinging;
 		};
-		FFA267DE2EA6B028008518FC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FFA267BE2EA6B026008518FC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FFA267C52EA6B026008518FC;
-			remoteInfo = ReverseSinging;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		FFA267C62EA6B026008518FC /* ReverseSinging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReverseSinging.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFA267D32EA6B028008518FC /* ReverseSingingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReverseSingingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FFA267DD2EA6B028008518FC /* ReverseSingingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReverseSingingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -38,11 +30,6 @@
 		FFA267D62EA6B028008518FC /* ReverseSingingTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ReverseSingingTests;
-			sourceTree = "<group>";
-		};
-		FFA267E02EA6B028008518FC /* ReverseSingingUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ReverseSingingUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -62,13 +49,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FFA267DA2EA6B028008518FC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -77,7 +57,6 @@
 			children = (
 				FFA267C82EA6B026008518FC /* ReverseSinging */,
 				FFA267D62EA6B028008518FC /* ReverseSingingTests */,
-				FFA267E02EA6B028008518FC /* ReverseSingingUITests */,
 				FFA267C72EA6B026008518FC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,7 +66,6 @@
 			children = (
 				FFA267C62EA6B026008518FC /* ReverseSinging.app */,
 				FFA267D32EA6B028008518FC /* ReverseSingingTests.xctest */,
-				FFA267DD2EA6B028008518FC /* ReverseSingingUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,29 +118,6 @@
 			productReference = FFA267D32EA6B028008518FC /* ReverseSingingTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		FFA267DC2EA6B028008518FC /* ReverseSingingUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FFA267ED2EA6B028008518FC /* Build configuration list for PBXNativeTarget "ReverseSingingUITests" */;
-			buildPhases = (
-				FFA267D92EA6B028008518FC /* Sources */,
-				FFA267DA2EA6B028008518FC /* Frameworks */,
-				FFA267DB2EA6B028008518FC /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FFA267DF2EA6B028008518FC /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				FFA267E02EA6B028008518FC /* ReverseSingingUITests */,
-			);
-			name = ReverseSingingUITests;
-			packageProductDependencies = (
-			);
-			productName = ReverseSingingUITests;
-			productReference = FFA267DD2EA6B028008518FC /* ReverseSingingUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -177,10 +132,6 @@
 						CreatedOnToolsVersion = 26.0;
 					};
 					FFA267D22EA6B028008518FC = {
-						CreatedOnToolsVersion = 26.0;
-						TestTargetID = FFA267C52EA6B026008518FC;
-					};
-					FFA267DC2EA6B028008518FC = {
 						CreatedOnToolsVersion = 26.0;
 						TestTargetID = FFA267C52EA6B026008518FC;
 					};
@@ -202,7 +153,6 @@
 			targets = (
 				FFA267C52EA6B026008518FC /* ReverseSinging */,
 				FFA267D22EA6B028008518FC /* ReverseSingingTests */,
-				FFA267DC2EA6B028008518FC /* ReverseSingingUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -216,13 +166,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FFA267D12EA6B028008518FC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FFA267DB2EA6B028008518FC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -246,13 +189,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FFA267D92EA6B028008518FC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -260,11 +196,6 @@
 			isa = PBXTargetDependency;
 			target = FFA267C52EA6B026008518FC /* ReverseSinging */;
 			targetProxy = FFA267D42EA6B028008518FC /* PBXContainerItemProxy */;
-		};
-		FFA267DF2EA6B028008518FC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FFA267C52EA6B026008518FC /* ReverseSinging */;
-			targetProxy = FFA267DE2EA6B028008518FC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -322,7 +253,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -380,7 +311,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -400,6 +331,7 @@
 				DEVELOPMENT_TEAM = 4YGWZWHTHM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Reverse Singing needs microphone access to record your voice for the reverse singing challenge.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -410,15 +342,19 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.falsepeak.ReverseSinging;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.falsepeak.reverse-singing-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -432,6 +368,7 @@
 				DEVELOPMENT_TEAM = 4YGWZWHTHM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Reverse Singing needs microphone access to record your voice for the reverse singing challenge.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -442,15 +379,19 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.falsepeak.ReverseSinging;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.falsepeak.reverse-singing-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -462,7 +403,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4YGWZWHTHM;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.falsepeak.ReverseSingingTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -484,7 +425,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4YGWZWHTHM;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.falsepeak.ReverseSingingTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -495,46 +436,6 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReverseSinging.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ReverseSinging";
-			};
-			name = Release;
-		};
-		FFA267EE2EA6B028008518FC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4YGWZWHTHM;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.falsepeak.ReverseSingingUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = ReverseSinging;
-			};
-			name = Debug;
-		};
-		FFA267EF2EA6B028008518FC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4YGWZWHTHM;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.falsepeak.ReverseSingingUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = ReverseSinging;
 			};
 			name = Release;
 		};
@@ -564,15 +465,6 @@
 			buildConfigurations = (
 				FFA267EB2EA6B028008518FC /* Debug */,
 				FFA267EC2EA6B028008518FC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FFA267ED2EA6B028008518FC /* Build configuration list for PBXNativeTarget "ReverseSingingUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FFA267EE2EA6B028008518FC /* Debug */,
-				FFA267EF2EA6B028008518FC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

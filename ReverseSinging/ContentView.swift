@@ -2,23 +2,39 @@
 //  ContentView.swift
 //  ReverseSinging
 //
-//  Created by Josep Bordes Jové on 20/10/25.
+//  Root view handling onboarding and main app
 //
 
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var viewModel = AudioViewModel()
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        Group {
+            if viewModel.appState.hasCompletedOnboarding {
+                MainView()
+                    .environmentObject(viewModel)
+            } else {
+                OnboardingView(viewModel: viewModel)
+            }
         }
-        .padding()
+        .onAppear {
+            // Request microphone permission on first launch
+            if !viewModel.appState.hasCompletedOnboarding {
+                viewModel.requestPermission()
+            }
+        }
     }
 }
 
-#Preview {
+#Preview("Onboarding") {
     ContentView()
+}
+
+#Preview("Main App") {
+    let viewModel = AudioViewModel()
+    viewModel.appState.hasCompletedOnboarding = true
+    return MainView()
+        .environmentObject(viewModel)
 }
