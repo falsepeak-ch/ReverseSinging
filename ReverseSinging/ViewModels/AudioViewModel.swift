@@ -183,14 +183,7 @@ final class AudioViewModel: ObservableObject {
                 let recording = Recording(url: savedURL, duration: duration, type: type)
                 appState.currentSession?.addRecording(recording)
                 print("✅ Recording saved: \(type.rawValue), duration: \(duration)s")
-
-                // Auto-reverse if this was the original recording
-                if type == .original {
-                    print("🔄 Auto-reversing original recording...")
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        self.reverseCurrentRecording()
-                    }
-                }
+                // Removed auto-reverse - user now manually clicks Reverse button
             } catch {
                 print("❌ Failed to save recording: \(error)")
                 handleError(error)
@@ -355,54 +348,8 @@ final class AudioViewModel: ObservableObject {
         HapticManager.shared.medium()
     }
 
-    func goBackOneStep() {
-        guard let session = appState.currentSession else { return }
-
-        let currentStep = appState.currentGameStep
-        print("⬅️ Going back from step \(currentStep)")
-
-        player.stop()
-
-        // 3-step flow navigation
-        switch currentStep {
-        case 2:
-            // Step 2 → Step 1: Delete original AND reversed (auto-created together)
-            if let original = session.originalRecording {
-                try? fileManager.deleteRecording(at: original.url)
-            }
-            if let reversed = session.reversedRecording {
-                try? fileManager.deleteRecording(at: reversed.url)
-            }
-            appState.currentSession?.removeRecording(ofType: .original)
-            appState.currentSession?.removeRecording(ofType: .reversed)
-            appState.practiceListenCount = 0
-
-        case 3:
-            // Step 3 → Step 2: Delete attempt and reversed attempt
-            if let attempt = session.attemptRecording {
-                try? fileManager.deleteRecording(at: attempt.url)
-            }
-            if let reversedAttempt = session.reversedAttempt {
-                try? fileManager.deleteRecording(at: reversedAttempt.url)
-            }
-            appState.resetAttempt()
-
-        default:
-            break
-        }
-
-        HapticManager.shared.light()
-    }
-
-    func autoPlayReversedAudio() {
-        guard let session = appState.currentSession,
-              let reversedRecording = session.reversedRecording else {
-            return
-        }
-
-        print("🎵 Auto-playing reversed audio for practice")
-        playRecording(reversedRecording)
-    }
+    // Removed goBackOneStep() - no longer using step-based navigation
+    // Removed autoPlayReversedAudio() - user manually plays recordings now
 
     // MARK: - Session Management
 
