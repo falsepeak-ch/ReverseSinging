@@ -23,13 +23,7 @@ struct MainViewPremium: View {
                         .padding(.top, 8)
                         .padding(.bottom, 20)
 
-                    // Step indicator
-                    if viewModel.appState.currentSession != nil {
-                        StepIndicator(currentStep: viewModel.appState.currentGameStep)
-                            .padding(.horizontal, 24)
-                            .padding(.bottom, 24)
-                            .animatedCard(delay: 0.05)
-                    }
+                    // Removed step indicator - simplified to single screen
 
                     // Waveform visualization
                     waveformCard
@@ -48,17 +42,7 @@ struct MainViewPremium: View {
                             ))
                     }
 
-                    // Stage progress (when idle/between steps)
-                    if shouldShowStages {
-                        stageProgressView
-                            .padding(.horizontal, 24)
-                            .padding(.bottom, 24)
-                            .animatedCard(delay: 0.2)
-                            .transition(.asymmetric(
-                                insertion: .move(edge: .top).combined(with: .opacity),
-                                removal: .scale.combined(with: .opacity)
-                            ))
-                    }
+                    // Removed stage progress - simplified to single screen
 
                     // Playback controls
                     if shouldShowPlaybackControls {
@@ -143,15 +127,6 @@ struct MainViewPremium: View {
                 }
             } message: {
                 Text(viewModel.errorMessage ?? "")
-            }
-            .onChange(of: viewModel.appState.currentGameStep) { oldStep, newStep in
-                // Auto-play reversed audio when entering Step 2 (after auto-reverse completes)
-                if newStep == 2 && oldStep != 2 {
-                    // Delay slightly to let the UI update
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        viewModel.autoPlayReversedAudio()
-                    }
-                }
             }
         }
     }
@@ -277,59 +252,6 @@ struct MainViewPremium: View {
         }
     }
 
-    // MARK: - Stage Progress
-
-    private var shouldShowStages: Bool {
-        let session = viewModel.appState.currentSession
-        return session != nil && !shouldShowTimer
-    }
-
-    private var stageProgressView: some View {
-        HStack(spacing: 16) {
-            stageItem(
-                "Original",
-                icon: "mic.fill",
-                isComplete: viewModel.appState.currentSession?.originalRecording != nil
-            )
-
-            stageDivider
-
-            stageItem(
-                "Reversed",
-                icon: "arrow.triangle.2.circlepath",
-                isComplete: viewModel.appState.currentSession?.reversedRecording != nil
-            )
-
-            stageDivider
-
-            stageItem(
-                "Attempt",
-                icon: "waveform.path.ecg",
-                isComplete: viewModel.appState.currentSession?.attemptRecording != nil
-            )
-        }
-        .padding(20)
-        .cardStyle(shadow: .subtle)
-    }
-
-    private func stageItem(_ title: String, icon: String, isComplete: Bool) -> some View {
-        VStack(spacing: 8) {
-            Image(systemName: icon)
-                .font(.rsHeadingSmall)
-                .foregroundColor(isComplete ? .rsGold : .rsSecondaryText)
-
-            Text(title)
-                .font(.rsCaption)
-                .foregroundColor(isComplete ? .rsText : .rsSecondaryText)
-        }
-        .frame(maxWidth: .infinity)
-    }
-
-    private var stageDivider: some View {
-        Image(systemName: "arrow.right")
-            .font(.rsCaption)
-            .foregroundColor(.rsSecondaryText)
-    }
 
     // MARK: - Playback Controls
 
@@ -400,130 +322,90 @@ struct MainViewPremium: View {
     private var actionButtonsSection: some View {
         VStack(spacing: 16) {
             let session = viewModel.appState.currentSession
-            let currentStep = viewModel.appState.currentGameStep
             let isRecording = viewModel.appState.recordingState == .recording
 
-            // STEP 1: Record Original (auto-reverses when done)
-            if session?.reversedRecording == nil {
-                // Tip
-                tipText(isRecording
-                    ? "Sing clearly - the waveform shows your voice level"
-                    : "Record yourself singing a phrase or saying something fun")
-
-                if isRecording {
-                    BigButton(
-                        title: "Stop Recording",
-                        icon: "stop.circle.fill",
-                        color: .rsRecording,
-                        action: { viewModel.stopRecording() },
-                        style: .primary
-                    )
-                } else {
-                    BigButton(
-                        title: "Record Original",
-                        icon: "mic.fill",
-                        color: .rsRecording,
-                        action: { viewModel.startRecording() },
-                        style: .primary
-                    )
-                }
-                // No back button on Step 1
+            // Simple tip
+            if viewModel.appState.currentSession == nil {
+                tipText("Start by creating a new session to begin")
             }
-            // STEP 2: Record Your Attempt (after auto-reverse)
-            else if session?.attemptRecording == nil {
-                VStack(spacing: 12) {
-                    // Tip
-                    tipText(isRecording
-                        ? "Match the rhythm and melody you heard in the reversed version"
-                        : "Listen to the reversed audio, then try to sing it backwards")
 
-                    // Primary action
+            // Button 1: Record Original
+            BigButton(
+                title: isRecording ? "Stop Recording" : "Record Original",
+                icon: isRecording ? "stop.circle.fill" : "mic.fill",
+                color: .rsRecording,
+                action: {
                     if isRecording {
-                        BigButton(
-                            title: "Stop Recording",
-                            icon: "stop.circle.fill",
-                            color: .rsRecording,
-                            action: { viewModel.stopRecording(type: .attempt) },
-                            style: .primary
-                        )
+                        viewModel.stopRecording()
                     } else {
-                        BigButton(
-                            title: "Record Your Attempt",
-                            icon: "mic.fill",
-                            color: .rsRecording,
-                            action: { viewModel.startRecording() },
-                            style: .primary
-                        )
+                        viewModel.startRecording()
                     }
+                },
+                isEnabled: session != nil && session?.originalRecording == nil,
+                style: .primary
+            )
 
-                    // Secondary: Listen Again (only when not recording)
-                    if !isRecording {
-                        CompactButton(
-                            title: "Listen Again",
-                            icon: "play.fill",
-                            action: {
-                                if let reversed = session?.reversedRecording {
-                                    viewModel.playRecording(reversed)
-                                }
-                            }
-                        )
+            // Button 2: Reverse Audio
+            BigButton(
+                title: "Reverse Audio",
+                icon: "arrow.triangle.2.circlepath",
+                color: .rsGold,
+                action: { viewModel.reverseCurrentRecording() },
+                isEnabled: session?.originalRecording != nil && session?.reversedRecording == nil,
+                isLoading: viewModel.isReversing,
+                style: .primary
+            )
+
+            // Button 3: Record Your Attempt
+            BigButton(
+                title: isRecording ? "Stop Recording Attempt" : "Record Your Attempt",
+                icon: isRecording ? "stop.circle.fill" : "mic.fill",
+                color: .rsRecording,
+                action: {
+                    if isRecording {
+                        viewModel.stopRecording(type: .attempt)
+                    } else {
+                        viewModel.startRecording()
                     }
-                }
+                },
+                isEnabled: session?.reversedRecording != nil && session?.attemptRecording == nil,
+                style: .secondary
+            )
 
-                backButton(currentStep: currentStep)
-            }
-            // STEP 3: See Results
-            else {
-                // Tip
-                tipText("Ready to see how close you got? Let's compare your recordings!")
-
-                BigButton(
-                    title: "See Results",
-                    icon: "chart.bar.fill",
-                    color: .rsGold,
-                    action: {
-                        // If not yet reversed, reverse and calculate
-                        if session?.reversedAttempt == nil {
-                            viewModel.reverseAttempt()
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                if viewModel.appState.similarityScore != nil {
-                                    showComparisonView = true
-                                }
+            // Button 4: Compare Results
+            BigButton(
+                title: "Compare Results",
+                icon: "chart.bar.fill",
+                color: .rsSuccess,
+                action: {
+                    if session?.reversedAttempt == nil {
+                        viewModel.reverseAttempt()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            if viewModel.appState.similarityScore != nil {
+                                showComparisonView = true
                             }
-                        } else {
-                            // Already calculated, just show results
-                            showComparisonView = true
                         }
-                    },
-                    isLoading: viewModel.isReversing,
-                    style: .primary
+                    } else {
+                        showComparisonView = true
+                    }
+                },
+                isEnabled: session?.attemptRecording != nil,
+                isLoading: viewModel.isReversing && session?.attemptRecording != nil,
+                style: .primary
+            )
+
+            // Start New Session button
+            if session != nil {
+                CompactButton(
+                    title: "Start New Session",
+                    icon: "plus.circle.fill",
+                    action: { viewModel.startNewSession() }
                 )
-
-                backButton(currentStep: currentStep)
+                .padding(.top, 8)
             }
         }
     }
 
-    // MARK: - Back Button
-
-    private func backButton(currentStep: Int) -> some View {
-        HStack {
-            Button(action: {
-                viewModel.goBackOneStep()
-            }) {
-                HStack(spacing: 6) {
-                    Image(systemName: "chevron.left")
-                        .font(.rsBodySmall)
-                    Text("Back")
-                        .font(.rsBodyMedium)
-                }
-                .foregroundColor(.rsSecondaryText)
-            }
-            .padding(.top, 8)
-
-            Spacer()
-        }
-    }
 
     // MARK: - Tip Text
 
