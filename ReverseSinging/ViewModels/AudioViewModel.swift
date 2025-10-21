@@ -183,7 +183,14 @@ final class AudioViewModel: ObservableObject {
                 let recording = Recording(url: savedURL, duration: duration, type: type)
                 appState.currentSession?.addRecording(recording)
                 print("✅ Recording saved: \(type.rawValue), duration: \(duration)s")
-                // Removed auto-reverse - user now manually clicks Reverse button
+
+                // Auto-reverse if this was the original recording
+                if type == .original {
+                    print("🔄 Auto-reversing original recording...")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        self.reverseCurrentRecording()
+                    }
+                }
             } catch {
                 print("❌ Failed to save recording: \(error)")
                 handleError(error)

@@ -340,14 +340,17 @@ struct MainViewPremium: View {
                 style: .primary
             )
 
-            // Button 2: Reverse Audio
+            // Button 2: Play Reverse Audio (auto-reversed after recording)
             BigButton(
-                title: "Reverse Audio",
-                icon: "arrow.triangle.2.circlepath",
+                title: "Play Reverse Audio",
+                icon: "play.circle.fill",
                 color: .rsGold,
-                action: { viewModel.reverseCurrentRecording() },
-                isEnabled: session?.originalRecording != nil && session?.reversedRecording == nil,
-                isLoading: viewModel.isReversing,
+                action: {
+                    if let reversed = session?.reversedRecording {
+                        viewModel.playRecording(reversed)
+                    }
+                },
+                isEnabled: session?.reversedRecording != nil,
                 style: .primary
             )
 
