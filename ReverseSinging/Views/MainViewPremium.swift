@@ -324,12 +324,7 @@ struct MainViewPremium: View {
             let session = viewModel.appState.currentSession
             let isRecording = viewModel.appState.recordingState == .recording
 
-            // Simple tip
-            if viewModel.appState.currentSession == nil {
-                tipText("Start by creating a new session to begin")
-            }
-
-            // Button 1: Record Original
+            // Button 1: Record Original (always enabled to start the flow)
             BigButton(
                 title: isRecording ? "Stop Recording" : "Record Original",
                 icon: isRecording ? "stop.circle.fill" : "mic.fill",
@@ -341,7 +336,7 @@ struct MainViewPremium: View {
                         viewModel.startRecording()
                     }
                 },
-                isEnabled: session != nil && session?.originalRecording == nil,
+                isEnabled: session?.originalRecording == nil,
                 style: .primary
             )
 
@@ -394,15 +389,13 @@ struct MainViewPremium: View {
                 style: .primary
             )
 
-            // Start New Session button
-            if session != nil {
-                CompactButton(
-                    title: "Start New Session",
-                    icon: "plus.circle.fill",
-                    action: { viewModel.startNewSession() }
-                )
-                .padding(.top, 8)
-            }
+            // Start New Session button (always visible)
+            CompactButton(
+                title: "Start New Session",
+                icon: "plus.circle.fill",
+                action: { viewModel.startNewSession() }
+            )
+            .padding(.top, 8)
         }
     }
 
