@@ -133,8 +133,10 @@ final class AudioSimilarityCalculator {
         // Values close to 1 mean similar, close to -1 mean inverted, 0 means uncorrelated
         let similarity = abs(normalizedCorrelation)
 
-        // Apply non-linear scaling to make differences more pronounced
-        let scaledSimilarity = pow(similarity, 0.7)
+        // Apply forgiving non-linear scaling (square root)
+        // pow(x, 0.5) is more generous than pow(x, 0.7)
+        // Example: 0.6 → 0.77 (was 0.69), 0.7 → 0.84 (was 0.79), 0.8 → 0.89 (was 0.87)
+        let scaledSimilarity = pow(similarity, 0.5)
 
         // Convert to 0-100 scale
         let score = Double(scaledSimilarity) * 100.0
