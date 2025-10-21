@@ -15,8 +15,6 @@ struct ComparisonView: View {
     let reversedAttempt: Recording
     let similarityScore: Double
 
-    @State private var showingScore = false
-
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -51,11 +49,6 @@ struct ComparisonView: View {
                     .foregroundColor(.rsGold)
                 }
             }
-            .onAppear {
-                withAnimation(.rsSpring.delay(0.3)) {
-                    showingScore = true
-                }
-            }
         }
     }
 
@@ -65,63 +58,34 @@ struct ComparisonView: View {
         VStack(spacing: 16) {
             // Trophy/Star icon based on score
             Image(systemName: scoreIcon)
-                .font(.system(size: 60))
+                .font(.system(size: 50))
                 .foregroundColor(scoreColor)
-                .scaleIn(delay: 0.1)
 
             // Similarity percentage
             Text("\(Int(similarityScore))%")
-                .font(.system(size: 72, weight: .bold, design: .rounded))
+                .font(.system(size: 64, weight: .bold, design: .rounded))
                 .foregroundColor(.rsGold)
                 .monospacedDigit()
-                .scaleEffect(showingScore ? 1.0 : 0.5)
-                .opacity(showingScore ? 1.0 : 0.0)
 
             // Score message
             Text(scoreMessage)
-                .font(.rsHeadingMedium)
+                .font(.rsBodyLarge)
                 .foregroundColor(.rsText)
                 .multilineTextAlignment(.center)
-                .fadeIn(delay: 0.4)
-
-            // Score bar
-            GeometryReader { geometry in
-                ZStack(alignment: .leading) {
-                    // Background
-                    RoundedRectangle(cornerRadius: 8, style: .continuous)
-                        .fill(Color.rsSecondaryBackground)
-                        .frame(height: 12)
-
-                    // Progress
-                    RoundedRectangle(cornerRadius: 8, style: .continuous)
-                        .fill(
-                            LinearGradient(
-                                colors: [scoreColor.opacity(0.8), scoreColor],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .frame(
-                            width: showingScore ? geometry.size.width * CGFloat(similarityScore / 100.0) : 0,
-                            height: 12
-                        )
-                }
-            }
-            .frame(height: 12)
-            .animation(.easeOut(duration: 1.0).delay(0.5), value: showingScore)
         }
-        .padding(.vertical, 24)
+        .padding(.vertical, 20)
+        .frame(maxWidth: .infinity)
+        .background(
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .fill(Color.rsCardBackground)
+                .cardShadow(.card)
+        )
     }
 
     // MARK: - Waveform Comparison
 
     private var waveformComparison: some View {
-        VStack(spacing: 16) {
-            Text("Visual Comparison")
-                .font(.rsBodyLarge)
-                .foregroundColor(.rsText)
-                .frame(maxWidth: .infinity, alignment: .leading)
-
+        VStack(spacing: 12) {
             HStack(spacing: 12) {
                 // Original waveform
                 waveformColumn(
@@ -136,13 +100,12 @@ struct ComparisonView: View {
                 )
             }
         }
-        .padding(20)
+        .padding(16)
         .background(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .fill(Color.rsCardBackground)
                 .cardShadow(.card)
         )
-        .animatedCard(delay: 0.6)
     }
 
     private func waveformColumn(title: String, recording: Recording) -> some View {
@@ -168,11 +131,6 @@ struct ComparisonView: View {
 
     private var playbackSection: some View {
         VStack(spacing: 12) {
-            Text("Listen & Compare")
-                .font(.rsBodyLarge)
-                .foregroundColor(.rsText)
-                .frame(maxWidth: .infinity, alignment: .leading)
-
             HStack(spacing: 12) {
                 // Play original
                 BigButton(
@@ -205,17 +163,14 @@ struct ComparisonView: View {
                     action: { viewModel.stopPlayback() },
                     color: .rsError
                 )
-                .transition(.scale.combined(with: .opacity))
             }
         }
-        .padding(20)
+        .padding(16)
         .background(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .fill(Color.rsCardBackground)
                 .cardShadow(.card)
         )
-        .animation(.rsSpring, value: viewModel.appState.recordingState)
-        .animatedCard(delay: 0.7)
     }
 
     // MARK: - Action Buttons
@@ -246,7 +201,6 @@ struct ComparisonView: View {
                 style: .secondary
             )
         }
-        .animatedCard(delay: 0.8)
     }
 
     // MARK: - Computed Properties
