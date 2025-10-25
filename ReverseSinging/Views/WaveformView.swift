@@ -13,6 +13,7 @@ struct WaveformView: View {
     let barCount: Int
     let color: Color
     let style: WaveformStyle
+    let recordingDuration: TimeInterval? // Optional recording time to display
 
     @State private var heights: [CGFloat] = []
     @State private var isAnimating = false
@@ -27,10 +28,11 @@ struct WaveformView: View {
         case idle       // Gray, subtle bars
     }
 
-    init(level: Float, barCount: Int = 80, color: Color? = nil, style: WaveformStyle = .idle) {
+    init(level: Float, barCount: Int = 80, color: Color? = nil, style: WaveformStyle = .idle, recordingDuration: TimeInterval? = nil) {
         self.level = level
         self.barCount = barCount
         self.style = style
+        self.recordingDuration = recordingDuration
 
         // Auto-select color based on style if not provided
         self.color = color ?? {
@@ -46,22 +48,41 @@ struct WaveformView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            HStack(alignment: .center, spacing: 1) {
-                ForEach(0..<barCount, id: \.self) { index in
-                    Capsule()
-                        .fill(barColor(for: index, geometry: geometry))
-                        .frame(
-                            width: barWidth(for: geometry),
-                            height: heights[index] * geometry.size.height
+            ZStack(alignment: .bottomTrailing) {
+                // Waveform bars
+                HStack(alignment: .center, spacing: 1) {
+                    ForEach(0..<barCount, id: \.self) { index in
+                        Capsule()
+                            .fill(barColor(for: index, geometry: geometry))
+                            .frame(
+                                width: barWidth(for: geometry),
+                                height: heights[index] * geometry.size.height
+                            )
+                            .animation(
+                                .spring(response: 0.3, dampingFraction: 0.7)
+                                .delay(animationDelay(for: index)),
+                                value: heights[index]
+                            )
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+                // Recording time overlay (bottom-right)
+                if let duration = recordingDuration, style == .recording {
+                    Text(formattedRecordingTime(duration))
+                        .font(.rsHeadingMedium)
+                        .monospacedDigit()
+                        .foregroundColor(.white.opacity(0.9))
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(
+                            Capsule()
+                                .fill(Color.black.opacity(0.4))
                         )
-                        .animation(
-                            .spring(response: 0.3, dampingFraction: 0.7)
-                            .delay(animationDelay(for: index)),
-                            value: heights[index]
-                        )
+                        .padding(.trailing, 16)
+                        .padding(.bottom, 12)
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .onChange(of: level) { _, newValue in
                 updateWaveform(level: newValue)
             }
@@ -148,6 +169,14 @@ struct WaveformView: View {
             let subtleWave = sin((normalizedIndex * .pi * 2) + (animationPhase * 0.3)) * 0.1
             return CGFloat(0.3 * breathe + subtleWave)
         }
+    }
+
+    // MARK: - Recording Time Formatting
+
+    private func formattedRecordingTime(_ duration: TimeInterval) -> String {
+        let minutes = Int(duration) / 60
+        let seconds = Int(duration) % 60
+        return String(format: "%02d:%02d", minutes, seconds)
     }
 }
 

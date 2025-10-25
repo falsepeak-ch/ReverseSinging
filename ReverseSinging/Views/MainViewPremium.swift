@@ -163,7 +163,8 @@ struct MainViewPremium: View {
             WaveformView(
                 level: viewModel.recordingLevel,
                 barCount: 80,
-                style: waveformStyle
+                style: waveformStyle,
+                recordingDuration: isCurrentlyRecording ? viewModel.recordingDuration : nil
             )
             .frame(height: 140)
             .padding(.horizontal, 20)
@@ -213,12 +214,21 @@ struct MainViewPremium: View {
     // MARK: - Timer Card
 
     private var shouldShowTimer: Bool {
-        switch viewModel.appState.recordingState {
-        case .recording, .playing:
-            return true
-        default:
+        // Hide timer during recording (it's shown in waveform instead)
+        if case .recording = viewModel.appState.recordingState {
             return false
         }
+
+        // Show when playing
+        if case .playing = viewModel.appState.recordingState {
+            return true
+        }
+
+        // Show when playable audio exists
+        guard let session = viewModel.appState.currentSession else { return false }
+        return session.reversedRecording != nil ||
+               session.attemptRecording != nil ||
+               session.reversedAttempt != nil
     }
 
     private var timerCard: some View {
@@ -247,11 +257,13 @@ struct MainViewPremium: View {
 
     private var timerDuration: TimeInterval {
         switch viewModel.appState.recordingState {
-        case .recording:
-            return viewModel.recordingDuration
         case .playing:
             return viewModel.playbackProgress
+        case .recording:
+            // Recording time shown in waveform, not here
+            return 0
         default:
+            // Show 00:00 when idle (user preference)
             return 0
         }
     }
