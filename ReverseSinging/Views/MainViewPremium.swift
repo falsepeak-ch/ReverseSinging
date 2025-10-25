@@ -257,7 +257,8 @@ struct MainViewPremium: View {
             isLooping: Binding(
                 get: { viewModel.appState.isLooping },
                 set: { _ in viewModel.toggleLooping() }
-            )
+            ),
+            onStopPlayback: { viewModel.stopPlayback() }
         )
     }
 
@@ -325,18 +326,16 @@ struct MainViewPremium: View {
                 )
             }
 
-            // Buttons 2-3: Play Original | Play Reversed (side by side when reversed exists)
-            if session?.reversedRecording != nil && !isRecording {
+            // Buttons 2-3: Play Original | Play Reversed (side by side when reversed exists, hidden when playing)
+            if session?.reversedRecording != nil && !isRecording && !isPlaying {
                 HStack(spacing: 12) {
                     // Play Original Audio
                     BigButton(
-                        title: isPlaying ? "Stop" : "Play Original",
-                        icon: isPlaying ? "stop.circle.fill" : "play.circle.fill",
+                        title: "Play Original",
+                        icon: "play.circle.fill",
                         color: .rsGradientCyan,
                         action: {
-                            if isPlaying {
-                                viewModel.stopPlayback()
-                            } else if let original = session?.originalRecording {
+                            if let original = session?.originalRecording {
                                 viewModel.playRecording(original)
                             }
                         },
@@ -345,13 +344,11 @@ struct MainViewPremium: View {
 
                     // Play Reversed Audio
                     BigButton(
-                        title: isPlaying ? "Stop" : "Play Reversed",
-                        icon: isPlaying ? "stop.circle.fill" : "play.circle.fill",
+                        title: "Play Reversed",
+                        icon: "play.circle.fill",
                         color: .rsGradientCyan,
                         action: {
-                            if isPlaying {
-                                viewModel.stopPlayback()
-                            } else if let reversed = session?.reversedRecording {
+                            if let reversed = session?.reversedRecording {
                                 viewModel.playRecording(reversed)
                             }
                         },
@@ -377,18 +374,16 @@ struct MainViewPremium: View {
                 )
             }
 
-            // Buttons 5-6: Play Attempt | Re-record (side by side when attempt exists)
-            if session?.attemptRecording != nil && !isRecording {
+            // Buttons 5-6: Play Attempt | Re-record (side by side when attempt exists, hidden when playing)
+            if session?.attemptRecording != nil && !isRecording && !isPlaying {
                 HStack(spacing: 12) {
                     // Play Attempt Audio
                     BigButton(
-                        title: isPlaying ? "Stop" : "Play Attempt",
-                        icon: isPlaying ? "stop.circle.fill" : "play.circle.fill",
+                        title: "Play Attempt",
+                        icon: "play.circle.fill",
                         color: .rsGradientCyan,
                         action: {
-                            if isPlaying {
-                                viewModel.stopPlayback()
-                            } else if let attempt = session?.attemptRecording {
+                            if let attempt = session?.attemptRecording {
                                 viewModel.playRecording(attempt)
                             }
                         },

@@ -10,10 +10,10 @@
           "image-name" : "Script Podcast.png",
           "name" : "Script Podcast",
           "position" : {
-            "scale" : 0.48999999999999994,
+            "scale" : 0.69,
             "translation-in-points" : [
-              -22.6953125,
-              -15.3203125
+              115.6015625,
+              -164.25
             ]
           }
         },

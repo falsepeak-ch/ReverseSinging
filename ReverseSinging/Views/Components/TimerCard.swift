@@ -18,6 +18,7 @@ struct TimerCard: View {
     var isLooping: Binding<Bool>?
     var onSpeedChange: ((Double) -> Void)?
     var onLoopToggle: (() -> Void)?
+    var onStopPlayback: (() -> Void)?
 
     enum TimerState {
         case idle
@@ -28,7 +29,7 @@ struct TimerCard: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Top section with device info (no battery)
+            // Top section with device info and stop button
             HStack(spacing: 8) {
                 Image(systemName: deviceIcon)
                     .font(.rsCaption)
@@ -38,6 +39,16 @@ struct TimerCard: View {
                     .foregroundColor(textColor.opacity(0.7))
 
                 Spacer()
+
+                // Stop button (only when playing)
+                if state == .playing, let stopAction = onStopPlayback {
+                    Button(action: stopAction) {
+                        Image(systemName: "stop.circle.fill")
+                            .font(.rsHeadingSmall)
+                            .foregroundColor(.white.opacity(0.9))
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
             }
             .padding(.horizontal, 20)
             .padding(.top, 16)
@@ -290,7 +301,10 @@ struct CompactTimerCard: View {
             duration: 45.0,
             deviceName: nil,
             isRecording: false,
-            state: .playing
+            state: .playing,
+            playbackSpeed: .constant(1.0),
+            isLooping: .constant(false),
+            onStopPlayback: { print("Stop playback") }
         )
 
         CompactTimerCard(duration: 30.0, state: .recording)
