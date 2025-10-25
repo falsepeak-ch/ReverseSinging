@@ -89,7 +89,7 @@ struct TimerCard: View {
                                 Text(String(format: "%.1fx", speed))
                                     .font(.rsBodyMedium)
                                     .foregroundColor(controlColor)
-                                    .monospacedDigit()
+                                    .monospaced()
                             }
                         }
 

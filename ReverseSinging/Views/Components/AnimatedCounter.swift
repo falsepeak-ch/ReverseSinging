@@ -18,7 +18,7 @@ struct AnimatedCounter: View {
         Text(formattedTime)
             .font(font)
             .foregroundColor(color)
-            .monospacedDigit()
+            .monospaced()
             .contentTransition(.numericText(value: displayValue))
             .animation(.smooth(duration: 0.3), value: displayValue)
             .onChange(of: value) { _, newValue in
@@ -51,7 +51,7 @@ struct CompactAnimatedCounter: View {
         Text(formattedTime)
             .font(font)
             .foregroundColor(color)
-            .monospacedDigit()
+            .monospaced()
             .contentTransition(.numericText(value: displayValue))
             .animation(.smooth(duration: 0.3), value: displayValue)
             .onChange(of: value) { _, newValue in

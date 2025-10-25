@@ -7,6 +7,19 @@
       "layers" : [
         {
           "glass" : true,
+          "image-name" : "Script Podcast.png",
+          "name" : "Script Podcast",
+          "position" : {
+            "scale" : 0.48999999999999994,
+            "translation-in-points" : [
+              -22.6953125,
+              -15.3203125
+            ]
+          }
+        },
+        {
+          "glass" : true,
+          "hidden" : true,
           "image-name" : "Cassette.png",
           "name" : "Cassette",
           "position" : {

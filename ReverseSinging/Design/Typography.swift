@@ -8,10 +8,11 @@
 import SwiftUI
 
 extension Font {
-    // MARK: - Timer Display (Large Monospaced)
-    static let rsTimerLarge = Font.system(size: 72, weight: .medium, design: .default).monospacedDigit()
-    static let rsTimerMedium = Font.system(size: 56, weight: .medium, design: .default).monospacedDigit()
-    static let rsTimerSmall = Font.system(size: 32, weight: .medium, design: .default).monospacedDigit()
+    // MARK: - Timer Display (Monospaced)
+    // Note: Use .monospaced() view modifier for full monospace including punctuation
+    static let rsTimerLarge = Font.system(size: 72, weight: .medium, design: .default)
+    static let rsTimerMedium = Font.system(size: 56, weight: .medium, design: .default)
+    static let rsTimerSmall = Font.system(size: 32, weight: .medium, design: .default)
 
     // MARK: - Display
     static let rsDisplayLarge = Font.system(size: 48, weight: .bold, design: .default)
