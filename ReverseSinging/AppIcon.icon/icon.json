@@ -6,38 +6,14 @@
     {
       "layers" : [
         {
+          "glass" : false,
           "image-name" : "Volume Equalizer.png",
           "name" : "Volume Equalizer",
           "position" : {
-            "scale" : 0.5599999999999999,
+            "scale" : 0.6000000000000001,
             "translation-in-points" : [
-              -27.390625,
-              55.3359375
-            ]
-          }
-        },
-        {
-          "glass" : true,
-          "image-name" : "Script Podcast.png",
-          "name" : "Script Podcast",
-          "position" : {
-            "scale" : 0.69,
-            "translation-in-points" : [
-              115.6015625,
-              -164.25
-            ]
-          }
-        },
-        {
-          "glass" : true,
-          "hidden" : true,
-          "image-name" : "Cassette.png",
-          "name" : "Cassette",
-          "position" : {
-            "scale" : 0.65,
-            "translation-in-points" : [
-              -57.8125,
-              3.9140625
+              -61.59375,
+              72.28125
             ]
           }
         }
@@ -46,6 +22,7 @@
         "kind" : "neutral",
         "opacity" : 0.5
       },
+      "specular" : true,
       "translucency" : {
         "enabled" : true,
         "value" : 0.5

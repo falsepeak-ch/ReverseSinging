@@ -46,31 +46,25 @@ struct MainViewPremium: View {
                             ))
                     }
 
-                    // Re-record button and tip (under mini player)
+                    // Re-record button (under mini player)
                     if viewModel.appState.currentSession?.attemptRecording != nil && viewModel.appState.recordingState != .recording {
-                        VStack(spacing: 12) {
-                            // Tip text
-                            tipText("Practice makes perfect - record as many attempts as you need")
-
-                            // Small re-record button
-                            Button(action: {
-                                viewModel.reRecordAttempt()
-                                viewModel.startRecording()
-                            }) {
-                                HStack(spacing: 8) {
-                                    Image(systemName: "record.circle")
-                                        .font(.rsBodyMedium)
-                                    Text("Re-record Attempt")
-                                        .font(.rsBodySmall)
-                                }
-                                .foregroundColor(.rsRecording)
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 8)
-                                .background(Color.rsRecording.opacity(0.15))
-                                .clipShape(Capsule())
+                        Button(action: {
+                            viewModel.reRecordAttempt()
+                            viewModel.startRecording()
+                        }) {
+                            HStack(spacing: 8) {
+                                Image(systemName: "record.circle")
+                                    .font(.rsBodyMedium)
+                                Text("Re-record Attempt")
+                                    .font(.rsBodySmall)
                             }
-                            .buttonStyle(.plain)
+                            .foregroundColor(.rsRecording)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 8)
+                            .background(Color.rsRecording.opacity(0.15))
+                            .clipShape(Capsule())
                         }
+                        .buttonStyle(.plain)
                         .padding(.horizontal, 24)
                         .padding(.bottom, 16)
                         .transition(.opacity.combined(with: .scale))
@@ -120,6 +114,18 @@ struct MainViewPremium: View {
                 if viewModel.isReversing {
                     ProcessingIndicator(message: "Reversing audio...")
                         .transition(.scale.combined(with: .opacity))
+                }
+            }
+            .overlay(alignment: .bottom) {
+                if viewModel.appState.currentSession?.attemptRecording != nil {
+                    tipText("Practice makes perfect - record as many attempts as you need")
+                        .padding(.horizontal, 24)
+                        .padding(.bottom, 16)
+                        .background(
+                            Color.rsBackground
+                                .ignoresSafeArea(edges: .bottom)
+                        )
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
             }
             .sheet(isPresented: $viewModel.showSessionList) {
