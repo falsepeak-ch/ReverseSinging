@@ -326,10 +326,67 @@ struct MainViewPremium: View {
                 )
             }
 
-            // Buttons 2-3: Play Original | Play Reversed (side by side when reversed exists, hidden when playing)
-            if session?.reversedRecording != nil && !isRecording && !isPlaying {
+            // 2x2 Grid: All 4 playback buttons (when all recordings exist)
+            if session?.reversedAttempt != nil && !isRecording && !isPlaying {
+                VStack(spacing: 12) {
+                    // Row 1: Play Original | Play Reversed
+                    HStack(spacing: 12) {
+                        BigButton(
+                            title: "Play Original",
+                            icon: "play.circle.fill",
+                            color: .rsGradientCyan,
+                            action: {
+                                if let original = session?.originalRecording {
+                                    viewModel.playRecording(original)
+                                }
+                            },
+                            style: .secondary
+                        )
+
+                        BigButton(
+                            title: "Play Reversed",
+                            icon: "play.circle.fill",
+                            color: .rsGradientCyan,
+                            action: {
+                                if let reversed = session?.reversedRecording {
+                                    viewModel.playRecording(reversed)
+                                }
+                            },
+                            style: .secondary
+                        )
+                    }
+
+                    // Row 2: Play Attempt | Play Attempt Reversed
+                    HStack(spacing: 12) {
+                        BigButton(
+                            title: "Play Attempt",
+                            icon: "play.circle.fill",
+                            color: .rsGradientCyan,
+                            action: {
+                                if let attempt = session?.attemptRecording {
+                                    viewModel.playRecording(attempt)
+                                }
+                            },
+                            style: .secondary
+                        )
+
+                        BigButton(
+                            title: "Play Attempt Reversed",
+                            icon: "play.circle.fill",
+                            color: .rsGradientCyan,
+                            action: {
+                                if let reversedAttempt = session?.reversedAttempt {
+                                    viewModel.playRecording(reversedAttempt)
+                                }
+                            },
+                            style: .secondary
+                        )
+                    }
+                }
+            }
+            // Single row: Play Original | Play Reversed (when reversed exists but no attempt yet)
+            else if session?.reversedRecording != nil && session?.attemptRecording == nil && !isRecording && !isPlaying {
                 HStack(spacing: 12) {
-                    // Play Original Audio
                     BigButton(
                         title: "Play Original",
                         icon: "play.circle.fill",
@@ -342,7 +399,34 @@ struct MainViewPremium: View {
                         style: .secondary
                     )
 
-                    // Play Reversed Audio
+                    BigButton(
+                        title: "Play Reversed",
+                        icon: "play.circle.fill",
+                        color: .rsGradientCyan,
+                        action: {
+                            if let reversed = session?.reversedRecording {
+                                viewModel.playRecording(reversed)
+                            }
+                        },
+                        style: .secondary
+                    )
+                }
+            }
+            // Single row: Play Original | Play Reversed (when attempt exists but not reversed yet)
+            else if session?.attemptRecording != nil && session?.reversedAttempt == nil && !isRecording && !isPlaying {
+                HStack(spacing: 12) {
+                    BigButton(
+                        title: "Play Original",
+                        icon: "play.circle.fill",
+                        color: .rsGradientCyan,
+                        action: {
+                            if let original = session?.originalRecording {
+                                viewModel.playRecording(original)
+                            }
+                        },
+                        style: .secondary
+                    )
+
                     BigButton(
                         title: "Play Reversed",
                         icon: "play.circle.fill",
@@ -357,7 +441,7 @@ struct MainViewPremium: View {
                 }
             }
 
-            // Button 4: Record Your Attempt (only shown when reversed exists and no attempt yet)
+            // Record Your Attempt (only shown when reversed exists and no attempt yet)
             if session?.reversedRecording != nil && session?.attemptRecording == nil {
                 BigButton(
                     title: isRecording ? "Stop Recording" : "Record Your Attempt",
@@ -374,37 +458,21 @@ struct MainViewPremium: View {
                 )
             }
 
-            // Buttons 5-6: Play Attempt | Re-record (side by side when attempt exists, hidden when playing)
-            if session?.attemptRecording != nil && !isRecording && !isPlaying {
-                HStack(spacing: 12) {
-                    // Play Attempt Audio
-                    BigButton(
-                        title: "Play Attempt",
-                        icon: "play.circle.fill",
-                        color: .rsGradientCyan,
-                        action: {
-                            if let attempt = session?.attemptRecording {
-                                viewModel.playRecording(attempt)
-                            }
-                        },
-                        style: .secondary
-                    )
-
-                    // Re-record Attempt
-                    BigButton(
-                        title: "Re-record",
-                        icon: "arrow.clockwise",
-                        color: .rsRecording,
-                        action: {
-                            viewModel.reRecordAttempt()
-                            viewModel.startRecording()
-                        },
-                        style: .secondary
-                    )
-                }
+            // Re-record Attempt (full width, shown after all recordings exist)
+            if session?.reversedAttempt != nil && !isRecording {
+                BigButton(
+                    title: "Re-record Attempt",
+                    icon: "arrow.clockwise",
+                    color: .rsRecording,
+                    action: {
+                        viewModel.reRecordAttempt()
+                        viewModel.startRecording()
+                    },
+                    style: .secondary
+                )
             }
 
-            // Button 7: Compare Results (shown when attempt exists)
+            // Compare Results (shown when attempt exists)
             if session?.attemptRecording != nil && !isRecording {
                 BigButton(
                     title: "Compare Results",
