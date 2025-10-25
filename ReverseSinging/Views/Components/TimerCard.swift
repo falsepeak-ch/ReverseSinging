@@ -54,14 +54,13 @@ struct TimerCard: View {
 
             // Time labels
             HStack(spacing: 0) {
-                timeLabel("HOUR")
-                    .frame(width: timeLabelWidth)
                 Spacer()
                 timeLabel("MINS")
                     .frame(width: timeLabelWidth)
                 Spacer()
                 timeLabel("SECS")
                     .frame(width: timeLabelWidth)
+                Spacer()
             }
             .padding(.horizontal, 20)
             .padding(.bottom, showPlaybackControls ? 12 : 16)
@@ -144,14 +143,13 @@ struct TimerCard: View {
     // MARK: - Computed Properties
 
     private var timeLabelWidth: CGFloat {
-        UIScreen.main.bounds.width / 6
+        UIScreen.main.bounds.width / 4  // For 2 labels (MINS, SECS)
     }
 
     private var formattedTime: String {
-        let hours = Int(duration) / 3600
-        let minutes = (Int(duration) % 3600) / 60
+        let minutes = Int(duration) / 60
         let seconds = Int(duration) % 60
-        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+        return String(format: "%02d:%02d", minutes, seconds)
     }
 
     private var backgroundColor: Color {

@@ -32,10 +32,9 @@ struct AnimatedCounter: View {
     }
 
     private var formattedTime: String {
-        let hours = Int(displayValue) / 3600
-        let minutes = (Int(displayValue) % 3600) / 60
+        let minutes = Int(displayValue) / 60
         let seconds = Int(displayValue) % 60
-        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+        return String(format: "%02d:%02d", minutes, seconds)
     }
 }
 

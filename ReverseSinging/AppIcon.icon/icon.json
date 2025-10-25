@@ -6,13 +6,14 @@
     {
       "layers" : [
         {
+          "glass" : true,
           "image-name" : "Cassette.png",
           "name" : "Cassette",
           "position" : {
-            "scale" : 0.66,
+            "scale" : 0.65,
             "translation-in-points" : [
-              -53.359375,
-              -29.5234375
+              -57.8125,
+              3.9140625
             ]
           }
         }
@@ -29,6 +30,7 @@
     {
       "layers" : [
         {
+          "glass" : false,
           "image-name" : "Frame.png",
           "name" : "Frame",
           "position" : {
