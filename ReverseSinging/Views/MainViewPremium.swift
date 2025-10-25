@@ -173,6 +173,10 @@ struct MainViewPremium: View {
         }
         .background(waveformCardBackground)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .stroke(waveformBorderColor, lineWidth: 1)
+        )
         .cardShadow(.card)
     }
 
@@ -180,6 +184,12 @@ struct MainViewPremium: View {
         colorScheme == .dark
             ? Color.black.opacity(0.85)      // Dark translucent in dark mode
             : Color.white.opacity(0.95)      // Light translucent in light mode
+    }
+
+    private var waveformBorderColor: Color {
+        colorScheme == .dark
+            ? Color.white.opacity(0.15)   // Lighter border in dark mode
+            : Color.black.opacity(0.15)   // Darker border in light mode
     }
 
     private var waveformPadding: CGFloat {
