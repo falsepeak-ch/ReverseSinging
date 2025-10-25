@@ -38,9 +38,11 @@ struct SessionListView: View {
 
     private var emptyStateView: some View {
         VStack(spacing: 16) {
-            Image(systemName: "music.note.list")
-                .font(.system(size: 60))
-                .foregroundColor(.rsSecondaryText)
+            Image("cassette")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 60, height: 60)
+                .opacity(0.6)
                 .scaleIn(delay: 0.1)
 
             Text("No Saved Sessions")
