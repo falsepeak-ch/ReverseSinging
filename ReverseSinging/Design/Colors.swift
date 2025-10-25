@@ -96,6 +96,29 @@ extension Color {
     static let rsWaveformRecording = Color.rsGradientPink
     static let rsWaveformPlaying = Color.rsGradientCyan
 
+    // MARK: - Adaptive Waveform Colors (Light/Dark Mode)
+
+    /// Adaptive recording waveform color
+    static func rsWaveformRecordingAdaptive(for colorScheme: ColorScheme) -> Color {
+        colorScheme == .dark
+            ? Color(red: 0.98, green: 0.35, blue: 0.65)  // Brighter pink in dark mode
+            : Color(red: 0.85, green: 0.15, blue: 0.50)  // Darker saturated pink in light mode
+    }
+
+    /// Adaptive playing waveform color
+    static func rsWaveformPlayingAdaptive(for colorScheme: ColorScheme) -> Color {
+        colorScheme == .dark
+            ? Color(red: 0.0, green: 0.90, blue: 1.0)    // Brighter cyan in dark mode
+            : Color(red: 0.0, green: 0.65, blue: 0.90)   // Darker cyan in light mode
+    }
+
+    /// Adaptive idle waveform color
+    static func rsWaveformIdleAdaptive(for colorScheme: ColorScheme) -> Color {
+        colorScheme == .dark
+            ? Color.white.opacity(0.5)                    // Visible white in dark mode
+            : Color.gray.opacity(0.6)                     // Visible gray in light mode
+    }
+
     // MARK: - Button Colors
 
     /// Button colors are now gradients - see GradientStyles.swift

@@ -9,6 +9,8 @@ import SwiftUI
 import Combine
 
 struct WaveformView: View {
+    @Environment(\.colorScheme) var colorScheme
+
     let level: Float // 0.0 to 1.0
     let barCount: Int
     let color: Color
@@ -109,17 +111,33 @@ struct WaveformView: View {
     private func barColor(for index: Int, geometry: GeometryProxy) -> Color {
         // Create gradient effect across the waveform
         let normalizedIndex = CGFloat(index) / CGFloat(barCount)
-        let opacity = 0.3 + (heights[index] * 0.7) // More visible when taller
 
+        // Select adaptive color based on style and color scheme
+        let baseColor: Color
         switch style {
         case .recording:
-            return color.opacity(opacity)
+            baseColor = Color.rsWaveformRecordingAdaptive(for: colorScheme)
         case .playing:
-            // Gradient from blue to lighter blue
-            return color.opacity(0.4 + (1.0 - normalizedIndex) * 0.6)
+            baseColor = Color.rsWaveformPlayingAdaptive(for: colorScheme)
         case .idle:
-            return color.opacity(0.4)
+            baseColor = Color.rsWaveformIdleAdaptive(for: colorScheme)
         }
+
+        // Apply dynamic opacity based on height and style
+        let opacity: CGFloat
+        switch style {
+        case .recording:
+            // 50%-100% opacity - more visible range
+            opacity = 0.5 + (heights[index] * 0.5)
+        case .playing:
+            // 60%-100% opacity with gradient effect
+            opacity = 0.6 + (1.0 - normalizedIndex) * 0.4
+        case .idle:
+            // Fixed 70% opacity - much more visible than before
+            opacity = 0.7
+        }
+
+        return baseColor.opacity(opacity)
     }
 
     private func animationDelay(for index: Int) -> Double {

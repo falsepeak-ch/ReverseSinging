@@ -12,6 +12,7 @@ struct MainViewPremium: View {
     @State private var showSuccessToast = false
     @State private var showCelebration = false
     @State private var showComparisonView = false
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         NavigationStack {
@@ -170,9 +171,15 @@ struct MainViewPremium: View {
             .padding(.horizontal, 20)
             .padding(.vertical, waveformPadding)
         }
-        .background(Color.black.opacity(0.85))
+        .background(waveformCardBackground)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .cardShadow(.card)
+    }
+
+    private var waveformCardBackground: Color {
+        colorScheme == .dark
+            ? Color.black.opacity(0.85)      // Dark translucent in dark mode
+            : Color.white.opacity(0.95)      // Light translucent in light mode
     }
 
     private var waveformPadding: CGFloat {
