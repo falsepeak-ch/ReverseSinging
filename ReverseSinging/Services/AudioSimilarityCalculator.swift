@@ -89,14 +89,82 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
         }.value
     }
 
+    // MARK: - Audio Filtering
+
+    /// Filter out silence and low-amplitude sounds
+    /// Only keep samples above 25% of max amplitude
+    nonisolated private func filterSignificantSounds(_ samples: [Float]) -> [Float] {
+        guard !samples.isEmpty else { return samples }
+
+        // Find max amplitude
+        var maxVal: Float = 0.0
+        vDSP_maxmgv(samples, 1, &maxVal, vDSP_Length(samples.count))
+
+        let threshold = maxVal * 0.25 // 25% threshold (aggressive)
+
+        // Filter samples above threshold
+        return samples.map { abs($0) > threshold ? $0 : 0.0 }
+    }
+
+    /// Extract smooth envelope of audio for shape comparison
+    nonisolated private func extractEnvelope(_ samples: [Float]) -> [Float] {
+        guard !samples.isEmpty else { return samples }
+
+        var envelope = [Float](repeating: 0, count: samples.count)
+
+        // Simple moving average for smoothing (window = 50 samples)
+        let windowSize = 50
+
+        for i in 0..<samples.count {
+            let start = max(0, i - windowSize/2)
+            let end = min(samples.count, i + windowSize/2)
+            var sum: Float = 0.0
+
+            for j in start..<end {
+                sum += abs(samples[j])
+            }
+
+            envelope[i] = sum / Float(end - start)
+        }
+
+        return envelope
+    }
+
+    /// Calculate RMS (energy) windows for loudness pattern comparison
+    nonisolated private func calculateRMSWindows(_ samples: [Float]) -> [Float] {
+        guard !samples.isEmpty else { return samples }
+
+        var rmsValues = [Float]()
+        let windowSize = 100 // Energy window
+
+        for i in stride(from: 0, to: samples.count, by: windowSize) {
+            let end = min(i + windowSize, samples.count)
+            let window = Array(samples[i..<end])
+
+            // Calculate RMS (root mean square)
+            var sumOfSquares: Float = 0.0
+            for sample in window {
+                sumOfSquares += sample * sample
+            }
+            let rms = sqrt(sumOfSquares / Float(window.count))
+            rmsValues.append(rms)
+        }
+
+        return rmsValues
+    }
+
     // MARK: - Normalization
 
     nonisolated private func normalizeLengths(_ array1: [Float], _ array2: [Float]) -> ([Float], [Float]) {
-        let minLength = min(array1.count, array2.count)
+        // Filter out silence/low sounds FIRST (aggressive 25% threshold)
+        let filtered1 = filterSignificantSounds(array1)
+        let filtered2 = filterSignificantSounds(array2)
+
+        let minLength = min(filtered1.count, filtered2.count)
 
         // Trim both to same length
-        let trimmed1 = Array(array1.prefix(minLength))
-        let trimmed2 = Array(array2.prefix(minLength))
+        let trimmed1 = Array(filtered1.prefix(minLength))
+        let trimmed2 = Array(filtered2.prefix(minLength))
 
         // Normalize amplitudes
         let normalized1 = normalizeAmplitude(trimmed1)
@@ -127,23 +195,34 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
     nonisolated private func calculateCorrelation(_ array1: [Float], _ array2: [Float]) -> Double {
         guard array1.count == array2.count, !array1.isEmpty else { return 0.0 }
 
-        let n = array1.count
-        var correlation: Float = 0.0
+        // Method 1: Envelope comparison (shape)
+        let envelope1 = extractEnvelope(array1)
+        let envelope2 = extractEnvelope(array2)
 
-        // Calculate dot product using Accelerate
-        vDSP_dotpr(array1, 1, array2, 1, &correlation, vDSP_Length(n))
+        var envelopeCorrelation: Float = 0.0
+        vDSP_dotpr(envelope1, 1, envelope2, 1, &envelopeCorrelation, vDSP_Length(envelope1.count))
+        let envelopeScore = abs(envelopeCorrelation / Float(envelope1.count))
 
-        // Normalize by length
-        let normalizedCorrelation = correlation / Float(n)
+        // Method 2: RMS comparison (energy/loudness)
+        let rms1 = calculateRMSWindows(array1)
+        let rms2 = calculateRMSWindows(array2)
 
-        // Convert to percentage (map from [-1, 1] to [0, 100])
-        // Values close to 1 mean similar, close to -1 mean inverted, 0 means uncorrelated
-        let similarity = abs(normalizedCorrelation)
+        guard rms1.count == rms2.count, !rms1.isEmpty else {
+            // Fallback to envelope only if RMS calculation fails
+            let scaledScore = pow(envelopeScore, 0.3)
+            return Double(scaledScore) * 100.0
+        }
 
-        // Apply forgiving non-linear scaling (square root)
-        // pow(x, 0.5) is more generous than pow(x, 0.7)
-        // Example: 0.6 → 0.77 (was 0.69), 0.7 → 0.84 (was 0.79), 0.8 → 0.89 (was 0.87)
-        let scaledSimilarity = pow(similarity, 0.5)
+        var rmsCorrelation: Float = 0.0
+        vDSP_dotpr(rms1, 1, rms2, 1, &rmsCorrelation, vDSP_Length(rms1.count))
+        let rmsScore = abs(rmsCorrelation / Float(rms1.count))
+
+        // Combine both methods (60% envelope for shape, 40% energy for dynamics)
+        let combinedScore = (envelopeScore * 0.6) + (rmsScore * 0.4)
+
+        // Apply MORE forgiving non-linear scaling (x^0.3 instead of √x)
+        // Examples: 50% → 79%, 60% → 84%, 70% → 88%, 80% → 93%
+        let scaledSimilarity = pow(combinedScore, 0.3)
 
         // Convert to 0-100 scale
         let score = Double(scaledSimilarity) * 100.0
