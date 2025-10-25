@@ -464,8 +464,8 @@ struct MainViewPremium: View {
                 }
             }
 
-            // Record Your Attempt (only shown when reversed exists and no attempt yet)
-            if session?.reversedRecording != nil && session?.attemptRecording == nil {
+            // Record Your Attempt (only shown when reversed exists and no attempt yet, hidden when playing)
+            if session?.reversedRecording != nil && session?.attemptRecording == nil && !isPlaying {
                 BigButton(
                     title: isRecording ? "Stop Recording" : "Record Your Attempt",
                     icon: isRecording ? "stop.circle.fill" : "mic.fill",

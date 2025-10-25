@@ -6,6 +6,17 @@
     {
       "layers" : [
         {
+          "image-name" : "Volume Equalizer.png",
+          "name" : "Volume Equalizer",
+          "position" : {
+            "scale" : 0.5599999999999999,
+            "translation-in-points" : [
+              -27.390625,
+              55.3359375
+            ]
+          }
+        },
+        {
           "glass" : true,
           "image-name" : "Script Podcast.png",
           "name" : "Script Podcast",
