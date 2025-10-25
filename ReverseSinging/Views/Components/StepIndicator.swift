@@ -12,7 +12,7 @@ struct StepIndicator: View {
     let totalSteps: Int = 3
 
     private let stepTitles = [
-        "Record Original",
+        "Record Audio",
         "Record Your Attempt",
         "See Results"
     ]

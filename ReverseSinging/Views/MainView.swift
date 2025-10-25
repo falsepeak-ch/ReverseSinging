@@ -256,7 +256,7 @@ struct MainView: View {
                     )
                 } else {
                     BigButton(
-                        title: "Record Original",
+                        title: "Record Audio",
                         icon: "mic.fill",
                         color: .red,
                         action: { viewModel.startRecording() }

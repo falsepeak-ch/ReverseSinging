@@ -301,10 +301,10 @@ struct MainViewPremium: View {
             let session = viewModel.appState.currentSession
             let isRecording = viewModel.appState.recordingState == .recording
 
-            // Button 1: Record Original (only shown when no recording exists)
+            // Button 1: Record Audio (only shown when no recording exists)
             if session?.originalRecording == nil {
                 BigButton(
-                    title: isRecording ? "Stop Recording" : "Record Original",
+                    title: isRecording ? "Stop Recording" : "Record Audio",
                     icon: isRecording ? "stop.circle.fill" : "mic.fill",
                     color: .rsRecording,
                     action: {
