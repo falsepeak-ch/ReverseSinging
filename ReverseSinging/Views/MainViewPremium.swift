@@ -154,6 +154,12 @@ struct MainViewPremium: View {
             } message: {
                 Text(viewModel.errorMessage ?? "")
             }
+            .onChange(of: viewModel.appState.similarityScore) { oldValue, newValue in
+                // Automatically show comparison when score is calculated
+                if newValue != nil && oldValue == nil {
+                    showComparisonView = true
+                }
+            }
         }
     }
 
@@ -484,11 +490,7 @@ struct MainViewPremium: View {
                     action: {
                         if session?.reversedAttempt == nil {
                             viewModel.reverseAttempt()
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                if viewModel.appState.similarityScore != nil {
-                                    showComparisonView = true
-                                }
-                            }
+                            // Comparison will show automatically when score is ready (via onChange)
                         } else {
                             showComparisonView = true
                         }
