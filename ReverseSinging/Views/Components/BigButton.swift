@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct BigButton: View {
+    @Environment(\.colorScheme) var colorScheme
+
     let title: String
     let icon: String
     let color: Color  // Kept for compatibility, but ignored for primary style
@@ -67,8 +69,8 @@ struct BigButton: View {
         } else {
             switch style {
             case .primary:
-                // Voxxa-style gradient
-                LinearGradient.voxxaPrimary
+                // Premium adaptive gradient
+                LinearGradient.voxxaPrimaryAdaptive(for: colorScheme)
             case .secondary:
                 Color.rsSecondaryBackground
             case .destructive:
@@ -99,7 +101,10 @@ struct BigButton: View {
 
         switch style {
         case .primary:
-            return Color.rsGradientPurple.opacity(0.4)
+            // Premium adaptive shadow with richer purple glow
+            return colorScheme == .dark
+                ? Color(red: 0.58, green: 0.40, blue: 0.92).opacity(0.5)  // Deep purple glow in dark mode
+                : Color(red: 0.48, green: 0.25, blue: 0.82).opacity(0.3)  // Subtle shadow in light mode
         case .secondary:
             return Color.black.opacity(0.2)
         case .destructive:

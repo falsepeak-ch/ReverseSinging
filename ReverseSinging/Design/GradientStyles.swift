@@ -20,6 +20,34 @@ extension LinearGradient {
         endPoint: .trailing
     )
 
+    // MARK: - Adaptive Premium Gradients
+
+    /// Premium adaptive button gradient with sophisticated color balance
+    static func voxxaPrimaryAdaptive(for colorScheme: ColorScheme) -> LinearGradient {
+        if colorScheme == .dark {
+            // Dark mode: Rich 3-color gradient for premium feel
+            return LinearGradient(
+                colors: [
+                    Color(red: 0.0, green: 0.75, blue: 0.95),   // Deep electric blue
+                    Color(red: 0.58, green: 0.40, blue: 0.92),  // Rich royal purple
+                    Color(red: 0.82, green: 0.32, blue: 0.88)   // Deep magenta accent
+                ],
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+        } else {
+            // Light mode: Darker, saturated 2-color gradient
+            return LinearGradient(
+                colors: [
+                    Color(red: 0.0, green: 0.55, blue: 0.75),   // Deep cyan
+                    Color(red: 0.48, green: 0.25, blue: 0.82)   // Deep purple
+                ],
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+        }
+    }
+
     /// Vertical primary gradient
     static let voxxaPrimaryVertical = LinearGradient(
         colors: [
