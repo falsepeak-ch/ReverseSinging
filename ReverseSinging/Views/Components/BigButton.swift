@@ -17,6 +17,8 @@ struct BigButton: View {
     var isEnabled: Bool = true
     var isLoading: Bool = false
     var style: ButtonStyle = .primary
+    var textFont: Font? = nil  // Optional custom font for text
+    var iconFont: Font? = nil  // Optional custom font for icon
 
     enum ButtonStyle {
         case primary    // Gradient background (Voxxa-style)
@@ -39,12 +41,12 @@ struct BigButton: View {
                         .tint(.white)
                 } else {
                     Image(systemName: icon)
-                        .font(.rsButtonLarge)
+                        .font(iconFont ?? .rsButtonLarge)
                         .fontWeight(.semibold)
                 }
 
                 Text(title)
-                    .font(.rsButtonLarge)
+                    .font(textFont ?? .rsButtonLarge)
             }
             .frame(maxWidth: .infinity)
             .frame(height: 56)
