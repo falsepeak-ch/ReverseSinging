@@ -205,17 +205,23 @@ struct MainViewPremium: View {
     // MARK: - Waveform
 
     private var shouldShowWaveform: Bool {
-        // Hide waveform once audio is recorded or when playing
+        // Always show waveform when recording (any type)
+        if case .recording = viewModel.appState.recordingState {
+            return true
+        }
+
+        // Hide when playing
+        if case .playing = viewModel.appState.recordingState {
+            return false
+        }
+
+        // Hide after original recording exists (when idle/not recording)
         if viewModel.appState.currentSession?.originalRecording != nil {
             return false
         }
 
-        switch viewModel.appState.recordingState {
-        case .playing:
-            return false
-        default:
-            return true
-        }
+        // Show in all other idle cases (before any recording)
+        return true
     }
 
     // MARK: - Timer Card
