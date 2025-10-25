@@ -13,6 +13,12 @@ struct TimerCard: View {
     let isRecording: Bool
     let state: TimerState
 
+    // Playback controls (optional - only show when playing)
+    var playbackSpeed: Binding<Double>?
+    var isLooping: Binding<Bool>?
+    var onSpeedChange: ((Double) -> Void)?
+    var onLoopToggle: (() -> Void)?
+
     enum TimerState {
         case idle
         case recording
@@ -22,7 +28,7 @@ struct TimerCard: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Top section with device info
+            // Top section with device info (no battery)
             HStack(spacing: 8) {
                 Image(systemName: deviceIcon)
                     .font(.rsCaption)
@@ -32,10 +38,6 @@ struct TimerCard: View {
                     .foregroundColor(textColor.opacity(0.7))
 
                 Spacer()
-
-                if state != .idle {
-                    batteryIndicator
-                }
             }
             .padding(.horizontal, 20)
             .padding(.top, 16)
@@ -62,14 +64,81 @@ struct TimerCard: View {
                     .frame(width: timeLabelWidth)
             }
             .padding(.horizontal, 20)
-            .padding(.bottom, 16)
+            .padding(.bottom, showPlaybackControls ? 12 : 16)
+
+            // Integrated playback controls (only when playing)
+            if showPlaybackControls {
+                Divider()
+                    .background(textColor.opacity(0.2))
+                    .padding(.horizontal, 20)
+
+                VStack(spacing: 16) {
+                    // Speed control
+                    VStack(spacing: 8) {
+                        HStack {
+                            Image(systemName: "gauge")
+                                .font(.rsBodySmall)
+                                .foregroundColor(controlColor)
+
+                            Text("Playback Speed")
+                                .font(.rsBodySmall)
+                                .foregroundColor(textColor)
+
+                            Spacer()
+
+                            if let speed = playbackSpeed?.wrappedValue {
+                                Text(String(format: "%.1fx", speed))
+                                    .font(.rsBodyMedium)
+                                    .foregroundColor(controlColor)
+                                    .monospacedDigit()
+                            }
+                        }
+
+                        if let speedBinding = playbackSpeed {
+                            Slider(
+                                value: speedBinding,
+                                in: 0.5...2.0,
+                                step: 0.1
+                            )
+                            .tint(controlColor)
+                        }
+                    }
+
+                    // Loop toggle
+                    HStack {
+                        Image(systemName: isLooping?.wrappedValue == true ? "repeat.circle.fill" : "repeat.circle")
+                            .font(.rsBodyMedium)
+                            .foregroundColor(isLooping?.wrappedValue == true ? controlColor : textColor.opacity(0.5))
+
+                        Text("Loop Playback")
+                            .font(.rsBodySmall)
+                            .foregroundColor(textColor)
+
+                        Spacer()
+
+                        if let loopBinding = isLooping {
+                            Toggle("", isOn: loopBinding)
+                                .tint(controlColor)
+                        }
+                    }
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 16)
+            }
         }
         .frame(maxWidth: .infinity)
         .background(backgroundColor)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .cardShadow(.elevated)
         .animation(.rsSpring, value: backgroundColor)
+        .animation(.rsSpring, value: showPlaybackControls)
         .scaleIn(delay: 0.1)
+    }
+
+    // MARK: - Computed Properties
+
+    private var showPlaybackControls: Bool {
+        state == .playing && playbackSpeed != nil && isLooping != nil
     }
 
     // MARK: - Computed Properties
@@ -89,10 +158,12 @@ struct TimerCard: View {
         switch state {
         case .idle:
             return .rsCardBackground
-        case .recording, .playing:
-            return .rsGold
+        case .recording:
+            return .rsGradientPink  // Pink for recording
+        case .playing:
+            return .rsGradientPurple  // Purple for playing
         case .processing:
-            return .rsGoldLight
+            return .rsGradientBlue  // Blue for processing
         }
     }
 
@@ -101,7 +172,17 @@ struct TimerCard: View {
         case .idle:
             return .rsText
         case .recording, .playing, .processing:
-            return .rsTextOnGold
+            return .white  // Always white on gradient backgrounds
+        }
+    }
+
+    private var controlColor: Color {
+        // Controls use cyan/purple gradient colors
+        switch state {
+        case .playing:
+            return .rsGradientCyan
+        default:
+            return .rsGradientPurple
         }
     }
 
@@ -116,16 +197,6 @@ struct TimerCard: View {
         case .processing:
             return "arrow.triangle.2.circlepath"
         }
-    }
-
-    private var batteryIndicator: some View {
-        HStack(spacing: 4) {
-            Image(systemName: "battery.100")
-                .font(.rsCaption)
-            Text("58%")
-                .font(.rsCaption)
-        }
-        .foregroundColor(textColor.opacity(0.7))
     }
 
     private func timeLabel(_ text: String) -> some View {
@@ -174,10 +245,12 @@ struct CompactTimerCard: View {
         switch state {
         case .idle:
             return .rsCardBackground
-        case .recording, .playing:
-            return .rsGold
+        case .recording:
+            return .rsGradientPink
+        case .playing:
+            return .rsGradientPurple
         case .processing:
-            return .rsGoldLight
+            return .rsGradientBlue
         }
     }
 
@@ -186,7 +259,7 @@ struct CompactTimerCard: View {
         case .idle:
             return .rsText
         case .recording, .playing, .processing:
-            return .rsTextOnGold
+            return .white
         }
     }
 

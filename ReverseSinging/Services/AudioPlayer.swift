@@ -22,19 +22,8 @@ final class AudioPlayer: NSObject, ObservableObject {
 
     override init() {
         super.init()
-        setupAudioSession()
-    }
-
-    // MARK: - Audio Session Setup
-
-    private func setupAudioSession() {
-        let audioSession = AVAudioSession.sharedInstance()
-        do {
-            try audioSession.setCategory(.playback, mode: .default)
-            try audioSession.setActive(true)
-        } catch {
-            print("Failed to setup audio session: \(error)")
-        }
+        // Audio session now managed centrally by AudioSessionManager
+        // No need to configure here - prevents conflicts with recording
     }
 
     // MARK: - Playback Control

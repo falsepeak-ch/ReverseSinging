@@ -8,7 +8,7 @@
 import AVFoundation
 import Accelerate
 
-final class AudioSimilarityCalculator {
+final class AudioSimilarityCalculator: @unchecked Sendable {
     static let shared = AudioSimilarityCalculator()
 
     private init() {}
@@ -17,74 +17,81 @@ final class AudioSimilarityCalculator {
 
     /// Calculate similarity between two audio files
     /// Returns a score from 0-100, where 100 is identical
+    /// Runs on background thread to avoid blocking UI
     func calculateSimilarity(original: URL, comparison: URL) async -> Double {
-        print("📊 Calculating similarity between audio files...")
+        // Ensure we're running on a background thread
+        await Task.detached(priority: .userInitiated) {
+            print("📊 Calculating similarity between audio files...")
 
-        do {
-            // Extract audio data from both files
-            let originalSamples = try await extractAudioSamples(from: original)
-            let comparisonSamples = try await extractAudioSamples(from: comparison)
+            do {
+                // Extract audio data from both files
+                let originalSamples = try await self.extractAudioSamples(from: original)
+                let comparisonSamples = try await self.extractAudioSamples(from: comparison)
 
-            guard !originalSamples.isEmpty, !comparisonSamples.isEmpty else {
-                print("❌ Empty audio samples")
+                guard !originalSamples.isEmpty, !comparisonSamples.isEmpty else {
+                    print("❌ Empty audio samples")
+                    return 0.0
+                }
+
+                // Normalize to same length
+                let (normalizedOriginal, normalizedComparison) = self.normalizeLengths(
+                    originalSamples,
+                    comparisonSamples
+                )
+
+                // Calculate similarity score
+                let score = self.calculateCorrelation(normalizedOriginal, normalizedComparison)
+
+                print("✅ Similarity score: \(String(format: "%.1f", score))%")
+                return score
+
+            } catch {
+                print("❌ Error calculating similarity: \(error)")
                 return 0.0
             }
-
-            // Normalize to same length
-            let (normalizedOriginal, normalizedComparison) = normalizeLengths(
-                originalSamples,
-                comparisonSamples
-            )
-
-            // Calculate similarity score
-            let score = calculateCorrelation(normalizedOriginal, normalizedComparison)
-
-            print("✅ Similarity score: \(String(format: "%.1f", score))%")
-            return score
-
-        } catch {
-            print("❌ Error calculating similarity: \(error)")
-            return 0.0
-        }
+        }.value
     }
 
     // MARK: - Audio Processing
 
     private func extractAudioSamples(from url: URL) async throws -> [Float] {
-        let audioFile = try AVAudioFile(forReading: url)
-        let format = audioFile.processingFormat
-        let frameCount = UInt32(audioFile.length)
+        // Run file I/O on background thread
+        try await Task.detached(priority: .userInitiated) {
+            let audioFile = try AVAudioFile(forReading: url)
+            let format = audioFile.processingFormat
+            let frameCount = UInt32(audioFile.length)
 
-        guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else {
-            throw NSError(domain: "AudioSimilarity", code: -1, userInfo: [
-                NSLocalizedDescriptionKey: "Failed to create audio buffer"
-            ])
-        }
+            guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else {
+                throw NSError(domain: "AudioSimilarity", code: -1, userInfo: [
+                    NSLocalizedDescriptionKey: "Failed to create audio buffer"
+                ])
+            }
 
-        try audioFile.read(into: buffer)
+            try audioFile.read(into: buffer)
 
-        guard let floatData = buffer.floatChannelData?[0] else {
-            throw NSError(domain: "AudioSimilarity", code: -2, userInfo: [
-                NSLocalizedDescriptionKey: "Failed to get float channel data"
-            ])
-        }
+            guard let floatData = buffer.floatChannelData?[0] else {
+                throw NSError(domain: "AudioSimilarity", code: -2, userInfo: [
+                    NSLocalizedDescriptionKey: "Failed to get float channel data"
+                ])
+            }
 
-        // Convert to Swift array and downsample for efficiency
-        let sampleCount = Int(buffer.frameLength)
-        let downsampleFactor = 100 // Sample every 100th frame
-        var samples: [Float] = []
-        samples.reserveCapacity(sampleCount / downsampleFactor)
+            // Convert to Swift array and downsample for efficiency
+            let sampleCount = Int(buffer.frameLength)
+            let downsampleFactor = 100 // Sample every 100th frame
+            var samples: [Float] = []
+            samples.reserveCapacity(sampleCount / downsampleFactor)
 
-        for i in stride(from: 0, to: sampleCount, by: downsampleFactor) {
-            samples.append(floatData[i])
-        }
+            for i in stride(from: 0, to: sampleCount, by: downsampleFactor) {
+                samples.append(floatData[i])
+            }
 
-        return samples
+            return samples
+        }.value
     }
 
     // MARK: - Normalization
 
-    private func normalizeLengths(_ array1: [Float], _ array2: [Float]) -> ([Float], [Float]) {
+    nonisolated private func normalizeLengths(_ array1: [Float], _ array2: [Float]) -> ([Float], [Float]) {
         let minLength = min(array1.count, array2.count)
 
         // Trim both to same length
@@ -98,7 +105,7 @@ final class AudioSimilarityCalculator {
         return (normalized1, normalized2)
     }
 
-    private func normalizeAmplitude(_ samples: [Float]) -> [Float] {
+    nonisolated private func normalizeAmplitude(_ samples: [Float]) -> [Float] {
         guard !samples.isEmpty else { return samples }
 
         // Find max absolute value
@@ -117,7 +124,7 @@ final class AudioSimilarityCalculator {
 
     // MARK: - Similarity Calculation
 
-    private func calculateCorrelation(_ array1: [Float], _ array2: [Float]) -> Double {
+    nonisolated private func calculateCorrelation(_ array1: [Float], _ array2: [Float]) -> Double {
         guard array1.count == array2.count, !array1.isEmpty else { return 0.0 }
 
         let n = array1.count

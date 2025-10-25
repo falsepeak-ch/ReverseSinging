@@ -25,11 +25,14 @@ struct MainViewPremium: View {
 
                     // Removed step indicator - simplified to single screen
 
-                    // Waveform visualization
-                    waveformCard
-                        .padding(.horizontal, 24)
-                        .padding(.bottom, 24)
-                        .animatedCard(delay: 0.1)
+                    // Waveform visualization (hidden when playing)
+                    if shouldShowWaveform {
+                        waveformCard
+                            .padding(.horizontal, 24)
+                            .padding(.bottom, 24)
+                            .animatedCard(delay: 0.1)
+                            .transition(.opacity.combined(with: .scale))
+                    }
 
                     // Timer card (prominent when recording/playing)
                     if shouldShowTimer {
@@ -43,15 +46,7 @@ struct MainViewPremium: View {
                     }
 
                     // Removed stage progress - simplified to single screen
-
-                    // Playback controls
-                    if shouldShowPlaybackControls {
-                        playbackControlsCard
-                            .padding(.horizontal, 24)
-                            .padding(.bottom, 24)
-                            .animatedCard(delay: 0.25)
-                            .transition(.move(edge: .bottom).combined(with: .opacity))
-                    }
+                    // Playback controls now integrated into TimerCard
 
                     // Action buttons
                     actionButtonsSection
@@ -144,7 +139,7 @@ struct MainViewPremium: View {
             Button(action: { viewModel.showSessionList = true }) {
                 Image(systemName: "archivebox")
                     .font(.rsHeadingSmall)
-                    .foregroundColor(.rsGold)
+                    .foregroundColor(.rsGradientCyan)
             }
         }
     }
@@ -199,6 +194,22 @@ struct MainViewPremium: View {
         }
     }
 
+    // MARK: - Waveform
+
+    private var shouldShowWaveform: Bool {
+        // Hide waveform once audio is recorded or when playing
+        if viewModel.appState.currentSession?.originalRecording != nil {
+            return false
+        }
+
+        switch viewModel.appState.recordingState {
+        case .playing:
+            return false
+        default:
+            return true
+        }
+    }
+
     // MARK: - Timer Card
 
     private var shouldShowTimer: Bool {
@@ -215,7 +226,15 @@ struct MainViewPremium: View {
             duration: timerDuration,
             deviceName: nil,
             isRecording: isCurrentlyRecording,
-            state: timerState
+            state: timerState,
+            playbackSpeed: Binding(
+                get: { viewModel.appState.playbackSpeed },
+                set: { viewModel.setPlaybackSpeed($0) }
+            ),
+            isLooping: Binding(
+                get: { viewModel.appState.isLooping },
+                set: { _ in viewModel.toggleLooping() }
+            )
         )
     }
 
@@ -254,68 +273,7 @@ struct MainViewPremium: View {
 
 
     // MARK: - Playback Controls
-
-    private var shouldShowPlaybackControls: Bool {
-        guard let session = viewModel.appState.currentSession else { return false }
-        return session.reversedRecording != nil || session.attemptRecording != nil
-    }
-
-    private var playbackControlsCard: some View {
-        VStack(spacing: 20) {
-            // Speed control
-            VStack(spacing: 12) {
-                HStack {
-                    Image(systemName: "gauge")
-                        .font(.rsBodyMedium)
-                        .foregroundColor(.rsGold)
-
-                    Text("Playback Speed")
-                        .font(.rsBodyMedium)
-                        .foregroundColor(.rsText)
-
-                    Spacer()
-
-                    Text(String(format: "%.1fx", viewModel.appState.playbackSpeed))
-                        .font(.rsHeadingSmall)
-                        .foregroundColor(.rsGold)
-                        .monospacedDigit()
-                }
-
-                Slider(
-                    value: .init(
-                        get: { viewModel.appState.playbackSpeed },
-                        set: { viewModel.setPlaybackSpeed($0) }
-                    ),
-                    in: 0.5...2.0,
-                    step: 0.1
-                )
-                .tint(.rsGold)
-            }
-
-            Divider()
-
-            // Loop toggle
-            HStack {
-                Image(systemName: viewModel.appState.isLooping ? "repeat.circle.fill" : "repeat.circle")
-                    .font(.rsHeadingSmall)
-                    .foregroundColor(viewModel.appState.isLooping ? .rsGold : .rsSecondaryText)
-
-                Text("Loop Playback")
-                    .font(.rsBodyMedium)
-                    .foregroundColor(.rsText)
-
-                Spacer()
-
-                Toggle("", isOn: .init(
-                    get: { viewModel.appState.isLooping },
-                    set: { _ in viewModel.toggleLooping() }
-                ))
-                .tint(.rsGold)
-            }
-        }
-        .padding(20)
-        .cardStyle()
-    }
+    // Playback controls are now integrated into TimerCard
 
     // MARK: - Action Buttons
 
@@ -324,73 +282,79 @@ struct MainViewPremium: View {
             let session = viewModel.appState.currentSession
             let isRecording = viewModel.appState.recordingState == .recording
 
-            // Button 1: Record Original (always enabled to start the flow)
-            BigButton(
-                title: isRecording ? "Stop Recording" : "Record Original",
-                icon: isRecording ? "stop.circle.fill" : "mic.fill",
-                color: .rsRecording,
-                action: {
-                    if isRecording {
-                        viewModel.stopRecording()
-                    } else {
-                        viewModel.startRecording()
-                    }
-                },
-                isEnabled: session?.originalRecording == nil,
-                style: .primary
-            )
-
-            // Button 2: Play Reverse Audio (auto-reversed after recording)
-            BigButton(
-                title: "Play Reverse Audio",
-                icon: "play.circle.fill",
-                color: .rsGold,
-                action: {
-                    if let reversed = session?.reversedRecording {
-                        viewModel.playRecording(reversed)
-                    }
-                },
-                isEnabled: session?.reversedRecording != nil,
-                style: .primary
-            )
-
-            // Button 3: Record Your Attempt
-            BigButton(
-                title: isRecording ? "Stop Recording Attempt" : "Record Your Attempt",
-                icon: isRecording ? "stop.circle.fill" : "mic.fill",
-                color: .rsRecording,
-                action: {
-                    if isRecording {
-                        viewModel.stopRecording(type: .attempt)
-                    } else {
-                        viewModel.startRecording()
-                    }
-                },
-                isEnabled: session?.reversedRecording != nil && session?.attemptRecording == nil,
-                style: .secondary
-            )
-
-            // Button 4: Compare Results
-            BigButton(
-                title: "Compare Results",
-                icon: "chart.bar.fill",
-                color: .rsSuccess,
-                action: {
-                    if session?.reversedAttempt == nil {
-                        viewModel.reverseAttempt()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                            if viewModel.appState.similarityScore != nil {
-                                showComparisonView = true
-                            }
+            // Button 1: Record Original (only shown when no recording exists)
+            if session?.originalRecording == nil {
+                BigButton(
+                    title: isRecording ? "Stop Recording" : "Record Original",
+                    icon: isRecording ? "stop.circle.fill" : "mic.fill",
+                    color: .rsRecording,
+                    action: {
+                        if isRecording {
+                            viewModel.stopRecording()
+                        } else {
+                            viewModel.startRecording()
                         }
-                    } else {
-                        showComparisonView = true
-                    }
-                },
-                isEnabled: session?.attemptRecording != nil,
-                isLoading: viewModel.isReversing && session?.attemptRecording != nil,
-                style: .primary
-            )
+                    },
+                    style: .primary
+                )
+            }
+
+            // Button 2: Play/Stop Reverse Audio (hidden while recording)
+            if session?.reversedRecording != nil && !isRecording {
+                BigButton(
+                    title: viewModel.appState.recordingState == .playing ? "Stop Playback" : "Play Reverse Audio",
+                    icon: viewModel.appState.recordingState == .playing ? "stop.circle.fill" : "play.circle.fill",
+                    color: .rsGradientCyan,
+                    action: {
+                        if viewModel.appState.recordingState == .playing {
+                            viewModel.stopPlayback()
+                        } else if let reversed = session?.reversedRecording {
+                            viewModel.playRecording(reversed)
+                        }
+                    },
+                    style: .primary
+                )
+            }
+
+            // Button 3: Record Your Attempt (only shown when reversed exists and no attempt yet)
+            if session?.reversedRecording != nil && session?.attemptRecording == nil {
+                BigButton(
+                    title: isRecording ? "Stop Recording Attempt" : "Record Your Attempt",
+                    icon: isRecording ? "stop.circle.fill" : "mic.fill",
+                    color: .rsRecording,
+                    action: {
+                        if isRecording {
+                            viewModel.stopRecording(type: .attempt)
+                        } else {
+                            viewModel.startRecording()
+                        }
+                    },
+                    style: .secondary
+                )
+            }
+
+            // Button 4: Compare Results (hidden while recording)
+            if session?.attemptRecording != nil && !isRecording {
+                BigButton(
+                    title: "Compare Results",
+                    icon: "chart.bar.fill",
+                    color: .rsSuccess,
+                    action: {
+                        if session?.reversedAttempt == nil {
+                            viewModel.reverseAttempt()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                if viewModel.appState.similarityScore != nil {
+                                    showComparisonView = true
+                                }
+                            }
+                        } else {
+                            showComparisonView = true
+                        }
+                    },
+                    isLoading: viewModel.isReversing,
+                    style: .primary
+                )
+            }
 
             // Start New Session button (always visible)
             CompactButton(

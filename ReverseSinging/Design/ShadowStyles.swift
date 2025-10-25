@@ -92,3 +92,98 @@ extension View {
         modifier(CardStyle(shadow: shadow, background: background))
     }
 }
+
+// MARK: - Glassmorphism (Voxxa-inspired)
+
+struct GlassmorphicCard: ViewModifier {
+    let blurRadius: CGFloat
+    let backgroundColor: Color
+    let borderOpacity: Double
+
+    init(
+        blur: CGFloat = 10,
+        background: Color = Color.rsCardBackground,
+        borderOpacity: Double = 0.2
+    ) {
+        self.blurRadius = blur
+        self.backgroundColor = background
+        self.borderOpacity = borderOpacity
+    }
+
+    func body(content: Content) -> some View {
+        content
+            .background(
+                ZStack {
+                    // Glassmorphic background with blur
+                    backgroundColor
+                        .background(.ultraThinMaterial)
+
+                    // Subtle gradient overlay
+                    LinearGradient.voxxaGlassOverlay
+                }
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .overlay(
+                // Subtle border
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .stroke(
+                        LinearGradient(
+                            colors: [
+                                Color.white.opacity(borderOpacity),
+                                Color.white.opacity(borderOpacity * 0.5)
+                            ],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 1
+                    )
+            )
+            .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 10)
+    }
+}
+
+extension View {
+    /// Apply glassmorphic card style (Voxxa-inspired)
+    func glassCard(
+        blur: CGFloat = 10,
+        background: Color = .rsCardBackground,
+        borderOpacity: Double = 0.2
+    ) -> some View {
+        modifier(GlassmorphicCard(blur: blur, background: background, borderOpacity: borderOpacity))
+    }
+}
+
+// MARK: - Gradient Circle Background (for icons)
+
+struct GradientCircleBackground: ViewModifier {
+    let gradient: LinearGradient
+    let size: CGFloat
+
+    init(gradient: LinearGradient = .voxxaIconCircle, size: CGFloat = 160) {
+        self.gradient = gradient
+        self.size = size
+    }
+
+    func body(content: Content) -> some View {
+        ZStack {
+            // Gradient circle
+            Circle()
+                .fill(gradient)
+                .frame(width: size, height: size)
+                .shadow(color: Color.rsGradientPurple.opacity(0.3), radius: 30, x: 0, y: 15)
+
+            // Icon content
+            content
+        }
+    }
+}
+
+extension View {
+    /// Wrap in gradient circle (for icon backgrounds like Voxxa)
+    func gradientCircle(
+        gradient: LinearGradient = .voxxaIconCircle,
+        size: CGFloat = 160
+    ) -> some View {
+        modifier(GradientCircleBackground(gradient: gradient, size: size))
+    }
+}

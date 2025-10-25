@@ -153,47 +153,24 @@ final class AudioRecorder: NSObject, ObservableObject {
     }
 
     // MARK: - Audio Session Management
+    // Now using centralized AudioSessionManager to prevent conflicts
 
     private func activateAudioSession() throws {
-        let audioSession = AVAudioSession.sharedInstance()
-
         print("🎤 Activating audio session...")
-
-        do {
-            // Use .playAndRecord for recording, .allowBluetooth for better device support
-            try audioSession.setCategory(
-                .playAndRecord,
-                mode: .default,
-                options: [.defaultToSpeaker, .allowBluetooth]
-            )
-            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
-            print("✅ Audio session activated successfully")
-        } catch {
-            print("❌ Failed to activate audio session: \(error)")
-            throw RecordingError.sessionActivationFailed(error)
-        }
+        AudioSessionManager.shared.activate()
+        print("✅ Audio session activated successfully")
     }
 
     private func deactivateAudioSession() {
-        let audioSession = AVAudioSession.sharedInstance()
-
-        do {
-            try audioSession.setActive(false, options: .notifyOthersOnDeactivation)
-            print("✅ Audio session deactivated")
-        } catch {
-            print("⚠️ Failed to deactivate audio session: \(error)")
-        }
+        // Don't deactivate - keep session active for playback
+        // AudioSessionManager.shared.deactivate()
+        print("✅ Keeping audio session active for playback")
     }
 
     // MARK: - Permission
 
     func requestPermission(completion: @escaping (Bool) -> Void) {
-        AVAudioApplication.requestRecordPermission { granted in
-            DispatchQueue.main.async {
-                print(granted ? "✅ Microphone permission granted" : "❌ Microphone permission denied")
-                completion(granted)
-            }
-        }
+        AudioSessionManager.shared.requestRecordPermission(completion: completion)
     }
 
     // MARK: - State Validation
@@ -230,13 +207,15 @@ final class AudioRecorder: NSObject, ObservableObject {
         // Create recording URL
         let url = audioFileManager.createTemporaryAudioURL()
 
-        // Configure recording settings
+        // Configure recording settings - use LinearPCM for compatibility with audio processing
         let settings: [String: Any] = [
-            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVFormatIDKey: Int(kAudioFormatLinearPCM),
             AVSampleRateKey: 44100.0,
             AVNumberOfChannelsKey: 1,  // Mono for voice
-            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue,
-            AVEncoderBitRateKey: 128000  // 128 kbps
+            AVLinearPCMBitDepthKey: 16,
+            AVLinearPCMIsBigEndianKey: false,
+            AVLinearPCMIsFloatKey: false,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
         ]
 
         // Initialize recorder

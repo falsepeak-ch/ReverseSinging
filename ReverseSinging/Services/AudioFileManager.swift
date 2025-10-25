@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class AudioFileManager {
+final class AudioFileManager: @unchecked Sendable {
     static let shared = AudioFileManager()
 
     private let fileManager = FileManager.default
@@ -27,7 +27,7 @@ final class AudioFileManager {
         }
     }
 
-    func recordingsDirectory() -> URL {
+    nonisolated func recordingsDirectory() -> URL {
         documentsDirectory.appendingPathComponent("Recordings", isDirectory: true)
     }
 
@@ -35,12 +35,12 @@ final class AudioFileManager {
 
     func createTemporaryAudioURL() -> URL {
         let timestamp = Date().timeIntervalSince1970
-        let filename = "recording_\(timestamp).m4a"
+        let filename = "recording_\(timestamp).caf"
         return fileManager.temporaryDirectory.appendingPathComponent(filename)
     }
 
     func saveRecording(from temporaryURL: URL, withName name: String? = nil) throws -> URL {
-        let filename = name ?? "recording_\(Date().timeIntervalSince1970).m4a"
+        let filename = name ?? "recording_\(Date().timeIntervalSince1970).caf"
         let destinationURL = recordingsDirectory().appendingPathComponent(filename)
 
         if fileManager.fileExists(atPath: destinationURL.path) {
@@ -50,6 +50,22 @@ final class AudioFileManager {
         try fileManager.copyItem(at: temporaryURL, to: destinationURL)
 
         return destinationURL
+    }
+
+    /// Async variant that runs on background thread
+    func saveRecordingAsync(from temporaryURL: URL, withName name: String? = nil) async throws -> URL {
+        try await Task.detached(priority: .userInitiated) { [self] in
+            let filename = name ?? "recording_\(Date().timeIntervalSince1970).caf"
+            let destinationURL = self.recordingsDirectory().appendingPathComponent(filename)
+
+            if self.fileManager.fileExists(atPath: destinationURL.path) {
+                try self.fileManager.removeItem(at: destinationURL)
+            }
+
+            try self.fileManager.copyItem(at: temporaryURL, to: destinationURL)
+
+            return destinationURL
+        }.value
     }
 
     func deleteRecording(at url: URL) throws {
@@ -63,13 +79,23 @@ final class AudioFileManager {
         return frameCount / sampleRate
     }
 
+    /// Async variant that runs on background thread
+    func getAudioDurationAsync(from url: URL) async -> TimeInterval? {
+        await Task.detached(priority: .userInitiated) {
+            guard let audioFile = try? AVAudioFile(forReading: url) else { return nil }
+            let sampleRate = audioFile.processingFormat.sampleRate
+            let frameCount = Double(audioFile.length)
+            return frameCount / sampleRate
+        }.value
+    }
+
     // MARK: - Cleanup
 
     func deleteAllTemporaryFiles() {
         let tempDirectory = fileManager.temporaryDirectory
         if let enumerator = fileManager.enumerator(at: tempDirectory, includingPropertiesForKeys: nil) {
             for case let url as URL in enumerator {
-                if url.pathExtension == "m4a" {
+                if url.pathExtension == "caf" || url.pathExtension == "m4a" {
                     try? fileManager.removeItem(at: url)
                 }
             }

@@ -2,7 +2,7 @@
 //  BigButton.swift
 //  ReverseSinging
 //
-//  Premium large button with refined styling
+//  Voxxa-inspired gradient pill buttons
 //
 
 import SwiftUI
@@ -10,16 +10,16 @@ import SwiftUI
 struct BigButton: View {
     let title: String
     let icon: String
-    let color: Color
+    let color: Color  // Kept for compatibility, but ignored for primary style
     let action: () -> Void
     var isEnabled: Bool = true
     var isLoading: Bool = false
     var style: ButtonStyle = .primary
 
     enum ButtonStyle {
-        case primary    // Gold background
-        case secondary  // Gray background
-        case destructive // Red background
+        case primary    // Gradient background (Voxxa-style)
+        case secondary  // Dark gray background
+        case destructive // Red/pink background
     }
 
     @State private var isPressed = false
@@ -34,7 +34,7 @@ struct BigButton: View {
             HStack(spacing: 12) {
                 if isLoading {
                     ProgressView()
-                        .tint(textColor)
+                        .tint(.white)
                 } else {
                     Image(systemName: icon)
                         .font(.rsButtonLarge)
@@ -47,9 +47,9 @@ struct BigButton: View {
             .frame(maxWidth: .infinity)
             .frame(height: 56)
             .foregroundColor(textColor)
-            .background(backgroundColor)
-            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .cardShadow(isEnabled && !isPressed ? .card : .subtle)
+            .background(backgroundView)
+            .clipShape(Capsule())  // Pill shape like Voxxa
+            .shadow(color: shadowColor, radius: 15, x: 0, y: 8)
             .scaleEffect(isPressed ? 0.97 : 1.0)
             .contentShape(Rectangle())  // Makes entire button area tappable
         }
@@ -60,18 +60,20 @@ struct BigButton: View {
         .animation(.easeInOut(duration: 0.2), value: isLoading)
     }
 
-    private var backgroundColor: Color {
-        guard isEnabled && !isLoading else {
-            return Color.rsButtonDisabled
-        }
-
-        switch style {
-        case .primary:
-            return color
-        case .secondary:
-            return Color.rsButtonSecondary
-        case .destructive:
-            return Color.rsButtonDestructive
+    @ViewBuilder
+    private var backgroundView: some View {
+        if !isEnabled || isLoading {
+            Color.rsButtonDisabled
+        } else {
+            switch style {
+            case .primary:
+                // Voxxa-style gradient
+                LinearGradient.voxxaPrimary
+            case .secondary:
+                Color.rsSecondaryBackground
+            case .destructive:
+                Color.rsButtonDestructive
+            }
         }
     }
 
@@ -82,15 +84,26 @@ struct BigButton: View {
 
         switch style {
         case .primary:
-            // Check if color is gold/yellow for dark text
-            if color == .rsGold || color == .rsButtonPrimary {
-                return .rsTextOnGold
-            }
-            return .white
+            return .white  // Always white on gradients
         case .secondary:
             return .rsText
         case .destructive:
             return .white
+        }
+    }
+
+    private var shadowColor: Color {
+        guard isEnabled && !isPressed else {
+            return Color.black.opacity(0.1)
+        }
+
+        switch style {
+        case .primary:
+            return Color.rsGradientPurple.opacity(0.4)
+        case .secondary:
+            return Color.black.opacity(0.2)
+        case .destructive:
+            return Color.rsError.opacity(0.4)
         }
     }
 }
@@ -101,7 +114,7 @@ struct CompactButton: View {
     let title: String
     let icon: String
     let action: () -> Void
-    var color: Color = .rsGold
+    var color: Color = .rsGradientCyan
 
     @State private var isPressed = false
 
@@ -119,7 +132,7 @@ struct CompactButton: View {
             .foregroundColor(color)
             .padding(.horizontal, 16)
             .padding(.vertical, 10)
-            .background(color.opacity(0.1))
+            .background(color.opacity(0.15))
             .clipShape(Capsule())
             .scaleEffect(isPressed ? 0.95 : 1.0)
             .contentShape(Capsule())  // Makes entire button area tappable
@@ -147,24 +160,24 @@ struct PressButtonStyle: ButtonStyle {
 #Preview {
     VStack(spacing: 20) {
         BigButton(
-            title: "Record",
-            icon: "mic.fill",
-            color: .rsRecording,
+            title: "yes, let's record!",
+            icon: "arrow.right",
+            color: .rsGradientCyan,  // Ignored for primary
             action: {},
             style: .primary
         )
 
         BigButton(
-            title: "Reverse Audio",
-            icon: "arrow.triangle.2.circlepath",
-            color: .rsGold,
+            title: "continue",
+            icon: "arrow.right",
+            color: .rsGradientCyan,
             action: {},
             isLoading: true,
             style: .primary
         )
 
         BigButton(
-            title: "Import",
+            title: "Import Audio",
             icon: "square.and.arrow.down",
             color: .rsPlaying,
             action: {},
@@ -172,7 +185,7 @@ struct PressButtonStyle: ButtonStyle {
         )
 
         BigButton(
-            title: "Delete",
+            title: "Delete Session",
             icon: "trash",
             color: .rsError,
             action: {},

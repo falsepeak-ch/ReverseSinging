@@ -176,28 +176,46 @@ final class AudioViewModel: ObservableObject {
 
         HapticManager.shared.heavy()
 
-        // Get duration and save
-        if let duration = fileManager.getAudioDuration(from: url) {
+        // Process file operations on background thread
+        Task {
             do {
-                let savedURL = try fileManager.saveRecording(from: url)
-                let recording = Recording(url: savedURL, duration: duration, type: type)
-                appState.currentSession?.addRecording(recording)
-                print("✅ Recording saved: \(type.rawValue), duration: \(duration)s")
+                // Get duration and save (runs on background thread)
+                guard let duration = await fileManager.getAudioDurationAsync(from: url) else {
+                    await MainActor.run {
+                        print("❌ Failed to get audio duration")
+                        self.errorMessage = "Failed to process recording."
+                    }
+                    return
+                }
 
-                // Auto-reverse if this was the original recording
-                if type == .original {
-                    print("🔄 Auto-reversing original recording...")
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        self.reverseCurrentRecording()
+                let savedURL = try await fileManager.saveRecordingAsync(from: url)
+                let recording = Recording(url: savedURL, duration: duration, type: type)
+
+                // Update UI on main thread
+                await MainActor.run {
+                    // Explicitly reassign session to trigger @Published
+                    if var session = self.appState.currentSession {
+                        session.addRecording(recording)
+                        self.appState.currentSession = session
+                    }
+
+                    print("✅ Recording saved: \(type.rawValue), duration: \(duration)s")
+
+                    // Auto-reverse if this was the original recording
+                    if type == .original {
+                        print("🔄 Auto-reversing original recording...")
+                        Task {
+                            try? await Task.sleep(nanoseconds: 300_000_000) // 0.3s
+                            self.reverseCurrentRecording()
+                        }
                     }
                 }
             } catch {
-                print("❌ Failed to save recording: \(error)")
-                handleError(error)
+                await MainActor.run {
+                    print("❌ Failed to save recording: \(error)")
+                    self.handleError(error)
+                }
             }
-        } else {
-            print("❌ Failed to get audio duration")
-            errorMessage = "Failed to process recording."
         }
 
         currentRecordingURL = nil
@@ -228,18 +246,37 @@ final class AudioViewModel: ObservableObject {
 
             switch result {
             case .success(let reversedURL):
-                do {
-                    if let duration = self.fileManager.getAudioDuration(from: reversedURL) {
-                        let savedURL = try self.fileManager.saveRecording(from: reversedURL)
-                        let recording = Recording(url: savedURL, duration: duration, type: .reversed)
-                        self.appState.currentSession?.addRecording(recording)
-                        HapticManager.shared.success()
-                    }
-                } catch {
-                    self.handleError(error)
-                }
+                // Move file operations to background thread
+                Task {
+                    do {
+                        guard let duration = await self.fileManager.getAudioDurationAsync(from: reversedURL) else {
+                            await MainActor.run {
+                                self.appState.recordingState = .idle
+                            }
+                            return
+                        }
 
-                self.appState.recordingState = .idle
+                        let savedURL = try await self.fileManager.saveRecordingAsync(from: reversedURL)
+                        let recording = Recording(url: savedURL, duration: duration, type: .reversed)
+
+                        // Update UI on main thread
+                        await MainActor.run {
+                            // Explicitly reassign session to trigger @Published
+                            if var session = self.appState.currentSession {
+                                session.addRecording(recording)
+                                self.appState.currentSession = session
+                            }
+
+                            HapticManager.shared.success()
+                            self.appState.recordingState = .idle
+                        }
+                    } catch {
+                        await MainActor.run {
+                            self.handleError(error)
+                            self.appState.recordingState = .idle
+                        }
+                    }
+                }
 
             case .failure(let error):
                 self.handleError(error)
@@ -267,41 +304,58 @@ final class AudioViewModel: ObservableObject {
 
             switch result {
             case .success(let reversedURL):
-                do {
-                    if let duration = self.fileManager.getAudioDuration(from: reversedURL) {
-                        let savedURL = try self.fileManager.saveRecording(from: reversedURL)
-                        let recording = Recording(url: savedURL, duration: duration, type: .reversedAttempt)
-                        self.appState.currentSession?.addRecording(recording)
-
-                        // Calculate similarity score asynchronously
-                        Task {
-                            let score = await AudioSimilarityCalculator.shared.calculateSimilarity(
-                                original: originalRecording.url,
-                                comparison: savedURL
-                            )
-
+                // Move file operations to background thread
+                Task {
+                    do {
+                        guard let duration = await self.fileManager.getAudioDurationAsync(from: reversedURL) else {
                             await MainActor.run {
-                                self.appState.similarityScore = score
-                                self.appState.incrementAttemptCount()
-                                print("✅ Similarity score: \(String(format: "%.1f", score))%")
-
-                                // Celebrate if score is good
-                                if score > 70 {
-                                    HapticManager.shared.success()
-                                } else {
-                                    HapticManager.shared.medium()
-                                }
+                                self.appState.recordingState = .idle
                             }
+                            return
                         }
 
-                        // Load for playback
-                        try? self.player.loadAudio(from: savedURL)
-                    }
-                } catch {
-                    self.handleError(error)
-                }
+                        let savedURL = try await self.fileManager.saveRecordingAsync(from: reversedURL)
+                        let recording = Recording(url: savedURL, duration: duration, type: .reversedAttempt)
 
-                self.appState.recordingState = .idle
+                        // Update UI on main thread
+                        await MainActor.run {
+                            // Explicitly reassign session to trigger @Published
+                            if var session = self.appState.currentSession {
+                                session.addRecording(recording)
+                                self.appState.currentSession = session
+                            }
+
+                            // Load for playback
+                            try? self.player.loadAudio(from: savedURL)
+                        }
+
+                        // Calculate similarity score on background thread
+                        let score = await AudioSimilarityCalculator.shared.calculateSimilarity(
+                            original: originalRecording.url,
+                            comparison: savedURL
+                        )
+
+                        await MainActor.run {
+                            self.appState.similarityScore = score
+                            self.appState.incrementAttemptCount()
+                            print("✅ Similarity score: \(String(format: "%.1f", score))%")
+
+                            // Celebrate if score is good
+                            if score > 70 {
+                                HapticManager.shared.success()
+                            } else {
+                                HapticManager.shared.medium()
+                            }
+
+                            self.appState.recordingState = .idle
+                        }
+                    } catch {
+                        await MainActor.run {
+                            self.handleError(error)
+                            self.appState.recordingState = .idle
+                        }
+                    }
+                }
 
             case .failure(let error):
                 self.handleError(error)

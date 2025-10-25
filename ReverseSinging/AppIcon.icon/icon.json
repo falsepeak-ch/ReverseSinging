@@ -6,10 +6,33 @@
     {
       "layers" : [
         {
-          "image-name" : "image.png",
-          "name" : "image",
+          "image-name" : "Cassette.png",
+          "name" : "Cassette",
           "position" : {
-            "scale" : 1.41,
+            "scale" : 0.66,
+            "translation-in-points" : [
+              -62.875,
+              -15.1953125
+            ]
+          }
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    },
+    {
+      "layers" : [
+        {
+          "image-name" : "Frame.png",
+          "name" : "Frame",
+          "position" : {
+            "scale" : 1,
             "translation-in-points" : [
               0,
               0

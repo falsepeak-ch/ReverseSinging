@@ -9,6 +9,11 @@ import SwiftUI
 
 @main
 struct ReverseSingingApp: App {
+    init() {
+        // Configure audio session on app launch to prevent conflicts
+        AudioSessionManager.shared.configure()
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()
