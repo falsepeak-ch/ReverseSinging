@@ -70,8 +70,8 @@ struct WaveformView: View {
                 // Recording time overlay (bottom-right)
                 if let duration = recordingDuration, style == .recording {
                     Text(formattedRecordingTime(duration))
-                        .font(.rsHeadingMedium)
-                        .monospacedDigit()
+                        .font(.rsBodyMedium)
+                        .monospaced()
                         .foregroundColor(.white.opacity(0.9))
                         .padding(.horizontal, 12)
                         .padding(.vertical, 6)
