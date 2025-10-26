@@ -26,8 +26,10 @@ struct SessionListView: View {
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done") {
-                        dismiss()
+                    Button(action: { dismiss() }) {
+                        Text("Done")
+                            .font(.rsBodyMedium.weight(.semibold))
+                            .foregroundStyle(LinearGradient.voxxaPrimary)
                     }
                 }
             }
@@ -115,9 +117,9 @@ struct SessionRow: View {
                     }
                     HapticManager.shared.light()
                 }) {
-                    Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
-                        .font(.rsBodyMedium)
-                        .foregroundColor(.rsGold)
+                    Image(systemName: isExpanded ? "chevron.up.circle.fill" : "chevron.down.circle.fill")
+                        .font(.rsHeadingSmall)
+                        .foregroundStyle(LinearGradient.voxxaPrimary)
                         .rotationEffect(.degrees(isExpanded ? 180 : 0))
                 }
             }
@@ -157,11 +159,15 @@ struct SessionRow: View {
                 .transition(.move(edge: .top).combined(with: .opacity))
             }
         }
-        .padding()
+        .padding(16)
         .background(
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .fill(Color.rsTertiaryBackground)
-                .cardShadow(.subtle)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .stroke(LinearGradient.voxxaPrimary.opacity(0.15), lineWidth: 1.5)
+                )
+                .cardShadow(.card)
         )
         .animation(.rsSpring, value: isExpanded)
     }
@@ -169,13 +175,27 @@ struct SessionRow: View {
     private func recordingBadge(_ title: String, color: Color) -> some View {
         Text(title)
             .font(.rsCaption)
-            .foregroundColor(color)
-            .padding(.horizontal, 8)
-            .padding(.vertical, 4)
+            .foregroundColor(.white)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
             .background(
                 Capsule()
-                    .fill(color.opacity(0.15))
+                    .fill(gradientForBadge(title))
             )
+            .cardShadow(.subtle)
+    }
+
+    private func gradientForBadge(_ title: String) -> LinearGradient {
+        switch title {
+        case "Original":
+            return LinearGradient.voxxaMicrophone
+        case "Reversed":
+            return LinearGradient.voxxaIconCircle
+        case "Attempt":
+            return LinearGradient.voxxaRecording
+        default:
+            return LinearGradient.voxxaPrimary
+        }
     }
 }
 
@@ -194,7 +214,7 @@ struct RecordingRowButton: View {
             HStack {
                 Image(systemName: iconForType(recording.type))
                     .font(.rsBodyLarge)
-                    .foregroundColor(colorForType(recording.type))
+                    .foregroundStyle(gradientForType(recording.type))
                     .frame(width: 30)
 
                 VStack(alignment: .leading, spacing: 2) {
@@ -212,15 +232,19 @@ struct RecordingRowButton: View {
                 if case .playing = viewModel.appState.recordingState {
                     Image(systemName: "speaker.wave.2.fill")
                         .font(.rsBodyMedium)
-                        .foregroundColor(.rsGold)
+                        .foregroundStyle(LinearGradient.voxxaPrimary)
                         .scaleEffect(1.1)
                         .transition(.scale.combined(with: .opacity))
                 }
             }
-            .padding(12)
+            .padding(14)
             .background(
-                RoundedRectangle(cornerRadius: 8)
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
                     .fill(Color.rsSecondaryBackground)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .stroke(LinearGradient.voxxaPrimary.opacity(0.2), lineWidth: 1)
+                    )
             )
             .scaleEffect(isPressed ? 0.97 : 1.0)
         }
@@ -251,13 +275,13 @@ struct RecordingRowButton: View {
         }
     }
 
-    private func colorForType(_ type: Recording.RecordingType) -> Color {
+    private func gradientForType(_ type: Recording.RecordingType) -> LinearGradient {
         switch type {
-        case .original: return .rsGold
-        case .reversed: return .rsGold.opacity(0.8)
-        case .attempt: return .rsGold.opacity(0.7)
-        case .reversedAttempt: return .rsGold.opacity(0.65)
-        case .imported: return .rsGold.opacity(0.6)
+        case .original: return LinearGradient.voxxaMicrophone
+        case .reversed: return LinearGradient.voxxaIconCircle
+        case .attempt: return LinearGradient.voxxaRecording
+        case .reversedAttempt: return LinearGradient.voxxaPrimary
+        case .imported: return LinearGradient.voxxaSecondary
         }
     }
 }
