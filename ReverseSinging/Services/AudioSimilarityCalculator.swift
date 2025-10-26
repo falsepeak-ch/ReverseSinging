@@ -92,7 +92,7 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
     // MARK: - Audio Filtering
 
     /// Filter out silence and low-amplitude sounds
-    /// Only keep samples above 25% of max amplitude
+    /// Only keep samples above 10% of max amplitude (gentle for reversed audio)
     nonisolated private func filterSignificantSounds(_ samples: [Float]) -> [Float] {
         guard !samples.isEmpty else { return samples }
 
@@ -100,7 +100,7 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
         var maxVal: Float = 0.0
         vDSP_maxmgv(samples, 1, &maxVal, vDSP_Length(samples.count))
 
-        let threshold = maxVal * 0.25 // 25% threshold (aggressive)
+        let threshold = maxVal * 0.10 // 10% threshold (gentle, keeps more audio data)
 
         // Filter samples above threshold
         return samples.map { abs($0) > threshold ? $0 : 0.0 }
@@ -112,8 +112,8 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
 
         var envelope = [Float](repeating: 0, count: samples.count)
 
-        // Simple moving average for smoothing (window = 50 samples)
-        let windowSize = 50
+        // Large moving average for smoothing (window = 150 samples, less sensitive to timing)
+        let windowSize = 150
 
         for i in 0..<samples.count {
             let start = max(0, i - windowSize/2)
@@ -135,7 +135,7 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
         guard !samples.isEmpty else { return samples }
 
         var rmsValues = [Float]()
-        let windowSize = 100 // Energy window
+        let windowSize = 250 // Large energy window (more forgiving of timing differences)
 
         for i in stride(from: 0, to: samples.count, by: windowSize) {
             let end = min(i + windowSize, samples.count)
@@ -156,7 +156,7 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
     // MARK: - Normalization
 
     nonisolated private func normalizeLengths(_ array1: [Float], _ array2: [Float]) -> ([Float], [Float]) {
-        // Filter out silence/low sounds FIRST (aggressive 25% threshold)
+        // Filter out silence/low sounds FIRST (gentle 10% threshold)
         let filtered1 = filterSignificantSounds(array1)
         let filtered2 = filterSignificantSounds(array2)
 
@@ -217,15 +217,16 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
         vDSP_dotpr(rms1, 1, rms2, 1, &rmsCorrelation, vDSP_Length(rms1.count))
         let rmsScore = abs(rmsCorrelation / Float(rms1.count))
 
-        // Combine both methods (60% envelope for shape, 40% energy for dynamics)
-        let combinedScore = (envelopeScore * 0.6) + (rmsScore * 0.4)
+        // Combine both methods (75% envelope for shape, 25% energy - envelope more important for reversed audio)
+        let combinedScore = (envelopeScore * 0.75) + (rmsScore * 0.25)
 
         // Apply ULTRA forgiving non-linear scaling (x^0.15 for maximum encouragement)
-        // Examples: 40% → 90%, 50% → 92%, 60% → 94%, 70% → 95%, 80% → 97%
+        // Examples with baseline: 30% → 68, 40% → 74, 50% → 79, 60% → 83, 70% → 87, 80% → 90
         let scaledSimilarity = pow(combinedScore, 0.15)
 
-        // Convert to 0-100 scale
-        let score = Double(scaledSimilarity) * 100.0
+        // Convert to 0-100 scale with baseline boost (15 base + 85 scaled)
+        // Everyone gets 15 points for trying, remaining 85 points based on similarity
+        let score = Double(scaledSimilarity) * 85.0 + 15.0
 
         return max(0, min(100, score))
     }
