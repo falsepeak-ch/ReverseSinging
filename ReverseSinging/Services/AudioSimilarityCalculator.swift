@@ -220,9 +220,9 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
         // Combine both methods (60% envelope for shape, 40% energy for dynamics)
         let combinedScore = (envelopeScore * 0.6) + (rmsScore * 0.4)
 
-        // Apply VERY forgiving non-linear scaling (x^0.2 instead of √x)
-        // Examples: 50% → 87%, 60% → 90%, 70% → 93%, 80% → 95%
-        let scaledSimilarity = pow(combinedScore, 0.2)
+        // Apply ULTRA forgiving non-linear scaling (x^0.15 for maximum encouragement)
+        // Examples: 40% → 90%, 50% → 92%, 60% → 94%, 70% → 95%, 80% → 97%
+        let scaledSimilarity = pow(combinedScore, 0.15)
 
         // Convert to 0-100 scale
         let score = Double(scaledSimilarity) * 100.0

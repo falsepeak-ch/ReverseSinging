@@ -29,6 +29,7 @@ struct ScoreCard: View {
         }
         .padding(.vertical, 32)
         .padding(.horizontal, 20)
+        .frame(maxWidth: .infinity)
         .background(gradeGradient)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .cardShadow(.elevated)
@@ -39,33 +40,33 @@ struct ScoreCard: View {
 
     private var letterGrade: String {
         switch score {
-        case 95...100: return "A+"
-        case 90..<95:  return "A"
-        case 85..<90:  return "B+"
-        case 80..<85:  return "B"
-        case 75..<80:  return "C+"
-        case 70..<75:  return "C"
-        case 60..<70:  return "D"
+        case 90...100: return "A+"
+        case 85..<90:  return "A"
+        case 80..<85:  return "B+"
+        case 75..<80:  return "B"
+        case 70..<75:  return "C+"
+        case 65..<70:  return "C"
+        case 60..<65:  return "D"
         default:       return "F"
         }
     }
 
     private var gradeDescription: String {
         switch score {
-        case 95...100: return "Perfect Match!"
-        case 90..<95:  return "Excellent!"
-        case 85..<90:  return "Great Job!"
-        case 80..<85:  return "Very Good!"
-        case 75..<80:  return "Good Effort!"
-        case 70..<75:  return "Nice Try!"
-        case 60..<70:  return "Keep Practicing!"
+        case 90...100: return "Perfect Match!"
+        case 85..<90:  return "Excellent!"
+        case 80..<85:  return "Great Job!"
+        case 75..<80:  return "Very Good!"
+        case 70..<75:  return "Good Effort!"
+        case 65..<70:  return "Nice Try!"
+        case 60..<65:  return "Keep Practicing!"
         default:       return "Try Again!"
         }
     }
 
     private var gradeGradient: LinearGradient {
         switch score {
-        case 90...100:
+        case 85...100:
             // A+/A: Green gradient
             return LinearGradient(
                 colors: [
@@ -75,11 +76,11 @@ struct ScoreCard: View {
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
-        case 80..<90:
-            // B: Gold gradient (similar to Voxxa primary)
+        case 75..<85:
+            // B+/B: Gold gradient (similar to Voxxa primary)
             return LinearGradient.voxxaPrimaryAdaptive(for: colorScheme)
-        case 70..<80:
-            // C: Orange gradient
+        case 65..<75:
+            // C+/C: Orange gradient
             return LinearGradient(
                 colors: [
                     Color(red: 1.0, green: 0.65, blue: 0.0),   // Orange
@@ -88,7 +89,7 @@ struct ScoreCard: View {
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
-        case 60..<70:
+        case 60..<65:
             // D: Yellow-orange gradient
             return LinearGradient(
                 colors: [
