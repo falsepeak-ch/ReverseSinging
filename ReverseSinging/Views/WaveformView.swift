@@ -20,9 +20,11 @@ struct WaveformView: View {
     @State private var heights: [CGFloat] = []
     @State private var isAnimating = false
     @State private var animationPhase: Double = 0
+    @State private var smoothedLevel: Float = 0
+    @State private var previousHeights: [CGFloat] = []
 
-    // Timer for continuous animation
-    private let timer = Timer.publish(every: 0.05, on: .main, in: .common).autoconnect()
+    // Timer for continuous animation (60fps for smoothness)
+    private let timer = Timer.publish(every: 0.016, on: .main, in: .common).autoconnect()
 
     enum WaveformStyle {
         case recording  // Red, reactive bars
@@ -46,6 +48,7 @@ struct WaveformView: View {
         }()
 
         _heights = State(initialValue: Array(repeating: 0.1, count: barCount))
+        _previousHeights = State(initialValue: Array(repeating: 0.1, count: barCount))
     }
 
     var body: some View {
@@ -61,7 +64,7 @@ struct WaveformView: View {
                                 height: heights[index] * geometry.size.height
                             )
                             .animation(
-                                .spring(response: 0.3, dampingFraction: 0.7)
+                                .easeInOut(duration: 0.15)
                                 .delay(animationDelay(for: index)),
                                 value: heights[index]
                             )
@@ -86,7 +89,10 @@ struct WaveformView: View {
                 }
             }
             .onChange(of: level) { _, newValue in
-                updateWaveform(level: newValue)
+                // Smooth level changes using exponential moving average
+                let smoothingFactor: Float = 0.3
+                smoothedLevel = (smoothedLevel * (1 - smoothingFactor)) + (newValue * smoothingFactor)
+                updateWaveform(level: smoothedLevel)
             }
             .onReceive(timer) { _ in
                 // Continuously update animation phase for flowing effect
@@ -141,18 +147,26 @@ struct WaveformView: View {
     }
 
     private func animationDelay(for index: Int) -> Double {
-        // Stagger animation from center outward - 10x more visible
+        // Subtle stagger from center outward for natural feel
         let center = Double(barCount) / 2.0
         let distanceFromCenter = abs(Double(index) - center)
-        return distanceFromCenter * 0.02
+        return distanceFromCenter * 0.003 // Much more subtle
     }
 
     // MARK: - Waveform Update
 
     private func updateWaveform(level: Float) {
-        heights = (0..<barCount).map { index in
+        let newHeights = (0..<barCount).map { index in
             flowingHeight(for: index, level: level)
         }
+
+        // Apply momentum - smooth transition from previous heights
+        heights = zip(heights, newHeights).map { previous, new in
+            let momentum: CGFloat = 0.6 // Higher = more inertia
+            return previous * momentum + new * (1 - momentum)
+        }
+
+        previousHeights = heights
     }
 
     private func flowingHeight(for index: Int, level: Float) -> CGFloat {
@@ -161,31 +175,38 @@ struct WaveformView: View {
 
         switch style {
         case .recording:
-            // Dynamic per-bar variation like music equalizer
-            // Use pseudo-random based on bar index + animation phase
-            let seed = Double(index) * 3.7 + animationPhase * 2.0
-            let random1 = sin(seed * 7.3) * 0.6
-            let random2 = cos(seed * 5.1) * 0.4
-            let randomVariation = random1 + random2  // Range: -1.0 to 1.0
+            // More natural audio-reactive pattern with subtle variation
+            // Use smoother, slower-frequency waves for natural look
+            let seed = Double(index) * 2.5 + animationPhase * 0.8
+            let wave1 = sin(seed * 3.2) * 0.5  // Primary wave
+            let wave2 = cos(seed * 2.1) * 0.3  // Secondary harmonic
+            let variation = (wave1 + wave2) / 2.0  // Range: -0.4 to 0.4
 
-            // Scale variation to 40%-120% of base level for dynamic effect
-            let variationFactor = 0.8 + (randomVariation * 0.4 + 0.4)
-            let audioReactiveHeight = baseLevel * variationFactor
+            // Neighboring bar influence for cohesive movement
+            let neighborInfluence = sin(normalizedIndex * .pi * 4 + animationPhase * 0.5) * 0.15
 
-            return CGFloat(max(0.1, min(1.0, audioReactiveHeight)))
+            // Combine: 75% audio level, 15% variation, 10% neighbor
+            let combinedVariation = variation * 0.15 + neighborInfluence
+            let variationFactor = 1.0 + combinedVariation
+            let audioReactiveHeight = baseLevel * CGFloat(variationFactor)
+
+            return CGFloat(max(0.12, min(0.95, audioReactiveHeight)))
 
         case .playing:
-            // Smooth flowing left-to-right wave - music equalizer feel
-            let flow = sin((normalizedIndex * .pi * 3) + animationPhase)
-            let flow2 = cos((normalizedIndex * .pi * 5) + (animationPhase * 0.7))
-            let combinedFlow = (flow * 0.7 + flow2 * 0.3) * 0.5 + 0.5
-            return baseLevel * CGFloat(combinedFlow) * 0.9
+            // Smooth flowing wave with natural easing
+            let flow = sin((normalizedIndex * .pi * 2.5) + animationPhase * 0.7)
+            let flow2 = cos((normalizedIndex * .pi * 3.5) + (animationPhase * 0.5))
+            let combinedFlow = (flow * 0.6 + flow2 * 0.4) * 0.5 + 0.5
+
+            // Add gentle position-based variation
+            let positionVariation = sin(normalizedIndex * .pi) * 0.1
+            return baseLevel * CGFloat(combinedFlow + positionVariation) * 0.85
 
         case .idle:
-            // Gentle breathing effect - calm and subtle
-            let breathe = 1.0 + sin(animationPhase * 0.5) * 0.2
-            let subtleWave = sin((normalizedIndex * .pi * 2) + (animationPhase * 0.3)) * 0.1
-            return CGFloat(0.3 * breathe + subtleWave)
+            // Very subtle breathing effect - calm and minimal
+            let breathe = 1.0 + sin(animationPhase * 0.4) * 0.15
+            let subtleWave = sin((normalizedIndex * .pi * 1.5) + (animationPhase * 0.2)) * 0.08
+            return CGFloat(0.25 * breathe + subtleWave)
         }
     }
 
