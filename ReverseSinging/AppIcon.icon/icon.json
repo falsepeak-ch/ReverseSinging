@@ -7,15 +7,8 @@
       "layers" : [
         {
           "glass" : false,
-          "image-name" : "Volume Equalizer.png",
-          "name" : "Volume Equalizer",
-          "position" : {
-            "scale" : 0.6000000000000001,
-            "translation-in-points" : [
-              -61.59375,
-              72.28125
-            ]
-          }
+          "image-name" : "Group 2.png",
+          "name" : "Group 2"
         }
       ],
       "shadow" : {
@@ -31,16 +24,8 @@
     {
       "layers" : [
         {
-          "glass" : false,
-          "image-name" : "Frame.png",
-          "name" : "Frame",
-          "position" : {
-            "scale" : 1,
-            "translation-in-points" : [
-              0,
-              0
-            ]
-          }
+          "image-name" : "Frame 2.png",
+          "name" : "Frame 2"
         }
       ],
       "shadow" : {

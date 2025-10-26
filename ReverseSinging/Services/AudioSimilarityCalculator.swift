@@ -209,7 +209,7 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
 
         guard rms1.count == rms2.count, !rms1.isEmpty else {
             // Fallback to envelope only if RMS calculation fails
-            let scaledScore = pow(envelopeScore, 0.3)
+            let scaledScore = pow(envelopeScore, 0.2)
             return Double(scaledScore) * 100.0
         }
 
@@ -220,9 +220,9 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
         // Combine both methods (60% envelope for shape, 40% energy for dynamics)
         let combinedScore = (envelopeScore * 0.6) + (rmsScore * 0.4)
 
-        // Apply MORE forgiving non-linear scaling (x^0.3 instead of √x)
-        // Examples: 50% → 79%, 60% → 84%, 70% → 88%, 80% → 93%
-        let scaledSimilarity = pow(combinedScore, 0.3)
+        // Apply VERY forgiving non-linear scaling (x^0.2 instead of √x)
+        // Examples: 50% → 87%, 60% → 90%, 70% → 93%, 80% → 95%
+        let scaledSimilarity = pow(combinedScore, 0.2)
 
         // Convert to 0-100 scale
         let score = Double(scaledSimilarity) * 100.0

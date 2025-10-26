@@ -46,29 +46,6 @@ struct MainViewPremium: View {
                             ))
                     }
 
-                    // Re-record button (under mini player)
-                    if viewModel.appState.currentSession?.attemptRecording != nil && viewModel.appState.recordingState != .recording {
-                        Button(action: {
-                            viewModel.reRecordAttempt()
-                            viewModel.startRecording()
-                        }) {
-                            HStack(spacing: 8) {
-                                Image(systemName: "record.circle")
-                                    .font(.rsBodyMedium)
-                                Text("Re-record Attempt")
-                                    .font(.rsBodySmall)
-                            }
-                            .foregroundColor(.rsRecording)
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 8)
-                            .background(Color.rsRecording.opacity(0.15))
-                            .clipShape(Capsule())
-                        }
-                        .buttonStyle(.plain)
-                        .padding(.horizontal, 24)
-                        .padding(.bottom, 16)
-                        .transition(.opacity.combined(with: .scale))
-                    }
 
                     // Removed stage progress - simplified to single screen
                     // Playback controls now integrated into TimerCard
@@ -159,12 +136,6 @@ struct MainViewPremium: View {
                 }
             } message: {
                 Text(viewModel.errorMessage ?? "")
-            }
-            .onChange(of: viewModel.appState.similarityScore) { oldValue, newValue in
-                // Automatically show comparison when score is calculated
-                if newValue != nil && oldValue == nil {
-                    showComparisonView = true
-                }
             }
         }
     }
@@ -378,71 +349,8 @@ struct MainViewPremium: View {
                 )
             }
 
-            // 2x2 Grid: All 4 playback buttons (shown after attempt is recorded)
-            if session?.attemptRecording != nil && !isRecording && !isPlaying {
-                VStack(spacing: 12) {
-                    // Row 1: Play Original | Play Reversed
-                    HStack(spacing: 12) {
-                        BigButton(
-                            title: "Play Original",
-                            icon: "play.circle.fill",
-                            color: .rsGradientCyan,
-                            action: {
-                                if let original = session?.originalRecording {
-                                    viewModel.playRecording(original)
-                                }
-                            },
-                            style: .secondary,
-                            textFont: .rsButtonSmall
-                        )
-
-                        BigButton(
-                            title: "Play Reversed",
-                            icon: "play.circle.fill",
-                            color: .rsGradientCyan,
-                            action: {
-                                if let reversed = session?.reversedRecording {
-                                    viewModel.playRecording(reversed)
-                                }
-                            },
-                            style: .secondary,
-                            textFont: .rsButtonSmall
-                        )
-                    }
-
-                    // Row 2: Play Attempt | Play Attempt Reversed
-                    HStack(spacing: 12) {
-                        BigButton(
-                            title: "Play Attempt",
-                            icon: "play.circle.fill",
-                            color: .rsGradientCyan,
-                            action: {
-                                if let attempt = session?.attemptRecording {
-                                    viewModel.playRecording(attempt)
-                                }
-                            },
-                            style: .secondary,
-                            textFont: .rsButtonSmall
-                        )
-
-                        BigButton(
-                            title: "Play Attempt Reversed",
-                            icon: "play.circle.fill",
-                            color: .rsGradientCyan,
-                            action: {
-                                if let reversedAttempt = session?.reversedAttempt {
-                                    viewModel.playRecording(reversedAttempt)
-                                }
-                            },
-                            isEnabled: session?.reversedAttempt != nil,
-                            style: .secondary,
-                            textFont: .rsButtonSmall
-                        )
-                    }
-                }
-            }
-            // Single row: Play Original | Play Reversed (when reversed exists but no attempt yet)
-            else if session?.reversedRecording != nil && session?.attemptRecording == nil && !isRecording && !isPlaying {
+            // Play Original | Play Reversed (shown when reversed exists but no attempt yet)
+            if session?.reversedRecording != nil && session?.attemptRecording == nil && !isRecording && !isPlaying {
                 HStack(spacing: 12) {
                     BigButton(
                         title: "Play Original",
@@ -487,23 +395,52 @@ struct MainViewPremium: View {
                 )
             }
 
-            // Compare Results (shown when attempt exists)
-            if session?.attemptRecording != nil && !isRecording {
-                BigButton(
-                    title: "Compare Results",
-                    icon: "chart.bar.fill",
-                    color: .rsSuccess,
-                    action: {
-                        if session?.reversedAttempt == nil {
-                            viewModel.reverseAttempt()
-                            // Comparison will show automatically when score is ready (via onChange)
-                        } else {
-                            showComparisonView = true
+            // ScoreCard (shown when score is available)
+            if let score = viewModel.appState.similarityScore, !isRecording {
+                ScoreCard(
+                    score: score,
+                    onPlayAttempt: {
+                        if let attempt = session?.attemptRecording {
+                            viewModel.playRecording(attempt)
                         }
                     },
-                    isLoading: viewModel.isReversing,
-                    style: .primary
+                    onPlayReversedAttempt: {
+                        if let reversedAttempt = session?.reversedAttempt {
+                            viewModel.playRecording(reversedAttempt)
+                        }
+                    },
+                    isPlaying: isPlaying
                 )
+            }
+
+            // Compare Results / Re-record buttons (shown when attempt exists)
+            if session?.attemptRecording != nil && !isRecording {
+                HStack(spacing: 12) {
+                    // Re-record button
+                    BigButton(
+                        title: "Re-record",
+                        icon: "arrow.counterclockwise",
+                        color: .rsRecording,
+                        action: {
+                            viewModel.reRecordAttempt()
+                            viewModel.startRecording()
+                        },
+                        style: .secondary
+                    )
+
+                    // Compare Results button (shows full comparison view)
+                    if viewModel.appState.similarityScore != nil {
+                        BigButton(
+                            title: "See Details",
+                            icon: "chart.bar.fill",
+                            color: .rsSuccess,
+                            action: {
+                                showComparisonView = true
+                            },
+                            style: .secondary
+                        )
+                    }
+                }
             }
 
             // Always: Start New Session button

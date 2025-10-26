@@ -209,6 +209,15 @@ final class AudioViewModel: ObservableObject {
                             self.reverseCurrentRecording()
                         }
                     }
+
+                    // Auto-reverse and calculate similarity if this was the attempt recording
+                    if type == .attempt {
+                        print("🔄 Auto-reversing attempt and calculating similarity...")
+                        Task {
+                            try? await Task.sleep(nanoseconds: 300_000_000) // 0.3s
+                            self.reverseAttempt()
+                        }
+                    }
                 }
             } catch {
                 await MainActor.run {
