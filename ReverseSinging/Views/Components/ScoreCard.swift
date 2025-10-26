@@ -9,70 +9,26 @@ import SwiftUI
 
 struct ScoreCard: View {
     let score: Double
-    let onPlayAttempt: () -> Void
-    let onPlayReversedAttempt: () -> Void
-    let isPlaying: Bool
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
-        VStack(spacing: 0) {
-            // Letter grade display
-            VStack(spacing: 8) {
-                Text("Your Score")
-                    .font(.rsBodySmall)
-                    .foregroundColor(.white.opacity(0.8))
-                    .textCase(.uppercase)
-                    .tracking(1.5)
+        VStack(spacing: 8) {
+            Text("Your Score")
+                .font(.rsBodySmall)
+                .foregroundColor(.white.opacity(0.8))
+                .textCase(.uppercase)
+                .tracking(1.5)
 
-                Text(letterGrade)
-                    .font(.system(size: 72, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
+            Text(letterGrade)
+                .font(.system(size: 72, weight: .bold, design: .rounded))
+                .foregroundColor(.white)
 
-                Text(gradeDescription)
-                    .font(.rsBodyMedium)
-                    .foregroundColor(.white.opacity(0.9))
-            }
-            .padding(.vertical, 32)
-            .padding(.horizontal, 20)
-
-            // Divider
-            Divider()
-                .background(Color.white.opacity(0.2))
-                .padding(.horizontal, 20)
-
-            // Playback buttons
-            VStack(spacing: 12) {
-                Text("Listen to Your Attempt")
-                    .font(.rsBodySmall)
-                    .foregroundColor(.white.opacity(0.8))
-                    .textCase(.uppercase)
-                    .tracking(1)
-
-                HStack(spacing: 12) {
-                    BigButton(
-                        title: "Play Attempt",
-                        icon: "play.circle.fill",
-                        color: .white,
-                        action: onPlayAttempt,
-                        isEnabled: !isPlaying,
-                        style: .secondary,
-                        textFont: .rsButtonSmall
-                    )
-
-                    BigButton(
-                        title: "Play Reversed",
-                        icon: "play.circle.fill",
-                        color: .white,
-                        action: onPlayReversedAttempt,
-                        isEnabled: !isPlaying,
-                        style: .secondary,
-                        textFont: .rsButtonSmall
-                    )
-                }
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 20)
+            Text(gradeDescription)
+                .font(.rsBodyMedium)
+                .foregroundColor(.white.opacity(0.9))
         }
+        .padding(.vertical, 32)
+        .padding(.horizontal, 20)
         .background(gradeGradient)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .cardShadow(.elevated)
@@ -160,26 +116,9 @@ struct ScoreCard: View {
 
 #Preview {
     VStack(spacing: 20) {
-        ScoreCard(
-            score: 97,
-            onPlayAttempt: { print("Play attempt") },
-            onPlayReversedAttempt: { print("Play reversed") },
-            isPlaying: false
-        )
-
-        ScoreCard(
-            score: 87,
-            onPlayAttempt: { print("Play attempt") },
-            onPlayReversedAttempt: { print("Play reversed") },
-            isPlaying: false
-        )
-
-        ScoreCard(
-            score: 72,
-            onPlayAttempt: { print("Play attempt") },
-            onPlayReversedAttempt: { print("Play reversed") },
-            isPlaying: false
-        )
+        ScoreCard(score: 97)
+        ScoreCard(score: 87)
+        ScoreCard(score: 72)
     }
     .padding()
     .background(Color.rsBackground)

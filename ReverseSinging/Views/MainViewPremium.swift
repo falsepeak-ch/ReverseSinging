@@ -241,12 +241,12 @@ struct MainViewPremium: View {
             return false
         }
 
-        // Show when playing
+        // Show when playing OR when any audio exists (idle after recording)
         if case .playing = viewModel.appState.recordingState {
             return true
         }
 
-        // Show when playable audio exists
+        // Show when playable audio exists and idle
         guard let session = viewModel.appState.currentSession else { return false }
         return session.reversedRecording != nil ||
                session.attemptRecording != nil ||
@@ -254,19 +254,37 @@ struct MainViewPremium: View {
     }
 
     private var timerCard: some View {
-        TimerCard(
+        let session = viewModel.appState.currentSession
+
+        return TimerCard(
             duration: timerDuration,
             deviceName: nil,
             isRecording: isCurrentlyRecording,
             state: timerState,
-            playbackSpeed: Binding(
-                get: { viewModel.appState.playbackSpeed },
-                set: { viewModel.setPlaybackSpeed($0) }
-            ),
-            isLooping: Binding(
-                get: { viewModel.appState.isLooping },
-                set: { _ in viewModel.toggleLooping() }
-            ),
+            onPlayOriginal: {
+                if let original = session?.originalRecording {
+                    viewModel.playRecording(original)
+                }
+            },
+            onPlayReversed: {
+                if let reversed = session?.reversedRecording {
+                    viewModel.playRecording(reversed)
+                }
+            },
+            onPlayAttempt: {
+                if let attempt = session?.attemptRecording {
+                    viewModel.playRecording(attempt)
+                }
+            },
+            onPlayReversedAttempt: {
+                if let reversedAttempt = session?.reversedAttempt {
+                    viewModel.playRecording(reversedAttempt)
+                }
+            },
+            hasOriginal: session?.originalRecording != nil,
+            hasReversed: session?.reversedRecording != nil,
+            hasAttempt: session?.attemptRecording != nil,
+            hasReversedAttempt: session?.reversedAttempt != nil,
             onStopPlayback: { viewModel.stopPlayback() }
         )
     }
@@ -335,39 +353,6 @@ struct MainViewPremium: View {
                 )
             }
 
-            // Play Original | Play Reversed (always shown when reversed exists)
-            if session?.reversedRecording != nil && !isRecording {
-                HStack(spacing: 12) {
-                    BigButton(
-                        title: "Play Original",
-                        icon: "play.circle.fill",
-                        color: .rsGradientCyan,
-                        action: {
-                            if let original = session?.originalRecording {
-                                viewModel.playRecording(original)
-                            }
-                        },
-                        isEnabled: !isPlaying,
-                        style: .secondary,
-                        textFont: .rsButtonSmall
-                    )
-
-                    BigButton(
-                        title: "Play Reversed",
-                        icon: "play.circle.fill",
-                        color: .rsGradientCyan,
-                        action: {
-                            if let reversed = session?.reversedRecording {
-                                viewModel.playRecording(reversed)
-                            }
-                        },
-                        isEnabled: !isPlaying,
-                        style: .secondary,
-                        textFont: .rsButtonSmall
-                    )
-                }
-            }
-
             // Record Your Attempt (only shown when reversed exists and no attempt yet, hidden when playing)
             if session?.reversedRecording != nil && session?.attemptRecording == nil && !isPlaying {
                 BigButton(
@@ -387,42 +372,29 @@ struct MainViewPremium: View {
 
             // ScoreCard (shown when score is available)
             if let score = viewModel.appState.similarityScore, !isRecording {
-                ScoreCard(
-                    score: score,
-                    onPlayAttempt: {
-                        if let attempt = session?.attemptRecording {
-                            viewModel.playRecording(attempt)
-                        }
-                    },
-                    onPlayReversedAttempt: {
-                        if let reversedAttempt = session?.reversedAttempt {
-                            viewModel.playRecording(reversedAttempt)
-                        }
-                    },
-                    isPlaying: isPlaying
-                )
+                ScoreCard(score: score)
             }
 
-            // Re-record button (shown when attempt exists)
-            if session?.attemptRecording != nil && !isRecording {
-                BigButton(
-                    title: "Re-record",
-                    icon: "arrow.counterclockwise",
-                    color: .rsRecording,
-                    action: {
-                        viewModel.reRecordAttempt()
-                        viewModel.startRecording()
-                    },
-                    style: .destructive
+            // Bottom buttons: Re-record and Start New Session (both compact)
+            HStack(spacing: 12) {
+                if session?.attemptRecording != nil && !isRecording {
+                    CompactButton(
+                        title: "Re-record",
+                        icon: "record.circle",
+                        action: {
+                            viewModel.reRecordAttempt()
+                            viewModel.startRecording()
+                        },
+                        color: .rsRecording
+                    )
+                }
+
+                CompactButton(
+                    title: "Start New Session",
+                    icon: "plus.circle.fill",
+                    action: { viewModel.startNewSession() }
                 )
             }
-
-            // Always: Start New Session button
-            CompactButton(
-                title: "Start New Session",
-                icon: "plus.circle.fill",
-                action: { viewModel.startNewSession() }
-            )
             .padding(.top, 8)
         }
     }

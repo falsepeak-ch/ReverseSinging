@@ -13,11 +13,15 @@ struct TimerCard: View {
     let isRecording: Bool
     let state: TimerState
 
-    // Playback controls (optional - only show when playing)
-    var playbackSpeed: Binding<Double>?
-    var isLooping: Binding<Bool>?
-    var onSpeedChange: ((Double) -> Void)?
-    var onLoopToggle: (() -> Void)?
+    // Play button callbacks and recordings
+    var onPlayOriginal: (() -> Void)?
+    var onPlayReversed: (() -> Void)?
+    var onPlayAttempt: (() -> Void)?
+    var onPlayReversedAttempt: (() -> Void)?
+    var hasOriginal: Bool = false
+    var hasReversed: Bool = false
+    var hasAttempt: Bool = false
+    var hasReversedAttempt: Bool = false
     var onStopPlayback: (() -> Void)?
 
     enum TimerState {
@@ -76,60 +80,45 @@ struct TimerCard: View {
             .padding(.horizontal, 20)
             .padding(.bottom, showPlaybackControls ? 12 : 16)
 
-            // Integrated playback controls (only when playing)
+            // Play buttons grid (2x2)
             if showPlaybackControls {
                 Divider()
                     .background(textColor.opacity(0.2))
                     .padding(.horizontal, 20)
 
-                VStack(spacing: 16) {
-                    // Speed control
-                    VStack(spacing: 8) {
-                        HStack {
-                            Image(systemName: "gauge")
-                                .font(.rsBodySmall)
-                                .foregroundColor(controlColor)
+                VStack(spacing: 12) {
+                    // Row 1: Play Original | Play Reversed
+                    HStack(spacing: 12) {
+                        playButton(
+                            title: "Play Original",
+                            icon: "play.circle.fill",
+                            action: onPlayOriginal,
+                            isEnabled: hasOriginal && state != .playing
+                        )
 
-                            Text("Playback Speed")
-                                .font(.rsBodySmall)
-                                .foregroundColor(textColor)
-
-                            Spacer()
-
-                            if let speed = playbackSpeed?.wrappedValue {
-                                Text(String(format: "%.1fx", speed))
-                                    .font(.rsBodyMedium)
-                                    .foregroundColor(controlColor)
-                                    .monospaced()
-                            }
-                        }
-
-                        if let speedBinding = playbackSpeed {
-                            Slider(
-                                value: speedBinding,
-                                in: 0.5...2.0,
-                                step: 0.1
-                            )
-                            .tint(controlColor)
-                        }
+                        playButton(
+                            title: "Play Reversed",
+                            icon: "play.circle.fill",
+                            action: onPlayReversed,
+                            isEnabled: hasReversed && state != .playing
+                        )
                     }
 
-                    // Loop toggle
-                    HStack {
-                        Image(systemName: isLooping?.wrappedValue == true ? "repeat.circle.fill" : "repeat.circle")
-                            .font(.rsBodyMedium)
-                            .foregroundColor(isLooping?.wrappedValue == true ? controlColor : textColor.opacity(0.5))
+                    // Row 2: Play Attempt | Play Attempt Reversed
+                    HStack(spacing: 12) {
+                        playButton(
+                            title: "Play Attempt",
+                            icon: "play.circle.fill",
+                            action: onPlayAttempt,
+                            isEnabled: hasAttempt && state != .playing
+                        )
 
-                        Text("Loop Playback")
-                            .font(.rsBodySmall)
-                            .foregroundColor(textColor)
-
-                        Spacer()
-
-                        if let loopBinding = isLooping {
-                            Toggle("", isOn: loopBinding)
-                                .tint(controlColor)
-                        }
+                        playButton(
+                            title: "Play Attempt Reversed",
+                            icon: "play.circle.fill",
+                            action: onPlayReversedAttempt,
+                            isEnabled: hasReversedAttempt && state != .playing
+                        )
                     }
                 }
                 .padding(.horizontal, 20)
@@ -148,7 +137,34 @@ struct TimerCard: View {
     // MARK: - Computed Properties
 
     private var showPlaybackControls: Bool {
-        state == .playing && playbackSpeed != nil && isLooping != nil
+        // Show when any recording exists
+        hasOriginal || hasReversed || hasAttempt || hasReversedAttempt
+    }
+
+    @ViewBuilder
+    private func playButton(title: String, icon: String, action: (() -> Void)?, isEnabled: Bool) -> some View {
+        Button(action: {
+            if let action = action {
+                action()
+            }
+        }) {
+            HStack(spacing: 6) {
+                Image(systemName: icon)
+                    .font(.rsBodySmall)
+                Text(title)
+                    .font(.rsButtonSmall)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 10)
+            .padding(.horizontal, 8)
+            .background(
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .fill(isEnabled ? Color.white.opacity(0.2) : Color.white.opacity(0.1))
+            )
+            .foregroundColor(isEnabled ? .white : .white.opacity(0.4))
+        }
+        .disabled(!isEnabled)
+        .buttonStyle(PlainButtonStyle())
     }
 
     // MARK: - Computed Properties
@@ -302,8 +318,14 @@ struct CompactTimerCard: View {
             deviceName: nil,
             isRecording: false,
             state: .playing,
-            playbackSpeed: .constant(1.0),
-            isLooping: .constant(false),
+            onPlayOriginal: { print("Play original") },
+            onPlayReversed: { print("Play reversed") },
+            onPlayAttempt: { print("Play attempt") },
+            onPlayReversedAttempt: { print("Play reversed attempt") },
+            hasOriginal: true,
+            hasReversed: true,
+            hasAttempt: true,
+            hasReversedAttempt: true,
             onStopPlayback: { print("Stop playback") }
         )
 
