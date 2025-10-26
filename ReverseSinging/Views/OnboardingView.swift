@@ -23,12 +23,6 @@ struct OnboardingView: View {
             title: "How It Works",
             description: "Record audio, reverse it, sing what you hear, then flip it again to see how close you got!",
             gradient: .voxxaIconCircle
-        ),
-        OnboardingPage(
-            imageName: "microphone",
-            title: "Pro Features",
-            description: "Adjust playback speed, loop sections, and track your attempts. All offline, all private.",
-            gradient: .voxxaRecording
         )
     ]
 
