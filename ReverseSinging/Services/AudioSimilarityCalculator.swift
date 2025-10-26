@@ -28,6 +28,8 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
                 let originalSamples = try await self.extractAudioSamples(from: original)
                 let comparisonSamples = try await self.extractAudioSamples(from: comparison)
 
+                print("📊 [DEBUG] Original samples: \(originalSamples.count), Comparison samples: \(comparisonSamples.count)")
+
                 guard !originalSamples.isEmpty, !comparisonSamples.isEmpty else {
                     print("❌ Empty audio samples")
                     return 0.0
@@ -38,6 +40,8 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
                     originalSamples,
                     comparisonSamples
                 )
+
+                print("📊 [DEBUG] After normalization: \(normalizedOriginal.count) samples")
 
                 // Calculate similarity score
                 let score = self.calculateCorrelation(normalizedOriginal, normalizedComparison)
@@ -156,9 +160,13 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
     // MARK: - Normalization
 
     nonisolated private func normalizeLengths(_ array1: [Float], _ array2: [Float]) -> ([Float], [Float]) {
+        print("📊 [DEBUG] Before filtering: array1=\(array1.count), array2=\(array2.count)")
+
         // Filter out silence/low sounds FIRST (gentle 10% threshold)
         let filtered1 = filterSignificantSounds(array1)
         let filtered2 = filterSignificantSounds(array2)
+
+        print("📊 [DEBUG] After filtering: filtered1=\(filtered1.count), filtered2=\(filtered2.count)")
 
         let minLength = min(filtered1.count, filtered2.count)
 
@@ -169,6 +177,8 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
         // Normalize amplitudes
         let normalized1 = normalizeAmplitude(trimmed1)
         let normalized2 = normalizeAmplitude(trimmed2)
+
+        print("📊 [DEBUG] Final normalized length: \(normalized1.count)")
 
         return (normalized1, normalized2)
     }
@@ -193,7 +203,10 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
     // MARK: - Similarity Calculation
 
     nonisolated private func calculateCorrelation(_ array1: [Float], _ array2: [Float]) -> Double {
-        guard array1.count == array2.count, !array1.isEmpty else { return 0.0 }
+        guard array1.count == array2.count, !array1.isEmpty else {
+            print("📊 [DEBUG] Array length mismatch or empty")
+            return 0.0
+        }
 
         // Method 1: Envelope comparison (shape)
         let envelope1 = extractEnvelope(array1)
@@ -203,30 +216,43 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
         vDSP_dotpr(envelope1, 1, envelope2, 1, &envelopeCorrelation, vDSP_Length(envelope1.count))
         let envelopeScore = abs(envelopeCorrelation / Float(envelope1.count))
 
+        print("📊 [DEBUG] Envelope correlation: \(String(format: "%.4f", envelopeScore))")
+
         // Method 2: RMS comparison (energy/loudness)
         let rms1 = calculateRMSWindows(array1)
         let rms2 = calculateRMSWindows(array2)
 
         guard rms1.count == rms2.count, !rms1.isEmpty else {
+            print("📊 [DEBUG] RMS calculation failed, using envelope only")
             // Fallback to envelope only if RMS calculation fails
             let scaledScore = pow(envelopeScore, 0.2)
-            return Double(scaledScore) * 100.0
+            let finalScore = Double(scaledScore) * 100.0
+            print("📊 [DEBUG] Final score (envelope only): \(String(format: "%.1f", finalScore))")
+            return finalScore
         }
 
         var rmsCorrelation: Float = 0.0
         vDSP_dotpr(rms1, 1, rms2, 1, &rmsCorrelation, vDSP_Length(rms1.count))
         let rmsScore = abs(rmsCorrelation / Float(rms1.count))
 
+        print("📊 [DEBUG] RMS correlation: \(String(format: "%.4f", rmsScore))")
+
         // Combine both methods (75% envelope for shape, 25% energy - envelope more important for reversed audio)
         let combinedScore = (envelopeScore * 0.75) + (rmsScore * 0.25)
+
+        print("📊 [DEBUG] Combined score (75/25): \(String(format: "%.4f", combinedScore))")
 
         // Apply ULTRA forgiving non-linear scaling (x^0.15 for maximum encouragement)
         // Examples with baseline: 30% → 68, 40% → 74, 50% → 79, 60% → 83, 70% → 87, 80% → 90
         let scaledSimilarity = pow(combinedScore, 0.15)
 
+        print("📊 [DEBUG] After x^0.15 scaling: \(String(format: "%.4f", scaledSimilarity))")
+
         // Convert to 0-100 scale with baseline boost (15 base + 85 scaled)
         // Everyone gets 15 points for trying, remaining 85 points based on similarity
         let score = Double(scaledSimilarity) * 85.0 + 15.0
+
+        print("📊 [DEBUG] Final score (with baseline): \(String(format: "%.1f", score))")
 
         return max(0, min(100, score))
     }
