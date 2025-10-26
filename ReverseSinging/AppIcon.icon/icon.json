@@ -7,6 +7,33 @@
       "layers" : [
         {
           "glass" : false,
+          "hidden" : false,
+          "image-name" : "icon 4.png",
+          "name" : "icon 4",
+          "position" : {
+            "scale" : 0.93,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "glass" : false,
+          "hidden" : false,
+          "image-name" : "icon 3 2.png",
+          "name" : "icon 3 2",
+          "position" : {
+            "scale" : 1.1500000000000001,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "glass" : false,
+          "hidden" : true,
           "image-name" : "icon 3.png",
           "name" : "icon 3",
           "position" : {
