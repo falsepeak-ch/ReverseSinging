@@ -76,16 +76,6 @@ struct OnboardingView: View {
                             insertion: .scale.combined(with: .opacity),
                             removal: .scale.combined(with: .opacity)
                         ))
-
-                        Button(action: {
-                            // Sign in action
-                            viewModel.completeOnboarding()
-                        }) {
-                            Text("i have an account. sign in")
-                                .font(.rsBodyMedium)
-                                .foregroundColor(.rsSecondaryText)
-                        }
-                        .padding(.bottom, 8)
                     } else {
                         BigButton(
                             title: "continue",
