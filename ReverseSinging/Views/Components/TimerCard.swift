@@ -105,7 +105,7 @@ struct TimerCard: View {
                     }
 
                     // Row 2: Play Attempt | Play Attempt Reversed
-                    HStack(spacing: 12) {
+                    HStack(spacing: 8) {
                         playButton(
                             title: "Play Attempt",
                             icon: "play.circle.fill",
@@ -114,14 +114,14 @@ struct TimerCard: View {
                         )
 
                         playButton(
-                            title: "Play Attempt Reversed",
+                            title: "Attempt Reversed",
                             icon: "play.circle.fill",
                             action: onPlayReversedAttempt,
                             isEnabled: hasReversedAttempt && state != .playing
                         )
                     }
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 8)
                 .padding(.vertical, 16)
             }
         }
