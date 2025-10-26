@@ -224,7 +224,7 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
             print("📊 [DEBUG] RMS calculation failed, using envelope only")
             // Fallback to envelope only if RMS calculation fails
             let clampedScore = max(0, min(1, envelopeScore))
-            let scaledScore = sqrt(clampedScore)
+            let scaledScore = pow(clampedScore, 0.45)
             let finalScore = Double(scaledScore) * 100.0
             print("📊 [DEBUG] Final score (envelope only): \(String(format: "%.1f", finalScore))")
             return max(0, min(100, finalScore))
@@ -242,11 +242,11 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
         // Clamp to [0, 1] range before scaling
         let clampedScore = max(0, min(1, combinedScore))
 
-        // Apply gentle non-linear scaling (x^0.5 = square root for balanced encouragement)
-        // Examples: 100%→100%, 90%→95%, 80%→89%, 70%→84%, 60%→77%, 50%→71%
-        let scaledSimilarity = sqrt(clampedScore)
+        // Apply gentle non-linear scaling (x^0.45 for subtle encouragement)
+        // Examples: 100%→100%, 90%→95%, 80%→90%, 70%→85%, 60%→80%, 50%→73%
+        let scaledSimilarity = pow(clampedScore, 0.45)
 
-        print("📊 [DEBUG] After x^0.5 scaling: \(String(format: "%.4f", scaledSimilarity))")
+        print("📊 [DEBUG] After x^0.45 scaling: \(String(format: "%.4f", scaledSimilarity))")
 
         // Convert to 0-100 scale (no baseline boost - raw correlation determines score)
         let score = Double(scaledSimilarity) * 100.0
