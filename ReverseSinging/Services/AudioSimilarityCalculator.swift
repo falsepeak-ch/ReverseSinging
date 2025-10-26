@@ -81,7 +81,7 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
 
             // Convert to Swift array and downsample for efficiency
             let sampleCount = Int(buffer.frameLength)
-            let downsampleFactor = 100 // Sample every 100th frame
+            let downsampleFactor = 20 // Sample every 20th frame (5x more data than before)
             var samples: [Float] = []
             samples.reserveCapacity(sampleCount / downsampleFactor)
 
@@ -116,8 +116,8 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
 
         var envelope = [Float](repeating: 0, count: samples.count)
 
-        // Large moving average for smoothing (window = 150 samples, less sensitive to timing)
-        let windowSize = 150
+        // Moderate moving average for smoothing (window = 75 samples, balanced sensitivity)
+        let windowSize = 75
 
         for i in 0..<samples.count {
             let start = max(0, i - windowSize/2)
@@ -139,7 +139,7 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
         guard !samples.isEmpty else { return samples }
 
         var rmsValues = [Float]()
-        let windowSize = 250 // Large energy window (more forgiving of timing differences)
+        let windowSize = 125 // Moderate energy window (balanced accuracy)
 
         for i in stride(from: 0, to: samples.count, by: windowSize) {
             let end = min(i + windowSize, samples.count)
