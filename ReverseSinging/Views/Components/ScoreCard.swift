@@ -77,8 +77,15 @@ struct ScoreCard: View {
                 endPoint: .bottomTrailing
             )
         case 75..<85:
-            // B+/B: Gold gradient (similar to Voxxa primary)
-            return LinearGradient.voxxaPrimaryAdaptive(for: colorScheme)
+            // B+/B: Yellow gradient
+            return LinearGradient(
+                colors: [
+                    Color(red: 1.0, green: 0.85, blue: 0.0),   // Bright yellow
+                    Color(red: 0.95, green: 0.75, blue: 0.0)   // Golden yellow
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
         case 65..<75:
             // C+/C: Orange gradient
             return LinearGradient(
