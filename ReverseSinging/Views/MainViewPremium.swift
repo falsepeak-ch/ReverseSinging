@@ -11,7 +11,6 @@ struct MainViewPremium: View {
     @StateObject private var viewModel = AudioViewModel()
     @State private var showSuccessToast = false
     @State private var showCelebration = false
-    @State private var showComparisonView = false
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
@@ -53,7 +52,7 @@ struct MainViewPremium: View {
                     // Action buttons
                     actionButtonsSection
                         .padding(.horizontal, 24)
-                        .padding(.bottom, 32)
+                        .padding(.bottom, 100)
                         .animation(.rsSpring, value: viewModel.appState.recordingState)
                 }
             }
@@ -107,19 +106,6 @@ struct MainViewPremium: View {
             }
             .sheet(isPresented: $viewModel.showSessionList) {
                 SessionListView(viewModel: viewModel)
-            }
-            .sheet(isPresented: $showComparisonView) {
-                if let session = viewModel.appState.currentSession,
-                   let originalRecording = session.originalRecording,
-                   let reversedAttempt = session.reversedAttempt,
-                   let score = viewModel.appState.similarityScore {
-                    ComparisonView(
-                        viewModel: viewModel,
-                        originalRecording: originalRecording,
-                        reversedAttempt: reversedAttempt,
-                        similarityScore: score
-                    )
-                }
             }
             .alert("Microphone Access Required", isPresented: $viewModel.showPermissionAlert) {
                 Button("Settings", action: openSettings)
@@ -413,34 +399,18 @@ struct MainViewPremium: View {
                 )
             }
 
-            // Compare Results / Re-record buttons (shown when attempt exists)
+            // Re-record button (shown when attempt exists)
             if session?.attemptRecording != nil && !isRecording {
-                HStack(spacing: 12) {
-                    // Re-record button
-                    BigButton(
-                        title: "Re-record",
-                        icon: "arrow.counterclockwise",
-                        color: .rsRecording,
-                        action: {
-                            viewModel.reRecordAttempt()
-                            viewModel.startRecording()
-                        },
-                        style: .secondary
-                    )
-
-                    // Compare Results button (shows full comparison view)
-                    if viewModel.appState.similarityScore != nil {
-                        BigButton(
-                            title: "See Details",
-                            icon: "chart.bar.fill",
-                            color: .rsSuccess,
-                            action: {
-                                showComparisonView = true
-                            },
-                            style: .secondary
-                        )
-                    }
-                }
+                BigButton(
+                    title: "Re-record",
+                    icon: "arrow.counterclockwise",
+                    color: .rsRecording,
+                    action: {
+                        viewModel.reRecordAttempt()
+                        viewModel.startRecording()
+                    },
+                    style: .destructive
+                )
             }
 
             // Always: Start New Session button
