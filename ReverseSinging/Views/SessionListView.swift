@@ -67,7 +67,7 @@ struct SessionListView: View {
         List {
             ForEach(Array(viewModel.appState.savedSessions.enumerated()), id: \.element.id) { index, session in
                 SessionRow(session: session, viewModel: viewModel)
-                    .listRowBackground(Color.rsSecondaryBackground)
+                    .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                     .slideIn(delay: Double(index) * 0.1)
@@ -76,6 +76,7 @@ struct SessionListView: View {
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
+        .background(Color.rsBackground)
     }
 
     // MARK: - Actions
