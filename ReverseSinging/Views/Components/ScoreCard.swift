@@ -40,33 +40,33 @@ struct ScoreCard: View {
 
     private var letterGrade: String {
         switch score {
-        case 90...100: return "A+"
-        case 85..<90:  return "A"
-        case 80..<85:  return "B+"
-        case 75..<80:  return "B"
-        case 70..<75:  return "C+"
-        case 65..<70:  return "C"
-        case 60..<65:  return "D"
+        case 93...100: return "A+"
+        case 88..<93:  return "A"
+        case 83..<88:  return "B+"
+        case 78..<83:  return "B"
+        case 73..<78:  return "C+"
+        case 68..<73:  return "C"
+        case 60..<68:  return "D"
         default:       return "F"
         }
     }
 
     private var gradeDescription: String {
         switch score {
-        case 90...100: return "Perfect Match!"
-        case 85..<90:  return "Excellent!"
-        case 80..<85:  return "Great Job!"
-        case 75..<80:  return "Very Good!"
-        case 70..<75:  return "Good Effort!"
-        case 65..<70:  return "Nice Try!"
-        case 60..<65:  return "Keep Practicing!"
+        case 93...100: return "Perfect Match!"
+        case 88..<93:  return "Excellent!"
+        case 83..<88:  return "Great Job!"
+        case 78..<83:  return "Very Good!"
+        case 73..<78:  return "Good Effort!"
+        case 68..<73:  return "Nice Try!"
+        case 60..<68:  return "Keep Practicing!"
         default:       return "Try Again!"
         }
     }
 
     private var gradeGradient: LinearGradient {
         switch score {
-        case 85...100:
+        case 88...100:
             // A+/A: Green gradient
             return LinearGradient(
                 colors: [
@@ -76,7 +76,7 @@ struct ScoreCard: View {
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
-        case 75..<85:
+        case 78..<88:
             // B+/B: Yellow gradient
             return LinearGradient(
                 colors: [
@@ -86,7 +86,7 @@ struct ScoreCard: View {
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
-        case 65..<75:
+        case 68..<78:
             // C+/C: Orange gradient
             return LinearGradient(
                 colors: [
@@ -96,7 +96,7 @@ struct ScoreCard: View {
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
-        case 60..<65:
+        case 60..<68:
             // D: Yellow-orange gradient
             return LinearGradient(
                 colors: [
