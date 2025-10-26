@@ -208,43 +208,42 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
             return 0.0
         }
 
-        // Method 1: Envelope comparison (shape)
+        // Method 1: Envelope comparison (shape) - USE PROPER PEARSON CORRELATION
         let envelope1 = extractEnvelope(array1)
         let envelope2 = extractEnvelope(array2)
 
-        var envelopeCorrelation: Float = 0.0
-        vDSP_dotpr(envelope1, 1, envelope2, 1, &envelopeCorrelation, vDSP_Length(envelope1.count))
-        let envelopeScore = abs(envelopeCorrelation / Float(envelope1.count))
+        let envelopeScore = pearsonCorrelation(envelope1, envelope2)
 
-        print("📊 [DEBUG] Envelope correlation: \(String(format: "%.4f", envelopeScore))")
+        print("📊 [DEBUG] Envelope Pearson correlation: \(String(format: "%.4f", envelopeScore))")
 
-        // Method 2: RMS comparison (energy/loudness)
+        // Method 2: RMS comparison (energy/loudness) - USE PROPER PEARSON CORRELATION
         let rms1 = calculateRMSWindows(array1)
         let rms2 = calculateRMSWindows(array2)
 
         guard rms1.count == rms2.count, !rms1.isEmpty else {
             print("📊 [DEBUG] RMS calculation failed, using envelope only")
             // Fallback to envelope only if RMS calculation fails
-            let scaledScore = pow(envelopeScore, 0.2)
-            let finalScore = Double(scaledScore) * 100.0
+            let clampedScore = max(0, min(1, envelopeScore))
+            let scaledScore = pow(clampedScore, 0.15)
+            let finalScore = Double(scaledScore) * 85.0 + 15.0
             print("📊 [DEBUG] Final score (envelope only): \(String(format: "%.1f", finalScore))")
-            return finalScore
+            return max(0, min(100, finalScore))
         }
 
-        var rmsCorrelation: Float = 0.0
-        vDSP_dotpr(rms1, 1, rms2, 1, &rmsCorrelation, vDSP_Length(rms1.count))
-        let rmsScore = abs(rmsCorrelation / Float(rms1.count))
+        let rmsScore = pearsonCorrelation(rms1, rms2)
 
-        print("📊 [DEBUG] RMS correlation: \(String(format: "%.4f", rmsScore))")
+        print("📊 [DEBUG] RMS Pearson correlation: \(String(format: "%.4f", rmsScore))")
 
         // Combine both methods (75% envelope for shape, 25% energy - envelope more important for reversed audio)
         let combinedScore = (envelopeScore * 0.75) + (rmsScore * 0.25)
 
         print("📊 [DEBUG] Combined score (75/25): \(String(format: "%.4f", combinedScore))")
 
+        // Clamp to [0, 1] range before scaling
+        let clampedScore = max(0, min(1, combinedScore))
+
         // Apply ULTRA forgiving non-linear scaling (x^0.15 for maximum encouragement)
-        // Examples with baseline: 30% → 68, 40% → 74, 50% → 79, 60% → 83, 70% → 87, 80% → 90
-        let scaledSimilarity = pow(combinedScore, 0.15)
+        let scaledSimilarity = pow(clampedScore, 0.15)
 
         print("📊 [DEBUG] After x^0.15 scaling: \(String(format: "%.4f", scaledSimilarity))")
 
@@ -255,6 +254,50 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
         print("📊 [DEBUG] Final score (with baseline): \(String(format: "%.1f", score))")
 
         return max(0, min(100, score))
+    }
+
+    /// Calculate Pearson correlation coefficient (proper correlation, not just dot product)
+    /// Returns value between -1 (inverse correlation) and 1 (perfect correlation)
+    nonisolated private func pearsonCorrelation(_ x: [Float], _ y: [Float]) -> Float {
+        guard x.count == y.count, !x.isEmpty else { return 0.0 }
+
+        let n = Float(x.count)
+
+        // Calculate means
+        var meanX: Float = 0.0
+        var meanY: Float = 0.0
+        vDSP_meanv(x, 1, &meanX, vDSP_Length(x.count))
+        vDSP_meanv(y, 1, &meanY, vDSP_Length(y.count))
+
+        // Center the data (subtract mean)
+        var centeredX = [Float](repeating: 0, count: x.count)
+        var centeredY = [Float](repeating: 0, count: y.count)
+        var negativeMeanX = -meanX
+        var negativeMeanY = -meanY
+        vDSP_vsadd(x, 1, &negativeMeanX, &centeredX, 1, vDSP_Length(x.count))
+        vDSP_vsadd(y, 1, &negativeMeanY, &centeredY, 1, vDSP_Length(y.count))
+
+        // Calculate covariance (sum of products)
+        var covariance: Float = 0.0
+        vDSP_dotpr(centeredX, 1, centeredY, 1, &covariance, vDSP_Length(x.count))
+
+        // Calculate standard deviations
+        var sumSquaredX: Float = 0.0
+        var sumSquaredY: Float = 0.0
+        vDSP_dotpr(centeredX, 1, centeredX, 1, &sumSquaredX, vDSP_Length(x.count))
+        vDSP_dotpr(centeredY, 1, centeredY, 1, &sumSquaredY, vDSP_Length(y.count))
+
+        let stdX = sqrt(sumSquaredX)
+        let stdY = sqrt(sumSquaredY)
+
+        // Avoid division by zero
+        guard stdX > 0, stdY > 0 else { return 0.0 }
+
+        // Pearson correlation coefficient
+        let correlation = covariance / (stdX * stdY)
+
+        // Return absolute value (we care about similarity, not direction)
+        return abs(correlation)
     }
 
     // MARK: - Synchronous Helper (for backwards compatibility)
