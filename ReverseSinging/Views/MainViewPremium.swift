@@ -11,6 +11,7 @@ struct MainViewPremium: View {
     @StateObject private var viewModel = AudioViewModel()
     @State private var showSuccessToast = false
     @State private var showCelebration = false
+    @State private var displayedTip: String = ""
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
@@ -93,16 +94,25 @@ struct MainViewPremium: View {
                 }
             }
             .overlay(alignment: .bottom) {
-                if viewModel.appState.currentSession?.attemptRecording != nil {
-                    tipText("Practice makes perfect - record as many attempts as you need")
+                if let tip = currentTip, !tip.isEmpty {
+                    tipText(tip)
+                        .id(displayedTip)  // Force re-creation for animation
                         .padding(.horizontal, 24)
                         .padding(.bottom, 16)
                         .background(
                             Color.rsBackground
                                 .ignoresSafeArea(edges: .bottom)
                         )
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                        .transition(.opacity.combined(with: .move(edge: .bottom)))
                 }
+            }
+            .onChange(of: currentTip) { _, newTip in
+                withAnimation(.rsSpring) {
+                    displayedTip = newTip ?? ""
+                }
+            }
+            .onAppear {
+                displayedTip = currentTip ?? ""
             }
             .sheet(isPresented: $viewModel.showSessionList) {
                 SessionListView(viewModel: viewModel)
@@ -208,6 +218,31 @@ struct MainViewPremium: View {
             return .playing
         default:
             return .idle
+        }
+    }
+
+    // MARK: - Dynamic Tip Text
+
+    private var currentTip: String? {
+        guard let session = viewModel.appState.currentSession else {
+            return "Tap Record Audio to begin your reverse singing challenge"
+        }
+
+        // Hide tips during recording or playing
+        if case .recording = viewModel.appState.recordingState {
+            return nil
+        }
+        if case .playing = viewModel.appState.recordingState {
+            return nil
+        }
+
+        // Step-based tips
+        if session.attemptRecording != nil {
+            return "Tap Re-record to improve your attempt, or New Session to record a new song"
+        } else if session.reversedRecording != nil {
+            return "Listen to the reversed audio, then record your singing attempt"
+        } else {
+            return nil  // Hide during auto-reverse processing
         }
     }
 
@@ -373,6 +408,7 @@ struct MainViewPremium: View {
             // ScoreCard (shown when score is available)
             if let score = viewModel.appState.similarityScore, !isRecording {
                 ScoreCard(score: score)
+                    .frame(maxWidth: .infinity)
             }
 
             // Bottom buttons: Re-record and Start New Session (both compact)
@@ -390,7 +426,7 @@ struct MainViewPremium: View {
                 }
 
                 CompactButton(
-                    title: "Start New Session",
+                    title: "New Session",
                     icon: "plus.circle.fill",
                     action: { viewModel.startNewSession() }
                 )
