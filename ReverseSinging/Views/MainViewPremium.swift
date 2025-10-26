@@ -335,8 +335,8 @@ struct MainViewPremium: View {
                 )
             }
 
-            // Play Original | Play Reversed (shown when reversed exists but no attempt yet)
-            if session?.reversedRecording != nil && session?.attemptRecording == nil && !isRecording && !isPlaying {
+            // Play Original | Play Reversed (always shown when reversed exists)
+            if session?.reversedRecording != nil && !isRecording {
                 HStack(spacing: 12) {
                     BigButton(
                         title: "Play Original",
@@ -347,7 +347,9 @@ struct MainViewPremium: View {
                                 viewModel.playRecording(original)
                             }
                         },
-                        style: .secondary
+                        isEnabled: !isPlaying,
+                        style: .secondary,
+                        textFont: .rsButtonSmall
                     )
 
                     BigButton(
@@ -359,7 +361,9 @@ struct MainViewPremium: View {
                                 viewModel.playRecording(reversed)
                             }
                         },
-                        style: .secondary
+                        isEnabled: !isPlaying,
+                        style: .secondary,
+                        textFont: .rsButtonSmall
                     )
                 }
             }
