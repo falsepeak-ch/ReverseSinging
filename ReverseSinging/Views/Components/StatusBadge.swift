@@ -13,7 +13,7 @@ struct StatusBadge: View {
     let color: Color
     let isActive: Bool
 
-    init(title: String, icon: String, color: Color = .rsGold, isActive: Bool = false) {
+    init(title: String, icon: String, color: Color = .rsTurquoise, isActive: Bool = false) {
         self.title = title
         self.icon = icon
         self.color = color

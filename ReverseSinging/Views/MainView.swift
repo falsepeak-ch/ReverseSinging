@@ -83,7 +83,7 @@ struct MainView: View {
             Button(action: { viewModel.showSessionList = true }) {
                 Image(systemName: "list.bullet")
                     .font(.rsHeadingMedium)
-                    .foregroundColor(.rsGold)
+                    .foregroundColor(.rsTurquoise)
             }
         }
     }
@@ -205,7 +205,7 @@ struct MainView: View {
 
                     Text(String(format: "%.1fx", viewModel.appState.playbackSpeed))
                         .font(.rsBodyMedium)
-                        .foregroundColor(.rsGold)
+                        .foregroundColor(.rsTurquoise)
                         .monospacedDigit()
                 }
 
@@ -217,7 +217,7 @@ struct MainView: View {
                     in: 0.5...2.0,
                     step: 0.1
                 )
-                .tint(.rsGold)
+                .tint(.rsTurquoise)
             }
 
             // Loop toggle
@@ -229,7 +229,7 @@ struct MainView: View {
                     Text(viewModel.appState.isLooping ? "Loop: On" : "Loop: Off")
                         .font(.rsBodyMedium)
                 }
-                .foregroundColor(viewModel.appState.isLooping ? .rsGold : .rsSecondaryText)
+                .foregroundColor(viewModel.appState.isLooping ? .rsTurquoise : .rsSecondaryText)
             }
         }
         .padding()
@@ -371,7 +371,7 @@ struct MainView: View {
                         Text("New Session")
                     }
                     .font(.rsBodyMedium)
-                    .foregroundColor(.rsGold)
+                    .foregroundColor(.rsTurquoise)
                 }
             }
         }

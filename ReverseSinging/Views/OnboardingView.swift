@@ -51,7 +51,7 @@ struct OnboardingView: View {
                 HStack(spacing: 8) {
                     ForEach(0..<pages.count, id: \.self) { index in
                         Capsule()
-                            .fill(index == currentPage ? LinearGradient.voxxaPrimary : LinearGradient(colors: [Color.gray.opacity(0.3), Color.gray.opacity(0.3)], startPoint: .leading, endPoint: .trailing))
+                            .fill(index == currentPage ? LinearGradient(colors: [Color.rsTurquoise, Color.rsTurquoise], startPoint: .leading, endPoint: .trailing) : LinearGradient(colors: [Color.gray.opacity(0.3), Color.gray.opacity(0.3)], startPoint: .leading, endPoint: .trailing))
                             .frame(width: index == currentPage ? 32 : 8, height: 8)
                             .animation(.rsSpring, value: currentPage)
                     }
@@ -64,7 +64,7 @@ struct OnboardingView: View {
                         BigButton(
                             title: "yes, let's record!",
                             icon: "arrow.right",
-                            color: .rsGradientCyan,
+                            color: .rsTurquoise,
                             action: {
                                 withAnimation(.rsSpring) {
                                     viewModel.completeOnboarding()
@@ -80,7 +80,7 @@ struct OnboardingView: View {
                         BigButton(
                             title: "continue",
                             icon: "arrow.right",
-                            color: .rsGradientCyan,
+                            color: .rsTurquoise,
                             action: nextPage,
                             style: .primary
                         )

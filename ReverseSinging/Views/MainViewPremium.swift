@@ -149,7 +149,7 @@ struct MainViewPremium: View {
             Button(action: { viewModel.showSessionList = true }) {
                 Image(systemName: "archivebox")
                     .font(.rsHeadingSmall)
-                    .foregroundColor(.rsGradientCyan)
+                    .foregroundColor(.rsTurquoise)
             }
         }
     }

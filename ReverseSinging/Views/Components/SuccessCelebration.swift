@@ -18,7 +18,7 @@ struct SuccessCelebration: View {
             // Particles
             ForEach(0..<12) { index in
                 Circle()
-                    .fill(Color.rsGold)
+                    .fill(Color.rsTurquoise)
                     .frame(width: 8, height: 8)
                     .offset(particleOffset(for: index))
                     .opacity(particlesOpacity)
@@ -27,14 +27,14 @@ struct SuccessCelebration: View {
 
             // Success circle
             Circle()
-                .fill(Color.rsGold)
+                .fill(Color.rsTurquoise)
                 .frame(width: 80, height: 80)
                 .scaleEffect(scale)
 
             // Checkmark
             Image(systemName: "checkmark")
                 .font(.system(size: 40, weight: .bold))
-                .foregroundColor(.rsTextOnGold)
+                .foregroundColor(.rsTextOnTurquoise)
                 .scaleEffect(checkmarkScale)
                 .rotationEffect(.degrees(rotation))
         }

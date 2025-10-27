@@ -18,7 +18,7 @@ struct ProcessingIndicator: View {
                 // Background circles
                 ForEach(0..<3) { index in
                     Circle()
-                        .stroke(Color.rsGold.opacity(0.2), lineWidth: 2)
+                        .stroke(Color.rsTurquoise.opacity(0.2), lineWidth: 2)
                         .frame(width: 60 + CGFloat(index * 20), height: 60 + CGFloat(index * 20))
                         .scaleEffect(isAnimating ? 1.2 : 0.8)
                         .opacity(isAnimating ? 0 : 0.5)
@@ -33,7 +33,7 @@ struct ProcessingIndicator: View {
                 // Center icon
                 Image(systemName: "arrow.triangle.2.circlepath")
                     .font(.system(size: 32, weight: .medium))
-                    .foregroundColor(.rsGold)
+                    .foregroundColor(.rsTurquoise)
                     .rotationEffect(.degrees(isAnimating ? 360 : 0))
                     .animation(
                         .linear(duration: 2.0)
@@ -72,7 +72,7 @@ struct CompactProcessingIndicator: View {
         HStack(spacing: 12) {
             Image(systemName: "arrow.triangle.2.circlepath")
                 .font(.rsBodyMedium)
-                .foregroundColor(.rsGold)
+                .foregroundColor(.rsTurquoise)
                 .rotationEffect(.degrees(isRotating ? 360 : 0))
                 .animation(
                     .linear(duration: 1.5)
@@ -89,7 +89,7 @@ struct CompactProcessingIndicator: View {
         .padding(.vertical, 10)
         .background(
             Capsule()
-                .fill(Color.rsGold.opacity(0.1))
+                .fill(Color.rsTurquoise.opacity(0.1))
         )
     }
 }

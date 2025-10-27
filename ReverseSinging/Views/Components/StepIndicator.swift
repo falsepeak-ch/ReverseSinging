@@ -57,14 +57,14 @@ struct StepIndicator: View {
             } else if step == currentStep {
                 // Current step - gold pulsing
                 Circle()
-                    .fill(Color.rsGold)
+                    .fill(Color.rsTurquoise)
                     .frame(width: 32, height: 32)
                     .scaleEffect(1.1)
-                    .pulse(color: .rsGold)
+                    .pulse(color: .rsTurquoise)
 
                 Text("\(step)")
                     .font(.system(size: 16, weight: .bold, design: .rounded))
-                    .foregroundColor(.rsTextOnGold)
+                    .foregroundColor(.rsTextOnTurquoise)
             } else {
                 // Future step - gray
                 Circle()
@@ -106,7 +106,7 @@ struct CompactStepIndicator: View {
         } else if step == currentStep {
             // Current
             Circle()
-                .fill(Color.rsGold)
+                .fill(Color.rsTurquoise)
                 .frame(width: 10, height: 10)
         } else {
             // Future

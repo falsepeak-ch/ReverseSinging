@@ -21,7 +21,7 @@ struct PracticeModeCard: View {
             HStack {
                 Image(systemName: "headphones")
                     .font(.rsHeadingSmall)
-                    .foregroundColor(.rsGold)
+                    .foregroundColor(.rsTurquoise)
 
                 Text("Practice Mode")
                     .font(.rsHeadingSmall)
@@ -42,7 +42,7 @@ struct PracticeModeCard: View {
                 HStack(spacing: 8) {
                     ForEach(0..<maxDots, id: \.self) { index in
                         Circle()
-                            .fill(index < listenCount ? Color.rsGold : Color.rsSecondaryText.opacity(0.2))
+                            .fill(index < listenCount ? Color.rsTurquoise : Color.rsSecondaryText.opacity(0.2))
                             .frame(width: 12, height: 12)
                             .scaleEffect(index < listenCount ? 1.0 : 0.8)
                             .animation(.rsSpring.delay(Double(index) * 0.05), value: listenCount)
@@ -81,7 +81,7 @@ struct PracticeModeCard: View {
                     BigButton(
                         title: "Record Attempt",
                         icon: "mic.fill",
-                        color: .rsGold,
+                        color: .rsTurquoise,
                         action: onRecord,
                         style: .primary
                     )
@@ -92,7 +92,7 @@ struct PracticeModeCard: View {
                 // Encouragement
                 Text("💡 Tip: Listen at least \(recommendedListens)x to improve your chances!")
                     .font(.rsCaption)
-                    .foregroundColor(.rsGold)
+                    .foregroundColor(.rsTurquoise)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 8)
                     .transition(.opacity)
@@ -118,7 +118,7 @@ struct CompactPracticeModeBar: View {
         HStack {
             Image(systemName: "headphones")
                 .font(.rsBodyMedium)
-                .foregroundColor(.rsGold)
+                .foregroundColor(.rsTurquoise)
 
             Text("Listened \(listenCount)x")
                 .font(.rsBodyMedium)

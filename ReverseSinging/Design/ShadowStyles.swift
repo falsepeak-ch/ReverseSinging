@@ -170,7 +170,7 @@ struct GradientCircleBackground: ViewModifier {
             Circle()
                 .fill(gradient)
                 .frame(width: size, height: size)
-                .shadow(color: Color.rsGradientPurple.opacity(0.3), radius: 30, x: 0, y: 15)
+                .shadow(color: Color.rsTurquoise.opacity(0.3), radius: 30, x: 0, y: 15)
 
             // Icon content
             content

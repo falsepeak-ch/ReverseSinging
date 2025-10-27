@@ -7,79 +7,13 @@
       "layers" : [
         {
           "glass" : false,
-          "hidden" : false,
-          "image-name" : "icon 4.png",
-          "name" : "icon 4",
+          "image-name" : "mic-icon.png",
+          "name" : "mic-icon",
           "position" : {
-            "scale" : 0.93,
+            "scale" : 0.99,
             "translation-in-points" : [
-              0,
-              0
-            ]
-          }
-        },
-        {
-          "glass" : false,
-          "hidden" : false,
-          "image-name" : "icon 3 2.png",
-          "name" : "icon 3 2",
-          "position" : {
-            "scale" : 1.1500000000000001,
-            "translation-in-points" : [
-              0,
-              0
-            ]
-          }
-        },
-        {
-          "glass" : false,
-          "hidden" : true,
-          "image-name" : "icon 3.png",
-          "name" : "icon 3",
-          "position" : {
-            "scale" : 1.1500000000000001,
-            "translation-in-points" : [
-              0,
-              0
-            ]
-          }
-        },
-        {
-          "glass" : false,
-          "hidden" : true,
-          "image-name" : "image.png",
-          "name" : "image",
-          "position" : {
-            "scale" : 1.1300000000000001,
-            "translation-in-points" : [
-              0,
-              0
-            ]
-          }
-        },
-        {
-          "glass" : false,
-          "hidden" : true,
-          "image-name" : "icon 2.png",
-          "name" : "icon 2",
-          "position" : {
-            "scale" : 1.03,
-            "translation-in-points" : [
-              -1.6484375,
-              6.8671875
-            ]
-          }
-        },
-        {
-          "glass" : false,
-          "hidden" : true,
-          "image-name" : "icon mic.png",
-          "name" : "icon mic",
-          "position" : {
-            "scale" : 1,
-            "translation-in-points" : [
-              0,
-              -0.0078125
+              -24.5,
+              2.015625
             ]
           }
         }
@@ -94,30 +28,11 @@
       }
     },
     {
-      "hidden" : true,
+      "hidden" : false,
       "layers" : [
         {
-          "glass" : false,
-          "image-name" : "Group 2.png",
-          "name" : "Group 2"
-        }
-      ],
-      "shadow" : {
-        "kind" : "neutral",
-        "opacity" : 0.5
-      },
-      "specular" : true,
-      "translucency" : {
-        "enabled" : true,
-        "value" : 0.5
-      }
-    },
-    {
-      "hidden" : true,
-      "layers" : [
-        {
-          "image-name" : "Frame 2.png",
-          "name" : "Frame 2"
+          "image-name" : "background.png",
+          "name" : "background"
         }
       ],
       "shadow" : {

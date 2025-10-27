@@ -184,11 +184,11 @@ struct TimerCard: View {
         case .idle:
             return .rsCardBackground
         case .recording:
-            return .rsGradientPink  // Pink for recording
+            return .rsRed  // Red for recording
         case .playing:
-            return .rsGradientPurple  // Purple for playing
+            return .rsTurquoise  // Turquoise for playing
         case .processing:
-            return .rsGradientBlue  // Blue for processing
+            return .rsTurquoise  // Turquoise for processing
         }
     }
 
@@ -196,18 +196,20 @@ struct TimerCard: View {
         switch state {
         case .idle:
             return .rsText
-        case .recording, .playing, .processing:
-            return .white  // Always white on gradient backgrounds
+        case .recording:
+            return .rsTextOnRed  // White on red
+        case .playing, .processing:
+            return .rsTextOnTurquoise  // White on turquoise
         }
     }
 
     private var controlColor: Color {
-        // Controls use cyan/purple gradient colors
+        // Controls use turquoise/red colors
         switch state {
         case .playing:
-            return .rsGradientCyan
+            return .rsTurquoise
         default:
-            return .rsGradientPurple
+            return .rsTurquoise
         }
     }
 
@@ -271,11 +273,11 @@ struct CompactTimerCard: View {
         case .idle:
             return .rsCardBackground
         case .recording:
-            return .rsGradientPink
+            return .rsRed
         case .playing:
-            return .rsGradientPurple
+            return .rsTurquoise
         case .processing:
-            return .rsGradientBlue
+            return .rsTurquoise
         }
     }
 
@@ -283,8 +285,10 @@ struct CompactTimerCard: View {
         switch state {
         case .idle:
             return .rsText
-        case .recording, .playing, .processing:
-            return .white
+        case .recording:
+            return .rsTextOnRed
+        case .playing, .processing:
+            return .rsTextOnTurquoise
         }
     }
 

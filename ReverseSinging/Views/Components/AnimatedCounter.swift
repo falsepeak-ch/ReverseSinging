@@ -78,10 +78,10 @@ struct CompactAnimatedCounter: View {
         AnimatedCounter(
             value: 125.0,
             font: .rsTimerLarge,
-            color: .rsTextOnGold
+            color: .rsTextOnTurquoise
         )
         .padding()
-        .background(Color.rsGold)
+        .background(Color.rsTurquoise)
         .clipShape(RoundedRectangle(cornerRadius: 20))
 
         CompactAnimatedCounter(

@@ -2,7 +2,7 @@
 //  BigButton.swift
 //  ReverseSinging
 //
-//  Voxxa-inspired gradient pill buttons
+//  Icon-inspired solid color pill buttons
 //
 
 import SwiftUI
@@ -21,9 +21,9 @@ struct BigButton: View {
     var iconFont: Font? = nil  // Optional custom font for icon
 
     enum ButtonStyle {
-        case primary    // Gradient background (Voxxa-style)
-        case secondary  // Dark gray background
-        case destructive // Red/pink background
+        case primary    // Turquoise solid background
+        case secondary  // Charcoal/Cream background
+        case destructive // Red solid background
     }
 
     @State private var isPressed = false
@@ -71,10 +71,11 @@ struct BigButton: View {
         } else {
             switch style {
             case .primary:
-                // Premium adaptive gradient
-                LinearGradient.voxxaPrimaryAdaptive(for: colorScheme)
+                // Turquoise solid background
+                Color.rsTurquoise
             case .secondary:
-                Color.rsSecondaryBackground
+                // Charcoal in dark mode, cream in light mode
+                Color.rsButtonSecondaryAdaptive(for: colorScheme)
             case .destructive:
                 Color.rsButtonDestructive
             }
@@ -88,11 +89,12 @@ struct BigButton: View {
 
         switch style {
         case .primary:
-            return .white  // Always white on gradients
+            return .rsTextOnTurquoise  // White on turquoise
         case .secondary:
-            return .rsText
+            // White in dark mode, charcoal in light mode
+            return Color.rsTextAdaptive(for: colorScheme)
         case .destructive:
-            return .white
+            return .rsTextOnRed  // White on red
         }
     }
 
@@ -103,14 +105,14 @@ struct BigButton: View {
 
         switch style {
         case .primary:
-            // Premium adaptive shadow with richer purple glow
+            // Turquoise glow in both modes
             return colorScheme == .dark
-                ? Color(red: 0.58, green: 0.40, blue: 0.92).opacity(0.5)  // Deep purple glow in dark mode
-                : Color(red: 0.48, green: 0.25, blue: 0.82).opacity(0.3)  // Subtle shadow in light mode
+                ? Color.rsTurquoise.opacity(0.5)  // Bright turquoise glow in dark mode
+                : Color.rsTurquoise.opacity(0.3)  // Subtle turquoise shadow in light mode
         case .secondary:
             return Color.black.opacity(0.2)
         case .destructive:
-            return Color.rsError.opacity(0.4)
+            return Color.rsRed.opacity(0.4)
         }
     }
 }
@@ -121,7 +123,7 @@ struct CompactButton: View {
     let title: String
     let icon: String
     let action: () -> Void
-    var color: Color = .rsGradientCyan
+    var color: Color = .rsTurquoise
 
     @State private var isPressed = false
 
@@ -169,7 +171,7 @@ struct PressButtonStyle: ButtonStyle {
         BigButton(
             title: "yes, let's record!",
             icon: "arrow.right",
-            color: .rsGradientCyan,  // Ignored for primary
+            color: .rsTurquoise,  // Ignored for primary
             action: {},
             style: .primary
         )
@@ -177,7 +179,7 @@ struct PressButtonStyle: ButtonStyle {
         BigButton(
             title: "continue",
             icon: "arrow.right",
-            color: .rsGradientCyan,
+            color: .rsTurquoise,
             action: {},
             isLoading: true,
             style: .primary
@@ -186,7 +188,7 @@ struct PressButtonStyle: ButtonStyle {
         BigButton(
             title: "Import Audio",
             icon: "square.and.arrow.down",
-            color: .rsPlaying,
+            color: .rsTurquoise,
             action: {},
             style: .secondary
         )
@@ -194,7 +196,7 @@ struct PressButtonStyle: ButtonStyle {
         BigButton(
             title: "Delete Session",
             icon: "trash",
-            color: .rsError,
+            color: .rsRed,
             action: {},
             style: .destructive
         )

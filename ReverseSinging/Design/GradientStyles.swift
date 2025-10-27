@@ -2,143 +2,137 @@
 //  GradientStyles.swift
 //  ReverseSinging
 //
-//  Voxxa-inspired gradient design system
+//  Solid color design system (gradients deprecated)
+//  Icon-inspired retro microphone aesthetic
 //
 
 import SwiftUI
 
-extension LinearGradient {
-    // MARK: - Primary Gradients (Cyan → Purple)
+// MARK: - Solid Color Backgrounds (Replacing Gradients)
 
-    /// Main gradient: Cyan to Purple (like Voxxa buttons)
-    static let voxxaPrimary = LinearGradient(
-        colors: [
-            Color(red: 0.0, green: 0.85, blue: 1.0),    // Cyan #00D9FF
-            Color(red: 0.66, green: 0.33, blue: 0.97)   // Purple #A855F7
-        ],
-        startPoint: .leading,
-        endPoint: .trailing
-    )
-
-    // MARK: - Adaptive Premium Gradients
-
-    /// Premium adaptive button gradient with sophisticated color balance
-    static func voxxaPrimaryAdaptive(for colorScheme: ColorScheme) -> LinearGradient {
-        if colorScheme == .dark {
-            // Dark mode: Rich 3-color gradient for premium feel
-            return LinearGradient(
-                colors: [
-                    Color(red: 0.0, green: 0.75, blue: 0.95),   // Deep electric blue
-                    Color(red: 0.58, green: 0.40, blue: 0.92),  // Rich royal purple
-                    Color(red: 0.82, green: 0.32, blue: 0.88)   // Deep magenta accent
-                ],
-                startPoint: .leading,
-                endPoint: .trailing
-            )
-        } else {
-            // Light mode: Darker, saturated 2-color gradient
-            return LinearGradient(
-                colors: [
-                    Color(red: 0.0, green: 0.55, blue: 0.75),   // Deep cyan
-                    Color(red: 0.48, green: 0.25, blue: 0.82)   // Deep purple
-                ],
-                startPoint: .leading,
-                endPoint: .trailing
-            )
-        }
+extension View {
+    /// Apply turquoise solid background (replaces voxxaPrimary gradient)
+    func turquoiseSolidBackground() -> some View {
+        self.background(Color.rsTurquoise)
     }
 
-    /// Vertical primary gradient
-    static let voxxaPrimaryVertical = LinearGradient(
+    /// Apply red solid background (replaces recording gradient)
+    func redSolidBackground() -> some View {
+        self.background(Color.rsRed)
+    }
+
+    /// Apply adaptive card background (charcoal/cream)
+    func adaptiveCardBackground(for colorScheme: ColorScheme) -> some View {
+        self.background(Color.rsCardBackground(for: colorScheme))
+    }
+
+    /// Apply charcoal background for dark mode cards
+    func charcoalBackground() -> some View {
+        self.background(Color.rsCharcoal)
+    }
+
+    /// Apply cream background for light mode elements
+    func creamBackground() -> some View {
+        self.background(Color.rsCream)
+    }
+}
+
+// MARK: - Simple Background Gradient (Very Subtle Only)
+
+extension LinearGradient {
+    /// Very subtle background gradient (barely noticeable)
+    static let subtleBackground = LinearGradient(
         colors: [
-            Color(red: 0.0, green: 0.85, blue: 1.0),
-            Color(red: 0.66, green: 0.33, blue: 0.97)
-        ],
-        startPoint: .top,
-        endPoint: .bottom
-    )
-
-    // MARK: - Secondary Gradients (Blue → Pink)
-
-    /// Secondary gradient: Blue to Pink
-    static let voxxaSecondary = LinearGradient(
-        colors: [
-            Color(red: 0.23, green: 0.51, blue: 0.96),  // Blue #3B82F6
-            Color(red: 0.93, green: 0.28, blue: 0.60)   // Pink #EC4899
-        ],
-        startPoint: .leading,
-        endPoint: .trailing
-    )
-
-    /// Vertical secondary gradient
-    static let voxxaSecondaryVertical = LinearGradient(
-        colors: [
-            Color(red: 0.23, green: 0.51, blue: 0.96),
-            Color(red: 0.93, green: 0.28, blue: 0.60)
-        ],
-        startPoint: .top,
-        endPoint: .bottom
-    )
-
-    // MARK: - Icon Background Gradients
-
-    /// Large circular icon background (diagonal)
-    static let voxxaIconCircle = LinearGradient(
-        colors: [
-            Color(red: 0.4, green: 0.6, blue: 0.9),     // Light blue
-            Color(red: 0.7, green: 0.5, blue: 0.9)      // Light purple
-        ],
-        startPoint: .topLeading,
-        endPoint: .bottomTrailing
-    )
-
-    /// Microphone icon gradient
-    static let voxxaMicrophone = LinearGradient(
-        colors: [
-            Color(red: 0.5, green: 0.7, blue: 1.0),     // Sky blue
-            Color(red: 0.8, green: 0.5, blue: 0.95)     // Lavender
-        ],
-        startPoint: .topLeading,
-        endPoint: .bottomTrailing
-    )
-
-    /// Recording state gradient (more intense)
-    static let voxxaRecording = LinearGradient(
-        colors: [
-            Color(red: 0.0, green: 0.85, blue: 1.0),    // Cyan
-            Color(red: 0.93, green: 0.28, blue: 0.60)   // Pink
-        ],
-        startPoint: .topLeading,
-        endPoint: .bottomTrailing
-    )
-
-    // MARK: - Subtle Gradients
-
-    /// Very subtle background gradient
-    static let voxxaBackgroundSubtle = LinearGradient(
-        colors: [
-            Color(red: 0.04, green: 0.04, blue: 0.06),  // Very dark blue-black
+            Color(red: 0.04, green: 0.04, blue: 0.06),  // Very dark
             Color(red: 0.02, green: 0.02, blue: 0.04)   // Pure black
         ],
         startPoint: .top,
         endPoint: .bottom
     )
 
-    /// Card overlay gradient (for glassmorphism)
-    static let voxxaGlassOverlay = LinearGradient(
+    /// Subtle glass overlay (for glassmorphism effects)
+    static let glassOverlay = LinearGradient(
         colors: [
-            Color.white.opacity(0.1),
-            Color.white.opacity(0.05)
+            Color.white.opacity(0.08),
+            Color.white.opacity(0.03)
         ],
         startPoint: .topLeading,
         endPoint: .bottomTrailing
     )
 }
 
-// MARK: - Radial Gradients
+// MARK: - Deprecated Gradient Functions (Use Solid Colors Instead)
+
+extension LinearGradient {
+    @available(*, deprecated, message: "Use Color.rsTurquoise solid background instead")
+    static let voxxaPrimary = LinearGradient(
+        colors: [Color.rsTurquoise, Color.rsTurquoise],
+        startPoint: .leading,
+        endPoint: .trailing
+    )
+
+    @available(*, deprecated, message: "Use Color.rsTurquoise solid background instead")
+    static func voxxaPrimaryAdaptive(for colorScheme: ColorScheme) -> LinearGradient {
+        return LinearGradient(
+            colors: [Color.rsTurquoise, Color.rsTurquoise],
+            startPoint: .leading,
+            endPoint: .trailing
+        )
+    }
+
+    @available(*, deprecated, message: "Use Color.rsTurquoise solid background instead")
+    static let voxxaPrimaryVertical = LinearGradient(
+        colors: [Color.rsTurquoise, Color.rsTurquoise],
+        startPoint: .top,
+        endPoint: .bottom
+    )
+
+    @available(*, deprecated, message: "Use Color.rsRed solid background instead")
+    static let voxxaSecondary = LinearGradient(
+        colors: [Color.rsRed, Color.rsRed],
+        startPoint: .leading,
+        endPoint: .trailing
+    )
+
+    @available(*, deprecated, message: "Use Color.rsRed solid background instead")
+    static let voxxaSecondaryVertical = LinearGradient(
+        colors: [Color.rsRed, Color.rsRed],
+        startPoint: .top,
+        endPoint: .bottom
+    )
+
+    @available(*, deprecated, message: "Use Color.rsTurquoise solid background instead")
+    static let voxxaIconCircle = LinearGradient(
+        colors: [Color.rsTurquoise, Color.rsTurquoise],
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
+    )
+
+    @available(*, deprecated, message: "Use Color.rsTurquoise solid background instead")
+    static let voxxaMicrophone = LinearGradient(
+        colors: [Color.rsTurquoise, Color.rsTurquoise],
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
+    )
+
+    @available(*, deprecated, message: "Use Color.rsRed solid background instead")
+    static let voxxaRecording = LinearGradient(
+        colors: [Color.rsRed, Color.rsRed],
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
+    )
+
+    @available(*, deprecated, message: "Use LinearGradient.subtleBackground if needed")
+    static let voxxaBackgroundSubtle = LinearGradient.subtleBackground
+
+    @available(*, deprecated, message: "Use LinearGradient.glassOverlay if needed")
+    static let voxxaGlassOverlay = LinearGradient.glassOverlay
+}
+
+// MARK: - Radial Gradients (Deprecated)
 
 extension RadialGradient {
-    /// Glowing effect for icons
+    @available(*, deprecated, message: "Use simple solid color shadows instead")
     static func voxxaGlow(color: Color) -> RadialGradient {
         RadialGradient(
             colors: [
@@ -151,10 +145,10 @@ extension RadialGradient {
         )
     }
 
-    /// Icon background with center glow
+    @available(*, deprecated, message: "Use simple solid color shadows instead")
     static let voxxaIconGlow = RadialGradient(
         colors: [
-            Color(red: 0.66, green: 0.33, blue: 0.97).opacity(0.3),
+            Color.rsTurquoise.opacity(0.3),
             Color.clear
         ],
         center: .center,
@@ -163,17 +157,35 @@ extension RadialGradient {
     )
 }
 
-// MARK: - Gradient View Modifiers
+// MARK: - View Modifiers (Updated for Solid Colors)
 
 extension View {
-    /// Apply Voxxa primary gradient as foreground
-    func voxxaGradientForeground() -> some View {
-        self.overlay(LinearGradient.voxxaPrimary)
-            .mask(self)
+    /// Apply turquoise foreground color (replaces gradient foreground)
+    func turquoiseForeground() -> some View {
+        self.foregroundColor(.rsTurquoise)
     }
 
-    /// Apply gradient glow effect
-    func voxxaGlow(color: Color = Color(red: 0.66, green: 0.33, blue: 0.97)) -> some View {
+    /// Apply glow effect with turquoise color
+    func turquoiseGlow() -> some View {
+        self
+            .shadow(color: Color.rsTurquoise.opacity(0.5), radius: 20, x: 0, y: 10)
+            .shadow(color: Color.rsTurquoise.opacity(0.3), radius: 10, x: 0, y: 5)
+    }
+
+    /// Apply glow effect with red color
+    func redGlow() -> some View {
+        self
+            .shadow(color: Color.rsRed.opacity(0.5), radius: 20, x: 0, y: 10)
+            .shadow(color: Color.rsRed.opacity(0.3), radius: 10, x: 0, y: 5)
+    }
+
+    @available(*, deprecated, message: "Use turquoiseForeground() instead")
+    func voxxaGradientForeground() -> some View {
+        self.foregroundColor(.rsTurquoise)
+    }
+
+    @available(*, deprecated, message: "Use turquoiseGlow() or redGlow() instead")
+    func voxxaGlow(color: Color = Color.rsTurquoise) -> some View {
         self
             .shadow(color: color.opacity(0.5), radius: 20, x: 0, y: 10)
             .shadow(color: color.opacity(0.3), radius: 10, x: 0, y: 5)

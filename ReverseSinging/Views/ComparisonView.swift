@@ -46,7 +46,7 @@ struct ComparisonView: View {
                     Button("Close") {
                         dismiss()
                     }
-                    .foregroundColor(.rsGold)
+                    .foregroundColor(.rsTurquoise)
                 }
             }
         }
@@ -64,7 +64,7 @@ struct ComparisonView: View {
             // Similarity percentage
             Text("\(Int(similarityScore))%")
                 .font(.system(size: 64, weight: .bold, design: .rounded))
-                .foregroundColor(.rsGold)
+                .foregroundColor(.rsTurquoise)
                 .monospacedDigit()
 
             // Score message
@@ -147,7 +147,7 @@ struct ComparisonView: View {
                 BigButton(
                     title: "Play Your Try",
                     icon: "waveform.circle.fill",
-                    color: .rsGold,
+                    color: .rsTurquoise,
                     action: {
                         viewModel.playRecording(reversedAttempt)
                     },
@@ -193,7 +193,7 @@ struct ComparisonView: View {
             BigButton(
                 title: "Try Again",
                 icon: "arrow.counterclockwise",
-                color: .rsGold,
+                color: .rsTurquoise,
                 action: {
                     viewModel.reRecordAttempt()
                     dismiss()
@@ -221,7 +221,7 @@ struct ComparisonView: View {
         if similarityScore >= 90 {
             return .yellow
         } else if similarityScore >= 70 {
-            return .rsGold
+            return .rsTurquoise
         } else if similarityScore >= 50 {
             return .blue
         } else {

@@ -90,6 +90,7 @@
 			);
 			name = ReverseSinging;
 			packageProductDependencies = (
+				FF3C44EB2EAF8B000055F61C /* FirebaseCore */,
 			);
 			productName = ReverseSinging;
 			productReference = FFA267C62EA6B026008518FC /* ReverseSinging.app */;
@@ -146,6 +147,9 @@
 			);
 			mainGroup = FFA267BD2EA6B026008518FC;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FFA267C72EA6B026008518FC /* Products */;
 			projectDirPath = "";
@@ -472,6 +476,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FF3C44EB2EAF8B000055F61C /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FFA267BE2EA6B026008518FC /* Project object */;
 }
