@@ -12,6 +12,7 @@ struct TimerCard: View {
     let deviceName: String?
     let isRecording: Bool
     let state: TimerState
+    @Environment(\.colorScheme) var colorScheme
 
     // Play button callbacks and recordings
     var onPlayOriginal: (() -> Void)?
@@ -182,7 +183,7 @@ struct TimerCard: View {
     private var backgroundColor: Color {
         switch state {
         case .idle:
-            return .rsCardBackground
+            return Color.rsCardBackground(for: colorScheme)
         case .recording:
             return .rsRed  // Red for recording
         case .playing:
@@ -239,6 +240,7 @@ struct TimerCard: View {
 struct CompactTimerCard: View {
     let duration: TimeInterval
     let state: TimerCard.TimerState
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         HStack {
@@ -271,7 +273,7 @@ struct CompactTimerCard: View {
     private var backgroundColor: Color {
         switch state {
         case .idle:
-            return .rsCardBackground
+            return Color.rsCardBackground(for: colorScheme)
         case .recording:
             return .rsRed
         case .playing:

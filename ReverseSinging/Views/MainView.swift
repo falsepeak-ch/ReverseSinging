@@ -9,11 +9,12 @@ import SwiftUI
 
 struct MainView: View {
     @StateObject private var viewModel = AudioViewModel()
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.rsBackground.ignoresSafeArea()
+                Color.rsBackgroundAdaptive(for: colorScheme).ignoresSafeArea()
 
                 VStack(spacing: 24) {
                     // Header
@@ -69,13 +70,13 @@ struct MainView: View {
     private var headerView: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
-                Text("Reverse Singing")
+                Text("Reverso")
                     .font(.rsHeadingLarge)
-                    .foregroundColor(.rsText)
+                    .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
 
                 Text("Voice Flip")
                     .font(.rsBodyMedium)
-                    .foregroundColor(.rsSecondaryText)
+                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
             }
 
             Spacer()
@@ -119,11 +120,11 @@ struct MainView: View {
                     VStack(spacing: 8) {
                         Image(systemName: "waveform")
                             .font(.system(size: 40))
-                            .foregroundColor(.rsSecondaryText)
+                            .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
 
                         Text("Ready to record")
                             .font(.rsBodyMedium)
-                            .foregroundColor(.rsSecondaryText)
+                            .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
                     }
                 }
             }
@@ -144,7 +145,7 @@ struct MainView: View {
                         )
 
                         Image(systemName: "arrow.right")
-                            .foregroundColor(.rsSecondaryText)
+                            .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
 
                         statusBadge(
                             "Reversed",
@@ -153,7 +154,7 @@ struct MainView: View {
                         )
 
                         Image(systemName: "arrow.right")
-                            .foregroundColor(.rsSecondaryText)
+                            .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
 
                         statusBadge(
                             "Attempt",
@@ -199,7 +200,7 @@ struct MainView: View {
                 HStack {
                     Text("Speed")
                         .font(.rsBodyMedium)
-                        .foregroundColor(.rsText)
+                        .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
 
                     Spacer()
 

@@ -6,7 +6,34 @@
     {
       "layers" : [
         {
+          "blend-mode" : "darken",
           "glass" : false,
+          "image-name" : "Group 2.png",
+          "name" : "Group 2",
+          "position" : {
+            "scale" : 0.93,
+            "translation-in-points" : [
+              -38.8633634490775,
+              1.739507018168788
+            ]
+          }
+        },
+        {
+          "glass" : false,
+          "hidden" : true,
+          "image-name" : "Group.png",
+          "name" : "Group",
+          "position" : {
+            "scale" : 0.93,
+            "translation-in-points" : [
+              -41.601645161824976,
+              -1.3921384207156626
+            ]
+          }
+        },
+        {
+          "glass" : false,
+          "hidden" : true,
           "image-name" : "mic-icon.png",
           "name" : "mic-icon",
           "position" : {

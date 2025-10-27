@@ -11,6 +11,7 @@ struct ProcessingIndicator: View {
     let message: String
     @State private var isAnimating = false
     @State private var opacity: Double = 0
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         VStack(spacing: 20) {
@@ -45,13 +46,13 @@ struct ProcessingIndicator: View {
 
             Text(message)
                 .font(.rsBodyMedium)
-                .foregroundColor(.rsSecondaryText)
+                .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
                 .opacity(opacity)
         }
         .padding(40)
         .background(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(Color.rsCardBackground)
+                .fill(Color.rsCardBackground(for: colorScheme))
                 .cardShadow(.elevated)
         )
         .onAppear {
@@ -67,6 +68,7 @@ struct ProcessingIndicator: View {
 
 struct CompactProcessingIndicator: View {
     @State private var isRotating = false
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         HStack(spacing: 12) {
@@ -83,7 +85,7 @@ struct CompactProcessingIndicator: View {
 
             Text("Processing...")
                 .font(.rsBodyMedium)
-                .foregroundColor(.rsSecondaryText)
+                .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 10)

@@ -10,6 +10,7 @@ import SwiftUI
 struct StepIndicator: View {
     let currentStep: Int
     let totalSteps: Int = 3
+    @Environment(\.colorScheme) var colorScheme
 
     private let stepTitles = [
         "Record Audio",
@@ -22,7 +23,7 @@ struct StepIndicator: View {
             // Step title
             Text("Step \(currentStep)/\(totalSteps): \(stepTitles[currentStep - 1])")
                 .font(.rsBodyLarge)
-                .foregroundColor(.rsText)
+                .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
                 .animation(.rsSpring, value: currentStep)
 
             // Progress dots
@@ -36,7 +37,7 @@ struct StepIndicator: View {
         .padding(.horizontal, 24)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.rsCardBackground)
+                .fill(Color.rsCardBackground(for: colorScheme))
                 .cardShadow(.subtle)
         )
     }
@@ -74,7 +75,7 @@ struct StepIndicator: View {
 
                 Text("\(step)")
                     .font(.system(size: 16, weight: .medium, design: .rounded))
-                    .foregroundColor(.rsSecondaryText)
+                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
             }
         }
         .frame(width: 32, height: 32)

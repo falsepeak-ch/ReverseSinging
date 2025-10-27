@@ -10,11 +10,12 @@ import SwiftUI
 struct SessionListView: View {
     @ObservedObject var viewModel: AudioViewModel
     @Environment(\.dismiss) var dismiss
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.rsBackground.ignoresSafeArea()
+                Color.rsBackgroundAdaptive(for: colorScheme).ignoresSafeArea()
 
                 if viewModel.appState.savedSessions.isEmpty {
                     emptyStateView
@@ -49,12 +50,12 @@ struct SessionListView: View {
 
             Text("No Saved Sessions")
                 .font(.rsHeadingMedium)
-                .foregroundColor(.rsText)
+                .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
                 .fadeIn(delay: 0.2)
 
             Text("Complete a reverse singing session and save it to see it here.")
                 .font(.rsBodyMedium)
-                .foregroundColor(.rsSecondaryText)
+                .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
                 .fadeIn(delay: 0.3)
@@ -76,7 +77,7 @@ struct SessionListView: View {
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
-        .background(Color.rsBackground)
+        .background(Color.rsBackgroundAdaptive(for: colorScheme))
     }
 
     // MARK: - Actions
@@ -95,6 +96,7 @@ struct SessionRow: View {
     let session: AudioSession
     @ObservedObject var viewModel: AudioViewModel
     @State private var isExpanded = false
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -103,11 +105,11 @@ struct SessionRow: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(session.name)
                         .font(.rsHeadingSmall)
-                        .foregroundColor(.rsText)
+                        .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
 
                     Text(session.formattedDate)
                         .font(.rsCaption)
-                        .foregroundColor(.rsSecondaryText)
+                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
                 }
 
                 Spacer()
@@ -163,7 +165,7 @@ struct SessionRow: View {
         .padding(16)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.rsTertiaryBackground)
+                .fill(Color.rsSecondaryBackgroundAdaptive(for: colorScheme))
                 .overlay(
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
                         .stroke(Color.rsTurquoise.opacity(0.15), lineWidth: 1.5)
@@ -206,6 +208,7 @@ struct RecordingRowButton: View {
     let recording: Recording
     @ObservedObject var viewModel: AudioViewModel
     @State private var isPressed = false
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         Button(action: {
@@ -221,11 +224,11 @@ struct RecordingRowButton: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(recording.type.rawValue)
                         .font(.rsBodyMedium)
-                        .foregroundColor(.rsText)
+                        .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
 
                     Text(recording.formattedDuration)
                         .font(.rsCaption)
-                        .foregroundColor(.rsSecondaryText)
+                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
                 }
 
                 Spacer()
@@ -241,7 +244,7 @@ struct RecordingRowButton: View {
             .padding(14)
             .background(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(Color.rsSecondaryBackground)
+                    .fill(Color.rsSecondaryBackgroundAdaptive(for: colorScheme))
                     .overlay(
                         RoundedRectangle(cornerRadius: 12, style: .continuous)
                             .stroke(Color.rsTurquoise.opacity(0.2), lineWidth: 1)

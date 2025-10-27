@@ -80,6 +80,7 @@ struct SuccessCelebration: View {
 struct SuccessToast: View {
     let message: String
     @Binding var isPresented: Bool
+    @Environment(\.colorScheme) var colorScheme
 
     @State private var offset: CGFloat = 100
     @State private var opacity: Double = 0
@@ -92,7 +93,7 @@ struct SuccessToast: View {
 
             Text(message)
                 .font(.rsBodyMedium)
-                .foregroundColor(.rsText)
+                .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
 
             Spacer()
         }
@@ -100,7 +101,7 @@ struct SuccessToast: View {
         .padding(.vertical, 16)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.rsCardBackground)
+                .fill(Color.rsCardBackground(for: colorScheme))
                 .cardShadow(.elevated)
         )
         .offset(y: offset)

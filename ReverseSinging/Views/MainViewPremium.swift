@@ -57,7 +57,7 @@ struct MainViewPremium: View {
                         .animation(.rsSpring, value: viewModel.appState.recordingState)
                 }
             }
-            .background(Color.rsBackground.ignoresSafeArea())
+            .background(Color.rsBackgroundAdaptive(for: colorScheme).ignoresSafeArea())
             .overlay(alignment: .top) {
                 if showSuccessToast {
                     SuccessToast(message: "Session saved!", isPresented: $showSuccessToast)
@@ -100,7 +100,7 @@ struct MainViewPremium: View {
                         .padding(.horizontal, 24)
                         .padding(.bottom, 16)
                         .background(
-                            Color.rsBackground
+                            Color.rsBackgroundAdaptive(for: colorScheme)
                                 .ignoresSafeArea(edges: .bottom)
                         )
                         .transition(.opacity.combined(with: .move(edge: .bottom)))
@@ -140,9 +140,9 @@ struct MainViewPremium: View {
 
     private var headerView: some View {
         HStack {
-            Text("Reverse Singing")
+            Text("Reverso")
                 .font(.rsHeadingMedium)
-                .foregroundColor(.rsText)
+                .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
 
             Spacer()
 
@@ -441,7 +441,7 @@ struct MainViewPremium: View {
     private func tipText(_ text: String) -> some View {
         Text(text)
             .font(.rsCaption)
-            .foregroundColor(.rsSecondaryText)
+            .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
             .multilineTextAlignment(.center)
             .fixedSize(horizontal: false, vertical: true)
             .frame(maxWidth: 300)

@@ -10,6 +10,7 @@ import SwiftUI
 struct ComparisonView: View {
     @ObservedObject var viewModel: AudioViewModel
     @Environment(\.dismiss) var dismiss
+    @Environment(\.colorScheme) var colorScheme
 
     let originalRecording: Recording
     let reversedAttempt: Recording
@@ -70,14 +71,14 @@ struct ComparisonView: View {
             // Score message
             Text(scoreMessage)
                 .font(.rsBodyLarge)
-                .foregroundColor(.rsText)
+                .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
                 .multilineTextAlignment(.center)
         }
         .padding(.vertical, 20)
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(Color.rsCardBackground)
+                .fill(Color.rsCardBackground(for: colorScheme))
                 .cardShadow(.card)
         )
     }
@@ -103,7 +104,7 @@ struct ComparisonView: View {
         .padding(16)
         .background(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(Color.rsCardBackground)
+                .fill(Color.rsCardBackground(for: colorScheme))
                 .cardShadow(.card)
         )
     }
@@ -112,7 +113,7 @@ struct ComparisonView: View {
         VStack(spacing: 8) {
             Text(title)
                 .font(.rsCaption)
-                .foregroundColor(.rsSecondaryText)
+                .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
 
             // Static waveform representation
             StaticWaveformView(url: recording.url)
@@ -121,7 +122,7 @@ struct ComparisonView: View {
 
             Text(recording.formattedDuration)
                 .font(.rsCaption)
-                .foregroundColor(.rsSecondaryText)
+                .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
                 .monospacedDigit()
         }
         .frame(maxWidth: .infinity)
@@ -168,7 +169,7 @@ struct ComparisonView: View {
         .padding(16)
         .background(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(Color.rsCardBackground)
+                .fill(Color.rsCardBackground(for: colorScheme))
                 .cardShadow(.card)
         )
     }

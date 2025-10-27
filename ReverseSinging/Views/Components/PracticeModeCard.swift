@@ -11,6 +11,7 @@ struct PracticeModeCard: View {
     let listenCount: Int
     let onListen: () -> Void
     let onRecord: () -> Void
+    @Environment(\.colorScheme) var colorScheme
 
     private let maxDots = 5
     private let recommendedListens = 2
@@ -25,7 +26,7 @@ struct PracticeModeCard: View {
 
                 Text("Practice Mode")
                     .font(.rsHeadingSmall)
-                    .foregroundColor(.rsText)
+                    .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
 
                 Spacer()
             }
@@ -33,7 +34,7 @@ struct PracticeModeCard: View {
             // Instructions
             Text("Listen to the reversed audio a few times before recording your attempt!")
                 .font(.rsBodyMedium)
-                .foregroundColor(.rsSecondaryText)
+                .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -51,7 +52,7 @@ struct PracticeModeCard: View {
 
                 Text("Listened \(listenCount)x")
                     .font(.rsCaption)
-                    .foregroundColor(.rsSecondaryText)
+                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
                     .monospacedDigit()
             }
 
@@ -101,7 +102,7 @@ struct PracticeModeCard: View {
         .padding(20)
         .background(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(Color.rsCardBackground)
+                .fill(Color.rsCardBackground(for: colorScheme))
                 .cardShadow(.card)
         )
         .animation(.rsSpring, value: listenCount)
@@ -113,6 +114,7 @@ struct PracticeModeCard: View {
 struct CompactPracticeModeBar: View {
     let listenCount: Int
     let onListen: () -> Void
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         HStack {
@@ -122,7 +124,7 @@ struct CompactPracticeModeBar: View {
 
             Text("Listened \(listenCount)x")
                 .font(.rsBodyMedium)
-                .foregroundColor(.rsText)
+                .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
                 .monospacedDigit()
 
             Spacer()

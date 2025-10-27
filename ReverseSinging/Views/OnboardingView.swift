@@ -10,11 +10,12 @@ import SwiftUI
 struct OnboardingView: View {
     @ObservedObject var viewModel: AudioViewModel
     @State private var currentPage = 0
+    @Environment(\.colorScheme) var colorScheme
 
     let pages: [OnboardingPage] = [
         OnboardingPage(
             imageName: "cassette",
-            title: "ReverseSinging",
+            title: "Reverso",
             description: "hehe, let's make some noise!",
             gradient: .voxxaMicrophone
         ),
@@ -28,8 +29,8 @@ struct OnboardingView: View {
 
     var body: some View {
         ZStack {
-            // Black background like Voxxa
-            Color.rsBackground.ignoresSafeArea()
+            // Adaptive background (dark/light mode)
+            Color.rsBackgroundAdaptive(for: colorScheme).ignoresSafeArea()
 
             VStack(spacing: 32) {
                 // Back button placeholder (like Voxxa has in header)
@@ -118,6 +119,7 @@ struct OnboardingPage {
 
 struct OnboardingPageView: View {
     let page: OnboardingPage
+    @Environment(\.colorScheme) var colorScheme
     @State private var iconScale: CGFloat = 0.8
     @State private var iconOpacity: Double = 0
     @State private var titleOffset: CGFloat = 20
@@ -142,7 +144,7 @@ struct OnboardingPageView: View {
                 // Title
                 Text(page.title)
                     .font(.rsDisplayMedium)
-                    .foregroundColor(.rsText)
+                    .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
                     .multilineTextAlignment(.center)
                     .offset(y: titleOffset)
                     .opacity(titleOpacity)
@@ -150,7 +152,7 @@ struct OnboardingPageView: View {
                 // Description
                 Text(page.description)
                     .font(.rsBodyLarge)
-                    .foregroundColor(.rsSecondaryText)
+                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
                     .multilineTextAlignment(.center)
                     .lineSpacing(6)
                     .padding(.horizontal, 32)
