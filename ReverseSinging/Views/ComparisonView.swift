@@ -47,7 +47,7 @@ struct ComparisonView: View {
                     Button("Close") {
                         dismiss()
                     }
-                    .foregroundColor(.rsTurquoise)
+                    .foregroundColor(.accent)
                 }
             }
         }

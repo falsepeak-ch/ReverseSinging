@@ -70,9 +70,10 @@ struct MainView: View {
     private var headerView: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
-                Text("Reverso")
-                    .font(.rsHeadingLarge)
-                    .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+                Image("lettering")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 32)
 
                 Text("Voice Flip")
                     .font(.rsBodyMedium)

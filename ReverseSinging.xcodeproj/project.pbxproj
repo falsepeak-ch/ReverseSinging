@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		FF2EE2D92EAF91B100549684 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = FF3C44EB2EAF8B000055F61C /* FirebaseCore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		FFA267D42EA6B028008518FC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -21,9 +25,22 @@
 		FFA267D32EA6B028008518FC /* ReverseSingingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReverseSingingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		FF2EE3892EB00CD600549684 /* Exceptions for "ReverseSinging" folder in "ReverseSinging" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = FFA267C52EA6B026008518FC /* ReverseSinging */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		FFA267C82EA6B026008518FC /* ReverseSinging */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				FF2EE3892EB00CD600549684 /* Exceptions for "ReverseSinging" folder in "ReverseSinging" target */,
+			);
 			path = ReverseSinging;
 			sourceTree = "<group>";
 		};
@@ -39,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF2EE2D92EAF91B100549684 /* FirebaseCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,8 +353,10 @@
 				DEVELOPMENT_TEAM = 4YGWZWHTHM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ReverseSinging/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Reverso;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Reverse Singing needs microphone access to record your voice for the reverse singing challenge.";
+				INFOPLIST_KEY_UIAppFonts = Eugello.ttf;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -373,8 +393,10 @@
 				DEVELOPMENT_TEAM = 4YGWZWHTHM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ReverseSinging/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Reverso;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Reverse Singing needs microphone access to record your voice for the reverse singing challenge.";
+				INFOPLIST_KEY_UIAppFonts = Eugello.ttf;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

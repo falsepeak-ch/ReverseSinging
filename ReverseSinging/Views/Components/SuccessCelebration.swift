@@ -100,7 +100,7 @@ struct SuccessToast: View {
         .padding(.horizontal, 20)
         .padding(.vertical, 16)
         .background(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
                 .fill(Color.rsCardBackground(for: colorScheme))
                 .cardShadow(.elevated)
         )

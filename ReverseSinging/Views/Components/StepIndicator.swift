@@ -36,7 +36,7 @@ struct StepIndicator: View {
         .padding(.vertical, 16)
         .padding(.horizontal, 24)
         .background(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
                 .fill(Color.rsCardBackground(for: colorScheme))
                 .cardShadow(.subtle)
         )

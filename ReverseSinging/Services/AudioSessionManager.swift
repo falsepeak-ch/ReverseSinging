@@ -29,7 +29,7 @@ final class AudioSessionManager {
             try audioSession.setCategory(
                 .playAndRecord,
                 mode: .default,
-                options: [.defaultToSpeaker, .allowBluetooth]
+                options: [.defaultToSpeaker, AVAudioSession.CategoryOptions.allowBluetoothHFP]
             )
 
             print("✅ Audio session configured (.playAndRecord)")

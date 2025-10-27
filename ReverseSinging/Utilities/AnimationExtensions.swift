@@ -176,7 +176,7 @@ struct PulseModifier: ViewModifier {
 }
 
 extension View {
-    func pulse(color: Color = .rsGold) -> some View {
+    func pulse(color: Color = .rsTurquoise) -> some View {
         modifier(PulseModifier(color: color))
     }
 }

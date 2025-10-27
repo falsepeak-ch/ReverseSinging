@@ -23,13 +23,13 @@ struct SessionListView: View {
                     sessionListView
                 }
             }
-            .navigationTitle("Saved Sessions")
+            .navigationTitle(viewModel.appState.savedSessions.isEmpty ? "" : "Saved Sessions")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: { dismiss() }) {
-                        Text("Done")
-                            .font(.rsBodyMedium.weight(.semibold))
+                        Image(systemName: "xmark")
+                            .font(.rsHeadingSmall)
                             .foregroundStyle(Color.rsTurquoise)
                     }
                 }
@@ -44,12 +44,11 @@ struct SessionListView: View {
             Image("cassette")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 60, height: 60)
-                .opacity(0.6)
+                .frame(width: 140, height: 140)
                 .scaleIn(delay: 0.1)
 
             Text("No Saved Sessions")
-                .font(.rsHeadingMedium)
+                .font(.custom("Eugello", size: 32))
                 .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
                 .fadeIn(delay: 0.2)
 
@@ -59,6 +58,7 @@ struct SessionListView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
                 .fadeIn(delay: 0.3)
+            Spacer()
         }
     }
 
@@ -115,12 +115,12 @@ struct SessionRow: View {
                 Spacer()
 
                 Button(action: {
-                    withAnimation(.rsSpring) {
+                    withAnimation(.rsBouncy) {
                         isExpanded.toggle()
                     }
                     HapticManager.shared.light()
                 }) {
-                    Image(systemName: isExpanded ? "chevron.up.circle.fill" : "chevron.down.circle.fill")
+                    Image(systemName: "chevron.down.circle.fill")
                         .font(.rsHeadingSmall)
                         .foregroundStyle(Color.rsTurquoise)
                         .rotationEffect(.degrees(isExpanded ? 180 : 0))
@@ -131,18 +131,14 @@ struct SessionRow: View {
             HStack(spacing: 8) {
                 if session.originalRecording != nil {
                     recordingBadge("Original", color: .rsTurquoise)
-                        .transition(.scale.combined(with: .opacity))
                 }
                 if session.reversedRecording != nil {
                     recordingBadge("Reversed", color: .rsTurquoise.opacity(0.8))
-                        .transition(.scale.combined(with: .opacity))
                 }
                 if session.attemptRecording != nil {
                     recordingBadge("Attempt", color: .rsTurquoise.opacity(0.6))
-                        .transition(.scale.combined(with: .opacity))
                 }
             }
-            .animation(.rsSpring, value: isExpanded)
 
             // Expanded details
             if isExpanded {
@@ -150,29 +146,23 @@ struct SessionRow: View {
                     .transition(.opacity)
 
                 VStack(spacing: 12) {
-                    ForEach(Array(session.recordings.enumerated()), id: \.element.id) { index, recording in
+                    ForEach(session.recordings, id: \.id) { recording in
                         RecordingRowButton(recording: recording, viewModel: viewModel)
-                            .transition(.asymmetric(
-                                insertion: .move(edge: .top).combined(with: .opacity),
-                                removal: .opacity
-                            ))
-                            .animation(.rsSpring.delay(Double(index) * 0.05), value: isExpanded)
                     }
                 }
-                .transition(.move(edge: .top).combined(with: .opacity))
+                .transition(.scale(scale: 0.95).combined(with: .opacity))
             }
         }
         .padding(16)
         .background(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
                 .fill(Color.rsSecondaryBackgroundAdaptive(for: colorScheme))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .stroke(Color.rsTurquoise.opacity(0.15), lineWidth: 1.5)
                 )
                 .cardShadow(.card)
         )
-        .animation(.rsSpring, value: isExpanded)
     }
 
     private func recordingBadge(_ title: String, color: Color) -> some View {

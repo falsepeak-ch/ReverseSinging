@@ -50,7 +50,7 @@ struct TimerCard: View {
                     Button(action: stopAction) {
                         Image(systemName: "stop.circle.fill")
                             .font(.rsHeadingSmall)
-                            .foregroundColor(.white.opacity(0.9))
+                            .foregroundColor(textColor.opacity(0.9))
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
@@ -160,9 +160,9 @@ struct TimerCard: View {
             .padding(.horizontal, 8)
             .background(
                 RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .fill(isEnabled ? Color.white.opacity(0.2) : Color.white.opacity(0.1))
+                    .fill(isEnabled ? textColor.opacity(0.2) : textColor.opacity(0.1))
             )
-            .foregroundColor(isEnabled ? .white : .white.opacity(0.4))
+            .foregroundColor(isEnabled ? textColor : textColor.opacity(0.4))
         }
         .disabled(!isEnabled)
         .buttonStyle(PlainButtonStyle())
@@ -196,7 +196,7 @@ struct TimerCard: View {
     private var textColor: Color {
         switch state {
         case .idle:
-            return .rsText
+            return Color.rsTextAdaptive(for: colorScheme)
         case .recording:
             return .rsTextOnRed  // White on red
         case .playing, .processing:
@@ -286,7 +286,7 @@ struct CompactTimerCard: View {
     private var textColor: Color {
         switch state {
         case .idle:
-            return .rsText
+            return Color.rsTextAdaptive(for: colorScheme)
         case .recording:
             return .rsTextOnRed
         case .playing, .processing:

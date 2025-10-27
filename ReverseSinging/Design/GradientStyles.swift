@@ -11,6 +11,19 @@ import SwiftUI
 // MARK: - Solid Color Backgrounds (Replacing Gradients)
 
 extension View {
+    /// Apply matte circle background for onboarding illustrations
+    /// Image extends beyond circle for modern depth effect
+    func matteCircleBackground(size: CGFloat = 120, color: Color) -> some View {
+        self
+            .shadow(color: Color.black.opacity(0.15), radius: 20, x: 0, y: 10)
+            .background(
+                Circle()
+                    .fill(color.opacity(0.6))
+                    .frame(width: size, height: size)
+                    .shadow(color: color.opacity(0.3), radius: 15, x: 0, y: 5)
+            )
+    }
+
     /// Apply turquoise solid background (replaces voxxaPrimary gradient)
     func turquoiseSolidBackground() -> some View {
         self.background(Color.rsTurquoise)

@@ -11,8 +11,8 @@ import SwiftUI
 extension Color {
     // MARK: - Primary Palette (from icon)
 
-    /// Turquoise - Primary accent color (from icon background)
-    static let rsTurquoise = Color(red: 0.176, green: 0.847, blue: 0.839)  // #2DD8D6
+    /// Dark Teal - Primary accent color (from microphone details)
+    static let rsTurquoise = Color(red: 0.184, green: 0.341, blue: 0.369)  // #2F575E
 
     /// Red/Coral - Recording and destructive actions (from icon button)
     static let rsRed = Color(red: 1.0, green: 0.333, blue: 0.333)  // #FF5555
@@ -25,8 +25,8 @@ extension Color {
 
     // MARK: - Background Colors
 
-    /// Deep black background (dark mode)
-    static let rsBackground = Color(red: 0.04, green: 0.04, blue: 0.04)  // #0A0A0A
+    /// Dark teal background (dark mode)
+    static let rsBackground = Color(red: 0.149, green: 0.231, blue: 0.247)  // #263B3F
 
     /// Light background (light mode)
     static let rsBackgroundLight = Color(red: 0.98, green: 0.98, blue: 0.98)  // #FAFAFA
@@ -74,12 +74,6 @@ extension Color {
             ? Color(red: 0.12, green: 0.12, blue: 0.14).opacity(0.7)
             : Color.white.opacity(0.7)
     }
-
-    // MARK: - Legacy Card Colors (for backward compatibility)
-
-    static let rsCardBackground = Color.rsCharcoal.opacity(0.85)
-    static let rsElevatedCard = Color.rsCharcoal
-    static let rsDarkCard = Color.rsCharcoal
 
     // MARK: - Text Colors
 
@@ -138,7 +132,23 @@ extension Color {
 
     // MARK: - Button Colors
 
-    /// Primary button - turquoise
+    /// Primary button color - cream in dark mode
+    static let rsButtonPrimaryCream = Color(red: 0.957, green: 0.922, blue: 0.780)  // #F4EBC7
+
+    /// Primary button color - dark teal in light mode
+    static let rsButtonPrimaryTeal = Color(red: 0.184, green: 0.341, blue: 0.369)  // #2F575E
+
+    /// Primary button - adaptive (cream in dark mode, teal in light mode)
+    static func rsButtonPrimaryAdaptive(for colorScheme: ColorScheme) -> Color {
+        colorScheme == .dark ? rsButtonPrimaryCream : rsButtonPrimaryTeal
+    }
+
+    /// Text on primary button - adaptive for contrast
+    static func rsTextOnPrimaryButton(for colorScheme: ColorScheme) -> Color {
+        colorScheme == .dark ? rsCharcoal : Color.white
+    }
+
+    /// Legacy primary button - turquoise
     static let rsButtonPrimary = rsTurquoise
 
     /// Secondary button - charcoal in dark, cream in light
@@ -159,18 +169,18 @@ extension Color {
             : Color(red: 0.85, green: 0.15, blue: 0.15)   // Darker red in light mode
     }
 
-    /// Playing waveform - turquoise in both modes (darker in light mode)
+    /// Playing waveform - dark teal in both modes
     static func rsWaveformPlayingAdaptive(for colorScheme: ColorScheme) -> Color {
         colorScheme == .dark
-            ? rsTurquoise                                  // Bright turquoise in dark mode
-            : Color(red: 0.1, green: 0.65, blue: 0.65)    // Darker turquoise in light mode
+            ? rsTurquoise                                  // Dark teal in dark mode
+            : rsTurquoise.opacity(0.9)                     // Slightly muted dark teal in light mode
     }
 
-    /// Idle waveform - white/gray depending on mode
+    /// Idle waveform - cream/beige tones (matches microphone body)
     static func rsWaveformIdleAdaptive(for colorScheme: ColorScheme) -> Color {
         colorScheme == .dark
-            ? Color.white.opacity(0.5)                     // White in dark mode
-            : Color.gray.opacity(0.6)                      // Gray in light mode
+            ? rsCream.opacity(0.3)                         // Subtle cream in dark mode
+            : rsCharcoal.opacity(0.3)                      // Muted charcoal in light mode
     }
 
     /// Legacy waveform colors (dark mode defaults)

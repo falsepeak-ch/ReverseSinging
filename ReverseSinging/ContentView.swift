@@ -19,12 +19,6 @@ struct ContentView: View {
                 OnboardingView(viewModel: viewModel)
             }
         }
-        .onAppear {
-            // Request microphone permission on first launch
-            if !viewModel.appState.hasCompletedOnboarding {
-                viewModel.requestPermission()
-            }
-        }
     }
 }
 

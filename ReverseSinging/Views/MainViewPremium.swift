@@ -12,60 +12,110 @@ struct MainViewPremium: View {
     @State private var showSuccessToast = false
     @State private var showCelebration = false
     @State private var displayedTip: String = ""
+    @State private var showNewSessionAlert = false
+    @State private var isScoreVisible = true
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         NavigationStack {
-            ScrollView {
+            ZStack {
+                // Background color layer
+                Color.rsBackgroundAdaptive(for: colorScheme)
+                    .ignoresSafeArea()
+
+                // Scrollable content layer
+                ScrollView {
+                    VStack(spacing: 0) {
+                        // Top spacer for fixed header
+                        Color.clear
+                            .frame(height: 100)
+
+                        // Waveform visualization (hidden when playing)
+                        if shouldShowWaveform {
+                            waveformCard
+                                .padding(.horizontal, 24)
+                                .padding(.bottom, 24)
+                                .animatedCard(delay: 0.1)
+                                .transition(.opacity.combined(with: .scale))
+                        }
+
+                        // Timer card (prominent when recording/playing)
+                        if shouldShowTimer {
+                            timerCard
+                                .padding(.horizontal, 24)
+                                .padding(.bottom, 24)
+                                .transition(.asymmetric(
+                                    insertion: .scale.combined(with: .opacity),
+                                    removal: .scale.combined(with: .opacity)
+                                ))
+                        }
+
+                        // Action buttons
+                        actionButtonsSection
+                            .padding(.horizontal, 24)
+                            .padding(.bottom, 100)
+                            .animation(.rsSpring, value: viewModel.appState.recordingState)
+                    }
+                }
+
+                // Fixed header overlay
                 VStack(spacing: 0) {
-                    // Minimal header
-                    headerView
+                    ZStack(alignment: .bottom) {
+                        // Fade background image
+                        Image("fade")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(height: 120)
+                            .clipped()
+
+                        // Header content
+                        HStack {
+                            Image("lettering")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 40)
+
+                            Spacer()
+
+                            Button(action: { viewModel.showSessionList = true }) {
+                                if #available(iOS 26.0, *) {
+                                    Image(systemName: "archivebox")
+                                        .font(.rsBodyLarge)
+                                        .foregroundColor(.accent)
+                                        .frame(width: 40, height: 40)
+                                        .glassEffect()
+                                } else {
+                                    Image(systemName: "archivebox")
+                                        .font(.rsBodyLarge)
+                                        .foregroundColor(.rsCharcoal)
+                                        .frame(width: 40, height: 40)
+                                        .background(
+                                            Circle()
+                                                .fill(Color.rsButtonPrimaryCream)
+                                        )
+                                }
+                            }
+                        }
                         .padding(.horizontal, 24)
-                        .padding(.top, 8)
-                        .padding(.bottom, 20)
-
-                    // Removed step indicator - simplified to single screen
-
-                    // Waveform visualization (hidden when playing)
-                    if shouldShowWaveform {
-                        waveformCard
-                            .padding(.horizontal, 24)
-                            .padding(.bottom, 24)
-                            .animatedCard(delay: 0.1)
-                            .transition(.opacity.combined(with: .scale))
+                        .padding(.bottom, 16)
                     }
+                    .frame(maxWidth: .infinity)
 
-                    // Timer card (prominent when recording/playing)
-                    if shouldShowTimer {
-                        timerCard
-                            .padding(.horizontal, 24)
-                            .padding(.bottom, 24)
-                            .transition(.asymmetric(
-                                insertion: .scale.combined(with: .opacity),
-                                removal: .scale.combined(with: .opacity)
-                            ))
-                    }
-
-
-                    // Removed stage progress - simplified to single screen
-                    // Playback controls now integrated into TimerCard
-
-                    // Action buttons
-                    actionButtonsSection
-                        .padding(.horizontal, 24)
-                        .padding(.bottom, 100)
-                        .animation(.rsSpring, value: viewModel.appState.recordingState)
+                    Spacer()
                 }
-            }
-            .background(Color.rsBackgroundAdaptive(for: colorScheme).ignoresSafeArea())
-            .overlay(alignment: .top) {
+                .ignoresSafeArea(edges: .top)
+
+                // Success toast overlay
                 if showSuccessToast {
-                    SuccessToast(message: "Session saved!", isPresented: $showSuccessToast)
-                        .padding(.horizontal, 24)
-                        .padding(.top, 60)
+                    VStack {
+                        SuccessToast(message: "Session saved!", isPresented: $showSuccessToast)
+                            .padding(.horizontal, 24)
+                            .padding(.top, 120)
+                        Spacer()
+                    }
                 }
-            }
-            .overlay {
+
+                // Celebration overlay
                 if showCelebration {
                     ZStack {
                         Color.black.opacity(0.3)
@@ -86,24 +136,36 @@ struct MainViewPremium: View {
                             }
                     }
                 }
-            }
-            .overlay(alignment: .center) {
+
+                // Processing indicator overlay
                 if viewModel.isReversing {
                     ProcessingIndicator(message: "Reversing audio...")
                         .transition(.scale.combined(with: .opacity))
                 }
-            }
-            .overlay(alignment: .bottom) {
+
+                // Tip overlay at bottom
                 if let tip = currentTip, !tip.isEmpty {
-                    tipText(tip)
-                        .id(displayedTip)  // Force re-creation for animation
-                        .padding(.horizontal, 24)
-                        .padding(.bottom, 16)
-                        .background(
-                            Color.rsBackgroundAdaptive(for: colorScheme)
-                                .ignoresSafeArea(edges: .bottom)
-                        )
+                    VStack(spacing: 0) {
+                        Spacer()
+                        ZStack(alignment: .top) {
+                            // Fade background image (rotated 180 degrees to fade upward)
+                            Image("fade")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(height: 120)
+                                .clipped()
+                                .rotationEffect(.degrees(180))
+
+                            // Tip card content on top
+                            tipText(tip)
+                                .id(displayedTip)
+                                .padding(.horizontal, 24)
+                                .padding(.top, 16)
+                        }
+                        .frame(maxWidth: .infinity)
                         .transition(.opacity.combined(with: .move(edge: .bottom)))
+                    }
+                    .ignoresSafeArea(edges: .bottom)
                 }
             }
             .onChange(of: currentTip) { _, newTip in
@@ -133,23 +195,13 @@ struct MainViewPremium: View {
             } message: {
                 Text(viewModel.errorMessage ?? "")
             }
-        }
-    }
-
-    // MARK: - Header
-
-    private var headerView: some View {
-        HStack {
-            Text("Reverso")
-                .font(.rsHeadingMedium)
-                .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
-
-            Spacer()
-
-            Button(action: { viewModel.showSessionList = true }) {
-                Image(systemName: "archivebox")
-                    .font(.rsHeadingSmall)
-                    .foregroundColor(.rsTurquoise)
+            .alert("Start New Session?", isPresented: $showNewSessionAlert) {
+                Button("Cancel", role: .cancel) {}
+                Button("Start New Session", role: .destructive) {
+                    viewModel.startNewSession()
+                }
+            } message: {
+                Text("Your current session will be saved to the archive. This will start a fresh recording session.")
             }
         }
     }
@@ -228,21 +280,36 @@ struct MainViewPremium: View {
             return "Tap Record Audio to begin your reverse singing challenge"
         }
 
-        // Hide tips during recording or playing
+        // Show tips during recording
         if case .recording = viewModel.appState.recordingState {
-            return nil
-        }
-        if case .playing = viewModel.appState.recordingState {
-            return nil
+            if session.attemptRecording != nil {
+                // Re-recording attempt
+                return "Record your singing attempt while listening to the reversed audio"
+            } else if session.reversedRecording != nil {
+                // Recording attempt for first time
+                return "Record your singing attempt while listening to the reversed audio"
+            } else {
+                // Recording original
+                return "Record the song you want to sing in reverse"
+            }
         }
 
-        // Step-based tips
+        // Show tips during playback
+        if case .playing = viewModel.appState.recordingState {
+            return "Tap any play button to switch between recordings, or tap stop to pause"
+        }
+
+        // Step-based tips for idle states
         if session.attemptRecording != nil {
             return "Tap Re-record to improve your attempt, or New Session to record a new song"
         } else if session.reversedRecording != nil {
             return "Listen to the reversed audio, then record your singing attempt"
+        } else if session.originalRecording != nil {
+            // Original recording exists but not reversed yet - processing
+            return "Processing your audio... This will only take a moment"
         } else {
-            return nil  // Hide during auto-reverse processing
+            // Initial state - no recordings yet
+            return "Tap Record Audio to record the song you want to reverse"
         }
     }
 
@@ -407,45 +474,85 @@ struct MainViewPremium: View {
 
             // ScoreCard (shown when score is available)
             if let score = viewModel.appState.similarityScore, !isRecording {
-                ScoreCard(score: score)
+                ScoreCard(score: score, isVisible: $isScoreVisible)
                     .frame(maxWidth: .infinity)
             }
 
-            // Bottom buttons: Re-record and Start New Session (both compact)
+            // Bottom buttons: Re-record and Start New Session
             HStack(spacing: 12) {
                 if session?.attemptRecording != nil && !isRecording {
-                    CompactButton(
+                    BigButton(
                         title: "Re-record",
                         icon: "record.circle",
+                        color: .rsRecording,
                         action: {
                             viewModel.reRecordAttempt()
                             viewModel.startRecording()
                         },
-                        color: .rsRecording
+                        style: .secondary
                     )
                 }
 
-                CompactButton(
-                    title: "New Session",
-                    icon: "plus.circle.fill",
-                    action: { viewModel.startNewSession() }
-                )
+                // Only show New Session if there are recordings in current session
+                if session != nil && !session!.recordings.isEmpty {
+                    BigButton(
+                        title: "New Session",
+                        icon: "plus.circle.fill",
+                        color: .rsTurquoise,
+                        action: { showNewSessionAlert = true },
+                        style: .secondary
+                    )
+                }
             }
             .padding(.top, 8)
         }
     }
 
 
-    // MARK: - Tip Text
+    // MARK: - Tip Card
 
     private func tipText(_ text: String) -> some View {
-        Text(text)
-            .font(.rsCaption)
-            .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
-            .multilineTextAlignment(.center)
-            .fixedSize(horizontal: false, vertical: true)
-            .frame(maxWidth: 300)
-            .padding(.vertical, 10)
+        Group {
+            if #available(iOS 26.0, *) {
+                HStack(alignment: .top, spacing: 12) {
+                    Image("light-bulb")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 45, height: 45)
+                    
+                    Text(text)
+                        .font(.rsCaption)
+                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                    
+                    Spacer(minLength: 0)
+                }
+                .padding(16)
+                .glassEffect()
+            } else {
+                HStack(alignment: .top, spacing: 12) {
+                    Image("light-bulb")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 45, height: 45)
+                    
+                    Text(text)
+                        .font(.rsCaption)
+                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                    
+                    Spacer(minLength: 0)
+                }
+                .padding(16)
+                .background(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(Color.rsCardBackground(for: colorScheme))
+                        .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
+                )
+            }
+        }
     }
 
     // MARK: - Helpers

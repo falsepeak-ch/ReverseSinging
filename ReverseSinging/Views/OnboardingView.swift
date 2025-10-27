@@ -10,22 +10,67 @@ import SwiftUI
 struct OnboardingView: View {
     @ObservedObject var viewModel: AudioViewModel
     @State private var currentPage = 0
+    @State private var permissionGranted = false
+    @State private var permissionRequested = false
+    @State private var permissionDenied = false
     @Environment(\.colorScheme) var colorScheme
 
     let pages: [OnboardingPage] = [
         OnboardingPage(
-            imageName: "cassette",
-            title: "Reverso",
-            description: "hehe, let's make some noise!",
-            gradient: .voxxaMicrophone
+            imageName: "microphone",
+            title: "Welcome to Reverso",
+            description: "We need microphone access to record and reverse your audio. Let's get started!",
+            matteColor: Color.rsCream  // Cream with teal blend
         ),
         OnboardingPage(
-            imageName: "mobile_microphone",
+            imageName: "radio",
             title: "How It Works",
             description: "Record audio, reverse it, sing what you hear, then flip it again to see how close you got!",
-            gradient: .voxxaIconCircle
+            matteColor: Color.rsCharcoal  // Charcoal with red blend
         )
     ]
+
+    // MARK: - Computed Properties for Single Button State
+
+    private var buttonTitle: String {
+        if permissionGranted {
+            return "Continue"
+        } else if permissionDenied {
+            return "Open Settings"
+        } else {
+            return "Allow Microphone Use"
+        }
+    }
+
+    private var buttonIcon: String {
+        if permissionGranted {
+            return "arrow.right"
+        } else if permissionDenied {
+            return "gearshape.fill"
+        } else {
+            return "mic.fill"
+        }
+    }
+
+    private var buttonColor: Color {
+        if permissionGranted {
+            return .rsTurquoise
+        } else if permissionDenied {
+            return .rsWarning
+        } else {
+            return .rsTurquoise
+        }
+    }
+
+    private var buttonAction: () -> Void {
+        if permissionGranted {
+            return nextPage
+        } else if permissionDenied {
+            return openSettings
+        } else {
+            return requestMicrophonePermission
+        }
+    }
 
     var body: some View {
         ZStack {
@@ -47,6 +92,7 @@ struct OnboardingView: View {
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
+                .disabled(currentPage == 0 && !permissionGranted)
 
                 // Page indicator
                 HStack(spacing: 8) {
@@ -61,7 +107,17 @@ struct OnboardingView: View {
 
                 // Buttons
                 VStack(spacing: 16) {
-                    if currentPage == pages.count - 1 {
+                    if currentPage == 0 {
+                        // Page 1: Welcome - single dynamic permission button
+                        BigButton(
+                            title: buttonTitle,
+                            icon: buttonIcon,
+                            color: buttonColor,
+                            action: buttonAction,
+                            style: .primary
+                        )
+                    } else if currentPage == pages.count - 1 {
+                        // Last page: Show final button
                         BigButton(
                             title: "yes, let's record!",
                             icon: "arrow.right",
@@ -78,6 +134,7 @@ struct OnboardingView: View {
                             removal: .scale.combined(with: .opacity)
                         ))
                     } else {
+                        // Middle pages: Just continue
                         BigButton(
                             title: "continue",
                             icon: "arrow.right",
@@ -98,6 +155,8 @@ struct OnboardingView: View {
         }
     }
 
+    // MARK: - Navigation
+
     private func nextPage() {
         withAnimation(.rsSpring) {
             if currentPage < pages.count - 1 {
@@ -105,6 +164,35 @@ struct OnboardingView: View {
             }
         }
         HapticManager.shared.light()
+    }
+
+    private func requestMicrophonePermission() {
+        guard !permissionRequested else { return }
+
+        permissionRequested = true
+        HapticManager.shared.light()
+
+        // Request permission with callback
+        viewModel.requestPermission { [self] granted in
+            withAnimation(.rsSpring) {
+                self.permissionGranted = granted
+                self.permissionDenied = !granted
+            }
+
+            if granted {
+                HapticManager.shared.success()
+            } else {
+                HapticManager.shared.error()
+            }
+        }
+    }
+
+    private func openSettings() {
+        HapticManager.shared.light()
+
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(url)
+        }
     }
 }
 
@@ -114,7 +202,7 @@ struct OnboardingPage {
     let imageName: String
     let title: String
     let description: String
-    let gradient: LinearGradient
+    let matteColor: Color
 }
 
 struct OnboardingPageView: View {
@@ -131,21 +219,23 @@ struct OnboardingPageView: View {
         VStack(spacing: 40) {
             Spacer()
 
-            // Large gradient circle with icon (Voxxa-style)
+            // Large illustration with smaller matte circle background
             Image(page.imageName)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 100, height: 100)
-                .gradientCircle(gradient: page.gradient, size: 180)
+                .frame(width: 280, height: 280)
                 .scaleEffect(iconScale)
                 .opacity(iconOpacity)
 
             VStack(spacing: 16) {
                 // Title
                 Text(page.title)
-                    .font(.rsDisplayMedium)
+                    .font(.custom("Eugello", size: 36))
                     .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
                     .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.horizontal, 32)
                     .offset(y: titleOffset)
                     .opacity(titleOpacity)
 
@@ -155,6 +245,7 @@ struct OnboardingPageView: View {
                     .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
                     .multilineTextAlignment(.center)
                     .lineSpacing(6)
+                    .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal, 32)
                     .offset(y: descriptionOffset)
                     .opacity(descriptionOpacity)

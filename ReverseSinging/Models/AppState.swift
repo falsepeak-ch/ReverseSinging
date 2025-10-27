@@ -25,6 +25,7 @@ struct AppState {
 
     // Game tracking
     var similarityScore: Double? = nil
+    var isScoreVisible: Bool = true
     var attemptCount: Int = 0
     var practiceListenCount: Int = 0
 

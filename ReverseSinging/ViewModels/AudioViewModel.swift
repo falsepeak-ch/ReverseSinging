@@ -43,7 +43,6 @@ final class AudioViewModel: ObservableObject {
 
     init() {
         setupBindings()
-        checkPermissions()
         loadSessions()
     }
 
@@ -108,17 +107,17 @@ final class AudioViewModel: ObservableObject {
 
     // MARK: - Permissions
 
-    private func checkPermissions() {
+    private func requestPermissionIfNeeded(completion: @escaping (Bool) -> Void) {
         recorder.requestPermission { [weak self] granted in
             self?.hasRecordingPermission = granted
-            if !granted {
-                self?.showPermissionAlert = true
-            }
+            completion(granted)
         }
     }
 
-    func requestPermission() {
-        checkPermissions()
+    func requestPermission(completion: ((Bool) -> Void)? = nil) {
+        requestPermissionIfNeeded { granted in
+            completion?(granted)
+        }
     }
 
     // MARK: - Recording
@@ -126,35 +125,39 @@ final class AudioViewModel: ObservableObject {
     func startRecording() {
         print("🎬 StartRecording called from UI")
 
-        // Re-check permissions before each recording (user may revoke in Settings)
-        guard hasRecordingPermission else {
-            print("⚠️ No microphone permission")
-            errorMessage = "Microphone permission is required. Please enable it in Settings."
-            showPermissionAlert = true
-            return
-        }
+        // Request permission if we haven't asked yet or need to re-check
+        requestPermissionIfNeeded { [weak self] granted in
+            guard let self = self else { return }
 
-        // Validate recorder state
-        guard recorder.canStartRecording() else {
-            print("⚠️ Cannot start recording - recorder not ready")
-            errorMessage = "Cannot start recording right now. Please try again."
-            return
-        }
+            guard granted else {
+                print("⚠️ Microphone permission denied")
+                self.errorMessage = "Microphone permission is required. Please enable it in Settings."
+                self.showPermissionAlert = true
+                return
+            }
 
-        // Create new session if needed
-        if appState.currentSession == nil {
-            appState.startNewSession()
-        }
+            // Validate recorder state
+            guard self.recorder.canStartRecording() else {
+                print("⚠️ Cannot start recording - recorder not ready")
+                self.errorMessage = "Cannot start recording right now. Please try again."
+                return
+            }
 
-        do {
-            let url = try recorder.startRecording()
-            currentRecordingURL = url
-            HapticManager.shared.heavy()
-            print("✅ Recording started from ViewModel")
-        } catch let error as RecordingError {
-            handleRecordingError(error)
-        } catch {
-            handleError(error)
+            // Create new session if needed
+            if self.appState.currentSession == nil {
+                self.appState.startNewSession()
+            }
+
+            do {
+                let url = try self.recorder.startRecording()
+                self.currentRecordingURL = url
+                HapticManager.shared.heavy()
+                print("✅ Recording started from ViewModel")
+            } catch let error as RecordingError {
+                self.handleRecordingError(error)
+            } catch {
+                self.handleError(error)
+            }
         }
     }
 
@@ -479,6 +482,7 @@ final class AudioViewModel: ObservableObject {
         }
 
         UserDefaults.standard.set(appState.hasCompletedOnboarding, forKey: "hasCompletedOnboarding")
+        UserDefaults.standard.set(appState.isScoreVisible, forKey: "isScoreVisible")
     }
 
     private func loadSessions() {
@@ -488,11 +492,22 @@ final class AudioViewModel: ObservableObject {
         }
 
         appState.hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "hasCompletedOnboarding")
+
+        // Load isScoreVisible with default true if key doesn't exist
+        if UserDefaults.standard.object(forKey: "isScoreVisible") != nil {
+            appState.isScoreVisible = UserDefaults.standard.bool(forKey: "isScoreVisible")
+        } else {
+            appState.isScoreVisible = true  // Default to visible on first launch
+        }
     }
 
     func completeOnboarding() {
         appState.hasCompletedOnboarding = true
         saveSessions()
+    }
+
+    func saveScoreVisibilityPreference() {
+        UserDefaults.standard.set(appState.isScoreVisible, forKey: "isScoreVisible")
     }
 
     // MARK: - Error Handling
