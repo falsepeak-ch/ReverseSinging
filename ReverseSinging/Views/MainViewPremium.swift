@@ -387,7 +387,28 @@ struct MainViewPremium: View {
             hasReversed: session?.reversedRecording != nil,
             hasAttempt: session?.attemptRecording != nil,
             hasReversedAttempt: session?.reversedAttempt != nil,
-            onStopPlayback: { viewModel.stopPlayback() }
+            onStopPlayback: { viewModel.stopPlayback() },
+            playbackSpeed: Binding(
+                get: { viewModel.appState.playbackSpeed },
+                set: { _ in }
+            ),
+            isLooping: Binding(
+                get: { viewModel.appState.isLooping },
+                set: { _ in }
+            ),
+            pitchShift: Binding(
+                get: { viewModel.appState.pitchShift },
+                set: { _ in }
+            ),
+            onSpeedChange: { speed in
+                viewModel.setPlaybackSpeed(speed)
+            },
+            onLoopToggle: {
+                viewModel.toggleLooping()
+            },
+            onPitchChange: { pitch in
+                viewModel.setPitchShift(pitch)
+            }
         )
     }
 

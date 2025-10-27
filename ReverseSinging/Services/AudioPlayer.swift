@@ -2,7 +2,8 @@
 //  AudioPlayer.swift
 //  ReverseSinging
 //
-//  Audio playback service with speed control and looping
+//  Audio playback service with speed, pitch control, and looping
+//  Uses AVAudioEngine for independent pitch/rate control
 //
 
 import AVFoundation
@@ -15,15 +16,44 @@ final class AudioPlayer: NSObject, ObservableObject {
     @Published var playbackSpeed: Double = 1.0 {
         didSet { updatePlaybackRate() }
     }
-    @Published var isLooping = false
+    @Published var pitchShift: Float = 0.0 {
+        didSet { updatePitch() }
+    }
+    @Published var isLooping = false {
+        didSet { rescheduleWithLoopSetting() }
+    }
 
-    private var audioPlayer: AVAudioPlayer?
+    private var audioEngine: AVAudioEngine?
+    private var playerNode: AVAudioPlayerNode?
+    private var timePitchNode: AVAudioUnitTimePitch?
+    private var audioFile: AVAudioFile?
     private var progressTimer: Timer?
+    private var audioBuffer: AVAudioPCMBuffer?
+    private var isScheduledToLoop = false
 
     override init() {
         super.init()
+        setupAudioEngine()
         // Audio session now managed centrally by AudioSessionManager
         // No need to configure here - prevents conflicts with recording
+    }
+
+    private func setupAudioEngine() {
+        audioEngine = AVAudioEngine()
+        playerNode = AVAudioPlayerNode()
+        timePitchNode = AVAudioUnitTimePitch()
+
+        guard let engine = audioEngine,
+              let player = playerNode,
+              let timePitch = timePitchNode else { return }
+
+        // Attach nodes (don't connect yet - wait for audio file format)
+        engine.attach(player)
+        engine.attach(timePitch)
+
+        // Initial settings
+        timePitch.rate = Float(playbackSpeed)
+        timePitch.pitch = pitchShift
     }
 
     // MARK: - Playback Control
@@ -31,56 +61,198 @@ final class AudioPlayer: NSObject, ObservableObject {
     func loadAudio(from url: URL) throws {
         stop()
 
-        audioPlayer = try AVAudioPlayer(contentsOf: url)
-        audioPlayer?.delegate = self
-        audioPlayer?.prepareToPlay()
-        audioPlayer?.enableRate = true
-        audioPlayer?.rate = Float(playbackSpeed)
+        // Load audio file
+        audioFile = try AVAudioFile(forReading: url)
 
-        duration = audioPlayer?.duration ?? 0
+        guard let file = audioFile,
+              let engine = audioEngine,
+              let player = playerNode,
+              let timePitch = timePitchNode else {
+            throw NSError(domain: "AudioPlayer", code: -1, userInfo: [
+                NSLocalizedDescriptionKey: "Failed to load audio file"
+            ])
+        }
+
+        let format = file.processingFormat
+
+        // Calculate duration
+        let frameCount = file.length
+        let sampleRate = format.sampleRate
+        duration = Double(frameCount) / sampleRate
         currentTime = 0
+
+        // Load entire file into buffer for looping support
+        audioBuffer = AVAudioPCMBuffer(
+            pcmFormat: format,
+            frameCapacity: AVAudioFrameCount(file.length)
+        )
+
+        if let buffer = audioBuffer {
+            try file.read(into: buffer)
+        }
+
+        // Connect nodes with the audio file's format
+        // Disconnect first if already connected
+        engine.disconnectNodeOutput(player)
+        engine.disconnectNodeOutput(timePitch)
+
+        // Connect: playerNode -> timePitch -> mainMixerNode using file format
+        engine.connect(player, to: timePitch, format: format)
+        engine.connect(timePitch, to: engine.mainMixerNode, format: format)
     }
 
     func play() {
-        guard let player = audioPlayer else { return }
+        guard let engine = audioEngine,
+              let player = playerNode,
+              let buffer = audioBuffer else { return }
 
-        if isLooping {
-            player.numberOfLoops = -1
-        } else {
-            player.numberOfLoops = 0
+        do {
+            // Start engine if not running
+            if !engine.isRunning {
+                try engine.start()
+            }
+
+            // Schedule buffer
+            if isLooping {
+                // Schedule with looping
+                player.scheduleBuffer(buffer, at: nil, options: .loops)
+            } else {
+                // Schedule once with completion handler
+                player.scheduleBuffer(buffer, at: nil, options: .interrupts) { [weak self] in
+                    DispatchQueue.main.async {
+                        self?.handlePlaybackCompletion()
+                    }
+                }
+            }
+
+            player.play()
+            isPlaying = true
+            startProgressTimer()
+            HapticManager.shared.light()
+
+        } catch {
+            print("❌ Error starting audio engine: \(error)")
+            isPlaying = false
         }
-
-        player.play()
-        isPlaying = true
-        startProgressTimer()
-        HapticManager.shared.light()
     }
 
     func pause() {
-        audioPlayer?.pause()
+        playerNode?.pause()
         isPlaying = false
         stopProgressTimer()
         HapticManager.shared.light()
     }
 
     func stop() {
-        audioPlayer?.stop()
-        audioPlayer?.currentTime = 0
+        playerNode?.stop()
+        if let engine = audioEngine, engine.isRunning {
+            engine.stop()
+        }
         isPlaying = false
         currentTime = 0
         stopProgressTimer()
     }
 
     func seek(to time: TimeInterval) {
-        audioPlayer?.currentTime = time
-        currentTime = time
+        guard let player = playerNode,
+              let file = audioFile,
+              let buffer = audioBuffer else { return }
+
+        let wasPlaying = isPlaying
+
+        // Stop current playback
+        player.stop()
+
+        // Calculate frame position
+        let sampleRate = file.processingFormat.sampleRate
+        let startFrame = AVAudioFramePosition(time * sampleRate)
+
+        // Create buffer from seek position
+        guard startFrame < file.length else { return }
+
+        let frameCount = file.length - startFrame
+        let seekBuffer = AVAudioPCMBuffer(
+            pcmFormat: file.processingFormat,
+            frameCapacity: AVAudioFrameCount(frameCount)
+        )
+
+        if let seekBuffer = seekBuffer,
+           let originalData = buffer.floatChannelData {
+            // Copy audio data from seek position
+            let seekData = seekBuffer.floatChannelData
+            let channelCount = Int(file.processingFormat.channelCount)
+
+            for channel in 0..<channelCount {
+                let source = originalData[channel].advanced(by: Int(startFrame))
+                let destination = seekData?[channel]
+                destination?.update(from: source, count: Int(frameCount))
+            }
+
+            seekBuffer.frameLength = AVAudioFrameCount(frameCount)
+
+            // Schedule new buffer
+            if isLooping {
+                player.scheduleBuffer(seekBuffer, at: nil, options: .loops)
+            } else {
+                player.scheduleBuffer(seekBuffer, at: nil, options: .interrupts) { [weak self] in
+                    DispatchQueue.main.async {
+                        self?.handlePlaybackCompletion()
+                    }
+                }
+            }
+
+            currentTime = time
+
+            // Resume playback if it was playing
+            if wasPlaying {
+                player.play()
+            }
+        }
     }
 
-    // MARK: - Speed Control
+    private func handlePlaybackCompletion() {
+        if !isLooping {
+            isPlaying = false
+            currentTime = 0
+            stopProgressTimer()
+            HapticManager.shared.light()
+        }
+    }
+
+    private func rescheduleWithLoopSetting() {
+        // Only reschedule if currently playing
+        guard isPlaying,
+              let player = playerNode,
+              let buffer = audioBuffer else { return }
+
+        // Stop current playback (but don't stop engine)
+        player.stop()
+
+        // Reschedule buffer with new loop setting
+        if isLooping {
+            // Schedule with looping
+            player.scheduleBuffer(buffer, at: nil, options: .loops)
+        } else {
+            // Schedule once with completion handler
+            player.scheduleBuffer(buffer, at: nil, options: .interrupts) { [weak self] in
+                DispatchQueue.main.async {
+                    self?.handlePlaybackCompletion()
+                }
+            }
+        }
+
+        // Resume playback immediately
+        player.play()
+    }
+
+    // MARK: - Speed and Pitch Control
 
     private func updatePlaybackRate() {
-        guard let player = audioPlayer else { return }
-        player.rate = Float(playbackSpeed)
+        timePitchNode?.rate = Float(playbackSpeed)
+    }
+
+    private func updatePitch() {
+        timePitchNode?.pitch = pitchShift
     }
 
     // MARK: - Progress Monitoring
@@ -97,39 +269,39 @@ final class AudioPlayer: NSObject, ObservableObject {
     }
 
     private func updateProgress() {
-        guard let player = audioPlayer else { return }
-        currentTime = player.currentTime
+        guard let player = playerNode,
+              let lastRenderTime = player.lastRenderTime,
+              let playerTime = player.playerTime(forNodeTime: lastRenderTime),
+              let file = audioFile else { return }
+
+        let sampleRate = file.processingFormat.sampleRate
+        let elapsedTime = Double(playerTime.sampleTime) / sampleRate
+
+        // Adjust for playback rate
+        currentTime = elapsedTime / playbackSpeed
+
+        // Clamp to duration
+        if currentTime > duration {
+            currentTime = duration
+        }
     }
 
     // MARK: - Cleanup
 
     func cleanup() {
         stop()
-        audioPlayer = nil
+
+        // Disconnect nodes before stopping
+        if let engine = audioEngine, let player = playerNode, let timePitch = timePitchNode {
+            engine.disconnectNodeOutput(player)
+            engine.disconnectNodeOutput(timePitch)
+        }
+
+        audioFile = nil
+        audioBuffer = nil
     }
 
     deinit {
         cleanup()
-    }
-}
-
-// MARK: - AVAudioPlayerDelegate
-
-extension AudioPlayer: AVAudioPlayerDelegate {
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        if !isLooping {
-            isPlaying = false
-            currentTime = 0
-            stopProgressTimer()
-            HapticManager.shared.light()
-        }
-    }
-
-    func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
-        if let error = error {
-            print("Playback error: \(error)")
-        }
-        isPlaying = false
-        stopProgressTimer()
     }
 }

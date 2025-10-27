@@ -261,8 +261,6 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
     nonisolated private func pearsonCorrelation(_ x: [Float], _ y: [Float]) -> Float {
         guard x.count == y.count, !x.isEmpty else { return 0.0 }
 
-        let n = Float(x.count)
-
         // Calculate means
         var meanX: Float = 0.0
         var meanY: Float = 0.0

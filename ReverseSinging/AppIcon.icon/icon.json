@@ -12,74 +12,8 @@
           "position" : {
             "scale" : 1.12,
             "translation-in-points" : [
-              2.1950196126761217,
+              2.2,
               1.7874949409531595
-            ]
-          }
-        },
-        {
-          "glass" : false,
-          "hidden" : true,
-          "image-name" : "5F2987E6-71CC-45F9-ACBE-BC659C86AA52.PNG",
-          "name" : "5F2987E6-71CC-45F9-ACBE-BC659C86AA52",
-          "position" : {
-            "scale" : 1.28,
-            "translation-in-points" : [
-              -17.162583108623267,
-              -18.323053458836398
-            ]
-          }
-        }
-      ],
-      "shadow" : {
-        "kind" : "neutral",
-        "opacity" : 0.5
-      },
-      "translucency" : {
-        "enabled" : true,
-        "value" : 0.5
-      }
-    },
-    {
-      "hidden" : true,
-      "layers" : [
-        {
-          "blend-mode" : "darken",
-          "glass" : false,
-          "hidden" : true,
-          "image-name" : "Group 2.png",
-          "name" : "Group 2",
-          "position" : {
-            "scale" : 0.93,
-            "translation-in-points" : [
-              -38.8633634490775,
-              1.739507018168788
-            ]
-          }
-        },
-        {
-          "glass" : false,
-          "hidden" : true,
-          "image-name" : "Group.png",
-          "name" : "Group",
-          "position" : {
-            "scale" : 0.93,
-            "translation-in-points" : [
-              -41.601645161824976,
-              -1.3921384207156626
-            ]
-          }
-        },
-        {
-          "glass" : false,
-          "hidden" : true,
-          "image-name" : "mic-icon.png",
-          "name" : "mic-icon",
-          "position" : {
-            "scale" : 0.99,
-            "translation-in-points" : [
-              -24.5,
-              2.015625
             ]
           }
         }
@@ -101,24 +35,6 @@
           "glass" : false,
           "image-name" : "Group 5.png",
           "name" : "Group 5"
-        },
-        {
-          "hidden" : true,
-          "image-name" : "Group 4.png",
-          "name" : "Group 4"
-        },
-        {
-          "glass" : false,
-          "hidden" : true,
-          "image-name" : "background.png",
-          "name" : "background",
-          "position" : {
-            "scale" : 1,
-            "translation-in-points" : [
-              2.1677791644527815,
-              2.3594060519182563
-            ]
-          }
         }
       ],
       "position" : {

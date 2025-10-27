@@ -22,6 +22,7 @@ struct AppState {
     var hasCompletedOnboarding: Bool = false
     var playbackSpeed: Double = 1.0
     var isLooping: Bool = false
+    var pitchShift: Float = 0.0  // In cents: -1200 to +1200 (±12 semitones)
 
     // Game tracking
     var similarityScore: Double? = nil

@@ -10,7 +10,7 @@ import Foundation
 final class AudioFileManager: @unchecked Sendable {
     static let shared = AudioFileManager()
 
-    private let fileManager = FileManager.default
+    private nonisolated(unsafe) let fileManager = FileManager.default
     private let documentsDirectory: URL
 
     private init() {

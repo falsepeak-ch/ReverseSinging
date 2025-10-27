@@ -13,6 +13,7 @@ struct TimerCard: View {
     let isRecording: Bool
     let state: TimerState
     @Environment(\.colorScheme) var colorScheme
+    @State private var showAudioControls = false
 
     // Play button callbacks and recordings
     var onPlayOriginal: (() -> Void)?
@@ -24,6 +25,14 @@ struct TimerCard: View {
     var hasAttempt: Bool = false
     var hasReversedAttempt: Bool = false
     var onStopPlayback: (() -> Void)?
+
+    // Audio control parameters
+    @Binding var playbackSpeed: Double
+    @Binding var isLooping: Bool
+    @Binding var pitchShift: Float
+    var onSpeedChange: ((Double) -> Void)?
+    var onLoopToggle: (() -> Void)?
+    var onPitchChange: ((Float) -> Void)?
 
     enum TimerState {
         case idle
@@ -125,6 +134,144 @@ struct TimerCard: View {
                 .padding(.horizontal, 8)
                 .padding(.vertical, 16)
             }
+
+            // Audio Controls Section (collapsible)
+            if showPlaybackControls {
+                Divider()
+                    .background(textColor.opacity(0.2))
+                    .padding(.horizontal, 20)
+
+                // Audio Controls Header (always visible)
+                Button(action: {
+                    withAnimation(.rsBouncy) {
+                        showAudioControls.toggle()
+                    }
+                    HapticManager.shared.light()
+                }) {
+                    HStack {
+                        Text("Audio Controls")
+                            .font(.rsBodySmall)
+                            .foregroundColor(textColor.opacity(0.8))
+                            .textCase(.uppercase)
+                            .tracking(1.5)
+
+                        Spacer()
+
+                        Image(systemName: showAudioControls ? "chevron.up.circle.fill" : "chevron.down.circle.fill")
+                            .font(.rsBodyMedium)
+                            .foregroundColor(textColor.opacity(0.8))
+                            .rotationEffect(.degrees(showAudioControls ? 180 : 0))
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 12)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+
+                // Collapsible content
+                if showAudioControls {
+                    VStack(spacing: 16) {
+                        // Loop Toggle
+                        HStack {
+                            Image(systemName: isLooping ? "repeat.1" : "repeat")
+                                .font(.rsBodyMedium)
+                                .foregroundColor(textColor.opacity(0.8))
+
+                            Text("Loop")
+                                .font(.rsBodyMedium)
+                                .foregroundColor(textColor)
+
+                            Spacer()
+
+                            Toggle("", isOn: Binding(
+                                get: { isLooping },
+                                set: { _ in
+                                    onLoopToggle?()
+                                    HapticManager.shared.light()
+                                }
+                            ))
+                            .tint(toggleColor)
+                        }
+                        .opacity(state == .recording ? 0.5 : 1.0)
+                        .disabled(state == .recording)
+
+                        // Playback Speed Slider
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack {
+                                Image(systemName: "speedometer")
+                                    .font(.rsBodyMedium)
+                                    .foregroundColor(textColor.opacity(0.8))
+
+                                Text("Speed")
+                                    .font(.rsBodyMedium)
+                                    .foregroundColor(textColor)
+
+                                Spacer()
+
+                                Text(String(format: "%.1fx", playbackSpeed))
+                                    .font(.rsBodySmall)
+                                    .foregroundColor(textColor.opacity(0.7))
+                                    .monospacedDigit()
+                            }
+
+                            Slider(
+                                value: Binding(
+                                    get: { playbackSpeed },
+                                    set: { newValue in
+                                        onSpeedChange?(newValue)
+                                    }
+                                ),
+                                in: 0.5...2.0,
+                                step: 0.1
+                            )
+                            .tint(controlColor)
+                        }
+                        .opacity(state == .recording ? 0.5 : 1.0)
+                        .disabled(state == .recording)
+
+                        // Pitch Shift Slider
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack {
+                                Image(systemName: "tuningfork")
+                                    .font(.rsBodyMedium)
+                                    .foregroundColor(textColor.opacity(0.8))
+
+                                Text("Pitch")
+                                    .font(.rsBodyMedium)
+                                    .foregroundColor(textColor)
+
+                                Spacer()
+
+                                let semitones = Int(round(pitchShift / 100.0))
+                                Text(semitones > 0 ? "+\(semitones)" : "\(semitones)")
+                                    .font(.rsBodySmall)
+                                    .foregroundColor(textColor.opacity(0.7))
+                                    .monospacedDigit()
+                                Text("semitones")
+                                    .font(.rsCaption)
+                                    .foregroundColor(textColor.opacity(0.5))
+                            }
+
+                            Slider(
+                                value: Binding(
+                                    get: { pitchShift },
+                                    set: { newValue in
+                                        onPitchChange?(newValue)
+                                    }
+                                ),
+                                in: -1200...1200,
+                                step: 100
+                            )
+                            .tint(controlColor)
+                        }
+                        .opacity(state == .recording ? 0.5 : 1.0)
+                        .disabled(state == .recording)
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 16)
+                    .transition(.scale(scale: 0.95).combined(with: .opacity))
+                }
+            }
         }
         .frame(maxWidth: .infinity)
         .background(backgroundColor)
@@ -205,12 +352,32 @@ struct TimerCard: View {
     }
 
     private var controlColor: Color {
-        // Controls use turquoise/red colors
+        // Adaptive control colors for proper contrast
         switch state {
-        case .playing:
+        case .idle:
+            // Card background (light/dark) - turquoise provides good contrast
             return .rsTurquoise
-        default:
+        case .recording:
+            // Red background - white for maximum contrast
+            return Color.white
+        case .playing, .processing:
+            // Turquoise background - white for maximum contrast (can't use turquoise on turquoise!)
+            return Color.white
+        }
+    }
+
+    private var toggleColor: Color {
+        // Toggle switch needs high contrast color when enabled
+        switch state {
+        case .idle:
+            // Use turquoise - contrasts well with light/dark card
             return .rsTurquoise
+        case .recording:
+            // Red matches recording theme and contrasts with white text
+            return .rsRed
+        case .playing, .processing:
+            // Red contrasts strongly with turquoise background
+            return .rsRed
         }
     }
 
@@ -311,12 +478,19 @@ struct CompactTimerCard: View {
 // MARK: - Preview
 
 #Preview("Timer Card - Recording") {
+    @Previewable @State var playbackSpeed = 1.0
+    @Previewable @State var isLooping = false
+    @Previewable @State var pitchShift: Float = 0.0
+
     VStack(spacing: 20) {
         TimerCard(
             duration: 168.5,
             deviceName: "iPhone Microphone",
             isRecording: true,
-            state: .recording
+            state: .recording,
+            playbackSpeed: $playbackSpeed,
+            isLooping: $isLooping,
+            pitchShift: $pitchShift
         )
 
         TimerCard(
@@ -332,7 +506,13 @@ struct CompactTimerCard: View {
             hasReversed: true,
             hasAttempt: true,
             hasReversedAttempt: true,
-            onStopPlayback: { print("Stop playback") }
+            onStopPlayback: { print("Stop playback") },
+            playbackSpeed: $playbackSpeed,
+            isLooping: $isLooping,
+            pitchShift: $pitchShift,
+            onSpeedChange: { speed in print("Speed: \(speed)") },
+            onLoopToggle: { print("Loop toggled") },
+            onPitchChange: { pitch in print("Pitch: \(pitch)") }
         )
 
         CompactTimerCard(duration: 30.0, state: .recording)

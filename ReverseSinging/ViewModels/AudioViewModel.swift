@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import StoreKit
 
 @MainActor
 final class AudioViewModel: ObservableObject {
@@ -101,6 +102,12 @@ final class AudioViewModel: ObservableObject {
         player.$isLooping
             .sink { [weak self] isLooping in
                 self?.appState.isLooping = isLooping
+            }
+            .store(in: &cancellables)
+
+        player.$pitchShift
+            .sink { [weak self] pitch in
+                self?.appState.pitchShift = pitch
             }
             .store(in: &cancellables)
     }
@@ -407,6 +414,10 @@ final class AudioViewModel: ObservableObject {
         player.isLooping.toggle()
     }
 
+    func setPitchShift(_ pitch: Float) {
+        player.pitchShift = pitch
+    }
+
     // MARK: - Game Flow
 
     func incrementPracticeListens() {
@@ -430,6 +441,17 @@ final class AudioViewModel: ObservableObject {
         appState.saveCurrentSession()
         saveSessions()
         HapticManager.shared.success()
+
+        // Request App Store review (Apple rate-limits to max 3x per year)
+        requestReviewIfAppropriate()
+    }
+
+    private func requestReviewIfAppropriate() {
+        // Request review - Apple will decide if/when to show
+        // (max 3 times per 365 days automatically)
+        if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+            SKStoreReviewController.requestReview(in: scene)
+        }
     }
 
     func deleteSession(_ session: AudioSession) {
@@ -513,9 +535,9 @@ final class AudioViewModel: ObservableObject {
     // MARK: - Error Handling
 
     private func handleRecordingError(_ error: RecordingError) {
-        print("❌ Recording error: \(error.localizedDescription ?? "Unknown error")")
+        print("❌ Recording error: \(error.localizedDescription)")
         errorMessage = error.localizedDescription
-        appState.recordingState = .error(error.localizedDescription ?? "Recording failed")
+        appState.recordingState = .error(error.localizedDescription)
         HapticManager.shared.error()
 
         // Show permission alert if permission was denied
