@@ -23,158 +23,29 @@ struct MainViewPremium: View {
                 Color.rsBackgroundAdaptive(for: colorScheme)
                     .ignoresSafeArea()
 
-                // Scrollable content layer
-                ScrollView {
-                    VStack(spacing: 0) {
-                        // Top spacer for fixed header
-                        Color.clear
-                            .frame(height: 100)
-
-                        // Waveform visualization (hidden when playing)
-                        if shouldShowWaveform {
-                            waveformCard
-                                .padding(.horizontal, 24)
-                                .padding(.bottom, 24)
-                                .animatedCard(delay: 0.1)
-                                .transition(.opacity.combined(with: .scale))
-                        }
-
-                        // Timer card (prominent when recording/playing)
-                        if shouldShowTimer {
-                            timerCard
-                                .padding(.horizontal, 24)
-                                .padding(.bottom, 24)
-                                .transition(.asymmetric(
-                                    insertion: .scale.combined(with: .opacity),
-                                    removal: .scale.combined(with: .opacity)
-                                ))
-                        }
-
-                        // Action buttons
-                        actionButtonsSection
-                            .padding(.horizontal, 24)
-                            .padding(.bottom, 100)
-                            .animation(.rsSpring, value: viewModel.appState.recordingState)
-                    }
+                // Show empty state if permission is denied
+                if !viewModel.hasRecordingPermission {
+                    microphonePermissionEmptyState
+                        .transition(.opacity)
+                } else {
+                    // Scrollable content layer
+                    mainContentView
                 }
 
-                // Fixed header overlay
-                VStack(spacing: 0) {
-                    ZStack(alignment: .bottom) {
-                        // Fade background image
-                        Image("fade")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(height: 120)
-                            .clipped()
+                // Fixed header overlay (always visible)
+                fixedHeaderOverlay
 
-                        // Header content
-                        HStack {
-                            Image("lettering")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 40)
-
-                            Spacer()
-
-                            Button(action: { viewModel.showSessionList = true }) {
-                                if #available(iOS 26.0, *) {
-                                    Image(systemName: "archivebox")
-                                        .font(.rsBodyLarge)
-                                        .foregroundColor(.accent)
-                                        .frame(width: 40, height: 40)
-                                        .glassEffect()
-                                } else {
-                                    Image(systemName: "archivebox")
-                                        .font(.rsBodyLarge)
-                                        .foregroundColor(.rsCharcoal)
-                                        .frame(width: 40, height: 40)
-                                        .background(
-                                            Circle()
-                                                .fill(Color.rsButtonPrimaryCream)
-                                        )
-                                }
-                            }
-                        }
-                        .padding(.horizontal, 24)
-                        .padding(.bottom, 16)
-                    }
-                    .frame(maxWidth: .infinity)
-
-                    Spacer()
-                }
-                .ignoresSafeArea(edges: .top)
-
-                // Success toast overlay
-                if showSuccessToast {
-                    VStack {
-                        SuccessToast(message: "Session saved!", isPresented: $showSuccessToast)
-                            .padding(.horizontal, 24)
-                            .padding(.top, 120)
-                        Spacer()
-                    }
-                }
-
-                // Celebration overlay
-                if showCelebration {
-                    ZStack {
-                        Color.black.opacity(0.3)
-                            .ignoresSafeArea()
-                            .onTapGesture {
-                                withAnimation {
-                                    showCelebration = false
-                                }
-                            }
-
-                        SuccessCelebration()
-                            .onAppear {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                    withAnimation {
-                                        showCelebration = false
-                                    }
-                                }
-                            }
-                    }
-                }
-
-                // Processing indicator overlay
-                if viewModel.isReversing {
-                    ProcessingIndicator(message: "Reversing audio...")
-                        .transition(.scale.combined(with: .opacity))
-                }
-
-                // Tip overlay at bottom
-                if let tip = currentTip, !tip.isEmpty {
-                    VStack(spacing: 0) {
-                        Spacer()
-                        ZStack(alignment: .top) {
-                            // Fade background image (rotated 180 degrees to fade upward)
-                            Image("fade")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(height: 120)
-                                .clipped()
-                                .rotationEffect(.degrees(180))
-
-                            // Tip card content on top
-                            tipText(tip)
-                                .id(displayedTip)
-                                .padding(.horizontal, 24)
-                                .padding(.top, 16)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .transition(.opacity.combined(with: .move(edge: .bottom)))
-                    }
-                    .ignoresSafeArea(edges: .bottom)
-                }
+                // Overlays (processing, toasts, etc.)
+                overlaysView
+            }
+            .onAppear {
+                viewModel.checkPermissionStatus()
+                displayedTip = currentTip ?? ""
             }
             .onChange(of: currentTip) { _, newTip in
                 withAnimation(.rsSpring) {
                     displayedTip = newTip ?? ""
                 }
-            }
-            .onAppear {
-                displayedTip = currentTip ?? ""
             }
             .sheet(isPresented: $viewModel.showSessionList) {
                 SessionListView(viewModel: viewModel)
@@ -202,6 +73,209 @@ struct MainViewPremium: View {
                 }
             } message: {
                 Text("Your current session will be saved to the archive. This will start a fresh recording session.")
+            }
+        }
+    }
+
+    // MARK: - Empty State
+
+    private var microphonePermissionEmptyState: some View {
+        VStack(spacing: 32) {
+            Spacer()
+
+            // Microphone image
+            Image("microphone")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 160, height: 160)
+                .scaleIn(delay: 0.1)
+
+            VStack(spacing: 16) {
+                // Title
+                Text("Microphone Access Required")
+                    .font(.rsHeadingMedium)
+                    .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+                    .multilineTextAlignment(.center)
+
+                // Description
+                Text("To use Reverso, please enable microphone access in your device settings. This allows you to record and reverse audio.")
+                    .font(.rsBodyMedium)
+                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(6)
+                    .padding(.horizontal, 24)
+            }
+            .fadeIn(delay: 0.2)
+
+            // Open Settings button
+            BigButton(
+                title: "Open Settings",
+                icon: "gearshape.fill",
+                color: .rsTurquoise,
+                action: openSettings,
+                style: .primary
+            )
+            .padding(.horizontal, 24)
+            .padding(.top, 16)
+            .fadeIn(delay: 0.3)
+
+            Spacer()
+        }
+    }
+
+    // MARK: - Main Content
+
+    private var mainContentView: some View {
+        ScrollView {
+            VStack(spacing: 0) {
+                // Top spacer for fixed header
+                Color.clear
+                    .frame(height: 100)
+
+                // Waveform visualization (hidden when playing)
+                if shouldShowWaveform {
+                    waveformCard
+                        .padding(.horizontal, 24)
+                        .padding(.bottom, 24)
+                        .animatedCard(delay: 0.1)
+                        .transition(.opacity.combined(with: .scale))
+                }
+
+                // Timer card (prominent when recording/playing)
+                if shouldShowTimer {
+                    timerCard
+                        .padding(.horizontal, 24)
+                        .padding(.bottom, 24)
+                        .transition(.asymmetric(
+                            insertion: .scale.combined(with: .opacity),
+                            removal: .scale.combined(with: .opacity)
+                        ))
+                }
+
+                // Action buttons
+                actionButtonsSection
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 100)
+                    .animation(.rsSpring, value: viewModel.appState.recordingState)
+            }
+        }
+    }
+
+    // MARK: - Fixed Header
+
+    private var fixedHeaderOverlay: some View {
+        VStack(spacing: 0) {
+            ZStack(alignment: .bottom) {
+                // Fade background image
+                Image("fade")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(height: 120)
+                    .clipped()
+
+                // Header content
+                HStack {
+                    Image("lettering")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 40)
+
+                    Spacer()
+
+                    Button(action: { viewModel.showSessionList = true }) {
+                        if #available(iOS 26.0, *) {
+                            Image(systemName: "archivebox")
+                                .font(.rsBodyLarge)
+                                .foregroundColor(.accent)
+                                .frame(width: 40, height: 40)
+                                .glassEffect()
+                        } else {
+                            Image(systemName: "archivebox")
+                                .font(.rsBodyLarge)
+                                .foregroundColor(.rsCharcoal)
+                                .frame(width: 40, height: 40)
+                                .background(
+                                    Circle()
+                                        .fill(Color.rsButtonPrimaryCream)
+                                )
+                        }
+                    }
+                }
+                .padding(.horizontal, 24)
+                .padding(.bottom, 16)
+            }
+            .frame(maxWidth: .infinity)
+
+            Spacer()
+        }
+        .ignoresSafeArea(edges: .top)
+    }
+
+    // MARK: - Overlays
+
+    private var overlaysView: some View {
+        ZStack {
+            // Success toast overlay
+            if showSuccessToast {
+                VStack {
+                    SuccessToast(message: "Session saved!", isPresented: $showSuccessToast)
+                        .padding(.horizontal, 24)
+                        .padding(.top, 120)
+                    Spacer()
+                }
+            }
+
+            // Celebration overlay
+            if showCelebration {
+                ZStack {
+                    Color.black.opacity(0.3)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            withAnimation {
+                                showCelebration = false
+                            }
+                        }
+
+                    SuccessCelebration()
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                withAnimation {
+                                    showCelebration = false
+                                }
+                            }
+                        }
+                }
+            }
+
+            // Processing indicator overlay
+            if viewModel.isReversing {
+                ProcessingIndicator(message: "Reversing audio...")
+                    .transition(.scale.combined(with: .opacity))
+            }
+
+            // Tip overlay at bottom (only shown when permission is granted)
+            if viewModel.hasRecordingPermission, let tip = currentTip, !tip.isEmpty {
+                VStack(spacing: 0) {
+                    Spacer()
+                    ZStack(alignment: .top) {
+                        // Fade background image (rotated 180 degrees to fade upward)
+                        Image("fade")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(height: 120)
+                            .clipped()
+                            .rotationEffect(.degrees(180))
+
+                        // Tip card content on top
+                        tipText(tip)
+                            .id(displayedTip)
+                            .padding(.horizontal, 24)
+                            .padding(.top, 16)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
+                }
+                .ignoresSafeArea(edges: .bottom)
             }
         }
     }

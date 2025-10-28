@@ -73,4 +73,14 @@ final class AudioSessionManager {
             }
         }
     }
+
+    /// Check current microphone permission status without requesting
+    func checkRecordPermission() -> AVAudioSession.RecordPermission {
+        return audioSession.recordPermission
+    }
+
+    /// Helper to check if permission is granted
+    var hasRecordPermission: Bool {
+        return audioSession.recordPermission == .granted
+    }
 }
