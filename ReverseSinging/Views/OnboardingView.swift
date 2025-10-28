@@ -181,6 +181,10 @@ struct OnboardingView: View {
 
             if granted {
                 HapticManager.shared.success()
+                // Auto-advance to next page after permission is granted
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.nextPage()
+                }
             } else {
                 HapticManager.shared.error()
             }
