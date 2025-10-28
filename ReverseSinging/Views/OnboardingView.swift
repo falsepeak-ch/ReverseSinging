@@ -292,17 +292,17 @@ struct OnboardingPageView: View {
     // MARK: - Dynamic Layout Helpers (Percentage-Based)
 
     private func imageSize(for size: CGSize) -> CGFloat {
-        // Dynamic sizing: 25-30% of height OR 40% of width, whichever is smaller
+        // Dynamic sizing: 30-42% of height OR 52% of width, whichever is smaller
         // Works for any screen size and aspect ratio
         let isLandscape = size.width > size.height
 
-        let heightBased = size.height * (isLandscape ? 0.35 : 0.28)
-        let widthBased = size.width * 0.45
+        let heightBased = size.height * (isLandscape ? 0.42 : 0.35)
+        let widthBased = size.width * 0.52
 
         let dynamicSize = min(heightBased, widthBased)
 
-        // Cap between 120pt (tiny windows) and 400pt (iPad Pro)
-        return min(400, max(120, dynamicSize))
+        // Cap between 140pt (tiny windows) and 450pt (iPad Pro)
+        return min(450, max(140, dynamicSize))
     }
 
     private func titleSize(for height: CGFloat) -> CGFloat {
