@@ -38,7 +38,7 @@ struct OnboardingView: View {
         } else if permissionDenied {
             return "Open Settings"
         } else {
-            return "Allow Microphone Use"
+            return "Continue"
         }
     }
 
@@ -48,7 +48,7 @@ struct OnboardingView: View {
         } else if permissionDenied {
             return "gearshape.fill"
         } else {
-            return "mic.fill"
+            return "arrow.right"
         }
     }
 
