@@ -175,25 +175,25 @@ struct MainViewPremium: View {
 
                 // Header content
                 HStack {
-                    Image("lettering")
+                    Image(viewModel.hasRecordingPermission ? "icon-lettering" : "lettering")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 40)
+                        .frame(height: 48)
 
                     Spacer()
 
                     Button(action: { viewModel.showSessionList = true }) {
                         if #available(iOS 26.0, *) {
                             Image(systemName: "archivebox")
-                                .font(.rsBodyLarge)
+                                .font(.rsHeadingSmall)
                                 .foregroundColor(.accent)
-                                .frame(width: 40, height: 40)
+                                .frame(width: 44, height: 44)
                                 .glassEffect()
                         } else {
                             Image(systemName: "archivebox")
-                                .font(.rsBodyLarge)
+                                .font(.rsHeadingSmall)
                                 .foregroundColor(.rsCharcoal)
-                                .frame(width: 40, height: 40)
+                                .frame(width: 44, height: 44)
                                 .background(
                                     Circle()
                                         .fill(Color.rsButtonPrimaryCream)
@@ -609,11 +609,12 @@ struct MainViewPremium: View {
     private func tipText(_ text: String) -> some View {
         Group {
             if #available(iOS 26.0, *) {
-                HStack(alignment: .top, spacing: 12) {
-                    Image("light-bulb")
+                HStack(alignment: .center, spacing: 12) {
+                    Image(systemName: "info.circle")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 45, height: 45)
+                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                        .frame(width: 20, height: 20)
                     
                     Text(text)
                         .font(.rsCaption)
@@ -626,11 +627,12 @@ struct MainViewPremium: View {
                 .padding(16)
                 .glassEffect()
             } else {
-                HStack(alignment: .top, spacing: 12) {
-                    Image("light-bulb")
+                HStack(alignment: .center, spacing: 12) {
+                    Image(systemName: "info.circle")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 45, height: 45)
+                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                        .frame(width: 20, height: 20)
                     
                     Text(text)
                         .font(.rsCaption)
