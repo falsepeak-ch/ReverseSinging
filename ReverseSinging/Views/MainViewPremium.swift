@@ -178,7 +178,7 @@ struct MainViewPremium: View {
                     Image(viewModel.hasRecordingPermission ? "icon-lettering" : "lettering")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 48)
+                        .frame(height: viewModel.hasRecordingPermission ? 48 : 30)
 
                     Spacer()
 

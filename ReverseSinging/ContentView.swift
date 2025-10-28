@@ -25,10 +25,3 @@ struct ContentView: View {
 #Preview("Onboarding") {
     ContentView()
 }
-
-#Preview("Main App") {
-    let viewModel = AudioViewModel()
-    viewModel.appState.hasCompletedOnboarding = true
-    return MainView()
-        .environmentObject(viewModel)
-}
