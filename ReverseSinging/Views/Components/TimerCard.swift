@@ -329,8 +329,8 @@ struct TimerCard: View {
 
     private func buttonBackgroundColor(isEnabled: Bool, isHighlighted: Bool) -> Color {
         if isHighlighted && isEnabled {
-            // Gold background for highlighted button
-            return .rsGold.opacity(0.3)
+            // Turquoise background for highlighted button
+            return .rsTurquoise.opacity(0.3)
         } else if isEnabled {
             return textColor.opacity(0.2)
         } else {
@@ -340,8 +340,8 @@ struct TimerCard: View {
 
     private func buttonForegroundColor(isEnabled: Bool, isHighlighted: Bool) -> Color {
         if isHighlighted && isEnabled {
-            // Darker gold for text when highlighted
-            return .rsGold
+            // Turquoise for text when highlighted
+            return .rsTurquoise
         } else if isEnabled {
             return textColor
         } else {
