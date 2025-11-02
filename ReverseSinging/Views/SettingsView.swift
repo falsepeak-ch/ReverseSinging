@@ -2,7 +2,7 @@
 //  SettingsView.swift
 //  ReverseSinging
 //
-//  Premium settings page with enhanced design
+//  Premium settings page matching SessionList aesthetic
 //
 
 import SwiftUI
@@ -13,65 +13,51 @@ struct SettingsView: View {
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
-        ZStack {
-            // Background
-            Color.rsBackgroundAdaptive(for: colorScheme)
-                .ignoresSafeArea()
+        NavigationStack {
+            ZStack {
+                Color.rsBackgroundAdaptive(for: colorScheme).ignoresSafeArea()
 
-            // Content
-            ScrollView {
-                VStack(spacing: 32) {
-                    // Header
-                    headerView
-                        .padding(.top, 20)
+                ScrollView {
+                    VStack(spacing: 24) {
+                        // Theme Selector
+                        themeSection
+                            .slideIn(delay: 0.1)
 
-                    // Theme Selector
-                    themeSection
+                        // Haptic Feedback
+                        hapticsSection
+                            .slideIn(delay: 0.2)
 
-                    // Haptic Feedback Toggle
-                    hapticsSection
+                        // About Section
+                        aboutSection
+                            .slideIn(delay: 0.3)
 
-                    // About Section
-                    aboutSection
-
-                    // Version Info
-                    versionInfo
-                        .padding(.top, 8)
-                        .padding(.bottom, 40)
+                        // Version Info
+                        versionInfo
+                            .padding(.top, 8)
+                            .fadeIn(delay: 0.4)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.top, 8)
+                    .padding(.bottom, 40)
                 }
-                .padding(.horizontal, 24)
             }
-        }
-        .onAppear {
-            AnalyticsManager.shared.trackSettingsOpened()
-            AnalyticsManager.shared.trackScreenViewed(screenName: "SettingsView")
-        }
-    }
-
-    // MARK: - Header
-
-    private var headerView: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(Strings.Settings.title)
-                    .font(.rsHeadingLarge)
-                    .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
-
-                Text(Strings.Settings.subtitle)
-                    .font(.rsBodySmall)
-                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+            .navigationTitle(Strings.Settings.title)
+            .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        HapticManager.shared.light()
+                        dismiss()
+                    }) {
+                        Image(systemName: "xmark")
+                            .font(.rsHeadingSmall)
+                            .foregroundStyle(Color.rsTurquoise)
+                    }
+                }
             }
-
-            Spacer()
-
-            // Close button
-            Button(action: {
-                HapticManager.shared.light()
-                dismiss()
-            }) {
-                Image(systemName: "xmark.circle.fill")
-                    .font(.system(size: 32))
-                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+            .onAppear {
+                AnalyticsManager.shared.trackSettingsOpened()
+                AnalyticsManager.shared.trackScreenViewed(screenName: "SettingsView")
             }
         }
     }
@@ -79,13 +65,13 @@ struct SettingsView: View {
     // MARK: - Theme Section
 
     private var themeSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 12) {
             sectionHeader(
                 title: Strings.Settings.appearance,
                 icon: "paintbrush.fill"
             )
 
-            VStack(spacing: 12) {
+            VStack(spacing: 8) {
                 ForEach(ThemeMode.allCases, id: \.self) { mode in
                     themeOption(mode)
                 }
@@ -95,27 +81,37 @@ struct SettingsView: View {
 
     private func themeOption(_ mode: ThemeMode) -> some View {
         Button(action: {
-            viewModel.setThemeMode(mode)
+            withAnimation(.rsBouncy) {
+                viewModel.setThemeMode(mode)
+            }
             HapticManager.shared.medium()
         }) {
-            HStack(spacing: 16) {
-                // Icon
+            HStack(spacing: 14) {
+                // Icon with gradient background
                 ZStack {
                     Circle()
-                        .fill(viewModel.appState.themeMode == mode ?
-                              Color.rsTurquoise.opacity(0.2) :
-                              Color.rsSecondaryTextAdaptive(for: colorScheme).opacity(0.1))
-                        .frame(width: 48, height: 48)
+                        .fill(
+                            LinearGradient(
+                                colors: viewModel.appState.themeMode == mode ?
+                                    [Color.rsTurquoise, Color.rsTurquoise.opacity(0.8)] :
+                                    [Color.rsSecondaryTextAdaptive(for: colorScheme).opacity(0.15), Color.rsSecondaryTextAdaptive(for: colorScheme).opacity(0.1)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 44, height: 44)
 
                     Image(systemName: iconForMode(mode))
                         .font(.system(size: 20, weight: .semibold))
-                        .foregroundColor(viewModel.appState.themeMode == mode ?
-                                       .rsTurquoise :
-                                       Color.rsSecondaryTextAdaptive(for: colorScheme))
+                        .foregroundStyle(
+                            viewModel.appState.themeMode == mode ?
+                                LinearGradient(colors: [.white, .white], startPoint: .topLeading, endPoint: .bottomTrailing) :
+                                LinearGradient(colors: [Color.rsSecondaryTextAdaptive(for: colorScheme), Color.rsSecondaryTextAdaptive(for: colorScheme)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                        )
                 }
 
                 // Text
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: 3) {
                     Text(mode.rawValue)
                         .font(.rsBodyLarge)
                         .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
@@ -130,22 +126,28 @@ struct SettingsView: View {
                 // Checkmark
                 if viewModel.appState.themeMode == mode {
                     Image(systemName: "checkmark.circle.fill")
-                        .font(.system(size: 24))
-                        .foregroundColor(.rsTurquoise)
+                        .font(.system(size: 22))
+                        .foregroundStyle(Color.rsTurquoise)
+                        .transition(.scale.combined(with: .opacity))
                 }
             }
-            .padding(20)
-            .background(Color.rsCardBackground(for: colorScheme))
-            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .cardShadow(viewModel.appState.themeMode == mode ? .elevated : .card)
-            .overlay(
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .stroke(viewModel.appState.themeMode == mode ?
-                           Color.rsTurquoise.opacity(0.5) : Color.clear,
-                           lineWidth: 2)
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(Color.rsSecondaryBackgroundAdaptive(for: colorScheme))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .stroke(
+                                viewModel.appState.themeMode == mode ?
+                                    Color.rsTurquoise.opacity(0.4) :
+                                    Color.rsTurquoise.opacity(0.15),
+                                lineWidth: viewModel.appState.themeMode == mode ? 1.5 : 1
+                            )
+                    )
             )
+            .cardShadow(viewModel.appState.themeMode == mode ? .elevated : .card)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(ScaleButtonStyle())
     }
 
     private func iconForMode(_ mode: ThemeMode) -> String {
@@ -173,30 +175,38 @@ struct SettingsView: View {
     // MARK: - Haptics Section
 
     private var hapticsSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 12) {
             sectionHeader(
                 title: Strings.Settings.preferences,
                 icon: "slider.horizontal.3"
             )
 
-            HStack(spacing: 16) {
+            HStack(spacing: 14) {
                 // Icon
                 ZStack {
                     Circle()
-                        .fill(viewModel.appState.hapticsEnabled ?
-                              Color.rsTurquoise.opacity(0.2) :
-                              Color.rsSecondaryTextAdaptive(for: colorScheme).opacity(0.1))
-                        .frame(width: 48, height: 48)
+                        .fill(
+                            LinearGradient(
+                                colors: viewModel.appState.hapticsEnabled ?
+                                    [Color.rsTurquoise, Color.rsTurquoise.opacity(0.8)] :
+                                    [Color.rsSecondaryTextAdaptive(for: colorScheme).opacity(0.15), Color.rsSecondaryTextAdaptive(for: colorScheme).opacity(0.1)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 44, height: 44)
 
                     Image(systemName: "waveform")
                         .font(.system(size: 20, weight: .semibold))
-                        .foregroundColor(viewModel.appState.hapticsEnabled ?
-                                       .rsTurquoise :
-                                       Color.rsSecondaryTextAdaptive(for: colorScheme))
+                        .foregroundStyle(
+                            viewModel.appState.hapticsEnabled ?
+                                LinearGradient(colors: [.white, .white], startPoint: .topLeading, endPoint: .bottomTrailing) :
+                                LinearGradient(colors: [Color.rsSecondaryTextAdaptive(for: colorScheme), Color.rsSecondaryTextAdaptive(for: colorScheme)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                        )
                 }
 
                 // Text
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: 3) {
                     Text(Strings.Settings.hapticFeedback)
                         .font(.rsBodyLarge)
                         .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
@@ -220,9 +230,15 @@ struct SettingsView: View {
                 ))
                 .tint(.rsTurquoise)
             }
-            .padding(20)
-            .background(Color.rsCardBackground(for: colorScheme))
-            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(Color.rsSecondaryBackgroundAdaptive(for: colorScheme))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .stroke(Color.rsTurquoise.opacity(0.15), lineWidth: 1)
+                    )
+            )
             .cardShadow(.card)
         }
     }
@@ -230,13 +246,13 @@ struct SettingsView: View {
     // MARK: - About Section
 
     private var aboutSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 12) {
             sectionHeader(
                 title: Strings.Settings.about,
                 icon: "info.circle.fill"
             )
 
-            VStack(spacing: 12) {
+            VStack(spacing: 8) {
                 privacyPolicyButton
                 switzerlandCard
             }
@@ -245,47 +261,72 @@ struct SettingsView: View {
 
     private var privacyPolicyButton: some View {
         Button(action: openPrivacyPolicy) {
-            HStack(spacing: 16) {
+            HStack(spacing: 14) {
                 // Icon
                 ZStack {
                     Circle()
-                        .fill(Color.rsTurquoise.opacity(0.2))
-                        .frame(width: 48, height: 48)
+                        .fill(
+                            LinearGradient(
+                                colors: [Color.rsTurquoise, Color.rsTurquoise.opacity(0.8)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 44, height: 44)
 
                     Image(systemName: "hand.raised.fill")
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundColor(.rsTurquoise)
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(
+                            LinearGradient(colors: [.white, .white], startPoint: .topLeading, endPoint: .bottomTrailing)
+                        )
                 }
 
                 // Text
-                Text(Strings.Settings.privacyPolicy)
-                    .font(.rsBodyLarge)
-                    .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(Strings.Settings.privacyPolicy)
+                        .font(.rsBodyLarge)
+                        .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+
+                    Text("Read our privacy policy")
+                        .font(.rsCaption)
+                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                }
 
                 Spacer()
 
                 // External link icon
-                Image(systemName: "arrow.up.right")
-                    .font(.rsBodyMedium)
-                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                Image(systemName: "arrow.up.right.circle.fill")
+                    .font(.system(size: 22))
+                    .foregroundStyle(Color.rsTurquoise)
             }
-            .padding(20)
-            .background(Color.rsCardBackground(for: colorScheme))
-            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(Color.rsSecondaryBackgroundAdaptive(for: colorScheme))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .stroke(Color.rsTurquoise.opacity(0.15), lineWidth: 1)
+                    )
+            )
             .cardShadow(.card)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(ScaleButtonStyle())
     }
 
     private var switzerlandCard: some View {
-        HStack(spacing: 16) {
-            // Flag
-            Text("🇨🇭")
-                .font(.system(size: 40))
-                .frame(width: 48, height: 48)
+        HStack(spacing: 14) {
+            // Flag circle
+            ZStack {
+                Circle()
+                    .fill(Color.rsSecondaryTextAdaptive(for: colorScheme).opacity(0.1))
+                    .frame(width: 44, height: 44)
+
+                Text("🇨🇭")
+                    .font(.system(size: 24))
+            }
 
             // Text
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: .leading, spacing: 3) {
                 Text(Strings.Settings.builtInSwitzerland)
                     .font(.rsBodyLarge)
                     .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
@@ -297,9 +338,15 @@ struct SettingsView: View {
 
             Spacer()
         }
-        .padding(20)
-        .background(Color.rsCardBackground(for: colorScheme))
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(Color.rsSecondaryBackgroundAdaptive(for: colorScheme))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .stroke(Color.rsTurquoise.opacity(0.15), lineWidth: 1)
+                )
+        )
         .cardShadow(.card)
     }
 
@@ -312,7 +359,7 @@ struct SettingsView: View {
                let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
                 Text("Version \(version) (\(build))")
                     .font(.rsCaption)
-                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme).opacity(0.6))
+                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme).opacity(0.5))
             }
             Spacer()
         }
@@ -323,15 +370,17 @@ struct SettingsView: View {
     private func sectionHeader(title: String, icon: String) -> some View {
         HStack(spacing: 8) {
             Image(systemName: icon)
-                .font(.rsBodyMedium)
-                .foregroundColor(.rsTurquoise)
+                .font(.rsBodySmall)
+                .foregroundStyle(Color.rsTurquoise)
 
             Text(title)
-                .font(.rsHeadingSmall)
-                .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+                .font(.rsCaption)
+                .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
                 .textCase(.uppercase)
-                .tracking(1)
+                .tracking(1.2)
         }
+        .padding(.horizontal, 4)
+        .padding(.top, 8)
     }
 
     // MARK: - Actions
@@ -343,6 +392,16 @@ struct SettingsView: View {
         if let url = URL(string: "https://falsepeak.ch/privacy") {
             UIApplication.shared.open(url)
         }
+    }
+}
+
+// MARK: - Scale Button Style
+
+struct ScaleButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.97 : 1.0)
+            .animation(.rsQuick, value: configuration.isPressed)
     }
 }
 
