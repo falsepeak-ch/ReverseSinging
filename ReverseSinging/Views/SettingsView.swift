@@ -53,6 +53,7 @@ struct SettingsView: View {
                     .padding(.bottom, 40)
                 }
             }
+            .id(viewModel.appState.themeMode)
             .navigationTitle(Strings.Settings.title)
             .navigationBarTitleDisplayMode(.large)
             .toolbar {

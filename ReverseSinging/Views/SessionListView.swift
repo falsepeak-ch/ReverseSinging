@@ -35,6 +35,7 @@ struct SessionListView: View {
                     sessionListView
                 }
             }
+            .id(viewModel.appState.themeMode)
             .navigationTitle(viewModel.appState.savedSessions.isEmpty ? "" : Strings.SessionList.title)
             .navigationBarTitleDisplayMode(.large)
             .onAppear {
