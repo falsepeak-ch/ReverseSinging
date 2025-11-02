@@ -73,4 +73,9 @@ final class AudioSessionManager {
             }
         }
     }
+
+    /// Helper to check if permission is granted
+    var hasRecordPermission: Bool {
+        return AVAudioApplication.shared.recordPermission == .granted
+    }
 }

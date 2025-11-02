@@ -45,6 +45,7 @@ final class AudioViewModel: ObservableObject {
     init() {
         setupBindings()
         loadSessions()
+        checkPermissionStatus()
     }
 
     // MARK: - Setup
@@ -113,6 +114,11 @@ final class AudioViewModel: ObservableObject {
     }
 
     // MARK: - Permissions
+
+    /// Check current microphone permission status
+    func checkPermissionStatus() {
+        hasRecordingPermission = AudioSessionManager.shared.hasRecordPermission
+    }
 
     private func requestPermissionIfNeeded(completion: @escaping (Bool) -> Void) {
         recorder.requestPermission { [weak self] granted in
