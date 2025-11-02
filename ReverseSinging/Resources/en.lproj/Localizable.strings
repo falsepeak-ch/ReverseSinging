@@ -120,3 +120,24 @@
 "error.noRecordingInProgress" = "No recording in progress.";
 "error.failedToStopRecording" = "Failed to stop recording properly.";
 "error.failedToProcessRecording" = "Failed to process recording.";
+
+// MARK: - Settings
+"settings.title" = "Settings";
+"settings.subtitle" = "Customize your experience";
+"settings.appearance" = "Appearance";
+"settings.preferences" = "Preferences";
+"settings.about" = "About";
+
+// Theme descriptions
+"settings.theme.system.desc" = "Follows system settings";
+"settings.theme.light.desc" = "Always use light mode";
+"settings.theme.dark.desc" = "Always use dark mode";
+
+// Haptic feedback
+"settings.hapticFeedback" = "Haptic Feedback";
+"settings.hapticFeedback.desc" = "Feel vibrations when tapping";
+
+// About
+"settings.privacyPolicy" = "Privacy Policy";
+"settings.builtInSwitzerland" = "Built in Switzerland";
+"settings.builtInSwitzerland.desc" = "Made with care in Zürich";

@@ -165,4 +165,27 @@ enum Strings {
         static let failedToStopRecording = NSLocalizedString("error.failedToStopRecording", comment: "Failed to stop recording error")
         static let failedToProcessRecording = NSLocalizedString("error.failedToProcessRecording", comment: "Failed to process recording error")
     }
+
+    // MARK: - Settings
+    enum Settings {
+        static let title = NSLocalizedString("settings.title", comment: "Settings title")
+        static let subtitle = NSLocalizedString("settings.subtitle", comment: "Settings subtitle")
+        static let appearance = NSLocalizedString("settings.appearance", comment: "Appearance section")
+        static let preferences = NSLocalizedString("settings.preferences", comment: "Preferences section")
+        static let about = NSLocalizedString("settings.about", comment: "About section")
+
+        // Theme descriptions
+        static let themeSystemDesc = NSLocalizedString("settings.theme.system.desc", comment: "System theme description")
+        static let themeLightDesc = NSLocalizedString("settings.theme.light.desc", comment: "Light theme description")
+        static let themeDarkDesc = NSLocalizedString("settings.theme.dark.desc", comment: "Dark theme description")
+
+        // Haptic feedback
+        static let hapticFeedback = NSLocalizedString("settings.hapticFeedback", comment: "Haptic feedback label")
+        static let hapticFeedbackDesc = NSLocalizedString("settings.hapticFeedback.desc", comment: "Haptic feedback description")
+
+        // About
+        static let privacyPolicy = NSLocalizedString("settings.privacyPolicy", comment: "Privacy policy label")
+        static let builtInSwitzerland = NSLocalizedString("settings.builtInSwitzerland", comment: "Built in Switzerland label")
+        static let builtInSwitzerlandDesc = NSLocalizedString("settings.builtInSwitzerland.desc", comment: "Built in Switzerland description")
+    }
 }

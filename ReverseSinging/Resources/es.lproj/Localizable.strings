@@ -120,3 +120,24 @@
 "error.noRecordingInProgress" = "No hay ninguna grabación en curso.";
 "error.failedToStopRecording" = "No se pudo detener la grabación correctamente.";
 "error.failedToProcessRecording" = "No se pudo procesar la grabación.";
+
+// MARK: - Settings
+"settings.title" = "Ajustes";
+"settings.subtitle" = "Personaliza tu experiencia";
+"settings.appearance" = "Apariencia";
+"settings.preferences" = "Preferencias";
+"settings.about" = "Acerca de";
+
+// Theme descriptions
+"settings.theme.system.desc" = "Sigue los ajustes del sistema";
+"settings.theme.light.desc" = "Siempre en modo claro";
+"settings.theme.dark.desc" = "Siempre en modo oscuro";
+
+// Haptic feedback
+"settings.hapticFeedback" = "Respuesta Háptica";
+"settings.hapticFeedback.desc" = "Vibración al tocar";
+
+// About
+"settings.privacyPolicy" = "Política de Privacidad";
+"settings.builtInSwitzerland" = "Hecho en Suiza";
+"settings.builtInSwitzerland.desc" = "Hecho con cuidado en Zúrich";

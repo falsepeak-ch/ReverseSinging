@@ -120,3 +120,24 @@
 "error.noRecordingInProgress" = "No hi ha cap gravació en curs.";
 "error.failedToStopRecording" = "No s'ha pogut aturar la gravació correctament.";
 "error.failedToProcessRecording" = "No s'ha pogut processar la gravació.";
+
+// MARK: - Settings
+"settings.title" = "Ajustos";
+"settings.subtitle" = "Personalitza la teva experiència";
+"settings.appearance" = "Aparença";
+"settings.preferences" = "Preferències";
+"settings.about" = "Sobre";
+
+// Theme descriptions
+"settings.theme.system.desc" = "Segueix els ajustos del sistema";
+"settings.theme.light.desc" = "Sempre en mode clar";
+"settings.theme.dark.desc" = "Sempre en mode fosc";
+
+// Haptic feedback
+"settings.hapticFeedback" = "Feedback Hàptic";
+"settings.hapticFeedback.desc" = "Vibració en tocar";
+
+// About
+"settings.privacyPolicy" = "Política de Privacitat";
+"settings.builtInSwitzerland" = "Fet a Suïssa";
+"settings.builtInSwitzerland.desc" = "Fet amb cura a Zuric";
