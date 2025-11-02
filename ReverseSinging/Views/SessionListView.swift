@@ -10,12 +10,24 @@ import SwiftUI
 struct SessionListView: View {
     @ObservedObject var viewModel: AudioViewModel
     @Environment(\.dismiss) var dismiss
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) var systemColorScheme
+
+    // Computed effective color scheme based on theme mode
+    private var effectiveColorScheme: ColorScheme {
+        switch viewModel.appState.themeMode {
+        case .system:
+            return systemColorScheme
+        case .light:
+            return .light
+        case .dark:
+            return .dark
+        }
+    }
 
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.rsBackgroundAdaptive(for: colorScheme).ignoresSafeArea()
+                Color.rsBackgroundAdaptive(for: effectiveColorScheme).ignoresSafeArea()
 
                 if viewModel.appState.savedSessions.isEmpty {
                     emptyStateView
@@ -39,7 +51,7 @@ struct SessionListView: View {
                     }) {
                         Image(systemName: "xmark")
                             .font(.system(size: 20, weight: .bold))
-                            .foregroundStyle(Color.rsTextAdaptive(for: colorScheme))
+                            .foregroundStyle(Color.rsTextAdaptive(for: effectiveColorScheme))
                     }
                 }
             }
@@ -70,12 +82,12 @@ struct SessionListView: View {
 
             Text(Strings.SessionList.Empty.title)
                 .font(.custom("Eugello", size: 32))
-                .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+                .foregroundColor(Color.rsTextAdaptive(for: effectiveColorScheme))
                 .fadeIn(delay: 0.2)
 
             Text(Strings.SessionList.Empty.message)
                 .font(.rsBodyMedium)
-                .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme))
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
                 .fadeIn(delay: 0.3)
@@ -98,7 +110,7 @@ struct SessionListView: View {
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
-        .background(Color.rsBackgroundAdaptive(for: colorScheme))
+        .background(Color.rsBackgroundAdaptive(for: effectiveColorScheme))
     }
 
     // MARK: - Actions
@@ -117,7 +129,15 @@ struct SessionRow: View {
     let session: AudioSession
     @ObservedObject var viewModel: AudioViewModel
     @State private var isExpanded = false
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) var systemColorScheme
+
+    private var effectiveColorScheme: ColorScheme {
+        switch viewModel.appState.themeMode {
+        case .system: return systemColorScheme
+        case .light: return .light
+        case .dark: return .dark
+        }
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -126,11 +146,11 @@ struct SessionRow: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(session.name)
                         .font(.rsHeadingSmall)
-                        .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+                        .foregroundColor(Color.rsTextAdaptive(for: effectiveColorScheme))
 
                     Text(session.formattedDate)
                         .font(.rsCaption)
-                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme))
                 }
 
                 Spacer()
@@ -177,7 +197,7 @@ struct SessionRow: View {
         .padding(16)
         .background(
             RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(Color.rsSecondaryBackgroundAdaptive(for: colorScheme))
+                .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
                 .overlay(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .stroke(Color.rsTurquoise.opacity(0.15), lineWidth: 1.5)
@@ -219,7 +239,15 @@ struct RecordingRowButton: View {
     let recording: Recording
     @ObservedObject var viewModel: AudioViewModel
     @State private var isPressed = false
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) var systemColorScheme
+
+    private var effectiveColorScheme: ColorScheme {
+        switch viewModel.appState.themeMode {
+        case .system: return systemColorScheme
+        case .light: return .light
+        case .dark: return .dark
+        }
+    }
 
     var body: some View {
         Button(action: {
@@ -235,11 +263,11 @@ struct RecordingRowButton: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(recording.localizedType)
                         .font(.rsBodyMedium)
-                        .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+                        .foregroundColor(Color.rsTextAdaptive(for: effectiveColorScheme))
 
                     Text(recording.formattedDuration)
                         .font(.rsCaption)
-                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme))
                 }
 
                 Spacer()
@@ -255,7 +283,7 @@ struct RecordingRowButton: View {
             .padding(14)
             .background(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(Color.rsSecondaryBackgroundAdaptive(for: colorScheme))
+                    .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
                     .overlay(
                         RoundedRectangle(cornerRadius: 12, style: .continuous)
                             .stroke(Color.rsTurquoise.opacity(0.2), lineWidth: 1)

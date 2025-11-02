@@ -10,12 +10,24 @@ import SwiftUI
 struct SettingsView: View {
     @ObservedObject var viewModel: AudioViewModel
     @Environment(\.dismiss) var dismiss
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) var systemColorScheme
+
+    // Computed effective color scheme based on theme mode
+    private var effectiveColorScheme: ColorScheme {
+        switch viewModel.appState.themeMode {
+        case .system:
+            return systemColorScheme
+        case .light:
+            return .light
+        case .dark:
+            return .dark
+        }
+    }
 
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.rsBackgroundAdaptive(for: colorScheme).ignoresSafeArea()
+                Color.rsBackgroundAdaptive(for: effectiveColorScheme).ignoresSafeArea()
 
                 ScrollView {
                     VStack(spacing: 24) {
@@ -51,7 +63,7 @@ struct SettingsView: View {
                     }) {
                         Image(systemName: "xmark")
                             .font(.system(size: 20, weight: .bold))
-                            .foregroundStyle(Color.rsTextAdaptive(for: colorScheme))
+                            .foregroundStyle(Color.rsTextAdaptive(for: effectiveColorScheme))
                     }
                 }
             }
@@ -106,7 +118,7 @@ struct SettingsView: View {
                             LinearGradient(
                                 colors: viewModel.appState.themeMode == mode ?
                                     [Color.rsTurquoise, Color.rsTurquoise.opacity(0.8)] :
-                                    [Color.rsSecondaryTextAdaptive(for: colorScheme).opacity(0.15), Color.rsSecondaryTextAdaptive(for: colorScheme).opacity(0.1)],
+                                    [Color.rsSecondaryTextAdaptive(for: effectiveColorScheme).opacity(0.15), Color.rsSecondaryTextAdaptive(for: effectiveColorScheme).opacity(0.1)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
@@ -118,7 +130,7 @@ struct SettingsView: View {
                         .foregroundStyle(
                             viewModel.appState.themeMode == mode ?
                                 LinearGradient(colors: [.white, .white], startPoint: .topLeading, endPoint: .bottomTrailing) :
-                                LinearGradient(colors: [Color.rsSecondaryTextAdaptive(for: colorScheme), Color.rsSecondaryTextAdaptive(for: colorScheme)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                LinearGradient(colors: [Color.rsSecondaryTextAdaptive(for: effectiveColorScheme), Color.rsSecondaryTextAdaptive(for: effectiveColorScheme)], startPoint: .topLeading, endPoint: .bottomTrailing)
                         )
                 }
 
@@ -126,11 +138,11 @@ struct SettingsView: View {
                 VStack(alignment: .leading, spacing: 3) {
                     Text(mode.rawValue)
                         .font(.rsBodyLarge)
-                        .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+                        .foregroundColor(Color.rsTextAdaptive(for: effectiveColorScheme))
 
                     Text(descriptionForMode(mode))
                         .font(.rsCaption)
-                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme))
                 }
 
                 Spacer()
@@ -146,7 +158,7 @@ struct SettingsView: View {
             .padding(16)
             .background(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(Color.rsSecondaryBackgroundAdaptive(for: colorScheme))
+                    .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
                     .overlay(
                         RoundedRectangle(cornerRadius: 12, style: .continuous)
                             .stroke(
@@ -201,7 +213,7 @@ struct SettingsView: View {
                             LinearGradient(
                                 colors: viewModel.appState.hapticsEnabled ?
                                     [Color.rsTurquoise, Color.rsTurquoise.opacity(0.8)] :
-                                    [Color.rsSecondaryTextAdaptive(for: colorScheme).opacity(0.15), Color.rsSecondaryTextAdaptive(for: colorScheme).opacity(0.1)],
+                                    [Color.rsSecondaryTextAdaptive(for: effectiveColorScheme).opacity(0.15), Color.rsSecondaryTextAdaptive(for: effectiveColorScheme).opacity(0.1)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
@@ -213,7 +225,7 @@ struct SettingsView: View {
                         .foregroundStyle(
                             viewModel.appState.hapticsEnabled ?
                                 LinearGradient(colors: [.white, .white], startPoint: .topLeading, endPoint: .bottomTrailing) :
-                                LinearGradient(colors: [Color.rsSecondaryTextAdaptive(for: colorScheme), Color.rsSecondaryTextAdaptive(for: colorScheme)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                LinearGradient(colors: [Color.rsSecondaryTextAdaptive(for: effectiveColorScheme), Color.rsSecondaryTextAdaptive(for: effectiveColorScheme)], startPoint: .topLeading, endPoint: .bottomTrailing)
                         )
                 }
 
@@ -221,11 +233,11 @@ struct SettingsView: View {
                 VStack(alignment: .leading, spacing: 3) {
                     Text(Strings.Settings.hapticFeedback)
                         .font(.rsBodyLarge)
-                        .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+                        .foregroundColor(Color.rsTextAdaptive(for: effectiveColorScheme))
 
                     Text(Strings.Settings.hapticFeedbackDesc)
                         .font(.rsCaption)
-                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme))
                 }
 
                 Spacer()
@@ -245,7 +257,7 @@ struct SettingsView: View {
             .padding(16)
             .background(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(Color.rsSecondaryBackgroundAdaptive(for: colorScheme))
+                    .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
                     .overlay(
                         RoundedRectangle(cornerRadius: 12, style: .continuous)
                             .stroke(Color.rsTurquoise.opacity(0.15), lineWidth: 1)
@@ -297,11 +309,11 @@ struct SettingsView: View {
                 VStack(alignment: .leading, spacing: 3) {
                     Text(Strings.Settings.privacyPolicy)
                         .font(.rsBodyLarge)
-                        .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+                        .foregroundColor(Color.rsTextAdaptive(for: effectiveColorScheme))
 
                     Text("Read our privacy policy")
                         .font(.rsCaption)
-                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme))
                 }
 
                 Spacer()
@@ -314,7 +326,7 @@ struct SettingsView: View {
             .padding(16)
             .background(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(Color.rsSecondaryBackgroundAdaptive(for: colorScheme))
+                    .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
                     .overlay(
                         RoundedRectangle(cornerRadius: 12, style: .continuous)
                             .stroke(Color.rsTurquoise.opacity(0.15), lineWidth: 1)
@@ -330,7 +342,7 @@ struct SettingsView: View {
             // Flag circle
             ZStack {
                 Circle()
-                    .fill(Color.rsSecondaryTextAdaptive(for: colorScheme).opacity(0.1))
+                    .fill(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme).opacity(0.1))
                     .frame(width: 44, height: 44)
 
                 Text("🇨🇭")
@@ -341,11 +353,11 @@ struct SettingsView: View {
             VStack(alignment: .leading, spacing: 3) {
                 Text(Strings.Settings.builtInSwitzerland)
                     .font(.rsBodyLarge)
-                    .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+                    .foregroundColor(Color.rsTextAdaptive(for: effectiveColorScheme))
 
                 Text(Strings.Settings.builtInSwitzerlandDesc)
                     .font(.rsCaption)
-                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme))
             }
 
             Spacer()
@@ -353,7 +365,7 @@ struct SettingsView: View {
         .padding(16)
         .background(
             RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(Color.rsSecondaryBackgroundAdaptive(for: colorScheme))
+                .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
                 .overlay(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .stroke(Color.rsTurquoise.opacity(0.15), lineWidth: 1)
@@ -371,7 +383,7 @@ struct SettingsView: View {
                let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
                 Text("Version \(version) (\(build))")
                     .font(.rsCaption)
-                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme).opacity(0.5))
+                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme).opacity(0.5))
             }
             Spacer()
         }
@@ -387,7 +399,7 @@ struct SettingsView: View {
 
             Text(title)
                 .font(.rsCaption)
-                .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme))
                 .textCase(.uppercase)
                 .tracking(1.2)
         }
