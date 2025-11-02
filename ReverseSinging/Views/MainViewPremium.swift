@@ -41,6 +41,9 @@ struct MainViewPremium: View {
             .onAppear {
                 viewModel.checkPermissionStatus()
                 displayedTip = currentTip ?? ""
+
+                // Track screen view
+                AnalyticsManager.shared.trackScreenViewed(screenName: "MainView")
             }
             .onChange(of: currentTip) { _, newTip in
                 withAnimation(.rsSpring) {
@@ -50,29 +53,32 @@ struct MainViewPremium: View {
             .sheet(isPresented: $viewModel.showSessionList) {
                 SessionListView(viewModel: viewModel)
             }
-            .alert("Microphone Access Required", isPresented: $viewModel.showPermissionAlert) {
-                Button("Settings", action: openSettings)
-                Button("Cancel", role: .cancel) {}
-            } message: {
-                Text("Please enable microphone access in Settings to record audio.")
+            .sheet(isPresented: $viewModel.showSettings) {
+                SettingsView(viewModel: viewModel)
             }
-            .alert("Error", isPresented: .init(
+            .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: $viewModel.showPermissionAlert) {
+                Button(Strings.Main.Alert.settings, action: openSettings)
+                Button(Strings.Main.Alert.cancel, role: .cancel) {}
+            } message: {
+                Text(Strings.Main.Alert.microphoneRequiredMessage)
+            }
+            .alert(Strings.Main.Alert.errorTitle, isPresented: .init(
                 get: { viewModel.errorMessage != nil },
                 set: { if !$0 { viewModel.errorMessage = nil } }
             )) {
-                Button("OK", role: .cancel) {
+                Button(Strings.Main.Alert.ok, role: .cancel) {
                     viewModel.errorMessage = nil
                 }
             } message: {
                 Text(viewModel.errorMessage ?? "")
             }
-            .alert("Start New Session?", isPresented: $showNewSessionAlert) {
-                Button("Cancel", role: .cancel) {}
-                Button("Start New Session", role: .destructive) {
+            .alert(Strings.Main.Alert.startNewSessionTitle, isPresented: $showNewSessionAlert) {
+                Button(Strings.Main.Alert.cancel, role: .cancel) {}
+                Button(Strings.Main.Alert.startNewSessionButton, role: .destructive) {
                     viewModel.startNewSession()
                 }
             } message: {
-                Text("Your current session will be saved to the archive. This will start a fresh recording session.")
+                Text(Strings.Main.Alert.startNewSessionMessage)
             }
         }
     }
@@ -92,13 +98,13 @@ struct MainViewPremium: View {
 
             VStack(spacing: 16) {
                 // Title
-                Text("Microphone Access Required")
+                Text(Strings.Main.EmptyState.title)
                     .font(.rsHeadingMedium)
                     .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
                     .multilineTextAlignment(.center)
 
                 // Description
-                Text("To use Reverso, please enable microphone access in your device settings. This allows you to record and reverse audio.")
+                Text(Strings.Main.EmptyState.message)
                     .font(.rsBodyMedium)
                     .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
                     .multilineTextAlignment(.center)
@@ -109,7 +115,7 @@ struct MainViewPremium: View {
 
             // Open Settings button
             BigButton(
-                title: "Open Settings",
+                title: Strings.Main.EmptyState.button,
                 icon: "gearshape.fill",
                 color: .rsTurquoise,
                 action: openSettings,
@@ -182,22 +188,46 @@ struct MainViewPremium: View {
 
                     Spacer()
 
-                    Button(action: { viewModel.showSessionList = true }) {
-                        if #available(iOS 26.0, *) {
-                            Image(systemName: "archivebox")
-                                .font(.rsHeadingSmall)
-                                .foregroundColor(.accent)
-                                .frame(width: 44, height: 44)
-                                .glassEffect()
-                        } else {
-                            Image(systemName: "archivebox")
-                                .font(.rsHeadingSmall)
-                                .foregroundColor(.rsCharcoal)
-                                .frame(width: 44, height: 44)
-                                .background(
-                                    Circle()
-                                        .fill(Color.rsButtonPrimaryCream)
-                                )
+                    // Header buttons
+                    HStack(spacing: 12) {
+                        // Archive button
+                        Button(action: { viewModel.showSessionList = true }) {
+                            if #available(iOS 26.0, *) {
+                                Image(systemName: "archivebox")
+                                    .font(.rsHeadingSmall)
+                                    .foregroundColor(.accent)
+                                    .frame(width: 44, height: 44)
+                                    .glassEffect()
+                            } else {
+                                Image(systemName: "archivebox")
+                                    .font(.rsHeadingSmall)
+                                    .foregroundColor(.rsCharcoal)
+                                    .frame(width: 44, height: 44)
+                                    .background(
+                                        Circle()
+                                            .fill(Color.rsButtonPrimaryCream)
+                                    )
+                            }
+                        }
+
+                        // Settings button
+                        Button(action: { viewModel.showSettings = true }) {
+                            if #available(iOS 26.0, *) {
+                                Image(systemName: "gearshape.fill")
+                                    .font(.rsHeadingSmall)
+                                    .foregroundColor(.accent)
+                                    .frame(width: 44, height: 44)
+                                    .glassEffect()
+                            } else {
+                                Image(systemName: "gearshape.fill")
+                                    .font(.rsHeadingSmall)
+                                    .foregroundColor(.rsCharcoal)
+                                    .frame(width: 44, height: 44)
+                                    .background(
+                                        Circle()
+                                            .fill(Color.rsButtonPrimaryCream)
+                                    )
+                            }
                         }
                     }
                 }
@@ -218,7 +248,7 @@ struct MainViewPremium: View {
             // Success toast overlay
             if showSuccessToast {
                 VStack {
-                    SuccessToast(message: "Session saved!", isPresented: $showSuccessToast)
+                    SuccessToast(message: Strings.Main.successSessionSaved, isPresented: $showSuccessToast)
                         .padding(.horizontal, 24)
                         .padding(.top, 120)
                     Spacer()
@@ -249,7 +279,7 @@ struct MainViewPremium: View {
 
             // Processing indicator overlay
             if viewModel.isReversing {
-                ProcessingIndicator(message: "Reversing audio...")
+                ProcessingIndicator(message: Strings.Main.processingReversingAudio)
                     .transition(.scale.combined(with: .opacity))
             }
 
@@ -351,39 +381,39 @@ struct MainViewPremium: View {
 
     private var currentTip: String? {
         guard let session = viewModel.appState.currentSession else {
-            return "Tap Record Audio to begin your reverse singing challenge"
+            return Strings.Main.Tip.tapRecordToBegin
         }
 
         // Show tips during recording
         if case .recording = viewModel.appState.recordingState {
             if session.attemptRecording != nil {
                 // Re-recording attempt
-                return "Record your singing attempt while listening to the reversed audio"
+                return Strings.Main.Tip.recordSingingAttempt
             } else if session.reversedRecording != nil {
                 // Recording attempt for first time
-                return "Record your singing attempt while listening to the reversed audio"
+                return Strings.Main.Tip.recordSingingAttempt
             } else {
                 // Recording original
-                return "Record the song you want to sing in reverse"
+                return Strings.Main.Tip.recordSongToReverse
             }
         }
 
         // Show tips during playback
         if case .playing = viewModel.appState.recordingState {
-            return "Tap any play button to switch between recordings, or tap stop to pause"
+            return Strings.Main.Tip.tapPlayToSwitch
         }
 
         // Step-based tips for idle states
         if session.attemptRecording != nil {
-            return "Tap Re-record to improve your attempt, or New Session to record a new song"
+            return Strings.Main.Tip.reRecordOrNewSession
         } else if session.reversedRecording != nil {
-            return "Listen to the reversed audio, then record your singing attempt"
+            return Strings.Main.Tip.listenAndRecord
         } else if session.originalRecording != nil {
             // Original recording exists but not reversed yet - processing
-            return "Processing your audio... This will only take a moment"
+            return Strings.Main.Tip.processingAudio
         } else {
             // Initial state - no recordings yet
-            return "Tap Record Audio to record the song you want to reverse"
+            return Strings.Main.Tip.tapRecordAudio
         }
     }
 
@@ -536,7 +566,7 @@ struct MainViewPremium: View {
             // Button 1: Record Audio (only shown when no original recording exists)
             if session?.originalRecording == nil {
                 BigButton(
-                    title: isRecording ? "Stop Recording" : "Record Audio",
+                    title: isRecording ? Strings.Main.stopRecording : Strings.Main.recordAudio,
                     icon: isRecording ? "stop.circle.fill" : "mic.fill",
                     color: .rsRecording,
                     action: {
@@ -553,7 +583,7 @@ struct MainViewPremium: View {
             // Record Your Attempt (only shown when reversed exists and no attempt yet, hidden when playing)
             if session?.reversedRecording != nil && session?.attemptRecording == nil && !isPlaying {
                 BigButton(
-                    title: isRecording ? "Stop Recording" : "Record Your Attempt",
+                    title: isRecording ? Strings.Main.stopRecording : Strings.Main.recordAttempt,
                     icon: isRecording ? "stop.circle.fill" : "mic.fill",
                     color: .rsRecording,
                     action: {
@@ -577,7 +607,7 @@ struct MainViewPremium: View {
             HStack(spacing: 12) {
                 if session?.attemptRecording != nil && !isRecording {
                     BigButton(
-                        title: "Re-record",
+                        title: Strings.Main.reRecord,
                         icon: "record.circle",
                         color: .rsRecording,
                         action: {
@@ -591,7 +621,7 @@ struct MainViewPremium: View {
                 // Only show New Session if there are recordings in current session
                 if session != nil && !session!.recordings.isEmpty {
                     BigButton(
-                        title: "New Session",
+                        title: Strings.Main.newSession,
                         icon: "plus.circle.fill",
                         color: .rsTurquoise,
                         action: { showNewSessionAlert = true },

@@ -23,8 +23,14 @@ struct SessionListView: View {
                     sessionListView
                 }
             }
-            .navigationTitle(viewModel.appState.savedSessions.isEmpty ? "" : "Saved Sessions")
+            .navigationTitle(viewModel.appState.savedSessions.isEmpty ? "" : Strings.SessionList.title)
             .navigationBarTitleDisplayMode(.large)
+            .onAppear {
+                // Track screen view and session count
+                let sessionsCount = viewModel.appState.savedSessions.count
+                AnalyticsManager.shared.trackSessionListViewed(sessionsCount: sessionsCount)
+                AnalyticsManager.shared.trackScreenViewed(screenName: "SessionListView")
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: { dismiss() }) {
@@ -47,12 +53,12 @@ struct SessionListView: View {
                 .frame(width: 140, height: 140)
                 .scaleIn(delay: 0.1)
 
-            Text("No Saved Sessions")
+            Text(Strings.SessionList.Empty.title)
                 .font(.custom("Eugello", size: 32))
                 .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
                 .fadeIn(delay: 0.2)
 
-            Text("Complete a reverse singing session and save it to see it here.")
+            Text(Strings.SessionList.Empty.message)
                 .font(.rsBodyMedium)
                 .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
                 .multilineTextAlignment(.center)
@@ -130,13 +136,13 @@ struct SessionRow: View {
             // Recording badges
             HStack(spacing: 8) {
                 if session.originalRecording != nil {
-                    recordingBadge("Original", color: .rsTurquoise)
+                    recordingBadge(Strings.RecordingType.original, color: .rsTurquoise)
                 }
                 if session.reversedRecording != nil {
-                    recordingBadge("Reversed", color: .rsTurquoise.opacity(0.8))
+                    recordingBadge(Strings.RecordingType.reversed, color: .rsTurquoise.opacity(0.8))
                 }
                 if session.attemptRecording != nil {
-                    recordingBadge("Attempt", color: .rsTurquoise.opacity(0.6))
+                    recordingBadge(Strings.RecordingType.attempt, color: .rsTurquoise.opacity(0.6))
                 }
             }
 
@@ -179,14 +185,14 @@ struct SessionRow: View {
     }
 
     private func gradientForBadge(_ title: String) -> LinearGradient {
-        switch title {
-        case "Original":
+        // Match localized strings
+        if title == Strings.RecordingType.original {
             return LinearGradient(colors: [Color.rsTurquoise, Color.rsTurquoise], startPoint: .topLeading, endPoint: .bottomTrailing)
-        case "Reversed":
+        } else if title == Strings.RecordingType.reversed {
             return LinearGradient(colors: [Color.rsTurquoise, Color.rsTurquoise], startPoint: .topLeading, endPoint: .bottomTrailing)
-        case "Attempt":
+        } else if title == Strings.RecordingType.attempt {
             return LinearGradient(colors: [Color.rsRed, Color.rsRed], startPoint: .topLeading, endPoint: .bottomTrailing)
-        default:
+        } else {
             return LinearGradient(colors: [Color.rsTurquoise, Color.rsTurquoise], startPoint: .topLeading, endPoint: .bottomTrailing)
         }
     }
@@ -212,7 +218,7 @@ struct RecordingRowButton: View {
                     .frame(width: 30)
 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(recording.type.rawValue)
+                    Text(recording.localizedType)
                         .font(.rsBodyMedium)
                         .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
 

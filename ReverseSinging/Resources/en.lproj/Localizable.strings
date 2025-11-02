@@ -1,0 +1,122 @@
+/*
+   Localizable.strings (English)
+   ReverseSinging
+*/
+
+// MARK: - Onboarding
+"onboarding.welcome.title" = "Welcome to Reverso";
+"onboarding.welcome.message" = "We need microphone access to record and reverse your audio. Let's get started!";
+"onboarding.howItWorks.title" = "How It Works";
+"onboarding.howItWorks.message" = "Record audio, reverse it, sing what you hear, then flip it again to see how close you got!";
+"onboarding.button.continue" = "Continue";
+"onboarding.button.openSettings" = "Open Settings";
+"onboarding.button.letsRecord" = "yes, let's record!";
+"onboarding.button.continueLowercase" = "continue";
+
+// MARK: - Main View - Buttons
+"main.button.stopRecording" = "Stop Recording";
+"main.button.recordAudio" = "Record Audio";
+"main.button.recordAttempt" = "Record Your Attempt";
+"main.button.reRecord" = "Re-record";
+"main.button.newSession" = "New Session";
+
+// MARK: - Main View - Alerts
+"main.alert.microphoneRequired.title" = "Microphone Access Required";
+"main.alert.microphoneRequired.message" = "Please enable microphone access in Settings to record audio.";
+"main.alert.settings" = "Settings";
+"main.alert.cancel" = "Cancel";
+"main.alert.error.title" = "Error";
+"main.alert.ok" = "OK";
+"main.alert.startNewSession.title" = "Start New Session?";
+"main.alert.startNewSession.message" = "Your current session will be saved to the archive. This will start a fresh recording session.";
+"main.alert.startNewSession.button" = "Start New Session";
+
+// MARK: - Main View - Empty State
+"main.emptyState.title" = "Microphone Access Required";
+"main.emptyState.message" = "To use Reverso, please enable microphone access in your device settings. This allows you to record and reverse audio.";
+"main.emptyState.button" = "Open Settings";
+
+// MARK: - Main View - Processing & Success
+"main.processing.reversingAudio" = "Reversing audio...";
+"main.success.sessionSaved" = "Session saved!";
+
+// MARK: - Main View - Tips (Contextual Help)
+"main.tip.tapRecordToBegin" = "Tap Record Audio to begin your reverse singing challenge";
+"main.tip.recordSingingAttempt" = "Record your singing attempt while listening to the reversed audio";
+"main.tip.recordSongToReverse" = "Record the song you want to sing in reverse";
+"main.tip.tapPlayToSwitch" = "Tap any play button to switch between recordings, or tap stop to pause";
+"main.tip.reRecordOrNewSession" = "Tap Re-record to improve your attempt, or New Session to record a new song";
+"main.tip.listenAndRecord" = "Listen to the reversed audio, then record your singing attempt";
+"main.tip.processingAudio" = "Processing your audio... This will only take a moment";
+"main.tip.tapRecordAudio" = "Tap Record Audio to record the song you want to reverse";
+
+// MARK: - Comparison View
+"comparison.title" = "Results";
+"comparison.button.close" = "Close";
+"comparison.label.original" = "Original";
+"comparison.label.yourTry" = "Your Try";
+"comparison.button.playOriginal" = "Play Original";
+"comparison.button.playYourTry" = "Play Your Try";
+"comparison.button.stop" = "Stop";
+"comparison.button.saveSession" = "Save Session";
+"comparison.button.tryAgain" = "Try Again";
+
+// MARK: - Comparison View - Score Messages
+"comparison.score.amazing" = "🌟 Amazing! Almost perfect!";
+"comparison.score.great" = "🎉 Great job! Very close!";
+"comparison.score.good" = "👍 Good attempt! Try again?";
+"comparison.score.keepPracticing" = "💪 Keep practicing!";
+
+// MARK: - Session List View
+"sessionList.title" = "Saved Sessions";
+"sessionList.empty.title" = "No Saved Sessions";
+"sessionList.empty.message" = "Complete a reverse singing session and save it to see it here.";
+
+// MARK: - Recording Type Labels
+"recordingType.original" = "Original";
+"recordingType.reversed" = "Reversed";
+"recordingType.attempt" = "Attempt";
+"recordingType.reversedAttempt" = "Reversed Attempt";
+"recordingType.imported" = "Imported";
+
+// MARK: - Timer Card
+"timerCard.deviceMicrophone" = "Device Microphone (Default)";
+"timerCard.mins" = "MINS";
+"timerCard.secs" = "SECS";
+"timerCard.playAudio" = "Play Audio";
+"timerCard.audioControls" = "Audio Controls";
+"timerCard.loop" = "Loop";
+"timerCard.speed" = "Speed";
+"timerCard.pitch" = "Pitch";
+"timerCard.semitones" = "semitones";
+
+// MARK: - Score Card
+"scoreCard.title" = "Your Score";
+"scoreCard.grade.perfectMatch" = "Perfect Match!";
+"scoreCard.grade.excellent" = "Excellent!";
+"scoreCard.grade.greatJob" = "Great Job!";
+"scoreCard.grade.veryGood" = "Very Good!";
+"scoreCard.grade.goodEffort" = "Good Effort!";
+"scoreCard.grade.niceTry" = "Nice Try!";
+"scoreCard.grade.keepPracticing" = "Keep Practicing!";
+"scoreCard.grade.tryAgain" = "Try Again!";
+
+// MARK: - Processing Indicator
+"processing.reversingAudio" = "Reversing audio...";
+"processing.generic" = "Processing...";
+
+// MARK: - Recording Indicator
+"recording.indicator" = "RECORDING";
+
+// MARK: - Success Celebration
+"success.sessionSaved" = "Session saved successfully!";
+
+// MARK: - Audio Session Model
+"session.defaultName" = "Session";
+
+// MARK: - Error Messages
+"error.microphonePermissionRequired" = "Microphone permission is required. Please enable it in Settings.";
+"error.cannotStartRecording" = "Cannot start recording right now. Please try again.";
+"error.noRecordingInProgress" = "No recording in progress.";
+"error.failedToStopRecording" = "Failed to stop recording properly.";
+"error.failedToProcessRecording" = "Failed to process recording.";

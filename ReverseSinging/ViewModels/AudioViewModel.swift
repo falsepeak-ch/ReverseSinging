@@ -27,6 +27,7 @@ final class AudioViewModel: ObservableObject {
     // UI state
     @Published var isReversing = false
     @Published var showSessionList = false
+    @Published var showSettings = false
 
     // MARK: - Services
 
@@ -144,15 +145,19 @@ final class AudioViewModel: ObservableObject {
 
             guard granted else {
                 print("⚠️ Microphone permission denied")
-                self.errorMessage = "Microphone permission is required. Please enable it in Settings."
+                self.errorMessage = Strings.Error.microphonePermissionRequired
                 self.showPermissionAlert = true
+                AnalyticsManager.shared.trackPermissionDenied()
                 return
             }
+
+            // Track permission granted
+            AnalyticsManager.shared.trackPermissionGranted()
 
             // Validate recorder state
             guard self.recorder.canStartRecording() else {
                 print("⚠️ Cannot start recording - recorder not ready")
-                self.errorMessage = "Cannot start recording right now. Please try again."
+                self.errorMessage = Strings.Error.cannotStartRecording
                 return
             }
 
@@ -166,6 +171,10 @@ final class AudioViewModel: ObservableObject {
                 self.currentRecordingURL = url
                 HapticManager.shared.heavy()
                 print("✅ Recording started from ViewModel")
+
+                // Determine recording type for analytics
+                let recordingType = self.appState.currentSession?.reversedRecording != nil ? "attempt" : "original"
+                AnalyticsManager.shared.trackRecordingStarted(type: recordingType)
             } catch let error as RecordingError {
                 self.handleRecordingError(error)
             } catch {
@@ -180,13 +189,13 @@ final class AudioViewModel: ObservableObject {
         // Validate recorder state
         guard recorder.canStopRecording() else {
             print("⚠️ Cannot stop recording - not currently recording")
-            errorMessage = "No recording in progress."
+            errorMessage = Strings.Error.noRecordingInProgress
             return
         }
 
         guard let url = recorder.stopRecording() else {
             print("❌ Failed to get recording URL")
-            errorMessage = "Failed to stop recording properly."
+            errorMessage = Strings.Error.failedToStopRecording
             return
         }
 
@@ -199,13 +208,16 @@ final class AudioViewModel: ObservableObject {
                 guard let duration = await fileManager.getAudioDurationAsync(from: url) else {
                     await MainActor.run {
                         print("❌ Failed to get audio duration")
-                        self.errorMessage = "Failed to process recording."
+                        self.errorMessage = Strings.Error.failedToProcessRecording
                     }
                     return
                 }
 
                 let savedURL = try await fileManager.saveRecordingAsync(from: url)
                 let recording = Recording(url: savedURL, duration: duration, type: type)
+
+                // Track recording completed
+                AnalyticsManager.shared.trackRecordingCompleted(type: type.rawValue, duration: duration)
 
                 // Update UI on main thread
                 await MainActor.run {
@@ -264,13 +276,21 @@ final class AudioViewModel: ObservableObject {
         isReversing = true
         appState.recordingState = .reversing
 
+        // Track reversal started
+        let startTime = Date()
+        AnalyticsManager.shared.trackAudioReversalStarted()
+
         reverser.reverseAudio(inputURL: originalRecording.url) { [weak self] result in
             guard let self = self else { return }
 
             self.isReversing = false
+            let processingTime = Date().timeIntervalSince(startTime)
 
             switch result {
             case .success(let reversedURL):
+                // Track reversal completed
+                AnalyticsManager.shared.trackAudioReversalCompleted(duration: processingTime)
+
                 // Move file operations to background thread
                 Task {
                     do {
@@ -304,6 +324,8 @@ final class AudioViewModel: ObservableObject {
                 }
 
             case .failure(let error):
+                // Track reversal failed
+                AnalyticsManager.shared.trackAudioReversalFailed(error: error.localizedDescription)
                 self.handleError(error)
                 self.appState.recordingState = .idle
             }
@@ -395,6 +417,9 @@ final class AudioViewModel: ObservableObject {
         do {
             try player.loadAudio(from: recording.url)
             player.play()
+
+            // Track playback started
+            AnalyticsManager.shared.trackPlaybackStarted(recordingType: recording.type.rawValue)
         } catch {
             handleError(error)
         }
@@ -414,14 +439,18 @@ final class AudioViewModel: ObservableObject {
 
     func setPlaybackSpeed(_ speed: Double) {
         player.playbackSpeed = speed
+        AnalyticsManager.shared.trackPlaybackSpeedChanged(speed: speed)
     }
 
     func toggleLooping() {
         player.isLooping.toggle()
+        AnalyticsManager.shared.trackPlaybackLoopToggled(enabled: player.isLooping)
     }
 
     func setPitchShift(_ pitch: Float) {
         player.pitchShift = pitch
+        let semitones = Int(round(pitch / 100.0))
+        AnalyticsManager.shared.trackPlaybackPitchChanged(semitones: semitones)
     }
 
     // MARK: - Game Flow
@@ -444,9 +473,18 @@ final class AudioViewModel: ObservableObject {
     // MARK: - Session Management
 
     func saveSession() {
+        let recordingsCount = appState.currentSession?.recordings.count ?? 0
+        let score = appState.similarityScore
+
         appState.saveCurrentSession()
         saveSessions()
         HapticManager.shared.success()
+
+        // Track session saved
+        AnalyticsManager.shared.trackSessionSaved(recordingsCount: recordingsCount)
+        if let score = score {
+            AnalyticsManager.shared.trackSessionCompleted(score: score)
+        }
 
         // Request App Store review (Apple rate-limits to max 3x per year)
         requestReviewIfAppropriate()
@@ -476,11 +514,15 @@ final class AudioViewModel: ObservableObject {
         if let currentSession = appState.currentSession,
            !currentSession.recordings.isEmpty {
             saveSession()
+            AnalyticsManager.shared.trackNewSessionFromExisting()
         }
 
         appState.startNewSession()
         player.stop()
         HapticManager.shared.medium()
+
+        // Track new session started
+        AnalyticsManager.shared.trackSessionStarted()
     }
 
     func importAudio(from url: URL) {
@@ -511,6 +553,8 @@ final class AudioViewModel: ObservableObject {
 
         UserDefaults.standard.set(appState.hasCompletedOnboarding, forKey: "hasCompletedOnboarding")
         UserDefaults.standard.set(appState.isScoreVisible, forKey: "isScoreVisible")
+        UserDefaults.standard.set(appState.themeMode.rawValue, forKey: "themeMode")
+        UserDefaults.standard.set(appState.hapticsEnabled, forKey: "hapticsEnabled")
     }
 
     private func loadSessions() {
@@ -527,6 +571,21 @@ final class AudioViewModel: ObservableObject {
         } else {
             appState.isScoreVisible = true  // Default to visible on first launch
         }
+
+        // Load theme mode with default system if key doesn't exist
+        if let themeModeString = UserDefaults.standard.string(forKey: "themeMode"),
+           let themeMode = ThemeMode(rawValue: themeModeString) {
+            appState.themeMode = themeMode
+        } else {
+            appState.themeMode = .system  // Default to system on first launch
+        }
+
+        // Load haptics enabled with default true if key doesn't exist
+        if UserDefaults.standard.object(forKey: "hapticsEnabled") != nil {
+            appState.hapticsEnabled = UserDefaults.standard.bool(forKey: "hapticsEnabled")
+        } else {
+            appState.hapticsEnabled = true  // Default to enabled on first launch
+        }
     }
 
     func completeOnboarding() {
@@ -536,6 +595,20 @@ final class AudioViewModel: ObservableObject {
 
     func saveScoreVisibilityPreference() {
         UserDefaults.standard.set(appState.isScoreVisible, forKey: "isScoreVisible")
+    }
+
+    // MARK: - Settings
+
+    func setThemeMode(_ mode: ThemeMode) {
+        appState.themeMode = mode
+        UserDefaults.standard.set(mode.rawValue, forKey: "themeMode")
+        AnalyticsManager.shared.trackCustomEvent(name: "theme_changed", parameters: ["theme": mode.rawValue])
+    }
+
+    func setHapticsEnabled(_ enabled: Bool) {
+        appState.hapticsEnabled = enabled
+        UserDefaults.standard.set(enabled, forKey: "hapticsEnabled")
+        AnalyticsManager.shared.trackCustomEvent(name: "haptics_changed", parameters: ["enabled": enabled])
     }
 
     // MARK: - Error Handling

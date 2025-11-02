@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseCore
+import FirebaseAnalytics
 import FirebaseCrashlytics
 
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -15,6 +16,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
     ) -> Bool {
         FirebaseApp.configure()
+
+        // Track app launch
+        AnalyticsManager.shared.trackAppLaunch()
+
         return true
     }
 }

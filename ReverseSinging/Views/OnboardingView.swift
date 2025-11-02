@@ -18,14 +18,14 @@ struct OnboardingView: View {
     let pages: [OnboardingPage] = [
         OnboardingPage(
             imageName: "microphone",
-            title: "Welcome to Reverso",
-            description: "We need microphone access to record and reverse your audio. Let's get started!",
+            title: Strings.Onboarding.welcomeTitle,
+            description: Strings.Onboarding.welcomeMessage,
             matteColor: Color.rsCream  // Cream with teal blend
         ),
         OnboardingPage(
             imageName: "radio",
-            title: "How It Works",
-            description: "Record audio, reverse it, sing what you hear, then flip it again to see how close you got!",
+            title: Strings.Onboarding.howItWorksTitle,
+            description: Strings.Onboarding.howItWorksMessage,
             matteColor: Color.rsCharcoal  // Charcoal with red blend
         )
     ]
@@ -34,11 +34,11 @@ struct OnboardingView: View {
 
     private var buttonTitle: String {
         if permissionGranted {
-            return "Continue"
+            return Strings.Onboarding.buttonContinue
         } else if permissionDenied {
-            return "Open Settings"
+            return Strings.Onboarding.buttonOpenSettings
         } else {
-            return "Continue"
+            return Strings.Onboarding.buttonContinue
         }
     }
 
@@ -119,11 +119,13 @@ struct OnboardingView: View {
                     } else if currentPage == pages.count - 1 {
                         // Last page: Show final button
                         BigButton(
-                            title: "yes, let's record!",
+                            title: Strings.Onboarding.buttonLetsRecord,
                             icon: "arrow.right",
                             color: .rsTurquoise,
                             action: {
                                 withAnimation(.rsSpring) {
+                                    // Track onboarding completed
+                                    AnalyticsManager.shared.trackOnboardingCompleted()
                                     viewModel.completeOnboarding()
                                 }
                             },
@@ -136,7 +138,7 @@ struct OnboardingView: View {
                     } else {
                         // Middle pages: Just continue
                         BigButton(
-                            title: "continue",
+                            title: Strings.Onboarding.buttonContinueLowercase,
                             icon: "arrow.right",
                             color: .rsTurquoise,
                             action: nextPage,
@@ -152,6 +154,10 @@ struct OnboardingView: View {
                 .padding(.bottom, 32)
                 .animation(.rsSpring, value: currentPage)
             }
+        }
+        .onAppear {
+            // Track onboarding started
+            AnalyticsManager.shared.trackOnboardingStarted()
         }
     }
 
@@ -171,6 +177,9 @@ struct OnboardingView: View {
 
         permissionRequested = true
         HapticManager.shared.light()
+
+        // Track permission requested
+        AnalyticsManager.shared.trackPermissionRequested()
 
         // Request permission with callback
         viewModel.requestPermission { [self] granted in
