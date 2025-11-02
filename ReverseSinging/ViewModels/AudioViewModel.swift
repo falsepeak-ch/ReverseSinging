@@ -600,12 +600,14 @@ final class AudioViewModel: ObservableObject {
     // MARK: - Settings
 
     func setThemeMode(_ mode: ThemeMode) {
+        objectWillChange.send()
         appState.themeMode = mode
         UserDefaults.standard.set(mode.rawValue, forKey: "themeMode")
         AnalyticsManager.shared.trackCustomEvent(name: "theme_changed", parameters: ["theme": mode.rawValue])
     }
 
     func setHapticsEnabled(_ enabled: Bool) {
+        objectWillChange.send()
         appState.hapticsEnabled = enabled
         UserDefaults.standard.set(enabled, forKey: "hapticsEnabled")
         AnalyticsManager.shared.trackCustomEvent(name: "haptics_changed", parameters: ["enabled": enabled])

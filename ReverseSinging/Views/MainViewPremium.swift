@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainViewPremium: View {
-    @StateObject private var viewModel = AudioViewModel()
+    @EnvironmentObject var viewModel: AudioViewModel
     @State private var showSuccessToast = false
     @State private var showCelebration = false
     @State private var displayedTip: String = ""
@@ -695,4 +695,5 @@ struct MainViewPremium: View {
 
 #Preview {
     MainViewPremium()
+        .environmentObject(AudioViewModel())
 }
