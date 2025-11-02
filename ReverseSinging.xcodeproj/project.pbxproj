@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		FF2EE2D92EAF91B100549684 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = FF3C44EB2EAF8B000055F61C /* FirebaseCore */; };
+		FF2EE3E72EB028B600549684 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = FF2EE3E62EB028B600549684 /* FirebaseCrashlytics */; };
+		FF2EE5362EB135D500549684 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FF2EE5352EB135D500549684 /* FirebaseAnalytics */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF2EE2D92EAF91B100549684 /* FirebaseCore in Frameworks */,
+				FF2EE3E72EB028B600549684 /* FirebaseCrashlytics in Frameworks */,
+				FF2EE5362EB135D500549684 /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,11 +74,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FF2EE3E52EB028B600549684 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FFA267BD2EA6B026008518FC = {
 			isa = PBXGroup;
 			children = (
 				FFA267C82EA6B026008518FC /* ReverseSinging */,
 				FFA267D62EA6B028008518FC /* ReverseSingingTests */,
+				FF2EE3E52EB028B600549684 /* Frameworks */,
 				FFA267C72EA6B026008518FC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -109,6 +121,8 @@
 			name = ReverseSinging;
 			packageProductDependencies = (
 				FF3C44EB2EAF8B000055F61C /* FirebaseCore */,
+				FF2EE3E62EB028B600549684 /* FirebaseCrashlytics */,
+				FF2EE5352EB135D500549684 /* FirebaseAnalytics */,
 			);
 			productName = ReverseSinging;
 			productReference = FFA267C62EA6B026008518FC /* ReverseSinging.app */;
@@ -349,12 +363,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 4YGWZWHTHM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReverseSinging/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Reverso;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Reverse Singing needs microphone access to record your voice for the reverse singing challenge.";
 				INFOPLIST_KEY_UIAppFonts = Eugello.ttf;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -366,7 +381,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.falsepeak.reverse-singing-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -389,12 +404,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 4YGWZWHTHM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReverseSinging/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Reverso;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Reverse Singing needs microphone access to record your voice for the reverse singing challenge.";
 				INFOPLIST_KEY_UIAppFonts = Eugello.ttf;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -406,7 +422,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.falsepeak.reverse-singing-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -511,6 +527,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		FF2EE3E62EB028B600549684 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		FF2EE5352EB135D500549684 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
 		FF3C44EB2EAF8B000055F61C /* FirebaseCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
