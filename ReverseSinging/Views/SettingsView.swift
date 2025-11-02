@@ -60,6 +60,18 @@ struct SettingsView: View {
                 AnalyticsManager.shared.trackScreenViewed(screenName: "SettingsView")
             }
         }
+        .preferredColorScheme(preferredColorScheme)
+    }
+
+    private var preferredColorScheme: ColorScheme? {
+        switch viewModel.appState.themeMode {
+        case .system:
+            return nil
+        case .light:
+            return .light
+        case .dark:
+            return .dark
+        }
     }
 
     // MARK: - Theme Section
