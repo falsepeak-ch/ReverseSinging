@@ -49,9 +49,15 @@ struct SettingsView: View {
                         HapticManager.shared.light()
                         dismiss()
                     }) {
-                        Image(systemName: "xmark")
-                            .font(.rsHeadingSmall)
-                            .foregroundStyle(Color.rsTurquoise)
+                        ZStack {
+                            Circle()
+                                .fill(Color.rsTurquoise.opacity(0.15))
+                                .frame(width: 36, height: 36)
+
+                            Image(systemName: "xmark")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundStyle(Color.rsTurquoise)
+                        }
                     }
                 }
             }

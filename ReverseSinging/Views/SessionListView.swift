@@ -33,10 +33,19 @@ struct SessionListView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: { dismiss() }) {
-                        Image(systemName: "xmark")
-                            .font(.rsHeadingSmall)
-                            .foregroundStyle(Color.rsTurquoise)
+                    Button(action: {
+                        HapticManager.shared.light()
+                        dismiss()
+                    }) {
+                        ZStack {
+                            Circle()
+                                .fill(Color.rsTurquoise.opacity(0.15))
+                                .frame(width: 36, height: 36)
+
+                            Image(systemName: "xmark")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundStyle(Color.rsTurquoise)
+                        }
                     }
                 }
             }
