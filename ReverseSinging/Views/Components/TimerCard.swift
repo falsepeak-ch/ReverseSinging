@@ -306,20 +306,31 @@ struct TimerCard: View {
         Button(action: {
             if let action = action {
                 action()
+                HapticManager.shared.medium()
             }
         }) {
-            HStack(spacing: 6) {
+            HStack(spacing: 4) {
                 Image(systemName: icon)
-                    .font(.rsBodySmall)
+                    .font(isHighlighted ? .rsBodyMedium : .rsBodySmall)
+                    .imageScale(.medium)
                 Text(title)
-                    .font(.rsButtonSmall)
+                    .font(isHighlighted ? .rsButtonMedium : .rsButtonSmall)
+                    .fontWeight(isHighlighted ? .semibold : .regular)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
             }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 10)
-            .padding(.horizontal, 8)
+            .padding(.vertical, isHighlighted ? 12 : 10)
+            .padding(.horizontal, 6)
             .background(
                 RoundedRectangle(cornerRadius: 8, style: .continuous)
                     .fill(buttonBackgroundColor(isEnabled: isEnabled, isHighlighted: isHighlighted))
+                    .shadow(
+                        color: isHighlighted && isEnabled ? Color.rsTurquoise.opacity(0.3) : .clear,
+                        radius: 8,
+                        x: 0,
+                        y: 4
+                    )
             )
             .foregroundColor(buttonForegroundColor(isEnabled: isEnabled, isHighlighted: isHighlighted))
         }
@@ -329,8 +340,8 @@ struct TimerCard: View {
 
     private func buttonBackgroundColor(isEnabled: Bool, isHighlighted: Bool) -> Color {
         if isHighlighted && isEnabled {
-            // Turquoise background for highlighted button
-            return .rsTurquoise.opacity(0.3)
+            // Solid gold/turquoise gradient for highlighted button
+            return .rsTurquoise
         } else if isEnabled {
             return textColor.opacity(0.2)
         } else {
@@ -340,8 +351,8 @@ struct TimerCard: View {
 
     private func buttonForegroundColor(isEnabled: Bool, isHighlighted: Bool) -> Color {
         if isHighlighted && isEnabled {
-            // Turquoise for text when highlighted
-            return .rsTurquoise
+            // White text on solid turquoise background for maximum contrast
+            return .white
         } else if isEnabled {
             return textColor
         } else {

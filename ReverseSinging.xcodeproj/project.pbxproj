@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E2CE0E60FF574C54BA229923 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 64D24F6F1AB44D69A891890E /* Localizable.strings */; };
+		E2CE0E60FF574C54BA229923 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		FF2EE2D92EAF91B100549684 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = FF3C44EB2EAF8B000055F61C /* FirebaseCore */; };
 		FF2EE3E72EB028B600549684 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = FF2EE3E62EB028B600549684 /* FirebaseCrashlytics */; };
 		FF2EE5362EB135D500549684 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FF2EE5352EB135D500549684 /* FirebaseAnalytics */; };
@@ -24,9 +24,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		64DED295AC014D26A16505B1 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
-		542D9D249D27450C8DB90A14 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		3F74C44D74904C8E9822C91B /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FFA267C62EA6B026008518FC /* ReverseSinging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReverseSinging.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFA267D32EA6B028008518FC /* ReverseSingingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReverseSingingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -204,8 +201,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			
-				E2CE0E60FF574C54BA229923 /* Localizable.strings in Resources */,);
+				E2CE0E60FF574C54BA229923 /* (null) in Resources */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FFA267D12EA6B028008518FC /* Resources */ = {
