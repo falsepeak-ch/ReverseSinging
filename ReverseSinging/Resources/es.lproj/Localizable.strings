@@ -8,6 +8,8 @@
 "onboarding.welcome.message" = "Necesitamos acceso al micrófono para grabar y revertir tu audio. ¡Empecemos!";
 "onboarding.howItWorks.title" = "Cómo Funciona";
 "onboarding.howItWorks.message" = "¡Graba audio, reviértelo, canta lo que escuches y luego dale la vuelta de nuevo para ver qué tal te salió!";
+"onboarding.uiPreference.title" = "Elige tu Interfaz";
+"onboarding.uiPreference.message" = "Selecciona el estilo de interfaz que mejor te funcione. Puedes cambiarlo en cualquier momento en Ajustes.";
 "onboarding.button.continue" = "Continuar";
 "onboarding.button.openSettings" = "Abrir Ajustes";
 "onboarding.button.letsRecord" = "¡sí, grabemos!";
@@ -41,14 +43,14 @@
 "main.success.sessionSaved" = "¡Sesión guardada!";
 
 // MARK: - Main View - Tips (Contextual Help)
-"main.tip.tapRecordToBegin" = "Toca Grabar Audio para comenzar tu desafío de canto revertido";
-"main.tip.recordSingingAttempt" = "Graba tu intento de canto mientras escuchas el audio revertido";
-"main.tip.recordSongToReverse" = "Graba la canción que quieres cantar al revés";
-"main.tip.tapPlayToSwitch" = "Toca cualquier botón de reproducción para cambiar entre grabaciones, o toca detener para pausar";
-"main.tip.reRecordOrNewSession" = "Toca Volver a Grabar para mejorar tu intento, o Nueva Sesión para grabar una canción nueva";
-"main.tip.listenAndRecord" = "Escucha el audio revertido y luego graba tu intento de canto";
-"main.tip.processingAudio" = "Procesando tu audio... Solo tomará un momento";
-"main.tip.tapRecordAudio" = "Toca Grabar Audio para grabar la canción que quieres revertir";
+"main.tip.tapRecordToBegin" = "Toca Grabar Audio para comenzar";
+"main.tip.recordSingingAttempt" = "Graba tu intento de canto";
+"main.tip.recordSongToReverse" = "Graba la canción que quieres revertir";
+"main.tip.tapPlayToSwitch" = "Toca cualquier botón para reproducir o detener";
+"main.tip.reRecordOrNewSession" = "Vuelve a grabar o inicia nueva sesión";
+"main.tip.listenAndRecord" = "Escucha el audio revertido y luego graba";
+"main.tip.processingAudio" = "Procesando audio, espera...";
+"main.tip.tapRecordAudio" = "Toca Grabar Audio para grabar";
 
 // MARK: - Comparison View
 "comparison.title" = "Resultados";
@@ -125,6 +127,7 @@
 "settings.title" = "Ajustes";
 "settings.subtitle" = "Personaliza tu experiencia";
 "settings.appearance" = "Apariencia";
+"settings.interface" = "Interfaz";
 "settings.preferences" = "Preferencias";
 "settings.about" = "Acerca de";
 

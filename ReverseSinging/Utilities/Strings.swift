@@ -15,6 +15,8 @@ enum Strings {
         static let welcomeMessage = NSLocalizedString("onboarding.welcome.message", comment: "Welcome screen message")
         static let howItWorksTitle = NSLocalizedString("onboarding.howItWorks.title", comment: "How it works title")
         static let howItWorksMessage = NSLocalizedString("onboarding.howItWorks.message", comment: "How it works message")
+        static let uiPreferenceTitle = NSLocalizedString("onboarding.uiPreference.title", comment: "UI preference title")
+        static let uiPreferenceMessage = NSLocalizedString("onboarding.uiPreference.message", comment: "UI preference message")
         static let buttonContinue = NSLocalizedString("onboarding.button.continue", comment: "Continue button")
         static let buttonOpenSettings = NSLocalizedString("onboarding.button.openSettings", comment: "Open settings button")
         static let buttonLetsRecord = NSLocalizedString("onboarding.button.letsRecord", comment: "Let's record button")
@@ -171,6 +173,7 @@ enum Strings {
         static let title = NSLocalizedString("settings.title", comment: "Settings title")
         static let subtitle = NSLocalizedString("settings.subtitle", comment: "Settings subtitle")
         static let appearance = NSLocalizedString("settings.appearance", comment: "Appearance section")
+        static let interface = NSLocalizedString("settings.interface", comment: "Interface section")
         static let preferences = NSLocalizedString("settings.preferences", comment: "Preferences section")
         static let about = NSLocalizedString("settings.about", comment: "About section")
 

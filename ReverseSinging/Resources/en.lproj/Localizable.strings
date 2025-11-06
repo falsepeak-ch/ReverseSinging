@@ -8,6 +8,8 @@
 "onboarding.welcome.message" = "We need microphone access to record and reverse your audio. Let's get started!";
 "onboarding.howItWorks.title" = "How It Works";
 "onboarding.howItWorks.message" = "Record audio, reverse it, sing what you hear, then flip it again to see how close you got!";
+"onboarding.uiPreference.title" = "Choose Your Interface";
+"onboarding.uiPreference.message" = "Select the interface style that works best for you. You can change this anytime in Settings.";
 "onboarding.button.continue" = "Continue";
 "onboarding.button.openSettings" = "Open Settings";
 "onboarding.button.letsRecord" = "yes, let's record!";
@@ -41,14 +43,14 @@
 "main.success.sessionSaved" = "Session saved!";
 
 // MARK: - Main View - Tips (Contextual Help)
-"main.tip.tapRecordToBegin" = "Tap Record Audio to begin your reverse singing challenge";
-"main.tip.recordSingingAttempt" = "Record your singing attempt while listening to the reversed audio";
-"main.tip.recordSongToReverse" = "Record the song you want to sing in reverse";
-"main.tip.tapPlayToSwitch" = "Tap any play button to switch between recordings, or tap stop to pause";
-"main.tip.reRecordOrNewSession" = "Tap Re-record to improve your attempt, or New Session to record a new song";
-"main.tip.listenAndRecord" = "Listen to the reversed audio, then record your singing attempt";
-"main.tip.processingAudio" = "Processing your audio... This will only take a moment";
-"main.tip.tapRecordAudio" = "Tap Record Audio to record the song you want to reverse";
+"main.tip.tapRecordToBegin" = "Tap Record Audio to begin";
+"main.tip.recordSingingAttempt" = "Record your singing attempt";
+"main.tip.recordSongToReverse" = "Record the song you want to reverse";
+"main.tip.tapPlayToSwitch" = "Tap any button to play or stop";
+"main.tip.reRecordOrNewSession" = "Re-record to improve or start new session";
+"main.tip.listenAndRecord" = "Listen to reversed audio, then record";
+"main.tip.processingAudio" = "Processing audio, please wait...";
+"main.tip.tapRecordAudio" = "Tap Record Audio to record a song";
 
 // MARK: - Comparison View
 "comparison.title" = "Results";
@@ -125,6 +127,7 @@
 "settings.title" = "Settings";
 "settings.subtitle" = "Customize your experience";
 "settings.appearance" = "Appearance";
+"settings.interface" = "Interface";
 "settings.preferences" = "Preferences";
 "settings.about" = "About";
 

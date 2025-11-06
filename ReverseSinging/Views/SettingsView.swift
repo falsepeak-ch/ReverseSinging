@@ -35,6 +35,10 @@ struct SettingsView: View {
                         themeSection
                             .slideIn(delay: 0.1)
 
+                        // UI Mode Selector
+                        uiModeSection
+                            .slideIn(delay: 0.15)
+
                         // Haptic Feedback
                         hapticsSection
                             .slideIn(delay: 0.2)
@@ -195,6 +199,94 @@ struct SettingsView: View {
         case .dark:
             return Strings.Settings.themeDarkDesc
         }
+    }
+
+    // MARK: - UI Mode Section
+
+    private var uiModeSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            sectionHeader(
+                title: Strings.Settings.interface,
+                icon: "square.grid.2x2"
+            )
+
+            VStack(spacing: 8) {
+                ForEach(UIMode.allCases, id: \.self) { mode in
+                    uiModeOption(mode)
+                }
+            }
+        }
+    }
+
+    private func uiModeOption(_ mode: UIMode) -> some View {
+        Button(action: {
+            withAnimation(.rsBouncy) {
+                viewModel.setUIMode(mode)
+            }
+            HapticManager.shared.medium()
+        }) {
+            HStack(spacing: 14) {
+                // Icon with gradient background
+                ZStack {
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: viewModel.appState.uiMode == mode ?
+                                    [Color.rsTurquoise, Color.rsTurquoise.opacity(0.8)] :
+                                    [Color.rsSecondaryTextAdaptive(for: effectiveColorScheme).opacity(0.15), Color.rsSecondaryTextAdaptive(for: effectiveColorScheme).opacity(0.1)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 44, height: 44)
+
+                    Image(systemName: mode.icon)
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundStyle(
+                            viewModel.appState.uiMode == mode ?
+                                LinearGradient(colors: [.white, .white], startPoint: .topLeading, endPoint: .bottomTrailing) :
+                                LinearGradient(colors: [Color.rsSecondaryTextAdaptive(for: effectiveColorScheme), Color.rsSecondaryTextAdaptive(for: effectiveColorScheme)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                        )
+                }
+
+                // Text
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(mode.displayName)
+                        .font(.rsBodyLarge)
+                        .foregroundColor(Color.rsTextAdaptive(for: effectiveColorScheme))
+
+                    Text(mode.description)
+                        .font(.rsCaption)
+                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme))
+                }
+
+                Spacer()
+
+                // Checkmark
+                if viewModel.appState.uiMode == mode {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.system(size: 22))
+                        .foregroundStyle(Color.rsTurquoise)
+                        .transition(.scale.combined(with: .opacity))
+                }
+            }
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .stroke(
+                                viewModel.appState.uiMode == mode ?
+                                    Color.rsTurquoise.opacity(0.4) :
+                                    Color.rsTurquoise.opacity(0.15),
+                                lineWidth: viewModel.appState.uiMode == mode ? 1.5 : 1
+                            )
+                    )
+            )
+            .cardShadow(viewModel.appState.uiMode == mode ? .elevated : .card)
+        }
+        .buttonStyle(ScaleButtonStyle())
     }
 
     // MARK: - Haptics Section
