@@ -1,0 +1,6 @@
+/*
+   InfoPlist.strings (Catalan)
+   ReverseSinging
+*/
+
+"NSMicrophoneUsageDescription" = "Reverso necessita accés al micròfon per gravar la teva veu per al repte de cant revertit.";

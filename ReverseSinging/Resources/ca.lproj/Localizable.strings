@@ -1,0 +1,143 @@
+/*
+   Localizable.strings (Catalan)
+   ReverseSinging
+*/
+
+// MARK: - Onboarding
+"onboarding.welcome.title" = "Benvingut a Reverso";
+"onboarding.welcome.message" = "Necessitem accés al micròfon per gravar i revertir el teu àudio. Comencem!";
+"onboarding.howItWorks.title" = "Com Funciona";
+"onboarding.howItWorks.message" = "Grava àudio, reverteix-lo, canta el que sents i després gira-ho altra vegada per veure com t'ha sortit!";
+"onboarding.button.continue" = "Continuar";
+"onboarding.button.openSettings" = "Obrir Ajustos";
+"onboarding.button.letsRecord" = "sí, gravem!";
+"onboarding.button.continueLowercase" = "continuar";
+
+// MARK: - Main View - Buttons
+"main.button.stopRecording" = "Aturar Gravació";
+"main.button.recordAudio" = "Gravar Àudio";
+"main.button.recordAttempt" = "Grava el Teu Intent";
+"main.button.reRecord" = "Tornar a Gravar";
+"main.button.newSession" = "Nova Sessió";
+
+// MARK: - Main View - Alerts
+"main.alert.microphoneRequired.title" = "Es Requereix Accés al Micròfon";
+"main.alert.microphoneRequired.message" = "Si us plau, activa l'accés al micròfon a Ajustos per gravar àudio.";
+"main.alert.settings" = "Ajustos";
+"main.alert.cancel" = "Cancel·lar";
+"main.alert.error.title" = "Error";
+"main.alert.ok" = "D'acord";
+"main.alert.startNewSession.title" = "Iniciar Nova Sessió?";
+"main.alert.startNewSession.message" = "La teva sessió actual es desarà a l'arxiu. Això iniciarà una sessió de gravació nova.";
+"main.alert.startNewSession.button" = "Iniciar Nova Sessió";
+
+// MARK: - Main View - Empty State
+"main.emptyState.title" = "Es Requereix Accés al Micròfon";
+"main.emptyState.message" = "Per utilitzar Reverso, si us plau activa l'accés al micròfon als ajustos del teu dispositiu. Això et permet gravar i revertir àudio.";
+"main.emptyState.button" = "Obrir Ajustos";
+
+// MARK: - Main View - Processing & Success
+"main.processing.reversingAudio" = "Revertint àudio...";
+"main.success.sessionSaved" = "Sessió desada!";
+
+// MARK: - Main View - Tips (Contextual Help)
+"main.tip.tapRecordToBegin" = "Toca Gravar Àudio per començar el teu repte de cant revertit";
+"main.tip.recordSingingAttempt" = "Grava el teu intent de cant mentre escoltes l'àudio revertit";
+"main.tip.recordSongToReverse" = "Grava la cançó que vols cantar en revers";
+"main.tip.tapPlayToSwitch" = "Toca qualsevol botó de reproducció per canviar entre gravacions, o toca aturar per pausar";
+"main.tip.reRecordOrNewSession" = "Toca Tornar a Gravar per millorar el teu intent, o Nova Sessió per gravar una cançó nova";
+"main.tip.listenAndRecord" = "Escolta l'àudio revertit i després grava el teu intent de cant";
+"main.tip.processingAudio" = "Processant el teu àudio... Només serà un moment";
+"main.tip.tapRecordAudio" = "Toca Gravar Àudio per gravar la cançó que vols revertir";
+
+// MARK: - Comparison View
+"comparison.title" = "Resultats";
+"comparison.button.close" = "Tancar";
+"comparison.label.original" = "Original";
+"comparison.label.yourTry" = "El Teu Intent";
+"comparison.button.playOriginal" = "Reproduir Original";
+"comparison.button.playYourTry" = "Reproduir el Teu Intent";
+"comparison.button.stop" = "Aturar";
+"comparison.button.saveSession" = "Desar Sessió";
+"comparison.button.tryAgain" = "Tornar a Intentar";
+
+// MARK: - Comparison View - Score Messages
+"comparison.score.amazing" = "🌟 Increïble! Gairebé perfecte!";
+"comparison.score.great" = "🎉 Molt bé! Molt a prop!";
+"comparison.score.good" = "👍 Bon intent! Tornar a provar?";
+"comparison.score.keepPracticing" = "💪 Continua practicant!";
+
+// MARK: - Session List View
+"sessionList.title" = "Sessions Desades";
+"sessionList.empty.title" = "No Hi Ha Sessions Desades";
+"sessionList.empty.message" = "Completa una sessió de cant revertit i desa-la per veure-la aquí.";
+
+// MARK: - Recording Type Labels
+"recordingType.original" = "Original";
+"recordingType.reversed" = "Revertit";
+"recordingType.attempt" = "Intent";
+"recordingType.reversedAttempt" = "Intent Revertit";
+"recordingType.imported" = "Importat";
+
+// MARK: - Timer Card
+"timerCard.deviceMicrophone" = "Micròfon del Dispositiu (Per defecte)";
+"timerCard.mins" = "MINS";
+"timerCard.secs" = "SEGS";
+"timerCard.playAudio" = "Reproduir Àudio";
+"timerCard.audioControls" = "Controls d'Àudio";
+"timerCard.loop" = "Bucle";
+"timerCard.speed" = "Velocitat";
+"timerCard.pitch" = "To";
+"timerCard.semitones" = "semitons";
+
+// MARK: - Score Card
+"scoreCard.title" = "La Teva Puntuació";
+"scoreCard.grade.perfectMatch" = "Coincidència Perfecta!";
+"scoreCard.grade.excellent" = "Excel·lent!";
+"scoreCard.grade.greatJob" = "Molt Bé!";
+"scoreCard.grade.veryGood" = "Molt Bo!";
+"scoreCard.grade.goodEffort" = "Bon Esforç!";
+"scoreCard.grade.niceTry" = "Bon Intent!";
+"scoreCard.grade.keepPracticing" = "Continua Practicant!";
+"scoreCard.grade.tryAgain" = "Torna-ho a Intentar!";
+
+// MARK: - Processing Indicator
+"processing.reversingAudio" = "Revertint àudio...";
+"processing.generic" = "Processant...";
+
+// MARK: - Recording Indicator
+"recording.indicator" = "GRAVANT";
+
+// MARK: - Success Celebration
+"success.sessionSaved" = "Sessió desada correctament!";
+
+// MARK: - Audio Session Model
+"session.defaultName" = "Sessió";
+
+// MARK: - Error Messages
+"error.microphonePermissionRequired" = "Es requereix permís de micròfon. Si us plau, activa'l a Ajustos.";
+"error.cannotStartRecording" = "No es pot iniciar la gravació ara mateix. Si us plau, torna-ho a intentar.";
+"error.noRecordingInProgress" = "No hi ha cap gravació en curs.";
+"error.failedToStopRecording" = "No s'ha pogut aturar la gravació correctament.";
+"error.failedToProcessRecording" = "No s'ha pogut processar la gravació.";
+
+// MARK: - Settings
+"settings.title" = "Ajustos";
+"settings.subtitle" = "Personalitza la teva experiència";
+"settings.appearance" = "Aparença";
+"settings.preferences" = "Preferències";
+"settings.about" = "Sobre";
+
+// Theme descriptions
+"settings.theme.system.desc" = "Segueix els ajustos del sistema";
+"settings.theme.light.desc" = "Sempre en mode clar";
+"settings.theme.dark.desc" = "Sempre en mode fosc";
+
+// Haptic feedback
+"settings.hapticFeedback" = "Feedback Hàptic";
+"settings.hapticFeedback.desc" = "Vibració en tocar";
+
+// About
+"settings.privacyPolicy" = "Política de Privacitat";
+"settings.builtInSwitzerland" = "Fet a Suïssa";
+"settings.builtInSwitzerland.desc" = "Fet amb cura a Zuric";

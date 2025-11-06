@@ -48,7 +48,7 @@ struct TimerCard: View {
                 Image(systemName: deviceIcon)
                     .font(.rsCaption)
 
-                Text(deviceName ?? "Device Microphone (Default)")
+                Text(deviceName ?? Strings.TimerCard.deviceMicrophone)
                     .font(.rsCaption)
                     .foregroundColor(textColor.opacity(0.7))
 
@@ -80,10 +80,10 @@ struct TimerCard: View {
             // Time labels
             HStack(spacing: 0) {
                 Spacer()
-                timeLabel("MINS")
+                timeLabel(Strings.TimerCard.mins)
                     .frame(width: timeLabelWidth)
                 Spacer()
-                timeLabel("SECS")
+                timeLabel(Strings.TimerCard.secs)
                     .frame(width: timeLabelWidth)
                 Spacer()
             }
@@ -96,38 +96,50 @@ struct TimerCard: View {
                     .background(textColor.opacity(0.2))
                     .padding(.horizontal, 20)
 
+                // Section title
+                Text(Strings.TimerCard.playAudio)
+                    .font(.rsBodySmall)
+                    .foregroundColor(textColor.opacity(0.6))
+                    .textCase(.uppercase)
+                    .tracking(1.5)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 20)
+                    .padding(.top, 16)
+                    .padding(.bottom, 8)
+
                 VStack(spacing: 12) {
-                    // Row 1: Play Original | Play Reversed
+                    // Row 1: Original | Reversed
                     HStack(spacing: 12) {
                         playButton(
-                            title: "Play Original",
+                            title: Strings.RecordingType.original,
                             icon: "play.circle.fill",
                             action: onPlayOriginal,
                             isEnabled: hasOriginal && state != .playing
                         )
 
                         playButton(
-                            title: "Play Reversed",
+                            title: Strings.RecordingType.reversed,
                             icon: "play.circle.fill",
                             action: onPlayReversed,
                             isEnabled: hasReversed && state != .playing
                         )
                     }
 
-                    // Row 2: Play Attempt | Play Attempt Reversed
+                    // Row 2: Attempt | Reversed Attempt
                     HStack(spacing: 8) {
                         playButton(
-                            title: "Play Attempt",
+                            title: Strings.RecordingType.attempt,
                             icon: "play.circle.fill",
                             action: onPlayAttempt,
                             isEnabled: hasAttempt && state != .playing
                         )
 
                         playButton(
-                            title: "Attempt Reversed",
+                            title: Strings.RecordingType.reversedAttempt,
                             icon: "play.circle.fill",
                             action: onPlayReversedAttempt,
-                            isEnabled: hasReversedAttempt && state != .playing
+                            isEnabled: hasReversedAttempt && state != .playing,
+                            isHighlighted: true
                         )
                     }
                 }
@@ -149,7 +161,7 @@ struct TimerCard: View {
                     HapticManager.shared.light()
                 }) {
                     HStack {
-                        Text("Audio Controls")
+                        Text(Strings.TimerCard.audioControls)
                             .font(.rsBodySmall)
                             .foregroundColor(textColor.opacity(0.8))
                             .textCase(.uppercase)
@@ -177,7 +189,7 @@ struct TimerCard: View {
                                 .font(.rsBodyMedium)
                                 .foregroundColor(textColor.opacity(0.8))
 
-                            Text("Loop")
+                            Text(Strings.TimerCard.loop)
                                 .font(.rsBodyMedium)
                                 .foregroundColor(textColor)
 
@@ -202,7 +214,7 @@ struct TimerCard: View {
                                     .font(.rsBodyMedium)
                                     .foregroundColor(textColor.opacity(0.8))
 
-                                Text("Speed")
+                                Text(Strings.TimerCard.speed)
                                     .font(.rsBodyMedium)
                                     .foregroundColor(textColor)
 
@@ -236,7 +248,7 @@ struct TimerCard: View {
                                     .font(.rsBodyMedium)
                                     .foregroundColor(textColor.opacity(0.8))
 
-                                Text("Pitch")
+                                Text(Strings.TimerCard.pitch)
                                     .font(.rsBodyMedium)
                                     .foregroundColor(textColor)
 
@@ -247,7 +259,7 @@ struct TimerCard: View {
                                     .font(.rsBodySmall)
                                     .foregroundColor(textColor.opacity(0.7))
                                     .monospacedDigit()
-                                Text("semitones")
+                                Text(Strings.TimerCard.semitones)
                                     .font(.rsCaption)
                                     .foregroundColor(textColor.opacity(0.5))
                             }
@@ -290,29 +302,62 @@ struct TimerCard: View {
     }
 
     @ViewBuilder
-    private func playButton(title: String, icon: String, action: (() -> Void)?, isEnabled: Bool) -> some View {
+    private func playButton(title: String, icon: String, action: (() -> Void)?, isEnabled: Bool, isHighlighted: Bool = false) -> some View {
         Button(action: {
             if let action = action {
                 action()
+                HapticManager.shared.medium()
             }
         }) {
-            HStack(spacing: 6) {
+            HStack(spacing: 4) {
                 Image(systemName: icon)
-                    .font(.rsBodySmall)
+                    .font(isHighlighted ? .rsBodyMedium : .rsBodySmall)
+                    .imageScale(.medium)
                 Text(title)
-                    .font(.rsButtonSmall)
+                    .font(isHighlighted ? .rsButtonMedium : .rsButtonSmall)
+                    .fontWeight(isHighlighted ? .semibold : .regular)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
             }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 10)
-            .padding(.horizontal, 8)
+            .padding(.vertical, isHighlighted ? 12 : 10)
+            .padding(.horizontal, 6)
             .background(
                 RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .fill(isEnabled ? textColor.opacity(0.2) : textColor.opacity(0.1))
+                    .fill(buttonBackgroundColor(isEnabled: isEnabled, isHighlighted: isHighlighted))
+                    .shadow(
+                        color: isHighlighted && isEnabled ? Color.rsTurquoise.opacity(0.3) : .clear,
+                        radius: 8,
+                        x: 0,
+                        y: 4
+                    )
             )
-            .foregroundColor(isEnabled ? textColor : textColor.opacity(0.4))
+            .foregroundColor(buttonForegroundColor(isEnabled: isEnabled, isHighlighted: isHighlighted))
         }
         .disabled(!isEnabled)
         .buttonStyle(PlainButtonStyle())
+    }
+
+    private func buttonBackgroundColor(isEnabled: Bool, isHighlighted: Bool) -> Color {
+        if isHighlighted && isEnabled {
+            // Solid gold/turquoise gradient for highlighted button
+            return .rsTurquoise
+        } else if isEnabled {
+            return textColor.opacity(0.2)
+        } else {
+            return textColor.opacity(0.1)
+        }
+    }
+
+    private func buttonForegroundColor(isEnabled: Bool, isHighlighted: Bool) -> Color {
+        if isHighlighted && isEnabled {
+            // White text on solid turquoise background for maximum contrast
+            return .white
+        } else if isEnabled {
+            return textColor
+        } else {
+            return textColor.opacity(0.4)
+        }
     }
 
     // MARK: - Computed Properties

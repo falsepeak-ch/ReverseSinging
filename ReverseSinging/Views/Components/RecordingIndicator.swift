@@ -24,7 +24,7 @@ struct RecordingIndicator: View {
                 )
                 .onAppear { isPulsing = true }
 
-            Text("RECORDING")
+            Text(Strings.Recording.indicator)
                 .font(.rsCaption)
                 .tracking(1.5)
                 .foregroundColor(.rsRecording)

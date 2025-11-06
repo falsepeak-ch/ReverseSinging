@@ -10,12 +10,24 @@ import SwiftUI
 struct SessionListView: View {
     @ObservedObject var viewModel: AudioViewModel
     @Environment(\.dismiss) var dismiss
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) var systemColorScheme
+
+    // Computed effective color scheme based on theme mode
+    private var effectiveColorScheme: ColorScheme {
+        switch viewModel.appState.themeMode {
+        case .system:
+            return systemColorScheme
+        case .light:
+            return .light
+        case .dark:
+            return .dark
+        }
+    }
 
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.rsBackgroundAdaptive(for: colorScheme).ignoresSafeArea()
+                Color.rsBackgroundAdaptive(for: effectiveColorScheme).ignoresSafeArea()
 
                 if viewModel.appState.savedSessions.isEmpty {
                     emptyStateView
@@ -23,17 +35,39 @@ struct SessionListView: View {
                     sessionListView
                 }
             }
-            .navigationTitle(viewModel.appState.savedSessions.isEmpty ? "" : "Saved Sessions")
+            .id(viewModel.appState.themeMode)
+            .navigationTitle(viewModel.appState.savedSessions.isEmpty ? "" : Strings.SessionList.title)
             .navigationBarTitleDisplayMode(.large)
+            .onAppear {
+                // Track screen view and session count
+                let sessionsCount = viewModel.appState.savedSessions.count
+                AnalyticsManager.shared.trackSessionListViewed(sessionsCount: sessionsCount)
+                AnalyticsManager.shared.trackScreenViewed(screenName: "SessionListView")
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: { dismiss() }) {
+                    Button(action: {
+                        HapticManager.shared.light()
+                        dismiss()
+                    }) {
                         Image(systemName: "xmark")
-                            .font(.rsHeadingSmall)
-                            .foregroundStyle(Color.rsTurquoise)
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundStyle(Color.rsTextAdaptive(for: effectiveColorScheme))
                     }
                 }
             }
+        }
+        .preferredColorScheme(preferredColorScheme)
+    }
+
+    private var preferredColorScheme: ColorScheme? {
+        switch viewModel.appState.themeMode {
+        case .system:
+            return nil
+        case .light:
+            return .light
+        case .dark:
+            return .dark
         }
     }
 
@@ -47,14 +81,14 @@ struct SessionListView: View {
                 .frame(width: 140, height: 140)
                 .scaleIn(delay: 0.1)
 
-            Text("No Saved Sessions")
+            Text(Strings.SessionList.Empty.title)
                 .font(.custom("Eugello", size: 32))
-                .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+                .foregroundColor(Color.rsTextAdaptive(for: effectiveColorScheme))
                 .fadeIn(delay: 0.2)
 
-            Text("Complete a reverse singing session and save it to see it here.")
+            Text(Strings.SessionList.Empty.message)
                 .font(.rsBodyMedium)
-                .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme))
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
                 .fadeIn(delay: 0.3)
@@ -77,7 +111,7 @@ struct SessionListView: View {
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
-        .background(Color.rsBackgroundAdaptive(for: colorScheme))
+        .background(Color.rsBackgroundAdaptive(for: effectiveColorScheme))
     }
 
     // MARK: - Actions
@@ -96,7 +130,15 @@ struct SessionRow: View {
     let session: AudioSession
     @ObservedObject var viewModel: AudioViewModel
     @State private var isExpanded = false
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) var systemColorScheme
+
+    private var effectiveColorScheme: ColorScheme {
+        switch viewModel.appState.themeMode {
+        case .system: return systemColorScheme
+        case .light: return .light
+        case .dark: return .dark
+        }
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -105,11 +147,11 @@ struct SessionRow: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(session.name)
                         .font(.rsHeadingSmall)
-                        .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+                        .foregroundColor(Color.rsTextAdaptive(for: effectiveColorScheme))
 
                     Text(session.formattedDate)
                         .font(.rsCaption)
-                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme))
                 }
 
                 Spacer()
@@ -130,13 +172,13 @@ struct SessionRow: View {
             // Recording badges
             HStack(spacing: 8) {
                 if session.originalRecording != nil {
-                    recordingBadge("Original", color: .rsTurquoise)
+                    recordingBadge(Strings.RecordingType.original, color: .rsTurquoise)
                 }
                 if session.reversedRecording != nil {
-                    recordingBadge("Reversed", color: .rsTurquoise.opacity(0.8))
+                    recordingBadge(Strings.RecordingType.reversed, color: .rsTurquoise.opacity(0.8))
                 }
                 if session.attemptRecording != nil {
-                    recordingBadge("Attempt", color: .rsTurquoise.opacity(0.6))
+                    recordingBadge(Strings.RecordingType.attempt, color: .rsTurquoise.opacity(0.6))
                 }
             }
 
@@ -156,7 +198,7 @@ struct SessionRow: View {
         .padding(16)
         .background(
             RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(Color.rsSecondaryBackgroundAdaptive(for: colorScheme))
+                .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
                 .overlay(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .stroke(Color.rsTurquoise.opacity(0.15), lineWidth: 1.5)
@@ -179,14 +221,14 @@ struct SessionRow: View {
     }
 
     private func gradientForBadge(_ title: String) -> LinearGradient {
-        switch title {
-        case "Original":
+        // Match localized strings
+        if title == Strings.RecordingType.original {
             return LinearGradient(colors: [Color.rsTurquoise, Color.rsTurquoise], startPoint: .topLeading, endPoint: .bottomTrailing)
-        case "Reversed":
+        } else if title == Strings.RecordingType.reversed {
             return LinearGradient(colors: [Color.rsTurquoise, Color.rsTurquoise], startPoint: .topLeading, endPoint: .bottomTrailing)
-        case "Attempt":
+        } else if title == Strings.RecordingType.attempt {
             return LinearGradient(colors: [Color.rsRed, Color.rsRed], startPoint: .topLeading, endPoint: .bottomTrailing)
-        default:
+        } else {
             return LinearGradient(colors: [Color.rsTurquoise, Color.rsTurquoise], startPoint: .topLeading, endPoint: .bottomTrailing)
         }
     }
@@ -198,7 +240,15 @@ struct RecordingRowButton: View {
     let recording: Recording
     @ObservedObject var viewModel: AudioViewModel
     @State private var isPressed = false
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) var systemColorScheme
+
+    private var effectiveColorScheme: ColorScheme {
+        switch viewModel.appState.themeMode {
+        case .system: return systemColorScheme
+        case .light: return .light
+        case .dark: return .dark
+        }
+    }
 
     var body: some View {
         Button(action: {
@@ -212,13 +262,13 @@ struct RecordingRowButton: View {
                     .frame(width: 30)
 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(recording.type.rawValue)
+                    Text(recording.localizedType)
                         .font(.rsBodyMedium)
-                        .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+                        .foregroundColor(Color.rsTextAdaptive(for: effectiveColorScheme))
 
                     Text(recording.formattedDuration)
                         .font(.rsCaption)
-                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme))
                 }
 
                 Spacer()
@@ -234,7 +284,7 @@ struct RecordingRowButton: View {
             .padding(14)
             .background(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(Color.rsSecondaryBackgroundAdaptive(for: colorScheme))
+                    .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
                     .overlay(
                         RoundedRectangle(cornerRadius: 12, style: .continuous)
                             .stroke(Color.rsTurquoise.opacity(0.2), lineWidth: 1)

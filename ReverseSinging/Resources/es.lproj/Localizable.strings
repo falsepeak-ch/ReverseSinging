@@ -1,0 +1,143 @@
+/*
+   Localizable.strings (Spanish)
+   ReverseSinging
+*/
+
+// MARK: - Onboarding
+"onboarding.welcome.title" = "Bienvenido a Reverso";
+"onboarding.welcome.message" = "Necesitamos acceso al micrófono para grabar y revertir tu audio. ¡Empecemos!";
+"onboarding.howItWorks.title" = "Cómo Funciona";
+"onboarding.howItWorks.message" = "¡Graba audio, reviértelo, canta lo que escuches y luego dale la vuelta de nuevo para ver qué tal te salió!";
+"onboarding.button.continue" = "Continuar";
+"onboarding.button.openSettings" = "Abrir Ajustes";
+"onboarding.button.letsRecord" = "¡sí, grabemos!";
+"onboarding.button.continueLowercase" = "continuar";
+
+// MARK: - Main View - Buttons
+"main.button.stopRecording" = "Detener Grabación";
+"main.button.recordAudio" = "Grabar Audio";
+"main.button.recordAttempt" = "Graba tu Intento";
+"main.button.reRecord" = "Volver a Grabar";
+"main.button.newSession" = "Nueva Sesión";
+
+// MARK: - Main View - Alerts
+"main.alert.microphoneRequired.title" = "Se Requiere Acceso al Micrófono";
+"main.alert.microphoneRequired.message" = "Por favor, habilita el acceso al micrófono en Ajustes para grabar audio.";
+"main.alert.settings" = "Ajustes";
+"main.alert.cancel" = "Cancelar";
+"main.alert.error.title" = "Error";
+"main.alert.ok" = "Aceptar";
+"main.alert.startNewSession.title" = "¿Iniciar Nueva Sesión?";
+"main.alert.startNewSession.message" = "Tu sesión actual se guardará en el archivo. Esto iniciará una sesión de grabación nueva.";
+"main.alert.startNewSession.button" = "Iniciar Nueva Sesión";
+
+// MARK: - Main View - Empty State
+"main.emptyState.title" = "Se Requiere Acceso al Micrófono";
+"main.emptyState.message" = "Para usar Reverso, por favor habilita el acceso al micrófono en los ajustes de tu dispositivo. Esto te permite grabar y revertir audio.";
+"main.emptyState.button" = "Abrir Ajustes";
+
+// MARK: - Main View - Processing & Success
+"main.processing.reversingAudio" = "Revirtiendo audio...";
+"main.success.sessionSaved" = "¡Sesión guardada!";
+
+// MARK: - Main View - Tips (Contextual Help)
+"main.tip.tapRecordToBegin" = "Toca Grabar Audio para comenzar tu desafío de canto revertido";
+"main.tip.recordSingingAttempt" = "Graba tu intento de canto mientras escuchas el audio revertido";
+"main.tip.recordSongToReverse" = "Graba la canción que quieres cantar al revés";
+"main.tip.tapPlayToSwitch" = "Toca cualquier botón de reproducción para cambiar entre grabaciones, o toca detener para pausar";
+"main.tip.reRecordOrNewSession" = "Toca Volver a Grabar para mejorar tu intento, o Nueva Sesión para grabar una canción nueva";
+"main.tip.listenAndRecord" = "Escucha el audio revertido y luego graba tu intento de canto";
+"main.tip.processingAudio" = "Procesando tu audio... Solo tomará un momento";
+"main.tip.tapRecordAudio" = "Toca Grabar Audio para grabar la canción que quieres revertir";
+
+// MARK: - Comparison View
+"comparison.title" = "Resultados";
+"comparison.button.close" = "Cerrar";
+"comparison.label.original" = "Original";
+"comparison.label.yourTry" = "Tu Intento";
+"comparison.button.playOriginal" = "Reproducir Original";
+"comparison.button.playYourTry" = "Reproducir tu Intento";
+"comparison.button.stop" = "Detener";
+"comparison.button.saveSession" = "Guardar Sesión";
+"comparison.button.tryAgain" = "Intentar de Nuevo";
+
+// MARK: - Comparison View - Score Messages
+"comparison.score.amazing" = "🌟 ¡Increíble! ¡Casi perfecto!";
+"comparison.score.great" = "🎉 ¡Muy bien! ¡Muy cerca!";
+"comparison.score.good" = "👍 ¡Buen intento! ¿Intentar de nuevo?";
+"comparison.score.keepPracticing" = "💪 ¡Sigue practicando!";
+
+// MARK: - Session List View
+"sessionList.title" = "Sesiones Guardadas";
+"sessionList.empty.title" = "No Hay Sesiones Guardadas";
+"sessionList.empty.message" = "Completa una sesión de canto revertido y guárdala para verla aquí.";
+
+// MARK: - Recording Type Labels
+"recordingType.original" = "Original";
+"recordingType.reversed" = "Revertido";
+"recordingType.attempt" = "Intento";
+"recordingType.reversedAttempt" = "Intento Revertido";
+"recordingType.imported" = "Importado";
+
+// MARK: - Timer Card
+"timerCard.deviceMicrophone" = "Micrófono del Dispositivo (Por defecto)";
+"timerCard.mins" = "MINS";
+"timerCard.secs" = "SEGS";
+"timerCard.playAudio" = "Reproducir Audio";
+"timerCard.audioControls" = "Controles de Audio";
+"timerCard.loop" = "Bucle";
+"timerCard.speed" = "Velocidad";
+"timerCard.pitch" = "Tono";
+"timerCard.semitones" = "semitonos";
+
+// MARK: - Score Card
+"scoreCard.title" = "Tu Puntuación";
+"scoreCard.grade.perfectMatch" = "¡Coincidencia Perfecta!";
+"scoreCard.grade.excellent" = "¡Excelente!";
+"scoreCard.grade.greatJob" = "¡Muy Bien!";
+"scoreCard.grade.veryGood" = "¡Muy Bueno!";
+"scoreCard.grade.goodEffort" = "¡Buen Esfuerzo!";
+"scoreCard.grade.niceTry" = "¡Buen Intento!";
+"scoreCard.grade.keepPracticing" = "¡Sigue Practicando!";
+"scoreCard.grade.tryAgain" = "¡Inténtalo de Nuevo!";
+
+// MARK: - Processing Indicator
+"processing.reversingAudio" = "Revirtiendo audio...";
+"processing.generic" = "Procesando...";
+
+// MARK: - Recording Indicator
+"recording.indicator" = "GRABANDO";
+
+// MARK: - Success Celebration
+"success.sessionSaved" = "¡Sesión guardada correctamente!";
+
+// MARK: - Audio Session Model
+"session.defaultName" = "Sesión";
+
+// MARK: - Error Messages
+"error.microphonePermissionRequired" = "Se requiere permiso de micrófono. Por favor, habilítalo en Ajustes.";
+"error.cannotStartRecording" = "No se puede iniciar la grabación ahora mismo. Por favor, inténtalo de nuevo.";
+"error.noRecordingInProgress" = "No hay ninguna grabación en curso.";
+"error.failedToStopRecording" = "No se pudo detener la grabación correctamente.";
+"error.failedToProcessRecording" = "No se pudo procesar la grabación.";
+
+// MARK: - Settings
+"settings.title" = "Ajustes";
+"settings.subtitle" = "Personaliza tu experiencia";
+"settings.appearance" = "Apariencia";
+"settings.preferences" = "Preferencias";
+"settings.about" = "Acerca de";
+
+// Theme descriptions
+"settings.theme.system.desc" = "Sigue los ajustes del sistema";
+"settings.theme.light.desc" = "Siempre en modo claro";
+"settings.theme.dark.desc" = "Siempre en modo oscuro";
+
+// Haptic feedback
+"settings.hapticFeedback" = "Respuesta Háptica";
+"settings.hapticFeedback.desc" = "Vibración al tocar";
+
+// About
+"settings.privacyPolicy" = "Política de Privacidad";
+"settings.builtInSwitzerland" = "Hecho en Suiza";
+"settings.builtInSwitzerland.desc" = "Hecho con cuidado en Zúrich";

@@ -16,7 +16,7 @@ struct ScoreCard: View {
         VStack(spacing: 0) {
             // Header with eye button
             HStack {
-                Text("Your Score")
+                Text(Strings.ScoreCard.title)
                     .font(.rsBodySmall)
                     .foregroundColor(textColor.opacity(0.8))
                     .textCase(.uppercase)
@@ -80,14 +80,14 @@ struct ScoreCard: View {
 
     private var gradeDescription: String {
         switch score {
-        case 90...100: return "Perfect Match!"
-        case 85..<90:  return "Excellent!"
-        case 75..<85:  return "Great Job!"
-        case 65..<75:  return "Very Good!"
-        case 55..<65:  return "Good Effort!"
-        case 45..<55:  return "Nice Try!"
-        case 40..<45:  return "Keep Practicing!"
-        default:       return "Try Again!"
+        case 90...100: return Strings.ScoreCard.Grade.perfectMatch
+        case 85..<90:  return Strings.ScoreCard.Grade.excellent
+        case 75..<85:  return Strings.ScoreCard.Grade.greatJob
+        case 65..<75:  return Strings.ScoreCard.Grade.veryGood
+        case 55..<65:  return Strings.ScoreCard.Grade.goodEffort
+        case 45..<55:  return Strings.ScoreCard.Grade.niceTry
+        case 40..<45:  return Strings.ScoreCard.Grade.keepPracticing
+        default:       return Strings.ScoreCard.Grade.tryAgain
         }
     }
 

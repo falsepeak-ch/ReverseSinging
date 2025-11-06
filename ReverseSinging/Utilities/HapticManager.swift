@@ -12,9 +12,20 @@ final class HapticManager {
 
     private init() {}
 
+    // MARK: - Enabled Check
+
+    private var isEnabled: Bool {
+        // Check UserDefaults, default to true if not set
+        if UserDefaults.standard.object(forKey: "hapticsEnabled") != nil {
+            return UserDefaults.standard.bool(forKey: "hapticsEnabled")
+        }
+        return true
+    }
+
     // MARK: - Impact Feedback
 
     func impact(_ style: UIImpactFeedbackGenerator.FeedbackStyle = .medium) {
+        guard isEnabled else { return }
         let generator = UIImpactFeedbackGenerator(style: style)
         generator.impactOccurred()
     }
@@ -42,6 +53,7 @@ final class HapticManager {
     // MARK: - Notification Feedback
 
     func notification(_ type: UINotificationFeedbackGenerator.FeedbackType) {
+        guard isEnabled else { return }
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(type)
     }
@@ -61,6 +73,7 @@ final class HapticManager {
     // MARK: - Selection Feedback
 
     func selection() {
+        guard isEnabled else { return }
         let generator = UISelectionFeedbackGenerator()
         generator.selectionChanged()
     }

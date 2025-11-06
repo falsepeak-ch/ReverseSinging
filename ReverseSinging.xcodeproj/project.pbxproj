@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E2CE0E60FF574C54BA229923 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		FF2EE2D92EAF91B100549684 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = FF3C44EB2EAF8B000055F61C /* FirebaseCore */; };
 		FF2EE3E72EB028B600549684 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = FF2EE3E62EB028B600549684 /* FirebaseCrashlytics */; };
 		FF2EE5362EB135D500549684 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FF2EE5352EB135D500549684 /* FirebaseAnalytics */; };
@@ -176,6 +177,8 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
+				ca,
 			);
 			mainGroup = FFA267BD2EA6B026008518FC;
 			minimizedProjectReferenceProxies = 1;
@@ -198,6 +201,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2CE0E60FF574C54BA229923 /* (null) in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,7 +385,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.falsepeak.reverse-singing-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -422,7 +426,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.falsepeak.reverse-singing-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;

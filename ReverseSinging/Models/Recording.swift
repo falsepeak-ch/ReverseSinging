@@ -42,4 +42,19 @@ struct Recording: Identifiable, Codable {
         formatter.timeStyle = .short
         return formatter.string(from: createdAt)
     }
+
+    var localizedType: String {
+        switch type {
+        case .original:
+            return Strings.RecordingType.original
+        case .reversed:
+            return Strings.RecordingType.reversed
+        case .attempt:
+            return Strings.RecordingType.attempt
+        case .reversedAttempt:
+            return Strings.RecordingType.reversedAttempt
+        case .imported:
+            return Strings.RecordingType.imported
+        }
+    }
 }

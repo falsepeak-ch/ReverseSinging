@@ -83,7 +83,7 @@ struct CompactProcessingIndicator: View {
                 )
                 .onAppear { isRotating = true }
 
-            Text("Processing...")
+            Text(Strings.Processing.generic)
                 .font(.rsBodyMedium)
                 .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
         }

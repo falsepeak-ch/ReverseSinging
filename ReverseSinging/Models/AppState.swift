@@ -15,6 +15,12 @@ enum RecordingState: Equatable {
     case error(String)
 }
 
+enum ThemeMode: String, Codable, CaseIterable {
+    case system = "System"
+    case light = "Light"
+    case dark = "Dark"
+}
+
 struct AppState {
     var recordingState: RecordingState = .idle
     var currentSession: AudioSession?
@@ -29,6 +35,10 @@ struct AppState {
     var isScoreVisible: Bool = true
     var attemptCount: Int = 0
     var practiceListenCount: Int = 0
+
+    // Settings
+    var themeMode: ThemeMode = .system
+    var hapticsEnabled: Bool = true
 
     // MARK: - Methods
     // Removed currentGameStep - no longer using step-based flow

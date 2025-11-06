@@ -15,7 +15,7 @@ struct AudioSession: Identifiable, Codable {
 
     init(id: UUID = UUID(), name: String? = nil) {
         self.id = id
-        self.name = name ?? "Session"
+        self.name = name ?? Strings.Session.defaultName
         self.createdAt = Date()
         self.recordings = []
     }
