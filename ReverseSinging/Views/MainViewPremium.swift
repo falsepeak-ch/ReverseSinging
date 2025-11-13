@@ -157,13 +157,36 @@ struct MainViewPremium: View {
                             removal: .scale.combined(with: .opacity)
                         ))
                 }
-
+                
                 // Action buttons
                 actionButtonsSection
                     .padding(.horizontal, 24)
-                    .padding(.bottom, 100)
                     .animation(.rsSpring, value: viewModel.appState.recordingState)
+                    .padding(.bottom, !shouldShowTimer ? 8 : 100)
+                
+                if !shouldShowTimer {
+                    VStack {
+                        Text("We build other apps as well!")
+                            .font(.rsHeadingSmall)
+                            .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+                        HStack(alignment: .top) {
+                            Image("impostor-icon")
+                            VStack(alignment: .leading) {
+                                Text("Cluso - Imposter Party Game")
+                                    .font(.rsBodyLarge)
+                                    .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+                                    .bold()
+                                Text("The viral social media hit")
+                                    .font(.rsCaption)
+                                    .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+                            }
+                        }
+                    }.padding(.horizontal)
+                    .padding(.bottom, 100)
+                }
+                
             }
+            
         }
     }
 
