@@ -74,6 +74,56 @@ struct DubScenePictureTests {
                 "picture should have advanced; parked=\(parked) now=\(picture.currentTimeForTesting)")
     }
 
+    /// Whole-scene playback must wait for the same future host-time deadline as the audio
+    /// nodes. This is the regression for fast video starting immediately while audio still
+    /// sat in its scheduling lead-in, followed by a stream of corrective seeks.
+    @Test func wholeSceneStartsOnTheSharedAudioAnchor() async throws {
+        let (picture, directory) = try makePicture()
+        defer { try? FileManager.default.removeItem(at: directory) }
+
+        let ready = try await waitUntil { picture.isReadyForTesting }
+        #expect(ready, "video did not become ready")
+
+        let offset: TimeInterval = 2
+        let hostTime = mach_absolute_time() + AVAudioTime.hostTime(forSeconds: 1.0)
+        picture.playScene(at: DubPlaybackAnchor(offset: offset, hostTime: hostTime))
+
+        // AVPlayer applies the requested item time asynchronously, even though its rate stays
+        // stopped until the host deadline. Wait for that harmless positioning jump before
+        // measuring whether frames themselves are advancing.
+        let positioned = try await waitUntil(timeout: 0.5) {
+            picture.currentTimeForTesting >= offset - 0.05
+        }
+        #expect(positioned, "picture did not position on the requested frame")
+
+        let firstBeforeDeadline = picture.currentTimeForTesting
+        try await Task.sleep(for: .milliseconds(200))
+        let lastBeforeDeadline = picture.currentTimeForTesting
+        #expect(abs(lastBeforeDeadline - firstBeforeDeadline) < 0.08,
+                "picture ran before the shared deadline: \(firstBeforeDeadline) → \(lastBeforeDeadline)")
+
+        let advanced = try await waitUntil(timeout: 2) {
+            picture.currentTimeForTesting > lastBeforeDeadline + 0.2
+        }
+        #expect(advanced, "picture did not roll after the shared deadline")
+    }
+
+    /// Opening a large imported scene can outlast the audio lead-in. The pending start must
+    /// survive that load and join the audio at its then-current timeline position.
+    @Test func wholeSceneStartWaitsForVideoReadiness() async throws {
+        let (picture, directory) = try makePicture()
+        defer { try? FileManager.default.removeItem(at: directory) }
+
+        let offset: TimeInterval = 1
+        let hostTime = mach_absolute_time() + AVAudioTime.hostTime(forSeconds: 0.1)
+        picture.playScene(at: DubPlaybackAnchor(offset: offset, hostTime: hostTime))
+
+        let advanced = try await waitUntil(timeout: 4) {
+            picture.currentTimeForTesting > offset + 0.2
+        }
+        #expect(advanced, "pending picture did not join the running audio timeline")
+    }
+
     /// A take routinely runs past the line, so the picture has to keep moving. Asserts both
     /// halves: it never stops, and it never runs on past the line into the next shot.
     @Test func loopsTheLineWhileTheMicIsOpen() async throws {

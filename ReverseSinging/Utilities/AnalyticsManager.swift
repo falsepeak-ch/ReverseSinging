@@ -195,16 +195,6 @@ final class AnalyticsManager {
         ])
     }
 
-    // MARK: - Dub Still Events
-
-    func trackDubStillPreviewOpened() {
-        log("dub_still_preview_opened", parameters: nil)
-    }
-
-    func trackDubStillDownloaded() {
-        log("dub_still_downloaded", parameters: nil)
-    }
-
     // MARK: - Dub Content Gate Events
 
     func trackDubGateShown() {

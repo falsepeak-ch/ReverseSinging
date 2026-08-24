@@ -8,6 +8,15 @@
 import AVFoundation
 import Combine
 
+/// A point on the scene timeline tied to the device host clock.
+///
+/// AVAudioPlayerNode and AVPlayer both understand this clock, which makes it the reliable
+/// boundary between the separately rendered voice mix and picture.
+nonisolated struct DubPlaybackAnchor: Equatable, Sendable {
+    let offset: TimeInterval
+    let hostTime: UInt64
+}
+
 /// Which voice track plays over the backing track.
 enum DubPlaybackMode: String, CaseIterable {
     case original   // the pack's reference dialogue
@@ -57,9 +66,14 @@ final class DubPlayer: ObservableObject {
     private var mode: DubPlaybackMode = .original
     private var playbackStartOffset: TimeInterval = 0
 
-    /// The instant playback was scheduled to begin. The scene's clock, and what the picture
-    /// is corrected towards.
-    private var wallClockAnchor: Date?
+    /// The one start point shared by the audio engine and the scene picture.
+    ///
+    /// Audio and video used to be told to play in two separate callbacks. The audio nodes
+    /// deliberately wait for `startLeadIn`, while AVPlayer began immediately and was then
+    /// repeatedly exact-seeked back towards the audio clock. High-frame-rate scenes made
+    /// those corrections especially visible. Publishing the audio engine's actual host-time
+    /// deadline lets AVPlayer map the requested video frame onto that same instant instead.
+    private(set) var playbackAnchor: DubPlaybackAnchor?
 
     /// Backing track sits under the voices rather than competing with them.
     private static let backingGain: Float = 0.75
@@ -268,7 +282,7 @@ final class DubPlayer: ObservableObject {
         if backingBuffer != nil { backingNode.play(at: startTime) }
         voiceNodes.forEach { $0.play(at: startTime) }
 
-        wallClockAnchor = Date().addingTimeInterval(Self.startLeadIn)
+        playbackAnchor = DubPlaybackAnchor(offset: playbackStartOffset, hostTime: hostTime)
         currentTime = playbackStartOffset
         isPlaying = true
         startProgressTimer()
@@ -282,7 +296,7 @@ final class DubPlayer: ObservableObject {
         isPlaying = false
         currentTime = 0
         playbackStartOffset = 0
-        wallClockAnchor = nil
+        playbackAnchor = nil
         stopProgressTimer()
     }
 
@@ -376,14 +390,16 @@ final class DubPlayer: ObservableObject {
 
     /// Seconds since the deadline every node was started on.
     ///
-    /// Measured against that host time rather than against a player node's own clock: a voice
+    /// Measured against that exact host time rather than against a player node's own clock: a voice
     /// node reports nothing during the silence between its lines, and a pack may have no
     /// backing track at all, so neither is a clock the whole scene can be read from. The host
     /// clock is the one the nodes were scheduled against, and it runs whether or not anything
     /// is sounding. Negative until the lead-in elapses, which is why it is floored at zero.
     private func elapsedSincePlaybackStart() -> TimeInterval {
-        guard let wallClockAnchor else { return 0 }
-        return max(0, Date().timeIntervalSince(wallClockAnchor))
+        guard let anchor = playbackAnchor else { return 0 }
+        let now = mach_absolute_time()
+        guard now > anchor.hostTime else { return 0 }
+        return AVAudioTime.seconds(forHostTime: now - anchor.hostTime)
     }
 
     // MARK: - Cleanup

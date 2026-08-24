@@ -7,7 +7,7 @@
 
 import AVFoundation
 
-/// Decides where a line's voice is dropped on the scene timeline, and trims it to fit.
+/// Decides where a line's voice is dropped on the scene timeline, and fits it to the original.
 ///
 /// The single answer to "when does this take play". `DubPlayer` uses it for the scene you
 /// hear in the app and `DubMixer` uses it for the file you share, so the export is the
@@ -22,11 +22,12 @@ import AVFoundation
 ///
 /// Placing raw take at raw timestamp therefore stacks two independent errors and the voice
 /// lands anywhere from a hair to two seconds off the character's mouth. Instead both run-ups
-/// are measured away and the take's first word is put exactly where the original's first word
-/// is: onset to onset. What the performer hears is their own delivery, on the beat.
+/// are measured away and the take is fitted between the original's first and last word. That
+/// second edge matters in an interruption: onset-only alignment can shorten a quiet take by
+/// its run-up and turn dialogue that overlapped in the film into two sequential lines.
 nonisolated enum DubVoiceAlignment {
 
-    /// A take, trimmed and timed, ready to schedule.
+    /// A take, speech-trimmed, duration-matched and timed, ready to schedule.
     struct Placement {
         /// The take with its run-up removed. Fades re-applied, so the cut cannot click.
         let buffer: AVAudioPCMBuffer
@@ -54,20 +55,25 @@ nonisolated enum DubVoiceAlignment {
         for line: DubLine,
         referenceURL: URL? = nil
     ) -> Placement {
-        let startTime = line.startTime + speechLead(for: line, referenceURL: referenceURL)
-        let takeLead = DubSpeechOnset.leadIn(of: take)
+        let referenceLead = speechLead(for: line, referenceURL: referenceURL)
+        let startTime = line.startTime + referenceLead
 
-        guard takeLead > 0, let trimmed = DubAudioLoader.trimming(take, fromOffset: takeLead) else {
-            // Nothing to trim: the buffer still carries the fades the loader applied.
+        guard let takeWindow = DubSpeechOnset.window(of: take),
+              let spokenTake = DubAudioLoader.trimming(
+                take,
+                fromOffset: takeWindow.start,
+                toOffset: takeWindow.end
+              ) else {
             return Placement(buffer: take, startTime: startTime)
         }
 
-        // The trim cut the loader's fade-in off the front, leaving a hard edge mid-signal.
-        // Fading the copy restores it; the tail simply gets faded twice over 10 ms, which is
-        // inaudible and far cheaper than threading a "don't fade yet" flag through the loader.
-        DubAudioLoader.applyEdgeFades(to: trimmed)
+        let referenceTail = max(referenceLead, line.speechTail)
+        let targetDuration = referenceTail - referenceLead
+        let fitted = DubAudioLoader.fittingDuration(of: spokenTake, to: targetDuration) ?? spokenTake
 
-        return Placement(buffer: trimmed, startTime: startTime)
+        // Both cuts are inside the original take, so restore soft edges on the fitted copy.
+        DubAudioLoader.applyEdgeFades(to: fitted)
+        return Placement(buffer: fitted, startTime: startTime)
     }
 
     /// Where the original's first word sits inside its chunk.

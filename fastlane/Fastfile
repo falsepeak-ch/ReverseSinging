@@ -11,6 +11,11 @@ APP_IDENTIFIER = "com.falsepeak.reverse-singing-ios"
 ASC_KEY_ID    = "DGSCB63J99"
 ASC_ISSUER_ID = "59e10bb5-bb9e-43ce-b654-26849e933f8c"
 ASC_KEY_PATH  = File.expand_path("AuthKey_#{ASC_KEY_ID}.p8", __dir__)
+
+# App Store Connect files both 6.7" and 6.9" iPhones under IPHONE_67. Screenshots go up
+# at 1320x2868; previews must be 1290x2796 or 886x1920, and anything else is dropped
+# without an error.
+PREVIEW_TYPE = "IPHONE_67"
 APP_RATING_CONFIG_PATH = File.expand_path("app_rating_config.json", __dir__)
 
 # Reverso is free with no in-app purchases, so there is no pricing lane here —
@@ -63,9 +68,9 @@ platform :ios do
       sh("./Tools/screenshots/record.sh #{args.join(' ')}".strip)
     end
 
-    # `deliver` uploads video files sitting in the screenshots folder as app previews,
-    # so `upload_screenshots` sends these alongside the stills.
-    UI.success("App previews ready in fastlane/screenshots/ — run `fastlane upload_screenshots`")
+    # `deliver` does not handle app previews — it only scans the screenshots folder for
+    # images. The upload goes through spaceship directly; see the upload_previews lane.
+    UI.success("App previews ready in fastlane/screenshots/ — run `fastlane upload_previews`")
   end
 
   desc "Download the screenshots currently live on the App Store, into fastlane/live/"
@@ -127,6 +132,62 @@ platform :ios do
       overwrite_screenshots: true,
       precheck_include_in_app_purchases: false
     )
+  end
+
+  desc "Upload the App Store app preview videos"
+  desc "Separate from upload_screenshots because `deliver` has no app-preview support at all —"
+  desc "it scans the screenshots folder for images only. This talks to the API directly."
+  lane :upload_previews do
+    Spaceship::ConnectAPI.token = Spaceship::ConnectAPI::Token.create(
+      key_id: ASC_KEY_ID,
+      issuer_id: ASC_ISSUER_ID,
+      filepath: ASC_KEY_PATH
+    )
+
+    app = Spaceship::ConnectAPI::App.find(APP_IDENTIFIER)
+    UI.user_error!("No app found for #{APP_IDENTIFIER}") if app.nil?
+
+    version = app.get_edit_app_store_version(platform: Spaceship::ConnectAPI::Platform::IOS)
+    UI.user_error!("No editable App Store version — create one in App Store Connect first") if version.nil?
+
+    root = File.expand_path("screenshots", __dir__)
+
+    # Fetched with appPreviewSets included, rather than asking each localization for its
+    # sets afterwards: `get_app_preview_sets` issues GET /appPreviewSets, and Apple no
+    # longer allows GET_COLLECTION on that resource — only CREATE, DELETE and GET_INSTANCE.
+    localizations = Spaceship::ConnectAPI::AppStoreVersionLocalization.all(
+      app_store_version_id: version.id,
+      includes: "appPreviewSets"
+    )
+
+    localizations.each do |localization|
+      path = File.join(root, localization.locale, "00_preview.mp4")
+      unless File.exist?(path)
+        UI.important("No preview for #{localization.locale}, skipping")
+        next
+      end
+
+      # One set per device size. Clear it first: uploading into a set that already holds a
+      # preview appends rather than replaces, and the store would show both.
+      (localization.app_preview_sets || []).each do |existing|
+        next unless existing.preview_type == PREVIEW_TYPE
+        existing.delete!
+      end
+
+      set = localization.create_app_preview_set(attributes: { previewType: PREVIEW_TYPE })
+
+      UI.message("Uploading #{localization.locale} preview (#{(File.size(path) / 1024.0 / 1024).round(1)} MB)")
+      set.upload_preview(
+        path: path,
+        wait_for_processing: true,
+        # The poster frame. 8 seconds in is the recording bay with the picture rolling and
+        # the take drawn over the reference — the frame that says what the app is. The
+        # default is frame zero, which here is a list of scenes.
+        frame_time_code: "00:00:08:00"
+      )
+    end
+
+    UI.success("App previews uploaded")
   end
 
   desc "Upload metadata and screenshots"

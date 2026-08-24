@@ -24,6 +24,9 @@ final class DubScenePicture: ObservableObject {
     private var stopAt: TimeInterval?
     /// Where to jump back to when the line ends, or nil to stop there instead.
     private var loopStart: TimeInterval?
+    /// Whole-scene playback requested while AVPlayer is still opening the local file.
+    private var pendingSceneAnchor: DubPlaybackAnchor?
+    private var statusObservation: NSKeyValueObservation?
     /// A rewind is in flight. The time observer keeps firing during the seek, and without
     /// this every one of those ticks would queue another seek.
     private var isRewinding = false
@@ -35,9 +38,13 @@ final class DubScenePicture: ObservableObject {
 
         let player = AVPlayer(url: url)
         player.isMuted = true
+        // This is a local file. Waiting to build a network-style playback buffer only makes
+        // the picture miss the host-time start shared with the audio engine.
+        player.automaticallyWaitsToMinimizeStalling = false
         // Without this the player stalls at the end of a segment instead of holding the frame.
         player.actionAtItemEnd = .pause
         self.player = player
+        observeReadiness(of: player)
     }
 
     // MARK: - Positioning
@@ -77,27 +84,39 @@ final class DubScenePicture: ObservableObject {
 
     // MARK: - Whole Scene
 
-    /// Plays from an arbitrary point with no end boundary — the scene-playback screen runs
-    /// the whole video rather than one line.
-    func playScene(from offset: TimeInterval) {
+    /// Plays the whole scene on the audio engine's exact host-time boundary.
+    ///
+    /// `setRate(_:time:atHostTime:)` establishes one timebase mapping in AVPlayer. Starting
+    /// with `seek` followed by `play` used two asynchronous operations and made the video run
+    /// before the audio node's scheduled lead-in had elapsed.
+    func playScene(at anchor: DubPlaybackAnchor) {
         guard let player else { return }
         clearEndObserver()
-        seek(player, to: offset)
-        player.play()
+        pendingSceneAnchor = anchor
+        startPendingScene(on: player)
     }
 
     func pauseScene() {
+        pendingSceneAnchor = nil
         player?.pause()
     }
 
     /// Nudges the picture back onto the audio clock. `DubPlayer` runs the mix on its own
     /// engine, so audio is the master and the video is corrected towards it — never the
     /// other way, which would stutter the mix.
-    func resync(to time: TimeInterval, tolerance: TimeInterval = 0.1) {
-        guard let player, player.rate != 0 else { return }
+    func resync(to time: TimeInterval, tolerance: TimeInterval = 0.25) {
+        guard let player, player.status == .readyToPlay, player.rate != 0 else { return }
         let drift = abs(player.currentTime().seconds - time)
         guard drift > tolerance else { return }
-        seek(player, to: time)
+
+        // A local file should not drift once both clocks share an anchor. This is only a
+        // recovery path for a decode stall or interruption, so re-anchor in one operation
+        // instead of issuing repeated zero-tolerance seeks every few timer ticks.
+        player.setRate(
+            1,
+            time: CMTime(seconds: max(0, time), preferredTimescale: 600),
+            atHostTime: CMClockGetTime(CMClockGetHostTimeClock())
+        )
     }
 
     // MARK: - Testing
@@ -108,18 +127,24 @@ final class DubScenePicture: ObservableObject {
     func configureForTesting(videoURL: URL) {
         let player = AVPlayer(url: videoURL)
         player.isMuted = true
+        player.automaticallyWaitsToMinimizeStalling = false
         player.actionAtItemEnd = .pause
         self.player = player
+        observeReadiness(of: player)
     }
 
     var rateForTesting: Float { player?.rate ?? 0 }
     var currentTimeForTesting: TimeInterval { player?.currentTime().seconds ?? 0 }
+    var isReadyForTesting: Bool { player?.status == .readyToPlay }
     #endif
 
     // MARK: - Teardown
 
     func tearDown() {
         clearEndObserver()
+        pendingSceneAnchor = nil
+        statusObservation?.invalidate()
+        statusObservation = nil
         player?.pause()
     }
 
@@ -130,6 +155,43 @@ final class DubScenePicture: ObservableObject {
             to: CMTime(seconds: max(0, time), preferredTimescale: 600),
             toleranceBefore: .zero,
             toleranceAfter: .zero
+        )
+    }
+
+    /// Synchronized playback raises an Objective-C exception unless AVPlayer is ready. Keep
+    /// the request and apply it when the local asset has opened; if that happens after the
+    /// audio deadline, advance the requested video time by exactly the missed host duration.
+    private func observeReadiness(of player: AVPlayer) {
+        statusObservation?.invalidate()
+        statusObservation = player.observe(\.status, options: [.initial, .new]) { [weak self, weak player] _, _ in
+            Task { @MainActor [weak self, weak player] in
+                guard let self, let player else { return }
+                self.startPendingScene(on: player)
+            }
+        }
+    }
+
+    private func startPendingScene(on player: AVPlayer) {
+        guard player.status == .readyToPlay, let anchor = pendingSceneAnchor else { return }
+        pendingSceneAnchor = nil
+
+        let now = mach_absolute_time()
+        var scheduledHostTime = anchor.hostTime
+        var scheduledOffset = max(0, anchor.offset)
+
+        if scheduledHostTime <= now {
+            // Leave a tiny scheduling runway after readiness. The audio time at that future
+            // instant is the original offset plus all host time elapsed since its deadline.
+            let runway: TimeInterval = 0.01
+            let elapsed = AVAudioTime.seconds(forHostTime: now - scheduledHostTime) + runway
+            scheduledOffset += elapsed
+            scheduledHostTime = now + AVAudioTime.hostTime(forSeconds: runway)
+        }
+
+        player.setRate(
+            1,
+            time: CMTime(seconds: scheduledOffset, preferredTimescale: 600),
+            atHostTime: CMClockMakeHostTimeFromSystemUnits(scheduledHostTime)
         )
     }
 

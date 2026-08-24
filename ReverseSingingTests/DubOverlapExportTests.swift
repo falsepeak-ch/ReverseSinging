@@ -27,8 +27,28 @@ struct DubOverlapExportTests {
         let length: TimeInterval
         /// Silence at the head of the reference clip, before the character speaks.
         let lead: TimeInterval
+        /// The performer's own hesitation after the mic opens.
+        let takeLead: TimeInterval
         /// The tone standing in for this character's voice.
         let frequency: Float
+
+        init(
+            slug: String,
+            character: String,
+            start: TimeInterval,
+            length: TimeInterval,
+            lead: TimeInterval,
+            takeLead: TimeInterval = 0,
+            frequency: Float
+        ) {
+            self.slug = slug
+            self.character = character
+            self.start = start
+            self.length = length
+            self.lead = lead
+            self.takeLead = takeLead
+            self.frequency = frequency
+        }
     }
 
     static let dobby: Float = 440
@@ -47,14 +67,18 @@ struct DubOverlapExportTests {
         RealLine(slug: "047_Harry", character: "Harry", start: 184.509, length: 8.070, lead: 0.000, frequency: harry)
     ]
 
-    /// A second real pack, which fails differently: almost no run-up silence, but five short
-    /// overlaps — including the two shouts over Gandalf's fall, which are the whole scene.
+    /// A second real pack, which fails differently: almost no reference run-up silence, but
+    /// five short overlaps. The middle and final groups are chains: the centre line overlaps
+    /// both its neighbours. The old fixture only represented three disjoint pairs and silently
+    /// omitted two of the five boundaries.
     static let lotrScene: [RealLine] = [
-        RealLine(slug: "001_Gandalf", character: "Gandalf", start: 3.75, length: 3.00, lead: 0.00, frequency: dobby),
+        RealLine(slug: "001_Gandalf", character: "Gandalf", start: 3.75, length: 3.00, lead: 0.00, takeLead: 0.28, frequency: dobby),
         RealLine(slug: "002_Frodo", character: "Frodo", start: 6.30, length: 2.85, lead: 0.00, frequency: harry),
-        RealLine(slug: "010_Boromir", character: "Boromir", start: 73.47, length: 3.00, lead: 0.00, frequency: dobby),
+        RealLine(slug: "010_Boromir", character: "Boromir", start: 73.47, length: 3.00, lead: 0.00, takeLead: 0.30, frequency: dobby),
         RealLine(slug: "011_Frodo", character: "Frodo", start: 75.00, length: 3.41, lead: 0.00, frequency: harry),
-        RealLine(slug: "016_Boromir", character: "Boromir", start: 99.66, length: 4.49, lead: 0.00, frequency: dobby),
+        RealLine(slug: "012_Gandalf", character: "Gandalf", start: 77.58, length: 4.34, lead: 0.00, frequency: dobby),
+        RealLine(slug: "015_Frodo", character: "Frodo", start: 97.01, length: 2.97, lead: 0.00, takeLead: 0.24, frequency: harry),
+        RealLine(slug: "016_Boromir", character: "Boromir", start: 99.66, length: 4.49, lead: 0.00, takeLead: 0.35, frequency: dobby),
         RealLine(slug: "017_Frodo", character: "Frodo", start: 103.27, length: 3.89, lead: 0.00, frequency: harry)
     ]
 
@@ -90,7 +114,7 @@ struct DubOverlapExportTests {
                 to: takes.appendingPathComponent("\(line.slug).caf"),
                 duration: line.length,
                 frequency: line.frequency,
-                leadIn: 0
+                leadIn: line.takeLead
             )
 
             lines.append(DubLine(
@@ -200,29 +224,35 @@ struct DubOverlapExportTests {
 
         try await DubMixer.shared.mixAudio(pack: pack, to: outputURL)
 
-        for pair in stride(from: 0, to: scene.count, by: 2) {
-            let first = scene[pair]
-            let second = scene[pair + 1]
+        var overlapsChecked = 0
+        for firstIndex in scene.indices {
+            for secondIndex in scene.indices where secondIndex > firstIndex {
+                let first = scene[firstIndex]
+                let second = scene[secondIndex]
 
-            let a = placement(first)
-            let b = placement(second)
-            let overlapStart = max(a.lowerBound, b.lowerBound)
-            let overlapEnd = min(a.upperBound, b.upperBound)
+                let a = placement(first)
+                let b = placement(second)
+                let overlapStart = max(a.lowerBound, b.lowerBound)
+                let overlapEnd = min(a.upperBound, b.upperBound)
+                guard overlapEnd > overlapStart else { continue }
+                overlapsChecked += 1
 
-            #expect(overlapEnd > overlapStart, "\(named): \(first.slug)/\(second.slug) should overlap at all")
+                // Well inside the overlap, away from either edge
+                let probe = (overlapStart + overlapEnd) / 2
+                let heard = try samples(of: outputURL, at: probe, window: min(0.2, overlapEnd - probe))
 
-            // Well inside the overlap, away from either edge
-            let probe = (overlapStart + overlapEnd) / 2
-            let heard = try samples(of: outputURL, at: probe, window: 0.25)
+                let dobby = strength(of: Self.dobby, in: heard)
+                let harry = strength(of: Self.harry, in: heard)
 
-            let dobby = strength(of: Self.dobby, in: heard)
-            let harry = strength(of: Self.harry, in: heard)
-
-            #expect(
-                dobby > 0.02 && harry > 0.02,
-                "\(named): \(first.slug)/\(second.slug) at \(String(format: "%.2f", probe))s — \(dobby) / \(harry)"
-            )
+                #expect(
+                    dobby > 0.02 && harry > 0.02,
+                    "\(named): \(first.slug)/\(second.slug) at \(String(format: "%.2f", probe))s — \(dobby) / \(harry)"
+                )
+            }
         }
+
+        #expect(overlapsChecked == (named == "LOTR" ? 5 : 4),
+                "\(named): fixture checked \(overlapsChecked) overlap boundaries")
     }
 
     /// The other half of the claim: where only one of them is speaking, only one of them is

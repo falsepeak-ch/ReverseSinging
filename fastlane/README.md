@@ -61,6 +61,18 @@ Upload metadata only (no binary, no screenshots)
 
 Upload screenshots and app previews only
 
+### ios upload_previews
+
+```sh
+[bundle exec] fastlane ios upload_previews
+```
+
+Upload the App Store app preview videos
+
+Separate from upload_screenshots because `deliver` has no app-preview support at all —
+
+it scans the screenshots folder for images only. This talks to the API directly.
+
 ### ios upload_all
 
 ```sh

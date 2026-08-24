@@ -65,7 +65,11 @@ struct DubPlaybackView: View {
             player.stop()
         }
         .onChange(of: player.isPlaying) { _, isPlaying in
-            isPlaying ? scenePicture.playScene(from: player.currentTime) : scenePicture.pauseScene()
+            if isPlaying, let anchor = player.playbackAnchor {
+                scenePicture.playScene(at: anchor)
+            } else {
+                scenePicture.pauseScene()
+            }
         }
         // The mix is the master clock; the picture is corrected towards it.
         .onChange(of: player.currentTime) { _, time in

@@ -269,11 +269,3 @@
 "dub.score.grade.good" = "Buena toma";
 "dub.score.grade.close" = "Casi lo tienes";
 "dub.score.grade.rough" = "Inténtalo otra vez";
-
-// MARK: - Dub Still Preview
-"dub.still.open" = "Ver el fotograma a tamaño completo";
-"dub.still.download" = "Guardar en Fotos";
-"dub.still.saving" = "Guardando…";
-"dub.still.saved" = "Guardado en Fotos";
-"dub.still.permissionDenied" = "Reverso necesita permiso para añadir fotos. Actívalo en Ajustes › Fotos.";
-"dub.still.saveFailed" = "No se ha podido guardar el fotograma. Inténtalo de nuevo.";

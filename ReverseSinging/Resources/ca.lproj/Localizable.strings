@@ -269,11 +269,3 @@
 "dub.score.grade.good" = "Bona presa";
 "dub.score.grade.close" = "Gairebé hi ets";
 "dub.score.grade.rough" = "Torna-hi";
-
-// MARK: - Dub Still Preview
-"dub.still.open" = "Veure el fotograma a mida completa";
-"dub.still.download" = "Desa a Fotos";
-"dub.still.saving" = "Desant…";
-"dub.still.saved" = "Desat a Fotos";
-"dub.still.permissionDenied" = "Reverso necessita permís per afegir fotos. Activa'l a Configuració › Fotos.";
-"dub.still.saveFailed" = "No s'ha pogut desar el fotograma. Torna-ho a provar.";

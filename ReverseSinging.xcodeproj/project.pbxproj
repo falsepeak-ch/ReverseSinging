@@ -386,7 +386,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Reverso;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Reverso needs microphone access to record your voice — to sing songs backwards and to dub movie scenes.";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Reverso saves scene frames to your photo library when you tap Save to Photos.";
 				INFOPLIST_KEY_UIAppFonts = Eugello.ttf;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -428,7 +427,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Reverso;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Reverso needs microphone access to record your voice — to sing songs backwards and to dub movie scenes.";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Reverso saves scene frames to your photo library when you tap Save to Photos.";
 				INFOPLIST_KEY_UIAppFonts = Eugello.ttf;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

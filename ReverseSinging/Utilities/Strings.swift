@@ -294,16 +294,6 @@ nonisolated enum Strings {
         static let exportReady = NSLocalizedString("dub.export.ready", comment: "Export finished")
         static let shareDub = NSLocalizedString("dub.shareDub", comment: "Share sheet label")
 
-        /// The blown-up pack still, opened from the library thumbnail.
-        enum Still {
-            static let open = NSLocalizedString("dub.still.open", comment: "Accessibility label: open the pack still full size")
-            static let download = NSLocalizedString("dub.still.download", comment: "Save the pack still to Photos")
-            static let saving = NSLocalizedString("dub.still.saving", comment: "Save to Photos in progress")
-            static let saved = NSLocalizedString("dub.still.saved", comment: "Pack still saved to Photos")
-            static let permissionDenied = NSLocalizedString("dub.still.permissionDenied", comment: "Photos access refused")
-            static let saveFailed = NSLocalizedString("dub.still.saveFailed", comment: "Saving to Photos failed")
-        }
-
         static let options = NSLocalizedString("dub.options", comment: "Dub mode options menu")
         static let installingStarterPacks = NSLocalizedString("dub.installingStarterPacks", comment: "Shown while the bundled scenes are set up on first launch")
 

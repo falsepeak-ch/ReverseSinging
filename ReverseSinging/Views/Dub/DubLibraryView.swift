@@ -24,7 +24,6 @@ struct DubLibraryView: View {
     @State private var showFileImporter = false
     @State private var showContentGate = false
     @State private var selectedPack: DubPack?
-    @State private var previewedStill: DubStillPreview?
 
     var body: some View {
         // Pushed from the menu it inherits that stack; presented as a sheet it needs
@@ -78,7 +77,6 @@ struct DubLibraryView: View {
         // The app ships no scenes, so importing is the moment to ask where the
         // user's own came from.
         .dubContentGate(isPresented: $showContentGate) { showFileImporter = true }
-        .dubStillPreview($previewedStill)
         .fileImporter(
             isPresented: $showFileImporter,
             allowedContentTypes: [.folder, .zip],
@@ -199,10 +197,6 @@ struct DubLibraryView: View {
                         onOpen: {
                             HapticManager.shared.impact(.light)
                             selectedPack = pack
-                        },
-                        onPreviewStill: {
-                            HapticManager.shared.impact(.light)
-                            previewedStill = DubStillPreview(url: pack.iconURL, title: pack.title)
                         }
                     )
                     .contextMenu {
@@ -290,23 +284,17 @@ struct DubLibraryView: View {
 struct DubPackCard: View {
     let pack: DubPack
     let recordedCount: Int
-    /// Tapping anywhere but the thumbnail opens the pack.
+    /// Tapping anywhere on the card opens the pack.
     let onOpen: () -> Void
-    /// Tapping the thumbnail blows the frame up instead.
-    let onPreviewStill: () -> Void
 
     var body: some View {
-        // Two buttons side by side rather than one card-wide button with a nested
-        // one inside it: a Button inside another Button's label never receives the
-        // tap, so the thumbnail has to be its own control.
-        HStack(spacing: 0) {
-            Button(action: onPreviewStill) { thumbnail }
-                .buttonStyle(.plain)
-                .accessibilityLabel(Strings.Dub.Still.open)
-
-            Button(action: onOpen) { info }
-                .buttonStyle(.plain)
+        Button(action: onOpen) {
+            HStack(spacing: 0) {
+                thumbnail
+                info
+            }
         }
+        .buttonStyle(.plain)
         .frame(height: 74)
         .clipShape(RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous))
         .editorPanel()
@@ -316,28 +304,12 @@ struct DubPackCard: View {
     private var thumbnail: some View {
         DubStillImage(url: pack.iconURL)
             .frame(width: 112, height: 74)
-            // The badge is what says the frame is worth tapping — without it the
-            // thumbnail reads as decoration and the modal never gets found.
-            .overlay(alignment: .bottomLeading) { expandBadge }
             .overlay(alignment: .trailing) {
                 Rectangle()
                     .fill(Color.rsStroke)
                     .frame(width: EditorMetrics.hairline)
             }
             .contentShape(Rectangle())
-    }
-
-    private var expandBadge: some View {
-        Image(systemName: "arrow.up.left.and.arrow.down.right")
-            .font(.system(size: 9, weight: .semibold))
-            .foregroundColor(.rsTextPrimary)
-            .padding(4)
-            .background(
-                RoundedRectangle(cornerRadius: 3, style: .continuous)
-                    .fill(Color.rsSurface0.opacity(0.75))
-            )
-            .padding(5)
-            .accessibilityHidden(true)
     }
 
     private var info: some View {

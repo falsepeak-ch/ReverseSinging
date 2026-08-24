@@ -269,11 +269,3 @@
 "dub.score.grade.good" = "Solid take";
 "dub.score.grade.close" = "Nearly there";
 "dub.score.grade.rough" = "Give it another go";
-
-// MARK: - Dub Still Preview
-"dub.still.open" = "See the frame full size";
-"dub.still.download" = "Save to Photos";
-"dub.still.saving" = "Saving…";
-"dub.still.saved" = "Saved to Photos";
-"dub.still.permissionDenied" = "Reverso needs permission to add photos. Turn it on in Settings › Photos.";
-"dub.still.saveFailed" = "The frame couldn't be saved. Try again.";
