@@ -8,7 +8,7 @@
 import AVFoundation
 import UIKit
 
-enum DubExportError: LocalizedError {
+nonisolated enum DubExportError: LocalizedError {
     case nothingRecorded
     case renderSetupFailed
     case writerFailed(Error?)
@@ -29,7 +29,7 @@ enum DubExportError: LocalizedError {
 }
 
 /// Stages of an export, so the UI can say what's happening rather than just spinning.
-enum DubExportStage: Equatable {
+nonisolated enum DubExportStage: Equatable {
     case mixingAudio
     case renderingVideo
     case finishing
@@ -43,7 +43,7 @@ enum DubExportStage: Equatable {
     }
 }
 
-struct DubMixer {
+nonisolated struct DubMixer {
 
     static let shared = DubMixer()
 
@@ -97,11 +97,13 @@ struct DubMixer {
         let finalURL = try await mux(video: videoURL, audio: audioURL, pack: pack)
         progress?(.finishing, 1)
 
-        AnalyticsManager.shared.trackDubExported(
-            lineCount: pack.lines.count,
-            recordedCount: recorded.count,
-            duration: pack.duration
-        )
+        await MainActor.run {
+            AnalyticsManager.shared.trackDubExported(
+                lineCount: pack.lines.count,
+                recordedCount: recorded.count,
+                duration: pack.duration
+            )
+        }
 
         return finalURL
     }
@@ -135,30 +137,24 @@ struct DubMixer {
             // they are queued rather than mixed. See `DubVoiceLanes`.
             let voiceSampleRate = DubAudioLoader.canonicalFormat.sampleRate
 
-            // A line's timestamp is where its audio chunk begins, which is not where the
-            // character starts talking. Each take is aligned onset to onset instead: its own
-            // run-up trimmed off, dropped in where the original's first word is.
-            let takes: [(line: DubLine, buffer: AVAudioPCMBuffer, at: TimeInterval)] =
-                pack.lines.compactMap { line in
-                    let takeURL = pack.takeURL(for: line)
-                    guard FileManager.default.fileExists(atPath: takeURL.path),
-                          let take = try? DubAudioLoader.loadVoiceBuffer(from: takeURL) else { return nil }
+            // Placed by the same code the in-app scene player uses, so the file the user
+            // shares is the mix they auditioned. See `DubVoiceAlignment`.
+            let takes: [DubVoiceAlignment.Placement] = pack.lines.compactMap { line in
+                let takeURL = pack.takeURL(for: line)
+                guard FileManager.default.fileExists(atPath: takeURL.path),
+                      let take = try? DubAudioLoader.loadVoiceBuffer(from: takeURL) else { return nil }
 
-                    let reference = try? DubAudioLoader.loadVoiceBuffer(
-                        from: pack.referenceAudioURL(for: line),
-                        applyFades: false
-                    )
-                    let referenceLead = reference.map(DubSpeechOnset.leadIn) ?? 0
-                    let takeLead = DubSpeechOnset.leadIn(of: take)
-                    let aligned = DubAudioLoader.trimming(take, fromOffset: takeLead) ?? take
-
-                    return (line, aligned, line.startTime + referenceLead)
-                }
+                return DubVoiceAlignment.place(
+                    take: take,
+                    for: line,
+                    referenceURL: pack.referenceAudioURL(for: line)
+                )
+            }
 
             let lanes = DubVoiceLanes.assign(
                 takes,
-                start: { $0.at },
-                end: { $0.at + Double($0.buffer.frameLength) / voiceSampleRate }
+                start: { $0.startTime },
+                end: { $0.endTime(sampleRate: voiceSampleRate) }
             )
 
             let voiceNodes: [AVAudioPlayerNode] = lanes.map { _ in
@@ -191,15 +187,12 @@ struct DubMixer {
             for (laneIndex, lane) in lanes.enumerated() {
                 for take in lane {
                     let time = AVAudioTime(
-                        sampleTime: AVAudioFramePosition(take.at * voiceSampleRate),
+                        sampleTime: AVAudioFramePosition(take.startTime * voiceSampleRate),
                         atRate: voiceSampleRate
                     )
                     voiceNodes[laneIndex].scheduleBuffer(take.buffer, at: time, options: [])
 
-                    latestVoiceEnd = max(
-                        latestVoiceEnd,
-                        take.at + Double(take.buffer.frameLength) / voiceSampleRate
-                    )
+                    latestVoiceEnd = max(latestVoiceEnd, take.endTime(sampleRate: voiceSampleRate))
                 }
             }
 

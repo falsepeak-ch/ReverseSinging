@@ -18,7 +18,7 @@ import Foundation
 ///
 /// One node per lane is what actually sums them. Used by both the export mixer and the in-app
 /// scene player, so what you hear while playing back is what lands in the file.
-enum DubVoiceLanes {
+nonisolated enum DubVoiceLanes {
 
     /// The most voices mixed at once.
     ///

@@ -10,7 +10,7 @@ import AVFoundation
 
 // MARK: - Errors
 
-enum DubPackError: LocalizedError {
+nonisolated enum DubPackError: LocalizedError {
     case missingPackInfo
     case noLines
     case missingAsset(String)
@@ -38,7 +38,7 @@ enum DubPackError: LocalizedError {
 /// Parses the `[data]` / `key="value"` format shared by `_pack_info.ini` and the per-line
 /// `.txt` files. Deliberately tolerant: unknown keys are ignored, sections are skipped, and
 /// a line the parser can't make sense of is dropped rather than failing the whole pack.
-enum DubPackParser {
+nonisolated enum DubPackParser {
 
     static let packInfoFilename = "_pack_info.ini"
     /// Packs ship the backing track as `_backing_track.mp3`, but the extension isn't
@@ -287,14 +287,37 @@ enum DubPackParser {
             imageFile: imageFile,
             referenceAudioFile: referenceAudioFile,
             startTime: startTime,
-            duration: duration
+            duration: duration,
+            speech: speechWindow(at: referenceAudioURL, duration: duration)
+        )
+    }
+
+    /// Measures where the dialogue sits inside a reference chunk.
+    ///
+    /// The one place this is done. Reading the whole wav is the expensive part of parsing a
+    /// pack, which is exactly why the answer is written into the manifest and never computed
+    /// again: playback, export, captions and scoring all read the stored window, so they
+    /// cannot disagree about when a line happens.
+    ///
+    /// Falls back to the whole chunk for a reference that is silent or unreadable — no worse
+    /// than the behaviour before windows existed.
+    private static func speechWindow(at url: URL, duration: TimeInterval) -> DubSpeechWindow {
+        guard duration > 0,
+              let buffer = try? DubAudioLoader.loadVoiceBuffer(from: url, applyFades: false),
+              let window = DubSpeechOnset.window(of: buffer) else {
+            return DubSpeechWindow(start: 0, end: duration)
+        }
+
+        return DubSpeechWindow(
+            start: min(max(0, window.start), duration),
+            end: min(max(window.start, window.end), duration)
         )
     }
 }
 
 // MARK: - Helpers
 
-extension String {
+nonisolated extension String {
     var nilIfEmpty: String? {
         let trimmed = trimmingCharacters(in: .whitespacesAndNewlines)
         return trimmed.isEmpty ? nil : trimmed

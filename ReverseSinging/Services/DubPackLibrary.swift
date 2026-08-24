@@ -18,17 +18,57 @@ final class DubPackLibrary: ObservableObject {
     @Published private(set) var importMessage: String = Strings.Dub.importing
     @Published var errorMessage: String?
 
-    private let importer = DubPackImporter.shared
+    private var reloadTask: Task<Void, Never>?
 
     init() {
-        reload()
+        reloadTask = Task { [weak self] in
+            await self?.installStarterPacksIfNeeded()
+            await self?.reloadNow()
+        }
+    }
+
+    // MARK: - Starter Packs
+
+    /// Puts the bundled scenes on the shelf the first time the app runs.
+    ///
+    /// Ahead of the first `reloadNow`, so the library is never briefly empty before they
+    /// appear, and reported through the same progress overlay an ordinary import uses — the
+    /// work is the same work, and on a first launch it is the only thing happening.
+    private func installStarterPacksIfNeeded() async {
+        let pending = DubStarterPacks.pending
+        guard !pending.isEmpty else { return }
+
+        isImporting = true
+        importMessage = Strings.Dub.installingStarterPacks
+        importProgress = 0
+        defer { isImporting = false }
+
+        for (offset, name) in pending.enumerated() {
+            await DubStarterPacks.install(name)
+            importProgress = Double(offset + 1) / Double(pending.count)
+        }
     }
 
     // MARK: - Loading
 
     /// Rebuilds the list from disk. Packs are the source of truth — there is no separate
     /// index to fall out of sync with what's actually installed.
+    ///
+    /// Fire-and-forget, so callers stay synchronous. `packs` is only replaced once the new
+    /// list is ready, so a reload never blanks the screen it is refreshing.
     func reload() {
+        reloadTask?.cancel()
+        reloadTask = Task { await reloadNow() }
+    }
+
+    /// The same refresh, awaited — used where the next step depends on the result.
+    func reloadNow() async {
+        // Off the main actor: a re-parse reads every reference wav in the pack, which is
+        // exactly the work that must not happen on the way to drawing a frame.
+        packs = await Task.detached(priority: .userInitiated) { Self.loadAll() }.value
+    }
+
+    private nonisolated static func loadAll() -> [DubPack] {
         let root = AudioFileManager.shared.dubPacksDirectory()
 
         let directories = (try? FileManager.default.contentsOfDirectory(
@@ -37,20 +77,21 @@ final class DubPackLibrary: ObservableObject {
             options: [.skipsHiddenFiles]
         )) ?? []
 
-        packs = directories
+        return directories
             .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory ?? false }
             .compactMap { load(from: $0) }
             .sorted { $0.importedAt > $1.importedAt }
     }
 
-    private func load(from directory: URL) -> DubPack? {
+    private nonisolated static func load(from directory: URL) -> DubPack? {
         let folderName = directory.lastPathComponent
+        let importer = DubPackImporter.shared
 
         // The cached manifest is the fast path; a pack copied in by hand (or written by an
         // older build) still loads, and gets a manifest written for next time.
         if let cached = importer.readManifest(at: directory),
            cached.folderName == folderName,
-           !manifestIsMissingAVideoOnDisk(cached, in: directory) {
+           !manifestIsStale(cached, in: directory) {
             return cached
         }
 
@@ -62,14 +103,25 @@ final class DubPackLibrary: ObservableObject {
         return parsed
     }
 
-    /// True when the manifest predates video support but the pack has a playable video sitting
-    /// in its folder.
+    /// True when the cached manifest is missing something a re-parse would find.
     ///
-    /// Manifests written before the video field existed decode with `videoFile == nil`, and
-    /// because the cache is the fast path that stale answer would win on every launch — the
-    /// scene would silently keep showing stills with the video right there on disk. Re-parsing
-    /// costs one directory scan, and only for packs in that state.
-    func manifestIsMissingAVideoOnDisk(_ pack: DubPack, in directory: URL) -> Bool {
+    /// The cache is the fast path, so anything a manifest predates would otherwise win on
+    /// every launch and never be corrected. Two cases so far:
+    ///
+    /// - **A video on disk the manifest doesn't name.** Manifests written before the video
+    ///   field existed decode with `videoFile == nil`, and the scene would keep showing
+    ///   stills with the video sitting right there in the folder.
+    /// - **Unmeasured speech windows.** Lines without one fall back to their whole chunk,
+    ///   which puts captions up to two seconds early and drops takes at the chunk's start
+    ///   rather than where the character speaks.
+    ///
+    /// Re-parsing costs one pass over the pack, and only for packs in that state.
+    static nonisolated func manifestIsStale(_ pack: DubPack, in directory: URL) -> Bool {
+        guard pack.hasMeasuredSpeech else { return true }
+        return manifestIsMissingAVideoOnDisk(pack, in: directory)
+    }
+
+    static nonisolated func manifestIsMissingAVideoOnDisk(_ pack: DubPack, in directory: URL) -> Bool {
         guard pack.videoFile == nil else { return false }
 
         let contents = (try? FileManager.default.contentsOfDirectory(
@@ -103,14 +155,14 @@ final class DubPackLibrary: ObservableObject {
         defer { isImporting = false }
 
         do {
-            let pack = try await importer.importPack(from: url) { [weak self] stage, value in
-                Task { @MainActor in
+            let pack = try await DubPackImporter.shared.importPack(from: url) { [weak self] stage, value in
+                Task { @MainActor [weak self] in
                     self?.importMessage = stage.message
                     self?.importProgress = Self.overallProgress(stage: stage, value: value)
                 }
             }
 
-            reload()
+            await reloadNow()
             HapticManager.shared.success()
             AnalyticsManager.shared.trackDubPackImported(title: pack.title, lineCount: pack.lines.count)
         } catch {

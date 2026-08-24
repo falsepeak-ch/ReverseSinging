@@ -15,7 +15,7 @@ import XiphTheora
 /// carry a decoder around at playback time, the file is converted once when the pack is
 /// imported and the original is thrown away; every screen downstream then deals in ordinary
 /// H.264. Decoding is libtheora, encoding is VideoToolbox through `AVAssetWriter`.
-enum TheoraTranscoder {
+nonisolated enum TheoraTranscoder {
 
     enum TranscodeError: LocalizedError {
         case notTheora

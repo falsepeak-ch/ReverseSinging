@@ -19,7 +19,8 @@ struct DubMixerTests {
         timestamps: [TimeInterval],
         toneDuration: TimeInterval = 0.5,
         takeAmplitudes: [Float]? = nil,
-        referenceLeadIns: [TimeInterval]? = nil
+        referenceLeadIns: [TimeInterval]? = nil,
+        measureSpeechWindows: Bool = false
     ) throws -> (DubPack, URL) {
         // Inside the real packs directory, not a temp one: `DubPack.referenceAudioURL` resolves
         // against it, so a fixture written anywhere else has reference audio the mixer cannot
@@ -62,7 +63,12 @@ struct DubMixerTests {
                 imageFile: "\(slug).jpg",
                 referenceAudioFile: "\(slug).wav",
                 startTime: timestamp,
-                duration: toneDuration
+                duration: toneDuration,
+                // What the parser records at import. Left nil by default so the fixtures also
+                // cover a pack that predates the measurement.
+                speech: measureSpeechWindows
+                    ? DubSpeechWindow(start: lead, end: toneDuration)
+                    : nil
             ))
         }
 
@@ -253,6 +259,32 @@ struct DubMixerTests {
 
         // Speaking from 3.0s, where the original does
         #expect(try peak(of: outputURL, atSecond: 3) > 0.3)
+    }
+
+    /// The same thing again, but on a pack the parser has already measured — which is what
+    /// every real pack looks like. The stored window is what places the take; nothing goes
+    /// back to the reference file to work it out a second time.
+    @Test func aMeasuredLinePlacesItsTakeFromTheStoredWindow() async throws {
+        let (pack, directory) = try makeTonePack(
+            timestamps: [2.0],
+            toneDuration: 2.0,
+            takeAmplitudes: [0.7],
+            referenceLeadIns: [1.0],
+            measureSpeechWindows: true
+        )
+        defer {
+            try? FileManager.default.removeItem(at: directory)
+            try? AudioFileManager.shared.deleteDubPack(folderName: pack.folderName, packID: pack.id)
+        }
+
+        #expect(pack.hasMeasuredSpeech)
+        #expect(abs(pack.lines[0].speechStartTime - 3.0) < 0.001)
+
+        let outputURL = directory.appendingPathComponent("mix.m4a")
+        try await DubMixer.shared.mixAudio(pack: pack, to: outputURL)
+
+        #expect(try peak(of: outputURL, atSecond: 2) < 0.05, "quiet through the original's run-up")
+        #expect(try peak(of: outputURL, atSecond: 3) > 0.3, "speaking where the original does")
     }
 
     @Test func refusesToExportWithNoTakes() async throws {

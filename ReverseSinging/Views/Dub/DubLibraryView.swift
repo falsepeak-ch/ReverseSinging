@@ -17,11 +17,14 @@ struct DubLibraryView: View {
     var isPushed: Bool = false
 
     @StateObject private var library = DubPackLibrary()
+    @ObservedObject private var scoring = DubScoringPreference.shared
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
 
     @State private var showFileImporter = false
+    @State private var showContentGate = false
     @State private var selectedPack: DubPack?
+    @State private var previewedStill: DubStillPreview?
 
     var body: some View {
         // Pushed from the menu it inherits that stack; presented as a sheet it needs
@@ -45,10 +48,14 @@ struct DubLibraryView: View {
             // title, its actions. Both games are pushed, so both name themselves.
             VStack(spacing: 0) {
                 EditorScreenHeader(title: GameMode.dub.title, onBack: { dismiss() }) {
-                    EditorToolbarButton(icon: "plus", label: Strings.Dub.importPack) {
-                        showFileImporter = true
+                    HStack(spacing: 10) {
+                        optionsMenu
+
+                        EditorToolbarButton(icon: "plus", label: Strings.Dub.importPack) {
+                            requestImport()
+                        }
+                        .disabled(library.isImporting)
                     }
-                    .disabled(library.isImporting)
                 }
 
                 if library.packs.isEmpty {
@@ -68,6 +75,10 @@ struct DubLibraryView: View {
             }
         }
         .toolbar(.hidden, for: .navigationBar)
+        // The app ships no scenes, so importing is the moment to ask where the
+        // user's own came from.
+        .dubContentGate(isPresented: $showContentGate) { showFileImporter = true }
+        .dubStillPreview($previewedStill)
         .fileImporter(
             isPresented: $showFileImporter,
             allowedContentTypes: [.folder, .zip],
@@ -90,6 +101,39 @@ struct DubLibraryView: View {
             library.reload()
             AnalyticsManager.shared.trackScreenViewed(screenName: "DubLibrary")
         }
+        #if DEBUG
+        // The pack itself is copied into Documents/DubPacks by capture.sh; the takes
+        // have to be written here, because they are keyed by the id the parser hands
+        // the pack on this launch.
+        //
+        // Waiting on the reload `DubPackLibrary.init` already started, rather than
+        // calling `reloadNow()` again: an unimported pack has no manifest yet, so two
+        // concurrent loads each parse it and each mint a different pack id. Takes
+        // seeded against one id are invisible to the other, which is exactly how the
+        // record screen came out reading 0 dubbed with seven takes on disk.
+        .task {
+            guard ScreenshotMode.isActive else { return }
+
+            var waited = 0
+            while library.packs.isEmpty && waited < 120 {
+                try? await Task.sleep(for: .milliseconds(80))
+                waited += 1
+            }
+            guard let pack = library.packs.first else { return }
+
+            ScreenshotMode.seedTakes(for: pack)
+            await library.reloadNow()
+
+            if ScreenshotMode.destination?.opensPack == true {
+                // The app preview opens here, so the library needs a beat on screen
+                // before the push. A still frame doesn't.
+                if ScreenshotMode.destination?.isTour == true {
+                    try? await Task.sleep(for: .seconds(ScreenshotMode.Tour.libraryHold))
+                }
+                selectedPack = library.packs.first { $0.id == pack.id } ?? pack
+            }
+        }
+        #endif
         // Clear the URL *after* importing, never before: `pendingImportURL` is this task's
         // id, so nilling it first cancels the task that is about to do the work. The import
         // still ran — the importer does its work detached — but `isImporting` never stuck,
@@ -100,6 +144,41 @@ struct DubLibraryView: View {
             pendingImportURL = nil
         }
         .animation(.rsSpring, value: library.isImporting)
+    }
+
+    // MARK: - Options
+
+    /// The dub mode's own settings, kept here rather than in the app's Settings screen: they
+    /// only mean anything inside this game, and this is where the user already is when they
+    /// decide they want them.
+    private var optionsMenu: some View {
+        Menu {
+            Toggle(isOn: $scoring.isEnabled) {
+                Label(Strings.Dub.Score.settingTitle, systemImage: "chart.bar.fill")
+            }
+
+            // Menus give a footer no styling of its own, so the explanation is a disabled
+            // row — the only way to say what the switch does without a second screen.
+            Text(Strings.Dub.Score.settingDetail)
+        } label: {
+            Image(systemName: "slider.horizontal.3")
+                .font(.system(size: 16, weight: .medium))
+                .foregroundColor(.rsTextSecondary)
+                .frame(width: 38, height: 38)
+                .background(
+                    RoundedRectangle(cornerRadius: 5, style: .continuous)
+                        .fill(Color.rsSurface2)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5, style: .continuous)
+                        .strokeBorder(Color.rsStroke, lineWidth: EditorMetrics.hairline)
+                )
+        }
+        .accessibilityLabel(Strings.Dub.options)
+        .onChange(of: scoring.isEnabled) { _, enabled in
+            HapticManager.shared.light()
+            AnalyticsManager.shared.trackDubScoringToggled(enabled: enabled)
+        }
     }
 
     // MARK: - Pack List
@@ -114,16 +193,18 @@ struct DubLibraryView: View {
                 .padding(.bottom, 2)
 
                 ForEach(library.packs) { pack in
-                    Button {
-                        HapticManager.shared.impact(.light)
-                        selectedPack = pack
-                    } label: {
-                        DubPackCard(
-                            pack: pack,
-                            recordedCount: library.recordedCount(for: pack)
-                        )
-                    }
-                    .buttonStyle(.plain)
+                    DubPackCard(
+                        pack: pack,
+                        recordedCount: library.recordedCount(for: pack),
+                        onOpen: {
+                            HapticManager.shared.impact(.light)
+                            selectedPack = pack
+                        },
+                        onPreviewStill: {
+                            HapticManager.shared.impact(.light)
+                            previewedStill = DubStillPreview(url: pack.iconURL, title: pack.title)
+                        }
+                    )
                     .contextMenu {
                         Button(role: .destructive) {
                             library.delete(pack)
@@ -170,7 +251,7 @@ struct DubLibraryView: View {
                 title: Strings.Dub.importPack,
                 icon: "square.and.arrow.down",
                 color: .rsTextPrimary,
-                action: { showFileImporter = true },
+                action: requestImport,
                 style: .primary
             )
             .padding(.horizontal, 40)
@@ -182,6 +263,16 @@ struct DubLibraryView: View {
     }
 
     // MARK: - Import
+
+    /// Asked once: after the user has confirmed they have packs of their own,
+    /// the import button goes straight to the file picker.
+    private func requestImport() {
+        if DubContentGate.hasConfirmedOwnership {
+            showFileImporter = true
+        } else {
+            showContentGate = true
+        }
+    }
 
     private func handleImport(_ result: Result<[URL], Error>) {
         switch result {
@@ -199,48 +290,85 @@ struct DubLibraryView: View {
 struct DubPackCard: View {
     let pack: DubPack
     let recordedCount: Int
+    /// Tapping anywhere but the thumbnail opens the pack.
+    let onOpen: () -> Void
+    /// Tapping the thumbnail blows the frame up instead.
+    let onPreviewStill: () -> Void
 
     var body: some View {
+        // Two buttons side by side rather than one card-wide button with a nested
+        // one inside it: a Button inside another Button's label never receives the
+        // tap, so the thumbnail has to be its own control.
         HStack(spacing: 0) {
-            // 16:9 thumbnail, like a clip in a bin
-            DubStillImage(url: pack.iconURL)
-                .frame(width: 112, height: 74)
-                .overlay(alignment: .trailing) {
-                    Rectangle()
-                        .fill(Color.rsStroke)
-                        .frame(width: EditorMetrics.hairline)
-                }
+            Button(action: onPreviewStill) { thumbnail }
+                .buttonStyle(.plain)
+                .accessibilityLabel(Strings.Dub.Still.open)
 
-            VStack(alignment: .leading, spacing: 7) {
-                Text(pack.title)
-                    .font(.rsButtonSmall)
-                    .foregroundColor(.rsTextPrimary)
-                    .lineLimit(2)
-                    .multilineTextAlignment(.leading)
-
-                HStack(spacing: 8) {
-                    Text(pack.formattedDuration)
-                        .font(.rsTimecodeSmall)
-                        .foregroundColor(.rsTextSecondary)
-
-                    Text("·")
-                        .foregroundColor(.rsTextTertiary)
-
-                    Text(pack.authorsDescription)
-                        .font(.rsMeta)
-                        .foregroundColor(.rsTextTertiary)
-                        .lineLimit(1)
-                }
-
-                DubProgressBar(recorded: recordedCount, total: pack.lines.count)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 10)
+            Button(action: onOpen) { info }
+                .buttonStyle(.plain)
         }
         .frame(height: 74)
         .clipShape(RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous))
         .editorPanel()
+    }
+
+    /// 16:9 thumbnail, like a clip in a bin.
+    private var thumbnail: some View {
+        DubStillImage(url: pack.iconURL)
+            .frame(width: 112, height: 74)
+            // The badge is what says the frame is worth tapping — without it the
+            // thumbnail reads as decoration and the modal never gets found.
+            .overlay(alignment: .bottomLeading) { expandBadge }
+            .overlay(alignment: .trailing) {
+                Rectangle()
+                    .fill(Color.rsStroke)
+                    .frame(width: EditorMetrics.hairline)
+            }
+            .contentShape(Rectangle())
+    }
+
+    private var expandBadge: some View {
+        Image(systemName: "arrow.up.left.and.arrow.down.right")
+            .font(.system(size: 9, weight: .semibold))
+            .foregroundColor(.rsTextPrimary)
+            .padding(4)
+            .background(
+                RoundedRectangle(cornerRadius: 3, style: .continuous)
+                    .fill(Color.rsSurface0.opacity(0.75))
+            )
+            .padding(5)
+            .accessibilityHidden(true)
+    }
+
+    private var info: some View {
+        VStack(alignment: .leading, spacing: 7) {
+            Text(pack.title)
+                .font(.rsButtonSmall)
+                .foregroundColor(.rsTextPrimary)
+                .lineLimit(2)
+                .multilineTextAlignment(.leading)
+
+            HStack(spacing: 8) {
+                Text(pack.formattedDuration)
+                    .font(.rsTimecodeSmall)
+                    .foregroundColor(.rsTextSecondary)
+
+                Text("·")
+                    .foregroundColor(.rsTextTertiary)
+
+                Text(pack.authorsDescription)
+                    .font(.rsMeta)
+                    .foregroundColor(.rsTextTertiary)
+                    .lineLimit(1)
+            }
+
+            DubProgressBar(recorded: recordedCount, total: pack.lines.count)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 10)
+        .frame(maxHeight: .infinity)
+        .contentShape(Rectangle())
     }
 }
 

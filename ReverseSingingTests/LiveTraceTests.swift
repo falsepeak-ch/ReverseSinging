@@ -80,5 +80,54 @@ struct LiveTraceTests {
         trace.reset()
 
         #expect(trace.bars.isEmpty)
+        #expect(trace.loudest == 0, "a reset trace must not normalise the next take against the last one")
+    }
+
+    // MARK: - Normalisation
+
+    /// The trace is drawn against the take's own loudest moment, which is exactly what
+    /// `WaveformSampler` does to the finished file. Without this the live shape and the shape
+    /// that replaces it when the mic closes are on different scales, and the waveform visibly
+    /// changes height the instant recording stops.
+    @Test func theTraceIsDrawnAgainstItsOwnLoudestMoment() {
+        var trace = LiveTrace(barDuration: 0.1, maximumBars: 10)
+
+        trace.add(0.1, at: 0)
+        trace.add(0.4, at: 0.1)
+        trace.add(0.2, at: 0.2)
+
+        #expect(trace.normalizedBars == [0.25, 1.0, 0.5])
+    }
+
+    /// The same performance recorded quietly and loudly has to draw the same shape — a
+    /// performer holding the phone closer is not a different take.
+    @Test func normalisationIsIndependentOfHowLoudTheTakeWas() {
+        var quiet = LiveTrace(barDuration: 0.1, maximumBars: 10)
+        var loud = LiveTrace(barDuration: 0.1, maximumBars: 10)
+
+        for (index, value) in [Float(0.02), 0.08, 0.04].enumerated() {
+            quiet.add(value, at: Double(index) * 0.1)
+            loud.add(value * 10, at: Double(index) * 0.1)
+        }
+
+        #expect(quiet.normalizedBars == loud.normalizedBars)
+    }
+
+    /// A new peak rescales bars already on screen, so it has to be reported as a change even
+    /// when the bar it landed in was already that tall.
+    @Test func aNewLoudestMomentRepublishesTheWholeTrace() {
+        var trace = LiveTrace(barDuration: 1.0, maximumBars: 10)
+
+        #expect(trace.add(0.3, at: 0) == true)
+        #expect(trace.add(0.9, at: 0.5) == true, "same bar, but the ceiling moved")
+        #expect(trace.normalizedBars == [1.0])
+    }
+
+    @Test func anEmptyTraceNormalisesWithoutDividingByZero() {
+        var trace = LiveTrace(barDuration: 0.1, maximumBars: 10)
+        #expect(trace.normalizedBars.isEmpty)
+
+        trace.add(0, at: 0)
+        #expect(trace.normalizedBars == [0])
     }
 }

@@ -21,7 +21,7 @@ enum DubPlaybackMode: String, CaseIterable {
     }
 }
 
-/// Plays a whole scene by scheduling every line at its `startTime`.
+/// Plays a whole scene by scheduling every line where it belongs on the timeline.
 ///
 /// `AudioPlayer` stays the single-file player used elsewhere in the app; this is a separate
 /// engine because a dub needs two tracks running against one clock.
@@ -45,28 +45,32 @@ final class DubPlayer: ObservableObject {
     private var backingFormat: AVAudioFormat?
     private var progressTimer: Timer?
 
-    /// Line buffers keyed by slug, cached so a replay doesn't re-read the whole scene.
+    /// Each line's voice, trimmed and timed by `DubVoiceAlignment`, keyed by slug.
     ///
     /// Only ever valid for `loadedMode`: the two modes key on the same slugs but read from
     /// different files, so a cache shared between them hands Original's references back to My
     /// Dub and you listen to the film instead of your own take.
-    private var voiceBuffers: [String: AVAudioPCMBuffer] = [:]
+    private var placements: [String: DubVoiceAlignment.Placement] = [:]
     private var loadedMode: DubPlaybackMode?
-
-    /// Where each line's voice is actually dropped on the timeline, keyed by slug.
-    ///
-    /// Not simply `line.startTime`: a pack's timestamp is where the audio chunk begins, and a
-    /// chunk usually opens with a beat of room tone. A take is aligned to where the original
-    /// speaks instead. See `DubSpeechOnset`.
-    private var voicePlacements: [String: TimeInterval] = [:]
 
     private var pack: DubPack?
     private var mode: DubPlaybackMode = .original
     private var playbackStartOffset: TimeInterval = 0
+
+    /// The instant playback was scheduled to begin. The scene's clock, and what the picture
+    /// is corrected towards.
     private var wallClockAnchor: Date?
 
     /// Backing track sits under the voices rather than competing with them.
     private static let backingGain: Float = 0.75
+
+    /// How far ahead of "now" playback is scheduled to begin.
+    ///
+    /// Every node is handed this one host time, so they start on the same sample instead of
+    /// each starting whenever its own `play()` happened to be reached. Long enough for the
+    /// render thread to pick all of them up before the deadline passes, short enough that the
+    /// button still feels instant.
+    private static let startLeadIn: TimeInterval = 0.12
 
     init() {
         engine.attach(backingNode)
@@ -82,8 +86,12 @@ final class DubPlayer: ObservableObject {
 
     // MARK: - Loading
 
-    /// Reads the backing track and every voice buffer the chosen mode needs.
-    /// Safe to call repeatedly — already-loaded buffers are reused.
+    /// Reads the backing track and every voice the chosen mode needs, and works out where
+    /// each one belongs on the timeline.
+    ///
+    /// All of it off the main actor: a scene is 60-odd wavs plus a five-minute backing track,
+    /// and the alignment pass measures every take. Safe to call repeatedly — a mode that is
+    /// already loaded is reused rather than re-read.
     func prepare(pack: DubPack, mode: DubPlaybackMode) async {
         isPreparing = true
         defer { isPreparing = false }
@@ -94,94 +102,83 @@ final class DubPlayer: ObservableObject {
 
         let backingURL = pack.backingTrackURL
         let sources = voiceSources(for: pack, mode: mode)
-        let alreadyLoaded = loadedMode == mode ? voiceBuffers : [:]
+        let alreadyLoaded = loadedMode == mode ? placements : [:]
 
-        let loaded: (AVAudioPCMBuffer?, [String: AVAudioPCMBuffer]) = await Task.detached(priority: .userInitiated) {
-            var backing: AVAudioPCMBuffer?
-            if let backingURL {
-                backing = try? DubAudioLoader.loadBuffer(from: backingURL)
-            }
-
-            var voices: [String: AVAudioPCMBuffer] = [:]
-            for (slug, url) in sources {
-                if let cached = alreadyLoaded[slug] {
-                    voices[slug] = cached
-                    continue
+        let loaded: (AVAudioPCMBuffer?, [String: DubVoiceAlignment.Placement]) =
+            await Task.detached(priority: .userInitiated) {
+                var backing: AVAudioPCMBuffer?
+                if let backingURL {
+                    backing = try? DubAudioLoader.loadBuffer(from: backingURL)
                 }
-                voices[slug] = try? DubAudioLoader.loadVoiceBuffer(from: url)
-            }
 
-            return (backing, voices)
-        }.value
+                var placed: [String: DubVoiceAlignment.Placement] = [:]
+                for source in sources {
+                    if let cached = alreadyLoaded[source.line.slug] {
+                        placed[source.line.slug] = cached
+                        continue
+                    }
+                    guard let buffer = try? DubAudioLoader.loadVoiceBuffer(from: source.url) else { continue }
+
+                    placed[source.line.slug] = source.isTake
+                        ? DubVoiceAlignment.place(
+                            take: buffer,
+                            for: source.line,
+                            referenceURL: source.referenceURL
+                          )
+                        : DubVoiceAlignment.placeReference(buffer, for: source.line)
+                }
+
+                return (backing, placed)
+            }.value
 
         backingBuffer = loaded.0
         backingFormat = loaded.0?.format
-        voiceBuffers = loaded.1
+        placements = loaded.1
         loadedMode = mode
 
-        alignVoices(for: pack, mode: mode)
-
         // Only lines that actually have audio take up a lane.
+        let sampleRate = DubAudioLoader.canonicalFormat.sampleRate
         voiceLanes = DubVoiceLanes.assign(
-            pack.lines.filter { voiceBuffers[$0.slug] != nil },
-            start: { self.placement(of: $0) },
+            pack.lines.filter { placements[$0.slug] != nil },
+            start: { self.placements[$0.slug]?.startTime ?? $0.startTime },
             end: { line in
-                guard let buffer = self.voiceBuffers[line.slug] else { return line.endTime }
-                return self.placement(of: line)
-                    + Double(buffer.frameLength) / DubAudioLoader.canonicalFormat.sampleRate
+                guard let placement = self.placements[line.slug] else { return line.endTime }
+                return placement.endTime(sampleRate: sampleRate)
             }
         )
 
         connectNodes()
     }
 
-    /// Which audio file supplies each line's voice in this mode. In `.myDub`, a line the
-    /// user hasn't recorded falls back to the reference so the scene still plays end to end.
-    private func voiceSources(for pack: DubPack, mode: DubPlaybackMode) -> [(String, URL)] {
+    /// Where a line's voice comes from in this mode.
+    private struct VoiceSource: Sendable {
+        let line: DubLine
+        let url: URL
+        /// True for the user's own take, which is aligned onto the original's onset. A
+        /// reference is left where it was cut from.
+        let isTake: Bool
+        /// Only opened for a take on a line with no measured speech window — see
+        /// `DubVoiceAlignment.place(take:for:referenceURL:)`.
+        let referenceURL: URL
+    }
+
+    /// In `.myDub`, a line the user hasn't recorded falls back to the reference so the scene
+    /// still plays end to end.
+    private func voiceSources(for pack: DubPack, mode: DubPlaybackMode) -> [VoiceSource] {
         pack.lines.map { line in
-            switch mode {
-            case .original:
-                return (line.slug, pack.referenceAudioURL(for: line))
-            case .myDub:
-                let take = pack.takeURL(for: line)
-                let url = FileManager.default.fileExists(atPath: take.path)
-                    ? take
-                    : pack.referenceAudioURL(for: line)
-                return (line.slug, url)
+            let reference = pack.referenceAudioURL(for: line)
+
+            guard mode == .myDub else {
+                return VoiceSource(line: line, url: reference, isTake: false, referenceURL: reference)
             }
-        }
-    }
 
-    /// Trims each take's run-up and notes where its first word belongs.
-    ///
-    /// Only in `.myDub`: the reference already sits where it was cut from, so shifting it
-    /// against itself would be a no-op at best. A line the user hasn't recorded plays its
-    /// reference and is left alone for the same reason.
-    private func alignVoices(for pack: DubPack, mode: DubPlaybackMode) {
-        voicePlacements = [:]
-        guard mode == .myDub else { return }
-
-        for line in pack.lines {
-            let takeURL = pack.takeURL(for: line)
-            guard FileManager.default.fileExists(atPath: takeURL.path),
-                  let take = voiceBuffers[line.slug] else { continue }
-
-            let reference = try? DubAudioLoader.loadVoiceBuffer(
-                from: pack.referenceAudioURL(for: line),
-                applyFades: false
-            )
-            let referenceLead = reference.map(DubSpeechOnset.leadIn) ?? 0
-            let takeLead = DubSpeechOnset.leadIn(of: take)
-
-            if let aligned = DubAudioLoader.trimming(take, fromOffset: takeLead) {
-                voiceBuffers[line.slug] = aligned
+            let take = pack.takeURL(for: line)
+            guard FileManager.default.fileExists(atPath: take.path) else {
+                return VoiceSource(line: line, url: reference, isTake: false, referenceURL: reference)
             }
-            voicePlacements[line.slug] = line.startTime + referenceLead
-        }
-    }
 
-    private func placement(of line: DubLine) -> TimeInterval {
-        voicePlacements[line.slug] ?? line.startTime
+            return VoiceSource(line: line, url: take, isTake: true, referenceURL: reference)
+        }
     }
 
     private func connectNodes() {
@@ -220,15 +217,19 @@ final class DubPlayer: ObservableObject {
     /// Drops a line's cached voice, so a take that has just been re-recorded is read again
     /// rather than played back as the one it replaced.
     func invalidateVoice(for line: DubLine) {
-        voiceBuffers[line.slug] = nil
-        voicePlacements[line.slug] = nil
+        placements[line.slug] = nil
     }
 
     #if DEBUG
     /// Length of the buffer currently loaded for a line, so a test can tell which source it
     /// came from without needing to listen to it.
     func loadedVoiceFrameLengthForTesting(slug: String) -> AVAudioFrameCount? {
-        voiceBuffers[slug]?.frameLength
+        placements[slug]?.buffer.frameLength
+    }
+
+    /// Where a line's voice was placed on the timeline.
+    func placementStartForTesting(slug: String) -> TimeInterval? {
+        placements[slug]?.startTime
     }
     #endif
 
@@ -236,7 +237,7 @@ final class DubPlayer: ObservableObject {
 
     /// Starts (or restarts) playback from `offset` seconds into the scene.
     func play(from offset: TimeInterval = 0) {
-        guard let pack else { return }
+        guard pack != nil else { return }
 
         stopNodes()
 
@@ -256,11 +257,18 @@ final class DubPlayer: ObservableObject {
         scheduleBacking(from: playbackStartOffset)
         scheduleVoices(from: playbackStartOffset)
 
-        // Only the nodes that were actually connected may be started
-        if backingBuffer != nil { backingNode.play() }
-        voiceNodes.forEach { $0.play() }
+        // Every node gets the same deadline, so the backing track and the voices begin on the
+        // same sample. Starting them one `play()` at a time leaves each to begin on whichever
+        // render cycle its own call happened to land in, and the lanes drift apart by a
+        // quantum or more — the one thing a dub cannot survive.
+        let hostTime = mach_absolute_time() + AVAudioTime.hostTime(forSeconds: Self.startLeadIn)
+        let startTime = AVAudioTime(hostTime: hostTime)
 
-        wallClockAnchor = Date()
+        // Only the nodes that were actually connected may be started
+        if backingBuffer != nil { backingNode.play(at: startTime) }
+        voiceNodes.forEach { $0.play(at: startTime) }
+
+        wallClockAnchor = Date().addingTimeInterval(Self.startLeadIn)
         currentTime = playbackStartOffset
         isPlaying = true
         startProgressTimer()
@@ -301,9 +309,9 @@ final class DubPlayer: ObservableObject {
         backingNode.scheduleBuffer(trimmed, at: nil, options: [])
     }
 
-    /// Each lane's lines go onto that lane's node at their own start time. A node renders
-    /// silence between the lines it holds, so timing can't drift within a lane, and lines in
-    /// different lanes are summed rather than one of them being dropped.
+    /// Each lane's voices go onto that lane's node at their own start time. A node renders
+    /// silence between the buffers it holds, so timing can't drift within a lane, and voices
+    /// in different lanes are summed rather than one of them being dropped.
     private func scheduleVoices(from offset: TimeInterval) {
         let sampleRate = DubAudioLoader.canonicalFormat.sampleRate
 
@@ -312,21 +320,21 @@ final class DubPlayer: ObservableObject {
             let node = voiceNodes[laneIndex]
 
             for line in lane {
-                guard let buffer = voiceBuffers[line.slug] else { continue }
-
-                let placedAt = placement(of: line)
-                let placedEnd = placedAt + Double(buffer.frameLength) / sampleRate
-                guard placedEnd > offset else { continue }
+                guard let placement = placements[line.slug] else { continue }
+                guard placement.endTime(sampleRate: sampleRate) > offset else { continue }
 
                 let scheduledBuffer: AVAudioPCMBuffer
                 let startSeconds: TimeInterval
 
-                if placedAt >= offset {
-                    scheduledBuffer = buffer
-                    startSeconds = placedAt - offset
+                if placement.startTime >= offset {
+                    scheduledBuffer = placement.buffer
+                    startSeconds = placement.startTime - offset
                 } else {
                     // Playback begins mid-line — drop the part already gone by
-                    guard let trimmed = DubAudioLoader.trimming(buffer, fromOffset: offset - placedAt) else { continue }
+                    guard let trimmed = DubAudioLoader.trimming(
+                        placement.buffer,
+                        fromOffset: offset - placement.startTime
+                    ) else { continue }
                     scheduledBuffer = trimmed
                     startSeconds = 0
                 }
@@ -345,7 +353,7 @@ final class DubPlayer: ObservableObject {
 
     private func startProgressTimer() {
         let timer = Timer(timeInterval: 0.05, repeats: true) { [weak self] _ in
-            Task { @MainActor in self?.updateProgress() }
+            Task { @MainActor [weak self] in self?.updateProgress() }
         }
         RunLoop.main.add(timer, forMode: .common)
         progressTimer = timer
@@ -366,25 +374,24 @@ final class DubPlayer: ObservableObject {
         }
     }
 
-    /// Prefers the audio render clock; falls back to wall time for a pack with no backing
-    /// track, where the voice node is silent (and reports no time) between lines.
+    /// Seconds since the deadline every node was started on.
+    ///
+    /// Measured against that host time rather than against a player node's own clock: a voice
+    /// node reports nothing during the silence between its lines, and a pack may have no
+    /// backing track at all, so neither is a clock the whole scene can be read from. The host
+    /// clock is the one the nodes were scheduled against, and it runs whether or not anything
+    /// is sounding. Negative until the lead-in elapses, which is why it is floored at zero.
     private func elapsedSincePlaybackStart() -> TimeInterval {
-        if backingBuffer != nil,
-           let renderTime = backingNode.lastRenderTime,
-           let playerTime = backingNode.playerTime(forNodeTime: renderTime),
-           playerTime.sampleTime > 0 {
-            return Double(playerTime.sampleTime) / playerTime.sampleRate
-        }
-
         guard let wallClockAnchor else { return 0 }
-        return Date().timeIntervalSince(wallClockAnchor)
+        return max(0, Date().timeIntervalSince(wallClockAnchor))
     }
 
     // MARK: - Cleanup
 
     func cleanup() {
         stop()
-        voiceBuffers.removeAll()
+        placements.removeAll()
+        loadedMode = nil
         backingBuffer = nil
         pack = nil
     }

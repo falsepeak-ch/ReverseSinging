@@ -158,7 +158,7 @@ final class DubScenePicture: ObservableObject {
                     toleranceBefore: .zero,
                     toleranceAfter: .zero
                 ) { [weak self] _ in
-                    Task { @MainActor in self?.isRewinding = false }
+                    Task { @MainActor [weak self] in self?.isRewinding = false }
                 }
             }
         }

@@ -10,7 +10,7 @@ import ZIPFoundation
 
 /// Stages of an import, so a multi-minute video conversion can say what it is doing rather
 /// than showing a bar that looks stuck.
-enum DubImportStage: Equatable {
+nonisolated enum DubImportStage: Equatable {
     case copying
     case convertingVideo
     case reading
@@ -27,7 +27,7 @@ enum DubImportStage: Equatable {
 /// Copies a user-chosen pack into `Documents/DubPacks/`, parses it once, and caches the
 /// parse as `manifest.json` so later launches don't re-read 60+ text files and re-measure
 /// every reference wav.
-struct DubPackImporter {
+nonisolated struct DubPackImporter {
 
     static let shared = DubPackImporter()
 

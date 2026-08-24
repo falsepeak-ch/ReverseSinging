@@ -19,6 +19,20 @@ final class DubViewModel: ObservableObject {
     @Published var currentLineIndex: Int = 0
     @Published private(set) var recordedSlugs: Set<String> = []
 
+    // MARK: - Scoring
+
+    /// How each recorded line scored against the original, keyed by slug. Read from disk on
+    /// open and updated in place as takes land, so the list never has to be re-measured.
+    @Published private(set) var lineScores: [String: DubLineScore] = [:]
+
+    /// The line whose score was just measured, for the record screen to celebrate. Cleared
+    /// when the user moves on, so it marks *this* take rather than the last one to finish.
+    @Published var latestScore: DubLineScore?
+
+    /// Whether takes are being marked at all. Off unless the user asked for it — see
+    /// `DubScoringPreference`.
+    var isScoringEnabled: Bool { DubScoringPreference.shared.isEnabled }
+
     // MARK: - Recording
 
     @Published private(set) var isRecording = false
@@ -69,6 +83,42 @@ final class DubViewModel: ObservableObject {
 
     @Published var errorMessage: String?
 
+    #if DEBUG
+    /// Freezes the export overlay mid-render for a screenshot. The real render is driven
+    /// by the mixer, so there is no other way to hold this state still long enough to
+    /// photograph it.
+    func poseExportForScreenshot(progress: Double) {
+        exportStage = .renderingVideo
+        exportProgress = progress
+        isExporting = true
+    }
+
+    /// The same overlay, run through its stages for the app preview recording.
+    ///
+    /// A real export of this scene finishes in a couple of seconds and produces a share
+    /// sheet, which is a system surface Apple does not allow in an app preview. This walks
+    /// the bar instead, at the pace a longer scene actually renders at.
+    func runExportRampForScreenshot(over duration: TimeInterval) async {
+        let steps = 60
+        exportProgress = 0
+        exportStage = .mixingAudio
+        isExporting = true
+
+        for step in 0...steps {
+            let progress = Double(step) / Double(steps)
+            exportProgress = progress
+            // The same weighting the real export reports: the mix is quick, the render
+            // is most of the wait, and finishing is the tail.
+            exportStage = progress < 0.25 ? .mixingAudio : (progress < 0.9 ? .renderingVideo : .finishing)
+            try? await Task.sleep(for: .seconds(duration / Double(steps)))
+            if Task.isCancelled { break }
+        }
+
+        isExporting = false
+        exportProgress = 0
+    }
+    #endif
+
     // MARK: - Services
 
     private let recorder = AudioRecorder()
@@ -89,6 +139,9 @@ final class DubViewModel: ObservableObject {
     init(pack: DubPack) {
         self.pack = pack
         refreshRecordedSlugs()
+        // Read whether or not scoring is on: turning it off hides the scores, it does not
+        // throw them away, so turning it back on shows what was already measured.
+        lineScores = DubScoreStore.shared.scores(forPackID: pack.id)
         hasRecordingPermission = AudioSessionManager.shared.hasRecordPermission
         setupBindings()
         reloadWaveformsForCurrentLine()
@@ -112,11 +165,14 @@ final class DubViewModel: ObservableObject {
             .map { time, duration in duration > 0 ? min(1, time / duration) : 0 }
             .assign(to: &$previewProgress)
 
-        // Collected separately from the published level: the level drives the meter and is
-        // replaced each tick, whereas the trace has to accumulate to draw a shape.
-        recorder.$recordingLevel
-            .sink { [weak self] level in
-                self?.appendToLiveTrace(level)
+        // Fed from the peak, not the meter level. The meter is average power on a dB curve —
+        // right for the pulsing record button, wrong for a waveform, because it lifts every
+        // quiet syllable to two thirds height and the trace comes out a flat block. The take
+        // read back off disk is linear peaks, so drawing the live trace from anything else
+        // made the shape visibly change the instant the recording stopped.
+        recorder.$recordingPeak
+            .sink { [weak self] peak in
+                self?.appendToLiveTrace(peak)
             }
             .store(in: &cancellables)
     }
@@ -162,11 +218,15 @@ final class DubViewModel: ObservableObject {
     }
 
     /// Files a metering tick against the moment it was sampled.
-    private func appendToLiveTrace(_ level: Float) {
+    ///
+    /// Published normalised, because that is what `WaveformSampler` hands back for the
+    /// finished take — the two have to be the same measurement on the same scale or the shape
+    /// jumps when the mic closes.
+    private func appendToLiveTrace(_ peak: Float) {
         guard isRecording else { return }
-        guard trace.add(level, at: CACurrentMediaTime() - traceStartedAt) else { return }
+        guard trace.add(peak, at: CACurrentMediaTime() - traceStartedAt) else { return }
 
-        liveTrace = trace.bars
+        liveTrace = trace.normalizedBars
     }
 
     // MARK: - Lines
@@ -188,6 +248,7 @@ final class DubViewModel: ObservableObject {
         currentLineIndex = index
         reloadWaveformsForCurrentLine()
     }
+
 
     func goToNextLine() {
         guard currentLineIndex < pack.lines.count - 1 else { return }
@@ -219,6 +280,8 @@ final class DubViewModel: ObservableObject {
     private func reloadWaveformsForCurrentLine() {
         let line = currentLine
         liveTrace = []
+        // The card belongs to the take that was just performed, not to the next line.
+        latestScore = line.flatMap { score(for: $0) }
         Task { await loadWaveforms(for: line) }
     }
 
@@ -475,6 +538,8 @@ final class DubViewModel: ObservableObject {
 
                 HapticManager.shared.success()
                 AnalyticsManager.shared.trackDubLineRecorded(lineIndex: line.index, duration: duration)
+
+                await scoreTake(for: line)
             } catch {
                 errorMessage = error.localizedDescription
             }
@@ -485,12 +550,101 @@ final class DubViewModel: ObservableObject {
         let url = pack.takeURL(for: line)
         try? FileManager.default.removeItem(at: url)
         recordedSlugs.remove(line.slug)
+        lineScores[line.slug] = nil
+        if latestScore?.slug == line.slug { latestScore = nil }
+
+        let packID = pack.id
+        Task.detached(priority: .utility) {
+            DubScoreStore.shared.remove(slug: line.slug, forPackID: packID)
+        }
 
         Task { await WaveformSampler.shared.invalidate(url) }
         scenePlayer.invalidateVoice(for: line)
         if line.id == currentLine?.id { takeSamples = [] }
 
         HapticManager.shared.light()
+    }
+
+    // MARK: - Scoring
+
+    /// Every line the user has dubbed, rolled up.
+    var sceneScore: DubSceneScore {
+        DubSceneScore(
+            lines: isScoringEnabled ? pack.lines.compactMap { lineScores[$0.slug] } : [],
+            totalLines: pack.lines.count
+        )
+    }
+
+    func score(for line: DubLine) -> DubLineScore? {
+        guard isScoringEnabled else { return nil }
+        return lineScores[line.slug]
+    }
+
+    /// Marks takes recorded while scoring was off.
+    ///
+    /// Turning scoring on part-way through a scene would otherwise show a panel with a
+    /// handful of lines in it and the rest blank, which reads as broken rather than as
+    /// "those ones weren't measured". Each take is scored from the file, so the results are
+    /// the same ones recording them with scoring on would have produced.
+    ///
+    /// One line at a time, publishing as it goes: a long scene fills the panel in rather
+    /// than sitting empty until the last take is done.
+    func scoreTakesRecordedBeforeScoringWasOn() async {
+        guard isScoringEnabled else { return }
+
+        let missing = pack.lines.filter { recordedSlugs.contains($0.slug) && lineScores[$0.slug] == nil }
+        guard !missing.isEmpty else { return }
+
+        let packID = pack.id
+
+        for line in missing {
+            let takeURL = pack.takeURL(for: line)
+            let referenceURL = pack.referenceAudioURL(for: line)
+
+            let measured = await Task.detached(priority: .utility) {
+                guard let score = DubScorer.score(takeURL: takeURL, referenceURL: referenceURL, line: line) else {
+                    return DubLineScore?.none
+                }
+                DubScoreStore.shared.save(score, forPackID: packID)
+                return score
+            }.value
+
+            guard let measured else { continue }
+            lineScores[line.slug] = measured
+        }
+    }
+
+    /// Measures a freshly-recorded take and files the result.
+    ///
+    /// Runs after the take has been normalised to the line's length, so what is scored is the
+    /// same audio the mix will use. Off the main actor — it reads and analyses two whole clips
+    /// — and silent on failure: a line that cannot be measured shows no score rather than a
+    /// zero the performer did not earn.
+    private func scoreTake(for line: DubLine) async {
+        guard isScoringEnabled else { return }
+
+        let takeURL = pack.takeURL(for: line)
+        let referenceURL = pack.referenceAudioURL(for: line)
+        let packID = pack.id
+
+        let measured = await Task.detached(priority: .userInitiated) {
+            guard let score = DubScorer.score(takeURL: takeURL, referenceURL: referenceURL, line: line) else {
+                return DubLineScore?.none
+            }
+            DubScoreStore.shared.save(score, forPackID: packID)
+            return score
+        }.value
+
+        guard let measured else { return }
+
+        lineScores[line.slug] = measured
+        latestScore = measured
+
+        AnalyticsManager.shared.trackDubLineScored(
+            lineIndex: line.index,
+            score: measured.overall,
+            timing: measured.timing
+        )
     }
 
     // MARK: - Scene Playback
@@ -530,7 +684,7 @@ final class DubViewModel: ObservableObject {
 
         do {
             let url = try await DubMixer.shared.export(pack: pack) { [weak self] stage, value in
-                Task { @MainActor in
+                Task { @MainActor [weak self] in
                     self?.exportStage = stage
                     self?.exportProgress = Self.overallProgress(stage: stage, value: value)
                 }

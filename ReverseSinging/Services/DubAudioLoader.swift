@@ -5,13 +5,13 @@
 //  Loads dub audio into a single canonical format
 //
 
-import AVFoundation
+@preconcurrency import AVFoundation
 
 /// A dub pack mixes formats freely: reference lines are 48 kHz mono, the backing track is
 /// 44.1 kHz stereo, and the user's takes are 44.1 kHz mono. An `AVAudioPlayerNode` keeps the
 /// one format it was connected with for every buffer it is handed, so everything that plays
 /// through the voice node has to be converted up front.
-enum DubAudioLoader {
+nonisolated enum DubAudioLoader {
 
     /// The format every voice buffer is converted to before scheduling or mixing.
     static let canonicalFormat = AVAudioFormat(standardFormatWithSampleRate: 44_100, channels: 1)!

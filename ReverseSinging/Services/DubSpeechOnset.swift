@@ -2,21 +2,31 @@
 //  DubSpeechOnset.swift
 //  ReverseSinging
 //
-//  Where the talking actually starts inside a clip
+//  Where the talking actually starts and stops inside a clip
 //
 
 import AVFoundation
 
-/// Finds the silence in front of a line.
+/// Finds the silence wrapped around a line.
 ///
 /// A pack gives one number per line: the timestamp of the audio chunk. That chunk is a slice
 /// of the scene, so it routinely opens with a beat of room tone before anyone speaks — across
 /// a real 62-line pack, 35 lines carry more than 250 ms of it and the spread runs to nearly
-/// two seconds. Placing a take at the chunk's timestamp therefore puts the performer's first
-/// word up to two seconds ahead of the character's mouth, by a different amount on every line.
+/// two seconds — and closes with another beat after they stop. Placing a take at the chunk's
+/// timestamp therefore puts the performer's first word up to two seconds ahead of the
+/// character's mouth, by a different amount on every line, and leaving the caption up for the
+/// whole chunk shows the words long before and long after they are spoken.
 ///
 /// So the chunk timestamp is used to find the line, and this is used to line it up.
-enum DubSpeechOnset {
+nonisolated enum DubSpeechOnset {
+
+    /// The stretch of a clip that is actually speech, in seconds from the clip's own start.
+    struct Window: Equatable {
+        let start: TimeInterval
+        let end: TimeInterval
+
+        var duration: TimeInterval { max(0, end - start) }
+    }
 
     /// Window the level is measured over. Short enough to place a consonant, long enough not
     /// to trip on a single sample of noise.
@@ -38,7 +48,18 @@ enum DubSpeechOnset {
     /// Seconds of near-silence before the first sustained sound, or 0 when there is none to
     /// find — including a clip that is silent throughout.
     static func leadIn(of buffer: AVAudioPCMBuffer) -> TimeInterval {
-        guard let channels = buffer.floatChannelData, buffer.frameLength > 0 else { return 0 }
+        guard let window = window(of: buffer) else { return 0 }
+
+        let clipDuration = Double(buffer.frameLength) / buffer.format.sampleRate
+        return window.start > clipDuration * maximumFraction ? 0 : window.start
+    }
+
+    /// First and last sustained sound in the clip, or nil when nothing rises above the floor.
+    ///
+    /// Both edges come from one pass over the same level envelope, so the window can never
+    /// close before it opens.
+    static func window(of buffer: AVAudioPCMBuffer) -> Window? {
+        guard let channels = buffer.floatChannelData, buffer.frameLength > 0 else { return nil }
 
         let frameCount = Int(buffer.frameLength)
         let channelCount = Int(buffer.format.channelCount)
@@ -49,12 +70,15 @@ enum DubSpeechOnset {
             let samples = channels[channel]
             for frame in 0..<frameCount { peak = max(peak, abs(samples[frame])) }
         }
-        guard peak > 0 else { return 0 }
+        guard peak > 0 else { return nil }
 
         let level = peak * threshold
         let window = max(1, Int(windowDuration * sampleRate))
 
+        var firstLoud: Int?
+        var lastLoud: Int?
         var start = 0
+
         while start + window <= frameCount {
             var sumOfSquares: Float = 0
             for channel in 0..<channelCount {
@@ -66,14 +90,18 @@ enum DubSpeechOnset {
 
             let rms = (sumOfSquares / Float(window * channelCount)).squareRoot()
             if rms > level {
-                let lead = Double(start) / sampleRate
-                let clipDuration = Double(frameCount) / sampleRate
-                return lead > clipDuration * maximumFraction ? 0 : lead
+                if firstLoud == nil { firstLoud = start }
+                lastLoud = start + window
             }
 
             start += window
         }
 
-        return 0
+        guard let firstLoud, let lastLoud else { return nil }
+
+        return Window(
+            start: Double(firstLoud) / sampleRate,
+            end: min(Double(lastLoud) / sampleRate, Double(frameCount) / sampleRate)
+        )
     }
 }

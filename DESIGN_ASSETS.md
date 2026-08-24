@@ -45,6 +45,17 @@ Naming: lowercase-hyphenated, e.g. `clapperboard.png`, `clapperboard@2x.png`, `c
 **Nice to have (P2):** projector, director's chair, VHS tape, spotlight, megaphone — these would
 give the session-complete and achievement moments something better than a symbol.
 
+**One more, for the dub content gate** (the modal that asks whether the user already has their
+scenes before dub mode opens):
+
+| Asset | Where it appears | Status |
+|---|---|---|
+| **Download tray** (`download`) | Gate, "where to get them" step — an incoming file, not an archive | delivered, in use |
+
+The gate's first step reuses `clapperboard`. Two extra imagesets, `movies` and `dub-mic`, also
+landed but duplicate `clapperboard` and `studio-mic-boom`; nothing references them, so they can
+go unless you want them elsewhere.
+
 ---
 
 ## 2. Lettering (P1)

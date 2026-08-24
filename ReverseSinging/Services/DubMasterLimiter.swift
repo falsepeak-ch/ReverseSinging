@@ -17,7 +17,7 @@ import AudioToolbox
 ///
 /// Installed on both the export mixer and the in-app scene player, so the preview and the file
 /// behave the same way.
-enum DubMasterLimiter {
+nonisolated enum DubMasterLimiter {
 
     /// Fast enough to catch a plosive, slow enough that speech doesn't pump. Below about a
     /// millisecond a limiter starts distorting low frequencies rather than controlling them.

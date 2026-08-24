@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class AudioFileManager: @unchecked Sendable {
+nonisolated final class AudioFileManager: @unchecked Sendable {
     static let shared = AudioFileManager()
 
     private nonisolated(unsafe) let fileManager = FileManager.default

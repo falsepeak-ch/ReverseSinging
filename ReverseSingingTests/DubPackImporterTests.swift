@@ -173,8 +173,6 @@ struct DubPackImporterTests {
 
         #expect(pack.videoFile == "dub_video.mp4")
 
-        let library = DubPackLibrary()
-
         // A manifest the way an older build would have written it: same pack, no video.
         let legacy = DubPack(
             id: pack.id, title: pack.title, authors: pack.authors, iconFile: pack.iconFile,
@@ -182,9 +180,9 @@ struct DubPackImporterTests {
             folderName: pack.folderName, lines: pack.lines, duration: pack.duration
         )
 
-        #expect(library.manifestIsMissingAVideoOnDisk(legacy, in: pack.directoryURL),
+        #expect(DubPackLibrary.manifestIsMissingAVideoOnDisk(legacy, in: pack.directoryURL),
                 "a stale manifest hiding an on-disk video must force a re-parse")
-        #expect(!library.manifestIsMissingAVideoOnDisk(pack, in: pack.directoryURL),
+        #expect(!DubPackLibrary.manifestIsMissingAVideoOnDisk(pack, in: pack.directoryURL),
                 "an up-to-date manifest must keep using the fast path")
     }
 

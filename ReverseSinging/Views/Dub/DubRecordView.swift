@@ -10,6 +10,7 @@ import SwiftUI
 
 struct DubRecordView: View {
     @ObservedObject var viewModel: DubViewModel
+    @ObservedObject private var scoring = DubScoringPreference.shared
     @Environment(\.dismiss) private var dismiss
 
     @StateObject private var scenePicture = DubScenePicture()
@@ -28,6 +29,8 @@ struct DubRecordView: View {
 
                     subtitlePlate(for: line)
 
+                    scoreBay
+
                     transportBar(for: line)
                 }
             }
@@ -37,6 +40,7 @@ struct DubRecordView: View {
         .statusBarHidden()
         .animation(.easeInOut(duration: 0.2), value: viewModel.currentLineIndex)
         .animation(.easeInOut(duration: 0.2), value: viewModel.isRecording)
+        .animation(.rsSpring, value: viewModel.latestScore)
         .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: $viewModel.showPermissionAlert) {
             Button(Strings.Main.Alert.settings) {
                 if let url = URL(string: UIApplication.openSettingsURLString) {
@@ -292,6 +296,22 @@ struct DubRecordView: View {
     private func timerText(for line: DubLine) -> String {
         let elapsed = viewModel.isRecording ? viewModel.recordingDuration : 0
         return String(format: "%05.2f / %05.2f", elapsed, line.duration)
+    }
+
+    // MARK: - Score Bay
+
+    /// How the last take scored, or nothing at all.
+    ///
+    /// Hidden while the mic is open: mid-take, the previous attempt's verdict is a distraction
+    /// from the line being performed, and the number it shows is about to be replaced anyway.
+    @ViewBuilder
+    private var scoreBay: some View {
+        if scoring.isEnabled, let score = viewModel.latestScore, !viewModel.isRecording {
+            DubTakeScoreCard(score: score)
+                .padding(.horizontal, EditorMetrics.gutter)
+                .padding(.top, 10)
+                .transition(.opacity.combined(with: .move(edge: .bottom)))
+        }
     }
 
     // MARK: - Transport

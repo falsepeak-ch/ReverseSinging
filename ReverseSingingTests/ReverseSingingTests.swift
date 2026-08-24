@@ -212,8 +212,10 @@ struct AudioFileManagerTests {
         let url1 = manager.createTemporaryAudioURL()
         let url2 = manager.createTemporaryAudioURL()
 
-        #expect(url1.pathExtension == "m4a")
-        #expect(url2.pathExtension == "m4a")
+        // CAF, not m4a: takes are recorded as LinearPCM so they can be analysed sample for
+        // sample — scored, onset-aligned, sampled into a waveform — without a decode first.
+        #expect(url1.pathExtension == "caf")
+        #expect(url2.pathExtension == "caf")
         #expect(url1 != url2) // Should be unique
     }
 

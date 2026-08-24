@@ -24,9 +24,20 @@ struct DubPlaybackView: View {
         self.player = viewModel.scenePlayer
     }
 
-    /// The line on screen right now — the same lookup the exporter uses to pick frames.
-    private var activeLine: DubLine? {
+    /// The line whose picture is on screen right now — the same lookup the exporter uses to
+    /// pick slideshow frames, so what plays here is what gets rendered.
+    private var pictureLine: DubLine? {
         viewModel.pack.line(at: player.currentTime)
+    }
+
+    /// The caption to burn in right now, or nil in a gap.
+    ///
+    /// Not the same question as `pictureLine`: a still has to show *something* for every
+    /// frame of the scene, but a subtitle that stays up through the silence between two lines
+    /// — having gone up a beat or two before the character opened their mouth — reads as
+    /// broken. See `DubPack.captionLine(at:)`.
+    private var captionLine: DubLine? {
+        viewModel.pack.captionLine(at: player.currentTime)
     }
 
     var body: some View {
@@ -44,7 +55,7 @@ struct DubPlaybackView: View {
             }
         }
         .statusBarHidden()
-        .animation(.easeInOut(duration: 0.2), value: activeLine?.slug)
+        .animation(.easeInOut(duration: 0.2), value: captionLine?.slug)
         .task {
             scenePicture.configure(with: viewModel.pack)
             await viewModel.playScene(mode: mode)
@@ -93,7 +104,7 @@ struct DubPlaybackView: View {
 
             Spacer()
 
-            if let line = activeLine {
+            if let line = captionLine ?? pictureLine {
                 Text(String(format: "%03d", line.index))
                     .font(.rsTimecodeSmall)
                     .foregroundColor(.rsTextTertiary)
@@ -112,14 +123,15 @@ struct DubPlaybackView: View {
         ZStack(alignment: .bottom) {
             DubPicture(
                 player: scenePicture.player,
-                stillURL: activeLine.map { viewModel.pack.imageURL(for: $0) }
+                stillURL: pictureLine.map { viewModel.pack.imageURL(for: $0) }
             )
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             // Only the still needs re-identifying per line; the video runs continuously.
-            .id(scenePicture.player == nil ? (activeLine?.slug ?? "black") : "video")
+            .id(scenePicture.player == nil ? (pictureLine?.slug ?? "black") : "video")
 
-            if let line = activeLine {
+            if let line = captionLine {
                 subtitle(for: line)
+                    .transition(.opacity)
             }
         }
         .frame(maxHeight: .infinity)
