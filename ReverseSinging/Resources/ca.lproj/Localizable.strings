@@ -8,6 +8,8 @@
 "onboarding.welcome.message" = "Necessitem accés al micròfon per gravar i revertir el teu àudio. Comencem!";
 "onboarding.howItWorks.title" = "Com Funciona";
 "onboarding.howItWorks.message" = "Grava àudio, reverteix-lo, canta el que sents i després gira-ho altra vegada per veure com t'ha sortit!";
+"onboarding.uiPreference.title" = "Tria la Teva Interfície";
+"onboarding.uiPreference.message" = "Selecciona l'estil d'interfície que millor et funcioni. Pots canviar-ho en qualsevol moment a Ajustos.";
 "onboarding.button.continue" = "Continuar";
 "onboarding.button.openSettings" = "Obrir Ajustos";
 "onboarding.button.letsRecord" = "sí, gravem!";
@@ -41,14 +43,14 @@
 "main.success.sessionSaved" = "Sessió desada!";
 
 // MARK: - Main View - Tips (Contextual Help)
-"main.tip.tapRecordToBegin" = "Toca Gravar Àudio per començar el teu repte de cant revertit";
-"main.tip.recordSingingAttempt" = "Grava el teu intent de cant mentre escoltes l'àudio revertit";
-"main.tip.recordSongToReverse" = "Grava la cançó que vols cantar en revers";
-"main.tip.tapPlayToSwitch" = "Toca qualsevol botó de reproducció per canviar entre gravacions, o toca aturar per pausar";
-"main.tip.reRecordOrNewSession" = "Toca Tornar a Gravar per millorar el teu intent, o Nova Sessió per gravar una cançó nova";
-"main.tip.listenAndRecord" = "Escolta l'àudio revertit i després grava el teu intent de cant";
-"main.tip.processingAudio" = "Processant el teu àudio... Només serà un moment";
-"main.tip.tapRecordAudio" = "Toca Gravar Àudio per gravar la cançó que vols revertir";
+"main.tip.tapRecordToBegin" = "Toca Gravar Àudio per començar";
+"main.tip.recordSingingAttempt" = "Grava el teu intent de cant";
+"main.tip.recordSongToReverse" = "Grava la cançó que vols revertir";
+"main.tip.tapPlayToSwitch" = "Toca qualsevol botó per reproduir o aturar";
+"main.tip.reRecordOrNewSession" = "Torna a gravar o inicia nova sessió";
+"main.tip.listenAndRecord" = "Escolta l'àudio revertit i després grava";
+"main.tip.processingAudio" = "Processant àudio, espera...";
+"main.tip.tapRecordAudio" = "Toca Gravar Àudio per gravar";
 
 // MARK: - Comparison View
 "comparison.title" = "Resultats";
@@ -125,6 +127,7 @@
 "settings.title" = "Ajustos";
 "settings.subtitle" = "Personalitza la teva experiència";
 "settings.appearance" = "Aparença";
+"settings.interface" = "Interfície";
 "settings.preferences" = "Preferències";
 "settings.about" = "Sobre";
 

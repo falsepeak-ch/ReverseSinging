@@ -39,6 +39,7 @@ struct AppState {
     // Settings
     var themeMode: ThemeMode = .system
     var hapticsEnabled: Bool = true
+    var uiMode: UIMode = .simple
 
     // MARK: - Methods
     // Removed currentGameStep - no longer using step-based flow

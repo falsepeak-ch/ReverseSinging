@@ -13,8 +13,14 @@ struct ContentView: View {
     var body: some View {
         Group {
             if viewModel.appState.hasCompletedOnboarding {
-                MainViewPremium()
-                    .environmentObject(viewModel)
+                // Route to appropriate main view based on UI mode preference
+                if viewModel.appState.uiMode == .simple {
+                    MainViewSimple()
+                        .environmentObject(viewModel)
+                } else {
+                    MainViewPremium()
+                        .environmentObject(viewModel)
+                }
             } else {
                 OnboardingView(viewModel: viewModel)
             }

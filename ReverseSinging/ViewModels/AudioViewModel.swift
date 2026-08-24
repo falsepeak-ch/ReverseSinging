@@ -586,6 +586,14 @@ final class AudioViewModel: ObservableObject {
         } else {
             appState.hapticsEnabled = true  // Default to enabled on first launch
         }
+
+        // Load UI mode with default simple if key doesn't exist
+        if let uiModeString = UserDefaults.standard.string(forKey: "uiMode"),
+           let uiMode = UIMode(rawValue: uiModeString) {
+            appState.uiMode = uiMode
+        } else {
+            appState.uiMode = .simple  // Default to simple on first launch
+        }
     }
 
     func completeOnboarding() {
@@ -611,6 +619,13 @@ final class AudioViewModel: ObservableObject {
         appState.hapticsEnabled = enabled
         UserDefaults.standard.set(enabled, forKey: "hapticsEnabled")
         AnalyticsManager.shared.trackCustomEvent(name: "haptics_changed", parameters: ["enabled": enabled])
+    }
+
+    func setUIMode(_ mode: UIMode) {
+        objectWillChange.send()
+        appState.uiMode = mode
+        UserDefaults.standard.set(mode.rawValue, forKey: "uiMode")
+        AnalyticsManager.shared.trackCustomEvent(name: "ui_mode_changed", parameters: ["mode": mode.rawValue])
     }
 
     // MARK: - Error Handling

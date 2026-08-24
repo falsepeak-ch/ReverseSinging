@@ -13,6 +13,7 @@ struct OnboardingView: View {
     @State private var permissionGranted = false
     @State private var permissionRequested = false
     @State private var permissionDenied = false
+    @State private var selectedUIMode: UIMode = .simple
     @Environment(\.colorScheme) var colorScheme
 
     let pages: [OnboardingPage] = [
@@ -27,6 +28,12 @@ struct OnboardingView: View {
             title: Strings.Onboarding.howItWorksTitle,
             description: Strings.Onboarding.howItWorksMessage,
             matteColor: Color.rsCharcoal  // Charcoal with red blend
+        ),
+        OnboardingPage(
+            imageName: "microphone",  // Placeholder, won't be used
+            title: Strings.Onboarding.uiPreferenceTitle,
+            description: Strings.Onboarding.uiPreferenceMessage,
+            matteColor: Color.rsTurquoise
         )
     ]
 
@@ -87,8 +94,14 @@ struct OnboardingView: View {
 
                 TabView(selection: $currentPage) {
                     ForEach(Array(pages.enumerated()), id: \.offset) { index, page in
-                        OnboardingPageView(page: page)
-                            .tag(index)
+                        if index == 2 {
+                            // UI Preference page with custom layout
+                            uiPreferencePage
+                                .tag(index)
+                        } else {
+                            OnboardingPageView(page: page)
+                                .tag(index)
+                        }
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
@@ -117,13 +130,15 @@ struct OnboardingView: View {
                             style: .primary
                         )
                     } else if currentPage == pages.count - 1 {
-                        // Last page: Show final button
+                        // Last page (UI Preference): Show final button
                         BigButton(
                             title: Strings.Onboarding.buttonLetsRecord,
                             icon: "arrow.right",
                             color: .rsTurquoise,
                             action: {
                                 withAnimation(.rsSpring) {
+                                    // Save UI mode preference
+                                    viewModel.setUIMode(selectedUIMode)
                                     // Track onboarding completed
                                     AnalyticsManager.shared.trackOnboardingCompleted()
                                     viewModel.completeOnboarding()
@@ -158,6 +173,67 @@ struct OnboardingView: View {
         .onAppear {
             // Track onboarding started
             AnalyticsManager.shared.trackOnboardingStarted()
+        }
+    }
+
+    // MARK: - UI Preference Page
+
+    private var uiPreferencePage: some View {
+        GeometryReader { geometry in
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: 24) {
+                    // Top spacing
+                    Spacer()
+                        .frame(height: 40)
+
+                    // Title
+                    Text(Strings.Onboarding.uiPreferenceTitle)
+                        .font(.custom("Eugello", size: 36))
+                        .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 24)
+
+                    // Description
+                    Text(Strings.Onboarding.uiPreferenceMessage)
+                        .font(.rsBodyLarge)
+                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                        .multilineTextAlignment(.center)
+                        .lineSpacing(6)
+                        .padding(.horizontal, 24)
+                        .padding(.bottom, 8)
+
+                    // UI Mode Cards
+                    HStack(spacing: 16) {
+                        UIPreferenceCard(
+                            mode: .simple,
+                            isSelected: selectedUIMode == .simple,
+                            action: {
+                                withAnimation(.rsSpring) {
+                                    selectedUIMode = .simple
+                                }
+                                HapticManager.shared.light()
+                            }
+                        )
+
+                        UIPreferenceCard(
+                            mode: .complex,
+                            isSelected: selectedUIMode == .complex,
+                            action: {
+                                withAnimation(.rsSpring) {
+                                    selectedUIMode = .complex
+                                }
+                                HapticManager.shared.light()
+                            }
+                        )
+                    }
+                    .padding(.horizontal, 24)
+
+                    // Bottom spacing
+                    Spacer()
+                        .frame(height: 40)
+                }
+                .frame(minHeight: geometry.size.height)
+            }
         }
     }
 
