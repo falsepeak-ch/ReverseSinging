@@ -5,15 +5,20 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Bienvenido a Reverso";
-"onboarding.welcome.message" = "Necesitamos acceso al micrófono para grabar y revertir tu audio. ¡Empecemos!";
+"onboarding.welcome.message" = "Dos juegos, un micrófono: canta una canción al revés o dobla una escena de película con tu voz.";
 "onboarding.howItWorks.title" = "Cómo Funciona";
 "onboarding.howItWorks.message" = "¡Graba audio, reviértelo, canta lo que escuches y luego dale la vuelta de nuevo para ver qué tal te salió!";
+"onboarding.dub.title" = "Dobla una Escena";
+"onboarding.dub.message" = "El segundo juego: reproduce una escena, graba tu voz encima y escúchate dentro de la película. Incluye dos escenas: para el resto, pones tus propios archivos.";
 "onboarding.uiPreference.title" = "Elige tu Interfaz";
-"onboarding.uiPreference.message" = "Selecciona el estilo de interfaz que mejor te funcione. Puedes cambiarlo en cualquier momento en Ajustes.";
-"onboarding.button.continue" = "Continuar";
+"onboarding.uiPreference.message" = "Selecciona el estilo de interfaz que mejor te funcione. Se aplica al Canto Invertido y puedes cambiarlo en cualquier momento en Ajustes.";
+"onboarding.microphone.title" = "Una Última Cosa";
+"onboarding.microphone.message" = "Los dos juegos graban tu voz, así que Reverso necesita el micrófono. Tus grabaciones se quedan en este dispositivo: no se sube nada a ningún sitio.";
 "onboarding.button.openSettings" = "Abrir Ajustes";
 "onboarding.button.letsRecord" = "¡sí, grabemos!";
 "onboarding.button.continueLowercase" = "continuar";
+"onboarding.button.allowMicrophone" = "Permitir micrófono";
+"onboarding.button.continueWithout" = "continuar sin él";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Detener Grabación";
@@ -142,6 +147,7 @@
 
 // About
 "settings.privacyPolicy" = "Política de Privacidad";
+"settings.privacyPolicy.desc" = "Lee nuestra política de privacidad";
 "settings.builtInSwitzerland" = "Hecho en Suiza";
 "settings.builtInSwitzerland.desc" = "Hecho con cuidado en Zúrich";
 
@@ -239,3 +245,35 @@
 "dubGate.download.back" = "Atrás";
 "dubGate.disclaimer.notAffiliated" = "%@ es un sitio de terceros. No tenemos ninguna relación con él y no alojamos ni distribuimos ningún archivo.";
 "dubGate.disclaimer.responsibility" = "Eres responsable de tener los derechos sobre lo que descargues y de cumplir la ley de propiedad intelectual de tu país.";
+
+/* MARK: - Dub Scoring */
+"dub.installingStarterPacks" = "Preparando tus primeras escenas…";
+"dub.options" = "Opciones de doblaje";
+"dub.score.setting.title" = "Puntuar mis tomas";
+"dub.score.setting.detail" = "Puntúa tu entrada, ritmo e interpretación.";
+"dub.score.sceneTitle" = "Puntuación de la escena";
+"dub.score.notScoredYet" = "Dobla una línea para ver cómo lo haces.";
+"dub.score.slate" = "Puntos";
+"dub.score.lineTitle" = "Tu toma";
+"dub.score.timing" = "Entrada";
+"dub.score.pacing" = "Ritmo";
+"dub.score.delivery" = "Interpretación";
+"dub.score.timingHint" = "Lo cerca que entraste respecto al original.";
+"dub.score.pacingHint" = "Si tus palabras caen donde caen las suyas.";
+"dub.score.deliveryHint" = "Lo bien que igualaste su interpretación.";
+"dub.score.best" = "Mejor línea";
+"dub.score.weakest" = "Merece otro intento";
+"dub.score.progress" = "%d de %d líneas puntuadas";
+"dub.score.grade.perfect" = "Clavado";
+"dub.score.grade.great" = "Buenísimo";
+"dub.score.grade.good" = "Buena toma";
+"dub.score.grade.close" = "Casi lo tienes";
+"dub.score.grade.rough" = "Inténtalo otra vez";
+
+// MARK: - Dub Still Preview
+"dub.still.open" = "Ver el fotograma a tamaño completo";
+"dub.still.download" = "Guardar en Fotos";
+"dub.still.saving" = "Guardando…";
+"dub.still.saved" = "Guardado en Fotos";
+"dub.still.permissionDenied" = "Reverso necesita permiso para añadir fotos. Actívalo en Ajustes › Fotos.";
+"dub.still.saveFailed" = "No se ha podido guardar el fotograma. Inténtalo de nuevo.";

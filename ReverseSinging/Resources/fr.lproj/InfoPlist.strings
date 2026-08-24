@@ -1,0 +1,6 @@
+/*
+   InfoPlist.strings (French)
+   ReverseSinging
+*/
+
+"NSMicrophoneUsageDescription" = "Reverso a besoin d'accéder au micro pour enregistrer ta voix : pour chanter des chansons à l'envers et doubler des scènes de film.";

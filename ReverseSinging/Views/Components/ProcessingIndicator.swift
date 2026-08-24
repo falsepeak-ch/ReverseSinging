@@ -107,38 +107,6 @@ private extension ProcessingIndicator {
     }
 }
 
-// MARK: - Compact Processing
-
-struct CompactProcessingIndicator: View {
-    @State private var isRotating = false
-    @Environment(\.colorScheme) var colorScheme
-
-    var body: some View {
-        HStack(spacing: 12) {
-            Image(systemName: "arrow.triangle.2.circlepath")
-                .font(.rsBodyMedium)
-                .foregroundColor(.rsTurquoise)
-                .rotationEffect(.degrees(isRotating ? 360 : 0))
-                .animation(
-                    .linear(duration: 1.5)
-                    .repeatForever(autoreverses: false),
-                    value: isRotating
-                )
-                .onAppear { isRotating = true }
-
-            Text(Strings.Processing.generic)
-                .font(.rsBodyMedium)
-                .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
-        }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 10)
-        .background(
-            Capsule()
-                .fill(Color.rsTurquoise.opacity(0.1))
-        )
-    }
-}
-
 // MARK: - Preview
 
 #Preview {
@@ -146,8 +114,6 @@ struct CompactProcessingIndicator: View {
         ProcessingIndicator(message: "Reversing audio...")
 
         ProcessingIndicator(message: "Converting scene video…", progress: 0.42)
-
-        CompactProcessingIndicator()
     }
     .padding()
     .background(Color.rsBackground)

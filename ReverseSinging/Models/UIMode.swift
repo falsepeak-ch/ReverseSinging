@@ -30,12 +30,12 @@ enum UIMode: String, Codable, CaseIterable {
         }
     }
 
-    var icon: String {
+    var settingsAssetName: String {
         switch self {
         case .simple:
-            return "rectangle.3.group"
+            return "settings-simple"
         case .complex:
-            return "rectangle.grid.2x2"
+            return "settings-complex"
         }
     }
 }

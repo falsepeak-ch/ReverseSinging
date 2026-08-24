@@ -5,15 +5,20 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Welcome to Reverso";
-"onboarding.welcome.message" = "We need microphone access to record and reverse your audio. Let's get started!";
+"onboarding.welcome.message" = "Two games, one microphone: sing a song backwards, or dub a movie scene in your own voice.";
 "onboarding.howItWorks.title" = "How It Works";
 "onboarding.howItWorks.message" = "Record audio, reverse it, sing what you hear, then flip it again to see how close you got!";
+"onboarding.dub.title" = "Dub a Movie Scene";
+"onboarding.dub.message" = "The second game: play a scene, record your voice over it, then hear yourself in the movie. Two scenes are included — bring your own movie files for the rest.";
 "onboarding.uiPreference.title" = "Choose Your Interface";
-"onboarding.uiPreference.message" = "Select the interface style that works best for you. You can change this anytime in Settings.";
-"onboarding.button.continue" = "Continue";
+"onboarding.uiPreference.message" = "Select the interface style that works best for you. It applies to Reverse Singing, and you can change it anytime in Settings.";
+"onboarding.microphone.title" = "One Last Thing";
+"onboarding.microphone.message" = "Both games record your voice, so Reverso needs the microphone. Your recordings stay on this device — nothing is uploaded anywhere.";
 "onboarding.button.openSettings" = "Open Settings";
 "onboarding.button.letsRecord" = "yes, let's record!";
 "onboarding.button.continueLowercase" = "continue";
+"onboarding.button.allowMicrophone" = "Allow microphone";
+"onboarding.button.continueWithout" = "continue without it";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Stop Recording";
@@ -142,6 +147,7 @@
 
 // About
 "settings.privacyPolicy" = "Privacy Policy";
+"settings.privacyPolicy.desc" = "Read our privacy policy";
 "settings.builtInSwitzerland" = "Built in Switzerland";
 "settings.builtInSwitzerland.desc" = "Made with care in Zürich";
 
@@ -239,3 +245,35 @@
 "dubGate.download.back" = "Back";
 "dubGate.disclaimer.notAffiliated" = "%@ is a third-party site. We are not affiliated with it and we don't host or distribute any files.";
 "dubGate.disclaimer.responsibility" = "You are responsible for having the rights to whatever you download and for following the copyright law where you live.";
+
+/* MARK: - Dub Scoring */
+"dub.installingStarterPacks" = "Setting up your first scenes…";
+"dub.options" = "Dub options";
+"dub.score.setting.title" = "Score my takes";
+"dub.score.setting.detail" = "Rates your timing, pacing and delivery.";
+"dub.score.sceneTitle" = "Scene Score";
+"dub.score.notScoredYet" = "Dub a line to see how you're doing.";
+"dub.score.slate" = "Score";
+"dub.score.lineTitle" = "Your take";
+"dub.score.timing" = "Timing";
+"dub.score.pacing" = "Pacing";
+"dub.score.delivery" = "Delivery";
+"dub.score.timingHint" = "How close you came in to the original.";
+"dub.score.pacingHint" = "Whether your words land where theirs do.";
+"dub.score.deliveryHint" = "How closely you matched their performance.";
+"dub.score.best" = "Best line";
+"dub.score.weakest" = "Worth another go";
+"dub.score.progress" = "%d of %d lines scored";
+"dub.score.grade.perfect" = "Dead on";
+"dub.score.grade.great" = "Nailed it";
+"dub.score.grade.good" = "Solid take";
+"dub.score.grade.close" = "Nearly there";
+"dub.score.grade.rough" = "Give it another go";
+
+// MARK: - Dub Still Preview
+"dub.still.open" = "See the frame full size";
+"dub.still.download" = "Save to Photos";
+"dub.still.saving" = "Saving…";
+"dub.still.saved" = "Saved to Photos";
+"dub.still.permissionDenied" = "Reverso needs permission to add photos. Turn it on in Settings › Photos.";
+"dub.still.saveFailed" = "The frame couldn't be saved. Try again.";

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Strings {
+nonisolated enum Strings {
 
     // MARK: - Onboarding
     enum Onboarding {
@@ -15,12 +15,17 @@ enum Strings {
         static let welcomeMessage = NSLocalizedString("onboarding.welcome.message", comment: "Welcome screen message")
         static let howItWorksTitle = NSLocalizedString("onboarding.howItWorks.title", comment: "How it works title")
         static let howItWorksMessage = NSLocalizedString("onboarding.howItWorks.message", comment: "How it works message")
+        static let dubTitle = NSLocalizedString("onboarding.dub.title", comment: "Movie scene dub game title")
+        static let dubMessage = NSLocalizedString("onboarding.dub.message", comment: "Movie scene dub game message")
         static let uiPreferenceTitle = NSLocalizedString("onboarding.uiPreference.title", comment: "UI preference title")
         static let uiPreferenceMessage = NSLocalizedString("onboarding.uiPreference.message", comment: "UI preference message")
-        static let buttonContinue = NSLocalizedString("onboarding.button.continue", comment: "Continue button")
+        static let microphoneTitle = NSLocalizedString("onboarding.microphone.title", comment: "Microphone permission title")
+        static let microphoneMessage = NSLocalizedString("onboarding.microphone.message", comment: "Microphone permission message")
         static let buttonOpenSettings = NSLocalizedString("onboarding.button.openSettings", comment: "Open settings button")
         static let buttonLetsRecord = NSLocalizedString("onboarding.button.letsRecord", comment: "Let's record button")
         static let buttonContinueLowercase = NSLocalizedString("onboarding.button.continueLowercase", comment: "Continue button lowercase")
+        static let buttonAllowMicrophone = NSLocalizedString("onboarding.button.allowMicrophone", comment: "Allow microphone button")
+        static let buttonContinueWithout = NSLocalizedString("onboarding.button.continueWithout", comment: "Finish onboarding without microphone access")
     }
 
     // MARK: - Main View
@@ -225,6 +230,7 @@ enum Strings {
 
         // About
         static let privacyPolicy = NSLocalizedString("settings.privacyPolicy", comment: "Privacy policy label")
+        static let privacyPolicyDesc = NSLocalizedString("settings.privacyPolicy.desc", comment: "Privacy policy description")
         static let builtInSwitzerland = NSLocalizedString("settings.builtInSwitzerland", comment: "Built in Switzerland label")
         static let builtInSwitzerlandDesc = NSLocalizedString("settings.builtInSwitzerland.desc", comment: "Built in Switzerland description")
     }
@@ -287,6 +293,47 @@ enum Strings {
         static let exportRendering = NSLocalizedString("dub.export.rendering", comment: "Export stage: rendering video")
         static let exportReady = NSLocalizedString("dub.export.ready", comment: "Export finished")
         static let shareDub = NSLocalizedString("dub.shareDub", comment: "Share sheet label")
+
+        /// The blown-up pack still, opened from the library thumbnail.
+        enum Still {
+            static let open = NSLocalizedString("dub.still.open", comment: "Accessibility label: open the pack still full size")
+            static let download = NSLocalizedString("dub.still.download", comment: "Save the pack still to Photos")
+            static let saving = NSLocalizedString("dub.still.saving", comment: "Save to Photos in progress")
+            static let saved = NSLocalizedString("dub.still.saved", comment: "Pack still saved to Photos")
+            static let permissionDenied = NSLocalizedString("dub.still.permissionDenied", comment: "Photos access refused")
+            static let saveFailed = NSLocalizedString("dub.still.saveFailed", comment: "Saving to Photos failed")
+        }
+
+        static let options = NSLocalizedString("dub.options", comment: "Dub mode options menu")
+        static let installingStarterPacks = NSLocalizedString("dub.installingStarterPacks", comment: "Shown while the bundled scenes are set up on first launch")
+
+        // Scoring
+        enum Score {
+            static let settingTitle = NSLocalizedString("dub.score.setting.title", comment: "Toggle that turns take scoring on")
+            static let settingDetail = NSLocalizedString("dub.score.setting.detail", comment: "What the scoring toggle does")
+            static let sceneTitle = NSLocalizedString("dub.score.sceneTitle", comment: "Scene score panel title")
+            static let notScoredYet = NSLocalizedString("dub.score.notScoredYet", comment: "Shown before any line has been dubbed")
+            static let slate = NSLocalizedString("dub.score.slate", comment: "Slate field label for the scene score")
+            static let lineTitle = NSLocalizedString("dub.score.lineTitle", comment: "Title above one line's score")
+
+            static let timing = NSLocalizedString("dub.score.timing", comment: "Score component: coming in on the beat")
+            static let pacing = NSLocalizedString("dub.score.pacing", comment: "Score component: syllables landing together")
+            static let delivery = NSLocalizedString("dub.score.delivery", comment: "Score component: matching the performance")
+
+            static let timingHint = NSLocalizedString("dub.score.timingHint", comment: "What the timing score means")
+            static let pacingHint = NSLocalizedString("dub.score.pacingHint", comment: "What the pacing score means")
+            static let deliveryHint = NSLocalizedString("dub.score.deliveryHint", comment: "What the delivery score means")
+
+            static let best = NSLocalizedString("dub.score.best", comment: "Label for the user's best line")
+            static let weakest = NSLocalizedString("dub.score.weakest", comment: "Label for the line most worth re-recording")
+            static let progress = NSLocalizedString("dub.score.progress", comment: "N of M lines scored — takes two integers")
+
+            static let gradePerfect = NSLocalizedString("dub.score.grade.perfect", comment: "Top grade")
+            static let gradeGreat = NSLocalizedString("dub.score.grade.great", comment: "Second grade")
+            static let gradeGood = NSLocalizedString("dub.score.grade.good", comment: "Middle grade")
+            static let gradeClose = NSLocalizedString("dub.score.grade.close", comment: "Fourth grade")
+            static let gradeRough = NSLocalizedString("dub.score.grade.rough", comment: "Lowest grade")
+        }
 
         enum Error {
             static let missingPackInfo = NSLocalizedString("dub.error.missingPackInfo", comment: "Pack info file missing")
