@@ -114,3 +114,12 @@ GoogleService-Info.plist
 
 # App Store Connect API Key
 AuthKey_*.p8
+
+# App Store screenshots and previews — regenerated, not committed
+Tools/screenshots/output/
+Tools/screenshots/.venv/
+fastlane/screenshots/**/*.png
+fastlane/screenshots/**/*.mp4
+
+# Screenshots pulled back down from App Store Connect by `fastlane download_screenshots`
+fastlane/live/

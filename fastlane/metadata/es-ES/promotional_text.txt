@@ -1,0 +1,1 @@
+Nuevo en 1.3.0: Doblaje de Escena, con dos escenas originales incluidas. Graba tu voz línea a línea y exporta el doblaje para compartirlo. Ya en siete idiomas.

@@ -1,0 +1,6 @@
+scheme "ReverseSinging"
+project "ReverseSinging.xcodeproj"
+configuration "Release"
+export_method "app-store"
+clean true
+output_directory "./build"

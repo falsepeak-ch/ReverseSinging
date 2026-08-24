@@ -1,0 +1,168 @@
+require "json"
+require "shellwords"
+require "tmpdir"
+
+default_platform(:ios)
+
+# Same App Store Connect key as the other False Peak apps (team 4YGWZWHTHM).
+# The .p8 itself is gitignored — copy it in once:
+#   cp ../Impostor/fastlane/AuthKey_DGSCB63J99.p8 fastlane/
+APP_IDENTIFIER = "com.falsepeak.reverse-singing-ios"
+ASC_KEY_ID    = "DGSCB63J99"
+ASC_ISSUER_ID = "59e10bb5-bb9e-43ce-b654-26849e933f8c"
+ASC_KEY_PATH  = File.expand_path("AuthKey_#{ASC_KEY_ID}.p8", __dir__)
+APP_RATING_CONFIG_PATH = File.expand_path("app_rating_config.json", __dir__)
+
+# Reverso is free with no in-app purchases, so there is no pricing lane here —
+# unlike the-feel-ios, which syncs a paid-upfront tier on every metadata push.
+
+platform :ios do
+  before_all do |lane|
+    # Screenshot and preview generation are entirely local — don't demand credentials.
+    next if [:screenshots, :preview].include?(lane)
+
+    unless File.exist?(ASC_KEY_PATH)
+      UI.user_error!(
+        "Missing #{ASC_KEY_PATH}.\n" \
+        "Copy the key in:  cp ../Impostor/fastlane/AuthKey_#{ASC_KEY_ID}.p8 fastlane/"
+      )
+    end
+
+    @api_key = app_store_connect_api_key(
+      key_id: ASC_KEY_ID,
+      issuer_id: ASC_ISSUER_ID,
+      key_filepath: ASC_KEY_PATH
+    )
+  end
+
+  desc "Generate device-framed, upload-ready App Store screenshots (local only)"
+  desc "Options: locales:en,ja screens:dubRecord,home skip_build:true frame_only:true raw_only:true"
+  lane :screenshots do |options|
+    args = []
+    args << "--locales #{options[:locales]}" if options[:locales]
+    args << "--screens #{options[:screens]}" if options[:screens]
+    args << "--skip-build" if options[:skip_build]
+    args << "--frame-only" if options[:frame_only]
+    args << "--raw-only"   if options[:raw_only]
+
+    Dir.chdir("..") do
+      sh("./Tools/screenshots/run.sh #{args.join(' ')}".strip)
+    end
+
+    UI.success("Screenshots ready in fastlane/screenshots/ — run `fastlane upload_screenshots`")
+  end
+
+  desc "Record the App Store app preview video, one per locale (local only)"
+  desc "Options: locales:en,ja skip_build:true"
+  lane :preview do |options|
+    args = []
+    args << "--locales #{options[:locales]}" if options[:locales]
+    args << "--skip-build" if options[:skip_build]
+
+    Dir.chdir("..") do
+      sh("./Tools/screenshots/record.sh #{args.join(' ')}".strip)
+    end
+
+    # `deliver` uploads video files sitting in the screenshots folder as app previews,
+    # so `upload_screenshots` sends these alongside the stills.
+    UI.success("App previews ready in fastlane/screenshots/ — run `fastlane upload_screenshots`")
+  end
+
+  desc "Download the screenshots currently live on the App Store, into fastlane/live/"
+  desc "Read-only — nothing is written to App Store Connect. Use it to diff before uploading."
+  lane :download_current do
+    # `deliver` only exposes downloading through its own CLI, not as an action, and that
+    # CLI wants the key as a JSON file rather than the object `before_all` builds.
+    key = {
+      key_id: ASC_KEY_ID,
+      issuer_id: ASC_ISSUER_ID,
+      key: File.read(ASC_KEY_PATH),
+      in_house: false
+    }
+    key_json = File.join(Dir.tmpdir, "asc_key_#{ASC_KEY_ID}.json")
+    File.write(key_json, JSON.pretty_generate(key))
+
+    begin
+      Dir.chdir("..") do
+        FileUtils.mkdir_p("fastlane/live/screenshots")
+        sh("bundle exec fastlane deliver download_screenshots " \
+           "--api_key_path #{key_json.shellescape} " \
+           "--app_identifier #{APP_IDENTIFIER.shellescape} " \
+           "--screenshots_path ./fastlane/live/screenshots")
+      end
+    ensure
+      File.delete(key_json) if File.exist?(key_json)
+    end
+
+    UI.success("Live screenshots in fastlane/live/screenshots/")
+  end
+
+  desc "Upload metadata only (no binary, no screenshots)"
+  lane :metadata do
+    deliver(
+      api_key: @api_key,
+      skip_binary_upload: true,
+      skip_screenshots: true,
+      app_rating_config_path: APP_RATING_CONFIG_PATH,
+      force: true,
+      precheck_include_in_app_purchases: false
+    )
+  end
+
+  desc "Upload screenshots and app previews only"
+  lane :upload_screenshots do
+    # One thread, deliberately.
+    #
+    # deliver uploads locales in parallel and its per-device "already uploaded" bookkeeping
+    # races: a first run of this lane put ten screenshots into en-US and pt-PT — duplicates —
+    # then logged "Too many screenshots found for device APP_IPHONE_67" and skipped the real
+    # ones. Serial is a minute slower and correct.
+    ENV["DELIVER_NUMBER_OF_THREADS"] = "1"
+
+    deliver(
+      api_key: @api_key,
+      skip_binary_upload: true,
+      skip_metadata: true,
+      force: true,
+      overwrite_screenshots: true,
+      precheck_include_in_app_purchases: false
+    )
+  end
+
+  desc "Upload metadata and screenshots"
+  lane :upload_all do
+    deliver(
+      api_key: @api_key,
+      skip_binary_upload: true,
+      app_rating_config_path: APP_RATING_CONFIG_PATH,
+      force: true,
+      overwrite_screenshots: true,
+      precheck_include_in_app_purchases: false,
+      run_precheck_before_submit: false
+    )
+  end
+
+  desc "Build and upload a build to TestFlight"
+  lane :beta do
+    increment_build_number
+    build_app
+    upload_to_testflight(
+      api_key: @api_key,
+      skip_waiting_for_build_processing: true
+    )
+  end
+
+  desc "Build and upload to App Store with metadata and screenshots (does not submit for review)"
+  lane :release do
+    increment_build_number
+    build_app
+    deliver(
+      api_key: @api_key,
+      app_rating_config_path: APP_RATING_CONFIG_PATH,
+      force: true,
+      overwrite_screenshots: true,
+      precheck_include_in_app_purchases: false,
+      submit_for_review: false
+    )
+  end
+end

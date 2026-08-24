@@ -35,6 +35,9 @@ struct HomeView: View {
         .onAppear {
             viewModel.checkPermissionStatus()
             AnalyticsManager.shared.trackScreenViewed(screenName: "Home")
+            #if DEBUG
+            applyScreenshotDestination()
+            #endif
         }
         // A dub pack arriving from Files or AirDrop opens the library the same way
         // a tap would, so imports land on a screen the user can navigate back from.
@@ -46,6 +49,25 @@ struct HomeView: View {
             path = [.dub]
         }
     }
+
+    // MARK: - Screenshots
+
+    #if DEBUG
+    /// Pushes the game the capture script asked for, so every screen below the menu
+    /// is reachable from a cold launch without anything having to tap.
+    private func applyScreenshotDestination() {
+        guard ScreenshotMode.isActive, let destination = ScreenshotMode.destination else { return }
+
+        if destination.opensDubGame {
+            path = [.dub]
+        } else if destination.opensReverseGame {
+            ScreenshotMode.seedReverseSession(into: &viewModel.appState)
+            path = [.reverse]
+        } else if destination.opensSettings {
+            viewModel.showSettings = true
+        }
+    }
+    #endif
 
     // MARK: - Destinations
 

@@ -1,0 +1,35 @@
+Reverso is two voice games in one app — and neither of them needs anything but your microphone.
+
+MOVIE SCENE DUB
+
+Load a scene and dub it yourself. Reverso plays you the original line, shows you the picture and the words, and gives you the exact length to hit. Then you record your take. The waveform of the original sits under yours, so you can see where you came in early, where you rushed, and where you left a gap.
+
+• Line by line, at your own pace — stop and pick it up again whenever you like
+• The original delivery in your headphones while you record, if you want it
+• Every character colour-coded, so you always know who is speaking
+• A pacing bar that turns amber the moment you run past the original
+• Watch the original, play your dub back, or export the whole scene as a video
+• Overlapping dialogue is mixed on separate lanes, so two people talking over each other actually sound like it
+
+When you are done, Reverso renders the scene with your voice in it and hands you a video to share.
+
+TWO SCENES TO START WITH
+
+Reverso comes with two original scenes, written and made for this app — characters, dialogue, voices and pictures, all ours. Open the mode and there is already something to dub.
+
+After that, the shelf is yours to fill. Reverso does not include, host or provide any films. Community dub packs are made and shared by other players — you download the ones you want and import the folder or .zip from Files, AirDrop or any share sheet. You are responsible for holding the rights to whatever you dub.
+
+REVERSE SINGING
+
+The original game. Record a song and Reverso flips it. Sing the backwards version you hear, and the app flips your attempt back — if you got it right, you come out singing the real song. It scores how close you got.
+
+• Two interfaces: big simple buttons, or the full waveform with loop, speed and pitch
+• Save your best takes and come back to them
+
+PRIVATE BY DESIGN
+
+Everything happens on this device. Your recordings, your takes and your exported dubs never leave it — no account, no sign-up, no ads, nothing to upload. The app collects anonymous usage statistics to guide what gets built next, never the contents of a recording.
+
+Free. No subscription, no in-app purchases, nothing to unlock.
+
+Built in Switzerland. Made with care in Zürich.

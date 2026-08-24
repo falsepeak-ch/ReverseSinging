@@ -1,0 +1,19 @@
+No account needed. Everything runs on device; nothing is uploaded. Firebase Analytics is used for anonymous app-usage statistics only (screen views, counts) — never audio, recordings or file contents.
+
+ABOUT MOVIE SCENE DUB (new in 1.3.0)
+
+Reverso ships with two short scenes, "The Yogurt Incident" and "The Last Slice". Both were written and produced by us specifically for this app: original characters, original dialogue, generated voices and generated pictures. Neither is derived from any existing film, series or other work, and no third-party material appears in either. They exist so the mode is not an empty shelf on first open.
+
+Beyond those two, Reverso includes, hosts and provides no films, no clips and no dialogue. Any further scene is a file the user already has on their own device.
+
+Before the user can import anything, a one-time gate ("Do you already have your movies?") requires them to confirm they already hold the files. If they answer that they do not, the app shows a second panel that states plainly, before any link is offered, that the destination is a third-party community site, that we are not affiliated with it, that we neither host nor distribute any files, and that the user is responsible for holding the rights to whatever they download and for following the copyright law where they live. Only then is an outbound Safari link offered. The gate is implemented in ReverseSinging/Models/DubContentGate.swift and ReverseSinging/Views/Components/DubContentGateModal.swift.
+
+The community "dub pack" format the app reads contains stills, short reference audio and a scene video, and is produced and shared by users. Reverso only reads packs the user imports themselves from Files, AirDrop or a share sheet. There is no in-app catalogue, no search, no download and no content served by us.
+
+HOW TO TEST
+
+Open the app and tap "Movie Scene Dub". The two bundled scenes install themselves on first open, so the whole mode can be exercised without supplying anything: pick a scene, tap "Start Dubbing", record a line, then "Play My Dub" or "Export Video".
+
+To see the ownership gate described above, tap the "+" import button in the library. Reverse Singing, the other mode, needs only the microphone and a few seconds of any sound.
+
+Microphone access is required for both modes because both record the user's voice. Recordings never leave the device.

@@ -15,6 +15,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
     ) -> Bool {
+        #if DEBUG
+        // A screenshot run is not a session. Configuring Firebase here would put
+        // seven synthetic launches a locale into the real analytics.
+        if ScreenshotMode.isActive { return true }
+        #endif
+
         FirebaseApp.configure()
 
         // Track app launch

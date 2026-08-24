@@ -1,0 +1,12 @@
+Doblaje de Escena — el segundo juego.
+
+• Dos escenas originales incluidas, para tener algo que doblar nada más abrirlo
+• Importa más: una carpeta o un .zip de pack desde Archivos, AirDrop o cualquier hoja de compartir
+• Graba tu voz línea a línea sobre la escena, con la onda original bajo la tuya y una barra de ritmo que te avisa cuando te alargas
+• Escucha la original en tus auriculares mientras grabas
+• Mira la original, escucha tu doblaje o exporta la escena terminada en vídeo y compártela
+• Los diálogos superpuestos ahora se mezclan bien: dos personajes hablando a la vez suman correctamente en vez de taparse
+
+Reverso ya habla francés, italiano, japonés y portugués.
+
+Nueva introducción que te enseña los dos juegos antes de pedirte el micrófono.
