@@ -226,3 +226,16 @@
 "dub.yourTake" = "Tu toma";
 "dub.convertingVideo" = "Convirtiendo el vídeo…";
 "dub.importReading" = "Leyendo el pack…";
+
+// MARK: - Dub Content Gate
+"dubGate.close" = "Cerrar";
+"dubGate.ask.title" = "¿Ya tienes tus películas?";
+"dubGate.ask.message" = "Esta app no incluye, aloja ni proporciona ninguna película. Para doblar necesitas tener los archivos ya descargados en este dispositivo.";
+"dubGate.ask.confirm" = "Sí, ya las tengo";
+"dubGate.ask.needDownload" = "No, necesito descargarlas";
+"dubGate.download.title" = "Dónde conseguirlas";
+"dubGate.download.message" = "Un ejemplo de sitio donde la gente comparte estos archivos. Descarga lo que quieras doblar y vuelve aquí.";
+"dubGate.download.open" = "Abrir %@";
+"dubGate.download.back" = "Atrás";
+"dubGate.disclaimer.notAffiliated" = "%@ es un sitio de terceros. No tenemos ninguna relación con él y no alojamos ni distribuimos ningún archivo.";
+"dubGate.disclaimer.responsibility" = "Eres responsable de tener los derechos sobre lo que descargues y de cumplir la ley de propiedad intelectual de tu país.";

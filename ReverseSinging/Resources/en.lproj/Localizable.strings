@@ -226,3 +226,16 @@
 "dub.yourTake" = "Your take";
 "dub.convertingVideo" = "Converting scene video…";
 "dub.importReading" = "Reading pack…";
+
+// MARK: - Dub Content Gate
+"dubGate.close" = "Close";
+"dubGate.ask.title" = "Do you already have your movies?";
+"dubGate.ask.message" = "This app doesn't include, host or provide any movies. To dub, you need the movie files already downloaded on this device.";
+"dubGate.ask.confirm" = "Yes, I already have them";
+"dubGate.ask.needDownload" = "No, I need to download them";
+"dubGate.download.title" = "Where to get them";
+"dubGate.download.message" = "One example of a site where people share these files. Download what you want to dub, then come back.";
+"dubGate.download.open" = "Open %@";
+"dubGate.download.back" = "Back";
+"dubGate.disclaimer.notAffiliated" = "%@ is a third-party site. We are not affiliated with it and we don't host or distribute any files.";
+"dubGate.disclaimer.responsibility" = "You are responsible for having the rights to whatever you download and for following the copyright law where you live.";

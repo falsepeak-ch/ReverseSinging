@@ -226,3 +226,16 @@
 "dub.yourTake" = "La teva presa";
 "dub.convertingVideo" = "Convertint el vídeo…";
 "dub.importReading" = "Llegint el pack…";
+
+// MARK: - Dub Content Gate
+"dubGate.close" = "Tancar";
+"dubGate.ask.title" = "Ja tens les teves pel·lícules?";
+"dubGate.ask.message" = "Aquesta app no inclou, allotja ni proporciona cap pel·lícula. Per doblar necessites tenir els fitxers ja descarregats en aquest dispositiu.";
+"dubGate.ask.confirm" = "Sí, ja les tinc";
+"dubGate.ask.needDownload" = "No, les he de descarregar";
+"dubGate.download.title" = "On aconseguir-les";
+"dubGate.download.message" = "Un exemple de lloc on la gent comparteix aquests fitxers. Descarrega el que vulguis doblar i torna aquí.";
+"dubGate.download.open" = "Obrir %@";
+"dubGate.download.back" = "Enrere";
+"dubGate.disclaimer.notAffiliated" = "%@ és un lloc de tercers. No hi tenim cap relació i no allotgem ni distribuïm cap fitxer.";
+"dubGate.disclaimer.responsibility" = "Ets responsable de tenir els drets sobre el que descarreguis i de complir la llei de propietat intel·lectual del teu país.";

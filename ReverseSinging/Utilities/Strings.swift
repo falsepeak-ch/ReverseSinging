@@ -298,4 +298,25 @@ enum Strings {
             static let exportFailed = NSLocalizedString("dub.error.exportFailed", comment: "Export failed — takes an error message")
         }
     }
+
+    // MARK: - Dub Content Gate
+    enum DubGate {
+        static let close = NSLocalizedString("dubGate.close", comment: "Close the dubbing gate modal")
+
+        // Step 1 - do you have the movies?
+        static let askTitle = NSLocalizedString("dubGate.ask.title", comment: "Dub gate question title")
+        static let askMessage = NSLocalizedString("dubGate.ask.message", comment: "Dub gate question message")
+        static let askConfirm = NSLocalizedString("dubGate.ask.confirm", comment: "User already has the movies")
+        static let askNeedDownload = NSLocalizedString("dubGate.ask.needDownload", comment: "User still needs to download the movies")
+
+        // Step 2 - where to download
+        static let downloadTitle = NSLocalizedString("dubGate.download.title", comment: "Download step title")
+        static let downloadMessage = NSLocalizedString("dubGate.download.message", comment: "Download step message")
+        static let downloadOpen = NSLocalizedString("dubGate.download.open", comment: "Open the example site, %@ is the site name")
+        static let downloadBack = NSLocalizedString("dubGate.download.back", comment: "Back to the previous step")
+
+        // Disclaimers
+        static let disclaimerNotAffiliated = NSLocalizedString("dubGate.disclaimer.notAffiliated", comment: "No affiliation disclaimer, %@ is the site host")
+        static let disclaimerResponsibility = NSLocalizedString("dubGate.disclaimer.responsibility", comment: "Copyright responsibility disclaimer")
+    }
 }
