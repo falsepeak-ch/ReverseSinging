@@ -144,3 +144,85 @@
 "settings.privacyPolicy" = "Política de Privacidad";
 "settings.builtInSwitzerland" = "Hecho en Suiza";
 "settings.builtInSwitzerland.desc" = "Hecho con cuidado en Zúrich";
+
+// MARK: - Dub Mode
+"dub.title" = "Sesiones de doblaje";
+"dub.subtitle" = "Graba tu voz sobre una escena";
+"dub.unknownAuthor" = "Autor desconocido";
+"dub.importPack" = "Importar un pack";
+"dub.importing" = "Importando pack…";
+"dub.delete" = "Eliminar";
+"dub.done" = "Hecho";
+"dub.close" = "Cerrar";
+"dub.empty.title" = "Aún no hay packs";
+"dub.empty.message" = "Importa una carpeta o un .zip desde Archivos para doblar una escena con tu propia voz.";
+"dub.playOriginal" = "Ver original";
+"dub.playMyDub" = "Reproducir mi doblaje";
+"dub.record" = "Empezar a doblar";
+"dub.continueRecording" = "Seguir doblando";
+"dub.export" = "Exportar vídeo";
+"dub.lines" = "Frases";
+"dub.linesRecorded" = "%d de %d frases dobladas";
+"dub.listen" = "Escuchar";
+"dub.stop" = "Parar";
+"dub.recordTake" = "Grabar";
+"dub.reRecord" = "Regrabar";
+"dub.next" = "Siguiente";
+"dub.previous" = "Anterior";
+"dub.lineProgress" = "Frase %d de %d";
+"dub.recordingHint" = "Di la frase — sigue el ritmo del original.";
+"dub.listenHint" = "Escucha primero y luego graba tu toma.";
+"dub.original" = "Original";
+"dub.myDub" = "Mi doblaje";
+"dub.noTakesYet" = "Graba al menos una frase primero.";
+"dub.exporting" = "Exportando…";
+"dub.export.mixing" = "Mezclando audio…";
+"dub.export.rendering" = "Renderizando vídeo…";
+"dub.export.ready" = "¡Tu doblaje está listo!";
+"dub.shareDub" = "Comparte tu doblaje";
+"dub.error.missingPackInfo" = "Esa carpeta no es un pack de doblaje: no tiene el archivo _pack_info.ini.";
+"dub.error.noLines" = "Este pack no tiene frases utilizables.";
+"dub.error.missingAsset" = "Al pack le falta un archivo necesario: %@";
+"dub.error.notAFolder" = "Elige una carpeta de pack o un archivo .zip.";
+"dub.error.unreadableArchive" = "No se pudo abrir ese archivo: %@";
+"dub.error.nothingRecorded" = "Graba al menos una frase antes de exportar.";
+"dub.error.exportFailed" = "Error al exportar: %@";
+"dub.playTake" = "Escucha tu toma";
+"dub.loadingScene" = "Cargando la escena…";
+
+// MARK: - Editor Chrome
+"session.archiveTitle" = "Archivo";
+"main.section.transport" = "Transporte";
+"main.section.monitor" = "Monitor";
+"main.state.idle" = "INACTIVO";
+"main.state.recording" = "GRAB";
+"main.state.playing" = "REPR";
+"main.state.processing" = "PROC";
+"main.state.error" = "ERROR";
+"main.state.countingIn" = "CUENTA ATRÁS";
+"main.section.hint" = "Siguiente";
+"dub.packsSection" = "Packs";
+"dub.slate.lines" = "Dobladas";
+"dub.slate.duration" = "Duración";
+"dub.slate.cast" = "Reparto";
+"settings.soundEffects" = "Efectos de sonido";
+"settings.soundEffects.desc" = "Claqueta, transporte y renderizado";
+
+// Headphone monitoring
+"settings.headphoneMonitor" = "Original en los auriculares";
+"settings.headphoneMonitor.desc" = "Escucha la frase que imitas mientras grabas. Solo con auriculares: por el altavoz se colaría en tu toma.";
+"settings.headphoneMonitor.unavailable" = "No hay auriculares conectados";
+
+// MARK: - Game Modes
+"main.mode.section" = "Modo";
+"main.mode.reverse.title" = "Canto Invertido";
+"main.mode.dub.title" = "Doblaje de Escena";
+"main.button.back" = "Atrás";
+"main.mode.reverse.subtitle" = "Graba una canción, inviértela y cántala al revés";
+"main.mode.dub.subtitle" = "Dobla una escena de película con tu voz";
+"dub.speakerAccessibility" = "Dicho por %@";
+"dub.cast" = "Reparto";
+"dub.referenceTrack" = "Referencia";
+"dub.yourTake" = "Tu toma";
+"dub.convertingVideo" = "Convirtiendo el vídeo…";
+"dub.importReading" = "Leyendo el pack…";

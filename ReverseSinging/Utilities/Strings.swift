@@ -25,7 +25,34 @@ enum Strings {
 
     // MARK: - Main View
     enum Main {
+        // Editor chrome
+        enum Section {
+            static let transport = NSLocalizedString("main.section.transport", comment: "Transport controls section label")
+            static let monitor = NSLocalizedString("main.section.monitor", comment: "Monitor panel section label")
+            static let hint = NSLocalizedString("main.section.hint", comment: "Hint strip label")
+        }
+
+        /// The two games, offered side by side on the main screen.
+        enum Mode {
+            static let section = NSLocalizedString("main.mode.section", comment: "Game mode section label")
+            static let reverseTitle = NSLocalizedString("main.mode.reverse.title", comment: "Reverse singing game mode")
+            static let reverseSubtitle = NSLocalizedString("main.mode.reverse.subtitle", comment: "Reverse singing game description")
+            static let dubTitle = NSLocalizedString("main.mode.dub.title", comment: "Movie scene dub game mode")
+            static let dubSubtitle = NSLocalizedString("main.mode.dub.subtitle", comment: "Movie scene dub game description")
+        }
+
+        /// Transport state, shown uppercase in the monitor strip.
+        enum State {
+            static let idle = NSLocalizedString("main.state.idle", comment: "Transport idle")
+            static let recording = NSLocalizedString("main.state.recording", comment: "Transport recording")
+            static let playing = NSLocalizedString("main.state.playing", comment: "Transport playing")
+            static let processing = NSLocalizedString("main.state.processing", comment: "Transport processing")
+            static let error = NSLocalizedString("main.state.error", comment: "Transport error")
+            static let countingIn = NSLocalizedString("main.state.countingIn", comment: "Transport counting in before recording")
+        }
+
         // Buttons
+        static let back = NSLocalizedString("main.button.back", comment: "Back to the game menu")
         static let stopRecording = NSLocalizedString("main.button.stopRecording", comment: "Stop recording button")
         static let recordAudio = NSLocalizedString("main.button.recordAudio", comment: "Record audio button")
         static let recordAttempt = NSLocalizedString("main.button.recordAttempt", comment: "Record attempt button")
@@ -157,6 +184,7 @@ enum Strings {
     // MARK: - Session
     enum Session {
         static let defaultName = NSLocalizedString("session.defaultName", comment: "Default session name")
+        static let archiveTitle = NSLocalizedString("session.archiveTitle", comment: "Archive / saved sessions")
     }
 
     // MARK: - Errors
@@ -186,9 +214,88 @@ enum Strings {
         static let hapticFeedback = NSLocalizedString("settings.hapticFeedback", comment: "Haptic feedback label")
         static let hapticFeedbackDesc = NSLocalizedString("settings.hapticFeedback.desc", comment: "Haptic feedback description")
 
+        // Sound
+        static let soundEffects = NSLocalizedString("settings.soundEffects", comment: "Sound effects label")
+        static let soundEffectsDesc = NSLocalizedString("settings.soundEffects.desc", comment: "Sound effects description")
+
+        // Headphone monitoring
+        static let headphoneMonitor = NSLocalizedString("settings.headphoneMonitor", comment: "Play the original in headphones label")
+        static let headphoneMonitorDesc = NSLocalizedString("settings.headphoneMonitor.desc", comment: "Play the original in headphones description")
+        static let headphoneMonitorUnavailable = NSLocalizedString("settings.headphoneMonitor.unavailable", comment: "Shown when no headphones are connected")
+
         // About
         static let privacyPolicy = NSLocalizedString("settings.privacyPolicy", comment: "Privacy policy label")
         static let builtInSwitzerland = NSLocalizedString("settings.builtInSwitzerland", comment: "Built in Switzerland label")
         static let builtInSwitzerlandDesc = NSLocalizedString("settings.builtInSwitzerland.desc", comment: "Built in Switzerland description")
+    }
+
+    // MARK: - Dub Mode
+    enum Dub {
+        static let title = NSLocalizedString("dub.title", comment: "Dub library title")
+        static let subtitle = NSLocalizedString("dub.subtitle", comment: "Dub library subtitle")
+        static let unknownAuthor = NSLocalizedString("dub.unknownAuthor", comment: "Fallback pack author")
+        static let importPack = NSLocalizedString("dub.importPack", comment: "Import pack button")
+        static let importing = NSLocalizedString("dub.importing", comment: "Importing progress message")
+        static let convertingVideo = NSLocalizedString("dub.convertingVideo", comment: "Import stage: converting the scene video")
+        static let importReading = NSLocalizedString("dub.importReading", comment: "Import stage: reading the pack")
+        static let delete = NSLocalizedString("dub.delete", comment: "Delete pack action")
+        static let done = NSLocalizedString("dub.done", comment: "Done button")
+        static let close = NSLocalizedString("dub.close", comment: "Close button")
+
+        // Library empty state
+        static let emptyTitle = NSLocalizedString("dub.empty.title", comment: "Empty library title")
+        static let emptyMessage = NSLocalizedString("dub.empty.message", comment: "Empty library message")
+
+        // Pack detail
+        static let playOriginal = NSLocalizedString("dub.playOriginal", comment: "Play original scene")
+        static let playMyDub = NSLocalizedString("dub.playMyDub", comment: "Play the user's dub")
+        static let record = NSLocalizedString("dub.record", comment: "Start recording lines")
+        static let continueRecording = NSLocalizedString("dub.continueRecording", comment: "Resume recording lines")
+        static let export = NSLocalizedString("dub.export", comment: "Export video button")
+        static let lines = NSLocalizedString("dub.lines", comment: "Lines section header")
+        static let packsSection = NSLocalizedString("dub.packsSection", comment: "Packs section label")
+        static let slateLines = NSLocalizedString("dub.slate.lines", comment: "Slate field: lines dubbed")
+        static let slateDuration = NSLocalizedString("dub.slate.duration", comment: "Slate field: scene duration")
+        static let slateCast = NSLocalizedString("dub.slate.cast", comment: "Slate field: number of characters")
+        static let linesRecorded = NSLocalizedString("dub.linesRecorded", comment: "N of M lines recorded — takes two integers")
+
+        // Recording
+        static let listen = NSLocalizedString("dub.listen", comment: "Listen to reference line")
+        static let stop = NSLocalizedString("dub.stop", comment: "Stop button")
+        static let recordTake = NSLocalizedString("dub.recordTake", comment: "Record your take")
+        static let reRecord = NSLocalizedString("dub.reRecord", comment: "Re-record this line")
+        static let next = NSLocalizedString("dub.next", comment: "Next line")
+        static let previous = NSLocalizedString("dub.previous", comment: "Previous line")
+        static let lineProgress = NSLocalizedString("dub.lineProgress", comment: "Line N of M — takes two integers")
+        static let recordingHint = NSLocalizedString("dub.recordingHint", comment: "Hint shown while recording a line")
+        static let listenHint = NSLocalizedString("dub.listenHint", comment: "Hint shown before recording a line")
+        static let playTake = NSLocalizedString("dub.playTake", comment: "Play the user's take of one line")
+        static let speakerAccessibility = NSLocalizedString("dub.speakerAccessibility", comment: "Accessibility label naming who speaks the line")
+        static let cast = NSLocalizedString("dub.cast", comment: "Cast list header")
+        static let referenceTrack = NSLocalizedString("dub.referenceTrack", comment: "Waveform label: the pack's own audio")
+        static let yourTake = NSLocalizedString("dub.yourTake", comment: "Waveform label: the user's recording")
+        static let loadingScene = NSLocalizedString("dub.loadingScene", comment: "Shown while a scene's audio loads")
+
+        // Playback
+        static let original = NSLocalizedString("dub.original", comment: "Original audio mode")
+        static let myDub = NSLocalizedString("dub.myDub", comment: "User dub audio mode")
+        static let noTakesYet = NSLocalizedString("dub.noTakesYet", comment: "Shown when nothing has been recorded")
+
+        // Export
+        static let exporting = NSLocalizedString("dub.exporting", comment: "Export in progress")
+        static let exportMixing = NSLocalizedString("dub.export.mixing", comment: "Export stage: mixing audio")
+        static let exportRendering = NSLocalizedString("dub.export.rendering", comment: "Export stage: rendering video")
+        static let exportReady = NSLocalizedString("dub.export.ready", comment: "Export finished")
+        static let shareDub = NSLocalizedString("dub.shareDub", comment: "Share sheet label")
+
+        enum Error {
+            static let missingPackInfo = NSLocalizedString("dub.error.missingPackInfo", comment: "Pack info file missing")
+            static let noLines = NSLocalizedString("dub.error.noLines", comment: "No usable lines in pack")
+            static let missingAsset = NSLocalizedString("dub.error.missingAsset", comment: "Referenced asset missing — takes a filename")
+            static let notAFolder = NSLocalizedString("dub.error.notAFolder", comment: "Selected item is not a pack")
+            static let unreadableArchive = NSLocalizedString("dub.error.unreadableArchive", comment: "Zip could not be read — takes an error message")
+            static let nothingRecorded = NSLocalizedString("dub.error.nothingRecorded", comment: "Export attempted with no takes")
+            static let exportFailed = NSLocalizedString("dub.error.exportFailed", comment: "Export failed — takes an error message")
+        }
     }
 }

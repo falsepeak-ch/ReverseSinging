@@ -2,219 +2,195 @@
 //  Colors.swift
 //  ReverseSinging
 //
-//  Retro microphone icon-inspired design system
-//  Solid colors with excellent light/dark mode contrast
+//  Cinema-editor design system: a near-monochrome dark palette where colour
+//  only ever means state, and the retro icon set supplies the personality.
 //
 
 import SwiftUI
 
 extension Color {
-    // MARK: - Primary Palette (from icon)
 
-    /// Dark Teal - Primary accent color (from microphone details)
-    static let rsTurquoise = Color(red: 0.184, green: 0.341, blue: 0.369)  // #2F575E
+    // MARK: - Surfaces
+    //
+    // A five-step neutral ramp, cool rather than pure grey. Panels are separated by
+    // hairline strokes instead of drop shadows — that is what reads as a pro tool.
 
-    /// Red/Coral - Recording and destructive actions (from icon button)
-    static let rsRed = Color(red: 1.0, green: 0.333, blue: 0.333)  // #FF5555
+    /// The app canvas. Nearly black so stills and waveforms carry the eye.
+    static let rsSurface0 = Color(red: 0.055, green: 0.059, blue: 0.067)   // #0E0F11
 
-    /// Cream/Beige - Secondary accent (from icon microphone body)
-    static let rsCream = Color(red: 0.961, green: 0.945, blue: 0.894)  // #F5F1E4
+    /// Panels, cards, list rows.
+    static let rsSurface1 = Color(red: 0.086, green: 0.094, blue: 0.106)   // #16181B
 
-    /// Charcoal - Dark cards and secondary backgrounds (from icon elements)
-    static let rsCharcoal = Color(red: 0.176, green: 0.275, blue: 0.329)  // #2D4654
+    /// Raised panels, popovers, the active row.
+    static let rsSurface2 = Color(red: 0.118, green: 0.129, blue: 0.145)   // #1E2125
 
-    // MARK: - Background Colors
+    /// Controls sitting on a panel — track fills, inactive segments.
+    static let rsSurface3 = Color(red: 0.157, green: 0.173, blue: 0.192)   // #282C31
 
-    /// Dark teal background (dark mode)
-    static let rsBackground = Color(red: 0.149, green: 0.231, blue: 0.247)  // #263B3F
+    /// Hairline borders. The single most important token in this design.
+    static let rsStroke = Color(red: 0.180, green: 0.196, blue: 0.216)     // #2E3237
 
-    /// Light background (light mode)
-    static let rsBackgroundLight = Color(red: 0.98, green: 0.98, blue: 0.98)  // #FAFAFA
+    /// Border for focused or selected elements.
+    static let rsStrokeStrong = Color(red: 0.271, green: 0.294, blue: 0.322)  // #454B52
 
-    /// Secondary background (dark mode - slightly lighter)
-    static let rsSecondaryBackground = Color(red: 0.1, green: 0.1, blue: 0.12)  // #19191E
+    // MARK: - Text
 
-    /// Secondary background (light mode)
-    static let rsSecondaryBackgroundLight = Color(red: 0.95, green: 0.95, blue: 0.95)  // #F2F2F2
+    static let rsTextPrimary = Color(red: 0.910, green: 0.918, blue: 0.925)   // #E8EAEC
+    static let rsTextSecondary = Color(red: 0.604, green: 0.627, blue: 0.651) // #9AA0A6
+    static let rsTextTertiary = Color(red: 0.420, green: 0.447, blue: 0.471)  // #6B7278
 
-    /// Tertiary background (dark mode)
-    static let rsTertiaryBackground = Color(red: 0.15, green: 0.15, blue: 0.18)  // #26262E
+    // MARK: - State
+    //
+    // The only saturated colours in the interface. If something is coloured, it is
+    // telling you what the app is doing.
 
-    // MARK: - Adaptive Backgrounds (for hybrid approach)
+    /// Armed / recording. Never used for decoration.
+    static let rsRecord = Color(red: 0.898, green: 0.282, blue: 0.302)     // #E5484D
 
-    /// Adaptive primary background
-    static func rsBackgroundAdaptive(for colorScheme: ColorScheme) -> Color {
-        colorScheme == .dark ? rsBackground : rsBackgroundLight
-    }
+    /// A take is captured, a step is complete.
+    static let rsGood = Color(red: 0.239, green: 0.639, blue: 0.365)       // #3DA35D
 
-    /// Adaptive secondary background
-    static func rsSecondaryBackgroundAdaptive(for colorScheme: ColorScheme) -> Color {
-        colorScheme == .dark ? rsSecondaryBackground : rsSecondaryBackgroundLight
-    }
+    /// Over length, needs attention.
+    static let rsCaution = Color(red: 0.780, green: 0.604, blue: 0.227)    // #C79A3A
 
-    // MARK: - Card Backgrounds (hybrid approach)
+    /// Reserved highlight — playheads, active scrub, selected tab underline.
+    /// Deliberately desaturated so it never competes with the state colours.
+    static let rsHighlight = Color(red: 0.478, green: 0.573, blue: 0.616)  // #7A929D
 
-    /// Card background - charcoal in dark mode, cream in light mode
-    static func rsCardBackground(for colorScheme: ColorScheme) -> Color {
-        colorScheme == .dark
-            ? rsCharcoal.opacity(0.85)
-            : rsCream.opacity(0.9)
-    }
+    // MARK: - Brand Anchors
+    //
+    // Kept because the icon set and app icon are built from them. Used only where
+    // the artwork itself appears, never as interface chrome.
 
-    /// Elevated card - darker charcoal in dark mode, white in light mode
-    static func rsElevatedCard(for colorScheme: ColorScheme) -> Color {
-        colorScheme == .dark
-            ? rsCharcoal
-            : Color.white
-    }
+    /// The icon set's true teal. Kept for reference; the interface does not use it,
+    /// because at these surface levels it reads as muddy rather than sober.
+    static let rsBrandTeal = Color(red: 0.184, green: 0.341, blue: 0.369)  // #2F575E
 
-    /// Glass card (semi-transparent)
-    static func rsGlassCard(for colorScheme: ColorScheme) -> Color {
-        colorScheme == .dark
-            ? Color(red: 0.12, green: 0.12, blue: 0.14).opacity(0.7)
-            : Color.white.opacity(0.7)
-    }
+    /// Alias so the screens that were built around "the accent" pick up the editor
+    /// highlight instead of the old teal, without each call site being rewritten.
+    static let rsTurquoise = rsHighlight
 
-    // MARK: - Text Colors
+    /// Red from the icon set. For interface state prefer `rsRecord`.
+    static let rsRed = rsRecord
 
-    /// Primary text - white in dark mode, charcoal in light mode
-    static func rsTextAdaptive(for colorScheme: ColorScheme) -> Color {
-        colorScheme == .dark ? Color.white : rsCharcoal
-    }
+    /// Cream from the icon set.
+    static let rsCream = Color(red: 0.961, green: 0.945, blue: 0.894)      // #F5F1E4
 
-    /// Secondary text
-    static func rsSecondaryTextAdaptive(for colorScheme: ColorScheme) -> Color {
-        colorScheme == .dark
-            ? Color(red: 0.6, green: 0.6, blue: 0.65)
-            : Color(red: 0.4, green: 0.4, blue: 0.45)
-    }
+    /// Charcoal from the icon set.
+    static let rsCharcoal = rsSurface2
 
-    /// Tertiary text
-    static func rsTertiaryTextAdaptive(for colorScheme: ColorScheme) -> Color {
-        colorScheme == .dark
-            ? Color(red: 0.4, green: 0.4, blue: 0.45)
-            : Color(red: 0.6, green: 0.6, blue: 0.65)
-    }
+    // MARK: - Backgrounds
+    //
+    // The interface is dark-only, so the "adaptive" helpers ignore the colour scheme.
+    // They are kept so every existing call site resolves to the editor palette without
+    // being rewritten.
 
-    /// Legacy text colors (non-adaptive)
-    static let rsText = Color.white
-    static let rsSecondaryText = Color(red: 0.6, green: 0.6, blue: 0.65)
-    static let rsTertiaryText = Color(red: 0.4, green: 0.4, blue: 0.45)
+    static let rsBackground = rsSurface0
+    static let rsBackgroundLight = rsSurface0
+    static let rsSecondaryBackground = rsSurface1
+    static let rsSecondaryBackgroundLight = rsSurface1
+    static let rsTertiaryBackground = rsSurface2
 
-    /// Text on turquoise backgrounds (always white for contrast)
-    static let rsTextOnTurquoise = Color.white
+    static func rsBackgroundAdaptive(for colorScheme: ColorScheme) -> Color { rsSurface0 }
 
-    /// Text on red backgrounds (always white for contrast)
+    static func rsSecondaryBackgroundAdaptive(for colorScheme: ColorScheme) -> Color { rsSurface1 }
+
+    // MARK: - Cards
+
+    static func rsCardBackground(for colorScheme: ColorScheme) -> Color { rsSurface1 }
+
+    static func rsElevatedCard(for colorScheme: ColorScheme) -> Color { rsSurface2 }
+
+    static func rsGlassCard(for colorScheme: ColorScheme) -> Color { rsSurface2.opacity(0.86) }
+
+    // MARK: - Text Helpers
+
+    static func rsTextAdaptive(for colorScheme: ColorScheme) -> Color { rsTextPrimary }
+
+    static func rsSecondaryTextAdaptive(for colorScheme: ColorScheme) -> Color { rsTextSecondary }
+
+    static func rsTertiaryTextAdaptive(for colorScheme: ColorScheme) -> Color { rsTextTertiary }
+
+    static let rsText = rsTextPrimary
+    static let rsSecondaryText = rsTextSecondary
+    static let rsTertiaryText = rsTextTertiary
+
+    static let rsTextOnTurquoise = rsTextPrimary
     static let rsTextOnRed = Color.white
+    static let rsTextOnCream = rsSurface0
 
-    /// Text on cream backgrounds (always charcoal for contrast)
-    static let rsTextOnCream = Color.rsCharcoal
+    // MARK: - Semantic
 
-    // MARK: - Semantic Colors
+    static let rsSuccess = rsGood
+    static let rsError = rsRecord
+    static let rsWarning = rsCaution
 
-    static let rsSuccess = Color(red: 0.2, green: 0.85, blue: 0.5)  // Bright green
-    static let rsError = rsRed  // Use icon red
-    static let rsWarning = Color(red: 1.0, green: 0.7, blue: 0.0)  // Amber
+    // MARK: - Audio State
 
-    // MARK: - Audio State Colors
+    static let rsRecording = rsRecord
+    static let rsPlaying = rsHighlight
+    static let rsReversed = rsHighlight
+    static let rsProcessing = rsHighlight
 
-    /// Recording state - red from icon
-    static let rsRecording = rsRed
+    // MARK: - Buttons
+    //
+    // Primary is a light key on a dark field — the one bright element on screen, so
+    // there is never any doubt what the main action is.
 
-    /// Playing state - turquoise from icon
-    static let rsPlaying = rsTurquoise
+    static let rsButtonPrimaryCream = rsTextPrimary
+    static let rsButtonPrimaryTeal = rsTextPrimary
 
-    /// Reversed state - turquoise variant (slightly darker)
-    static let rsReversed = Color(red: 0.1, green: 0.7, blue: 0.7)  // Darker turquoise
+    static func rsButtonPrimaryAdaptive(for colorScheme: ColorScheme) -> Color { rsTextPrimary }
 
-    /// Processing state - turquoise with animation
-    static let rsProcessing = rsTurquoise
+    static func rsTextOnPrimaryButton(for colorScheme: ColorScheme) -> Color { rsSurface0 }
 
-    // MARK: - Button Colors
+    static let rsButtonPrimary = rsTextPrimary
 
-    /// Primary button color - cream in dark mode
-    static let rsButtonPrimaryCream = Color(red: 0.957, green: 0.922, blue: 0.780)  // #F4EBC7
+    static func rsButtonSecondaryAdaptive(for colorScheme: ColorScheme) -> Color { rsSurface2 }
 
-    /// Primary button color - dark teal in light mode
-    static let rsButtonPrimaryTeal = Color(red: 0.184, green: 0.341, blue: 0.369)  // #2F575E
+    static let rsButtonSecondary = rsSurface2
+    static let rsButtonDisabled = rsSurface2.opacity(0.5)
+    static let rsButtonDestructive = rsRecord
 
-    /// Primary button - adaptive (cream in dark mode, teal in light mode)
-    static func rsButtonPrimaryAdaptive(for colorScheme: ColorScheme) -> Color {
-        colorScheme == .dark ? rsButtonPrimaryCream : rsButtonPrimaryTeal
-    }
+    // MARK: - Waveform
 
-    /// Text on primary button - adaptive for contrast
-    static func rsTextOnPrimaryButton(for colorScheme: ColorScheme) -> Color {
-        colorScheme == .dark ? rsCharcoal : Color.white
-    }
+    static func rsWaveformRecordingAdaptive(for colorScheme: ColorScheme) -> Color { rsRecord }
 
-    /// Legacy primary button - turquoise
-    static let rsButtonPrimary = rsTurquoise
+    static func rsWaveformPlayingAdaptive(for colorScheme: ColorScheme) -> Color { rsHighlight }
 
-    /// Secondary button - charcoal in dark, cream in light
-    static func rsButtonSecondaryAdaptive(for colorScheme: ColorScheme) -> Color {
-        colorScheme == .dark ? rsCharcoal : rsCream
-    }
+    static func rsWaveformIdleAdaptive(for colorScheme: ColorScheme) -> Color { rsSurface3 }
 
-    static let rsButtonSecondary = rsCharcoal
-    static let rsButtonDisabled = Color.gray.opacity(0.2)
-    static let rsButtonDestructive = rsRed
+    static let rsWaveformActive = rsTextPrimary
+    static let rsWaveformInactive = rsSurface3
+    static let rsWaveformRecording = rsRecord
+    static let rsWaveformPlaying = rsHighlight
 
-    // MARK: - Waveform Colors (Adaptive with Strong Contrast)
+    // MARK: - Legacy
 
-    /// Recording waveform - red in both modes (darker in light mode)
-    static func rsWaveformRecordingAdaptive(for colorScheme: ColorScheme) -> Color {
-        colorScheme == .dark
-            ? Color(red: 1.0, green: 0.4, blue: 0.4)      // Bright red in dark mode
-            : Color(red: 0.85, green: 0.15, blue: 0.15)   // Darker red in light mode
-    }
+    @available(*, deprecated, message: "Use rsHighlight instead")
+    static let rsGold = rsHighlight
 
-    /// Playing waveform - dark teal in both modes
-    static func rsWaveformPlayingAdaptive(for colorScheme: ColorScheme) -> Color {
-        colorScheme == .dark
-            ? rsTurquoise                                  // Dark teal in dark mode
-            : rsTurquoise.opacity(0.9)                     // Slightly muted dark teal in light mode
-    }
+    @available(*, deprecated, message: "Use rsHighlight instead")
+    static let rsGoldLight = rsHighlight
 
-    /// Idle waveform - cream/beige tones (matches microphone body)
-    static func rsWaveformIdleAdaptive(for colorScheme: ColorScheme) -> Color {
-        colorScheme == .dark
-            ? rsCream.opacity(0.3)                         // Subtle cream in dark mode
-            : rsCharcoal.opacity(0.3)                      // Muted charcoal in light mode
-    }
+    @available(*, deprecated, message: "Use rsHighlight instead")
+    static let rsGoldDark = rsHighlight
 
-    /// Legacy waveform colors (dark mode defaults)
-    static let rsWaveformActive = Color.white.opacity(0.9)
-    static let rsWaveformInactive = Color.gray.opacity(0.2)
-    static let rsWaveformRecording = rsRed
-    static let rsWaveformPlaying = rsTurquoise
+    @available(*, deprecated, message: "Use rsHighlight instead")
+    static let rsGradientCyan = rsHighlight
 
-    // MARK: - Legacy/Deprecated Colors (for gradual migration)
+    @available(*, deprecated, message: "Use rsRecord instead")
+    static let rsGradientPink = rsRecord
 
-    @available(*, deprecated, message: "Use rsTurquoise instead")
-    static let rsGold = rsTurquoise
+    @available(*, deprecated, message: "Use rsHighlight instead")
+    static let rsGradientBlue = rsHighlight
 
-    @available(*, deprecated, message: "Use rsTurquoise instead")
-    static let rsGoldLight = rsTurquoise
+    @available(*, deprecated, message: "Use rsSurface2 instead")
+    static let rsGradientPurple = rsSurface2
 
-    @available(*, deprecated, message: "Use rsTurquoise instead")
-    static let rsGoldDark = rsTurquoise
+    @available(*, deprecated, message: "Use rsTextPrimary instead")
+    static let rsTextOnGradient = rsTextPrimary
 
-    @available(*, deprecated, message: "Use rsTurquoise instead")
-    static let rsGradientCyan = rsTurquoise
-
-    @available(*, deprecated, message: "Use rsRed instead")
-    static let rsGradientPink = rsRed
-
-    @available(*, deprecated, message: "Use rsTurquoise instead")
-    static let rsGradientBlue = rsTurquoise
-
-    @available(*, deprecated, message: "Use rsCharcoal instead")
-    static let rsGradientPurple = rsCharcoal
-
-    @available(*, deprecated, message: "Use rsTextOnTurquoise instead")
-    static let rsTextOnGradient = Color.white
-
-    @available(*, deprecated, message: "Use rsTextOnTurquoise instead")
-    static let rsTextOnGold = Color.white
+    @available(*, deprecated, message: "Use rsTextPrimary instead")
+    static let rsTextOnGold = rsTextPrimary
 }

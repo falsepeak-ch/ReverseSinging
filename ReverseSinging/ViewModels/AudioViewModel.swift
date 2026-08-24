@@ -25,9 +25,17 @@ final class AudioViewModel: ObservableObject {
     @Published var playbackDuration: Double = 0
 
     // UI state
+    /// Beats left in the record slate, 3...1, or nil when no countdown is running.
+    @Published private(set) var countdown: Int?
+
     @Published var isReversing = false
     @Published var showSessionList = false
     @Published var showSettings = false
+    @Published var showDubLibrary = false
+
+    /// Set when the system hands us a pack from AirDrop or "Open with"; the dub library
+    /// picks it up and imports it.
+    @Published var pendingDubImportURL: URL?
 
     // MARK: - Services
 
@@ -39,6 +47,7 @@ final class AudioViewModel: ObservableObject {
     // MARK: - Private Properties
 
     private var currentRecordingURL: URL?
+    private var countdownTask: Task<Void, Never>?
     private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Initialization
@@ -139,6 +148,13 @@ final class AudioViewModel: ObservableObject {
     func startRecording() {
         print("🎬 StartRecording called from UI")
 
+        // A second press during the slate is a change of mind, not a stop: nothing has been
+        // recorded yet, so cancel the count rather than arming a second one behind it.
+        if countdownTask != nil {
+            cancelCountdown()
+            return
+        }
+
         // Request permission if we haven't asked yet or need to re-check
         requestPermissionIfNeeded { [weak self] granted in
             guard let self = self else { return }
@@ -166,20 +182,59 @@ final class AudioViewModel: ObservableObject {
                 self.appState.startNewSession()
             }
 
-            do {
-                let url = try self.recorder.startRecording()
-                self.currentRecordingURL = url
-                HapticManager.shared.heavy()
-                print("✅ Recording started from ViewModel")
+            self.runCountdownThenRecord()
+        }
+    }
 
-                // Determine recording type for analytics
-                let recordingType = self.appState.currentSession?.reversedRecording != nil ? "attempt" : "original"
-                AnalyticsManager.shared.trackRecordingStarted(type: recordingType)
-            } catch let error as RecordingError {
-                self.handleRecordingError(error)
+    /// Slate, then roll: three tones, the mic opening as the last one releases.
+    private func runCountdownThenRecord() {
+        countdownTask?.cancel()
+        countdownTask = Task { [weak self] in
+            guard let self else { return }
+
+            do {
+                try await RecordCountdown.run { beat in
+                    self.countdown = beat
+                    HapticManager.shared.light()
+                }
             } catch {
-                self.handleError(error)
+                // Cancelled — `cancelCountdown` has already cleared the state.
+                return
             }
+
+            self.countdown = nil
+            self.countdownTask = nil
+            self.beginRecording()
+        }
+    }
+
+    private func cancelCountdown() {
+        // Called from teardown paths too, so it has to be silent when no count is running.
+        guard let task = countdownTask else { return }
+
+        task.cancel()
+        countdownTask = nil
+        countdown = nil
+        HapticManager.shared.light()
+    }
+
+    private func beginRecording() {
+        guard recorder.canStartRecording() else { return }
+
+        do {
+            SoundManager.shared.setMicrophoneOpen(true)
+            let url = try recorder.startRecording()
+            currentRecordingURL = url
+            HapticManager.shared.heavy()
+            print("✅ Recording started from ViewModel")
+
+            // Determine recording type for analytics
+            let recordingType = appState.currentSession?.reversedRecording != nil ? "attempt" : "original"
+            AnalyticsManager.shared.trackRecordingStarted(type: recordingType)
+        } catch let error as RecordingError {
+            handleRecordingError(error)
+        } catch {
+            handleError(error)
         }
     }
 
@@ -195,10 +250,13 @@ final class AudioViewModel: ObservableObject {
 
         guard let url = recorder.stopRecording() else {
             print("❌ Failed to get recording URL")
+            SoundManager.shared.setMicrophoneOpen(false)
             errorMessage = Strings.Error.failedToStopRecording
             return
         }
 
+        SoundManager.shared.setMicrophoneOpen(false)
+        SoundManager.shared.play(.tapeStop)
         HapticManager.shared.heavy()
 
         // Process file operations on background thread
@@ -261,6 +319,7 @@ final class AudioViewModel: ObservableObject {
     func cancelRecording() {
         print("🚫 CancelRecording called")
         recorder.cancelRecording()
+        SoundManager.shared.setMicrophoneOpen(false)
         currentRecordingURL = nil
         HapticManager.shared.light()
     }
@@ -312,6 +371,7 @@ final class AudioViewModel: ObservableObject {
                                 self.appState.currentSession = session
                             }
 
+                            SoundManager.shared.play(.projectorChime)
                             HapticManager.shared.success()
                             self.appState.recordingState = .idle
                         }
@@ -614,6 +674,14 @@ final class AudioViewModel: ObservableObject {
         AnalyticsManager.shared.trackCustomEvent(name: "theme_changed", parameters: ["theme": mode.rawValue])
     }
 
+    func setSoundsEnabled(_ enabled: Bool) {
+        objectWillChange.send()
+        SoundManager.shared.setEnabled(enabled)
+        AnalyticsManager.shared.trackCustomEvent(name: "sounds_changed", parameters: ["enabled": enabled])
+    }
+
+    var soundsEnabled: Bool { SoundManager.shared.isEnabled }
+
     func setHapticsEnabled(_ enabled: Bool) {
         objectWillChange.send()
         appState.hapticsEnabled = enabled
@@ -646,12 +714,14 @@ final class AudioViewModel: ObservableObject {
         print("❌ Error: \(error.localizedDescription)")
         errorMessage = error.localizedDescription
         appState.recordingState = .error(error.localizedDescription)
+        SoundManager.shared.play(.errorThunk)
         HapticManager.shared.error()
     }
 
     // MARK: - Cleanup
 
     func cleanup() {
+        cancelCountdown()
         recorder.cleanup()
         player.cleanup()
         fileManager.deleteAllTemporaryFiles()

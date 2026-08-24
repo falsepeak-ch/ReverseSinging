@@ -197,10 +197,10 @@ struct SessionRow: View {
         }
         .padding(16)
         .background(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
+            RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                 .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                         .stroke(Color.rsTurquoise.opacity(0.15), lineWidth: 1.5)
                 )
                 .cardShadow(.card)
@@ -283,10 +283,10 @@ struct RecordingRowButton: View {
             }
             .padding(14)
             .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                     .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
                     .overlay(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                             .stroke(Color.rsTurquoise.opacity(0.2), lineWidth: 1)
                     )
             )

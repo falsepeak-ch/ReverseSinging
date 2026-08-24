@@ -77,7 +77,7 @@ struct ComparisonView: View {
         .padding(.vertical, 20)
         .frame(maxWidth: .infinity)
         .background(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
+            RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                 .fill(Color.rsCardBackground(for: colorScheme))
                 .cardShadow(.card)
         )
@@ -103,7 +103,7 @@ struct ComparisonView: View {
         }
         .padding(16)
         .background(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
+            RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                 .fill(Color.rsCardBackground(for: colorScheme))
                 .cardShadow(.card)
         )
@@ -168,7 +168,7 @@ struct ComparisonView: View {
         }
         .padding(16)
         .background(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
+            RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                 .fill(Color.rsCardBackground(for: colorScheme))
                 .cardShadow(.card)
         )

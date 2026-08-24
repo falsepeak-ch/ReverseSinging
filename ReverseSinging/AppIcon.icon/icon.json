@@ -1,6 +1,6 @@
 {
   "fill" : {
-    "automatic-gradient" : "extended-srgb:0.00000,0.53333,1.00000,1.00000"
+    "automatic-gradient" : "display-p3:0.08289,0.09058,0.10986,1.00000"
   },
   "groups" : [
     {
@@ -34,7 +34,8 @@
           "blend-mode" : "normal",
           "glass" : false,
           "image-name" : "Group 5.png",
-          "name" : "Group 5"
+          "name" : "Group 5",
+          "opacity" : 0.2
         }
       ],
       "position" : {

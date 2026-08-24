@@ -36,13 +36,15 @@ enum ShadowStyle {
         }
     }
 
+    /// Deliberately faint: separation in this design comes from the surface ramp and
+    /// hairline strokes, not from blur. Shadows only lift true overlays off the canvas.
     var opacity: Double {
         switch self {
         case .none: return 0
-        case .subtle: return 0.05
-        case .card: return 0.08
-        case .elevated: return 0.12
-        case .floating: return 0.15
+        case .subtle: return 0
+        case .card: return 0
+        case .elevated: return 0.25
+        case .floating: return 0.45
         }
     }
 }

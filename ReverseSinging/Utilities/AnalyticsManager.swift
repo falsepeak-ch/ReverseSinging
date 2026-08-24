@@ -200,6 +200,36 @@ final class AnalyticsManager {
         }
     }
 
+    // MARK: - Dub Mode
+
+    func trackDubPackImported(title: String, lineCount: Int) {
+        Analytics.logEvent("dub_pack_imported", parameters: [
+            "pack_title": title,
+            "line_count": lineCount
+        ])
+    }
+
+    func trackDubLineRecorded(lineIndex: Int, duration: Double) {
+        Analytics.logEvent("dub_line_recorded", parameters: [
+            "line_index": lineIndex,
+            "duration": duration
+        ])
+    }
+
+    func trackDubPlaybackStarted(mode: String) {
+        Analytics.logEvent("dub_playback_started", parameters: [
+            "mode": mode
+        ])
+    }
+
+    func trackDubExported(lineCount: Int, recordedCount: Int, duration: Double) {
+        Analytics.logEvent("dub_exported", parameters: [
+            "line_count": lineCount,
+            "recorded_count": recordedCount,
+            "duration": duration
+        ])
+    }
+
     // MARK: - Custom Event
 
     func trackCustomEvent(name: String, parameters: [String: Any]? = nil) {

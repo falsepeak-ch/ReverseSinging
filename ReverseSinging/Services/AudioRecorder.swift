@@ -185,7 +185,11 @@ final class AudioRecorder: NSObject, ObservableObject {
 
     // MARK: - Recording
 
-    func startRecording() throws -> URL {
+    /// - Parameter maxDuration: when set, the recorder stops itself after exactly this long.
+    ///   Handed to `AVAudioRecorder` rather than enforced with a timer: it stops on the audio
+    ///   clock, so the file is the requested length to the sample. A main-thread timer lands
+    ///   late, and by a different amount on every take.
+    func startRecording(maxDuration: TimeInterval? = nil) throws -> URL {
         print("🎙️ Attempting to start recording...")
 
         // Validate state
@@ -233,7 +237,12 @@ final class AudioRecorder: NSObject, ObservableObject {
             }
 
             // Start recording
-            let success = recorder.record()
+            let success: Bool
+            if let maxDuration, maxDuration > 0 {
+                success = recorder.record(forDuration: maxDuration)
+            } else {
+                success = recorder.record()
+            }
 
             if success {
                 isRecording = true

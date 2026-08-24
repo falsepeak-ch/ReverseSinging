@@ -144,3 +144,85 @@
 "settings.privacyPolicy" = "Privacy Policy";
 "settings.builtInSwitzerland" = "Built in Switzerland";
 "settings.builtInSwitzerland.desc" = "Made with care in Zürich";
+
+// MARK: - Dub Mode
+"dub.title" = "Dub Sessions";
+"dub.subtitle" = "Record your voice over a scene";
+"dub.unknownAuthor" = "Unknown author";
+"dub.importPack" = "Import a Dub Pack";
+"dub.importing" = "Importing pack…";
+"dub.delete" = "Delete";
+"dub.done" = "Done";
+"dub.close" = "Close";
+"dub.empty.title" = "No dub packs yet";
+"dub.empty.message" = "Import a dub pack folder or .zip from Files to start dubbing a scene in your own voice.";
+"dub.playOriginal" = "Watch Original";
+"dub.playMyDub" = "Play My Dub";
+"dub.record" = "Start Dubbing";
+"dub.continueRecording" = "Continue Dubbing";
+"dub.export" = "Export Video";
+"dub.lines" = "Lines";
+"dub.linesRecorded" = "%d of %d lines dubbed";
+"dub.listen" = "Listen";
+"dub.stop" = "Stop";
+"dub.recordTake" = "Record";
+"dub.reRecord" = "Re-record";
+"dub.next" = "Next";
+"dub.previous" = "Previous";
+"dub.lineProgress" = "Line %d of %d";
+"dub.recordingHint" = "Say the line — keep pace with the original.";
+"dub.listenHint" = "Listen first, then record your take.";
+"dub.original" = "Original";
+"dub.myDub" = "My Dub";
+"dub.noTakesYet" = "Record at least one line first.";
+"dub.exporting" = "Exporting…";
+"dub.export.mixing" = "Mixing audio…";
+"dub.export.rendering" = "Rendering video…";
+"dub.export.ready" = "Your dub is ready!";
+"dub.shareDub" = "Share your dub";
+"dub.error.missingPackInfo" = "That folder isn't a dub pack — it has no _pack_info.ini file.";
+"dub.error.noLines" = "This pack has no usable lines.";
+"dub.error.missingAsset" = "The pack is missing a file it needs: %@";
+"dub.error.notAFolder" = "Pick a dub pack folder or a .zip archive.";
+"dub.error.unreadableArchive" = "That archive couldn't be opened: %@";
+"dub.error.nothingRecorded" = "Record at least one line before exporting.";
+"dub.error.exportFailed" = "Export failed: %@";
+"dub.playTake" = "Play your take";
+"dub.loadingScene" = "Loading scene…";
+
+// MARK: - Editor Chrome
+"session.archiveTitle" = "Archive";
+"main.section.transport" = "Transport";
+"main.section.monitor" = "Monitor";
+"main.state.idle" = "IDLE";
+"main.state.recording" = "REC";
+"main.state.playing" = "PLAY";
+"main.state.processing" = "PROC";
+"main.state.error" = "ERROR";
+"main.state.countingIn" = "COUNT IN";
+"main.section.hint" = "Next";
+"dub.packsSection" = "Packs";
+"dub.slate.lines" = "Dubbed";
+"dub.slate.duration" = "Runtime";
+"dub.slate.cast" = "Cast";
+"settings.soundEffects" = "Sound Effects";
+"settings.soundEffects.desc" = "Clapper, transport and render sounds";
+
+// Headphone monitoring
+"settings.headphoneMonitor" = "Original in Headphones";
+"settings.headphoneMonitor.desc" = "Hear the line you are matching while you record. Headphones only — through the speaker it would land in your take.";
+"settings.headphoneMonitor.unavailable" = "No headphones connected";
+
+// MARK: - Game Modes
+"main.mode.section" = "Mode";
+"main.mode.reverse.title" = "Reverse Singing";
+"main.mode.dub.title" = "Movie Scene Dub";
+"main.button.back" = "Back";
+"main.mode.reverse.subtitle" = "Record a song, flip it, and sing it backwards";
+"main.mode.dub.subtitle" = "Dub a movie scene in your own voice";
+"dub.speakerAccessibility" = "Spoken by %@";
+"dub.cast" = "Cast";
+"dub.referenceTrack" = "Reference";
+"dub.yourTake" = "Your take";
+"dub.convertingVideo" = "Converting scene video…";
+"dub.importReading" = "Reading pack…";

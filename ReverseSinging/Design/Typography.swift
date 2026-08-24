@@ -40,6 +40,21 @@ extension Font {
     // MARK: - Label (for metadata)
     static let rsLabel = Font.system(size: 12, weight: .regular, design: .default)
     static let rsLabelSmall = Font.system(size: 10, weight: .regular, design: .default)
+
+    // MARK: - Editor Typography
+    //
+    // Every number that changes over time is monospaced, so timecodes and counters
+    // stop jittering as digits change — the detail that most makes a UI read as a tool.
+
+    static let rsTimecodeLarge = Font.system(size: 44, weight: .medium, design: .monospaced)
+    static let rsTimecode = Font.system(size: 15, weight: .medium, design: .monospaced)
+    static let rsTimecodeSmall = Font.system(size: 12, weight: .medium, design: .monospaced)
+
+    /// Panel and section headers. Always paired with `.rsTracking` and uppercased.
+    static let rsSectionLabel = Font.system(size: 11, weight: .semibold, design: .default)
+
+    /// Metadata inside dense rows.
+    static let rsMeta = Font.system(size: 12, weight: .medium, design: .default)
 }
 
 // MARK: - Text Modifiers

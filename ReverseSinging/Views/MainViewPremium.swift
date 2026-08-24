@@ -11,76 +11,73 @@ struct MainViewPremium: View {
     @EnvironmentObject var viewModel: AudioViewModel
     @State private var showSuccessToast = false
     @State private var showCelebration = false
-    @State private var displayedTip: String = ""
     @State private var showNewSessionAlert = false
     @State private var isScoreVisible = true
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        NavigationStack {
-            ZStack {
-                // Background color layer
-                Color.rsBackgroundAdaptive(for: colorScheme)
-                    .ignoresSafeArea()
 
-                // Show empty state if permission is denied
-                if !viewModel.hasRecordingPermission {
-                    microphonePermissionEmptyState
-                        .transition(.opacity)
-                } else {
-                    // Scrollable content layer
-                    mainContentView
-                }
+        ZStack {
+            // Background color layer
+            Color.rsBackgroundAdaptive(for: colorScheme)
+                .ignoresSafeArea()
 
-                // Fixed header overlay (always visible)
-                fixedHeaderOverlay
+            // Show empty state if permission is denied
+            if !viewModel.hasRecordingPermission {
+                microphonePermissionEmptyState
+                    .transition(.opacity)
+            } else {
+                // Scrollable content layer
+                mainContentView
+            }
 
-                // Overlays (processing, toasts, etc.)
-                overlaysView
-            }
-            .onAppear {
-                viewModel.checkPermissionStatus()
-                displayedTip = currentTip ?? ""
+            // Fixed header overlay (always visible)
+            fixedHeaderOverlay
 
-                // Track screen view
-                AnalyticsManager.shared.trackScreenViewed(screenName: "MainView")
-            }
-            .onChange(of: currentTip) { _, newTip in
-                withAnimation(.rsSpring) {
-                    displayedTip = newTip ?? ""
-                }
-            }
-            .sheet(isPresented: $viewModel.showSessionList) {
-                SessionListView(viewModel: viewModel)
-            }
-            .sheet(isPresented: $viewModel.showSettings) {
-                SettingsView(viewModel: viewModel)
-            }
-            .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: $viewModel.showPermissionAlert) {
-                Button(Strings.Main.Alert.settings, action: openSettings)
-                Button(Strings.Main.Alert.cancel, role: .cancel) {}
-            } message: {
-                Text(Strings.Main.Alert.microphoneRequiredMessage)
-            }
-            .alert(Strings.Main.Alert.errorTitle, isPresented: .init(
-                get: { viewModel.errorMessage != nil },
-                set: { if !$0 { viewModel.errorMessage = nil } }
-            )) {
-                Button(Strings.Main.Alert.ok, role: .cancel) {
-                    viewModel.errorMessage = nil
-                }
-            } message: {
-                Text(viewModel.errorMessage ?? "")
-            }
-            .alert(Strings.Main.Alert.startNewSessionTitle, isPresented: $showNewSessionAlert) {
-                Button(Strings.Main.Alert.cancel, role: .cancel) {}
-                Button(Strings.Main.Alert.startNewSessionButton, role: .destructive) {
-                    viewModel.startNewSession()
-                }
-            } message: {
-                Text(Strings.Main.Alert.startNewSessionMessage)
-            }
+            // Overlays (processing, toasts, etc.)
+            overlaysView
+
+            CountdownOverlay(value: viewModel.countdown)
         }
+        .onAppear {
+            viewModel.checkPermissionStatus()
+
+            // Track screen view
+            AnalyticsManager.shared.trackScreenViewed(screenName: "MainView")
+        }
+        .sheet(isPresented: $viewModel.showSessionList) {
+            SessionListView(viewModel: viewModel)
+        }
+        .sheet(isPresented: $viewModel.showSettings) {
+            SettingsView(viewModel: viewModel, scope: .reverseSinging)
+        }
+        .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: $viewModel.showPermissionAlert) {
+            Button(Strings.Main.Alert.settings, action: openSettings)
+            Button(Strings.Main.Alert.cancel, role: .cancel) {}
+        } message: {
+            Text(Strings.Main.Alert.microphoneRequiredMessage)
+        }
+        .alert(Strings.Main.Alert.errorTitle, isPresented: .init(
+            get: { viewModel.errorMessage != nil },
+            set: { if !$0 { viewModel.errorMessage = nil } }
+        )) {
+            Button(Strings.Main.Alert.ok, role: .cancel) {
+                viewModel.errorMessage = nil
+            }
+        } message: {
+            Text(viewModel.errorMessage ?? "")
+        }
+        .alert(Strings.Main.Alert.startNewSessionTitle, isPresented: $showNewSessionAlert) {
+            Button(Strings.Main.Alert.cancel, role: .cancel) {}
+            Button(Strings.Main.Alert.startNewSessionButton, role: .destructive) {
+                viewModel.startNewSession()
+            }
+        } message: {
+            Text(Strings.Main.Alert.startNewSessionMessage)
+        }
+        .toolbar(.hidden, for: .navigationBar)
+    
     }
 
     // MARK: - Empty State
@@ -171,70 +168,14 @@ struct MainViewPremium: View {
 
     private var fixedHeaderOverlay: some View {
         VStack(spacing: 0) {
-            ZStack(alignment: .bottom) {
-                // Fade background image
-                Image("fade")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(height: 120)
-                    .clipped()
-
-                // Header content
-                HStack {
-                    Image(viewModel.hasRecordingPermission ? "icon-lettering" : "lettering")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: viewModel.hasRecordingPermission ? 48 : 30)
-
-                    Spacer()
-
-                    // Header buttons
-                    HStack(spacing: 12) {
-                        // Archive button
-                        Button(action: { viewModel.showSessionList = true }) {
-                            if #available(iOS 26.0, *) {
-                                Image(systemName: "archivebox")
-                                    .font(.rsHeadingSmall)
-                                    .foregroundColor(.accent)
-                                    .frame(width: 44, height: 44)
-                                    .glassEffect()
-                            } else {
-                                Image(systemName: "archivebox")
-                                    .font(.rsHeadingSmall)
-                                    .foregroundColor(.rsCharcoal)
-                                    .frame(width: 44, height: 44)
-                                    .background(
-                                        Circle()
-                                            .fill(Color.rsButtonPrimaryCream)
-                                    )
-                            }
-                        }
-
-                        // Settings button
-                        Button(action: { viewModel.showSettings = true }) {
-                            if #available(iOS 26.0, *) {
-                                Image(systemName: "gearshape.fill")
-                                    .font(.rsHeadingSmall)
-                                    .foregroundColor(.accent)
-                                    .frame(width: 44, height: 44)
-                                    .glassEffect()
-                            } else {
-                                Image(systemName: "gearshape.fill")
-                                    .font(.rsHeadingSmall)
-                                    .foregroundColor(.rsCharcoal)
-                                    .frame(width: 44, height: 44)
-                                    .background(
-                                        Circle()
-                                            .fill(Color.rsButtonPrimaryCream)
-                                    )
-                            }
-                        }
-                    }
+            EditorScreenHeader(title: GameMode.reverse.title, onBack: { dismiss() }) {
+                EditorToolbarButton(icon: "archivebox", label: Strings.Session.archiveTitle) {
+                    viewModel.showSessionList = true
                 }
-                .padding(.horizontal, 24)
-                .padding(.bottom, 16)
+                EditorToolbarButton(icon: "slider.horizontal.3", label: Strings.Settings.title) {
+                    viewModel.showSettings = true
+                }
             }
-            .frame(maxWidth: .infinity)
 
             Spacer()
         }
@@ -287,25 +228,11 @@ struct MainViewPremium: View {
             if viewModel.hasRecordingPermission, let tip = currentTip, !tip.isEmpty {
                 VStack(spacing: 0) {
                     Spacer()
-                    ZStack(alignment: .top) {
-                        // Fade background image (rotated 180 degrees to fade upward)
-                        Image("fade")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(height: 120)
-                            .clipped()
-                            .rotationEffect(.degrees(180))
-
-                        // Tip card content on top
-                        tipText(tip)
-                            .id(displayedTip)
-                            .padding(.horizontal, 24)
-                            .padding(.top, 16)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .transition(.opacity.combined(with: .move(edge: .bottom)))
+                    HintBar(text: tip)
+                        .id(tip)
+                        .transition(.opacity)
                 }
-                .ignoresSafeArea(edges: .bottom)
+                .animation(.rsSpring, value: tip)
             }
         }
     }
@@ -633,54 +560,6 @@ struct MainViewPremium: View {
         }
     }
 
-
-    // MARK: - Tip Card
-
-    private func tipText(_ text: String) -> some View {
-        Group {
-            if #available(iOS 26.0, *) {
-                HStack(alignment: .center, spacing: 12) {
-                    Image(systemName: "info.circle")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
-                        .frame(width: 20, height: 20)
-                    
-                    Text(text)
-                        .font(.rsCaption)
-                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
-                        .multilineTextAlignment(.leading)
-                        .fixedSize(horizontal: false, vertical: true)
-                    
-                    Spacer(minLength: 0)
-                }
-                .padding(16)
-                .glassEffect()
-            } else {
-                HStack(alignment: .center, spacing: 12) {
-                    Image(systemName: "info.circle")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
-                        .frame(width: 20, height: 20)
-                    
-                    Text(text)
-                        .font(.rsCaption)
-                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
-                        .multilineTextAlignment(.leading)
-                        .fixedSize(horizontal: false, vertical: true)
-                    
-                    Spacer(minLength: 0)
-                }
-                .padding(16)
-                .background(
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        .fill(Color.rsCardBackground(for: colorScheme))
-                        .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
-                )
-            }
-        }
-    }
 
     // MARK: - Helpers
 

@@ -47,14 +47,19 @@ struct BigButton: View {
 
                 Text(title)
                     .font(textFont ?? .rsButtonLarge)
+                    .tracking(0.4)
             }
             .frame(maxWidth: .infinity)
-            .frame(height: 56)
+            .frame(height: 52)
             .foregroundColor(textColor)
             .background(backgroundView)
-            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-            .scaleEffect(isPressed ? 0.97 : 1.0)
-            .contentShape(RoundedRectangle(cornerRadius: 12, style: .continuous))  // Makes entire button area tappable
+            .clipShape(RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
+                    .strokeBorder(borderColor, lineWidth: EditorMetrics.hairline)
+            )
+            .scaleEffect(isPressed ? 0.98 : 1.0)
+            .contentShape(RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous))  // Makes entire button area tappable
         }
         .buttonStyle(PressButtonStyle(isPressed: $isPressed))
         .disabled(!isEnabled || isLoading)
@@ -78,6 +83,18 @@ struct BigButton: View {
             case .destructive:
                 Color.rsButtonDestructive
             }
+        }
+    }
+
+    /// Secondary and disabled buttons are defined by their border rather than their
+    /// fill, which is what keeps the palette near-monochrome.
+    private var borderColor: Color {
+        guard isEnabled, !isLoading else { return .rsStroke }
+
+        switch style {
+        case .primary: return .clear
+        case .secondary: return .rsStrokeStrong
+        case .destructive: return .clear
         }
     }
 
@@ -121,10 +138,14 @@ struct CompactButton: View {
                     .font(.rsButtonMedium)
             }
             .foregroundColor(color)
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
-            .background(color.opacity(0.15))
-            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .padding(.horizontal, 14)
+            .padding(.vertical, 9)
+            .background(Color.rsSurface2)
+            .clipShape(RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
+                    .strokeBorder(Color.rsStroke, lineWidth: EditorMetrics.hairline)
+            )
             .scaleEffect(isPressed ? 0.95 : 1.0)
             .contentShape(RoundedRectangle(cornerRadius: 8, style: .continuous))  // Makes entire button area tappable
         }

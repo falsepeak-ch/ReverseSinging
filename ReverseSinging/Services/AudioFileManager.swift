@@ -31,6 +31,50 @@ final class AudioFileManager: @unchecked Sendable {
         documentsDirectory.appendingPathComponent("Recordings", isDirectory: true)
     }
 
+    // MARK: - Dub Directories
+
+    /// Imported dub packs, one subdirectory per pack.
+    nonisolated func dubPacksDirectory() -> URL {
+        let url = documentsDirectory.appendingPathComponent("DubPacks", isDirectory: true)
+        createIfNeeded(url)
+        return url
+    }
+
+    /// The user's recorded takes for one pack, named `<lineSlug>.caf`.
+    nonisolated func dubTakesDirectory(packID: UUID) -> URL {
+        let url = documentsDirectory
+            .appendingPathComponent("DubTakes", isDirectory: true)
+            .appendingPathComponent(packID.uuidString, isDirectory: true)
+        createIfNeeded(url)
+        return url
+    }
+
+    /// Rendered dub videos ready to share.
+    nonisolated func dubExportsDirectory() -> URL {
+        let url = documentsDirectory.appendingPathComponent("DubExports", isDirectory: true)
+        createIfNeeded(url)
+        return url
+    }
+
+    /// Removes a pack's assets along with every take recorded against it.
+    nonisolated func deleteDubPack(folderName: String, packID: UUID) throws {
+        let packURL = dubPacksDirectory().appendingPathComponent(folderName, isDirectory: true)
+        if fileManager.fileExists(atPath: packURL.path) {
+            try fileManager.removeItem(at: packURL)
+        }
+
+        let takesURL = dubTakesDirectory(packID: packID)
+        if fileManager.fileExists(atPath: takesURL.path) {
+            try fileManager.removeItem(at: takesURL)
+        }
+    }
+
+    private nonisolated func createIfNeeded(_ url: URL) {
+        if !fileManager.fileExists(atPath: url.path) {
+            try? fileManager.createDirectory(at: url, withIntermediateDirectories: true)
+        }
+    }
+
     // MARK: - File Operations
 
     func createTemporaryAudioURL() -> URL {

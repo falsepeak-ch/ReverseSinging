@@ -32,6 +32,9 @@ struct ReverseSingingApp: App {
     init() {
         // Configure audio session on app launch to prevent conflicts
         AudioSessionManager.shared.configure()
+
+        // Decode the interface sounds up front so the first clapper isn't late
+        SoundManager.shared.preload()
     }
 
     var body: some Scene {

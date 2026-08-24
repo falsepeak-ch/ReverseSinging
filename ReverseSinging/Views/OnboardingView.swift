@@ -21,19 +21,19 @@ struct OnboardingView: View {
             imageName: "microphone",
             title: Strings.Onboarding.welcomeTitle,
             description: Strings.Onboarding.welcomeMessage,
-            matteColor: Color.rsCream  // Cream with teal blend
+            matteColor: Color.rsSurface1
         ),
         OnboardingPage(
             imageName: "radio",
             title: Strings.Onboarding.howItWorksTitle,
             description: Strings.Onboarding.howItWorksMessage,
-            matteColor: Color.rsCharcoal  // Charcoal with red blend
+            matteColor: Color.rsSurface1
         ),
         OnboardingPage(
             imageName: "microphone",  // Placeholder, won't be used
             title: Strings.Onboarding.uiPreferenceTitle,
             description: Strings.Onboarding.uiPreferenceMessage,
-            matteColor: Color.rsTurquoise
+            matteColor: Color.rsSurface1
         )
     ]
 
