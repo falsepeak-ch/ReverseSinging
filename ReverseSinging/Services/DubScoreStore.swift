@@ -59,8 +59,8 @@ nonisolated struct DubScoreStore {
         write(stored, forPackID: packID)
     }
 
-    /// Forgets a line's score. Called when its take is deleted, so the scene average stops
-    /// counting a performance that no longer exists.
+    /// Forgets a line's score, so a scene average never counts a performance whose take is
+    /// gone. Covered by `scoresRoundTripAndAreForgottenWithTheirTake`.
     func remove(slug: String, forPackID packID: UUID) {
         var stored = scores(forPackID: packID)
         guard stored.removeValue(forKey: slug) != nil else { return }

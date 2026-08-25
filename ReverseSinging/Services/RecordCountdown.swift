@@ -50,3 +50,62 @@ enum RecordCountdown {
         try Task.checkCancellation()
     }
 }
+
+/// Drives one countdown at a time on behalf of a screen: owns the task, reports each beat,
+/// and opens the mic only if the count runs all the way through.
+///
+/// Both games need exactly this, and the part worth getting right once is the cancel path —
+/// a slate that is torn down must clear its beat *and* never reach `thenRecord`.
+@MainActor
+final class RecordSlate {
+
+    private var task: Task<Void, Never>?
+    private var onBeat: ((Int?) -> Void)?
+
+    /// Whether a count is on screen right now.
+    var isRunning: Bool { task != nil }
+
+    /// Slate, then roll: three tones, `thenRecord` firing as the last one releases.
+    ///
+    /// `onBeat` receives the beat as each tone lands and `nil` once the count is over —
+    /// whether it finished or was cancelled. Keep both closures weak: the slate outlives
+    /// the call and is owned by the caller.
+    func run(onBeat: @escaping (Int?) -> Void, thenRecord: @escaping () -> Void) {
+        clear()
+        self.onBeat = onBeat
+
+        task = Task { [weak self] in
+            do {
+                try await RecordCountdown.run { beat in
+                    onBeat(beat)
+                    HapticManager.shared.light()
+                }
+            } catch {
+                // Cancelled — `cancel` has already cleared the state.
+                return
+            }
+
+            onBeat(nil)
+            self?.task = nil
+            self?.onBeat = nil
+            thenRecord()
+        }
+    }
+
+    /// Stops the count without opening the mic. Called from teardown paths too, so it has
+    /// to be silent when nothing is running.
+    func cancel() {
+        guard task != nil else { return }
+
+        clear()
+        HapticManager.shared.light()
+    }
+
+    private func clear() {
+        task?.cancel()
+        task = nil
+        onBeat?(nil)
+        onBeat = nil
+    }
+}
+

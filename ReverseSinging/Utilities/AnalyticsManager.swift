@@ -72,13 +72,6 @@ final class AnalyticsManager {
         ])
     }
 
-    func trackRecordingFailed(type: String, error: String) {
-        log("recording_failed", parameters: [
-            "recording_type": type,
-            "error_message": error
-        ])
-    }
-
     // MARK: - Audio Processing Events
 
     func trackAudioReversalStarted() {
@@ -144,42 +137,14 @@ final class AnalyticsManager {
         ])
     }
 
-    func trackSessionDeleted() {
-        log("session_deleted", parameters: nil)
-    }
-
     func trackSessionListViewed(sessionsCount: Int) {
         log("session_list_viewed", parameters: [
             "saved_sessions_count": sessionsCount
         ])
     }
 
-    // MARK: - Re-recording Events
-
-    func trackReRecordAttempt() {
-        log("re_record_attempt", parameters: nil)
-    }
-
     func trackNewSessionFromExisting() {
         log("new_session_from_existing", parameters: nil)
-    }
-
-    // MARK: - Comparison Events
-
-    func trackComparisonViewed(score: Double) {
-        log("comparison_viewed", parameters: [
-            "similarity_score": score,
-            "grade": getGrade(for: score)
-        ])
-    }
-
-    // MARK: - Error Events
-
-    func trackError(category: String, message: String) {
-        log("error_occurred", parameters: [
-            "error_category": category,
-            "error_message": message
-        ])
     }
 
     // MARK: - Settings/Navigation Events

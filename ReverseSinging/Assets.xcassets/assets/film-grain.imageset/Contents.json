@@ -1,13 +1,12 @@
 {
-  "images" : [
+  "images": [
     {
-      "filename" : "film-grain.png",
-      "idiom" : "universal",
-      "scale" : "1x"
+      "filename": "film-grain.png",
+      "idiom": "universal"
     }
   ],
-  "info" : {
-    "author" : "xcode",
-    "version" : 1
+  "info": {
+    "author": "xcode",
+    "version": 1
   }
 }

@@ -366,12 +366,6 @@ struct TimerCard: View {
         UIScreen.main.bounds.width / 4  // For 2 labels (MINS, SECS)
     }
 
-    private var formattedTime: String {
-        let minutes = Int(duration) / 60
-        let seconds = Int(duration) % 60
-        return String(format: "%02d:%02d", minutes, seconds)
-    }
-
     private var backgroundColor: Color {
         switch state {
         case .idle:

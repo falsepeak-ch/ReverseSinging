@@ -249,11 +249,6 @@ final class DubPlayer: ObservableObject {
     func loadedVoiceFrameLengthForTesting(slug: String) -> AVAudioFrameCount? {
         placements[slug]?.buffer.frameLength
     }
-
-    /// Where a line's voice was placed on the timeline.
-    func placementStartForTesting(slug: String) -> TimeInterval? {
-        placements[slug]?.startTime
-    }
     #endif
 
     // MARK: - Transport
@@ -317,14 +312,6 @@ final class DubPlayer: ObservableObject {
         playbackStartOffset = 0
         playbackAnchor = nil
         stopProgressTimer()
-    }
-
-    func togglePlayback() {
-        if isPlaying {
-            stop()
-        } else {
-            play(from: 0)
-        }
     }
 
     private func stopNodes() {

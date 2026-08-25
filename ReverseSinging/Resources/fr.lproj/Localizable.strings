@@ -58,21 +58,8 @@
 "main.tip.tapRecordAudio" = "Touche Enregistrer un son pour enregistrer une chanson";
 
 // MARK: - Comparison View
-"comparison.title" = "Résultats";
-"comparison.button.close" = "Fermer";
-"comparison.label.original" = "Original";
-"comparison.label.yourTry" = "Ton essai";
-"comparison.button.playOriginal" = "Lire l'original";
-"comparison.button.playYourTry" = "Lire ton essai";
-"comparison.button.stop" = "Arrêter";
-"comparison.button.saveSession" = "Enregistrer la session";
-"comparison.button.tryAgain" = "Réessayer";
 
 // MARK: - Comparison View - Score Messages
-"comparison.score.amazing" = "🌟 Incroyable ! Presque parfait !";
-"comparison.score.great" = "🎉 Bien joué ! Tout près !";
-"comparison.score.good" = "👍 Bel essai ! On retente ?";
-"comparison.score.keepPracticing" = "💪 Continue à t'entraîner !";
 
 // MARK: - Session List View
 "sessionList.title" = "Sessions enregistrées";
@@ -109,14 +96,11 @@
 "scoreCard.grade.tryAgain" = "Réessaie !";
 
 // MARK: - Processing Indicator
-"processing.reversingAudio" = "Inversion du son...";
-"processing.generic" = "Traitement...";
 
 // MARK: - Recording Indicator
 "recording.indicator" = "ENREGISTREMENT";
 
 // MARK: - Success Celebration
-"success.sessionSaved" = "Session enregistrée !";
 
 // MARK: - Audio Session Model
 "session.defaultName" = "Session";
@@ -130,16 +114,11 @@
 
 // MARK: - Settings
 "settings.title" = "Réglages";
-"settings.subtitle" = "Personnalise ton expérience";
-"settings.appearance" = "Apparence";
 "settings.interface" = "Interface";
 "settings.preferences" = "Préférences";
 "settings.about" = "À propos";
 
 // Theme descriptions
-"settings.theme.system.desc" = "Suit les réglages du système";
-"settings.theme.light.desc" = "Toujours en mode clair";
-"settings.theme.dark.desc" = "Toujours en mode sombre";
 
 // Haptic feedback
 "settings.hapticFeedback" = "Retour haptique";
@@ -152,14 +131,10 @@
 "settings.builtInSwitzerland.desc" = "Fait avec soin à Zurich";
 
 // MARK: - Dub Mode
-"dub.title" = "Sessions de doublage";
-"dub.subtitle" = "Enregistre ta voix sur une scène";
 "dub.unknownAuthor" = "Auteur inconnu";
 "dub.importPack" = "Importer un pack";
 "dub.importing" = "Importation du pack…";
 "dub.delete" = "Supprimer";
-"dub.done" = "Terminé";
-"dub.close" = "Fermer";
 "dub.empty.title" = "Aucun pack pour l'instant";
 "dub.empty.message" = "Importe un dossier ou un .zip depuis Fichiers pour doubler une scène avec ta propre voix.";
 "dub.playOriginal" = "Voir l'original";
@@ -168,14 +143,11 @@
 "dub.continueRecording" = "Continuer le doublage";
 "dub.export" = "Exporter la vidéo";
 "dub.lines" = "Répliques";
-"dub.linesRecorded" = "%d répliques doublées sur %d";
 "dub.listen" = "Écouter";
 "dub.stop" = "Arrêter";
 "dub.recordTake" = "Enregistrer";
-"dub.reRecord" = "Réenregistrer";
 "dub.next" = "Suivant";
 "dub.previous" = "Précédent";
-"dub.lineProgress" = "Réplique %d sur %d";
 "dub.recordingHint" = "Dis la réplique — garde le rythme de l'original.";
 "dub.listenHint" = "Écoute d'abord, puis enregistre ta prise.";
 "dub.original" = "Original";
@@ -184,8 +156,6 @@
 "dub.exporting" = "Exportation…";
 "dub.export.mixing" = "Mixage audio…";
 "dub.export.rendering" = "Rendu de la vidéo…";
-"dub.export.ready" = "Ton doublage est prêt !";
-"dub.shareDub" = "Partage ton doublage";
 "dub.error.missingPackInfo" = "Ce dossier n'est pas un pack de doublage : il ne contient pas de fichier _pack_info.ini.";
 "dub.error.noLines" = "Ce pack n'a aucune réplique exploitable.";
 "dub.error.missingAsset" = "Il manque un fichier nécessaire au pack : %@";
@@ -199,7 +169,6 @@
 // MARK: - Editor Chrome
 "session.archiveTitle" = "Archives";
 "main.section.transport" = "Transport";
-"main.section.monitor" = "Moniteur";
 "main.state.idle" = "REPOS";
 "main.state.recording" = "ENR";
 "main.state.playing" = "LECT";
@@ -258,9 +227,6 @@
 "dub.score.timing" = "Attaque";
 "dub.score.pacing" = "Rythme";
 "dub.score.delivery" = "Jeu";
-"dub.score.timingHint" = "À quel point vous entrez au bon moment.";
-"dub.score.pacingHint" = "Si vos mots tombent là où tombent les leurs.";
-"dub.score.deliveryHint" = "À quel point vous collez à leur interprétation.";
 "dub.score.best" = "Meilleure réplique";
 "dub.score.weakest" = "À retenter";
 "dub.score.progress" = "%d répliques notées sur %d";

@@ -57,14 +57,10 @@ extension Color {
     /// Deliberately desaturated so it never competes with the state colours.
     static let rsHighlight = Color(red: 0.478, green: 0.573, blue: 0.616)  // #7A929D
 
-    // MARK: - Brand Anchors
+    // MARK: - Aliases
     //
-    // Kept because the icon set and app icon are built from them. Used only where
-    // the artwork itself appears, never as interface chrome.
-
-    /// The icon set's true teal. Kept for reference; the interface does not use it,
-    /// because at these surface levels it reads as muddy rather than sober.
-    static let rsBrandTeal = Color(red: 0.184, green: 0.341, blue: 0.369)  // #2F575E
+    // Kept so the screens built around the old icon-set palette resolve to the editor
+    // colours without every call site being rewritten.
 
     /// Alias so the screens that were built around "the accent" pick up the editor
     /// highlight instead of the old teal, without each call site being rewritten.
@@ -73,12 +69,6 @@ extension Color {
     /// Red from the icon set. For interface state prefer `rsRecord`.
     static let rsRed = rsRecord
 
-    /// Cream from the icon set.
-    static let rsCream = Color(red: 0.961, green: 0.945, blue: 0.894)      // #F5F1E4
-
-    /// Charcoal from the icon set.
-    static let rsCharcoal = rsSurface2
-
     // MARK: - Backgrounds
     //
     // The interface is dark-only, so the "adaptive" helpers ignore the colour scheme.
@@ -86,10 +76,6 @@ extension Color {
     // being rewritten.
 
     static let rsBackground = rsSurface0
-    static let rsBackgroundLight = rsSurface0
-    static let rsSecondaryBackground = rsSurface1
-    static let rsSecondaryBackgroundLight = rsSurface1
-    static let rsTertiaryBackground = rsSurface2
 
     static func rsBackgroundAdaptive(for colorScheme: ColorScheme) -> Color { rsSurface0 }
 
@@ -99,56 +85,37 @@ extension Color {
 
     static func rsCardBackground(for colorScheme: ColorScheme) -> Color { rsSurface1 }
 
-    static func rsElevatedCard(for colorScheme: ColorScheme) -> Color { rsSurface2 }
-
-    static func rsGlassCard(for colorScheme: ColorScheme) -> Color { rsSurface2.opacity(0.86) }
-
     // MARK: - Text Helpers
 
     static func rsTextAdaptive(for colorScheme: ColorScheme) -> Color { rsTextPrimary }
 
     static func rsSecondaryTextAdaptive(for colorScheme: ColorScheme) -> Color { rsTextSecondary }
 
-    static func rsTertiaryTextAdaptive(for colorScheme: ColorScheme) -> Color { rsTextTertiary }
-
-    static let rsText = rsTextPrimary
     static let rsSecondaryText = rsTextSecondary
-    static let rsTertiaryText = rsTextTertiary
 
     static let rsTextOnTurquoise = rsTextPrimary
     static let rsTextOnRed = Color.white
-    static let rsTextOnCream = rsSurface0
 
     // MARK: - Semantic
 
     static let rsSuccess = rsGood
-    static let rsError = rsRecord
     static let rsWarning = rsCaution
 
     // MARK: - Audio State
 
     static let rsRecording = rsRecord
-    static let rsPlaying = rsHighlight
-    static let rsReversed = rsHighlight
-    static let rsProcessing = rsHighlight
 
     // MARK: - Buttons
     //
     // Primary is a light key on a dark field — the one bright element on screen, so
     // there is never any doubt what the main action is.
 
-    static let rsButtonPrimaryCream = rsTextPrimary
-    static let rsButtonPrimaryTeal = rsTextPrimary
-
     static func rsButtonPrimaryAdaptive(for colorScheme: ColorScheme) -> Color { rsTextPrimary }
 
     static func rsTextOnPrimaryButton(for colorScheme: ColorScheme) -> Color { rsSurface0 }
 
-    static let rsButtonPrimary = rsTextPrimary
-
     static func rsButtonSecondaryAdaptive(for colorScheme: ColorScheme) -> Color { rsSurface2 }
 
-    static let rsButtonSecondary = rsSurface2
     static let rsButtonDisabled = rsSurface2.opacity(0.5)
     static let rsButtonDestructive = rsRecord
 
@@ -160,37 +127,7 @@ extension Color {
 
     static func rsWaveformIdleAdaptive(for colorScheme: ColorScheme) -> Color { rsSurface3 }
 
-    static let rsWaveformActive = rsTextPrimary
     static let rsWaveformInactive = rsSurface3
     static let rsWaveformRecording = rsRecord
     static let rsWaveformPlaying = rsHighlight
-
-    // MARK: - Legacy
-
-    @available(*, deprecated, message: "Use rsHighlight instead")
-    static let rsGold = rsHighlight
-
-    @available(*, deprecated, message: "Use rsHighlight instead")
-    static let rsGoldLight = rsHighlight
-
-    @available(*, deprecated, message: "Use rsHighlight instead")
-    static let rsGoldDark = rsHighlight
-
-    @available(*, deprecated, message: "Use rsHighlight instead")
-    static let rsGradientCyan = rsHighlight
-
-    @available(*, deprecated, message: "Use rsRecord instead")
-    static let rsGradientPink = rsRecord
-
-    @available(*, deprecated, message: "Use rsHighlight instead")
-    static let rsGradientBlue = rsHighlight
-
-    @available(*, deprecated, message: "Use rsSurface2 instead")
-    static let rsGradientPurple = rsSurface2
-
-    @available(*, deprecated, message: "Use rsTextPrimary instead")
-    static let rsTextOnGradient = rsTextPrimary
-
-    @available(*, deprecated, message: "Use rsTextPrimary instead")
-    static let rsTextOnGold = rsTextPrimary
 }

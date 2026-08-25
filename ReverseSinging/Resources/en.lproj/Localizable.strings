@@ -58,21 +58,8 @@
 "main.tip.tapRecordAudio" = "Tap Record Audio to record a song";
 
 // MARK: - Comparison View
-"comparison.title" = "Results";
-"comparison.button.close" = "Close";
-"comparison.label.original" = "Original";
-"comparison.label.yourTry" = "Your Try";
-"comparison.button.playOriginal" = "Play Original";
-"comparison.button.playYourTry" = "Play Your Try";
-"comparison.button.stop" = "Stop";
-"comparison.button.saveSession" = "Save Session";
-"comparison.button.tryAgain" = "Try Again";
 
 // MARK: - Comparison View - Score Messages
-"comparison.score.amazing" = "🌟 Amazing! Almost perfect!";
-"comparison.score.great" = "🎉 Great job! Very close!";
-"comparison.score.good" = "👍 Good attempt! Try again?";
-"comparison.score.keepPracticing" = "💪 Keep practicing!";
 
 // MARK: - Session List View
 "sessionList.title" = "Saved Sessions";
@@ -109,14 +96,11 @@
 "scoreCard.grade.tryAgain" = "Try Again!";
 
 // MARK: - Processing Indicator
-"processing.reversingAudio" = "Reversing audio...";
-"processing.generic" = "Processing...";
 
 // MARK: - Recording Indicator
 "recording.indicator" = "RECORDING";
 
 // MARK: - Success Celebration
-"success.sessionSaved" = "Session saved successfully!";
 
 // MARK: - Audio Session Model
 "session.defaultName" = "Session";
@@ -130,16 +114,11 @@
 
 // MARK: - Settings
 "settings.title" = "Settings";
-"settings.subtitle" = "Customize your experience";
-"settings.appearance" = "Appearance";
 "settings.interface" = "Interface";
 "settings.preferences" = "Preferences";
 "settings.about" = "About";
 
 // Theme descriptions
-"settings.theme.system.desc" = "Follows system settings";
-"settings.theme.light.desc" = "Always use light mode";
-"settings.theme.dark.desc" = "Always use dark mode";
 
 // Haptic feedback
 "settings.hapticFeedback" = "Haptic Feedback";
@@ -152,14 +131,10 @@
 "settings.builtInSwitzerland.desc" = "Made with care in Zürich";
 
 // MARK: - Dub Mode
-"dub.title" = "Dub Sessions";
-"dub.subtitle" = "Record your voice over a scene";
 "dub.unknownAuthor" = "Unknown author";
 "dub.importPack" = "Import a Dub Pack";
 "dub.importing" = "Importing pack…";
 "dub.delete" = "Delete";
-"dub.done" = "Done";
-"dub.close" = "Close";
 "dub.empty.title" = "No dub packs yet";
 "dub.empty.message" = "Import a dub pack folder or .zip from Files to start dubbing a scene in your own voice.";
 "dub.playOriginal" = "Watch Original";
@@ -168,14 +143,11 @@
 "dub.continueRecording" = "Continue Dubbing";
 "dub.export" = "Export Video";
 "dub.lines" = "Lines";
-"dub.linesRecorded" = "%d of %d lines dubbed";
 "dub.listen" = "Listen";
 "dub.stop" = "Stop";
 "dub.recordTake" = "Record";
-"dub.reRecord" = "Re-record";
 "dub.next" = "Next";
 "dub.previous" = "Previous";
-"dub.lineProgress" = "Line %d of %d";
 "dub.recordingHint" = "Say the line — keep pace with the original.";
 "dub.listenHint" = "Listen first, then record your take.";
 "dub.original" = "Original";
@@ -184,8 +156,6 @@
 "dub.exporting" = "Exporting…";
 "dub.export.mixing" = "Mixing audio…";
 "dub.export.rendering" = "Rendering video…";
-"dub.export.ready" = "Your dub is ready!";
-"dub.shareDub" = "Share your dub";
 "dub.error.missingPackInfo" = "That folder isn't a dub pack — it has no _pack_info.ini file.";
 "dub.error.noLines" = "This pack has no usable lines.";
 "dub.error.missingAsset" = "The pack is missing a file it needs: %@";
@@ -199,7 +169,6 @@
 // MARK: - Editor Chrome
 "session.archiveTitle" = "Archive";
 "main.section.transport" = "Transport";
-"main.section.monitor" = "Monitor";
 "main.state.idle" = "IDLE";
 "main.state.recording" = "REC";
 "main.state.playing" = "PLAY";
@@ -258,9 +227,6 @@
 "dub.score.timing" = "Timing";
 "dub.score.pacing" = "Pacing";
 "dub.score.delivery" = "Delivery";
-"dub.score.timingHint" = "How close you came in to the original.";
-"dub.score.pacingHint" = "Whether your words land where theirs do.";
-"dub.score.deliveryHint" = "How closely you matched their performance.";
 "dub.score.best" = "Best line";
 "dub.score.weakest" = "Worth another go";
 "dub.score.progress" = "%d of %d lines scored";

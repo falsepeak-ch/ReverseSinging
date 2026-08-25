@@ -1,13 +1,12 @@
 {
-  "images" : [
+  "images": [
     {
-      "filename" : "scanline.png",
-      "idiom" : "universal",
-      "scale" : "1x"
+      "filename": "scanline.png",
+      "idiom": "universal"
     }
   ],
-  "info" : {
-    "author" : "xcode",
-    "version" : 1
+  "info": {
+    "author": "xcode",
+    "version": 1
   }
 }

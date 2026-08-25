@@ -74,7 +74,7 @@ struct WaveformView: View {
 
                 // Recording time overlay (bottom-right)
                 if let duration = recordingDuration, style == .recording {
-                    Text(formattedRecordingTime(duration))
+                    Text(duration.rsClock)
                         .font(.rsBodyMedium)
                         .monospaced()
                         .foregroundColor(.white.opacity(0.9))
@@ -209,90 +209,7 @@ struct WaveformView: View {
             return CGFloat(0.25 * breathe + subtleWave)
         }
     }
-
-    // MARK: - Recording Time Formatting
-
-    private func formattedRecordingTime(_ duration: TimeInterval) -> String {
-        let minutes = Int(duration) / 60
-        let seconds = Int(duration) % 60
-        return String(format: "%02d:%02d", minutes, seconds)
-    }
 }
-
-// MARK: - Static Waveform
-
-struct StaticWaveformView: View {
-    let url: URL
-    let color: Color
-    let barCount: Int
-
-    @State private var samples: [Float] = []
-
-    init(url: URL, color: Color = .rsWaveformActive, barCount: Int = 100) {
-        self.url = url
-        self.color = color
-        self.barCount = barCount
-    }
-
-    var body: some View {
-        GeometryReader { geometry in
-            HStack(alignment: .center, spacing: 1) {
-                ForEach(Array(samples.enumerated()), id: \.offset) { index, sample in
-                    RoundedRectangle(cornerRadius: 1)
-                        .fill(color)
-                        .frame(
-                            width: (geometry.size.width / CGFloat(barCount)) - 1,
-                            height: CGFloat(sample) * geometry.size.height
-                        )
-                }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
-        .onAppear {
-            loadWaveform()
-        }
-    }
-
-    private func loadWaveform() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            guard let audioFile = try? AVAudioFile(forReading: url),
-                  let buffer = AVAudioPCMBuffer(
-                      pcmFormat: audioFile.processingFormat,
-                      frameCapacity: UInt32(audioFile.length)
-                  ) else {
-                return
-            }
-
-            try? audioFile.read(into: buffer)
-
-            guard let floatData = buffer.floatChannelData?[0] else { return }
-
-            let frameLength = Int(buffer.frameLength)
-            let samplesPerBar = max(1, frameLength / barCount)
-
-            var processedSamples: [Float] = []
-
-            for i in 0..<barCount {
-                let start = i * samplesPerBar
-                let end = min(start + samplesPerBar, frameLength)
-
-                var sum: Float = 0
-                for j in start..<end {
-                    sum += abs(floatData[j])
-                }
-
-                let average = sum / Float(end - start)
-                processedSamples.append(min(1.0, max(0.1, average * 10)))
-            }
-
-            DispatchQueue.main.async {
-                samples = processedSamples
-            }
-        }
-    }
-}
-
-import AVFoundation
 
 // MARK: - Preview
 

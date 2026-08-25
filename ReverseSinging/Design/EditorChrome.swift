@@ -16,7 +16,6 @@ enum EditorMetrics {
     static let radius: CGFloat = 6
     static let radiusLarge: CGFloat = 10
     static let hairline: CGFloat = 1
-    static let rowHeight: CGFloat = 56
     static let gutter: CGFloat = 16
     /// Letter-spacing for uppercase section labels.
     static let tracking: CGFloat = 1.2
@@ -43,19 +42,6 @@ extension View {
             .overlay(
                 RoundedRectangle(cornerRadius: radius, style: .continuous)
                     .strokeBorder(stroke, lineWidth: EditorMetrics.hairline)
-            )
-    }
-
-    /// A panel that reads as selected or armed.
-    func editorPanelActive(_ tint: Color) -> some View {
-        self
-            .background(
-                RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
-                    .fill(tint.opacity(0.12))
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
-                    .strokeBorder(tint.opacity(0.55), lineWidth: EditorMetrics.hairline)
             )
     }
 

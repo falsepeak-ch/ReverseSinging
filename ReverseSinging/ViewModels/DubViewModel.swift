@@ -134,7 +134,7 @@ final class DubViewModel: ObservableObject {
     private let monitorPlayer = AudioPlayer()
     let scenePlayer = DubPlayer()
 
-    private var countdownTask: Task<Void, Never>?
+    private let slate = RecordSlate()
     private var autoStopTask: Task<Void, Never>?
     private var cancellables = Set<AnyCancellable>()
 
@@ -353,7 +353,7 @@ final class DubViewModel: ObservableObject {
     func toggleRecording() {
         // A second press during the slate is a change of mind, not a stop: nothing has been
         // recorded yet, so cancel the count rather than trying to stop a mic that never opened.
-        if countdownTask != nil {
+        if slate.isRunning {
             cancelCountdown()
             return
         }
@@ -386,35 +386,13 @@ final class DubViewModel: ObservableObject {
 
     /// Slate, then roll: three tones, the mic opening as the last one releases.
     private func runCountdownThenRecord() {
-        countdownTask?.cancel()
-        countdownTask = Task { [weak self] in
-            guard let self else { return }
-
-            do {
-                try await RecordCountdown.run { beat in
-                    self.countdown = beat
-                    HapticManager.shared.light()
-                }
-            } catch {
-                // Cancelled — `cancelCountdown` has already cleared the state.
-                return
-            }
-
-            self.countdown = nil
-            self.countdownTask = nil
-            self.beginRecording()
-        }
+        slate.run(
+            onBeat: { [weak self] beat in self?.countdown = beat },
+            thenRecord: { [weak self] in self?.beginRecording() }
+        )
     }
 
-    private func cancelCountdown() {
-        // Called from every teardown path, so it has to be silent when no count is running.
-        guard let task = countdownTask else { return }
-
-        task.cancel()
-        countdownTask = nil
-        countdown = nil
-        HapticManager.shared.light()
-    }
+    private func cancelCountdown() { slate.cancel() }
 
     private func beginRecording() {
         guard recorder.canStartRecording(), let line = currentLine else { return }
@@ -576,25 +554,6 @@ final class DubViewModel: ObservableObject {
                 errorMessage = error.localizedDescription
             }
         }
-    }
-
-    func deleteTake(for line: DubLine) {
-        let url = pack.takeURL(for: line)
-        try? FileManager.default.removeItem(at: url)
-        recordedSlugs.remove(line.slug)
-        lineScores[line.slug] = nil
-        if latestScore?.slug == line.slug { latestScore = nil }
-
-        let packID = pack.id
-        Task.detached(priority: .utility) {
-            DubScoreStore.shared.remove(slug: line.slug, forPackID: packID)
-        }
-
-        Task { await WaveformSampler.shared.invalidate(url) }
-        scenePlayer.invalidateVoice(for: line)
-        if line.id == currentLine?.id { takeSamples = [] }
-
-        HapticManager.shared.light()
     }
 
     // MARK: - Scoring

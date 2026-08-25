@@ -83,20 +83,6 @@ nonisolated final class AudioFileManager: @unchecked Sendable {
         return fileManager.temporaryDirectory.appendingPathComponent(filename)
     }
 
-    func saveRecording(from temporaryURL: URL, withName name: String? = nil) throws -> URL {
-        let filename = name ?? "recording_\(Date().timeIntervalSince1970).caf"
-        let destinationURL = recordingsDirectory().appendingPathComponent(filename)
-
-        if fileManager.fileExists(atPath: destinationURL.path) {
-            try fileManager.removeItem(at: destinationURL)
-        }
-
-        try fileManager.copyItem(at: temporaryURL, to: destinationURL)
-
-        return destinationURL
-    }
-
-    /// Async variant that runs on background thread
     func saveRecordingAsync(from temporaryURL: URL, withName name: String? = nil) async throws -> URL {
         try await Task.detached(priority: .userInitiated) { [self] in
             let filename = name ?? "recording_\(Date().timeIntervalSince1970).caf"
@@ -143,14 +129,6 @@ nonisolated final class AudioFileManager: @unchecked Sendable {
                     try? fileManager.removeItem(at: url)
                 }
             }
-        }
-    }
-
-    func deleteAllRecordings() throws {
-        let recordingsDir = recordingsDirectory()
-        if fileManager.fileExists(atPath: recordingsDir.path) {
-            try fileManager.removeItem(at: recordingsDir)
-            createDirectoriesIfNeeded()
         }
     }
 }

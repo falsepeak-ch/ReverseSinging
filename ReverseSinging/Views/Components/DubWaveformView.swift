@@ -5,9 +5,7 @@
 //  The shape of a recording that already exists, with an optional second
 //  take drawn over it for comparison
 //
-//  Distinct from `StaticWaveformView` in WaveformView.swift, which draws one
-//  waveform from a URL for the reverse-singing comparison screen. This one takes
-//  pre-sampled values so two clips can share a time axis.
+//  Takes pre-sampled values rather than a URL, so two clips can share a time axis.
 //
 
 import SwiftUI

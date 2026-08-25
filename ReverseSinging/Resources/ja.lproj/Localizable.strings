@@ -58,21 +58,8 @@
 "main.tip.tapRecordAudio" = "「音声を録音」をタップして曲を録音";
 
 // MARK: - Comparison View
-"comparison.title" = "結果";
-"comparison.button.close" = "閉じる";
-"comparison.label.original" = "オリジナル";
-"comparison.label.yourTry" = "あなたの歌";
-"comparison.button.playOriginal" = "オリジナルを再生";
-"comparison.button.playYourTry" = "あなたの歌を再生";
-"comparison.button.stop" = "停止";
-"comparison.button.saveSession" = "セッションを保存";
-"comparison.button.tryAgain" = "もう一度";
 
 // MARK: - Comparison View - Score Messages
-"comparison.score.amazing" = "🌟 すごい！ほぼ完璧！";
-"comparison.score.great" = "🎉 お見事！かなり近い！";
-"comparison.score.good" = "👍 いい線！もう一度どう？";
-"comparison.score.keepPracticing" = "💪 練習あるのみ！";
 
 // MARK: - Session List View
 "sessionList.title" = "保存したセッション";
@@ -109,14 +96,11 @@
 "scoreCard.grade.tryAgain" = "もう一度！";
 
 // MARK: - Processing Indicator
-"processing.reversingAudio" = "音声を逆再生中...";
-"processing.generic" = "処理中...";
 
 // MARK: - Recording Indicator
 "recording.indicator" = "録音中";
 
 // MARK: - Success Celebration
-"success.sessionSaved" = "セッションを保存しました！";
 
 // MARK: - Audio Session Model
 "session.defaultName" = "セッション";
@@ -130,16 +114,11 @@
 
 // MARK: - Settings
 "settings.title" = "設定";
-"settings.subtitle" = "アプリをカスタマイズ";
-"settings.appearance" = "外観";
 "settings.interface" = "インターフェイス";
 "settings.preferences" = "環境設定";
 "settings.about" = "このアプリについて";
 
 // Theme descriptions
-"settings.theme.system.desc" = "システム設定に従う";
-"settings.theme.light.desc" = "常にライトモード";
-"settings.theme.dark.desc" = "常にダークモード";
 
 // Haptic feedback
 "settings.hapticFeedback" = "触覚フィードバック";
@@ -152,14 +131,10 @@
 "settings.builtInSwitzerland.desc" = "チューリッヒで丁寧に作りました";
 
 // MARK: - Dub Mode
-"dub.title" = "アフレコセッション";
-"dub.subtitle" = "シーンに自分の声を録音";
 "dub.unknownAuthor" = "作者不明";
 "dub.importPack" = "パックを読み込む";
 "dub.importing" = "パックを読み込み中…";
 "dub.delete" = "削除";
-"dub.done" = "完了";
-"dub.close" = "閉じる";
 "dub.empty.title" = "パックがありません";
 "dub.empty.message" = "「ファイル」からパックのフォルダか.zipを読み込むと、自分の声でシーンをアフレコできます。";
 "dub.playOriginal" = "オリジナルを見る";
@@ -168,14 +143,11 @@
 "dub.continueRecording" = "アフレコを続ける";
 "dub.export" = "動画を書き出す";
 "dub.lines" = "セリフ";
-"dub.linesRecorded" = "%d／%d のセリフを録音済み";
 "dub.listen" = "聞く";
 "dub.stop" = "停止";
 "dub.recordTake" = "録音";
-"dub.reRecord" = "録り直す";
 "dub.next" = "次へ";
 "dub.previous" = "前へ";
-"dub.lineProgress" = "セリフ %d／%d";
 "dub.recordingHint" = "セリフを言ってください — オリジナルのテンポに合わせて。";
 "dub.listenHint" = "まず聞いてから、自分のテイクを録音しましょう。";
 "dub.original" = "オリジナル";
@@ -184,8 +156,6 @@
 "dub.exporting" = "書き出し中…";
 "dub.export.mixing" = "音声をミックス中…";
 "dub.export.rendering" = "動画をレンダリング中…";
-"dub.export.ready" = "アフレコが完成しました！";
-"dub.shareDub" = "アフレコをシェア";
 "dub.error.missingPackInfo" = "そのフォルダはアフレコパックではありません。_pack_info.iniファイルがありません。";
 "dub.error.noLines" = "このパックには使えるセリフがありません。";
 "dub.error.missingAsset" = "パックに必要なファイルがありません：%@";
@@ -199,7 +169,6 @@
 // MARK: - Editor Chrome
 "session.archiveTitle" = "アーカイブ";
 "main.section.transport" = "トランスポート";
-"main.section.monitor" = "モニター";
 "main.state.idle" = "待機";
 "main.state.recording" = "録音";
 "main.state.playing" = "再生";
@@ -258,9 +227,6 @@
 "dub.score.timing" = "入り";
 "dub.score.pacing" = "テンポ";
 "dub.score.delivery" = "演技";
-"dub.score.timingHint" = "オリジナルとどれだけ近くで入れたか。";
-"dub.score.pacingHint" = "言葉が同じ位置に落ちているか。";
-"dub.score.deliveryHint" = "オリジナルの演技にどれだけ近いか。";
 "dub.score.best" = "ベストの行";
 "dub.score.weakest" = "録り直したい行";
 "dub.score.progress" = "%d / %d 行を採点";

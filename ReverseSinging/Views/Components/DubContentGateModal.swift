@@ -128,7 +128,7 @@ struct DubContentGateModal: View {
     }
 
     private var hero: some View {
-        Image(step == .ask ? "clapperboard" : "download")
+        Image(step == .ask ? "movies" : "download")
             .resizable()
             .scaledToFit()
             .frame(width: 88, height: 88)

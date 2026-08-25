@@ -33,7 +33,6 @@ nonisolated enum Strings {
         // Editor chrome
         enum Section {
             static let transport = NSLocalizedString("main.section.transport", comment: "Transport controls section label")
-            static let monitor = NSLocalizedString("main.section.monitor", comment: "Monitor panel section label")
             static let hint = NSLocalizedString("main.section.hint", comment: "Hint strip label")
         }
 
@@ -101,27 +100,6 @@ nonisolated enum Strings {
         }
     }
 
-    // MARK: - Comparison View
-    enum Comparison {
-        static let title = NSLocalizedString("comparison.title", comment: "Comparison view title")
-        static let buttonClose = NSLocalizedString("comparison.button.close", comment: "Close button")
-        static let labelOriginal = NSLocalizedString("comparison.label.original", comment: "Original label")
-        static let labelYourTry = NSLocalizedString("comparison.label.yourTry", comment: "Your try label")
-        static let buttonPlayOriginal = NSLocalizedString("comparison.button.playOriginal", comment: "Play original button")
-        static let buttonPlayYourTry = NSLocalizedString("comparison.button.playYourTry", comment: "Play your try button")
-        static let buttonStop = NSLocalizedString("comparison.button.stop", comment: "Stop button")
-        static let buttonSaveSession = NSLocalizedString("comparison.button.saveSession", comment: "Save session button")
-        static let buttonTryAgain = NSLocalizedString("comparison.button.tryAgain", comment: "Try again button")
-
-        // Score Messages
-        enum Score {
-            static let amazing = NSLocalizedString("comparison.score.amazing", comment: "Amazing score message")
-            static let great = NSLocalizedString("comparison.score.great", comment: "Great score message")
-            static let good = NSLocalizedString("comparison.score.good", comment: "Good score message")
-            static let keepPracticing = NSLocalizedString("comparison.score.keepPracticing", comment: "Keep practicing message")
-        }
-    }
-
     // MARK: - Session List
     enum SessionList {
         static let title = NSLocalizedString("sessionList.title", comment: "Session list title")
@@ -170,20 +148,9 @@ nonisolated enum Strings {
         }
     }
 
-    // MARK: - Processing
-    enum Processing {
-        static let reversingAudio = NSLocalizedString("processing.reversingAudio", comment: "Reversing audio message")
-        static let generic = NSLocalizedString("processing.generic", comment: "Generic processing message")
-    }
-
     // MARK: - Recording Indicator
     enum Recording {
         static let indicator = NSLocalizedString("recording.indicator", comment: "Recording indicator")
-    }
-
-    // MARK: - Success
-    enum Success {
-        static let sessionSaved = NSLocalizedString("success.sessionSaved", comment: "Session saved message")
     }
 
     // MARK: - Session
@@ -204,16 +171,11 @@ nonisolated enum Strings {
     // MARK: - Settings
     enum Settings {
         static let title = NSLocalizedString("settings.title", comment: "Settings title")
-        static let subtitle = NSLocalizedString("settings.subtitle", comment: "Settings subtitle")
-        static let appearance = NSLocalizedString("settings.appearance", comment: "Appearance section")
         static let interface = NSLocalizedString("settings.interface", comment: "Interface section")
         static let preferences = NSLocalizedString("settings.preferences", comment: "Preferences section")
         static let about = NSLocalizedString("settings.about", comment: "About section")
 
         // Theme descriptions
-        static let themeSystemDesc = NSLocalizedString("settings.theme.system.desc", comment: "System theme description")
-        static let themeLightDesc = NSLocalizedString("settings.theme.light.desc", comment: "Light theme description")
-        static let themeDarkDesc = NSLocalizedString("settings.theme.dark.desc", comment: "Dark theme description")
 
         // Haptic feedback
         static let hapticFeedback = NSLocalizedString("settings.hapticFeedback", comment: "Haptic feedback label")
@@ -237,16 +199,12 @@ nonisolated enum Strings {
 
     // MARK: - Dub Mode
     enum Dub {
-        static let title = NSLocalizedString("dub.title", comment: "Dub library title")
-        static let subtitle = NSLocalizedString("dub.subtitle", comment: "Dub library subtitle")
         static let unknownAuthor = NSLocalizedString("dub.unknownAuthor", comment: "Fallback pack author")
         static let importPack = NSLocalizedString("dub.importPack", comment: "Import pack button")
         static let importing = NSLocalizedString("dub.importing", comment: "Importing progress message")
         static let convertingVideo = NSLocalizedString("dub.convertingVideo", comment: "Import stage: converting the scene video")
         static let importReading = NSLocalizedString("dub.importReading", comment: "Import stage: reading the pack")
         static let delete = NSLocalizedString("dub.delete", comment: "Delete pack action")
-        static let done = NSLocalizedString("dub.done", comment: "Done button")
-        static let close = NSLocalizedString("dub.close", comment: "Close button")
 
         // Library empty state
         static let emptyTitle = NSLocalizedString("dub.empty.title", comment: "Empty library title")
@@ -263,16 +221,13 @@ nonisolated enum Strings {
         static let slateLines = NSLocalizedString("dub.slate.lines", comment: "Slate field: lines dubbed")
         static let slateDuration = NSLocalizedString("dub.slate.duration", comment: "Slate field: scene duration")
         static let slateCast = NSLocalizedString("dub.slate.cast", comment: "Slate field: number of characters")
-        static let linesRecorded = NSLocalizedString("dub.linesRecorded", comment: "N of M lines recorded — takes two integers")
 
         // Recording
         static let listen = NSLocalizedString("dub.listen", comment: "Listen to reference line")
         static let stop = NSLocalizedString("dub.stop", comment: "Stop button")
         static let recordTake = NSLocalizedString("dub.recordTake", comment: "Record your take")
-        static let reRecord = NSLocalizedString("dub.reRecord", comment: "Re-record this line")
         static let next = NSLocalizedString("dub.next", comment: "Next line")
         static let previous = NSLocalizedString("dub.previous", comment: "Previous line")
-        static let lineProgress = NSLocalizedString("dub.lineProgress", comment: "Line N of M — takes two integers")
         static let recordingHint = NSLocalizedString("dub.recordingHint", comment: "Hint shown while recording a line")
         static let listenHint = NSLocalizedString("dub.listenHint", comment: "Hint shown before recording a line")
         static let playTake = NSLocalizedString("dub.playTake", comment: "Play the user's take of one line")
@@ -292,8 +247,6 @@ nonisolated enum Strings {
         static let exporting = NSLocalizedString("dub.exporting", comment: "Export in progress")
         static let exportMixing = NSLocalizedString("dub.export.mixing", comment: "Export stage: mixing audio")
         static let exportRendering = NSLocalizedString("dub.export.rendering", comment: "Export stage: rendering video")
-        static let exportReady = NSLocalizedString("dub.export.ready", comment: "Export finished")
-        static let shareDub = NSLocalizedString("dub.shareDub", comment: "Share sheet label")
 
         static let options = NSLocalizedString("dub.options", comment: "Dub mode options menu")
         static let installingStarterPacks = NSLocalizedString("dub.installingStarterPacks", comment: "Shown while the bundled scenes are set up on first launch")
@@ -310,10 +263,6 @@ nonisolated enum Strings {
             static let timing = NSLocalizedString("dub.score.timing", comment: "Score component: coming in on the beat")
             static let pacing = NSLocalizedString("dub.score.pacing", comment: "Score component: syllables landing together")
             static let delivery = NSLocalizedString("dub.score.delivery", comment: "Score component: matching the performance")
-
-            static let timingHint = NSLocalizedString("dub.score.timingHint", comment: "What the timing score means")
-            static let pacingHint = NSLocalizedString("dub.score.pacingHint", comment: "What the pacing score means")
-            static let deliveryHint = NSLocalizedString("dub.score.deliveryHint", comment: "What the delivery score means")
 
             static let best = NSLocalizedString("dub.score.best", comment: "Label for the user's best line")
             static let weakest = NSLocalizedString("dub.score.weakest", comment: "Label for the line most worth re-recording")

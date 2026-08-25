@@ -116,20 +116,4 @@ enum WaveformScaling {
         let scaled = Double(referenceBuckets) * (duration / referenceDuration)
         return max(1, min(Int(scaled.rounded()), referenceBuckets * maxOverrun))
     }
-
-    /// Squashes or stretches `values` to `count` entries by averaging each source span.
-    /// Used for the live trace, which arrives as one entry per metering tick.
-    static func resample(_ values: [Float], to count: Int) -> [Float] {
-        guard count > 0 else { return [] }
-        guard !values.isEmpty else { return [] }
-        guard values.count != count else { return values }
-
-        return (0..<count).map { index in
-            let start = index * values.count / count
-            let end = max(start + 1, (index + 1) * values.count / count)
-            let span = values[start..<min(end, values.count)]
-            guard !span.isEmpty else { return 0 }
-            return span.reduce(0, +) / Float(span.count)
-        }
-    }
 }

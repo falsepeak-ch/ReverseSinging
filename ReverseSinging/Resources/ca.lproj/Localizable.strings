@@ -58,21 +58,8 @@
 "main.tip.tapRecordAudio" = "Toca Gravar Àudio per gravar";
 
 // MARK: - Comparison View
-"comparison.title" = "Resultats";
-"comparison.button.close" = "Tancar";
-"comparison.label.original" = "Original";
-"comparison.label.yourTry" = "El Teu Intent";
-"comparison.button.playOriginal" = "Reproduir Original";
-"comparison.button.playYourTry" = "Reproduir el Teu Intent";
-"comparison.button.stop" = "Aturar";
-"comparison.button.saveSession" = "Desar Sessió";
-"comparison.button.tryAgain" = "Tornar a Intentar";
 
 // MARK: - Comparison View - Score Messages
-"comparison.score.amazing" = "🌟 Increïble! Gairebé perfecte!";
-"comparison.score.great" = "🎉 Molt bé! Molt a prop!";
-"comparison.score.good" = "👍 Bon intent! Tornar a provar?";
-"comparison.score.keepPracticing" = "💪 Continua practicant!";
 
 // MARK: - Session List View
 "sessionList.title" = "Sessions Desades";
@@ -109,14 +96,11 @@
 "scoreCard.grade.tryAgain" = "Torna-ho a Intentar!";
 
 // MARK: - Processing Indicator
-"processing.reversingAudio" = "Revertint àudio...";
-"processing.generic" = "Processant...";
 
 // MARK: - Recording Indicator
 "recording.indicator" = "GRAVANT";
 
 // MARK: - Success Celebration
-"success.sessionSaved" = "Sessió desada correctament!";
 
 // MARK: - Audio Session Model
 "session.defaultName" = "Sessió";
@@ -130,16 +114,11 @@
 
 // MARK: - Settings
 "settings.title" = "Ajustos";
-"settings.subtitle" = "Personalitza la teva experiència";
-"settings.appearance" = "Aparença";
 "settings.interface" = "Interfície";
 "settings.preferences" = "Preferències";
 "settings.about" = "Sobre";
 
 // Theme descriptions
-"settings.theme.system.desc" = "Segueix els ajustos del sistema";
-"settings.theme.light.desc" = "Sempre en mode clar";
-"settings.theme.dark.desc" = "Sempre en mode fosc";
 
 // Haptic feedback
 "settings.hapticFeedback" = "Feedback Hàptic";
@@ -152,14 +131,10 @@
 "settings.builtInSwitzerland.desc" = "Fet amb cura a Zuric";
 
 // MARK: - Dub Mode
-"dub.title" = "Sessions de doblatge";
-"dub.subtitle" = "Grava la teva veu sobre una escena";
 "dub.unknownAuthor" = "Autor desconegut";
 "dub.importPack" = "Importa un pack";
 "dub.importing" = "Important el pack…";
 "dub.delete" = "Elimina";
-"dub.done" = "Fet";
-"dub.close" = "Tanca";
 "dub.empty.title" = "Encara no hi ha packs";
 "dub.empty.message" = "Importa una carpeta o un .zip des de Fitxers per doblar una escena amb la teva veu.";
 "dub.playOriginal" = "Mira l'original";
@@ -168,14 +143,11 @@
 "dub.continueRecording" = "Continua doblant";
 "dub.export" = "Exporta el vídeo";
 "dub.lines" = "Frases";
-"dub.linesRecorded" = "%d de %d frases doblades";
 "dub.listen" = "Escolta";
 "dub.stop" = "Atura";
 "dub.recordTake" = "Grava";
-"dub.reRecord" = "Torna a gravar";
 "dub.next" = "Següent";
 "dub.previous" = "Anterior";
-"dub.lineProgress" = "Frase %d de %d";
 "dub.recordingHint" = "Digues la frase — segueix el ritme de l'original.";
 "dub.listenHint" = "Escolta primer i després grava la teva presa.";
 "dub.original" = "Original";
@@ -184,8 +156,6 @@
 "dub.exporting" = "Exportant…";
 "dub.export.mixing" = "Mesclant l'àudio…";
 "dub.export.rendering" = "Renderitzant el vídeo…";
-"dub.export.ready" = "El teu doblatge és a punt!";
-"dub.shareDub" = "Comparteix el teu doblatge";
 "dub.error.missingPackInfo" = "Aquesta carpeta no és un pack de doblatge: no té el fitxer _pack_info.ini.";
 "dub.error.noLines" = "Aquest pack no té frases utilitzables.";
 "dub.error.missingAsset" = "Al pack li falta un fitxer necessari: %@";
@@ -199,7 +169,6 @@
 // MARK: - Editor Chrome
 "session.archiveTitle" = "Arxiu";
 "main.section.transport" = "Transport";
-"main.section.monitor" = "Monitor";
 "main.state.idle" = "INACTIU";
 "main.state.recording" = "GRAV";
 "main.state.playing" = "REPR";
@@ -258,9 +227,6 @@
 "dub.score.timing" = "Entrada";
 "dub.score.pacing" = "Ritme";
 "dub.score.delivery" = "Interpretació";
-"dub.score.timingHint" = "Com de a prop vas entrar respecte a l'original.";
-"dub.score.pacingHint" = "Si les teves paraules cauen on cauen les seves.";
-"dub.score.deliveryHint" = "Com de bé vas igualar la seva interpretació.";
 "dub.score.best" = "Millor línia";
 "dub.score.weakest" = "Val la pena tornar-hi";
 "dub.score.progress" = "%d de %d línies puntuades";

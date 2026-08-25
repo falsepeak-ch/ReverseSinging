@@ -75,7 +75,7 @@ struct SessionListView: View {
 
     private var emptyStateView: some View {
         VStack(spacing: 16) {
-            Image("cassette")
+            Image("archive")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 140, height: 140)

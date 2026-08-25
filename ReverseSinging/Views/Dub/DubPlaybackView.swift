@@ -184,7 +184,7 @@ struct DubPlaybackView: View {
                 .padding(.horizontal, EditorMetrics.gutter)
 
             HStack {
-                Text(timecode(player.currentTime))
+                Text(player.currentTime.rsClockFrames)
                     .font(.rsTimecode)
                     .foregroundColor(.rsTextPrimary)
 
@@ -213,7 +213,7 @@ struct DubPlaybackView: View {
 
                 Spacer()
 
-                Text(timecode(player.duration))
+                Text(player.duration.rsClockFrames)
                     .font(.rsTimecode)
                     .foregroundColor(.rsTextTertiary)
             }
@@ -228,12 +228,5 @@ struct DubPlaybackView: View {
     private var progressFraction: Double {
         guard player.duration > 0 else { return 0 }
         return min(1, player.currentTime / player.duration)
-    }
-
-    private func timecode(_ time: TimeInterval) -> String {
-        let minutes = Int(time) / 60
-        let seconds = Int(time) % 60
-        let frames = Int((time - floor(time)) * 24)
-        return String(format: "%02d:%02d:%02d", minutes, seconds, frames)
     }
 }

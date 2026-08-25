@@ -29,7 +29,6 @@ final class AudioPlayer: NSObject, ObservableObject {
     private var audioFile: AVAudioFile?
     private var progressTimer: Timer?
     private var audioBuffer: AVAudioPCMBuffer?
-    private var isScheduledToLoop = false
 
     override init() {
         super.init()

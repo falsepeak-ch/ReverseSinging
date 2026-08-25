@@ -58,21 +58,8 @@
 "main.tip.tapRecordAudio" = "Toca em Gravar Áudio para gravar uma música";
 
 // MARK: - Comparison View
-"comparison.title" = "Resultados";
-"comparison.button.close" = "Fechar";
-"comparison.label.original" = "Original";
-"comparison.label.yourTry" = "A tua Tentativa";
-"comparison.button.playOriginal" = "Reproduzir Original";
-"comparison.button.playYourTry" = "Reproduzir a tua Tentativa";
-"comparison.button.stop" = "Parar";
-"comparison.button.saveSession" = "Guardar Sessão";
-"comparison.button.tryAgain" = "Tentar de Novo";
 
 // MARK: - Comparison View - Score Messages
-"comparison.score.amazing" = "🌟 Incrível! Quase perfeito!";
-"comparison.score.great" = "🎉 Muito bem! Estiveste perto!";
-"comparison.score.good" = "👍 Boa tentativa! Queres repetir?";
-"comparison.score.keepPracticing" = "💪 Continua a praticar!";
 
 // MARK: - Session List View
 "sessionList.title" = "Sessões Guardadas";
@@ -109,14 +96,11 @@
 "scoreCard.grade.tryAgain" = "Tenta de Novo!";
 
 // MARK: - Processing Indicator
-"processing.reversingAudio" = "A inverter o áudio...";
-"processing.generic" = "A processar...";
 
 // MARK: - Recording Indicator
 "recording.indicator" = "A GRAVAR";
 
 // MARK: - Success Celebration
-"success.sessionSaved" = "Sessão guardada com sucesso!";
 
 // MARK: - Audio Session Model
 "session.defaultName" = "Sessão";
@@ -130,16 +114,11 @@
 
 // MARK: - Settings
 "settings.title" = "Definições";
-"settings.subtitle" = "Personaliza a tua experiência";
-"settings.appearance" = "Aspeto";
 "settings.interface" = "Interface";
 "settings.preferences" = "Preferências";
 "settings.about" = "Acerca de";
 
 // Theme descriptions
-"settings.theme.system.desc" = "Segue as definições do sistema";
-"settings.theme.light.desc" = "Sempre em modo claro";
-"settings.theme.dark.desc" = "Sempre em modo escuro";
 
 // Haptic feedback
 "settings.hapticFeedback" = "Feedback Tátil";
@@ -152,14 +131,10 @@
 "settings.builtInSwitzerland.desc" = "Feito com cuidado em Zurique";
 
 // MARK: - Dub Mode
-"dub.title" = "Sessões de dobragem";
-"dub.subtitle" = "Grava a tua voz sobre uma cena";
 "dub.unknownAuthor" = "Autor desconhecido";
 "dub.importPack" = "Importar um pack";
 "dub.importing" = "A importar o pack…";
 "dub.delete" = "Eliminar";
-"dub.done" = "Concluído";
-"dub.close" = "Fechar";
 "dub.empty.title" = "Ainda não há packs";
 "dub.empty.message" = "Importa uma pasta ou um .zip da app Ficheiros para dobrares uma cena com a tua própria voz.";
 "dub.playOriginal" = "Ver original";
@@ -168,14 +143,11 @@
 "dub.continueRecording" = "Continuar a dobrar";
 "dub.export" = "Exportar vídeo";
 "dub.lines" = "Falas";
-"dub.linesRecorded" = "%d de %d falas dobradas";
 "dub.listen" = "Ouvir";
 "dub.stop" = "Parar";
 "dub.recordTake" = "Gravar";
-"dub.reRecord" = "Voltar a gravar";
 "dub.next" = "Seguinte";
 "dub.previous" = "Anterior";
-"dub.lineProgress" = "Fala %d de %d";
 "dub.recordingHint" = "Diz a fala — acompanha o ritmo do original.";
 "dub.listenHint" = "Ouve primeiro e depois grava a tua take.";
 "dub.original" = "Original";
@@ -184,8 +156,6 @@
 "dub.exporting" = "A exportar…";
 "dub.export.mixing" = "A misturar o áudio…";
 "dub.export.rendering" = "A renderizar o vídeo…";
-"dub.export.ready" = "A tua dobragem está pronta!";
-"dub.shareDub" = "Partilha a tua dobragem";
 "dub.error.missingPackInfo" = "Essa pasta não é um pack de dobragem: não tem o ficheiro _pack_info.ini.";
 "dub.error.noLines" = "Este pack não tem falas utilizáveis.";
 "dub.error.missingAsset" = "Falta ao pack um ficheiro necessário: %@";
@@ -199,7 +169,6 @@
 // MARK: - Editor Chrome
 "session.archiveTitle" = "Arquivo";
 "main.section.transport" = "Transporte";
-"main.section.monitor" = "Monitor";
 "main.state.idle" = "INATIVO";
 "main.state.recording" = "GRAV";
 "main.state.playing" = "REPR";
@@ -258,9 +227,6 @@
 "dub.score.timing" = "Entrada";
 "dub.score.pacing" = "Ritmo";
 "dub.score.delivery" = "Interpretação";
-"dub.score.timingHint" = "Quão perto entraste em relação ao original.";
-"dub.score.pacingHint" = "Se as tuas palavras caem onde caem as deles.";
-"dub.score.deliveryHint" = "Quão bem igualaste a interpretação deles.";
 "dub.score.best" = "Melhor fala";
 "dub.score.weakest" = "Vale outra tentativa";
 "dub.score.progress" = "%d de %d falas pontuadas";

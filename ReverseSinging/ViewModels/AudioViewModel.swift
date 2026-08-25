@@ -47,7 +47,7 @@ final class AudioViewModel: ObservableObject {
     // MARK: - Private Properties
 
     private var currentRecordingURL: URL?
-    private var countdownTask: Task<Void, Never>?
+    private let slate = RecordSlate()
     private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Initialization
@@ -150,7 +150,7 @@ final class AudioViewModel: ObservableObject {
 
         // A second press during the slate is a change of mind, not a stop: nothing has been
         // recorded yet, so cancel the count rather than arming a second one behind it.
-        if countdownTask != nil {
+        if slate.isRunning {
             cancelCountdown()
             return
         }
@@ -188,35 +188,13 @@ final class AudioViewModel: ObservableObject {
 
     /// Slate, then roll: three tones, the mic opening as the last one releases.
     private func runCountdownThenRecord() {
-        countdownTask?.cancel()
-        countdownTask = Task { [weak self] in
-            guard let self else { return }
-
-            do {
-                try await RecordCountdown.run { beat in
-                    self.countdown = beat
-                    HapticManager.shared.light()
-                }
-            } catch {
-                // Cancelled — `cancelCountdown` has already cleared the state.
-                return
-            }
-
-            self.countdown = nil
-            self.countdownTask = nil
-            self.beginRecording()
-        }
+        slate.run(
+            onBeat: { [weak self] beat in self?.countdown = beat },
+            thenRecord: { [weak self] in self?.beginRecording() }
+        )
     }
 
-    private func cancelCountdown() {
-        // Called from teardown paths too, so it has to be silent when no count is running.
-        guard let task = countdownTask else { return }
-
-        task.cancel()
-        countdownTask = nil
-        countdown = nil
-        HapticManager.shared.light()
-    }
+    private func cancelCountdown() { slate.cancel() }
 
     private func beginRecording() {
         guard recorder.canStartRecording() else { return }
@@ -485,14 +463,6 @@ final class AudioViewModel: ObservableObject {
         }
     }
 
-    func togglePlayPause() {
-        if player.isPlaying {
-            player.pause()
-        } else {
-            player.play()
-        }
-    }
-
     func stopPlayback() {
         player.stop()
     }
@@ -585,25 +555,6 @@ final class AudioViewModel: ObservableObject {
         AnalyticsManager.shared.trackSessionStarted()
     }
 
-    func importAudio(from url: URL) {
-        do {
-            // Create new session if needed
-            if appState.currentSession == nil {
-                appState.startNewSession()
-            }
-
-            let savedURL = try fileManager.saveRecording(from: url)
-
-            if let duration = fileManager.getAudioDuration(from: savedURL) {
-                let recording = Recording(url: savedURL, duration: duration, type: .imported)
-                appState.currentSession?.addRecording(recording)
-                HapticManager.shared.success()
-            }
-        } catch {
-            handleError(error)
-        }
-    }
-
     // MARK: - Persistence
 
     private func saveSessions() {
@@ -661,18 +612,7 @@ final class AudioViewModel: ObservableObject {
         saveSessions()
     }
 
-    func saveScoreVisibilityPreference() {
-        UserDefaults.standard.set(appState.isScoreVisible, forKey: "isScoreVisible")
-    }
-
     // MARK: - Settings
-
-    func setThemeMode(_ mode: ThemeMode) {
-        objectWillChange.send()
-        appState.themeMode = mode
-        UserDefaults.standard.set(mode.rawValue, forKey: "themeMode")
-        AnalyticsManager.shared.trackCustomEvent(name: "theme_changed", parameters: ["theme": mode.rawValue])
-    }
 
     func setSoundsEnabled(_ enabled: Bool) {
         objectWillChange.send()

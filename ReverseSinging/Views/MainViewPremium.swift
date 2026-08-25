@@ -25,7 +25,7 @@ struct MainViewPremium: View {
 
             // Show empty state if permission is denied
             if !viewModel.hasRecordingPermission {
-                microphonePermissionEmptyState
+                MicrophonePermissionEmptyState(onOpenSettings: AppSettings.open)
                     .transition(.opacity)
             } else {
                 // Scrollable content layer
@@ -33,40 +33,12 @@ struct MainViewPremium: View {
             }
 
             // Fixed header overlay (always visible)
-            fixedHeaderOverlay
+            ReverseGameHeader(viewModel: viewModel, onBack: { dismiss() })
 
             // Overlays (processing, toasts, etc.)
             overlaysView
 
             CountdownOverlay(value: viewModel.countdown)
-        }
-        .onAppear {
-            viewModel.checkPermissionStatus()
-
-            // Track screen view
-            AnalyticsManager.shared.trackScreenViewed(screenName: "MainView")
-        }
-        .sheet(isPresented: $viewModel.showSessionList) {
-            SessionListView(viewModel: viewModel)
-        }
-        .sheet(isPresented: $viewModel.showSettings) {
-            SettingsView(viewModel: viewModel, scope: .reverseSinging)
-        }
-        .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: $viewModel.showPermissionAlert) {
-            Button(Strings.Main.Alert.settings, action: openSettings)
-            Button(Strings.Main.Alert.cancel, role: .cancel) {}
-        } message: {
-            Text(Strings.Main.Alert.microphoneRequiredMessage)
-        }
-        .alert(Strings.Main.Alert.errorTitle, isPresented: .init(
-            get: { viewModel.errorMessage != nil },
-            set: { if !$0 { viewModel.errorMessage = nil } }
-        )) {
-            Button(Strings.Main.Alert.ok, role: .cancel) {
-                viewModel.errorMessage = nil
-            }
-        } message: {
-            Text(viewModel.errorMessage ?? "")
         }
         .alert(Strings.Main.Alert.startNewSessionTitle, isPresented: $showNewSessionAlert) {
             Button(Strings.Main.Alert.cancel, role: .cancel) {}
@@ -76,54 +48,7 @@ struct MainViewPremium: View {
         } message: {
             Text(Strings.Main.Alert.startNewSessionMessage)
         }
-        .toolbar(.hidden, for: .navigationBar)
-    
-    }
-
-    // MARK: - Empty State
-
-    private var microphonePermissionEmptyState: some View {
-        VStack(spacing: 32) {
-            Spacer()
-
-            // Microphone image
-            Image("microphone")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 160, height: 160)
-                .scaleIn(delay: 0.1)
-
-            VStack(spacing: 16) {
-                // Title
-                Text(Strings.Main.EmptyState.title)
-                    .font(.rsHeadingMedium)
-                    .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
-                    .multilineTextAlignment(.center)
-
-                // Description
-                Text(Strings.Main.EmptyState.message)
-                    .font(.rsBodyMedium)
-                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(6)
-                    .padding(.horizontal, 24)
-            }
-            .fadeIn(delay: 0.2)
-
-            // Open Settings button
-            BigButton(
-                title: Strings.Main.EmptyState.button,
-                icon: "gearshape.fill",
-                color: .rsTurquoise,
-                action: openSettings,
-                style: .primary
-            )
-            .padding(.horizontal, 24)
-            .padding(.top, 16)
-            .fadeIn(delay: 0.3)
-
-            Spacer()
-        }
+        .reverseGameChrome(viewModel: viewModel, screenName: "MainView")
     }
 
     // MARK: - Main Content
@@ -162,24 +87,6 @@ struct MainViewPremium: View {
                     .animation(.rsSpring, value: viewModel.appState.recordingState)
             }
         }
-    }
-
-    // MARK: - Fixed Header
-
-    private var fixedHeaderOverlay: some View {
-        VStack(spacing: 0) {
-            EditorScreenHeader(title: GameMode.reverse.title, onBack: { dismiss() }) {
-                EditorToolbarButton(icon: "archivebox", label: Strings.Session.archiveTitle) {
-                    viewModel.showSessionList = true
-                }
-                EditorToolbarButton(icon: "slider.horizontal.3", label: Strings.Settings.title) {
-                    viewModel.showSettings = true
-                }
-            }
-
-            Spacer()
-        }
-        .ignoresSafeArea(edges: .top)
     }
 
     // MARK: - Overlays
@@ -557,15 +464,6 @@ struct MainViewPremium: View {
                 }
             }
             .padding(.top, 8)
-        }
-    }
-
-
-    // MARK: - Helpers
-
-    private func openSettings() {
-        if let url = URL(string: UIApplication.openSettingsURLString) {
-            UIApplication.shared.open(url)
         }
     }
 }

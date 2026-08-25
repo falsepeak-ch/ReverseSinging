@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MainViewSimple: View {
     @EnvironmentObject var viewModel: AudioViewModel
-    @State private var showNewSessionAlert = false
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) private var dismiss
 
@@ -22,7 +21,7 @@ struct MainViewSimple: View {
 
             // Show empty state if permission is denied
             if !viewModel.hasRecordingPermission {
-                microphonePermissionEmptyState
+                MicrophonePermissionEmptyState(onOpenSettings: AppSettings.open)
                     .transition(.opacity)
             } else {
                 // Main content
@@ -30,91 +29,14 @@ struct MainViewSimple: View {
             }
 
             // Fixed header overlay (always visible)
-            fixedHeaderOverlay
+            ReverseGameHeader(viewModel: viewModel, onBack: { dismiss() })
 
             // Overlays (processing, tips, etc.)
             overlaysView
 
             CountdownOverlay(value: viewModel.countdown)
         }
-        .onAppear {
-            viewModel.checkPermissionStatus()
-            AnalyticsManager.shared.trackScreenViewed(screenName: "MainViewSimple")
-        }
-        .sheet(isPresented: $viewModel.showSessionList) {
-            SessionListView(viewModel: viewModel)
-        }
-        .sheet(isPresented: $viewModel.showSettings) {
-            SettingsView(viewModel: viewModel, scope: .reverseSinging)
-        }
-        .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: $viewModel.showPermissionAlert) {
-            Button(Strings.Main.Alert.settings, action: openSettings)
-            Button(Strings.Main.Alert.cancel, role: .cancel) {}
-        } message: {
-            Text(Strings.Main.Alert.microphoneRequiredMessage)
-        }
-        .alert(Strings.Main.Alert.errorTitle, isPresented: .init(
-            get: { viewModel.errorMessage != nil },
-            set: { if !$0 { viewModel.errorMessage = nil } }
-        )) {
-            Button(Strings.Main.Alert.ok, role: .cancel) {
-                viewModel.errorMessage = nil
-            }
-        } message: {
-            Text(viewModel.errorMessage ?? "")
-        }
-        .alert(Strings.Main.Alert.startNewSessionTitle, isPresented: $showNewSessionAlert) {
-            Button(Strings.Main.Alert.cancel, role: .cancel) {}
-            Button(Strings.Main.Alert.startNewSessionButton, role: .destructive) {
-                viewModel.startNewSession()
-            }
-        } message: {
-            Text(Strings.Main.Alert.startNewSessionMessage)
-        }
-        .toolbar(.hidden, for: .navigationBar)
-    
-    }
-
-    // MARK: - Empty State
-
-    private var microphonePermissionEmptyState: some View {
-        VStack(spacing: 32) {
-            Spacer()
-
-            Image("microphone")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 160, height: 160)
-                .scaleIn(delay: 0.1)
-
-            VStack(spacing: 16) {
-                Text(Strings.Main.EmptyState.title)
-                    .font(.rsHeadingMedium)
-                    .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
-                    .multilineTextAlignment(.center)
-
-                Text(Strings.Main.EmptyState.message)
-                    .font(.rsBodyMedium)
-                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(6)
-                    .padding(.horizontal, 24)
-            }
-            .fadeIn(delay: 0.2)
-
-            BigButton(
-                title: Strings.Main.EmptyState.button,
-                icon: "gearshape.fill",
-                color: .rsTurquoise,
-                action: openSettings,
-                style: .primary
-            )
-            .padding(.horizontal, 24)
-            .padding(.top, 16)
-            .fadeIn(delay: 0.3)
-
-            Spacer()
-        }
+        .reverseGameChrome(viewModel: viewModel, screenName: "MainViewSimple")
     }
 
     // MARK: - Main Content
@@ -177,7 +99,7 @@ struct MainViewSimple: View {
             EditorRule()
 
             VStack(spacing: 14) {
-                Text(timecode(displayDuration))
+                Text(displayDuration.rsClockHundredths)
                     .font(.rsTimecodeLarge)
                     .foregroundColor(isRecording ? .rsRecord : .rsTextPrimary)
                     .contentTransition(.numericText())
@@ -189,13 +111,6 @@ struct MainViewSimple: View {
             .padding(.vertical, 22)
         }
         .editorPanel()
-    }
-
-    private func timecode(_ time: TimeInterval) -> String {
-        let minutes = Int(time) / 60
-        let seconds = Int(time) % 60
-        let hundredths = Int((time - floor(time)) * 100)
-        return String(format: "%02d:%02d.%02d", minutes, seconds, hundredths)
     }
 
     private var transportState: String {
@@ -211,24 +126,6 @@ struct MainViewSimple: View {
     private var takeLabel: String {
         let attempts = viewModel.appState.attemptCount
         return attempts > 0 ? String(format: "TAKE %02d", attempts + 1) : "TAKE 01"
-    }
-
-    // MARK: - Fixed Header
-
-    private var fixedHeaderOverlay: some View {
-        VStack(spacing: 0) {
-            EditorScreenHeader(title: GameMode.reverse.title, onBack: { dismiss() }) {
-                EditorToolbarButton(icon: "archivebox", label: Strings.Session.archiveTitle) {
-                    viewModel.showSessionList = true
-                }
-                EditorToolbarButton(icon: "slider.horizontal.3", label: Strings.Settings.title) {
-                    viewModel.showSettings = true
-                }
-            }
-
-            Spacer()
-        }
-        .ignoresSafeArea(edges: .top)
     }
 
     // MARK: - Three Button Stack
@@ -351,13 +248,6 @@ struct MainViewSimple: View {
         }
     }
 
-    private var isPlayingReversedAudio: Bool {
-        guard viewModel.appState.recordingState == .playing else { return false }
-        // Determine if currently playing reversed audio based on which recording is being played
-        // This is a simplified check - you might need more logic based on your actual implementation
-        return viewModel.appState.currentSession?.reversedRecording != nil
-    }
-
     // MARK: - Button States
 
     private var isRecording: Bool {
@@ -463,12 +353,6 @@ struct MainViewSimple: View {
             } else if let reversed = session?.reversedRecording {
                 viewModel.playRecording(reversed)
             }
-        }
-    }
-
-    private func openSettings() {
-        if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
-            UIApplication.shared.open(settingsURL)
         }
     }
 }
