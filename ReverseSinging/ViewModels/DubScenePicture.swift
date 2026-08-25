@@ -75,6 +75,24 @@ final class DubScenePicture: ObservableObject {
         player.play()
     }
 
+    /// Schedules one line on the same future boundary as microphone sample zero.
+    ///
+    /// The ordinary preview path above intentionally starts immediately. Recording cannot:
+    /// an immediate recorder start followed by an asynchronous video seek creates leading
+    /// silence in the take. This uses AVPlayer's host-clock mapping so frame and sample zero
+    /// are committed before either is allowed to run.
+    func play(_ line: DubLine, at anchor: DubPlaybackAnchor, loop: Bool = false) {
+        guard let player else { return }
+        clearEndObserver()
+
+        stopAt = line.endTime
+        loopStart = loop ? line.startTime : nil
+        observeEnd(on: player)
+
+        pendingSceneAnchor = anchor
+        startPendingScene(on: player)
+    }
+
     func stop(returningTo line: DubLine?) {
         clearEndObserver()
         guard let player else { return }
@@ -104,7 +122,11 @@ final class DubScenePicture: ObservableObject {
     /// Nudges the picture back onto the audio clock. `DubPlayer` runs the mix on its own
     /// engine, so audio is the master and the video is corrected towards it — never the
     /// other way, which would stutter the mix.
-    func resync(to time: TimeInterval, tolerance: TimeInterval = 0.25) {
+    /// - Parameter tolerance: how far out the picture may be before it is pulled back. Both
+    ///   clocks now share one host-time anchor and the file is local, so real drift is close
+    ///   to nothing and this only has to sit above the noise in `AVPlayer.currentTime()`.
+    ///   Well inside the ~45 ms at which a viewer starts to see the mouth lead the voice.
+    func resync(to time: TimeInterval, tolerance: TimeInterval = 0.08) {
         guard let player, player.status == .readyToPlay, player.rate != 0 else { return }
         let drift = abs(player.currentTime().seconds - time)
         guard drift > tolerance else { return }

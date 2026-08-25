@@ -269,3 +269,5 @@
 "dub.score.grade.good" = "Bona presa";
 "dub.score.grade.close" = "Gairebé hi ets";
 "dub.score.grade.rough" = "Torna-hi";
+
+"dub.videoNeedsReimport" = "El vídeo d'aquesta escena es va convertir amb una versió anterior i va per davant de les veus. Torna a importar el pack per corregir-ho.";

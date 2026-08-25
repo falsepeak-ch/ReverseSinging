@@ -12,11 +12,10 @@ import AVFoundation
 
 /// Checks the export against the geometry of a real scene rather than a convenient one.
 ///
-/// The timestamps, clip lengths and run-up silences below are measured from a real 62-line
-/// pack — the four places in it where two characters talk over each other. Each character's
-/// take is a tone at its own frequency, so the exported file can be asked a question a peak
-/// meter cannot answer: not "is something loud here" but "are both of these voices present in
-/// this instant".
+/// The timestamps, clip lengths and run-up silences below are measured from real packs. Each
+/// character's take is a tone at its own frequency, so the exported file can be asked a
+/// question a peak meter cannot answer: not "is something loud here" but "are both of these
+/// voices present in this instant".
 @Suite("Dub Overlap Export")
 struct DubOverlapExportTests {
 
@@ -27,8 +26,6 @@ struct DubOverlapExportTests {
         let length: TimeInterval
         /// Silence at the head of the reference clip, before the character speaks.
         let lead: TimeInterval
-        /// The performer's own hesitation after the mic opens.
-        let takeLead: TimeInterval
         /// The tone standing in for this character's voice.
         let frequency: Float
 
@@ -38,7 +35,6 @@ struct DubOverlapExportTests {
             start: TimeInterval,
             length: TimeInterval,
             lead: TimeInterval,
-            takeLead: TimeInterval = 0,
             frequency: Float
         ) {
             self.slug = slug
@@ -46,7 +42,6 @@ struct DubOverlapExportTests {
             self.start = start
             self.length = length
             self.lead = lead
-            self.takeLead = takeLead
             self.frequency = frequency
         }
     }
@@ -72,19 +67,19 @@ struct DubOverlapExportTests {
     /// both its neighbours. The old fixture only represented three disjoint pairs and silently
     /// omitted two of the five boundaries.
     static let lotrScene: [RealLine] = [
-        RealLine(slug: "001_Gandalf", character: "Gandalf", start: 3.75, length: 3.00, lead: 0.00, takeLead: 0.28, frequency: dobby),
-        RealLine(slug: "002_Frodo", character: "Frodo", start: 6.30, length: 2.85, lead: 0.00, frequency: harry),
-        RealLine(slug: "010_Boromir", character: "Boromir", start: 73.47, length: 3.00, lead: 0.00, takeLead: 0.30, frequency: dobby),
+        RealLine(slug: "001_Gandalf", character: "Gandalf", start: 3.745, length: 3.000, lead: 0.00, frequency: dobby),
+        RealLine(slug: "002_Frodo", character: "Frodo", start: 6.305, length: 2.848688, lead: 0.00, frequency: harry),
+        RealLine(slug: "010_Boromir", character: "Boromir", start: 73.47, length: 3.00, lead: 0.00, frequency: dobby),
         RealLine(slug: "011_Frodo", character: "Frodo", start: 75.00, length: 3.41, lead: 0.00, frequency: harry),
         RealLine(slug: "012_Gandalf", character: "Gandalf", start: 77.58, length: 4.34, lead: 0.00, frequency: dobby),
-        RealLine(slug: "015_Frodo", character: "Frodo", start: 97.01, length: 2.97, lead: 0.00, takeLead: 0.24, frequency: harry),
-        RealLine(slug: "016_Boromir", character: "Boromir", start: 99.66, length: 4.49, lead: 0.00, takeLead: 0.35, frequency: dobby),
+        RealLine(slug: "015_Frodo", character: "Frodo", start: 97.01, length: 2.97, lead: 0.00, frequency: harry),
+        RealLine(slug: "016_Boromir", character: "Boromir", start: 99.66, length: 4.49, lead: 0.00, frequency: dobby),
         RealLine(slug: "017_Frodo", character: "Frodo", start: 103.27, length: 3.89, lead: 0.00, frequency: harry)
     ]
 
-    /// Where each take ends up once it has been aligned to the original's first word.
+    /// The pack's declared edit interval. Waveform analysis must not rewrite this geometry.
     private func placement(_ line: RealLine) -> ClosedRange<TimeInterval> {
-        (line.start + line.lead)...(line.start + line.lead + line.length)
+        line.start...(line.start + line.length)
     }
 
     // MARK: - Fixture
@@ -108,13 +103,13 @@ struct DubOverlapExportTests {
                 leadIn: line.lead
             )
 
-            // The take: the performer starting the instant the mic opened, which is what
-            // people actually do and why the run-up has to be corrected for.
+            // Immediate test signal: this suite proves that the mixer preserves declared
+            // overlaps. Separate placement tests prove that real take buffers are not cut.
             try writeTone(
                 to: takes.appendingPathComponent("\(line.slug).caf"),
                 duration: line.length,
                 frequency: line.frequency,
-                leadIn: line.takeLead
+                leadIn: 0
             )
 
             lines.append(DubLine(
@@ -253,6 +248,22 @@ struct DubOverlapExportTests {
 
         #expect(overlapsChecked == (named == "LOTR" ? 5 : 4),
                 "\(named): fixture checked \(overlapsChecked) overlap boundaries")
+    }
+
+    /// The exact first LOTR boundary reported in the attached pack: Gandalf's three-second
+    /// "You cannot pass!" starts at 3.745 and Frodo's "Gandalf!" starts at 6.305.
+    @Test func gandalfAndFrodoKeepThePacksExactOverlap() {
+        let gandalf = placement(Self.lotrScene[0])
+        let frodo = placement(Self.lotrScene[1])
+        let overlap = min(gandalf.upperBound, frodo.upperBound)
+            - max(gandalf.lowerBound, frodo.lowerBound)
+
+        #expect(abs(overlap - 0.440) < 0.000_001, "overlap was \(overlap)s")
+        #expect(DubVoiceLanes.assign(
+            Array(Self.lotrScene.prefix(2)),
+            start: { placement($0).lowerBound },
+            end: { placement($0).upperBound }
+        ).count == 2, "the two voices must be scheduled on independent playback nodes")
     }
 
     /// The other half of the claim: where only one of them is speaking, only one of them is

@@ -235,11 +235,10 @@ struct DubMixerTests {
         #expect(loudest > 0.5, "peaked at \(loudest)")
     }
 
-    /// A pack's timestamp is where the audio chunk starts, not where the character speaks. Here
-    /// the reference opens with a second of room tone, so a take dropped at the raw timestamp
-    /// would land a second before the mouth moves — which is what made a dub feel out of step
-    /// on some lines and not others, since the run-up differs on every line.
-    @Test func aTakeIsPlacedWhereTheOriginalSpeaks() async throws {
+    /// DubStage's renderer places sample zero of a take at the timestamp declared by the pack.
+    /// A reference waveform may contain room tone, music or effects before its first detected
+    /// speech, but that must not silently rewrite the edit supplied by the pack author.
+    @Test func aTakeUsesThePackTimestampRatherThanTheWaveformLead() async throws {
         let (pack, directory) = try makeTonePack(
             timestamps: [2.0],
             toneDuration: 2.0,
@@ -254,17 +253,14 @@ struct DubMixerTests {
         let outputURL = directory.appendingPathComponent("mix.m4a")
         try await DubMixer.shared.mixAudio(pack: pack, to: outputURL)
 
-        // Quiet through the original's run-up, 2.0–3.0s
-        #expect(try peak(of: outputURL, atSecond: 2) < 0.05)
-
-        // Speaking from 3.0s, where the original does
-        #expect(try peak(of: outputURL, atSecond: 3) > 0.3)
+        #expect(try peak(of: outputURL, atSecond: 2) > 0.3,
+                "the take must begin at the declared 2.0s timestamp")
     }
 
-    /// The same thing again, but on a pack the parser has already measured — which is what
-    /// every real pack looks like. The stored window is what places the take; nothing goes
-    /// back to the reference file to work it out a second time.
-    @Test func aMeasuredLinePlacesItsTakeFromTheStoredWindow() async throws {
+    /// Speech windows still drive captions and scoring, but never move the audio. This guards
+    /// against a parsed manifest reintroducing waveform-based retiming on the playback/export
+    /// path shared by real packs.
+    @Test func aMeasuredSpeechWindowDoesNotMoveTheTake() async throws {
         let (pack, directory) = try makeTonePack(
             timestamps: [2.0],
             toneDuration: 2.0,
@@ -283,8 +279,8 @@ struct DubMixerTests {
         let outputURL = directory.appendingPathComponent("mix.m4a")
         try await DubMixer.shared.mixAudio(pack: pack, to: outputURL)
 
-        #expect(try peak(of: outputURL, atSecond: 2) < 0.05, "quiet through the original's run-up")
-        #expect(try peak(of: outputURL, atSecond: 3) > 0.3, "speaking where the original does")
+        #expect(try peak(of: outputURL, atSecond: 2) > 0.3,
+                "stored analysis metadata must not override the pack timestamp")
     }
 
     @Test func refusesToExportWithNoTakes() async throws {

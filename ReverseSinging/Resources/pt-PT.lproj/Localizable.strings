@@ -269,3 +269,5 @@
 "dub.score.grade.good" = "Boa take";
 "dub.score.grade.close" = "Quase lá";
 "dub.score.grade.rough" = "Tenta outra vez";
+
+"dub.videoNeedsReimport" = "O vídeo desta cena foi convertido por uma versão anterior e está adiantado em relação às vozes. Importe o pack novamente para corrigir.";

@@ -187,7 +187,31 @@ platform :ios do
       )
     end
 
-    UI.success("App previews uploaded")
+    # Verify, because a preview can upload cleanly and then fail Apple's processing with
+    # nothing said. That is how the first attempt at these went out: the videos had no
+    # audio track, App Store Connect accepted every byte and then marked each asset
+    # FAILED / MOV_RESAVE_STEREO, which is only visible by reading the delivery state back.
+    failures = []
+    Spaceship::ConnectAPI::AppStoreVersionLocalization.all(
+      app_store_version_id: version.id,
+      includes: "appPreviewSets"
+    ).each do |localization|
+      (localization.app_preview_sets || []).each do |summary|
+        full = Spaceship::ConnectAPI::AppPreviewSet.get(app_preview_set_id: summary.id)
+        (full.app_previews || []).each do |preview|
+          state = preview.asset_delivery_state || {}
+          next if state["state"] == "COMPLETE"
+          errors = (state["errors"] || []).map { |e| e["code"] }.join(", ")
+          failures << "#{localization.locale}: #{state['state']} #{errors}"
+        end
+      end
+    end
+
+    if failures.empty?
+      UI.success("App previews uploaded and processed for all locales")
+    else
+      UI.user_error!("App previews failed processing:\n  " + failures.join("\n  "))
+    end
   end
 
   desc "Upload metadata and screenshots"

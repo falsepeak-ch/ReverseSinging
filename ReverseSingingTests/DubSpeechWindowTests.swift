@@ -51,8 +51,7 @@ struct DubSpeechWindowTests {
         #expect(DubSpeechOnset.window(of: clip(silence: 2, tone: 0, trailing: 0)) == nil)
     }
 
-    /// `leadIn` is what places a take, and it still has to behave exactly as it did before the
-    /// window existed — the two are now one measurement, which is the point.
+    /// `leadIn` remains a useful description of the clip for captions and scoring.
     @Test func leadInStillAgreesWithTheWindowStart() throws {
         let buffer = clip(silence: 0.75, tone: 1.0, trailing: 0.5)
         let window = try #require(DubSpeechOnset.window(of: buffer))
@@ -62,9 +61,10 @@ struct DubSpeechWindowTests {
 
     // MARK: - Alignment
 
-    /// The behaviour the whole feature rests on: a take is dropped where the character speaks,
-    /// not where the chunk begins.
-    @Test func aTakeIsPlacedOnTheOriginalsFirstWord() {
+    /// Pack timing is an edit decision, not something inferred again from amplitude. The whole
+    /// take is retained and placed at the declared timestamp even when both the reference and
+    /// the performer have different periods of silence at the front.
+    @Test func aTakeIsPlacedAtThePackTimestampWithoutBeingRewritten() {
         let line = DubLine(
             index: 1,
             slug: "001_Tester",
@@ -81,17 +81,9 @@ struct DubSpeechWindowTests {
         let take = clip(silence: 0.5, tone: 1.0, trailing: 1.5)
         let placement = DubVoiceAlignment.place(take: take, for: line)
 
-        #expect(abs(placement.startTime - 31.4) < 0.001,
-                "placed at \(placement.startTime), should be the original's first word")
-
-        // Both vocal edges are fitted: the take's one-second utterance occupies the original
-        // actor's 1.2-second speech window, preserving every interruption at the far edge.
-        let fitted = Double(placement.buffer.frameLength) / DubAudioLoader.canonicalFormat.sampleRate
-        #expect(abs(fitted - 1.2) < 0.01, "take is \(fitted)s after fitting, expected 1.2")
-
-        let fittedSpeech = DubSpeechOnset.window(of: placement.buffer)
-        #expect((fittedSpeech?.start ?? 1) < 0.05, "fitted speech must open on the first-word edge")
-        #expect((fittedSpeech?.end ?? 0) > 1.15, "fitted speech must reach the last-word edge")
+        #expect(placement.startTime == 30)
+        #expect(placement.buffer === take)
+        #expect(placement.buffer.frameLength == take.frameLength)
     }
 
     /// A reference is left exactly where it was cut from — shifting the original against
@@ -113,8 +105,9 @@ struct DubSpeechWindowTests {
         #expect(placement.startTime == 30)
     }
 
-    /// A take that already opens on speech still gets its far edge fitted to the actor.
-    @Test func aTakeWithNoRunUpStillMatchesTheOriginalsLastWord() {
+    /// A measured speech window is descriptive metadata. It cannot shorten, stretch or shift
+    /// a performance, because doing so also changes every overlap at the line's far edge.
+    @Test func aSpeechWindowDoesNotMoveOrStretchTheTake() {
         let line = DubLine(
             index: 1, slug: "001_Tester", character: "Tester", caption: "Line",
             imageFile: "still.jpg", referenceAudioFile: "line.wav",
@@ -124,25 +117,9 @@ struct DubSpeechWindowTests {
         let take = clip(silence: 0, tone: 1.5, trailing: 0.5)
         let placement = DubVoiceAlignment.place(take: take, for: line)
 
-        let fitted = Double(placement.buffer.frameLength) / DubAudioLoader.canonicalFormat.sampleRate
-        #expect(abs(fitted - 1.6) < 0.01)
-        #expect(abs(placement.startTime - 5.2) < 0.001)
-    }
-
-    /// Action scenes can leave music or an effect in the measured reference window. A bad
-    /// far edge must not stretch a short shout into an obviously artificial drawl.
-    @Test func anExtremeReferenceTailDoesNotRewriteThePerformance() {
-        let line = DubLine(
-            index: 1, slug: "001_Tester", character: "Tester", caption: "No!",
-            imageFile: "still.jpg", referenceAudioFile: "line.wav",
-            startTime: 5, duration: 3, speech: DubSpeechWindow(start: 0, end: 3)
-        )
-
-        let take = clip(silence: 0.2, tone: 0.8, trailing: 2.0)
-        let placement = DubVoiceAlignment.place(take: take, for: line)
-        let duration = Double(placement.buffer.frameLength) / DubAudioLoader.canonicalFormat.sampleRate
-
-        #expect(abs(duration - 0.8) < 0.05, "extreme fit should be rejected, got \(duration)s")
+        #expect(placement.startTime == 5)
+        #expect(placement.buffer === take)
+        #expect(placement.buffer.frameLength == take.frameLength)
     }
 
     // MARK: - Persistence

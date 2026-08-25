@@ -35,14 +35,37 @@ LOCALE_DIRS = {
     "pt-PT": "pt-PT",
 }
 
-# Straight from ReverseSinging/Design/Colors.swift. The app is dark-only — it
-# forces .dark in ContentView — so the marketing canvas is too. A cream canvas
-# would put a bright halo around a near-black phone.
+# The store palette, sampled from the 1.2.0 screenshots already on the App Store.
+#
+# Deliberately not the app's own near-black. The listing has had a cream field and a
+# dark slate-teal headline since the first release, and the product page is the one
+# place where continuity with what shoppers have already seen is worth more than
+# matching the interface behind it.
 PALETTE = {
-    "canvas": "#0E0F11",   # rsSurface0
-    "ink": "#E8EAEC",      # rsTextPrimary
-    "accent": "#E5484D",   # rsRecord
+    "canvas": "#F8F4D3",   # the cream field
+    "ink": "#2E4245",      # headline
+    "accent": "#E5484D",   # rsRecord, the app's one saturated colour
+    "hero_panel": "#253A3F",
+    "hero_ink": "#EDE9C6",
 }
+
+# The opening slide: wordmark, promise, and the app held at an angle. It is the only
+# slide that is not a straight product shot, and the only one on the dark panel.
+HERO_NAME = "00_hero"
+HERO_SOURCE = "dubRecord"          # which captured screen the tilted phone shows
+LOGO = REPO_ROOT / "ReverseSinging" / "Assets.xcassets" / "assets" / \
+    "icon-lettering.imageset" / "Group@3x.png"
+
+HERO_LOGO_WIDTH_RATIO = 0.74
+HERO_LOGO_TOP = 250
+HERO_TAGLINE_GAP = 78
+HERO_TAGLINE_SIZE = 66
+HERO_CJK_TAGLINE_SIZE = 56
+HERO_TAGLINE_SPACING = 22
+HERO_DEVICE_GAP = 170              # between the tagline and the top of the phone
+HERO_DEVICE_WIDTH_RATIO = 0.70     # big enough to read, small enough to sit clear of the edges
+HERO_TILT = 4.5                    # degrees, anticlockwise — a held angle, not a jaunty one
+HERO_PERSPECTIVE = 0.045           # bottom edge drawn in, so the phone leans away
 
 # Eugello is the app's own display face, already in the repo. It has no CJK
 # coverage, so Japanese falls back to Hiragino rather than rendering tofu.
@@ -119,6 +142,90 @@ def fit_font(locale: str, lines: list[str], measure: ImageDraw.ImageDraw):
     return load_font(locale, MIN_TITLE_SIZE)
 
 
+def _perspective_coeffs(source, target):
+    """Pillow's PERSPECTIVE transform wants the inverse map as eight coefficients.
+
+    Solving the 8x8 system here rather than pulling in numpy: this is the only linear
+    algebra in the pipeline, and the venv is otherwise just Pillow.
+    """
+    matrix = []
+    for (sx, sy), (tx, ty) in zip(source, target):
+        matrix.append([tx, ty, 1, 0, 0, 0, -sx * tx, -sx * ty])
+        matrix.append([0, 0, 0, tx, ty, 1, -sy * tx, -sy * ty])
+    vector = [value for point in source for value in point]
+
+    # Gaussian elimination with partial pivoting.
+    size = 8
+    for column in range(size):
+        pivot = max(range(column, size), key=lambda r: abs(matrix[r][column]))
+        matrix[column], matrix[pivot] = matrix[pivot], matrix[column]
+        vector[column], vector[pivot] = vector[pivot], vector[column]
+        head = matrix[column][column]
+        if abs(head) < 1e-12:
+            raise ValueError("degenerate perspective quad")
+        for row in range(column + 1, size):
+            factor = matrix[row][column] / head
+            if factor == 0:
+                continue
+            for k in range(column, size):
+                matrix[row][k] -= factor * matrix[column][k]
+            vector[row] -= factor * vector[column]
+
+    result = [0.0] * size
+    for row in reversed(range(size)):
+        total = vector[row] - sum(matrix[row][k] * result[k] for k in range(row + 1, size))
+        result[row] = total / matrix[row][row]
+    return result
+
+
+def _tilted_device(framed_path: Path, target_width: int):
+    """The phone, turned a few degrees and set back, the way a hand would hold it."""
+    device = Image.open(framed_path).convert("RGBA")
+    height = int(device.height * (target_width / device.width))
+    device = device.resize((target_width, height), Image.LANCZOS)
+
+    # Draw the bottom edge in, so the phone leans away from the viewer rather than
+    # standing flat against the panel.
+    inset = device.width * HERO_PERSPECTIVE
+    source = [(0, 0), (device.width, 0),
+              (device.width - inset, device.height), (inset, device.height)]
+    target = [(0, 0), (device.width, 0), (device.width, device.height), (0, device.height)]
+    device = device.transform(
+        device.size, Image.PERSPECTIVE, _perspective_coeffs(source, target),
+        Image.BICUBIC, fillcolor=(0, 0, 0, 0)
+    )
+    return device.rotate(HERO_TILT, resample=Image.BICUBIC, expand=True)
+
+
+def compose_hero(framed_path: Path, out_path: Path, tagline: str, locale: str):
+    """The opening slide: wordmark, one promise, and the app held at an angle."""
+    canvas = Image.new("RGBA", CANVAS, PALETTE["hero_panel"])
+    draw = ImageDraw.Draw(canvas)
+
+    logo = Image.open(LOGO).convert("RGBA")
+    logo_width = int(CANVAS[0] * HERO_LOGO_WIDTH_RATIO)
+    logo = logo.resize((logo_width, int(logo.height * (logo_width / logo.width))), Image.LANCZOS)
+    canvas.alpha_composite(logo, ((CANVAS[0] - logo_width) // 2, HERO_LOGO_TOP))
+
+    size = HERO_CJK_TAGLINE_SIZE if locale in CJK_LOCALES else HERO_TAGLINE_SIZE
+    font = load_font(locale, size)
+    y = HERO_LOGO_TOP + logo.height + HERO_TAGLINE_GAP
+    for line in tagline.split("\n"):
+        box = draw.textbbox((0, 0), line, font=font)
+        draw.text(((CANVAS[0] - (box[2] - box[0])) / 2 - box[0], y), line,
+                  font=font, fill=PALETTE["hero_ink"])
+        y += (box[3] - box[1]) + HERO_TAGLINE_SPACING
+
+    # Anchored under the tagline and allowed to run off the bottom, rather than
+    # anchored to the bottom edge: rotating with expand=True pads the image with
+    # transparency, so a bottom anchor moves with the tilt instead of with the phone.
+    device = _tilted_device(framed_path, int(CANVAS[0] * HERO_DEVICE_WIDTH_RATIO))
+    canvas.alpha_composite(device, ((CANVAS[0] - device.width) // 2, y + HERO_DEVICE_GAP))
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    canvas.convert("RGB").save(out_path, "PNG")
+
+
 def compose(framed_path: Path, out_path: Path, caption: str, locale: str):
     canvas = Image.new("RGBA", CANVAS, PALETTE["canvas"])
     draw = ImageDraw.Draw(canvas)
@@ -176,19 +283,40 @@ def main():
 
     missing = []
     count = 0
+    hero_sources = {}
     for shot in shots:
         locale = shot.parent.name
         stem = shot.stem                      # e.g. "00_dubRecord"
-        screen = stem.split("_", 1)[1] if "_" in stem else stem
+        index, screen = (stem.split("_", 1) + [stem])[:2]
+        if not index.isdigit():
+            index, screen = "0", stem
+
+        if screen == HERO_SOURCE:
+            hero_sources[locale] = shot
 
         caption = captions.get(screen, {}).get(locale)
         if caption is None:
             missing.append(f"{locale}/{screen}")
             caption = ""
 
+        # Shifted up one: the hero takes slot 00, so the product shots start at 01.
+        out_name = f"{int(index) + 1:02d}_{screen}.png"
         out_dir = args.out_dir / LOCALE_DIRS.get(locale, locale)
-        compose(shot, out_dir / f"{stem}.png", caption, locale)
+        compose(shot, out_dir / out_name, caption, locale)
         count += 1
+
+    for locale, source in sorted(hero_sources.items()):
+        tagline = captions.get("hero", {}).get(locale)
+        if tagline is None:
+            missing.append(f"{locale}/hero")
+            continue
+        out_dir = args.out_dir / LOCALE_DIRS.get(locale, locale)
+        compose_hero(source, out_dir / f"{HERO_NAME}.png", tagline, locale)
+        count += 1
+
+    if not hero_sources:
+        print(f"!!  no '{HERO_SOURCE}' capture found, so no hero slide was built",
+              file=sys.stderr)
 
     print(f"==> {count} App Store screenshots ({CANVAS[0]}x{CANVAS[1]}) in {args.out_dir}")
     if missing:

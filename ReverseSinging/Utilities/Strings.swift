@@ -281,6 +281,7 @@ nonisolated enum Strings {
         static let referenceTrack = NSLocalizedString("dub.referenceTrack", comment: "Waveform label: the pack's own audio")
         static let yourTake = NSLocalizedString("dub.yourTake", comment: "Waveform label: the user's recording")
         static let loadingScene = NSLocalizedString("dub.loadingScene", comment: "Shown while a scene's audio loads")
+        static let videoNeedsReimport = NSLocalizedString("dub.videoNeedsReimport", comment: "Warning: this pack's video was converted by an older build and plays out of sync")
 
         // Playback
         static let original = NSLocalizedString("dub.original", comment: "Original audio mode")

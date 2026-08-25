@@ -5,6 +5,7 @@
 //  Brings a dub pack folder or .zip into the app's own storage
 //
 
+import AVFoundation
 import Foundation
 import ZIPFoundation
 
@@ -106,7 +107,23 @@ nonisolated struct DubPackImporter {
         let destination = directory.appendingPathComponent("\(DubPackParser.videoPrefix).mp4")
 
         do {
-            try TheoraTranscoder.transcode(ogv: source, to: destination, progress: progress)
+            let written = try TheoraTranscoder.transcode(ogv: source, to: destination, progress: progress)
+
+            // Check what landed on disk against what the decoder said it wrote, rather than
+            // assuming. A scene video that comes out short is the one failure this whole path
+            // cannot afford: it plays, it looks fine, and every line after the missing frames
+            // is early — which is exactly how a dropped-duplicate-frame bug went unnoticed
+            // through a release. Better to fall back to the stills than to ship the drift.
+            let measured = try Self.videoDuration(at: destination)
+            let tolerance = max(0.05, written.duration * 0.001)
+
+            guard abs(measured - written.duration) <= tolerance else {
+                throw TheoraTranscoder.TranscodeError.lengthMismatch(
+                    expected: written.duration,
+                    actual: measured
+                )
+            }
+
             // The Theora original is by far the largest file in a pack and is useless once
             // converted, so it does not get to sit in the user's storage.
             try? fileManager.removeItem(at: source)
@@ -115,6 +132,20 @@ nonisolated struct DubPackImporter {
             try? fileManager.removeItem(at: destination)
             try? fileManager.removeItem(at: source)
         }
+    }
+
+    /// The duration of a written video, read back off disk.
+    ///
+    /// Synchronous on purpose — the whole convert runs on a detached task already, and the
+    /// async `load(.duration)` would need this non-isolated helper to become async along with
+    /// every caller above it.
+    private static func videoDuration(at url: URL) throws -> TimeInterval {
+        let asset = AVURLAsset(url: url)
+        let duration = CMTimeGetSeconds(asset.duration)
+        guard duration.isFinite, duration > 0 else {
+            throw TheoraTranscoder.TranscodeError.noFrames
+        }
+        return duration
     }
 
     // MARK: - Manifest

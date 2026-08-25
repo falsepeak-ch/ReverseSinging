@@ -24,6 +24,7 @@ nonisolated enum TheoraTranscoder {
         case unsupportedPixelFormat
         case writerFailed(Error?)
         case noFrames
+        case lengthMismatch(expected: TimeInterval, actual: TimeInterval)
 
         var errorDescription: String? {
             switch self {
@@ -33,12 +34,24 @@ nonisolated enum TheoraTranscoder {
             case .unsupportedPixelFormat: return "Unsupported Theora pixel format"
             case .writerFailed(let error): return "Video writer failed: \(error?.localizedDescription ?? "unknown")"
             case .noFrames: return "No frames could be decoded"
+            case .lengthMismatch(let expected, let actual):
+                return String(
+                    format: "Converted video is %.2fs but should be %.2fs", actual, expected
+                )
             }
         }
     }
 
     /// How much of the file is read at a time when feeding the Ogg demuxer.
     private static let readChunkSize = 64 * 1024
+
+    /// What a finished conversion turned out to be.
+    struct Output: Equatable, Sendable {
+        /// Frames actually written, including duplicates.
+        let frameCount: Int
+        /// The file's length, from the last frame's index rather than measured back off disk.
+        let duration: TimeInterval
+    }
 
     // MARK: - Entry Point
 
@@ -47,11 +60,15 @@ nonisolated enum TheoraTranscoder {
     /// Blocking and CPU-bound — call it off the main actor. `progress` reports 0...1 by how
     /// much of the source has been consumed, because a feature-length scene takes minutes and
     /// a silent bar reads as a hang.
+    ///
+    /// Returns what was written, so the caller can check the result against the source instead
+    /// of assuming it came out the right length.
+    @discardableResult
     static func transcode(
         ogv source: URL,
         to destination: URL,
         progress: (@Sendable (Double) -> Void)? = nil
-    ) throws {
+    ) throws -> Output {
         let handle = try FileHandle(forReadingFrom: source)
         defer { try? handle.close() }
 
@@ -90,7 +107,9 @@ nonisolated enum TheoraTranscoder {
         var writer: Writer? = nil
         var headersRemaining = true
         var foundTheora = false
-        var frameIndex: Int64 = 0
+        /// Where the next frame goes when the stream gives no granule position to read it from.
+        var nextFrameIndex: Int64 = 0
+        var framesWritten = 0
 
         // MARK: Demux + decode
 
@@ -98,7 +117,14 @@ nonisolated enum TheoraTranscoder {
             var page = ogg_page()
 
             // Drain every page currently buffered before reading more of the file.
-            while ogg_sync_pageout(&sync, &page) == 1 {
+            //
+            // `-1` is a hole in the stream, not the end of the buffered data — stopping on it
+            // would leave whole pages unread behind the damage.
+            while true {
+                let pageStatus = ogg_sync_pageout(&sync, &page)
+                if pageStatus == 0 { break }
+                if pageStatus < 0 { continue }
+
                 let serial = ogg_page_serialno(&page)
 
                 if ogg_page_bos(&page) != 0, !foundTheora {
@@ -146,10 +172,35 @@ nonisolated enum TheoraTranscoder {
                     guard let decoder, let writer else { continue }
 
                     var granulePosition: ogg_int64_t = 0
-                    guard th_decode_packetin(decoder, &packet, &granulePosition) == 0 else { continue }
+                    let status = th_decode_packetin(decoder, &packet, &granulePosition)
+
+                    // `TH_DUPFRAME` is not a failure. It means the packet is a duplicate —
+                    // a 0-byte frame, or an inter frame with no coded blocks — so the
+                    // decoder's picture is unchanged. libtheora's *player* example skips the
+                    // redraw on it, because the frame it wants is already on screen. A
+                    // transcoder is the other case: the frame still owns its slot on the
+                    // timeline, so it has to be written out again. Dropping it shortens the
+                    // file and pulls everything after it earlier, by a frame every time.
+                    guard status == 0 || status == TH_DUPFRAME else { continue }
+
+                    // The granule position carries the frame's own absolute index, so it —
+                    // not a running counter — is what the timeline is built from. A packet
+                    // that fails to decode then leaves the previous frame held for a beat
+                    // longer, rather than shifting the whole rest of the scene.
+                    //
+                    // Floored at the running counter for two reasons: presentation times
+                    // handed to `AVAssetWriter` must strictly increase, and a stream can
+                    // report no granule position at all (`-1`) on the frames before the
+                    // first page boundary.
+                    var frameIndex = granulePosition >= 0
+                        ? th_granule_frame(UnsafeMutableRawPointer(decoder), granulePosition)
+                        : -1
+                    frameIndex = max(frameIndex, nextFrameIndex)
+                    nextFrameIndex = frameIndex + 1
 
                     // th_ycbcr_buffer is a C array of three planes; an array gives Swift
-                    // the contiguous buffer the call expects.
+                    // the contiguous buffer the call expects. Still valid after a duplicate:
+                    // the call hands back the picture already in the frame buffer.
                     var planes = [th_img_plane](
                         repeating: th_img_plane(width: 0, height: 0, stride: 0, data: nil),
                         count: 3
@@ -157,7 +208,7 @@ nonisolated enum TheoraTranscoder {
                     guard th_decode_ycbcr_out(decoder, &planes) == 0 else { continue }
 
                     try writer.append(planes: planes, info: info, at: frameIndex)
-                    frameIndex += 1
+                    framesWritten += 1
                 }
             }
 
@@ -182,10 +233,11 @@ nonisolated enum TheoraTranscoder {
         }
 
         guard foundTheora else { throw TranscodeError.notTheora }
-        guard let writer, frameIndex > 0 else { throw TranscodeError.noFrames }
+        guard let writer, framesWritten > 0 else { throw TranscodeError.noFrames }
 
-        try writer.finish()
+        let result = try writer.finish()
         progress?(1)
+        return result
     }
 
     // MARK: - Writer
@@ -200,6 +252,9 @@ nonisolated enum TheoraTranscoder {
         private let frameDuration: CMTimeValue
         private let width: Int
         private let height: Int
+        /// Highest index appended so far, which is what sets the file's length.
+        private var lastIndex: Int64 = -1
+        private var framesAppended = 0
 
         init(destination: URL, info: th_info) throws {
             // The picture region, not the padded frame: Theora rounds coded dimensions up to
@@ -209,8 +264,13 @@ nonisolated enum TheoraTranscoder {
 
             guard width > 0, height > 0 else { throw TranscodeError.badHeaders }
 
-            let fpsNumerator = max(1, Int32(info.fps_numerator))
-            let fpsDenominator = max(1, Int32(info.fps_denominator))
+            // `Int32(_:)` traps rather than throwing, and these are `ogg_uint32_t` straight
+            // out of a file that may be anything at all. A malformed header should be a bad
+            // import, not a crash.
+            guard let fpsNumerator = Int32(exactly: info.fps_numerator), fpsNumerator > 0,
+                  let fpsDenominator = Int32(exactly: info.fps_denominator), fpsDenominator > 0
+            else { throw TranscodeError.badHeaders }
+
             timescale = CMTimeScale(fpsNumerator)
             frameDuration = CMTimeValue(fpsDenominator)
 
@@ -283,9 +343,18 @@ nonisolated enum TheoraTranscoder {
             guard adaptor.append(buffer, withPresentationTime: time) else {
                 throw TranscodeError.writerFailed(writer.error)
             }
+
+            lastIndex = max(lastIndex, index)
+            framesAppended += 1
         }
 
-        func finish() throws {
+        func finish() throws -> Output {
+            // Without an explicit end the file runs to the last frame's *start* and the final
+            // frame's duration is whatever AVFoundation infers. A scene that ends on a held
+            // shot — a run of duplicate frames — would come up short by exactly that run.
+            let end = CMTime(value: frameDuration * (lastIndex + 1), timescale: timescale)
+            writer.endSession(atSourceTime: end)
+
             input.markAsFinished()
 
             let done = DispatchSemaphore(value: 0)
@@ -295,6 +364,8 @@ nonisolated enum TheoraTranscoder {
             guard writer.status == .completed else {
                 throw TranscodeError.writerFailed(writer.error)
             }
+
+            return Output(frameCount: framesAppended, duration: end.seconds)
         }
 
         // MARK: Pixel conversion

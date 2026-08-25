@@ -1,6 +1,14 @@
 {
-  "_comment": "screen -> capture locale -> headline. '\\n' is a hard line break; keep to two short lines. compose.py shrinks anything that would run past the canvas edge, so a long line costs size rather than getting cropped. Screen ids must match SCREENS_ALL in capture.sh.",
-
+  "_comment": "screen -> capture locale -> headline. '\\n' is a hard line break; keep to two short lines. compose.py shrinks anything that would run past the canvas edge, so a long line costs size rather than getting cropped. Screen ids must match SCREENS_ALL in capture.sh. 'hero' is the exception: it is the opening slide rather than a captured screen, it sits on the dark panel with the wordmark, and three lines is right for it.",
+  "hero": {
+    "en": "Two games, one microphone.\nDub a movie scene, or sing\na song backwards.",
+    "es": "Dos juegos, un micrófono.\nDobla una escena de película\no canta una canción al revés.",
+    "ca": "Dos jocs, un micròfon.\nDobla una escena de pel·lícula\no canta una cançó al revés.",
+    "fr": "Deux jeux, un micro.\nDouble une scène de film,\nou chante à l'envers.",
+    "it": "Due giochi, un microfono.\nDoppia una scena di film\no canta al contrario.",
+    "pt-PT": "Dois jogos, um microfone.\nDobra uma cena de filme\nou canta ao contrário.",
+    "ja": "ゲームは2つ、マイクはひとつ。\n映画のシーンをアフレコするか、\n歌を逆さまに歌おう。"
+  },
   "dubRecord": {
     "en": "Dub a movie scene\nin your own voice",
     "es": "Dobla una escena\ncon tu propia voz",
@@ -10,7 +18,6 @@
     "pt-PT": "Dobra uma cena\ncom a tua voz",
     "ja": "映画のシーンを\n自分の声でアフレコ"
   },
-
   "dubDetail": {
     "en": "Line by line.\nTake by take.",
     "es": "Línea a línea.\nToma a toma.",
@@ -20,7 +27,6 @@
     "pt-PT": "Fala a fala.\nTake a take.",
     "ja": "一行ずつ、\nテイクを重ねて。"
   },
-
   "dubExport": {
     "en": "Export the scene\nand share it",
     "es": "Exporta la escena\ny compártela",
@@ -30,7 +36,6 @@
     "pt-PT": "Exporta a cena\ne partilha-a",
     "ja": "シーンを書き出して\nそのまま共有"
   },
-
   "home": {
     "en": "Two games.\nOne microphone.",
     "es": "Dos juegos.\nUn micrófono.",
@@ -40,7 +45,6 @@
     "pt-PT": "Dois jogos.\nUm microfone.",
     "ja": "ゲームは2つ、\nマイクはひとつ。"
   },
-
   "reverse": {
     "en": "Or sing a song\nbackwards",
     "es": "O canta una canción\nal revés",
@@ -50,7 +54,6 @@
     "pt-PT": "Ou canta uma música\nao contrário",
     "ja": "あるいは、歌を\n逆さまに歌う"
   },
-
   "dubLibrary": {
     "en": "Bring your own packs.\nImport from Files.",
     "es": "Trae tus propios packs.\nImporta desde Archivos.",
@@ -60,7 +63,6 @@
     "pt-PT": "Traz os teus packs.\nImporta de Ficheiros.",
     "ja": "パックはご自身で。\n「ファイル」から読み込み。"
   },
-
   "settings": {
     "en": "Everything stays\non your phone",
     "es": "Todo se queda\nen tu teléfono",

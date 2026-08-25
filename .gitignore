@@ -123,3 +123,5 @@ fastlane/screenshots/**/*.mp4
 
 # Screenshots pulled back down from App Store Connect by `fastlane download_screenshots`
 fastlane/live/
+fastlane/live/
+vendor/bundle/

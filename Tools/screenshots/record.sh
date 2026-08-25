@@ -105,17 +105,24 @@ for locale in "${LOCALE_LIST[@]}"; do
     xcrun simctl terminate "$UDID" "$BUNDLE_ID" 2>/dev/null || true
     sleep 1
 
-    # Trim the launch and the tail, force 30fps, and strip audio.
+    # Trim the launch and the tail, force 30fps, and mux a silent stereo track.
     #
-    # No audio: the simulator does not capture the app's own output, so the track would
-    # be silence — and a preview with a silent track reads as broken where one with no
-    # track at all reads as deliberate.
+    # The silence is unavoidable: `simctl io recordVideo` does not capture the app's own
+    # audio output, and a reconstructed bed would drift out of sync with the picture.
+    #
+    # The *track* is not optional. App Store Connect rejects a preview with no audio
+    # stream — it accepts the upload, then fails processing with MOV_RESAVE_STEREO and
+    # says nothing unless you go looking at the asset's delivery state. anullsrc supplies
+    # a conforming 44.1 kHz stereo AAC track carrying nothing.
     echo "    trimming -> $(basename "$final")"
     # -ss 2.8 drops the cold launch: the simulator paints a white window before the
     # app's first frame, and a preview opening on white reads as a crash.
     ffmpeg -y -loglevel error -ss 2.8 -i "$raw" -t "$FINAL_SECONDS" \
-        -an -c:v libx264 -profile:v high -pix_fmt yuv420p -r 30 -crf 20 \
+        -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 \
+        -map 0:v:0 -map 1:a:0 -shortest \
+        -c:v libx264 -profile:v high -pix_fmt yuv420p -r 30 -crf 20 \
         -vf "scale=${PREVIEW_WIDTH}:-2,crop=${PREVIEW_WIDTH}:${PREVIEW_HEIGHT}" \
+        -c:a aac -b:a 128k -ar 44100 -ac 2 \
         -movflags +faststart "$final"
 done
 

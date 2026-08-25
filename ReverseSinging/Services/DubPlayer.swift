@@ -54,7 +54,7 @@ final class DubPlayer: ObservableObject {
     private var backingFormat: AVAudioFormat?
     private var progressTimer: Timer?
 
-    /// Each line's voice, trimmed and timed by `DubVoiceAlignment`, keyed by slug.
+    /// Each line's complete voice buffer and pack timestamp, keyed by slug.
     ///
     /// Only ever valid for `loadedMode`: the two modes key on the same slugs but read from
     /// different files, so a cache shared between them hands Original's references back to My
@@ -77,6 +77,15 @@ final class DubPlayer: ObservableObject {
 
     /// Backing track sits under the voices rather than competing with them.
     private static let backingGain: Float = 0.75
+
+    /// How long after a node starts rendering its samples are actually heard.
+    ///
+    /// Clamped: the session reports zero before it has ever been activated, and a wild figure
+    /// from an unusual route should not be allowed to shove the picture half a second out.
+    private static func audibleDelay() -> TimeInterval {
+        let session = AVAudioSession.sharedInstance()
+        return min(max(0, session.outputLatency + session.ioBufferDuration), 0.5)
+    }
 
     /// How far ahead of "now" playback is scheduled to begin.
     ///
@@ -168,11 +177,11 @@ final class DubPlayer: ObservableObject {
     private struct VoiceSource: Sendable {
         let line: DubLine
         let url: URL
-        /// True for the user's own take, which is aligned onto the original's onset. A
-        /// reference is left where it was cut from.
+        /// True for the user's own take. Take and reference both use the pack timestamp;
+        /// this flag only selects which buffer is loaded.
         let isTake: Bool
-        /// Only opened for a take on a line with no measured speech window — see
-        /// `DubVoiceAlignment.place(take:for:referenceURL:)`.
+        /// Kept in the source description for the shared placement API. Waveform analysis
+        /// never overrides the pack timestamp.
         let referenceURL: URL
     }
 
@@ -282,7 +291,17 @@ final class DubPlayer: ObservableObject {
         if backingBuffer != nil { backingNode.play(at: startTime) }
         voiceNodes.forEach { $0.play(at: startTime) }
 
-        playbackAnchor = DubPlaybackAnchor(offset: playbackStartOffset, hostTime: hostTime)
+        // The picture is anchored a little later than the audio, by however long this route
+        // takes to actually make a sound. `hostTime` is when the nodes start *rendering*; the
+        // samples reach the ear an output latency and one IO buffer after that. Anchoring the
+        // video to the render instant holds it that far ahead of what is being heard —
+        // imperceptible through the speaker, but a Bluetooth route is 150–300 ms of it.
+        //
+        // Read per playback rather than cached: the user can change route between takes.
+        playbackAnchor = DubPlaybackAnchor(
+            offset: playbackStartOffset,
+            hostTime: hostTime + AVAudioTime.hostTime(forSeconds: Self.audibleDelay())
+        )
         currentTime = playbackStartOffset
         isPlaying = true
         startProgressTimer()

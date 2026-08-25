@@ -109,7 +109,11 @@ final class AudioPlayer: NSObject, ObservableObject {
         }
     }
 
-    func play() {
+    /// Plays now, or on an exact future host-clock boundary when one is supplied.
+    ///
+    /// Scheduled playback is used by dub headphone monitoring so the reference, picture and
+    /// microphone sample zero do not cue the performer at three slightly different times.
+    func play(atHostTime hostTime: UInt64? = nil) {
         guard let engine = audioEngine,
               let player = playerNode,
               let buffer = audioBuffer else { return }
@@ -133,7 +137,11 @@ final class AudioPlayer: NSObject, ObservableObject {
                 }
             }
 
-            player.play()
+            if let hostTime {
+                player.play(at: AVAudioTime(hostTime: hostTime))
+            } else {
+                player.play()
+            }
             isPlaying = true
             startProgressTimer()
             HapticManager.shared.light()

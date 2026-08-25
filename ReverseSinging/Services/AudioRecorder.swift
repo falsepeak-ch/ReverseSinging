@@ -200,11 +200,19 @@ final class AudioRecorder: NSObject, ObservableObject {
 
     // MARK: - Recording
 
-    /// - Parameter maxDuration: when set, the recorder stops itself after exactly this long.
-    ///   Handed to `AVAudioRecorder` rather than enforced with a timer: it stops on the audio
-    ///   clock, so the file is the requested length to the sample. A main-thread timer lands
-    ///   late, and by a different amount on every take.
-    func startRecording(maxDuration: TimeInterval? = nil) throws -> URL {
+    /// - Parameters:
+    ///   - maxDuration: when set, the recorder stops itself after exactly this long. Handed to
+    ///     `AVAudioRecorder` so the file ends on the audio clock rather than a UI timer.
+    ///   - startDelay: scheduling runway before sample zero. Dub capture uses the same future
+    ///     deadline for the recorder and the video, avoiding an asynchronous seek after the
+    ///     microphone has already opened.
+    ///   - onScheduled: receives the matching host-clock deadline after the recorder accepts
+    ///     the schedule and before `isRecording` is published.
+    func startRecording(
+        maxDuration: TimeInterval? = nil,
+        startDelay: TimeInterval = 0,
+        onScheduled: ((UInt64) -> Void)? = nil
+    ) throws -> URL {
         print("🎙️ Attempting to start recording...")
 
         // Validate state
@@ -251,15 +259,30 @@ final class AudioRecorder: NSObject, ObservableObject {
                 )
             }
 
-            // Start recording
+            // Start recording. `record(atTime:)` is relative to the audio device clock and is
+            // Apple's synchronization API; using it gives the picture enough runway to map
+            // its first frame onto the same future instant.
             let success: Bool
-            if let maxDuration, maxDuration > 0 {
+            let delay = max(0, startDelay)
+            var scheduledHostTime: UInt64?
+            if delay > 0 {
+                // Read both clocks together, after session activation and recorder setup.
+                // Doing this earlier lets variable audio-session setup consume the runway.
+                scheduledHostTime = mach_absolute_time() + AVAudioTime.hostTime(forSeconds: delay)
+                let deviceStart = recorder.deviceCurrentTime + delay
+                if let maxDuration, maxDuration > 0 {
+                    success = recorder.record(atTime: deviceStart, forDuration: maxDuration)
+                } else {
+                    success = recorder.record(atTime: deviceStart)
+                }
+            } else if let maxDuration, maxDuration > 0 {
                 success = recorder.record(forDuration: maxDuration)
             } else {
                 success = recorder.record()
             }
 
             if success {
+                if let scheduledHostTime { onScheduled?(scheduledHostTime) }
                 isRecording = true
                 recordingDuration = 0
                 lifecycleState = .recording

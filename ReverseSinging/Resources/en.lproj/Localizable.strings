@@ -269,3 +269,5 @@
 "dub.score.grade.good" = "Solid take";
 "dub.score.grade.close" = "Nearly there";
 "dub.score.grade.rough" = "Give it another go";
+
+"dub.videoNeedsReimport" = "This scene's video was converted by an older version and runs ahead of the voices. Import the pack again to fix it.";

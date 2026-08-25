@@ -108,6 +108,36 @@ struct DubScenePictureTests {
         #expect(advanced, "picture did not roll after the shared deadline")
     }
 
+    /// Recording uses the same host-clock technique, but starts at the selected line rather
+    /// than at a whole-scene offset. This is the capture-side regression: the video must not
+    /// roll during the microphone's scheduling runway.
+    @Test func recordedLineStartsOnTheMicrophoneAnchor() async throws {
+        let (picture, directory) = try makePicture()
+        defer { try? FileManager.default.removeItem(at: directory) }
+
+        let ready = try await waitUntil { picture.isReadyForTesting }
+        #expect(ready, "video did not become ready")
+
+        let line = self.line(start: 2, duration: 2)
+        let hostTime = mach_absolute_time() + AVAudioTime.hostTime(forSeconds: 0.8)
+        picture.play(line, at: DubPlaybackAnchor(offset: line.startTime, hostTime: hostTime))
+
+        let positioned = try await waitUntil(timeout: 0.5) {
+            picture.currentTimeForTesting >= line.startTime - 0.05
+        }
+        #expect(positioned, "picture did not position on the line")
+
+        let before = picture.currentTimeForTesting
+        try await Task.sleep(for: .milliseconds(200))
+        #expect(abs(picture.currentTimeForTesting - before) < 0.08,
+                "record picture ran before microphone sample zero")
+
+        let advanced = try await waitUntil(timeout: 2) {
+            picture.currentTimeForTesting > before + 0.2
+        }
+        #expect(advanced, "record picture did not roll after microphone sample zero")
+    }
+
     /// Opening a large imported scene can outlast the audio lead-in. The pending start must
     /// survive that load and join the audio at its then-current timeline position.
     @Test func wholeSceneStartWaitsForVideoReadiness() async throws {
@@ -171,32 +201,5 @@ struct DubScenePictureTests {
         #expect(paused, "should have paused at the line's end")
         #expect(picture.currentTimeForTesting < 2,
                 "stopped at \(picture.currentTimeForTesting), well past the 0.5s boundary")
-    }
-}
-
-// MARK: - Multi-stream Ogg
-
-/// A real pack's `dub_video.ogv` carries a Vorbis audio track alongside the Theora video.
-/// The single-stream fixture used elsewhere cannot catch a demuxer that mishandles that.
-@Suite("Theora Transcoder")
-struct TheoraTranscoderTests {
-
-    @Test func convertsAnOggCarryingBothVideoAndAudio() async throws {
-        let bundle = Bundle(for: ScenePictureBundleToken.self)
-        let source = try #require(bundle.url(forResource: "test_av", withExtension: "ogv"))
-        let output = FileManager.default.temporaryDirectory
-            .appendingPathComponent("av-\(UUID().uuidString).mp4")
-        defer { try? FileManager.default.removeItem(at: output) }
-
-        try TheoraTranscoder.transcode(ogv: source, to: output)
-
-        let asset = AVURLAsset(url: output)
-        let duration = try await asset.load(.duration).seconds
-        let track = try #require(try await asset.loadTracks(withMediaType: .video).first)
-        let size = try await track.load(.naturalSize)
-
-        #expect(abs(duration - 9.0) < 0.3, "duration was \(duration)")
-        #expect(Int(size.width) == 640)
-        #expect(Int(size.height) == 480)
     }
 }

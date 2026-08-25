@@ -19,6 +19,11 @@ struct DubPackDetailView: View {
     @State private var showRecorder = false
     @State private var playbackMode: DubPlaybackMode?
     @State private var reelIsBreathing = false
+    /// True for a pack whose video was converted by a build that dropped duplicate frames.
+    ///
+    /// Reads the file, so it is settled once when the screen appears rather than on every
+    /// evaluation of the body.
+    @State private var videoNeedsReimport = false
 
     init(pack: DubPack, library: DubPackLibrary) {
         self.pack = pack
@@ -40,6 +45,10 @@ struct DubPackDetailView: View {
                 ScrollView {
                     VStack(spacing: 24) {
                         hero
+
+                        if videoNeedsReimport {
+                            reimportNotice
+                        }
 
                         if scoring.isEnabled {
                             sceneScore
@@ -75,6 +84,12 @@ struct DubPackDetailView: View {
         } message: {
             Text(viewModel.errorMessage ?? "")
         }
+        .task {
+            let pack = pack
+            videoNeedsReimport = await Task.detached(priority: .utility) {
+                DubPackLibrary.sceneVideoIsTruncated(pack)
+            }.value
+        }
         .onAppear {
             AnalyticsManager.shared.trackScreenViewed(screenName: "DubPackDetail")
             #if DEBUG
@@ -103,6 +118,37 @@ struct DubPackDetailView: View {
             library.reload()
         }
         .animation(.rsSpring, value: viewModel.isExporting)
+    }
+
+    // MARK: - Damaged Video
+
+    /// Tells the user why the picture is ahead of the voices, and what to do about it.
+    ///
+    /// The pack's Theora original is deleted once converted, so there is nothing left on the
+    /// device to convert again — importing the pack afresh is genuinely the only fix, and
+    /// saying so beats letting the scene play out of sync with no explanation.
+    private var reimportNotice: some View {
+        HStack(alignment: .top, spacing: 10) {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundColor(.rsHighlight)
+
+            Text(Strings.Dub.videoNeedsReimport)
+                .font(.rsCaption)
+                .foregroundColor(.rsTextSecondary)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(12)
+        .background(
+            RoundedRectangle(cornerRadius: 5, style: .continuous)
+                .fill(Color.rsSurface2)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 5, style: .continuous)
+                .strokeBorder(Color.rsHighlight.opacity(0.4), lineWidth: EditorMetrics.hairline)
+        )
+        .padding(.horizontal, EditorMetrics.gutter)
     }
 
     // MARK: - Screenshots

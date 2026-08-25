@@ -269,3 +269,5 @@
 "dub.score.grade.good" = "いいテイク";
 "dub.score.grade.close" = "あと少し";
 "dub.score.grade.rough" = "もう一度";
+
+"dub.videoNeedsReimport" = "このシーンの映像は以前のバージョンで変換されたため、音声より先行して再生されます。パックを再度読み込むと修正されます。";

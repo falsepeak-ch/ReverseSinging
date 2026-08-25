@@ -1,7 +1,7 @@
 # App Store screenshots and app preview
 
-Everything on the Reverso product page, generated from the real app: seven screenshots
-and one 29-second preview video, in each of the seven store languages. 56 files, one
+Everything on the Reverso product page, generated from the real app: eight screenshots
+and one 29-second preview video, in each of the seven store languages. 63 files, one
 command each.
 
 ```bash
@@ -9,9 +9,17 @@ Tools/screenshots/run.sh        # 49 screenshots  -> fastlane/screenshots/<local
 Tools/screenshots/record.sh     # 7 preview videos -> fastlane/screenshots/<locale>/00_preview.mp4
 ```
 
-Then `bundle exec fastlane upload_screenshots` sends both. `deliver` treats video files
-sitting in the screenshots folder as app previews, and the App Store shows previews
-before stills — which is why the video is named `00`.
+Then upload them — two lanes, because they take two different paths:
+
+```bash
+bundle exec fastlane upload_screenshots   # deliver
+bundle exec fastlane upload_previews      # spaceship, direct
+```
+
+`deliver` has no app-preview support at all; it scans the screenshots folder for images
+only, and a video sitting next to them is ignored without a word. `upload_previews` talks
+to the App Store Connect API itself. The App Store shows previews before stills, which is
+why the video is named `00`.
 
 ## How it works
 
@@ -22,7 +30,7 @@ Four stages, the first two shared with `record.sh`:
 | simulator | `lib.sh` | creates/boots a dedicated simulator, builds, installs onto a clean container, warms up |
 | capture | `capture.sh` | one cold launch per screen per locale, `simctl io screenshot` |
 | frame | `frame.py` | drops each capture into a mockuphone.com iPhone bezel, on transparency |
-| compose | `compose.py` | bezel + localized headline onto a 1320×2868 canvas, straight into `fastlane/screenshots/` |
+| compose | `compose.py` | bezel + localized headline onto a 1320×2868 canvas, plus the hero slide, straight into `fastlane/screenshots/` |
 
 The app poses itself. `ReverseSinging/Support/ScreenshotMode.swift` — all of it behind
 `#if DEBUG` — reads `-screenshotMode` and `-screenshotDestination` out of the launch
@@ -33,6 +41,34 @@ taps anything, so every locale gets the identical frame.
 The preview video is the same idea taken further: `runScreenshotTour()` in
 `DubPackDetailView` walks the dub game from the library to a finished render on a fixed
 beat sheet (`ScreenshotMode.Tour`), while `simctl io recordVideo` runs.
+
+## The palette is the store's, not the app's
+
+The app is dark-only — `ContentView` forces `.dark`, because a light UI washes out the
+stills and waveforms it exists to display. The product page is not.
+
+`PALETTE` in `compose.py` is sampled from the 1.2.0 screenshots that were already on the
+App Store: cream `#F8F4D3`, slate-teal ink `#2E4245`, and `#253A3F` for the hero panel.
+A dark listing was tried first and looked like a different product next to everything
+else Cluso ships. Continuity with what shoppers have already seen is worth more here than
+matching the interface behind the glass — the phone in each shot is dark regardless, and
+that is where the app's own palette belongs.
+
+The one borrowed accent is `#E5484D`, the record red, as a short rule under each headline.
+
+## The hero slide
+
+Slot `00` is not a captured screen. `compose_hero()` builds it: the `icon-lettering`
+lock-up straight out of `Assets.xcassets`, a three-line promise from the `hero` entry in
+`captions.json`, and the `dubRecord` capture given a small perspective and a 4.5° tilt so
+it reads as a phone being held rather than a rectangle pasted on a panel.
+
+Everything captured therefore shifts up one: `capture.sh` writes `00_dubRecord.png`, and
+`compose.py` emits it as `01_dubRecord.png`. Eight slots used of Apple's ten.
+
+The perspective transform solves its own 8×8 system in `_perspective_coeffs` rather than
+pulling in numpy — it is the only linear algebra in the pipeline, and the venv is
+otherwise just Pillow.
 
 ## Its own simulator
 
@@ -87,9 +123,17 @@ which is invisible at any real size.
   no iPad, no landscape. 1320×2868 is what the iPhone 17 Pro Max simulator captures.
 - **Previews are 15–30 seconds.** `record.sh` records 38 and trims to a hard 29. One frame
   over and App Store Connect rejects the upload, and it will not trim for you.
-- **The preview has no audio track.** The simulator does not capture the app's own output,
-  so the track would be silence — and a preview with a silent track reads as broken where
-  one with no track reads as deliberate.
+- **The preview must carry a stereo audio track, even a silent one.** `simctl` cannot
+  capture the app's own audio, so the track is `anullsrc` silence — but it has to be there.
+  Without it App Store Connect accepts every byte and then fails processing with
+  `MOV_RESAVE_STEREO`, visible only by reading the asset's delivery state back. That is
+  what the verification step in `upload_previews` exists to catch.
+- **Previews and screenshots are different frame sizes.** Screenshots go up at 1320×2868;
+  previews must be 1290×2796 or 886×1920. `record.sh` scales and crops to the former.
+- **Uploading a preview is slow and flaky.** Each locale is a multi-megabyte asset upload
+  plus a wait on Apple's processing — 7 to 100 minutes each in practice — and system Ruby's
+  OpenSSL drops the connection often enough that a re-run is normal. The lane is idempotent:
+  it clears the locale's preview set before uploading, so re-running only redoes what failed.
 - **`recordVideo` needs SIGINT**, not SIGKILL. Anything harsher leaves an unfinalised,
   unplayable file.
 - **`set -o pipefail` is on.** `find` on a directory the app has not created yet exits
@@ -101,3 +145,10 @@ which is invisible at any real size.
 
 `output/` and `fastlane/screenshots/**` are gitignored — regenerate rather than commit.
 The device frames and `captions.json` are committed.
+
+One trap: the previews live in `fastlane/screenshots/<locale>/` alongside the stills, so
+`rm -rf fastlane/screenshots` to force a clean compose takes them with it. `compose.py`
+overwrites the PNGs it owns and leaves everything else alone, so the wipe is never needed.
+If it happens anyway, the raw captures survive in `output/preview/*_raw.mov` and the
+trimming step at the end of `record.sh` rebuilds the MP4s in about a minute — no need to
+re-record.

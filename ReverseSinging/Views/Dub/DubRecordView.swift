@@ -71,14 +71,16 @@ struct DubRecordView: View {
             guard let line = viewModel.currentLine else { return }
             isPreviewing ? scenePicture.play(line) : scenePicture.stop(returningTo: line)
         }
-        // The take now ends when the line does, so the picture plays it through once and the
-        // recording stops on the same frame. Looping is kept for a line of unknown length,
-        // where nothing stops the take and a frozen frame would read as broken.
+        // Schedule the first frame on the microphone's exact future start boundary. Starting
+        // the recorder and only then reacting here used to bake the asynchronous video seek
+        // into every take as leading silence; that delay was still present on playback.
+        .onChange(of: viewModel.recordingAnchor) { _, anchor in
+            guard let anchor, let line = viewModel.currentLine else { return }
+            scenePicture.play(line, at: anchor, loop: line.duration <= 0)
+        }
         .onChange(of: viewModel.isRecording) { _, isRecording in
             guard let line = viewModel.currentLine else { return }
-            isRecording
-                ? scenePicture.play(line, loop: line.duration <= 0)
-                : scenePicture.stop(returningTo: line)
+            if !isRecording { scenePicture.stop(returningTo: line) }
         }
     }
 

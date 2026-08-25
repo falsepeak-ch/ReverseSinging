@@ -75,7 +75,7 @@ SCENES = {
     "TheYogurtIncident": {
         "title": "The Yogurt Incident",
         "authors": ["Reverso"],
-        "icon_index": 2001,
+        "icon_index": 2002,
         "lines": [
             (201, "Diane", "It had my name on it.", 2002, 0.0),
             (202, "Marcus", "Lots of people are called Diane.", 2003, 0.6),
@@ -243,13 +243,24 @@ def assemble_video(entries, clip_dir, scene_length, out_path, work_dir):
     for index, (start, shot) in enumerate(boundaries):
         last = index + 1 >= len(boundaries)
         end = scene_length if last else boundaries[index + 1][0]
-        length = round(end - start, 3)
 
         # The final segment runs a frame or two long. `DubMixer` clamps the exported audio to
         # the video's length, so a video that finishes even fractionally early would clip the
         # tail off every export.
         if last:
-            length = round(length + 2.0 / VIDEO_FPS, 3)
+            end += 2.0 / VIDEO_FPS
+
+        # Cut on absolute frame numbers, not on each segment's own rounded length.
+        #
+        # `ffmpeg -t` can only stop on a frame boundary, so asking for each duration
+        # separately rounds each one independently and the errors add up down the concat:
+        # the shipped packs came out 96 ms and 78 ms short, with every cut after the first
+        # landing progressively early against the line it is supposed to fall on. Taking the
+        # difference of two absolute frame numbers makes each boundary land where the
+        # timeline says, and the error stops accumulating.
+        start_frame = round(start * VIDEO_FPS)
+        end_frame = round(end * VIDEO_FPS)
+        length = round((end_frame - start_frame) / float(VIDEO_FPS), 3)
         if length <= 0:
             continue
 
@@ -375,7 +386,16 @@ def build(scene_key, raw_dir, image_dir, out_root, clip_dir=None):
     os.remove(bed_wav)
 
     # The icon is one of the shots the scene already ships, not a fourteenth picture.
+    #
+    # Checked rather than assumed: a pack named an icon it did not contain and the parser
+    # quietly fell back to the first line's still, so nothing ever said it was wrong.
     icon = "shot_%d.jpg" % scene["icon_index"]
+    if not os.path.exists(os.path.join(out, icon)):
+        raise SystemExit(
+            "%s: icon_index %d has no shot in this scene (have: %s)"
+            % (name, scene["icon_index"],
+               ", ".join(sorted({"%d" % line[3] for line in scene["lines"]})))
+        )
 
     with open(os.path.join(out, "_pack_info.ini"), "w") as f:
         f.write("[pack]\n")

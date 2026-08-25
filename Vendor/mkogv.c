@@ -1,6 +1,11 @@
 /* Test-fixture generator: writes a video-only Ogg Theora file.
    Three colour segments with a marker that moves left-to-right, so the transcode
-   can be checked frame-accurately against the source. */
+   can be checked frame-accurately against the source.
+
+   With a third argument, the picture is held for runs of that many frames. Identical
+   input makes libtheora emit a 0-byte packet per repeat — a duplicate frame — which is
+   what a real film scene padded up to a higher frame rate is full of, and what the
+   transcoder used to drop on the floor. */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -14,8 +19,14 @@
 
 static unsigned char Yp[W*H], Cb[(W/2)*(H/2)], Cr[(W/2)*(H/2)];
 
+/* Frames per held picture. 1 draws every frame afresh, as the original fixture does. */
+static int hold = 1;
+
 static void fill_frame(int n) {
     int total = FPS * SECONDS;
+    /* Quantised so a held run really is byte-identical — anything else and the encoder
+       codes a difference rather than a duplicate. */
+    if (hold > 1) n -= n % hold;
     int seg = n / (FPS * 3);
     if (seg > 2) seg = 2;
     /* Distinct luma per segment so the segment is identifiable from Y alone. */
@@ -46,7 +57,11 @@ static void write_page(FILE *f, ogg_page *p) {
 }
 
 int main(int argc, char **argv) {
-    if (argc < 2) { fprintf(stderr, "usage: mkogv out.ogv\n"); return 1; }
+    if (argc < 2) { fprintf(stderr, "usage: mkogv out.ogv [hold-frames]\n"); return 1; }
+    if (argc >= 3) {
+        hold = atoi(argv[2]);
+        if (hold < 1) hold = 1;
+    }
     FILE *out = fopen(argv[1], "wb");
     if (!out) { perror("fopen"); return 1; }
 
@@ -100,6 +115,6 @@ int main(int argc, char **argv) {
     ogg_stream_clear(&os);
     th_info_clear(&info);
     fclose(out);
-    fprintf(stderr, "wrote %d frames\n", total);
+    fprintf(stderr, "wrote %d frames (hold %d)\n", total, hold);
     return 0;
 }

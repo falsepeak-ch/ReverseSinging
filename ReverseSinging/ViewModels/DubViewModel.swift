@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import QuartzCore
+import AVFoundation
 
 @MainActor
 final class DubViewModel: ObservableObject {
@@ -40,6 +41,9 @@ final class DubViewModel: ObservableObject {
     @Published private(set) var countdown: Int?
     @Published private(set) var recordingLevel: Float = 0
     @Published private(set) var recordingDuration: TimeInterval = 0
+    /// The deadline at which both microphone sample zero and the line's first video frame
+    /// begin. Published so `DubRecordView` can schedule its AVPlayer before the deadline.
+    @Published private(set) var recordingAnchor: DubPlaybackAnchor?
     @Published var hasRecordingPermission = false
     @Published var showPermissionAlert = false
 
@@ -133,6 +137,11 @@ final class DubViewModel: ObservableObject {
     private var countdownTask: Task<Void, Never>?
     private var autoStopTask: Task<Void, Never>?
     private var cancellables = Set<AnyCancellable>()
+
+    /// Scheduling runway shared by AVAudioRecorder and AVPlayer. Starting either immediately
+    /// makes the second API call late by construction; a short future deadline lets both
+    /// subsystems commit before sample/frame zero.
+    private static let recordingStartLeadIn: TimeInterval = 0.15
 
     // MARK: - Init
 
@@ -408,7 +417,7 @@ final class DubViewModel: ObservableObject {
     }
 
     private func beginRecording() {
-        guard recorder.canStartRecording() else { return }
+        guard recorder.canStartRecording(), let line = currentLine else { return }
 
         do {
             SoundManager.shared.setMicrophoneOpen(true)
@@ -416,7 +425,7 @@ final class DubViewModel: ObservableObject {
             takeSamples = []
 
             // Fixed before the mic opens, so every tick that follows lands on the same axis.
-            let lineDuration = currentLine?.duration ?? 0
+            let lineDuration = line.duration
             trace = LiveTrace(
                 barDuration: lineDuration > 0
                     ? lineDuration / Double(Self.referenceBuckets)
@@ -428,15 +437,36 @@ final class DubViewModel: ObservableObject {
                     : Self.referenceBuckets * WaveformScaling.maxOverrun
             )
 
-            // The recorder caps the audio itself; this only tells the rest of the screen the
-            // take is over, and writes it to disk.
-            _ = try recorder.startRecording(maxDuration: lineDuration > 0 ? lineDuration : nil)
-            traceStartedAt = CACurrentMediaTime()
-            scheduleAutoStop(after: lineDuration)
+            // Any headphone reference has to be decoded and its engine warmed before the
+            // common deadline is chosen. Loading it afterwards can consume the whole runway
+            // and turn a scheduled cue into another late immediate start.
+            let hasPreparedMonitor = prepareHeadphoneMonitorIfAllowed()
 
-            startHeadphoneMonitorIfAllowed()
+            // `AudioRecorder` chooses this future boundary only after audio-session setup, so
+            // variable route activation cannot consume the scheduling runway. It publishes
+            // the matching host time synchronously before `isRecording` changes.
+            let leadIn = Self.recordingStartLeadIn
+            // The recorder caps the audio itself; the UI task waits through the scheduling
+            // runway and then saves the completed file.
+            _ = try recorder.startRecording(
+                maxDuration: lineDuration > 0 ? lineDuration : nil,
+                startDelay: leadIn,
+                onScheduled: { [weak self] hostTime in
+                    self?.recordingAnchor = DubPlaybackAnchor(
+                        offset: line.startTime,
+                        hostTime: hostTime
+                    )
+                }
+            )
+            traceStartedAt = CACurrentMediaTime() + leadIn
+            scheduleAutoStop(after: lineDuration > 0 ? lineDuration + leadIn : 0)
+
+            if hasPreparedMonitor {
+                monitorPlayer.play(atHostTime: recordingAnchor?.hostTime)
+            }
             HapticManager.shared.heavy()
         } catch {
+            recordingAnchor = nil
             SoundManager.shared.setMicrophoneOpen(false)
             errorMessage = error.localizedDescription
             SoundManager.shared.play(.errorThunk)
@@ -471,29 +501,31 @@ final class DubViewModel: ObservableObject {
 
     // MARK: - Headphone Monitoring
 
-    /// Plays the reference into the performer's headphones for the length of the take.
+    /// Loads the optional headphone reference before the common capture deadline is chosen.
     ///
     /// Only ever on headphones: the same audio through the speaker would be recorded along
-    /// with the voice. It loops for the same reason the picture does — a take routinely runs
-    /// past the line, and a monitor that stops halfway is worse than no monitor.
-    private func startHeadphoneMonitorIfAllowed() {
+    /// with the voice. Returns whether a warmed monitor is ready to be scheduled alongside
+    /// the microphone and picture.
+    private func prepareHeadphoneMonitorIfAllowed() -> Bool {
         HeadphoneMonitor.shared.refresh()
 
         guard HeadphoneMonitor.shared.shouldPlayOriginalWhileRecording,
-              let line = currentLine else { return }
+              let line = currentLine else { return false }
 
         do {
             try monitorPlayer.loadAudio(from: pack.referenceAudioURL(for: line))
             monitorPlayer.isLooping = true
-            monitorPlayer.play()
+            return true
         } catch {
-            // Not worth interrupting a take that is already running for.
+            // Monitoring is optional; keep the take available without it.
             print("⚠️ Headphone monitor unavailable: \(error)")
+            return false
         }
     }
 
     private func stopRecording() {
         cancelAutoStop()
+        recordingAnchor = nil
 
         guard recorder.canStopRecording(), let line = currentLine else { return }
         guard let temporaryURL = recorder.stopRecording() else {
@@ -658,6 +690,7 @@ final class DubViewModel: ObservableObject {
     func stopEverything() {
         cancelCountdown()
         cancelAutoStop()
+        recordingAnchor = nil
 
         if isRecording {
             recorder.cancelRecording()

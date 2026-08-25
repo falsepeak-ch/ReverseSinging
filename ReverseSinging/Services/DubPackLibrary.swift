@@ -5,6 +5,7 @@
 //  The set of dub packs installed on this device
 //
 
+import AVFoundation
 import Foundation
 import Combine
 
@@ -119,6 +120,35 @@ final class DubPackLibrary: ObservableObject {
     static nonisolated func manifestIsStale(_ pack: DubPack, in directory: URL) -> Bool {
         guard pack.hasMeasuredSpeech else { return true }
         return manifestIsMissingAVideoOnDisk(pack, in: directory)
+    }
+
+    /// How far a scene video may fall short of the pack's own timeline before it is treated
+    /// as damaged rather than merely rounded.
+    ///
+    /// A sound conversion lands within a frame or two — the real packs measure 0.02 s and
+    /// 0.06 s out. A pack converted by the build that dropped duplicate frames is short by the
+    /// whole run of them, which on a two-minute scene came to over five seconds.
+    static nonisolated let truncatedVideoTolerance: TimeInterval = 0.25
+
+    /// True when a pack's video ends materially before the scene's audio does.
+    ///
+    /// Builds before `TheoraTranscoder` learned to keep duplicate frames dropped every one of
+    /// them, so the picture ran progressively ahead of the voices — over five seconds by the
+    /// end of one real scene. The Theora original is deleted once converted, so an affected
+    /// pack cannot be repaired in place; it has to be imported again.
+    ///
+    /// Measured rather than stamped with a version, because the damage itself is what can be
+    /// seen: the video is short by exactly the frames that went missing, whatever build did
+    /// it. A pack that ships its video as MP4 and never went through the transcoder is
+    /// correct by construction and reads well inside the tolerance.
+    static nonisolated func sceneVideoIsTruncated(_ pack: DubPack) -> Bool {
+        guard pack.duration > 0, let videoURL = pack.videoURL,
+              FileManager.default.fileExists(atPath: videoURL.path) else { return false }
+
+        let video = CMTimeGetSeconds(AVURLAsset(url: videoURL).duration)
+        guard video.isFinite, video > 0 else { return false }
+
+        return pack.duration - video > truncatedVideoTolerance
     }
 
     static nonisolated func manifestIsMissingAVideoOnDisk(_ pack: DubPack, in directory: URL) -> Bool {

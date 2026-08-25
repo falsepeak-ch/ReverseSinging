@@ -9,15 +9,10 @@ import AVFoundation
 
 /// Finds the silence wrapped around a line.
 ///
-/// A pack gives one number per line: the timestamp of the audio chunk. That chunk is a slice
-/// of the scene, so it routinely opens with a beat of room tone before anyone speaks — across
-/// a real 62-line pack, 35 lines carry more than 250 ms of it and the spread runs to nearly
-/// two seconds — and closes with another beat after they stop. Placing a take at the chunk's
-/// timestamp therefore puts the performer's first word up to two seconds ahead of the
-/// character's mouth, by a different amount on every line, and leaving the caption up for the
-/// whole chunk shows the words long before and long after they are spoken.
-///
-/// So the chunk timestamp is used to find the line, and this is used to line it up.
+/// A pack gives the authoritative chunk timestamp. This detector describes where sustained
+/// sound appears inside that chunk so captions and timing scores can use a tighter window.
+/// It deliberately does not place, trim or stretch audio: score and effects are not reliable
+/// edit markers, and changing a line's declared interval destroys intentional overlaps.
 nonisolated enum DubSpeechOnset {
 
     /// The stretch of a clip that is actually speech, in seconds from the clip's own start.
