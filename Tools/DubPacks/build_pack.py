@@ -4,13 +4,27 @@ Turns a scene definition into a dub pack folder in the format DubPackParser read
 
 Run from the repo root:
 
-    python3 Tools/DubPacks/build_pack.py <raw-audio-dir> <image-dir> <output-dir> [clip-dir]
+    python3 Tools/DubPacks/build_pack.py <raw-audio-dir> <image-dir> <output-dir> [cut-dir]
 
 `raw-audio-dir` holds `<index>.wav` per line and `image-dir` holds `<index>.png` per
-shot, both named by the indices in SCENES below. `clip-dir`, when given, holds
-`<shot>.mp4` per shot and the pack gets a real scene video cut from them.
+shot, both named by the indices in SCENES below.
 
-The interesting part is `trim_to_speech`. Text-to-speech pads its output with silence,
+The build is two passes, because the picture is generated *from* the finished soundtrack:
+
+  1. Without `cut-dir`, the script lays out the timeline, writes the pack, and drops one
+     `cuts/cut_NN.mp3` per video cut into the output — each one exactly what the audience
+     hears over that cut — plus `cuts/cuts.json` describing them.
+  2. Those clips go through a lip-sync model (still + that cut's audio in, video out), and
+     the results come back as `<cut-dir>/cut_NN.mp4`.
+  3. Re-run with `cut-dir` and the pack gets `dub_video.mp4`, assembled on the same
+     timeline, with every mouth moving to the line it belongs to.
+
+That order is the point. The old build animated one clip per *shot* from its still and cut
+those to length, so the characters moved but never to the words — the picture and the
+soundtrack were independent. Generating each cut from its own audio is what makes them
+agree, and it only works if the audio is laid out first.
+
+The other interesting part is `trim_to_speech`. Text-to-speech pads its output with silence,
 by a different amount every time, and a pack's line duration is the stretch of film the
 performer has to fill — so a line padded with two seconds of nothing would ask them to
 hold a two-second pause they cannot hear. Every reference is therefore cut back to its
@@ -18,6 +32,7 @@ own speech plus a fixed handle at each end, and the timeline is laid out from th
 *measured* result rather than from anyone's estimate.
 """
 
+import json
 import math
 import os
 import re
@@ -83,7 +98,10 @@ SCENES = {
             (204, "Marcus", "There could be a new Diane.", 2003, 0.55),
             (205, "Diane", "There is no new Diane, Marcus.", 2002, 0.6),
             (206, "Marcus", "I panicked! It was strawberry!", 2004, 0.4),
-            (207, "Diane", "It was mango.", 2005, 0.7),
+            # Diane's close-up, not a cutaway to the pot. An insert is good film grammar
+            # and a bad dub cue: the performer has nothing to hit, and the shot is the one
+            # place in either scene where the picture cannot move with the line.
+            (207, "Diane", "It was mango.", 2002, 0.7),
             (208, "Marcus", "Then who ate the strawberry one?", 2003, 0.9),
             (209, "Kevin", "Morning, team! Great yogurt in there.", 2006, 1.0),
             (210, "Diane", "Kevin.", 2007, 0.8),
@@ -219,78 +237,161 @@ def probe_duration(path):
     return float(out.stdout.strip())
 
 
-def assemble_video(entries, clip_dir, scene_length, out_path, work_dir):
-    """Cuts the per-shot clips into one continuous scene video.
+def count_frames(path):
+    out = subprocess.run(
+        ["ffprobe", "-v", "error", "-select_streams", "v", "-count_frames",
+         "-show_entries", "stream=nb_read_frames", "-of", "default=nw=1:nk=1", path],
+        check=True, capture_output=True, text=True,
+    )
+    return int(out.stdout.strip())
+
+
+# The shortest clip the lip-sync pass will generate. Cuts below it are generated long and
+# trimmed back by `assemble_cuts`; the extra tail is silence either way.
+MIN_CUT_SECONDS = 2
+
+
+def cut_plan(entries, scene_length):
+    """Splits the finished timeline into the video's cuts.
+
+    One cut per distinct line start. Lines spoken in unison share a timestamp and belong to
+    the same cut — they are one shot with two people talking, not two shots.
+    """
+    starts = sorted({round(entry["start"], 3) for entry in entries})
+    cuts = []
+
+    for index, start in enumerate(starts):
+        last = index + 1 >= len(starts)
+        end = scene_length if last else starts[index + 1]
+
+        # Count in absolute frame numbers, not in each cut's own rounded length.
+        #
+        # Asking ffmpeg for each duration separately rounds each one independently and the
+        # errors add up down the concat: the first shipped packs came out 96 ms and 78 ms
+        # short, with every cut after the first landing progressively early against the line
+        # it is supposed to fall on. Taking the difference of two absolute frame numbers
+        # makes each boundary land where the timeline says, and the error stops accumulating.
+        start_frame = round(start * VIDEO_FPS)
+        end_frame = round(end * VIDEO_FPS)
+
+        # The final cut runs a frame or two long. `DubMixer` clamps the exported audio to the
+        # video's length, so a video that finishes even fractionally early would clip the
+        # tail off every export.
+        if last:
+            end_frame += 2
+
+        frames = end_frame - start_frame
+        if frames <= 0:
+            continue
+
+        here = [entry for entry in entries if round(entry["start"], 3) == start]
+        cuts.append({
+            "index": index,
+            "start": start,
+            "frames": frames,
+            "length": round(frames / float(VIDEO_FPS), 3),
+            "image": here[0]["image"],
+            "characters": [entry["character"] for entry in here],
+            "captions": [entry["caption"] for entry in here],
+            "lines": here,
+        })
+
+    return cuts
+
+
+def write_cut_audio(cuts, cuts_dir):
+    """Writes one mp3 per cut: exactly what the audience hears over it.
+
+    This is what the lip-sync pass is handed alongside the cut's still, and it is the whole
+    reason the finished picture agrees with the soundtrack — the mouth in the generated clip
+    moves to this line and to nothing else. Every line in a cut starts at the same timestamp
+    by construction, so they all sit at offset zero and unison lines simply sum.
+
+    The file is padded out to a whole number of seconds, and to `MIN_CUT_SECONDS` at least,
+    because that is all the models accept. The padding is silence at the end, where it costs
+    nothing: the speech stays where the timeline put it, and `assemble_cuts` trims the
+    returned clip back to `frames` so the pad never reaches the pack.
+    """
+    os.makedirs(cuts_dir, exist_ok=True)
+    manifest = []
+
+    for cut in cuts:
+        seconds = max(MIN_CUT_SECONDS, int(math.ceil(cut["length"])))
+        mixed = [0.0] * int(seconds * SAMPLE_RATE)
+
+        for entry in cut["lines"]:
+            for offset, sample in enumerate(entry["samples"]):
+                if offset >= len(mixed):
+                    break
+                mixed[offset] += sample
+
+        stem = os.path.join(cuts_dir, "cut_%02d" % cut["index"])
+        write_wav_mono(stem + ".wav", mixed)
+        subprocess.run(
+            ["ffmpeg", "-y", "-loglevel", "error", "-i", stem + ".wav",
+             "-c:a", "libmp3lame", "-b:a", "192k", stem + ".mp3"],
+            check=True,
+        )
+        os.remove(stem + ".wav")
+
+        manifest.append({
+            "index": cut["index"],
+            "clip": "cut_%02d.mp4" % cut["index"],
+            "audio": "cut_%02d.mp3" % cut["index"],
+            "generate_seconds": seconds,
+            "image": cut["image"],
+            "start": cut["start"],
+            "length": cut["length"],
+            "frames": cut["frames"],
+            "characters": cut["characters"],
+            "captions": cut["captions"],
+        })
+
+    with open(os.path.join(cuts_dir, "cuts.json"), "w") as f:
+        json.dump(manifest, f, indent=1)
+
+    return manifest
+
+
+def assemble_cuts(cuts, cut_dir, out_path, work_dir):
+    """Joins the per-cut lip-synced clips into one continuous scene video.
 
     The app plays a pack's video straight through and corrects it towards the audio clock,
     and the record screen seeks it to a single line's `startTime`. So the cuts have to fall
-    exactly on the line timestamps this same script just wrote — that is the whole reason
-    the video is assembled here, from the finished timeline, rather than anywhere else.
-
-    A shot used by several lines is cut from a different part of its clip each time, so a
-    character who speaks three times does not visibly replay the same two seconds.
+    exactly on the line timestamps this same script just wrote — which they do here by
+    construction: each clip is trimmed to the frame count the timeline asks for rather than
+    to a duration ffmpeg is left to round on its own, and the count is checked afterwards
+    rather than assumed.
     """
     os.makedirs(work_dir, exist_ok=True)
-
-    # One boundary per distinct start time. Lines spoken in unison share a timestamp and
-    # would otherwise produce a zero-length segment between them.
-    ordered = sorted({round(start, 3): shot for _, start, _, _, shot in reversed(entries)}.items())
-    boundaries = [(start, shot) for start, shot in ordered]
-
     segments = []
-    uses = {}
 
-    for index, (start, shot) in enumerate(boundaries):
-        last = index + 1 >= len(boundaries)
-        end = scene_length if last else boundaries[index + 1][0]
+    for cut in cuts:
+        clip = os.path.join(cut_dir, "cut_%02d.mp4" % cut["index"])
+        if not os.path.exists(clip):
+            raise SystemExit("missing lip-synced clip for cut %d: %s" % (cut["index"], clip))
 
-        # The final segment runs a frame or two long. `DubMixer` clamps the exported audio to
-        # the video's length, so a video that finishes even fractionally early would clip the
-        # tail off every export.
-        if last:
-            end += 2.0 / VIDEO_FPS
-
-        # Cut on absolute frame numbers, not on each segment's own rounded length.
-        #
-        # `ffmpeg -t` can only stop on a frame boundary, so asking for each duration
-        # separately rounds each one independently and the errors add up down the concat:
-        # the shipped packs came out 96 ms and 78 ms short, with every cut after the first
-        # landing progressively early against the line it is supposed to fall on. Taking the
-        # difference of two absolute frame numbers makes each boundary land where the
-        # timeline says, and the error stops accumulating.
-        start_frame = round(start * VIDEO_FPS)
-        end_frame = round(end * VIDEO_FPS)
-        length = round((end_frame - start_frame) / float(VIDEO_FPS), 3)
-        if length <= 0:
-            continue
-
-        clip = os.path.join(clip_dir, "%d.mp4" % shot)
-        clip_length = probe_duration(clip)
-
-        # Where in the clip to start. Each reuse of a shot steps further in, wrapping so the
-        # segment always fits inside the clip.
-        seen = uses.get(shot, 0)
-        uses[shot] = seen + 1
-        headroom = max(0.0, clip_length - length)
-        offset = round(min(headroom, seen * 1.3), 3) if headroom > 0 else 0.0
-
-        segment = os.path.join(work_dir, "seg_%03d.mp4" % index)
+        segment = os.path.join(work_dir, "cut_%03d.mp4" % cut["index"])
         subprocess.run(
-            ["ffmpeg", "-y", "-loglevel", "error",
-             # Looped input so a segment longer than its clip runs on instead of freezing.
-             "-stream_loop", "-1", "-ss", "%.3f" % offset, "-i", clip,
-             "-t", "%.3f" % length,
-             "-an",
-             "-vf", "scale=%d:%d:force_original_aspect_ratio=increase,crop=%d:%d,fps=%d"
-                    % (VIDEO_WIDTH, VIDEO_HEIGHT, VIDEO_WIDTH, VIDEO_HEIGHT, VIDEO_FPS),
+            ["ffmpeg", "-y", "-loglevel", "error", "-i", clip, "-an",
+             "-vf", "fps=%d,scale=%d:%d:force_original_aspect_ratio=increase,crop=%d:%d"
+                    % (VIDEO_FPS, VIDEO_WIDTH, VIDEO_HEIGHT, VIDEO_WIDTH, VIDEO_HEIGHT),
+             "-frames:v", str(cut["frames"]),
              "-c:v", "libx264", "-preset", "slow", "-crf", "27",
              "-pix_fmt", "yuv420p", "-g", str(VIDEO_FPS * 2),
              segment],
             check=True,
         )
+
+        written = count_frames(segment)
+        if written != cut["frames"]:
+            raise SystemExit(
+                "cut %d came out %d frames, timeline wants %d — the clip is too short"
+                % (cut["index"], written, cut["frames"])
+            )
         segments.append(segment)
 
-    listing = os.path.join(work_dir, "segments.txt")
+    listing = os.path.join(work_dir, "cuts.txt")
     with open(listing, "w") as f:
         for segment in segments:
             f.write("file '%s'\n" % os.path.abspath(segment))
@@ -316,7 +417,7 @@ def slug_for(index, character):
     return "%03d_%s" % (index % 100 if index % 100 else index, safe)
 
 
-def build(scene_key, raw_dir, image_dir, out_root, clip_dir=None):
+def build(scene_key, raw_dir, image_dir, out_root, cut_dir=None):
     scene = SCENES[scene_key]
     out = os.path.join(out_root, scene_key)
     os.makedirs(out, exist_ok=True)
@@ -368,9 +469,16 @@ def build(scene_key, raw_dir, image_dir, out_root, clip_dir=None):
             f.write('caption = "%s"\n' % caption.replace('"', '\\"'))
             f.write('image = "%s"\n' % image_name)
 
-        entries.append((slug, start, duration, character, shot))
+        entries.append({
+            "slug": slug, "start": start, "duration": duration,
+            "character": character, "caption": caption,
+            "shot": shot, "image": image_name,
+            # Kept at full rate: the pack's copy is downsampled for size, but the lip-sync
+            # pass reads the cut audio and deserves the original.
+            "samples": samples,
+        })
 
-    scene_length = max(start + duration for _, start, duration, _, _ in entries) + 1.2
+    scene_length = max(e["start"] + e["duration"] for e in entries) + 1.2
 
     # The bed goes out as AAC. `DubPackParser` matches the backing track on its stem and
     # only accepts one AVFoundation can actually read, so the extension is free to be
@@ -393,7 +501,7 @@ def build(scene_key, raw_dir, image_dir, out_root, clip_dir=None):
     if not os.path.exists(os.path.join(out, icon)):
         raise SystemExit(
             "%s: icon_index %d has no shot in this scene (have: %s)"
-            % (name, scene["icon_index"],
+            % (scene_key, scene["icon_index"],
                ", ".join(sorted({"%d" % line[3] for line in scene["lines"]})))
         )
 
@@ -403,23 +511,32 @@ def build(scene_key, raw_dir, image_dir, out_root, clip_dir=None):
         f.write('authors = [%s]\n' % ", ".join('"%s"' % a for a in scene["authors"]))
         f.write('icon = "%s"\n' % icon)
 
-    if clip_dir:
-        length = assemble_video(
-            entries, clip_dir, scene_length,
+    cuts = cut_plan(entries, scene_length)
+
+    if cut_dir:
+        length = assemble_cuts(
+            cuts,
+            os.path.join(cut_dir, scene_key),
             os.path.join(out, "dub_video.mp4"),
             os.path.join(out_root, ".video-work"),
         )
-        print("%s — scene video %.1fs" % (scene["title"], length))
+        print("%s — scene video %.1fs from %d lip-synced cuts" % (scene["title"], length, len(cuts)))
+    else:
+        cuts_dir = os.path.join(out, "cuts")
+        write_cut_audio(cuts, cuts_dir)
+        print("%s — %d cuts to lip-sync, written to %s" % (scene["title"], len(cuts), cuts_dir))
 
     print("%s — %d lines, %.1fs" % (scene["title"], len(entries), scene_length))
-    for slug, start, duration, character, shot in entries:
-        print("   %-18s %-9s %6.2f → %6.2f  shot %d" % (slug, character, start, start + duration, shot))
+    for entry in entries:
+        print("   %-18s %-9s %6.2f → %6.2f  shot %d"
+              % (entry["slug"], entry["character"], entry["start"],
+                 entry["start"] + entry["duration"], entry["shot"]))
 
     return out
 
 
 if __name__ == "__main__":
     raw_dir, image_dir, out_root = sys.argv[1], sys.argv[2], sys.argv[3]
-    clip_dir = sys.argv[4] if len(sys.argv) > 4 else None
+    cut_dir = sys.argv[4] if len(sys.argv) > 4 else None
     for key in SCENES:
-        build(key, raw_dir, image_dir, out_root, clip_dir)
+        build(key, raw_dir, image_dir, out_root, cut_dir)

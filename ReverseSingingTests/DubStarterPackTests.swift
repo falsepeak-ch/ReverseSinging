@@ -94,27 +94,58 @@ struct DubStarterPackTests {
         }
     }
 
-    /// Both scenes are written with two characters speaking at once, because the mixer puts
-    /// overlapping lines on separate lanes and a starter pack should show that off.
+    /// The starter scenes are cut from one mono optical soundtrack, so no two reference chunks
+    /// may overlap.
+    ///
+    /// This replaces an assertion that the opposite was true. When both scenes were written for
+    /// the app, each deliberately had two characters speaking at once, because the mixer puts
+    /// overlapping lines on separate lanes and a starter pack was a good place to show that
+    /// off. Cut from real film that property is not merely absent but impossible: two voices on
+    /// one mono track cannot be separated into one chunk per speaker, and where the dialogue is
+    /// tight the *handles* around neighbouring lines would carry the same few frames of film
+    /// audio twice, playing the identical waveform on top of itself.
+    ///
+    /// So the invariant is inverted, and it is the one the clip pipeline can actually get
+    /// wrong. Overlap handling itself is still covered, by `DubOverlapExportTests`, which
+    /// builds the overlap it needs rather than relying on a shipped pack to contain one.
     @MainActor
-    @Test func aStarterPackHasOverlappingDialogue() async throws {
-        let name = try #require(DubStarterPacks.bundled.first)
-        let pack = try #require(await DubStarterPacks.install(name))
+    @Test func starterPackChunksNeverOverlap() async throws {
+        for name in DubStarterPacks.bundled {
+            let pack = try #require(await DubStarterPacks.install(name))
 
-        defer {
-            try? AudioFileManager.shared.deleteDubPack(folderName: pack.folderName, packID: pack.id)
-            DubStarterPacks.forgetInstallsForTesting()
-        }
+            defer {
+                try? AudioFileManager.shared.deleteDubPack(folderName: pack.folderName, packID: pack.id)
+                DubStarterPacks.forgetInstallsForTesting()
+            }
 
-        let overlapping = pack.lines.contains { line in
-            pack.lines.contains { other in
-                other.slug != line.slug
-                    && other.speechStartTime < line.speechEndTime
-                    && other.speechEndTime > line.speechStartTime
+            for (previous, next) in zip(pack.lines, pack.lines.dropFirst()) {
+                #expect(
+                    next.startTime >= previous.endTime - 0.001,
+                    "\(pack.title): \(next.slug) starts at \(next.startTime) before \(previous.slug) ends at \(previous.endTime)"
+                )
             }
         }
+    }
 
-        #expect(overlapping, "no two lines in \(pack.title) are ever spoken at once")
+    /// A scene worth dubbing passes the line back and forth.
+    ///
+    /// A monologue is a reading, not a performance, and the reason to cut *these* stretches of
+    /// film rather than the narrated ones is that they are conversations.
+    @MainActor
+    @Test func aStarterSceneIsAConversation() async throws {
+        for name in DubStarterPacks.bundled {
+            let pack = try #require(await DubStarterPacks.install(name))
+
+            defer {
+                try? AudioFileManager.shared.deleteDubPack(folderName: pack.folderName, packID: pack.id)
+                DubStarterPacks.forgetInstallsForTesting()
+            }
+
+            let handovers = zip(pack.lines, pack.lines.dropFirst())
+                .count { $0.character != $1.character }
+
+            #expect(handovers >= 5, "\(pack.title) changes speaker only \(handovers) times")
+        }
     }
 
     /// A pack the user deleted must stay deleted. Putting it back on every launch would make

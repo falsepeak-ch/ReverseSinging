@@ -1,112 +1,156 @@
-# Starter Dub Packs — Scripts
+# Starter Dub Packs
 
-Two original scenes that ship with the app, so a new player can dub something the
-minute they open the mode instead of having to go and find a pack first.
+Two scenes ship with the app, so a new player can dub something the minute they open the
+mode instead of having to go and find a pack first.
 
-Everything here is written for this app and generated for it: original characters,
-original dialogue, generated voices and generated pictures. No film, no script, no
-performance and no music by anyone else is used, quoted or imitated.
+Both are cut from ***Sprite Fright*, Blender Studio, 2021** — an open movie released under
+**CC BY 4.0**.
 
-## What makes a scene good to dub
+| Pack | Runtime | Lines | Cast | Size |
+|---|---|---|---|---|
+| **Camp Rules** | 22.9 s | 6 | Rex, Ellie, Jay, Phil | 0.97 MB |
+| **Meet the Sprites** | 51.7 s | 15 | Victoria, Jay, Phil, Ellie, Rex, Elder Sprite | 2.08 MB |
 
-The two scenes below are built against the same checklist, which is worth keeping
-if more packs are written later:
-
-1. **Short lines.** 1.5–3.5 seconds. A performer can hold a short line in their head
-   and hit the mark; a long one turns into reading aloud, and reading aloud is not
-   a performance.
-2. **Big swings between neighbouring lines.** A murmur followed by a shriek is fun
-   to perform and gives the delivery score something real to measure. A scene at one
-   volume scores the same however you read it.
-3. **Trivial stakes, enormous performance.** This is the engine of dub comedy: the
-   gap between how seriously the scene takes itself and what it is actually about.
-   Both scenes are a life-or-death standoff over food.
-4. **A punchline in the last three lines.** It is the reason someone shares the
-   export, and the reason they record the whole scene rather than the first two lines.
-5. **A third character who arrives late.** The turn lands harder, and it gives the
-   scene a third voice to do — which is what makes people record it twice.
-6. **Two characters speaking at once, at least once.** The mixer puts overlapping
-   lines on separate lanes, so it plays back properly, and performing one half of a
-   unison line is funny on its own.
-7. **No proper nouns anyone owns**, nothing that needs a culture to land, and nothing
-   that stops being funny in translation. These ship in seven languages.
+`Tools/DubPacks/build_clip_pack.py` builds them. The scene definitions — every line's in and
+out point, who says it, which shot it is on — live at the top of that file.
 
 ---
 
-## Pack 1 — "The Last Slice"
+## Rights
 
-**Style:** cartoon. **Runtime:** ~40 s. **Cast:** 3. **Lines:** 12.
+> **CC BY 4.0** — <https://creativecommons.org/licenses/by/4.0/>
+> *Sprite Fright* (2021), Blender Studio — <https://studio.blender.org/projects/sprite-fright/>
 
-**Setting.** Inside a fridge, 3 a.m. One slice of pizza on a plate, lit from above by
-the fridge bulb like a police interrogation. BARNABY, a large, immaculately groomed
-cat, and PIP, a small, extremely nervous pigeon, are circling it. Neither has blinked
-in some time.
+This is a licence granted by the rights holder, not an expired copyright, and that distinction
+is the whole reason these replaced the earlier scenes. An expiry has to be *proven*, one
+jurisdiction at a time; a licence simply is, everywhere the app ships. Confirmed in two
+independent places: the licence field on the film's Internet Archive item, and Wikimedia
+Commons, which reviews licences before it will host a file.
 
-**Voices to aim for.** Barnaby: silky, posh, far too calm. Pip: high, fast, one bad
-minute from a breakdown. Gary: impossibly slow, very deep, entirely at peace.
+**The condition is credit, and credit has to be visible.** Each pack carries
+`authors = ["Blender Studio", "CC BY 4.0"]`, which is what the library screen prints under the
+pack title — the one place a user ever sees who a pack is by. The full statement is in each
+pack's `_pack_info.ini` as `source`, `source_url` and `rights`.
 
-| # | Character | Line | Direction |
-|---|-----------|------|-----------|
-| 1 | Barnaby | Nobody has to get hurt here, Pip. | Silky. Menacing precisely because it is calm. |
-| 2 | Pip | You said that about the muffin! | Cracking. Already too loud. |
-| 3 | Barnaby | The muffin was a misunderstanding. | Bored. Waving it away. |
-| 4 | Pip | You ate it in front of me. Slowly. | Trembling. Quiet with rage. |
-| 5 | Barnaby | I maintain eye contact. It is manners. | Proud of himself. |
-| 6 | Pip | That is not manners! That is a threat! | Full shriek. The loudest line in the scene. |
-| 7 | Gary | Fellas. | Deep, slow, serene. Arrives from nowhere. |
-| 8 | Barnaby | Gary?! | Shocked. Overlaps line 9. |
-| 9 | Pip | Gary! | Shocked. Overlaps line 8. |
-| 10 | Gary | I have been eating this since Tuesday. | Contented. Mouth full. In no hurry at all. |
-| 11 | Pip | Gary. It is Tuesday. | Horrified whisper. |
-| 12 | Gary | Then I am nearly done. | Deeply, completely satisfied. |
+**Not every Blender open movie can be used this way.** The newer titles — *Agent 327*,
+*Wing It!*, *Coffee Run* — are **CC BY-ND**, which forbids distributing an adaptation, and
+cutting a scene into a dub pack is exactly that. *Cosmos Laundromat* is BY-**SA**, which would
+push share-alike onto whatever it is combined with. Check the specific film, not the studio.
 
----
+### Content
 
-## Pack 2 — "The Yogurt Incident"
-
-**Style:** live action, shot like a thriller. **Runtime:** ~40 s. **Cast:** 3. **Lines:** 11.
-
-**Setting.** An office break room at night, lit by one strip light. DIANE stands
-perfectly still. MARCUS is sweating. Between them, on the counter, an empty yogurt pot
-with a name written on the lid in marker. The camera pushes in slowly on both of them,
-as though something much worse than this is about to happen.
-
-**Voices to aim for.** Diane: glacial, quiet, never raises her voice once. Marcus:
-increasingly damp. Kevin: cheerful, oblivious, chewing.
-
-| # | Character | Line | Direction |
-|---|-----------|------|-----------|
-| 1 | Diane | It had my name on it. | Glacial. Barely above a whisper. |
-| 2 | Marcus | Lots of people are called Diane. | A weak deflection he already regrets. |
-| 3 | Diane | In this office? | Ice. Four syllables, no mercy. |
-| 4 | Marcus | There could be a new Diane. | Desperate. Grasping. |
-| 5 | Diane | There is no new Diane, Marcus. | Slow. Final. The quotable one. |
-| 6 | Marcus | I panicked! It was strawberry! | Breaking. The confession. |
-| 7 | Diane | It was mango. | Quiet. Devastating. |
-| 8 | Marcus | Then who ate the strawberry one? | Dawning horror. Very slow. |
-| 9 | Kevin | Morning, team! Great yogurt in there. | Cheerful, oblivious, mouth full. |
-| 10 | Diane | Kevin. | Deadly. In unison with line 11. |
-| 11 | Marcus | Kevin. | Deadly. In unison with line 10. |
+The film is a horror-comedy rated around PG-13, and it contains language and cartoon gore that
+these packs must not. Both scenes come from the clean first half, and the official subtitles
+were used to *screen* the film as well as to caption it: every window here is bounded away from
+"piss break" at 95 s, "bloody hell" and "shagged" at 159–162 s, and everything from the horror
+turn at 287 s onward. If a third scene is added, read the subtitle file first.
 
 ---
 
-## How these are built
+## Why film, and not a written scene
 
-`Tools/DubPacks/build_pack.py` turns a script definition into a pack folder in the
-format `DubPackParser` reads: one `NNN_Character.txt` per line with its timestamp and
-caption, a `NNN_Character.wav` of the reference delivery, a `NNN_Character.jpg` still,
-and a `_pack_info.ini`.
+The app used to ship two invented scenes with generated voices and generated pictures. The
+problem was structural: the soundtrack and the picture came from different models, so nothing
+made the mouths agree with the words.
 
-Line audio and stills are generated, then the script assigns timestamps from the
-*measured* length of each generated line rather than from the estimates above — so the
-timings in the finished pack are true to the audio that actually shipped.
+A film does not have that problem. The words, the timing and the mouths saying them were
+finished together, so a pack cut from one is in sync because there is a single recording and
+both halves are it.
 
-Each scene also ships `dub_video.mp4`, which is what the picture actually is — the
-per-line stills are only the fallback for a device that cannot decode it. One five-second
-clip is generated per *shot* (seven for the fridge, six for the break room), animated from
-the still that shot already produced so the look stays consistent, and `assemble_video`
-cuts those clips into one continuous video whose cuts fall exactly on the line timestamps
-this same script just wrote. That is why the video is assembled here and not anywhere
-else: the app seeks it by line, and only the code that laid out the timeline knows where
-the cuts belong. A shot used by several lines is cut from a different part of its clip each
-time, so a character who speaks three times does not replay the same two seconds.
+What it costs:
+
+* **No two characters ever speak at once.** A finished stereo mix cannot be split into one
+  chunk per speaker. The written scenes each had a deliberate unison line to show the mixer's
+  separate lanes off; that has no equivalent here — see `starterPackChunksNeverOverlap`.
+* **The reference chunks carry the score.** There is no way to recover a music-and-effects
+  track from a finished mix. This one is centre-heavy, so even mid/side cancellation takes the
+  music out along with the voices — measured, the side signal drops 10–16 dB in passages with
+  no dialogue at all. What saves it is that the score sits only 7–12 dB under the dialogue in
+  these two scenes, so a chunk is still dominated by the voice. It is not a clean voice stem,
+  and the delivery score is comparing against something noisier than dry dialogue would be.
+* **The cast names are the film's; the line attributions are ours.** Blender credits the roles —
+  Ellie, Rex, Victoria, Jay, Phil, Elder Sprite — but not who says which line. Speakers were
+  assigned by reading the frame at each cue. One line in *Camp Rules* ("She's a real weenie
+  that one, innit?") is spoken off-screen and is attributed by inference.
+
+---
+
+## What makes a stretch of film worth cutting
+
+1. **Short lines.** 1.5–3.5 seconds. A performer can hold a short line in their head and hit
+   the mark; a long one turns into reading aloud, and reading aloud is not a performance.
+2. **Big swings between neighbouring lines.** A murmur followed by a shriek is fun to perform
+   and gives the delivery score something real to measure.
+3. **Trivial stakes, enormous conviction.**
+4. **A punchline near the end.**
+5. **A conversation, not a monologue.** `aStarterSceneIsAConversation` guards it.
+6. **Everyone on screen when they speak.** An insert cutaway is good film grammar and a dead
+   dub cue — the performer has nothing to hit.
+7. **A dry soundtrack, if the choice is available.** Dialogue without a score under it makes a
+   cleaner pack, for the reason above.
+
+---
+
+## How they are built
+
+```
+python3 Tools/DubPacks/build_clip_pack.py <source-video> <output-dir> [scene ...]
+```
+
+One pass, because nothing needs laying out: a line's chunk is lifted from the film at the
+line's own timestamps, and the pack timestamp is that instant measured from the top of the
+scene. Sync is a property of the source, not something the script arranges.
+
+**Captions come from the film's own subtitles.** The release MKV carries official SubRip tracks
+in nine languages; the English one is the caption text here, verbatim. That removes the one
+real weakness of cutting from film — a machine transcript guessing at the words.
+
+**Timings come from the soundtrack, not the subtitles.** Subtitle cues are authored for
+reading: consecutive cues routinely share a boundary even where there is an obvious pause
+between deliveries, which would leave no room for handles at all. So each cue is trimmed
+*inward* onto where the sound actually is. Inward only — an earlier version widened each cue
+first, to catch speech starting before its cue, and on a scored mix, where the level never
+really drops, every cue grew until it swallowed its neighbours and chunks overlapped by more
+than a second.
+
+The backing track is the film's own quietest stretch inside the scene, looped out to length and
+dropped down. The full audio cannot be the bed: the original performances are in it, and the
+export is *bed + the user's takes*, so every export would have the original cast talking over
+the user.
+
+### Size
+
+Together **3.05 MB**, against 6.92 MB for the generated scenes they replace.
+
+| | Camp Rules | Meet the Sprites |
+|---|---|---|
+| video (640×268) | 478 KB | 1,192 KB |
+| reference chunks | 415 KB | 759 KB |
+| backing track | 70 KB | 158 KB |
+| stills | 60 KB | 100 KB |
+
+* **The chunk sample rate is chosen from the source**, not by habit — 11.025 kHz here.
+  `DubAudioLoader` resamples everything to 44.1 kHz on load anyway.
+* **Denoising is off for this source and on for scanned film.** Grain is the most expensive
+  thing an encoder can be asked to keep; a CG render has none, and denoising it only softens
+  detail that cost nothing. `video_settings` makes that per-scene.
+* **Handles are a ceiling, not a fixed amount.** Where two lines sit close together the lead
+  and tail shrink to share the gap, so chunks stay disjoint and no silence is paid for twice.
+
+The picture is 2.39:1, which the app letterboxes (`videoGravity = .resizeAspect`). Cropping to
+16:9 would reclaim height but cut characters out of the group shots, which is where most of
+these scenes' faces are.
+
+---
+
+## The other routes
+
+`Tools/DubPacks/build_pack.py` builds a pack from written dialogue with generated audio and
+pictures. It is the right tool for a scene that has to be *written* — an original cast, a joke
+that has to land in seven languages — and the wrong tool for a scene that already exists.
+
+`build_clip_pack.py` still carries the scene definitions for **The Outsider** (Centron, 1951),
+which shipped briefly. That route works and those packs were good, but it rests on a US-only
+finding that no copyright renewal was registered — an absence to be evidenced rather than a
+permission that was granted, and the first pass at evidencing it got two things wrong.
+`PD_SHORTLIST.md` records what and why.

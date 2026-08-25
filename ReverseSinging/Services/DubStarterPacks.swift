@@ -10,18 +10,27 @@ import Foundation
 /// Installs the scenes bundled with the app, once.
 ///
 /// The dub mode is worth nothing on an empty shelf: a new player opens it, finds a screen
-/// telling them to go and find a pack somewhere, and leaves. These two are written and
-/// generated for this app — original characters, original dialogue, generated voices,
-/// generated pictures — so there is always something to dub the moment the mode is opened.
+/// telling them to go and find a pack somewhere, and leaves. These two are there so the mode
+/// always opens onto something to perform.
 ///
-/// They arrive as ordinary `.zip` packs and go in through `DubPackImporter`, the same path a
-/// pack the user found themselves takes. Nothing about them is special once installed: they
-/// can be played, exported and deleted like any other.
+/// Both are cut from *Sprite Fright* (Blender Studio, 2021) under **CC BY 4.0** — an
+/// affirmative licence from the rights holder rather than an expired copyright, which means it
+/// holds in every territory the app ships to instead of only in the US. The condition is
+/// credit, so "Blender Studio, CC BY 4.0" rides in each pack's `authors` and is what the
+/// library prints under the title. `Tools/DubPacks/build_clip_pack.py` cuts them and carries
+/// the full provenance into `_pack_info.ini`.
+///
+/// Using real film rather than a generated scene is what makes them worth shipping: the words,
+/// the timing and the mouths saying them were rendered together, so the picture cannot drift
+/// against the reference the performer is copying. It is also why neither scene has two
+/// characters talking at once — a finished stereo mix cannot be split into one chunk per
+/// speaker, and cutting overlapping dialogue out of it would carry the same audio twice.
+///
 nonisolated enum DubStarterPacks {
 
     /// Bundled zips, by resource name. Order is install order, which is reverse display
     /// order — the library sorts newest first, so the last one installed is the one on top.
-    static let bundled = ["TheYogurtIncident", "TheLastSlice"]
+    static let bundled = ["MeetTheSprites", "CampRules"]
 
     private static let installedKey = "dub.starterPacksInstalled"
 
