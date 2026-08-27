@@ -41,6 +41,9 @@ struct ReverseSingingApp: App {
 
         // Decode the interface sounds up front so the first clapper isn't late
         SoundManager.shared.preload()
+
+        // The dub gate no longer remembers a "yes"; drop what 1.3.0 wrote.
+        DubContentGate.clearLegacyOwnershipFlag()
     }
 
     var body: some Scene {

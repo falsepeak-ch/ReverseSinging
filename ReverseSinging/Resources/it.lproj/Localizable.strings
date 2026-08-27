@@ -9,15 +9,15 @@
 "onboarding.howItWorks.title" = "Come Funziona";
 "onboarding.howItWorks.message" = "Registra un audio, invertilo, canta quello che senti e poi invertilo di nuovo per vedere quanto ci sei andato vicino!";
 "onboarding.dub.title" = "Doppia una Scena";
-"onboarding.dub.message" = "Il secondo gioco: riproduci una scena, registra la tua voce sopra e poi ascoltati dentro il film. Due scene sono incluse: per le altre, i file li porti tu.";
+"onboarding.dub.message" = "Il secondo gioco: riproduci una scena, registra la tua voce sopra e poi ascoltati dentro il film. Tre scene sono incluse: per le altre, i file li porti tu.";
 "onboarding.uiPreference.title" = "Scegli la tua Interfaccia";
 "onboarding.uiPreference.message" = "Scegli lo stile di interfaccia che preferisci. Vale per il Canto Invertito e puoi cambiarlo quando vuoi nelle Impostazioni.";
 "onboarding.microphone.title" = "Un'Ultima Cosa";
-"onboarding.microphone.message" = "Entrambi i giochi registrano la tua voce, quindi Reverso ha bisogno del microfono. Le tue registrazioni restano su questo dispositivo: non viene caricato nulla da nessuna parte.";
+"onboarding.microphone.message" = "Entrambi i giochi funzionano registrando la tua voce: cantare una canzone al contrario e doppiare una scena di film. Il microfono è attivo solo mentre registri un ciak. Tutto resta su questo dispositivo; non viene caricato mai nulla.";
 "onboarding.button.openSettings" = "Apri Impostazioni";
 "onboarding.button.letsRecord" = "sì, registriamo!";
 "onboarding.button.continueLowercase" = "continua";
-"onboarding.button.allowMicrophone" = "Consenti microfono";
+"onboarding.button.microphoneContinue" = "Continua";
 "onboarding.button.continueWithout" = "continua senza";
 
 // MARK: - Main View - Buttons
@@ -115,6 +115,10 @@
 // MARK: - Settings
 "settings.title" = "Impostazioni";
 "settings.interface" = "Interfaccia";
+"uiMode.simple.name" = "Semplice";
+"uiMode.simple.description" = "Pulsanti grandi, interfaccia essenziale";
+"uiMode.complex.name" = "Completa";
+"uiMode.complex.description" = "Controlli avanzati e visualizzazioni";
 "settings.preferences" = "Preferenze";
 "settings.about" = "Info";
 
@@ -143,6 +147,7 @@
 "dub.continueRecording" = "Continua a doppiare";
 "dub.export" = "Esporta video";
 "dub.lines" = "Battute";
+"dub.attribution" = "Fonte";
 "dub.listen" = "Ascolta";
 "dub.stop" = "Ferma";
 "dub.recordTake" = "Registra";
@@ -205,7 +210,7 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "Chiudi";
 "dubGate.ask.title" = "Hai già i tuoi film?";
-"dubGate.ask.message" = "Questa app non include, non ospita e non fornisce alcun film. Per doppiare ti servono i file dei film già scaricati su questo dispositivo.";
+"dubGate.ask.message" = "A parte le scene di esempio, questa app non include, non ospita e non fornisce alcun film. Per doppiare qualsiasi altra cosa ti servono i file già presenti su questo dispositivo.";
 "dubGate.ask.confirm" = "Sì, li ho già";
 "dubGate.ask.needDownload" = "No, devo scaricarli";
 "dubGate.download.title" = "Dove trovarli";
@@ -214,6 +219,15 @@
 "dubGate.download.back" = "Indietro";
 "dubGate.disclaimer.notAffiliated" = "%@ è un sito di terze parti. Non abbiamo alcun rapporto con esso e non ospitiamo né distribuiamo alcun file.";
 "dubGate.disclaimer.responsibility" = "Sei responsabile di avere i diritti su ciò che scarichi e di rispettare la legge sul diritto d'autore del tuo paese.";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "Prima di condividere";
+"dubShare.message" = "Quello che esporti è la tua voce mixata sulla scena originale, quindi porta con sé anche il lavoro di qualcun altro oltre al tuo.";
+"dubShare.cutFrom" = "Tratto da %@";
+"dubShare.keepCredit" = "Se lo pubblichi, porta con te anche quel credito.";
+"dubShare.unknownSource" = "Questa scena viene da un file che hai portato tu. Reverso non sa chi l'ha fatta né a quali condizioni: tu sì.";
+"dubShare.responsibility" = "Condividere o pubblicare l'esportazione è un tuo gesto, e rispettare la legge del posto in cui vivi è una tua responsabilità.";
+"dubShare.confirm" = "Esporta video";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Preparazione delle tue prime scene…";

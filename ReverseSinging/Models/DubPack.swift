@@ -107,6 +107,23 @@ nonisolated struct DubPack: Identifiable, Codable, Hashable {
     let duration: TimeInterval
     let importedAt: Date
 
+    // MARK: Provenance
+    //
+    // Where the scene came from and on what terms, as the pack's own `_pack_info.ini`
+    // states it. For a CC BY source this is not decoration: credit is the licence
+    // condition, and a line of it that only exists inside a zip nobody opens does not
+    // discharge it. All three are optional because a user-made pack usually says none
+    // of this, and — the part that actually bites — `DubPack` is `Codable` and cached
+    // to `manifest.json`, so a non-optional field would fail to decode every manifest
+    // already sitting on a device.
+
+    /// Human-readable origin, e.g. `Sprite Fright (2021), Blender Studio`.
+    let source: String?
+    /// Where that work lives, for a viewer who wants to go and see it.
+    let sourceURL: String?
+    /// The terms, e.g. `CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/`.
+    let rights: String?
+
     init(
         id: UUID = UUID(),
         title: String,
@@ -117,7 +134,10 @@ nonisolated struct DubPack: Identifiable, Codable, Hashable {
         folderName: String,
         lines: [DubLine],
         duration: TimeInterval,
-        importedAt: Date = Date()
+        importedAt: Date = Date(),
+        source: String? = nil,
+        sourceURL: String? = nil,
+        rights: String? = nil
     ) {
         self.id = id
         self.title = title
@@ -129,6 +149,9 @@ nonisolated struct DubPack: Identifiable, Codable, Hashable {
         self.lines = lines
         self.duration = duration
         self.importedAt = importedAt
+        self.source = source
+        self.sourceURL = sourceURL
+        self.rights = rights
     }
 
     // MARK: - Path Resolution
@@ -171,6 +194,36 @@ nonisolated struct DubPack: Identifiable, Codable, Hashable {
         let seconds = Int(duration) % 60
         return String(format: "%d:%02d", minutes, seconds)
     }
+
+    // MARK: - Provenance Display
+
+    /// True when the pack says anything about where it came from.
+    ///
+    /// Packs people build themselves usually say nothing, and an attribution block
+    /// with nothing in it reads as a bug rather than as an absence.
+    var hasAttribution: Bool { source != nil || rights != nil }
+
+    /// The terms without the link, e.g. `CC BY 4.0`.
+    ///
+    /// `rights` is written as a name and, where one exists, the deed URL after a
+    /// dash — `CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/`. A public
+    /// domain finding has no deed to point at and is only the name.
+    var rightsLabel: String? {
+        guard let rights else { return nil }
+        guard let range = rights.range(of: "http") else { return rights }
+        return rights[..<range.lowerBound]
+            .trimmingCharacters(in: CharacterSet(charactersIn: " -–—"))
+            .nilIfEmpty ?? rights
+    }
+
+    /// The deed the terms name, when they name one.
+    var rightsURL: URL? {
+        guard let rights, let range = rights.range(of: "http") else { return nil }
+        return URL(string: String(rights[range.lowerBound...]).trimmingCharacters(in: .whitespaces))
+    }
+
+    /// Where the original work lives.
+    var sourceLink: URL? { sourceURL.flatMap(URL.init(string:)) }
 
     /// The distinct characters in the scene, in order of first appearance.
     var characters: [String] {

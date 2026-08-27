@@ -41,6 +41,19 @@ platform :ios do
   end
 
   desc "Generate device-framed, upload-ready App Store screenshots (local only)"
+  # Local/ is deliberately untracked — see Local/docs/TOOLING.md. A clone that has never had it will hit
+  # these lanes with a bare "no such file" from sh, which reads like a broken Fastfile rather
+  # than a missing prerequisite. Say which it is.
+  def self.require_tooling!(script)
+    return if File.exist?(File.join("..", script))
+
+    UI.user_error!(
+      "#{script} is missing.\n\n" \
+      "Local/ is not tracked in git (see Local/docs/TOOLING.md). This lane needs it present. " \
+      "Copy it in from a machine that has it, then run this lane again."
+    )
+  end
+
   desc "Options: locales:en,ja screens:dubRecord,home skip_build:true frame_only:true raw_only:true"
   lane :screenshots do |options|
     args = []
@@ -50,8 +63,10 @@ platform :ios do
     args << "--frame-only" if options[:frame_only]
     args << "--raw-only"   if options[:raw_only]
 
+    require_tooling!("Local/Tools/screenshots/run.sh")
+
     Dir.chdir("..") do
-      sh("./Tools/screenshots/run.sh #{args.join(' ')}".strip)
+      sh("./Local/Tools/screenshots/run.sh #{args.join(' ')}".strip)
     end
 
     UI.success("Screenshots ready in fastlane/screenshots/ — run `fastlane upload_screenshots`")
@@ -64,8 +79,10 @@ platform :ios do
     args << "--locales #{options[:locales]}" if options[:locales]
     args << "--skip-build" if options[:skip_build]
 
+    require_tooling!("Local/Tools/screenshots/record.sh")
+
     Dir.chdir("..") do
-      sh("./Tools/screenshots/record.sh #{args.join(' ')}".strip)
+      sh("./Local/Tools/screenshots/record.sh #{args.join(' ')}".strip)
     end
 
     # `deliver` does not handle app previews — it only scans the screenshots folder for

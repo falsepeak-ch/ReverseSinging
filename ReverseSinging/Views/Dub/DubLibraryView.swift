@@ -74,8 +74,8 @@ struct DubLibraryView: View {
             }
         }
         .toolbar(.hidden, for: .navigationBar)
-        // The app ships no scenes, so importing is the moment to ask where the
-        // user's own came from.
+        // Beyond the starter scenes the app hosts nothing, so every import is the
+        // moment to ask where the user's own came from.
         .dubContentGate(isPresented: $showContentGate) { showFileImporter = true }
         .fileImporter(
             isPresented: $showFileImporter,
@@ -150,29 +150,15 @@ struct DubLibraryView: View {
     /// only mean anything inside this game, and this is where the user already is when they
     /// decide they want them.
     private var optionsMenu: some View {
-        Menu {
+        EditorToolbarMenu(icon: "slider.horizontal.3", label: Strings.Dub.options) {
             Toggle(isOn: $scoring.isEnabled) {
                 Label(Strings.Dub.Score.settingTitle, systemImage: "chart.bar.fill")
             }
 
-            // Menus give a footer no styling of its own, so the explanation is a disabled
+            // Menus give a footer no styling of its own, so the explanation is a plain
             // row — the only way to say what the switch does without a second screen.
             Text(Strings.Dub.Score.settingDetail)
-        } label: {
-            Image(systemName: "slider.horizontal.3")
-                .font(.system(size: 16, weight: .medium))
-                .foregroundColor(.rsTextSecondary)
-                .frame(width: 38, height: 38)
-                .background(
-                    RoundedRectangle(cornerRadius: 5, style: .continuous)
-                        .fill(Color.rsSurface2)
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 5, style: .continuous)
-                        .strokeBorder(Color.rsStroke, lineWidth: EditorMetrics.hairline)
-                )
         }
-        .accessibilityLabel(Strings.Dub.options)
         .onChange(of: scoring.isEnabled) { _, enabled in
             HapticManager.shared.light()
             AnalyticsManager.shared.trackDubScoringToggled(enabled: enabled)
@@ -258,14 +244,12 @@ struct DubLibraryView: View {
 
     // MARK: - Import
 
-    /// Asked once: after the user has confirmed they have packs of their own,
-    /// the import button goes straight to the file picker.
+    /// Asked every time. The gate is not a consent checkbox to be got past once —
+    /// it is where the app says it hosts nothing, where the rights disclaimer
+    /// lives, and the only route to "where do these files come from". Remembering
+    /// a yes hid all three from everyone who had already answered.
     private func requestImport() {
-        if DubContentGate.hasConfirmedOwnership {
-            showFileImporter = true
-        } else {
-            showContentGate = true
-        }
+        showContentGate = true
     }
 
     private func handleImport(_ result: Result<[URL], Error>) {

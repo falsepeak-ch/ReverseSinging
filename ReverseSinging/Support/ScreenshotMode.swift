@@ -6,7 +6,7 @@
 //
 //  Every symbol here is behind `#if DEBUG`, so none of it exists in a shipping
 //  build. It is driven entirely from the launch-argument domain by
-//  `Tools/screenshots/capture.sh` — see that script for the flags.
+//  `Local/Tools/screenshots/capture.sh` — see that script for the flags.
 //
 
 #if DEBUG
@@ -15,7 +15,7 @@ import AVFoundation
 import Foundation
 
 /// One screen the capture script can ask for. The raw values must stay in sync with
-/// `SCREENS_ALL` in `Tools/screenshots/capture.sh` and with the keys in `captions.json`.
+/// `SCREENS_ALL` in `Local/Tools/screenshots/capture.sh` and with the keys in `captions.json`.
 enum ScreenshotDestination: String {
     case home
     case dubLibrary

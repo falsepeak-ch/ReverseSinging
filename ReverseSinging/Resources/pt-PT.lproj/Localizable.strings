@@ -9,15 +9,15 @@
 "onboarding.howItWorks.title" = "Como Funciona";
 "onboarding.howItWorks.message" = "Grava áudio, inverte-o, canta o que ouvires e depois volta a invertê-lo para veres se acertaste!";
 "onboarding.dub.title" = "Dobra uma Cena";
-"onboarding.dub.message" = "O segundo jogo: reproduz uma cena, grava a tua voz por cima e ouve-te dentro do filme. Duas cenas vêm incluídas — para as outras, os ficheiros trazes tu.";
+"onboarding.dub.message" = "O segundo jogo: reproduz uma cena, grava a tua voz por cima e ouve-te dentro do filme. Três cenas vêm incluídas — para as outras, os ficheiros trazes tu.";
 "onboarding.uiPreference.title" = "Escolhe a tua Interface";
 "onboarding.uiPreference.message" = "Escolhe o estilo de interface que preferires. Aplica-se ao Canto Invertido e podes mudá-lo a qualquer momento nas Definições.";
 "onboarding.microphone.title" = "Só Mais Uma Coisa";
-"onboarding.microphone.message" = "Os dois jogos gravam a tua voz, por isso o Reverso precisa do microfone. As tuas gravações ficam neste dispositivo: não é enviado nada para lado nenhum.";
+"onboarding.microphone.message" = "Os dois jogos funcionam a gravar a tua voz: cantar uma música ao contrário e dobrar uma cena de filme. O microfone só está ligado enquanto gravas uma take. Fica tudo neste dispositivo; nunca é enviado nada.";
 "onboarding.button.openSettings" = "Abrir Definições";
 "onboarding.button.letsRecord" = "sim, vamos gravar!";
 "onboarding.button.continueLowercase" = "continuar";
-"onboarding.button.allowMicrophone" = "Permitir microfone";
+"onboarding.button.microphoneContinue" = "Continuar";
 "onboarding.button.continueWithout" = "continuar sem ele";
 
 // MARK: - Main View - Buttons
@@ -115,6 +115,10 @@
 // MARK: - Settings
 "settings.title" = "Definições";
 "settings.interface" = "Interface";
+"uiMode.simple.name" = "Simples";
+"uiMode.simple.description" = "Botões grandes, interface mínima";
+"uiMode.complex.name" = "Completa";
+"uiMode.complex.description" = "Controlos avançados e visualizações";
 "settings.preferences" = "Preferências";
 "settings.about" = "Acerca de";
 
@@ -143,6 +147,7 @@
 "dub.continueRecording" = "Continuar a dobrar";
 "dub.export" = "Exportar vídeo";
 "dub.lines" = "Falas";
+"dub.attribution" = "Origem";
 "dub.listen" = "Ouvir";
 "dub.stop" = "Parar";
 "dub.recordTake" = "Gravar";
@@ -205,7 +210,7 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "Fechar";
 "dubGate.ask.title" = "Já tens os teus filmes?";
-"dubGate.ask.message" = "Esta app não inclui, não aloja nem fornece filmes. Para dobrares, precisas dos ficheiros dos filmes já transferidos para este dispositivo.";
+"dubGate.ask.message" = "Além das cenas de exemplo, esta app não inclui, não aloja nem fornece filmes. Para dobrares qualquer outra coisa, precisas dos ficheiros já neste dispositivo.";
 "dubGate.ask.confirm" = "Sim, já os tenho";
 "dubGate.ask.needDownload" = "Não, preciso de os transferir";
 "dubGate.download.title" = "Onde os obter";
@@ -214,6 +219,15 @@
 "dubGate.download.back" = "Voltar";
 "dubGate.disclaimer.notAffiliated" = "%@ é um site de terceiros. Não temos qualquer ligação com ele e não alojamos nem distribuímos ficheiros.";
 "dubGate.disclaimer.responsibility" = "És responsável por teres os direitos sobre o que transferires e por cumprires a lei de direitos de autor do teu país.";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "Antes de partilhares";
+"dubShare.message" = "O que exportas é a tua voz misturada sobre a cena original, por isso leva também o trabalho de outra pessoa, além do teu.";
+"dubShare.cutFrom" = "Retirado de %@";
+"dubShare.keepCredit" = "Se o publicares, mantém esse crédito com o vídeo.";
+"dubShare.unknownSource" = "Esta cena veio de um ficheiro que trouxeste tu. O Reverso não sabe quem a fez nem em que termos — tu sabes.";
+"dubShare.responsibility" = "Partilhar ou publicar a exportação é um ato teu, e cumprir a lei do sítio onde vives é da tua responsabilidade.";
+"dubShare.confirm" = "Exportar vídeo";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "A preparar as tuas primeiras cenas…";

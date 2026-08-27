@@ -63,7 +63,7 @@ struct MicrophonePermissionEmptyState: View {
 
 // MARK: - Header
 
-/// Title, back, archive and settings — pinned above whatever the skin scrolls beneath it.
+/// Title, back, archive and options — pinned above whatever the skin scrolls beneath it.
 struct ReverseGameHeader: View {
     @ObservedObject var viewModel: AudioViewModel
     let onBack: () -> Void
@@ -74,14 +74,51 @@ struct ReverseGameHeader: View {
                 EditorToolbarButton(icon: "archivebox", label: Strings.Session.archiveTitle) {
                     viewModel.showSessionList = true
                 }
-                EditorToolbarButton(icon: "slider.horizontal.3", label: Strings.Settings.title) {
-                    viewModel.showSettings = true
-                }
+
+                optionsMenu
             }
 
             Spacer()
         }
         .ignoresSafeArea(edges: .top)
+    }
+
+    /// This game's own settings, in the same shape the dub library uses.
+    ///
+    /// The two modes had the same `slider.horizontal.3` in the same corner doing two different
+    /// things: in dub it opened a small menu of that mode's options, here it opened the whole
+    /// Settings screen. Same icon, same position, different outcome — the kind of difference a
+    /// user reads as the app being inconsistent rather than as two deliberate choices.
+    ///
+    /// So the pattern is now one pattern. The option that only means anything inside this game
+    /// — which skin it draws — is here where the user already is, and everything that applies
+    /// to the whole app is one row further in, exactly as before.
+    private var optionsMenu: some View {
+        EditorToolbarMenu(icon: "slider.horizontal.3", label: Strings.Settings.title) {
+            Picker(Strings.Settings.interface, selection: Binding(
+                get: { viewModel.appState.uiMode },
+                set: { viewModel.setUIMode($0) }
+            )) {
+                ForEach(UIMode.allCases, id: \.self) { mode in
+                    Label(mode.displayName, systemImage: mode.menuSymbol).tag(mode)
+                }
+            }
+
+            // Menus give a footer no styling of its own, so the explanation is a plain row —
+            // the same trick the dub options menu uses to say what the control does.
+            Text(viewModel.appState.uiMode.description)
+
+            Divider()
+
+            Button {
+                viewModel.showSettings = true
+            } label: {
+                Label(Strings.Settings.title, systemImage: "gearshape")
+            }
+        }
+        .onChange(of: viewModel.appState.uiMode) { _, _ in
+            HapticManager.shared.light()
+        }
     }
 }
 

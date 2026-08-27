@@ -268,20 +268,51 @@ struct EditorToolbarButton: View {
             HapticManager.shared.light()
             action()
         }) {
-            Image(systemName: icon)
-                .font(.system(size: 16, weight: .medium))
-                .foregroundColor(.rsTextSecondary)
-                .frame(width: 38, height: 38)
-                .background(
-                    RoundedRectangle(cornerRadius: 5, style: .continuous)
-                        .fill(Color.rsSurface2)
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 5, style: .continuous)
-                        .strokeBorder(Color.rsStroke, lineWidth: EditorMetrics.hairline)
-                )
+            Image(systemName: icon).toolbarChrome()
         }
         .accessibilityLabel(label)
+    }
+}
+
+/// The same button, opening a menu instead of firing an action.
+///
+/// Exists so the two games' option menus cannot drift apart. Both are a `slider.horizontal.3`
+/// in the screen header, and before this the dub library hand-copied the button's chrome —
+/// the frame, the radius, the fill, the hairline — which meant a change to `EditorToolbarButton`
+/// silently applied to one game and not the other.
+///
+/// `Menu` renders its own label, so the styling lives in `toolbarChrome` and both call sites
+/// share it rather than describing it twice.
+struct EditorToolbarMenu<Content: View>: View {
+    let icon: String
+    let label: String
+    @ViewBuilder var content: () -> Content
+
+    var body: some View {
+        Menu {
+            content()
+        } label: {
+            Image(systemName: icon).toolbarChrome()
+        }
+        .accessibilityLabel(label)
+    }
+}
+
+private extension Image {
+    /// The look every header control shares.
+    func toolbarChrome() -> some View {
+        self
+            .font(.system(size: 16, weight: .medium))
+            .foregroundColor(.rsTextSecondary)
+            .frame(width: 38, height: 38)
+            .background(
+                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                    .fill(Color.rsSurface2)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                    .strokeBorder(Color.rsStroke, lineWidth: EditorMetrics.hairline)
+            )
     }
 }
 

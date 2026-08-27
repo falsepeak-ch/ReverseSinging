@@ -180,6 +180,20 @@ final class AnalyticsManager {
         ])
     }
 
+    // MARK: - Dub Share Notice
+
+    /// Fired on every export attempt, so the accept rate below is a rate rather than a count.
+    /// `has_attribution` separates the shipped scenes from packs the user brought themselves.
+    func trackDubShareNoticeShown(hasAttribution: Bool) {
+        log("dub_share_notice_shown", parameters: [
+            "has_attribution": hasAttribution
+        ])
+    }
+
+    func trackDubShareNoticeAccepted() {
+        log("dub_share_notice_accepted", parameters: nil)
+    }
+
     // MARK: - Helper Methods
 
     private func getGrade(for score: Double) -> String {

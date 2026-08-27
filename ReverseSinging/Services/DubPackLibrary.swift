@@ -115,11 +115,33 @@ final class DubPackLibrary: ObservableObject {
     /// - **Unmeasured speech windows.** Lines without one fall back to their whole chunk,
     ///   which puts captions up to two seconds early and drops takes at the chunk's start
     ///   rather than where the character speaks.
+    /// - **Missing provenance.** Manifests written before the attribution fields existed
+    ///   decode with `source == nil`, and the starter packs — the only ones that carry
+    ///   someone else's work — are precisely the packs already installed on every device
+    ///   that has ever opened dub mode. Without this they would keep printing no credit.
     ///
     /// Re-parsing costs one pass over the pack, and only for packs in that state.
     static nonisolated func manifestIsStale(_ pack: DubPack, in directory: URL) -> Bool {
         guard pack.hasMeasuredSpeech else { return true }
+        if manifestIsMissingAttributionOnDisk(pack, in: directory) { return true }
         return manifestIsMissingAVideoOnDisk(pack, in: directory)
+    }
+
+    /// True when the pack's own `_pack_info.ini` names a source the manifest doesn't carry.
+    ///
+    /// Deliberately keyed on the file rather than on a version stamp: the question is only
+    /// ever "is there credit here that isn't being shown", and the pack folder is where the
+    /// answer is. A pack that genuinely has no provenance answers no on every launch, at the
+    /// cost of one small read.
+    static nonisolated func manifestIsMissingAttributionOnDisk(_ pack: DubPack, in directory: URL) -> Bool {
+        guard pack.source == nil else { return false }
+
+        let packInfoURL = directory.appendingPathComponent(DubPackParser.packInfoFilename)
+        guard let contents = try? String(contentsOf: packInfoURL, encoding: .utf8) else {
+            return false
+        }
+
+        return DubPackParser.parseKeyValues(contents)["source"]?.stringValue?.nilIfEmpty != nil
     }
 
     /// How far a scene video may fall short of the pack's own timeline before it is treated

@@ -9,15 +9,15 @@
 "onboarding.howItWorks.title" = "Com Funciona";
 "onboarding.howItWorks.message" = "Grava àudio, reverteix-lo, canta el que sents i després gira-ho altra vegada per veure com t'ha sortit!";
 "onboarding.dub.title" = "Dobla una Escena";
-"onboarding.dub.message" = "El segon joc: reprodueix una escena, grava la teva veu a sobre i escolta't dins de la pel·lícula. Inclou dues escenes: per a la resta, hi poses els teus fitxers.";
+"onboarding.dub.message" = "El segon joc: reprodueix una escena, grava la teva veu a sobre i escolta't dins de la pel·lícula. Inclou tres escenes: per a la resta, hi poses els teus fitxers.";
 "onboarding.uiPreference.title" = "Tria la Teva Interfície";
 "onboarding.uiPreference.message" = "Selecciona l'estil d'interfície que millor et funcioni. S'aplica al Cant Invertit i pots canviar-ho en qualsevol moment a Ajustos.";
 "onboarding.microphone.title" = "Una Última Cosa";
-"onboarding.microphone.message" = "Els dos jocs graven la teva veu, així que Reverso necessita el micròfon. Les teves gravacions es queden en aquest dispositiu: no es puja res enlloc.";
+"onboarding.microphone.message" = "Els dos jocs funcionen gravant la teva veu: cantar una cançó a l'inrevés i doblar una escena de pel·lícula. El micròfon només s'activa mentre graves una presa. Tot es queda en aquest dispositiu; no es puja res mai.";
 "onboarding.button.openSettings" = "Obrir Ajustos";
 "onboarding.button.letsRecord" = "sí, gravem!";
 "onboarding.button.continueLowercase" = "continuar";
-"onboarding.button.allowMicrophone" = "Permetre micròfon";
+"onboarding.button.microphoneContinue" = "Continuar";
 "onboarding.button.continueWithout" = "continuar sense";
 
 // MARK: - Main View - Buttons
@@ -115,6 +115,10 @@
 // MARK: - Settings
 "settings.title" = "Ajustos";
 "settings.interface" = "Interfície";
+"uiMode.simple.name" = "Senzilla";
+"uiMode.simple.description" = "Botons grans, interfície mínima";
+"uiMode.complex.name" = "Completa";
+"uiMode.complex.description" = "Controls avançats i visualitzacions";
 "settings.preferences" = "Preferències";
 "settings.about" = "Sobre";
 
@@ -143,6 +147,7 @@
 "dub.continueRecording" = "Continua doblant";
 "dub.export" = "Exporta el vídeo";
 "dub.lines" = "Frases";
+"dub.attribution" = "Origen";
 "dub.listen" = "Escolta";
 "dub.stop" = "Atura";
 "dub.recordTake" = "Grava";
@@ -205,7 +210,7 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "Tancar";
 "dubGate.ask.title" = "Ja tens les teves pel·lícules?";
-"dubGate.ask.message" = "Aquesta app no inclou, allotja ni proporciona cap pel·lícula. Per doblar necessites tenir els fitxers ja descarregats en aquest dispositiu.";
+"dubGate.ask.message" = "A banda de les escenes d'exemple, aquesta app no inclou, allotja ni proporciona cap pel·lícula. Per doblar qualsevol altra cosa necessites tenir els fitxers ja en aquest dispositiu.";
 "dubGate.ask.confirm" = "Sí, ja les tinc";
 "dubGate.ask.needDownload" = "No, les he de descarregar";
 "dubGate.download.title" = "On aconseguir-les";
@@ -214,6 +219,15 @@
 "dubGate.download.back" = "Enrere";
 "dubGate.disclaimer.notAffiliated" = "%@ és un lloc de tercers. No hi tenim cap relació i no allotgem ni distribuïm cap fitxer.";
 "dubGate.disclaimer.responsibility" = "Ets responsable de tenir els drets sobre el que descarreguis i de complir la llei de propietat intel·lectual del teu país.";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "Abans de compartir";
+"dubShare.message" = "El que exportes és la teva veu barrejada sobre l'escena original, així que també porta la feina d'una altra persona a més de la teva.";
+"dubShare.cutFrom" = "Extret de %@";
+"dubShare.keepCredit" = "Si el publiques, mantén aquest crèdit amb el vídeo.";
+"dubShare.unknownSource" = "Aquesta escena ve d'un fitxer que hi vas posar tu. Reverso no sap qui la va fer ni en quines condicions: tu sí.";
+"dubShare.responsibility" = "Compartir o publicar l'exportació és un acte teu, i complir la llei d'on vius és responsabilitat teva.";
+"dubShare.confirm" = "Exportar vídeo";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Preparant les teves primeres escenes…";

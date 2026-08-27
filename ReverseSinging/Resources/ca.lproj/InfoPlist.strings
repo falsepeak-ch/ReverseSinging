@@ -3,4 +3,4 @@
    ReverseSinging
 */
 
-"NSMicrophoneUsageDescription" = "Reverso necessita accés al micròfon per gravar la teva veu per al repte de cant revertit.";
+"NSMicrophoneUsageDescription" = "Reverso necessita accés al micròfon per gravar la teva veu: per cantar cançons a l'inrevés i per doblar escenes de pel·lícules.";

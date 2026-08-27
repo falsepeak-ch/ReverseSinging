@@ -9,15 +9,15 @@
 "onboarding.howItWorks.title" = "遊び方";
 "onboarding.howItWorks.message" = "音声を録音して逆再生し、聞こえたとおりに歌って、もう一度ひっくり返せば、どれだけ近づけたかわかります。";
 "onboarding.dub.title" = "映画のシーンをアフレコ";
-"onboarding.dub.message" = "2つ目のゲーム：シーンを再生し、その上に自分の声を録音すると、映画の中の自分の声が聞こえます。2シーンを収録。ほかは動画ファイルをご自身で用意してください。";
+"onboarding.dub.message" = "2つ目のゲーム：シーンを再生し、その上に自分の声を録音すると、映画の中の自分の声が聞こえます。3シーンを収録。ほかは動画ファイルをご自身で用意してください。";
 "onboarding.uiPreference.title" = "インターフェイスを選ぶ";
 "onboarding.uiPreference.message" = "使いやすいインターフェイスのスタイルを選んでください。逆再生シンギングに適用され、設定でいつでも変更できます。";
 "onboarding.microphone.title" = "最後にもうひとつ";
-"onboarding.microphone.message" = "どちらのゲームも声を録音するため、Reversoにはマイクが必要です。録音はこの端末内に保存され、どこにもアップロードされません。";
+"onboarding.microphone.message" = "どちらのゲームも声を録音して遊びます。歌を逆さまに歌うことと、映画のシーンをアフレコすることです。マイクがオンになるのはテイクを録音している間だけです。すべてこの端末内に保存され、どこにもアップロードされることはありません。";
 "onboarding.button.openSettings" = "設定を開く";
 "onboarding.button.letsRecord" = "はい、録音しよう！";
 "onboarding.button.continueLowercase" = "続ける";
-"onboarding.button.allowMicrophone" = "マイクを許可";
+"onboarding.button.microphoneContinue" = "続ける";
 "onboarding.button.continueWithout" = "許可せずに続ける";
 
 // MARK: - Main View - Buttons
@@ -115,6 +115,10 @@
 // MARK: - Settings
 "settings.title" = "設定";
 "settings.interface" = "インターフェイス";
+"uiMode.simple.name" = "シンプル";
+"uiMode.simple.description" = "大きなボタン、最小限の画面";
+"uiMode.complex.name" = "詳細";
+"uiMode.complex.description" = "高度なコントロールと波形表示";
 "settings.preferences" = "環境設定";
 "settings.about" = "このアプリについて";
 
@@ -143,6 +147,7 @@
 "dub.continueRecording" = "アフレコを続ける";
 "dub.export" = "動画を書き出す";
 "dub.lines" = "セリフ";
+"dub.attribution" = "出典";
 "dub.listen" = "聞く";
 "dub.stop" = "停止";
 "dub.recordTake" = "録音";
@@ -205,7 +210,7 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "閉じる";
 "dubGate.ask.title" = "映画のファイルはお持ちですか？";
-"dubGate.ask.message" = "このアプリは映画を一切収録・配信・提供していません。アフレコには、この端末にすでに保存された映画ファイルが必要です。";
+"dubGate.ask.message" = "収録されている例のシーン以外、このアプリは映画を一切収録・配信・提供していません。ほかのものをアフレコするには、この端末にすでに保存された映画ファイルが必要です。";
 "dubGate.ask.confirm" = "はい、持っています";
 "dubGate.ask.needDownload" = "いいえ、ダウンロードが必要です";
 "dubGate.download.title" = "入手先について";
@@ -214,6 +219,15 @@
 "dubGate.download.back" = "戻る";
 "dubGate.disclaimer.notAffiliated" = "%@は第三者のサイトです。当方とは無関係で、ファイルの提供や配信は一切行っていません。";
 "dubGate.disclaimer.responsibility" = "ダウンロードするものの権利を持つこと、お住まいの国の著作権法を守ることは、ご自身の責任です。";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "共有する前に";
+"dubShare.message" = "書き出される動画は、元のシーンにあなたの声を重ねたものです。つまり、あなたの作品であると同時に、他の人の作品でもあります。";
+"dubShare.cutFrom" = "出典：%@";
+"dubShare.keepCredit" = "公開する場合は、このクレジットも一緒に表示してください。";
+"dubShare.unknownSource" = "このシーンは、あなたが自分で用意したファイルです。誰が作ったのか、どんな条件なのかをReversoは知りません。ご存じなのはあなたです。";
+"dubShare.responsibility" = "書き出した動画を共有・公開するのはあなた自身の行為であり、お住まいの地域の法律を守る責任はあなたにあります。";
+"dubShare.confirm" = "動画を書き出す";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "最初のシーンを準備しています…";

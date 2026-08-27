@@ -24,7 +24,7 @@ nonisolated enum Strings {
         static let buttonOpenSettings = NSLocalizedString("onboarding.button.openSettings", comment: "Open settings button")
         static let buttonLetsRecord = NSLocalizedString("onboarding.button.letsRecord", comment: "Let's record button")
         static let buttonContinueLowercase = NSLocalizedString("onboarding.button.continueLowercase", comment: "Continue button lowercase")
-        static let buttonAllowMicrophone = NSLocalizedString("onboarding.button.allowMicrophone", comment: "Allow microphone button")
+        static let buttonMicrophoneContinue = NSLocalizedString("onboarding.button.microphoneContinue", comment: "Primary button on the microphone step — the ask itself is the system prompt it leads to")
         static let buttonContinueWithout = NSLocalizedString("onboarding.button.continueWithout", comment: "Finish onboarding without microphone access")
     }
 
@@ -172,6 +172,16 @@ nonisolated enum Strings {
     enum Settings {
         static let title = NSLocalizedString("settings.title", comment: "Settings title")
         static let interface = NSLocalizedString("settings.interface", comment: "Interface section")
+
+        /// The two reverse-singing interface skins. Localised because they are shown during
+        /// onboarding and in the mode's own options menu, not only in Settings — they were
+        /// hardcoded English until 1.3.1 and every non-English user saw them that way.
+        enum Mode {
+            static let simpleName = NSLocalizedString("uiMode.simple.name", comment: "Simple interface skin")
+            static let simpleDescription = NSLocalizedString("uiMode.simple.description", comment: "What the simple skin is")
+            static let complexName = NSLocalizedString("uiMode.complex.name", comment: "Complex interface skin")
+            static let complexDescription = NSLocalizedString("uiMode.complex.description", comment: "What the complex skin is")
+        }
         static let preferences = NSLocalizedString("settings.preferences", comment: "Preferences section")
         static let about = NSLocalizedString("settings.about", comment: "About section")
 
@@ -217,6 +227,7 @@ nonisolated enum Strings {
         static let continueRecording = NSLocalizedString("dub.continueRecording", comment: "Resume recording lines")
         static let export = NSLocalizedString("dub.export", comment: "Export video button")
         static let lines = NSLocalizedString("dub.lines", comment: "Lines section header")
+        static let attribution = NSLocalizedString("dub.attribution", comment: "Header for the credit block: what the scene was cut from and under what licence")
         static let packsSection = NSLocalizedString("dub.packsSection", comment: "Packs section label")
         static let slateLines = NSLocalizedString("dub.slate.lines", comment: "Slate field: lines dubbed")
         static let slateDuration = NSLocalizedString("dub.slate.duration", comment: "Slate field: scene duration")
@@ -305,5 +316,16 @@ nonisolated enum Strings {
         // Disclaimers
         static let disclaimerNotAffiliated = NSLocalizedString("dubGate.disclaimer.notAffiliated", comment: "No affiliation disclaimer, %@ is the site host")
         static let disclaimerResponsibility = NSLocalizedString("dubGate.disclaimer.responsibility", comment: "Copyright responsibility disclaimer")
+    }
+
+    // MARK: - Dub Share Notice
+    enum DubShare {
+        static let title = NSLocalizedString("dubShare.title", comment: "Title of the notice shown before exporting a dub")
+        static let message = NSLocalizedString("dubShare.message", comment: "Explains that the export contains the original scene as well as the user's voice")
+        static let cutFrom = NSLocalizedString("dubShare.cutFrom", comment: "Names the source work, %@ is e.g. 'Sprite Fright (2021), Blender Studio'")
+        static let keepCredit = NSLocalizedString("dubShare.keepCredit", comment: "Asks the user to carry the credit with the export if they post it")
+        static let unknownSource = NSLocalizedString("dubShare.unknownSource", comment: "Shown for a pack the user imported, whose origin the app does not know")
+        static let responsibility = NSLocalizedString("dubShare.responsibility", comment: "Distributing the export is the user's own act and responsibility")
+        static let confirm = NSLocalizedString("dubShare.confirm", comment: "Go ahead and export")
     }
 }

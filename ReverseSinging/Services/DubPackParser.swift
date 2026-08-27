@@ -177,6 +177,12 @@ nonisolated enum DubPackParser {
         let title = packInfo["title"]?.stringValue?.nilIfEmpty ?? folderName
         let authors = packInfo["authors"]?.arrayValue ?? []
 
+        // Provenance. The build writes these for a pack cut from someone else's work;
+        // a pack a user made themselves has none of them, and nil is the right answer.
+        let source = packInfo["source"]?.stringValue?.nilIfEmpty
+        let sourceURL = packInfo["source_url"]?.stringValue?.nilIfEmpty
+        let rights = packInfo["rights"]?.stringValue?.nilIfEmpty
+
         let contents = try fileManager.contentsOfDirectory(
             at: directoryURL,
             includingPropertiesForKeys: nil,
@@ -231,7 +237,10 @@ nonisolated enum DubPackParser {
             videoFile: videoFile?.lastPathComponent,
             folderName: folderName,
             lines: lines,
-            duration: duration
+            duration: duration,
+            source: source,
+            sourceURL: sourceURL,
+            rights: rights
         )
     }
 

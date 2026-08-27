@@ -9,15 +9,15 @@
 "onboarding.howItWorks.title" = "How It Works";
 "onboarding.howItWorks.message" = "Record audio, reverse it, sing what you hear, then flip it again to see how close you got!";
 "onboarding.dub.title" = "Dub a Movie Scene";
-"onboarding.dub.message" = "The second game: play a scene, record your voice over it, then hear yourself in the movie. Two scenes are included — bring your own movie files for the rest.";
+"onboarding.dub.message" = "The second game: play a scene, record your voice over it, then hear yourself in the movie. Three scenes are included — bring your own movie files for the rest.";
 "onboarding.uiPreference.title" = "Choose Your Interface";
 "onboarding.uiPreference.message" = "Select the interface style that works best for you. It applies to Reverse Singing, and you can change it anytime in Settings.";
 "onboarding.microphone.title" = "One Last Thing";
-"onboarding.microphone.message" = "Both games record your voice, so Reverso needs the microphone. Your recordings stay on this device — nothing is uploaded anywhere.";
+"onboarding.microphone.message" = "Both games work by recording your voice — singing a song backwards, and dubbing a movie scene. The microphone is only on while you're recording a take. Everything stays on this device; nothing is ever uploaded.";
 "onboarding.button.openSettings" = "Open Settings";
 "onboarding.button.letsRecord" = "yes, let's record!";
 "onboarding.button.continueLowercase" = "continue";
-"onboarding.button.allowMicrophone" = "Allow microphone";
+"onboarding.button.microphoneContinue" = "Continue";
 "onboarding.button.continueWithout" = "continue without it";
 
 // MARK: - Main View - Buttons
@@ -115,6 +115,10 @@
 // MARK: - Settings
 "settings.title" = "Settings";
 "settings.interface" = "Interface";
+"uiMode.simple.name" = "Simple";
+"uiMode.simple.description" = "Large buttons, minimal interface";
+"uiMode.complex.name" = "Complex";
+"uiMode.complex.description" = "Advanced controls and visualizations";
 "settings.preferences" = "Preferences";
 "settings.about" = "About";
 
@@ -143,6 +147,7 @@
 "dub.continueRecording" = "Continue Dubbing";
 "dub.export" = "Export Video";
 "dub.lines" = "Lines";
+"dub.attribution" = "Source";
 "dub.listen" = "Listen";
 "dub.stop" = "Stop";
 "dub.recordTake" = "Record";
@@ -205,7 +210,7 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "Close";
 "dubGate.ask.title" = "Do you already have your movies?";
-"dubGate.ask.message" = "This app doesn't include, host or provide any movies. To dub, you need the movie files already downloaded on this device.";
+"dubGate.ask.message" = "Apart from the example scenes, this app doesn't include, host or provide any movies. To dub anything else, you need the movie files already on this device.";
 "dubGate.ask.confirm" = "Yes, I already have them";
 "dubGate.ask.needDownload" = "No, I need to download them";
 "dubGate.download.title" = "Where to get them";
@@ -214,6 +219,15 @@
 "dubGate.download.back" = "Back";
 "dubGate.disclaimer.notAffiliated" = "%@ is a third-party site. We are not affiliated with it and we don't host or distribute any files.";
 "dubGate.disclaimer.responsibility" = "You are responsible for having the rights to whatever you download and for following the copyright law where you live.";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "Before you share";
+"dubShare.message" = "Your export is your voice mixed over the original scene, so it carries somebody else's work as well as your own.";
+"dubShare.cutFrom" = "Cut from %@";
+"dubShare.keepCredit" = "If you post it, keep that credit with it.";
+"dubShare.unknownSource" = "This scene came from a file you brought yourself. Reverso doesn't know who made it or on what terms — you do.";
+"dubShare.responsibility" = "Sharing or publishing the export is your own act, and staying within the law where you live is your responsibility.";
+"dubShare.confirm" = "Export Video";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Setting up your first scenes…";

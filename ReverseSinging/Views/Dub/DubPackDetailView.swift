@@ -15,8 +15,10 @@ struct DubPackDetailView: View {
     @ObservedObject private var scoring = DubScoringPreference.shared
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.openURL) private var openURL
 
     @State private var showRecorder = false
+    @State private var showShareNotice = false
     @State private var playbackMode: DubPlaybackMode?
     @State private var reelIsBreathing = false
     /// True for a pack whose video was converted by a build that dropped duplicate frames.
@@ -56,6 +58,10 @@ struct DubPackDetailView: View {
 
                         actions
                         lineList
+
+                        if pack.hasAttribution {
+                            attribution
+                        }
                     }
                     .padding(.bottom, 40)
                 }
@@ -72,6 +78,9 @@ struct DubPackDetailView: View {
         }
         .fullScreenCover(item: $playbackMode) { mode in
             DubPlaybackView(viewModel: viewModel, mode: mode)
+        }
+        .dubShareNotice(isPresented: $showShareNotice, pack: pack) {
+            Task { await viewModel.export() }
         }
         .sheet(item: $viewModel.exportedURL) { url in
             DubShareSheet(url: url)
@@ -389,11 +398,14 @@ struct DubPackDetailView: View {
                     action: { playbackMode = .myDub }
                 )
 
+                // Through the notice, never straight to the export: the file about to be
+                // made is the user's voice over someone else's picture, and this is the
+                // only moment where saying so is about something concrete.
                 BigButton(
                     title: Strings.Dub.export,
                     icon: "square.and.arrow.up",
                     color: .rsTextPrimary,
-                    action: { Task { await viewModel.export() } },
+                    action: { showShareNotice = true },
                     isEnabled: viewModel.hasAnyTake && !viewModel.isExporting,
                     style: .secondary
                 )
@@ -438,6 +450,82 @@ struct DubPackDetailView: View {
             .editorPanel()
         }
         .padding(.horizontal, EditorMetrics.gutter)
+    }
+
+    // MARK: - Attribution
+
+    /// Who made the scene this pack was cut from, and on what terms.
+    ///
+    /// The starter packs are cut from someone else's film under CC BY, where credit is
+    /// not a courtesy but the condition the licence is granted on — and a credit that
+    /// lives only inside the zip discharges nothing. It sits under the line list rather
+    /// than in the slate: the slate is a three-field camera report about *this* scene,
+    /// and this is a sentence about a film that is not ours.
+    ///
+    /// Absent entirely for a pack that claims no provenance, which is most packs people
+    /// build for themselves.
+    private var attribution: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            EditorSectionHeader(title: Strings.Dub.attribution)
+
+            VStack(alignment: .leading, spacing: 8) {
+                if let source = pack.source {
+                    Text(source)
+                        .font(.rsCaption)
+                        .foregroundColor(.rsTextSecondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+
+                if let rights = pack.rightsLabel {
+                    attributionLink(
+                        icon: "checkmark.seal",
+                        text: rights,
+                        url: pack.rightsURL
+                    )
+                }
+
+                if let sourceLink = pack.sourceLink {
+                    attributionLink(
+                        icon: "link",
+                        text: sourceLink.host() ?? sourceLink.absoluteString,
+                        url: sourceLink
+                    )
+                }
+            }
+            .padding(12)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .editorPanel(.rsSurface2)
+        }
+        .padding(.horizontal, EditorMetrics.gutter)
+    }
+
+    /// One provenance line. Tappable only when it actually points somewhere — a public
+    /// domain finding has no deed to open, and a link that does nothing is worse than text.
+    @ViewBuilder
+    private func attributionLink(icon: String, text: String, url: URL?) -> some View {
+        let row = HStack(alignment: .top, spacing: 10) {
+            Image(systemName: icon)
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundColor(url == nil ? .rsTextTertiary : .rsHighlight)
+                .frame(width: 14)
+
+            Text(text)
+                .font(.rsMeta)
+                .foregroundColor(url == nil ? .rsTextSecondary : .rsHighlight)
+                .multilineTextAlignment(.leading)
+                .fixedSize(horizontal: false, vertical: true)
+
+            Spacer(minLength: 0)
+        }
+
+        if let url {
+            Button { openURL(url) } label: { row }
+                .buttonStyle(.plain)
+                .accessibilityAddTraits(.isLink)
+        } else {
+            row
+        }
     }
 
     // MARK: - Export Overlay

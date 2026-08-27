@@ -43,7 +43,7 @@ struct ScoreCard: View {
             if isVisible {
                 VStack(spacing: 8) {
                     Text(letterGrade)
-                        .font(.custom("Eugello", size: 72))
+                        .font(.rsDisplay(72, relativeTo: .largeTitle))
                         .foregroundColor(textColor)
 
                     Text(gradeDescription)

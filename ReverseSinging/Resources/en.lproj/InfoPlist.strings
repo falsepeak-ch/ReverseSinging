@@ -1,0 +1,9 @@
+/*
+   InfoPlist.strings (English)
+   ReverseSinging
+
+   The English value is also set as INFOPLIST_KEY_NSMicrophoneUsageDescription in
+   the build settings, which is the fallback. Keep the two in step.
+*/
+
+"NSMicrophoneUsageDescription" = "Reverso needs microphone access to record your voice — to sing songs backwards and to dub movie scenes.";

@@ -9,15 +9,15 @@
 "onboarding.howItWorks.title" = "Comment ça marche";
 "onboarding.howItWorks.message" = "Enregistre un son, inverse-le, chante ce que tu entends, puis inverse-le à nouveau pour voir si tu t'en es bien sorti !";
 "onboarding.dub.title" = "Double une scène de film";
-"onboarding.dub.message" = "Le deuxième jeu : lance une scène, enregistre ta voix par-dessus, puis écoute-toi dans le film. Deux scènes sont incluses — pour le reste, apporte tes fichiers.";
+"onboarding.dub.message" = "Le deuxième jeu : lance une scène, enregistre ta voix par-dessus, puis écoute-toi dans le film. Trois scènes sont incluses — pour le reste, apporte tes fichiers.";
 "onboarding.uiPreference.title" = "Choisis ton interface";
 "onboarding.uiPreference.message" = "Choisis le style d'interface qui te convient le mieux. Il s'applique au Chant Inversé et tu peux le changer à tout moment dans les Réglages.";
 "onboarding.microphone.title" = "Une dernière chose";
-"onboarding.microphone.message" = "Les deux jeux enregistrent ta voix, Reverso a donc besoin du micro. Tes enregistrements restent sur cet appareil : rien n'est envoyé nulle part.";
+"onboarding.microphone.message" = "Les deux jeux fonctionnent en enregistrant ta voix : chanter une chanson à l'envers et doubler une scène de film. Le micro ne s'active que pendant l'enregistrement d'une prise. Tout reste sur cet appareil ; rien n'est jamais envoyé.";
 "onboarding.button.openSettings" = "Ouvrir les Réglages";
 "onboarding.button.letsRecord" = "oui, on enregistre !";
 "onboarding.button.continueLowercase" = "continuer";
-"onboarding.button.allowMicrophone" = "Autoriser le micro";
+"onboarding.button.microphoneContinue" = "Continuer";
 "onboarding.button.continueWithout" = "continuer sans";
 
 // MARK: - Main View - Buttons
@@ -115,6 +115,10 @@
 // MARK: - Settings
 "settings.title" = "Réglages";
 "settings.interface" = "Interface";
+"uiMode.simple.name" = "Simple";
+"uiMode.simple.description" = "Grands boutons, interface minimale";
+"uiMode.complex.name" = "Complète";
+"uiMode.complex.description" = "Contrôles avancés et visualisations";
 "settings.preferences" = "Préférences";
 "settings.about" = "À propos";
 
@@ -143,6 +147,7 @@
 "dub.continueRecording" = "Continuer le doublage";
 "dub.export" = "Exporter la vidéo";
 "dub.lines" = "Répliques";
+"dub.attribution" = "Source";
 "dub.listen" = "Écouter";
 "dub.stop" = "Arrêter";
 "dub.recordTake" = "Enregistrer";
@@ -205,7 +210,7 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "Fermer";
 "dubGate.ask.title" = "Tu as déjà tes films ?";
-"dubGate.ask.message" = "Cette app n'inclut, n'héberge et ne fournit aucun film. Pour doubler, il te faut les fichiers déjà téléchargés sur cet appareil.";
+"dubGate.ask.message" = "En dehors des scènes d'exemple, cette app n'inclut, n'héberge et ne fournit aucun film. Pour doubler autre chose, il te faut les fichiers déjà présents sur cet appareil.";
 "dubGate.ask.confirm" = "Oui, je les ai déjà";
 "dubGate.ask.needDownload" = "Non, je dois les télécharger";
 "dubGate.download.title" = "Où les trouver";
@@ -214,6 +219,15 @@
 "dubGate.download.back" = "Retour";
 "dubGate.disclaimer.notAffiliated" = "%@ est un site tiers. Nous n'avons aucun lien avec lui et nous n'hébergeons ni ne distribuons aucun fichier.";
 "dubGate.disclaimer.responsibility" = "Il t'incombe de détenir les droits sur ce que tu télécharges et de respecter la loi sur le droit d'auteur de ton pays.";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "Avant de partager";
+"dubShare.message" = "Ce que tu exportes, c'est ta voix mixée sur la scène d'origine : ça contient donc aussi le travail de quelqu'un d'autre, pas seulement le tien.";
+"dubShare.cutFrom" = "Extrait de %@";
+"dubShare.keepCredit" = "Si tu le publies, garde ce crédit avec la vidéo.";
+"dubShare.unknownSource" = "Cette scène vient d'un fichier que tu as apporté toi-même. Reverso ne sait pas qui l'a faite ni à quelles conditions — toi, si.";
+"dubShare.responsibility" = "Partager ou publier l'export est ton propre geste, et respecter la loi de là où tu vis relève de ta responsabilité.";
+"dubShare.confirm" = "Exporter la vidéo";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Préparation de vos premières scènes…";
