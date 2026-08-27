@@ -201,7 +201,7 @@ struct DubSceneScorePanel: View {
                     .font(.rsTimecodeLarge)
                     .foregroundColor(score.grade.color)
             } else {
-                Text("—")
+                Text("-")
                     .font(.rsTimecodeLarge)
                     .foregroundColor(.rsTextTertiary)
             }
@@ -244,7 +244,7 @@ struct DubSceneScorePanel: View {
         }
     }
 
-    /// Best and weakest, but only once there is more than one take — with a single line
+    /// Best and weakest, but only once there is more than one take, with a single line
     /// recorded they are the same take, and naming it twice reads as a bug.
     @ViewBuilder
     private var highlights: some View {

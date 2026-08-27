@@ -13,7 +13,7 @@ import AVFoundation
 /// Serialized, because every test in here installs a real pack.
 ///
 /// Installing writes to one shared `DubPacks` directory and one shared `UserDefaults` key,
-/// and `DubPackImporter.install` deletes any existing destination before copying — so two of
+/// and `DubPackImporter.install` deletes any existing destination before copying, so two of
 /// these running at once race on the same folder and one of them imports into a directory the
 /// other just removed. It was survivable with two packs and stopped being so with three.
 @Suite("Dub Starter Packs", .serialized)
@@ -30,7 +30,7 @@ struct DubStarterPackTests {
         }
     }
 
-    /// One animated, one classic — and exactly one of each.
+    /// One animated, one classic. And exactly one of each.
     ///
     /// The pair is the point, not the number: the two play differently enough that a new
     /// player finds out which kind they like on the first open. Two helpings of the same kind

@@ -74,7 +74,7 @@ struct DubPlayerSourceTests {
     }
 
     /// Watching the original and then playing your own dub has to actually swap the voices.
-    /// The player caches loaded lines so a replay is instant, and the cache is keyed by line —
+    /// The player caches loaded lines so a replay is instant, and the cache is keyed by line,
     /// so once a mode has been played, the other one reuses whatever the first one loaded.
     @Test func switchingModesLoadsTheOtherTrack() async throws {
         let pack = try makePack()

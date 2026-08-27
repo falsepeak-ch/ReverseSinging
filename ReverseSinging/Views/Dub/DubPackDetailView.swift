@@ -134,7 +134,7 @@ struct DubPackDetailView: View {
     /// Tells the user why the picture is ahead of the voices, and what to do about it.
     ///
     /// The pack's Theora original is deleted once converted, so there is nothing left on the
-    /// device to convert again — importing the pack afresh is genuinely the only fix, and
+    /// device to convert again, importing the pack afresh is genuinely the only fix, and
     /// saying so beats letting the scene play out of sync with no explanation.
     private var reimportNotice: some View {
         HStack(alignment: .top, spacing: 10) {
@@ -167,7 +167,7 @@ struct DubPackDetailView: View {
     /// moving picture.
     ///
     /// The scenes ship with video, and the bay only rolls it while the line is being heard
-    /// or performed — idle, it shows the line's still. A screenshot of the still is a
+    /// or performed. Sitting idle it shows the line's still, and a screenshot of that is a
     /// screenshot of a photograph in a dark frame; a screenshot mid-playback is the app
     /// doing the thing it is for. The line is barely two seconds long, so this restarts it
     /// rather than firing once and hoping the shutter agrees.
@@ -187,7 +187,7 @@ struct DubPackDetailView: View {
     ///
     /// Recorded with `simctl io recordVideo` while this runs, once per locale. Driving it
     /// from inside means the same 30 seconds come out of every locale, which tapping a
-    /// simulator by hand could never promise — and the whole thing is real app in real
+    /// simulator by hand could never promise. And the whole thing is real app in real
     /// use, which is what Apple requires of a preview.
     private func runScreenshotTour() async {
         let tour = ScreenshotMode.Tour.self
@@ -229,7 +229,7 @@ struct DubPackDetailView: View {
         await hold(tour.tail)
     }
 
-    /// Puts the session partway in — a line selected, takes behind it — and opens
+    /// Puts the session partway in, a line selected, takes behind it, and opens
     /// whichever full-screen surface the capture script asked for.
     private func applyScreenshotPose() {
         guard ScreenshotMode.isActive, let destination = ScreenshotMode.destination else { return }
@@ -281,7 +281,7 @@ struct DubPackDetailView: View {
                         Strings.Dub.Score.slate,
                         viewModel.sceneScore.recordedLines > 0
                             ? String(format: "%d", Int(viewModel.sceneScore.overall.rounded()))
-                            : "—",
+                            : "-",
                         tint: viewModel.sceneScore.recordedLines > 0
                             ? viewModel.sceneScore.grade.color
                             : .rsTextPrimary
@@ -457,7 +457,7 @@ struct DubPackDetailView: View {
     /// Who made the scene this pack was cut from, and on what terms.
     ///
     /// The starter packs are cut from someone else's film under CC BY, where credit is
-    /// not a courtesy but the condition the licence is granted on — and a credit that
+    /// not a courtesy but the condition the licence is granted on. And a credit that
     /// lives only inside the zip discharges nothing. It sits under the line list rather
     /// than in the slate: the slate is a three-field camera report about *this* scene,
     /// and this is a sentence about a film that is not ours.
@@ -500,7 +500,7 @@ struct DubPackDetailView: View {
         .padding(.horizontal, EditorMetrics.gutter)
     }
 
-    /// One provenance line. Tappable only when it actually points somewhere — a public
+    /// One provenance line. Tappable only when it actually points somewhere, a public
     /// domain finding has no deed to open, and a link that does nothing is worse than text.
     @ViewBuilder
     private func attributionLink(icon: String, text: String, url: URL?) -> some View {

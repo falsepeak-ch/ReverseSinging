@@ -1,4 +1,4 @@
-Reverso són dos jocs de veu en una sola app — i cap dels dos necessita res més que el teu micròfon.
+Reverso són dos jocs de veu en una sola app, i cap dels dos necessita res més que el teu micròfon.
 
 DOBLATGE D'ESCENA
 
@@ -15,7 +15,9 @@ Quan acabes, Reverso renderitza l'escena amb la teva veu a dins i et dona un ví
 
 DUES ESCENES PER COMENÇAR
 
-Reverso ve amb dues escenes originals, escrites i fetes per a aquesta app: personatges, diàlegs, veus i imatges, tot nostre. Obres el mode i ja hi ha alguna cosa per doblar.
+Reverso ve amb dues escenes, així que el mode sempre s'obre amb alguna cosa per interpretar. Una és d'animació i l'altra és un clàssic en blanc i negre, i no s'assemblen gens.
+
+Camp Rules està tallada de Sprite Fright, la pel·lícula lliure de Blender Studio, compartida amb llicència Creative Commons Reconeixement 4.0. Stuck Up està tallada de The Outsider, una pel·lícula escolar del 1951 que és de domini públic als Estats Units. Cada escena indica la pel·lícula, l'any i les condicions a la seva pantalla.
 
 A partir d'aquí, la prestatgeria l'omples tu. Reverso no inclou, no allotja i no proporciona cap pel·lícula. Els packs de doblatge els fan i els comparteixen altres jugadors: descarregues els que vulguis i importes la carpeta o el .zip des de Fitxers, AirDrop o qualsevol full de compartir. Tu ets responsable de tenir els drets d'allò que doblis.
 

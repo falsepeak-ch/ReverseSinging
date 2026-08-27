@@ -166,7 +166,7 @@ struct DubRecordView: View {
 
     /// The reference line's shape, with the user's take laid over it. Both are drawn on the
     /// reference's time axis and both run the length of the line, so what the overlay shows is
-    /// delivery — where the performer came in, where they rushed, where they left a gap.
+    /// delivery. Where the performer came in, where they rushed, where they left a gap.
     private func waveformBay(for line: DubLine) -> some View {
         VStack(spacing: 6) {
             HStack(spacing: 8) {
@@ -266,7 +266,7 @@ struct DubRecordView: View {
         .overlay(alignment: .top) { EditorRule() }
     }
 
-    /// The playhead: where the preview has got to, or — while the mic is open — where the take
+    /// The playhead: where the preview has got to, or, while the mic is open, where the take
     /// has. During a take it is the only thing on screen that says *where in the line you are*,
     /// which is what lets a performer see the original's run-up coming rather than talking
     /// straight over it.
@@ -357,7 +357,7 @@ struct DubRecordView: View {
         .overlay(alignment: .top) { EditorRule() }
     }
 
-    /// The one saturated control on the screen, and the only round one — so the
+    /// The one saturated control on the screen, and the only round one, so the
     /// thumb finds it without looking.
     private var recordButton: some View {
         Button {

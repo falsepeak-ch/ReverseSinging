@@ -77,7 +77,7 @@ struct ProcessingIndicator: View {
 
 private extension ProcessingIndicator {
 
-    /// A hairline track with a percentage — the same vocabulary as the transport chrome,
+    /// A hairline track with a percentage. The same vocabulary as the transport chrome,
     /// so a long job reads as progress rather than as a stall.
     func progressBar(_ value: Double) -> some View {
         let clamped = min(max(value, 0), 1)

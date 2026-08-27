@@ -11,7 +11,7 @@ import Foundation
 
 /// Serialized: two of these write and clear the same `UserDefaults` key, so run in parallel
 /// they clear it out from under each other. The guard assertion in the first test is what
-/// caught that, and it stays — a fixture that silently fails to take would make the real
+/// caught that, and it stays. A fixture that silently fails to take would make the real
 /// assertion pass for the wrong reason.
 @Suite("Dub Content Gate", .serialized)
 struct DubContentGateTests {
@@ -20,7 +20,7 @@ struct DubContentGateTests {
     ///
     /// This is the regression that matters. The gate used to persist a "yes, I already have
     /// them" and skip itself forever after, which meant the rights disclaimer and the pointer
-    /// to where files come from were shown to a user exactly once — and never again to the
+    /// to where files come from were shown to a user exactly once. And never again to the
     /// people importing the most. If a future change starts honouring the old key again, the
     /// users it would silently skip are precisely the ones who have had it set since 1.3.0.
     @Test func theLegacyOwnershipFlagIsCleared() {

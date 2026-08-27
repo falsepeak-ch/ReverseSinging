@@ -1,4 +1,4 @@
-No account needed. Everything runs on device; nothing is uploaded. Firebase Analytics is used for anonymous app-usage statistics only (screen views, counts) — never audio, recordings or file contents.
+No account needed. Everything runs on device; nothing is uploaded. Firebase Analytics is used for anonymous app-usage statistics only (screen views, counts). It never records audio, recordings or file contents.
 
 ABOUT MOVIE SCENE DUB (new in 1.3.0)
 
@@ -14,7 +14,7 @@ TWO NOTICES, BOTH SHOWN EVERY TIME
 
 Neither is a one-time consent that gets remembered and skipped.
 
-Before any import, the app asks whether the user already has the movie files. If they answer that they do not, a second panel states plainly — before any link is offered — that the destination is a third-party community site, that we are not affiliated with it, that we neither host nor distribute any files, and that the user is responsible for holding the rights to whatever they download and for obeying the copyright law where they live. Only then is an outbound Safari link offered.
+Before any import, the app asks whether the user already has the movie files. If they answer that they do not, a second panel states plainly. before any link is offered. that the destination is a third-party community site, that we are not affiliated with it, that we neither host nor distribute any files, and that the user is responsible for holding the rights to whatever they download and for obeying the copyright law where they live. Only then is an outbound Safari link offered.
 
 Before any export, the app states that the exported video is the user's voice mixed over the original scene and therefore contains someone else's work; it names that work and its terms; it asks the user to keep the credit with the video if they post it; and it says that sharing or publishing the export is the user's own act and that staying within the law where they live is their responsibility. For a scene the user imported themselves, it says instead that Reverso does not know who made it or on what terms.
 
@@ -24,7 +24,7 @@ HOW TO TEST
 
 Open the app and tap "Movie Scene Dub". The two bundled scenes install themselves on first open, so the whole mode can be exercised without supplying anything: pick a scene, tap "Start Dubbing", record a line, then "Play My Dub" or "Export Video". The bottom of any scene's screen shows its source and licence panel, and "Export Video" opens the notice described above.
 
-To see the ownership gate, tap the "+" import button in the library — it appears every time. Reverse Singing, the other mode, needs only the microphone and a few seconds of any sound.
+To see the ownership gate, tap the "+" import button in the library. It appears every time. Reverse Singing, the other mode, needs only the microphone and a few seconds of any sound.
 
 MICROPHONE
 

@@ -124,7 +124,7 @@ struct DubShareNoticeModal: View {
 
     /// Who made the scene, on what terms, and whose problem it is once it leaves the device.
     ///
-    /// The last row is unconditional — a pack the user built or imported themselves has no
+    /// The last row is unconditional. A pack the user built or imported themselves has no
     /// provenance for us to state, and that makes the responsibility *more* clearly theirs,
     /// not less.
     private var credit: some View {
@@ -161,7 +161,7 @@ struct DubShareNoticeModal: View {
         .editorPanel(.rsSurface2)
     }
 
-    /// One line of the credit. Tappable only where it points somewhere — a public domain
+    /// One line of the credit. Tappable only where it points somewhere, a public domain
     /// finding has no deed to open, and a link that does nothing is worse than plain text.
     @ViewBuilder
     private func row(icon: String, tint: Color, text: String, url: URL? = nil) -> some View {

@@ -9,11 +9,11 @@
 "onboarding.howItWorks.title" = "遊び方";
 "onboarding.howItWorks.message" = "音声を録音して逆再生し、聞こえたとおりに歌って、もう一度ひっくり返せば、どれだけ近づけたかわかります。";
 "onboarding.dub.title" = "映画のシーンをアフレコ";
-"onboarding.dub.message" = "2つ目のゲーム：シーンを再生し、その上に自分の声を録音すると、映画の中の自分の声が聞こえます。3シーンを収録。ほかは動画ファイルをご自身で用意してください。";
+"onboarding.dub.message" = "2つ目のゲーム：シーンを再生し、その上に自分の声を録音すると、映画の中の自分の声が聞こえます。シーンを2つ収録しています。ほかは動画ファイルをご自身で用意してください。";
 "onboarding.uiPreference.title" = "インターフェイスを選ぶ";
 "onboarding.uiPreference.message" = "使いやすいインターフェイスのスタイルを選んでください。逆再生シンギングに適用され、設定でいつでも変更できます。";
 "onboarding.microphone.title" = "最後にもうひとつ";
-"onboarding.microphone.message" = "どちらのゲームも声を録音して遊びます。歌を逆さまに歌うことと、映画のシーンをアフレコすることです。マイクがオンになるのはテイクを録音している間だけです。すべてこの端末内に保存され、どこにもアップロードされることはありません。";
+"onboarding.microphone.message" = "どちらのゲームも声を録音して遊びます。歌を逆さまに歌ったり、映画のシーンをアフレコしたり。マイクがオンになるのは録音している間だけです。すべてこの端末内に保存され、どこにもアップロードされません。";
 "onboarding.button.openSettings" = "設定を開く";
 "onboarding.button.letsRecord" = "はい、録音しよう！";
 "onboarding.button.continueLowercase" = "続ける";
@@ -26,6 +26,22 @@
 "main.button.recordAttempt" = "自分の歌を録音";
 "main.button.reRecord" = "録り直す";
 "main.button.newSession" = "新しいセッション";
+
+// MARK: - Simple Skin (buttons and their subtitles)
+"main.button.playRecorded" = "録音を再生";
+"main.button.playReverse" = "逆再生で聞く";
+"main.subtitle.recordingOriginal" = "元の音声を録音中";
+"main.subtitle.recordingAttempt" = "自分の歌を録音中";
+"main.subtitle.tapToRecord" = "タップして音声を録音";
+"main.subtitle.recordAttempt" = "自分の歌を録音";
+"main.subtitle.reRecordAttempt" = "自分の歌を録り直す";
+"main.subtitle.playAttempt" = "自分の歌を再生";
+"main.subtitle.playOriginal" = "元の録音を再生";
+"main.subtitle.noRecording" = "録音がありません";
+"main.subtitle.playReversedAttempt" = "自分の歌を逆再生";
+"main.subtitle.playReversedOriginal" = "元の録音を逆再生";
+"main.subtitle.noReversed" = "逆再生の音声がありません";
+"settings.version" = "バージョン %@（%@）";
 
 // MARK: - Main View - Alerts
 "main.alert.microphoneRequired.title" = "マイクへのアクセスが必要です";
@@ -44,17 +60,17 @@
 "main.emptyState.button" = "設定を開く";
 
 // MARK: - Main View - Processing & Success
-"main.processing.reversingAudio" = "音声を逆再生中...";
+"main.processing.reversingAudio" = "音声を逆再生中…";
 "main.success.sessionSaved" = "セッションを保存しました！";
 
 // MARK: - Main View - Tips (Contextual Help)
 "main.tip.tapRecordToBegin" = "「音声を録音」をタップして開始";
 "main.tip.recordSingingAttempt" = "自分の歌を録音しましょう";
 "main.tip.recordSongToReverse" = "逆再生したい曲を録音しましょう";
-"main.tip.tapPlayToSwitch" = "ボタンをタップで再生／停止";
+"main.tip.tapPlayToSwitch" = "タップで再生／停止";
 "main.tip.reRecordOrNewSession" = "録り直すか、新しいセッションを開始";
 "main.tip.listenAndRecord" = "逆再生の音声を聞いてから録音";
-"main.tip.processingAudio" = "音声を処理中です。お待ちください...";
+"main.tip.processingAudio" = "音声を処理中です。お待ちください…";
 "main.tip.tapRecordAudio" = "「音声を録音」をタップして曲を録音";
 
 // MARK: - Comparison View
@@ -69,7 +85,7 @@
 // MARK: - Recording Type Labels
 "recordingType.original" = "オリジナル";
 "recordingType.reversed" = "逆再生";
-"recordingType.attempt" = "あなたの歌";
+"recordingType.attempt" = "自分の歌";
 "recordingType.reversedAttempt" = "逆再生した歌";
 "recordingType.imported" = "読み込み済み";
 
@@ -119,7 +135,7 @@
 "uiMode.simple.description" = "大きなボタン、最小限の画面";
 "uiMode.complex.name" = "詳細";
 "uiMode.complex.description" = "高度なコントロールと波形表示";
-"settings.preferences" = "環境設定";
+"settings.preferences" = "操作と効果";
 "settings.about" = "このアプリについて";
 
 // Theme descriptions
@@ -153,20 +169,20 @@
 "dub.recordTake" = "録音";
 "dub.next" = "次へ";
 "dub.previous" = "前へ";
-"dub.recordingHint" = "セリフを言ってください — オリジナルのテンポに合わせて。";
+"dub.recordingHint" = "セリフを言いながら、元の音にテンポを合わせてください。";
 "dub.listenHint" = "まず聞いてから、自分のテイクを録音しましょう。";
 "dub.original" = "オリジナル";
 "dub.myDub" = "自分のアフレコ";
-"dub.noTakesYet" = "まず1行以上録音してください。";
+"dub.noTakesYet" = "まずセリフを1つ録音";
 "dub.exporting" = "書き出し中…";
 "dub.export.mixing" = "音声をミックス中…";
 "dub.export.rendering" = "動画をレンダリング中…";
-"dub.error.missingPackInfo" = "そのフォルダはアフレコパックではありません。_pack_info.iniファイルがありません。";
+"dub.error.missingPackInfo" = "このフォルダはアフレコパックではありません。_pack_info.ini ファイルがありません。";
 "dub.error.noLines" = "このパックには使えるセリフがありません。";
 "dub.error.missingAsset" = "パックに必要なファイルがありません：%@";
 "dub.error.notAFolder" = "アフレコパックのフォルダか.zipアーカイブを選んでください。";
 "dub.error.unreadableArchive" = "そのアーカイブを開けませんでした：%@";
-"dub.error.nothingRecorded" = "書き出す前に、1行以上録音してください。";
+"dub.error.nothingRecorded" = "書き出す前に、セリフを1つ以上録音してください。";
 "dub.error.exportFailed" = "書き出しに失敗しました：%@";
 "dub.playTake" = "自分のテイクを再生";
 "dub.loadingScene" = "シーンを読み込み中…";
@@ -179,7 +195,7 @@
 "main.state.playing" = "再生";
 "main.state.processing" = "処理";
 "main.state.error" = "エラー";
-"main.state.countingIn" = "カウント";
+"main.state.countingIn" = "カウント中";
 "main.section.hint" = "次へ";
 "dub.packsSection" = "パック";
 "dub.slate.lines" = "録音済み";
@@ -190,7 +206,7 @@
 
 // Headphone monitoring
 "settings.headphoneMonitor" = "ヘッドフォンでオリジナルを再生";
-"settings.headphoneMonitor.desc" = "録音中に、合わせているセリフを聞けます。ヘッドフォン専用です。スピーカーだと自分のテイクに入ってしまいます。";
+"settings.headphoneMonitor.desc" = "録音しながらお手本のセリフを聞けます。スピーカーだと自分のテイクに入ってしまうので、ヘッドフォン専用です。";
 "settings.headphoneMonitor.unavailable" = "ヘッドフォンが接続されていません";
 
 // MARK: - Game Modes
@@ -210,23 +226,23 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "閉じる";
 "dubGate.ask.title" = "映画のファイルはお持ちですか？";
-"dubGate.ask.message" = "収録されている例のシーン以外、このアプリは映画を一切収録・配信・提供していません。ほかのものをアフレコするには、この端末にすでに保存された映画ファイルが必要です。";
+"dubGate.ask.message" = "収録されているサンプルのシーン以外、映画の提供や配信はしていません。ほかのものをアフレコするには、動画ファイルをこの端末に保存しておいてください。";
 "dubGate.ask.confirm" = "はい、持っています";
 "dubGate.ask.needDownload" = "いいえ、ダウンロードが必要です";
 "dubGate.download.title" = "入手先について";
-"dubGate.download.message" = "こうしたファイルが共有されているサイトの一例です。アフレコしたいものをダウンロードしてから戻ってきてください。";
+"dubGate.download.message" = "こうしたファイルを共有している場所のひとつです。アフレコしたいものを入手したら、戻ってきてください。";
 "dubGate.download.open" = "%@を開く";
 "dubGate.download.back" = "戻る";
-"dubGate.disclaimer.notAffiliated" = "%@は第三者のサイトです。当方とは無関係で、ファイルの提供や配信は一切行っていません。";
-"dubGate.disclaimer.responsibility" = "ダウンロードするものの権利を持つこと、お住まいの国の著作権法を守ることは、ご自身の責任です。";
+"dubGate.disclaimer.notAffiliated" = "%@ は別の人たちが運営しているサイトです。私たちとは関係がなく、ファイルの提供や配信もしていません。";
+"dubGate.disclaimer.responsibility" = "ダウンロードするものを使う権利があるか確認し、お住まいの地域の著作権のルールを守ってください。";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "共有する前に";
-"dubShare.message" = "書き出される動画は、元のシーンにあなたの声を重ねたものです。つまり、あなたの作品であると同時に、他の人の作品でもあります。";
+"dubShare.message" = "書き出す動画は、元のシーンに自分の声を重ねたものです。つまり、自分の作品であると同時に、ほかの人の作品でもあります。";
 "dubShare.cutFrom" = "出典：%@";
-"dubShare.keepCredit" = "公開する場合は、このクレジットも一緒に表示してください。";
-"dubShare.unknownSource" = "このシーンは、あなたが自分で用意したファイルです。誰が作ったのか、どんな条件なのかをReversoは知りません。ご存じなのはあなたです。";
-"dubShare.responsibility" = "書き出した動画を共有・公開するのはあなた自身の行為であり、お住まいの地域の法律を守る責任はあなたにあります。";
+"dubShare.keepCredit" = "公開するときは、このクレジットも一緒に表示してください。";
+"dubShare.unknownSource" = "このシーンはご自身で用意したものなので、使い方はおまかせします。";
+"dubShare.responsibility" = "どこで共有するかはご自身の判断です。お住まいの地域の著作権のルールを守ってください。";
 "dubShare.confirm" = "動画を書き出す";
 
 /* MARK: - Dub Scoring */
@@ -235,15 +251,15 @@
 "dub.score.setting.title" = "テイクを採点する";
 "dub.score.setting.detail" = "入り・テンポ・演技を採点します。";
 "dub.score.sceneTitle" = "シーンのスコア";
-"dub.score.notScoredYet" = "1行アフレコすると結果が表示されます。";
+"dub.score.notScoredYet" = "セリフを1つアフレコすると結果が表示されます。";
 "dub.score.slate" = "スコア";
-"dub.score.lineTitle" = "あなたのテイク";
+"dub.score.lineTitle" = "自分のテイク";
 "dub.score.timing" = "入り";
 "dub.score.pacing" = "テンポ";
 "dub.score.delivery" = "演技";
-"dub.score.best" = "ベストの行";
-"dub.score.weakest" = "録り直したい行";
-"dub.score.progress" = "%d / %d 行を採点";
+"dub.score.best" = "ベストのセリフ";
+"dub.score.weakest" = "録り直したいセリフ";
+"dub.score.progress" = "セリフ %d / %d を採点";
 "dub.score.grade.perfect" = "ぴったり";
 "dub.score.grade.great" = "文句なし";
 "dub.score.grade.good" = "いいテイク";

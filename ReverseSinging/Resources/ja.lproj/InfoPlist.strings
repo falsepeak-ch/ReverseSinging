@@ -3,4 +3,4 @@
    ReverseSinging
 */
 
-"NSMicrophoneUsageDescription" = "Reversoは、歌を逆さまに歌ったり、映画のシーンをアフレコしたりするために、あなたの声を録音するマイクへのアクセスを必要とします。";
+"NSMicrophoneUsageDescription" = "逆再生シンギングと映画アフレコで声を録音するために、Reversoがマイクを使用します。";

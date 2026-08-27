@@ -11,7 +11,7 @@ extension Font {
 
     // MARK: - Display Face
     //
-    // Eugello is the app's own face and it is used for titles only — screen headers, page
+    // Eugello is the app's own face and it is used for titles only: screen headers, page
     // titles, the score. Everything a user reads *at length* stays on the system font, which
     // is what SF is good at and what a display serif is not.
     //
@@ -23,7 +23,7 @@ extension Font {
     //   those `.semibold` headings wanted in the first place.
     // * **It covers Latin only.** All six Latin locales are complete, accents included; there
     //   is no CJK. Japanese titles fall back to the system font whole, which is the right
-    //   outcome — a title is one string, so it substitutes cleanly rather than mid-word.
+    //   outcome. A title is one string, so it substitutes cleanly rather than mid-word.
     // * **It has no ellipsis glyph.** A `…` inside a title would fall back on that one
     //   character and sit visibly wrong between two serif letters. Today every string
     //   containing one is a progress message on `rsTimecodeSmall` or a label, none of them
@@ -43,7 +43,7 @@ extension Font {
         .custom(displayFace, size: size, relativeTo: style)
     }
 
-    /// Onboarding and first-run titles — the largest type in the app.
+    /// Onboarding and first-run titles: the largest type in the app.
     static let rsDisplayLarge = Font.custom(displayFace, size: 36, relativeTo: .largeTitle)
 
     /// Section titles that carry a screen on their own.
@@ -83,7 +83,7 @@ extension Font {
     // MARK: - Editor Typography
     //
     // Every number that changes over time is monospaced, so timecodes and counters
-    // stop jittering as digits change — the detail that most makes a UI read as a tool.
+    // stop jittering as digits change. The detail that most makes a UI read as a tool.
 
     static let rsTimecodeLarge = Font.system(size: 44, weight: .medium, design: .monospaced)
     static let rsTimecode = Font.system(size: 15, weight: .medium, design: .monospaced)

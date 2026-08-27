@@ -14,7 +14,7 @@ enum GameMode: String, CaseIterable, Identifiable, Hashable {
 
     var id: String { rawValue }
 
-    /// Asset-catalog images rather than SF Symbols — the illustrated mic and
+    /// Asset-catalog images rather than SF Symbols. The illustrated mic and
     /// clapperboard are what the rest of the interface uses for these two games.
     var image: String {
         switch self {

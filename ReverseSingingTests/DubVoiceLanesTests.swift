@@ -71,7 +71,7 @@ struct DubVoiceLanesTests {
         #expect(result[1] == ["b", "c"])
     }
 
-    /// Input order should not matter — a pack can list its lines however it likes.
+    /// Input order should not matter. A pack can list its lines however it likes.
     @Test func handlesLinesGivenOutOfOrder() {
         let result = lanes([
             Span(name: "late", start: 5, end: 7),
@@ -95,7 +95,7 @@ struct DubVoiceLanesTests {
         #expect(lanes([]).isEmpty)
     }
 
-    /// Timestamps and measured lengths taken from a real pack — the Dobby scene, where two
+    /// Timestamps and measured lengths taken from a real pack, the Dobby scene, where two
     /// characters talk over each other for a sixth of the runtime. Synthetic fixtures can be
     /// made to overlap; this is proof that packs in the wild actually do.
     @Test func aRealSceneNeedsMoreThanOneLane() {

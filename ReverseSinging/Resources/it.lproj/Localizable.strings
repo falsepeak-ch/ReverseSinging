@@ -9,11 +9,11 @@
 "onboarding.howItWorks.title" = "Come Funziona";
 "onboarding.howItWorks.message" = "Registra un audio, invertilo, canta quello che senti e poi invertilo di nuovo per vedere quanto ci sei andato vicino!";
 "onboarding.dub.title" = "Doppia una Scena";
-"onboarding.dub.message" = "Il secondo gioco: riproduci una scena, registra la tua voce sopra e poi ascoltati dentro il film. Tre scene sono incluse: per le altre, i file li porti tu.";
+"onboarding.dub.message" = "Il secondo gioco: riproduci una scena, registra la tua voce sopra e poi ascoltati dentro il film. Ci sono due scene incluse. Per le altre, i file li porti tu!";
 "onboarding.uiPreference.title" = "Scegli la tua Interfaccia";
 "onboarding.uiPreference.message" = "Scegli lo stile di interfaccia che preferisci. Vale per il Canto Invertito e puoi cambiarlo quando vuoi nelle Impostazioni.";
 "onboarding.microphone.title" = "Un'Ultima Cosa";
-"onboarding.microphone.message" = "Entrambi i giochi funzionano registrando la tua voce: cantare una canzone al contrario e doppiare una scena di film. Il microfono è attivo solo mentre registri un ciak. Tutto resta su questo dispositivo; non viene caricato mai nulla.";
+"onboarding.microphone.message" = "Entrambi i giochi funzionano registrando la tua voce: cantare una canzone al contrario o doppiare una scena di film. Il microfono si accende solo mentre registri. Resta tutto su questo dispositivo e non viene caricato mai nulla.";
 "onboarding.button.openSettings" = "Apri Impostazioni";
 "onboarding.button.letsRecord" = "sì, registriamo!";
 "onboarding.button.continueLowercase" = "continua";
@@ -26,6 +26,22 @@
 "main.button.recordAttempt" = "Registra il tuo Tentativo";
 "main.button.reRecord" = "Registra di Nuovo";
 "main.button.newSession" = "Nuova Sessione";
+
+// MARK: - Simple Skin (buttons and their subtitles)
+"main.button.playRecorded" = "Riproduci registrazione";
+"main.button.playReverse" = "Riproduci al contrario";
+"main.subtitle.recordingOriginal" = "Registrazione dell'audio originale";
+"main.subtitle.recordingAttempt" = "Registrazione del tuo tentativo";
+"main.subtitle.tapToRecord" = "Tocca per registrare l'audio";
+"main.subtitle.recordAttempt" = "Registra il tuo tentativo di canto";
+"main.subtitle.reRecordAttempt" = "Registra di nuovo il tuo tentativo";
+"main.subtitle.playAttempt" = "Riproduci il tuo tentativo";
+"main.subtitle.playOriginal" = "Riproduci la registrazione originale";
+"main.subtitle.noRecording" = "Nessuna registrazione disponibile";
+"main.subtitle.playReversedAttempt" = "Riproduci il tentativo al contrario";
+"main.subtitle.playReversedOriginal" = "Riproduci l'originale al contrario";
+"main.subtitle.noReversed" = "Nessun audio invertito";
+"settings.version" = "Versione %@ (%@)";
 
 // MARK: - Main View - Alerts
 "main.alert.microphoneRequired.title" = "Accesso al Microfono Richiesto";
@@ -153,7 +169,7 @@
 "dub.recordTake" = "Registra";
 "dub.next" = "Avanti";
 "dub.previous" = "Indietro";
-"dub.recordingHint" = "Di' la battuta — segui il ritmo dell'originale.";
+"dub.recordingHint" = "Di' la battuta e segui il ritmo dell'originale.";
 "dub.listenHint" = "Ascolta prima, poi registra la tua take.";
 "dub.original" = "Originale";
 "dub.myDub" = "Il mio doppiaggio";
@@ -161,7 +177,7 @@
 "dub.exporting" = "Esportazione…";
 "dub.export.mixing" = "Missaggio audio…";
 "dub.export.rendering" = "Rendering del video…";
-"dub.error.missingPackInfo" = "Quella cartella non è un pack di doppiaggio: non contiene il file _pack_info.ini.";
+"dub.error.missingPackInfo" = "Quella cartella non è un pack di doppiaggio. Non ha il file _pack_info.ini.";
 "dub.error.noLines" = "Questo pack non ha battute utilizzabili.";
 "dub.error.missingAsset" = "Al pack manca un file necessario: %@";
 "dub.error.notAFolder" = "Scegli una cartella di pack o un archivio .zip.";
@@ -190,7 +206,7 @@
 
 // Headphone monitoring
 "settings.headphoneMonitor" = "Originale in cuffia";
-"settings.headphoneMonitor.desc" = "Ascolta la battuta che stai imitando mentre registri. Solo in cuffia: dall'altoparlante finirebbe nella tua take.";
+"settings.headphoneMonitor.desc" = "Ascolta la battuta che stai imitando mentre registri. Solo in cuffia, perché dall'altoparlante finirebbe dentro il tuo ciak.";
 "settings.headphoneMonitor.unavailable" = "Nessuna cuffia collegata";
 
 // MARK: - Game Modes
@@ -210,23 +226,23 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "Chiudi";
 "dubGate.ask.title" = "Hai già i tuoi film?";
-"dubGate.ask.message" = "A parte le scene di esempio, questa app non include, non ospita e non fornisce alcun film. Per doppiare qualsiasi altra cosa ti servono i file già presenti su questo dispositivo.";
+"dubGate.ask.message" = "A parte le scene di esempio, non includiamo né ospitiamo alcun film. Per doppiare qualsiasi altra cosa ti serve il file già salvato su questo dispositivo.";
 "dubGate.ask.confirm" = "Sì, li ho già";
 "dubGate.ask.needDownload" = "No, devo scaricarli";
 "dubGate.download.title" = "Dove trovarli";
-"dubGate.download.message" = "Un esempio di sito dove le persone condividono questi file. Scarica quello che vuoi doppiare e poi torna qui.";
+"dubGate.download.message" = "Ecco un posto dove le persone condividono questi file. Scarica quello che vuoi doppiare e torna qui!";
 "dubGate.download.open" = "Apri %@";
 "dubGate.download.back" = "Indietro";
-"dubGate.disclaimer.notAffiliated" = "%@ è un sito di terze parti. Non abbiamo alcun rapporto con esso e non ospitiamo né distribuiamo alcun file.";
-"dubGate.disclaimer.responsibility" = "Sei responsabile di avere i diritti su ciò che scarichi e di rispettare la legge sul diritto d'autore del tuo paese.";
+"dubGate.disclaimer.notAffiliated" = "%@ è il sito di altre persone. Non abbiamo legami con loro e non ospitiamo né condividiamo file.";
+"dubGate.disclaimer.responsibility" = "Assicurati di avere il diritto di usare ciò che scarichi e segui le regole sul copyright del posto in cui vivi.";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "Prima di condividere";
-"dubShare.message" = "Quello che esporti è la tua voce mixata sulla scena originale, quindi porta con sé anche il lavoro di qualcun altro oltre al tuo.";
+"dubShare.message" = "Il tuo video ha la tua voce sopra la scena originale, quindi contiene il lavoro di qualcun altro oltre al tuo.";
 "dubShare.cutFrom" = "Tratto da %@";
-"dubShare.keepCredit" = "Se lo pubblichi, porta con te anche quel credito.";
-"dubShare.unknownSource" = "Questa scena viene da un file che hai portato tu. Reverso non sa chi l'ha fatta né a quali condizioni: tu sì.";
-"dubShare.responsibility" = "Condividere o pubblicare l'esportazione è un tuo gesto, e rispettare la legge del posto in cui vivi è una tua responsabilità.";
+"dubShare.keepCredit" = "Se lo pubblichi, porta con te anche questo credito.";
+"dubShare.unknownSource" = "Questa scena l'hai portata tu, quindi sai da dove viene e cosa puoi farci.";
+"dubShare.responsibility" = "Dove lo condividi sta a te, quindi segui le regole sul copyright del posto in cui vivi.";
 "dubShare.confirm" = "Esporta video";
 
 /* MARK: - Dub Scoring */

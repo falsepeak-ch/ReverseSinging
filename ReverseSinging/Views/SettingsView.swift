@@ -10,7 +10,7 @@ import SwiftUI
 /// Which settings a presentation is allowed to show.
 ///
 /// The menu owns nothing but the app itself, so opening settings from there must
-/// not offer choices that belong to one game — the Simple/Complex interface is a
+/// not offer choices that belong to one game. The Simple/Complex interface is a
 /// property of reverse singing, and is meaningless before a game is picked.
 enum SettingsScope {
     case app
@@ -27,7 +27,7 @@ struct SettingsView: View {
     @Environment(\.colorScheme) var systemColorScheme
     @State private var soundsOn = SoundManager.shared.isEnabled
 
-    /// A singleton, so observed rather than owned — the route it reports is the device's,
+    /// A singleton, so observed rather than owned. The route it reports is the device's,
     /// not this screen's.
     @ObservedObject private var headphones = HeadphoneMonitor.shared
 
@@ -195,7 +195,7 @@ struct SettingsView: View {
         }
     }
 
-    /// Interface sound effects — the clapper, the transport clicks, the render chime.
+    /// Interface sound effects, the clapper, the transport clicks, the render chime.
     private var soundRow: some View {
         SettingsToggleRow(
             title: Strings.Settings.soundEffects,
@@ -328,7 +328,7 @@ struct SettingsView: View {
             Spacer()
             if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
                let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
-                Text("Version \(version) (\(build))")
+                Text(String(format: Strings.Settings.version, version, build))
                     .font(.rsCaption)
                     .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme).opacity(0.5))
             }
@@ -388,7 +388,7 @@ struct ScaleButtonStyle: ButtonStyle {
 /// underneath.
 ///
 /// The explanation used to sit beside the switch, sharing the row's width with the icon and
-/// the title — a column narrow enough that "Haptic Feedback" broke onto two lines and the
+/// the title. A column narrow enough that "Haptic Feedback" broke onto two lines and the
 /// descriptions onto three. Given the full width below the row instead, the titles fit on one
 /// line and the copy reads as a sentence.
 private struct SettingsToggleRow<Icon: View>: View {
@@ -411,7 +411,7 @@ private struct SettingsToggleRow<Icon: View>: View {
 
                 Spacer(minLength: 12)
 
-                // Labelled for VoiceOver, hidden on screen — the title beside it is the label.
+                // Labelled for VoiceOver, hidden on screen. The title beside it is the label.
                 Toggle(title, isOn: $isOn)
                     .labelsHidden()
                     .tint(.rsHighlight)

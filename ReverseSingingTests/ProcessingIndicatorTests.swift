@@ -71,7 +71,7 @@ struct ProcessingIndicatorTests {
         #expect(coverage(empty) > 0.05, "determinate overlay must draw")
 
         // Compare pixels rather than alpha coverage: the panel is opaque either way, so
-        // what changes is colour — the filled track and the percentage label.
+        // what changes is colour. The filled track and the percentage label.
         #expect(empty.count == full.count)
         var differing = 0
         for index in 0..<min(empty.count, full.count) where empty[index] != full[index] {

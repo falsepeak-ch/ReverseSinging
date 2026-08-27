@@ -630,8 +630,8 @@ final class AudioViewModel: ObservableObject {
     ///
     /// `AudioViewModel()` loads its whole `appState` from `UserDefaults`, so any test that
     /// constructs one is really asserting about the simulator, not about the view model. The
-    /// suite used to *assume* a clean device — `completeOnboarding()` asserted
-    /// `!hasCompletedOnboarding` on a fresh instance — which held right up until someone ran
+    /// suite used to *assume* a clean device, `completeOnboarding()` asserted
+    /// `!hasCompletedOnboarding` on a fresh instance. Which held right up until someone ran
     /// the app on the same simulator, and then failed until it was uninstalled. Establishing
     /// the state is the fix; assuming it is the bug.
     static func resetPersistedStateForTesting() {

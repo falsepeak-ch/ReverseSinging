@@ -11,7 +11,7 @@ import SwiftUI
 ///
 /// Large, centred and unmissable: the performer is looking at the picture, not at a label, so
 /// this has to read out of the corner of the eye. The last beat turns red because it is the
-/// one that matters — it is the beat the recording starts on.
+/// one that matters. It is the beat the recording starts on.
 ///
 /// Never takes touches. The record button underneath stays live so a second press cancels.
 struct CountdownOverlay: View {

@@ -29,7 +29,7 @@ enum DubCharacterStyle {
     /// The colour for `character` within a scene's cast.
     ///
     /// Keyed on position in the cast rather than a hash of the name, so the first speaker is
-    /// always the first colour — stable across launches, and never two characters landing on
+    /// always the first colour, stable across launches, and never two characters landing on
     /// the same hue in a scene small enough for it to matter.
     static func color(for character: String, in cast: [String]) -> Color {
         guard let index = cast.firstIndex(of: character) else { return .rsTextSecondary }
@@ -39,8 +39,8 @@ enum DubCharacterStyle {
 
 /// A character's name, in that character's colour.
 ///
-/// The same plate wherever a line appears — over the picture, under the caption, in the line
-/// list — so the association between a colour and a person is built once and then reused.
+/// The same plate wherever a line appears, over the picture, under the caption, in the line
+/// list. So the association between a colour and a person is built once and then reused.
 struct DubCharacterPlate: View {
     let character: String
     let color: Color

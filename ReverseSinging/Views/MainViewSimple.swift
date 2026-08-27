@@ -135,7 +135,7 @@ struct MainViewSimple: View {
             // Button 1: Record Audio / Stop Recording (Red)
             // Dynamic button that changes based on recording state
             LargeActionButton(
-                title: isRecording ? "Stop Recording" : "Record Audio",
+                title: isRecording ? Strings.Main.stopRecording : Strings.Main.recordAudio,
                 subtitle: subtitleForRecordButton,
                 icon: isRecording ? "stop.circle.fill" : "mic.fill",
                 dotCount: isRecording ? 3 : 0,
@@ -147,7 +147,7 @@ struct MainViewSimple: View {
 
             // Button 2: Play Recorded (Green)
             LargeActionButton(
-                title: "Play Recorded",
+                title: Strings.Main.playRecorded,
                 subtitle: subtitleForPlayButton,
                 icon: "play.circle.fill",
                 dotCount: 0,
@@ -159,7 +159,7 @@ struct MainViewSimple: View {
 
             // Button 3: Play Reverse (Blue)
             LargeActionButton(
-                title: "Play Reverse",
+                title: Strings.Main.playReverse,
                 subtitle: subtitleForReverseButton,
                 icon: "arrow.triangle.2.circlepath",
                 dotCount: 0,
@@ -275,18 +275,18 @@ struct MainViewSimple: View {
         if isRecording {
             let session = viewModel.appState.currentSession
             if session?.originalRecording == nil {
-                return "Recording original audio"
+                return Strings.Main.Subtitle.recordingOriginal
             } else {
-                return "Recording your attempt"
+                return Strings.Main.Subtitle.recordingAttempt
             }
         } else {
             let session = viewModel.appState.currentSession
             if session?.originalRecording == nil {
-                return "Tap to record audio"
+                return Strings.Main.Subtitle.tapToRecord
             } else if session?.attemptRecording == nil {
-                return "Record your singing attempt"
+                return Strings.Main.Subtitle.recordAttempt
             } else {
-                return "Re-record your attempt"
+                return Strings.Main.Subtitle.reRecordAttempt
             }
         }
     }
@@ -294,21 +294,21 @@ struct MainViewSimple: View {
     private var subtitleForPlayButton: String? {
         let session = viewModel.appState.currentSession
         if session?.attemptRecording != nil {
-            return "Play your attempt"
+            return Strings.Main.Subtitle.playAttempt
         } else if session?.originalRecording != nil {
-            return "Play original recording"
+            return Strings.Main.Subtitle.playOriginal
         }
-        return "No recording available"
+        return Strings.Main.Subtitle.noRecording
     }
 
     private var subtitleForReverseButton: String? {
         let session = viewModel.appState.currentSession
         if session?.reversedAttempt != nil {
-            return "Play reversed attempt"
+            return Strings.Main.Subtitle.playReversedAttempt
         } else if session?.reversedRecording != nil {
-            return "Play reversed original"
+            return Strings.Main.Subtitle.playReversedOriginal
         }
-        return "No reversed audio available"
+        return Strings.Main.Subtitle.noReversed
     }
 
     // MARK: - Button Actions
@@ -387,7 +387,7 @@ struct LargeActionButton: View {
             }
         }) {
             HStack(spacing: 0) {
-                // State bar — the row's only permanent colour
+                // State bar. The row's only permanent colour
                 Rectangle()
                     .fill(isEnabled ? color : Color.rsStroke)
                     .frame(width: 3)

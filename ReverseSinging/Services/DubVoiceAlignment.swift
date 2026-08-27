@@ -11,7 +11,7 @@ import AVFoundation
 ///
 /// The single answer to "when does this take play". `DubPlayer` uses it for the scene you
 /// hear in the app and `DubMixer` uses it for the file you share, so the export is the
-/// playback — not two implementations that happen to agree today.
+/// playback. Not two implementations that happen to agree today.
 ///
 /// ## Pack timing is authoritative
 ///

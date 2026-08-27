@@ -63,7 +63,7 @@ struct MicrophonePermissionEmptyState: View {
 
 // MARK: - Header
 
-/// Title, back, archive and options — pinned above whatever the skin scrolls beneath it.
+/// Title, back, archive and options, pinned above whatever the skin scrolls beneath it.
 struct ReverseGameHeader: View {
     @ObservedObject var viewModel: AudioViewModel
     let onBack: () -> Void
@@ -87,11 +87,11 @@ struct ReverseGameHeader: View {
     ///
     /// The two modes had the same `slider.horizontal.3` in the same corner doing two different
     /// things: in dub it opened a small menu of that mode's options, here it opened the whole
-    /// Settings screen. Same icon, same position, different outcome — the kind of difference a
+    /// Settings screen. Same icon, same position, different outcome. The kind of difference a
     /// user reads as the app being inconsistent rather than as two deliberate choices.
     ///
     /// So the pattern is now one pattern. The option that only means anything inside this game
-    /// — which skin it draws — is here where the user already is, and everything that applies
+    ///. Which skin it draws, is here where the user already is, and everything that applies
     /// to the whole app is one row further in, exactly as before.
     private var optionsMenu: some View {
         EditorToolbarMenu(icon: "slider.horizontal.3", label: Strings.Settings.title) {
@@ -104,7 +104,7 @@ struct ReverseGameHeader: View {
                 }
             }
 
-            // Menus give a footer no styling of its own, so the explanation is a plain row —
+            // Menus give a footer no styling of its own, so the explanation is a plain row,
             // the same trick the dub options menu uses to say what the control does.
             Text(viewModel.appState.uiMode.description)
 

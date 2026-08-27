@@ -41,7 +41,7 @@ struct DubScorerTests {
         return buffer
     }
 
-    /// A clip whose tone is chopped into syllables — bursts separated by gaps — so pacing has
+    /// A clip whose tone is chopped into syllables, bursts separated by gaps, so pacing has
     /// a shape to be right or wrong about.
     private func syllableClip(
         duration: TimeInterval,
@@ -100,7 +100,7 @@ struct DubScorerTests {
         #expect(score.timing >= 99, "timing was \(score.timing)")
     }
 
-    /// Come in a beat late and the score has to say so — even though the mix will quietly
+    /// Come in a beat late and the score has to say so, even though the mix will quietly
     /// slide the take back into place. The performer is told the truth.
     @Test func comingInLateCostsTiming() throws {
         let reference = clip(duration: 3, speechFrom: 0.8, speechFor: 1.5)

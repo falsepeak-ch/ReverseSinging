@@ -19,14 +19,14 @@
 /// is not something they can practise and not something the game is about.
 ///
 /// What a dub *is* about is whether the words land on the mouth. So all three measures are
-/// taken from the energy envelope — where sound is and isn't, and how much of it there is —
+/// taken from the energy envelope. Where sound is and isn't, and how much of it there is,
 /// and none of them looks at pitch or timbre at all:
 ///
 /// - **Timing**: how far your first word is from theirs. The single thing that makes a dub
 ///   read as a dub.
 /// - **Pacing**: with both lined up at that first word, do the syllables in between fall
 ///   together? This is what catches a read that starts right and then rushes.
-/// - **Delivery**: does the loudness rise and fall where theirs does — the shouted word
+/// - **Delivery**: does the loudness rise and fall where theirs does, the shouted word
 ///   shouted, the muttered one muttered.
 ///
 /// Scored against the raw take, before `DubVoiceAlignment` nudges it into place. The mix
@@ -36,7 +36,7 @@ nonisolated enum DubScorer {
 
     // MARK: - Tuning
 
-    /// Seconds per envelope frame. Roughly a syllable's worth of speech — fine enough to see
+    /// Seconds per envelope frame. Roughly a syllable's worth of speech, fine enough to see
     /// individual words, coarse enough that the score isn't measuring glottal noise.
     private static let frameDuration: TimeInterval = 0.02
 
@@ -58,7 +58,7 @@ nonisolated enum DubScorer {
 
     /// Scores the take at `takeURL` against the reference for `line`.
     ///
-    /// Returns nil when either file is missing or unreadable — a scoreless line reads as
+    /// Returns nil when either file is missing or unreadable. A scoreless line reads as
     /// "not measured", which is honest, rather than as a zero the user did not earn.
     static func score(takeURL: URL, referenceURL: URL, line: DubLine) -> DubLineScore? {
         guard let take = try? DubAudioLoader.loadVoiceBuffer(from: takeURL, applyFades: false),
@@ -90,7 +90,7 @@ nonisolated enum DubScorer {
         let timing = timingScore(takeOnset: takeOnset, referenceOnset: referenceOnset)
 
         // Lined up on the entry, so pacing and delivery judge what happened *after* coming
-        // in — otherwise a late take would be marked down three times for one mistake.
+        // in, otherwise a late take would be marked down three times for one mistake.
         let alignedTake = dropping(takeEnvelope, seconds: takeOnset)
         let alignedReference = dropping(referenceEnvelope, seconds: referenceOnset)
 
@@ -122,7 +122,7 @@ nonisolated enum DubScorer {
     /// How well the two energy shapes line up once both start at their first word.
     ///
     /// Correlation over the stretch they share, so a take that stops early is judged on what
-    /// it did say and then marked down for the length it didn't — rather than being compared
+    /// it did say and then marked down for the length it didn't, rather than being compared
     /// against silence and scoring well for it.
     private static func pacingScore(_ take: [Float], _ reference: [Float]) -> Double {
         let shared = min(take.count, reference.count)
@@ -148,7 +148,7 @@ nonisolated enum DubScorer {
     ///
     /// Two things have to agree: the *shape* of the contour, and how much of a contour there
     /// is at all. A take read flat can still correlate with an expressive original if its tiny
-    /// wobbles happen to line up, so the dynamic range is scored alongside the shape — you
+    /// wobbles happen to line up, so the dynamic range is scored alongside the shape, you
     /// have to both go up in the right places and actually go up.
     private static func deliveryScore(_ take: [Float], _ reference: [Float]) -> Double {
         let shared = min(take.count, reference.count)
@@ -175,7 +175,7 @@ nonisolated enum DubScorer {
     }
 
     /// The contour on a decibel-ish scale, so a change from quiet to slightly-less-quiet
-    /// counts for as much as the same change at the top — which is how it is heard.
+    /// counts for as much as the same change at the top. Which is how it is heard.
     private static func loudnessContour(_ envelope: [Float]) -> [Float] {
         envelope.map { log10(max($0, 0.0005)) }
     }
@@ -190,7 +190,7 @@ nonisolated enum DubScorer {
     /// Peak-normalised RMS per frame.
     ///
     /// Normalising against the clip's own loudest moment is what lets a reference mastered for
-    /// a cinema and a take shouted into a phone be compared at all — every measure downstream
+    /// a cinema and a take shouted into a phone be compared at all, every measure downstream
     /// is about the shape, never the absolute level.
     static func envelope(of buffer: AVAudioPCMBuffer) -> [Float] {
         guard let channels = buffer.floatChannelData, buffer.frameLength > 0 else { return [] }

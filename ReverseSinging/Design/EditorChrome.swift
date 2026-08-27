@@ -27,7 +27,7 @@ enum EditorMetrics {
 
 extension View {
 
-    /// A panel: flat fill, hairline border, tight radius. No shadow — depth in this
+    /// A panel: flat fill, hairline border, tight radius. No shadow, depth in this
     /// design comes from the surface ramp and the stroke, never from blur.
     func editorPanel(
         _ surface: Color = .rsSurface1,
@@ -45,7 +45,7 @@ extension View {
             )
     }
 
-    /// Uppercase, tracked, muted — for section headers and control labels.
+    /// Uppercase, tracked and muted, for section headers and control labels.
     func editorLabelStyle(_ color: Color = .rsTextTertiary) -> some View {
         self
             .font(.rsSectionLabel)
@@ -256,7 +256,7 @@ struct CinemaVignette: View {
 
 // MARK: - Toolbar Button
 
-/// Square, bordered, monochrome — the toolbar of a tool rather than a tab bar.
+/// Square, bordered, monochrome. The toolbar of a tool rather than a tab bar.
 /// Shared so the header reads identically on every screen that has one.
 struct EditorToolbarButton: View {
     let icon: String
@@ -277,8 +277,8 @@ struct EditorToolbarButton: View {
 /// The same button, opening a menu instead of firing an action.
 ///
 /// Exists so the two games' option menus cannot drift apart. Both are a `slider.horizontal.3`
-/// in the screen header, and before this the dub library hand-copied the button's chrome —
-/// the frame, the radius, the fill, the hairline — which meant a change to `EditorToolbarButton`
+/// in the screen header, and before this the dub library hand-copied the button's chrome,
+/// the frame, the radius, the fill, the hairline. Which meant a change to `EditorToolbarButton`
 /// silently applied to one game and not the other.
 ///
 /// `Menu` renders its own label, so the styling lives in `toolbarChrome` and both call sites
@@ -320,7 +320,7 @@ private extension Image {
 
 /// The bar at the top of a pushed screen: back, the screen's own title, its actions.
 ///
-/// Pushed screens name themselves rather than repeat the app logo — the branding
+/// Pushed screens name themselves rather than repeat the app logo, the branding
 /// belongs to the menu the user came from, and a title is what tells them which
 /// game they are in. Sized to swallow the status bar, so callers place it at the
 /// top of a stack that ignores the top safe area.

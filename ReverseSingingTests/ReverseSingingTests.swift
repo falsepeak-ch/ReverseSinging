@@ -213,7 +213,7 @@ struct AudioFileManagerTests {
         let url2 = manager.createTemporaryAudioURL()
 
         // CAF, not m4a: takes are recorded as LinearPCM so they can be analysed sample for
-        // sample — scored, onset-aligned, sampled into a waveform — without a decode first.
+        // sample, scored, onset-aligned, sampled into a waveform, without a decode first.
         #expect(url1.pathExtension == "caf")
         #expect(url2.pathExtension == "caf")
         #expect(url1 != url2) // Should be unique
@@ -257,7 +257,7 @@ struct HapticManagerTests {
 // MARK: - ViewModel Tests
 
 /// Every test here builds an `AudioViewModel`, and building one loads the whole of `appState`
-/// out of `UserDefaults` — so without help these are assertions about the simulator rather
+/// out of `UserDefaults`. So without help these are assertions about the simulator rather
 /// than about the view model.
 ///
 /// Two things make them deterministic. `.serialized`, because they share one global
@@ -349,7 +349,7 @@ struct AudioViewModelTests {
         }
     }
 
-    /// Onboarding survives a relaunch — the half of `completeOnboarding` the old test could
+    /// Onboarding survives a relaunch. The half of `completeOnboarding` the old test could
     /// not check, because it could not tell a saved flag from a left-over one.
     @Test func completedOnboardingIsRemembered() async {
         AudioViewModel.resetPersistedStateForTesting()

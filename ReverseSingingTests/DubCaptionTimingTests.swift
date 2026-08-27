@@ -49,7 +49,7 @@ struct DubCaptionTimingTests {
     // MARK: - The Bug This Exists For
 
     /// The whole point. A chunk that opens with two seconds of room tone must not put its
-    /// caption on screen for those two seconds — that is the character's words appearing
+    /// caption on screen for those two seconds. That is the character's words appearing
     /// before their mouth moves, on every line, by a different amount each time.
     @Test func aCaptionDoesNotAppearDuringTheChunkRunUp() {
         let scene = pack([line(index: 1, start: 10, lead: 2.0, speech: 1.5)])
@@ -79,7 +79,7 @@ struct DubCaptionTimingTests {
         #expect(scene.captionLine(at: speechStart - DubPack.captionLead - 0.1) == nil)
     }
 
-    /// And comes down after it, rather than sitting there until the next line starts —
+    /// And comes down after it, rather than sitting there until the next line starts,
     /// which in a real scene can be thirty seconds of silence later.
     @Test func aCaptionClearsInTheGapBetweenLines() {
         let scene = pack([
@@ -141,7 +141,7 @@ struct DubCaptionTimingTests {
         #expect(pack([line(index: 1, start: 0, lead: 0.2, speech: 1)]).hasMeasuredSpeech)
     }
 
-    /// A manifest carrying nonsense — an end before its start, a window longer than the clip —
+    /// A manifest carrying nonsense. An end before its start, a window longer than the clip,
     /// must not produce a caption that closes before it opens or a placement past the line.
     @Test func anImpossibleWindowIsClampedRatherThanTrusted() {
         let broken = DubLine(

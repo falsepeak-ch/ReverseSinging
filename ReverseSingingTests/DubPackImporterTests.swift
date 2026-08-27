@@ -11,7 +11,7 @@ import AVFoundation
 import ZIPFoundation
 @testable import ReverseSinging
 
-/// Locates the test bundle so `test.ogv` can be found — there is no `Bundle.module` for a
+/// Locates the test bundle so `test.ogv` can be found. There is no `Bundle.module` for a
 /// target defined in an Xcode project.
 private final class BundleToken {}
 
@@ -113,8 +113,8 @@ struct DubPackImporterTests {
         #expect(cached?.lines.count == pack.lines.count)
     }
 
-    /// A Theora video is converted to H.264 during import, and the original — by far the
-    /// biggest file in a pack — is thrown away once it has been.
+    /// A Theora video is converted to H.264 during import, and the original, by far the
+    /// biggest file in a pack, is thrown away once it has been.
     @Test func convertsTheSceneVideoAndDropsTheOriginal() async throws {
         let source = try makeSourcePack(named: "Video Scene", includeVideo: true)
         let pack = try await DubPackImporter.shared.importPack(from: source)
@@ -161,7 +161,7 @@ struct DubPackImporterTests {
 
     /// Manifests written before video support decode with `videoFile == nil`. The library
     /// must notice the video sitting in the folder rather than trusting that stale answer
-    /// forever — otherwise the scene silently keeps showing stills.
+    /// forever, otherwise the scene silently keeps showing stills.
     ///
     /// Checks the staleness rule directly rather than through `reload()`: that scans the
     /// shared packs directory, which sibling tests are concurrently writing to.

@@ -3,7 +3,7 @@
 //  ReverseSinging
 //
 //  Gate shown before every dub import: the app never ships, hosts or
-//  distributes movies, so the user has to bring their own files — and the
+//  distributes movies, so the user has to bring their own files, and the
 //  question, the disclaimers and the pointer to where files come from are worth
 //  repeating rather than answering once and burying.
 //
@@ -39,7 +39,7 @@ struct DubContentSource: Identifiable, Hashable {
 /// where files come from were visible to a user exactly once. Both belong in
 /// front of every import, so the flag is gone.
 ///
-/// Devices updating from 1.3.0 still carry the old key. It is cleared at launch —
+/// Devices updating from 1.3.0 still carry the old key. It is cleared at launch,
 /// not because a stale bool does any harm sitting there, but so that a future
 /// read of it cannot quietly resurrect the skip on precisely the installs that
 /// have been dubbing the longest.

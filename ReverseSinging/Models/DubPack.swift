@@ -11,8 +11,8 @@ import Foundation
 /// the chunk's own start.
 ///
 /// Measured once, at import, by `DubSpeechOnset`. Everything that has to agree on *when a
-/// line happens* — where a take is dropped in the mix, when its caption appears, what the
-/// score is measured against — reads it from here rather than re-deriving it, so those
+/// line happens*. Where a take is dropped in the mix, when its caption appears, what the
+/// score is measured against, reads it from here rather than re-deriving it, so those
 /// answers cannot drift apart.
 nonisolated struct DubSpeechWindow: Codable, Hashable {
     let start: TimeInterval
@@ -34,11 +34,11 @@ nonisolated struct DubLine: Identifiable, Codable, Hashable {
     let caption: String
     let imageFile: String       // "001_Dobby.jpg"
     let referenceAudioFile: String  // "001_Dobby.wav"
-    let startTime: TimeInterval // dub_timestamps[0] — offset on the master timeline
+    let startTime: TimeInterval // dub_timestamps[0], offset on the master timeline
     let duration: TimeInterval  // measured from the reference wav at import
 
     /// Where the speech sits inside the chunk. Optional so manifests written before speech
-    /// windows were measured still decode — those packs fall back to the whole chunk, and
+    /// windows were measured still decode. Those packs fall back to the whole chunk, and
     /// `DubPackLibrary` re-measures them on the next launch.
     let speech: DubSpeechWindow?
 
@@ -78,7 +78,7 @@ nonisolated struct DubLine: Identifiable, Codable, Hashable {
 
     /// When the character starts speaking on the scene's timeline.
     ///
-    /// This — not `startTime` — is the beat a take is aligned to and a caption is shown on.
+    /// This. Not `startTime`, is the beat a take is aligned to and a caption is shown on.
     var speechStartTime: TimeInterval { startTime + speechLead }
 
     /// When the character stops speaking on the scene's timeline.
@@ -99,7 +99,7 @@ nonisolated struct DubPack: Identifiable, Codable, Hashable {
     let iconFile: String            // "001_Dobby.jpg"
     let backingTrackFile: String?   // "_backing_track.mp3"
     /// "dub_video.mp4", when the pack ships a video AVFoundation can actually play.
-    /// Optional so manifests written before video support still decode — those packs
+    /// Optional so manifests written before video support still decode, those packs
     /// fall back to their per-line stills.
     let videoFile: String?
     let folderName: String          // directory name inside DubPacks/
@@ -113,7 +113,7 @@ nonisolated struct DubPack: Identifiable, Codable, Hashable {
     // states it. For a CC BY source this is not decoration: credit is the licence
     // condition, and a line of it that only exists inside a zip nobody opens does not
     // discharge it. All three are optional because a user-made pack usually says none
-    // of this, and — the part that actually bites — `DubPack` is `Codable` and cached
+    // of this, and. The part that actually bites, `DubPack` is `Codable` and cached
     // to `manifest.json`, so a non-optional field would fail to decode every manifest
     // already sitting on a device.
 
@@ -206,11 +206,14 @@ nonisolated struct DubPack: Identifiable, Codable, Hashable {
     /// The terms without the link, e.g. `CC BY 4.0`.
     ///
     /// `rights` is written as a name and, where one exists, the deed URL after a
-    /// dash — `CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/`. A public
+    /// dash, `CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/`. A public
     /// domain finding has no deed to point at and is only the name.
     var rightsLabel: String? {
         guard let rights else { return nil }
         guard let range = rights.range(of: "http") else { return rights }
+        // The dashes here are characters being stripped out of a pack's own text, not
+        // punctuation this app writes. A pack author may separate the licence name from its
+        // URL with any of them, so all three stay in the set.
         return rights[..<range.lowerBound]
             .trimmingCharacters(in: CharacterSet(charactersIn: " -–—"))
             .nilIfEmpty ?? rights
@@ -250,14 +253,14 @@ nonisolated struct DubPack: Identifiable, Codable, Hashable {
     /// The caption to show at `time`, or nil during a gap in the dialogue.
     ///
     /// Deliberately not `line(at:)`. That one answers "which line's picture is this", and it
-    /// holds the most recent line forever, from the start of its *chunk* — which begins up to
+    /// holds the most recent line forever, from the start of its *chunk*. Which begins up to
     /// two seconds before anyone speaks and runs until the next chunk starts, however long the
     /// silence in between. As a subtitle that reads as wrong twice over: the words show up
     /// early, then sit there through the pause that follows.
     ///
     /// A caption instead runs from just before the first word to just after the last, and
     /// nothing is shown in between. Where two characters overlap, the one who spoke most
-    /// recently wins — that is who the viewer is listening to.
+    /// recently wins. That is who the viewer is listening to.
     ///
     /// Scanned rather than searched: `speechStartTime` is `startTime` plus a per-line lead, so
     /// the lines are not strictly ordered by it, and at ~60 lines the scan costs nothing.

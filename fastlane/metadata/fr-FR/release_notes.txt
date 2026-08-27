@@ -1,4 +1,4 @@
-Doublage de Scène — le deuxième jeu.
+Doublage de Scène : le deuxième jeu.
 
 • Deux scènes originales incluses, pour avoir quelque chose à doubler tout de suite
 • Importe-en d'autres : un dossier ou un .zip de pack depuis Fichiers, AirDrop ou n'importe quelle feuille de partage

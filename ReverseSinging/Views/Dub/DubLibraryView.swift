@@ -13,7 +13,7 @@ struct DubLibraryView: View {
     @Binding var pendingImportURL: URL?
 
     /// True when this screen was pushed from the game menu, in which case it must not
-    /// carry its own navigation stack or a Close button — the push supplies both.
+    /// carry its own navigation stack or a Close button. The push supplies both.
     var isPushed: Bool = false
 
     @StateObject private var library = DubPackLibrary()
@@ -134,7 +134,7 @@ struct DubLibraryView: View {
         #endif
         // Clear the URL *after* importing, never before: `pendingImportURL` is this task's
         // id, so nilling it first cancels the task that is about to do the work. The import
-        // still ran — the importer does its work detached — but `isImporting` never stuck,
+        // still ran. The importer does its work detached. But `isImporting` never stuck,
         // so a multi-minute conversion showed no progress at all and looked like a hang.
         .task(id: pendingImportURL) {
             guard let url = pendingImportURL else { return }
@@ -156,7 +156,7 @@ struct DubLibraryView: View {
             }
 
             // Menus give a footer no styling of its own, so the explanation is a plain
-            // row — the only way to say what the switch does without a second screen.
+            // row. The only way to say what the switch does without a second screen.
             Text(Strings.Dub.Score.settingDetail)
         }
         .onChange(of: scoring.isEnabled) { _, enabled in
@@ -244,7 +244,7 @@ struct DubLibraryView: View {
 
     // MARK: - Import
 
-    /// Asked every time. The gate is not a consent checkbox to be got past once —
+    /// Asked every time. The gate is not a consent checkbox to be got past once,
     /// it is where the app says it hosts nothing, where the rights disclaimer
     /// lives, and the only route to "where do these files come from". Remembering
     /// a yes hid all three from everyone who had already answered.
@@ -372,8 +372,8 @@ struct DubStillImage: View {
 
     var body: some View {
         // The image goes in an overlay rather than a ZStack sibling: an aspect-fill image is
-        // wider than its frame, and as a ZStack child it would size the stack — and anything
-        // laid out over it — past the screen edge.
+        // wider than its frame, and as a ZStack child it would size the stack, and anything
+        // laid out over it, past the screen edge.
         Color.black
             .overlay {
                 if let image {

@@ -8,7 +8,7 @@
 import AVFoundation
 import Foundation
 
-/// The app's interface sounds. Short, dry and used sparingly — they mark the moments
+/// The app's interface sounds. Short, dry and used sparingly. They mark the moments
 /// that matter (slate, take saved, render done) rather than every tap.
 enum UISound: String, CaseIterable {
     case clapperSnap = "clapper-snap"
@@ -58,7 +58,7 @@ final class SoundManager: @unchecked Sendable {
     ///
     /// Guarded by a lock rather than a serial queue: `play` used to hop onto a background
     /// queue, which under load (waveform sampling, video decode) got scheduled late enough
-    /// to hear. Taking a lock and calling `play()` on the caller's thread is immediate —
+    /// to hear. Taking a lock and calling `play()` on the caller's thread is immediate,
     /// `AVAudioPlayer.play()` returns straight away and does its work on the audio thread.
     private var players: [UISound: AVAudioPlayer] = [:]
     private let lock = NSLock()

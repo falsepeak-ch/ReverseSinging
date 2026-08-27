@@ -100,7 +100,7 @@ struct DubMasterLimiterTests {
         #expect(limited > 0.5, "got \(limited)")
     }
 
-    /// A mix already inside the ceiling must come out untouched — a limiter that leans on
+    /// A mix already inside the ceiling must come out untouched. A limiter that leans on
     /// ordinary dialogue would be squashing every export to fix a case that rarely happens.
     @Test func leavesAQuietMixAlone() throws {
         let unlimited = try peakOfMix(voices: [0.3], limited: false)

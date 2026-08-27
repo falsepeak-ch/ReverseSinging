@@ -182,7 +182,7 @@ struct DubMixerTests {
     ///
     /// Both lines are two seconds of the same tone, one from 0s and one from 1s, so the middle
     /// second carries both. What is being checked is that the overlap is *louder* than either
-    /// line alone: put on a single `AVAudioPlayerNode` the two are not summed — the node keeps
+    /// line alone: put on a single `AVAudioPlayerNode` the two are not summed, the node keeps
     /// the start times but only one of them is audible through the overlap, so this second
     /// would come out at the same level as the ones either side of it and half the
     /// interruption would be silently missing.
@@ -211,7 +211,7 @@ struct DubMixerTests {
 
     /// Three loud takes stacked on the same moment sum to well past full scale. Without a
     /// limiter on the way out the encoder squares off the tops of that and the export
-    /// distorts — the cost of summing overlapping lines rather than dropping one of them.
+    /// distorts. The cost of summing overlapping lines rather than dropping one of them.
     @Test func stackedTakesDoNotClipTheExport() async throws {
         let (pack, directory) = try makeTonePack(
             timestamps: [0.0, 0.0, 0.0],

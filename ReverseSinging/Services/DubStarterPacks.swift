@@ -11,7 +11,7 @@ import Foundation
 ///
 /// The dub mode is worth nothing on an empty shelf: a new player opens it, finds a screen
 /// telling them to go and find a pack somewhere, and leaves. Two are there so the mode always
-/// opens onto something to perform — deliberately one of each kind, because the two kinds
+/// opens onto something to perform. Deliberately one of each kind, because the two kinds
 /// play completely differently. *Camp Rules* is a modern CG comedy with big performances to
 /// copy; *Stuck Up* is black-and-white 1951 dialogue where the fun is the flat period delivery.
 /// A third would have been a second helping of one of them.
@@ -19,13 +19,13 @@ import Foundation
 /// They rest on **two different kinds of claim**, and the difference matters more than the
 /// scenes do:
 ///
-/// - *Camp Rules* is cut from **Sprite Fright** (Blender Studio, 2021) under **CC BY 4.0** —
+/// - *Camp Rules* is cut from **Sprite Fright** (Blender Studio, 2021) under **CC BY 4.0**,
 ///   an affirmative licence from the rights holder, which holds in every territory the app
 ///   ships to. The condition is credit.
 /// - *Stuck Up* is cut from **The Outsider** (Centron Productions, 1951), whose US copyright
 ///   was never renewed in its 28th year. That is an *absence* rather than a permission, and it
-///   is a **US finding only** — the position elsewhere is unresolved. What was checked, and how
-///   far it goes, is written down in `Local/Tools/DubPacks/PD_SHORTLIST.md` (not tracked — see `.gitignore`).
+///   is a **US finding only**. The position elsewhere is unresolved. What was checked, and how
+///   far it goes, is written down in `Local/Tools/DubPacks/PD_SHORTLIST.md` (not tracked, see `.gitignore`).
 ///
 /// Either way the pack states its own provenance: `build_clip_pack.py` writes `source`,
 /// `source_url` and `rights` into `_pack_info.ini`, `DubPackParser` reads them, and both the
@@ -35,13 +35,13 @@ import Foundation
 /// Using real film rather than a generated scene is what makes them worth shipping: the words,
 /// the timing and the mouths saying them were recorded together, so the picture cannot drift
 /// against the reference the performer is copying. It is also why no scene here has two
-/// characters talking at once — a finished mix cannot be split into one chunk per speaker, and
+/// characters talking at once. A finished mix cannot be split into one chunk per speaker, and
 /// cutting overlapping dialogue out of it would carry the same audio twice.
 ///
 nonisolated enum DubStarterPacks {
 
     /// Bundled zips, by resource name. Order is install order, which is reverse display
-    /// order — the library sorts newest first, so the last one installed is the one on top.
+    /// order. The library sorts newest first, so the last one installed is the one on top.
     /// *Camp Rules* stays on top: it is the shorter of the two and the easier to finish.
     static let bundled = ["StuckUp", "CampRules"]
 

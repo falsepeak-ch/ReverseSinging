@@ -24,7 +24,7 @@ nonisolated enum Strings {
         static let buttonOpenSettings = NSLocalizedString("onboarding.button.openSettings", comment: "Open settings button")
         static let buttonLetsRecord = NSLocalizedString("onboarding.button.letsRecord", comment: "Let's record button")
         static let buttonContinueLowercase = NSLocalizedString("onboarding.button.continueLowercase", comment: "Continue button lowercase")
-        static let buttonMicrophoneContinue = NSLocalizedString("onboarding.button.microphoneContinue", comment: "Primary button on the microphone step — the ask itself is the system prompt it leads to")
+        static let buttonMicrophoneContinue = NSLocalizedString("onboarding.button.microphoneContinue", comment: "Primary button on the microphone step. The ask itself is the system prompt it leads to")
         static let buttonContinueWithout = NSLocalizedString("onboarding.button.continueWithout", comment: "Finish onboarding without microphone access")
     }
 
@@ -62,6 +62,28 @@ nonisolated enum Strings {
         static let recordAttempt = NSLocalizedString("main.button.recordAttempt", comment: "Record attempt button")
         static let reRecord = NSLocalizedString("main.button.reRecord", comment: "Re-record button")
         static let newSession = NSLocalizedString("main.button.newSession", comment: "New session button")
+        static let playRecorded = NSLocalizedString("main.button.playRecorded", comment: "Play the recorded audio")
+        static let playReverse = NSLocalizedString("main.button.playReverse", comment: "Play the reversed audio")
+
+        /// The simple skin's button subtitles.
+        ///
+        /// These were English literals inside `MainViewSimple` until 1.3.1, which left every
+        /// non-English user looking at an English button stack with a translated hint bar
+        /// directly underneath it. The translated keys for the buttons themselves already
+        /// existed and were simply never referenced.
+        enum Subtitle {
+            static let recordingOriginal = NSLocalizedString("main.subtitle.recordingOriginal", comment: "Recording the original audio right now")
+            static let recordingAttempt = NSLocalizedString("main.subtitle.recordingAttempt", comment: "Recording the user's attempt right now")
+            static let tapToRecord = NSLocalizedString("main.subtitle.tapToRecord", comment: "Nothing recorded yet")
+            static let recordAttempt = NSLocalizedString("main.subtitle.recordAttempt", comment: "Prompt to record the singing attempt")
+            static let reRecordAttempt = NSLocalizedString("main.subtitle.reRecordAttempt", comment: "Prompt to record the attempt again")
+            static let playAttempt = NSLocalizedString("main.subtitle.playAttempt", comment: "Play the user's attempt")
+            static let playOriginal = NSLocalizedString("main.subtitle.playOriginal", comment: "Play the original recording")
+            static let noRecording = NSLocalizedString("main.subtitle.noRecording", comment: "Nothing recorded yet")
+            static let playReversedAttempt = NSLocalizedString("main.subtitle.playReversedAttempt", comment: "Play the reversed attempt")
+            static let playReversedOriginal = NSLocalizedString("main.subtitle.playReversedOriginal", comment: "Play the reversed original")
+            static let noReversed = NSLocalizedString("main.subtitle.noReversed", comment: "Nothing reversed yet")
+        }
 
         // Alerts
         enum Alert {
@@ -171,10 +193,11 @@ nonisolated enum Strings {
     // MARK: - Settings
     enum Settings {
         static let title = NSLocalizedString("settings.title", comment: "Settings title")
+        static let version = NSLocalizedString("settings.version", comment: "Version and build, takes two strings")
         static let interface = NSLocalizedString("settings.interface", comment: "Interface section")
 
         /// The two reverse-singing interface skins. Localised because they are shown during
-        /// onboarding and in the mode's own options menu, not only in Settings — they were
+        /// onboarding and in the mode's own options menu, not only in Settings, they were
         /// hardcoded English until 1.3.1 and every non-English user saw them that way.
         enum Mode {
             static let simpleName = NSLocalizedString("uiMode.simple.name", comment: "Simple interface skin")
@@ -277,7 +300,7 @@ nonisolated enum Strings {
 
             static let best = NSLocalizedString("dub.score.best", comment: "Label for the user's best line")
             static let weakest = NSLocalizedString("dub.score.weakest", comment: "Label for the line most worth re-recording")
-            static let progress = NSLocalizedString("dub.score.progress", comment: "N of M lines scored — takes two integers")
+            static let progress = NSLocalizedString("dub.score.progress", comment: "N of M lines scored, takes two integers")
 
             static let gradePerfect = NSLocalizedString("dub.score.grade.perfect", comment: "Top grade")
             static let gradeGreat = NSLocalizedString("dub.score.grade.great", comment: "Second grade")
@@ -289,11 +312,11 @@ nonisolated enum Strings {
         enum Error {
             static let missingPackInfo = NSLocalizedString("dub.error.missingPackInfo", comment: "Pack info file missing")
             static let noLines = NSLocalizedString("dub.error.noLines", comment: "No usable lines in pack")
-            static let missingAsset = NSLocalizedString("dub.error.missingAsset", comment: "Referenced asset missing — takes a filename")
+            static let missingAsset = NSLocalizedString("dub.error.missingAsset", comment: "Referenced asset missing, takes a filename")
             static let notAFolder = NSLocalizedString("dub.error.notAFolder", comment: "Selected item is not a pack")
-            static let unreadableArchive = NSLocalizedString("dub.error.unreadableArchive", comment: "Zip could not be read — takes an error message")
+            static let unreadableArchive = NSLocalizedString("dub.error.unreadableArchive", comment: "Zip could not be read, takes an error message")
             static let nothingRecorded = NSLocalizedString("dub.error.nothingRecorded", comment: "Export attempted with no takes")
-            static let exportFailed = NSLocalizedString("dub.error.exportFailed", comment: "Export failed — takes an error message")
+            static let exportFailed = NSLocalizedString("dub.error.exportFailed", comment: "Export failed, takes an error message")
         }
     }
 

@@ -82,7 +82,7 @@ nonisolated struct DubMixer {
 
         let videoURL: URL
         if let sourceVideo = pack.videoURL {
-            // Nothing to render — the mux is a passthrough remux of this track.
+            // Nothing to render. The mux is a passthrough remux of this track.
             progress?(.renderingVideo, 1)
             videoURL = sourceVideo
         } else {
@@ -170,7 +170,7 @@ nonisolated struct DubMixer {
             }
 
             // Voices sum, so the mix can add up past full scale before it reaches the
-            // encoder. Installed before manual rendering is enabled — the engine must not be
+            // encoder. Installed before manual rendering is enabled. The engine must not be
             // running while its output is rewired.
             DubMasterLimiter.install(in: engine)
 

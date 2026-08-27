@@ -157,7 +157,7 @@ struct OnboardingView: View {
                             style: .primary
                         )
 
-                        // A denial shouldn't trap anyone on the last page — the
+                        // A denial shouldn't trap anyone on the last page, the
                         // games ask again themselves when a recording is due.
                         if permissionDenied {
                             Button(action: finishOnboarding) {
@@ -305,7 +305,7 @@ struct OnboardingView: View {
 
             if granted {
                 HapticManager.shared.success()
-                // Granted on the last page — drop straight into the app.
+                // Granted on the last page, drop straight into the app.
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     self.finishOnboarding()
                 }

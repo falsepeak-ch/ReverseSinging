@@ -241,7 +241,7 @@ struct DubOverlapExportTests {
 
                 #expect(
                     dobby > 0.02 && harry > 0.02,
-                    "\(named): \(first.slug)/\(second.slug) at \(String(format: "%.2f", probe))s — \(dobby) / \(harry)"
+                    "\(named): \(first.slug)/\(second.slug) at \(String(format: "%.2f", probe))s, \(dobby) / \(harry)"
                 )
             }
         }
@@ -287,6 +287,6 @@ struct DubOverlapExportTests {
         let harry = strength(of: Self.harry, in: heard)
 
         #expect(dobby > 0.02, "Dobby should be speaking alone here, got \(dobby)")
-        #expect(harry < dobby / 4, "Harry should not be here yet — Dobby \(dobby), Harry \(harry)")
+        #expect(harry < dobby / 4, "Harry should not be here yet, Dobby \(dobby), Harry \(harry)")
     }
 }

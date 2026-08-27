@@ -26,7 +26,7 @@ nonisolated enum DubMasterLimiter {
 
     /// - Parameter engine: must not be running. Rewiring the output while it renders is not
     ///   something to rely on.
-    /// - Returns: the limiter, or nil when the audio unit is unavailable — in which case the
+    /// - Returns: the limiter, or nil when the audio unit is unavailable, in which case the
     ///   graph is left exactly as it was and the mix simply runs unlimited.
     @discardableResult
     static func install(in engine: AVAudioEngine) -> AVAudioUnitEffect? {

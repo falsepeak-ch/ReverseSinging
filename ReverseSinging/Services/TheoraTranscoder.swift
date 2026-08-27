@@ -57,7 +57,7 @@ nonisolated enum TheoraTranscoder {
 
     /// Decodes `source` and writes an H.264 MP4 to `destination`.
     ///
-    /// Blocking and CPU-bound — call it off the main actor. `progress` reports 0...1 by how
+    /// Blocking and CPU-bound, call it off the main actor. `progress` reports 0...1 by how
     /// much of the source has been consumed, because a feature-length scene takes minutes and
     /// a silent bar reads as a hang.
     ///
@@ -118,7 +118,7 @@ nonisolated enum TheoraTranscoder {
 
             // Drain every page currently buffered before reading more of the file.
             //
-            // `-1` is a hole in the stream, not the end of the buffered data — stopping on it
+            // `-1` is a hole in the stream, not the end of the buffered data, stopping on it
             // would leave whole pages unread behind the damage.
             while true {
                 let pageStatus = ogg_sync_pageout(&sync, &page)
@@ -145,7 +145,7 @@ nonisolated enum TheoraTranscoder {
                         let status = th_decode_headerin(&info, &comment, &setup, &packet)
 
                         if status < 0 {
-                            // Not Theora — this was some other bos stream, keep looking.
+                            // Not Theora. This was some other bos stream, keep looking.
                             if !foundTheora {
                                 ogg_stream_clear(&stream)
                                 streamInitialised = false
@@ -174,8 +174,8 @@ nonisolated enum TheoraTranscoder {
                     var granulePosition: ogg_int64_t = 0
                     let status = th_decode_packetin(decoder, &packet, &granulePosition)
 
-                    // `TH_DUPFRAME` is not a failure. It means the packet is a duplicate —
-                    // a 0-byte frame, or an inter frame with no coded blocks — so the
+                    // `TH_DUPFRAME` is not a failure. It means the packet is a duplicate,
+                    // a 0-byte frame, or an inter frame with no coded blocks, so the
                     // decoder's picture is unchanged. libtheora's *player* example skips the
                     // redraw on it, because the frame it wants is already on screen. A
                     // transcoder is the other case: the frame still owns its slot on the
@@ -183,8 +183,8 @@ nonisolated enum TheoraTranscoder {
                     // file and pulls everything after it earlier, by a frame every time.
                     guard status == 0 || status == TH_DUPFRAME else { continue }
 
-                    // The granule position carries the frame's own absolute index, so it —
-                    // not a running counter — is what the timeline is built from. A packet
+                    // The granule position carries the frame's own absolute index, so it,
+                    // not a running counter, is what the timeline is built from. A packet
                     // that fails to decode then leaves the previous frame held for a beat
                     // longer, rather than shifting the whole rest of the scene.
                     //
@@ -312,7 +312,7 @@ nonisolated enum TheoraTranscoder {
         /// Bits per second for the encode.
         ///
         /// Without this AVFoundation picks a very high default: a 158 MB Theora scene came
-        /// back out as a 290 MB MP4, which defeats the point of converting at import — the
+        /// back out as a 290 MB MP4, which defeats the point of converting at import, the
         /// original was discarded to reclaim that space. Scaled by pixel rate so the figure
         /// holds for any size, and clamped so a tiny clip is not starved nor a large one
         /// allowed to run away.
@@ -351,7 +351,7 @@ nonisolated enum TheoraTranscoder {
         func finish() throws -> Output {
             // Without an explicit end the file runs to the last frame's *start* and the final
             // frame's duration is whatever AVFoundation infers. A scene that ends on a held
-            // shot — a run of duplicate frames — would come up short by exactly that run.
+            // shot. A run of duplicate frames, would come up short by exactly that run.
             let end = CMTime(value: frameDuration * (lastIndex + 1), timescale: timescale)
             writer.endSession(atSourceTime: end)
 
@@ -372,13 +372,13 @@ nonisolated enum TheoraTranscoder {
 
         /// Copies a decoded Theora frame into an NV12 pixel buffer.
         ///
-        /// Plane copies only — no colour maths. Theora's Y'CbCr and NV12's are the same
+        /// Plane copies only: no colour maths. Theora's Y'CbCr and NV12's are the same
         /// values in a different arrangement, so the work is memcpy for luma and an
         /// interleave for chroma. 4:2:2 and 4:4:4 have their chroma decimated to 4:2:0 on
         /// the way through, which is what the H.264 encoder wants anyway.
         ///
         /// The chroma interleave runs on raw pointers rather than subscripts. A real pack is
-        /// 1080p and five minutes long — about seven thousand frames — and at half a million
+        /// 1080p and five minutes long, about seven thousand frames. And at half a million
         /// chroma samples each, bounds-checked indexing turns the conversion into a wait long
         /// enough to look like a hang.
         private static func fill(
@@ -418,7 +418,7 @@ nonisolated enum TheoraTranscoder {
                 throw TranscodeError.unsupportedPixelFormat
             }
 
-            // MARK: Luma — a straight row-by-row copy.
+            // MARK: Luma. A straight row-by-row copy.
 
             let lumaDestinationStride = CVPixelBufferGetBytesPerRowOfPlane(buffer, 0)
             let lumaSourceStride = Int(luma.stride)
@@ -430,7 +430,7 @@ nonisolated enum TheoraTranscoder {
                 memcpy(destinationRow, sourceRow, copyWidth)
             }
 
-            // MARK: Chroma — interleave Cb and Cr into NV12's single plane.
+            // MARK: Chroma, interleave Cb and Cr into NV12's single plane.
 
             let chromaDestinationStride = CVPixelBufferGetBytesPerRowOfPlane(buffer, 1)
             let chromaHeight = (height + 1) / 2

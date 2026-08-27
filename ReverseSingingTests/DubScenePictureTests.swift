@@ -2,7 +2,7 @@
 //  DubScenePictureTests.swift
 //  ReverseSingingTests
 //
-//  The scene video actually rolling — not merely being on screen
+//  The scene video actually rolling. Not merely being on screen
 //
 
 import Testing
@@ -15,7 +15,7 @@ private final class ScenePictureBundleToken {}
 /// Serialized, because the contention these tests are most sensitive to is their own.
 ///
 /// Each one transcodes the Theora fixture and stands up its own `AVPlayer`, and run in
-/// parallel that is six simultaneous video pipelines on one simulator — a load the app never
+/// parallel that is six simultaneous video pipelines on one simulator. A load the app never
 /// creates for itself. Starve them enough and `AVPlayer` does not merely drift, it never
 /// starts: under an artificial six-way CPU saturation every failure here read `now = 0.0`,
 /// zero rewinds, never paused. No amount of tolerance in an assertion fixes a player that
@@ -56,7 +56,7 @@ struct DubScenePictureTests {
     ///
     /// The ceiling is deliberately far above what a warm run needs. Several of these tests
     /// transcode a fixture and spin up an `AVPlayer` each, and when the whole suite runs at
-    /// once they do it simultaneously — the observed starts ranged from tens of milliseconds
+    /// once they do it simultaneously. The observed starts ranged from tens of milliseconds
     /// to several seconds on the same machine. A timeout tight enough to be "fast" is really
     /// just a bet on machine load.
     private func waitUntil(
@@ -73,8 +73,8 @@ struct DubScenePictureTests {
 
     /// How far the picture moves while a host-clock runway is still open.
     ///
-    /// Both anchor tests below assert the same thing — the picture must not roll during the
-    /// audio's scheduling lead-in — and both used to do it by sampling, sleeping 200 ms, and
+    /// Both anchor tests below assert the same thing. The picture must not roll during the
+    /// audio's scheduling lead-in. And both used to do it by sampling, sleeping 200 ms, and
     /// sampling again. That is only a measurement of the runway if both samples land inside
     /// it, and under a full-suite load `Task.sleep` overshoots by hundreds of milliseconds.
     /// When it overshot the deadline the second sample caught a picture that was correctly
@@ -82,7 +82,7 @@ struct DubScenePictureTests {
     ///
     /// So the runway is set generously by the caller, and every sample is taken only after
     /// the host clock has been checked, which makes each one provably inside it. Returns nil
-    /// when too few samples fit to mean anything — which at these lead-ins means the machine
+    /// when too few samples fit to mean anything. Which at these lead-ins means the machine
     /// stalled for seconds, and is worth failing on rather than passing quietly.
     private func drift(beforeHostDeadline deadline: UInt64, of picture: DubScenePicture) async throws -> TimeInterval? {
         var samples: [TimeInterval] = []
@@ -217,7 +217,7 @@ struct DubScenePictureTests {
 
         // A rewind is detected against the highest point reached, not against the previous
         // sample. Consecutive samples only catch a wrap if one of them lands in the moment
-        // after it, and on a loaded machine a 50 ms sleep can overshoot a whole 0.6 s pass —
+        // after it, and on a loaded machine a 50 ms sleep can overshoot a whole 0.6 s pass,
         // so every sample lands near the top of the line and the wrap goes unseen. Comparing
         // to the high-water mark catches it from anywhere in the following pass, and resetting
         // the mark on each rewind keeps the count one-per-wrap rather than one-per-sample.
@@ -250,7 +250,7 @@ struct DubScenePictureTests {
                 "expected the picture to keep jumping back; saw \(rewinds) rewinds in 6s of a 0.6s line")
 
         // The guarantee is that looping does not let the line run on into the next shot, and
-        // the fixture is a 9 s video — so anything that wrapped is far below this and anything
+        // the fixture is a 9 s video. So anything that wrapped is far below this and anything
         // that played straight through is far above it. The slack is for the loop-back itself:
         // it is driven by a periodic observer on the *main queue*, and when the whole suite is
         // running that queue is contended, so the observer fires late and the picture overruns
