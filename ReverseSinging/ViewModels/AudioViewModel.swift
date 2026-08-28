@@ -612,6 +612,35 @@ final class AudioViewModel: ObservableObject {
         saveSessions()
     }
 
+    #if DEBUG
+    /// Every `UserDefaults` key `loadSessions()` reads back into `appState`.
+    ///
+    /// Kept next to the code that writes them so the two cannot drift: a key added to
+    /// `saveSessions` and forgotten here would silently reintroduce the problem below.
+    static let persistedStateKeysForTesting = [
+        "savedSessions",
+        "hasCompletedOnboarding",
+        "isScoreVisible",
+        "themeMode",
+        "hapticsEnabled",
+        "uiMode",
+    ]
+
+    /// Puts the device back to the state of one the app has never been run on.
+    ///
+    /// `AudioViewModel()` loads its whole `appState` from `UserDefaults`, so any test that
+    /// constructs one is really asserting about the simulator, not about the view model. The
+    /// suite used to *assume* a clean device, `completeOnboarding()` asserted
+    /// `!hasCompletedOnboarding` on a fresh instance. Which held right up until someone ran
+    /// the app on the same simulator, and then failed until it was uninstalled. Establishing
+    /// the state is the fix; assuming it is the bug.
+    static func resetPersistedStateForTesting() {
+        for key in persistedStateKeysForTesting {
+            UserDefaults.standard.removeObject(forKey: key)
+        }
+    }
+    #endif
+
     // MARK: - Settings
 
     func setSoundsEnabled(_ enabled: Bool) {

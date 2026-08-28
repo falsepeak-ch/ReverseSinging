@@ -86,7 +86,7 @@ struct DubSpeechWindowTests {
         #expect(placement.buffer.frameLength == take.frameLength)
     }
 
-    /// A reference is left exactly where it was cut from — shifting the original against
+    /// A reference is left exactly where it was cut from, shifting the original against
     /// itself would only slide the scene off its own backing track.
     @Test func aReferenceIsPlacedAtItsChunkTimestamp() {
         let line = DubLine(
@@ -148,7 +148,7 @@ struct DubSpeechWindowTests {
         #expect(restored.hasMeasuredSpeech)
     }
 
-    /// A manifest written before windows existed still decodes — and reports itself as stale
+    /// A manifest written before windows existed still decodes. And reports itself as stale
     /// so the library re-measures it rather than serving chunk timings forever.
     @Test func aManifestWithoutWindowsDecodesAndAsksToBeReparsed() throws {
         let legacy = """

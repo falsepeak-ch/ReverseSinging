@@ -13,7 +13,7 @@ struct DubLibraryView: View {
     @Binding var pendingImportURL: URL?
 
     /// True when this screen was pushed from the game menu, in which case it must not
-    /// carry its own navigation stack or a Close button — the push supplies both.
+    /// carry its own navigation stack or a Close button. The push supplies both.
     var isPushed: Bool = false
 
     @StateObject private var library = DubPackLibrary()
@@ -74,8 +74,8 @@ struct DubLibraryView: View {
             }
         }
         .toolbar(.hidden, for: .navigationBar)
-        // The app ships no scenes, so importing is the moment to ask where the
-        // user's own came from.
+        // Beyond the starter scenes the app hosts nothing, so every import is the
+        // moment to ask where the user's own came from.
         .dubContentGate(isPresented: $showContentGate) { showFileImporter = true }
         .fileImporter(
             isPresented: $showFileImporter,
@@ -134,7 +134,7 @@ struct DubLibraryView: View {
         #endif
         // Clear the URL *after* importing, never before: `pendingImportURL` is this task's
         // id, so nilling it first cancels the task that is about to do the work. The import
-        // still ran — the importer does its work detached — but `isImporting` never stuck,
+        // still ran. The importer does its work detached. But `isImporting` never stuck,
         // so a multi-minute conversion showed no progress at all and looked like a hang.
         .task(id: pendingImportURL) {
             guard let url = pendingImportURL else { return }
@@ -150,29 +150,15 @@ struct DubLibraryView: View {
     /// only mean anything inside this game, and this is where the user already is when they
     /// decide they want them.
     private var optionsMenu: some View {
-        Menu {
+        EditorToolbarMenu(icon: "slider.horizontal.3", label: Strings.Dub.options) {
             Toggle(isOn: $scoring.isEnabled) {
                 Label(Strings.Dub.Score.settingTitle, systemImage: "chart.bar.fill")
             }
 
-            // Menus give a footer no styling of its own, so the explanation is a disabled
-            // row — the only way to say what the switch does without a second screen.
+            // Menus give a footer no styling of its own, so the explanation is a plain
+            // row. The only way to say what the switch does without a second screen.
             Text(Strings.Dub.Score.settingDetail)
-        } label: {
-            Image(systemName: "slider.horizontal.3")
-                .font(.system(size: 16, weight: .medium))
-                .foregroundColor(.rsTextSecondary)
-                .frame(width: 38, height: 38)
-                .background(
-                    RoundedRectangle(cornerRadius: 5, style: .continuous)
-                        .fill(Color.rsSurface2)
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 5, style: .continuous)
-                        .strokeBorder(Color.rsStroke, lineWidth: EditorMetrics.hairline)
-                )
         }
-        .accessibilityLabel(Strings.Dub.options)
         .onChange(of: scoring.isEnabled) { _, enabled in
             HapticManager.shared.light()
             AnalyticsManager.shared.trackDubScoringToggled(enabled: enabled)
@@ -258,14 +244,12 @@ struct DubLibraryView: View {
 
     // MARK: - Import
 
-    /// Asked once: after the user has confirmed they have packs of their own,
-    /// the import button goes straight to the file picker.
+    /// Asked every time. The gate is not a consent checkbox to be got past once,
+    /// it is where the app says it hosts nothing, where the rights disclaimer
+    /// lives, and the only route to "where do these files come from". Remembering
+    /// a yes hid all three from everyone who had already answered.
     private func requestImport() {
-        if DubContentGate.hasConfirmedOwnership {
-            showFileImporter = true
-        } else {
-            showContentGate = true
-        }
+        showContentGate = true
     }
 
     private func handleImport(_ result: Result<[URL], Error>) {
@@ -388,8 +372,8 @@ struct DubStillImage: View {
 
     var body: some View {
         // The image goes in an overlay rather than a ZStack sibling: an aspect-fill image is
-        // wider than its frame, and as a ZStack child it would size the stack — and anything
-        // laid out over it — past the screen edge.
+        // wider than its frame, and as a ZStack child it would size the stack, and anything
+        // laid out over it, past the screen edge.
         Color.black
             .overlay {
                 if let image {

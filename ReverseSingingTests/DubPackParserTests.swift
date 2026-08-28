@@ -41,7 +41,7 @@ private struct DubPackFixture {
             audioDuration: 1.0
         )
 
-        // The caption here contains a comma — it must survive intact
+        // The caption here contains a comma. It must survive intact
         try addLine(
             slug: "005_Harry",
             caption: "not to be rude or anything, but this isn't a great time for me to have a house elf in my bedroom.",

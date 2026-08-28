@@ -6,7 +6,7 @@
 //
 //  Every symbol here is behind `#if DEBUG`, so none of it exists in a shipping
 //  build. It is driven entirely from the launch-argument domain by
-//  `Tools/screenshots/capture.sh` — see that script for the flags.
+//  `Local/Tools/screenshots/capture.sh`, see that script for the flags.
 //
 
 #if DEBUG
@@ -15,7 +15,7 @@ import AVFoundation
 import Foundation
 
 /// One screen the capture script can ask for. The raw values must stay in sync with
-/// `SCREENS_ALL` in `Tools/screenshots/capture.sh` and with the keys in `captions.json`.
+/// `SCREENS_ALL` in `Local/Tools/screenshots/capture.sh` and with the keys in `captions.json`.
 enum ScreenshotDestination: String {
     case home
     case dubLibrary
@@ -119,7 +119,7 @@ enum ScreenshotMode {
     ///
     /// Apple takes previews between 15 and 30 seconds. These add up to about 28, which
     /// leaves room for the launch and the first navigation push without risking the
-    /// ceiling — a preview one frame over is rejected outright, and the trim happens in
+    /// ceiling. A preview one frame over is rejected outright, and the trim happens in
     /// App Store Connect where it can't be scripted.
     enum Tour {
         static let libraryHold: TimeInterval = 3.0
@@ -135,7 +135,7 @@ enum ScreenshotMode {
         static let tail: TimeInterval = 1.2
 
         /// What the recorder should run for, plus a margin for the cold launch and the
-        /// push into the library. `record.sh` reads this from its own copy of the number —
+        /// push into the library. `record.sh` reads this from its own copy of the number,
         /// they are kept in step by hand, and the script trims to 29s regardless.
         static var total: TimeInterval {
             libraryHold + detailHold + recorderOpen + listen + playTake
@@ -186,7 +186,7 @@ enum ScreenshotMode {
 
     static let sungPhraseDuration: TimeInterval = 4.2
 
-    /// A short sung phrase — five held notes with vibrato, over a decaying envelope.
+    /// A short sung phrase, five held notes with vibrato, over a decaying envelope.
     ///
     /// The reverse game's own audio, not a dialogue chunk borrowed from the dub pack: the
     /// waveform is the thing on screen, and a spoken shape under "sing a song backwards"
@@ -244,7 +244,7 @@ enum ScreenshotMode {
 
     /// Derives a plausible take from the reference: the same words at the same length,
     /// nudged late and unevenly loud, the way a real attempt sits against the original.
-    /// The point is the *shape* — the record screen draws both waveforms on one axis, and
+    /// The point is the *shape*. The record screen draws both waveforms on one axis, and
     /// two identical shapes would look like a bug rather than a performance.
     private static func writeTake(from source: URL, to destination: URL) throws {
         let input = try AVAudioFile(forReading: source)

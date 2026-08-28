@@ -10,7 +10,13 @@ import Foundation
 import AVFoundation
 @testable import ReverseSinging
 
-@Suite("Dub Starter Packs")
+/// Serialized, because every test in here installs a real pack.
+///
+/// Installing writes to one shared `DubPacks` directory and one shared `UserDefaults` key,
+/// and `DubPackImporter.install` deletes any existing destination before copying, so two of
+/// these running at once race on the same folder and one of them imports into a directory the
+/// other just removed. It was survivable with two packs and stopped being so with three.
+@Suite("Dub Starter Packs", .serialized)
 struct DubStarterPackTests {
 
     /// The zips have to actually be in the bundle. A missing resource is a build mistake that
@@ -24,8 +30,42 @@ struct DubStarterPackTests {
         }
     }
 
-    @Test func thereAreTwoOfThem() {
+    /// One animated, one classic. And exactly one of each.
+    ///
+    /// The pair is the point, not the number: the two play differently enough that a new
+    /// player finds out which kind they like on the first open. Two helpings of the same kind
+    /// would tell them nothing and cost another megabyte of download.
+    @Test func oneOfEachKindShips() {
         #expect(DubStarterPacks.bundled.count == 2)
+        #expect(DubStarterPacks.bundled.contains("CampRules"), "the animated one")
+        #expect(DubStarterPacks.bundled.contains("StuckUp"), "the classic one")
+    }
+
+    /// Every shipped scene is cut from someone else's film, so every shipped scene has to say
+    /// whose and on what terms.
+    ///
+    /// This is the assertion that would have caught the state the app shipped 1.3.0 in: the
+    /// build was writing `source` and `rights` into each pack and nothing was reading them, so
+    /// the CC BY credit existed only inside a zip. A missing field here means a pack is making
+    /// a claim on someone else's work and saying nothing about it.
+    @MainActor
+    @Test func everyStarterPackSaysWhereItCameFrom() async throws {
+        for name in DubStarterPacks.bundled {
+            let pack = try #require(await DubStarterPacks.install(name))
+            defer {
+                try? AudioFileManager.shared.deleteDubPack(folderName: pack.folderName, packID: pack.id)
+                DubStarterPacks.forgetInstallsForTesting()
+            }
+
+            #expect(pack.hasAttribution, "\(pack.title) claims no provenance")
+            #expect(pack.source?.isEmpty == false, "\(pack.title) names no source work")
+            #expect(pack.rights?.isEmpty == false, "\(pack.title) states no terms")
+            #expect(pack.rightsLabel?.isEmpty == false, "\(pack.title)'s terms read as empty")
+
+            // The share notice reads these too, and it is the screen that carries the credit
+            // off the device. A pack that shows nothing there is one being posted uncredited.
+            #expect(!pack.authors.isEmpty, "\(pack.title) names nobody in the library list")
+        }
     }
 
     /// A starter pack is an ordinary pack once installed: it parses, it has lines, it has a
@@ -166,13 +206,21 @@ struct DubStarterPackTests {
     }
 }
 
-@Suite("Dub Scoring Preference")
+/// Serialized: both tests write the same `dub.scoringEnabled` key, and in parallel the one
+/// that clears it and the one that sets it decide each other's result.
+@Suite("Dub Scoring Preference", .serialized)
 @MainActor
 struct DubScoringPreferenceTests {
 
     /// Off unless asked for. Dubbing a scene badly is most of the fun, and a grade on every
     /// attempt turns a game into a test.
+    ///
+    /// Restores whatever the device had, so clearing the key here cannot change what the
+    /// singleton reports to anything that runs afterwards.
     @Test func scoringIsOffForANewInstall() {
+        let original = DubScoringPreference.shared.isEnabled
+        defer { DubScoringPreference.shared.setForTesting(original) }
+
         UserDefaults.standard.removeObject(forKey: "dub.scoringEnabled")
         #expect(UserDefaults.standard.bool(forKey: "dub.scoringEnabled") == false)
     }

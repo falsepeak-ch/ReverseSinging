@@ -115,9 +115,13 @@ GoogleService-Info.plist
 # App Store Connect API Key
 AuthKey_*.p8
 
-# App Store screenshots and previews — regenerated, not committed
-Tools/screenshots/output/
-Tools/screenshots/.venv/
+# Everything a developer needs locally but the repo does not carry.
+#
+# Local/Tools  . dub-pack builders, App Store screenshot pipeline, metadata generator
+# Local/docs   . design briefs and the tooling notes
+#
+# See Local/docs/TOOLING.md for what is in there and what breaks without it.
+/Local/
 fastlane/screenshots/**/*.png
 fastlane/screenshots/**/*.mp4
 

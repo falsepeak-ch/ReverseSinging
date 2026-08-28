@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// The root screen. It plays nothing itself — it lists the two games and owns the
+/// The root screen. It plays nothing itself. It lists the two games and owns the
 /// navigation stack they are pushed onto, so each game is a level deeper rather
 /// than something hidden behind a toolbar glyph.
 struct HomeView: View {
@@ -75,7 +75,7 @@ struct HomeView: View {
     private func destination(for mode: GameMode) -> some View {
         switch mode {
         case .reverse:
-            // The interface preference chooses how reverse singing looks — it is a
+            // The interface preference chooses how reverse singing looks. It is a
             // setting on this one game, not a separate game.
             if viewModel.appState.uiMode == .simple {
                 MainViewSimple()

@@ -108,7 +108,7 @@ nonisolated enum DubAudioLoader {
         }
     }
 
-    /// Rewrites a file so it is exactly `duration` long — trimmed if it ran over, padded with
+    /// Rewrites a file so it is exactly `duration` long, trimmed if it ran over, padded with
     /// silence if it was cut short.
     ///
     /// A take has to be the length of the line it replaces. The recorder is told to stop on

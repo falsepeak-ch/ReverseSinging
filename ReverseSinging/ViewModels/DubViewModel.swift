@@ -30,7 +30,7 @@ final class DubViewModel: ObservableObject {
     /// when the user moves on, so it marks *this* take rather than the last one to finish.
     @Published var latestScore: DubLineScore?
 
-    /// Whether takes are being marked at all. Off unless the user asked for it — see
+    /// Whether takes are being marked at all. Off unless the user asked for it, see
     /// `DubScoringPreference`.
     var isScoringEnabled: Bool { DubScoringPreference.shared.isEnabled }
 
@@ -174,7 +174,7 @@ final class DubViewModel: ObservableObject {
             .map { time, duration in duration > 0 ? min(1, time / duration) : 0 }
             .assign(to: &$previewProgress)
 
-        // Fed from the peak, not the meter level. The meter is average power on a dB curve —
+        // Fed from the peak, not the meter level. The meter is average power on a dB curve,
         // right for the pulsing record button, wrong for a waveform, because it lifts every
         // quiet syllable to two thirds height and the trace comes out a flat block. The take
         // read back off disk is linear peaks, so drawing the live trace from anything else
@@ -229,7 +229,7 @@ final class DubViewModel: ObservableObject {
     /// Files a metering tick against the moment it was sampled.
     ///
     /// Published normalised, because that is what `WaveformSampler` hands back for the
-    /// finished take — the two have to be the same measurement on the same scale or the shape
+    /// finished take. The two have to be the same measurement on the same scale or the shape
     /// jumps when the mic closes.
     private func appendToLiveTrace(_ peak: Float) {
         guard isRecording else { return }
@@ -362,7 +362,7 @@ final class DubViewModel: ObservableObject {
     }
 
     private func startRecording() {
-        // The backing track is never playing here — anything through the speaker would
+        // The backing track is never playing here. Anything through the speaker would
         // bleed straight into the take.
         referencePlayer.stop()
         monitorPlayer.stop()
@@ -458,7 +458,7 @@ final class DubViewModel: ObservableObject {
     ///
     /// A dub take is a replacement for a fixed stretch of film, so asking the performer to
     /// judge the end themselves only produces takes that have to be trimmed later. The
-    /// recorder has already been told to stop on the audio clock — this is what tells the
+    /// recorder has already been told to stop on the audio clock. This is what tells the
     /// screen, saves the file, and hands the user back their transport.
     private func scheduleAutoStop(after duration: TimeInterval) {
         autoStopTask?.cancel()
@@ -608,8 +608,8 @@ final class DubViewModel: ObservableObject {
     /// Measures a freshly-recorded take and files the result.
     ///
     /// Runs after the take has been normalised to the line's length, so what is scored is the
-    /// same audio the mix will use. Off the main actor — it reads and analyses two whole clips
-    /// — and silent on failure: a line that cannot be measured shows no score rather than a
+    /// same audio the mix will use. Off the main actor. It reads and analyses two whole clips
+    ///. And silent on failure: a line that cannot be measured shows no score rather than a
     /// zero the performer did not earn.
     private func scoreTake(for line: DubLine) async {
         guard isScoringEnabled else { return }

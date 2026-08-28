@@ -33,7 +33,7 @@ final class DubPackLibrary: ObservableObject {
     /// Puts the bundled scenes on the shelf the first time the app runs.
     ///
     /// Ahead of the first `reloadNow`, so the library is never briefly empty before they
-    /// appear, and reported through the same progress overlay an ordinary import uses — the
+    /// appear, and reported through the same progress overlay an ordinary import uses, the
     /// work is the same work, and on a first launch it is the only thing happening.
     private func installStarterPacksIfNeeded() async {
         let pending = DubStarterPacks.pending
@@ -52,7 +52,7 @@ final class DubPackLibrary: ObservableObject {
 
     // MARK: - Loading
 
-    /// Rebuilds the list from disk. Packs are the source of truth — there is no separate
+    /// Rebuilds the list from disk. Packs are the source of truth. There is no separate
     /// index to fall out of sync with what's actually installed.
     ///
     /// Fire-and-forget, so callers stay synchronous. `packs` is only replaced once the new
@@ -62,7 +62,7 @@ final class DubPackLibrary: ObservableObject {
         reloadTask = Task { await reloadNow() }
     }
 
-    /// The same refresh, awaited — used where the next step depends on the result.
+    /// The same refresh, awaited, used where the next step depends on the result.
     func reloadNow() async {
         // Off the main actor: a re-parse reads every reference wav in the pack, which is
         // exactly the work that must not happen on the way to drawing a frame.
@@ -115,17 +115,39 @@ final class DubPackLibrary: ObservableObject {
     /// - **Unmeasured speech windows.** Lines without one fall back to their whole chunk,
     ///   which puts captions up to two seconds early and drops takes at the chunk's start
     ///   rather than where the character speaks.
+    /// - **Missing provenance.** Manifests written before the attribution fields existed
+    ///   decode with `source == nil`, and the starter packs. The only ones that carry
+    ///   someone else's work, are precisely the packs already installed on every device
+    ///   that has ever opened dub mode. Without this they would keep printing no credit.
     ///
     /// Re-parsing costs one pass over the pack, and only for packs in that state.
     static nonisolated func manifestIsStale(_ pack: DubPack, in directory: URL) -> Bool {
         guard pack.hasMeasuredSpeech else { return true }
+        if manifestIsMissingAttributionOnDisk(pack, in: directory) { return true }
         return manifestIsMissingAVideoOnDisk(pack, in: directory)
+    }
+
+    /// True when the pack's own `_pack_info.ini` names a source the manifest doesn't carry.
+    ///
+    /// Deliberately keyed on the file rather than on a version stamp: the question is only
+    /// ever "is there credit here that isn't being shown", and the pack folder is where the
+    /// answer is. A pack that genuinely has no provenance answers no on every launch, at the
+    /// cost of one small read.
+    static nonisolated func manifestIsMissingAttributionOnDisk(_ pack: DubPack, in directory: URL) -> Bool {
+        guard pack.source == nil else { return false }
+
+        let packInfoURL = directory.appendingPathComponent(DubPackParser.packInfoFilename)
+        guard let contents = try? String(contentsOf: packInfoURL, encoding: .utf8) else {
+            return false
+        }
+
+        return DubPackParser.parseKeyValues(contents)["source"]?.stringValue?.nilIfEmpty != nil
     }
 
     /// How far a scene video may fall short of the pack's own timeline before it is treated
     /// as damaged rather than merely rounded.
     ///
-    /// A sound conversion lands within a frame or two — the real packs measure 0.02 s and
+    /// A sound conversion lands within a frame or two. The real packs measure 0.02 s and
     /// 0.06 s out. A pack converted by the build that dropped duplicate frames is short by the
     /// whole run of them, which on a two-minute scene came to over five seconds.
     static nonisolated let truncatedVideoTolerance: TimeInterval = 0.25
@@ -133,7 +155,7 @@ final class DubPackLibrary: ObservableObject {
     /// True when a pack's video ends materially before the scene's audio does.
     ///
     /// Builds before `TheoraTranscoder` learned to keep duplicate frames dropped every one of
-    /// them, so the picture ran progressively ahead of the voices — over five seconds by the
+    /// them, so the picture ran progressively ahead of the voices, over five seconds by the
     /// end of one real scene. The Theora original is deleted once converted, so an affected
     /// pack cannot be repaired in place; it has to be imported again.
     ///
@@ -166,7 +188,7 @@ final class DubPackLibrary: ObservableObject {
         }
     }
 
-    /// Weighted by how long each stage actually takes — a Theora scene can be 150 MB, so
+    /// Weighted by how long each stage actually takes. A Theora scene can be 150 MB, so
     /// conversion owns most of the bar.
     private static func overallProgress(stage: DubImportStage, value: Double) -> Double {
         switch stage {

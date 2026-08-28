@@ -16,7 +16,7 @@ actor WaveformSampler {
 
     static let shared = WaveformSampler()
 
-    /// Keyed by path and bucket count — the same file drawn at two widths is two results.
+    /// Keyed by path and bucket count. The same file drawn at two widths is two results.
     private var cache: [String: [Float]] = [:]
 
     private init() {}

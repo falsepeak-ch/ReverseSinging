@@ -33,7 +33,7 @@ struct TheoraTranscoderTests {
     /// Mean luma of the frame shown at `time`, 0...255.
     ///
     /// The fixture paints each three-second segment a flat, distinct grey, so this is enough
-    /// to say *which part of the source* is on screen at a given moment — which is the only
+    /// to say *which part of the source* is on screen at a given moment. Which is the only
     /// question that matters for sync.
     private func meanLuma(of video: URL, at time: TimeInterval) async throws -> Double {
         let generator = AVAssetImageGenerator(asset: AVURLAsset(url: video))
@@ -69,7 +69,7 @@ struct TheoraTranscoderTests {
 
     /// The regression this suite exists for.
     ///
-    /// `test_dup.ogv` is 9 seconds of 15 fps in which 101 of the 135 frames are duplicates —
+    /// `test_dup.ogv` is 9 seconds of 15 fps in which 101 of the 135 frames are duplicates,
     /// the shape of a film scene padded up to a higher frame rate, and of the real packs that
     /// played out of sync. A transcoder that treats `TH_DUPFRAME` as a decode failure writes
     /// only the 34 frames it considers new, and hands back a 2.3-second video for a 9-second

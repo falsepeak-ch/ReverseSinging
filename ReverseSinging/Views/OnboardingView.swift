@@ -63,13 +63,17 @@ struct OnboardingView: View {
 
     // MARK: - Computed Properties for Single Button State
 
+    /// The default reads "Continue", not "Allow": this button opens the system
+    /// prompt, it is not the grant itself, and promising a permission the page
+    /// cannot give is the kind of thing that reads as a dark pattern. The mic
+    /// icon below is what carries the warning that a prompt is coming.
     private var buttonTitle: String {
         if permissionGranted {
             return Strings.Onboarding.buttonLetsRecord
         } else if permissionDenied {
             return Strings.Onboarding.buttonOpenSettings
         } else {
-            return Strings.Onboarding.buttonAllowMicrophone
+            return Strings.Onboarding.buttonMicrophoneContinue
         }
     }
 
@@ -153,7 +157,7 @@ struct OnboardingView: View {
                             style: .primary
                         )
 
-                        // A denial shouldn't trap anyone on the last page — the
+                        // A denial shouldn't trap anyone on the last page, the
                         // games ask again themselves when a recording is due.
                         if permissionDenied {
                             Button(action: finishOnboarding) {
@@ -211,7 +215,7 @@ struct OnboardingView: View {
 
                     // Title
                     Text(Strings.Onboarding.uiPreferenceTitle)
-                        .font(.custom("Eugello", size: 36))
+                        .font(.rsDisplayLarge)
                         .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 24)
@@ -301,7 +305,7 @@ struct OnboardingView: View {
 
             if granted {
                 HapticManager.shared.success()
-                // Granted on the last page — drop straight into the app.
+                // Granted on the last page, drop straight into the app.
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     self.finishOnboarding()
                 }
@@ -358,7 +362,7 @@ struct OnboardingPageView: View {
                     VStack(spacing: 16) {
                         // Title
                         Text(page.title)
-                            .font(.custom("Eugello", size: titleSize(for: geometry.size.height)))
+                            .font(.rsDisplay(titleSize(for: geometry.size.height), relativeTo: .largeTitle))
                             .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
                             .multilineTextAlignment(.center)
                             .lineLimit(3)

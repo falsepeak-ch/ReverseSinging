@@ -9,18 +9,18 @@ import Foundation
 
 extension TimeInterval {
 
-    /// `mm:ss` — durations and counters, where sub-second precision would only jitter.
+    /// `mm:ss`, durations and counters, where sub-second precision would only jitter.
     var rsClock: String {
         String(format: "%02d:%02d", rsMinutes, rsSeconds)
     }
 
-    /// `mm:ss.cc` — a running take, where hundredths show the recorder is live.
+    /// `mm:ss.cc`, a running take, where hundredths show the recorder is live.
     var rsClockHundredths: String {
         let hundredths = Int((self - floor(self)) * 100)
         return String(format: "%02d:%02d.%02d", rsMinutes, rsSeconds, hundredths)
     }
 
-    /// `mm:ss:ff` at 24 fps — the playback scrubber, which is dressed as a film editor.
+    /// `mm:ss:ff` at 24 fps, for the playback scrubber, which is dressed as a film editor.
     var rsClockFrames: String {
         let frames = Int((self - floor(self)) * 24)
         return String(format: "%02d:%02d:%02d", rsMinutes, rsSeconds, frames)

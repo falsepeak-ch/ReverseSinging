@@ -20,7 +20,7 @@ struct DubPlayerLayerView: UIViewRepresentable {
     func makeUIView(context: Context) -> PlayerLayerBackedView {
         let view = PlayerLayerBackedView()
         view.playerLayer.player = player
-        // The whole frame, letterboxed — never cropped to fill.
+        // The whole frame, letterboxed, never cropped to fill.
         view.playerLayer.videoGravity = .resizeAspect
         view.backgroundColor = .black
         return view

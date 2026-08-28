@@ -162,7 +162,7 @@ final class AudioPlayer: NSObject, ObservableObject {
     ///
     /// Tearing the engine down here is what made every press of play feel late:
     /// `AVAudioEngine.start()` takes real time on a `.playAndRecord` session, and `loadAudio`
-    /// stops before it loads — so the engine was cold on every single press. An idle engine
+    /// stops before it loads. So the engine was cold on every single press. An idle engine
     /// costs almost nothing; it is torn down in `cleanup()`.
     func stop() {
         playerNode?.stop()

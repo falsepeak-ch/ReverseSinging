@@ -113,7 +113,7 @@ final class DubPlayer: ObservableObject {
     /// each one belongs on the timeline.
     ///
     /// All of it off the main actor: a scene is 60-odd wavs plus a five-minute backing track,
-    /// and the alignment pass measures every take. Safe to call repeatedly — a mode that is
+    /// and the alignment pass measures every take. Safe to call repeatedly. A mode that is
     /// already loaded is reused rather than re-read.
     func prepare(pack: DubPack, mode: DubPlaybackMode) async {
         isPreparing = true
@@ -278,7 +278,7 @@ final class DubPlayer: ObservableObject {
         // Every node gets the same deadline, so the backing track and the voices begin on the
         // same sample. Starting them one `play()` at a time leaves each to begin on whichever
         // render cycle its own call happened to land in, and the lanes drift apart by a
-        // quantum or more — the one thing a dub cannot survive.
+        // quantum or more. The one thing a dub cannot survive.
         let hostTime = mach_absolute_time() + AVAudioTime.hostTime(forSeconds: Self.startLeadIn)
         let startTime = AVAudioTime(hostTime: hostTime)
 
@@ -289,7 +289,7 @@ final class DubPlayer: ObservableObject {
         // The picture is anchored a little later than the audio, by however long this route
         // takes to actually make a sound. `hostTime` is when the nodes start *rendering*; the
         // samples reach the ear an output latency and one IO buffer after that. Anchoring the
-        // video to the render instant holds it that far ahead of what is being heard —
+        // video to the render instant holds it that far ahead of what is being heard,
         // imperceptible through the speaker, but a Bluetooth route is 150–300 ms of it.
         //
         // Read per playback rather than cached: the user can change route between takes.
@@ -350,7 +350,7 @@ final class DubPlayer: ObservableObject {
                     scheduledBuffer = placement.buffer
                     startSeconds = placement.startTime - offset
                 } else {
-                    // Playback begins mid-line — drop the part already gone by
+                    // Playback begins mid-line, drop the part already gone by
                     guard let trimmed = DubAudioLoader.trimming(
                         placement.buffer,
                         fromOffset: offset - placement.startTime

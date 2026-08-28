@@ -34,14 +34,14 @@ nonisolated enum DubSpeechOnset {
     /// Refuses to trim away more than this much of a clip.
     ///
     /// Set high on purpose. A short interjection inside a long chunk genuinely is mostly
-    /// run-up, and an earlier, tighter limit threw those away — which is the very case where
+    /// run-up, and an earlier, tighter limit threw those away. Which is the very case where
     /// getting the entry right matters most. What this still catches is the pathological
     /// reading: a clip whose only sound is a blip against the very end, where the dialogue
     /// itself sat under the threshold.
     private static let maximumFraction: Double = 0.9
 
     /// Seconds of near-silence before the first sustained sound, or 0 when there is none to
-    /// find — including a clip that is silent throughout.
+    /// find, including a clip that is silent throughout.
     static func leadIn(of buffer: AVAudioPCMBuffer) -> TimeInterval {
         guard let window = window(of: buffer) else { return 0 }
 

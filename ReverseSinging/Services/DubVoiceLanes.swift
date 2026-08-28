@@ -10,7 +10,7 @@ import Foundation
 /// Groups a scene's lines into lanes, so lines that overlap in time end up in different ones.
 ///
 /// An `AVAudioPlayerNode` renders one buffer at a time. It honours the start time of every
-/// buffer scheduled on it, so overlapping lines are not pushed late — but where two of them
+/// buffer scheduled on it, so overlapping lines are not pushed late. But where two of them
 /// cover the same stretch, only one is heard. Measured offline: two 0.4-amplitude tones
 /// overlapping on one node peak at 0.28 through the overlap, exactly as they do on their own,
 /// where the same pair across two nodes peaks at 0.57. Half the interruption goes missing and
@@ -54,7 +54,7 @@ nonisolated enum DubVoiceLanes {
                 laneEnds.append(itemEnd)
             } else if let soonest = laneEnds.indices.min(by: { laneEnds[$0] < laneEnds[$1] }) {
                 // Past the cap, pile onto whichever lane frees up first. Those two lose their
-                // overlap to each other — the old behaviour — which beats an engine that will
+                // overlap to each other. The old behaviour. Which beats an engine that will
                 // not start.
                 lanes[soonest].append(item)
                 laneEnds[soonest] = max(laneEnds[soonest], itemEnd)

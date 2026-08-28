@@ -29,7 +29,7 @@ final class DubScoringPreference: ObservableObject {
 
     private init() {
         // `bool(forKey:)` is false for a key that was never written, which is the default
-        // we want — no migration and no first-run special case.
+        // we want. No migration and no first-run special case.
         isEnabled = UserDefaults.standard.bool(forKey: Self.enabledKey)
     }
 

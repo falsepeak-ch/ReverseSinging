@@ -52,15 +52,15 @@ final class AudioRecorder: NSObject, ObservableObject {
     @Published var isRecording = false
     @Published var recordingDuration: TimeInterval = 0
     /// Meter level, 0...1, on a decibel curve. Drives the pulsing record button and the
-    /// level rails — a meter wants to move visibly at conversational volume, which is what
+    /// level rails. A meter wants to move visibly at conversational volume, which is what
     /// the dB mapping in `updateLevel` gives it.
     @Published var recordingLevel: Float = 0
 
     /// Peak amplitude over the last metering interval, 0...1, **linear**.
     ///
     /// Deliberately a second, differently-shaped number. `recordingLevel` is average power on
-    /// a dB curve, and a waveform drawn from it comes out as a tall flat block — every quiet
-    /// syllable lifted to two thirds height by the dB compression — where the very same take
+    /// a dB curve, and a waveform drawn from it comes out as a tall flat block, every quiet
+    /// syllable lifted to two thirds height by the dB compression. Where the very same take
     /// read back off disk by `WaveformSampler` is linear peaks against the file's own loudest
     /// moment: mostly short, with real spikes. The two disagreed so completely that the live
     /// trace visibly changed shape the instant recording stopped and the file was sampled.
@@ -392,7 +392,7 @@ final class AudioRecorder: NSObject, ObservableObject {
             return
         }
 
-        // One call feeds both numbers — the meters are only valid until the next update, and
+        // One call feeds both numbers. The meters are only valid until the next update, and
         // sampling them twice would give the two readings different intervals.
         recorder.updateMeters()
 

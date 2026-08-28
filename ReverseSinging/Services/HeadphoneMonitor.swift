@@ -11,7 +11,7 @@ import Combine
 /// Decides whether the original audio can play to the performer during a take.
 ///
 /// Through the speaker it can't: the reference would land straight in the recording, which is
-/// why every record path silences everything first. Through headphones it can — and that is
+/// why every record path silences everything first. Through headphones it can, and that is
 /// how dubbing is actually done, matching a line you are hearing rather than one you are
 /// remembering. The preference exists because some people would rather perform against
 /// silence, and because a route can be a headphone-shaped thing that is really a speaker.
@@ -50,7 +50,7 @@ final class HeadphoneMonitor: ObservableObject {
     }
 
     /// Re-reads the route. Called on every route change, and again just before a take is
-    /// armed — the session may have been activated or reconfigured since the last one.
+    /// armed. The session may have been activated or reconfigured since the last one.
     func refresh() {
         isHeadphonesConnected = Self.routeHasHeadphones()
     }

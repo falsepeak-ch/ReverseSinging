@@ -14,7 +14,7 @@ import Foundation
 /// recording it described would reappear against the next take of the same line.
 ///
 /// A miss is never an error. A scene with no scores file is a scene nobody has dubbed yet, and
-/// a file that fails to decode is one written by a build that stored something else — both
+/// a file that fails to decode is one written by a build that stored something else, both
 /// mean "no scores", and both are fixed by recording a line.
 nonisolated struct DubScoreStore {
 

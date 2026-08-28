@@ -1,4 +1,4 @@
-Doblaje de Escena — el segundo juego.
+Doblaje de Escena: el segundo juego.
 
 • Dos escenas originales incluidas, para tener algo que doblar nada más abrirlo
 • Importa más: una carpeta o un .zip de pack desde Archivos, AirDrop o cualquier hoja de compartir

@@ -24,7 +24,7 @@ struct DubPlaybackView: View {
         self.player = viewModel.scenePlayer
     }
 
-    /// The line whose picture is on screen right now — the same lookup the exporter uses to
+    /// The line whose picture is on screen right now. The same lookup the exporter uses to
     /// pick slideshow frames, so what plays here is what gets rendered.
     private var pictureLine: DubLine? {
         viewModel.pack.line(at: player.currentTime)
@@ -34,7 +34,7 @@ struct DubPlaybackView: View {
     ///
     /// Not the same question as `pictureLine`: a still has to show *something* for every
     /// frame of the scene, but a subtitle that stays up through the silence between two lines
-    /// — having gone up a beat or two before the character opened their mouth — reads as
+    ///, having gone up a beat or two before the character opened their mouth, reads as
     /// broken. See `DubPack.captionLine(at:)`.
     private var captionLine: DubLine? {
         viewModel.pack.captionLine(at: player.currentTime)

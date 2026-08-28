@@ -17,7 +17,7 @@ import Combine
 @MainActor
 final class DubScenePicture: ObservableObject {
 
-    /// Nil when the pack ships no playable video — callers fall back to the per-line still.
+    /// Nil when the pack ships no playable video, callers fall back to the per-line still.
     @Published private(set) var player: AVPlayer?
 
     private var endObserver: Any?
@@ -120,7 +120,7 @@ final class DubScenePicture: ObservableObject {
     }
 
     /// Nudges the picture back onto the audio clock. `DubPlayer` runs the mix on its own
-    /// engine, so audio is the master and the video is corrected towards it — never the
+    /// engine, so audio is the master and the video is corrected towards it, never the
     /// other way, which would stutter the mix.
     /// - Parameter tolerance: how far out the picture may be before it is pulled back. Both
     ///   clocks now share one host-time anchor and the file is local, so real drift is close
@@ -224,7 +224,7 @@ final class DubScenePicture: ObservableObject {
         ) { [weak self] time in
             // The observer is delivered on the main queue, but the closure isn't typed as
             // main-actor isolated, so state it explicitly rather than hopping through a Task
-            // — a hop would let the video overrun the line before the pause landed.
+            //. A hop would let the video overrun the line before the pause landed.
             MainActor.assumeIsolated {
                 guard let self, let stopAt = self.stopAt else { return }
                 guard time.seconds >= stopAt else { return }

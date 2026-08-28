@@ -9,15 +9,15 @@
 "onboarding.howItWorks.title" = "Como Funciona";
 "onboarding.howItWorks.message" = "Grava áudio, inverte-o, canta o que ouvires e depois volta a invertê-lo para veres se acertaste!";
 "onboarding.dub.title" = "Dobra uma Cena";
-"onboarding.dub.message" = "O segundo jogo: reproduz uma cena, grava a tua voz por cima e ouve-te dentro do filme. Duas cenas vêm incluídas — para as outras, os ficheiros trazes tu.";
+"onboarding.dub.message" = "O segundo jogo: reproduz uma cena, grava a tua voz por cima e ouve-te dentro do filme. Vêm duas cenas incluídas. Para as outras, os ficheiros trazes tu!";
 "onboarding.uiPreference.title" = "Escolhe a tua Interface";
 "onboarding.uiPreference.message" = "Escolhe o estilo de interface que preferires. Aplica-se ao Canto Invertido e podes mudá-lo a qualquer momento nas Definições.";
 "onboarding.microphone.title" = "Só Mais Uma Coisa";
-"onboarding.microphone.message" = "Os dois jogos gravam a tua voz, por isso o Reverso precisa do microfone. As tuas gravações ficam neste dispositivo: não é enviado nada para lado nenhum.";
+"onboarding.microphone.message" = "Os dois jogos funcionam a gravar a tua voz: cantar uma música ao contrário ou dobrar uma cena de filme. O microfone só liga enquanto gravas. Fica tudo neste dispositivo e nunca é enviado nada.";
 "onboarding.button.openSettings" = "Abrir Definições";
 "onboarding.button.letsRecord" = "sim, vamos gravar!";
 "onboarding.button.continueLowercase" = "continuar";
-"onboarding.button.allowMicrophone" = "Permitir microfone";
+"onboarding.button.microphoneContinue" = "Continuar";
 "onboarding.button.continueWithout" = "continuar sem ele";
 
 // MARK: - Main View - Buttons
@@ -26,6 +26,22 @@
 "main.button.recordAttempt" = "Grava a tua Tentativa";
 "main.button.reRecord" = "Voltar a Gravar";
 "main.button.newSession" = "Nova Sessão";
+
+// MARK: - Simple Skin (buttons and their subtitles)
+"main.button.playRecorded" = "Reproduzir gravação";
+"main.button.playReverse" = "Reproduzir ao contrário";
+"main.subtitle.recordingOriginal" = "A gravar o áudio original";
+"main.subtitle.recordingAttempt" = "A gravar a tua tentativa";
+"main.subtitle.tapToRecord" = "Toca para gravar áudio";
+"main.subtitle.recordAttempt" = "Grava a tua tentativa de canto";
+"main.subtitle.reRecordAttempt" = "Grava outra vez a tua tentativa";
+"main.subtitle.playAttempt" = "Reproduzir a tua tentativa";
+"main.subtitle.playOriginal" = "Reproduzir a gravação original";
+"main.subtitle.noRecording" = "Não há nenhuma gravação";
+"main.subtitle.playReversedAttempt" = "Reproduzir a tua tentativa ao contrário";
+"main.subtitle.playReversedOriginal" = "Reproduzir o original ao contrário";
+"main.subtitle.noReversed" = "Não há áudio invertido";
+"settings.version" = "Versão %@ (%@)";
 
 // MARK: - Main View - Alerts
 "main.alert.microphoneRequired.title" = "Acesso ao Microfone Necessário";
@@ -115,6 +131,10 @@
 // MARK: - Settings
 "settings.title" = "Definições";
 "settings.interface" = "Interface";
+"uiMode.simple.name" = "Simples";
+"uiMode.simple.description" = "Botões grandes, interface mínima";
+"uiMode.complex.name" = "Completa";
+"uiMode.complex.description" = "Controlos avançados e visualizações";
 "settings.preferences" = "Preferências";
 "settings.about" = "Acerca de";
 
@@ -143,12 +163,13 @@
 "dub.continueRecording" = "Continuar a dobrar";
 "dub.export" = "Exportar vídeo";
 "dub.lines" = "Falas";
+"dub.attribution" = "Origem";
 "dub.listen" = "Ouvir";
 "dub.stop" = "Parar";
 "dub.recordTake" = "Gravar";
 "dub.next" = "Seguinte";
 "dub.previous" = "Anterior";
-"dub.recordingHint" = "Diz a fala — acompanha o ritmo do original.";
+"dub.recordingHint" = "Diz a fala e acompanha o ritmo do original.";
 "dub.listenHint" = "Ouve primeiro e depois grava a tua take.";
 "dub.original" = "Original";
 "dub.myDub" = "A minha dobragem";
@@ -156,7 +177,7 @@
 "dub.exporting" = "A exportar…";
 "dub.export.mixing" = "A misturar o áudio…";
 "dub.export.rendering" = "A renderizar o vídeo…";
-"dub.error.missingPackInfo" = "Essa pasta não é um pack de dobragem: não tem o ficheiro _pack_info.ini.";
+"dub.error.missingPackInfo" = "Essa pasta não é um pack de dobragem. Não tem o ficheiro _pack_info.ini.";
 "dub.error.noLines" = "Este pack não tem falas utilizáveis.";
 "dub.error.missingAsset" = "Falta ao pack um ficheiro necessário: %@";
 "dub.error.notAFolder" = "Escolhe uma pasta de pack ou um arquivo .zip.";
@@ -185,7 +206,7 @@
 
 // Headphone monitoring
 "settings.headphoneMonitor" = "Original nos auscultadores";
-"settings.headphoneMonitor.desc" = "Ouve a fala que estás a imitar enquanto gravas. Só com auscultadores: pelo altifalante ficaria na tua take.";
+"settings.headphoneMonitor.desc" = "Ouve a fala que estás a imitar enquanto gravas. Só com auscultadores, porque pelo altifalante ia parar à tua take.";
 "settings.headphoneMonitor.unavailable" = "Não há auscultadores ligados";
 
 // MARK: - Game Modes
@@ -205,15 +226,24 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "Fechar";
 "dubGate.ask.title" = "Já tens os teus filmes?";
-"dubGate.ask.message" = "Esta app não inclui, não aloja nem fornece filmes. Para dobrares, precisas dos ficheiros dos filmes já transferidos para este dispositivo.";
+"dubGate.ask.message" = "Além das cenas de exemplo, não incluímos nem alojamos filmes. Para dobrares qualquer outra coisa, precisas do ficheiro já guardado neste dispositivo.";
 "dubGate.ask.confirm" = "Sim, já os tenho";
 "dubGate.ask.needDownload" = "Não, preciso de os transferir";
 "dubGate.download.title" = "Onde os obter";
-"dubGate.download.message" = "Um exemplo de site onde as pessoas partilham estes ficheiros. Transfere o que quiseres dobrar e volta aqui.";
+"dubGate.download.message" = "Aqui tens um sítio onde as pessoas partilham estes ficheiros. Vai buscar o que queres dobrar e volta!";
 "dubGate.download.open" = "Abrir %@";
 "dubGate.download.back" = "Voltar";
-"dubGate.disclaimer.notAffiliated" = "%@ é um site de terceiros. Não temos qualquer ligação com ele e não alojamos nem distribuímos ficheiros.";
-"dubGate.disclaimer.responsibility" = "És responsável por teres os direitos sobre o que transferires e por cumprires a lei de direitos de autor do teu país.";
+"dubGate.disclaimer.notAffiliated" = "%@ é o site de outras pessoas. Não temos ligação com ele e não alojamos nem partilhamos ficheiros.";
+"dubGate.disclaimer.responsibility" = "Certifica-te de que tens o direito de usar o que descarregas e segue as regras de direitos de autor de onde vives.";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "Antes de partilhares";
+"dubShare.message" = "O teu vídeo tem a tua voz por cima da cena original, por isso inclui o trabalho de outra pessoa além do teu.";
+"dubShare.cutFrom" = "Retirado de %@";
+"dubShare.keepCredit" = "Se o publicares, mantém este crédito com ele.";
+"dubShare.unknownSource" = "Esta cena trouxeste-a tu, por isso sabes de onde veio e o que podes fazer com ela.";
+"dubShare.responsibility" = "Onde o partilhas é contigo, por isso segue as regras de direitos de autor de onde vives.";
+"dubShare.confirm" = "Exportar vídeo";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "A preparar as tuas primeiras cenas…";

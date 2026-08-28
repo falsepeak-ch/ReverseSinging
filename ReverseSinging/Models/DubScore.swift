@@ -2,7 +2,7 @@
 //  DubScore.swift
 //  ReverseSinging
 //
-//  How close a take — and a whole scene — came to the original
+//  How close a take. And a whole scene, came to the original
 //
 
 import Foundation
@@ -14,7 +14,7 @@ import Foundation
 /// performer nothing they can act on and "you came in late" tells them everything.
 nonisolated struct DubLineScore: Codable, Hashable, Identifiable {
 
-    /// The line this scores, by slug — the same key the take file is named with.
+    /// The line this scores, by slug. The same key the take file is named with.
     let slug: String
 
     /// Did you come in on the beat? Distance between where the original's first word lands and
@@ -25,7 +25,7 @@ nonisolated struct DubLineScore: Codable, Hashable, Identifiable {
     /// both are lined up at the onset, which is what separates a good read from a rushed one.
     let pacing: Double
 
-    /// Did you play it like they did — same swells, same drops? How closely the loudness
+    /// Did you play it like they did, same swells, same drops? How closely the loudness
     /// contour tracks the original's.
     let delivery: Double
 
@@ -38,8 +38,8 @@ nonisolated struct DubLineScore: Codable, Hashable, Identifiable {
     ///
     /// Timing carries the most weight because it is what makes a dub read as a dub: a line
     /// delivered beautifully a second late is worse to watch than a flat one that lands on the
-    /// mouth. Pacing comes next, and delivery — the most subjective of the three, and the one
-    /// a phone mic distorts most — counts least.
+    /// mouth. Pacing comes next. Delivery counts least: it is the most subjective of the
+    /// three, and the one a phone mic distorts most.
     var overall: Double {
         let combined = timing * 0.45 + pacing * 0.35 + delivery * 0.20
         return (combined * 10).rounded() / 10
@@ -83,7 +83,7 @@ nonisolated struct DubSceneScore: Hashable {
     ///
     /// Deliberately *not* averaged over the un-recorded lines. A half-finished scene should
     /// read as "you're doing well so far", not as a fail the user can only climb out of by
-    /// finishing — the completeness of the scene is already shown right next to it.
+    /// finishing. The completeness of the scene is already shown right next to it.
     var overall: Double {
         guard !lines.isEmpty else { return 0 }
         let total = lines.reduce(0) { $0 + $1.overall }

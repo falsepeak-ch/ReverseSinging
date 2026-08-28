@@ -2,8 +2,10 @@
 //  DubContentGate.swift
 //  ReverseSinging
 //
-//  Gate shown before the dubbing module: the app never ships, hosts or
-//  distributes movies, so the user has to bring their own files.
+//  Gate shown before every dub import: the app never ships, hosts or
+//  distributes movies, so the user has to bring their own files, and the
+//  question, the disclaimers and the pointer to where files come from are worth
+//  repeating rather than answering once and burying.
 //
 
 import Foundation
@@ -30,18 +32,31 @@ struct DubContentSource: Identifiable, Hashable {
     )
 }
 
-/// Remembers whether the user already told us they have their movies on device,
-/// so the gate is only shown until they confirm once.
+/// The gate itself, which remembers nothing.
+///
+/// It used to: a "yes, I already have them" was persisted and the gate skipped
+/// itself forever after, which meant the rights disclaimer and the pointer to
+/// where files come from were visible to a user exactly once. Both belong in
+/// front of every import, so the flag is gone.
+///
+/// Devices updating from 1.3.0 still carry the old key. It is cleared at launch,
+/// not because a stale bool does any harm sitting there, but so that a future
+/// read of it cannot quietly resurrect the skip on precisely the installs that
+/// have been dubbing the longest.
 enum DubContentGate {
-    private static let confirmedKey = "dubContentGate.hasConfirmedOwnership"
+    private static let legacyOwnershipKey = "dubContentGate.hasConfirmedOwnership"
 
-    static var hasConfirmedOwnership: Bool {
-        get { UserDefaults.standard.bool(forKey: confirmedKey) }
-        set { UserDefaults.standard.set(newValue, forKey: confirmedKey) }
+    static func clearLegacyOwnershipFlag() {
+        UserDefaults.standard.removeObject(forKey: legacyOwnershipKey)
     }
 
-    /// Shows the gate again on the next entry to the dubbing module.
-    static func reset() {
-        UserDefaults.standard.removeObject(forKey: confirmedKey)
+    #if DEBUG
+    static func setLegacyOwnershipFlagForTesting() {
+        UserDefaults.standard.set(true, forKey: legacyOwnershipKey)
     }
+
+    static var legacyOwnershipFlagIsSetForTesting: Bool {
+        UserDefaults.standard.object(forKey: legacyOwnershipKey) != nil
+    }
+    #endif
 }

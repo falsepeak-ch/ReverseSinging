@@ -11,7 +11,7 @@ import Foundation
 ///
 /// The point is that a bar is *final* once the take has moved past it. An earlier version kept
 /// every raw tick and resampled the whole history into a bar count that itself grew as the
-/// take ran — so twenty times a second every bar already on screen was rewritten, and the
+/// take ran. So twenty times a second every bar already on screen was rewritten, and the
 /// trace shook and crawled instead of drawing itself. Anchoring each tick to the moment it was
 /// sampled means the trace only ever grows to the right.
 struct LiveTrace {
@@ -31,7 +31,7 @@ struct LiveTrace {
     /// The trace as it should be drawn: every bar against the take's own loudest moment.
     ///
     /// This is the second half of matching `WaveformSampler`, which normalises a finished file
-    /// against its peak for exactly the same reason — a shape is about where the syllables
+    /// against its peak for exactly the same reason. A shape is about where the syllables
     /// are, not about how close the performer held the phone. Without it a take shouted into
     /// the mic and the same take murmured would draw at completely different heights, and the
     /// trace would jump the moment recording stopped and the file was sampled properly.
@@ -51,7 +51,7 @@ struct LiveTrace {
 
     /// Files a peak amplitude sampled `elapsed` seconds into the take.
     ///
-    /// - Parameter level: linear peak amplitude, 0...1 — `AudioRecorder.recordingPeak`, not
+    /// - Parameter level: linear peak amplitude, 0...1, `AudioRecorder.recordingPeak`, not
     ///   its dB meter level. The distinction is the whole reason the trace and the finished
     ///   waveform now draw the same shape.
     /// - Returns: whether anything changed, so a caller can skip republishing when the trace

@@ -20,7 +20,7 @@ struct RecordCountdownTests {
         #expect(beats == [3, 2, 1])
     }
 
-    /// The mic opens when this returns, so the slate must be over by then — a tone still
+    /// The mic opens when this returns, so the slate must be over by then, a tone still
     /// ringing into an open mic is a tone baked into the take.
     @Test func returnsOnlyAfterTheLastToneHasReleased() async throws {
         let start = Date()
@@ -31,7 +31,7 @@ struct RecordCountdownTests {
     }
 
     /// Pressing record again during the count is a change of mind. Nothing has been recorded,
-    /// so the count is abandoned and — critically — the caller never reaches `beginRecording`.
+    /// so the count is abandoned and, critically. The caller never reaches `beginRecording`.
     @Test func cancellingStopsTheCountBeforeItFinishes() async {
         let task = Task { @MainActor () -> (beats: [Int], threw: Bool) in
             var beats: [Int] = []

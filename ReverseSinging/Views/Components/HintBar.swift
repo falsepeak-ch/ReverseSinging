@@ -10,7 +10,7 @@ import SwiftUI
 /// A status strip pinned to the bottom edge, the way an editor reports the next step.
 ///
 /// Only the *background* runs into the home-indicator area. Letting the whole strip
-/// ignore the safe area — as both main views used to — pushed the text under the
+/// ignore the safe area, as both main views used to, pushed the text under the
 /// indicator, where it was clipped and unreadable. The label is fixed-size and the
 /// hint wraps instead of truncating, so a long or translated tip still reads in full.
 struct HintBar: View {

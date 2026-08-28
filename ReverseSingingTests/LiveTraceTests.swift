@@ -33,7 +33,7 @@ struct LiveTraceTests {
     }
 
     /// Ticks arrive every 0.05 s. On a short line a bar is narrower than that, so one tick has
-    /// to cover several bars — filling only the bar it lands in would draw a comb.
+    /// to cover several bars, filling only the bar it lands in would draw a comb.
     @Test func oneTickFillsEveryBarItSpans() {
         var trace = LiveTrace(barDuration: 0.01, maximumBars: 100)
 
@@ -65,7 +65,7 @@ struct LiveTraceTests {
         #expect(trace.bars.count == 3)
     }
 
-    /// Nothing changed means nothing to redraw — the view model skips republishing.
+    /// Nothing changed means nothing to redraw. The view model skips republishing.
     @Test func reportsWhetherAnythingChanged() {
         var trace = LiveTrace(barDuration: 1.0, maximumBars: 10)
 
@@ -99,7 +99,7 @@ struct LiveTraceTests {
         #expect(trace.normalizedBars == [0.25, 1.0, 0.5])
     }
 
-    /// The same performance recorded quietly and loudly has to draw the same shape — a
+    /// The same performance recorded quietly and loudly has to draw the same shape, a
     /// performer holding the phone closer is not a different take.
     @Test func normalisationIsIndependentOfHowLoudTheTakeWas() {
         var quiet = LiveTrace(barDuration: 0.1, maximumBars: 10)

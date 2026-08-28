@@ -35,7 +35,7 @@ nonisolated struct DubPackImporter {
     private init() {}
 
     /// Imports a pack from a security-scoped URL (a folder or a `.zip`).
-    /// Runs entirely off the main actor — a pack is tens of megabytes across ~190 files.
+    /// Runs entirely off the main actor. A pack is tens of megabytes across ~190 files.
     typealias ProgressHandler = @Sendable (DubImportStage, Double) -> Void
 
     func importPack(from sourceURL: URL, progress: ProgressHandler? = nil) async throws -> DubPack {
@@ -112,7 +112,7 @@ nonisolated struct DubPackImporter {
             // Check what landed on disk against what the decoder said it wrote, rather than
             // assuming. A scene video that comes out short is the one failure this whole path
             // cannot afford: it plays, it looks fine, and every line after the missing frames
-            // is early — which is exactly how a dropped-duplicate-frame bug went unnoticed
+            // is early. Which is exactly how a dropped-duplicate-frame bug went unnoticed
             // through a release. Better to fall back to the stills than to ship the drift.
             let measured = try Self.videoDuration(at: destination)
             let tolerance = max(0.05, written.duration * 0.001)
@@ -136,7 +136,7 @@ nonisolated struct DubPackImporter {
 
     /// The duration of a written video, read back off disk.
     ///
-    /// Synchronous on purpose — the whole convert runs on a detached task already, and the
+    /// Synchronous on purpose. The whole convert runs on a detached task already, and the
     /// async `load(.duration)` would need this non-isolated helper to become async along with
     /// every caller above it.
     private static func videoDuration(at url: URL) throws -> TimeInterval {
@@ -249,7 +249,7 @@ nonisolated struct DubPackImporter {
 
         try fileManager.createDirectory(at: destination, withIntermediateDirectories: true)
 
-        // Copy the pack's own files only — no nested directories exist in this format, and
+        // Copy the pack's own files only: no nested directories exist in this format, and
         // skipping them keeps a stray __MACOSX or thumbnail folder out of the install.
         let contents = try fileManager.contentsOfDirectory(
             at: packRoot,

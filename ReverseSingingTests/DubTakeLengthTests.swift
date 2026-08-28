@@ -39,8 +39,8 @@ struct DubTakeLengthTests {
         return Double(file.length) / file.processingFormat.sampleRate
     }
 
-    /// The recorder is told to stop on the audio clock, but a take can still arrive long — an
-    /// older recording, or a stop that landed late — and the mix drops each take into a slot
+    /// The recorder is told to stop on the audio clock, but a take can still arrive long, an
+    /// older recording, or a stop that landed late. And the mix drops each take into a slot
     /// of known size.
     @Test func trimsATakeThatRanOver() throws {
         let url = try makeTone(duration: 4.0)
@@ -85,7 +85,7 @@ struct DubTakeLengthTests {
         #expect(peak == 0)
     }
 
-    /// The performance itself has to survive being padded — this is the user's take, not a
+    /// The performance itself has to survive being padded. This is the user's take, not a
     /// spacer, and truncating or resampling it would be silent data loss.
     @Test func keepsWhatWasActuallyPerformed() throws {
         let url = try makeTone(duration: 1.0, amplitude: 0.5)

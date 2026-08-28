@@ -2,10 +2,12 @@
 //  DubContentGateModal.swift
 //  ReverseSinging
 //
-//  The gate in front of dub mode. The app ships no scenes, so the first thing it
-//  does is ask whether the user has their own; if not, it points at an example
-//  third-party site and says plainly that the site is not ours and that the
-//  rights are the user's problem.
+//  The gate in front of every dub import. The app hosts no scenes, so the first
+//  thing it does is ask whether the user has their own; if not, it points at an
+//  example third-party site and says plainly that the site is not ours and that
+//  the rights are the user's problem. Answering costs one tap and nothing is
+//  remembered, so the disclaimers and the pointer are in front of every import
+//  rather than only the first.
 //
 
 import SwiftUI
@@ -230,7 +232,6 @@ struct DubContentGateModal: View {
     // MARK: - Behaviour
 
     private func confirmOwnership() {
-        DubContentGate.hasConfirmedOwnership = true
         AnalyticsManager.shared.trackDubGateOwnershipConfirmed()
         onReady()
     }

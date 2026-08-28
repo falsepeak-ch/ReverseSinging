@@ -83,7 +83,7 @@ nonisolated enum DubPackParser {
                   !line.hasPrefix("#"),
                   !line.hasPrefix(";") else { continue }
 
-            // Split on the FIRST '=' only — captions contain '=' as often as anything else
+            // Split on the FIRST '=' only: captions contain '=' as often as anything else
             guard let separator = line.firstIndex(of: "=") else { continue }
 
             let key = String(line[line.startIndex..<separator]).trimmingCharacters(in: .whitespaces)
@@ -177,6 +177,12 @@ nonisolated enum DubPackParser {
         let title = packInfo["title"]?.stringValue?.nilIfEmpty ?? folderName
         let authors = packInfo["authors"]?.arrayValue ?? []
 
+        // Provenance. The build writes these for a pack cut from someone else's work;
+        // a pack a user made themselves has none of them, and nil is the right answer.
+        let source = packInfo["source"]?.stringValue?.nilIfEmpty
+        let sourceURL = packInfo["source_url"]?.stringValue?.nilIfEmpty
+        let rights = packInfo["rights"]?.stringValue?.nilIfEmpty
+
         let contents = try fileManager.contentsOfDirectory(
             at: directoryURL,
             includingPropertiesForKeys: nil,
@@ -207,7 +213,7 @@ nonisolated enum DubPackParser {
             iconFile = named
         }
 
-        // Only a track AVFoundation can actually read counts — an Ogg Vorbis backing track
+        // Only a track AVFoundation can actually read counts. An Ogg Vorbis backing track
         // would parse fine here and then be silent everywhere else.
         let backingTrackFile = contents
             .first { $0.deletingPathExtension().lastPathComponent == backingTrackPrefix }
@@ -231,12 +237,15 @@ nonisolated enum DubPackParser {
             videoFile: videoFile?.lastPathComponent,
             folderName: folderName,
             lines: lines,
-            duration: duration
+            duration: duration,
+            source: source,
+            sourceURL: sourceURL,
+            rights: rights
         )
     }
 
     /// Whether AVFoundation can see a video track in this file. Ogg Theora returns false,
-    /// which is the whole point — the parser must not record an unplayable file as the video.
+    /// which is the whole point. The parser must not record an unplayable file as the video.
     static func hasReadableVideoTrack(at url: URL) -> Bool {
         let asset = AVURLAsset(url: url)
         return !asset.tracks(withMediaType: .video).isEmpty
@@ -299,7 +308,7 @@ nonisolated enum DubPackParser {
     /// again: playback, export, captions and scoring all read the stored window, so they
     /// cannot disagree about when a line happens.
     ///
-    /// Falls back to the whole chunk for a reference that is silent or unreadable — no worse
+    /// Falls back to the whole chunk for a reference that is silent or unreadable, no worse
     /// than the behaviour before windows existed.
     private static func speechWindow(at url: URL, duration: TimeInterval) -> DubSpeechWindow {
         guard duration > 0,

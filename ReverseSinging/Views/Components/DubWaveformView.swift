@@ -13,7 +13,7 @@ import SwiftUI
 /// A mirrored bar waveform with a playhead, and room for a second waveform on top.
 ///
 /// The overlay is the point of this view: laying the user's take over the reference line is
-/// what makes a timing difference visible — where they came in early, where they ran long.
+/// what makes a timing difference visible. Where they came in early, where they ran long.
 ///
 /// Drawn in a `Canvas` rather than as a stack of shapes. During a take the overlay changes
 /// twenty times a second, and several hundred `Capsule` views being re-laid-out at that rate

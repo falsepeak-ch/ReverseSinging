@@ -18,7 +18,7 @@ enum RecordCountdown {
     /// Tones in the count, the "go" included.
     static let beats = 3
 
-    /// Gap between tones — about 100 bpm. Fast enough not to be a wait, slow enough to
+    /// Gap between tones, about 100 bpm. Fast enough not to be a wait, slow enough to
     /// breathe in on.
     static let interval: TimeInterval = 0.6
 
@@ -31,10 +31,10 @@ enum RecordCountdown {
     ///
     /// Recording starts as the "go" tone *releases* rather than on its attack. The tones come
     /// out of the speaker, and a tone still ringing when the mic opens is a tone baked into
-    /// the take — 160 ms of perceived lateness is the cheaper of the two.
+    /// the take, 160 ms of perceived lateness is the cheaper of the two.
     ///
-    /// Throws `CancellationError` when the task is cancelled — the user pressed record again,
-    /// or left the screen — so the caller must not open the mic afterwards.
+    /// Throws `CancellationError` when the task is cancelled. The user pressed record again,
+    /// or left the screen. So the caller must not open the mic afterwards.
     static func run(onBeat: (Int) -> Void) async throws {
         for beat in stride(from: beats, through: 1, by: -1) {
             try Task.checkCancellation()
@@ -54,7 +54,7 @@ enum RecordCountdown {
 /// Drives one countdown at a time on behalf of a screen: owns the task, reports each beat,
 /// and opens the mic only if the count runs all the way through.
 ///
-/// Both games need exactly this, and the part worth getting right once is the cancel path —
+/// Both games need exactly this, and the part worth getting right once is the cancel path,
 /// a slate that is torn down must clear its beat *and* never reach `thenRecord`.
 @MainActor
 final class RecordSlate {
@@ -67,7 +67,7 @@ final class RecordSlate {
 
     /// Slate, then roll: three tones, `thenRecord` firing as the last one releases.
     ///
-    /// `onBeat` receives the beat as each tone lands and `nil` once the count is over —
+    /// `onBeat` receives the beat as each tone lands and `nil` once the count is over,
     /// whether it finished or was cancelled. Keep both closures weak: the slate outlives
     /// the call and is owned by the caller.
     func run(onBeat: @escaping (Int?) -> Void, thenRecord: @escaping () -> Void) {
@@ -81,7 +81,7 @@ final class RecordSlate {
                     HapticManager.shared.light()
                 }
             } catch {
-                // Cancelled — `cancel` has already cleared the state.
+                // Cancelled, `cancel` has already cleared the state.
                 return
             }
 

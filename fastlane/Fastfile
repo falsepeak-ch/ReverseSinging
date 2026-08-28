@@ -5,7 +5,7 @@ require "tmpdir"
 default_platform(:ios)
 
 # Same App Store Connect key as the other False Peak apps (team 4YGWZWHTHM).
-# The .p8 itself is gitignored — copy it in once:
+# The .p8 itself is gitignored. copy it in once:
 #   cp ../Impostor/fastlane/AuthKey_DGSCB63J99.p8 fastlane/
 APP_IDENTIFIER = "com.falsepeak.reverse-singing-ios"
 ASC_KEY_ID    = "DGSCB63J99"
@@ -18,12 +18,12 @@ ASC_KEY_PATH  = File.expand_path("AuthKey_#{ASC_KEY_ID}.p8", __dir__)
 PREVIEW_TYPE = "IPHONE_67"
 APP_RATING_CONFIG_PATH = File.expand_path("app_rating_config.json", __dir__)
 
-# Reverso is free with no in-app purchases, so there is no pricing lane here —
+# Reverso is free with no in-app purchases, so there is no pricing lane here ,
 # unlike the-feel-ios, which syncs a paid-upfront tier on every metadata push.
 
 platform :ios do
   before_all do |lane|
-    # Screenshot and preview generation are entirely local — don't demand credentials.
+    # Screenshot and preview generation are entirely local. don't demand credentials.
     next if [:screenshots, :preview].include?(lane)
 
     unless File.exist?(ASC_KEY_PATH)
@@ -41,6 +41,19 @@ platform :ios do
   end
 
   desc "Generate device-framed, upload-ready App Store screenshots (local only)"
+  # Local/ is deliberately untracked. see Local/docs/TOOLING.md. A clone that has never had it will hit
+  # these lanes with a bare "no such file" from sh, which reads like a broken Fastfile rather
+  # than a missing prerequisite. Say which it is.
+  def self.require_tooling!(script)
+    return if File.exist?(File.join("..", script))
+
+    UI.user_error!(
+      "#{script} is missing.\n\n" \
+      "Local/ is not tracked in git (see Local/docs/TOOLING.md). This lane needs it present. " \
+      "Copy it in from a machine that has it, then run this lane again."
+    )
+  end
+
   desc "Options: locales:en,ja screens:dubRecord,home skip_build:true frame_only:true raw_only:true"
   lane :screenshots do |options|
     args = []
@@ -50,11 +63,13 @@ platform :ios do
     args << "--frame-only" if options[:frame_only]
     args << "--raw-only"   if options[:raw_only]
 
+    require_tooling!("Local/Tools/screenshots/run.sh")
+
     Dir.chdir("..") do
-      sh("./Tools/screenshots/run.sh #{args.join(' ')}".strip)
+      sh("./Local/Tools/screenshots/run.sh #{args.join(' ')}".strip)
     end
 
-    UI.success("Screenshots ready in fastlane/screenshots/ — run `fastlane upload_screenshots`")
+    UI.success("Screenshots ready in fastlane/screenshots/. run `fastlane upload_screenshots`")
   end
 
   desc "Record the App Store app preview video, one per locale (local only)"
@@ -64,17 +79,19 @@ platform :ios do
     args << "--locales #{options[:locales]}" if options[:locales]
     args << "--skip-build" if options[:skip_build]
 
+    require_tooling!("Local/Tools/screenshots/record.sh")
+
     Dir.chdir("..") do
-      sh("./Tools/screenshots/record.sh #{args.join(' ')}".strip)
+      sh("./Local/Tools/screenshots/record.sh #{args.join(' ')}".strip)
     end
 
-    # `deliver` does not handle app previews — it only scans the screenshots folder for
+    # `deliver` does not handle app previews. it only scans the screenshots folder for
     # images. The upload goes through spaceship directly; see the upload_previews lane.
-    UI.success("App previews ready in fastlane/screenshots/ — run `fastlane upload_previews`")
+    UI.success("App previews ready in fastlane/screenshots/. run `fastlane upload_previews`")
   end
 
   desc "Download the screenshots currently live on the App Store, into fastlane/live/"
-  desc "Read-only — nothing is written to App Store Connect. Use it to diff before uploading."
+  desc "Read-only. nothing is written to App Store Connect. Use it to diff before uploading."
   lane :download_current do
     # `deliver` only exposes downloading through its own CLI, not as an action, and that
     # CLI wants the key as a JSON file rather than the object `before_all` builds.
@@ -119,7 +136,7 @@ platform :ios do
     # One thread, deliberately.
     #
     # deliver uploads locales in parallel and its per-device "already uploaded" bookkeeping
-    # races: a first run of this lane put ten screenshots into en-US and pt-PT — duplicates —
+    # races: a first run of this lane put ten screenshots into en-US and pt-PT. duplicates ,
     # then logged "Too many screenshots found for device APP_IPHONE_67" and skipped the real
     # ones. Serial is a minute slower and correct.
     ENV["DELIVER_NUMBER_OF_THREADS"] = "1"
@@ -135,7 +152,7 @@ platform :ios do
   end
 
   desc "Upload the App Store app preview videos"
-  desc "Separate from upload_screenshots because `deliver` has no app-preview support at all —"
+  desc "Separate from upload_screenshots because `deliver` has no app-preview support at all ,"
   desc "it scans the screenshots folder for images only. This talks to the API directly."
   lane :upload_previews do
     Spaceship::ConnectAPI.token = Spaceship::ConnectAPI::Token.create(
@@ -148,13 +165,13 @@ platform :ios do
     UI.user_error!("No app found for #{APP_IDENTIFIER}") if app.nil?
 
     version = app.get_edit_app_store_version(platform: Spaceship::ConnectAPI::Platform::IOS)
-    UI.user_error!("No editable App Store version — create one in App Store Connect first") if version.nil?
+    UI.user_error!("No editable App Store version. create one in App Store Connect first") if version.nil?
 
     root = File.expand_path("screenshots", __dir__)
 
     # Fetched with appPreviewSets included, rather than asking each localization for its
     # sets afterwards: `get_app_preview_sets` issues GET /appPreviewSets, and Apple no
-    # longer allows GET_COLLECTION on that resource — only CREATE, DELETE and GET_INSTANCE.
+    # longer allows GET_COLLECTION on that resource. only CREATE, DELETE and GET_INSTANCE.
     localizations = Spaceship::ConnectAPI::AppStoreVersionLocalization.all(
       app_store_version_id: version.id,
       includes: "appPreviewSets"
@@ -181,7 +198,7 @@ platform :ios do
         path: path,
         wait_for_processing: true,
         # The poster frame. 8 seconds in is the recording bay with the picture rolling and
-        # the take drawn over the reference — the frame that says what the app is. The
+        # the take drawn over the reference. the frame that says what the app is. The
         # default is frame zero, which here is a list of scenes.
         frame_time_code: "00:00:08:00"
       )

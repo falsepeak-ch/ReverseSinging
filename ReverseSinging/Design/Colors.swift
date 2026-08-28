@@ -13,7 +13,7 @@ extension Color {
     // MARK: - Surfaces
     //
     // A five-step neutral ramp, cool rather than pure grey. Panels are separated by
-    // hairline strokes instead of drop shadows — that is what reads as a pro tool.
+    // hairline strokes instead of drop shadows. That is what reads as a pro tool.
 
     /// The app canvas. Nearly black so stills and waveforms carry the eye.
     static let rsSurface0 = Color(red: 0.055, green: 0.059, blue: 0.067)   // #0E0F11
@@ -24,7 +24,7 @@ extension Color {
     /// Raised panels, popovers, the active row.
     static let rsSurface2 = Color(red: 0.118, green: 0.129, blue: 0.145)   // #1E2125
 
-    /// Controls sitting on a panel — track fills, inactive segments.
+    /// Controls sitting on a panel, track fills, inactive segments.
     static let rsSurface3 = Color(red: 0.157, green: 0.173, blue: 0.192)   // #282C31
 
     /// Hairline borders. The single most important token in this design.
@@ -53,7 +53,7 @@ extension Color {
     /// Over length, needs attention.
     static let rsCaution = Color(red: 0.780, green: 0.604, blue: 0.227)    // #C79A3A
 
-    /// Reserved highlight — playheads, active scrub, selected tab underline.
+    /// Reserved highlight, playheads, active scrub, selected tab underline.
     /// Deliberately desaturated so it never competes with the state colours.
     static let rsHighlight = Color(red: 0.478, green: 0.573, blue: 0.616)  // #7A929D
 
@@ -107,7 +107,7 @@ extension Color {
 
     // MARK: - Buttons
     //
-    // Primary is a light key on a dark field — the one bright element on screen, so
+    // Primary is a light key on a dark field. The one bright element on screen, so
     // there is never any doubt what the main action is.
 
     static func rsButtonPrimaryAdaptive(for colorScheme: ColorScheme) -> Color { rsTextPrimary }

@@ -43,7 +43,7 @@ Options: locales:en,ja skip_build:true
 
 Download the screenshots currently live on the App Store, into fastlane/live/
 
-Read-only — nothing is written to App Store Connect. Use it to diff before uploading.
+Read-only. nothing is written to App Store Connect. Use it to diff before uploading.
 
 ### ios metadata
 
@@ -69,7 +69,7 @@ Upload screenshots and app previews only
 
 Upload the App Store app preview videos
 
-Separate from upload_screenshots because `deliver` has no app-preview support at all —
+Separate from upload_screenshots because `deliver` has no app-preview support at all ,
 
 it scans the screenshots folder for images only. This talks to the API directly.
 

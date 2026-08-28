@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// A menu row for one game. The chevron and the full-width shape are what say
-/// "this goes somewhere" — the home screen picks a game, it does not play one.
+/// "this goes somewhere". The home screen picks a game. It does not play one.
 struct GameModeRow: View {
     let mode: GameMode
     let action: () -> Void

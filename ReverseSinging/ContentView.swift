@@ -29,7 +29,7 @@ struct ContentView: View {
         }
     }
 
-    /// The editor interface is dark-only — a light UI washes out the stills and
+    /// The editor interface is dark-only: a light UI washes out the stills and
     /// waveforms it exists to display, the same reason real editors ship dark.
     private var preferredColorScheme: ColorScheme? { .dark }
 }
