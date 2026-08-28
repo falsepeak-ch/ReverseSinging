@@ -5,15 +5,20 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Welcome to Reverso";
-"onboarding.welcome.message" = "We need microphone access to record and reverse your audio. Let's get started!";
+"onboarding.welcome.message" = "Two games, one microphone: sing a song backwards, or dub a movie scene in your own voice.";
 "onboarding.howItWorks.title" = "How It Works";
 "onboarding.howItWorks.message" = "Record audio, reverse it, sing what you hear, then flip it again to see how close you got!";
+"onboarding.dub.title" = "Dub a Movie Scene";
+"onboarding.dub.message" = "The second game: play a scene, record your voice over it, then hear yourself in the movie. Two scenes come with the app. Bring your own movie files for the rest!";
 "onboarding.uiPreference.title" = "Choose Your Interface";
-"onboarding.uiPreference.message" = "Select the interface style that works best for you. You can change this anytime in Settings.";
-"onboarding.button.continue" = "Continue";
+"onboarding.uiPreference.message" = "Select the interface style that works best for you. It applies to Reverse Singing, and you can change it anytime in Settings.";
+"onboarding.microphone.title" = "One Last Thing";
+"onboarding.microphone.message" = "Both games work by recording your voice: singing a song backwards, or dubbing a movie scene. The mic only switches on while you're recording. Everything stays on this device and nothing is ever uploaded.";
 "onboarding.button.openSettings" = "Open Settings";
 "onboarding.button.letsRecord" = "yes, let's record!";
 "onboarding.button.continueLowercase" = "continue";
+"onboarding.button.microphoneContinue" = "Continue";
+"onboarding.button.continueWithout" = "continue without it";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Stop Recording";
@@ -21,6 +26,22 @@
 "main.button.recordAttempt" = "Record Your Attempt";
 "main.button.reRecord" = "Re-record";
 "main.button.newSession" = "New Session";
+
+// MARK: - Simple Skin (buttons and their subtitles)
+"main.button.playRecorded" = "Play Recorded";
+"main.button.playReverse" = "Play Reverse";
+"main.subtitle.recordingOriginal" = "Recording original audio";
+"main.subtitle.recordingAttempt" = "Recording your attempt";
+"main.subtitle.tapToRecord" = "Tap to record audio";
+"main.subtitle.recordAttempt" = "Record your singing attempt";
+"main.subtitle.reRecordAttempt" = "Re-record your attempt";
+"main.subtitle.playAttempt" = "Play your attempt";
+"main.subtitle.playOriginal" = "Play original recording";
+"main.subtitle.noRecording" = "No recording available";
+"main.subtitle.playReversedAttempt" = "Play reversed attempt";
+"main.subtitle.playReversedOriginal" = "Play reversed original";
+"main.subtitle.noReversed" = "No reversed audio available";
+"settings.version" = "Version %@ (%@)";
 
 // MARK: - Main View - Alerts
 "main.alert.microphoneRequired.title" = "Microphone Access Required";
@@ -53,21 +74,8 @@
 "main.tip.tapRecordAudio" = "Tap Record Audio to record a song";
 
 // MARK: - Comparison View
-"comparison.title" = "Results";
-"comparison.button.close" = "Close";
-"comparison.label.original" = "Original";
-"comparison.label.yourTry" = "Your Try";
-"comparison.button.playOriginal" = "Play Original";
-"comparison.button.playYourTry" = "Play Your Try";
-"comparison.button.stop" = "Stop";
-"comparison.button.saveSession" = "Save Session";
-"comparison.button.tryAgain" = "Try Again";
 
 // MARK: - Comparison View - Score Messages
-"comparison.score.amazing" = "🌟 Amazing! Almost perfect!";
-"comparison.score.great" = "🎉 Great job! Very close!";
-"comparison.score.good" = "👍 Good attempt! Try again?";
-"comparison.score.keepPracticing" = "💪 Keep practicing!";
 
 // MARK: - Session List View
 "sessionList.title" = "Saved Sessions";
@@ -104,14 +112,11 @@
 "scoreCard.grade.tryAgain" = "Try Again!";
 
 // MARK: - Processing Indicator
-"processing.reversingAudio" = "Reversing audio...";
-"processing.generic" = "Processing...";
 
 // MARK: - Recording Indicator
 "recording.indicator" = "RECORDING";
 
 // MARK: - Success Celebration
-"success.sessionSaved" = "Session saved successfully!";
 
 // MARK: - Audio Session Model
 "session.defaultName" = "Session";
@@ -125,16 +130,15 @@
 
 // MARK: - Settings
 "settings.title" = "Settings";
-"settings.subtitle" = "Customize your experience";
-"settings.appearance" = "Appearance";
 "settings.interface" = "Interface";
+"uiMode.simple.name" = "Simple";
+"uiMode.simple.description" = "Large buttons, minimal interface";
+"uiMode.complex.name" = "Complex";
+"uiMode.complex.description" = "Advanced controls and visualizations";
 "settings.preferences" = "Preferences";
 "settings.about" = "About";
 
 // Theme descriptions
-"settings.theme.system.desc" = "Follows system settings";
-"settings.theme.light.desc" = "Always use light mode";
-"settings.theme.dark.desc" = "Always use dark mode";
 
 // Haptic feedback
 "settings.hapticFeedback" = "Haptic Feedback";
@@ -142,5 +146,124 @@
 
 // About
 "settings.privacyPolicy" = "Privacy Policy";
+"settings.privacyPolicy.desc" = "Read our privacy policy";
 "settings.builtInSwitzerland" = "Built in Switzerland";
 "settings.builtInSwitzerland.desc" = "Made with care in Zürich";
+
+// MARK: - Dub Mode
+"dub.unknownAuthor" = "Unknown author";
+"dub.importPack" = "Import a Dub Pack";
+"dub.importing" = "Importing pack…";
+"dub.delete" = "Delete";
+"dub.empty.title" = "No dub packs yet";
+"dub.empty.message" = "Import a dub pack folder or .zip from Files to start dubbing a scene in your own voice.";
+"dub.playOriginal" = "Watch Original";
+"dub.playMyDub" = "Play My Dub";
+"dub.record" = "Start Dubbing";
+"dub.continueRecording" = "Continue Dubbing";
+"dub.export" = "Export Video";
+"dub.lines" = "Lines";
+"dub.attribution" = "Source";
+"dub.listen" = "Listen";
+"dub.stop" = "Stop";
+"dub.recordTake" = "Record";
+"dub.next" = "Next";
+"dub.previous" = "Previous";
+"dub.recordingHint" = "Say the line and keep pace with the original.";
+"dub.listenHint" = "Listen first, then record your take.";
+"dub.original" = "Original";
+"dub.myDub" = "My Dub";
+"dub.noTakesYet" = "Record at least one line first.";
+"dub.exporting" = "Exporting…";
+"dub.export.mixing" = "Mixing audio…";
+"dub.export.rendering" = "Rendering video…";
+"dub.error.missingPackInfo" = "That folder isn't a dub pack. It has no _pack_info.ini file.";
+"dub.error.noLines" = "This pack has no usable lines.";
+"dub.error.missingAsset" = "The pack is missing a file it needs: %@";
+"dub.error.notAFolder" = "Pick a dub pack folder or a .zip archive.";
+"dub.error.unreadableArchive" = "That archive couldn't be opened: %@";
+"dub.error.nothingRecorded" = "Record at least one line before exporting.";
+"dub.error.exportFailed" = "Export failed: %@";
+"dub.playTake" = "Play your take";
+"dub.loadingScene" = "Loading scene…";
+
+// MARK: - Editor Chrome
+"session.archiveTitle" = "Archive";
+"main.section.transport" = "Transport";
+"main.state.idle" = "IDLE";
+"main.state.recording" = "REC";
+"main.state.playing" = "PLAY";
+"main.state.processing" = "PROC";
+"main.state.error" = "ERROR";
+"main.state.countingIn" = "COUNT IN";
+"main.section.hint" = "Next";
+"dub.packsSection" = "Packs";
+"dub.slate.lines" = "Dubbed";
+"dub.slate.duration" = "Runtime";
+"dub.slate.cast" = "Cast";
+"settings.soundEffects" = "Sound Effects";
+"settings.soundEffects.desc" = "Clapper, transport and render sounds";
+
+// Headphone monitoring
+"settings.headphoneMonitor" = "Original in Headphones";
+"settings.headphoneMonitor.desc" = "Hear the line you're matching while you record. Headphones only, because through the speaker it would end up in your take.";
+"settings.headphoneMonitor.unavailable" = "No headphones connected";
+
+// MARK: - Game Modes
+"main.mode.section" = "Mode";
+"main.mode.reverse.title" = "Reverse Singing";
+"main.mode.dub.title" = "Movie Scene Dub";
+"main.button.back" = "Back";
+"main.mode.reverse.subtitle" = "Record a song, flip it, and sing it backwards";
+"main.mode.dub.subtitle" = "Dub a movie scene in your own voice";
+"dub.speakerAccessibility" = "Spoken by %@";
+"dub.cast" = "Cast";
+"dub.referenceTrack" = "Reference";
+"dub.yourTake" = "Your take";
+"dub.convertingVideo" = "Converting scene video…";
+"dub.importReading" = "Reading pack…";
+
+// MARK: - Dub Content Gate
+"dubGate.close" = "Close";
+"dubGate.ask.title" = "Do you already have your movies?";
+"dubGate.ask.message" = "Beyond the example scenes, we don't include or host any movies. To dub anything else, you'll need the movie file saved on this device first.";
+"dubGate.ask.confirm" = "Yes, I already have them";
+"dubGate.ask.needDownload" = "No, I need to download them";
+"dubGate.download.title" = "Where to get them";
+"dubGate.download.message" = "Here's one place people share these files. Grab what you want to dub, then come back!";
+"dubGate.download.open" = "Open %@";
+"dubGate.download.back" = "Back";
+"dubGate.disclaimer.notAffiliated" = "%@ is someone else's site. We're not connected to it and we don't host or share any files.";
+"dubGate.disclaimer.responsibility" = "Make sure you have the right to use whatever you download, and follow the copyright rules where you live.";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "Before you share";
+"dubShare.message" = "Your video has your voice on top of the original scene, so it includes someone else's work as well as yours.";
+"dubShare.cutFrom" = "Cut from %@";
+"dubShare.keepCredit" = "If you post it, please keep this credit with it.";
+"dubShare.unknownSource" = "You brought this scene yourself, so you know where it came from and what you can do with it.";
+"dubShare.responsibility" = "Where you share it is up to you, so please follow the copyright rules where you live.";
+"dubShare.confirm" = "Export Video";
+
+/* MARK: - Dub Scoring */
+"dub.installingStarterPacks" = "Setting up your first scenes…";
+"dub.options" = "Dub options";
+"dub.score.setting.title" = "Score my takes";
+"dub.score.setting.detail" = "Rates your timing, pacing and delivery.";
+"dub.score.sceneTitle" = "Scene Score";
+"dub.score.notScoredYet" = "Dub a line to see how you're doing.";
+"dub.score.slate" = "Score";
+"dub.score.lineTitle" = "Your take";
+"dub.score.timing" = "Timing";
+"dub.score.pacing" = "Pacing";
+"dub.score.delivery" = "Delivery";
+"dub.score.best" = "Best line";
+"dub.score.weakest" = "Worth another go";
+"dub.score.progress" = "%d of %d lines scored";
+"dub.score.grade.perfect" = "Dead on";
+"dub.score.grade.great" = "Nailed it";
+"dub.score.grade.good" = "Solid take";
+"dub.score.grade.close" = "Nearly there";
+"dub.score.grade.rough" = "Give it another go";
+
+"dub.videoNeedsReimport" = "This scene's video was converted by an older version and runs ahead of the voices. Import the pack again to fix it.";

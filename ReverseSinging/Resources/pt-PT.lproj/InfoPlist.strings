@@ -1,0 +1,6 @@
+/*
+   InfoPlist.strings (Portuguese - Portugal)
+   ReverseSinging
+*/
+
+"NSMicrophoneUsageDescription" = "O Reverso precisa do microfone para gravar a tua voz, para poderes cantar músicas ao contrário e dobrar cenas de filmes.";

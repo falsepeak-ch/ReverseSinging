@@ -1,0 +1,269 @@
+/*
+   Localizable.strings (Italian)
+   ReverseSinging
+*/
+
+// MARK: - Onboarding
+"onboarding.welcome.title" = "Benvenuto in Reverso";
+"onboarding.welcome.message" = "Due giochi, un microfono: canta una canzone al contrario oppure doppia una scena di film con la tua voce.";
+"onboarding.howItWorks.title" = "Come Funziona";
+"onboarding.howItWorks.message" = "Registra un audio, invertilo, canta quello che senti e poi invertilo di nuovo per vedere quanto ci sei andato vicino!";
+"onboarding.dub.title" = "Doppia una Scena";
+"onboarding.dub.message" = "Il secondo gioco: riproduci una scena, registra la tua voce sopra e poi ascoltati dentro il film. Ci sono due scene incluse. Per le altre, i file li porti tu!";
+"onboarding.uiPreference.title" = "Scegli la tua Interfaccia";
+"onboarding.uiPreference.message" = "Scegli lo stile di interfaccia che preferisci. Vale per il Canto Invertito e puoi cambiarlo quando vuoi nelle Impostazioni.";
+"onboarding.microphone.title" = "Un'Ultima Cosa";
+"onboarding.microphone.message" = "Entrambi i giochi funzionano registrando la tua voce: cantare una canzone al contrario o doppiare una scena di film. Il microfono si accende solo mentre registri. Resta tutto su questo dispositivo e non viene caricato mai nulla.";
+"onboarding.button.openSettings" = "Apri Impostazioni";
+"onboarding.button.letsRecord" = "sì, registriamo!";
+"onboarding.button.continueLowercase" = "continua";
+"onboarding.button.microphoneContinue" = "Continua";
+"onboarding.button.continueWithout" = "continua senza";
+
+// MARK: - Main View - Buttons
+"main.button.stopRecording" = "Ferma Registrazione";
+"main.button.recordAudio" = "Registra Audio";
+"main.button.recordAttempt" = "Registra il tuo Tentativo";
+"main.button.reRecord" = "Registra di Nuovo";
+"main.button.newSession" = "Nuova Sessione";
+
+// MARK: - Simple Skin (buttons and their subtitles)
+"main.button.playRecorded" = "Riproduci registrazione";
+"main.button.playReverse" = "Riproduci al contrario";
+"main.subtitle.recordingOriginal" = "Registrazione dell'audio originale";
+"main.subtitle.recordingAttempt" = "Registrazione del tuo tentativo";
+"main.subtitle.tapToRecord" = "Tocca per registrare l'audio";
+"main.subtitle.recordAttempt" = "Registra il tuo tentativo di canto";
+"main.subtitle.reRecordAttempt" = "Registra di nuovo il tuo tentativo";
+"main.subtitle.playAttempt" = "Riproduci il tuo tentativo";
+"main.subtitle.playOriginal" = "Riproduci la registrazione originale";
+"main.subtitle.noRecording" = "Nessuna registrazione disponibile";
+"main.subtitle.playReversedAttempt" = "Riproduci il tentativo al contrario";
+"main.subtitle.playReversedOriginal" = "Riproduci l'originale al contrario";
+"main.subtitle.noReversed" = "Nessun audio invertito";
+"settings.version" = "Versione %@ (%@)";
+
+// MARK: - Main View - Alerts
+"main.alert.microphoneRequired.title" = "Accesso al Microfono Richiesto";
+"main.alert.microphoneRequired.message" = "Abilita l'accesso al microfono in Impostazioni per registrare audio.";
+"main.alert.settings" = "Impostazioni";
+"main.alert.cancel" = "Annulla";
+"main.alert.error.title" = "Errore";
+"main.alert.ok" = "OK";
+"main.alert.startNewSession.title" = "Iniziare una Nuova Sessione?";
+"main.alert.startNewSession.message" = "La sessione attuale verrà salvata nell'archivio. Verrà avviata una nuova sessione di registrazione.";
+"main.alert.startNewSession.button" = "Inizia Nuova Sessione";
+
+// MARK: - Main View - Empty State
+"main.emptyState.title" = "Accesso al Microfono Richiesto";
+"main.emptyState.message" = "Per usare Reverso, abilita l'accesso al microfono nelle impostazioni del dispositivo. Così potrai registrare e invertire l'audio.";
+"main.emptyState.button" = "Apri Impostazioni";
+
+// MARK: - Main View - Processing & Success
+"main.processing.reversingAudio" = "Inversione dell'audio...";
+"main.success.sessionSaved" = "Sessione salvata!";
+
+// MARK: - Main View - Tips (Contextual Help)
+"main.tip.tapRecordToBegin" = "Tocca Registra Audio per iniziare";
+"main.tip.recordSingingAttempt" = "Registra il tuo tentativo di canto";
+"main.tip.recordSongToReverse" = "Registra la canzone che vuoi invertire";
+"main.tip.tapPlayToSwitch" = "Tocca un pulsante per riprodurre o fermare";
+"main.tip.reRecordOrNewSession" = "Registra di nuovo o inizia una nuova sessione";
+"main.tip.listenAndRecord" = "Ascolta l'audio invertito, poi registra";
+"main.tip.processingAudio" = "Elaborazione audio, attendi...";
+"main.tip.tapRecordAudio" = "Tocca Registra Audio per registrare una canzone";
+
+// MARK: - Comparison View
+
+// MARK: - Comparison View - Score Messages
+
+// MARK: - Session List View
+"sessionList.title" = "Sessioni Salvate";
+"sessionList.empty.title" = "Nessuna Sessione Salvata";
+"sessionList.empty.message" = "Completa una sessione di canto invertito e salvala per vederla qui.";
+
+// MARK: - Recording Type Labels
+"recordingType.original" = "Originale";
+"recordingType.reversed" = "Invertito";
+"recordingType.attempt" = "Tentativo";
+"recordingType.reversedAttempt" = "Tentativo Invertito";
+"recordingType.imported" = "Importato";
+
+// MARK: - Timer Card
+"timerCard.deviceMicrophone" = "Microfono del Dispositivo (Predefinito)";
+"timerCard.mins" = "MIN";
+"timerCard.secs" = "SEC";
+"timerCard.playAudio" = "Riproduci Audio";
+"timerCard.audioControls" = "Controlli Audio";
+"timerCard.loop" = "Loop";
+"timerCard.speed" = "Velocità";
+"timerCard.pitch" = "Tonalità";
+"timerCard.semitones" = "semitoni";
+
+// MARK: - Score Card
+"scoreCard.title" = "Il tuo Punteggio";
+"scoreCard.grade.perfectMatch" = "Perfetto!";
+"scoreCard.grade.excellent" = "Eccellente!";
+"scoreCard.grade.greatJob" = "Ottimo Lavoro!";
+"scoreCard.grade.veryGood" = "Molto Bene!";
+"scoreCard.grade.goodEffort" = "Bell'Impegno!";
+"scoreCard.grade.niceTry" = "Bel Tentativo!";
+"scoreCard.grade.keepPracticing" = "Continua ad Allenarti!";
+"scoreCard.grade.tryAgain" = "Riprova!";
+
+// MARK: - Processing Indicator
+
+// MARK: - Recording Indicator
+"recording.indicator" = "REGISTRAZIONE";
+
+// MARK: - Success Celebration
+
+// MARK: - Audio Session Model
+"session.defaultName" = "Sessione";
+
+// MARK: - Error Messages
+"error.microphonePermissionRequired" = "Serve il permesso per il microfono. Abilitalo in Impostazioni.";
+"error.cannotStartRecording" = "Non è possibile avviare la registrazione ora. Riprova.";
+"error.noRecordingInProgress" = "Nessuna registrazione in corso.";
+"error.failedToStopRecording" = "Impossibile fermare correttamente la registrazione.";
+"error.failedToProcessRecording" = "Impossibile elaborare la registrazione.";
+
+// MARK: - Settings
+"settings.title" = "Impostazioni";
+"settings.interface" = "Interfaccia";
+"uiMode.simple.name" = "Semplice";
+"uiMode.simple.description" = "Pulsanti grandi, interfaccia essenziale";
+"uiMode.complex.name" = "Completa";
+"uiMode.complex.description" = "Controlli avanzati e visualizzazioni";
+"settings.preferences" = "Preferenze";
+"settings.about" = "Info";
+
+// Theme descriptions
+
+// Haptic feedback
+"settings.hapticFeedback" = "Feedback Aptico";
+"settings.hapticFeedback.desc" = "Vibrazioni al tocco";
+
+// About
+"settings.privacyPolicy" = "Informativa sulla Privacy";
+"settings.privacyPolicy.desc" = "Leggi la nostra informativa sulla privacy";
+"settings.builtInSwitzerland" = "Creato in Svizzera";
+"settings.builtInSwitzerland.desc" = "Fatto con cura a Zurigo";
+
+// MARK: - Dub Mode
+"dub.unknownAuthor" = "Autore sconosciuto";
+"dub.importPack" = "Importa un pack";
+"dub.importing" = "Importazione del pack…";
+"dub.delete" = "Elimina";
+"dub.empty.title" = "Ancora nessun pack";
+"dub.empty.message" = "Importa una cartella o uno .zip da File per doppiare una scena con la tua voce.";
+"dub.playOriginal" = "Guarda l'originale";
+"dub.playMyDub" = "Riproduci il mio doppiaggio";
+"dub.record" = "Inizia a doppiare";
+"dub.continueRecording" = "Continua a doppiare";
+"dub.export" = "Esporta video";
+"dub.lines" = "Battute";
+"dub.attribution" = "Fonte";
+"dub.listen" = "Ascolta";
+"dub.stop" = "Ferma";
+"dub.recordTake" = "Registra";
+"dub.next" = "Avanti";
+"dub.previous" = "Indietro";
+"dub.recordingHint" = "Di' la battuta e segui il ritmo dell'originale.";
+"dub.listenHint" = "Ascolta prima, poi registra la tua take.";
+"dub.original" = "Originale";
+"dub.myDub" = "Il mio doppiaggio";
+"dub.noTakesYet" = "Registra almeno una battuta prima.";
+"dub.exporting" = "Esportazione…";
+"dub.export.mixing" = "Missaggio audio…";
+"dub.export.rendering" = "Rendering del video…";
+"dub.error.missingPackInfo" = "Quella cartella non è un pack di doppiaggio. Non ha il file _pack_info.ini.";
+"dub.error.noLines" = "Questo pack non ha battute utilizzabili.";
+"dub.error.missingAsset" = "Al pack manca un file necessario: %@";
+"dub.error.notAFolder" = "Scegli una cartella di pack o un archivio .zip.";
+"dub.error.unreadableArchive" = "Impossibile aprire quell'archivio: %@";
+"dub.error.nothingRecorded" = "Registra almeno una battuta prima di esportare.";
+"dub.error.exportFailed" = "Esportazione non riuscita: %@";
+"dub.playTake" = "Ascolta la tua take";
+"dub.loadingScene" = "Caricamento della scena…";
+
+// MARK: - Editor Chrome
+"session.archiveTitle" = "Archivio";
+"main.section.transport" = "Trasporto";
+"main.state.idle" = "INATTIVO";
+"main.state.recording" = "REG";
+"main.state.playing" = "PLAY";
+"main.state.processing" = "ELAB";
+"main.state.error" = "ERRORE";
+"main.state.countingIn" = "CONTEGGIO";
+"main.section.hint" = "Prossimo";
+"dub.packsSection" = "Pack";
+"dub.slate.lines" = "Doppiate";
+"dub.slate.duration" = "Durata";
+"dub.slate.cast" = "Cast";
+"settings.soundEffects" = "Effetti sonori";
+"settings.soundEffects.desc" = "Ciak, trasporto e rendering";
+
+// Headphone monitoring
+"settings.headphoneMonitor" = "Originale in cuffia";
+"settings.headphoneMonitor.desc" = "Ascolta la battuta che stai imitando mentre registri. Solo in cuffia, perché dall'altoparlante finirebbe dentro il tuo ciak.";
+"settings.headphoneMonitor.unavailable" = "Nessuna cuffia collegata";
+
+// MARK: - Game Modes
+"main.mode.section" = "Modalità";
+"main.mode.reverse.title" = "Canto Invertito";
+"main.mode.dub.title" = "Doppiaggio di Scena";
+"main.button.back" = "Indietro";
+"main.mode.reverse.subtitle" = "Registra una canzone, invertila e cantala al contrario";
+"main.mode.dub.subtitle" = "Doppia una scena di film con la tua voce";
+"dub.speakerAccessibility" = "Detto da %@";
+"dub.cast" = "Cast";
+"dub.referenceTrack" = "Riferimento";
+"dub.yourTake" = "La tua take";
+"dub.convertingVideo" = "Conversione del video…";
+"dub.importReading" = "Lettura del pack…";
+
+// MARK: - Dub Content Gate
+"dubGate.close" = "Chiudi";
+"dubGate.ask.title" = "Hai già i tuoi film?";
+"dubGate.ask.message" = "A parte le scene di esempio, non includiamo né ospitiamo alcun film. Per doppiare qualsiasi altra cosa ti serve il file già salvato su questo dispositivo.";
+"dubGate.ask.confirm" = "Sì, li ho già";
+"dubGate.ask.needDownload" = "No, devo scaricarli";
+"dubGate.download.title" = "Dove trovarli";
+"dubGate.download.message" = "Ecco un posto dove le persone condividono questi file. Scarica quello che vuoi doppiare e torna qui!";
+"dubGate.download.open" = "Apri %@";
+"dubGate.download.back" = "Indietro";
+"dubGate.disclaimer.notAffiliated" = "%@ è il sito di altre persone. Non abbiamo legami con loro e non ospitiamo né condividiamo file.";
+"dubGate.disclaimer.responsibility" = "Assicurati di avere il diritto di usare ciò che scarichi e segui le regole sul copyright del posto in cui vivi.";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "Prima di condividere";
+"dubShare.message" = "Il tuo video ha la tua voce sopra la scena originale, quindi contiene il lavoro di qualcun altro oltre al tuo.";
+"dubShare.cutFrom" = "Tratto da %@";
+"dubShare.keepCredit" = "Se lo pubblichi, porta con te anche questo credito.";
+"dubShare.unknownSource" = "Questa scena l'hai portata tu, quindi sai da dove viene e cosa puoi farci.";
+"dubShare.responsibility" = "Dove lo condividi sta a te, quindi segui le regole sul copyright del posto in cui vivi.";
+"dubShare.confirm" = "Esporta video";
+
+/* MARK: - Dub Scoring */
+"dub.installingStarterPacks" = "Preparazione delle tue prime scene…";
+"dub.options" = "Opzioni di doppiaggio";
+"dub.score.setting.title" = "Valuta le mie riprese";
+"dub.score.setting.detail" = "Valuta attacco, ritmo e interpretazione.";
+"dub.score.sceneTitle" = "Punteggio della scena";
+"dub.score.notScoredYet" = "Doppia una battuta per vedere come va.";
+"dub.score.slate" = "Punti";
+"dub.score.lineTitle" = "La tua ripresa";
+"dub.score.timing" = "Attacco";
+"dub.score.pacing" = "Ritmo";
+"dub.score.delivery" = "Interpretazione";
+"dub.score.best" = "Battuta migliore";
+"dub.score.weakest" = "Da riprovare";
+"dub.score.progress" = "%d battute su %d valutate";
+"dub.score.grade.perfect" = "In pieno";
+"dub.score.grade.great" = "Perfetto";
+"dub.score.grade.good" = "Buona ripresa";
+"dub.score.grade.close" = "Ci sei quasi";
+"dub.score.grade.rough" = "Riprova";
+
+"dub.videoNeedsReimport" = "Il video di questa scena è stato convertito da una versione precedente ed è in anticipo sulle voci. Importa di nuovo il pack per correggerlo.";

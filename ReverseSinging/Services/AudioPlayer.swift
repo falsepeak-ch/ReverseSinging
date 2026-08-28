@@ -29,7 +29,6 @@ final class AudioPlayer: NSObject, ObservableObject {
     private var audioFile: AVAudioFile?
     private var progressTimer: Timer?
     private var audioBuffer: AVAudioPCMBuffer?
-    private var isScheduledToLoop = false
 
     override init() {
         super.init()
@@ -99,9 +98,21 @@ final class AudioPlayer: NSObject, ObservableObject {
         // Connect: playerNode -> timePitch -> mainMixerNode using file format
         engine.connect(player, to: timePitch, format: format)
         engine.connect(timePitch, to: engine.mainMixerNode, format: format)
+
+        // Warm the engine now rather than on the first press. Loading happens while the user
+        // is still reaching for the transport, so this is free time; doing it inside `play()`
+        // is time the user hears as lag before the audio arrives.
+        engine.prepare()
+        if !engine.isRunning {
+            try? engine.start()
+        }
     }
 
-    func play() {
+    /// Plays now, or on an exact future host-clock boundary when one is supplied.
+    ///
+    /// Scheduled playback is used by dub headphone monitoring so the reference, picture and
+    /// microphone sample zero do not cue the performer at three slightly different times.
+    func play(atHostTime hostTime: UInt64? = nil) {
         guard let engine = audioEngine,
               let player = playerNode,
               let buffer = audioBuffer else { return }
@@ -125,7 +136,11 @@ final class AudioPlayer: NSObject, ObservableObject {
                 }
             }
 
-            player.play()
+            if let hostTime {
+                player.play(at: AVAudioTime(hostTime: hostTime))
+            } else {
+                player.play()
+            }
             isPlaying = true
             startProgressTimer()
             HapticManager.shared.light()
@@ -143,11 +158,14 @@ final class AudioPlayer: NSObject, ObservableObject {
         HapticManager.shared.light()
     }
 
+    /// Stops playback, but leaves the engine running.
+    ///
+    /// Tearing the engine down here is what made every press of play feel late:
+    /// `AVAudioEngine.start()` takes real time on a `.playAndRecord` session, and `loadAudio`
+    /// stops before it loads. So the engine was cold on every single press. An idle engine
+    /// costs almost nothing; it is torn down in `cleanup()`.
     func stop() {
         playerNode?.stop()
-        if let engine = audioEngine, engine.isRunning {
-            engine.stop()
-        }
         isPlaying = false
         currentTime = 0
         stopProgressTimer()
@@ -295,6 +313,12 @@ final class AudioPlayer: NSObject, ObservableObject {
         if let engine = audioEngine, let player = playerNode, let timePitch = timePitchNode {
             engine.disconnectNodeOutput(player)
             engine.disconnectNodeOutput(timePitch)
+        }
+
+        // `stop()` deliberately keeps the engine warm, so this is the one place that shuts
+        // it down.
+        if let engine = audioEngine, engine.isRunning {
+            engine.stop()
         }
 
         audioFile = nil

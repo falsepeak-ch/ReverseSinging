@@ -51,7 +51,22 @@ enum RecordingLifecycleState {
 final class AudioRecorder: NSObject, ObservableObject {
     @Published var isRecording = false
     @Published var recordingDuration: TimeInterval = 0
+    /// Meter level, 0...1, on a decibel curve. Drives the pulsing record button and the
+    /// level rails. A meter wants to move visibly at conversational volume, which is what
+    /// the dB mapping in `updateLevel` gives it.
     @Published var recordingLevel: Float = 0
+
+    /// Peak amplitude over the last metering interval, 0...1, **linear**.
+    ///
+    /// Deliberately a second, differently-shaped number. `recordingLevel` is average power on
+    /// a dB curve, and a waveform drawn from it comes out as a tall flat block, every quiet
+    /// syllable lifted to two thirds height by the dB compression. Where the very same take
+    /// read back off disk by `WaveformSampler` is linear peaks against the file's own loudest
+    /// moment: mostly short, with real spikes. The two disagreed so completely that the live
+    /// trace visibly changed shape the instant recording stopped and the file was sampled.
+    ///
+    /// This is peak, and linear, so it is the same measurement the sampler makes.
+    @Published var recordingPeak: Float = 0
     @Published var lifecycleState: RecordingLifecycleState = .idle
 
     private var audioRecorder: AVAudioRecorder?
@@ -185,7 +200,19 @@ final class AudioRecorder: NSObject, ObservableObject {
 
     // MARK: - Recording
 
-    func startRecording() throws -> URL {
+    /// - Parameters:
+    ///   - maxDuration: when set, the recorder stops itself after exactly this long. Handed to
+    ///     `AVAudioRecorder` so the file ends on the audio clock rather than a UI timer.
+    ///   - startDelay: scheduling runway before sample zero. Dub capture uses the same future
+    ///     deadline for the recorder and the video, avoiding an asynchronous seek after the
+    ///     microphone has already opened.
+    ///   - onScheduled: receives the matching host-clock deadline after the recorder accepts
+    ///     the schedule and before `isRecording` is published.
+    func startRecording(
+        maxDuration: TimeInterval? = nil,
+        startDelay: TimeInterval = 0,
+        onScheduled: ((UInt64) -> Void)? = nil
+    ) throws -> URL {
         print("🎙️ Attempting to start recording...")
 
         // Validate state
@@ -232,10 +259,30 @@ final class AudioRecorder: NSObject, ObservableObject {
                 )
             }
 
-            // Start recording
-            let success = recorder.record()
+            // Start recording. `record(atTime:)` is relative to the audio device clock and is
+            // Apple's synchronization API; using it gives the picture enough runway to map
+            // its first frame onto the same future instant.
+            let success: Bool
+            let delay = max(0, startDelay)
+            var scheduledHostTime: UInt64?
+            if delay > 0 {
+                // Read both clocks together, after session activation and recorder setup.
+                // Doing this earlier lets variable audio-session setup consume the runway.
+                scheduledHostTime = mach_absolute_time() + AVAudioTime.hostTime(forSeconds: delay)
+                let deviceStart = recorder.deviceCurrentTime + delay
+                if let maxDuration, maxDuration > 0 {
+                    success = recorder.record(atTime: deviceStart, forDuration: maxDuration)
+                } else {
+                    success = recorder.record(atTime: deviceStart)
+                }
+            } else if let maxDuration, maxDuration > 0 {
+                success = recorder.record(forDuration: maxDuration)
+            } else {
+                success = recorder.record()
+            }
 
             if success {
+                if let scheduledHostTime { onScheduled?(scheduledHostTime) }
                 isRecording = true
                 recordingDuration = 0
                 lifecycleState = .recording
@@ -335,32 +382,37 @@ final class AudioRecorder: NSObject, ObservableObject {
         levelTimer = nil
         durationTimer = nil
         recordingLevel = 0
+        recordingPeak = 0
     }
 
     private func updateLevel() {
         guard let recorder = audioRecorder, recorder.isRecording else {
             recordingLevel = 0
+            recordingPeak = 0
             return
         }
 
+        // One call feeds both numbers. The meters are only valid until the next update, and
+        // sampling them twice would give the two readings different intervals.
         recorder.updateMeters()
-        let averagePower = recorder.averagePower(forChannel: 0)  // dB value (typically -160 to 0)
 
-        // Convert dB to 0-1 range with better normalization for speech
-        // Speech typically ranges from -40 dB (quiet) to -10 dB (loud)
-        // Map this to a visible range
-        let minDb: Float = -50.0  // Noise floor
-        let maxDb: Float = -10.0  // Loud speech
-        let clampedDb = max(minDb, min(maxDb, averagePower))
-        let normalizedLevel = (clampedDb - minDb) / (maxDb - minDb)
-
+        // The meter: average power, mapped across the range speech actually occupies, so the
+        // rails and the record button move rather than sitting pinned at the bottom.
+        let averagePower = recorder.averagePower(forChannel: 0)  // dB, typically -160...0
+        let clampedDb = max(Self.meterFloorDb, min(Self.meterCeilingDb, averagePower))
+        let normalizedLevel = (clampedDb - Self.meterFloorDb) / (Self.meterCeilingDb - Self.meterFloorDb)
         recordingLevel = max(0, min(1, normalizedLevel))
 
-        // Debug logging (only log every 10th sample to avoid spam)
-        if Int(recorder.currentTime * 20) % 10 == 0 {
-            print("🔊 Level: dB=\(String(format: "%.1f", averagePower)), normalized=\(String(format: "%.3f", recordingLevel))")
-        }
+        // The waveform: peak, converted straight back to linear amplitude with no curve and
+        // no floor. This is the number `WaveformSampler` reads off the finished file, which is
+        // the whole reason it exists separately.
+        recordingPeak = max(0, min(1, pow(10, recorder.peakPower(forChannel: 0) / 20)))
     }
+
+    /// Quietest and loudest the *meter* stretches across. Speech runs roughly -40 dB at a
+    /// murmur to -10 dB shouted, so this is the band worth spending the rail on.
+    private static let meterFloorDb: Float = -50
+    private static let meterCeilingDb: Float = -10
 
     private func updateDuration() {
         guard let recorder = audioRecorder, recorder.isRecording else {

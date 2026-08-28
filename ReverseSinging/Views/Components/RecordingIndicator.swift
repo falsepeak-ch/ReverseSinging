@@ -38,33 +38,11 @@ struct RecordingIndicator: View {
     }
 }
 
-// MARK: - Minimal Indicator
-
-struct MinimalRecordingDot: View {
-    @State private var isPulsing = false
-
-    var body: some View {
-        Circle()
-            .fill(Color.rsRecording)
-            .frame(width: 10, height: 10)
-            .scaleEffect(isPulsing ? 1.5 : 1.0)
-            .opacity(isPulsing ? 0.3 : 1.0)
-            .animation(
-                .easeInOut(duration: 1.0)
-                .repeatForever(autoreverses: true),
-                value: isPulsing
-            )
-            .onAppear { isPulsing = true }
-    }
-}
-
 // MARK: - Preview
 
 #Preview {
     VStack(spacing: 30) {
         RecordingIndicator()
-
-        MinimalRecordingDot()
     }
     .padding()
     .background(Color.rsBackground)

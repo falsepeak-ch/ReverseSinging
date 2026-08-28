@@ -75,14 +75,14 @@ struct SessionListView: View {
 
     private var emptyStateView: some View {
         VStack(spacing: 16) {
-            Image("cassette")
+            Image("archive")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 140, height: 140)
                 .scaleIn(delay: 0.1)
 
             Text(Strings.SessionList.Empty.title)
-                .font(.custom("Eugello", size: 32))
+                .font(.rsDisplay(32, relativeTo: .title))
                 .foregroundColor(Color.rsTextAdaptive(for: effectiveColorScheme))
                 .fadeIn(delay: 0.2)
 
@@ -197,10 +197,10 @@ struct SessionRow: View {
         }
         .padding(16)
         .background(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
+            RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                 .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                         .stroke(Color.rsTurquoise.opacity(0.15), lineWidth: 1.5)
                 )
                 .cardShadow(.card)
@@ -283,10 +283,10 @@ struct RecordingRowButton: View {
             }
             .padding(14)
             .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                     .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
                     .overlay(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                             .stroke(Color.rsTurquoise.opacity(0.2), lineWidth: 1)
                     )
             )

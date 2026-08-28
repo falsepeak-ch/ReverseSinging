@@ -1,0 +1,12 @@
+Doublage de Scène : le deuxième jeu.
+
+• Deux scènes originales incluses, pour avoir quelque chose à doubler tout de suite
+• Importe-en d'autres : un dossier ou un .zip de pack depuis Fichiers, AirDrop ou n'importe quelle feuille de partage
+• Enregistre ta voix réplique par réplique sur la scène, avec la forme d'onde originale sous la tienne et une barre de rythme qui te prévient quand tu dépasses
+• Écoute l'originale dans ton casque pendant que tu enregistres
+• Regarde l'originale, réécoute ton doublage ou exporte la scène terminée en vidéo et partage-la
+• Les dialogues qui se chevauchent sont enfin mixés correctement : deux personnages qui parlent en même temps s'additionnent au lieu de s'annuler
+
+Reverso parle maintenant français, italien, japonais et portugais.
+
+Nouvelle introduction qui te montre les deux jeux avant de demander le micro.

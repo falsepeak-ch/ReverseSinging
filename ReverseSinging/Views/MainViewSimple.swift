@@ -9,218 +9,133 @@ import SwiftUI
 
 struct MainViewSimple: View {
     @EnvironmentObject var viewModel: AudioViewModel
-    @State private var displayedTip: String = ""
-    @State private var showNewSessionAlert = false
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        NavigationStack {
-            ZStack {
-                // Background color layer
-                Color.rsBackgroundAdaptive(for: colorScheme)
-                    .ignoresSafeArea()
 
-                // Show empty state if permission is denied
-                if !viewModel.hasRecordingPermission {
-                    microphonePermissionEmptyState
-                        .transition(.opacity)
-                } else {
-                    // Main content
-                    mainContentView
-                }
+        ZStack {
+            // Background color layer
+            Color.rsBackgroundAdaptive(for: colorScheme)
+                .ignoresSafeArea()
 
-                // Fixed header overlay (always visible)
-                fixedHeaderOverlay
+            // Show empty state if permission is denied
+            if !viewModel.hasRecordingPermission {
+                MicrophonePermissionEmptyState(onOpenSettings: AppSettings.open)
+                    .transition(.opacity)
+            } else {
+                // Main content
+                mainContentView
+            }
 
-                // Overlays (processing, tips, etc.)
-                overlaysView
-            }
-            .onAppear {
-                viewModel.checkPermissionStatus()
-                displayedTip = currentTip ?? ""
-                AnalyticsManager.shared.trackScreenViewed(screenName: "MainViewSimple")
-            }
-            .onChange(of: currentTip) { _, newTip in
-                withAnimation(.rsSpring) {
-                    displayedTip = newTip ?? ""
-                }
-            }
-            .sheet(isPresented: $viewModel.showSessionList) {
-                SessionListView(viewModel: viewModel)
-            }
-            .sheet(isPresented: $viewModel.showSettings) {
-                SettingsView(viewModel: viewModel)
-            }
-            .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: $viewModel.showPermissionAlert) {
-                Button(Strings.Main.Alert.settings, action: openSettings)
-                Button(Strings.Main.Alert.cancel, role: .cancel) {}
-            } message: {
-                Text(Strings.Main.Alert.microphoneRequiredMessage)
-            }
-            .alert(Strings.Main.Alert.errorTitle, isPresented: .init(
-                get: { viewModel.errorMessage != nil },
-                set: { if !$0 { viewModel.errorMessage = nil } }
-            )) {
-                Button(Strings.Main.Alert.ok, role: .cancel) {
-                    viewModel.errorMessage = nil
-                }
-            } message: {
-                Text(viewModel.errorMessage ?? "")
-            }
-            .alert(Strings.Main.Alert.startNewSessionTitle, isPresented: $showNewSessionAlert) {
-                Button(Strings.Main.Alert.cancel, role: .cancel) {}
-                Button(Strings.Main.Alert.startNewSessionButton, role: .destructive) {
-                    viewModel.startNewSession()
-                }
-            } message: {
-                Text(Strings.Main.Alert.startNewSessionMessage)
-            }
+            // Fixed header overlay (always visible)
+            ReverseGameHeader(viewModel: viewModel, onBack: { dismiss() })
+
+            // Overlays (processing, tips, etc.)
+            overlaysView
+
+            CountdownOverlay(value: viewModel.countdown)
         }
-    }
-
-    // MARK: - Empty State
-
-    private var microphonePermissionEmptyState: some View {
-        VStack(spacing: 32) {
-            Spacer()
-
-            Image("microphone")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 160, height: 160)
-                .scaleIn(delay: 0.1)
-
-            VStack(spacing: 16) {
-                Text(Strings.Main.EmptyState.title)
-                    .font(.rsHeadingMedium)
-                    .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
-                    .multilineTextAlignment(.center)
-
-                Text(Strings.Main.EmptyState.message)
-                    .font(.rsBodyMedium)
-                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(6)
-                    .padding(.horizontal, 24)
-            }
-            .fadeIn(delay: 0.2)
-
-            BigButton(
-                title: Strings.Main.EmptyState.button,
-                icon: "gearshape.fill",
-                color: .rsTurquoise,
-                action: openSettings,
-                style: .primary
-            )
-            .padding(.horizontal, 24)
-            .padding(.top, 16)
-            .fadeIn(delay: 0.3)
-
-            Spacer()
-        }
+        .reverseGameChrome(viewModel: viewModel, screenName: "MainViewSimple")
     }
 
     // MARK: - Main Content
 
+    /// Spacers distribute the stack on a tall screen; on a short one the same
+    /// content scrolls instead of being squeezed, which is what `minHeight` buys.
     private var mainContentView: some View {
-        VStack(spacing: 0) {
-            // Top spacer for fixed header
-            Spacer()
-                .frame(height: 120)
-
-            // Recording indicator
-            SimpleRecordingIndicator(
-                state: viewModel.appState.recordingState,
-                isPlayingReversed: isPlayingReversedAudio
-            )
-            .padding(.bottom, 16)
-
-            // Timer display
-            SimpleTimerDisplay(
-                duration: displayDuration,
-                isVisible: shouldShowTimer
-            )
-            .padding(.bottom, 32)
-
-            Spacer()
-
-            // Three large buttons
-            threeButtonStack
-                .padding(.horizontal, 24)
-
-            Spacer()
-
-            // Bottom spacer for tips
-            Color.clear
-                .frame(height: 100)
+        GeometryReader { proxy in
+            ScrollView {
+                transportStack
+                    .frame(minHeight: proxy.size.height)
+            }
         }
     }
 
-    // MARK: - Fixed Header
-
-    private var fixedHeaderOverlay: some View {
+    private var transportStack: some View {
         VStack(spacing: 0) {
-            ZStack(alignment: .bottom) {
-                // Fade background image
-                Image("fade")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(height: 120)
-                    .clipped()
+            // Clears the fixed header bar
+            Spacer().frame(height: 96)
 
-                // Header content
-                HStack {
-                    Image(viewModel.hasRecordingPermission ? "icon-lettering" : "lettering")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: viewModel.hasRecordingPermission ? 48 : 30)
+            monitorPanel
+                .padding(.horizontal, EditorMetrics.gutter)
+                .padding(.top, 20)
 
-                    Spacer()
+            Spacer(minLength: 16)
 
-                    // Header buttons
-                    HStack(spacing: 12) {
-                        // Archive button
-                        Button(action: { viewModel.showSessionList = true }) {
-                            Image(systemName: "archivebox")
-                                .font(.rsHeadingSmall)
-                                .foregroundColor(.accent)
-                                .frame(width: 44, height: 44)
-                                .background(
-                                    Circle()
-                                        .fill(Color.rsCardBackground(for: colorScheme).opacity(0.95))
-                                )
-                        }
-
-                        // Settings button
-                        Button(action: { viewModel.showSettings = true }) {
-                            Image(systemName: "gearshape.fill")
-                                .font(.rsHeadingSmall)
-                                .foregroundColor(.accent)
-                                .frame(width: 44, height: 44)
-                                .background(
-                                    Circle()
-                                        .fill(Color.rsCardBackground(for: colorScheme).opacity(0.95))
-                                )
-                        }
-                    }
-                }
-                .padding(.horizontal, 24)
-                .padding(.bottom, 16)
+            VStack(alignment: .leading, spacing: 10) {
+                EditorSectionHeader(title: Strings.Main.Section.transport)
+                threeButtonStack
             }
+            .padding(.horizontal, EditorMetrics.gutter)
 
-            Spacer()
+            Spacer(minLength: 16)
+
+            Color.clear.frame(height: 88)
         }
-        .ignoresSafeArea(edges: .top)
+    }
+
+    // MARK: - Monitor
+
+    /// The always-present readout: transport state, big timecode, and a level rail.
+    /// An editor never shows an empty stage, so this stands in for the program monitor.
+    private var monitorPanel: some View {
+        VStack(spacing: 0) {
+            HStack(spacing: 8) {
+                EditorRecordDot(isActive: isRecording)
+
+                Text(transportState)
+                    .editorLabelStyle(isRecording ? .rsRecord : .rsTextTertiary)
+
+                Spacer()
+
+                Text(takeLabel)
+                    .font(.rsTimecodeSmall)
+                    .foregroundColor(.rsTextTertiary)
+            }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 11)
+
+            EditorRule()
+
+            VStack(spacing: 14) {
+                Text(displayDuration.rsClockHundredths)
+                    .font(.rsTimecodeLarge)
+                    .foregroundColor(isRecording ? .rsRecord : .rsTextPrimary)
+                    .contentTransition(.numericText())
+                    .animation(.easeOut(duration: 0.15), value: displayDuration)
+
+                LevelRail(level: CGFloat(viewModel.recordingLevel), isActive: isRecording)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 22)
+        }
+        .editorPanel()
+    }
+
+    private var transportState: String {
+        switch viewModel.appState.recordingState {
+        case .recording: return Strings.Main.State.recording
+        case .playing: return Strings.Main.State.playing
+        case .reversing: return Strings.Main.State.processing
+        case .error: return Strings.Main.State.error
+        case .idle: return Strings.Main.State.idle
+        }
+    }
+
+    private var takeLabel: String {
+        let attempts = viewModel.appState.attemptCount
+        return attempts > 0 ? String(format: "TAKE %02d", attempts + 1) : "TAKE 01"
     }
 
     // MARK: - Three Button Stack
 
     private var threeButtonStack: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 8) {
             // Button 1: Record Audio / Stop Recording (Red)
             // Dynamic button that changes based on recording state
             LargeActionButton(
-                title: isRecording ? "Stop Recording" : "Record Audio",
+                title: isRecording ? Strings.Main.stopRecording : Strings.Main.recordAudio,
                 subtitle: subtitleForRecordButton,
                 icon: isRecording ? "stop.circle.fill" : "mic.fill",
                 dotCount: isRecording ? 3 : 0,
@@ -232,7 +147,7 @@ struct MainViewSimple: View {
 
             // Button 2: Play Recorded (Green)
             LargeActionButton(
-                title: "Play Recorded",
+                title: Strings.Main.playRecorded,
                 subtitle: subtitleForPlayButton,
                 icon: "play.circle.fill",
                 dotCount: 0,
@@ -244,7 +159,7 @@ struct MainViewSimple: View {
 
             // Button 3: Play Reverse (Blue)
             LargeActionButton(
-                title: "Play Reverse",
+                title: Strings.Main.playReverse,
                 subtitle: subtitleForReverseButton,
                 icon: "arrow.triangle.2.circlepath",
                 dotCount: 0,
@@ -260,79 +175,19 @@ struct MainViewSimple: View {
 
     private var overlaysView: some View {
         ZStack {
-            // Processing indicator overlay
             if viewModel.isReversing {
                 ProcessingIndicator(message: Strings.Main.processingReversingAudio)
                     .transition(.scale.combined(with: .opacity))
             }
 
-            // Tip overlay at bottom
             if viewModel.hasRecordingPermission, let tip = currentTip, !tip.isEmpty {
                 VStack(spacing: 0) {
                     Spacer()
-                    ZStack(alignment: .top) {
-                        Image("fade")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(height: 120)
-                            .clipped()
-                            .rotationEffect(.degrees(180))
-
-                        tipText(tip)
-                            .id(displayedTip)
-                            .padding(.horizontal, 24)
-                            .padding(.top, 16)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .transition(.opacity.combined(with: .move(edge: .bottom)))
+                    HintBar(text: tip)
+                        .id(tip)
+                        .transition(.opacity)
                 }
-                .ignoresSafeArea(edges: .bottom)
-            }
-        }
-    }
-
-    // MARK: - Tip Text
-
-    private func tipText(_ text: String) -> some View {
-        Group {
-            if #available(iOS 26.0, *) {
-                HStack(spacing: 12) {
-                    Image(systemName: "info.circle.fill")
-                        .font(.rsBodyMedium)
-                        .foregroundColor(.rsTurquoise)
-
-                    Text(text)
-                        .font(.rsBodyMedium)
-                        .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(3)
-
-                    Spacer()
-                }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 16)
-                .glassEffect()
-            } else {
-                HStack(spacing: 12) {
-                    Image(systemName: "info.circle.fill")
-                        .font(.rsBodyMedium)
-                        .foregroundColor(.rsTurquoise)
-
-                    Text(text)
-                        .font(.rsBodyMedium)
-                        .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(3)
-
-                    Spacer()
-                }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 16)
-                .background(
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        .fill(Color.rsCardBackground(for: colorScheme))
-                        .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
-                )
+                .animation(.rsSpring, value: tip)
             }
         }
     }
@@ -393,13 +248,6 @@ struct MainViewSimple: View {
         }
     }
 
-    private var isPlayingReversedAudio: Bool {
-        guard viewModel.appState.recordingState == .playing else { return false }
-        // Determine if currently playing reversed audio based on which recording is being played
-        // This is a simplified check - you might need more logic based on your actual implementation
-        return viewModel.appState.currentSession?.reversedRecording != nil
-    }
-
     // MARK: - Button States
 
     private var isRecording: Bool {
@@ -427,18 +275,18 @@ struct MainViewSimple: View {
         if isRecording {
             let session = viewModel.appState.currentSession
             if session?.originalRecording == nil {
-                return "Recording original audio"
+                return Strings.Main.Subtitle.recordingOriginal
             } else {
-                return "Recording your attempt"
+                return Strings.Main.Subtitle.recordingAttempt
             }
         } else {
             let session = viewModel.appState.currentSession
             if session?.originalRecording == nil {
-                return "Tap to record audio"
+                return Strings.Main.Subtitle.tapToRecord
             } else if session?.attemptRecording == nil {
-                return "Record your singing attempt"
+                return Strings.Main.Subtitle.recordAttempt
             } else {
-                return "Re-record your attempt"
+                return Strings.Main.Subtitle.reRecordAttempt
             }
         }
     }
@@ -446,21 +294,21 @@ struct MainViewSimple: View {
     private var subtitleForPlayButton: String? {
         let session = viewModel.appState.currentSession
         if session?.attemptRecording != nil {
-            return "Play your attempt"
+            return Strings.Main.Subtitle.playAttempt
         } else if session?.originalRecording != nil {
-            return "Play original recording"
+            return Strings.Main.Subtitle.playOriginal
         }
-        return "No recording available"
+        return Strings.Main.Subtitle.noRecording
     }
 
     private var subtitleForReverseButton: String? {
         let session = viewModel.appState.currentSession
         if session?.reversedAttempt != nil {
-            return "Play reversed attempt"
+            return Strings.Main.Subtitle.playReversedAttempt
         } else if session?.reversedRecording != nil {
-            return "Play reversed original"
+            return Strings.Main.Subtitle.playReversedOriginal
         }
-        return "No reversed audio available"
+        return Strings.Main.Subtitle.noReversed
     }
 
     // MARK: - Button Actions
@@ -507,29 +355,29 @@ struct MainViewSimple: View {
             }
         }
     }
-
-    private func openSettings() {
-        if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
-            UIApplication.shared.open(settingsURL)
-        }
-    }
 }
 
 // MARK: - Large Action Button
 
+/// A transport row: a state bar, an icon well, a label pair and a live meter.
+///
+/// Replaces the previous full-bleed colour block. Colour survives only in the 3pt
+/// leading bar and the meter, which is what keeps a screen of these near-monochrome
+/// while still making the armed action unmistakable.
 struct LargeActionButton: View {
     let title: String
     let subtitle: String?
     let icon: String
-    let dotCount: Int  // Number of dots to show (0-3)
+    let dotCount: Int          // > 0 shows the live level meter
     let color: Color
     let isEnabled: Bool
-    let recordingLevel: Float  // Audio level 0-1 for animation
+    let recordingLevel: Float
     let action: () -> Void
 
     @Environment(\.colorScheme) private var colorScheme
-    @State private var smoothedLevels: [CGFloat] = [0, 0, 0]
-    @State private var basePulse: CGFloat = 0
+    @State private var smoothedLevel: CGFloat = 0
+
+    private var isActive: Bool { dotCount > 0 }
 
     var body: some View {
         Button(action: {
@@ -538,101 +386,105 @@ struct LargeActionButton: View {
                 action()
             }
         }) {
-            HStack(spacing: 16) {
-                // Icon
-                Image(systemName: icon)
-                    .font(.system(size: 48, weight: .medium))
-                    .foregroundColor(.white)
-                    .frame(width: 64)
+            HStack(spacing: 0) {
+                // State bar. The row's only permanent colour
+                Rectangle()
+                    .fill(isEnabled ? color : Color.rsStroke)
+                    .frame(width: 3)
 
-                // Text content
-                VStack(alignment: .leading, spacing: 4) {
-                    // Title
-                    Text(title)
-                        .font(.rsButtonLarge)
-                        .foregroundColor(.white)
+                HStack(spacing: 14) {
+                    iconWell
 
-                    // Subtitle
-                    if let subtitle = subtitle {
-                        Text(subtitle)
-                            .font(.rsCaption)
-                            .foregroundColor(.white.opacity(0.8))
-                    }
-                }
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(title)
+                            .font(.rsButtonMedium)
+                            .tracking(0.3)
+                            .foregroundColor(.rsTextPrimary)
+                            .lineLimit(1)
 
-                Spacer()
-
-                // Audio-reactive dots (if any)
-                if dotCount > 0 {
-                    HStack(spacing: 8) {
-                        ForEach(0..<dotCount, id: \.self) { index in
-                            Circle()
-                                .fill(Color.white)
-                                .frame(width: 12, height: 12)
-                                .scaleEffect(dotScale(for: index))
-                                .animation(.easeInOut(duration: 0.15), value: smoothedLevels[index])
+                        if let subtitle {
+                            Text(subtitle)
+                                .font(.rsMeta)
+                                .foregroundColor(.rsTextTertiary)
+                                .lineLimit(1)
                         }
                     }
-                    .padding(.trailing, 8)
+
+                    Spacer(minLength: 8)
+
+                    if isActive {
+                        LevelMeter(level: smoothedLevel, tint: color)
+                    } else if isEnabled {
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundColor(.rsTextTertiary)
+                    }
                 }
+                .padding(.horizontal, 14)
             }
-            .padding(.horizontal, 24)
-            .padding(.vertical, 32)
             .frame(maxWidth: .infinity)
-            .frame(height: 120)
+            .frame(height: 76)
             .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(isEnabled ? color : color.opacity(0.3))
+                RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
+                    .fill(isActive ? color.opacity(0.10) : Color.rsSurface1)
             )
-            .cardShadow(isEnabled ? .elevated : .subtle)
-            .opacity(isEnabled ? 1.0 : 0.5)
+            .overlay(
+                RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
+                    .strokeBorder(
+                        isActive ? color.opacity(0.5) : Color.rsStroke,
+                        lineWidth: EditorMetrics.hairline
+                    )
+            )
+            .clipShape(RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous))
+            .opacity(isEnabled ? 1 : 0.4)
         }
+        .buttonStyle(.plain)
         .disabled(!isEnabled)
-        .animation(.rsSpring, value: isEnabled)
-        .onChange(of: recordingLevel) { _, newLevel in
-            updateDotLevels(newLevel: CGFloat(newLevel))
+        .animation(.easeInOut(duration: 0.18), value: isEnabled)
+        .animation(.easeInOut(duration: 0.18), value: isActive)
+        .onChange(of: recordingLevel) { _, level in
+            // Momentum smoothing so the meter settles instead of flickering
+            smoothedLevel = smoothedLevel * 0.7 + CGFloat(level) * 0.3
         }
-        .onAppear {
-            // Start gentle base pulse
-            withAnimation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true)) {
-                basePulse = 0.1
+    }
+
+    private var iconWell: some View {
+        Image(systemName: icon)
+            .font(.system(size: 18, weight: .medium))
+            .foregroundColor(isActive ? color : .rsTextSecondary)
+            .frame(width: 40, height: 40)
+            .background(
+                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                    .fill(Color.rsSurface2)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                    .strokeBorder(Color.rsStroke, lineWidth: EditorMetrics.hairline)
+            )
+    }
+}
+
+// MARK: - Level Meter
+
+/// Four segments that fill from the bottom, like a channel strip. Reads as a meter
+/// at a glance, unlike the pulsing dots it replaces.
+struct LevelMeter: View {
+    let level: CGFloat
+    var tint: Color = .rsRecord
+    var barCount: Int = 4
+
+    var body: some View {
+        HStack(alignment: .bottom, spacing: 3) {
+            ForEach(0..<barCount, id: \.self) { index in
+                let threshold = CGFloat(index + 1) / CGFloat(barCount)
+                let isLit = level >= threshold * 0.85
+
+                RoundedRectangle(cornerRadius: 1, style: .continuous)
+                    .fill(isLit ? tint : Color.rsSurface3)
+                    .frame(width: 3, height: 8 + CGFloat(index) * 5)
             }
         }
-    }
-
-    // MARK: - Animation Helpers
-
-    private func dotScale(for index: Int) -> CGFloat {
-        let smoothedLevel = smoothedLevels[index]
-
-        // Base pulse when quiet (0.9-1.0)
-        let basePulseScale = 0.9 + basePulse
-
-        if smoothedLevel < 0.05 {
-            // Very quiet - just use base pulse
-            return basePulseScale
-        }
-
-        // Audio-reactive scaling: 0.7 (silent) to 1.5 (loud)
-        let minScale: CGFloat = 0.7
-        let maxScale: CGFloat = 1.5
-        let audioScale = minScale + (smoothedLevel * (maxScale - minScale))
-
-        // Blend base pulse with audio reactivity
-        return max(basePulseScale, audioScale)
-    }
-
-    private func updateDotLevels(newLevel: CGFloat) {
-        // Stagger delays: dot 0 gets full level, dot 1 and 2 get slightly delayed
-        let staggerFactor: [CGFloat] = [1.0, 0.85, 0.7]
-
-        for index in 0..<min(dotCount, 3) {
-            let targetLevel = newLevel * staggerFactor[index]
-
-            // Apply momentum smoothing (70% previous, 30% new)
-            let momentum: CGFloat = 0.7
-            smoothedLevels[index] = smoothedLevels[index] * momentum + targetLevel * (1 - momentum)
-        }
+        .animation(.easeOut(duration: 0.12), value: level)
     }
 }
 

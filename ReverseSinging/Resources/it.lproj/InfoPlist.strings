@@ -1,0 +1,6 @@
+/*
+   InfoPlist.strings (Italian)
+   ReverseSinging
+*/
+
+"NSMicrophoneUsageDescription" = "Reverso ha bisogno del microfono per registrare la tua voce, così puoi cantare le canzoni al contrario e doppiare le scene dei film.";

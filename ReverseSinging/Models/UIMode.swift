@@ -15,27 +15,38 @@ enum UIMode: String, Codable, CaseIterable {
     var displayName: String {
         switch self {
         case .simple:
-            return "Simple"
+            return Strings.Settings.Mode.simpleName
         case .complex:
-            return "Complex"
+            return Strings.Settings.Mode.complexName
         }
     }
 
     var description: String {
         switch self {
         case .simple:
-            return "Large buttons, minimal interface"
+            return Strings.Settings.Mode.simpleDescription
         case .complex:
-            return "Advanced controls and visualizations"
+            return Strings.Settings.Mode.complexDescription
         }
     }
 
-    var icon: String {
+    /// SF Symbol for the compact menu row. The illustrated asset below is for the Settings
+    /// screen, where there is room for it; a menu row wants a symbol.
+    var menuSymbol: String {
         switch self {
         case .simple:
-            return "rectangle.3.group"
+            return "square.grid.2x2"
         case .complex:
-            return "rectangle.grid.2x2"
+            return "waveform"
+        }
+    }
+
+    var settingsAssetName: String {
+        switch self {
+        case .simple:
+            return "settings-simple"
+        case .complex:
+            return "settings-complex"
         }
     }
 }

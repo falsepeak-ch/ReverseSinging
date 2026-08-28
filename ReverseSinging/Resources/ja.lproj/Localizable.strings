@@ -1,0 +1,269 @@
+/*
+   Localizable.strings (Japanese)
+   ReverseSinging
+*/
+
+// MARK: - Onboarding
+"onboarding.welcome.title" = "Reversoへようこそ";
+"onboarding.welcome.message" = "ゲームは2つ、必要なのはマイクだけ。歌を逆さまに歌うか、映画のワンシーンを自分の声でアフレコしよう。";
+"onboarding.howItWorks.title" = "遊び方";
+"onboarding.howItWorks.message" = "音声を録音して逆再生し、聞こえたとおりに歌って、もう一度ひっくり返せば、どれだけ近づけたかわかります。";
+"onboarding.dub.title" = "映画のシーンをアフレコ";
+"onboarding.dub.message" = "2つ目のゲーム：シーンを再生し、その上に自分の声を録音すると、映画の中の自分の声が聞こえます。シーンを2つ収録しています。ほかは動画ファイルをご自身で用意してください。";
+"onboarding.uiPreference.title" = "インターフェイスを選ぶ";
+"onboarding.uiPreference.message" = "使いやすいインターフェイスのスタイルを選んでください。逆再生シンギングに適用され、設定でいつでも変更できます。";
+"onboarding.microphone.title" = "最後にもうひとつ";
+"onboarding.microphone.message" = "どちらのゲームも声を録音して遊びます。歌を逆さまに歌ったり、映画のシーンをアフレコしたり。マイクがオンになるのは録音している間だけです。すべてこの端末内に保存され、どこにもアップロードされません。";
+"onboarding.button.openSettings" = "設定を開く";
+"onboarding.button.letsRecord" = "はい、録音しよう！";
+"onboarding.button.continueLowercase" = "続ける";
+"onboarding.button.microphoneContinue" = "続ける";
+"onboarding.button.continueWithout" = "許可せずに続ける";
+
+// MARK: - Main View - Buttons
+"main.button.stopRecording" = "録音を停止";
+"main.button.recordAudio" = "音声を録音";
+"main.button.recordAttempt" = "自分の歌を録音";
+"main.button.reRecord" = "録り直す";
+"main.button.newSession" = "新しいセッション";
+
+// MARK: - Simple Skin (buttons and their subtitles)
+"main.button.playRecorded" = "録音を再生";
+"main.button.playReverse" = "逆再生で聞く";
+"main.subtitle.recordingOriginal" = "元の音声を録音中";
+"main.subtitle.recordingAttempt" = "自分の歌を録音中";
+"main.subtitle.tapToRecord" = "タップして音声を録音";
+"main.subtitle.recordAttempt" = "自分の歌を録音";
+"main.subtitle.reRecordAttempt" = "自分の歌を録り直す";
+"main.subtitle.playAttempt" = "自分の歌を再生";
+"main.subtitle.playOriginal" = "元の録音を再生";
+"main.subtitle.noRecording" = "録音がありません";
+"main.subtitle.playReversedAttempt" = "自分の歌を逆再生";
+"main.subtitle.playReversedOriginal" = "元の録音を逆再生";
+"main.subtitle.noReversed" = "逆再生の音声がありません";
+"settings.version" = "バージョン %@（%@）";
+
+// MARK: - Main View - Alerts
+"main.alert.microphoneRequired.title" = "マイクへのアクセスが必要です";
+"main.alert.microphoneRequired.message" = "音声を録音するには、設定でマイクへのアクセスを許可してください。";
+"main.alert.settings" = "設定";
+"main.alert.cancel" = "キャンセル";
+"main.alert.error.title" = "エラー";
+"main.alert.ok" = "OK";
+"main.alert.startNewSession.title" = "新しいセッションを始めますか？";
+"main.alert.startNewSession.message" = "現在のセッションはアーカイブに保存されます。新しい録音セッションが始まります。";
+"main.alert.startNewSession.button" = "新しいセッションを開始";
+
+// MARK: - Main View - Empty State
+"main.emptyState.title" = "マイクへのアクセスが必要です";
+"main.emptyState.message" = "Reversoを使うには、端末の設定でマイクへのアクセスを許可してください。音声の録音と逆再生ができるようになります。";
+"main.emptyState.button" = "設定を開く";
+
+// MARK: - Main View - Processing & Success
+"main.processing.reversingAudio" = "音声を逆再生中…";
+"main.success.sessionSaved" = "セッションを保存しました！";
+
+// MARK: - Main View - Tips (Contextual Help)
+"main.tip.tapRecordToBegin" = "「音声を録音」をタップして開始";
+"main.tip.recordSingingAttempt" = "自分の歌を録音しましょう";
+"main.tip.recordSongToReverse" = "逆再生したい曲を録音しましょう";
+"main.tip.tapPlayToSwitch" = "タップで再生／停止";
+"main.tip.reRecordOrNewSession" = "録り直すか、新しいセッションを開始";
+"main.tip.listenAndRecord" = "逆再生の音声を聞いてから録音";
+"main.tip.processingAudio" = "音声を処理中です。お待ちください…";
+"main.tip.tapRecordAudio" = "「音声を録音」をタップして曲を録音";
+
+// MARK: - Comparison View
+
+// MARK: - Comparison View - Score Messages
+
+// MARK: - Session List View
+"sessionList.title" = "保存したセッション";
+"sessionList.empty.title" = "保存したセッションがありません";
+"sessionList.empty.message" = "逆再生シンギングのセッションを終えて保存すると、ここに表示されます。";
+
+// MARK: - Recording Type Labels
+"recordingType.original" = "オリジナル";
+"recordingType.reversed" = "逆再生";
+"recordingType.attempt" = "自分の歌";
+"recordingType.reversedAttempt" = "逆再生した歌";
+"recordingType.imported" = "読み込み済み";
+
+// MARK: - Timer Card
+"timerCard.deviceMicrophone" = "端末のマイク（標準）";
+"timerCard.mins" = "分";
+"timerCard.secs" = "秒";
+"timerCard.playAudio" = "音声を再生";
+"timerCard.audioControls" = "オーディオ操作";
+"timerCard.loop" = "ループ";
+"timerCard.speed" = "速度";
+"timerCard.pitch" = "ピッチ";
+"timerCard.semitones" = "半音";
+
+// MARK: - Score Card
+"scoreCard.title" = "スコア";
+"scoreCard.grade.perfectMatch" = "完全一致！";
+"scoreCard.grade.excellent" = "素晴らしい！";
+"scoreCard.grade.greatJob" = "お見事！";
+"scoreCard.grade.veryGood" = "とても良い！";
+"scoreCard.grade.goodEffort" = "いい調子！";
+"scoreCard.grade.niceTry" = "惜しい！";
+"scoreCard.grade.keepPracticing" = "練習あるのみ！";
+"scoreCard.grade.tryAgain" = "もう一度！";
+
+// MARK: - Processing Indicator
+
+// MARK: - Recording Indicator
+"recording.indicator" = "録音中";
+
+// MARK: - Success Celebration
+
+// MARK: - Audio Session Model
+"session.defaultName" = "セッション";
+
+// MARK: - Error Messages
+"error.microphonePermissionRequired" = "マイクの許可が必要です。設定で有効にしてください。";
+"error.cannotStartRecording" = "今は録音を開始できません。もう一度お試しください。";
+"error.noRecordingInProgress" = "録音中ではありません。";
+"error.failedToStopRecording" = "録音を正しく停止できませんでした。";
+"error.failedToProcessRecording" = "録音を処理できませんでした。";
+
+// MARK: - Settings
+"settings.title" = "設定";
+"settings.interface" = "インターフェイス";
+"uiMode.simple.name" = "シンプル";
+"uiMode.simple.description" = "大きなボタン、最小限の画面";
+"uiMode.complex.name" = "詳細";
+"uiMode.complex.description" = "高度なコントロールと波形表示";
+"settings.preferences" = "操作と効果";
+"settings.about" = "このアプリについて";
+
+// Theme descriptions
+
+// Haptic feedback
+"settings.hapticFeedback" = "触覚フィードバック";
+"settings.hapticFeedback.desc" = "タップ時に振動します";
+
+// About
+"settings.privacyPolicy" = "プライバシーポリシー";
+"settings.privacyPolicy.desc" = "プライバシーポリシーを読む";
+"settings.builtInSwitzerland" = "スイス製";
+"settings.builtInSwitzerland.desc" = "チューリッヒで丁寧に作りました";
+
+// MARK: - Dub Mode
+"dub.unknownAuthor" = "作者不明";
+"dub.importPack" = "パックを読み込む";
+"dub.importing" = "パックを読み込み中…";
+"dub.delete" = "削除";
+"dub.empty.title" = "パックがありません";
+"dub.empty.message" = "「ファイル」からパックのフォルダか.zipを読み込むと、自分の声でシーンをアフレコできます。";
+"dub.playOriginal" = "オリジナルを見る";
+"dub.playMyDub" = "自分のアフレコを再生";
+"dub.record" = "アフレコを始める";
+"dub.continueRecording" = "アフレコを続ける";
+"dub.export" = "動画を書き出す";
+"dub.lines" = "セリフ";
+"dub.attribution" = "出典";
+"dub.listen" = "聞く";
+"dub.stop" = "停止";
+"dub.recordTake" = "録音";
+"dub.next" = "次へ";
+"dub.previous" = "前へ";
+"dub.recordingHint" = "セリフを言いながら、元の音にテンポを合わせてください。";
+"dub.listenHint" = "まず聞いてから、自分のテイクを録音しましょう。";
+"dub.original" = "オリジナル";
+"dub.myDub" = "自分のアフレコ";
+"dub.noTakesYet" = "まずセリフを1つ録音";
+"dub.exporting" = "書き出し中…";
+"dub.export.mixing" = "音声をミックス中…";
+"dub.export.rendering" = "動画をレンダリング中…";
+"dub.error.missingPackInfo" = "このフォルダはアフレコパックではありません。_pack_info.ini ファイルがありません。";
+"dub.error.noLines" = "このパックには使えるセリフがありません。";
+"dub.error.missingAsset" = "パックに必要なファイルがありません：%@";
+"dub.error.notAFolder" = "アフレコパックのフォルダか.zipアーカイブを選んでください。";
+"dub.error.unreadableArchive" = "そのアーカイブを開けませんでした：%@";
+"dub.error.nothingRecorded" = "書き出す前に、セリフを1つ以上録音してください。";
+"dub.error.exportFailed" = "書き出しに失敗しました：%@";
+"dub.playTake" = "自分のテイクを再生";
+"dub.loadingScene" = "シーンを読み込み中…";
+
+// MARK: - Editor Chrome
+"session.archiveTitle" = "アーカイブ";
+"main.section.transport" = "トランスポート";
+"main.state.idle" = "待機";
+"main.state.recording" = "録音";
+"main.state.playing" = "再生";
+"main.state.processing" = "処理";
+"main.state.error" = "エラー";
+"main.state.countingIn" = "カウント中";
+"main.section.hint" = "次へ";
+"dub.packsSection" = "パック";
+"dub.slate.lines" = "録音済み";
+"dub.slate.duration" = "尺";
+"dub.slate.cast" = "キャスト";
+"settings.soundEffects" = "効果音";
+"settings.soundEffects.desc" = "カチンコ、操作音、書き出し音";
+
+// Headphone monitoring
+"settings.headphoneMonitor" = "ヘッドフォンでオリジナルを再生";
+"settings.headphoneMonitor.desc" = "録音しながらお手本のセリフを聞けます。スピーカーだと自分のテイクに入ってしまうので、ヘッドフォン専用です。";
+"settings.headphoneMonitor.unavailable" = "ヘッドフォンが接続されていません";
+
+// MARK: - Game Modes
+"main.mode.section" = "モード";
+"main.mode.reverse.title" = "逆再生シンギング";
+"main.mode.dub.title" = "映画アフレコ";
+"main.button.back" = "戻る";
+"main.mode.reverse.subtitle" = "曲を録音して逆再生し、逆さまに歌おう";
+"main.mode.dub.subtitle" = "映画のシーンを自分の声でアフレコしよう";
+"dub.speakerAccessibility" = "%@のセリフ";
+"dub.cast" = "キャスト";
+"dub.referenceTrack" = "リファレンス";
+"dub.yourTake" = "自分のテイク";
+"dub.convertingVideo" = "シーンの動画を変換中…";
+"dub.importReading" = "パックを読み込み中…";
+
+// MARK: - Dub Content Gate
+"dubGate.close" = "閉じる";
+"dubGate.ask.title" = "映画のファイルはお持ちですか？";
+"dubGate.ask.message" = "収録されているサンプルのシーン以外、映画の提供や配信はしていません。ほかのものをアフレコするには、動画ファイルをこの端末に保存しておいてください。";
+"dubGate.ask.confirm" = "はい、持っています";
+"dubGate.ask.needDownload" = "いいえ、ダウンロードが必要です";
+"dubGate.download.title" = "入手先について";
+"dubGate.download.message" = "こうしたファイルを共有している場所のひとつです。アフレコしたいものを入手したら、戻ってきてください。";
+"dubGate.download.open" = "%@を開く";
+"dubGate.download.back" = "戻る";
+"dubGate.disclaimer.notAffiliated" = "%@ は別の人たちが運営しているサイトです。私たちとは関係がなく、ファイルの提供や配信もしていません。";
+"dubGate.disclaimer.responsibility" = "ダウンロードするものを使う権利があるか確認し、お住まいの地域の著作権のルールを守ってください。";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "共有する前に";
+"dubShare.message" = "書き出す動画は、元のシーンに自分の声を重ねたものです。つまり、自分の作品であると同時に、ほかの人の作品でもあります。";
+"dubShare.cutFrom" = "出典：%@";
+"dubShare.keepCredit" = "公開するときは、このクレジットも一緒に表示してください。";
+"dubShare.unknownSource" = "このシーンはご自身で用意したものなので、使い方はおまかせします。";
+"dubShare.responsibility" = "どこで共有するかはご自身の判断です。お住まいの地域の著作権のルールを守ってください。";
+"dubShare.confirm" = "動画を書き出す";
+
+/* MARK: - Dub Scoring */
+"dub.installingStarterPacks" = "最初のシーンを準備しています…";
+"dub.options" = "アフレコ設定";
+"dub.score.setting.title" = "テイクを採点する";
+"dub.score.setting.detail" = "入り・テンポ・演技を採点します。";
+"dub.score.sceneTitle" = "シーンのスコア";
+"dub.score.notScoredYet" = "セリフを1つアフレコすると結果が表示されます。";
+"dub.score.slate" = "スコア";
+"dub.score.lineTitle" = "自分のテイク";
+"dub.score.timing" = "入り";
+"dub.score.pacing" = "テンポ";
+"dub.score.delivery" = "演技";
+"dub.score.best" = "ベストのセリフ";
+"dub.score.weakest" = "録り直したいセリフ";
+"dub.score.progress" = "セリフ %d / %d を採点";
+"dub.score.grade.perfect" = "ぴったり";
+"dub.score.grade.great" = "文句なし";
+"dub.score.grade.good" = "いいテイク";
+"dub.score.grade.close" = "あと少し";
+"dub.score.grade.rough" = "もう一度";
+
+"dub.videoNeedsReimport" = "このシーンの映像は以前のバージョンで変換されたため、音声より先行して再生されます。パックを再度読み込むと修正されます。";

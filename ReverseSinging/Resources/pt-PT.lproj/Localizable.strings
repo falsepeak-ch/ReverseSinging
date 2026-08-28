@@ -1,0 +1,269 @@
+/*
+   Localizable.strings (Portuguese - Portugal)
+   ReverseSinging
+*/
+
+// MARK: - Onboarding
+"onboarding.welcome.title" = "Bem-vindo ao Reverso";
+"onboarding.welcome.message" = "Dois jogos, um microfone: canta uma música ao contrário ou dobra uma cena de filme com a tua voz.";
+"onboarding.howItWorks.title" = "Como Funciona";
+"onboarding.howItWorks.message" = "Grava áudio, inverte-o, canta o que ouvires e depois volta a invertê-lo para veres se acertaste!";
+"onboarding.dub.title" = "Dobra uma Cena";
+"onboarding.dub.message" = "O segundo jogo: reproduz uma cena, grava a tua voz por cima e ouve-te dentro do filme. Vêm duas cenas incluídas. Para as outras, os ficheiros trazes tu!";
+"onboarding.uiPreference.title" = "Escolhe a tua Interface";
+"onboarding.uiPreference.message" = "Escolhe o estilo de interface que preferires. Aplica-se ao Canto Invertido e podes mudá-lo a qualquer momento nas Definições.";
+"onboarding.microphone.title" = "Só Mais Uma Coisa";
+"onboarding.microphone.message" = "Os dois jogos funcionam a gravar a tua voz: cantar uma música ao contrário ou dobrar uma cena de filme. O microfone só liga enquanto gravas. Fica tudo neste dispositivo e nunca é enviado nada.";
+"onboarding.button.openSettings" = "Abrir Definições";
+"onboarding.button.letsRecord" = "sim, vamos gravar!";
+"onboarding.button.continueLowercase" = "continuar";
+"onboarding.button.microphoneContinue" = "Continuar";
+"onboarding.button.continueWithout" = "continuar sem ele";
+
+// MARK: - Main View - Buttons
+"main.button.stopRecording" = "Parar Gravação";
+"main.button.recordAudio" = "Gravar Áudio";
+"main.button.recordAttempt" = "Grava a tua Tentativa";
+"main.button.reRecord" = "Voltar a Gravar";
+"main.button.newSession" = "Nova Sessão";
+
+// MARK: - Simple Skin (buttons and their subtitles)
+"main.button.playRecorded" = "Reproduzir gravação";
+"main.button.playReverse" = "Reproduzir ao contrário";
+"main.subtitle.recordingOriginal" = "A gravar o áudio original";
+"main.subtitle.recordingAttempt" = "A gravar a tua tentativa";
+"main.subtitle.tapToRecord" = "Toca para gravar áudio";
+"main.subtitle.recordAttempt" = "Grava a tua tentativa de canto";
+"main.subtitle.reRecordAttempt" = "Grava outra vez a tua tentativa";
+"main.subtitle.playAttempt" = "Reproduzir a tua tentativa";
+"main.subtitle.playOriginal" = "Reproduzir a gravação original";
+"main.subtitle.noRecording" = "Não há nenhuma gravação";
+"main.subtitle.playReversedAttempt" = "Reproduzir a tua tentativa ao contrário";
+"main.subtitle.playReversedOriginal" = "Reproduzir o original ao contrário";
+"main.subtitle.noReversed" = "Não há áudio invertido";
+"settings.version" = "Versão %@ (%@)";
+
+// MARK: - Main View - Alerts
+"main.alert.microphoneRequired.title" = "Acesso ao Microfone Necessário";
+"main.alert.microphoneRequired.message" = "Ativa o acesso ao microfone nas Definições para gravar áudio.";
+"main.alert.settings" = "Definições";
+"main.alert.cancel" = "Cancelar";
+"main.alert.error.title" = "Erro";
+"main.alert.ok" = "OK";
+"main.alert.startNewSession.title" = "Iniciar Nova Sessão?";
+"main.alert.startNewSession.message" = "A tua sessão atual será guardada no arquivo. Vai começar uma nova sessão de gravação.";
+"main.alert.startNewSession.button" = "Iniciar Nova Sessão";
+
+// MARK: - Main View - Empty State
+"main.emptyState.title" = "Acesso ao Microfone Necessário";
+"main.emptyState.message" = "Para usares o Reverso, ativa o acesso ao microfone nas definições do teu dispositivo. Assim podes gravar e inverter áudio.";
+"main.emptyState.button" = "Abrir Definições";
+
+// MARK: - Main View - Processing & Success
+"main.processing.reversingAudio" = "A inverter o áudio...";
+"main.success.sessionSaved" = "Sessão guardada!";
+
+// MARK: - Main View - Tips (Contextual Help)
+"main.tip.tapRecordToBegin" = "Toca em Gravar Áudio para começar";
+"main.tip.recordSingingAttempt" = "Grava a tua tentativa de canto";
+"main.tip.recordSongToReverse" = "Grava a música que queres inverter";
+"main.tip.tapPlayToSwitch" = "Toca em qualquer botão para reproduzir ou parar";
+"main.tip.reRecordOrNewSession" = "Volta a gravar ou inicia uma nova sessão";
+"main.tip.listenAndRecord" = "Ouve o áudio invertido e depois grava";
+"main.tip.processingAudio" = "A processar o áudio, aguarda...";
+"main.tip.tapRecordAudio" = "Toca em Gravar Áudio para gravar uma música";
+
+// MARK: - Comparison View
+
+// MARK: - Comparison View - Score Messages
+
+// MARK: - Session List View
+"sessionList.title" = "Sessões Guardadas";
+"sessionList.empty.title" = "Sem Sessões Guardadas";
+"sessionList.empty.message" = "Completa uma sessão de canto invertido e guarda-a para a veres aqui.";
+
+// MARK: - Recording Type Labels
+"recordingType.original" = "Original";
+"recordingType.reversed" = "Invertido";
+"recordingType.attempt" = "Tentativa";
+"recordingType.reversedAttempt" = "Tentativa Invertida";
+"recordingType.imported" = "Importado";
+
+// MARK: - Timer Card
+"timerCard.deviceMicrophone" = "Microfone do Dispositivo (Predefinido)";
+"timerCard.mins" = "MIN";
+"timerCard.secs" = "SEG";
+"timerCard.playAudio" = "Reproduzir Áudio";
+"timerCard.audioControls" = "Controlos de Áudio";
+"timerCard.loop" = "Ciclo";
+"timerCard.speed" = "Velocidade";
+"timerCard.pitch" = "Tom";
+"timerCard.semitones" = "semitons";
+
+// MARK: - Score Card
+"scoreCard.title" = "A tua Pontuação";
+"scoreCard.grade.perfectMatch" = "Perfeito!";
+"scoreCard.grade.excellent" = "Excelente!";
+"scoreCard.grade.greatJob" = "Muito Bem!";
+"scoreCard.grade.veryGood" = "Muito Bom!";
+"scoreCard.grade.goodEffort" = "Bom Esforço!";
+"scoreCard.grade.niceTry" = "Boa Tentativa!";
+"scoreCard.grade.keepPracticing" = "Continua a Praticar!";
+"scoreCard.grade.tryAgain" = "Tenta de Novo!";
+
+// MARK: - Processing Indicator
+
+// MARK: - Recording Indicator
+"recording.indicator" = "A GRAVAR";
+
+// MARK: - Success Celebration
+
+// MARK: - Audio Session Model
+"session.defaultName" = "Sessão";
+
+// MARK: - Error Messages
+"error.microphonePermissionRequired" = "É necessária permissão para o microfone. Ativa-a nas Definições.";
+"error.cannotStartRecording" = "Não é possível iniciar a gravação agora. Tenta de novo.";
+"error.noRecordingInProgress" = "Não há nenhuma gravação em curso.";
+"error.failedToStopRecording" = "Não foi possível parar a gravação corretamente.";
+"error.failedToProcessRecording" = "Não foi possível processar a gravação.";
+
+// MARK: - Settings
+"settings.title" = "Definições";
+"settings.interface" = "Interface";
+"uiMode.simple.name" = "Simples";
+"uiMode.simple.description" = "Botões grandes, interface mínima";
+"uiMode.complex.name" = "Completa";
+"uiMode.complex.description" = "Controlos avançados e visualizações";
+"settings.preferences" = "Preferências";
+"settings.about" = "Acerca de";
+
+// Theme descriptions
+
+// Haptic feedback
+"settings.hapticFeedback" = "Feedback Tátil";
+"settings.hapticFeedback.desc" = "Vibrações ao tocar";
+
+// About
+"settings.privacyPolicy" = "Política de Privacidade";
+"settings.privacyPolicy.desc" = "Lê a nossa política de privacidade";
+"settings.builtInSwitzerland" = "Feito na Suíça";
+"settings.builtInSwitzerland.desc" = "Feito com cuidado em Zurique";
+
+// MARK: - Dub Mode
+"dub.unknownAuthor" = "Autor desconhecido";
+"dub.importPack" = "Importar um pack";
+"dub.importing" = "A importar o pack…";
+"dub.delete" = "Eliminar";
+"dub.empty.title" = "Ainda não há packs";
+"dub.empty.message" = "Importa uma pasta ou um .zip da app Ficheiros para dobrares uma cena com a tua própria voz.";
+"dub.playOriginal" = "Ver original";
+"dub.playMyDub" = "Reproduzir a minha dobragem";
+"dub.record" = "Começar a dobrar";
+"dub.continueRecording" = "Continuar a dobrar";
+"dub.export" = "Exportar vídeo";
+"dub.lines" = "Falas";
+"dub.attribution" = "Origem";
+"dub.listen" = "Ouvir";
+"dub.stop" = "Parar";
+"dub.recordTake" = "Gravar";
+"dub.next" = "Seguinte";
+"dub.previous" = "Anterior";
+"dub.recordingHint" = "Diz a fala e acompanha o ritmo do original.";
+"dub.listenHint" = "Ouve primeiro e depois grava a tua take.";
+"dub.original" = "Original";
+"dub.myDub" = "A minha dobragem";
+"dub.noTakesYet" = "Grava pelo menos uma fala primeiro.";
+"dub.exporting" = "A exportar…";
+"dub.export.mixing" = "A misturar o áudio…";
+"dub.export.rendering" = "A renderizar o vídeo…";
+"dub.error.missingPackInfo" = "Essa pasta não é um pack de dobragem. Não tem o ficheiro _pack_info.ini.";
+"dub.error.noLines" = "Este pack não tem falas utilizáveis.";
+"dub.error.missingAsset" = "Falta ao pack um ficheiro necessário: %@";
+"dub.error.notAFolder" = "Escolhe uma pasta de pack ou um arquivo .zip.";
+"dub.error.unreadableArchive" = "Não foi possível abrir esse arquivo: %@";
+"dub.error.nothingRecorded" = "Grava pelo menos uma fala antes de exportar.";
+"dub.error.exportFailed" = "Falha na exportação: %@";
+"dub.playTake" = "Ouve a tua take";
+"dub.loadingScene" = "A carregar a cena…";
+
+// MARK: - Editor Chrome
+"session.archiveTitle" = "Arquivo";
+"main.section.transport" = "Transporte";
+"main.state.idle" = "INATIVO";
+"main.state.recording" = "GRAV";
+"main.state.playing" = "REPR";
+"main.state.processing" = "PROC";
+"main.state.error" = "ERRO";
+"main.state.countingIn" = "CONTAGEM";
+"main.section.hint" = "Seguinte";
+"dub.packsSection" = "Packs";
+"dub.slate.lines" = "Dobradas";
+"dub.slate.duration" = "Duração";
+"dub.slate.cast" = "Elenco";
+"settings.soundEffects" = "Efeitos sonoros";
+"settings.soundEffects.desc" = "Claquete, transporte e renderização";
+
+// Headphone monitoring
+"settings.headphoneMonitor" = "Original nos auscultadores";
+"settings.headphoneMonitor.desc" = "Ouve a fala que estás a imitar enquanto gravas. Só com auscultadores, porque pelo altifalante ia parar à tua take.";
+"settings.headphoneMonitor.unavailable" = "Não há auscultadores ligados";
+
+// MARK: - Game Modes
+"main.mode.section" = "Modo";
+"main.mode.reverse.title" = "Canto Invertido";
+"main.mode.dub.title" = "Dobragem de Cena";
+"main.button.back" = "Voltar";
+"main.mode.reverse.subtitle" = "Grava uma música, inverte-a e canta-a ao contrário";
+"main.mode.dub.subtitle" = "Dobra uma cena de filme com a tua voz";
+"dub.speakerAccessibility" = "Dito por %@";
+"dub.cast" = "Elenco";
+"dub.referenceTrack" = "Referência";
+"dub.yourTake" = "A tua take";
+"dub.convertingVideo" = "A converter o vídeo…";
+"dub.importReading" = "A ler o pack…";
+
+// MARK: - Dub Content Gate
+"dubGate.close" = "Fechar";
+"dubGate.ask.title" = "Já tens os teus filmes?";
+"dubGate.ask.message" = "Além das cenas de exemplo, não incluímos nem alojamos filmes. Para dobrares qualquer outra coisa, precisas do ficheiro já guardado neste dispositivo.";
+"dubGate.ask.confirm" = "Sim, já os tenho";
+"dubGate.ask.needDownload" = "Não, preciso de os transferir";
+"dubGate.download.title" = "Onde os obter";
+"dubGate.download.message" = "Aqui tens um sítio onde as pessoas partilham estes ficheiros. Vai buscar o que queres dobrar e volta!";
+"dubGate.download.open" = "Abrir %@";
+"dubGate.download.back" = "Voltar";
+"dubGate.disclaimer.notAffiliated" = "%@ é o site de outras pessoas. Não temos ligação com ele e não alojamos nem partilhamos ficheiros.";
+"dubGate.disclaimer.responsibility" = "Certifica-te de que tens o direito de usar o que descarregas e segue as regras de direitos de autor de onde vives.";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "Antes de partilhares";
+"dubShare.message" = "O teu vídeo tem a tua voz por cima da cena original, por isso inclui o trabalho de outra pessoa além do teu.";
+"dubShare.cutFrom" = "Retirado de %@";
+"dubShare.keepCredit" = "Se o publicares, mantém este crédito com ele.";
+"dubShare.unknownSource" = "Esta cena trouxeste-a tu, por isso sabes de onde veio e o que podes fazer com ela.";
+"dubShare.responsibility" = "Onde o partilhas é contigo, por isso segue as regras de direitos de autor de onde vives.";
+"dubShare.confirm" = "Exportar vídeo";
+
+/* MARK: - Dub Scoring */
+"dub.installingStarterPacks" = "A preparar as tuas primeiras cenas…";
+"dub.options" = "Opções de dobragem";
+"dub.score.setting.title" = "Pontuar as minhas takes";
+"dub.score.setting.detail" = "Pontua a tua entrada, ritmo e interpretação.";
+"dub.score.sceneTitle" = "Pontuação da cena";
+"dub.score.notScoredYet" = "Dobre uma fala para ver como está a correr.";
+"dub.score.slate" = "Pontos";
+"dub.score.lineTitle" = "A tua take";
+"dub.score.timing" = "Entrada";
+"dub.score.pacing" = "Ritmo";
+"dub.score.delivery" = "Interpretação";
+"dub.score.best" = "Melhor fala";
+"dub.score.weakest" = "Vale outra tentativa";
+"dub.score.progress" = "%d de %d falas pontuadas";
+"dub.score.grade.perfect" = "Em cheio";
+"dub.score.grade.great" = "Impecável";
+"dub.score.grade.good" = "Boa take";
+"dub.score.grade.close" = "Quase lá";
+"dub.score.grade.rough" = "Tenta outra vez";
+
+"dub.videoNeedsReimport" = "O vídeo desta cena foi convertido por uma versão anterior e está adiantado em relação às vozes. Importe o pack novamente para corrigir.";

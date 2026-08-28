@@ -1,0 +1,6 @@
+/*
+   InfoPlist.strings (Japanese)
+   ReverseSinging
+*/
+
+"NSMicrophoneUsageDescription" = "逆再生シンギングと映画アフレコで声を録音するために、Reversoがマイクを使用します。";

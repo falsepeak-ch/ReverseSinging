@@ -1,0 +1,11 @@
+app_identifier "com.falsepeak.reverse-singing-ios"
+username "contact@falsepeak.ch"
+
+# The app collects nothing for advertising.
+submission_information({
+  add_id_info_uses_idfa: false
+})
+
+# Never auto-submit or auto-release — review submission stays a manual choice.
+submit_for_review false
+automatic_release false

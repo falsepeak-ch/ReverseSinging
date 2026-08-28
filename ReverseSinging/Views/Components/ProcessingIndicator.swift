@@ -9,6 +9,12 @@ import SwiftUI
 
 struct ProcessingIndicator: View {
     let message: String
+    /// 0...1 when the work can be measured. Nil keeps the indeterminate spinner.
+    ///
+    /// Worth passing wherever the wait can run past a few seconds: converting a pack's
+    /// scene video takes a minute or more, and a spinner with no numbers on it is
+    /// indistinguishable from a hang.
+    var progress: Double? = nil
     @State private var isAnimating = false
     @State private var opacity: Double = 0
     @Environment(\.colorScheme) var colorScheme
@@ -19,7 +25,7 @@ struct ProcessingIndicator: View {
                 // Background circles
                 ForEach(0..<3) { index in
                     Circle()
-                        .stroke(Color.rsTurquoise.opacity(0.2), lineWidth: 2)
+                        .stroke(Color.rsStrokeStrong, lineWidth: 1)
                         .frame(width: 60 + CGFloat(index * 20), height: 60 + CGFloat(index * 20))
                         .scaleEffect(isAnimating ? 1.2 : 0.8)
                         .opacity(isAnimating ? 0 : 0.5)
@@ -33,8 +39,8 @@ struct ProcessingIndicator: View {
 
                 // Center icon
                 Image(systemName: "arrow.triangle.2.circlepath")
-                    .font(.system(size: 32, weight: .medium))
-                    .foregroundColor(.rsTurquoise)
+                    .font(.system(size: 28, weight: .medium))
+                    .foregroundColor(.rsTextSecondary)
                     .rotationEffect(.degrees(isAnimating ? 360 : 0))
                     .animation(
                         .linear(duration: 2.0)
@@ -45,16 +51,19 @@ struct ProcessingIndicator: View {
             .frame(height: 100)
 
             Text(message)
-                .font(.rsBodyMedium)
-                .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                .editorLabelStyle(.rsTextSecondary)
                 .opacity(opacity)
+
+            if let progress {
+                // Deliberately not gated on the fade-in `opacity`: the bar is the part that
+                // proves the app is still working, so it must not depend on an appearance
+                // animation having run.
+                progressBar(progress)
+            }
         }
-        .padding(40)
-        .background(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(Color.rsCardBackground(for: colorScheme))
-                .cardShadow(.elevated)
-        )
+        .padding(36)
+        .editorPanel(.rsSurface2)
+        .cardShadow(.floating)
         .onAppear {
             isAnimating = true
             withAnimation(.easeIn(duration: 0.3)) {
@@ -64,35 +73,37 @@ struct ProcessingIndicator: View {
     }
 }
 
-// MARK: - Compact Processing
+// MARK: - Determinate Bar
 
-struct CompactProcessingIndicator: View {
-    @State private var isRotating = false
-    @Environment(\.colorScheme) var colorScheme
+private extension ProcessingIndicator {
 
-    var body: some View {
-        HStack(spacing: 12) {
-            Image(systemName: "arrow.triangle.2.circlepath")
-                .font(.rsBodyMedium)
-                .foregroundColor(.rsTurquoise)
-                .rotationEffect(.degrees(isRotating ? 360 : 0))
-                .animation(
-                    .linear(duration: 1.5)
-                    .repeatForever(autoreverses: false),
-                    value: isRotating
-                )
-                .onAppear { isRotating = true }
+    /// A hairline track with a percentage. The same vocabulary as the transport chrome,
+    /// so a long job reads as progress rather than as a stall.
+    func progressBar(_ value: Double) -> some View {
+        let clamped = min(max(value, 0), 1)
 
-            Text(Strings.Processing.generic)
-                .font(.rsBodyMedium)
-                .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+        return VStack(spacing: 8) {
+            GeometryReader { geometry in
+                ZStack(alignment: .leading) {
+                    Rectangle()
+                        .fill(Color.rsSurface3)
+                        .frame(height: 3)
+
+                    Rectangle()
+                        .fill(Color.rsTextPrimary)
+                        .frame(width: geometry.size.width * clamped, height: 3)
+                }
+                .frame(maxHeight: .infinity, alignment: .center)
+            }
+            .frame(width: 180, height: 3)
+            .animation(.easeOut(duration: 0.2), value: clamped)
+
+            Text("\(Int(clamped * 100))%")
+                .font(.rsTimecodeSmall)
+                .foregroundColor(.rsTextTertiary)
+                .contentTransition(.numericText())
+                .animation(.easeOut(duration: 0.2), value: clamped)
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 10)
-        .background(
-            Capsule()
-                .fill(Color.rsTurquoise.opacity(0.1))
-        )
     }
 }
 
@@ -102,7 +113,7 @@ struct CompactProcessingIndicator: View {
     VStack(spacing: 40) {
         ProcessingIndicator(message: "Reversing audio...")
 
-        CompactProcessingIndicator()
+        ProcessingIndicator(message: "Converting scene video…", progress: 0.42)
     }
     .padding()
     .background(Color.rsBackground)

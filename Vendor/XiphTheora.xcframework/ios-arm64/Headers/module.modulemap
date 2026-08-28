@@ -1,0 +1,7 @@
+module XiphTheora {
+    header "ogg/ogg.h"
+    header "theora/codec.h"
+    header "theora/theoradec.h"
+    header "theora/theora.h"
+    export *
+}

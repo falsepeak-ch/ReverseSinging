@@ -1,0 +1,31 @@
+No account needed. Everything runs on device; nothing is uploaded. Firebase Analytics is used for anonymous app-usage statistics only (screen views, counts). It never records audio, recordings or file contents.
+
+ABOUT MOVIE SCENE DUB (new in 1.3.0)
+
+Reverso ships with two short example scenes, one animated and one classic. It does not host, provide or distribute any other film, clip or dialogue: there is no in-app catalogue, no search and no download. Every further scene is a file the user already has on their own device and imports themselves.
+
+1. "Camp Rules" (23s) is cut from "Sprite Fright" (Blender Studio, 2021), an open movie released by its rights holder under Creative Commons Attribution 4.0. CC BY expressly permits adaptation and redistribution; its one condition is credit.
+
+2. "Stuck Up" (35s) is cut from "The Outsider" (Centron Productions, 1951), a US classroom film published with copyright notice whose copyright was never renewed in its 28th year, and which is therefore in the US public domain. Verified against the Copyright Office's own records, whose post-1977 collection covers the whole 1979 renewal window: no motion-picture renewal for this title exists, and neither Centron nor the notice holder Young America Films renewed it, though both filed renewals on other titles in those years. Our full written record of that search is available on request.
+
+Both scenes state their own provenance in two places in the app: a source panel on the scene screen, and a notice before every export. Each names the film, the year, the producer, and the terms, with the licence and the source as tappable links.
+
+TWO NOTICES, BOTH SHOWN EVERY TIME
+
+Neither is a one-time consent that gets remembered and skipped.
+
+Before any import, the app asks whether the user already has the movie files. If they answer that they do not, a second panel states plainly. before any link is offered. that the destination is a third-party community site, that we are not affiliated with it, that we neither host nor distribute any files, and that the user is responsible for holding the rights to whatever they download and for obeying the copyright law where they live. Only then is an outbound Safari link offered.
+
+Before any export, the app states that the exported video is the user's voice mixed over the original scene and therefore contains someone else's work; it names that work and its terms; it asks the user to keep the credit with the video if they post it; and it says that sharing or publishing the export is the user's own act and that staying within the law where they live is their responsibility. For a scene the user imported themselves, it says instead that Reverso does not know who made it or on what terms.
+
+The gate is in ReverseSinging/Models/DubContentGate.swift and ReverseSinging/Views/Components/DubContentGateModal.swift; the export notice is in ReverseSinging/Views/Components/DubShareNoticeModal.swift.
+
+HOW TO TEST
+
+Open the app and tap "Movie Scene Dub". The two bundled scenes install themselves on first open, so the whole mode can be exercised without supplying anything: pick a scene, tap "Start Dubbing", record a line, then "Play My Dub" or "Export Video". The bottom of any scene's screen shows its source and licence panel, and "Export Video" opens the notice described above.
+
+To see the ownership gate, tap the "+" import button in the library. It appears every time. Reverse Singing, the other mode, needs only the microphone and a few seconds of any sound.
+
+MICROPHONE
+
+Microphone access is required for both modes because both record the user's voice, and the app explains this on its own screen during onboarding before the system prompt is shown. That screen's button reads "Continue" rather than "Allow", because tapping it opens the system prompt rather than granting anything. Recordings are written to the app's own container and never leave the device.

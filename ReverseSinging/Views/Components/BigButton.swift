@@ -47,14 +47,19 @@ struct BigButton: View {
 
                 Text(title)
                     .font(textFont ?? .rsButtonLarge)
+                    .tracking(0.4)
             }
             .frame(maxWidth: .infinity)
-            .frame(height: 56)
+            .frame(height: 52)
             .foregroundColor(textColor)
             .background(backgroundView)
-            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-            .scaleEffect(isPressed ? 0.97 : 1.0)
-            .contentShape(RoundedRectangle(cornerRadius: 12, style: .continuous))  // Makes entire button area tappable
+            .clipShape(RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
+                    .strokeBorder(borderColor, lineWidth: EditorMetrics.hairline)
+            )
+            .scaleEffect(isPressed ? 0.98 : 1.0)
+            .contentShape(RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous))  // Makes entire button area tappable
         }
         .buttonStyle(PressButtonStyle(isPressed: $isPressed))
         .disabled(!isEnabled || isLoading)
@@ -81,6 +86,18 @@ struct BigButton: View {
         }
     }
 
+    /// Secondary and disabled buttons are defined by their border rather than their
+    /// fill, which is what keeps the palette near-monochrome.
+    private var borderColor: Color {
+        guard isEnabled, !isLoading else { return .rsStroke }
+
+        switch style {
+        case .primary: return .clear
+        case .secondary: return .rsStrokeStrong
+        case .destructive: return .clear
+        }
+    }
+
     private var textColor: Color {
         if !isEnabled || isLoading {
             return .rsSecondaryText
@@ -96,40 +113,6 @@ struct BigButton: View {
         case .destructive:
             return .rsTextOnRed  // White on red
         }
-    }
-}
-
-// MARK: - Compact Button
-
-struct CompactButton: View {
-    let title: String
-    let icon: String
-    let action: () -> Void
-    var color: Color = .rsTurquoise
-
-    @State private var isPressed = false
-
-    var body: some View {
-        Button(action: {
-            HapticManager.shared.light()
-            action()
-        }) {
-            HStack(spacing: 8) {
-                Image(systemName: icon)
-                    .font(.rsButtonMedium)
-                Text(title)
-                    .font(.rsButtonMedium)
-            }
-            .foregroundColor(color)
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
-            .background(color.opacity(0.15))
-            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-            .scaleEffect(isPressed ? 0.95 : 1.0)
-            .contentShape(RoundedRectangle(cornerRadius: 8, style: .continuous))  // Makes entire button area tappable
-        }
-        .buttonStyle(PressButtonStyle(isPressed: $isPressed))
-        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isPressed)
     }
 }
 
@@ -182,11 +165,6 @@ struct PressButtonStyle: ButtonStyle {
             action: {},
             style: .destructive
         )
-
-        HStack {
-            CompactButton(title: "Speed", icon: "gauge", action: {})
-            CompactButton(title: "Loop", icon: "repeat", action: {})
-        }
     }
     .padding()
     .background(Color.rsBackground)

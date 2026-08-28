@@ -366,12 +366,6 @@ struct TimerCard: View {
         UIScreen.main.bounds.width / 4  // For 2 labels (MINS, SECS)
     }
 
-    private var formattedTime: String {
-        let minutes = Int(duration) / 60
-        let seconds = Int(duration) % 60
-        return String(format: "%02d:%02d", minutes, seconds)
-    }
-
     private var backgroundColor: Color {
         switch state {
         case .idle:
@@ -447,79 +441,6 @@ struct TimerCard: View {
     }
 }
 
-// MARK: - Compact Timer Card
-
-struct CompactTimerCard: View {
-    let duration: TimeInterval
-    let state: TimerCard.TimerState
-    @Environment(\.colorScheme) var colorScheme
-
-    var body: some View {
-        HStack {
-            Image(systemName: stateIcon)
-                .font(.rsBodyMedium)
-                .foregroundColor(textColor)
-
-            CompactAnimatedCounter(
-                value: duration,
-                font: .rsTimerSmall,
-                color: textColor
-            )
-
-            Spacer()
-        }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 16)
-        .background(backgroundColor)
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .cardShadow(.card)
-        .animation(.rsSpring, value: backgroundColor)
-    }
-
-    private var formattedTime: String {
-        let minutes = Int(duration) / 60
-        let seconds = Int(duration) % 60
-        return String(format: "%02d:%02d", minutes, seconds)
-    }
-
-    private var backgroundColor: Color {
-        switch state {
-        case .idle:
-            return Color.rsCardBackground(for: colorScheme)
-        case .recording:
-            return .rsRed
-        case .playing:
-            return .rsTurquoise
-        case .processing:
-            return .rsTurquoise
-        }
-    }
-
-    private var textColor: Color {
-        switch state {
-        case .idle:
-            return Color.rsTextAdaptive(for: colorScheme)
-        case .recording:
-            return .rsTextOnRed
-        case .playing, .processing:
-            return .rsTextOnTurquoise
-        }
-    }
-
-    private var stateIcon: String {
-        switch state {
-        case .idle:
-            return "waveform"
-        case .recording:
-            return "record.circle.fill"
-        case .playing:
-            return "play.circle.fill"
-        case .processing:
-            return "arrow.triangle.2.circlepath"
-        }
-    }
-}
-
 // MARK: - Preview
 
 #Preview("Timer Card - Recording") {
@@ -559,9 +480,6 @@ struct CompactTimerCard: View {
             onLoopToggle: { print("Loop toggled") },
             onPitchChange: { pitch in print("Pitch: \(pitch)") }
         )
-
-        CompactTimerCard(duration: 30.0, state: .recording)
-        CompactTimerCard(duration: 125.0, state: .playing)
     }
     .padding()
     .background(Color.rsBackground)

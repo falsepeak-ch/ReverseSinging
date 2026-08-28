@@ -13,36 +13,46 @@ final class AnalyticsManager {
 
     private init() {}
 
+    /// Every event goes through here so there is exactly one place that can turn
+    /// tracking off. A screenshot or app-preview run drives the app through seven
+    /// locales from a cold launch each time, and that is not usage.
+    private func log(_ name: String, parameters: [String: Any]? = nil) {
+        #if DEBUG
+        if ScreenshotMode.isActive { return }
+        #endif
+        Analytics.logEvent(name, parameters: parameters)
+    }
+
     // MARK: - App Lifecycle Events
 
     func trackAppLaunch() {
-        Analytics.logEvent("app_launch", parameters: nil)
+        log("app_launch", parameters: nil)
     }
 
     func trackOnboardingStarted() {
-        Analytics.logEvent("onboarding_started", parameters: nil)
+        log("onboarding_started", parameters: nil)
     }
 
     func trackOnboardingCompleted() {
-        Analytics.logEvent("onboarding_completed", parameters: nil)
+        log("onboarding_completed", parameters: nil)
     }
 
     // MARK: - Permission Events
 
     func trackPermissionRequested() {
-        Analytics.logEvent("permission_requested", parameters: [
+        log("permission_requested", parameters: [
             "permission_type": "microphone"
         ])
     }
 
     func trackPermissionGranted() {
-        Analytics.logEvent("permission_granted", parameters: [
+        log("permission_granted", parameters: [
             "permission_type": "microphone"
         ])
     }
 
     func trackPermissionDenied() {
-        Analytics.logEvent("permission_denied", parameters: [
+        log("permission_denied", parameters: [
             "permission_type": "microphone"
         ])
     }
@@ -50,39 +60,32 @@ final class AnalyticsManager {
     // MARK: - Recording Events
 
     func trackRecordingStarted(type: String) {
-        Analytics.logEvent("recording_started", parameters: [
+        log("recording_started", parameters: [
             "recording_type": type
         ])
     }
 
     func trackRecordingCompleted(type: String, duration: Double) {
-        Analytics.logEvent("recording_completed", parameters: [
+        log("recording_completed", parameters: [
             "recording_type": type,
             "duration_seconds": duration
-        ])
-    }
-
-    func trackRecordingFailed(type: String, error: String) {
-        Analytics.logEvent("recording_failed", parameters: [
-            "recording_type": type,
-            "error_message": error
         ])
     }
 
     // MARK: - Audio Processing Events
 
     func trackAudioReversalStarted() {
-        Analytics.logEvent("audio_reversal_started", parameters: nil)
+        log("audio_reversal_started", parameters: nil)
     }
 
     func trackAudioReversalCompleted(duration: Double) {
-        Analytics.logEvent("audio_reversal_completed", parameters: [
+        log("audio_reversal_completed", parameters: [
             "processing_time_seconds": duration
         ])
     }
 
     func trackAudioReversalFailed(error: String) {
-        Analytics.logEvent("audio_reversal_failed", parameters: [
+        log("audio_reversal_failed", parameters: [
             "error_message": error
         ])
     }
@@ -90,25 +93,25 @@ final class AnalyticsManager {
     // MARK: - Playback Events
 
     func trackPlaybackStarted(recordingType: String) {
-        Analytics.logEvent("playback_started", parameters: [
+        log("playback_started", parameters: [
             "recording_type": recordingType
         ])
     }
 
     func trackPlaybackSpeedChanged(speed: Double) {
-        Analytics.logEvent("playback_speed_changed", parameters: [
+        log("playback_speed_changed", parameters: [
             "speed": speed
         ])
     }
 
     func trackPlaybackLoopToggled(enabled: Bool) {
-        Analytics.logEvent("playback_loop_toggled", parameters: [
+        log("playback_loop_toggled", parameters: [
             "loop_enabled": enabled
         ])
     }
 
     func trackPlaybackPitchChanged(semitones: Int) {
-        Analytics.logEvent("playback_pitch_changed", parameters: [
+        log("playback_pitch_changed", parameters: [
             "semitones": semitones
         ])
     }
@@ -116,7 +119,7 @@ final class AnalyticsManager {
     // MARK: - Session Events
 
     func trackSessionStarted() {
-        Analytics.logEvent("session_started", parameters: nil)
+        log("session_started", parameters: nil)
     }
 
     func trackSessionCompleted(score: Double?) {
@@ -125,64 +128,70 @@ final class AnalyticsManager {
             params["similarity_score"] = score
             params["grade"] = getGrade(for: score)
         }
-        Analytics.logEvent("session_completed", parameters: params)
+        log("session_completed", parameters: params)
     }
 
     func trackSessionSaved(recordingsCount: Int) {
-        Analytics.logEvent("session_saved", parameters: [
+        log("session_saved", parameters: [
             "recordings_count": recordingsCount
         ])
     }
 
-    func trackSessionDeleted() {
-        Analytics.logEvent("session_deleted", parameters: nil)
-    }
-
     func trackSessionListViewed(sessionsCount: Int) {
-        Analytics.logEvent("session_list_viewed", parameters: [
+        log("session_list_viewed", parameters: [
             "saved_sessions_count": sessionsCount
         ])
     }
 
-    // MARK: - Re-recording Events
-
-    func trackReRecordAttempt() {
-        Analytics.logEvent("re_record_attempt", parameters: nil)
-    }
-
     func trackNewSessionFromExisting() {
-        Analytics.logEvent("new_session_from_existing", parameters: nil)
-    }
-
-    // MARK: - Comparison Events
-
-    func trackComparisonViewed(score: Double) {
-        Analytics.logEvent("comparison_viewed", parameters: [
-            "similarity_score": score,
-            "grade": getGrade(for: score)
-        ])
-    }
-
-    // MARK: - Error Events
-
-    func trackError(category: String, message: String) {
-        Analytics.logEvent("error_occurred", parameters: [
-            "error_category": category,
-            "error_message": message
-        ])
+        log("new_session_from_existing", parameters: nil)
     }
 
     // MARK: - Settings/Navigation Events
 
     func trackSettingsOpened() {
-        Analytics.logEvent("settings_opened", parameters: nil)
+        log("settings_opened", parameters: nil)
     }
 
     func trackScreenViewed(screenName: String) {
-        Analytics.logEvent(AnalyticsEventScreenView, parameters: [
+        log(AnalyticsEventScreenView, parameters: [
             AnalyticsParameterScreenName: screenName,
             AnalyticsParameterScreenClass: screenName
         ])
+    }
+
+    // MARK: - Dub Content Gate Events
+
+    func trackDubGateShown() {
+        log("dub_gate_shown", parameters: nil)
+    }
+
+    func trackDubGateOwnershipConfirmed() {
+        log("dub_gate_ownership_confirmed", parameters: nil)
+    }
+
+    func trackDubGateDownloadHelpOpened() {
+        log("dub_gate_download_help_opened", parameters: nil)
+    }
+
+    func trackDubGateExternalSourceOpened(source: String) {
+        log("dub_gate_external_source_opened", parameters: [
+            "source": source
+        ])
+    }
+
+    // MARK: - Dub Share Notice
+
+    /// Fired on every export attempt, so the accept rate below is a rate rather than a count.
+    /// `has_attribution` separates the shipped scenes from packs the user brought themselves.
+    func trackDubShareNoticeShown(hasAttribution: Bool) {
+        log("dub_share_notice_shown", parameters: [
+            "has_attribution": hasAttribution
+        ])
+    }
+
+    func trackDubShareNoticeAccepted() {
+        log("dub_share_notice_accepted", parameters: nil)
     }
 
     // MARK: - Helper Methods
@@ -200,9 +209,66 @@ final class AnalyticsManager {
         }
     }
 
+    // MARK: - Dub Mode
+
+    func trackDubPackImported(title: String, lineCount: Int) {
+        log("dub_pack_imported", parameters: [
+            "pack_title": title,
+            "line_count": lineCount
+        ])
+    }
+
+    func trackDubLineRecorded(lineIndex: Int, duration: Double) {
+        log("dub_line_recorded", parameters: [
+            "line_index": lineIndex,
+            "duration": duration
+        ])
+    }
+
+    /// How a single take scored. `timing` is reported alongside the overall so a run of low
+    /// scores can be told apart: everyone coming in late is a latency problem to fix, everyone
+    /// pacing badly is a hard scene.
+    func trackDubLineScored(lineIndex: Int, score: Double, timing: Double) {
+        log("dub_line_scored", parameters: [
+            "line_index": lineIndex,
+            "score": score,
+            "timing": timing
+        ])
+    }
+
+    /// Scoring is off by default, so this is how we learn whether anyone wants it.
+    func trackDubScoringToggled(enabled: Bool) {
+        log("dub_scoring_toggled", parameters: [
+            "enabled": enabled
+        ])
+    }
+
+    /// A whole scene's standing, logged when the user opens the summary.
+    func trackDubSceneScored(score: Double, recordedLines: Int, totalLines: Int) {
+        log("dub_scene_scored", parameters: [
+            "score": score,
+            "recorded_lines": recordedLines,
+            "total_lines": totalLines
+        ])
+    }
+
+    func trackDubPlaybackStarted(mode: String) {
+        log("dub_playback_started", parameters: [
+            "mode": mode
+        ])
+    }
+
+    func trackDubExported(lineCount: Int, recordedCount: Int, duration: Double) {
+        log("dub_exported", parameters: [
+            "line_count": lineCount,
+            "recorded_count": recordedCount,
+            "duration": duration
+        ])
+    }
+
     // MARK: - Custom Event
 
     func trackCustomEvent(name: String, parameters: [String: Any]? = nil) {
-        Analytics.logEvent(name, parameters: parameters)
+        log(name, parameters: parameters)
     }
 }

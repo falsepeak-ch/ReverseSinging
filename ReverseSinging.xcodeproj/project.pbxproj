@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB2AF10120250001000000A1 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = DB2AF10220250002000000A2 /* ZIPFoundation */; };
+		DB3AF20220250002000000B2 /* XiphTheora.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB3AF20120250002000000B1 /* XiphTheora.xcframework */; };
 		E2CE0E60FF574C54BA229923 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		FF2EE2D92EAF91B100549684 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = FF3C44EB2EAF8B000055F61C /* FirebaseCore */; };
 		FF2EE3E72EB028B600549684 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = FF2EE3E62EB028B600549684 /* FirebaseCrashlytics */; };
@@ -24,6 +26,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DB3AF20120250002000000B1 /* XiphTheora.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = XiphTheora.xcframework; path = Vendor/XiphTheora.xcframework; sourceTree = "<group>"; };
 		FFA267C62EA6B026008518FC /* ReverseSinging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReverseSinging.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFA267D32EA6B028008518FC /* ReverseSingingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReverseSingingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -62,6 +65,8 @@
 				FF2EE2D92EAF91B100549684 /* FirebaseCore in Frameworks */,
 				FF2EE3E72EB028B600549684 /* FirebaseCrashlytics in Frameworks */,
 				FF2EE5362EB135D500549684 /* FirebaseAnalytics in Frameworks */,
+				DB2AF10120250001000000A1 /* ZIPFoundation in Frameworks */,
+				DB3AF20220250002000000B2 /* XiphTheora.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 		FF2EE3E52EB028B600549684 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DB3AF20120250002000000B1 /* XiphTheora.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -179,11 +185,16 @@
 				Base,
 				es,
 				ca,
+				it,
+				fr,
+				"pt-PT",
+				ja,
 			);
 			mainGroup = FFA267BD2EA6B026008518FC;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				DB2AF10320250003000000A3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FFA267C72EA6B026008518FC /* Products */;
@@ -367,14 +378,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 4YGWZWHTHM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReverseSinging/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Reverso;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Reverse Singing needs microphone access to record your voice for the reverse singing challenge.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Reverso needs microphone access to record your voice, so you can sing songs backwards and dub movie scenes.";
 				INFOPLIST_KEY_UIAppFonts = Eugello.ttf;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -385,7 +396,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.falsepeak.reverse-singing-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -408,14 +419,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 4YGWZWHTHM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReverseSinging/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Reverso;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Reverse Singing needs microphone access to record your voice for the reverse singing challenge.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Reverso needs microphone access to record your voice, so you can sing songs backwards and dub movie scenes.";
 				INFOPLIST_KEY_UIAppFonts = Eugello.ttf;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -426,7 +437,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.falsepeak.reverse-singing-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -520,6 +531,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		DB2AF10320250003000000A3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.19;
+			};
+		};
 		FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -531,6 +550,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DB2AF10220250002000000A2 /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB2AF10320250003000000A3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
 		FF2EE3E62EB028B600549684 /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

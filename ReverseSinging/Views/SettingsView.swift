@@ -7,22 +7,33 @@
 
 import SwiftUI
 
+/// Which settings a presentation is allowed to show.
+///
+/// The menu owns nothing but the app itself, so opening settings from there must
+/// not offer choices that belong to one game. The Simple/Complex interface is a
+/// property of reverse singing, and is meaningless before a game is picked.
+enum SettingsScope {
+    case app
+    case reverseSinging
+}
+
 struct SettingsView: View {
     @ObservedObject var viewModel: AudioViewModel
+
+    /// Defaults to the narrow set; a game screen opts in to its own options.
+    var scope: SettingsScope = .app
+
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var systemColorScheme
+    @State private var soundsOn = SoundManager.shared.isEnabled
 
-    // Computed effective color scheme based on theme mode
-    private var effectiveColorScheme: ColorScheme {
-        switch viewModel.appState.themeMode {
-        case .system:
-            return systemColorScheme
-        case .light:
-            return .light
-        case .dark:
-            return .dark
-        }
-    }
+    /// A singleton, so observed rather than owned. The route it reports is the device's,
+    /// not this screen's.
+    @ObservedObject private var headphones = HeadphoneMonitor.shared
+
+    /// The interface is dark-only; kept as a constant so the many call sites below
+    /// don't each need rewriting.
+    private var effectiveColorScheme: ColorScheme { .dark }
 
     var body: some View {
         NavigationStack {
@@ -31,13 +42,12 @@ struct SettingsView: View {
 
                 ScrollView {
                     VStack(spacing: 24) {
-                        // Theme Selector
-                        themeSection
-                            .slideIn(delay: 0.1)
-
-                        // UI Mode Selector
-                        uiModeSection
-                            .slideIn(delay: 0.15)
+                        // The interface choice belongs to reverse singing, so it
+                        // only appears when settings are opened from that game.
+                        if scope == .reverseSinging {
+                            uiModeSection
+                                .slideIn(delay: 0.15)
+                        }
 
                         // Haptic Feedback
                         hapticsSection
@@ -57,7 +67,6 @@ struct SettingsView: View {
                     .padding(.bottom, 40)
                 }
             }
-            .id(viewModel.appState.themeMode)
             .navigationTitle(Strings.Settings.title)
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
@@ -80,126 +89,7 @@ struct SettingsView: View {
         .preferredColorScheme(preferredColorScheme)
     }
 
-    private var preferredColorScheme: ColorScheme? {
-        switch viewModel.appState.themeMode {
-        case .system:
-            return nil
-        case .light:
-            return .light
-        case .dark:
-            return .dark
-        }
-    }
-
-    // MARK: - Theme Section
-
-    private var themeSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            sectionHeader(
-                title: Strings.Settings.appearance,
-                icon: "paintbrush.fill"
-            )
-
-            VStack(spacing: 8) {
-                ForEach(ThemeMode.allCases, id: \.self) { mode in
-                    themeOption(mode)
-                }
-            }
-        }
-    }
-
-    private func themeOption(_ mode: ThemeMode) -> some View {
-        Button(action: {
-            withAnimation(.rsBouncy) {
-                viewModel.setThemeMode(mode)
-            }
-            HapticManager.shared.medium()
-        }) {
-            HStack(spacing: 14) {
-                // Icon with gradient background
-                ZStack {
-                    Circle()
-                        .fill(
-                            LinearGradient(
-                                colors: viewModel.appState.themeMode == mode ?
-                                    [Color.rsTurquoise, Color.rsTurquoise.opacity(0.8)] :
-                                    [Color.rsSecondaryTextAdaptive(for: effectiveColorScheme).opacity(0.15), Color.rsSecondaryTextAdaptive(for: effectiveColorScheme).opacity(0.1)],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .frame(width: 44, height: 44)
-
-                    Image(systemName: iconForMode(mode))
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundStyle(
-                            viewModel.appState.themeMode == mode ?
-                                LinearGradient(colors: [.white, .white], startPoint: .topLeading, endPoint: .bottomTrailing) :
-                                LinearGradient(colors: [Color.rsSecondaryTextAdaptive(for: effectiveColorScheme), Color.rsSecondaryTextAdaptive(for: effectiveColorScheme)], startPoint: .topLeading, endPoint: .bottomTrailing)
-                        )
-                }
-
-                // Text
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(mode.rawValue)
-                        .font(.rsBodyLarge)
-                        .foregroundColor(Color.rsTextAdaptive(for: effectiveColorScheme))
-
-                    Text(descriptionForMode(mode))
-                        .font(.rsCaption)
-                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme))
-                }
-
-                Spacer()
-
-                // Checkmark
-                if viewModel.appState.themeMode == mode {
-                    Image(systemName: "checkmark.circle.fill")
-                        .font(.system(size: 22))
-                        .foregroundStyle(Color.rsTurquoise)
-                        .transition(.scale.combined(with: .opacity))
-                }
-            }
-            .padding(16)
-            .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .stroke(
-                                viewModel.appState.themeMode == mode ?
-                                    Color.rsTurquoise.opacity(0.4) :
-                                    Color.rsTurquoise.opacity(0.15),
-                                lineWidth: viewModel.appState.themeMode == mode ? 1.5 : 1
-                            )
-                    )
-            )
-            .cardShadow(viewModel.appState.themeMode == mode ? .elevated : .card)
-        }
-        .buttonStyle(ScaleButtonStyle())
-    }
-
-    private func iconForMode(_ mode: ThemeMode) -> String {
-        switch mode {
-        case .system:
-            return "circle.lefthalf.filled"
-        case .light:
-            return "sun.max.fill"
-        case .dark:
-            return "moon.fill"
-        }
-    }
-
-    private func descriptionForMode(_ mode: ThemeMode) -> String {
-        switch mode {
-        case .system:
-            return Strings.Settings.themeSystemDesc
-        case .light:
-            return Strings.Settings.themeLightDesc
-        case .dark:
-            return Strings.Settings.themeDarkDesc
-        }
-    }
+    private var preferredColorScheme: ColorScheme? { .dark }
 
     // MARK: - UI Mode Section
 
@@ -226,28 +116,10 @@ struct SettingsView: View {
             HapticManager.shared.medium()
         }) {
             HStack(spacing: 14) {
-                // Icon with gradient background
-                ZStack {
-                    Circle()
-                        .fill(
-                            LinearGradient(
-                                colors: viewModel.appState.uiMode == mode ?
-                                    [Color.rsTurquoise, Color.rsTurquoise.opacity(0.8)] :
-                                    [Color.rsSecondaryTextAdaptive(for: effectiveColorScheme).opacity(0.15), Color.rsSecondaryTextAdaptive(for: effectiveColorScheme).opacity(0.1)],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .frame(width: 44, height: 44)
-
-                    Image(systemName: mode.icon)
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundStyle(
-                            viewModel.appState.uiMode == mode ?
-                                LinearGradient(colors: [.white, .white], startPoint: .topLeading, endPoint: .bottomTrailing) :
-                                LinearGradient(colors: [Color.rsSecondaryTextAdaptive(for: effectiveColorScheme), Color.rsSecondaryTextAdaptive(for: effectiveColorScheme)], startPoint: .topLeading, endPoint: .bottomTrailing)
-                        )
-                }
+                settingsIcon(
+                    mode.settingsAssetName,
+                    isActive: viewModel.appState.uiMode == mode
+                )
 
                 // Text
                 VStack(alignment: .leading, spacing: 3) {
@@ -272,10 +144,10 @@ struct SettingsView: View {
             }
             .padding(16)
             .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                     .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
                     .overlay(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                             .stroke(
                                 viewModel.appState.uiMode == mode ?
                                     Color.rsTurquoise.opacity(0.4) :
@@ -298,45 +170,10 @@ struct SettingsView: View {
                 icon: "slider.horizontal.3"
             )
 
-            HStack(spacing: 14) {
-                // Icon
-                ZStack {
-                    Circle()
-                        .fill(
-                            LinearGradient(
-                                colors: viewModel.appState.hapticsEnabled ?
-                                    [Color.rsTurquoise, Color.rsTurquoise.opacity(0.8)] :
-                                    [Color.rsSecondaryTextAdaptive(for: effectiveColorScheme).opacity(0.15), Color.rsSecondaryTextAdaptive(for: effectiveColorScheme).opacity(0.1)],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .frame(width: 44, height: 44)
-
-                    Image(systemName: "waveform")
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundStyle(
-                            viewModel.appState.hapticsEnabled ?
-                                LinearGradient(colors: [.white, .white], startPoint: .topLeading, endPoint: .bottomTrailing) :
-                                LinearGradient(colors: [Color.rsSecondaryTextAdaptive(for: effectiveColorScheme), Color.rsSecondaryTextAdaptive(for: effectiveColorScheme)], startPoint: .topLeading, endPoint: .bottomTrailing)
-                        )
-                }
-
-                // Text
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(Strings.Settings.hapticFeedback)
-                        .font(.rsBodyLarge)
-                        .foregroundColor(Color.rsTextAdaptive(for: effectiveColorScheme))
-
-                    Text(Strings.Settings.hapticFeedbackDesc)
-                        .font(.rsCaption)
-                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme))
-                }
-
-                Spacer()
-
-                // Toggle
-                Toggle("", isOn: Binding(
+            SettingsToggleRow(
+                title: Strings.Settings.hapticFeedback,
+                subtitle: Strings.Settings.hapticFeedbackDesc,
+                isOn: Binding(
                     get: { viewModel.appState.hapticsEnabled },
                     set: { newValue in
                         viewModel.setHapticsEnabled(newValue)
@@ -344,20 +181,62 @@ struct SettingsView: View {
                             HapticManager.shared.medium()
                         }
                     }
-                ))
-                .tint(.rsTurquoise)
+                )
+            ) {
+                settingsIcon(
+                    "settings-haptics",
+                    isActive: viewModel.appState.hapticsEnabled
+                )
             }
-            .padding(16)
-            .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .stroke(Color.rsTurquoise.opacity(0.15), lineWidth: 1)
-                    )
-            )
-            .cardShadow(.card)
+
+            soundRow
+
+            headphoneMonitorRow
         }
+    }
+
+    /// Interface sound effects, the clapper, the transport clicks, the render chime.
+    private var soundRow: some View {
+        SettingsToggleRow(
+            title: Strings.Settings.soundEffects,
+            subtitle: Strings.Settings.soundEffectsDesc,
+            isOn: Binding(
+                get: { soundsOn },
+                set: { newValue in
+                    viewModel.setSoundsEnabled(newValue)
+                    soundsOn = newValue
+                }
+            )
+        ) {
+            settingsIcon("settings-sound", isActive: soundsOn)
+        }
+    }
+
+    /// Whether the original plays to the performer during a take. Only possible on
+    /// headphones, so the row says as much when nothing is plugged in rather than offering a
+    /// switch that quietly does nothing.
+    private var headphoneMonitorRow: some View {
+        SettingsToggleRow(
+            title: Strings.Settings.headphoneMonitor,
+            subtitle: headphones.isHeadphonesConnected
+                ? Strings.Settings.headphoneMonitorDesc
+                : Strings.Settings.headphoneMonitorUnavailable,
+            isOn: $headphones.isEnabled
+        ) {
+            settingsIcon("headphones", isActive: headphones.isHeadphonesConnected)
+        }
+        .onAppear { headphones.refresh() }
+    }
+
+    /// Settings illustrations stay colorful when active and become neutral when unavailable.
+    private func settingsIcon(_ assetName: String, isActive: Bool = true) -> some View {
+        Image(assetName)
+            .resizable()
+            .scaledToFit()
+            .frame(width: 44, height: 44)
+            .saturation(isActive ? 1 : 0)
+            .opacity(isActive ? 1 : 0.45)
+            .accessibilityHidden(true)
     }
 
     // MARK: - About Section
@@ -379,24 +258,7 @@ struct SettingsView: View {
     private var privacyPolicyButton: some View {
         Button(action: openPrivacyPolicy) {
             HStack(spacing: 14) {
-                // Icon
-                ZStack {
-                    Circle()
-                        .fill(
-                            LinearGradient(
-                                colors: [Color.rsTurquoise, Color.rsTurquoise.opacity(0.8)],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .frame(width: 44, height: 44)
-
-                    Image(systemName: "hand.raised.fill")
-                        .font(.system(size: 18, weight: .semibold))
-                        .foregroundStyle(
-                            LinearGradient(colors: [.white, .white], startPoint: .topLeading, endPoint: .bottomTrailing)
-                        )
-                }
+                settingsIcon("settings-privacy")
 
                 // Text
                 VStack(alignment: .leading, spacing: 3) {
@@ -404,7 +266,7 @@ struct SettingsView: View {
                         .font(.rsBodyLarge)
                         .foregroundColor(Color.rsTextAdaptive(for: effectiveColorScheme))
 
-                    Text("Read our privacy policy")
+                    Text(Strings.Settings.privacyPolicyDesc)
                         .font(.rsCaption)
                         .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme))
                 }
@@ -418,10 +280,10 @@ struct SettingsView: View {
             }
             .padding(16)
             .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                     .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
                     .overlay(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                             .stroke(Color.rsTurquoise.opacity(0.15), lineWidth: 1)
                     )
             )
@@ -432,15 +294,7 @@ struct SettingsView: View {
 
     private var switzerlandCard: some View {
         HStack(spacing: 14) {
-            // Flag circle
-            ZStack {
-                Circle()
-                    .fill(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme).opacity(0.1))
-                    .frame(width: 44, height: 44)
-
-                Text("🇨🇭")
-                    .font(.system(size: 24))
-            }
+            settingsIcon("swiss-flag")
 
             // Text
             VStack(alignment: .leading, spacing: 3) {
@@ -457,10 +311,10 @@ struct SettingsView: View {
         }
         .padding(16)
         .background(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
+            RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                 .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                         .stroke(Color.rsTurquoise.opacity(0.15), lineWidth: 1)
                 )
         )
@@ -474,7 +328,7 @@ struct SettingsView: View {
             Spacer()
             if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
                let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
-                Text("Version \(version) (\(build))")
+                Text(String(format: Strings.Settings.version, version, build))
                     .font(.rsCaption)
                     .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme).opacity(0.5))
             }
@@ -528,4 +382,48 @@ struct ScaleButtonStyle: ButtonStyle {
     @Previewable @StateObject var viewModel = AudioViewModel()
 
     SettingsView(viewModel: viewModel)
+}
+
+/// A preference: what it is and its switch on one line, the explanation on its own line
+/// underneath.
+///
+/// The explanation used to sit beside the switch, sharing the row's width with the icon and
+/// the title. A column narrow enough that "Haptic Feedback" broke onto two lines and the
+/// descriptions onto three. Given the full width below the row instead, the titles fit on one
+/// line and the copy reads as a sentence.
+private struct SettingsToggleRow<Icon: View>: View {
+    let title: String
+    let subtitle: String
+    @Binding var isOn: Bool
+    @ViewBuilder let icon: () -> Icon
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 14) {
+                icon()
+
+                Text(title)
+                    .font(.rsBodyLarge)
+                    .foregroundColor(.rsTextPrimary)
+                    // Wraps rather than truncating: some of these titles are a good deal
+                    // longer in Spanish and Catalan than they are in English.
+                    .fixedSize(horizontal: false, vertical: true)
+
+                Spacer(minLength: 12)
+
+                // Labelled for VoiceOver, hidden on screen. The title beside it is the label.
+                Toggle(title, isOn: $isOn)
+                    .labelsHidden()
+                    .tint(.rsHighlight)
+            }
+
+            Text(subtitle)
+                .font(.rsCaption)
+                .foregroundColor(.rsTextTertiary)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(16)
+        .editorPanel()
+    }
 }

@@ -297,19 +297,4 @@ final class AudioSimilarityCalculator: @unchecked Sendable {
         // Return absolute value (we care about similarity, not direction)
         return abs(correlation)
     }
-
-    // MARK: - Synchronous Helper (for backwards compatibility)
-
-    func calculateSimilaritySync(original: URL, comparison: URL) -> Double {
-        var result: Double = 0.0
-        let semaphore = DispatchSemaphore(value: 0)
-
-        Task {
-            result = await calculateSimilarity(original: original, comparison: comparison)
-            semaphore.signal()
-        }
-
-        semaphore.wait()
-        return result
-    }
 }

@@ -15,37 +15,65 @@ struct OnboardingView: View {
     @State private var permissionDenied = false
     @State private var selectedUIMode: UIMode = .simple
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.scenePhase) private var scenePhase
 
     let pages: [OnboardingPage] = [
         OnboardingPage(
             imageName: "microphone",
             title: Strings.Onboarding.welcomeTitle,
             description: Strings.Onboarding.welcomeMessage,
-            matteColor: Color.rsCream  // Cream with teal blend
+            matteColor: Color.rsSurface1
         ),
         OnboardingPage(
             imageName: "radio",
             title: Strings.Onboarding.howItWorksTitle,
             description: Strings.Onboarding.howItWorksMessage,
-            matteColor: Color.rsCharcoal  // Charcoal with red blend
+            matteColor: Color.rsSurface1
+        ),
+        // The second game gets its own page: dubbing is nothing like reverse
+        // singing, and the "bring your own files" part is better said here than
+        // discovered at the content gate.
+        OnboardingPage(
+            imageName: "clapperboard",
+            title: Strings.Onboarding.dubTitle,
+            description: Strings.Onboarding.dubMessage,
+            matteColor: Color.rsSurface1
         ),
         OnboardingPage(
             imageName: "microphone",  // Placeholder, won't be used
             title: Strings.Onboarding.uiPreferenceTitle,
             description: Strings.Onboarding.uiPreferenceMessage,
-            matteColor: Color.rsTurquoise
+            matteColor: Color.rsSurface1
+        ),
+        // The permission ask comes last, once both games have been shown: by
+        // now "we need the microphone" reads as the obvious next step rather
+        // than a toll gate in front of an app the user hasn't seen yet.
+        OnboardingPage(
+            imageName: "studio-mic-boom",
+            title: Strings.Onboarding.microphoneTitle,
+            description: Strings.Onboarding.microphoneMessage,
+            matteColor: Color.rsSurface1
         )
     ]
 
+    /// The interface picker draws itself; every other page is a plain illustration.
+    private var uiPreferenceIndex: Int { pages.count - 2 }
+    /// The microphone ask, and the end of onboarding.
+    private var permissionIndex: Int { pages.count - 1 }
+
     // MARK: - Computed Properties for Single Button State
 
+    /// The default reads "Continue", not "Allow": this button opens the system
+    /// prompt, it is not the grant itself, and promising a permission the page
+    /// cannot give is the kind of thing that reads as a dark pattern. The mic
+    /// icon below is what carries the warning that a prompt is coming.
     private var buttonTitle: String {
         if permissionGranted {
-            return Strings.Onboarding.buttonContinue
+            return Strings.Onboarding.buttonLetsRecord
         } else if permissionDenied {
             return Strings.Onboarding.buttonOpenSettings
         } else {
-            return Strings.Onboarding.buttonContinue
+            return Strings.Onboarding.buttonMicrophoneContinue
         }
     }
 
@@ -55,7 +83,7 @@ struct OnboardingView: View {
         } else if permissionDenied {
             return "gearshape.fill"
         } else {
-            return "arrow.right"
+            return "mic.fill"
         }
     }
 
@@ -71,7 +99,7 @@ struct OnboardingView: View {
 
     private var buttonAction: () -> Void {
         if permissionGranted {
-            return nextPage
+            return finishOnboarding
         } else if permissionDenied {
             return openSettings
         } else {
@@ -94,7 +122,7 @@ struct OnboardingView: View {
 
                 TabView(selection: $currentPage) {
                     ForEach(Array(pages.enumerated()), id: \.offset) { index, page in
-                        if index == 2 {
+                        if index == uiPreferenceIndex {
                             // UI Preference page with custom layout
                             uiPreferencePage
                                 .tag(index)
@@ -105,7 +133,6 @@ struct OnboardingView: View {
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
-                .disabled(currentPage == 0 && !permissionGranted)
 
                 // Page indicator
                 HStack(spacing: 8) {
@@ -120,8 +147,8 @@ struct OnboardingView: View {
 
                 // Buttons
                 VStack(spacing: 16) {
-                    if currentPage == 0 {
-                        // Page 1: Welcome - single dynamic permission button
+                    if currentPage == permissionIndex {
+                        // Last page: the microphone ask, as a single dynamic button
                         BigButton(
                             title: buttonTitle,
                             icon: buttonIcon,
@@ -129,29 +156,18 @@ struct OnboardingView: View {
                             action: buttonAction,
                             style: .primary
                         )
-                    } else if currentPage == pages.count - 1 {
-                        // Last page (UI Preference): Show final button
-                        BigButton(
-                            title: Strings.Onboarding.buttonLetsRecord,
-                            icon: "arrow.right",
-                            color: .rsTurquoise,
-                            action: {
-                                withAnimation(.rsSpring) {
-                                    // Save UI mode preference
-                                    viewModel.setUIMode(selectedUIMode)
-                                    // Track onboarding completed
-                                    AnalyticsManager.shared.trackOnboardingCompleted()
-                                    viewModel.completeOnboarding()
-                                }
-                            },
-                            style: .primary
-                        )
-                        .transition(.asymmetric(
-                            insertion: .scale.combined(with: .opacity),
-                            removal: .scale.combined(with: .opacity)
-                        ))
+
+                        // A denial shouldn't trap anyone on the last page, the
+                        // games ask again themselves when a recording is due.
+                        if permissionDenied {
+                            Button(action: finishOnboarding) {
+                                Text(Strings.Onboarding.buttonContinueWithout)
+                                    .font(.rsButtonMedium)
+                                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                            }
+                        }
                     } else {
-                        // Middle pages: Just continue
+                        // Every other page: just continue
                         BigButton(
                             title: Strings.Onboarding.buttonContinueLowercase,
                             icon: "arrow.right",
@@ -174,6 +190,17 @@ struct OnboardingView: View {
             // Track onboarding started
             AnalyticsManager.shared.trackOnboardingStarted()
         }
+        // Coming back from Settings with access granted should move the button
+        // on, rather than leaving the user staring at "Open Settings" again.
+        .onChange(of: scenePhase) { _, phase in
+            guard phase == .active, permissionDenied else { return }
+            viewModel.checkPermissionStatus()
+            guard viewModel.hasRecordingPermission else { return }
+            withAnimation(.rsSpring) {
+                permissionGranted = true
+                permissionDenied = false
+            }
+        }
     }
 
     // MARK: - UI Preference Page
@@ -188,7 +215,7 @@ struct OnboardingView: View {
 
                     // Title
                     Text(Strings.Onboarding.uiPreferenceTitle)
-                        .font(.custom("Eugello", size: 36))
+                        .font(.rsDisplayLarge)
                         .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 24)
@@ -211,6 +238,7 @@ struct OnboardingView: View {
                                 withAnimation(.rsSpring) {
                                     selectedUIMode = .simple
                                 }
+                                viewModel.setUIMode(.simple)
                                 HapticManager.shared.light()
                             }
                         )
@@ -222,6 +250,7 @@ struct OnboardingView: View {
                                 withAnimation(.rsSpring) {
                                     selectedUIMode = .complex
                                 }
+                                viewModel.setUIMode(.complex)
                                 HapticManager.shared.light()
                             }
                         )
@@ -248,6 +277,16 @@ struct OnboardingView: View {
         HapticManager.shared.light()
     }
 
+    private func finishOnboarding() {
+        withAnimation(.rsSpring) {
+            // Belt and braces: the picker already saved this on selection, but
+            // nobody has to touch it, so the default still needs writing.
+            viewModel.setUIMode(selectedUIMode)
+            AnalyticsManager.shared.trackOnboardingCompleted()
+            viewModel.completeOnboarding()
+        }
+    }
+
     private func requestMicrophonePermission() {
         guard !permissionRequested else { return }
 
@@ -266,9 +305,9 @@ struct OnboardingView: View {
 
             if granted {
                 HapticManager.shared.success()
-                // Auto-advance to next page after permission is granted
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.nextPage()
+                // Granted on the last page, drop straight into the app.
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    self.finishOnboarding()
                 }
             } else {
                 HapticManager.shared.error()
@@ -323,7 +362,7 @@ struct OnboardingPageView: View {
                     VStack(spacing: 16) {
                         // Title
                         Text(page.title)
-                            .font(.custom("Eugello", size: titleSize(for: geometry.size.height)))
+                            .font(.rsDisplay(titleSize(for: geometry.size.height), relativeTo: .largeTitle))
                             .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
                             .multilineTextAlignment(.center)
                             .lineLimit(3)

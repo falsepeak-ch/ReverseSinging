@@ -5,15 +5,20 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Benvingut a Reverso";
-"onboarding.welcome.message" = "Necessitem accés al micròfon per gravar i revertir el teu àudio. Comencem!";
+"onboarding.welcome.message" = "Dos jocs, un micròfon: canta una cançó al revés o dobla una escena de pel·lícula amb la teva veu.";
 "onboarding.howItWorks.title" = "Com Funciona";
 "onboarding.howItWorks.message" = "Grava àudio, reverteix-lo, canta el que sents i després gira-ho altra vegada per veure com t'ha sortit!";
+"onboarding.dub.title" = "Dobla una Escena";
+"onboarding.dub.message" = "El segon joc: reprodueix una escena, grava la teva veu a sobre i escolta't dins de la pel·lícula. Vénen dues escenes incloses. Per a la resta, hi poses els teus fitxers!";
 "onboarding.uiPreference.title" = "Tria la Teva Interfície";
-"onboarding.uiPreference.message" = "Selecciona l'estil d'interfície que millor et funcioni. Pots canviar-ho en qualsevol moment a Ajustos.";
-"onboarding.button.continue" = "Continuar";
+"onboarding.uiPreference.message" = "Selecciona l'estil d'interfície que millor et funcioni. S'aplica al Cant Invertit i pots canviar-ho en qualsevol moment a Ajustos.";
+"onboarding.microphone.title" = "Una Última Cosa";
+"onboarding.microphone.message" = "Els dos jocs funcionen gravant la teva veu: cantar una cançó a l'inrevés o doblar una escena de pel·lícula. El micro només s'encén mentre graves. Tot es queda en aquest dispositiu i no es puja mai res.";
 "onboarding.button.openSettings" = "Obrir Ajustos";
 "onboarding.button.letsRecord" = "sí, gravem!";
 "onboarding.button.continueLowercase" = "continuar";
+"onboarding.button.microphoneContinue" = "Continuar";
+"onboarding.button.continueWithout" = "continuar sense";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Aturar Gravació";
@@ -21,6 +26,22 @@
 "main.button.recordAttempt" = "Grava el Teu Intent";
 "main.button.reRecord" = "Tornar a Gravar";
 "main.button.newSession" = "Nova Sessió";
+
+// MARK: - Simple Skin (buttons and their subtitles)
+"main.button.playRecorded" = "Reproduir gravació";
+"main.button.playReverse" = "Reproduir a l'inrevés";
+"main.subtitle.recordingOriginal" = "Gravant l'àudio original";
+"main.subtitle.recordingAttempt" = "Gravant el teu intent";
+"main.subtitle.tapToRecord" = "Toca per gravar àudio";
+"main.subtitle.recordAttempt" = "Grava el teu intent de cant";
+"main.subtitle.reRecordAttempt" = "Torna a gravar el teu intent";
+"main.subtitle.playAttempt" = "Reproduir el teu intent";
+"main.subtitle.playOriginal" = "Reproduir la gravació original";
+"main.subtitle.noRecording" = "No hi ha cap gravació";
+"main.subtitle.playReversedAttempt" = "Reproduir el teu intent a l'inrevés";
+"main.subtitle.playReversedOriginal" = "Reproduir l'original a l'inrevés";
+"main.subtitle.noReversed" = "No hi ha àudio invertit";
+"settings.version" = "Versió %@ (%@)";
 
 // MARK: - Main View - Alerts
 "main.alert.microphoneRequired.title" = "Es Requereix Accés al Micròfon";
@@ -53,21 +74,8 @@
 "main.tip.tapRecordAudio" = "Toca Gravar Àudio per gravar";
 
 // MARK: - Comparison View
-"comparison.title" = "Resultats";
-"comparison.button.close" = "Tancar";
-"comparison.label.original" = "Original";
-"comparison.label.yourTry" = "El Teu Intent";
-"comparison.button.playOriginal" = "Reproduir Original";
-"comparison.button.playYourTry" = "Reproduir el Teu Intent";
-"comparison.button.stop" = "Aturar";
-"comparison.button.saveSession" = "Desar Sessió";
-"comparison.button.tryAgain" = "Tornar a Intentar";
 
 // MARK: - Comparison View - Score Messages
-"comparison.score.amazing" = "🌟 Increïble! Gairebé perfecte!";
-"comparison.score.great" = "🎉 Molt bé! Molt a prop!";
-"comparison.score.good" = "👍 Bon intent! Tornar a provar?";
-"comparison.score.keepPracticing" = "💪 Continua practicant!";
 
 // MARK: - Session List View
 "sessionList.title" = "Sessions Desades";
@@ -104,14 +112,11 @@
 "scoreCard.grade.tryAgain" = "Torna-ho a Intentar!";
 
 // MARK: - Processing Indicator
-"processing.reversingAudio" = "Revertint àudio...";
-"processing.generic" = "Processant...";
 
 // MARK: - Recording Indicator
 "recording.indicator" = "GRAVANT";
 
 // MARK: - Success Celebration
-"success.sessionSaved" = "Sessió desada correctament!";
 
 // MARK: - Audio Session Model
 "session.defaultName" = "Sessió";
@@ -125,16 +130,15 @@
 
 // MARK: - Settings
 "settings.title" = "Ajustos";
-"settings.subtitle" = "Personalitza la teva experiència";
-"settings.appearance" = "Aparença";
 "settings.interface" = "Interfície";
+"uiMode.simple.name" = "Senzilla";
+"uiMode.simple.description" = "Botons grans, interfície mínima";
+"uiMode.complex.name" = "Completa";
+"uiMode.complex.description" = "Controls avançats i visualitzacions";
 "settings.preferences" = "Preferències";
 "settings.about" = "Sobre";
 
 // Theme descriptions
-"settings.theme.system.desc" = "Segueix els ajustos del sistema";
-"settings.theme.light.desc" = "Sempre en mode clar";
-"settings.theme.dark.desc" = "Sempre en mode fosc";
 
 // Haptic feedback
 "settings.hapticFeedback" = "Feedback Hàptic";
@@ -142,5 +146,124 @@
 
 // About
 "settings.privacyPolicy" = "Política de Privacitat";
+"settings.privacyPolicy.desc" = "Llegeix la nostra política de privacitat";
 "settings.builtInSwitzerland" = "Fet a Suïssa";
 "settings.builtInSwitzerland.desc" = "Fet amb cura a Zuric";
+
+// MARK: - Dub Mode
+"dub.unknownAuthor" = "Autor desconegut";
+"dub.importPack" = "Importa un pack";
+"dub.importing" = "Important el pack…";
+"dub.delete" = "Elimina";
+"dub.empty.title" = "Encara no hi ha packs";
+"dub.empty.message" = "Importa una carpeta o un .zip des de Fitxers per doblar una escena amb la teva veu.";
+"dub.playOriginal" = "Mira l'original";
+"dub.playMyDub" = "Reprodueix el meu doblatge";
+"dub.record" = "Comença a doblar";
+"dub.continueRecording" = "Continua doblant";
+"dub.export" = "Exporta el vídeo";
+"dub.lines" = "Frases";
+"dub.attribution" = "Origen";
+"dub.listen" = "Escolta";
+"dub.stop" = "Atura";
+"dub.recordTake" = "Grava";
+"dub.next" = "Següent";
+"dub.previous" = "Anterior";
+"dub.recordingHint" = "Digues la frase i segueix el ritme de l'original.";
+"dub.listenHint" = "Escolta primer i després grava la teva presa.";
+"dub.original" = "Original";
+"dub.myDub" = "El meu doblatge";
+"dub.noTakesYet" = "Grava almenys una frase primer.";
+"dub.exporting" = "Exportant…";
+"dub.export.mixing" = "Mesclant l'àudio…";
+"dub.export.rendering" = "Renderitzant el vídeo…";
+"dub.error.missingPackInfo" = "Aquesta carpeta no és un pack de doblatge. No té el fitxer _pack_info.ini.";
+"dub.error.noLines" = "Aquest pack no té frases utilitzables.";
+"dub.error.missingAsset" = "Al pack li falta un fitxer necessari: %@";
+"dub.error.notAFolder" = "Tria una carpeta de pack o un fitxer .zip.";
+"dub.error.unreadableArchive" = "No s'ha pogut obrir aquest arxiu: %@";
+"dub.error.nothingRecorded" = "Grava almenys una frase abans d'exportar.";
+"dub.error.exportFailed" = "Ha fallat l'exportació: %@";
+"dub.playTake" = "Escolta la teva presa";
+"dub.loadingScene" = "Carregant l'escena…";
+
+// MARK: - Editor Chrome
+"session.archiveTitle" = "Arxiu";
+"main.section.transport" = "Transport";
+"main.state.idle" = "INACTIU";
+"main.state.recording" = "GRAV";
+"main.state.playing" = "REPR";
+"main.state.processing" = "PROC";
+"main.state.error" = "ERROR";
+"main.state.countingIn" = "COMPTE ENRERE";
+"main.section.hint" = "Següent";
+"dub.packsSection" = "Packs";
+"dub.slate.lines" = "Doblades";
+"dub.slate.duration" = "Durada";
+"dub.slate.cast" = "Repartiment";
+"settings.soundEffects" = "Efectes de so";
+"settings.soundEffects.desc" = "Claqueta, transport i renderitzat";
+
+// Headphone monitoring
+"settings.headphoneMonitor" = "Original als auriculars";
+"settings.headphoneMonitor.desc" = "Escolta la frase que estàs imitant mentre graves. Només amb auriculars, perquè per l'altaveu acabaria dins de la teva presa.";
+"settings.headphoneMonitor.unavailable" = "No hi ha auriculars connectats";
+
+// MARK: - Game Modes
+"main.mode.section" = "Mode";
+"main.mode.reverse.title" = "Cant Invertit";
+"main.mode.dub.title" = "Doblatge d'Escena";
+"main.button.back" = "Enrere";
+"main.mode.reverse.subtitle" = "Grava una cançó, inverteix-la i canta-la al revés";
+"main.mode.dub.subtitle" = "Dobla una escena de pel·lícula amb la teva veu";
+"dub.speakerAccessibility" = "Dit per %@";
+"dub.cast" = "Repartiment";
+"dub.referenceTrack" = "Referència";
+"dub.yourTake" = "La teva presa";
+"dub.convertingVideo" = "Convertint el vídeo…";
+"dub.importReading" = "Llegint el pack…";
+
+// MARK: - Dub Content Gate
+"dubGate.close" = "Tancar";
+"dubGate.ask.title" = "Ja tens les teves pel·lícules?";
+"dubGate.ask.message" = "A banda de les escenes d'exemple, no incloem ni allotgem cap pel·lícula. Per doblar qualsevol altra cosa, necessites el fitxer desat en aquest dispositiu.";
+"dubGate.ask.confirm" = "Sí, ja les tinc";
+"dubGate.ask.needDownload" = "No, les he de descarregar";
+"dubGate.download.title" = "On aconseguir-les";
+"dubGate.download.message" = "Aquí tens un lloc on la gent comparteix aquests fitxers. Descarrega el que vulguis doblar i torna!";
+"dubGate.download.open" = "Obrir %@";
+"dubGate.download.back" = "Enrere";
+"dubGate.disclaimer.notAffiliated" = "%@ és un lloc d'altres persones. No hi tenim relació i no allotgem ni compartim cap fitxer.";
+"dubGate.disclaimer.responsibility" = "Assegura't de tenir dret a fer servir el que descarreguis i segueix les normes de copyright d'on vius.";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "Abans de compartir";
+"dubShare.message" = "El teu vídeo porta la teva veu a sobre de l'escena original, així que inclou la feina d'una altra persona a més de la teva.";
+"dubShare.cutFrom" = "Extret de %@";
+"dubShare.keepCredit" = "Si el publiques, mantén aquest crèdit amb el vídeo.";
+"dubShare.unknownSource" = "Aquesta escena l'hi vas posar tu, així que saps d'on ve i què hi pots fer.";
+"dubShare.responsibility" = "On el comparteixis depèn de tu, així que segueix les normes de copyright d'on vius.";
+"dubShare.confirm" = "Exportar vídeo";
+
+/* MARK: - Dub Scoring */
+"dub.installingStarterPacks" = "Preparant les teves primeres escenes…";
+"dub.options" = "Opcions de doblatge";
+"dub.score.setting.title" = "Puntuar les meves preses";
+"dub.score.setting.detail" = "Puntua la teva entrada, ritme i interpretació.";
+"dub.score.sceneTitle" = "Puntuació de l'escena";
+"dub.score.notScoredYet" = "Dobla una línia per veure com ho fas.";
+"dub.score.slate" = "Punts";
+"dub.score.lineTitle" = "La teva presa";
+"dub.score.timing" = "Entrada";
+"dub.score.pacing" = "Ritme";
+"dub.score.delivery" = "Interpretació";
+"dub.score.best" = "Millor línia";
+"dub.score.weakest" = "Val la pena tornar-hi";
+"dub.score.progress" = "%d de %d línies puntuades";
+"dub.score.grade.perfect" = "Clavat";
+"dub.score.grade.great" = "Boníssim";
+"dub.score.grade.good" = "Bona presa";
+"dub.score.grade.close" = "Gairebé hi ets";
+"dub.score.grade.rough" = "Torna-hi";
+
+"dub.videoNeedsReimport" = "El vídeo d'aquesta escena es va convertir amb una versió anterior i va per davant de les veus. Torna a importar el pack per corregir-ho.";

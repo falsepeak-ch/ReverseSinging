@@ -5,15 +5,20 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Bienvenido a Reverso";
-"onboarding.welcome.message" = "Necesitamos acceso al micrófono para grabar y revertir tu audio. ¡Empecemos!";
+"onboarding.welcome.message" = "Dos juegos, un micrófono: canta una canción al revés o dobla una escena de película con tu voz.";
 "onboarding.howItWorks.title" = "Cómo Funciona";
 "onboarding.howItWorks.message" = "¡Graba audio, reviértelo, canta lo que escuches y luego dale la vuelta de nuevo para ver qué tal te salió!";
+"onboarding.dub.title" = "Dobla una Escena";
+"onboarding.dub.message" = "El segundo juego: reproduce una escena, graba tu voz encima y escúchate dentro de la película. Vienen dos escenas incluidas. ¡Para el resto, pon tus propios archivos!";
 "onboarding.uiPreference.title" = "Elige tu Interfaz";
-"onboarding.uiPreference.message" = "Selecciona el estilo de interfaz que mejor te funcione. Puedes cambiarlo en cualquier momento en Ajustes.";
-"onboarding.button.continue" = "Continuar";
+"onboarding.uiPreference.message" = "Selecciona el estilo de interfaz que mejor te funcione. Se aplica al Canto Invertido y puedes cambiarlo en cualquier momento en Ajustes.";
+"onboarding.microphone.title" = "Una Última Cosa";
+"onboarding.microphone.message" = "Los dos juegos funcionan grabando tu voz: cantar una canción al revés o doblar una escena de película. El micro solo se enciende mientras grabas. Todo se queda en este dispositivo y nunca se sube nada.";
 "onboarding.button.openSettings" = "Abrir Ajustes";
 "onboarding.button.letsRecord" = "¡sí, grabemos!";
 "onboarding.button.continueLowercase" = "continuar";
+"onboarding.button.microphoneContinue" = "Continuar";
+"onboarding.button.continueWithout" = "continuar sin él";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Detener Grabación";
@@ -21,6 +26,22 @@
 "main.button.recordAttempt" = "Graba tu Intento";
 "main.button.reRecord" = "Volver a Grabar";
 "main.button.newSession" = "Nueva Sesión";
+
+// MARK: - Simple Skin (buttons and their subtitles)
+"main.button.playRecorded" = "Reproducir grabación";
+"main.button.playReverse" = "Reproducir al revés";
+"main.subtitle.recordingOriginal" = "Grabando el audio original";
+"main.subtitle.recordingAttempt" = "Grabando tu intento";
+"main.subtitle.tapToRecord" = "Toca para grabar audio";
+"main.subtitle.recordAttempt" = "Graba tu intento de canto";
+"main.subtitle.reRecordAttempt" = "Vuelve a grabar tu intento";
+"main.subtitle.playAttempt" = "Reproducir tu intento";
+"main.subtitle.playOriginal" = "Reproducir la grabación original";
+"main.subtitle.noRecording" = "No hay ninguna grabación";
+"main.subtitle.playReversedAttempt" = "Reproducir tu intento al revés";
+"main.subtitle.playReversedOriginal" = "Reproducir el original al revés";
+"main.subtitle.noReversed" = "No hay audio invertido";
+"settings.version" = "Versión %@ (%@)";
 
 // MARK: - Main View - Alerts
 "main.alert.microphoneRequired.title" = "Se Requiere Acceso al Micrófono";
@@ -53,21 +74,8 @@
 "main.tip.tapRecordAudio" = "Toca Grabar Audio para grabar";
 
 // MARK: - Comparison View
-"comparison.title" = "Resultados";
-"comparison.button.close" = "Cerrar";
-"comparison.label.original" = "Original";
-"comparison.label.yourTry" = "Tu Intento";
-"comparison.button.playOriginal" = "Reproducir Original";
-"comparison.button.playYourTry" = "Reproducir tu Intento";
-"comparison.button.stop" = "Detener";
-"comparison.button.saveSession" = "Guardar Sesión";
-"comparison.button.tryAgain" = "Intentar de Nuevo";
 
 // MARK: - Comparison View - Score Messages
-"comparison.score.amazing" = "🌟 ¡Increíble! ¡Casi perfecto!";
-"comparison.score.great" = "🎉 ¡Muy bien! ¡Muy cerca!";
-"comparison.score.good" = "👍 ¡Buen intento! ¿Intentar de nuevo?";
-"comparison.score.keepPracticing" = "💪 ¡Sigue practicando!";
 
 // MARK: - Session List View
 "sessionList.title" = "Sesiones Guardadas";
@@ -104,14 +112,11 @@
 "scoreCard.grade.tryAgain" = "¡Inténtalo de Nuevo!";
 
 // MARK: - Processing Indicator
-"processing.reversingAudio" = "Revirtiendo audio...";
-"processing.generic" = "Procesando...";
 
 // MARK: - Recording Indicator
 "recording.indicator" = "GRABANDO";
 
 // MARK: - Success Celebration
-"success.sessionSaved" = "¡Sesión guardada correctamente!";
 
 // MARK: - Audio Session Model
 "session.defaultName" = "Sesión";
@@ -125,16 +130,15 @@
 
 // MARK: - Settings
 "settings.title" = "Ajustes";
-"settings.subtitle" = "Personaliza tu experiencia";
-"settings.appearance" = "Apariencia";
 "settings.interface" = "Interfaz";
+"uiMode.simple.name" = "Sencilla";
+"uiMode.simple.description" = "Botones grandes, interfaz mínima";
+"uiMode.complex.name" = "Completa";
+"uiMode.complex.description" = "Controles avanzados y visualizaciones";
 "settings.preferences" = "Preferencias";
 "settings.about" = "Acerca de";
 
 // Theme descriptions
-"settings.theme.system.desc" = "Sigue los ajustes del sistema";
-"settings.theme.light.desc" = "Siempre en modo claro";
-"settings.theme.dark.desc" = "Siempre en modo oscuro";
 
 // Haptic feedback
 "settings.hapticFeedback" = "Respuesta Háptica";
@@ -142,5 +146,124 @@
 
 // About
 "settings.privacyPolicy" = "Política de Privacidad";
+"settings.privacyPolicy.desc" = "Lee nuestra política de privacidad";
 "settings.builtInSwitzerland" = "Hecho en Suiza";
 "settings.builtInSwitzerland.desc" = "Hecho con cuidado en Zúrich";
+
+// MARK: - Dub Mode
+"dub.unknownAuthor" = "Autor desconocido";
+"dub.importPack" = "Importar un pack";
+"dub.importing" = "Importando pack…";
+"dub.delete" = "Eliminar";
+"dub.empty.title" = "Aún no hay packs";
+"dub.empty.message" = "Importa una carpeta o un .zip desde Archivos para doblar una escena con tu propia voz.";
+"dub.playOriginal" = "Ver original";
+"dub.playMyDub" = "Reproducir mi doblaje";
+"dub.record" = "Empezar a doblar";
+"dub.continueRecording" = "Seguir doblando";
+"dub.export" = "Exportar vídeo";
+"dub.lines" = "Frases";
+"dub.attribution" = "Origen";
+"dub.listen" = "Escuchar";
+"dub.stop" = "Parar";
+"dub.recordTake" = "Grabar";
+"dub.next" = "Siguiente";
+"dub.previous" = "Anterior";
+"dub.recordingHint" = "Di la frase y sigue el ritmo del original.";
+"dub.listenHint" = "Escucha primero y luego graba tu toma.";
+"dub.original" = "Original";
+"dub.myDub" = "Mi doblaje";
+"dub.noTakesYet" = "Graba al menos una frase primero.";
+"dub.exporting" = "Exportando…";
+"dub.export.mixing" = "Mezclando audio…";
+"dub.export.rendering" = "Renderizando vídeo…";
+"dub.error.missingPackInfo" = "Esa carpeta no es un pack de doblaje. No tiene el archivo _pack_info.ini.";
+"dub.error.noLines" = "Este pack no tiene frases utilizables.";
+"dub.error.missingAsset" = "Al pack le falta un archivo necesario: %@";
+"dub.error.notAFolder" = "Elige una carpeta de pack o un archivo .zip.";
+"dub.error.unreadableArchive" = "No se pudo abrir ese archivo: %@";
+"dub.error.nothingRecorded" = "Graba al menos una frase antes de exportar.";
+"dub.error.exportFailed" = "Error al exportar: %@";
+"dub.playTake" = "Escucha tu toma";
+"dub.loadingScene" = "Cargando la escena…";
+
+// MARK: - Editor Chrome
+"session.archiveTitle" = "Archivo";
+"main.section.transport" = "Transporte";
+"main.state.idle" = "INACTIVO";
+"main.state.recording" = "GRAB";
+"main.state.playing" = "REPR";
+"main.state.processing" = "PROC";
+"main.state.error" = "ERROR";
+"main.state.countingIn" = "CUENTA ATRÁS";
+"main.section.hint" = "Siguiente";
+"dub.packsSection" = "Packs";
+"dub.slate.lines" = "Dobladas";
+"dub.slate.duration" = "Duración";
+"dub.slate.cast" = "Reparto";
+"settings.soundEffects" = "Efectos de sonido";
+"settings.soundEffects.desc" = "Claqueta, transporte y renderizado";
+
+// Headphone monitoring
+"settings.headphoneMonitor" = "Original en los auriculares";
+"settings.headphoneMonitor.desc" = "Escucha la frase que estás imitando mientras grabas. Solo con auriculares, porque por el altavoz acabaría dentro de tu toma.";
+"settings.headphoneMonitor.unavailable" = "No hay auriculares conectados";
+
+// MARK: - Game Modes
+"main.mode.section" = "Modo";
+"main.mode.reverse.title" = "Canto Invertido";
+"main.mode.dub.title" = "Doblaje de Escena";
+"main.button.back" = "Atrás";
+"main.mode.reverse.subtitle" = "Graba una canción, inviértela y cántala al revés";
+"main.mode.dub.subtitle" = "Dobla una escena de película con tu voz";
+"dub.speakerAccessibility" = "Dicho por %@";
+"dub.cast" = "Reparto";
+"dub.referenceTrack" = "Referencia";
+"dub.yourTake" = "Tu toma";
+"dub.convertingVideo" = "Convirtiendo el vídeo…";
+"dub.importReading" = "Leyendo el pack…";
+
+// MARK: - Dub Content Gate
+"dubGate.close" = "Cerrar";
+"dubGate.ask.title" = "¿Ya tienes tus películas?";
+"dubGate.ask.message" = "Aparte de las escenas de ejemplo, no incluimos ni alojamos ninguna película. Para doblar cualquier otra cosa, necesitas el archivo guardado en este dispositivo.";
+"dubGate.ask.confirm" = "Sí, ya las tengo";
+"dubGate.ask.needDownload" = "No, necesito descargarlas";
+"dubGate.download.title" = "Dónde conseguirlas";
+"dubGate.download.message" = "Aquí tienes un sitio donde la gente comparte estos archivos. ¡Descarga lo que quieras doblar y vuelve!";
+"dubGate.download.open" = "Abrir %@";
+"dubGate.download.back" = "Atrás";
+"dubGate.disclaimer.notAffiliated" = "%@ es un sitio de otras personas. No tenemos relación con él y no alojamos ni compartimos archivos.";
+"dubGate.disclaimer.responsibility" = "Asegúrate de tener derecho a usar lo que descargues y sigue las normas de copyright de donde vives.";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "Antes de compartir";
+"dubShare.message" = "Tu vídeo lleva tu voz encima de la escena original, así que incluye el trabajo de otra persona además del tuyo.";
+"dubShare.cutFrom" = "Extraído de %@";
+"dubShare.keepCredit" = "Si lo publicas, mantén este crédito con el vídeo.";
+"dubShare.unknownSource" = "Esta escena la pusiste tú, así que sabes de dónde viene y qué puedes hacer con ella.";
+"dubShare.responsibility" = "Dónde lo compartas depende de ti, así que sigue las normas de copyright de donde vives.";
+"dubShare.confirm" = "Exportar vídeo";
+
+/* MARK: - Dub Scoring */
+"dub.installingStarterPacks" = "Preparando tus primeras escenas…";
+"dub.options" = "Opciones de doblaje";
+"dub.score.setting.title" = "Puntuar mis tomas";
+"dub.score.setting.detail" = "Puntúa tu entrada, ritmo e interpretación.";
+"dub.score.sceneTitle" = "Puntuación de la escena";
+"dub.score.notScoredYet" = "Dobla una línea para ver cómo lo haces.";
+"dub.score.slate" = "Puntos";
+"dub.score.lineTitle" = "Tu toma";
+"dub.score.timing" = "Entrada";
+"dub.score.pacing" = "Ritmo";
+"dub.score.delivery" = "Interpretación";
+"dub.score.best" = "Mejor línea";
+"dub.score.weakest" = "Merece otro intento";
+"dub.score.progress" = "%d de %d líneas puntuadas";
+"dub.score.grade.perfect" = "Clavado";
+"dub.score.grade.great" = "Buenísimo";
+"dub.score.grade.good" = "Buena toma";
+"dub.score.grade.close" = "Casi lo tienes";
+"dub.score.grade.rough" = "Inténtalo otra vez";
+
+"dub.videoNeedsReimport" = "El vídeo de esta escena se convirtió con una versión anterior y va por delante de las voces. Importa el pack de nuevo para corregirlo.";

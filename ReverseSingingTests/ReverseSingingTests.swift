@@ -212,8 +212,10 @@ struct AudioFileManagerTests {
         let url1 = manager.createTemporaryAudioURL()
         let url2 = manager.createTemporaryAudioURL()
 
-        #expect(url1.pathExtension == "m4a")
-        #expect(url2.pathExtension == "m4a")
+        // CAF, not m4a: takes are recorded as LinearPCM so they can be analysed sample for
+        // sample, scored, onset-aligned, sampled into a waveform, without a decode first.
+        #expect(url1.pathExtension == "caf")
+        #expect(url2.pathExtension == "caf")
         #expect(url1 != url2) // Should be unique
     }
 
@@ -254,80 +256,109 @@ struct HapticManagerTests {
 
 // MARK: - ViewModel Tests
 
-@Suite("AudioViewModel Tests") @MainActor
+/// Every test here builds an `AudioViewModel`, and building one loads the whole of `appState`
+/// out of `UserDefaults`. So without help these are assertions about the simulator rather
+/// than about the view model.
+///
+/// Two things make them deterministic. `.serialized`, because they share one global
+/// `UserDefaults` and a reset in one test would otherwise wipe state another had just written;
+/// and `onCleanDevice`, which establishes the empty state each test used to assume. Before
+/// this, `completeOnboarding()` failed on any simulator the app had ever been run on, and
+/// `saveSession()` would have started counting other tests' sessions.
+@Suite("AudioViewModel Tests", .serialized) @MainActor
 struct AudioViewModelTests {
 
+    /// Runs `body` against a device with no saved state, and leaves none behind.
+    ///
+    /// Resetting afterwards as well as before matters: these keys are the real app's, and a
+    /// session left in `UserDefaults` outlives the test run on that simulator.
+    private func onCleanDevice(_ body: (AudioViewModel) throws -> Void) rethrows {
+        AudioViewModel.resetPersistedStateForTesting()
+        defer { AudioViewModel.resetPersistedStateForTesting() }
+        try body(AudioViewModel())
+    }
+
     @Test func initialization() async {
-        // Clear UserDefaults to ensure clean state
-        UserDefaults.standard.removeObject(forKey: "savedSessions")
-        UserDefaults.standard.removeObject(forKey: "hasCompletedOnboarding")
-
-        let viewModel = AudioViewModel()
-
-        #expect(viewModel.appState.savedSessions.isEmpty)
-        #expect(viewModel.appState.currentSession == nil)
-        #expect(!viewModel.isReversing)
-        #expect(!viewModel.showSessionList)
+        onCleanDevice { viewModel in
+            #expect(viewModel.appState.savedSessions.isEmpty)
+            #expect(viewModel.appState.currentSession == nil)
+            #expect(!viewModel.isReversing)
+            #expect(!viewModel.showSessionList)
+        }
     }
 
     @Test func startNewSession() async {
-        let viewModel = AudioViewModel()
+        onCleanDevice { viewModel in
+            viewModel.startNewSession()
 
-        viewModel.startNewSession()
-
-        #expect(viewModel.appState.currentSession != nil)
-        #expect(viewModel.appState.currentSession?.recordings.isEmpty == true)
+            #expect(viewModel.appState.currentSession != nil)
+            #expect(viewModel.appState.currentSession?.recordings.isEmpty == true)
+        }
     }
 
     @Test func saveSession() async {
-        let viewModel = AudioViewModel()
-        viewModel.startNewSession()
+        onCleanDevice { viewModel in
+            viewModel.startNewSession()
 
-        // Add a dummy recording
-        let url = URL(fileURLWithPath: "/tmp/test.m4a")
-        let recording = Recording(url: url, duration: 60.0, type: .original)
-        viewModel.appState.currentSession?.addRecording(recording)
+            // Add a dummy recording
+            let url = URL(fileURLWithPath: "/tmp/test.m4a")
+            let recording = Recording(url: url, duration: 60.0, type: .original)
+            viewModel.appState.currentSession?.addRecording(recording)
 
-        viewModel.saveSession()
+            viewModel.saveSession()
 
-        #expect(viewModel.appState.savedSessions.count == 1)
-        #expect(viewModel.appState.currentSession == nil)
+            #expect(viewModel.appState.savedSessions.count == 1)
+            #expect(viewModel.appState.currentSession == nil)
+        }
     }
 
     @Test func deleteSession() async {
-        let viewModel = AudioViewModel()
+        onCleanDevice { viewModel in
+            let url = URL(fileURLWithPath: "/tmp/test.m4a")
+            let recording = Recording(url: url, duration: 60.0, type: .original)
 
-        let url = URL(fileURLWithPath: "/tmp/test.m4a")
-        let recording = Recording(url: url, duration: 60.0, type: .original)
+            var session = AudioSession(name: "Test Session")
+            session.addRecording(recording)
 
-        var session = AudioSession(name: "Test Session")
-        session.addRecording(recording)
+            viewModel.appState.savedSessions = [session]
 
-        viewModel.appState.savedSessions = [session]
+            viewModel.deleteSession(session)
 
-        viewModel.deleteSession(session)
-
-        #expect(viewModel.appState.savedSessions.isEmpty)
+            #expect(viewModel.appState.savedSessions.isEmpty)
+        }
     }
 
     @Test func playbackSpeed() async {
-        let viewModel = AudioViewModel()
+        onCleanDevice { viewModel in
+            viewModel.setPlaybackSpeed(0.5)
+            #expect(viewModel.appState.playbackSpeed == 0.5)
 
-        viewModel.setPlaybackSpeed(0.5)
-        #expect(viewModel.appState.playbackSpeed == 0.5)
-
-        viewModel.setPlaybackSpeed(2.0)
-        #expect(viewModel.appState.playbackSpeed == 2.0)
+            viewModel.setPlaybackSpeed(2.0)
+            #expect(viewModel.appState.playbackSpeed == 2.0)
+        }
     }
 
+    /// The one that used to fail on any simulator that had been through onboarding.
     @Test func completeOnboarding() async {
-        let viewModel = AudioViewModel()
+        onCleanDevice { viewModel in
+            #expect(!viewModel.appState.hasCompletedOnboarding)
 
-        #expect(!viewModel.appState.hasCompletedOnboarding)
+            viewModel.completeOnboarding()
 
-        viewModel.completeOnboarding()
+            #expect(viewModel.appState.hasCompletedOnboarding)
+        }
+    }
 
-        #expect(viewModel.appState.hasCompletedOnboarding)
+    /// Onboarding survives a relaunch. The half of `completeOnboarding` the old test could
+    /// not check, because it could not tell a saved flag from a left-over one.
+    @Test func completedOnboardingIsRemembered() async {
+        AudioViewModel.resetPersistedStateForTesting()
+        defer { AudioViewModel.resetPersistedStateForTesting() }
+
+        AudioViewModel().completeOnboarding()
+
+        #expect(AudioViewModel().appState.hasCompletedOnboarding,
+                "a fresh launch should not put the user back through onboarding")
     }
 }
 
