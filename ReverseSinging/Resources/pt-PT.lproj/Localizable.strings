@@ -190,6 +190,7 @@
 // MARK: - Editor Chrome
 "session.archiveTitle" = "Arquivo";
 "main.section.transport" = "Transporte";
+"main.section.session" = "Sessão";
 "main.state.idle" = "INATIVO";
 "main.state.recording" = "GRAV";
 "main.state.playing" = "REPR";

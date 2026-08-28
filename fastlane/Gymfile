@@ -4,3 +4,7 @@ configuration "Release"
 export_method "app-store"
 clean true
 output_directory "./build"
+
+# Pinned so the Crashlytics upload-symbols binary, which ships inside the
+# firebase-ios-sdk SPM checkout, sits at a path the Fastfile can predict.
+derived_data_path "./build/DerivedData"

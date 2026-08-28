@@ -11,6 +11,7 @@ struct MainViewSimple: View {
     @EnvironmentObject var viewModel: AudioViewModel
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) private var dismiss
+    @State private var showNewSessionAlert = false
 
     var body: some View {
 
@@ -35,6 +36,14 @@ struct MainViewSimple: View {
             overlaysView
 
             CountdownOverlay(value: viewModel.countdown)
+        }
+        .alert(Strings.Main.Alert.startNewSessionTitle, isPresented: $showNewSessionAlert) {
+            Button(Strings.Main.Alert.cancel, role: .cancel) {}
+            Button(Strings.Main.Alert.startNewSessionButton, role: .destructive) {
+                viewModel.startNewSession()
+            }
+        } message: {
+            Text(Strings.Main.Alert.startNewSessionMessage)
         }
         .reverseGameChrome(viewModel: viewModel, screenName: "MainViewSimple")
     }
@@ -68,6 +77,24 @@ struct MainViewSimple: View {
                 threeButtonStack
             }
             .padding(.horizontal, EditorMetrics.gutter)
+
+            // The tips tell the user to start a new session once a take exists, so the
+            // control has to be here too — not only in the premium skin.
+            if hasRecordings {
+                VStack(alignment: .leading, spacing: 10) {
+                    EditorSectionHeader(title: Strings.Main.Section.session)
+                    BigButton(
+                        title: Strings.Main.newSession,
+                        icon: "plus.circle.fill",
+                        color: .rsTurquoise,
+                        action: { showNewSessionAlert = true },
+                        isEnabled: !isRecording,
+                        style: .secondary
+                    )
+                }
+                .padding(.horizontal, EditorMetrics.gutter)
+                .padding(.top, 20)
+            }
 
             Spacer(minLength: 16)
 
@@ -254,6 +281,10 @@ struct MainViewSimple: View {
         return viewModel.appState.recordingState == .recording
     }
 
+    private var hasRecordings: Bool {
+        !(viewModel.appState.currentSession?.recordings.isEmpty ?? true)
+    }
+
     private var canRecord: Bool {
         // Can always record when not already recording
         return viewModel.appState.recordingState != .recording
@@ -323,7 +354,11 @@ struct MainViewSimple: View {
                 viewModel.stopRecording(type: .attempt)
             }
         } else {
-            // Start recording
+            // A second attempt would otherwise be appended behind the first, which the
+            // session still reads as the current take. Clear it first, as premium does.
+            if viewModel.appState.currentSession?.attemptRecording != nil {
+                viewModel.reRecordAttempt()
+            }
             viewModel.startRecording()
         }
     }
