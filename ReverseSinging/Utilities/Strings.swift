@@ -34,6 +34,7 @@ nonisolated enum Strings {
         enum Section {
             static let transport = NSLocalizedString("main.section.transport", comment: "Transport controls section label")
             static let hint = NSLocalizedString("main.section.hint", comment: "Hint strip label")
+            static let session = NSLocalizedString("main.section.session", comment: "Session controls section label")
         }
 
         /// The two games, offered side by side on the main screen.

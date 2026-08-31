@@ -190,6 +190,7 @@
 // MARK: - Editor Chrome
 "session.archiveTitle" = "アーカイブ";
 "main.section.transport" = "トランスポート";
+"main.section.session" = "セッション";
 "main.state.idle" = "待機";
 "main.state.recording" = "録音";
 "main.state.playing" = "再生";

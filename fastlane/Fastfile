@@ -18,6 +18,15 @@ ASC_KEY_PATH  = File.expand_path("AuthKey_#{ASC_KEY_ID}.p8", __dir__)
 PREVIEW_TYPE = "IPHONE_67"
 APP_RATING_CONFIG_PATH = File.expand_path("app_rating_config.json", __dir__)
 
+# Crashlytics symbol upload. The project pulls Firebase through SPM, not CocoaPods, so
+# there is no Pods/FirebaseCrashlytics/upload-symbols for fastlane to find on its own.
+# The binary lives in the package checkout under the derived data path Gymfile pins.
+GSP_PATH = File.expand_path("../ReverseSinging/GoogleService-Info.plist", __dir__)
+UPLOAD_SYMBOLS_BINARY = File.expand_path(
+  "../build/DerivedData/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols",
+  __dir__
+)
+
 # Reverso is free with no in-app purchases, so there is no pricing lane here ,
 # unlike the-feel-ios, which syncs a paid-upfront tier on every metadata push.
 
@@ -37,6 +46,30 @@ platform :ios do
       key_id: ASC_KEY_ID,
       issuer_id: ASC_ISSUER_ID,
       key_filepath: ASC_KEY_PATH
+    )
+  end
+
+  # Without this, a crash arrives in Crashlytics as raw addresses. Bitcode is gone, so
+  # App Store Connect no longer hands Google the dSYMs. this upload is the only route.
+  def self.upload_dsyms!
+    dsym_path = lane_context[SharedValues::DSYM_OUTPUT_PATH]
+
+    unless dsym_path && File.exist?(dsym_path)
+      UI.user_error!("build_app produced no dSYM archive. nothing to send to Crashlytics.")
+    end
+
+    unless File.exist?(UPLOAD_SYMBOLS_BINARY)
+      UI.user_error!(
+        "upload-symbols is missing at #{UPLOAD_SYMBOLS_BINARY}.\n\n" \
+        "It ships inside the firebase-ios-sdk SPM checkout, which lands there once " \
+        "build_app has resolved packages into the derived data path Gymfile pins."
+      )
+    end
+
+    upload_symbols_to_crashlytics(
+      dsym_path: dsym_path,
+      gsp_path: GSP_PATH,
+      binary_path: UPLOAD_SYMBOLS_BINARY
     )
   end
 
@@ -248,6 +281,7 @@ platform :ios do
   lane :beta do
     increment_build_number
     build_app
+    upload_dsyms!
     upload_to_testflight(
       api_key: @api_key,
       skip_waiting_for_build_processing: true
@@ -258,6 +292,7 @@ platform :ios do
   lane :release do
     increment_build_number
     build_app
+    upload_dsyms!
     deliver(
       api_key: @api_key,
       app_rating_config_path: APP_RATING_CONFIG_PATH,
