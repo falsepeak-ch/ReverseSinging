@@ -9,6 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var viewModel = AudioViewModel()
+    @Environment(\.scenePhase) private var scenePhase
+
+    /// Nil until the first activation, so a cold launch counts as an open too.
+    @State private var previousScenePhase: ScenePhase?
 
     var body: some View {
         Group {
@@ -26,6 +30,33 @@ struct ContentView: View {
             // A dub pack arrived from Files, AirDrop or "Open with"
             viewModel.pendingDubImportURL = url
             viewModel.showDubLibrary = true
+        }
+        .onChange(of: scenePhase, initial: true) { _, phase in
+            handleScenePhase(phase)
+        }
+    }
+
+    /// Counts an open on a launch or a return from the background — not on the flickers
+    /// between `.active` and `.inactive` that a notification banner causes.
+    @MainActor
+    private func handleScenePhase(_ phase: ScenePhase) {
+        defer { previousScenePhase = phase }
+        guard phase == .active else { return }
+        #if DEBUG
+        // A screenshot run drives the app through a cold launch per locale. Those are
+        // not opens, and nobody is there to rate anything.
+        if ScreenshotMode.isActive { return }
+        #endif
+        guard previousScenePhase == nil || previousScenePhase == .background else { return }
+
+        ReviewPrompt.shared.registerAppOpen()
+
+        // Onboarding is the wrong moment to ask for anything, and the ask reads better
+        // once the screen has settled rather than on top of the launch animation.
+        guard viewModel.appState.hasCompletedOnboarding else { return }
+        Task {
+            try? await Task.sleep(for: .seconds(2))
+            ReviewPrompt.shared.requestIfAppropriate(trigger: "app_open")
         }
     }
 

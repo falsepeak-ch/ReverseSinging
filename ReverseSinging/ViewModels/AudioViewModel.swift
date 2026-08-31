@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Combine
-import StoreKit
 
 @MainActor
 final class AudioViewModel: ObservableObject {
@@ -516,16 +515,9 @@ final class AudioViewModel: ObservableObject {
             AnalyticsManager.shared.trackSessionCompleted(score: score)
         }
 
-        // Request App Store review (Apple rate-limits to max 3x per year)
-        requestReviewIfAppropriate()
-    }
-
-    private func requestReviewIfAppropriate() {
-        // Request review - Apple will decide if/when to show
-        // (max 3 times per 365 days automatically)
-        if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
-            SKStoreReviewController.requestReview(in: scene)
-        }
+        // Same gate as the app-open ask, so the two triggers share one throttle
+        // rather than competing for Apple's three prompts a year.
+        ReviewPrompt.shared.requestIfAppropriate(trigger: "session_saved")
     }
 
     func deleteSession(_ session: AudioSession) {

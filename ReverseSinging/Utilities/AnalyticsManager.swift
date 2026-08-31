@@ -29,6 +29,16 @@ final class AnalyticsManager {
         log("app_launch", parameters: nil)
     }
 
+    /// Fired when we hand the review prompt to StoreKit. Apple decides whether it is
+    /// actually shown, so this measures our asking, not their seeing.
+    func trackReviewPromptRequested(trigger: String, openCount: Int, sharedVideoCount: Int) {
+        log("review_prompt_requested", parameters: [
+            "trigger": trigger,
+            "open_count": openCount,
+            "shared_video_count": sharedVideoCount
+        ])
+    }
+
     func trackOnboardingStarted() {
         log("onboarding_started", parameters: nil)
     }
