@@ -1,12 +1,4 @@
-Movie Scene Dub: the second game.
+Fixes for the Simple interface.
 
-• Two original scenes included, so there is something to dub the moment you open it
-• Import more: a dub pack folder or .zip from Files, AirDrop or any share sheet
-• Record your voice line by line over the scene, with the original waveform under yours and a pacing bar that tells you when you are running long
-• Hear the original in your headphones while you record
-• Watch the original, play your dub back, or export the finished scene as a video and share it
-• Overlapping dialogue now mixes correctly. Two characters talking over each other sum properly instead of one swallowing the other
-
-Reverso now speaks French, Italian, Japanese and Portuguese.
-
-New onboarding that shows you both games before it asks for the microphone.
+• Start a new session without leaving the game. The button was only in the Complex interface before
+• Re-recording your attempt now replaces the previous take instead of keeping it
