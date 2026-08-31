@@ -1,4 +1,1 @@
-Correccions per a la interfície Senzilla.
-
-• Comença una sessió nova sense sortir del joc. Abans el botó només era a la interfície Completa
-• Tornar a gravar l'intent ara substitueix la presa anterior en comptes de conservar-la
+Correcció d'errors i petites millores.

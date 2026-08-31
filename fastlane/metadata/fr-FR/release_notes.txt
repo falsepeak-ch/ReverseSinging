@@ -1,4 +1,1 @@
-Corrections pour l'interface Simple.
-
-• Démarrez une nouvelle session sans quitter le jeu. Le bouton n'existait que dans l'interface Complète
-• Réenregistrer votre essai remplace désormais la prise précédente au lieu de la conserver
+Corrections de bugs et petites améliorations.

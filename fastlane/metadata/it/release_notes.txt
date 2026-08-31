@@ -1,4 +1,1 @@
-Correzioni per l'interfaccia Semplice.
-
-• Inizia una nuova sessione senza uscire dal gioco. Prima il pulsante era solo nell'interfaccia Completa
-• Registrare di nuovo il tuo tentativo ora sostituisce la ripresa precedente invece di conservarla
+Correzioni di bug e piccoli miglioramenti.

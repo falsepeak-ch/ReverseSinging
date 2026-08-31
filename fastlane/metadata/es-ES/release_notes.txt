@@ -1,4 +1,1 @@
-Correcciones para la interfaz Sencilla.
-
-• Empieza una sesión nueva sin salir del juego. Antes el botón solo estaba en la interfaz Completa
-• Volver a grabar tu intento ahora sustituye la toma anterior en lugar de conservarla
+Corrección de errores y pequeñas mejoras.

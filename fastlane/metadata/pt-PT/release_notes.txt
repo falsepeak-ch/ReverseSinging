@@ -1,4 +1,1 @@
-Correções para a interface Simples.
-
-• Começa uma nova sessão sem sair do jogo. Antes o botão só existia na interface Completa
-• Voltar a gravar a tua tentativa substitui agora a captura anterior em vez de a manter
+Correção de erros e pequenas melhorias.

@@ -1,4 +1,1 @@
-Fixes for the Simple interface.
-
-• Start a new session without leaving the game. The button was only in the Complex interface before
-• Re-recording your attempt now replaces the previous take instead of keeping it
+Bug fixes and small improvements.
