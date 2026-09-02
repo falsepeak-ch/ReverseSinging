@@ -74,7 +74,19 @@ struct DubPackDetailView: View {
         }
         .toolbar(.hidden, for: .navigationBar)
         .fullScreenCover(isPresented: $showRecorder) {
+            // Hooked here rather than at the four buttons that set `showRecorder`, so a
+            // fifth way into the recorder cannot quietly stop being counted.
             DubRecordView(viewModel: viewModel)
+                .onAppear {
+                    AnalyticsManager.shared.trackDubPackOpened(
+                        title: pack.title,
+                        lineCount: pack.lines.count,
+                        recordedCount: library.recordedCount(for: pack)
+                    )
+                    CrashReporter.shared.set(.screen, "DubRecordView")
+                    CrashReporter.shared.set(.packLineCount, pack.lines.count)
+                    CrashReporter.shared.set(.packHasVideo, pack.videoFile != nil)
+                }
         }
         .fullScreenCover(item: $playbackMode) { mode in
             DubPlaybackView(viewModel: viewModel, mode: mode)

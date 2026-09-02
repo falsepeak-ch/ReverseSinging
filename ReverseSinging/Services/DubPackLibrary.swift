@@ -216,10 +216,33 @@ final class DubPackLibrary: ObservableObject {
 
             await reloadNow()
             HapticManager.shared.success()
-            AnalyticsManager.shared.trackDubPackImported(title: pack.title, lineCount: pack.lines.count)
+            AnalyticsManager.shared.trackDubPackImported(
+                title: pack.title,
+                authors: pack.authors,
+                sourceName: url.lastPathComponent,
+                lineCount: pack.lines.count,
+                characterCount: Set(pack.lines.map(\.character)).count,
+                duration: pack.duration,
+                hasVideo: pack.videoFile != nil,
+                hasAttribution: pack.hasAttribution
+            )
         } catch {
             errorMessage = error.localizedDescription
             HapticManager.shared.error()
+
+            // A failed import is a pack somebody made that nobody can play. Recorded twice
+            // on purpose: as an event, so the names of the packs that fail are countable
+            // next to the ones that work, and as a non-fatal, so an unanticipated format
+            // arrives with a stack rather than as a bare string.
+            AnalyticsManager.shared.trackDubPackImportFailed(
+                sourceName: url.lastPathComponent,
+                reason: String(describing: error)
+            )
+            CrashReporter.shared.record(
+                error,
+                context: "dub_pack.import",
+                keys: ["source_extension": url.pathExtension.lowercased()]
+            )
         }
     }
 

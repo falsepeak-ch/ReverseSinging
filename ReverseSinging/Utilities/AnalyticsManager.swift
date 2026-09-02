@@ -221,10 +221,64 @@ final class AnalyticsManager {
 
     // MARK: - Dub Mode
 
-    func trackDubPackImported(title: String, lineCount: Int) {
+    /// Firebase drops a string parameter longer than 100 characters, and drops it silently:
+    /// the event still arrives, just without that field. Pack titles and author lists are
+    /// written by whoever made the pack, so neither has a length we control.
+    private func truncated(_ value: String, limit: Int = 100) -> String {
+        value.count <= limit ? value : String(value.prefix(limit - 1)) + "…"
+    }
+
+    /// A pack the user brought themselves, as it landed.
+    ///
+    /// This is the only view we get of what the community is actually making: the packs
+    /// live on other people's devices and on sites we do not run, so what is imported here
+    /// is the whole sample. `pack_title` and `authors` are what the pack's own
+    /// `_pack_info.ini` claims; `source_name` is what the file was called when the user
+    /// picked it, which is often the more recognisable name of the two.
+    ///
+    /// Only user imports reach this. The bundled starter packs install through
+    /// `DubStarterPacks`, which calls the importer directly, so they never inflate it.
+    func trackDubPackImported(
+        title: String,
+        authors: [String],
+        sourceName: String,
+        lineCount: Int,
+        characterCount: Int,
+        duration: Double,
+        hasVideo: Bool,
+        hasAttribution: Bool
+    ) {
         log("dub_pack_imported", parameters: [
-            "pack_title": title,
-            "line_count": lineCount
+            "pack_title": truncated(title),
+            "authors": truncated(authors.joined(separator: ", ")),
+            "source_name": truncated(sourceName),
+            "line_count": lineCount,
+            "character_count": characterCount,
+            "duration": duration,
+            "has_video": hasVideo,
+            "has_attribution": hasAttribution
+        ])
+    }
+
+    /// An import that threw.
+    ///
+    /// Worth as much as the successful ones: a pack that will not open is a pack somebody
+    /// made and could not use, and the name is the only way to go and find out why. There is
+    /// no parsed title at this point, so the file the user picked is the name we have.
+    func trackDubPackImportFailed(sourceName: String, reason: String) {
+        log("dub_pack_import_failed", parameters: [
+            "source_name": truncated(sourceName),
+            "reason": truncated(reason)
+        ])
+    }
+
+    /// Which packs are actually performed, as opposed to merely imported. An import is
+    /// curiosity; opening the recorder is the pack earning its place.
+    func trackDubPackOpened(title: String, lineCount: Int, recordedCount: Int) {
+        log("dub_pack_opened", parameters: [
+            "pack_title": truncated(title),
+            "line_count": lineCount,
+            "recorded_count": recordedCount
         ])
     }
 

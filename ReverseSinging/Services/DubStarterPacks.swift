@@ -81,6 +81,14 @@ nonisolated enum DubStarterPacks {
             return try await DubPackImporter.shared.importPack(from: url)
         } catch {
             print("⚠️ Starter pack \(name) could not be installed: \(error.localizedDescription)")
+            // A bundled zip that will not parse is broken in the build we shipped, and the
+            // mode opens onto an empty shelf for every user on that build. There is no
+            // screen that reports it, so this non-fatal is the only alarm.
+            CrashReporter.shared.record(
+                error,
+                context: "dub_pack.starter_install",
+                keys: ["pack": name]
+            )
             return nil
         }
     }

@@ -4,7 +4,7 @@
 */
 
 // MARK: - Onboarding
-"onboarding.welcome.title" = "Bem-vindo ao Reverso";
+"onboarding.welcome.title" = "Bem-vindo ao Dubloon";
 "onboarding.welcome.message" = "Dois jogos, um microfone: canta uma música ao contrário ou dobra uma cena de filme com a tua voz.";
 "onboarding.howItWorks.title" = "Como Funciona";
 "onboarding.howItWorks.message" = "Grava áudio, inverte-o, canta o que ouvires e depois volta a invertê-lo para veres se acertaste!";
@@ -56,7 +56,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Acesso ao Microfone Necessário";
-"main.emptyState.message" = "Para usares o Reverso, ativa o acesso ao microfone nas definições do teu dispositivo. Assim podes gravar e inverter áudio.";
+"main.emptyState.message" = "Para usares o Dubloon, ativa o acesso ao microfone nas definições do teu dispositivo. Assim podes gravar e inverter áudio.";
 "main.emptyState.button" = "Abrir Definições";
 
 // MARK: - Main View - Processing & Success

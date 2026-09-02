@@ -4,7 +4,7 @@
 */
 
 // MARK: - Onboarding
-"onboarding.welcome.title" = "Bienvenue dans Reverso";
+"onboarding.welcome.title" = "Bienvenue dans Dubloon";
 "onboarding.welcome.message" = "Deux jeux, un micro : chante une chanson à l'envers ou double une scène de film avec ta voix.";
 "onboarding.howItWorks.title" = "Comment ça marche";
 "onboarding.howItWorks.message" = "Enregistre un son, inverse-le, chante ce que tu entends, puis inverse-le à nouveau pour voir si tu t'en es bien sorti !";
@@ -56,7 +56,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Accès au micro requis";
-"main.emptyState.message" = "Pour utiliser Reverso, active l'accès au micro dans les réglages de ton appareil. Cela te permet d'enregistrer et d'inverser du son.";
+"main.emptyState.message" = "Pour utiliser Dubloon, active l'accès au micro dans les réglages de ton appareil. Cela te permet d'enregistrer et d'inverser du son.";
 "main.emptyState.button" = "Ouvrir les Réglages";
 
 // MARK: - Main View - Processing & Success

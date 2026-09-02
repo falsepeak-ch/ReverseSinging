@@ -1,8 +1,8 @@
-O Reverso são dois jogos de voz numa só app, e nenhum deles precisa de mais nada além do teu microfone.
+O Dubloon são dois jogos de voz numa só app, e nenhum deles precisa de mais nada além do teu microfone.
 
 DOBRAGEM DE CENA
 
-Carrega uma cena e dobra-a tu. O Reverso reproduz-te a fala original, mostra-te a imagem e o texto, e dá-te a duração exacta a cumprir. Depois gravas a tua take. A onda da original fica por baixo da tua, por isso vês onde entraste cedo demais, onde aceleraste e onde deixaste um vazio.
+Carrega uma cena e dobra-a tu. O Dubloon reproduz-te a fala original, mostra-te a imagem e o texto, e dá-te a duração exacta a cumprir. Depois gravas a tua take. A onda da original fica por baixo da tua, por isso vês onde entraste cedo demais, onde aceleraste e onde deixaste um vazio.
 
 • Fala a fala, ao teu ritmo: pára e retoma quando quiseres
 • A interpretação original nos teus auscultadores enquanto gravas, se quiseres
@@ -11,19 +11,19 @@ Carrega uma cena e dobra-a tu. O Reverso reproduz-te a fala original, mostra-te 
 • Vê a original, ouve a tua dobragem ou exporta a cena inteira em vídeo
 • Os diálogos sobrepostos são misturados em pistas separadas, por isso duas personagens a falar ao mesmo tempo soam mesmo assim
 
-No fim, o Reverso renderiza a cena com a tua voz lá dentro e entrega-te um vídeo para partilhar.
+No fim, o Dubloon renderiza a cena com a tua voz lá dentro e entrega-te um vídeo para partilhar.
 
 DUAS CENAS PARA COMEÇAR
 
-O Reverso vem com duas cenas, por isso o modo abre sempre com algo para interpretar. Uma é de animação e a outra é um clássico a preto e branco, e não se parecem em nada.
+O Dubloon vem com duas cenas, por isso o modo abre sempre com algo para interpretar. Uma é de animação e a outra é um clássico a preto e branco, e não se parecem em nada.
 
 Camp Rules foi retirada de Sprite Fright, o filme livre do Blender Studio, partilhado com licença Creative Commons Atribuição 4.0. Stuck Up foi retirada de The Outsider, um filme escolar de 1951 que é de domínio público nos Estados Unidos. Cada cena indica o filme, o ano e os termos no seu próprio ecrã.
 
-A partir daí, a prateleira é tua. O Reverso não inclui, não aloja e não fornece qualquer filme. Os packs de dobragem são feitos e partilhados pelos outros jogadores: descarregas os que quiseres e importas a pasta ou o .zip a partir de Ficheiros, AirDrop ou qualquer folha de partilha. És tu o responsável por deteres os direitos daquilo que dobras.
+A partir daí, a prateleira é tua. O Dubloon não inclui, não aloja e não fornece qualquer filme. Os packs de dobragem são feitos e partilhados pelos outros jogadores: descarregas os que quiseres e importas a pasta ou o .zip a partir de Ficheiros, AirDrop ou qualquer folha de partilha. És tu o responsável por deteres os direitos daquilo que dobras.
 
 CANTO INVERTIDO
 
-O jogo original. Grava uma música e o Reverso inverte-a. Canta a versão ao contrário que ouves e a app inverte a tua tentativa: se acertaste, sais a cantar a música a sério. Pontua o quão perto chegaste.
+O jogo original. Grava uma música e o Dubloon inverte-a. Canta a versão ao contrário que ouves e a app inverte a tua tentativa: se acertaste, sais a cantar a música a sério. Pontua o quão perto chegaste.
 
 • Duas interfaces: botões grandes e simples, ou a onda completa com ciclo, velocidade e tom
 • Guarda as tuas melhores takes e volta a elas

@@ -6,4 +6,4 @@
    the build settings, which is the fallback. Keep the two in step.
 */
 
-"NSMicrophoneUsageDescription" = "Reverso needs microphone access to record your voice, so you can sing songs backwards and dub movie scenes.";
+"NSMicrophoneUsageDescription" = "Dubloon needs microphone access to record your voice, so you can sing songs backwards and dub movie scenes.";

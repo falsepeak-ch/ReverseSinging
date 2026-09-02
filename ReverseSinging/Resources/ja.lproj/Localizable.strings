@@ -4,7 +4,7 @@
 */
 
 // MARK: - Onboarding
-"onboarding.welcome.title" = "Reversoへようこそ";
+"onboarding.welcome.title" = "Dubloonへようこそ";
 "onboarding.welcome.message" = "ゲームは2つ、必要なのはマイクだけ。歌を逆さまに歌うか、映画のワンシーンを自分の声でアフレコしよう。";
 "onboarding.howItWorks.title" = "遊び方";
 "onboarding.howItWorks.message" = "音声を録音して逆再生し、聞こえたとおりに歌って、もう一度ひっくり返せば、どれだけ近づけたかわかります。";
@@ -56,7 +56,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "マイクへのアクセスが必要です";
-"main.emptyState.message" = "Reversoを使うには、端末の設定でマイクへのアクセスを許可してください。音声の録音と逆再生ができるようになります。";
+"main.emptyState.message" = "Dubloonを使うには、端末の設定でマイクへのアクセスを許可してください。音声の録音と逆再生ができるようになります。";
 "main.emptyState.button" = "設定を開く";
 
 // MARK: - Main View - Processing & Success

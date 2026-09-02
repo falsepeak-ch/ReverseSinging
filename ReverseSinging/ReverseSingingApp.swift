@@ -23,6 +23,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
         FirebaseApp.configure()
 
+        // Crashlytics is on from here. It catches the crashes by itself; the non-fatals it
+        // cannot see are reported through `CrashReporter` from the paths that swallow them.
+        Crashlytics.crashlytics().setCustomValue(
+            Locale.current.identifier, forKey: "locale"
+        )
+        CrashReporter.shared.log("launch")
+
         // Track app launch
         AnalyticsManager.shared.trackAppLaunch()
 

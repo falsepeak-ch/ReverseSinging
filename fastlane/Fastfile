@@ -27,7 +27,7 @@ UPLOAD_SYMBOLS_BINARY = File.expand_path(
   __dir__
 )
 
-# Reverso is free with no in-app purchases, so there is no pricing lane here ,
+# Dubloon is free with no in-app purchases, so there is no pricing lane here ,
 # unlike the-feel-ios, which syncs a paid-upfront tier on every metadata push.
 
 platform :ios do

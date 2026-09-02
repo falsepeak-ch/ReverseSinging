@@ -1,8 +1,8 @@
-Reverso sono due giochi di voce in una sola app, e a nessuno dei due serve altro che il tuo microfono.
+Dubloon sono due giochi di voce in una sola app, e a nessuno dei due serve altro che il tuo microfono.
 
 DOPPIAGGIO DI SCENA
 
-Carica una scena e doppiala tu. Reverso ti riproduce la battuta originale, ti mostra l'immagine e il testo, e ti dà la durata esatta da rispettare. Poi registri la tua take. La forma d'onda dell'originale sta sotto la tua, così vedi dove sei entrato in anticipo, dove hai corso e dove hai lasciato un vuoto.
+Carica una scena e doppiala tu. Dubloon ti riproduce la battuta originale, ti mostra l'immagine e il testo, e ti dà la durata esatta da rispettare. Poi registri la tua take. La forma d'onda dell'originale sta sotto la tua, così vedi dove sei entrato in anticipo, dove hai corso e dove hai lasciato un vuoto.
 
 • Battuta per battuta, al tuo ritmo: fermati e riprendi quando vuoi
 • L'interpretazione originale in cuffia mentre registri, se ti va
@@ -11,19 +11,19 @@ Carica una scena e doppiala tu. Reverso ti riproduce la battuta originale, ti mo
 • Guarda l'originale, riascolta il tuo doppiaggio o esporta l'intera scena in video
 • I dialoghi sovrapposti vengono mixati su piste separate, così due personaggi che parlano insieme suonano davvero così
 
-Alla fine Reverso renderizza la scena con la tua voce dentro e ti consegna un video da condividere.
+Alla fine Dubloon renderizza la scena con la tua voce dentro e ti consegna un video da condividere.
 
 DUE SCENE PER INIZIARE
 
-Reverso arriva con due scene, così il modo si apre sempre su qualcosa da interpretare. Una è d'animazione e l'altra è un classico in bianco e nero, e non si somigliano per niente.
+Dubloon arriva con due scene, così il modo si apre sempre su qualcosa da interpretare. Una è d'animazione e l'altra è un classico in bianco e nero, e non si somigliano per niente.
 
 Camp Rules è ritagliata da Sprite Fright, il film libero di Blender Studio, condiviso con licenza Creative Commons Attribuzione 4.0. Stuck Up è ritagliata da The Outsider, un film scolastico del 1951 che è di pubblico dominio negli Stati Uniti. Ogni scena indica il film, l'anno e i termini sulla propria schermata.
 
-Da lì in poi lo scaffale lo riempi tu. Reverso non include, non ospita e non fornisce alcun film. I pack di doppiaggio sono creati e condivisi dagli altri giocatori: scarichi quelli che vuoi e importi la cartella o lo .zip da File, AirDrop o qualsiasi foglio di condivisione. Sei tu il responsabile dei diritti su ciò che doppi.
+Da lì in poi lo scaffale lo riempi tu. Dubloon non include, non ospita e non fornisce alcun film. I pack di doppiaggio sono creati e condivisi dagli altri giocatori: scarichi quelli che vuoi e importi la cartella o lo .zip da File, AirDrop o qualsiasi foglio di condivisione. Sei tu il responsabile dei diritti su ciò che doppi.
 
 CANTO INVERTITO
 
-Il gioco originale. Registra una canzone e Reverso la inverte. Canta la versione al contrario che senti e l'app ribalta il tuo tentativo: se l'hai presa, esci cantando la canzone vera. Ti dà un punteggio su quanto ci sei andato vicino.
+Il gioco originale. Registra una canzone e Dubloon la inverte. Canta la versione al contrario che senti e l'app ribalta il tuo tentativo: se l'hai presa, esci cantando la canzone vera. Ti dà un punteggio su quanto ci sei andato vicino.
 
 • Due interfacce: pulsanti grandi e semplici, oppure la forma d'onda completa con loop, velocità e tonalità
 • Salva le tue take migliori e torna ad ascoltarle

@@ -54,7 +54,8 @@ enum ScreenshotMode {
 
     // MARK: - Flags
 
-    static var isActive: Bool {
+    /// `nonisolated` so the reporters that gate on it can be called from any thread.
+    nonisolated static var isActive: Bool {
         UserDefaults.standard.bool(forKey: "screenshotMode")
     }
 

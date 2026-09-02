@@ -4,7 +4,7 @@
 */
 
 // MARK: - Onboarding
-"onboarding.welcome.title" = "Welcome to Reverso";
+"onboarding.welcome.title" = "Welcome to Dubloon";
 "onboarding.welcome.message" = "Two games, one microphone: sing a song backwards, or dub a movie scene in your own voice.";
 "onboarding.howItWorks.title" = "How It Works";
 "onboarding.howItWorks.message" = "Record audio, reverse it, sing what you hear, then flip it again to see how close you got!";
@@ -56,7 +56,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Microphone Access Required";
-"main.emptyState.message" = "To use Reverso, please enable microphone access in your device settings. This allows you to record and reverse audio.";
+"main.emptyState.message" = "To use Dubloon, please enable microphone access in your device settings. This allows you to record and reverse audio.";
 "main.emptyState.button" = "Open Settings";
 
 // MARK: - Main View - Processing & Success

@@ -668,15 +668,24 @@ final class AudioViewModel: ObservableObject {
         // Show permission alert if permission was denied
         if case .permissionDenied = error {
             showPermissionAlert = true
+            // A denied microphone is the user's choice, not a fault. Reporting it would
+            // bury the recorder failures that are.
+            return
         }
+
+        CrashReporter.shared.record(error, context: "reverse.record")
     }
 
+    /// Every failure the reverse-singing mode shows the user passes through here, so this
+    /// is the one place that has to report for the whole mode.
     private func handleError(_ error: Error) {
         print("❌ Error: \(error.localizedDescription)")
         errorMessage = error.localizedDescription
         appState.recordingState = .error(error.localizedDescription)
         SoundManager.shared.play(.errorThunk)
         HapticManager.shared.error()
+
+        CrashReporter.shared.record(error, context: "reverse.session")
     }
 
     // MARK: - Cleanup

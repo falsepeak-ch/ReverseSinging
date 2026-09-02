@@ -448,6 +448,7 @@ final class DubViewModel: ObservableObject {
             SoundManager.shared.setMicrophoneOpen(false)
             errorMessage = error.localizedDescription
             SoundManager.shared.play(.errorThunk)
+            CrashReporter.shared.record(error, context: "dub.record_start")
         }
     }
 
@@ -689,6 +690,15 @@ final class DubViewModel: ObservableObject {
             errorMessage = error.localizedDescription
             SoundManager.shared.play(.errorThunk)
             HapticManager.shared.error()
+
+            // The last step of the whole mode, after the user has recorded every line.
+            // Failing here throws away the most work of any error in the app.
+            CrashReporter.shared.record(error, context: "dub.export", keys: [
+                "line_count": pack.lines.count,
+                // The case name, not `.message`, which is localised and would split one
+                // issue across seven languages.
+                "stage": String(describing: exportStage)
+            ])
         }
     }
 

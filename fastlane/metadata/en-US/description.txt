@@ -1,8 +1,8 @@
-Reverso is two voice games in one app, and neither of them needs anything but your microphone.
+Dubloon is two voice games in one app, and neither of them needs anything but your microphone.
 
 MOVIE SCENE DUB
 
-Load a scene and dub it yourself. Reverso plays you the original line, shows you the picture and the words, and gives you the exact length to hit. Then you record your take. The waveform of the original sits under yours, so you can see where you came in early, where you rushed, and where you left a gap.
+Load a scene and dub it yourself. Dubloon plays you the original line, shows you the picture and the words, and gives you the exact length to hit. Then you record your take. The waveform of the original sits under yours, so you can see where you came in early, where you rushed, and where you left a gap.
 
 • Line by line, at your own pace. Stop and pick it up again whenever you like
 • The original delivery in your headphones while you record, if you want it
@@ -11,19 +11,19 @@ Load a scene and dub it yourself. Reverso plays you the original line, shows you
 • Watch the original, play your dub back, or export the whole scene as a video
 • Overlapping dialogue is mixed on separate lanes, so two people talking over each other actually sound like it
 
-When you are done, Reverso renders the scene with your voice in it and hands you a video to share.
+When you are done, Dubloon renders the scene with your voice in it and hands you a video to share.
 
 TWO SCENES TO START WITH
 
-Reverso comes with two scenes, so the mode always opens onto something to perform. One is animated and one is a black-and-white classic, and they play nothing alike.
+Dubloon comes with two scenes, so the mode always opens onto something to perform. One is animated and one is a black-and-white classic, and they play nothing alike.
 
 Camp Rules is cut from Sprite Fright, the Blender Studio open movie, shared under Creative Commons Attribution 4.0. Stuck Up is cut from The Outsider, a 1951 classroom film that is in the public domain in the United States. Each scene names the film, the year and the terms right there on its own screen.
 
-After that, the shelf is yours to fill. Beyond those two scenes, Reverso does not include or host any films. Community dub packs are made and shared by other players. You download the ones you want and import the folder or .zip from Files, AirDrop or any share sheet. Do make sure you have the right to use whatever you dub.
+After that, the shelf is yours to fill. Beyond those two scenes, Dubloon does not include or host any films. Community dub packs are made and shared by other players. You download the ones you want and import the folder or .zip from Files, AirDrop or any share sheet. Do make sure you have the right to use whatever you dub.
 
 REVERSE SINGING
 
-The original game. Record a song and Reverso flips it. Sing the backwards version you hear, and the app flips your attempt back. If you got it right, you come out singing the real song. It scores how close you got.
+The original game. Record a song and Dubloon flips it. Sing the backwards version you hear, and the app flips your attempt back. If you got it right, you come out singing the real song. It scores how close you got.
 
 • Two interfaces: big simple buttons, or the full waveform with loop, speed and pitch
 • Save your best takes and come back to them

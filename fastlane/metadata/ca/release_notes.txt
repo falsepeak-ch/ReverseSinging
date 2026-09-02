@@ -1,1 +1,3 @@
-Correcció d'errors i petites millores.
+L'app té un nom nou i un logotip nou. Els mateixos dos jocs de veu, les mateixes escenes, res per tornar a aprendre.
+
+A més de les correccions d'errors i petites millores de sempre.

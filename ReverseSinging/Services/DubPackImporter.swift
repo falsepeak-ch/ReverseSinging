@@ -129,6 +129,11 @@ nonisolated struct DubPackImporter {
             try? fileManager.removeItem(at: source)
         } catch {
             print("⚠️ Dub scene video could not be converted, falling back to stills: \(error.localizedDescription)")
+            // Silent by design for the user, who still gets a playable pack from the stills.
+            // Not silent for us: this is the one failure that degrades a scene without ever
+            // showing an error, so without a non-fatal we would never learn a Theora
+            // flavour in the wild does not decode.
+            CrashReporter.shared.record(error, context: "dub_pack.video_transcode")
             try? fileManager.removeItem(at: destination)
             try? fileManager.removeItem(at: source)
         }

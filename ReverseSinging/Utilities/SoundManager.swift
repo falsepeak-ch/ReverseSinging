@@ -62,7 +62,7 @@ final class SoundManager: @unchecked Sendable {
     /// `AVAudioPlayer.play()` returns straight away and does its work on the audio thread.
     private var players: [UISound: AVAudioPlayer] = [:]
     private let lock = NSLock()
-    private let loadQueue = DispatchQueue(label: "com.falsepeak.reverso.sound", qos: .userInitiated)
+    private let loadQueue = DispatchQueue(label: "com.falsepeak.dubloon.sound", qos: .userInitiated)
 
     /// Set while the mic is open. Interface sounds would bleed straight into the take,
     /// so everything is suppressed until recording stops.
