@@ -292,6 +292,7 @@
 "pro.ok" = "D'acord";
 "pro.fallback.title" = "Desbloqueja el Dubloon";
 "pro.fallback.message" = "La teva prova gratuïta s'ha acabat. Un sol pagament deixa els dos jocs oberts per sempre.";
+"pro.fallback.message.beforeExpiry" = "Un sol pagament deixa els dos jocs oberts per sempre.";
 "pro.fallback.buy" = "Desbloqueja per %@";
 "pro.fallback.buyUnpriced" = "Desbloqueja";
 "pro.fallback.loading" = "Consultant la botiga…";

@@ -292,6 +292,7 @@
 "pro.ok" = "OK";
 "pro.fallback.title" = "Desbloquear o Dubloon";
 "pro.fallback.message" = "A tua avaliação gratuita terminou. Um só pagamento mantém os dois jogos abertos para sempre.";
+"pro.fallback.message.beforeExpiry" = "Um só pagamento mantém os dois jogos abertos para sempre.";
 "pro.fallback.buy" = "Desbloquear por %@";
 "pro.fallback.buyUnpriced" = "Desbloquear";
 "pro.fallback.loading" = "A consultar a loja…";

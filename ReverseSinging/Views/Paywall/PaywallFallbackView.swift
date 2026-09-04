@@ -72,7 +72,13 @@ struct PaywallFallbackView: View {
                 .font(.rsDisplayMedium)
                 .foregroundStyle(Color.rsTextPrimary)
 
-            Text(Strings.Pro.Fallback.message)
+            // Keyed off the access state rather than off `isDismissible`: the
+            // presentation is a good proxy for "the trial is over" but not the
+            // fact itself, and this is the one line on the screen that must not
+            // be able to say something the user can see is untrue.
+            Text(access.isLocked
+                 ? Strings.Pro.Fallback.messageAfterExpiry
+                 : Strings.Pro.Fallback.messageBeforeExpiry)
                 .font(.rsBodyMedium)
                 .foregroundStyle(Color.rsTextSecondary)
                 .fixedSize(horizontal: false, vertical: true)

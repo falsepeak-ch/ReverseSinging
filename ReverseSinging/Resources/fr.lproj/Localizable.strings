@@ -292,6 +292,7 @@
 "pro.ok" = "OK";
 "pro.fallback.title" = "Débloquer Dubloon";
 "pro.fallback.message" = "Votre essai gratuit est terminé. Un seul paiement garde les deux jeux ouverts pour toujours.";
+"pro.fallback.message.beforeExpiry" = "Un seul paiement garde les deux jeux ouverts pour toujours.";
 "pro.fallback.buy" = "Débloquer pour %@";
 "pro.fallback.buyUnpriced" = "Débloquer";
 "pro.fallback.loading" = "Consultation de la boutique…";

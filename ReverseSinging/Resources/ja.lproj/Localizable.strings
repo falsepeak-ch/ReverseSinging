@@ -292,6 +292,7 @@
 "pro.ok" = "OK";
 "pro.fallback.title" = "Dubloonのロックを解除";
 "pro.fallback.message" = "無料お試し期間が終了しました。一度の購入で、2つのゲームをずっと使えます。";
+"pro.fallback.message.beforeExpiry" = "一度の購入で、2つのゲームをずっと使えます。";
 "pro.fallback.buy" = "%@で解除";
 "pro.fallback.buyUnpriced" = "ロックを解除";
 "pro.fallback.loading" = "ストアを確認しています…";

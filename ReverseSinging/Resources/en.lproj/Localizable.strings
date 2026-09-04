@@ -292,6 +292,7 @@
 "pro.ok" = "OK";
 "pro.fallback.title" = "Unlock Dubloon";
 "pro.fallback.message" = "Your free trial has ended. One payment keeps both games open for good.";
+"pro.fallback.message.beforeExpiry" = "One payment keeps both games open for good.";
 "pro.fallback.buy" = "Unlock for %@";
 "pro.fallback.buyUnpriced" = "Unlock";
 "pro.fallback.loading" = "Checking the store…";
