@@ -112,8 +112,11 @@ iOSInjectionProject/
 # Firebase
 GoogleService-Info.plist
 
-# App Store Connect API Key
-AuthKey_*.p8
+# App Store Connect API Key, and the In-App Purchase key RevenueCat validates
+# purchases with. Apple names them AuthKey_*.p8 and SubscriptionKey_*.p8
+# respectively; the glob covers both and anything else Apple invents, since a .p8
+# in a source tree is a private key either way and never belongs here.
+*.p8
 
 # Everything a developer needs locally but the repo does not carry.
 #

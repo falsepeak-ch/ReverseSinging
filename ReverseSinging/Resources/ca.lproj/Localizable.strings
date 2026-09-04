@@ -268,3 +268,53 @@
 "dub.score.grade.rough" = "Torna-hi";
 
 "dub.videoNeedsReimport" = "El vídeo d'aquesta escena es va convertir amb una versió anterior i va per davant de les veus. Torna a importar el pack per corregir-ho.";
+
+// MARK: - Pro / Paywall
+"pro.trial.daysLeft" = "Queden %d dies";
+"pro.trial.oneDayLeft" = "Últim dia";
+"pro.trial.over" = "La teva prova gratuïta s'ha acabat";
+"pro.section" = "Dubloon Pro";
+"pro.unlock.title" = "Desbloqueja el Dubloon";
+"pro.unlock.subtitle" = "Un sol pagament, els dos jocs, per sempre.";
+"pro.owned.title" = "El Dubloon és teu";
+"pro.owned.subtitle" = "Gràcies. Totes les escenes, totes les preses, sense límits.";
+"pro.manage.title" = "Gestiona la compra";
+"pro.manage.subtitle" = "Rebuts, devolucions i ajuda amb la teva compra.";
+"pro.restore.title" = "Restaura la compra";
+"pro.restore.subtitle" = "Mòbil nou o app reinstal·lada? Recupera-la.";
+"pro.testStore.warning" = "Compilació de depuració: connectada a la botiga de proves de RevenueCat. No es mou diner real.";
+"pro.restored.title" = "Restaurada";
+"pro.restored.message" = "La teva compra torna a ser en aquest dispositiu.";
+"pro.nothingToRestore.title" = "No hi ha res a restaurar";
+"pro.nothingToRestore.message" = "No s'ha trobat cap compra en aquest compte d'Apple. Si vas comprar el Dubloon amb un altre, inicia-hi la sessió i torna-ho a provar.";
+"pro.error.title" = "Alguna cosa ha anat malament";
+"pro.error.generic" = "No s'ha pogut contactar amb la botiga. Torna-ho a provar.";
+"pro.ok" = "D'acord";
+"pro.fallback.title" = "Desbloqueja el Dubloon";
+"pro.fallback.message" = "La teva prova gratuïta s'ha acabat. Un sol pagament deixa els dos jocs oberts per sempre.";
+"pro.fallback.buy" = "Desbloqueja per %@";
+"pro.fallback.buyUnpriced" = "Desbloqueja";
+"pro.fallback.loading" = "Consultant la botiga…";
+"pro.fallback.unavailable" = "Ara mateix no es pot contactar amb la botiga. Comprova la connexió i torna-ho a provar.";
+"pro.fallback.retry" = "Torna-ho a provar";
+"pro.fallback.benefit.one" = "Canta al revés tantes vegades com vulguis";
+"pro.fallback.benefit.two" = "Dobla totes les escenes, i porta-hi les teves";
+"pro.fallback.benefit.three" = "Exporta i comparteix les teves preses";
+"pro.fallback.oneTime" = "Un sol pagament. No és una subscripció.";
+
+// MARK: - Pro / Early adopters
+"pro.earlyAdopter.title" = "Benvingut al club";
+"pro.earlyAdopter.message" = "El Dubloon ja és de pagament, però no per a tu. Hi eres abans que comencéssim a cobrar, així que els dos jocs continuen sent teus, gratis, mentre existeixi l'app. Gràcies per acompanyar-nos des del principi.";
+"pro.earlyAdopter.badge" = "Gratis per sempre";
+"pro.earlyAdopter.confirm" = "Genial";
+"pro.earlyAdopter.settings.title" = "Gratis per sempre";
+"pro.earlyAdopter.settings.subtitle" = "Vas arribar aviat. Els dos jocs són teus, sense pagar res.";
+"pro.closePaywall" = "Tanca";
+
+// Early adopter slate rows
+"pro.earlyAdopter.row.access" = "Accés";
+"pro.earlyAdopter.row.access.value" = "Els dos jocs";
+"pro.earlyAdopter.row.cost" = "Cost";
+"pro.earlyAdopter.row.cost.value" = "Res";
+"pro.earlyAdopter.row.expires" = "Caduca";
+"pro.earlyAdopter.row.expires.value" = "Mai";

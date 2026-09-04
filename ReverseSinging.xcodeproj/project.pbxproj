@@ -13,6 +13,9 @@
 		FF2EE2D92EAF91B100549684 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = FF3C44EB2EAF8B000055F61C /* FirebaseCore */; };
 		FF2EE3E72EB028B600549684 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = FF2EE3E62EB028B600549684 /* FirebaseCrashlytics */; };
 		FF2EE5362EB135D500549684 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FF2EE5352EB135D500549684 /* FirebaseAnalytics */; };
+		DB4AF30520260904000000C5 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = DB4AF30220260904000000C2 /* RevenueCat */; };
+		DB4AF30620260904000000C6 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = DB4AF30320260904000000C3 /* RevenueCatUI */; };
+		DB4AF30720260904000000C7 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = DB4AF30420260904000000C4 /* FirebaseRemoteConfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +70,9 @@
 				FF2EE5362EB135D500549684 /* FirebaseAnalytics in Frameworks */,
 				DB2AF10120250001000000A1 /* ZIPFoundation in Frameworks */,
 				DB3AF20220250002000000B2 /* XiphTheora.xcframework in Frameworks */,
+				DB4AF30720260904000000C7 /* FirebaseRemoteConfig in Frameworks */,
+				DB4AF30520260904000000C5 /* RevenueCat in Frameworks */,
+				DB4AF30620260904000000C6 /* RevenueCatUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +136,9 @@
 				FF3C44EB2EAF8B000055F61C /* FirebaseCore */,
 				FF2EE3E62EB028B600549684 /* FirebaseCrashlytics */,
 				FF2EE5352EB135D500549684 /* FirebaseAnalytics */,
+				DB4AF30420260904000000C4 /* FirebaseRemoteConfig */,
+				DB4AF30220260904000000C2 /* RevenueCat */,
+				DB4AF30320260904000000C3 /* RevenueCatUI */,
 			);
 			productName = ReverseSinging;
 			productReference = FFA267C62EA6B026008518FC /* ReverseSinging.app */;
@@ -195,6 +204,7 @@
 			packageReferences = (
 				FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				DB2AF10320250003000000A3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+				DB4AF30120260904000000C1 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FFA267C72EA6B026008518FC /* Products */;
@@ -547,6 +557,14 @@
 				minimumVersion = 12.4.0;
 			};
 		};
+		DB4AF30120260904000000C1 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.88.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -569,6 +587,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCore;
+		};
+		DB4AF30420260904000000C4 /* FirebaseRemoteConfig */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfig;
+		};
+		DB4AF30220260904000000C2 /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB4AF30120260904000000C1 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCat;
+		};
+		DB4AF30320260904000000C3 /* RevenueCatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB4AF30120260904000000C1 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCatUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

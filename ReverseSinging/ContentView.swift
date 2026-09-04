@@ -26,6 +26,10 @@ struct ContentView: View {
             }
         }
         .preferredColorScheme(preferredColorScheme)
+        // Above onboarding as well as the games: the free window runs from first
+        // launch, so a user who installs, plays for eight days and only then
+        // finishes onboarding still meets the paywall.
+        .hardPaywall()
         .onOpenURL { url in
             // A dub pack arrived from Files, AirDrop or "Open with"
             viewModel.pendingDubImportURL = url
@@ -48,6 +52,10 @@ struct ContentView: View {
         if ScreenshotMode.isActive { return }
         #endif
         guard previousScenePhase == nil || previousScenePhase == .background else { return }
+
+        // A trial that ran out overnight, or a purchase made on another device,
+        // is noticed here rather than on the next cold launch.
+        AccessController.shared.refreshOnForeground()
 
         ReviewPrompt.shared.registerAppOpen()
 

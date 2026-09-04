@@ -352,4 +352,75 @@ nonisolated enum Strings {
         static let responsibility = NSLocalizedString("dubShare.responsibility", comment: "Distributing the export is the user's own act and responsibility")
         static let confirm = NSLocalizedString("dubShare.confirm", comment: "Go ahead and export")
     }
+
+    // MARK: - Pro / Paywall
+    enum Pro {
+        /// The counter in the header. Three keys rather than one with `%d`,
+        /// because "1 days left" is wrong in English and worse in the languages
+        /// with real plural rules.
+        enum Trial {
+            static let daysLeft = NSLocalizedString("pro.trial.daysLeft", comment: "Days remaining in the free trial, %d is the count, always 2 or more")
+            static let oneDayLeft = NSLocalizedString("pro.trial.oneDayLeft", comment: "Exactly one day of free trial left")
+            static let over = NSLocalizedString("pro.trial.over", comment: "The free trial has finished")
+        }
+
+        // Settings
+        static let section = NSLocalizedString("pro.section", comment: "Settings section header for the purchase")
+        static let unlockTitle = NSLocalizedString("pro.unlock.title", comment: "Settings row that opens the paywall")
+        static let unlockSubtitle = NSLocalizedString("pro.unlock.subtitle", comment: "Explains what unlocking costs and gives")
+        static let ownedTitle = NSLocalizedString("pro.owned.title", comment: "Settings row shown to someone who has bought the app")
+        static let ownedSubtitle = NSLocalizedString("pro.owned.subtitle", comment: "Thank-you line under the owned row")
+        static let manageTitle = NSLocalizedString("pro.manage.title", comment: "Opens the RevenueCat Customer Center")
+        static let manageSubtitle = NSLocalizedString("pro.manage.subtitle", comment: "What the Customer Center is for")
+        static let restoreTitle = NSLocalizedString("pro.restore.title", comment: "Restore a previous purchase")
+        static let restoreSubtitle = NSLocalizedString("pro.restore.subtitle", comment: "Explains who the restore button is for")
+        static let testStoreWarning = NSLocalizedString("pro.testStore.warning", comment: "Debug-only banner: this build talks to the RevenueCat test store")
+
+        // Results
+        static let restoredTitle = NSLocalizedString("pro.restored.title", comment: "Title of the alert after a successful restore")
+        static let restoredMessage = NSLocalizedString("pro.restored.message", comment: "Body of the alert after a successful restore")
+        static let nothingToRestoreTitle = NSLocalizedString("pro.nothingToRestore.title", comment: "Title when a restore found no purchase")
+        static let nothingToRestoreMessage = NSLocalizedString("pro.nothingToRestore.message", comment: "Body when a restore found no purchase")
+        static let errorTitle = NSLocalizedString("pro.error.title", comment: "Title of the alert after a purchase or restore failed")
+        static let errorGeneric = NSLocalizedString("pro.error.generic", comment: "Fallback message when the store gave no readable reason")
+        static let ok = NSLocalizedString("pro.ok", comment: "Dismisses an alert")
+        static let closePaywall = NSLocalizedString("pro.closePaywall", comment: "VoiceOver label for the button that closes a dismissible paywall")
+
+        /// The note shown once to people who had the app before it charged.
+        enum EarlyAdopter {
+            static let title = NSLocalizedString("pro.earlyAdopter.title", comment: "Title of the one-time note telling a pre-paywall user they keep the app free")
+            static let message = NSLocalizedString("pro.earlyAdopter.message", comment: "Explains that the app is now paid but stays free for them, for life")
+            static let badge = NSLocalizedString("pro.earlyAdopter.badge", comment: "Short badge naming what they have, e.g. 'Free for life'")
+            static let confirm = NSLocalizedString("pro.earlyAdopter.confirm", comment: "Dismisses the note")
+            static let settingsTitle = NSLocalizedString("pro.earlyAdopter.settings.title", comment: "Settings row shown to an early adopter")
+            static let settingsSubtitle = NSLocalizedString("pro.earlyAdopter.settings.subtitle", comment: "Settings subtitle shown to an early adopter")
+
+            /// The three facts, read off like a slate: label on the left, value on
+            /// the right. Values are set in the timecode face, so keep them short —
+            /// a wrapped monospace value breaks the row's rhythm.
+            enum Row {
+                static let access = NSLocalizedString("pro.earlyAdopter.row.access", comment: "Slate row label: what the early adopter can use")
+                static let accessValue = NSLocalizedString("pro.earlyAdopter.row.access.value", comment: "Slate row value: both games")
+                static let cost = NSLocalizedString("pro.earlyAdopter.row.cost", comment: "Slate row label: what it costs them")
+                static let costValue = NSLocalizedString("pro.earlyAdopter.row.cost.value", comment: "Slate row value: nothing")
+                static let expires = NSLocalizedString("pro.earlyAdopter.row.expires", comment: "Slate row label: when the access runs out")
+                static let expiresValue = NSLocalizedString("pro.earlyAdopter.row.expires.value", comment: "Slate row value: never")
+            }
+        }
+
+        /// The paywall the app draws itself when the dashboard's cannot be reached.
+        enum Fallback {
+            static let title = NSLocalizedString("pro.fallback.title", comment: "Title of the built-in paywall")
+            static let message = NSLocalizedString("pro.fallback.message", comment: "Body of the built-in paywall, shown when the trial is over")
+            static let buy = NSLocalizedString("pro.fallback.buy", comment: "Buy button with the price, %@ is the localized price")
+            static let buyUnpriced = NSLocalizedString("pro.fallback.buyUnpriced", comment: "Buy button before the price is known")
+            static let loading = NSLocalizedString("pro.fallback.loading", comment: "Shown while the store is being asked for the price")
+            static let unavailable = NSLocalizedString("pro.fallback.unavailable", comment: "The store could not be reached")
+            static let retry = NSLocalizedString("pro.fallback.retry", comment: "Ask the store again")
+            static let benefitOne = NSLocalizedString("pro.fallback.benefit.one", comment: "First selling point on the built-in paywall")
+            static let benefitTwo = NSLocalizedString("pro.fallback.benefit.two", comment: "Second selling point on the built-in paywall")
+            static let benefitThree = NSLocalizedString("pro.fallback.benefit.three", comment: "Third selling point on the built-in paywall")
+            static let oneTime = NSLocalizedString("pro.fallback.oneTime", comment: "Reassures that the price is paid once, not per month")
+        }
+    }
 }

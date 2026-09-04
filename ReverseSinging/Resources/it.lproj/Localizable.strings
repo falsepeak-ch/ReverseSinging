@@ -268,3 +268,53 @@
 "dub.score.grade.rough" = "Riprova";
 
 "dub.videoNeedsReimport" = "Il video di questa scena è stato convertito da una versione precedente ed è in anticipo sulle voci. Importa di nuovo il pack per correggerlo.";
+
+// MARK: - Pro / Paywall
+"pro.trial.daysLeft" = "%d giorni rimasti";
+"pro.trial.oneDayLeft" = "Ultimo giorno";
+"pro.trial.over" = "La tua prova gratuita è finita";
+"pro.section" = "Dubloon Pro";
+"pro.unlock.title" = "Sblocca Dubloon";
+"pro.unlock.subtitle" = "Un solo pagamento, entrambi i giochi, per sempre.";
+"pro.owned.title" = "Dubloon è tuo";
+"pro.owned.subtitle" = "Grazie. Tutte le scene, tutte le riprese, senza limiti.";
+"pro.manage.title" = "Gestisci l'acquisto";
+"pro.manage.subtitle" = "Ricevute, rimborsi e assistenza sul tuo acquisto.";
+"pro.restore.title" = "Ripristina l'acquisto";
+"pro.restore.subtitle" = "Telefono nuovo o app reinstallata? Recuperalo.";
+"pro.testStore.warning" = "Build di debug: collegata allo store di test di RevenueCat. Non si muove denaro reale.";
+"pro.restored.title" = "Ripristinato";
+"pro.restored.message" = "Il tuo acquisto è di nuovo su questo dispositivo.";
+"pro.nothingToRestore.title" = "Niente da ripristinare";
+"pro.nothingToRestore.message" = "Nessun acquisto trovato su questo account Apple. Se hai comprato Dubloon con un altro, accedi con quello e riprova.";
+"pro.error.title" = "Qualcosa è andato storto";
+"pro.error.generic" = "Non è stato possibile raggiungere lo store. Riprova.";
+"pro.ok" = "OK";
+"pro.fallback.title" = "Sblocca Dubloon";
+"pro.fallback.message" = "La tua prova gratuita è finita. Un solo pagamento tiene aperti entrambi i giochi per sempre.";
+"pro.fallback.buy" = "Sblocca per %@";
+"pro.fallback.buyUnpriced" = "Sblocca";
+"pro.fallback.loading" = "Sto interrogando lo store…";
+"pro.fallback.unavailable" = "Al momento lo store non è raggiungibile. Controlla la connessione e riprova.";
+"pro.fallback.retry" = "Riprova";
+"pro.fallback.benefit.one" = "Canta al contrario quanto vuoi";
+"pro.fallback.benefit.two" = "Doppia ogni scena, e porta le tue";
+"pro.fallback.benefit.three" = "Esporta e condividi le tue riprese";
+"pro.fallback.oneTime" = "Un solo pagamento. Non è un abbonamento.";
+
+// MARK: - Pro / Early adopters
+"pro.earlyAdopter.title" = "Benvenuto nel club";
+"pro.earlyAdopter.message" = "Dubloon adesso si paga — ma non per te. C'eri prima che iniziassimo a farlo pagare, quindi entrambi i giochi restano tuoi, gratis, finché l'app esisterà. Grazie per esserci stato dall'inizio.";
+"pro.earlyAdopter.badge" = "Gratis a vita";
+"pro.earlyAdopter.confirm" = "Ottimo";
+"pro.earlyAdopter.settings.title" = "Gratis a vita";
+"pro.earlyAdopter.settings.subtitle" = "Sei arrivato presto. Entrambi i giochi sono tuoi, senza pagare nulla.";
+"pro.closePaywall" = "Chiudi";
+
+// Early adopter slate rows
+"pro.earlyAdopter.row.access" = "Accesso";
+"pro.earlyAdopter.row.access.value" = "Entrambi i giochi";
+"pro.earlyAdopter.row.cost" = "Costo";
+"pro.earlyAdopter.row.cost.value" = "Niente";
+"pro.earlyAdopter.row.expires" = "Scade";
+"pro.earlyAdopter.row.expires.value" = "Mai";

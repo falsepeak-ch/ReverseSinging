@@ -268,3 +268,53 @@
 "dub.score.grade.rough" = "もう一度";
 
 "dub.videoNeedsReimport" = "このシーンの映像は以前のバージョンで変換されたため、音声より先行して再生されます。パックを再度読み込むと修正されます。";
+
+// MARK: - Pro / Paywall
+"pro.trial.daysLeft" = "残り%d日";
+"pro.trial.oneDayLeft" = "最終日";
+"pro.trial.over" = "無料お試し期間が終了しました";
+"pro.section" = "Dubloon Pro";
+"pro.unlock.title" = "Dubloonのロックを解除";
+"pro.unlock.subtitle" = "一度の購入で、2つのゲームをずっと。";
+"pro.owned.title" = "Dubloonをご購入済みです";
+"pro.owned.subtitle" = "ありがとうございます。すべてのシーンを、制限なく。";
+"pro.manage.title" = "購入の管理";
+"pro.manage.subtitle" = "領収書、返金、購入に関するサポート。";
+"pro.restore.title" = "購入を復元";
+"pro.restore.subtitle" = "機種変更や再インストールをしましたか。復元できます。";
+"pro.testStore.warning" = "デバッグビルド：RevenueCatのテストストアに接続しています。実際の支払いは発生しません。";
+"pro.restored.title" = "復元しました";
+"pro.restored.message" = "購入がこの端末に戻りました。";
+"pro.nothingToRestore.title" = "復元できる購入がありません";
+"pro.nothingToRestore.message" = "このApple アカウントに購入が見つかりませんでした。別のアカウントで購入した場合は、そちらでサインインしてからもう一度お試しください。";
+"pro.error.title" = "問題が発生しました";
+"pro.error.generic" = "ストアに接続できませんでした。もう一度お試しください。";
+"pro.ok" = "OK";
+"pro.fallback.title" = "Dubloonのロックを解除";
+"pro.fallback.message" = "無料お試し期間が終了しました。一度の購入で、2つのゲームをずっと使えます。";
+"pro.fallback.buy" = "%@で解除";
+"pro.fallback.buyUnpriced" = "ロックを解除";
+"pro.fallback.loading" = "ストアを確認しています…";
+"pro.fallback.unavailable" = "現在ストアに接続できません。通信状況を確認してもう一度お試しください。";
+"pro.fallback.retry" = "もう一度試す";
+"pro.fallback.benefit.one" = "逆再生の歌唱を何度でも";
+"pro.fallback.benefit.two" = "すべてのシーンを吹き替え、自分の動画も持ち込める";
+"pro.fallback.benefit.three" = "録音を書き出して共有できる";
+"pro.fallback.oneTime" = "一度きりの購入です。サブスクリプションではありません。";
+
+// MARK: - Pro / Early adopters
+"pro.earlyAdopter.title" = "ようこそ、はじまりの仲間へ";
+"pro.earlyAdopter.message" = "Dubloonは有料になりました。ただし、あなたは別です。課金を始める前から使ってくださっていたので、2つのゲームはこれからもずっと無料のままです。初期から支えてくださり、ありがとうございます。";
+"pro.earlyAdopter.badge" = "ずっと無料";
+"pro.earlyAdopter.confirm" = "うれしい";
+"pro.earlyAdopter.settings.title" = "ずっと無料";
+"pro.earlyAdopter.settings.subtitle" = "初期からのユーザーです。2つのゲームは無料のままご利用いただけます。";
+"pro.closePaywall" = "閉じる";
+
+// Early adopter slate rows
+"pro.earlyAdopter.row.access" = "アクセス";
+"pro.earlyAdopter.row.access.value" = "2つのゲーム";
+"pro.earlyAdopter.row.cost" = "料金";
+"pro.earlyAdopter.row.cost.value" = "無料";
+"pro.earlyAdopter.row.expires" = "有効期限";
+"pro.earlyAdopter.row.expires.value" = "無期限";

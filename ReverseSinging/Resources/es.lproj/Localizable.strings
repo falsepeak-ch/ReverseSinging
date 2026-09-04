@@ -268,3 +268,53 @@
 "dub.score.grade.rough" = "Inténtalo otra vez";
 
 "dub.videoNeedsReimport" = "El vídeo de esta escena se convirtió con una versión anterior y va por delante de las voces. Importa el pack de nuevo para corregirlo.";
+
+// MARK: - Pro / Paywall
+"pro.trial.daysLeft" = "Quedan %d días";
+"pro.trial.oneDayLeft" = "Último día";
+"pro.trial.over" = "Tu prueba gratuita ha terminado";
+"pro.section" = "Dubloon Pro";
+"pro.unlock.title" = "Desbloquea Dubloon";
+"pro.unlock.subtitle" = "Un solo pago, los dos juegos, para siempre.";
+"pro.owned.title" = "Dubloon es tuyo";
+"pro.owned.subtitle" = "Gracias. Todas las escenas, todas las tomas, sin límites.";
+"pro.manage.title" = "Gestionar la compra";
+"pro.manage.subtitle" = "Recibos, reembolsos y ayuda con tu compra.";
+"pro.restore.title" = "Restaurar la compra";
+"pro.restore.subtitle" = "¿Móvil nuevo o app reinstalada? Recupérala.";
+"pro.testStore.warning" = "Compilación de depuración: conectada a la tienda de pruebas de RevenueCat. No se mueve dinero real.";
+"pro.restored.title" = "Restaurada";
+"pro.restored.message" = "Tu compra vuelve a estar en este dispositivo.";
+"pro.nothingToRestore.title" = "No hay nada que restaurar";
+"pro.nothingToRestore.message" = "No se ha encontrado ninguna compra en esta cuenta de Apple. Si compraste Dubloon con otra, inicia sesión con ella e inténtalo de nuevo.";
+"pro.error.title" = "Algo ha salido mal";
+"pro.error.generic" = "No se ha podido contactar con la tienda. Inténtalo de nuevo.";
+"pro.ok" = "Aceptar";
+"pro.fallback.title" = "Desbloquea Dubloon";
+"pro.fallback.message" = "Tu prueba gratuita ha terminado. Un solo pago deja los dos juegos abiertos para siempre.";
+"pro.fallback.buy" = "Desbloquear por %@";
+"pro.fallback.buyUnpriced" = "Desbloquear";
+"pro.fallback.loading" = "Consultando la tienda…";
+"pro.fallback.unavailable" = "Ahora mismo no se puede contactar con la tienda. Comprueba tu conexión e inténtalo de nuevo.";
+"pro.fallback.retry" = "Reintentar";
+"pro.fallback.benefit.one" = "Canta al revés tantas veces como quieras";
+"pro.fallback.benefit.two" = "Dobla todas las escenas, y trae las tuyas";
+"pro.fallback.benefit.three" = "Exporta y comparte tus tomas";
+"pro.fallback.oneTime" = "Un solo pago. No es una suscripción.";
+
+// MARK: - Pro / Early adopters
+"pro.earlyAdopter.title" = "Bienvenido al club";
+"pro.earlyAdopter.message" = "Dubloon ya es de pago, pero no para ti. Estabas aquí antes de que empezáramos a cobrar, así que los dos juegos siguen siendo tuyos, gratis, mientras exista la app. Gracias por acompañarnos desde el principio.";
+"pro.earlyAdopter.badge" = "Gratis de por vida";
+"pro.earlyAdopter.confirm" = "Genial";
+"pro.earlyAdopter.settings.title" = "Gratis de por vida";
+"pro.earlyAdopter.settings.subtitle" = "Llegaste pronto. Los dos juegos son tuyos, sin pagar nada.";
+"pro.closePaywall" = "Cerrar";
+
+// Early adopter slate rows
+"pro.earlyAdopter.row.access" = "Acceso";
+"pro.earlyAdopter.row.access.value" = "Los dos juegos";
+"pro.earlyAdopter.row.cost" = "Coste";
+"pro.earlyAdopter.row.cost.value" = "Nada";
+"pro.earlyAdopter.row.expires" = "Caduca";
+"pro.earlyAdopter.row.expires.value" = "Nunca";

@@ -18,7 +18,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         #if DEBUG
         // A screenshot run is not a session. Configuring Firebase here would put
         // seven synthetic launches a locale into the real analytics.
-        if ScreenshotMode.isActive { return true }
+        if ScreenshotMode.isActive {
+            // Still started, so it settles on "unlocked" rather than on the
+            // default state. A capture must never meet a paywall.
+            AccessController.shared.start()
+            return true
+        }
         #endif
 
         FirebaseApp.configure()
@@ -32,6 +37,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
         // Track app launch
         AnalyticsManager.shared.trackAppLaunch()
+
+        // Configures RevenueCat and starts the entitlement stream. Here rather
+        // than in `App.init()`, which SwiftUI runs *before* this method: the
+        // trial length comes from Remote Config, and Remote Config needs the
+        // `FirebaseApp` configured above.
+        AccessController.shared.start()
 
         return true
     }

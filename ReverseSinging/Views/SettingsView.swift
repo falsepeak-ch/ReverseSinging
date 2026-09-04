@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RevenueCatUI
 
 /// Which settings a presentation is allowed to show.
 ///
@@ -31,6 +32,10 @@ struct SettingsView: View {
     /// not this screen's.
     @ObservedObject private var headphones = HeadphoneMonitor.shared
 
+    @ObservedObject private var access = AccessController.shared
+    @State private var isPaywallPresented = false
+    @State private var isCustomerCenterPresented = false
+
     /// The interface is dark-only; kept as a constant so the many call sites below
     /// don't each need rewriting.
     private var effectiveColorScheme: ColorScheme { .dark }
@@ -42,6 +47,12 @@ struct SettingsView: View {
 
                 ScrollView {
                     VStack(spacing: 24) {
+                        // First: it is the only section that can be in a state the
+                        // user needs to act on, and a trial counting down is not
+                        // something to make them scroll for.
+                        purchaseSection
+                            .slideIn(delay: 0.1)
+
                         // The interface choice belongs to reverse singing, so it
                         // only appears when settings are opened from that game.
                         if scope == .reverseSinging {
@@ -86,6 +97,22 @@ struct SettingsView: View {
                 AnalyticsManager.shared.trackScreenViewed(screenName: "SettingsView")
             }
         }
+        .purchaseAlerts()
+        .sheet(isPresented: $isPaywallPresented) {
+            ProPaywallView(source: "settings")
+                .preferredColorScheme(.dark)
+        }
+        // RevenueCat's own screen: receipts, the App Store subscription page,
+        // refund requests and the feedback survey. All of it is configured in the
+        // dashboard, so the app supplies only the entry point and the reaction to
+        // a restore that happened inside it.
+        .presentCustomerCenter(
+            isPresented: $isCustomerCenterPresented,
+            restoreCompleted: { customerInfo in
+                access.handleCompletion(customerInfo)
+            },
+            onDismiss: { isCustomerCenterPresented = false }
+        )
         .preferredColorScheme(preferredColorScheme)
     }
 
@@ -237,6 +264,176 @@ struct SettingsView: View {
             .saturation(isActive ? 1 : 0)
             .opacity(isActive ? 1 : 0.45)
             .accessibilityHidden(true)
+    }
+
+    // MARK: - Purchase Section
+
+    /// Where the app is bought, and where a purchase is looked after afterwards.
+    ///
+    /// Its shape follows the state rather than showing every row greyed out: an
+    /// owner is offered management, everyone else is offered the purchase. Restore
+    /// is the exception and is always there, because the person who needs it is by
+    /// definition the person the app currently thinks has not paid.
+    @ViewBuilder
+    private var purchaseSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            sectionHeader(title: Strings.Pro.section, icon: "sparkles")
+
+            VStack(spacing: 8) {
+                if access.isEarlyAdopter {
+                    // Nothing to sell them and nothing to manage: there is no
+                    // transaction behind this, so no Customer Center either.
+                    statusCard(
+                        assetName: "settings-free-for-life",
+                        title: Strings.Pro.EarlyAdopter.settingsTitle,
+                        subtitle: Strings.Pro.EarlyAdopter.settingsSubtitle
+                    )
+                } else if access.isPro {
+                    statusCard(
+                        assetName: "settings-owned",
+                        title: Strings.Pro.ownedTitle,
+                        subtitle: Strings.Pro.ownedSubtitle
+                    )
+
+                    settingsRow(
+                        assetName: "settings-manage-purchase",
+                        title: Strings.Pro.manageTitle,
+                        subtitle: Strings.Pro.manageSubtitle
+                    ) {
+                        AnalyticsManager.shared.trackCustomerCenterOpened()
+                        isCustomerCenterPresented = true
+                    }
+                } else {
+                    settingsRow(
+                        assetName: "settings-unlock",
+                        title: Strings.Pro.unlockTitle,
+                        subtitle: unlockSubtitle,
+                        isProminent: true
+                    ) {
+                        isPaywallPresented = true
+                    }
+                }
+
+                if !access.isEarlyAdopter {
+                    settingsRow(
+                        assetName: "settings-restore-purchase",
+                        title: Strings.Pro.restoreTitle,
+                        subtitle: Strings.Pro.restoreSubtitle,
+                        isBusy: access.isRestoring
+                    ) {
+                        Task { await access.restore() }
+                    }
+                }
+
+                #if DEBUG
+                if PurchaseConfiguration.isUsingTestStore {
+                    Text(Strings.Pro.testStoreWarning)
+                        .font(.rsCaptionSmall)
+                        .foregroundStyle(Color.rsCaution)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 4)
+                }
+                #endif
+            }
+        }
+    }
+
+    /// The trial counter, restated as a sentence, or the plain offer once it is over.
+    private var unlockSubtitle: String {
+        guard let days = access.trialDaysRemaining else { return Strings.Pro.unlockSubtitle }
+        return days <= 1
+            ? Strings.Pro.Trial.oneDayLeft
+            : String(format: Strings.Pro.Trial.daysLeft, days)
+    }
+
+    /// A row that does something. Shares the geometry of `privacyPolicyButton`.
+    private func settingsRow(
+        assetName: String,
+        title: String,
+        subtitle: String,
+        isProminent: Bool = false,
+        isBusy: Bool = false,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button {
+            HapticManager.shared.light()
+            action()
+        } label: {
+            HStack(spacing: 14) {
+                settingsIcon(assetName)
+
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(title)
+                        .font(.rsBodyLarge)
+                        .foregroundColor(Color.rsTextAdaptive(for: effectiveColorScheme))
+
+                    Text(subtitle)
+                        .font(.rsCaption)
+                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme))
+                        .fixedSize(horizontal: false, vertical: true)
+                        .multilineTextAlignment(.leading)
+                }
+
+                Spacer(minLength: 8)
+
+                if isBusy {
+                    ProgressView().tint(Color.rsTextSecondary)
+                } else {
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundStyle(Color.rsTextTertiary)
+                }
+            }
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
+                    .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
+                            .stroke(
+                                Color.rsTurquoise.opacity(isProminent ? 0.4 : 0.15),
+                                lineWidth: isProminent ? 1.5 : 1
+                            )
+                    )
+            )
+            .cardShadow(isProminent ? .elevated : .card)
+        }
+        .buttonStyle(ScaleButtonStyle())
+        .disabled(isBusy)
+    }
+
+    /// A row that only reports. No chevron, nothing to tap.
+    private func statusCard(
+        assetName: String,
+        title: String,
+        subtitle: String
+    ) -> some View {
+        HStack(spacing: 14) {
+            settingsIcon(assetName)
+
+            VStack(alignment: .leading, spacing: 3) {
+                Text(title)
+                    .font(.rsBodyLarge)
+                    .foregroundColor(Color.rsTextAdaptive(for: effectiveColorScheme))
+
+                Text(subtitle)
+                    .font(.rsCaption)
+                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            Spacer(minLength: 0)
+        }
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
+                .fill(Color.rsSecondaryBackgroundAdaptive(for: effectiveColorScheme))
+                .overlay(
+                    RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
+                        .stroke(Color.rsGood.opacity(0.3), lineWidth: 1)
+                )
+        )
+        .cardShadow(.card)
     }
 
     // MARK: - About Section

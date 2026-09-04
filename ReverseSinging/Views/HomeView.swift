@@ -14,6 +14,12 @@ struct HomeView: View {
     @EnvironmentObject var viewModel: AudioViewModel
     @State private var path: [GameMode] = []
 
+    /// The counter lives here because this is the screen every session starts on,
+    /// and it is the only place in the app that mentions the trial unprompted.
+    @ObservedObject private var access = AccessController.shared
+    @State private var isPaywallPresented = false
+    @State private var isEarlyAdopterWelcomePresented = false
+
     var body: some View {
         NavigationStack(path: $path) {
             ZStack {
@@ -31,6 +37,28 @@ struct HomeView: View {
         }
         .sheet(isPresented: $viewModel.showSettings) {
             SettingsView(viewModel: viewModel)
+        }
+        .sheet(isPresented: $isPaywallPresented) {
+            ProPaywallView(source: "trial_badge")
+                .preferredColorScheme(.dark)
+        }
+        .sheet(isPresented: $isEarlyAdopterWelcomePresented) {
+            EarlyAdopterWelcomeView()
+                .preferredColorScheme(.dark)
+                // Marked on the way out rather than on the way in, so a user who
+                // kills the app mid-animation still gets told.
+                .onDisappear { access.markEarlyAdopterWelcomed() }
+        }
+        // Watched rather than checked once on appear: the exemption can be granted
+        // a beat after launch, when the receipt lands, and this is the menu the
+        // user is already looking at when it does.
+        .onChange(of: access.shouldWelcomeEarlyAdopter, initial: true) { _, shouldWelcome in
+            guard shouldWelcome, !isEarlyAdopterWelcomePresented else { return }
+            #if DEBUG
+            if ScreenshotMode.isActive { return }
+            #endif
+            isEarlyAdopterWelcomePresented = true
+            AnalyticsManager.shared.trackEarlyAdopterWelcomeShown()
         }
         .onAppear {
             viewModel.checkPermissionStatus()
@@ -123,6 +151,13 @@ struct HomeView: View {
                         .frame(height: 40)
 
                     Spacer()
+
+                    if let daysRemaining = access.trialDaysRemaining {
+                        TrialBadge(daysRemaining: daysRemaining) {
+                            isPaywallPresented = true
+                        }
+                        .transition(.scale.combined(with: .opacity))
+                    }
 
                     EditorToolbarButton(
                         icon: "slider.horizontal.3",

@@ -330,6 +330,75 @@ final class AnalyticsManager {
         ])
     }
 
+    // MARK: - Purchases
+
+    /// The paywall reached the screen. `source` says what put it there — the
+    /// expired trial, the counter in the header, or the settings row — which is
+    /// the only way to tell a hard paywall's numbers apart from an offer someone
+    /// chose to look at.
+    func trackPaywallShown(source: String, isHardPaywall: Bool) {
+        log("paywall_shown", parameters: [
+            "source": source,
+            "is_hard_paywall": isHardPaywall
+        ])
+    }
+
+    func trackPaywallDismissed(source: String) {
+        log("paywall_dismissed", parameters: [
+            "source": source
+        ])
+    }
+
+    func trackPurchaseCompleted(productID: String, source: String) {
+        log("purchase_completed", parameters: [
+            "product_id": productID,
+            "source": source
+        ])
+    }
+
+    func trackPurchaseFailed(reason: String) {
+        log("purchase_failed", parameters: [
+            "reason": reason
+        ])
+    }
+
+    func trackRestoreCompleted(foundEntitlement: Bool) {
+        log("restore_completed", parameters: [
+            "found_entitlement": foundEntitlement
+        ])
+    }
+
+    func trackRestoreFailed(reason: String) {
+        log("restore_failed", parameters: [
+            "reason": reason
+        ])
+    }
+
+    /// Fired once, on the launch that finds the free window closed.
+    func trackTrialExpired(trialLengthInDays: Int) {
+        log("trial_expired", parameters: [
+            "trial_length_days": trialLengthInDays
+        ])
+    }
+
+    /// Fired once per install, when the grandfather clause is applied. `source`
+    /// says which signal found them — the traces on the device, or the receipt
+    /// after a reinstall — which is the only way to tell whether the receipt
+    /// fallback is earning its keep.
+    func trackEarlyAdopterGranted(source: String) {
+        log("early_adopter_granted", parameters: [
+            "source": source
+        ])
+    }
+
+    func trackEarlyAdopterWelcomeShown() {
+        log("early_adopter_welcome_shown", parameters: nil)
+    }
+
+    func trackCustomerCenterOpened() {
+        log("customer_center_opened", parameters: nil)
+    }
+
     // MARK: - Custom Event
 
     func trackCustomEvent(name: String, parameters: [String: Any]? = nil) {
