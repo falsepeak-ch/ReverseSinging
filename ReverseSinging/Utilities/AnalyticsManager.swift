@@ -228,6 +228,21 @@ final class AnalyticsManager {
         value.count <= limit ? value : String(value.prefix(limit - 1)) + "…"
     }
 
+    /// An import that has begun, before anything has been read.
+    ///
+    /// The denominator the completed and failed events never had. A Theora scene can take
+    /// minutes to convert, and a user who backgrounds the app or force-quits during it
+    /// produces neither a success nor a failure: today that attempt is invisible, so the
+    /// packs that are hardest to import are exactly the ones missing from the counts. The
+    /// filename is all there is at this point, and it is usually the pack's real name.
+    func trackDubPackImportStarted(sourceName: String, sourceExtension: String) {
+        log("dub_pack_import_started", parameters: [
+            "source_name": truncated(sourceName),
+            // "zip", or "" for a folder picked out of Files.
+            "source_extension": truncated(sourceExtension)
+        ])
+    }
+
     /// A pack the user brought themselves, as it landed.
     ///
     /// This is the only view we get of what the community is actually making: the packs
@@ -235,6 +250,17 @@ final class AnalyticsManager {
     /// is the whole sample. `pack_title` and `authors` are what the pack's own
     /// `_pack_info.ini` claims; `source_name` is what the file was called when the user
     /// picked it, which is often the more recognisable name of the two.
+    ///
+    /// `source` and `source_url` are the pack's own statement of what it was cut from — the
+    /// film, series, game or mod behind the scene, which is the question the pack title
+    /// alone rarely answers. A pack called "the bit with the door" says nothing; its
+    /// `source` says which work someone spent an evening cutting up. That is what decides
+    /// which scenes are worth building starter packs from, and which rights holders the app
+    /// is in fact putting in front of people.
+    ///
+    /// `has_backing_track` rides along because it is free here and cannot be recovered
+    /// later: a pack that arrives without one plays in silence, and the share of the
+    /// community's packs in that state is the case for supporting more audio formats.
     ///
     /// Only user imports reach this. The bundled starter packs install through
     /// `DubStarterPacks`, which calls the importer directly, so they never inflate it.
@@ -246,7 +272,10 @@ final class AnalyticsManager {
         characterCount: Int,
         duration: Double,
         hasVideo: Bool,
-        hasAttribution: Bool
+        hasBackingTrack: Bool,
+        hasAttribution: Bool,
+        source: String?,
+        sourceURL: String?
     ) {
         log("dub_pack_imported", parameters: [
             "pack_title": truncated(title),
@@ -256,7 +285,12 @@ final class AnalyticsManager {
             "character_count": characterCount,
             "duration": duration,
             "has_video": hasVideo,
-            "has_attribution": hasAttribution
+            "has_backing_track": hasBackingTrack,
+            "has_attribution": hasAttribution,
+            // Empty rather than absent for a pack that claims no origin: a parameter that
+            // is sometimes missing cannot be counted against the packs that do have one.
+            "work_source": truncated(source ?? ""),
+            "work_source_url": truncated(sourceURL ?? "")
         ])
     }
 
@@ -265,20 +299,26 @@ final class AnalyticsManager {
     /// Worth as much as the successful ones: a pack that will not open is a pack somebody
     /// made and could not use, and the name is the only way to go and find out why. There is
     /// no parsed title at this point, so the file the user picked is the name we have.
-    func trackDubPackImportFailed(sourceName: String, reason: String) {
+    func trackDubPackImportFailed(sourceName: String, sourceExtension: String, reason: String) {
         log("dub_pack_import_failed", parameters: [
             "source_name": truncated(sourceName),
+            "source_extension": truncated(sourceExtension),
             "reason": truncated(reason)
         ])
     }
 
     /// Which packs are actually performed, as opposed to merely imported. An import is
     /// curiosity; opening the recorder is the pack earning its place.
-    func trackDubPackOpened(title: String, lineCount: Int, recordedCount: Int) {
+    ///
+    /// Carries `work_source` for the same reason the import event does, and it is the more
+    /// interesting of the two here: what people import says what they can find, what they
+    /// open says what they actually want to dub.
+    func trackDubPackOpened(title: String, lineCount: Int, recordedCount: Int, source: String?) {
         log("dub_pack_opened", parameters: [
             "pack_title": truncated(title),
             "line_count": lineCount,
-            "recorded_count": recordedCount
+            "recorded_count": recordedCount,
+            "work_source": truncated(source ?? "")
         ])
     }
 

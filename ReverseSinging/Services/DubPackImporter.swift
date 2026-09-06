@@ -43,16 +43,28 @@ nonisolated struct DubPackImporter {
             let didScope = sourceURL.startAccessingSecurityScopedResource()
             defer { if didScope { sourceURL.stopAccessingSecurityScopedResource() } }
 
+            // Breadcrumbs rather than one report at the end. An import that throws is
+            // reported by `DubPackLibrary` with the error, but the error alone does not say
+            // how far the pack got, and the four stages fail for completely different
+            // reasons: a security scope that was never granted, a zip that will not open, a
+            // layout with no `_pack_info.ini` anywhere in it, a disk with no room left.
+            // One of these is also the last thing written before a hard crash mid-import.
+            CrashReporter.shared.log("dub_pack.import began (.\(sourceURL.pathExtension.lowercased()))")
+
             progress?(.copying, 0.2)
 
             // Resolve to a plain directory containing _pack_info.ini
             let staging = try stagedDirectory(for: sourceURL)
             defer { staging.cleanup() }
 
+            CrashReporter.shared.log("dub_pack.import staged")
+
             progress?(.copying, 0.6)
 
             let packRoot = try locatePackRoot(in: staging.url)
             let folderName = try install(packRoot, preferredName: sourceURL.deletingPathExtension().lastPathComponent)
+
+            CrashReporter.shared.log("dub_pack.import installed")
 
             progress?(.copying, 1)
 
@@ -65,19 +77,85 @@ nonisolated struct DubPackImporter {
                 progress?(.convertingVideo, value)
             }
 
+            CrashReporter.shared.log("dub_pack.import converted")
+
             progress?(.reading, 0)
 
             do {
-                let pack = try DubPackParser.parsePack(at: destination, folderName: folderName)
-                try writeManifest(pack, to: destination)
+                let parsed = try DubPackParser.parse(at: destination, folderName: folderName)
+                try writeManifest(parsed.pack, to: destination)
+                report(parsed.diagnostics, for: parsed.pack)
                 progress?(.reading, 1)
-                return pack
+                return parsed.pack
             } catch {
                 // Don't leave a half-imported pack behind for the library to trip over
                 try? FileManager.default.removeItem(at: destination)
                 throw error
             }
         }.value
+    }
+
+    // MARK: - Reporting
+
+    /// Reports a pack that imported but did not arrive whole.
+    ///
+    /// The gap this fills: an import either throws, and the user sees an alert and we get a
+    /// non-fatal from `DubPackLibrary`, or it succeeds and is counted as a win. Nothing
+    /// covers the middle, which is where the format's tolerance puts most real failures. A
+    /// pack whose entries all lack `dub_timestamps` imports "successfully" with four lines
+    /// out of sixty; a pack with an Ogg Vorbis backing track imports "successfully" and then
+    /// plays in silence. The author of that pack sees a broken app and has nowhere to say so.
+    ///
+    /// One non-fatal per kind of loss rather than one for the pack, so Crashlytics groups
+    /// them by the thing that has to be fixed. `pack_title` is what the pack calls itself,
+    /// which is the same class of author-written text already sent with the import event;
+    /// nothing here comes from a recording or from the contents of a file.
+    private func report(_ diagnostics: DubPackDiagnostics, for pack: DubPack) {
+        guard !diagnostics.isClean else { return }
+
+        if !diagnostics.droppedLines.isEmpty {
+            let reasons = Set(diagnostics.droppedLines.map(\.reason.rawValue)).sorted()
+
+            CrashReporter.shared.recordFailure(
+                "dub_pack.dropped_lines",
+                reason: "\(diagnostics.droppedLines.count) of \(diagnostics.candidateLineCount) entries dropped (\(reasons.joined(separator: ", ")))",
+                keys: [
+                    "pack_title": pack.title,
+                    "dropped_count": diagnostics.droppedLines.count,
+                    "candidate_count": diagnostics.candidateLineCount,
+                    "kept_count": pack.lines.count,
+                    "reasons": reasons.joined(separator: ", "),
+                    // A sample rather than all of them: a pack whose every entry is
+                    // malformed would otherwise push a sixty-name list into one key, and
+                    // the first few are enough to go and look at the pack.
+                    "sample": diagnostics.droppedLines.prefix(5)
+                        .map { "\($0.file) (\($0.reason.rawValue))" }
+                        .joined(separator: ", ")
+                ]
+            )
+        }
+
+        if let backingTrack = diagnostics.unplayableBackingTrack {
+            CrashReporter.shared.recordFailure(
+                "dub_pack.unplayable_backing_track",
+                reason: "AVFoundation cannot decode \(backingTrack)",
+                keys: [
+                    "pack_title": pack.title,
+                    "file_extension": (backingTrack as NSString).pathExtension.lowercased()
+                ]
+            )
+        }
+
+        if let video = diagnostics.unplayableVideo {
+            CrashReporter.shared.recordFailure(
+                "dub_pack.unplayable_video",
+                reason: "No readable video track in \(video)",
+                keys: [
+                    "pack_title": pack.title,
+                    "file_extension": (video as NSString).pathExtension.lowercased()
+                ]
+            )
+        }
     }
 
     // MARK: - Video
@@ -133,7 +211,11 @@ nonisolated struct DubPackImporter {
             // Not silent for us: this is the one failure that degrades a scene without ever
             // showing an error, so without a non-fatal we would never learn a Theora
             // flavour in the wild does not decode.
-            CrashReporter.shared.record(error, context: "dub_pack.video_transcode")
+            CrashReporter.shared.record(
+                error,
+                context: "dub_pack.video_transcode",
+                keys: ["source_extension": source.pathExtension.lowercased()]
+            )
             try? fileManager.removeItem(at: destination)
             try? fileManager.removeItem(at: source)
         }

@@ -33,6 +33,55 @@ nonisolated enum DubPackError: LocalizedError {
     }
 }
 
+// MARK: - Diagnostics
+
+/// What a pack lost on the way in, while still importing successfully.
+///
+/// The parser is deliberately tolerant: an entry it cannot make sense of is dropped and a
+/// backing track or video it cannot play is refused, so that one bad file never costs the
+/// user the whole scene. Tolerant and silent are different things though. A pack that
+/// arrives with 4 of its 60 lines, or with no sound behind them, looks to its author like
+/// the app is broken, and today nothing anywhere would say so.
+///
+/// So the parser writes down what it threw away and `DubPackImporter` reports it as a
+/// non-fatal. This is the "imported, but not properly" case, which is the one no error
+/// alert and no failed-import event can ever cover.
+nonisolated struct DubPackDiagnostics: Equatable {
+
+    /// An entry the parser could not turn into a line.
+    struct DroppedLine: Equatable {
+        let file: String
+        let reason: Reason
+
+        enum Reason: String {
+            /// The `.txt` is not readable as UTF-8, or not readable at all.
+            case unreadableFile = "unreadable_file"
+            /// No `dub_timestamps`, so there is no moment to play the line at.
+            case noTimestamp = "no_timestamp"
+        }
+    }
+
+    /// Entries dropped, in the order the parser met them.
+    var droppedLines: [DroppedLine] = []
+
+    /// How many `.txt` entries the pack offered, dropped ones included. The denominator
+    /// that turns "3 dropped" into "3 of 4 dropped".
+    var candidateLineCount: Int = 0
+
+    /// A `_backing_track.*` that is on disk but that AVFoundation will not decode, most
+    /// often Ogg Vorbis. The scene plays, in silence.
+    var unplayableBackingTrack: String?
+
+    /// A `dub_video.*` that is on disk but carries no video track AVFoundation can see.
+    /// The scene falls back to its per-line stills.
+    var unplayableVideo: String?
+
+    /// True when the pack came in whole.
+    var isClean: Bool {
+        droppedLines.isEmpty && unplayableBackingTrack == nil && unplayableVideo == nil
+    }
+}
+
 // MARK: - Parser
 
 /// Parses the `[data]` / `key="value"` format shared by `_pack_info.ini` and the per-line
@@ -160,7 +209,22 @@ nonisolated enum DubPackParser {
     ///   - directoryURL: the pack folder, containing `_pack_info.ini` and the line files.
     ///   - folderName: the name the pack is stored under inside `DubPacks/`.
     static func parsePack(at directoryURL: URL, folderName: String, id: UUID = UUID()) throws -> DubPack {
+        try parse(at: directoryURL, folderName: folderName, id: id).pack
+    }
+
+    /// The same parse, with a note of everything it had to throw away.
+    ///
+    /// Separate from `parsePack` so that only the caller who is importing a pack for the
+    /// first time reports on it. `DubPackLibrary` re-parses packs already on the shelf
+    /// whenever a manifest is stale, and those re-parses would otherwise report the same
+    /// dropped lines again on some later launch.
+    static func parse(
+        at directoryURL: URL,
+        folderName: String,
+        id: UUID = UUID()
+    ) throws -> (pack: DubPack, diagnostics: DubPackDiagnostics) {
         let fileManager = FileManager.default
+        var diagnostics = DubPackDiagnostics()
 
         var isDirectory: ObjCBool = false
         guard fileManager.fileExists(atPath: directoryURL.path, isDirectory: &isDirectory),
@@ -194,9 +258,15 @@ nonisolated enum DubPackParser {
             .sorted { $0.lastPathComponent.localizedStandardCompare($1.lastPathComponent) == .orderedAscending }
 
         var lines: [DubLine] = []
+        diagnostics.candidateLineCount = lineFiles.count
 
         for (offset, lineFileURL) in lineFiles.enumerated() {
-            guard let line = try parseLine(at: lineFileURL, in: directoryURL, fallbackIndex: offset + 1) else {
+            guard let line = try parseLine(
+                at: lineFileURL,
+                in: directoryURL,
+                fallbackIndex: offset + 1,
+                diagnostics: &diagnostics
+            ) else {
                 continue
             }
             lines.append(line)
@@ -215,20 +285,30 @@ nonisolated enum DubPackParser {
 
         // Only a track AVFoundation can actually read counts. An Ogg Vorbis backing track
         // would parse fine here and then be silent everywhere else.
-        let backingTrackFile = contents
+        let backingTrackCandidate = contents
             .first { $0.deletingPathExtension().lastPathComponent == backingTrackPrefix }
+        let backingTrackFile = backingTrackCandidate
             .flatMap { AudioFileManager.shared.getAudioDuration(from: $0) != nil ? $0 : nil }
+
+        if let candidate = backingTrackCandidate, backingTrackFile == nil {
+            diagnostics.unplayableBackingTrack = candidate.lastPathComponent
+        }
 
         let backingTrackDuration = backingTrackFile.flatMap { AudioFileManager.shared.getAudioDuration(from: $0) }
         let duration = backingTrackDuration ?? (lines.last?.endTime ?? 0)
 
         // Same guard as the backing track: a file named dub_video.ogv parses fine here and
         // then shows a black rectangle everywhere, so only accept one with a readable track.
-        let videoFile = contents
+        let videoCandidate = contents
             .first { $0.deletingPathExtension().lastPathComponent == videoPrefix }
+        let videoFile = videoCandidate
             .flatMap { hasReadableVideoTrack(at: $0) ? $0 : nil }
 
-        return DubPack(
+        if let candidate = videoCandidate, videoFile == nil {
+            diagnostics.unplayableVideo = candidate.lastPathComponent
+        }
+
+        let pack = DubPack(
             id: id,
             title: title,
             authors: authors,
@@ -242,6 +322,8 @@ nonisolated enum DubPackParser {
             sourceURL: sourceURL,
             rights: rights
         )
+
+        return (pack, diagnostics)
     }
 
     /// Whether AVFoundation can see a video track in this file. Ogg Theora returns false,
@@ -253,8 +335,22 @@ nonisolated enum DubPackParser {
 
     /// Parses one `NNN_Character.txt` plus its sibling assets. Returns nil when the entry is
     /// unusable (no timestamp), throws when a referenced asset is missing.
-    private static func parseLine(at url: URL, in directoryURL: URL, fallbackIndex: Int) throws -> DubLine? {
-        guard let contents = try? String(contentsOf: url, encoding: .utf8) else { return nil }
+    ///
+    /// Every nil return is written into `diagnostics` on the way out. A dropped entry costs
+    /// the user a line of their scene without any sign that it happened, so the reason it
+    /// was dropped is the only thing that can ever explain a pack that came in short.
+    private static func parseLine(
+        at url: URL,
+        in directoryURL: URL,
+        fallbackIndex: Int,
+        diagnostics: inout DubPackDiagnostics
+    ) throws -> DubLine? {
+        let file = url.lastPathComponent
+
+        guard let contents = try? String(contentsOf: url, encoding: .utf8) else {
+            diagnostics.droppedLines.append(.init(file: file, reason: .unreadableFile))
+            return nil
+        }
 
         let fields = parseKeyValues(contents)
         let slug = url.deletingPathExtension().lastPathComponent
@@ -267,6 +363,7 @@ nonisolated enum DubPackParser {
         // line at a time, so the first of each is what drives playback.
         guard let timestampString = fields["dub_timestamps"]?.arrayValue.first,
               let startTime = TimeInterval(timestampString) else {
+            diagnostics.droppedLines.append(.init(file: file, reason: .noTimestamp))
             return nil
         }
 

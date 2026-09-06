@@ -389,6 +389,141 @@ struct DubPackParsingTests {
     }
 }
 
+// MARK: - Diagnostics
+
+/// The parser drops what it cannot use so that one bad file never costs the user the whole
+/// scene. These cover the note it leaves behind while doing it, which is what `DubPackImporter`
+/// turns into a non-fatal: a pack that imports "successfully" with half its lines missing is
+/// otherwise indistinguishable from one that came in whole.
+@Suite("Dub Pack Diagnostics")
+struct DubPackDiagnosticsTests {
+
+    @Test func aWholePackReportsNothing() throws {
+        let fixture = try DubPackFixture()
+        defer { fixture.cleanup() }
+
+        let parsed = try DubPackParser.parse(at: fixture.directory, folderName: "harry-dobby")
+
+        #expect(parsed.diagnostics.isClean)
+        #expect(parsed.diagnostics.droppedLines.isEmpty)
+        #expect(parsed.diagnostics.candidateLineCount == 3)
+    }
+
+    /// An entry with no `dub_timestamps` has no moment to play at, so it is dropped. This is
+    /// the single most likely way a hand-made pack arrives short.
+    @Test func namesTheEntriesDroppedForHavingNoTimestamp() throws {
+        let fixture = try DubPackFixture()
+        defer { fixture.cleanup() }
+
+        try fixture.write("""
+        [data]
+
+        caption="Never timed"
+        image="020_Aunt_Petunia.jpg"
+        dub_characters=["Aunt Petunia"]
+        """, to: "020_Aunt_Petunia.txt")
+
+        let parsed = try DubPackParser.parse(at: fixture.directory, folderName: "harry-dobby")
+
+        #expect(parsed.pack.lines.count == 3)
+        #expect(parsed.diagnostics.candidateLineCount == 4)
+        #expect(parsed.diagnostics.droppedLines.count == 1)
+        #expect(parsed.diagnostics.droppedLines.first?.file == "020_Aunt_Petunia.txt")
+        #expect(parsed.diagnostics.droppedLines.first?.reason == .noTimestamp)
+        #expect(!parsed.diagnostics.isClean)
+    }
+
+    /// A `.txt` that is not UTF-8 at all. Dropped for a different reason than a mistyped
+    /// entry, and the difference is the whole point: one is the pack's author's mistake,
+    /// the other is an encoding this app should probably learn to read.
+    @Test func separatesAnUnreadableEntryFromAMistypedOne() throws {
+        let fixture = try DubPackFixture()
+        defer { fixture.cleanup() }
+
+        // 0xFF 0xFE is a UTF-16 BOM: valid bytes, not decodable as UTF-8.
+        try Data([0xFF, 0xFE, 0x00, 0x41]).write(
+            to: fixture.directory.appendingPathComponent("021_Vernon.txt")
+        )
+
+        let parsed = try DubPackParser.parse(at: fixture.directory, folderName: "harry-dobby")
+
+        #expect(parsed.diagnostics.droppedLines.count == 1)
+        #expect(parsed.diagnostics.droppedLines.first?.reason == .unreadableFile)
+    }
+
+    /// The silent-scene case. An Ogg Vorbis backing track sits in the folder looking correct
+    /// and plays as nothing, and the pack still imports.
+    @Test func notesABackingTrackThatCannotBeDecoded() throws {
+        let fixture = try DubPackFixture(includeBackingTrack: false)
+        defer { fixture.cleanup() }
+
+        try Data(count: 4096).write(
+            to: fixture.directory.appendingPathComponent("\(DubPackParser.backingTrackPrefix).ogg")
+        )
+
+        let parsed = try DubPackParser.parse(at: fixture.directory, folderName: "harry-dobby")
+
+        #expect(parsed.pack.backingTrackFile == nil)
+        #expect(parsed.diagnostics.unplayableBackingTrack == "\(DubPackParser.backingTrackPrefix).ogg")
+        #expect(!parsed.diagnostics.isClean)
+    }
+
+    @Test func staysQuietWhenThePackSimplyShipsNoBackingTrack() throws {
+        let fixture = try DubPackFixture(includeBackingTrack: false)
+        defer { fixture.cleanup() }
+
+        let parsed = try DubPackParser.parse(at: fixture.directory, folderName: "harry-dobby")
+
+        #expect(parsed.diagnostics.unplayableBackingTrack == nil)
+        #expect(parsed.diagnostics.isClean)
+    }
+
+    @Test func notesAVideoWithNoReadableTrack() throws {
+        let fixture = try DubPackFixture()
+        defer { fixture.cleanup() }
+
+        try Data(count: 4096).write(
+            to: fixture.directory.appendingPathComponent("\(DubPackParser.videoPrefix).mp4")
+        )
+
+        let parsed = try DubPackParser.parse(at: fixture.directory, folderName: "Scene")
+
+        #expect(parsed.pack.videoFile == nil)
+        #expect(parsed.diagnostics.unplayableVideo == "\(DubPackParser.videoPrefix).mp4")
+    }
+
+    @Test func staysQuietWhenThePackSimplyShipsNoVideo() throws {
+        let fixture = try DubPackFixture()
+        defer { fixture.cleanup() }
+
+        let parsed = try DubPackParser.parse(at: fixture.directory, folderName: "Scene")
+
+        #expect(parsed.diagnostics.unplayableVideo == nil)
+        #expect(parsed.diagnostics.isClean)
+    }
+
+    /// `parsePack` is the same parse. The library uses it on every launch and must keep
+    /// behaving exactly as it did before diagnostics existed.
+    ///
+    /// Field by field rather than `==`: every parse mints fresh line ids and a fresh
+    /// `importedAt`, so two reads of one folder are never equal as values.
+    @Test func theDiagnosticFreeEntryPointReturnsTheSamePack() throws {
+        let fixture = try DubPackFixture()
+        defer { fixture.cleanup() }
+
+        let id = UUID()
+        let plain = try DubPackParser.parsePack(at: fixture.directory, folderName: "harry-dobby", id: id)
+        let parsed = try DubPackParser.parse(at: fixture.directory, folderName: "harry-dobby", id: id)
+
+        #expect(plain.id == parsed.pack.id)
+        #expect(plain.title == parsed.pack.title)
+        #expect(plain.backingTrackFile == parsed.pack.backingTrackFile)
+        #expect(plain.videoFile == parsed.pack.videoFile)
+        #expect(plain.lines.map(\.slug) == parsed.pack.lines.map(\.slug))
+        #expect(plain.lines.map(\.startTime) == parsed.pack.lines.map(\.startTime))
+    }
+}
+
 // MARK: - Timeline Lookup
 
 @Suite("Dub Timeline Lookup")

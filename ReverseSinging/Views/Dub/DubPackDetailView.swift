@@ -81,7 +81,8 @@ struct DubPackDetailView: View {
                     AnalyticsManager.shared.trackDubPackOpened(
                         title: pack.title,
                         lineCount: pack.lines.count,
-                        recordedCount: library.recordedCount(for: pack)
+                        recordedCount: library.recordedCount(for: pack),
+                        source: pack.source
                     )
                     CrashReporter.shared.set(.screen, "DubRecordView")
                     CrashReporter.shared.set(.packLineCount, pack.lines.count)

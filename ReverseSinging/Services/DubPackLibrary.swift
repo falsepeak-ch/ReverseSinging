@@ -96,12 +96,24 @@ final class DubPackLibrary: ObservableObject {
             return cached
         }
 
-        guard let parsed = try? DubPackParser.parsePack(at: directory, folderName: folderName) else {
+        do {
+            let parsed = try DubPackParser.parsePack(at: directory, folderName: folderName)
+            try? importer.writeManifest(parsed, to: directory)
+            return parsed
+        } catch {
+            // A pack that is installed and will not load is the quietest failure in the app:
+            // the folder is on disk, the user imported it and performed it, and it is simply
+            // not on the shelf any more. There is no alert for this, because nobody asked
+            // for anything. Reported per launch while it lasts, which is the point. A pack
+            // that stops loading after an OS update is a regression we would otherwise only
+            // hear about as "my scenes disappeared".
+            CrashReporter.shared.record(
+                error,
+                context: "dub_pack.load",
+                keys: ["folder_name": folderName]
+            )
             return nil
         }
-
-        try? importer.writeManifest(parsed, to: directory)
-        return parsed
     }
 
     /// True when the cached manifest is missing something a re-parse would find.
@@ -206,6 +218,15 @@ final class DubPackLibrary: ObservableObject {
         importMessage = Strings.Dub.importing
         defer { isImporting = false }
 
+        let sourceExtension = url.pathExtension.lowercased()
+
+        // Before any work, so an import the user abandons partway through a long video
+        // conversion is still counted as an attempt rather than vanishing entirely.
+        AnalyticsManager.shared.trackDubPackImportStarted(
+            sourceName: url.lastPathComponent,
+            sourceExtension: sourceExtension
+        )
+
         do {
             let pack = try await DubPackImporter.shared.importPack(from: url) { [weak self] stage, value in
                 Task { @MainActor [weak self] in
@@ -224,7 +245,10 @@ final class DubPackLibrary: ObservableObject {
                 characterCount: Set(pack.lines.map(\.character)).count,
                 duration: pack.duration,
                 hasVideo: pack.videoFile != nil,
-                hasAttribution: pack.hasAttribution
+                hasBackingTrack: pack.backingTrackFile != nil,
+                hasAttribution: pack.hasAttribution,
+                source: pack.source,
+                sourceURL: pack.sourceURL
             )
         } catch {
             errorMessage = error.localizedDescription
@@ -236,12 +260,13 @@ final class DubPackLibrary: ObservableObject {
             // arrives with a stack rather than as a bare string.
             AnalyticsManager.shared.trackDubPackImportFailed(
                 sourceName: url.lastPathComponent,
+                sourceExtension: sourceExtension,
                 reason: String(describing: error)
             )
             CrashReporter.shared.record(
                 error,
                 context: "dub_pack.import",
-                keys: ["source_extension": url.pathExtension.lowercased()]
+                keys: ["source_extension": sourceExtension]
             )
         }
     }

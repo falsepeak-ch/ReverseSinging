@@ -259,6 +259,10 @@ struct DubLibraryView: View {
             Task { await library.importPack(from: url) }
         case .failure(let error):
             library.errorMessage = error.localizedDescription
+            // The picker itself failed, so no import ever started and neither the import
+            // events nor `DubPackLibrary`'s non-fatal will ever mention it. From the user's
+            // side this is indistinguishable from a pack that would not open.
+            CrashReporter.shared.record(error, context: "dub_pack.file_picker")
         }
     }
 }
