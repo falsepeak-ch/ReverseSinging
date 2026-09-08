@@ -344,3 +344,25 @@
 "booth.deleteAll" = "Esborra totes les preses de cabina";
 "booth.deleteAll.confirm" = "Esborra";
 "booth.deleteAll.message" = "Això elimina tots els clips de cabina. Les preses de veu i els doblatges es mantenen.";
+
+/* Booth Cam: the export sheet */
+"booth.export.title" = "Exporta";
+"booth.export.subtitle" = "Tria el tall i com hi encaixa la teva cabina.";
+"booth.export.lineSubtitle" = "Una frase, amb la teva reacció al costat.";
+"booth.export.cut" = "Tall";
+"booth.export.cut.fullScene" = "Escena sencera";
+"booth.export.cut.sessionReel" = "Resum de sessió";
+"booth.export.cut.detail" = "El doblatge acabat, de cap a peus. El resum de sessió són totes les frases que has doblat, una rere l'altra, sense els silencis del mig.";
+"booth.export.frame" = "Enquadrament de cabina";
+"booth.frame.off" = "Cap";
+"booth.frame.corner" = "Cantonada";
+"booth.frame.stacked" = "Apilat";
+"booth.frame.split" = "Partit";
+"booth.export.stackedNote" = "L'apilat es renderitza en 9:16, a mida per a una story o un short.";
+"booth.export.noFootage" = "Encara no hi ha material de cabina en aquesta escena. Activa la càmera de cabina i dobla una frase.";
+"booth.export.confirm" = "Exporta el vídeo";
+"booth.export.lineConfirm" = "Exporta la frase";
+"booth.export.notice" = "Abans de renderitzar veuràs de qui és aquesta escena.";
+"booth.export.runtime" = "Durada";
+"booth.export.shape" = "Format";
+"booth.shareLine" = "Comparteix aquesta frase";

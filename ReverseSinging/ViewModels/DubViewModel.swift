@@ -752,7 +752,13 @@ final class DubViewModel: ObservableObject {
 
     // MARK: - Export
 
-    func export() async {
+    /// How long an export of this cut will run, for the sheet's slate.
+    func runtime(of cut: DubCut) -> TimeInterval {
+        DubCutPlanner.segments(for: cut, pack: pack, recordedSlugs: recordedSlugs)
+            .reduce(0) { $0 + $1.duration }
+    }
+
+    func export(cut: DubCut = .fullScene, frame: DubBoothFrame = .off) async {
         guard hasAnyTake else {
             errorMessage = Strings.Dub.Error.nothingRecorded
             return
@@ -765,7 +771,7 @@ final class DubViewModel: ObservableObject {
         defer { isExporting = false }
 
         do {
-            let url = try await DubMixer.shared.export(pack: pack) { [weak self] stage, value in
+            let url = try await DubMixer.shared.export(pack: pack, cut: cut, frame: frame) { [weak self] stage, value in
                 Task { @MainActor [weak self] in
                     self?.exportStage = stage
                     self?.exportProgress = Self.overallProgress(stage: stage, value: value)

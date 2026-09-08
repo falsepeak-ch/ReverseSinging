@@ -60,14 +60,32 @@ nonisolated struct DubMixer {
 
     // MARK: - Full Export
 
-    /// Mixes the user's takes over the backing track and wraps the result in an MP4.
+    /// Mixes the user's takes over the backing track and wraps the result in a shareable MP4.
     ///
     /// The picture is the pack's own video when it ships one; otherwise a slideshow of the
     /// per-line stills is rendered as a stand-in. Returns the finished file, ready to hand
     /// to a share sheet.
-    func export(pack: DubPack, progress: ProgressHandler? = nil) async throws -> URL {
+    ///
+    /// - Parameters:
+    ///   - cut: which stretch of the film to export. Defaults to the whole scene, which is
+    ///     what Export has always produced.
+    ///   - frame: how the booth sits in it. `.off` keeps the export a remux; anything else
+    ///     means a re-encode, and takes correspondingly longer.
+    func export(
+        pack: DubPack,
+        cut: DubCut = .fullScene,
+        frame: DubBoothFrame = .off,
+        progress: ProgressHandler? = nil
+    ) async throws -> URL {
         let recorded = recordedLines(in: pack)
         guard !recorded.isEmpty else { throw DubExportError.nothingRecorded }
+
+        let segments = DubCutPlanner.segments(
+            for: cut,
+            pack: pack,
+            recordedSlugs: Set(recorded.map(\.slug))
+        )
+        guard !segments.isEmpty else { throw DubExportError.nothingRecorded }
 
         let workingDirectory = FileManager.default.temporaryDirectory
             .appendingPathComponent("dubexport-\(UUID().uuidString)", isDirectory: true)
@@ -82,7 +100,7 @@ nonisolated struct DubMixer {
 
         let videoURL: URL
         if let sourceVideo = pack.videoURL {
-            // Nothing to render. The mux is a passthrough remux of this track.
+            // Nothing to render. The picture is the pack's own track.
             progress?(.renderingVideo, 1)
             videoURL = sourceVideo
         } else {
@@ -94,18 +112,41 @@ nonisolated struct DubMixer {
         }
 
         progress?(.finishing, 0)
-        let finalURL = try await mux(video: videoURL, audio: audioURL, pack: pack)
+
+        let composed = try await DubBoothComposer.compose(
+            pack: pack,
+            segments: segments,
+            frame: frame,
+            sceneVideo: videoURL,
+            audio: audioURL,
+            boothClips: boothClips(in: pack)
+        )
+
+        let finalURL = try await write(composed, pack: pack)
         progress?(.finishing, 1)
 
         await MainActor.run {
             AnalyticsManager.shared.trackDubExported(
                 lineCount: pack.lines.count,
                 recordedCount: recorded.count,
-                duration: pack.duration
+                duration: composed.duration.seconds
+            )
+            AnalyticsManager.shared.trackCustomEvent(
+                name: "dub_export_shape",
+                parameters: ["cut": cut.analyticsName, "booth_frame": frame.rawValue]
             )
         }
 
         return finalURL
+    }
+
+    /// The booth footage that exists for this pack, by line slug.
+    func boothClips(in pack: DubPack) -> [String: URL] {
+        var clips: [String: URL] = [:]
+        for line in pack.lines where pack.hasBoothTake(for: line) {
+            clips[line.slug] = pack.boothTakeURL(for: line)
+        }
+        return clips
     }
 
     func recordedLines(in pack: DubPack) -> [DubLine] {
@@ -381,27 +422,12 @@ nonisolated struct DubMixer {
     // MARK: - Mux
 
     /// Combines the silent slideshow and the audio mix into the file the user shares.
-    private func mux(video videoURL: URL, audio audioURL: URL, pack: DubPack) async throws -> URL {
-        let composition = AVMutableComposition()
-
-        let videoAsset = AVURLAsset(url: videoURL)
-        let audioAsset = AVURLAsset(url: audioURL)
-
-        let videoDuration = try await videoAsset.load(.duration)
-        let audioDuration = try await audioAsset.load(.duration)
-
-        if let sourceVideoTrack = try await videoAsset.loadTracks(withMediaType: .video).first,
-           let track = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) {
-            try track.insertTimeRange(CMTimeRange(start: .zero, duration: videoDuration), of: sourceVideoTrack, at: .zero)
-        }
-
-        if let sourceAudioTrack = try await audioAsset.loadTracks(withMediaType: .audio).first,
-           let track = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) {
-            // Clamp to the video length so a long final take can't leave a black tail
-            let duration = min(audioDuration, videoDuration)
-            try track.insertTimeRange(CMTimeRange(start: .zero, duration: duration), of: sourceAudioTrack, at: .zero)
-        }
-
+    /// Writes the composition out.
+    ///
+    /// Passthrough when there is nothing to composite, which is every export that does not use
+    /// the booth: both tracks are already H.264/AAC in MP4, so it is a remux and costs almost
+    /// nothing. A booth frame means a real re-encode, because the picture is being rebuilt.
+    private func write(_ composed: DubBoothComposer.Composed, pack: DubPack) async throws -> URL {
         let outputURL = AudioFileManager.shared.dubExportsDirectory()
             .appendingPathComponent("\(exportFilename(for: pack)).mp4")
 
@@ -409,13 +435,17 @@ nonisolated struct DubMixer {
             try FileManager.default.removeItem(at: outputURL)
         }
 
-        // Both tracks are already H.264/AAC in MP4, so this is a remux rather than a re-encode
-        guard let session = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetPassthrough) else {
+        let preset = composed.videoComposition == nil
+            ? AVAssetExportPresetPassthrough
+            : AVAssetExportPresetHighestQuality
+
+        guard let session = AVAssetExportSession(asset: composed.composition, presetName: preset) else {
             throw DubExportError.exportFailed(nil)
         }
 
         session.outputURL = outputURL
         session.outputFileType = .mp4
+        session.videoComposition = composed.videoComposition
 
         await session.exportAsync()
 

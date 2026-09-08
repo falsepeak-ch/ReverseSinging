@@ -264,6 +264,28 @@ nonisolated enum Strings {
         static let deleteAll = NSLocalizedString("booth.deleteAll", comment: "Delete every booth clip")
         static let deleteAllConfirm = NSLocalizedString("booth.deleteAll.confirm", comment: "Confirm deleting every booth clip")
         static let deleteAllMessage = NSLocalizedString("booth.deleteAll.message", comment: "Warns that deleting booth footage keeps the voice takes")
+
+        // The export sheet: which stretch of the film, and how the booth sits in it
+        static let exportTitle = NSLocalizedString("booth.export.title", comment: "Export sheet title")
+        static let exportSubtitle = NSLocalizedString("booth.export.subtitle", comment: "Export sheet subtitle")
+        static let exportLineSubtitle = NSLocalizedString("booth.export.lineSubtitle", comment: "Export sheet subtitle when exporting a single line")
+        static let cut = NSLocalizedString("booth.export.cut", comment: "Section label: which stretch of the film to export")
+        static let cutFullScene = NSLocalizedString("booth.export.cut.fullScene", comment: "Export the finished dub end to end")
+        static let cutSessionReel = NSLocalizedString("booth.export.cut.sessionReel", comment: "Export every dubbed line back to back")
+        static let cutDetail = NSLocalizedString("booth.export.cut.detail", comment: "What the two cuts are")
+        static let frameSection = NSLocalizedString("booth.export.frame", comment: "Section label: how the booth is composited")
+        static let frameOff = NSLocalizedString("booth.frame.off", comment: "Booth frame: not included")
+        static let frameCorner = NSLocalizedString("booth.frame.corner", comment: "Booth frame: inset in the corner")
+        static let frameStacked = NSLocalizedString("booth.frame.stacked", comment: "Booth frame: scene above, booth below")
+        static let frameSplit = NSLocalizedString("booth.frame.split", comment: "Booth frame: side by side")
+        static let stackedNote = NSLocalizedString("booth.export.stackedNote", comment: "Notes that the stacked frame renders 9:16")
+        static let noFootage = NSLocalizedString("booth.export.noFootage", comment: "Shown when a scene has no booth footage to composite")
+        static let exportConfirm = NSLocalizedString("booth.export.confirm", comment: "Render and share the export")
+        static let exportLineConfirm = NSLocalizedString("booth.export.lineConfirm", comment: "Render and share a single line")
+        static let exportNotice = NSLocalizedString("booth.export.notice", comment: "Says the attribution notice comes next")
+        static let runtime = NSLocalizedString("booth.export.runtime", comment: "Slate field: how long the export runs")
+        static let shape = NSLocalizedString("booth.export.shape", comment: "Slate field: the output frame shape")
+        static let shareLine = NSLocalizedString("booth.shareLine", comment: "Share one line and its reaction")
     }
 
     enum Dub {

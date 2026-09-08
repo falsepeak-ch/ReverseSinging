@@ -344,3 +344,25 @@
 "booth.deleteAll" = "ブースの映像をすべて削除";
 "booth.deleteAll.confirm" = "削除";
 "booth.deleteAll.message" = "ブースのクリップをすべて削除します。音声テイクとアフレコは残ります。";
+
+/* Booth Cam: the export sheet */
+"booth.export.title" = "書き出し";
+"booth.export.subtitle" = "どこを書き出すか、ブースをどう入れるかを選びます。";
+"booth.export.lineSubtitle" = "1つのセリフと、その横にあなたのリアクション。";
+"booth.export.cut" = "範囲";
+"booth.export.cut.fullScene" = "シーン全体";
+"booth.export.cut.sessionReel" = "セッションまとめ";
+"booth.export.cut.detail" = "完成したアフレコを最初から最後まで。セッションまとめは、アフレコしたセリフを間の無音を省いて続けてつなげたものです。";
+"booth.export.frame" = "ブースの配置";
+"booth.frame.off" = "なし";
+"booth.frame.corner" = "隅";
+"booth.frame.stacked" = "上下";
+"booth.frame.split" = "左右";
+"booth.export.stackedNote" = "「上下」は9:16で書き出され、ストーリーズやショート向けのサイズになります。";
+"booth.export.noFootage" = "このシーンにはまだブースの映像がありません。ブースカメラをオンにしてセリフをアフレコしてください。";
+"booth.export.confirm" = "動画を書き出す";
+"booth.export.lineConfirm" = "セリフを書き出す";
+"booth.export.notice" = "書き出す前に、このシーンの出どころが表示されます。";
+"booth.export.runtime" = "長さ";
+"booth.export.shape" = "画面比";
+"booth.shareLine" = "このセリフを共有";

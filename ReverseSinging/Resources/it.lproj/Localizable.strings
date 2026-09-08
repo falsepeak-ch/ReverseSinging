@@ -344,3 +344,25 @@
 "booth.deleteAll" = "Elimina tutte le riprese di cabina";
 "booth.deleteAll.confirm" = "Elimina";
 "booth.deleteAll.message" = "Questo elimina tutti i clip di cabina. Le riprese vocali e i doppiaggi restano.";
+
+/* Booth Cam: the export sheet */
+"booth.export.title" = "Esporta";
+"booth.export.subtitle" = "Scegli il montaggio e come ci sta dentro la tua cabina.";
+"booth.export.lineSubtitle" = "Una battuta, con la tua reazione accanto.";
+"booth.export.cut" = "Montaggio";
+"booth.export.cut.fullScene" = "Scena intera";
+"booth.export.cut.sessionReel" = "Riassunto della sessione";
+"booth.export.cut.detail" = "Il doppiaggio finito, dall'inizio alla fine. Il riassunto sono tutte le battute che hai doppiato, una dopo l'altra, senza i silenzi in mezzo.";
+"booth.export.frame" = "Inquadratura di cabina";
+"booth.frame.off" = "Nessuna";
+"booth.frame.corner" = "Angolo";
+"booth.frame.stacked" = "Impilata";
+"booth.frame.split" = "Divisa";
+"booth.export.stackedNote" = "L'impilata viene resa in 9:16, su misura per una storia o uno short.";
+"booth.export.noFootage" = "In questa scena non c'è ancora materiale di cabina. Attiva la fotocamera di cabina e doppia una battuta.";
+"booth.export.confirm" = "Esporta il video";
+"booth.export.lineConfirm" = "Esporta la battuta";
+"booth.export.notice" = "Prima del rendering vedrai di chi è questa scena.";
+"booth.export.runtime" = "Durata";
+"booth.export.shape" = "Formato";
+"booth.shareLine" = "Condividi questa battuta";

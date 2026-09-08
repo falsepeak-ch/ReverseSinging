@@ -344,3 +344,25 @@
 "booth.deleteAll" = "Supprimer toutes les prises de cabine";
 "booth.deleteAll.confirm" = "Supprimer";
 "booth.deleteAll.message" = "Cela supprime tous les clips de cabine. Tes prises de voix et tes doublages sont conservés.";
+
+/* Booth Cam: the export sheet */
+"booth.export.title" = "Exporter";
+"booth.export.subtitle" = "Choisis le montage, puis la place de ta cabine dedans.";
+"booth.export.lineSubtitle" = "Une réplique, avec ta réaction à côté.";
+"booth.export.cut" = "Montage";
+"booth.export.cut.fullScene" = "Scène entière";
+"booth.export.cut.sessionReel" = "Best-of de séance";
+"booth.export.cut.detail" = "Le doublage terminé, du début à la fin. Le best-of, ce sont toutes les répliques que tu as doublées, à la suite, sans les silences entre elles.";
+"booth.export.frame" = "Cadrage de cabine";
+"booth.frame.off" = "Aucun";
+"booth.frame.corner" = "Coin";
+"booth.frame.stacked" = "Empilé";
+"booth.frame.split" = "Partagé";
+"booth.export.stackedNote" = "L'empilé est rendu en 9:16, au format d'une story ou d'un short.";
+"booth.export.noFootage" = "Pas encore de séquences de cabine dans cette scène. Active la caméra de cabine et double une réplique.";
+"booth.export.confirm" = "Exporter la vidéo";
+"booth.export.lineConfirm" = "Exporter la réplique";
+"booth.export.notice" = "Tu verras à qui appartient cette scène avant le rendu.";
+"booth.export.runtime" = "Durée";
+"booth.export.shape" = "Format";
+"booth.shareLine" = "Partager cette réplique";

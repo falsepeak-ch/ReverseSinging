@@ -19,6 +19,11 @@ struct DubPackDetailView: View {
 
     @State private var showRecorder = false
     @State private var showShareNotice = false
+    /// The export the user has configured but not yet agreed to send. Held between the
+    /// options sheet and the attribution notice, which still has the last word.
+    @State private var pendingExport: (cut: DubCut, frame: DubBoothFrame)?
+    @State private var exportOptionsLine: DubLine?
+    @State private var showExportOptions = false
     @State private var playbackMode: DubPlaybackMode?
     @State private var reelIsBreathing = false
     /// True for a pack whose video was converted by a build that dropped duplicate frames.
@@ -93,8 +98,30 @@ struct DubPackDetailView: View {
             DubPlaybackView(viewModel: viewModel, mode: mode)
         }
         .dubShareNotice(isPresented: $showShareNotice, pack: pack) {
-            Task { await viewModel.export() }
+            guard let pending = pendingExport else { return }
+            pendingExport = nil
+            Task { await viewModel.export(cut: pending.cut, frame: pending.frame) }
         }
+        // Options first, then the notice. The notice is about provenance and is the last
+        // word before anything renders; what shape the file takes is a separate question and
+        // asking both in one panel made neither of them land.
+        .overlay {
+            if showExportOptions {
+                DubExportOptionsModal(
+                    pack: pack,
+                    line: exportOptionsLine,
+                    hasBoothFootage: viewModel.hasAnyBoothTake,
+                    runtime: { viewModel.runtime(of: $0) },
+                    onExport: { cut, frame in
+                        showExportOptions = false
+                        pendingExport = (cut, frame)
+                        showShareNotice = true
+                    },
+                    onCancel: { showExportOptions = false }
+                )
+            }
+        }
+        .animation(.rsSmooth, value: showExportOptions)
         .sheet(item: $viewModel.exportedURL) { url in
             DubShareSheet(url: url)
         }
@@ -289,6 +316,15 @@ struct DubPackDetailView: View {
                 slateDivider
                 slateField(Strings.Dub.slateDuration, pack.formattedDuration)
                 slateDivider
+                // Only for a scene that has been filmed. An empty field on every other pack
+                // would advertise a feature rather than report a fact.
+                if viewModel.hasAnyBoothTake {
+                    slateField(
+                        Strings.Booth.slug,
+                        String(format: "%02d", viewModel.boothSlugs.count)
+                    )
+                    slateDivider
+                }
                 if scoring.isEnabled {
                     slateField(
                         Strings.Dub.Score.slate,
@@ -418,7 +454,10 @@ struct DubPackDetailView: View {
                     title: Strings.Dub.export,
                     icon: "square.and.arrow.up",
                     color: .rsTextPrimary,
-                    action: { showShareNotice = true },
+                    action: {
+                        exportOptionsLine = nil
+                        showExportOptions = true
+                    },
                     isEnabled: viewModel.hasAnyTake && !viewModel.isExporting,
                     style: .secondary
                 )
@@ -447,6 +486,7 @@ struct DubPackDetailView: View {
                             line: line,
                             isRecorded: viewModel.isRecorded(line),
                             score: viewModel.score(for: line),
+                            hasBoothTake: viewModel.hasBoothTake(line),
                             characterColor: DubCharacterStyle.color(
                                 for: line.character,
                                 in: pack.characters
@@ -454,6 +494,19 @@ struct DubPackDetailView: View {
                         )
                     }
                     .buttonStyle(.plain)
+                    // A long press rather than a button on the row: tapping a line means
+                    // "record it", and that is the thing someone reaches for a hundred times
+                    // more often than sharing one.
+                    .contextMenu {
+                        if viewModel.isRecorded(line) {
+                            Button {
+                                exportOptionsLine = line
+                                showExportOptions = true
+                            } label: {
+                                Label(Strings.Booth.shareLine, systemImage: "square.and.arrow.up")
+                            }
+                        }
+                    }
 
                     if index < pack.lines.count - 1 {
                         EditorRule()
@@ -594,6 +647,8 @@ struct DubLineRow: View {
     let line: DubLine
     let isRecorded: Bool
     var score: DubLineScore?
+    /// Whether there is a reaction to send along with this line.
+    var hasBoothTake: Bool = false
     let characterColor: Color
 
     var body: some View {
@@ -623,6 +678,15 @@ struct DubLineRow: View {
             }
 
             Spacer(minLength: 8)
+
+            // Says there is a reaction to send with this line, which is what decides whether
+            // sharing it on its own is worth doing at all.
+            if hasBoothTake {
+                Image(systemName: "video.fill")
+                    .font(.system(size: 11, weight: .medium))
+                    .foregroundColor(.rsTextTertiary)
+                    .accessibilityLabel(Strings.Booth.slug)
+            }
 
             // The grade stands in for the tick: a scored line is a recorded line, and
             // "how did it go" is more use than "is there a file".

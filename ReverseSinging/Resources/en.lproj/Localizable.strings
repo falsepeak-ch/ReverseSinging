@@ -344,3 +344,25 @@
 "booth.deleteAll" = "Delete all booth takes";
 "booth.deleteAll.confirm" = "Delete";
 "booth.deleteAll.message" = "This removes every booth clip. Your voice takes and your dubs are kept.";
+
+/* Booth Cam: the export sheet */
+"booth.export.title" = "Export";
+"booth.export.subtitle" = "Pick the cut, then how your booth sits in it.";
+"booth.export.lineSubtitle" = "One line, with your reaction beside it.";
+"booth.export.cut" = "Cut";
+"booth.export.cut.fullScene" = "Full scene";
+"booth.export.cut.sessionReel" = "Session reel";
+"booth.export.cut.detail" = "The finished dub, top to tail. Session reel is every line you dubbed, back to back, with the silence between them dropped.";
+"booth.export.frame" = "Booth frame";
+"booth.frame.off" = "Off";
+"booth.frame.corner" = "Corner";
+"booth.frame.stacked" = "Stacked";
+"booth.frame.split" = "Split";
+"booth.export.stackedNote" = "Stacked renders 9:16, sized for a story or a short.";
+"booth.export.noFootage" = "No booth footage in this scene yet. Turn Booth Cam on and dub a line.";
+"booth.export.confirm" = "Export Video";
+"booth.export.lineConfirm" = "Export Line";
+"booth.export.notice" = "You will see whose scene this is before it renders.";
+"booth.export.runtime" = "Runtime";
+"booth.export.shape" = "Frame";
+"booth.shareLine" = "Share this line";

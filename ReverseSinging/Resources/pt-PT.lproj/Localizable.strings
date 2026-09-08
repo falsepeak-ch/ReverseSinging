@@ -344,3 +344,25 @@
 "booth.deleteAll" = "Eliminar todas as gravações de cabina";
 "booth.deleteAll.confirm" = "Eliminar";
 "booth.deleteAll.message" = "Isto remove todos os clips de cabina. As tuas gravações de voz e as dobragens ficam.";
+
+/* Booth Cam: the export sheet */
+"booth.export.title" = "Exportar";
+"booth.export.subtitle" = "Escolhe o corte e como a tua cabina fica nele.";
+"booth.export.lineSubtitle" = "Uma fala, com a tua reação ao lado.";
+"booth.export.cut" = "Corte";
+"booth.export.cut.fullScene" = "Cena completa";
+"booth.export.cut.sessionReel" = "Resumo da sessão";
+"booth.export.cut.detail" = "A dobragem terminada, do início ao fim. O resumo são todas as falas que dobraste, uma a seguir à outra, sem os silêncios pelo meio.";
+"booth.export.frame" = "Enquadramento de cabina";
+"booth.frame.off" = "Nenhum";
+"booth.frame.corner" = "Canto";
+"booth.frame.stacked" = "Empilhado";
+"booth.frame.split" = "Dividido";
+"booth.export.stackedNote" = "O empilhado é criado em 9:16, à medida para uma story ou um short.";
+"booth.export.noFootage" = "Ainda não há material de cabina nesta cena. Liga a câmara de cabina e dobra uma fala.";
+"booth.export.confirm" = "Exportar vídeo";
+"booth.export.lineConfirm" = "Exportar fala";
+"booth.export.notice" = "Vais ver de quem é esta cena antes de ser criada.";
+"booth.export.runtime" = "Duração";
+"booth.export.shape" = "Formato";
+"booth.shareLine" = "Partilhar esta fala";
