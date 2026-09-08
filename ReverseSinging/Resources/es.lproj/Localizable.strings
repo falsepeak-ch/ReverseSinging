@@ -319,3 +319,28 @@
 "pro.earlyAdopter.row.cost.value" = "Nada";
 "pro.earlyAdopter.row.expires" = "Caduca";
 "pro.earlyAdopter.row.expires.value" = "Nunca";
+
+/* MARK: - Booth Cam */
+"booth.slug" = "Cabina";
+"booth.monitorAccessibility" = "Vista previa de la cámara frontal";
+"booth.turnOn" = "Activar la cámara de cabina";
+"booth.turnOff" = "Desactivar la cámara de cabina";
+"booth.primer.title" = "Grábate mientras doblas";
+"booth.primer.message" = "La cámara de cabina usa la cámara frontal mientras actúas, así tienes la escena, la frase y tu cara en una sola pantalla. Luego puedes compartir la reacción junto con el doblaje.";
+"booth.primer.confirm" = "Activar la cámara de cabina";
+"booth.primer.decline" = "Doblar sin cámara";
+"booth.primer.systemPrompt" = "A continuación iOS te pedirá acceso a la cámara.";
+"booth.fact.onDevice" = "Las tomas de cabina se guardan en tu dispositivo, junto a las tomas de voz.";
+"booth.fact.nothingLeaves" = "No sale nada hasta que exportas. Cada exportación te lo pregunta antes.";
+"booth.fact.reversible" = "Desactívala cuando quieras. El doblaje sigue sin ella.";
+"booth.settings.section" = "Cámara de cabina";
+"booth.settings.title" = "Cámara de cabina";
+"booth.settings.desc" = "Graba tu cámara frontal mientras doblas, así puedes compartir la reacción junto con la toma.";
+"booth.settings.denied" = "El acceso a la cámara está desactivado. Actívalo para Dubloon en la app Ajustes.";
+"booth.mirror.title" = "Reflejar mi vista previa";
+"booth.mirror.desc" = "Invierte el monitor de cabina mientras actúas. El archivo grabado nunca se invierte.";
+"booth.footage" = "Material de cabina";
+"booth.footage.usage" = "%1$@ · %2$d packs";
+"booth.deleteAll" = "Borrar todas las tomas de cabina";
+"booth.deleteAll.confirm" = "Borrar";
+"booth.deleteAll.message" = "Esto elimina todos los clips de cabina. Tus tomas de voz y tus doblajes se conservan.";

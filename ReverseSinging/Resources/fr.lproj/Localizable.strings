@@ -319,3 +319,28 @@
 "pro.earlyAdopter.row.cost.value" = "Rien";
 "pro.earlyAdopter.row.expires" = "Expire";
 "pro.earlyAdopter.row.expires.value" = "Jamais";
+
+/* MARK: - Booth Cam */
+"booth.slug" = "Cabine";
+"booth.monitorAccessibility" = "Aperçu de la caméra avant";
+"booth.turnOn" = "Activer la caméra de cabine";
+"booth.turnOff" = "Désactiver la caméra de cabine";
+"booth.primer.title" = "Filme-toi en train de doubler";
+"booth.primer.message" = "La caméra de cabine utilise la caméra avant pendant que tu joues : la scène, la réplique et ton visage sont sur un même écran. Ensuite tu peux partager ta réaction avec le doublage.";
+"booth.primer.confirm" = "Activer la caméra de cabine";
+"booth.primer.decline" = "Doubler sans caméra";
+"booth.primer.systemPrompt" = "iOS va maintenant demander l'accès à la caméra.";
+"booth.fact.onDevice" = "Les prises de cabine sont enregistrées sur ton appareil, à côté de tes prises de voix.";
+"booth.fact.nothingLeaves" = "Rien ne sort tant que tu n'exportes pas. Chaque export te le demande avant.";
+"booth.fact.reversible" = "Désactive-la quand tu veux. Le doublage continue sans elle.";
+"booth.settings.section" = "Caméra de cabine";
+"booth.settings.title" = "Caméra de cabine";
+"booth.settings.desc" = "Enregistre ta caméra avant pendant que tu doubles, pour partager ta réaction avec la prise.";
+"booth.settings.denied" = "L'accès à la caméra est désactivé. Active-le pour Dubloon dans l'app Réglages.";
+"booth.mirror.title" = "Miroir sur l'aperçu";
+"booth.mirror.desc" = "Inverse le moniteur de cabine pendant que tu joues. Le fichier enregistré n'est jamais inversé.";
+"booth.footage" = "Séquences de cabine";
+"booth.footage.usage" = "%1$@ · %2$d packs";
+"booth.deleteAll" = "Supprimer toutes les prises de cabine";
+"booth.deleteAll.confirm" = "Supprimer";
+"booth.deleteAll.message" = "Cela supprime tous les clips de cabine. Tes prises de voix et tes doublages sont conservés.";

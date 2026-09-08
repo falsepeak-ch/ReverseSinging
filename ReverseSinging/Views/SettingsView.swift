@@ -36,6 +36,13 @@ struct SettingsView: View {
     @State private var isPaywallPresented = false
     @State private var isCustomerCenterPresented = false
 
+    /// The front camera that films a dub take. A singleton like the others, so the switch
+    /// here and the key in the record HUD are the same switch.
+    @ObservedObject private var booth = BoothCamPreference.shared
+    @State private var boothUsage: (bytes: Int64, packs: Int) = (0, 0)
+    @State private var isConfirmingBoothDelete = false
+    @State private var isBoothDenied = BoothRecorder.cameraPermission == .refused
+
     /// The interface is dark-only; kept as a constant so the many call sites below
     /// don't each need rewriting.
     private var effectiveColorScheme: ColorScheme { .dark }
@@ -63,6 +70,12 @@ struct SettingsView: View {
                         // Haptic Feedback
                         hapticsSection
                             .slideIn(delay: 0.2)
+
+                        // The camera gets its own section rather than a fourth row above:
+                        // turning one on is not a decision of the same weight as a click
+                        // sound, and it is the only thing in here that writes video.
+                        boothSection
+                            .slideIn(delay: 0.25)
 
                         // About Section
                         aboutSection
@@ -264,6 +277,154 @@ struct SettingsView: View {
             .saturation(isActive ? 1 : 0)
             .opacity(isActive ? 1 : 0.45)
             .accessibilityHidden(true)
+    }
+
+    // MARK: - Booth Cam Section
+
+    private var boothSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            sectionHeader(title: Strings.Booth.settingsSection, icon: "video.fill")
+
+            SettingsToggleRow(
+                title: Strings.Booth.settingsTitle,
+                subtitle: isBoothDenied ? Strings.Booth.settingsDenied : Strings.Booth.settingsDesc,
+                isOn: Binding(
+                    get: { booth.isEnabled },
+                    set: { setBoothEnabled($0) }
+                )
+            ) {
+                boothIcon
+            }
+            .disabled(isBoothDenied)
+            .opacity(isBoothDenied ? 0.55 : 1)
+
+            // Only meaningful once there is a monitor to mirror.
+            if booth.isEnabled {
+                SettingsToggleRow(
+                    title: Strings.Booth.mirrorTitle,
+                    subtitle: Strings.Booth.mirrorDesc,
+                    isOn: $booth.mirrorsPreview
+                ) {
+                    mirrorIcon
+                }
+                .transition(.opacity.combined(with: .move(edge: .top)))
+            }
+
+            // Shown only when there is something to account for. An empty storage row is
+            // just a reminder of a cost nobody has paid yet.
+            if boothUsage.bytes > 0 {
+                boothFootagePanel
+                    .transition(.opacity)
+            }
+        }
+        .animation(.easeInOut(duration: 0.2), value: booth.isEnabled)
+        .animation(.easeInOut(duration: 0.2), value: boothUsage.bytes)
+        .onAppear { refreshBoothUsage() }
+        .alert(Strings.Booth.deleteAll, isPresented: $isConfirmingBoothDelete) {
+            Button(Strings.Booth.deleteAllConfirm, role: .destructive) { deleteBoothFootage() }
+            Button(Strings.Main.Alert.cancel, role: .cancel) {}
+        } message: {
+            Text(Strings.Booth.deleteAllMessage)
+        }
+    }
+
+    /// What the camera has cost so far, and the one way to get it back.
+    private var boothFootagePanel: some View {
+        VStack(spacing: 0) {
+            HStack(spacing: 12) {
+                Text(Strings.Booth.footage)
+                    .editorLabelStyle()
+
+                Rectangle()
+                    .fill(Color.rsStroke)
+                    .frame(height: EditorMetrics.hairline)
+
+                Text(
+                    String(
+                        format: Strings.Booth.footageUsage,
+                        ByteCountFormatter.string(fromByteCount: boothUsage.bytes, countStyle: .file),
+                        boothUsage.packs
+                    )
+                )
+                .font(.rsTimecodeSmall)
+                .foregroundColor(.rsTextSecondary)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 13)
+
+            EditorRule()
+
+            Button {
+                HapticManager.shared.light()
+                isConfirmingBoothDelete = true
+            } label: {
+                Text(Strings.Booth.deleteAll)
+                    .font(.rsBodyMedium)
+                    .foregroundColor(.rsRecord)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 13)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+        }
+        .editorPanel()
+    }
+
+    private var boothIcon: some View {
+        settingsIcon("settings-booth-cam", isActive: booth.isEnabled && !isBoothDenied)
+    }
+
+    private var mirrorIcon: some View {
+        settingsIcon("settings-mirror-preview", isActive: booth.mirrorsPreview)
+    }
+
+    // MARK: - Booth Cam Actions
+
+    /// Flipping this on is also where the camera gets asked for, if it never has been.
+    ///
+    /// The full explanation lives on the record screen, where the feature is about to be
+    /// used. Here the row itself is the explanation, so this goes straight to the system.
+    private func setBoothEnabled(_ enabled: Bool) {
+        guard enabled else {
+            booth.isEnabled = false
+            return
+        }
+
+        switch BoothRecorder.cameraPermission {
+        case .granted:
+            booth.isEnabled = true
+            BoothCamPreference.shared.markPrimerSeen()
+        case .unasked:
+            Task {
+                let granted = await BoothRecorder.requestAccess()
+                BoothCamPreference.shared.markPrimerSeen()
+                booth.isEnabled = granted
+                isBoothDenied = !granted
+            }
+        case .refused:
+            isBoothDenied = true
+            booth.isEnabled = false
+        }
+    }
+
+    private func refreshBoothUsage() {
+        isBoothDenied = BoothRecorder.cameraPermission == .refused
+
+        Task.detached(priority: .utility) {
+            let usage = AudioFileManager.shared.boothFootageUsage()
+            await MainActor.run { boothUsage = usage }
+        }
+    }
+
+    private func deleteBoothFootage() {
+        HapticManager.shared.medium()
+        Task.detached(priority: .userInitiated) {
+            try? AudioFileManager.shared.deleteAllBoothFootage()
+            let usage = AudioFileManager.shared.boothFootageUsage()
+            await MainActor.run { boothUsage = usage }
+        }
+        AnalyticsManager.shared.trackCustomEvent(name: "booth_footage_deleted", parameters: nil)
     }
 
     // MARK: - Purchase Section

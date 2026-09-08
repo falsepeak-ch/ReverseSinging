@@ -11,9 +11,13 @@ import SwiftUI
 struct DubRecordView: View {
     @ObservedObject var viewModel: DubViewModel
     @ObservedObject private var scoring = DubScoringPreference.shared
+    @ObservedObject private var booth = BoothCamPreference.shared
     @Environment(\.dismiss) private var dismiss
 
     @StateObject private var scenePicture = DubScenePicture()
+
+    /// Shown the first time someone reaches for the camera key, never on arrival.
+    @State private var isBoothPrimerPresented = false
 
     var body: some View {
         ZStack {
@@ -51,15 +55,23 @@ struct DubRecordView: View {
         } message: {
             Text(Strings.Main.Alert.microphoneRequiredMessage)
         }
+        .boothCamPrimer(isPresented: $isBoothPrimerPresented) {
+            Task { await viewModel.setBoothEnabled(true) }
+        }
         .onAppear {
             scenePicture.configure(with: viewModel.pack)
             if let line = viewModel.currentLine { scenePicture.show(line) }
             AnalyticsManager.shared.trackScreenViewed(screenName: "DubRecord")
         }
+        // Only ever live while this screen is on top, so the camera indicator is never lit
+        // somewhere else in the app.
+        .task { await viewModel.startBoothIfEnabled() }
         .onDisappear {
             scenePicture.tearDown()
+            viewModel.stopBooth()
             viewModel.stopEverything()
         }
+        .animation(.easeInOut(duration: 0.2), value: booth.isEnabled)
         // Park the picture on whichever line is up next.
         .onChange(of: viewModel.currentLineIndex) { _, _ in
             guard let line = viewModel.currentLine else { return }
@@ -116,6 +128,8 @@ struct DubRecordView: View {
 
                 Spacer()
 
+                boothKey
+
                 Text(String(format: "%03d / %03d", line.index, viewModel.pack.lines.count))
                     .font(.rsTimecodeSmall)
                     .foregroundColor(.rsTextSecondary)
@@ -133,6 +147,59 @@ struct DubRecordView: View {
         }
         .background(Color.rsSurface1)
         .overlay(alignment: .bottom) { EditorRule() }
+    }
+
+    /// Turns the camera on and off without leaving the take.
+    ///
+    /// Disabled mid-take: a clip is being written against a deadline that has already been
+    /// scheduled, and stopping the camera halfway would leave a fragment of a line that
+    /// nothing downstream expects. The choice waits the couple of seconds until the line ends.
+    private var boothKey: some View {
+        Button {
+            HapticManager.shared.light()
+
+            if booth.isEnabled {
+                Task { await viewModel.setBoothEnabled(false) }
+            } else if booth.hasSeenPrimer, BoothRecorder.cameraPermission == .granted {
+                Task { await viewModel.setBoothEnabled(true) }
+            } else {
+                // Either the case has never been made, or the system said no and the user
+                // needs to be told why nothing happened.
+                isBoothPrimerPresented = true
+            }
+        } label: {
+            Image(systemName: booth.isEnabled ? "video.fill" : "video.slash.fill")
+                .font(.system(size: 14, weight: .medium))
+                .foregroundColor(booth.isEnabled ? .rsTextPrimary : .rsTextTertiary)
+                .frame(width: 34, height: 34)
+                .background(
+                    RoundedRectangle(cornerRadius: 5, style: .continuous)
+                        .fill(Color.rsSurface2)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5, style: .continuous)
+                        .strokeBorder(
+                            booth.isEnabled ? Color.rsStrokeStrong : Color.rsStroke,
+                            lineWidth: EditorMetrics.hairline
+                        )
+                )
+                .overlay(alignment: .topTrailing) {
+                    // The one place the record colour appears outside the transport: the
+                    // camera is rolling, and that is worth seeing from the corner of an eye.
+                    if viewModel.booth.isWriting {
+                        Circle()
+                            .fill(Color.rsRecord)
+                            .frame(width: 7, height: 7)
+                            .overlay(
+                                Circle().strokeBorder(Color.rsSurface1, lineWidth: 1.5)
+                            )
+                            .offset(x: 2, y: -2)
+                    }
+                }
+        }
+        .disabled(viewModel.isRecording)
+        .opacity(viewModel.isRecording ? 0.4 : 1)
+        .accessibilityLabel(booth.isEnabled ? Strings.Booth.turnOff : Strings.Booth.turnOn)
     }
 
     // MARK: - Picture
@@ -159,6 +226,19 @@ struct DubRecordView: View {
                         )
                     )
                     .padding(12)
+            }
+            // Bottom right, nearest the subtitle plate the performer is reading, so checking
+            // yourself costs no eyeline. Nothing else on the screen moves to make room.
+            .overlay(alignment: .bottomTrailing) {
+                if booth.isEnabled, viewModel.booth.isUsable {
+                    BoothMonitor(
+                        recorder: viewModel.booth,
+                        level: viewModel.recordingLevel,
+                        isRecording: viewModel.isRecording
+                    )
+                    .padding(12)
+                    .transition(.opacity.combined(with: .scale(scale: 0.94, anchor: .bottomTrailing)))
+                }
             }
     }
 

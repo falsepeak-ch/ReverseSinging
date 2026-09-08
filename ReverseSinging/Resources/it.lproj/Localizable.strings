@@ -319,3 +319,28 @@
 "pro.earlyAdopter.row.cost.value" = "Niente";
 "pro.earlyAdopter.row.expires" = "Scade";
 "pro.earlyAdopter.row.expires.value" = "Mai";
+
+/* MARK: - Booth Cam */
+"booth.slug" = "Cabina";
+"booth.monitorAccessibility" = "Anteprima della fotocamera frontale";
+"booth.turnOn" = "Attiva la fotocamera di cabina";
+"booth.turnOff" = "Disattiva la fotocamera di cabina";
+"booth.primer.title" = "Riprenditi mentre doppi";
+"booth.primer.message" = "La fotocamera di cabina usa la fotocamera frontale mentre reciti, così hai la scena, la battuta e la tua faccia su un solo schermo. Poi puoi condividere la reazione insieme al doppiaggio.";
+"booth.primer.confirm" = "Attiva la fotocamera di cabina";
+"booth.primer.decline" = "Doppia senza fotocamera";
+"booth.primer.systemPrompt" = "Ora iOS ti chiederà l'accesso alla fotocamera.";
+"booth.fact.onDevice" = "Le riprese di cabina restano sul tuo dispositivo, accanto alle riprese vocali.";
+"booth.fact.nothingLeaves" = "Non esce nulla finché non esporti. Ogni esportazione te lo chiede prima.";
+"booth.fact.reversible" = "Disattivala quando vuoi. Il doppiaggio continua lo stesso.";
+"booth.settings.section" = "Fotocamera di cabina";
+"booth.settings.title" = "Fotocamera di cabina";
+"booth.settings.desc" = "Registra la fotocamera frontale mentre doppi, così puoi condividere la reazione con la ripresa.";
+"booth.settings.denied" = "L'accesso alla fotocamera è disattivato. Attivalo per Dubloon nell'app Impostazioni.";
+"booth.mirror.title" = "Rifletti l'anteprima";
+"booth.mirror.desc" = "Inverte il monitor di cabina mentre reciti. Il file registrato non viene mai invertito.";
+"booth.footage" = "Materiale di cabina";
+"booth.footage.usage" = "%1$@ · %2$d pack";
+"booth.deleteAll" = "Elimina tutte le riprese di cabina";
+"booth.deleteAll.confirm" = "Elimina";
+"booth.deleteAll.message" = "Questo elimina tutti i clip di cabina. Le riprese vocali e i doppiaggi restano.";

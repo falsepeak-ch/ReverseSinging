@@ -4,3 +4,5 @@
 */
 
 "NSMicrophoneUsageDescription" = "逆再生シンギングと映画アフレコで声を録音するために、Dubloonがマイクを使用します。";
+
+"NSCameraUsageDescription" = "アフレコ中のあなたをフロントカメラで撮影し、リアクションと一緒に共有できるようにするために、Dubloonがカメラを使用します。撮影はオンにするまで行われません。";

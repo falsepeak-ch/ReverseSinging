@@ -183,6 +183,19 @@ nonisolated struct DubPack: Identifiable, Codable, Hashable {
         AudioFileManager.shared.dubTakesDirectory(packID: id).appendingPathComponent("\(line.slug).caf")
     }
 
+    /// Where the booth clip for a line lives, if the camera was rolling for it.
+    ///
+    /// Kept in its own directory rather than beside the voice take: booth footage is the one
+    /// thing a user may want to delete on its own, without losing the dub it belongs to.
+    func boothTakeURL(for line: DubLine) -> URL {
+        AudioFileManager.shared.dubBoothDirectory(packID: id).appendingPathComponent("\(line.slug).mov")
+    }
+
+    /// Whether a booth clip has actually been written for this line.
+    func hasBoothTake(for line: DubLine) -> Bool {
+        FileManager.default.fileExists(atPath: boothTakeURL(for: line).path)
+    }
+
     // MARK: - Display Helpers
 
     var authorsDescription: String {

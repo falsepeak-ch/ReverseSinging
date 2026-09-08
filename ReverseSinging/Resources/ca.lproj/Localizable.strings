@@ -319,3 +319,28 @@
 "pro.earlyAdopter.row.cost.value" = "Res";
 "pro.earlyAdopter.row.expires" = "Caduca";
 "pro.earlyAdopter.row.expires.value" = "Mai";
+
+/* MARK: - Booth Cam */
+"booth.slug" = "Cabina";
+"booth.monitorAccessibility" = "Vista prèvia de la càmera frontal";
+"booth.turnOn" = "Activa la càmera de cabina";
+"booth.turnOff" = "Desactiva la càmera de cabina";
+"booth.primer.title" = "Grava't mentre dobles";
+"booth.primer.message" = "La càmera de cabina fa servir la càmera frontal mentre actues, així tens l'escena, la frase i la teva cara en una sola pantalla. Després pots compartir la reacció amb el doblatge.";
+"booth.primer.confirm" = "Activa la càmera de cabina";
+"booth.primer.decline" = "Dobla sense càmera";
+"booth.primer.systemPrompt" = "Tot seguit iOS et demanarà accés a la càmera.";
+"booth.fact.onDevice" = "Les preses de cabina es desen al teu dispositiu, al costat de les preses de veu.";
+"booth.fact.nothingLeaves" = "No surt res fins que exportes. Cada exportació t'ho pregunta abans.";
+"booth.fact.reversible" = "Desactiva-la quan vulguis. El doblatge continua igualment.";
+"booth.settings.section" = "Càmera de cabina";
+"booth.settings.title" = "Càmera de cabina";
+"booth.settings.desc" = "Grava la càmera frontal mentre dobles, així pots compartir la reacció amb la presa.";
+"booth.settings.denied" = "L'accés a la càmera està desactivat. Activa'l per al Dubloon a l'app Configuració.";
+"booth.mirror.title" = "Reflecteix la vista prèvia";
+"booth.mirror.desc" = "Inverteix el monitor de cabina mentre actues. El fitxer gravat no s'inverteix mai.";
+"booth.footage" = "Material de cabina";
+"booth.footage.usage" = "%1$@ · %2$d packs";
+"booth.deleteAll" = "Esborra totes les preses de cabina";
+"booth.deleteAll.confirm" = "Esborra";
+"booth.deleteAll.message" = "Això elimina tots els clips de cabina. Les preses de veu i els doblatges es mantenen.";

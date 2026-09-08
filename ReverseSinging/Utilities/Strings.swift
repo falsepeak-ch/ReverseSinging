@@ -232,6 +232,40 @@ nonisolated enum Strings {
     }
 
     // MARK: - Dub Mode
+    // MARK: - Booth Cam
+
+    /// The front camera that films the performer during a take.
+    enum Booth {
+        /// The slug on the monitor and the panel. Uppercased at the point of use.
+        static let slug = NSLocalizedString("booth.slug", comment: "Label on the front-camera monitor")
+        static let monitorAccessibility = NSLocalizedString("booth.monitorAccessibility", comment: "Accessibility label for the front-camera monitor")
+        static let turnOn = NSLocalizedString("booth.turnOn", comment: "Turn the front camera on")
+        static let turnOff = NSLocalizedString("booth.turnOff", comment: "Turn the front camera off")
+
+        // The one-time explanation, shown before the system camera prompt
+        static let primerTitle = NSLocalizedString("booth.primer.title", comment: "Booth Cam explanation title")
+        static let primerMessage = NSLocalizedString("booth.primer.message", comment: "Booth Cam explanation body")
+        static let primerConfirm = NSLocalizedString("booth.primer.confirm", comment: "Turn Booth Cam on")
+        static let primerDecline = NSLocalizedString("booth.primer.decline", comment: "Carry on dubbing without the camera")
+        static let primerSystemPrompt = NSLocalizedString("booth.primer.systemPrompt", comment: "Warns that the iOS camera prompt comes next")
+        static let factOnDevice = NSLocalizedString("booth.fact.onDevice", comment: "Where booth footage is kept")
+        static let factNothingLeaves = NSLocalizedString("booth.fact.nothingLeaves", comment: "Nothing is shared until an export")
+        static let factReversible = NSLocalizedString("booth.fact.reversible", comment: "The camera can be switched off at any time")
+
+        // Settings
+        static let settingsSection = NSLocalizedString("booth.settings.section", comment: "Booth Cam settings section header")
+        static let settingsTitle = NSLocalizedString("booth.settings.title", comment: "Booth Cam toggle label")
+        static let settingsDesc = NSLocalizedString("booth.settings.desc", comment: "Booth Cam toggle description")
+        static let settingsDenied = NSLocalizedString("booth.settings.denied", comment: "Shown when camera access was refused in the system settings")
+        static let mirrorTitle = NSLocalizedString("booth.mirror.title", comment: "Mirror preview toggle label")
+        static let mirrorDesc = NSLocalizedString("booth.mirror.desc", comment: "Mirror preview toggle description")
+        static let footage = NSLocalizedString("booth.footage", comment: "Header for how much booth footage is stored")
+        static let footageUsage = NSLocalizedString("booth.footage.usage", comment: "Booth footage size and pack count, takes a size and a number")
+        static let deleteAll = NSLocalizedString("booth.deleteAll", comment: "Delete every booth clip")
+        static let deleteAllConfirm = NSLocalizedString("booth.deleteAll.confirm", comment: "Confirm deleting every booth clip")
+        static let deleteAllMessage = NSLocalizedString("booth.deleteAll.message", comment: "Warns that deleting booth footage keeps the voice takes")
+    }
+
     enum Dub {
         static let unknownAuthor = NSLocalizedString("dub.unknownAuthor", comment: "Fallback pack author")
         static let importPack = NSLocalizedString("dub.importPack", comment: "Import pack button")

@@ -47,6 +47,24 @@ final class DubViewModel: ObservableObject {
     @Published var hasRecordingPermission = false
     @Published var showPermissionAlert = false
 
+    // MARK: - Booth Cam
+
+    /// The front camera that rolls beside a take, when the user has asked for it.
+    let booth = BoothRecorder()
+
+    /// Which lines have booth footage, so the list can mark them and the exporter can find
+    /// them. Kept beside `recordedSlugs` rather than derived from it: a line can have a voice
+    /// take and no footage, if it was recorded before the camera was switched on.
+    @Published private(set) var boothSlugs: Set<String> = []
+
+    /// Whether the camera should be filming at all. The preference is the user's answer; the
+    /// recorder's availability is the system's.
+    var isBoothEnabled: Bool { BoothCamPreference.shared.isEnabled }
+
+    var hasAnyBoothTake: Bool { !boothSlugs.isEmpty }
+
+    func hasBoothTake(_ line: DubLine) -> Bool { boothSlugs.contains(line.slug) }
+
     // MARK: - Reference Preview
 
     @Published private(set) var isPreviewingReference = false
@@ -307,6 +325,51 @@ final class DubViewModel: ObservableObject {
                 .filter { $0.pathExtension.lowercased() == "caf" }
                 .map { $0.deletingPathExtension().lastPathComponent }
         )
+
+        refreshBoothSlugs()
+    }
+
+    private func refreshBoothSlugs() {
+        let directory = AudioFileManager.shared.dubBoothDirectory(packID: pack.id)
+        let contents = (try? FileManager.default.contentsOfDirectory(
+            at: directory,
+            includingPropertiesForKeys: nil,
+            options: [.skipsHiddenFiles]
+        )) ?? []
+
+        boothSlugs = Set(
+            contents
+                .filter { $0.pathExtension.lowercased() == "mov" }
+                .map { $0.deletingPathExtension().lastPathComponent }
+        )
+    }
+
+    // MARK: - Booth Lifecycle
+
+    /// Brings the preview up if the user has asked for it. Called when the record screen
+    /// appears, so the camera is never live while they are somewhere else in the app.
+    func startBoothIfEnabled() async {
+        guard BoothCamPreference.shared.isEnabled else { return }
+        await booth.start()
+    }
+
+    /// Drops the preview and any clip in flight.
+    func stopBooth() {
+        booth.stop()
+    }
+
+    /// Turns filming off for the rest of the session without leaving the take.
+    ///
+    /// The preference itself is what the camera key in the HUD writes, so the choice carries
+    /// to the next line and the next scene, which is what someone reaching for it wants.
+    func setBoothEnabled(_ enabled: Bool) async {
+        BoothCamPreference.shared.isEnabled = enabled
+
+        if enabled {
+            await booth.start()
+        } else {
+            booth.stop()
+        }
     }
 
     // MARK: - Reference Preview
@@ -430,9 +493,18 @@ final class DubViewModel: ObservableObject {
                 maxDuration: lineDuration > 0 ? lineDuration : nil,
                 startDelay: leadIn,
                 onScheduled: { [weak self] hostTime in
-                    self?.recordingAnchor = DubPlaybackAnchor(
+                    guard let self else { return }
+                    self.recordingAnchor = DubPlaybackAnchor(
                         offset: line.startTime,
                         hostTime: hostTime
+                    )
+                    // The booth rolls on the microphone's deadline, not on this call. Frames
+                    // that arrive before it are dropped rather than written, so the clip and
+                    // the take share sample zero however long the camera took to deliver.
+                    self.booth.startTake(
+                        anchorHostTime: hostTime,
+                        duration: lineDuration,
+                        to: self.pack.boothTakeURL(for: line)
                     )
                 }
             )
@@ -506,12 +578,28 @@ final class DubViewModel: ObservableObject {
         cancelAutoStop()
         recordingAnchor = nil
 
-        guard recorder.canStopRecording(), let line = currentLine else { return }
+        guard recorder.canStopRecording(), let line = currentLine else {
+            booth.cancelTake()
+            return
+        }
         guard let temporaryURL = recorder.stopRecording() else {
+            booth.cancelTake()
             monitorPlayer.stop()
             SoundManager.shared.setMicrophoneOpen(false)
             errorMessage = Strings.Error.failedToStopRecording
             return
+        }
+
+        // Closed on its own clock the moment the line ran out; this is what collects the
+        // result. A clip that never got a frame leaves no file, so the line simply has no
+        // footage rather than an empty one.
+        Task {
+            let clip = await booth.finishTake()
+            if clip != nil {
+                boothSlugs.insert(line.slug)
+            } else {
+                boothSlugs.remove(line.slug)
+            }
         }
 
         monitorPlayer.stop()
@@ -654,6 +742,7 @@ final class DubViewModel: ObservableObject {
 
         if isRecording {
             recorder.cancelRecording()
+            booth.cancelTake()
             SoundManager.shared.setMicrophoneOpen(false)
         }
         monitorPlayer.stop()

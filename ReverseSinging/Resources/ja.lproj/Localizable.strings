@@ -319,3 +319,28 @@
 "pro.earlyAdopter.row.cost.value" = "無料";
 "pro.earlyAdopter.row.expires" = "有効期限";
 "pro.earlyAdopter.row.expires.value" = "無期限";
+
+/* MARK: - Booth Cam */
+"booth.slug" = "ブース";
+"booth.monitorAccessibility" = "フロントカメラのプレビュー";
+"booth.turnOn" = "ブースカメラをオンにする";
+"booth.turnOff" = "ブースカメラをオフにする";
+"booth.primer.title" = "アフレコ中の自分を撮る";
+"booth.primer.message" = "ブースカメラは演技中にフロントカメラを使います。シーン、セリフ、あなたの顔が1つの画面にそろいます。あとからリアクションをアフレコと一緒に共有できます。";
+"booth.primer.confirm" = "ブースカメラをオンにする";
+"booth.primer.decline" = "使わずにアフレコする";
+"booth.primer.systemPrompt" = "次にiOSがカメラへのアクセスを確認します。";
+"booth.fact.onDevice" = "ブースの映像は音声テイクと並んで、この端末に保存されます。";
+"booth.fact.nothingLeaves" = "書き出すまで何も外には出ません。書き出しのたびに確認します。";
+"booth.fact.reversible" = "いつでもオフにできます。アフレコはそのまま続きます。";
+"booth.settings.section" = "ブースカメラ";
+"booth.settings.title" = "ブースカメラ";
+"booth.settings.desc" = "アフレコ中にフロントカメラで撮影し、リアクションをテイクと一緒に共有できるようにします。";
+"booth.settings.denied" = "カメラへのアクセスがオフです。「設定」アプリでDubloonに許可してください。";
+"booth.mirror.title" = "プレビューを左右反転";
+"booth.mirror.desc" = "演技中のブースモニターを反転します。録画されるファイルは反転しません。";
+"booth.footage" = "ブースの映像";
+"booth.footage.usage" = "%1$@ · %2$d パック";
+"booth.deleteAll" = "ブースの映像をすべて削除";
+"booth.deleteAll.confirm" = "削除";
+"booth.deleteAll.message" = "ブースのクリップをすべて削除します。音声テイクとアフレコは残ります。";

@@ -7,3 +7,5 @@
 */
 
 "NSMicrophoneUsageDescription" = "Dubloon needs microphone access to record your voice, so you can sing songs backwards and dub movie scenes.";
+
+"NSCameraUsageDescription" = "Dubloon uses the front camera to film you while you dub, so you can share your reaction alongside the take. Filming stays off until you turn it on.";

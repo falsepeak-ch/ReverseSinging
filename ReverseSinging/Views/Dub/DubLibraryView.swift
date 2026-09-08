@@ -18,6 +18,7 @@ struct DubLibraryView: View {
 
     @StateObject private var library = DubPackLibrary()
     @ObservedObject private var scoring = DubScoringPreference.shared
+    @ObservedObject private var booth = BoothCamPreference.shared
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
 
@@ -158,10 +159,31 @@ struct DubLibraryView: View {
             // Menus give a footer no styling of its own, so the explanation is a plain
             // row. The only way to say what the switch does without a second screen.
             Text(Strings.Dub.Score.settingDetail)
+
+            Divider()
+
+            // The same switch as the one in Settings and the key in the record HUD; this is
+            // just the copy of it that is nearest to hand when you are already in the game.
+            // Offered only once the camera has been granted: the explanation the first "yes"
+            // deserves does not fit in a menu row.
+            if BoothRecorder.cameraPermission == .granted {
+                Toggle(isOn: $booth.isEnabled) {
+                    Label(Strings.Booth.settingsTitle, systemImage: "video.fill")
+                }
+
+                Text(Strings.Booth.settingsDesc)
+            }
         }
         .onChange(of: scoring.isEnabled) { _, enabled in
             HapticManager.shared.light()
             AnalyticsManager.shared.trackDubScoringToggled(enabled: enabled)
+        }
+        .onChange(of: booth.isEnabled) { _, enabled in
+            HapticManager.shared.light()
+            AnalyticsManager.shared.trackCustomEvent(
+                name: enabled ? "booth_cam_enabled" : "booth_cam_disabled",
+                parameters: nil
+            )
         }
     }
 

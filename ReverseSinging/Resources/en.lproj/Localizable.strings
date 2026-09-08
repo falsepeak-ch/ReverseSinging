@@ -319,3 +319,28 @@
 "pro.earlyAdopter.row.cost.value" = "Nothing";
 "pro.earlyAdopter.row.expires" = "Expires";
 "pro.earlyAdopter.row.expires.value" = "Never";
+
+/* MARK: - Booth Cam */
+"booth.slug" = "Booth";
+"booth.monitorAccessibility" = "Front camera preview";
+"booth.turnOn" = "Turn Booth Cam on";
+"booth.turnOff" = "Turn Booth Cam off";
+"booth.primer.title" = "Film yourself dubbing";
+"booth.primer.message" = "Booth Cam runs your front camera while you perform, so the scene, the line and your face are all on one screen. Later you can share the reaction along with the dub.";
+"booth.primer.confirm" = "Turn on Booth Cam";
+"booth.primer.decline" = "Dub without it";
+"booth.primer.systemPrompt" = "iOS will ask for camera access next.";
+"booth.fact.onDevice" = "Booth takes are saved on your device, beside your voice takes.";
+"booth.fact.nothingLeaves" = "Nothing goes out until you export. Every export asks first.";
+"booth.fact.reversible" = "Switch it off any time. The dub carries on without it.";
+"booth.settings.section" = "Booth Cam";
+"booth.settings.title" = "Booth Cam";
+"booth.settings.desc" = "Records your front camera while you dub, so you can share the reaction alongside the take.";
+"booth.settings.denied" = "Camera access is off. Turn it on for Dubloon in the Settings app.";
+"booth.mirror.title" = "Mirror my preview";
+"booth.mirror.desc" = "Flips the booth monitor while you perform. The recorded file is never mirrored.";
+"booth.footage" = "Booth footage";
+"booth.footage.usage" = "%1$@ · %2$d packs";
+"booth.deleteAll" = "Delete all booth takes";
+"booth.deleteAll.confirm" = "Delete";
+"booth.deleteAll.message" = "This removes every booth clip. Your voice takes and your dubs are kept.";
