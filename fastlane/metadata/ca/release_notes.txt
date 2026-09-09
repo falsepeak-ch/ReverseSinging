@@ -1,5 +1,16 @@
-Dubloon ara inclou una prova gratuïta de set dies. Després, una sola compra desbloqueja els dos jocs per sempre, sense cap subscripció. Si ja jugaves abans d'aquesta actualització, els dos jocs continuen sent gratuïts per a tu.
+Nom nou, una càmera i catorze idiomes més.
 
-L'app també té un nom nou i un logotip nou. Els mateixos dos jocs de veu, les mateixes escenes, res per tornar a aprendre.
+CÀMERA DE CABINA
+• Grava't amb la càmera frontal mentre dobles i fica la reacció a l'exportació: en un cantó, apilada sobre l'escena per a una story, o al costat
+• Exporta una sola frase, amb la teva cara al costat
+• Exporta la bobina de la sessió: totes les frases que has doblat, seguides i sense els silencis
+• La càmera està apagada fins que tu l'encens, i els clips de cabina no surten del telèfon si no exportes
 
-A més de les correccions d'errors i petites millores de sempre.
+PUNTUACIÓ
+• Les preses es puntuen per sincronia, ritme i interpretació, amb una nota per a l'escena i la frase que més es mereix un altre intent. Es pot apagar als Ajustos si prefereixes actuar sense que ningú prengui nota
+
+TAMBÉ
+• Els packs que no s'importen bé ara et diuen què els passa en comptes de fallar en silenci
+• Dubloon ja parla 21 idiomes, entre ells alemany, neerlandès, suec, danès, noruec, finès, polonès, txec, rus, ucraïnès, grec, turc, tailandès i àrab
+• L'app té nom nou i un logotip a joc. Els mateixos dos jocs, res per reaprendre
+• Set dies gratis i després un pagament únic que desbloqueja els dos jocs per sempre, sense subscripció. Si ja hi jugaves abans d'aquesta actualització, els dos jocs continuen sent gratis per a tu

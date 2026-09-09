@@ -6,7 +6,7 @@ every localised string, and every screenshot and app preview, all of which were 
 
 No account needed. Everything runs on device; nothing is uploaded. Firebase is used for anonymous usage statistics and crash reports only. It never records audio, recordings or file contents.
 
-ABOUT MOVIE SCENE DUB (new in 1.3.0)
+ABOUT MOVIE SCENE DUB
 
 Dubloon ships with two short example scenes, one animated and one classic. It does not host, provide or distribute any other film, clip or dialogue: there is no in-app catalogue, no search and no download. Every further scene is a file the user already has on their own device and imports themselves.
 
@@ -15,6 +15,22 @@ Dubloon ships with two short example scenes, one animated and one classic. It do
 2. "Stuck Up" (35s) is cut from "The Outsider" (Centron Productions, 1951), a US classroom film whose copyright was never renewed in its 28th year, and which is therefore in the US public domain. Verified against the Copyright Office's post-1977 records, which cover the whole 1979 renewal window: no motion-picture renewal exists for this title, and neither Centron nor notice holder Young America Films renewed it, though both renewed other titles in those years. Our record of that search is available on request.
 
 Both scenes state their provenance in two places: a source panel on the scene screen, and a notice before every export. Each names the film, year, producer and terms, with licence and source as tappable links.
+
+THE PURCHASE (new in this build)
+
+The app is free to download and opens on a seven-day free trial that starts at first launch. No account, no sign-in and no demo credentials are needed: a fresh install has both games in full for the whole trial, so the app can be reviewed end to end without buying anything.
+
+After the trial there is one non-consumable in-app purchase, "com.falsepeak.reverse_singing_ios.lifetime", which unlocks the app permanently. It is not a subscription and there is nothing else on sale. Anyone who installed the app before this update keeps both games free for life; that is decided on device from the earlier install, not from a receipt.
+
+If the trial has already elapsed on the review device, deleting and reinstalling the app starts it again.
+
+BOOTH CAM (new in this build)
+
+Booth Cam films the performer with the front camera while they dub, so the reaction can be shared alongside the take. It is off by default and is never started by the app on its own.
+
+Tapping the camera key on the record screen shows the app's own explanation first: where the footage is kept, that nothing leaves the device until an export, and that it can be switched off at any time. Only after that does the system camera prompt appear. Declining costs nothing, and the dub continues without it.
+
+Booth clips are written to the app's own container beside the voice takes, are never uploaded, and are only ever included in a video the user explicitly exports. Settings has a switch for the feature, a mirror-preview option and a control that deletes every booth clip. The code is in BoothRecorder.swift, BoothCamPrimerModal.swift and DubBoothComposer.swift.
 
 TWO NOTICES, BOTH SHOWN EVERY TIME
 
@@ -31,6 +47,8 @@ HOW TO TEST
 Open the app and tap "Movie Scene Dub". The two bundled scenes install themselves on first open, so the whole mode can be exercised without supplying anything: pick a scene, tap "Start Dubbing", record a line, then "Play My Dub" or "Export Video". The bottom of any scene's screen shows its source and licence panel, and "Export Video" opens the notice described above.
 
 To see the ownership gate, tap the "+" import button in the library. It appears every time. Reverse Singing, the other mode, needs only the microphone and a few seconds of any sound.
+
+To see Booth Cam, tap the camera key at the top right of the record screen: the explanation panel appears before iOS asks for the camera. The simulator has no front camera, so on a device is the only place the monitor itself will show a picture.
 
 MICROPHONE
 

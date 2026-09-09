@@ -8,18 +8,22 @@ Carrega uma cena e dobra-a tu. O Dubloon reproduz-te a fala original, mostra-te 
 • A interpretação original nos teus auscultadores enquanto gravas, se quiseres
 • Cada personagem com a sua cor, para saberes sempre quem está a falar
 • Uma barra de ritmo que fica âmbar assim que passas da original
-• Vê a original, ouve a tua dobragem ou exporta a cena inteira em vídeo
 • Os diálogos sobrepostos são misturados em pistas separadas, por isso duas personagens a falar ao mesmo tempo soam mesmo assim
+• Vê a original, ouve a tua dobragem ou exporta a cena inteira em vídeo
 
-No fim, o Dubloon renderiza a cena com a tua voz lá dentro e entrega-te um vídeo para partilhar.
+CÂMARA DA CABINE
+
+Liga a câmara frontal e o Dubloon filma-te enquanto representas. Exporta a cena terminada com a tua cara num canto, empilhada por cima para uma story, ou lado a lado. Ou manda só uma fala, com a reacção mesmo ao lado. A câmara fica desligada até tu a ligares, e as imagens ficam no teu telemóvel até decidires exportar.
+
+COM NOTA, SE QUISERES
+
+Cada take é avaliada em timing, ritmo e interpretação, com uma nota para a cena, a tua melhor fala e aquela que merece outra tentativa. Desliga e não há ninguém a contar.
 
 DUAS CENAS PARA COMEÇAR
 
-O Dubloon vem com duas cenas, por isso o modo abre sempre com algo para interpretar. Uma é de animação e a outra é um clássico a preto e branco, e não se parecem em nada.
+Camp Rules foi tirada de Sprite Fright, o filme aberto do Blender Studio, partilhado sob Creative Commons Attribution 4.0. Stuck Up vem de The Outsider, um filme escolar de 1951 que está em domínio público nos Estados Unidos. Cada cena indica o filme, o ano e os termos no seu próprio ecrã.
 
-Camp Rules foi retirada de Sprite Fright, o filme livre do Blender Studio, partilhado com licença Creative Commons Atribuição 4.0. Stuck Up foi retirada de The Outsider, um filme escolar de 1951 que é de domínio público nos Estados Unidos. Cada cena indica o filme, o ano e os termos no seu próprio ecrã.
-
-A partir daí, a prateleira é tua. O Dubloon não inclui, não aloja e não fornece qualquer filme. Os packs de dobragem são feitos e partilhados pelos outros jogadores: descarregas os que quiseres e importas a pasta ou o .zip a partir de Ficheiros, AirDrop ou qualquer folha de partilha. És tu o responsável por deteres os direitos daquilo que dobras.
+A partir daí, a prateleira é tua. Para lá dessas duas, o Dubloon não inclui nem aloja qualquer filme. Os packs de dobragem são feitos e partilhados pelos outros jogadores: descarregas os que quiseres e importas a pasta ou o .zip a partir de Ficheiros, AirDrop ou qualquer folha de partilha. Certifica-te de que tens o direito de usar aquilo que dobras.
 
 CANTO INVERTIDO
 
@@ -28,10 +32,12 @@ O jogo original. Grava uma música e o Dubloon inverte-a. Canta a versão ao con
 • Duas interfaces: botões grandes e simples, ou a onda completa com ciclo, velocidade e tom
 • Guarda as tuas melhores takes e volta a elas
 
-PRIVADO POR DESENHO
+PRIVADO DE RAIZ
 
-Tudo acontece neste dispositivo. As tuas gravações, as tuas takes e as tuas dobragens exportadas nunca saem daqui: sem conta, sem registo, sem anúncios e sem nada para enviar. A app recolhe estatísticas de utilização anónimas para saber o que construir a seguir, nunca o conteúdo de uma gravação.
+Tudo acontece neste dispositivo. As tuas gravações, as tuas takes, as imagens da cabine e as dobragens exportadas nunca saem daqui. Sem conta, sem registo, sem anúncios e sem nada para enviar. A app recolhe estatísticas de utilização anónimas para saber o que construir a seguir, nunca o conteúdo de uma gravação.
 
-Grátis. Sem subscrição, sem compras dentro da app, sem nada para desbloquear.
+QUANTO CUSTA
 
-Feito na Suíça. Feito com cuidado em Zurique.
+Sete dias grátis, os dois jogos, sem nada retido. Depois, um pagamento único desbloqueia a app para sempre. Não é uma subscrição.
+
+Feito na Suíça. Feito à mão em Zurique.

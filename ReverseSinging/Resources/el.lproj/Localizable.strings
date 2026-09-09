@@ -1,0 +1,368 @@
+/*
+   Localizable.strings (Greek)
+   ReverseSinging
+*/
+
+// MARK: - Onboarding
+"onboarding.welcome.title" = "Καλώς ήρθες στο Dubloon";
+"onboarding.welcome.message" = "Δύο παιχνίδια, ένα μικρόφωνο. Τραγούδα ένα κομμάτι ανάποδα ή βάλε τη φωνή σου μέσα σε μια σκηνή ταινίας. Σε καμία από τις δύο δεν θα ακουστείς φυσιολογικός.";
+"onboarding.howItWorks.title" = "Πώς δουλεύει";
+"onboarding.howItWorks.message" = "Ηχογράφησε ένα τραγούδι, γύρισέ το ανάποδα και τραγούδα πάνω στα ακαταλαβίστικα. Μετά γύρνα τη δική σου λήψη και δες αν το πέτυχες ή αν μόλις εφηύρες νέα γλώσσα.";
+"onboarding.dub.title" = "Μεταγλώττισε μια σκηνή";
+"onboarding.dub.message" = "Το δεύτερο παιχνίδι: βάλε μια σκηνή, παίξε από πάνω με το παραπάνω και μετά άκου τον εαυτό σου μέσα στην ταινία. Δύο σκηνές έρχονται μαζί. Από κει και πέρα φέρνεις τα δικά σου αρχεία.";
+"onboarding.uiPreference.title" = "Διάλεξε το κοντρόλ ρουμ σου";
+"onboarding.uiPreference.message" = "Μεγάλα τίμια κουμπιά ή ολόκληρη κονσόλα με ποτενσιόμετρα. Ισχύει για το Ανάποδο Τραγούδι και μπορείς να αλλάξεις γνώμη στις Ρυθμίσεις όποτε θες.";
+"onboarding.microphone.title" = "Ένα τελευταίο";
+"onboarding.microphone.message" = "Και τα δύο παιχνίδια πρέπει να σε ακούν: στο ανάποδο τραγούδι και στη μεταγλώττιση. Το μικρόφωνο ξυπνά μόνο όσο ηχογραφείς, όλα μένουν σε αυτή τη συσκευή και τίποτα δεν ανεβαίνει ποτέ πουθενά. Η χειρότερη λήψη σου μένει μεταξύ σας.";
+"onboarding.button.openSettings" = "Άνοιγμα Ρυθμίσεων";
+"onboarding.button.letsRecord" = "πάμε, ηχογραφούμε!";
+"onboarding.button.continueLowercase" = "συνέχεια";
+"onboarding.button.microphoneContinue" = "Συνέχεια";
+"onboarding.button.continueWithout" = "συνέχεια χωρίς αυτό";
+
+// MARK: - Main View - Buttons
+"main.button.stopRecording" = "Διακοπή ηχογράφησης";
+"main.button.recordAudio" = "Ηχογράφηση";
+"main.button.recordAttempt" = "Τραγούδα το ανάποδα";
+"main.button.reRecord" = "Άλλη λήψη";
+"main.button.newSession" = "Νέα συνεδρία";
+
+// MARK: - Simple Skin (buttons and their subtitles)
+"main.button.playRecorded" = "Άκου την ηχογράφηση";
+"main.button.playReverse" = "Άκου το ανάποδα";
+"main.subtitle.recordingOriginal" = "Η ταινία γράφει. Αυτό είναι το πρωτότυπο";
+"main.subtitle.recordingAttempt" = "Η ταινία γράφει. Αυτή είναι η λήψη σου";
+"main.subtitle.tapToRecord" = "Πάτα και ρίξε μας ένα τραγούδι";
+"main.subtitle.recordAttempt" = "Σειρά σου: τραγούδα την ανάποδη εκδοχή";
+"main.subtitle.reRecordAttempt" = "Ξανά, πλησιάζεις";
+"main.subtitle.playAttempt" = "Άκου τη λήψη σου";
+"main.subtitle.playOriginal" = "Άκου το πρωτότυπο";
+"main.subtitle.noRecording" = "Δεν έχει γραφτεί τίποτα ακόμα";
+"main.subtitle.playReversedAttempt" = "Η λήψη σου, ανάποδα";
+"main.subtitle.playReversedOriginal" = "Το πρωτότυπο, ανάποδα";
+"main.subtitle.noReversed" = "Δεν υπάρχει ακόμα κάτι για γύρισμα";
+"settings.version" = "Έκδοση %@ (%@)";
+
+// MARK: - Main View - Alerts
+"main.alert.microphoneRequired.title" = "Το μικρόφωνο είναι κλειστό";
+"main.alert.microphoneRequired.message" = "Χωρίς πρόσβαση στο μικρόφωνο το Dubloon δεν ακούει απολύτως τίποτα. Άνοιξέ το στις Ρυθμίσεις και συνεχίζουμε.";
+"main.alert.settings" = "Ρυθμίσεις";
+"main.alert.cancel" = "Ακύρωση";
+"main.alert.error.title" = "Αυτό δεν πέτυχε";
+"main.alert.ok" = "OK";
+"main.alert.startNewSession.title" = "Ξεκινάμε από την αρχή;";
+"main.alert.startNewSession.message" = "Αυτή η συνεδρία πάει με ασφάλεια στο αρχείο και εσύ ξεκινάς με καθαρή ταινία.";
+"main.alert.startNewSession.button" = "Νέα συνεδρία";
+
+// MARK: - Main View - Empty State
+"main.emptyState.title" = "Δεν σε ακούει κανείς";
+"main.emptyState.message" = "Αυτή τη στιγμή το Dubloon είναι μια εφαρμογή ηχογράφησης χωρίς τίποτα να ηχογραφήσει. Άνοιξε την πρόσβαση στο μικρόφωνο από τις ρυθμίσεις της συσκευής και τα δύο παιχνίδια ξαναζωντανεύουν.";
+"main.emptyState.button" = "Άνοιγμα Ρυθμίσεων";
+
+// MARK: - Main View - Processing & Success
+"main.processing.reversingAudio" = "Το γυρίζουμε ανάποδα…";
+"main.success.sessionSaved" = "Στο αρχείο, σώα και αβλαβής";
+
+// MARK: - Main View - Tips (Contextual Help)
+"main.tip.tapRecordToBegin" = "Πάτα Ηχογράφηση και άσε την ταινία να τρέξει";
+"main.tip.recordSingingAttempt" = "Τραγούδα την ανάποδη εκδοχή. Και πίστεψέ την";
+"main.tip.recordSongToReverse" = "Ηχογράφησε το τραγούδι που θες να καταστρέψεις";
+"main.tip.tapPlayToSwitch" = "Πάτα οποιοδήποτε κουμπί για αναπαραγωγή ή διακοπή";
+"main.tip.reRecordOrNewSession" = "Ξανακάν' το ή ξεκίνα νέα συνεδρία";
+"main.tip.listenAndRecord" = "Άκου την ανάποδη εκδοχή και μετά τραγούδα την";
+"main.tip.processingAudio" = "Το γυρίζουμε. Μια στιγμή";
+"main.tip.tapRecordAudio" = "Πάτα Ηχογράφηση και ρίξε ένα τραγούδι";
+
+// MARK: - Comparison View
+
+// MARK: - Comparison View - Score Messages
+
+// MARK: - Session List View
+"sessionList.title" = "Αποθηκευμένες συνεδρίες";
+"sessionList.empty.title" = "Εδώ δεν υπάρχει τίποτα ακόμα";
+"sessionList.empty.message" = "Ολοκλήρωσε μια συνεδρία ανάποδου τραγουδιού και αποθήκευσέ την. Οι μεγάλες σου επιτυχίες θα μένουν εδώ.";
+
+// MARK: - Recording Type Labels
+"recordingType.original" = "Πρωτότυπο";
+"recordingType.reversed" = "Ανάποδο";
+"recordingType.attempt" = "Η λήψη σου";
+"recordingType.reversedAttempt" = "Η λήψη σου, ανάποδα";
+"recordingType.imported" = "Εισαγόμενο";
+
+// MARK: - Timer Card
+"timerCard.deviceMicrophone" = "Μικρόφωνο συσκευής (προεπιλογή)";
+"timerCard.mins" = "ΛΕΠ";
+"timerCard.secs" = "ΔΕΥ";
+"timerCard.playAudio" = "Αναπαραγωγή ήχου";
+"timerCard.audioControls" = "Χειριστήρια ήχου";
+"timerCard.loop" = "Επανάληψη";
+"timerCard.speed" = "Ταχύτητα";
+"timerCard.pitch" = "Τονικό ύψος";
+"timerCard.semitones" = "ημιτόνια";
+
+// MARK: - Score Card
+"scoreCard.title" = "Η βαθμολογία σου";
+"scoreCard.grade.perfectMatch" = "Τέλειο. Σχεδόν ύποπτο";
+"scoreCard.grade.excellent" = "Εξαιρετικό";
+"scoreCard.grade.greatJob" = "Αυτό ήταν πολύ καλό";
+"scoreCard.grade.veryGood" = "Πολύ καθαρό";
+"scoreCard.grade.goodEffort" = "Αξιοπρεπής προσπάθεια";
+"scoreCard.grade.niceTry" = "Τολμηρό. Πολύ τολμηρό";
+"scoreCard.grade.keepPracticing" = "Συνέχισε, έρχεται";
+"scoreCard.grade.tryAgain" = "Ας πούμε ότι ήταν η πρόβα";
+
+// MARK: - Processing Indicator
+
+// MARK: - Recording Indicator
+"recording.indicator" = "ΗΧΟΓΡΑΦΕΙ";
+
+// MARK: - Success Celebration
+
+// MARK: - Audio Session Model
+"session.defaultName" = "Συνεδρία";
+
+// MARK: - Error Messages
+"error.microphonePermissionRequired" = "Το Dubloon χρειάζεται το μικρόφωνο γι' αυτό. Άνοιξέ το στις Ρυθμίσεις.";
+"error.cannotStartRecording" = "Η ηχογράφηση δεν ξεκινά αυτή τη στιγμή. Δοκίμασε ξανά.";
+"error.noRecordingInProgress" = "Δεν ηχογραφείται τίποτα αυτή τη στιγμή.";
+"error.failedToStopRecording" = "Η ηχογράφηση δεν σταμάτησε καθαρά. Ξανακάνε τη λήψη.";
+"error.failedToProcessRecording" = "Αυτή η λήψη δεν μπόρεσε να επεξεργαστεί.";
+
+// MARK: - Settings
+"settings.title" = "Ρυθμίσεις";
+"settings.interface" = "Περιβάλλον";
+"uiMode.simple.name" = "Απλό";
+"uiMode.simple.description" = "Μεγάλα κουμπιά, τίποτα για να σκοντάψεις";
+"uiMode.complex.name" = "Σύνθετο";
+"uiMode.complex.description" = "Ποτενσιόμετρα, δείκτες και κυματομορφές";
+"settings.preferences" = "Προτιμήσεις";
+"settings.about" = "Σχετικά";
+
+// Theme descriptions
+
+// Haptic feedback
+"settings.hapticFeedback" = "Δόνηση";
+"settings.hapticFeedback.desc" = "Ένα μικρό σκούντημα σε κάθε πάτημα";
+
+// About
+"settings.privacyPolicy" = "Πολιτική απορρήτου";
+"settings.privacyPolicy.desc" = "Σύντομη, βαρετή και ειλικρινής";
+"settings.builtInSwitzerland" = "Φτιαγμένο στην Ελβετία";
+"settings.builtInSwitzerland.desc" = "Στο χέρι, στη Ζυρίχη";
+
+// MARK: - Dub Mode
+"dub.unknownAuthor" = "Άγνωστος δημιουργός";
+"dub.importPack" = "Εισαγωγή πακέτου";
+"dub.importing" = "Ξεπακετάρουμε τη σκηνή…";
+"dub.delete" = "Διαγραφή";
+"dub.empty.title" = "Δεν υπάρχουν σκηνές ακόμα";
+"dub.empty.message" = "Φέρε έναν φάκελο πακέτου ή ένα .zip από τα Αρχεία και η σκηνή είναι δική σου για υπερβολικό παίξιμο.";
+"dub.playOriginal" = "Δες το πρωτότυπο";
+"dub.playMyDub" = "Δες τη μεταγλώττισή μου";
+"dub.record" = "Ξεκίνα μεταγλώττιση";
+"dub.continueRecording" = "Συνέχισε τη μεταγλώττιση";
+"dub.export" = "Εξαγωγή βίντεο";
+"dub.lines" = "Ατάκες";
+"dub.attribution" = "Πηγή";
+"dub.listen" = "Άκου";
+"dub.stop" = "Στοπ";
+"dub.recordTake" = "Ηχογράφηση";
+"dub.next" = "Επόμενη";
+"dub.previous" = "Προηγούμενη";
+"dub.recordingHint" = "Πες την ατάκα σαν να την εννοείς και κράτα τον ρυθμό του πρωτοτύπου.";
+"dub.listenHint" = "Άκουσέ την μία φορά και μετά κλέψε τον τόνο.";
+"dub.original" = "Πρωτότυπο";
+"dub.myDub" = "Η μεταγλώττισή μου";
+"dub.noTakesYet" = "Πρώτα μεταγλώττισε μία ατάκα, μετά τα λέμε.";
+"dub.exporting" = "Εξαγωγή…";
+"dub.export.mixing" = "Μίξη ήχου…";
+"dub.export.rendering" = "Απόδοση βίντεο…";
+"dub.error.missingPackInfo" = "Αυτός ο φάκελος δεν είναι πακέτο μεταγλώττισης: δεν έχει μέσα _pack_info.ini.";
+"dub.error.noLines" = "Σε αυτό το πακέτο δεν υπάρχει ούτε μία χρησιμοποιήσιμη ατάκα.";
+"dub.error.missingAsset" = "Στο πακέτο λείπει ένα αρχείο που χρειάζεται: %@";
+"dub.error.notAFolder" = "Διάλεξε φάκελο πακέτου ή αρχείο .zip.";
+"dub.error.unreadableArchive" = "Αυτό το αρχείο δεν άνοιξε: %@";
+"dub.error.nothingRecorded" = "Μεταγλώττισε τουλάχιστον μία ατάκα πριν την εξαγωγή.";
+"dub.error.exportFailed" = "Η εξαγωγή απέτυχε: %@";
+"dub.playTake" = "Άκου τη λήψη σου";
+"dub.loadingScene" = "Στήνουμε τη σκηνή…";
+
+// MARK: - Editor Chrome
+"session.archiveTitle" = "Αρχείο";
+"main.section.transport" = "Μεταφορά";
+"main.section.session" = "Συνεδρία";
+"main.state.idle" = "ΑΔΡΑΝΕΣ";
+"main.state.recording" = "REC";
+"main.state.playing" = "PLAY";
+"main.state.processing" = "PROC";
+"main.state.error" = "ΣΦΑΛΜΑ";
+"main.state.countingIn" = "ΑΝΤΙΣΤΡΟΦΗ";
+"main.section.hint" = "Τώρα";
+"dub.packsSection" = "Πακέτα";
+"dub.slate.lines" = "Μεταγλωττισμένες";
+"dub.slate.duration" = "Διάρκεια";
+"dub.slate.cast" = "Διανομή";
+"settings.soundEffects" = "Ηχητικά εφέ";
+"settings.soundEffects.desc" = "Κλακέτα, κλικ και το κουδουνάκι του render";
+
+// Headphone monitoring
+"settings.headphoneMonitor" = "Πρωτότυπο στα ακουστικά";
+"settings.headphoneMonitor.desc" = "Άκου την ατάκα που ακολουθείς όσο ηχογραφείς. Μόνο με ακουστικά, γιατί από το ηχείο θα κατέληγε μέσα στη δική σου λήψη.";
+"settings.headphoneMonitor.unavailable" = "Δεν είναι συνδεδεμένα ακουστικά";
+
+// MARK: - Game Modes
+"main.mode.section" = "Λειτουργία";
+"main.mode.reverse.title" = "Ανάποδο τραγούδι";
+"main.mode.dub.title" = "Μεταγλώττιση σκηνής";
+"main.button.back" = "Πίσω";
+"main.mode.reverse.subtitle" = "Ηχογράφησε, γύρνα το και τραγούδα τα ακαταλαβίστικα";
+"main.mode.dub.subtitle" = "Βάλε τη φωνή σου σε ξένο στόμα";
+"dub.speakerAccessibility" = "Το λέει ο/η %@";
+"dub.cast" = "Διανομή";
+"dub.referenceTrack" = "Αναφορά";
+"dub.yourTake" = "Η λήψη σου";
+"dub.convertingVideo" = "Μετατροπή βίντεο σκηνής…";
+"dub.importReading" = "Διαβάζουμε το πακέτο…";
+
+// MARK: - Dub Content Gate
+"dubGate.close" = "Κλείσιμο";
+"dubGate.ask.title" = "Έχεις ήδη τις ταινίες σου;";
+"dubGate.ask.message" = "Πέρα από τις δύο σκηνές-παραδείγματα, δεν περιλαμβάνουμε ούτε φιλοξενούμε καμία ταινία. Για να μεταγλωττίσεις οτιδήποτε άλλο, το αρχείο πρέπει να βρίσκεται ήδη σε αυτή τη συσκευή.";
+"dubGate.ask.confirm" = "Ναι, τις έχω εδώ";
+"dubGate.ask.needDownload" = "Όχι, πρέπει να τις βρω";
+"dubGate.download.title" = "Πού θα τις βρεις";
+"dubGate.download.message" = "Να ένα μέρος όπου ο κόσμος μοιράζεται τέτοια αρχεία. Πάρε αυτό που θες να μεταγλωττίσεις και γύρνα αμέσως πίσω.";
+"dubGate.download.open" = "Άνοιγμα %@";
+"dubGate.download.back" = "Πίσω";
+"dubGate.disclaimer.notAffiliated" = "Το %@ είναι ξένος ιστότοπος. Δεν έχουμε καμία σχέση μαζί του και δεν φιλοξενούμε ούτε μοιραζόμαστε κανένα αρχείο.";
+"dubGate.disclaimer.responsibility" = "Βεβαιώσου ότι έχεις δικαίωμα να χρησιμοποιήσεις ό,τι κατεβάζεις και τήρησε τους κανόνες πνευματικών δικαιωμάτων του τόπου σου.";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "Πριν το μοιραστείς";
+"dubShare.message" = "Αυτό το βίντεο είναι η φωνή σου πάνω στη σκηνή κάποιου άλλου, άρα είναι και δική τους δουλειά, όχι μόνο δική σου.";
+"dubShare.cutFrom" = "Κομμένο από %@";
+"dubShare.keepCredit" = "Αν το ανεβάσεις, κράτα μαζί του αυτή την αναφορά.";
+"dubShare.unknownSource" = "Αυτή τη σκηνή την έφερες εσύ, οπότε ξέρεις από πού προέρχεται και τι μπορείς να την κάνεις.";
+"dubShare.responsibility" = "Πού θα καταλήξει εξαρτάται από σένα, γι' αυτό τήρησε τους κανόνες πνευματικών δικαιωμάτων του τόπου σου.";
+"dubShare.confirm" = "Εξαγωγή βίντεο";
+
+/* MARK: - Dub Scoring */
+"dub.installingStarterPacks" = "Στήνουμε τις πρώτες σου σκηνές…";
+"dub.options" = "Επιλογές μεταγλώττισης";
+"dub.score.setting.title" = "Βαθμολόγησε τις λήψεις μου";
+"dub.score.setting.detail" = "Κρίνει τον συγχρονισμό, τον ρυθμό και την ερμηνεία σου. Με επιείκεια.";
+"dub.score.sceneTitle" = "Βαθμός σκηνής";
+"dub.score.notScoredYet" = "Μεταγλώττισε μία ατάκα και ας αρχίσει η κριτική.";
+"dub.score.slate" = "Βαθμός";
+"dub.score.lineTitle" = "Η λήψη σου";
+"dub.score.timing" = "Συγχρονισμός";
+"dub.score.pacing" = "Ρυθμός";
+"dub.score.delivery" = "Ερμηνεία";
+"dub.score.best" = "Καλύτερη ατάκα";
+"dub.score.weakest" = "Αξίζει άλλη μία";
+"dub.score.progress" = "%d από %d ατάκες βαθμολογήθηκαν";
+"dub.score.grade.perfect" = "Στο ψαχνό";
+"dub.score.grade.great" = "Κούμπωσε";
+"dub.score.grade.good" = "Στέρεη λήψη";
+"dub.score.grade.close" = "Παρά τρίχα";
+"dub.score.grade.rough" = "Πάμε άλλη μία";
+
+"dub.videoNeedsReimport" = "Το βίντεο αυτής της σκηνής το μετέτρεψε παλιότερη έκδοση και τώρα τρέχει μπροστά από τις φωνές. Κάνε ξανά εισαγωγή του πακέτου για να στρώσει.";
+
+// MARK: - Pro / Paywall
+"pro.trial.daysLeft" = "Απομένουν %d ημέρες";
+"pro.trial.oneDayLeft" = "Τελευταία μέρα";
+"pro.trial.over" = "Η δωρεάν δοκιμή σου τελείωσε";
+"pro.section" = "Dubloon Pro";
+"pro.unlock.title" = "Ξεκλείδωσε το Dubloon";
+"pro.unlock.subtitle" = "Μία πληρωμή, και τα δύο παιχνίδια, δικά σου για πάντα.";
+"pro.owned.title" = "Το Dubloon είναι δικό σου";
+"pro.owned.subtitle" = "Ευχαριστούμε. Κάθε σκηνή, κάθε λήψη, χωρίς ταβάνι.";
+"pro.manage.title" = "Διαχείριση αγοράς";
+"pro.manage.subtitle" = "Αποδείξεις, επιστροφές και βοήθεια για την αγορά σου.";
+"pro.restore.title" = "Επαναφορά αγοράς";
+"pro.restore.subtitle" = "Καινούργιο κινητό ή επανεγκατάσταση; Φέρ' την πίσω.";
+"pro.testStore.warning" = "Έκδοση debug: συνδεδεμένη στο δοκιμαστικό κατάστημα του RevenueCat. Δεν κινούνται πραγματικά χρήματα.";
+"pro.restored.title" = "Επαναφέρθηκε";
+"pro.restored.message" = "Η αγορά σου είναι ξανά σε αυτή τη συσκευή.";
+"pro.nothingToRestore.title" = "Δεν υπάρχει τίποτα για επαναφορά";
+"pro.nothingToRestore.message" = "Δεν βρέθηκε αγορά σε αυτόν τον λογαριασμό Apple. Αν αγόρασες το Dubloon με άλλον, συνδέσου με εκείνον και δοκίμασε ξανά.";
+"pro.error.title" = "Κάτι πήγε στραβά";
+"pro.error.generic" = "Το κατάστημα δεν απάντησε. Δοκίμασε σε λίγο.";
+"pro.ok" = "OK";
+"pro.fallback.title" = "Ξεκλείδωσε το Dubloon";
+"pro.fallback.message" = "Η δωρεάν δοκιμή σου τελείωσε. Μία πληρωμή κρατά και τα δύο παιχνίδια ανοιχτά για πάντα.";
+"pro.fallback.message.beforeExpiry" = "Μία πληρωμή κρατά και τα δύο παιχνίδια ανοιχτά για πάντα.";
+"pro.fallback.buy" = "Ξεκλείδωσε με %@";
+"pro.fallback.buyUnpriced" = "Ξεκλείδωμα";
+"pro.fallback.loading" = "Ρωτάμε το κατάστημα…";
+"pro.fallback.unavailable" = "Το κατάστημα δεν απαντά αυτή τη στιγμή. Έλεγξε τη σύνδεσή σου και δοκίμασε ξανά.";
+"pro.fallback.retry" = "Δοκίμασε ξανά";
+"pro.fallback.benefit.one" = "Τραγούδα ανάποδα όσο αντέχουν οι γείτονες";
+"pro.fallback.benefit.two" = "Μεταγλώττισε κάθε σκηνή και φέρε και δικές σου";
+"pro.fallback.benefit.three" = "Κάνε εξαγωγή τις λήψεις σου και μοίρασε τη ζημιά";
+"pro.fallback.oneTime" = "Μία πληρωμή. Όχι συνδρομή.";
+
+// MARK: - Pro / Early adopters
+"pro.earlyAdopter.title" = "Καλώς ήρθες στο κλαμπ";
+"pro.earlyAdopter.message" = "Το Dubloon πλέον κοστίζει — αλλά όχι για σένα. Ήσουν εδώ πριν μπει ταμπελάκι με τιμή, οπότε και τα δύο παιχνίδια μένουν δικά σου, δωρεάν, όσο υπάρχει η εφαρμογή. Ευχαριστούμε για τις πρώτες μέρες.";
+"pro.earlyAdopter.badge" = "Δωρεάν για πάντα";
+"pro.earlyAdopter.confirm" = "Τέλεια";
+"pro.earlyAdopter.settings.title" = "Δωρεάν για πάντα";
+"pro.earlyAdopter.settings.subtitle" = "Ήσουν εδώ από νωρίς. Και τα δύο παιχνίδια είναι δικά σου και δεν μας χρωστάς τίποτα.";
+"pro.closePaywall" = "Κλείσιμο";
+
+// Early adopter slate rows
+"pro.earlyAdopter.row.access" = "Πρόσβαση";
+"pro.earlyAdopter.row.access.value" = "Και τα δύο παιχνίδια";
+"pro.earlyAdopter.row.cost" = "Κόστος";
+"pro.earlyAdopter.row.cost.value" = "Τίποτα";
+"pro.earlyAdopter.row.expires" = "Λήγει";
+"pro.earlyAdopter.row.expires.value" = "Ποτέ";
+
+/* MARK: - Booth Cam */
+"booth.slug" = "Θάλαμος";
+"booth.monitorAccessibility" = "Προεπισκόπηση μπροστινής κάμερας";
+"booth.turnOn" = "Ενεργοποίηση Booth Cam";
+"booth.turnOff" = "Απενεργοποίηση Booth Cam";
+"booth.primer.title" = "Βιντεοσκόπησε τον εαυτό σου";
+"booth.primer.message" = "Το Booth Cam κρατά ανοιχτή τη μπροστινή κάμερα όσο παίζεις, ώστε η σκηνή, η ατάκα και το πρόσωπό σου να χωράνε στην ίδια οθόνη. Μετά μπορείς να μοιραστείς την αντίδραση μαζί με τη μεταγλώττιση.";
+"booth.primer.confirm" = "Ενεργοποίηση Booth Cam";
+"booth.primer.decline" = "Μεταγλώττιση χωρίς αυτό";
+"booth.primer.systemPrompt" = "Αμέσως μετά το iOS θα ζητήσει πρόσβαση στην κάμερα.";
+"booth.fact.onDevice" = "Οι λήψεις του θαλάμου μένουν στη συσκευή σου, δίπλα στις φωνητικές λήψεις.";
+"booth.fact.nothingLeaves" = "Τίποτα δεν φεύγει μέχρι να κάνεις εξαγωγή, και κάθε εξαγωγή ρωτάει πρώτα.";
+"booth.fact.reversible" = "Κλείσ' το όποτε θες. Η μεταγλώττιση συνεχίζεται και χωρίς αυτό.";
+"booth.settings.section" = "Booth Cam";
+"booth.settings.title" = "Booth Cam";
+"booth.settings.desc" = "Βιντεοσκοπεί το πρόσωπό σου όσο μεταγλωττίζεις, ώστε η αντίδραση να ταξιδεύει μαζί με τη λήψη.";
+"booth.settings.denied" = "Η πρόσβαση στην κάμερα είναι κλειστή. Άνοιξέ την για το Dubloon στην εφαρμογή Ρυθμίσεις.";
+"booth.mirror.title" = "Δείξε με σαν καθρέφτη";
+"booth.mirror.desc" = "Αναποδογυρίζει την οθόνη του θαλάμου όσο παίζεις. Το αρχείο που γράφεται δεν αντικατοπτρίζεται ποτέ.";
+"booth.footage" = "Υλικό θαλάμου";
+"booth.footage.usage" = "%1$@ · %2$d πακέτα";
+"booth.deleteAll" = "Διαγραφή όλων των λήψεων θαλάμου";
+"booth.deleteAll.confirm" = "Διαγραφή";
+"booth.deleteAll.message" = "Αυτό σβήνει κάθε κλιπ του θαλάμου. Οι φωνητικές σου λήψεις και οι μεταγλωττίσεις μένουν.";
+
+/* Booth Cam: the export sheet */
+"booth.export.title" = "Εξαγωγή";
+"booth.export.subtitle" = "Διάλεξε το μοντάζ και μετά πού κάθεται το πρόσωπό σου.";
+"booth.export.lineSubtitle" = "Μία ατάκα, με την αντίδρασή σου δίπλα.";
+"booth.export.cut" = "Μοντάζ";
+"booth.export.cut.fullScene" = "Όλη η σκηνή";
+"booth.export.cut.sessionReel" = "Μπομπίνα συνεδρίας";
+"booth.export.cut.detail" = "Η ολοκληρωμένη μεταγλώττιση από την αρχή ως το τέλος. Η μπομπίνα είναι κάθε ατάκα που μεταγλώττισες, στη σειρά, χωρίς τις σιωπές.";
+"booth.export.frame" = "Κάδρο θαλάμου";
+"booth.frame.off" = "Ανενεργό";
+"booth.frame.corner" = "Στη γωνία";
+"booth.frame.stacked" = "Το ένα πάνω στο άλλο";
+"booth.frame.split" = "Δίπλα δίπλα";
+"booth.export.stackedNote" = "Στοιβαγμένο βγαίνει σε 9:16, κομμένο και ραμμένο για story ή short.";
+"booth.export.noFootage" = "Δεν υπάρχει ακόμα υλικό θαλάμου σε αυτή τη σκηνή. Άνοιξε το Booth Cam και μεταγλώττισε μία ατάκα.";
+"booth.export.confirm" = "Εξαγωγή βίντεο";
+"booth.export.lineConfirm" = "Εξαγωγή ατάκας";
+"booth.export.notice" = "Πριν την απόδοση θα δεις σε ποιον ανήκει αυτή η σκηνή.";
+"booth.export.runtime" = "Διάρκεια";
+"booth.export.shape" = "Κάδρο";
+"booth.shareLine" = "Μοιράσου αυτή την ατάκα";

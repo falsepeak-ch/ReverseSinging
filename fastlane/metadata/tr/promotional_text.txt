@@ -1,0 +1,1 @@
+1.5.0'da yeni: Booth Cam seslendirirken yüzünü çeker, böylece tepki de çekimle birlikte çıkar. Artık 21 dilde.

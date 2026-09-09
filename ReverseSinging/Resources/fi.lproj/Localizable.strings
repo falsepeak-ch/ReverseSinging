@@ -1,0 +1,368 @@
+/*
+   Localizable.strings (Finnish)
+   ReverseSinging
+*/
+
+// MARK: - Onboarding
+"onboarding.welcome.title" = "Tervetuloa Dubloonin pariin";
+"onboarding.welcome.message" = "Kaksi peliä, yksi mikrofoni. Laula biisi takaperin tai työnnä oma äänesi elokuvakohtaukseen. Kummassakaan et kuulosta normaalilta.";
+"onboarding.howItWorks.title" = "Näin tämä toimii";
+"onboarding.howItWorks.message" = "Äänitä biisi, käännä se takaperin ja laula siansaksan mukana. Käännä sitten oma otoksesi ja kuule, osuitko lähelle vai keksitkö juuri uuden kielen.";
+"onboarding.dub.title" = "Dubbaa elokuvakohtaus";
+"onboarding.dub.message" = "Toinen peli: laita kohtaus pyörimään, ylinäyttele kunnolla ja kuule sitten itsesi elokuvassa. Kaksi kohtausta tulee mukana. Sen jälkeen tuot omat tiedostosi.";
+"onboarding.uiPreference.title" = "Valitse ohjaamosi";
+"onboarding.uiPreference.message" = "Isot rehelliset napit tai koko miksauspöytä nuppeineen. Tämä koskee Takaperinlaulua, ja voit vaihtaa mieltä Asetuksissa milloin vain.";
+"onboarding.microphone.title" = "Vielä yksi juttu";
+"onboarding.microphone.message" = "Molempien pelien pitää kuulla sinut: takaperin laulaessa tai kohtausta dubatessa. Mikrofoni herää vain äänityksen ajaksi, kaikki pysyy tällä laitteella eikä mitään lähetetä koskaan minnekään. Surkein otoksesi jää teidän kahden väliseksi.";
+"onboarding.button.openSettings" = "Avaa Asetukset";
+"onboarding.button.letsRecord" = "no niin, nauhoitetaan!";
+"onboarding.button.continueLowercase" = "jatka";
+"onboarding.button.microphoneContinue" = "Jatka";
+"onboarding.button.continueWithout" = "jatka ilman sitä";
+
+// MARK: - Main View - Buttons
+"main.button.stopRecording" = "Lopeta äänitys";
+"main.button.recordAudio" = "Äänitä";
+"main.button.recordAttempt" = "Laula se takaisin";
+"main.button.reRecord" = "Uusi otos";
+"main.button.newSession" = "Uusi sessio";
+
+// MARK: - Simple Skin (buttons and their subtitles)
+"main.button.playRecorded" = "Kuuntele äänitys";
+"main.button.playReverse" = "Kuuntele takaperin";
+"main.subtitle.recordingOriginal" = "Nauha pyörii. Tämä on alkuperäinen";
+"main.subtitle.recordingAttempt" = "Nauha pyörii. Tämä on sinun otoksesi";
+"main.subtitle.tapToRecord" = "Napauta ja anna tulla biisi";
+"main.subtitle.recordAttempt" = "Sinun vuorosi: laula takaperinversio";
+"main.subtitle.reRecordAttempt" = "Vielä kerran, kohta osut";
+"main.subtitle.playAttempt" = "Kuuntele oma otoksesi";
+"main.subtitle.playOriginal" = "Kuuntele alkuperäinen";
+"main.subtitle.noRecording" = "Mitään ei ole vielä äänitetty";
+"main.subtitle.playReversedAttempt" = "Sinun otoksesi takaperin";
+"main.subtitle.playReversedOriginal" = "Alkuperäinen takaperin";
+"main.subtitle.noReversed" = "Ei vielä mitään käännettävää";
+"settings.version" = "Versio %@ (%@)";
+
+// MARK: - Main View - Alerts
+"main.alert.microphoneRequired.title" = "Mikrofoni on pois päältä";
+"main.alert.microphoneRequired.message" = "Ilman mikrofonin käyttöoikeutta Dubloon ei kuule yhtään mitään. Laita se päälle Asetuksissa, niin jatketaan.";
+"main.alert.settings" = "Asetukset";
+"main.alert.cancel" = "Kumoa";
+"main.alert.error.title" = "Tuo ei onnistunut";
+"main.alert.ok" = "OK";
+"main.alert.startNewSession.title" = "Aloitetaanko alusta?";
+"main.alert.startNewSession.message" = "Tämä sessio menee turvallisesti arkistoon, ja sinä aloitat puhtaalta nauhalta.";
+"main.alert.startNewSession.button" = "Uusi sessio";
+
+// MARK: - Main View - Empty State
+"main.emptyState.title" = "Kukaan ei kuule sinua";
+"main.emptyState.message" = "Juuri nyt Dubloon on äänityssovellus ilman mitään, millä äänittää. Salli mikrofoni laitteen asetuksissa, niin molemmat pelit heräävät taas henkiin.";
+"main.emptyState.button" = "Avaa Asetukset";
+
+// MARK: - Main View - Processing & Success
+"main.processing.reversingAudio" = "Käännetään takaperin…";
+"main.success.sessionSaved" = "Turvassa arkistossa";
+
+// MARK: - Main View - Tips (Contextual Help)
+"main.tip.tapRecordToBegin" = "Napauta Äänitä ja anna nauhan pyöriä";
+"main.tip.recordSingingAttempt" = "Laula takaperinversio. Ja usko siihen";
+"main.tip.recordSongToReverse" = "Äänitä se biisi, jonka haluat pilata";
+"main.tip.tapPlayToSwitch" = "Napauta mitä tahansa nappia toistaaksesi tai pysäyttääksesi";
+"main.tip.reRecordOrNewSession" = "Ota uusiksi tai aloita uusi sessio";
+"main.tip.listenAndRecord" = "Kuuntele takaperinversio ja laula se sitten";
+"main.tip.processingAudio" = "Käännetään. Hetkinen";
+"main.tip.tapRecordAudio" = "Napauta Äänitä ja lyö biisi purkkiin";
+
+// MARK: - Comparison View
+
+// MARK: - Comparison View - Score Messages
+
+// MARK: - Session List View
+"sessionList.title" = "Tallennetut sessiot";
+"sessionList.empty.title" = "Täällä ei ole vielä mitään";
+"sessionList.empty.message" = "Tee takaperinsessio loppuun ja tallenna se. Suurimmat hittisi asuvat täällä.";
+
+// MARK: - Recording Type Labels
+"recordingType.original" = "Alkuperäinen";
+"recordingType.reversed" = "Takaperin";
+"recordingType.attempt" = "Sinun otoksesi";
+"recordingType.reversedAttempt" = "Otoksesi takaperin";
+"recordingType.imported" = "Tuotu";
+
+// MARK: - Timer Card
+"timerCard.deviceMicrophone" = "Laitteen mikrofoni (oletus)";
+"timerCard.mins" = "MIN";
+"timerCard.secs" = "SEK";
+"timerCard.playAudio" = "Toista ääni";
+"timerCard.audioControls" = "Äänisäätimet";
+"timerCard.loop" = "Toisto";
+"timerCard.speed" = "Nopeus";
+"timerCard.pitch" = "Sävelkorkeus";
+"timerCard.semitones" = "puolisävelaskelta";
+
+// MARK: - Score Card
+"scoreCard.title" = "Tuloksesi";
+"scoreCard.grade.perfectMatch" = "Täydellistä. Melkein epäilyttävää";
+"scoreCard.grade.excellent" = "Loistavaa";
+"scoreCard.grade.greatJob" = "Tuo oli oikeasti hyvä";
+"scoreCard.grade.veryGood" = "Siistiä jälkeä";
+"scoreCard.grade.goodEffort" = "Ihan kelpo yritys";
+"scoreCard.grade.niceTry" = "Rohkeaa. Hyvin rohkeaa";
+"scoreCard.grade.keepPracticing" = "Jatka vain, kyllä se tulee";
+"scoreCard.grade.tryAgain" = "Sanotaan, että tuo oli harjoitus";
+
+// MARK: - Processing Indicator
+
+// MARK: - Recording Indicator
+"recording.indicator" = "ÄÄNITTÄÄ";
+
+// MARK: - Success Celebration
+
+// MARK: - Audio Session Model
+"session.defaultName" = "Sessio";
+
+// MARK: - Error Messages
+"error.microphonePermissionRequired" = "Dubloon tarvitsee tähän mikrofonin. Salli se Asetuksissa.";
+"error.cannotStartRecording" = "Äänitys ei lähde nyt käyntiin. Kokeile uudestaan.";
+"error.noRecordingInProgress" = "Mitään ei ole juuri nyt äänittymässä.";
+"error.failedToStopRecording" = "Äänitys ei pysähtynyt siististi. Ota tuo uusiksi.";
+"error.failedToProcessRecording" = "Tuota otosta ei saatu käsiteltyä.";
+
+// MARK: - Settings
+"settings.title" = "Asetukset";
+"settings.interface" = "Käyttöliittymä";
+"uiMode.simple.name" = "Yksinkertainen";
+"uiMode.simple.description" = "Isot napit, ei mitään mihin kompastua";
+"uiMode.complex.name" = "Monipuolinen";
+"uiMode.complex.description" = "Nuppeja, mittareita ja aaltomuotoja";
+"settings.preferences" = "Asetukset";
+"settings.about" = "Tietoja";
+
+// Theme descriptions
+
+// Haptic feedback
+"settings.hapticFeedback" = "Värinäpalaute";
+"settings.hapticFeedback.desc" = "Pieni tönäisy joka napautuksella";
+
+// About
+"settings.privacyPolicy" = "Tietosuojakäytäntö";
+"settings.privacyPolicy.desc" = "Lyhyt, tylsä ja rehellinen";
+"settings.builtInSwitzerland" = "Tehty Sveitsissä";
+"settings.builtInSwitzerland.desc" = "Käsityönä Zürichissä";
+
+// MARK: - Dub Mode
+"dub.unknownAuthor" = "Tekijä tuntematon";
+"dub.importPack" = "Tuo dubbauspaketti";
+"dub.importing" = "Puretaan kohtausta…";
+"dub.delete" = "Poista";
+"dub.empty.title" = "Täällä ei ole vielä kohtauksia";
+"dub.empty.message" = "Hae pakettikansio tai .zip Tiedostoista, niin kohtaus on sinun ylinäyteltäväksesi.";
+"dub.playOriginal" = "Katso alkuperäinen";
+"dub.playMyDub" = "Katso oma dubbaukseni";
+"dub.record" = "Aloita dubbaus";
+"dub.continueRecording" = "Jatka dubbausta";
+"dub.export" = "Vie video";
+"dub.lines" = "Repliikit";
+"dub.attribution" = "Lähde";
+"dub.listen" = "Kuuntele";
+"dub.stop" = "Pysäytä";
+"dub.recordTake" = "Äänitä";
+"dub.next" = "Seuraava";
+"dub.previous" = "Edellinen";
+"dub.recordingHint" = "Sano repliikki kuin tarkoittaisit sitä ja pysy alkuperäisen tahdissa.";
+"dub.listenHint" = "Kuuntele kerran ja varasta sitten äänenpaino.";
+"dub.original" = "Alkuperäinen";
+"dub.myDub" = "Oma dubbaukseni";
+"dub.noTakesYet" = "Dubbaa ensin yksi repliikki, sitten jutellaan.";
+"dub.exporting" = "Viedään…";
+"dub.export.mixing" = "Miksataan ääntä…";
+"dub.export.rendering" = "Renderöidään videota…";
+"dub.error.missingPackInfo" = "Tuo kansio ei ole dubbauspaketti: siellä ei ole _pack_info.ini-tiedostoa.";
+"dub.error.noLines" = "Tässä paketissa ei ole yhtäkään kelvollista repliikkiä.";
+"dub.error.missingAsset" = "Paketista puuttuu tiedosto, jota se tarvitsee: %@";
+"dub.error.notAFolder" = "Valitse pakettikansio tai .zip-arkisto.";
+"dub.error.unreadableArchive" = "Tuo arkisto ei suostunut aukeamaan: %@";
+"dub.error.nothingRecorded" = "Dubbaa vähintään yksi repliikki ennen vientiä.";
+"dub.error.exportFailed" = "Vienti epäonnistui: %@";
+"dub.playTake" = "Kuuntele otoksesi";
+"dub.loadingScene" = "Pystytetään kohtausta…";
+
+// MARK: - Editor Chrome
+"session.archiveTitle" = "Arkisto";
+"main.section.transport" = "Kuljetin";
+"main.section.session" = "Sessio";
+"main.state.idle" = "VALMIS";
+"main.state.recording" = "REC";
+"main.state.playing" = "PLAY";
+"main.state.processing" = "PROC";
+"main.state.error" = "VIRHE";
+"main.state.countingIn" = "LASKURI";
+"main.section.hint" = "Nyt";
+"dub.packsSection" = "Paketit";
+"dub.slate.lines" = "Dubattu";
+"dub.slate.duration" = "Kesto";
+"dub.slate.cast" = "Roolit";
+"settings.soundEffects" = "Äänitehosteet";
+"settings.soundEffects.desc" = "Klaffi, klikit ja renderöinnin kilahdus";
+
+// Headphone monitoring
+"settings.headphoneMonitor" = "Alkuperäinen kuulokkeisiin";
+"settings.headphoneMonitor.desc" = "Kuulet matkimasi repliikin äänittäessäsi. Vain kuulokkeilla, koska kaiuttimesta se päätyisi omaan otokseesi.";
+"settings.headphoneMonitor.unavailable" = "Kuulokkeita ei ole liitetty";
+
+// MARK: - Game Modes
+"main.mode.section" = "Tila";
+"main.mode.reverse.title" = "Takaperinlaulu";
+"main.mode.dub.title" = "Kohtauksen dubbaus";
+"main.button.back" = "Takaisin";
+"main.mode.reverse.subtitle" = "Äänitä, käännä ja laula siansaksa";
+"main.mode.dub.subtitle" = "Laita oma äänesi toisen suuhun";
+"dub.speakerAccessibility" = "Sanoo %@";
+"dub.cast" = "Roolit";
+"dub.referenceTrack" = "Referenssi";
+"dub.yourTake" = "Sinun otoksesi";
+"dub.convertingVideo" = "Muunnetaan kohtauksen videota…";
+"dub.importReading" = "Luetaan pakettia…";
+
+// MARK: - Dub Content Gate
+"dubGate.close" = "Sulje";
+"dubGate.ask.title" = "Onko elokuvasi jo tallessa?";
+"dubGate.ask.message" = "Kahden esimerkkikohtauksen lisäksi emme toimita emmekä säilytä yhtäkään elokuvaa. Muun dubbaamiseen elokuvatiedoston pitää olla jo tällä laitteella.";
+"dubGate.ask.confirm" = "Kyllä, ne ovat täällä";
+"dubGate.ask.needDownload" = "Ei, minun täytyy hakea ne";
+"dubGate.download.title" = "Mistä ne löytyvät";
+"dubGate.download.message" = "Tässä yksi paikka, jossa ihmiset jakavat tällaisia tiedostoja. Nappaa se, jonka haluat dubata, ja tule saman tien takaisin.";
+"dubGate.download.open" = "Avaa %@";
+"dubGate.download.back" = "Takaisin";
+"dubGate.disclaimer.notAffiliated" = "%@ on jonkun muun sivusto. Meillä ei ole sen kanssa mitään tekemistä emmekä säilytä tai jaa ainuttakaan tiedostoa.";
+"dubGate.disclaimer.responsibility" = "Varmista, että sinulla on oikeus käyttää lataamaasi, ja noudata oman maasi tekijänoikeussääntöjä.";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "Ennen kuin jaat";
+"dubShare.message" = "Tässä videossa on sinun äänesi jonkun toisen kohtauksen päällä, joten se on yhtä lailla heidän työtään kuin sinun.";
+"dubShare.cutFrom" = "Leikattu teoksesta %@";
+"dubShare.keepCredit" = "Jos julkaiset sen, pidä tämä maininta mukana.";
+"dubShare.unknownSource" = "Tämän kohtauksen toit itse, joten tiedät mistä se on peräisin ja mitä sillä saa tehdä.";
+"dubShare.responsibility" = "Minne se päätyy, on sinun asiasi, joten noudata oman maasi tekijänoikeussääntöjä.";
+"dubShare.confirm" = "Vie video";
+
+/* MARK: - Dub Scoring */
+"dub.installingStarterPacks" = "Pystytetään ensimmäisiä kohtauksiasi…";
+"dub.options" = "Dubbausvalinnat";
+"dub.score.setting.title" = "Pisteytä otokseni";
+"dub.score.setting.detail" = "Arvostelee ajoituksen, rytmin ja tulkinnan. Lempeästi.";
+"dub.score.sceneTitle" = "Kohtauksen pisteet";
+"dub.score.notScoredYet" = "Dubbaa repliikki, niin arvostelu voi alkaa.";
+"dub.score.slate" = "Pisteet";
+"dub.score.lineTitle" = "Sinun otoksesi";
+"dub.score.timing" = "Ajoitus";
+"dub.score.pacing" = "Rytmi";
+"dub.score.delivery" = "Tulkinta";
+"dub.score.best" = "Paras repliikki";
+"dub.score.weakest" = "Kannattaa ottaa uusiksi";
+"dub.score.progress" = "%d/%d repliikkiä pisteytetty";
+"dub.score.grade.perfect" = "Napakymppi";
+"dub.score.grade.great" = "Osui ja upposi";
+"dub.score.grade.good" = "Tukeva otos";
+"dub.score.grade.close" = "Aivan lähellä";
+"dub.score.grade.rough" = "Otetaan uusiksi";
+
+"dub.videoNeedsReimport" = "Tämän kohtauksen videon muunsi vanhempi versio, ja nyt se kulkee äänten edellä. Tuo paketti uudelleen, niin homma korjaantuu.";
+
+// MARK: - Pro / Paywall
+"pro.trial.daysLeft" = "%d päivää jäljellä";
+"pro.trial.oneDayLeft" = "Viimeinen päivä";
+"pro.trial.over" = "Ilmainen kokeilusi on ohi";
+"pro.section" = "Dubloon Pro";
+"pro.unlock.title" = "Avaa Dubloon";
+"pro.unlock.subtitle" = "Yksi maksu, molemmat pelit, sinun lopullisesti.";
+"pro.owned.title" = "Dubloon on sinun";
+"pro.owned.subtitle" = "Kiitos. Joka kohtaus, joka otos, ilman kattoa.";
+"pro.manage.title" = "Hallitse ostosta";
+"pro.manage.subtitle" = "Kuitit, hyvitykset ja apu ostoosi.";
+"pro.restore.title" = "Palauta osto";
+"pro.restore.subtitle" = "Uusi puhelin tai uudelleenasennus? Hae se takaisin.";
+"pro.testStore.warning" = "Debug-käännös: yhteydessä RevenueCatin testikauppaan. Oikeaa rahaa ei liiku.";
+"pro.restored.title" = "Palautettu";
+"pro.restored.message" = "Ostosi on taas tällä laitteella.";
+"pro.nothingToRestore.title" = "Ei mitään palautettavaa";
+"pro.nothingToRestore.message" = "Tältä Apple-tililtä ei löytynyt ostoa. Jos ostit Dubloonin toisella tilillä, kirjaudu sillä sisään ja yritä uudelleen.";
+"pro.error.title" = "Jokin meni pieleen";
+"pro.error.generic" = "Kauppa ei vastannut. Yritä hetken päästä uudelleen.";
+"pro.ok" = "OK";
+"pro.fallback.title" = "Avaa Dubloon";
+"pro.fallback.message" = "Ilmainen kokeilusi on ohi. Yksi maksu pitää molemmat pelit auki lopullisesti.";
+"pro.fallback.message.beforeExpiry" = "Yksi maksu pitää molemmat pelit auki lopullisesti.";
+"pro.fallback.buy" = "Avaa hintaan %@";
+"pro.fallback.buyUnpriced" = "Avaa";
+"pro.fallback.loading" = "Kysytään kaupalta…";
+"pro.fallback.unavailable" = "Kauppa ei vastaa juuri nyt. Tarkista yhteys ja yritä uudelleen.";
+"pro.fallback.retry" = "Yritä uudelleen";
+"pro.fallback.benefit.one" = "Laula takaperin niin kauan kuin naapurit kestävät";
+"pro.fallback.benefit.two" = "Dubbaa jokainen kohtaus ja tuo omasi";
+"pro.fallback.benefit.three" = "Vie otoksesi ja jaa vahingot";
+"pro.fallback.oneTime" = "Yksi maksu. Ei tilaus.";
+
+// MARK: - Pro / Early adopters
+"pro.earlyAdopter.title" = "Tervetuloa kerhoon";
+"pro.earlyAdopter.message" = "Dubloon maksaa nyt rahaa — paitsi sinulle. Olit täällä ennen hintalappua, joten molemmat pelit pysyvät sinun, ilmaiseksi, niin kauan kuin sovellus on olemassa. Kiitos alkuajoista.";
+"pro.earlyAdopter.badge" = "Ilmainen ikuisesti";
+"pro.earlyAdopter.confirm" = "Hienoa";
+"pro.earlyAdopter.settings.title" = "Ilmainen ikuisesti";
+"pro.earlyAdopter.settings.subtitle" = "Olit mukana aikaisin. Molemmat pelit ovat sinun, etkä ole meille mitään velkaa.";
+"pro.closePaywall" = "Sulje";
+
+// Early adopter slate rows
+"pro.earlyAdopter.row.access" = "Käyttöoikeus";
+"pro.earlyAdopter.row.access.value" = "Molemmat pelit";
+"pro.earlyAdopter.row.cost" = "Hinta";
+"pro.earlyAdopter.row.cost.value" = "Ei mitään";
+"pro.earlyAdopter.row.expires" = "Päättyy";
+"pro.earlyAdopter.row.expires.value" = "Ei koskaan";
+
+/* MARK: - Booth Cam */
+"booth.slug" = "Koppi";
+"booth.monitorAccessibility" = "Etukameran esikatselu";
+"booth.turnOn" = "Ota Booth Cam käyttöön";
+"booth.turnOff" = "Poista Booth Cam käytöstä";
+"booth.primer.title" = "Kuvaa itsesi dubatessa";
+"booth.primer.message" = "Booth Cam pitää etukameran käynnissä esityksesi ajan, joten kohtaus, repliikki ja naamasi mahtuvat samalle ruudulle. Myöhemmin voit jakaa reaktion dubbauksen mukana.";
+"booth.primer.confirm" = "Ota Booth Cam käyttöön";
+"booth.primer.decline" = "Dubbaa ilman";
+"booth.primer.systemPrompt" = "Seuraavaksi iOS kysyy oikeutta kameraan.";
+"booth.fact.onDevice" = "Kopin otokset pysyvät laitteellasi, ääniotostesi vieressä.";
+"booth.fact.nothingLeaves" = "Mikään ei lähde mihinkään ennen vientiä, ja jokainen vienti kysyy ensin.";
+"booth.fact.reversible" = "Sammuta milloin haluat. Dubbaus jatkuu ilmankin.";
+"booth.settings.section" = "Booth Cam";
+"booth.settings.title" = "Booth Cam";
+"booth.settings.desc" = "Kuvaa kasvosi dubatessa, jotta reaktio kulkee otoksen mukana.";
+"booth.settings.denied" = "Kameran käyttöoikeus on pois päältä. Salli se Dubloonille Asetukset-sovelluksessa.";
+"booth.mirror.title" = "Näytä minut peilikuvana";
+"booth.mirror.desc" = "Kääntää kopin monitorin esityksen ajaksi. Tallennettua tiedostoa ei peilata koskaan.";
+"booth.footage" = "Kopin materiaali";
+"booth.footage.usage" = "%1$@ · %2$d pakettia";
+"booth.deleteAll" = "Poista kaikki kopin otokset";
+"booth.deleteAll.confirm" = "Poista";
+"booth.deleteAll.message" = "Tämä pyyhkii jokaisen koppipätkän. Ääniotoksesi ja dubbauksesi jäävät paikoilleen.";
+
+/* Booth Cam: the export sheet */
+"booth.export.title" = "Vie";
+"booth.export.subtitle" = "Valitse leikkaus ja sitten paikka naamallesi.";
+"booth.export.lineSubtitle" = "Yksi repliikki ja reaktiosi sen vierellä.";
+"booth.export.cut" = "Leikkaus";
+"booth.export.cut.fullScene" = "Koko kohtaus";
+"booth.export.cut.sessionReel" = "Session kela";
+"booth.export.cut.detail" = "Valmis dubbaus alusta loppuun. Kela on jokainen dubbaamasi repliikki peräkkäin, hiljaisuudet pois leikattuina.";
+"booth.export.frame" = "Kopin kuva";
+"booth.frame.off" = "Pois";
+"booth.frame.corner" = "Kulmassa";
+"booth.frame.stacked" = "Päällekkäin";
+"booth.frame.split" = "Vierekkäin";
+"booth.export.stackedNote" = "Päällekkäin renderöityy 9:16, sopivasti tarinaan tai shorttiin.";
+"booth.export.noFootage" = "Tässä kohtauksessa ei ole vielä koppimateriaalia. Laita Booth Cam päälle ja dubbaa repliikki.";
+"booth.export.confirm" = "Vie video";
+"booth.export.lineConfirm" = "Vie repliikki";
+"booth.export.notice" = "Näet kenen kohtaus tämä on ennen renderöintiä.";
+"booth.export.runtime" = "Kesto";
+"booth.export.shape" = "Kuvasuhde";
+"booth.shareLine" = "Jaa tämä repliikki";

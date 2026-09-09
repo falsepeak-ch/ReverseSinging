@@ -1,0 +1,8 @@
+/*
+   InfoPlist.strings (Turkish)
+   ReverseSinging
+*/
+
+"NSMicrophoneUsageDescription" = "Dubloon sesini kaydedebilmek için mikrofon erişimine ihtiyaç duyar; böylece şarkıları tersten söyleyebilir ve film sahnelerini seslendirebilirsin.";
+
+"NSCameraUsageDescription" = "Dubloon sen seslendirirken ön kamerayla seni çeker, böylece tepkini çekiminle birlikte paylaşabilirsin. Sen açana kadar kamera kapalı kalır.";

@@ -21,6 +21,13 @@ enum ScreenshotDestination: String {
     case dubLibrary
     case dubDetail
     case dubRecord
+    /// The record screen with the Booth Cam explanation over it.
+    ///
+    /// The live monitor is not the shot: a simulator has no front camera, so
+    /// `BoothRecorder` never starts previewing and the inset draws as an empty
+    /// rectangle. The primer is the surface that actually says what the feature
+    /// does, and it renders identically everywhere.
+    case boothCam
     case dubExport
     case reverse
     case settings
@@ -30,7 +37,7 @@ enum ScreenshotDestination: String {
     /// Everything from the library downwards is reached by pushing the dub game.
     var opensDubGame: Bool {
         switch self {
-        case .dubLibrary, .dubDetail, .dubRecord, .dubExport, .tour: return true
+        case .dubLibrary, .dubDetail, .dubRecord, .boothCam, .dubExport, .tour: return true
         case .home, .reverse, .settings: return false
         }
     }
@@ -38,12 +45,13 @@ enum ScreenshotDestination: String {
     /// Deeper than the library: the first pack has to be selected too.
     var opensPack: Bool {
         switch self {
-        case .dubDetail, .dubRecord, .dubExport, .tour: return true
+        case .dubDetail, .dubRecord, .boothCam, .dubExport, .tour: return true
         default: return false
         }
     }
 
-    var opensRecorder: Bool { self == .dubRecord }
+    var opensRecorder: Bool { self == .dubRecord || self == .boothCam }
+    var presentsBoothPrimer: Bool { self == .boothCam }
     var posesExport: Bool { self == .dubExport }
     var opensReverseGame: Bool { self == .reverse }
     var opensSettings: Bool { self == .settings }

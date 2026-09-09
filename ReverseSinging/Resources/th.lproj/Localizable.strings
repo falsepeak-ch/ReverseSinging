@@ -1,0 +1,368 @@
+/*
+   Localizable.strings (Thai)
+   ReverseSinging
+*/
+
+// MARK: - Onboarding
+"onboarding.welcome.title" = "ยินดีต้อนรับสู่ Dubloon";
+"onboarding.welcome.message" = "สองเกม ไมค์ตัวเดียว ร้องเพลงกลับหลัง หรือยัดเสียงตัวเองเข้าไปในฉากหนัง ยังไงก็ไม่มีทางฟังดูปกติ";
+"onboarding.howItWorks.title" = "มันทำงานยังไง";
+"onboarding.howItWorks.message" = "อัดเพลงไว้ กลับด้านมัน แล้วร้องตามเสียงมั่ว ๆ นั้น จากนั้นกลับเทคของตัวเองอีกที แล้วดูว่าใกล้เคียงหรือเพิ่งประดิษฐ์ภาษาใหม่ขึ้นมา";
+"onboarding.dub.title" = "พากย์ฉากหนัง";
+"onboarding.dub.message" = "เกมที่สอง เปิดฉาก เล่นทับให้สุด แล้วฟังตัวเองอยู่ในหนัง มีสองฉากแถมมาให้ นอกจากนั้นเอาไฟล์ของคุณเองมาเอง";
+"onboarding.uiPreference.title" = "เลือกห้องคอนโทรลของคุณ";
+"onboarding.uiPreference.message" = "ปุ่มใหญ่ตรงไปตรงมา หรือคอนโซลเต็มพร้อมลูกบิด อันนี้ใช้กับโหมดร้องกลับหลัง และเปลี่ยนใจได้ในการตั้งค่าตลอดเวลา";
+"onboarding.microphone.title" = "อีกเรื่องสุดท้าย";
+"onboarding.microphone.message" = "ทั้งสองเกมต้องได้ยินคุณ ทั้งตอนร้องกลับหลังและตอนพากย์ ไมค์จะตื่นเฉพาะตอนอัด ทุกอย่างอยู่ในเครื่องนี้ และไม่มีอะไรถูกอัปโหลดไปไหน เทคที่แย่ที่สุดของคุณจะอยู่กันแค่สองคน";
+"onboarding.button.openSettings" = "เปิดการตั้งค่า";
+"onboarding.button.letsRecord" = "เอาละ อัดกันเลย!";
+"onboarding.button.continueLowercase" = "ต่อไป";
+"onboarding.button.microphoneContinue" = "ต่อไป";
+"onboarding.button.continueWithout" = "ไปต่อโดยไม่ใช้ไมค์";
+
+// MARK: - Main View - Buttons
+"main.button.stopRecording" = "หยุดอัด";
+"main.button.recordAudio" = "อัดเสียง";
+"main.button.recordAttempt" = "ร้องกลับมาเลย";
+"main.button.reRecord" = "อีกเทคหนึ่ง";
+"main.button.newSession" = "เซสชันใหม่";
+
+// MARK: - Simple Skin (buttons and their subtitles)
+"main.button.playRecorded" = "ฟังที่อัดไว้";
+"main.button.playReverse" = "ฟังแบบกลับหลัง";
+"main.subtitle.recordingOriginal" = "เทปกำลังหมุน นี่คือต้นฉบับ";
+"main.subtitle.recordingAttempt" = "เทปกำลังหมุน นี่คือเทคของคุณ";
+"main.subtitle.tapToRecord" = "แตะแล้วปล่อยเพลงออกมาเลย";
+"main.subtitle.recordAttempt" = "ตาคุณแล้ว ร้องเวอร์ชันกลับหลัง";
+"main.subtitle.reRecordAttempt" = "อีกรอบ ใกล้เข้าไปทุกที";
+"main.subtitle.playAttempt" = "ฟังเทคของคุณ";
+"main.subtitle.playOriginal" = "ฟังต้นฉบับ";
+"main.subtitle.noRecording" = "ยังไม่ได้อัดอะไรเลย";
+"main.subtitle.playReversedAttempt" = "เทคของคุณ แบบกลับหลัง";
+"main.subtitle.playReversedOriginal" = "ต้นฉบับ แบบกลับหลัง";
+"main.subtitle.noReversed" = "ยังไม่มีอะไรให้กลับด้าน";
+"settings.version" = "เวอร์ชัน %@ (%@)";
+
+// MARK: - Main View - Alerts
+"main.alert.microphoneRequired.title" = "ไมค์ปิดอยู่";
+"main.alert.microphoneRequired.message" = "ถ้าไม่ให้เข้าถึงไมโครโฟน Dubloon จะไม่ได้ยินอะไรเลยสักนิด เปิดในการตั้งค่าแล้วเราไปต่อกัน";
+"main.alert.settings" = "การตั้งค่า";
+"main.alert.cancel" = "ยกเลิก";
+"main.alert.error.title" = "อันนี้ไม่สำเร็จ";
+"main.alert.ok" = "ตกลง";
+"main.alert.startNewSession.title" = "เริ่มใหม่ไหม";
+"main.alert.startNewSession.message" = "เซสชันนี้จะถูกเก็บเข้าคลังอย่างปลอดภัย แล้วคุณเริ่มใหม่กับเทปเปล่า ๆ";
+"main.alert.startNewSession.button" = "เซสชันใหม่";
+
+// MARK: - Main View - Empty State
+"main.emptyState.title" = "ไม่มีใครได้ยินคุณ";
+"main.emptyState.message" = "ตอนนี้ Dubloon คือแอปอัดเสียงที่ไม่มีอะไรให้อัด เปิดสิทธิ์ไมโครโฟนในการตั้งค่าเครื่อง แล้วทั้งสองเกมจะกลับมามีชีวิตอีกครั้ง";
+"main.emptyState.button" = "เปิดการตั้งค่า";
+
+// MARK: - Main View - Processing & Success
+"main.processing.reversingAudio" = "กำลังกลับด้านให้…";
+"main.success.sessionSaved" = "เก็บเข้าคลังเรียบร้อย";
+
+// MARK: - Main View - Tips (Contextual Help)
+"main.tip.tapRecordToBegin" = "แตะ อัดเสียง แล้วปล่อยให้เทปหมุน";
+"main.tip.recordSingingAttempt" = "ร้องเวอร์ชันกลับหลัง และร้องให้สุด";
+"main.tip.recordSongToReverse" = "อัดเพลงที่คุณอยากทำพังไว้";
+"main.tip.tapPlayToSwitch" = "แตะปุ่มไหนก็ได้เพื่อเล่นหรือหยุด";
+"main.tip.reRecordOrNewSession" = "อัดใหม่อีกเทค หรือเริ่มเซสชันใหม่";
+"main.tip.listenAndRecord" = "ฟังเวอร์ชันกลับหลังก่อน แล้วค่อยร้อง";
+"main.tip.processingAudio" = "กำลังกลับด้าน รอสักครู่";
+"main.tip.tapRecordAudio" = "แตะ อัดเสียง แล้ววางเพลงลงไปสักเพลง";
+
+// MARK: - Comparison View
+
+// MARK: - Comparison View - Score Messages
+
+// MARK: - Session List View
+"sessionList.title" = "เซสชันที่บันทึกไว้";
+"sessionList.empty.title" = "ที่นี่ยังว่างอยู่";
+"sessionList.empty.message" = "เล่นเซสชันร้องกลับหลังให้จบแล้วบันทึกไว้ เพลงฮิตของคุณจะมาอยู่ตรงนี้";
+
+// MARK: - Recording Type Labels
+"recordingType.original" = "ต้นฉบับ";
+"recordingType.reversed" = "กลับหลัง";
+"recordingType.attempt" = "เทคของคุณ";
+"recordingType.reversedAttempt" = "เทคของคุณ แบบกลับหลัง";
+"recordingType.imported" = "นำเข้ามา";
+
+// MARK: - Timer Card
+"timerCard.deviceMicrophone" = "ไมโครโฟนของเครื่อง (ค่าเริ่มต้น)";
+"timerCard.mins" = "นาที";
+"timerCard.secs" = "วินาที";
+"timerCard.playAudio" = "เล่นเสียง";
+"timerCard.audioControls" = "ตัวควบคุมเสียง";
+"timerCard.loop" = "วนซ้ำ";
+"timerCard.speed" = "ความเร็ว";
+"timerCard.pitch" = "ระดับเสียง";
+"timerCard.semitones" = "ครึ่งเสียง";
+
+// MARK: - Score Card
+"scoreCard.title" = "คะแนนของคุณ";
+"scoreCard.grade.perfectMatch" = "เป๊ะ จนน่าสงสัย";
+"scoreCard.grade.excellent" = "ยอดเยี่ยม";
+"scoreCard.grade.greatJob" = "อันนี้ดีจริง";
+"scoreCard.grade.veryGood" = "สะอาดมาก";
+"scoreCard.grade.goodEffort" = "พยายามได้ดี";
+"scoreCard.grade.niceTry" = "กล้ามาก กล้าจริง ๆ";
+"scoreCard.grade.keepPracticing" = "ซ้อมต่อไป ใกล้แล้ว";
+"scoreCard.grade.tryAgain" = "ถือว่าเมื่อกี้เป็นการซ้อมนะ";
+
+// MARK: - Processing Indicator
+
+// MARK: - Recording Indicator
+"recording.indicator" = "กำลังอัด";
+
+// MARK: - Success Celebration
+
+// MARK: - Audio Session Model
+"session.defaultName" = "เซสชัน";
+
+// MARK: - Error Messages
+"error.microphonePermissionRequired" = "Dubloon ต้องใช้ไมโครโฟนสำหรับเรื่องนี้ เปิดในการตั้งค่า";
+"error.cannotStartRecording" = "ตอนนี้เริ่มอัดไม่ได้ ลองอีกครั้ง";
+"error.noRecordingInProgress" = "ตอนนี้ไม่มีอะไรกำลังอัดอยู่";
+"error.failedToStopRecording" = "การอัดหยุดไม่สะอาด ลองอัดเทคนั้นใหม่";
+"error.failedToProcessRecording" = "ประมวลผลเทคนี้ไม่ได้";
+
+// MARK: - Settings
+"settings.title" = "การตั้งค่า";
+"settings.interface" = "หน้าตาแอป";
+"uiMode.simple.name" = "แบบง่าย";
+"uiMode.simple.description" = "ปุ่มใหญ่ ไม่มีอะไรให้สะดุด";
+"uiMode.complex.name" = "แบบเต็ม";
+"uiMode.complex.description" = "ลูกบิด มิเตอร์ และคลื่นเสียง";
+"settings.preferences" = "ค่ากำหนด";
+"settings.about" = "เกี่ยวกับ";
+
+// Theme descriptions
+
+// Haptic feedback
+"settings.hapticFeedback" = "การสั่นตอบสนอง";
+"settings.hapticFeedback.desc" = "สะกิดเบา ๆ ทุกครั้งที่แตะ";
+
+// About
+"settings.privacyPolicy" = "นโยบายความเป็นส่วนตัว";
+"settings.privacyPolicy.desc" = "สั้น น่าเบื่อ และตรงไปตรงมา";
+"settings.builtInSwitzerland" = "สร้างในสวิตเซอร์แลนด์";
+"settings.builtInSwitzerland.desc" = "ทำมือที่ซูริก";
+
+// MARK: - Dub Mode
+"dub.unknownAuthor" = "ไม่ทราบผู้สร้าง";
+"dub.importPack" = "นำเข้าแพ็กพากย์";
+"dub.importing" = "กำลังแกะฉาก…";
+"dub.delete" = "ลบ";
+"dub.empty.title" = "ยังไม่มีฉากที่นี่";
+"dub.empty.message" = "หยิบโฟลเดอร์แพ็กหรือไฟล์ .zip จากแอปไฟล์เข้ามา แล้วฉากนั้นก็เป็นของคุณ เล่นให้โอเวอร์ได้เต็มที่";
+"dub.playOriginal" = "ดูต้นฉบับ";
+"dub.playMyDub" = "ดูเสียงพากย์ของฉัน";
+"dub.record" = "เริ่มพากย์";
+"dub.continueRecording" = "พากย์ต่อ";
+"dub.export" = "ส่งออกวิดีโอ";
+"dub.lines" = "บทพูด";
+"dub.attribution" = "แหล่งที่มา";
+"dub.listen" = "ฟัง";
+"dub.stop" = "หยุด";
+"dub.recordTake" = "อัด";
+"dub.next" = "ถัดไป";
+"dub.previous" = "ก่อนหน้า";
+"dub.recordingHint" = "พูดบทนั้นให้เหมือนคุณเชื่อจริง ๆ และเกาะจังหวะต้นฉบับไว้";
+"dub.listenHint" = "ฟังหนึ่งรอบ แล้วขโมยลีลาการพูดมาเลย";
+"dub.original" = "ต้นฉบับ";
+"dub.myDub" = "เสียงพากย์ของฉัน";
+"dub.noTakesYet" = "พากย์สักบทก่อน แล้วค่อยคุยกัน";
+"dub.exporting" = "กำลังส่งออก…";
+"dub.export.mixing" = "กำลังมิกซ์เสียง…";
+"dub.export.rendering" = "กำลังเรนเดอร์วิดีโอ…";
+"dub.error.missingPackInfo" = "โฟลเดอร์นั้นไม่ใช่แพ็กพากย์ ข้างในไม่มีไฟล์ _pack_info.ini";
+"dub.error.noLines" = "แพ็กนี้ไม่มีบทพูดที่ใช้ได้แม้แต่บทเดียว";
+"dub.error.missingAsset" = "แพ็กขาดไฟล์ที่ต้องใช้: %@";
+"dub.error.notAFolder" = "เลือกโฟลเดอร์แพ็กหรือไฟล์ .zip";
+"dub.error.unreadableArchive" = "ไฟล์บีบอัดนั้นเปิดไม่ได้: %@";
+"dub.error.nothingRecorded" = "พากย์อย่างน้อยหนึ่งบทก่อนส่งออก";
+"dub.error.exportFailed" = "ส่งออกไม่สำเร็จ: %@";
+"dub.playTake" = "ฟังเทคของคุณ";
+"dub.loadingScene" = "กำลังจัดฉาก…";
+
+// MARK: - Editor Chrome
+"session.archiveTitle" = "คลัง";
+"main.section.transport" = "แผงควบคุม";
+"main.section.session" = "เซสชัน";
+"main.state.idle" = "ว่าง";
+"main.state.recording" = "REC";
+"main.state.playing" = "PLAY";
+"main.state.processing" = "PROC";
+"main.state.error" = "ผิดพลาด";
+"main.state.countingIn" = "นับถอยหลัง";
+"main.section.hint" = "ตอนนี้";
+"dub.packsSection" = "แพ็ก";
+"dub.slate.lines" = "พากย์แล้ว";
+"dub.slate.duration" = "ความยาว";
+"dub.slate.cast" = "นักแสดง";
+"settings.soundEffects" = "เสียงประกอบ";
+"settings.soundEffects.desc" = "เสียงสเลท เสียงคลิก และกระดิ่งตอนเรนเดอร์";
+
+// Headphone monitoring
+"settings.headphoneMonitor" = "ฟังต้นฉบับในหูฟัง";
+"settings.headphoneMonitor.desc" = "ได้ยินบทที่คุณกำลังจับจังหวะอยู่ขณะอัด ใช้ได้เฉพาะกับหูฟัง เพราะถ้าออกลำโพงมันจะเล็ดลอดเข้าไปในเทคของคุณ";
+"settings.headphoneMonitor.unavailable" = "ยังไม่ได้เสียบหูฟัง";
+
+// MARK: - Game Modes
+"main.mode.section" = "โหมด";
+"main.mode.reverse.title" = "ร้องกลับหลัง";
+"main.mode.dub.title" = "พากย์ฉากหนัง";
+"main.button.back" = "กลับ";
+"main.mode.reverse.subtitle" = "อัด กลับด้าน แล้วร้องเสียงมั่ว ๆ นั้น";
+"main.mode.dub.subtitle" = "เอาเสียงคุณใส่ปากคนอื่น";
+"dub.speakerAccessibility" = "พูดโดย %@";
+"dub.cast" = "นักแสดง";
+"dub.referenceTrack" = "ตัวอย่างอ้างอิง";
+"dub.yourTake" = "เทคของคุณ";
+"dub.convertingVideo" = "กำลังแปลงวิดีโอของฉาก…";
+"dub.importReading" = "กำลังอ่านแพ็ก…";
+
+// MARK: - Dub Content Gate
+"dubGate.close" = "ปิด";
+"dubGate.ask.title" = "คุณมีหนังของตัวเองแล้วหรือยัง";
+"dubGate.ask.message" = "นอกจากสองฉากตัวอย่าง เราไม่ได้แถมและไม่ได้เก็บหนังไว้เลยสักเรื่อง ถ้าจะพากย์อย่างอื่น ไฟล์หนังต้องอยู่ในเครื่องนี้อยู่แล้ว";
+"dubGate.ask.confirm" = "มีแล้ว อยู่ในเครื่อง";
+"dubGate.ask.needDownload" = "ยัง ต้องไปหามาก่อน";
+"dubGate.download.title" = "หาได้จากที่ไหน";
+"dubGate.download.message" = "นี่คือที่หนึ่งที่คนแบ่งปันไฟล์แบบนี้กัน หยิบเรื่องที่อยากพากย์แล้วรีบกลับมา";
+"dubGate.download.open" = "เปิด %@";
+"dubGate.download.back" = "กลับ";
+"dubGate.disclaimer.notAffiliated" = "%@ เป็นเว็บของคนอื่น เราไม่ได้เกี่ยวข้องด้วย และไม่ได้เก็บหรือแชร์ไฟล์ใดทั้งสิ้น";
+"dubGate.disclaimer.responsibility" = "ตรวจให้แน่ใจว่าคุณมีสิทธิ์ใช้สิ่งที่ดาวน์โหลด และทำตามกฎลิขสิทธิ์ของที่ที่คุณอยู่";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "ก่อนจะแชร์";
+"dubShare.message" = "วิดีโอนี้คือเสียงของคุณทับอยู่บนฉากของคนอื่น มันจึงเป็นผลงานของเขาพอ ๆ กับของคุณ";
+"dubShare.cutFrom" = "ตัดมาจาก %@";
+"dubShare.keepCredit" = "ถ้าจะโพสต์ ช่วยติดเครดิตนี้ไปด้วย";
+"dubShare.unknownSource" = "ฉากนี้คุณเอามาเอง คุณจึงรู้ว่ามันมาจากไหนและทำอะไรกับมันได้บ้าง";
+"dubShare.responsibility" = "จะไปลงที่ไหนขึ้นอยู่กับคุณ ทำตามกฎลิขสิทธิ์ของที่ที่คุณอยู่ด้วย";
+"dubShare.confirm" = "ส่งออกวิดีโอ";
+
+/* MARK: - Dub Scoring */
+"dub.installingStarterPacks" = "กำลังจัดฉากแรกให้คุณ…";
+"dub.options" = "ตัวเลือกการพากย์";
+"dub.score.setting.title" = "ให้คะแนนเทคของฉัน";
+"dub.score.setting.detail" = "ตัดสินจังหวะ ความเร็ว และการแสดงของคุณ แบบใจดี";
+"dub.score.sceneTitle" = "คะแนนของฉาก";
+"dub.score.notScoredYet" = "พากย์สักบท แล้วการตัดสินจะเริ่มขึ้น";
+"dub.score.slate" = "คะแนน";
+"dub.score.lineTitle" = "เทคของคุณ";
+"dub.score.timing" = "จังหวะ";
+"dub.score.pacing" = "ความเร็ว";
+"dub.score.delivery" = "การแสดง";
+"dub.score.best" = "บทที่ดีที่สุด";
+"dub.score.weakest" = "ควรลองใหม่อีกครั้ง";
+"dub.score.progress" = "ให้คะแนนแล้ว %1$d จาก %2$d บท";
+"dub.score.grade.perfect" = "ตรงเป๊ะ";
+"dub.score.grade.great" = "เข้าเป้า";
+"dub.score.grade.good" = "เทคแน่น ๆ";
+"dub.score.grade.close" = "เฉียดไปนิดเดียว";
+"dub.score.grade.rough" = "เอาใหม่อีกรอบ";
+
+"dub.videoNeedsReimport" = "วิดีโอของฉากนี้ถูกแปลงด้วยเวอร์ชันเก่า ตอนนี้เลยวิ่งนำหน้าเสียงพูด นำเข้าแพ็กอีกครั้งแล้วจะกลับมาตรงกัน";
+
+// MARK: - Pro / Paywall
+"pro.trial.daysLeft" = "เหลืออีก %d วัน";
+"pro.trial.oneDayLeft" = "วันสุดท้าย";
+"pro.trial.over" = "ช่วงทดลองใช้ฟรีจบแล้ว";
+"pro.section" = "Dubloon Pro";
+"pro.unlock.title" = "ปลดล็อก Dubloon";
+"pro.unlock.subtitle" = "จ่ายครั้งเดียว ได้ทั้งสองเกม เป็นของคุณตลอดไป";
+"pro.owned.title" = "Dubloon เป็นของคุณแล้ว";
+"pro.owned.subtitle" = "ขอบคุณนะ ทุกฉาก ทุกเทค ไม่มีเพดาน";
+"pro.manage.title" = "จัดการการซื้อ";
+"pro.manage.subtitle" = "ใบเสร็จ การคืนเงิน และความช่วยเหลือเรื่องการซื้อ";
+"pro.restore.title" = "กู้คืนการซื้อ";
+"pro.restore.subtitle" = "เปลี่ยนเครื่องหรือลงแอปใหม่ใช่ไหม เอากลับคืนมาเลย";
+"pro.testStore.warning" = "บิลด์ดีบัก: เชื่อมกับร้านทดสอบของ RevenueCat ไม่มีเงินจริงเคลื่อนไหว";
+"pro.restored.title" = "กู้คืนแล้ว";
+"pro.restored.message" = "การซื้อของคุณกลับมาอยู่ในเครื่องนี้แล้ว";
+"pro.nothingToRestore.title" = "ไม่มีอะไรให้กู้คืน";
+"pro.nothingToRestore.message" = "ไม่พบการซื้อในบัญชี Apple นี้ ถ้าคุณซื้อ Dubloon ด้วยบัญชีอื่น ลงชื่อเข้าด้วยบัญชีนั้นแล้วลองใหม่";
+"pro.error.title" = "มีบางอย่างผิดพลาด";
+"pro.error.generic" = "ร้านค้าไม่ตอบกลับ ลองใหม่อีกสักครู่";
+"pro.ok" = "ตกลง";
+"pro.fallback.title" = "ปลดล็อก Dubloon";
+"pro.fallback.message" = "ช่วงทดลองใช้ฟรีจบแล้ว จ่ายครั้งเดียวก็เปิดทั้งสองเกมไว้ตลอดไป";
+"pro.fallback.message.beforeExpiry" = "จ่ายครั้งเดียวก็เปิดทั้งสองเกมไว้ตลอดไป";
+"pro.fallback.buy" = "ปลดล็อกในราคา %@";
+"pro.fallback.buyUnpriced" = "ปลดล็อก";
+"pro.fallback.loading" = "กำลังถามร้านค้า…";
+"pro.fallback.unavailable" = "ตอนนี้ร้านค้าไม่ตอบกลับ ตรวจการเชื่อมต่อแล้วลองอีกครั้ง";
+"pro.fallback.retry" = "ลองอีกครั้ง";
+"pro.fallback.benefit.one" = "ร้องกลับหลังได้นานเท่าที่เพื่อนบ้านทนไหว";
+"pro.fallback.benefit.two" = "พากย์ได้ทุกฉาก และเอาฉากของคุณเองมาด้วย";
+"pro.fallback.benefit.three" = "ส่งออกเทคของคุณแล้วแบ่งความเสียหายให้คนอื่น";
+"pro.fallback.oneTime" = "จ่ายครั้งเดียว ไม่ใช่การสมัครสมาชิก";
+
+// MARK: - Pro / Early adopters
+"pro.earlyAdopter.title" = "ยินดีต้อนรับสู่สโมสร";
+"pro.earlyAdopter.message" = "ตอนนี้ Dubloon มีค่าใช้จ่ายแล้ว แต่ไม่ใช่สำหรับคุณ คุณอยู่ตรงนี้ตั้งแต่ก่อนจะมีป้ายราคา ทั้งสองเกมจึงยังเป็นของคุณ ฟรี ตราบเท่าที่แอปนี้ยังอยู่ ขอบคุณสำหรับวันแรก ๆ";
+"pro.earlyAdopter.badge" = "ฟรีตลอดชีพ";
+"pro.earlyAdopter.confirm" = "ดีเลย";
+"pro.earlyAdopter.settings.title" = "ฟรีตลอดชีพ";
+"pro.earlyAdopter.settings.subtitle" = "คุณมาตั้งแต่แรก ทั้งสองเกมเป็นของคุณ และไม่ต้องจ่ายอะไรเลย";
+"pro.closePaywall" = "ปิด";
+
+// Early adopter slate rows
+"pro.earlyAdopter.row.access" = "สิทธิ์เข้าถึง";
+"pro.earlyAdopter.row.access.value" = "ทั้งสองเกม";
+"pro.earlyAdopter.row.cost" = "ค่าใช้จ่าย";
+"pro.earlyAdopter.row.cost.value" = "ไม่มี";
+"pro.earlyAdopter.row.expires" = "หมดอายุ";
+"pro.earlyAdopter.row.expires.value" = "ไม่มีวันหมด";
+
+/* MARK: - Booth Cam */
+"booth.slug" = "บูธ";
+"booth.monitorAccessibility" = "ภาพตัวอย่างจากกล้องหน้า";
+"booth.turnOn" = "เปิดกล้องบูธ";
+"booth.turnOff" = "ปิดกล้องบูธ";
+"booth.primer.title" = "ถ่ายตัวเองตอนพากย์";
+"booth.primer.message" = "กล้องบูธจะเปิดกล้องหน้าไว้ขณะคุณแสดง ทั้งฉาก บทพูด และหน้าคุณจึงอยู่บนจอเดียวกัน หลังจากนั้นจะแชร์ปฏิกิริยาไปพร้อมกับเสียงพากย์ก็ได้";
+"booth.primer.confirm" = "เปิดกล้องบูธ";
+"booth.primer.decline" = "พากย์โดยไม่ใช้";
+"booth.primer.systemPrompt" = "เดี๋ยว iOS จะขอสิทธิ์เข้าถึงกล้อง";
+"booth.fact.onDevice" = "คลิปจากบูธจะอยู่ในเครื่องของคุณ ข้าง ๆ เทคเสียง";
+"booth.fact.nothingLeaves" = "ไม่มีอะไรออกไปไหนจนกว่าคุณจะส่งออก และทุกครั้งจะถามก่อนเสมอ";
+"booth.fact.reversible" = "ปิดเมื่อไรก็ได้ การพากย์ก็เดินหน้าต่อโดยไม่มีมัน";
+"booth.settings.section" = "กล้องบูธ";
+"booth.settings.title" = "กล้องบูธ";
+"booth.settings.desc" = "ถ่ายหน้าคุณระหว่างพากย์ เพื่อให้ปฏิกิริยาเดินทางไปพร้อมกับเทค";
+"booth.settings.denied" = "สิทธิ์เข้าถึงกล้องปิดอยู่ เปิดให้ Dubloon ในแอปการตั้งค่า";
+"booth.mirror.title" = "แสดงภาพแบบกระจกเงา";
+"booth.mirror.desc" = "พลิกจอบูธขณะคุณแสดง ส่วนไฟล์ที่บันทึกจะไม่ถูกพลิกเลย";
+"booth.footage" = "ฟุตเทจจากบูธ";
+"booth.footage.usage" = "%1$@ · %2$d แพ็ก";
+"booth.deleteAll" = "ลบคลิปจากบูธทั้งหมด";
+"booth.deleteAll.confirm" = "ลบ";
+"booth.deleteAll.message" = "การกระทำนี้จะกวาดคลิปบูธไปทั้งหมด ส่วนเทคเสียงและเสียงพากย์ยังอยู่ครบ";
+
+/* Booth Cam: the export sheet */
+"booth.export.title" = "ส่งออก";
+"booth.export.subtitle" = "เลือกการตัดต่อก่อน แล้วค่อยเลือกว่าหน้าคุณจะไปอยู่ตรงไหน";
+"booth.export.lineSubtitle" = "หนึ่งบทพูด พร้อมปฏิกิริยาของคุณข้าง ๆ";
+"booth.export.cut" = "การตัดต่อ";
+"booth.export.cut.fullScene" = "ทั้งฉาก";
+"booth.export.cut.sessionReel" = "รีลของเซสชัน";
+"booth.export.cut.detail" = "เสียงพากย์ที่เสร็จแล้วตั้งแต่ต้นจนจบ ส่วนรีลคือทุกบทที่คุณพากย์ต่อกันรวด ตัดช่วงเงียบออก";
+"booth.export.frame" = "กรอบของบูธ";
+"booth.frame.off" = "ปิด";
+"booth.frame.corner" = "มุมจอ";
+"booth.frame.stacked" = "ซ้อนบนล่าง";
+"booth.frame.split" = "วางคู่กัน";
+"booth.export.stackedNote" = "แบบซ้อนจะเรนเดอร์เป็น 9:16 พอดีกับสตอรีหรือคลิปสั้น";
+"booth.export.noFootage" = "ฉากนี้ยังไม่มีฟุตเทจจากบูธ เปิดกล้องบูธแล้วพากย์สักบท";
+"booth.export.confirm" = "ส่งออกวิดีโอ";
+"booth.export.lineConfirm" = "ส่งออกบทนี้";
+"booth.export.notice" = "ก่อนเรนเดอร์ คุณจะเห็นว่าฉากนี้เป็นของใคร";
+"booth.export.runtime" = "ความยาว";
+"booth.export.shape" = "กรอบภาพ";
+"booth.shareLine" = "แชร์บทนี้";

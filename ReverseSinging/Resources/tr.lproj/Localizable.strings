@@ -1,0 +1,368 @@
+/*
+   Localizable.strings (Turkish)
+   ReverseSinging
+*/
+
+// MARK: - Onboarding
+"onboarding.welcome.title" = "Dubloon'a hoş geldin";
+"onboarding.welcome.message" = "İki oyun, tek mikrofon. Bir şarkıyı tersten söyle ya da sesini bir film sahnesinin içine sok. İkisinde de normal duyulmayacaksın.";
+"onboarding.howItWorks.title" = "Nasıl çalışıyor";
+"onboarding.howItWorks.message" = "Bir şarkı kaydet, tersine çevir ve o anlamsız sesin üstüne söyle. Sonra kendi çekimini ters çevir ve yaklaşmış mısın yoksa yeni bir dil mi icat etmişsin, öğren.";
+"onboarding.dub.title" = "Bir film sahnesini seslendir";
+"onboarding.dub.message" = "İkinci oyun: sahneyi başlat, üstüne abartarak oyna ve sonra kendini filmin içinde duy. İki sahne kutudan çıkıyor. Gerisi için kendi dosyalarını getiriyorsun.";
+"onboarding.uiPreference.title" = "Kumanda odanı seç";
+"onboarding.uiPreference.message" = "Kocaman dürüst düğmeler ya da düğmeli koca masa. Bu, Tersten Şarkı için geçerli ve Ayarlar'dan istediğin zaman fikrini değiştirebilirsin.";
+"onboarding.microphone.title" = "Son bir şey";
+"onboarding.microphone.message" = "İki oyunun da seni duyması gerek: tersten söylerken de, seslendirirken de. Mikrofon sadece kayıt sırasında uyanır, her şey bu cihazda kalır ve hiçbir şey hiçbir yere yüklenmez. En kötü çekimin ikinizin arasında kalır.";
+"onboarding.button.openSettings" = "Ayarlar'ı aç";
+"onboarding.button.letsRecord" = "hadi, kaydediyoruz!";
+"onboarding.button.continueLowercase" = "devam";
+"onboarding.button.microphoneContinue" = "Devam";
+"onboarding.button.continueWithout" = "onsuz devam et";
+
+// MARK: - Main View - Buttons
+"main.button.stopRecording" = "Kaydı durdur";
+"main.button.recordAudio" = "Ses kaydet";
+"main.button.recordAttempt" = "Şimdi sen söyle";
+"main.button.reRecord" = "Bir çekim daha";
+"main.button.newSession" = "Yeni oturum";
+
+// MARK: - Simple Skin (buttons and their subtitles)
+"main.button.playRecorded" = "Kaydı dinle";
+"main.button.playReverse" = "Tersten dinle";
+"main.subtitle.recordingOriginal" = "Bant dönüyor. Bu orijinali";
+"main.subtitle.recordingAttempt" = "Bant dönüyor. Bu senin çekimin";
+"main.subtitle.tapToRecord" = "Dokun ve bir şarkı patlat";
+"main.subtitle.recordAttempt" = "Sıra sende: ters sürümü söyle";
+"main.subtitle.reRecordAttempt" = "Bir daha, yaklaşıyorsun";
+"main.subtitle.playAttempt" = "Kendi çekimini dinle";
+"main.subtitle.playOriginal" = "Orijinali dinle";
+"main.subtitle.noRecording" = "Henüz hiçbir şey kaydedilmedi";
+"main.subtitle.playReversedAttempt" = "Senin çekimin, tersten";
+"main.subtitle.playReversedOriginal" = "Orijinal, tersten";
+"main.subtitle.noReversed" = "Henüz çevrilecek bir şey yok";
+"settings.version" = "Sürüm %@ (%@)";
+
+// MARK: - Main View - Alerts
+"main.alert.microphoneRequired.title" = "Mikrofon kapalı";
+"main.alert.microphoneRequired.message" = "Mikrofon izni olmadan Dubloon hiçbir şey duymuyor. Ayarlar'dan aç, kaldığımız yerden devam edelim.";
+"main.alert.settings" = "Ayarlar";
+"main.alert.cancel" = "Vazgeç";
+"main.alert.error.title" = "Bu olmadı";
+"main.alert.ok" = "Tamam";
+"main.alert.startNewSession.title" = "Baştan mı başlayalım?";
+"main.alert.startNewSession.message" = "Bu oturum güvenle arşive gider, sen de tertemiz bir bantla başlarsın.";
+"main.alert.startNewSession.button" = "Yeni oturum";
+
+// MARK: - Main View - Empty State
+"main.emptyState.title" = "Seni kimse duymuyor";
+"main.emptyState.message" = "Şu anda Dubloon, kaydedecek hiçbir şeyi olmayan bir kayıt uygulaması. Cihaz ayarlarından mikrofon iznini aç, iki oyun da yeniden canlansın.";
+"main.emptyState.button" = "Ayarlar'ı aç";
+
+// MARK: - Main View - Processing & Success
+"main.processing.reversingAudio" = "Tersine çeviriyoruz…";
+"main.success.sessionSaved" = "Arşivde, sapasağlam";
+
+// MARK: - Main View - Tips (Contextual Help)
+"main.tip.tapRecordToBegin" = "Ses kaydet'e dokun ve bandı çalıştır";
+"main.tip.recordSingingAttempt" = "Ters sürümü söyle. Hem de inanarak";
+"main.tip.recordSongToReverse" = "Katletmek istediğin şarkıyı kaydet";
+"main.tip.tapPlayToSwitch" = "Çalmak ya da durdurmak için herhangi bir düğmeye dokun";
+"main.tip.reRecordOrNewSession" = "Bir daha çek ya da yeni bir oturum başlat";
+"main.tip.listenAndRecord" = "Ters sürümü dinle, sonra onu söyle";
+"main.tip.processingAudio" = "Çeviriyoruz. Bir saniye";
+"main.tip.tapRecordAudio" = "Ses kaydet'e dokun ve bir şarkı bırak";
+
+// MARK: - Comparison View
+
+// MARK: - Comparison View - Score Messages
+
+// MARK: - Session List View
+"sessionList.title" = "Kayıtlı oturumlar";
+"sessionList.empty.title" = "Burada henüz bir şey yok";
+"sessionList.empty.message" = "Bir tersten şarkı oturumunu bitir ve kaydet. En büyük hitlerin burada yaşayacak.";
+
+// MARK: - Recording Type Labels
+"recordingType.original" = "Orijinal";
+"recordingType.reversed" = "Ters";
+"recordingType.attempt" = "Senin çekimin";
+"recordingType.reversedAttempt" = "Senin çekimin, tersten";
+"recordingType.imported" = "İçe aktarıldı";
+
+// MARK: - Timer Card
+"timerCard.deviceMicrophone" = "Cihaz mikrofonu (varsayılan)";
+"timerCard.mins" = "DK";
+"timerCard.secs" = "SN";
+"timerCard.playAudio" = "Sesi çal";
+"timerCard.audioControls" = "Ses kontrolleri";
+"timerCard.loop" = "Döngü";
+"timerCard.speed" = "Hız";
+"timerCard.pitch" = "Perde";
+"timerCard.semitones" = "yarım ton";
+
+// MARK: - Score Card
+"scoreCard.title" = "Puanın";
+"scoreCard.grade.perfectMatch" = "Kusursuz. Neredeyse şüpheli";
+"scoreCard.grade.excellent" = "Muhteşem";
+"scoreCard.grade.greatJob" = "Bu gerçekten iyiydi";
+"scoreCard.grade.veryGood" = "Çok temiz";
+"scoreCard.grade.goodEffort" = "Namuslu bir deneme";
+"scoreCard.grade.niceTry" = "Cesur. Fazlasıyla cesur";
+"scoreCard.grade.keepPracticing" = "Devam et, geliyor";
+"scoreCard.grade.tryAgain" = "Buna prova diyelim";
+
+// MARK: - Processing Indicator
+
+// MARK: - Recording Indicator
+"recording.indicator" = "KAYITTA";
+
+// MARK: - Success Celebration
+
+// MARK: - Audio Session Model
+"session.defaultName" = "Oturum";
+
+// MARK: - Error Messages
+"error.microphonePermissionRequired" = "Dubloon bunun için mikrofona ihtiyaç duyuyor. Ayarlar'dan aç.";
+"error.cannotStartRecording" = "Kayıt şu anda başlamıyor. Bir daha dene.";
+"error.noRecordingInProgress" = "Şu anda hiçbir şey kaydedilmiyor.";
+"error.failedToStopRecording" = "Kayıt temiz durmadı. O çekimi bir daha al.";
+"error.failedToProcessRecording" = "Bu çekim işlenemedi.";
+
+// MARK: - Settings
+"settings.title" = "Ayarlar";
+"settings.interface" = "Arayüz";
+"uiMode.simple.name" = "Basit";
+"uiMode.simple.description" = "Büyük düğmeler, takılacak hiçbir şey yok";
+"uiMode.complex.name" = "Gelişmiş";
+"uiMode.complex.description" = "Düğmeler, göstergeler ve dalga formları";
+"settings.preferences" = "Tercihler";
+"settings.about" = "Hakkında";
+
+// Theme descriptions
+
+// Haptic feedback
+"settings.hapticFeedback" = "Titreşim";
+"settings.hapticFeedback.desc" = "Her dokunuşta küçük bir dürtme";
+
+// About
+"settings.privacyPolicy" = "Gizlilik politikası";
+"settings.privacyPolicy.desc" = "Kısa, sıkıcı ve dürüst";
+"settings.builtInSwitzerland" = "İsviçre'de yapıldı";
+"settings.builtInSwitzerland.desc" = "Zürih'te elde üretildi";
+
+// MARK: - Dub Mode
+"dub.unknownAuthor" = "Yaratıcısı bilinmiyor";
+"dub.importPack" = "Paket içe aktar";
+"dub.importing" = "Sahne açılıyor…";
+"dub.delete" = "Sil";
+"dub.empty.title" = "Burada henüz sahne yok";
+"dub.empty.message" = "Dosyalar'dan bir paket klasörü ya da .zip getir; sahne senindir, dilediğince abart.";
+"dub.playOriginal" = "Orijinali izle";
+"dub.playMyDub" = "Kendi seslendirmemi izle";
+"dub.record" = "Seslendirmeye başla";
+"dub.continueRecording" = "Seslendirmeye devam et";
+"dub.export" = "Videoyu dışa aktar";
+"dub.lines" = "Replikler";
+"dub.attribution" = "Kaynak";
+"dub.listen" = "Dinle";
+"dub.stop" = "Dur";
+"dub.recordTake" = "Kaydet";
+"dub.next" = "Sonraki";
+"dub.previous" = "Önceki";
+"dub.recordingHint" = "Repliği inanarak söyle ve orijinalin temposunu tuttur.";
+"dub.listenHint" = "Bir kez dinle, sonra tonlamayı çal.";
+"dub.original" = "Orijinal";
+"dub.myDub" = "Benim seslendirmem";
+"dub.noTakesYet" = "Önce bir repliği seslendir, sonra konuşuruz.";
+"dub.exporting" = "Dışa aktarılıyor…";
+"dub.export.mixing" = "Ses miksleniyor…";
+"dub.export.rendering" = "Video işleniyor…";
+"dub.error.missingPackInfo" = "Bu klasör bir seslendirme paketi değil: içinde _pack_info.ini yok.";
+"dub.error.noLines" = "Bu pakette kullanılabilir tek bir replik bile yok.";
+"dub.error.missingAsset" = "Pakette ihtiyaç duyduğu bir dosya eksik: %@";
+"dub.error.notAFolder" = "Bir paket klasörü ya da .zip arşivi seç.";
+"dub.error.unreadableArchive" = "O arşiv açılmadı: %@";
+"dub.error.nothingRecorded" = "Dışa aktarmadan önce en az bir repliği seslendir.";
+"dub.error.exportFailed" = "Dışa aktarma başarısız oldu: %@";
+"dub.playTake" = "Kendi çekimini dinle";
+"dub.loadingScene" = "Sahne kuruluyor…";
+
+// MARK: - Editor Chrome
+"session.archiveTitle" = "Arşiv";
+"main.section.transport" = "Transport";
+"main.section.session" = "Oturum";
+"main.state.idle" = "BOŞTA";
+"main.state.recording" = "REC";
+"main.state.playing" = "PLAY";
+"main.state.processing" = "PROC";
+"main.state.error" = "HATA";
+"main.state.countingIn" = "GERİ SAYIM";
+"main.section.hint" = "Şimdi";
+"dub.packsSection" = "Paketler";
+"dub.slate.lines" = "Seslendirilen";
+"dub.slate.duration" = "Süre";
+"dub.slate.cast" = "Oyuncular";
+"settings.soundEffects" = "Ses efektleri";
+"settings.soundEffects.desc" = "Klaket, tıklamalar ve render çıngırağı";
+
+// Headphone monitoring
+"settings.headphoneMonitor" = "Kulaklıkta orijinal";
+"settings.headphoneMonitor.desc" = "Kaydederken yakalamaya çalıştığın repliği duy. Sadece kulaklıkla, çünkü hoparlörden çalarsa senin çekimine karışır.";
+"settings.headphoneMonitor.unavailable" = "Bağlı kulaklık yok";
+
+// MARK: - Game Modes
+"main.mode.section" = "Mod";
+"main.mode.reverse.title" = "Tersten şarkı";
+"main.mode.dub.title" = "Sahne seslendirme";
+"main.button.back" = "Geri";
+"main.mode.reverse.subtitle" = "Kaydet, ters çevir ve o anlamsız şeyi söyle";
+"main.mode.dub.subtitle" = "Sesini başkasının ağzına koy";
+"dub.speakerAccessibility" = "Söyleyen: %@";
+"dub.cast" = "Oyuncular";
+"dub.referenceTrack" = "Referans";
+"dub.yourTake" = "Senin çekimin";
+"dub.convertingVideo" = "Sahne videosu dönüştürülüyor…";
+"dub.importReading" = "Paket okunuyor…";
+
+// MARK: - Dub Content Gate
+"dubGate.close" = "Kapat";
+"dubGate.ask.title" = "Filmlerin sende var mı?";
+"dubGate.ask.message" = "İki örnek sahnenin ötesinde tek bir film bile ne veriyoruz ne de barındırıyoruz. Başka bir şeyi seslendirmek için film dosyasının bu cihazda hazır olması gerek.";
+"dubGate.ask.confirm" = "Evet, burada duruyorlar";
+"dubGate.ask.needDownload" = "Hayır, bulmam lazım";
+"dubGate.download.title" = "Nereden bulunur";
+"dubGate.download.message" = "İşte insanların bu tür dosyaları paylaştığı bir yer. Seslendirmek istediğini al ve hemen geri dön.";
+"dubGate.download.open" = "%@ sitesini aç";
+"dubGate.download.back" = "Geri";
+"dubGate.disclaimer.notAffiliated" = "%@ başkasının sitesi. Onunla hiçbir bağımız yok, tek bir dosya bile barındırmıyor ya da paylaşmıyoruz.";
+"dubGate.disclaimer.responsibility" = "İndirdiğin şeyi kullanma hakkın olduğundan emin ol ve yaşadığın yerin telif kurallarına uy.";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "Paylaşmadan önce";
+"dubShare.message" = "Bu video, başkasının sahnesinin üstüne senin sesin; yani sadece senin değil, onların da emeği var.";
+"dubShare.cutFrom" = "Şuradan kesildi: %@";
+"dubShare.keepCredit" = "Paylaşırsan bu künyeyi yanında taşı.";
+"dubShare.unknownSource" = "Bu sahneyi kendin getirdin, yani nereden geldiğini ve neler yapabileceğini biliyorsun.";
+"dubShare.responsibility" = "Nereye gideceği sana kalmış, o yüzden yaşadığın yerin telif kurallarına uy.";
+"dubShare.confirm" = "Videoyu dışa aktar";
+
+/* MARK: - Dub Scoring */
+"dub.installingStarterPacks" = "İlk sahnelerin hazırlanıyor…";
+"dub.options" = "Seslendirme seçenekleri";
+"dub.score.setting.title" = "Çekimlerimi puanla";
+"dub.score.setting.detail" = "Zamanlamanı, temponu ve oyunculuğunu yargılar. Nazikçe.";
+"dub.score.sceneTitle" = "Sahne puanı";
+"dub.score.notScoredYet" = "Bir repliği seslendir, yargılamalar başlasın.";
+"dub.score.slate" = "Puan";
+"dub.score.lineTitle" = "Senin çekimin";
+"dub.score.timing" = "Zamanlama";
+"dub.score.pacing" = "Tempo";
+"dub.score.delivery" = "Oyunculuk";
+"dub.score.best" = "En iyi replik";
+"dub.score.weakest" = "Bir daha denemeye değer";
+"dub.score.progress" = "%d / %d replik puanlandı";
+"dub.score.grade.perfect" = "Tam on ikiden";
+"dub.score.grade.great" = "Oturdu";
+"dub.score.grade.good" = "Sağlam çekim";
+"dub.score.grade.close" = "Kıl payı";
+"dub.score.grade.rough" = "Bir daha alalım";
+
+"dub.videoNeedsReimport" = "Bu sahnenin videosunu eski bir sürüm dönüştürmüş ve şimdi seslerin önünden gidiyor. Paketi yeniden içe aktarınca düzelir.";
+
+// MARK: - Pro / Paywall
+"pro.trial.daysLeft" = "%d gün kaldı";
+"pro.trial.oneDayLeft" = "Son gün";
+"pro.trial.over" = "Ücretsiz deneme süren bitti";
+"pro.section" = "Dubloon Pro";
+"pro.unlock.title" = "Dubloon'un kilidini aç";
+"pro.unlock.subtitle" = "Tek ödeme, iki oyun, temelli senin.";
+"pro.owned.title" = "Dubloon senin";
+"pro.owned.subtitle" = "Teşekkürler. Her sahne, her çekim, tavan yok.";
+"pro.manage.title" = "Satın almayı yönet";
+"pro.manage.subtitle" = "Makbuzlar, iadeler ve satın alma yardımı.";
+"pro.restore.title" = "Satın almayı geri yükle";
+"pro.restore.subtitle" = "Yeni telefon mu, yeniden kurulum mu? Geri getir.";
+"pro.testStore.warning" = "Hata ayıklama derlemesi: RevenueCat test mağazasına bağlı. Gerçek para el değiştirmiyor.";
+"pro.restored.title" = "Geri yüklendi";
+"pro.restored.message" = "Satın alman bu cihaza geri döndü.";
+"pro.nothingToRestore.title" = "Geri yüklenecek bir şey yok";
+"pro.nothingToRestore.message" = "Bu Apple hesabında satın alma bulunamadı. Dubloon'u başka bir hesapla aldıysan onunla giriş yap ve tekrar dene.";
+"pro.error.title" = "Bir şeyler ters gitti";
+"pro.error.generic" = "Mağaza cevap vermedi. Birazdan tekrar dene.";
+"pro.ok" = "Tamam";
+"pro.fallback.title" = "Dubloon'un kilidini aç";
+"pro.fallback.message" = "Ücretsiz deneme süren bitti. Tek bir ödeme iki oyunu da temelli açık tutuyor.";
+"pro.fallback.message.beforeExpiry" = "Tek bir ödeme iki oyunu da temelli açık tutuyor.";
+"pro.fallback.buy" = "%@ karşılığında aç";
+"pro.fallback.buyUnpriced" = "Kilidi aç";
+"pro.fallback.loading" = "Mağazaya soruyoruz…";
+"pro.fallback.unavailable" = "Mağaza şu anda cevap vermiyor. Bağlantını kontrol edip tekrar dene.";
+"pro.fallback.retry" = "Tekrar dene";
+"pro.fallback.benefit.one" = "Komşular dayandığı sürece tersten söyle";
+"pro.fallback.benefit.two" = "Her sahneyi seslendir, kendi sahnelerini de getir";
+"pro.fallback.benefit.three" = "Çekimlerini dışa aktar ve hasarı paylaş";
+"pro.fallback.oneTime" = "Tek ödeme. Abonelik değil.";
+
+// MARK: - Pro / Early adopters
+"pro.earlyAdopter.title" = "Kulübe hoş geldin";
+"pro.earlyAdopter.message" = "Dubloon artık para ediyor — ama senin için değil. Fiyat etiketi gelmeden önce buradaydın, o yüzden iki oyun da uygulama var olduğu sürece ücretsiz senin kalıyor. İlk günler için teşekkürler.";
+"pro.earlyAdopter.badge" = "Ömür boyu ücretsiz";
+"pro.earlyAdopter.confirm" = "Güzel";
+"pro.earlyAdopter.settings.title" = "Ömür boyu ücretsiz";
+"pro.earlyAdopter.settings.subtitle" = "Erken geldin. İki oyun da senin ve bize hiçbir borcun yok.";
+"pro.closePaywall" = "Kapat";
+
+// Early adopter slate rows
+"pro.earlyAdopter.row.access" = "Erişim";
+"pro.earlyAdopter.row.access.value" = "İki oyun";
+"pro.earlyAdopter.row.cost" = "Bedel";
+"pro.earlyAdopter.row.cost.value" = "Yok";
+"pro.earlyAdopter.row.expires" = "Bitiş";
+"pro.earlyAdopter.row.expires.value" = "Asla";
+
+/* MARK: - Booth Cam */
+"booth.slug" = "Kabin";
+"booth.monitorAccessibility" = "Ön kamera önizlemesi";
+"booth.turnOn" = "Booth Cam'i aç";
+"booth.turnOff" = "Booth Cam'i kapat";
+"booth.primer.title" = "Seslendirirken kendini çek";
+"booth.primer.message" = "Booth Cam sen oynarken ön kamerayı çalıştırır; böylece sahne, replik ve yüzün aynı ekranda olur. Sonrasında tepkini seslendirmeyle birlikte paylaşabilirsin.";
+"booth.primer.confirm" = "Booth Cam'i aç";
+"booth.primer.decline" = "Onsuz seslendir";
+"booth.primer.systemPrompt" = "Birazdan iOS kamera izni isteyecek.";
+"booth.fact.onDevice" = "Kabin çekimleri cihazında, ses çekimlerinin hemen yanında kalır.";
+"booth.fact.nothingLeaves" = "Sen dışa aktarana kadar hiçbir şey buradan çıkmaz ve her dışa aktarma önce sorar.";
+"booth.fact.reversible" = "İstediğin an kapat. Seslendirme onsuz da devam eder.";
+"booth.settings.section" = "Booth Cam";
+"booth.settings.title" = "Booth Cam";
+"booth.settings.desc" = "Seslendirirken yüzünü çeker, böylece tepkin çekimle birlikte yol alır.";
+"booth.settings.denied" = "Kamera erişimi kapalı. Ayarlar uygulamasından Dubloon için tekrar aç.";
+"booth.mirror.title" = "Önizlemeyi aynala";
+"booth.mirror.desc" = "Sen oynarken kabin ekranını çevirir. Kaydedilen dosya asla aynalanmaz.";
+"booth.footage" = "Kabin görüntüleri";
+"booth.footage.usage" = "%1$@ · %2$d paket";
+"booth.deleteAll" = "Tüm kabin çekimlerini sil";
+"booth.deleteAll.confirm" = "Sil";
+"booth.deleteAll.message" = "Bu, her kabin klibini süpürür. Ses çekimlerin ve seslendirmelerin yerinde kalır.";
+
+/* Booth Cam: the export sheet */
+"booth.export.title" = "Dışa aktar";
+"booth.export.subtitle" = "Önce kurguyu seç, sonra yüzünün nereye oturacağını.";
+"booth.export.lineSubtitle" = "Tek replik, yanında da senin tepkin.";
+"booth.export.cut" = "Kurgu";
+"booth.export.cut.fullScene" = "Sahnenin tamamı";
+"booth.export.cut.sessionReel" = "Oturum makarası";
+"booth.export.cut.detail" = "Bitmiş seslendirme, baştan sona. Makara ise seslendirdiğin her repliğin arka arkaya hali, aradaki sessizlikler kesilmiş.";
+"booth.export.frame" = "Kabin çerçevesi";
+"booth.frame.off" = "Kapalı";
+"booth.frame.corner" = "Köşede";
+"booth.frame.stacked" = "Üst üste";
+"booth.frame.split" = "Yan yana";
+"booth.export.stackedNote" = "Üst üste seçeneği 9:16 çıkar, hikâye ya da short ölçüsünde.";
+"booth.export.noFootage" = "Bu sahnede henüz kabin görüntüsü yok. Booth Cam'i aç ve bir repliği seslendir.";
+"booth.export.confirm" = "Videoyu dışa aktar";
+"booth.export.lineConfirm" = "Repliği dışa aktar";
+"booth.export.notice" = "İşlenmeden önce bu sahnenin kime ait olduğunu göreceksin.";
+"booth.export.runtime" = "Süre";
+"booth.export.shape" = "Çerçeve";
+"booth.shareLine" = "Bu repliği paylaş";

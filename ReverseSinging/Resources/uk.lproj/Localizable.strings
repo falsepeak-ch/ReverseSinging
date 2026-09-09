@@ -1,0 +1,368 @@
+/*
+   Localizable.strings (Ukrainian)
+   ReverseSinging
+*/
+
+// MARK: - Onboarding
+"onboarding.welcome.title" = "Вітаємо в Dubloon";
+"onboarding.welcome.message" = "Дві гри, один мікрофон. Заспівай пісню задом наперед або встав свій голос у сцену з фільму. Нормально не звучатиме ні те, ні інше.";
+"onboarding.howItWorks.title" = "Як це працює";
+"onboarding.howItWorks.message" = "Запиши пісню, переверни її і заспівай цю тарабарщину. Потім переверни свій дубль і дізнайся, чи ти влучив, чи щойно винайшов нову мову.";
+"onboarding.dub.title" = "Озвуч сцену з фільму";
+"onboarding.dub.message" = "Друга гра: увімкни сцену, переграй як слід, а потім почуй себе у фільмі. Дві сцени вже всередині. Далі приносиш власні файли.";
+"onboarding.uiPreference.title" = "Обери свою апаратну";
+"onboarding.uiPreference.message" = "Великі чесні кнопки або весь пульт із ручками. Це для Співу задом наперед, і передумати можна в Налаштуваннях будь-коли.";
+"onboarding.microphone.title" = "Ще одне";
+"onboarding.microphone.message" = "Обидві гри мають тебе чути: і спів задом наперед, і озвучення. Мікрофон прокидається лише під час запису, усе лишається на цьому пристрої й нікуди не надсилається. Твій найгірший дубль лишиться між вами двома.";
+"onboarding.button.openSettings" = "Відкрити Налаштування";
+"onboarding.button.letsRecord" = "давай, записуємо!";
+"onboarding.button.continueLowercase" = "далі";
+"onboarding.button.microphoneContinue" = "Далі";
+"onboarding.button.continueWithout" = "далі без нього";
+
+// MARK: - Main View - Buttons
+"main.button.stopRecording" = "Зупинити запис";
+"main.button.recordAudio" = "Записати звук";
+"main.button.recordAttempt" = "Заспівай це назад";
+"main.button.reRecord" = "Ще дубль";
+"main.button.newSession" = "Нова сесія";
+
+// MARK: - Simple Skin (buttons and their subtitles)
+"main.button.playRecorded" = "Послухати запис";
+"main.button.playReverse" = "Послухати навпаки";
+"main.subtitle.recordingOriginal" = "Плівка пішла. Це оригінал";
+"main.subtitle.recordingAttempt" = "Плівка пішла. Це твій дубль";
+"main.subtitle.tapToRecord" = "Торкнись і видай нам пісню";
+"main.subtitle.recordAttempt" = "Твій хід: заспівай перевернуту версію";
+"main.subtitle.reRecordAttempt" = "Ще раз, ти вже ближче";
+"main.subtitle.playAttempt" = "Послухай свій дубль";
+"main.subtitle.playOriginal" = "Послухай оригінал";
+"main.subtitle.noRecording" = "Поки нічого не записано";
+"main.subtitle.playReversedAttempt" = "Твій дубль навпаки";
+"main.subtitle.playReversedOriginal" = "Оригінал навпаки";
+"main.subtitle.noReversed" = "Поки нема чого перевертати";
+"settings.version" = "Версія %@ (%@)";
+
+// MARK: - Main View - Alerts
+"main.alert.microphoneRequired.title" = "Мікрофон вимкнено";
+"main.alert.microphoneRequired.message" = "Без доступу до мікрофона Dubloon не чує анічогісінько. Увімкни його в Налаштуваннях, і продовжимо.";
+"main.alert.settings" = "Налаштування";
+"main.alert.cancel" = "Скасувати";
+"main.alert.error.title" = "Не спрацювало";
+"main.alert.ok" = "OK";
+"main.alert.startNewSession.title" = "Почати спочатку?";
+"main.alert.startNewSession.message" = "Ця сесія спокійно поїде в архів, а ти почнеш із чистої плівки.";
+"main.alert.startNewSession.button" = "Нова сесія";
+
+// MARK: - Main View - Empty State
+"main.emptyState.title" = "Тебе ніхто не чує";
+"main.emptyState.message" = "Зараз Dubloon — застосунок для запису, якому нема чим записувати. Увімкни доступ до мікрофона в налаштуваннях пристрою, і обидві гри знову оживуть.";
+"main.emptyState.button" = "Відкрити Налаштування";
+
+// MARK: - Main View - Processing & Success
+"main.processing.reversingAudio" = "Перевертаємо…";
+"main.success.sessionSaved" = "В архіві, ціла й неушкоджена";
+
+// MARK: - Main View - Tips (Contextual Help)
+"main.tip.tapRecordToBegin" = "Торкнись Записати звук і запусти плівку";
+"main.tip.recordSingingAttempt" = "Заспівай перевернуту версію. І з повною віддачею";
+"main.tip.recordSongToReverse" = "Запиши пісню, яку хочеш зіпсувати";
+"main.tip.tapPlayToSwitch" = "Торкнись будь-якої кнопки, щоб увімкнути або зупинити";
+"main.tip.reRecordOrNewSession" = "Зроби ще дубль або почни нову сесію";
+"main.tip.listenAndRecord" = "Послухай перевернуту версію, а потім заспівай її";
+"main.tip.processingAudio" = "Перевертаємо. Секунду";
+"main.tip.tapRecordAudio" = "Торкнись Записати звук і видай пісню";
+
+// MARK: - Comparison View
+
+// MARK: - Comparison View - Score Messages
+
+// MARK: - Session List View
+"sessionList.title" = "Збережені сесії";
+"sessionList.empty.title" = "Тут поки порожньо";
+"sessionList.empty.message" = "Доведи сесію співу задом наперед до кінця і збережи її. Твої найбільші хіти житимуть тут.";
+
+// MARK: - Recording Type Labels
+"recordingType.original" = "Оригінал";
+"recordingType.reversed" = "Навпаки";
+"recordingType.attempt" = "Твій дубль";
+"recordingType.reversedAttempt" = "Твій дубль навпаки";
+"recordingType.imported" = "Імпортовано";
+
+// MARK: - Timer Card
+"timerCard.deviceMicrophone" = "Мікрофон пристрою (типовий)";
+"timerCard.mins" = "ХВ";
+"timerCard.secs" = "СЕК";
+"timerCard.playAudio" = "Відтворити";
+"timerCard.audioControls" = "Керування звуком";
+"timerCard.loop" = "Повтор";
+"timerCard.speed" = "Швидкість";
+"timerCard.pitch" = "Тон";
+"timerCard.semitones" = "півтони";
+
+// MARK: - Score Card
+"scoreCard.title" = "Твій результат";
+"scoreCard.grade.perfectMatch" = "Ідеально. Аж підозріло";
+"scoreCard.grade.excellent" = "Пречудово";
+"scoreCard.grade.greatJob" = "Оце було справді добре";
+"scoreCard.grade.veryGood" = "Дуже чисто";
+"scoreCard.grade.goodEffort" = "Гідна спроба";
+"scoreCard.grade.niceTry" = "Сміливо. Дуже сміливо";
+"scoreCard.grade.keepPracticing" = "Не кидай, воно вже близько";
+"scoreCard.grade.tryAgain" = "Домовмось, що це була репетиція";
+
+// MARK: - Processing Indicator
+
+// MARK: - Recording Indicator
+"recording.indicator" = "ЗАПИС";
+
+// MARK: - Success Celebration
+
+// MARK: - Audio Session Model
+"session.defaultName" = "Сесія";
+
+// MARK: - Error Messages
+"error.microphonePermissionRequired" = "Для цього Dubloon потребує мікрофона. Увімкни його в Налаштуваннях.";
+"error.cannotStartRecording" = "Запис зараз не заводиться. Спробуй ще раз.";
+"error.noRecordingInProgress" = "Зараз нічого не записується.";
+"error.failedToStopRecording" = "Запис зупинився не чисто. Зроби дубль ще раз.";
+"error.failedToProcessRecording" = "Цей дубль не вдалося обробити.";
+
+// MARK: - Settings
+"settings.title" = "Налаштування";
+"settings.interface" = "Інтерфейс";
+"uiMode.simple.name" = "Простий";
+"uiMode.simple.description" = "Великі кнопки й нема об що спіткнутися";
+"uiMode.complex.name" = "Складний";
+"uiMode.complex.description" = "Ручки, індикатори та форми хвилі";
+"settings.preferences" = "Параметри";
+"settings.about" = "Про застосунок";
+
+// Theme descriptions
+
+// Haptic feedback
+"settings.hapticFeedback" = "Тактильний відгук";
+"settings.hapticFeedback.desc" = "Легкий поштовх на кожен дотик";
+
+// About
+"settings.privacyPolicy" = "Політика конфіденційності";
+"settings.privacyPolicy.desc" = "Коротка, нудна й чесна";
+"settings.builtInSwitzerland" = "Зроблено у Швейцарії";
+"settings.builtInSwitzerland.desc" = "Зібрано вручну в Цюриху";
+
+// MARK: - Dub Mode
+"dub.unknownAuthor" = "Автор невідомий";
+"dub.importPack" = "Імпортувати пак";
+"dub.importing" = "Розпаковуємо сцену…";
+"dub.delete" = "Видалити";
+"dub.empty.title" = "Сцен поки немає";
+"dub.empty.message" = "Принеси теку пака або .zip із Файлів, і сцена твоя — переграй її як слід.";
+"dub.playOriginal" = "Дивитися оригінал";
+"dub.playMyDub" = "Дивитися моє озвучення";
+"dub.record" = "Почати озвучення";
+"dub.continueRecording" = "Продовжити озвучення";
+"dub.export" = "Експортувати відео";
+"dub.lines" = "Репліки";
+"dub.attribution" = "Джерело";
+"dub.listen" = "Послухати";
+"dub.stop" = "Стоп";
+"dub.recordTake" = "Запис";
+"dub.next" = "Далі";
+"dub.previous" = "Назад";
+"dub.recordingHint" = "Скажи репліку так, ніби ти в неї віриш, і тримай темп оригіналу.";
+"dub.listenHint" = "Послухай раз і вкради інтонацію.";
+"dub.original" = "Оригінал";
+"dub.myDub" = "Моє озвучення";
+"dub.noTakesYet" = "Спершу озвуч репліку, потім поговоримо.";
+"dub.exporting" = "Експортуємо…";
+"dub.export.mixing" = "Зводимо звук…";
+"dub.export.rendering" = "Рендеримо відео…";
+"dub.error.missingPackInfo" = "Ця тека — не пак для озвучення: усередині немає файлу _pack_info.ini.";
+"dub.error.noLines" = "У цьому паку немає жодної придатної репліки.";
+"dub.error.missingAsset" = "Паку бракує потрібного файлу: %@";
+"dub.error.notAFolder" = "Обери теку пака або архів .zip.";
+"dub.error.unreadableArchive" = "Цей архів не відкрився: %@";
+"dub.error.nothingRecorded" = "Озвуч хоча б одну репліку перед експортом.";
+"dub.error.exportFailed" = "Експорт не вдався: %@";
+"dub.playTake" = "Послухати свій дубль";
+"dub.loadingScene" = "Готуємо сцену…";
+
+// MARK: - Editor Chrome
+"session.archiveTitle" = "Архів";
+"main.section.transport" = "Транспорт";
+"main.section.session" = "Сесія";
+"main.state.idle" = "СПОКІЙ";
+"main.state.recording" = "REC";
+"main.state.playing" = "PLAY";
+"main.state.processing" = "PROC";
+"main.state.error" = "ПОМИЛКА";
+"main.state.countingIn" = "ВІДЛІК";
+"main.section.hint" = "Зараз";
+"dub.packsSection" = "Паки";
+"dub.slate.lines" = "Озвучено";
+"dub.slate.duration" = "Хронометраж";
+"dub.slate.cast" = "Актори";
+"settings.soundEffects" = "Звукові ефекти";
+"settings.soundEffects.desc" = "Ляпавка, клацання і дзвіночок рендера";
+
+// Headphone monitoring
+"settings.headphoneMonitor" = "Оригінал у навушниках";
+"settings.headphoneMonitor.desc" = "Слухай репліку, під яку підлаштовуєшся, просто під час запису. Тільки в навушниках: із динаміка вона залізе в твій же дубль.";
+"settings.headphoneMonitor.unavailable" = "Навушники не під'єднано";
+
+// MARK: - Game Modes
+"main.mode.section" = "Режим";
+"main.mode.reverse.title" = "Спів задом наперед";
+"main.mode.dub.title" = "Озвучення сцени";
+"main.button.back" = "Назад";
+"main.mode.reverse.subtitle" = "Запиши, переверни і заспівай тарабарщину";
+"main.mode.dub.subtitle" = "Вклади свій голос у чужі вуста";
+"dub.speakerAccessibility" = "Говорить %@";
+"dub.cast" = "Актори";
+"dub.referenceTrack" = "Зразок";
+"dub.yourTake" = "Твій дубль";
+"dub.convertingVideo" = "Конвертуємо відео сцени…";
+"dub.importReading" = "Читаємо пак…";
+
+// MARK: - Dub Content Gate
+"dubGate.close" = "Закрити";
+"dubGate.ask.title" = "Твої фільми вже під рукою?";
+"dubGate.ask.message" = "Окрім двох прикладів, ми не додаємо і не зберігаємо жодного фільму. Щоб озвучити щось інше, файл має вже лежати на цьому пристрої.";
+"dubGate.ask.confirm" = "Так, вони в мене є";
+"dubGate.ask.needDownload" = "Ні, мені треба їх знайти";
+"dubGate.download.title" = "Де їх узяти";
+"dubGate.download.message" = "Ось одне з місць, де люди діляться такими файлами. Візьми те, що хочеш озвучити, і мерщій повертайся.";
+"dubGate.download.open" = "Відкрити %@";
+"dubGate.download.back" = "Назад";
+"dubGate.disclaimer.notAffiliated" = "%@ — чужий сайт. Ми до нього не маємо стосунку і не зберігаємо й не роздаємо жодного файлу.";
+"dubGate.disclaimer.responsibility" = "Переконайся, що маєш право використовувати завантажене, і дотримуйся авторських правил там, де живеш.";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "Перш ніж ділитися";
+"dubShare.message" = "У цьому відео твій голос поверх чужої сцени, тож це і їхня робота теж, не лише твоя.";
+"dubShare.cutFrom" = "Вирізано з %@";
+"dubShare.keepCredit" = "Якщо публікуєш, лиши цей підпис поруч.";
+"dubShare.unknownSource" = "Цю сцену ти приніс сам, тож знаєш, звідки вона і що з нею можна робити.";
+"dubShare.responsibility" = "Куди воно поїде далі — вирішуєш ти, тож дотримуйся авторських правил там, де живеш.";
+"dubShare.confirm" = "Експортувати відео";
+
+/* MARK: - Dub Scoring */
+"dub.installingStarterPacks" = "Готуємо твої перші сцени…";
+"dub.options" = "Параметри озвучення";
+"dub.score.setting.title" = "Оцінювати мої дублі";
+"dub.score.setting.detail" = "Судить влучання, темп і подачу. М'яко.";
+"dub.score.sceneTitle" = "Оцінка сцени";
+"dub.score.notScoredYet" = "Озвуч репліку, і суд почнеться.";
+"dub.score.slate" = "Оцінка";
+"dub.score.lineTitle" = "Твій дубль";
+"dub.score.timing" = "Влучання";
+"dub.score.pacing" = "Темп";
+"dub.score.delivery" = "Подача";
+"dub.score.best" = "Найкраща репліка";
+"dub.score.weakest" = "Варто перезаписати";
+"dub.score.progress" = "Оцінено реплік: %d з %d";
+"dub.score.grade.perfect" = "Точно в ціль";
+"dub.score.grade.great" = "Сіло ідеально";
+"dub.score.grade.good" = "Міцний дубль";
+"dub.score.grade.close" = "Майже";
+"dub.score.grade.rough" = "Давай ще раз";
+
+"dub.videoNeedsReimport" = "Відео цієї сцени конвертувала стара версія, і тепер воно біжить попереду голосів. Імпортуй пак ще раз, і все стане на місце.";
+
+// MARK: - Pro / Paywall
+"pro.trial.daysLeft" = "Лишилося днів: %d";
+"pro.trial.oneDayLeft" = "Останній день";
+"pro.trial.over" = "Пробний період завершився";
+"pro.section" = "Dubloon Pro";
+"pro.unlock.title" = "Відкрити Dubloon";
+"pro.unlock.subtitle" = "Один платіж, обидві гри, твої назавжди.";
+"pro.owned.title" = "Dubloon твій";
+"pro.owned.subtitle" = "Дякуємо. Кожна сцена, кожен дубль, без стелі.";
+"pro.manage.title" = "Керування покупкою";
+"pro.manage.subtitle" = "Чеки, повернення і допомога з покупкою.";
+"pro.restore.title" = "Відновити покупку";
+"pro.restore.subtitle" = "Новий телефон чи перевстановлення? Поверни її.";
+"pro.testStore.warning" = "Debug-збірка: під'єднано до тестового магазину RevenueCat. Справжні гроші не рухаються.";
+"pro.restored.title" = "Відновлено";
+"pro.restored.message" = "Твоя покупка знову на цьому пристрої.";
+"pro.nothingToRestore.title" = "Нема чого відновлювати";
+"pro.nothingToRestore.message" = "На цьому обліковому записі Apple покупок не знайшлося. Якщо ти купував Dubloon з іншого, увійди під ним і спробуй ще раз.";
+"pro.error.title" = "Щось пішло не так";
+"pro.error.generic" = "Магазин не відповів. Спробуй за хвилину.";
+"pro.ok" = "OK";
+"pro.fallback.title" = "Відкрити Dubloon";
+"pro.fallback.message" = "Пробний період завершився. Один платіж лишає обидві гри відкритими назавжди.";
+"pro.fallback.message.beforeExpiry" = "Один платіж лишає обидві гри відкритими назавжди.";
+"pro.fallback.buy" = "Відкрити за %@";
+"pro.fallback.buyUnpriced" = "Відкрити";
+"pro.fallback.loading" = "Питаємо магазин…";
+"pro.fallback.unavailable" = "Магазин зараз не відповідає. Перевір з'єднання і спробуй ще раз.";
+"pro.fallback.retry" = "Ще раз";
+"pro.fallback.benefit.one" = "Співай задом наперед, доки сусіди терплять";
+"pro.fallback.benefit.two" = "Озвучуй будь-які сцени і приноси власні";
+"pro.fallback.benefit.three" = "Експортуй дублі й ділися наслідками";
+"pro.fallback.oneTime" = "Один платіж. Це не підписка.";
+
+// MARK: - Pro / Early adopters
+"pro.earlyAdopter.title" = "Вітаємо в клубі";
+"pro.earlyAdopter.message" = "Тепер Dubloon коштує грошей — але не для тебе. Ти був тут ще до цінника, тож обидві гри лишаються твоїми, безкоштовно, доки застосунок існує. Дякуємо за перші дні.";
+"pro.earlyAdopter.badge" = "Безкоштовно назавжди";
+"pro.earlyAdopter.confirm" = "Чудово";
+"pro.earlyAdopter.settings.title" = "Безкоштовно назавжди";
+"pro.earlyAdopter.settings.subtitle" = "Ти прийшов рано. Обидві гри твої, і ти нам нічого не винен.";
+"pro.closePaywall" = "Закрити";
+
+// Early adopter slate rows
+"pro.earlyAdopter.row.access" = "Доступ";
+"pro.earlyAdopter.row.access.value" = "Обидві гри";
+"pro.earlyAdopter.row.cost" = "Ціна";
+"pro.earlyAdopter.row.cost.value" = "Нуль";
+"pro.earlyAdopter.row.expires" = "Спливає";
+"pro.earlyAdopter.row.expires.value" = "Ніколи";
+
+/* MARK: - Booth Cam */
+"booth.slug" = "Кабіна";
+"booth.monitorAccessibility" = "Перегляд фронтальної камери";
+"booth.turnOn" = "Увімкнути Booth Cam";
+"booth.turnOff" = "Вимкнути Booth Cam";
+"booth.primer.title" = "Зніми себе під час озвучення";
+"booth.primer.message" = "Booth Cam тримає фронтальну камеру увімкненою, поки ти граєш, тож сцена, репліка і твоє обличчя вміщаються на одному екрані. Потім можна поділитися реакцією разом з озвученням.";
+"booth.primer.confirm" = "Увімкнути Booth Cam";
+"booth.primer.decline" = "Озвучувати без неї";
+"booth.primer.systemPrompt" = "Зараз iOS попросить доступ до камери.";
+"booth.fact.onDevice" = "Записи з кабіни лишаються на твоєму пристрої, поруч із голосовими дублями.";
+"booth.fact.nothingLeaves" = "Нічого нікуди не йде до експорту, і кожен експорт спершу запитає.";
+"booth.fact.reversible" = "Вимикай коли схочеш. Озвучення триватиме й без неї.";
+"booth.settings.section" = "Booth Cam";
+"booth.settings.title" = "Booth Cam";
+"booth.settings.desc" = "Знімає твоє обличчя під час озвучення, щоб реакція їхала разом із дублем.";
+"booth.settings.denied" = "Доступ до камери вимкнено. Увімкни його для Dubloon у застосунку Налаштування.";
+"booth.mirror.title" = "Дзеркалити перегляд";
+"booth.mirror.desc" = "Перевертає монітор кабіни, поки ти граєш. Сам файл ніколи не дзеркалиться.";
+"booth.footage" = "Матеріал із кабіни";
+"booth.footage.usage" = "%1$@ · паків: %2$d";
+"booth.deleteAll" = "Видалити всі записи з кабіни";
+"booth.deleteAll.confirm" = "Видалити";
+"booth.deleteAll.message" = "Це змете всі кліпи з кабіни. Голосові дублі й озвучення лишаться на місці.";
+
+/* Booth Cam: the export sheet */
+"booth.export.title" = "Експорт";
+"booth.export.subtitle" = "Обери монтаж, а потім місце для свого обличчя.";
+"booth.export.lineSubtitle" = "Одна репліка і твоя реакція поруч.";
+"booth.export.cut" = "Монтаж";
+"booth.export.cut.fullScene" = "Уся сцена";
+"booth.export.cut.sessionReel" = "Котушка сесії";
+"booth.export.cut.detail" = "Готове озвучення від початку до кінця. Котушка — усі озвучені репліки поспіль, без тиші між ними.";
+"booth.export.frame" = "Кадр кабіни";
+"booth.frame.off" = "Вимк.";
+"booth.frame.corner" = "У кутку";
+"booth.frame.stacked" = "Одне над одним";
+"booth.frame.split" = "Поруч";
+"booth.export.stackedNote" = "Вертикальний варіант рендериться в 9:16, якраз під сторіс чи шортс.";
+"booth.export.noFootage" = "У цій сцені ще немає матеріалу з кабіни. Увімкни Booth Cam і озвуч репліку.";
+"booth.export.confirm" = "Експортувати відео";
+"booth.export.lineConfirm" = "Експортувати репліку";
+"booth.export.notice" = "Перед рендером ти побачиш, чия це сцена.";
+"booth.export.runtime" = "Хронометраж";
+"booth.export.shape" = "Кадр";
+"booth.shareLine" = "Поділитися цією реплікою";

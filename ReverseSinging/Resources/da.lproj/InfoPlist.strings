@@ -1,0 +1,8 @@
+/*
+   InfoPlist.strings (Danish)
+   ReverseSinging
+*/
+
+"NSMicrophoneUsageDescription" = "Dubloon skal bruge adgang til mikrofonen for at optage din stemme, så du kan synge sange baglæns og lægge stemme på filmscener.";
+
+"NSCameraUsageDescription" = "Dubloon filmer dig med frontkameraet, mens du dubber, så du kan dele din reaktion sammen med din take. Kameraet er slået fra, indtil du slår det til.";

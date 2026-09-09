@@ -1,5 +1,16 @@
-Dubloon now comes with a seven-day free trial. After that, one purchase unlocks both games for good, with no subscription. If you were already playing before this update, both games stay free for you.
+A new name, a camera, and fourteen more languages.
 
-The app also has a new name and a new wordmark to go with it. Same two voice games, same scenes, nothing to relearn.
+BOOTH CAM
+• Film yourself with the front camera while you dub, and put the reaction in the export: in the corner, stacked above the scene for a story, or side by side
+• Export a single line on its own, with your face beside it
+• Export a session reel: every line you dubbed, back to back, with the silences cut out
+• The camera stays off until you turn it on, and booth clips never leave the phone unless you export one
 
-Plus the usual bug fixes and small improvements.
+SCORING
+• Takes are marked on timing, pacing and delivery, with a score for the scene and the line most worth another go. Switch it off in Settings if you would rather just perform
+
+ALSO
+• Dub packs that fail to import now tell you what is wrong with them instead of failing quietly
+• Dubloon now speaks 21 languages, including German, Dutch, Swedish, Danish, Norwegian, Finnish, Polish, Czech, Russian, Ukrainian, Greek, Turkish, Thai and Arabic
+• The app has a new name and a new wordmark to go with it. Same two games, nothing to relearn
+• Seven days free, then one payment unlocks both games for good, with no subscription. If you were already playing before this update, both games stay free for you

@@ -27,8 +27,11 @@ UPLOAD_SYMBOLS_BINARY = File.expand_path(
   __dir__
 )
 
-# Dubloon is free with no in-app purchases, so there is no pricing lane here ,
-# unlike the-feel-ios, which syncs a paid-upfront tier on every metadata push.
+# Dubloon is free to download with a single non-consumable unlock behind a seven-day
+# trial, so there is still no pricing lane here , unlike the-feel-ios, which syncs a
+# paid-upfront tier on every metadata push. The in-app purchase's own name and
+# description live in App Store Connect, not in fastlane/metadata, which is why the
+# deliver lanes below pass precheck_include_in_app_purchases: false.
 
 platform :ios do
   before_all do |lane|

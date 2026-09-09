@@ -1,0 +1,8 @@
+/*
+   InfoPlist.strings (Arabic)
+   ReverseSinging
+*/
+
+"NSMicrophoneUsageDescription" = "يحتاج Dubloon إلى الوصول إلى الميكروفون لتسجيل صوتك، حتى تتمكن من غناء الأغاني بالمقلوب ودبلجة المشاهد السينمائية.";
+
+"NSCameraUsageDescription" = "يستخدم Dubloon الكاميرا الأمامية لتصويرك أثناء الدبلجة، لتشارك ردة فعلك مع اللقطة. تبقى الكاميرا متوقفة حتى تشغّلها بنفسك.";

@@ -1,5 +1,16 @@
-Dubloon propose désormais un essai gratuit de sept jours. Ensuite, un seul achat débloque les deux jeux pour toujours, sans abonnement. Si vous jouiez déjà avant cette mise à jour, les deux jeux restent gratuits pour vous.
+Un nouveau nom, une caméra et quatorze langues de plus.
 
-L'app a aussi un nouveau nom et un nouveau logo. Les deux mêmes jeux vocaux, les mêmes scènes, rien à réapprendre.
+CAMÉRA DE CABINE
+• Filme-toi avec la caméra avant pendant que tu doubles, et mets la réaction dans l'export : dans un coin, empilée au-dessus de la scène pour une story, ou côte à côte
+• Exporte une seule réplique, avec ta tête à côté
+• Exporte la bobine de session : toutes les répliques doublées, bout à bout, sans les silences
+• La caméra reste éteinte tant que tu ne l'allumes pas, et les clips de cabine ne quittent le téléphone que si tu exportes
 
-Et les corrections de bugs et petites améliorations habituelles.
+NOTATION
+• Les prises sont notées sur la synchro, le rythme et le jeu, avec une note pour la scène et la réplique qui mérite le plus une autre prise. Ça se coupe dans les Réglages si tu préfères jouer sans juge
+
+AUSSI
+• Les packs qui refusent de s'importer disent enfin ce qui ne va pas, au lieu d'échouer en silence
+• Dubloon parle maintenant 21 langues, dont l'allemand, le néerlandais, le suédois, le danois, le norvégien, le finnois, le polonais, le tchèque, le russe, l'ukrainien, le grec, le turc, le thaï et l'arabe
+• L'app a un nouveau nom et un nouveau logotype pour aller avec. Les deux mêmes jeux, rien à réapprendre
+• Sept jours gratuits, puis un paiement unique qui débloque les deux jeux pour de bon, sans abonnement. Si tu jouais déjà avant cette mise à jour, les deux jeux restent gratuits pour toi

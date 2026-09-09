@@ -62,6 +62,13 @@ struct DubRecordView: View {
             scenePicture.configure(with: viewModel.pack)
             if let line = viewModel.currentLine { scenePicture.show(line) }
             AnalyticsManager.shared.trackScreenViewed(screenName: "DubRecord")
+            #if DEBUG
+            // The `boothCam` slot on the product page. The primer, not the monitor:
+            // a simulator has no front camera to preview.
+            if ScreenshotMode.isActive, ScreenshotMode.destination?.presentsBoothPrimer == true {
+                isBoothPrimerPresented = true
+            }
+            #endif
         }
         // Only ever live while this screen is on top, so the camera indicator is never lit
         // somewhere else in the app.

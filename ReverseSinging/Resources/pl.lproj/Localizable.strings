@@ -1,0 +1,368 @@
+/*
+   Localizable.strings (Polish)
+   ReverseSinging
+*/
+
+// MARK: - Onboarding
+"onboarding.welcome.title" = "Witaj w Dubloon";
+"onboarding.welcome.message" = "Dwie gry, jeden mikrofon. Zaśpiewaj piosenkę od tyłu albo wstaw swój głos w scenę z filmu. W żadnej z nich nie zabrzmisz normalnie.";
+"onboarding.howItWorks.title" = "Jak to działa";
+"onboarding.howItWorks.message" = "Nagraj piosenkę, odwróć ją i zaśpiewaj do tego bełkotu. Potem odwróć własne nagranie i sprawdź, czy było blisko, czy właśnie wymyśliłeś nowy język.";
+"onboarding.dub.title" = "Zdubbinguj scenę z filmu";
+"onboarding.dub.message" = "Druga gra: puść scenę, przeszarżuj na całego i usłysz siebie w filmie. Dwie sceny są w zestawie. Resztę przynosisz sam.";
+"onboarding.uiPreference.title" = "Wybierz swoją reżyserkę";
+"onboarding.uiPreference.message" = "Duże, uczciwe przyciski albo cała konsoleta z pokrętłami. Dotyczy Śpiewania od Tyłu, a zdanie możesz zmienić w Ustawieniach, kiedy chcesz.";
+"onboarding.microphone.title" = "Jeszcze jedno";
+"onboarding.microphone.message" = "Obie gry muszą cię słyszeć: przy śpiewaniu od tyłu i przy dubbingu. Mikrofon budzi się tylko na czas nagrania, wszystko zostaje na tym urządzeniu i nic nigdy nigdzie nie wędruje. Twoje najgorsze podejście zostanie między wami.";
+"onboarding.button.openSettings" = "Otwórz Ustawienia";
+"onboarding.button.letsRecord" = "no dobra, nagrywamy!";
+"onboarding.button.continueLowercase" = "dalej";
+"onboarding.button.microphoneContinue" = "Dalej";
+"onboarding.button.continueWithout" = "dalej bez mikrofonu";
+
+// MARK: - Main View - Buttons
+"main.button.stopRecording" = "Zatrzymaj nagrywanie";
+"main.button.recordAudio" = "Nagraj dźwięk";
+"main.button.recordAttempt" = "Zaśpiewaj to z powrotem";
+"main.button.reRecord" = "Jeszcze jedno podejście";
+"main.button.newSession" = "Nowa sesja";
+
+// MARK: - Simple Skin (buttons and their subtitles)
+"main.button.playRecorded" = "Odtwórz nagranie";
+"main.button.playReverse" = "Odtwórz od tyłu";
+"main.subtitle.recordingOriginal" = "Taśma leci. To jest oryginał";
+"main.subtitle.recordingAttempt" = "Taśma leci. To jest twoje podejście";
+"main.subtitle.tapToRecord" = "Stuknij i daj z siebie piosenkę";
+"main.subtitle.recordAttempt" = "Twoja kolej: zaśpiewaj wersję od tyłu";
+"main.subtitle.reRecordAttempt" = "Jeszcze raz, jesteś coraz bliżej";
+"main.subtitle.playAttempt" = "Posłuchaj swojego podejścia";
+"main.subtitle.playOriginal" = "Posłuchaj oryginału";
+"main.subtitle.noRecording" = "Jeszcze nic nie nagrano";
+"main.subtitle.playReversedAttempt" = "Twoje podejście, od tyłu";
+"main.subtitle.playReversedOriginal" = "Oryginał, od tyłu";
+"main.subtitle.noReversed" = "Nie ma jeszcze czego odwracać";
+"settings.version" = "Wersja %@ (%@)";
+
+// MARK: - Main View - Alerts
+"main.alert.microphoneRequired.title" = "Mikrofon jest wyłączony";
+"main.alert.microphoneRequired.message" = "Bez dostępu do mikrofonu Dubloon nie słyszy zupełnie nic. Włącz go w Ustawieniach i wracamy do pracy.";
+"main.alert.settings" = "Ustawienia";
+"main.alert.cancel" = "Anuluj";
+"main.alert.error.title" = "To się nie udało";
+"main.alert.ok" = "OK";
+"main.alert.startNewSession.title" = "Zaczynamy od nowa?";
+"main.alert.startNewSession.message" = "Ta sesja trafia bezpiecznie do archiwum, a ty zaczynasz z czystą taśmą.";
+"main.alert.startNewSession.button" = "Nowa sesja";
+
+// MARK: - Main View - Empty State
+"main.emptyState.title" = "Nikt cię nie słyszy";
+"main.emptyState.message" = "W tej chwili Dubloon jest aplikacją do nagrywania bez czegokolwiek do nagrywania. Włącz dostęp do mikrofonu w ustawieniach urządzenia, a obie gry wrócą do życia.";
+"main.emptyState.button" = "Otwórz Ustawienia";
+
+// MARK: - Main View - Processing & Success
+"main.processing.reversingAudio" = "Odwracamy to…";
+"main.success.sessionSaved" = "Bezpiecznie w archiwum";
+
+// MARK: - Main View - Tips (Contextual Help)
+"main.tip.tapRecordToBegin" = "Stuknij Nagraj dźwięk i puść taśmę";
+"main.tip.recordSingingAttempt" = "Zaśpiewaj wersję od tyłu. I to na serio";
+"main.tip.recordSongToReverse" = "Nagraj piosenkę, którą chcesz zmasakrować";
+"main.tip.tapPlayToSwitch" = "Stuknij dowolny przycisk, żeby odtworzyć albo zatrzymać";
+"main.tip.reRecordOrNewSession" = "Nagraj jeszcze raz albo zacznij nową sesję";
+"main.tip.listenAndRecord" = "Posłuchaj wersji od tyłu, a potem ją zaśpiewaj";
+"main.tip.processingAudio" = "Odwracamy. Chwileczkę";
+"main.tip.tapRecordAudio" = "Stuknij Nagraj dźwięk i połóż piosenkę";
+
+// MARK: - Comparison View
+
+// MARK: - Comparison View - Score Messages
+
+// MARK: - Session List View
+"sessionList.title" = "Zapisane sesje";
+"sessionList.empty.title" = "Jeszcze tu pusto";
+"sessionList.empty.message" = "Skończ sesję śpiewania od tyłu i zapisz ją. Twoje największe przeboje zamieszkają tutaj.";
+
+// MARK: - Recording Type Labels
+"recordingType.original" = "Oryginał";
+"recordingType.reversed" = "Odwrócone";
+"recordingType.attempt" = "Twoje podejście";
+"recordingType.reversedAttempt" = "Twoje podejście, odwrócone";
+"recordingType.imported" = "Zaimportowane";
+
+// MARK: - Timer Card
+"timerCard.deviceMicrophone" = "Mikrofon urządzenia (domyślny)";
+"timerCard.mins" = "MIN";
+"timerCard.secs" = "SEK";
+"timerCard.playAudio" = "Odtwórz dźwięk";
+"timerCard.audioControls" = "Sterowanie dźwiękiem";
+"timerCard.loop" = "Pętla";
+"timerCard.speed" = "Tempo";
+"timerCard.pitch" = "Wysokość";
+"timerCard.semitones" = "półtony";
+
+// MARK: - Score Card
+"scoreCard.title" = "Twój wynik";
+"scoreCard.grade.perfectMatch" = "Idealnie. Aż podejrzanie";
+"scoreCard.grade.excellent" = "Znakomicie";
+"scoreCard.grade.greatJob" = "To było naprawdę dobre";
+"scoreCard.grade.veryGood" = "Czyściutko";
+"scoreCard.grade.goodEffort" = "Porządna próba";
+"scoreCard.grade.niceTry" = "Odważnie. Bardzo odważnie";
+"scoreCard.grade.keepPracticing" = "Ćwicz dalej, idzie ku dobremu";
+"scoreCard.grade.tryAgain" = "Powiedzmy, że to była próba";
+
+// MARK: - Processing Indicator
+
+// MARK: - Recording Indicator
+"recording.indicator" = "NAGRYWANIE";
+
+// MARK: - Success Celebration
+
+// MARK: - Audio Session Model
+"session.defaultName" = "Sesja";
+
+// MARK: - Error Messages
+"error.microphonePermissionRequired" = "Dubloon potrzebuje do tego mikrofonu. Włącz go w Ustawieniach.";
+"error.cannotStartRecording" = "Nagrywanie nie chce teraz ruszyć. Spróbuj jeszcze raz.";
+"error.noRecordingInProgress" = "W tej chwili nic się nie nagrywa.";
+"error.failedToStopRecording" = "Nagrywanie nie zatrzymało się czysto. Powtórz to podejście.";
+"error.failedToProcessRecording" = "Nie udało się przetworzyć tego nagrania.";
+
+// MARK: - Settings
+"settings.title" = "Ustawienia";
+"settings.interface" = "Interfejs";
+"uiMode.simple.name" = "Prosty";
+"uiMode.simple.description" = "Duże przyciski, nie ma o co się potknąć";
+"uiMode.complex.name" = "Rozbudowany";
+"uiMode.complex.description" = "Pokrętła, wskaźniki i przebiegi fal";
+"settings.preferences" = "Preferencje";
+"settings.about" = "Informacje";
+
+// Theme descriptions
+
+// Haptic feedback
+"settings.hapticFeedback" = "Wibracje";
+"settings.hapticFeedback.desc" = "Małe szturchnięcie przy każdym stuknięciu";
+
+// About
+"settings.privacyPolicy" = "Polityka prywatności";
+"settings.privacyPolicy.desc" = "Krótka, nudna i szczera";
+"settings.builtInSwitzerland" = "Zrobione w Szwajcarii";
+"settings.builtInSwitzerland.desc" = "Ręcznie składane w Zurychu";
+
+// MARK: - Dub Mode
+"dub.unknownAuthor" = "Autor nieznany";
+"dub.importPack" = "Zaimportuj paczkę";
+"dub.importing" = "Rozpakowujemy scenę…";
+"dub.delete" = "Usuń";
+"dub.empty.title" = "Nie ma tu jeszcze żadnych scen";
+"dub.empty.message" = "Przynieś folder paczki albo .zip z Plików, a scena jest twoja do przeszarżowania.";
+"dub.playOriginal" = "Obejrzyj oryginał";
+"dub.playMyDub" = "Obejrzyj mój dubbing";
+"dub.record" = "Zacznij dubbing";
+"dub.continueRecording" = "Dubbinguj dalej";
+"dub.export" = "Wyeksportuj wideo";
+"dub.lines" = "Kwestie";
+"dub.attribution" = "Źródło";
+"dub.listen" = "Posłuchaj";
+"dub.stop" = "Zatrzymaj";
+"dub.recordTake" = "Nagraj";
+"dub.next" = "Dalej";
+"dub.previous" = "Wstecz";
+"dub.recordingHint" = "Powiedz kwestię tak, jakbyś w nią wierzył, i trzymaj tempo oryginału.";
+"dub.listenHint" = "Posłuchaj raz, a potem ukradnij intonację.";
+"dub.original" = "Oryginał";
+"dub.myDub" = "Mój dubbing";
+"dub.noTakesYet" = "Najpierw zdubbinguj jedną kwestię, potem pogadamy.";
+"dub.exporting" = "Eksportowanie…";
+"dub.export.mixing" = "Miksujemy dźwięk…";
+"dub.export.rendering" = "Renderujemy wideo…";
+"dub.error.missingPackInfo" = "Ten folder to nie paczka dubbingowa: nie ma w nim pliku _pack_info.ini.";
+"dub.error.noLines" = "W tej paczce nie ma ani jednej użytecznej kwestii.";
+"dub.error.missingAsset" = "Paczce brakuje pliku, którego potrzebuje: %@";
+"dub.error.notAFolder" = "Wybierz folder paczki albo archiwum .zip.";
+"dub.error.unreadableArchive" = "To archiwum nie dało się otworzyć: %@";
+"dub.error.nothingRecorded" = "Zdubbinguj chociaż jedną kwestię przed eksportem.";
+"dub.error.exportFailed" = "Eksport się nie udał: %@";
+"dub.playTake" = "Odtwórz swoje podejście";
+"dub.loadingScene" = "Ustawiamy scenę…";
+
+// MARK: - Editor Chrome
+"session.archiveTitle" = "Archiwum";
+"main.section.transport" = "Transport";
+"main.section.session" = "Sesja";
+"main.state.idle" = "GOTOWY";
+"main.state.recording" = "REC";
+"main.state.playing" = "PLAY";
+"main.state.processing" = "PROC";
+"main.state.error" = "BŁĄD";
+"main.state.countingIn" = "ODLICZANIE";
+"main.section.hint" = "Teraz";
+"dub.packsSection" = "Paczki";
+"dub.slate.lines" = "Zdubbingowane";
+"dub.slate.duration" = "Czas";
+"dub.slate.cast" = "Obsada";
+"settings.soundEffects" = "Efekty dźwiękowe";
+"settings.soundEffects.desc" = "Klaps, kliknięcia i dzwonek renderu";
+
+// Headphone monitoring
+"settings.headphoneMonitor" = "Oryginał w słuchawkach";
+"settings.headphoneMonitor.desc" = "Słysz kwestię, którą naśladujesz, w trakcie nagrywania. Tylko na słuchawkach, bo z głośnika wlazłaby ci w nagranie.";
+"settings.headphoneMonitor.unavailable" = "Nie podłączono słuchawek";
+
+// MARK: - Game Modes
+"main.mode.section" = "Tryb";
+"main.mode.reverse.title" = "Śpiewanie od tyłu";
+"main.mode.dub.title" = "Dubbing sceny";
+"main.button.back" = "Wstecz";
+"main.mode.reverse.subtitle" = "Nagraj, odwróć i zaśpiewaj bełkot";
+"main.mode.dub.subtitle" = "Włóż swój głos w cudze usta";
+"dub.speakerAccessibility" = "Mówi %@";
+"dub.cast" = "Obsada";
+"dub.referenceTrack" = "Wzorzec";
+"dub.yourTake" = "Twoje podejście";
+"dub.convertingVideo" = "Konwertujemy wideo sceny…";
+"dub.importReading" = "Czytamy paczkę…";
+
+// MARK: - Dub Content Gate
+"dubGate.close" = "Zamknij";
+"dubGate.ask.title" = "Masz już swoje filmy?";
+"dubGate.ask.message" = "Poza dwiema przykładowymi scenami nie dołączamy ani nie hostujemy żadnych filmów. Żeby zdubbingować cokolwiek innego, plik musi już być na tym urządzeniu.";
+"dubGate.ask.confirm" = "Tak, mam je tutaj";
+"dubGate.ask.needDownload" = "Nie, muszę je zdobyć";
+"dubGate.download.title" = "Gdzie ich szukać";
+"dubGate.download.message" = "Oto jedno z miejsc, w których ludzie dzielą się takimi plikami. Weź to, co chcesz zdubbingować, i wracaj.";
+"dubGate.download.open" = "Otwórz %@";
+"dubGate.download.back" = "Wstecz";
+"dubGate.disclaimer.notAffiliated" = "%@ to cudza strona. Nie mamy z nią nic wspólnego i nie hostujemy ani nie udostępniamy żadnego pliku.";
+"dubGate.disclaimer.responsibility" = "Upewnij się, że masz prawo korzystać z tego, co pobierasz, i trzymaj się przepisów o prawie autorskim tam, gdzie mieszkasz.";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "Zanim to udostępnisz";
+"dubShare.message" = "To wideo to twój głos na czyjejś scenie, więc to również ich praca, nie tylko twoja.";
+"dubShare.cutFrom" = "Wycięte z %@";
+"dubShare.keepCredit" = "Jeśli to wrzucisz, zostaw tę informację przy filmie.";
+"dubShare.unknownSource" = "Tę scenę przyniosłeś sam, więc wiesz, skąd pochodzi i co wolno z nią zrobić.";
+"dubShare.responsibility" = "Gdzie to trafi, zależy od ciebie, więc trzymaj się przepisów o prawie autorskim tam, gdzie mieszkasz.";
+"dubShare.confirm" = "Wyeksportuj wideo";
+
+/* MARK: - Dub Scoring */
+"dub.installingStarterPacks" = "Przygotowujemy twoje pierwsze sceny…";
+"dub.options" = "Opcje dubbingu";
+"dub.score.setting.title" = "Oceniaj moje podejścia";
+"dub.score.setting.detail" = "Ocenia twoje wyczucie czasu, tempo i grę. Łagodnie.";
+"dub.score.sceneTitle" = "Ocena sceny";
+"dub.score.notScoredYet" = "Zdubbinguj kwestię, a ocenianie może się zacząć.";
+"dub.score.slate" = "Ocena";
+"dub.score.lineTitle" = "Twoje podejście";
+"dub.score.timing" = "Synchronizacja";
+"dub.score.pacing" = "Tempo";
+"dub.score.delivery" = "Gra";
+"dub.score.best" = "Najlepsza kwestia";
+"dub.score.weakest" = "Warta powtórki";
+"dub.score.progress" = "Oceniono %d z %d kwestii";
+"dub.score.grade.perfect" = "W dziesiątkę";
+"dub.score.grade.great" = "Weszło idealnie";
+"dub.score.grade.good" = "Solidne podejście";
+"dub.score.grade.close" = "O włos";
+"dub.score.grade.rough" = "Powtórka z rozrywki";
+
+"dub.videoNeedsReimport" = "Wideo tej sceny przekonwertowała starsza wersja i teraz biegnie przed głosami. Zaimportuj paczkę jeszcze raz, żeby to naprawić.";
+
+// MARK: - Pro / Paywall
+"pro.trial.daysLeft" = "Zostało %d dni";
+"pro.trial.oneDayLeft" = "Ostatni dzień";
+"pro.trial.over" = "Twój darmowy okres się skończył";
+"pro.section" = "Dubloon Pro";
+"pro.unlock.title" = "Odblokuj Dubloon";
+"pro.unlock.subtitle" = "Jedna płatność, obie gry, twoje na zawsze.";
+"pro.owned.title" = "Dubloon jest twój";
+"pro.owned.subtitle" = "Dzięki. Każda scena, każde podejście, bez limitów.";
+"pro.manage.title" = "Zarządzaj zakupem";
+"pro.manage.subtitle" = "Paragony, zwroty i pomoc przy zakupie.";
+"pro.restore.title" = "Przywróć zakup";
+"pro.restore.subtitle" = "Nowy telefon albo reinstalacja? Odzyskaj go.";
+"pro.testStore.warning" = "Kompilacja debugowa: podłączona do testowego sklepu RevenueCat. Prawdziwe pieniądze nie krążą.";
+"pro.restored.title" = "Przywrócono";
+"pro.restored.message" = "Twój zakup wrócił na to urządzenie.";
+"pro.nothingToRestore.title" = "Nie ma czego przywracać";
+"pro.nothingToRestore.message" = "Na tym koncie Apple nie znaleziono zakupu. Jeśli kupiłeś Dubloon na innym, zaloguj się na nie i spróbuj ponownie.";
+"pro.error.title" = "Coś poszło nie tak";
+"pro.error.generic" = "Sklep nie odpowiedział. Spróbuj za chwilę.";
+"pro.ok" = "OK";
+"pro.fallback.title" = "Odblokuj Dubloon";
+"pro.fallback.message" = "Twój darmowy okres się skończył. Jedna płatność zostawia obie gry otwarte na zawsze.";
+"pro.fallback.message.beforeExpiry" = "Jedna płatność zostawia obie gry otwarte na zawsze.";
+"pro.fallback.buy" = "Odblokuj za %@";
+"pro.fallback.buyUnpriced" = "Odblokuj";
+"pro.fallback.loading" = "Pytamy sklep…";
+"pro.fallback.unavailable" = "Sklep w tej chwili nie odpowiada. Sprawdź połączenie i spróbuj ponownie.";
+"pro.fallback.retry" = "Spróbuj ponownie";
+"pro.fallback.benefit.one" = "Śpiewaj od tyłu, dopóki sąsiedzi wytrzymają";
+"pro.fallback.benefit.two" = "Dubbinguj każdą scenę i przynoś własne";
+"pro.fallback.benefit.three" = "Eksportuj podejścia i dziel się szkodami";
+"pro.fallback.oneTime" = "Jedna płatność. To nie subskrypcja.";
+
+// MARK: - Pro / Early adopters
+"pro.earlyAdopter.title" = "Witaj w klubie";
+"pro.earlyAdopter.message" = "Dubloon kosztuje teraz pieniądze — tylko nie u ciebie. Byłeś tu, zanim pojawiła się cena, więc obie gry zostają twoje, za darmo, tak długo jak aplikacja istnieje. Dziękujemy za te pierwsze dni.";
+"pro.earlyAdopter.badge" = "Za darmo na zawsze";
+"pro.earlyAdopter.confirm" = "Super";
+"pro.earlyAdopter.settings.title" = "Za darmo na zawsze";
+"pro.earlyAdopter.settings.subtitle" = "Byłeś tu wcześnie. Obie gry są twoje i nic nam nie jesteś winien.";
+"pro.closePaywall" = "Zamknij";
+
+// Early adopter slate rows
+"pro.earlyAdopter.row.access" = "Dostęp";
+"pro.earlyAdopter.row.access.value" = "Obie gry";
+"pro.earlyAdopter.row.cost" = "Koszt";
+"pro.earlyAdopter.row.cost.value" = "Zero";
+"pro.earlyAdopter.row.expires" = "Wygasa";
+"pro.earlyAdopter.row.expires.value" = "Nigdy";
+
+/* MARK: - Booth Cam */
+"booth.slug" = "Kabina";
+"booth.monitorAccessibility" = "Podgląd przedniego aparatu";
+"booth.turnOn" = "Włącz Booth Cam";
+"booth.turnOff" = "Wyłącz Booth Cam";
+"booth.primer.title" = "Nagraj siebie przy dubbingu";
+"booth.primer.message" = "Booth Cam trzyma włączony przedni aparat, kiedy grasz, więc scena, kwestia i twoja twarz mieszczą się na jednym ekranie. Później możesz udostępnić reakcję razem z dubbingiem.";
+"booth.primer.confirm" = "Włącz Booth Cam";
+"booth.primer.decline" = "Dubbinguj bez tego";
+"booth.primer.systemPrompt" = "Za chwilę iOS poprosi o dostęp do aparatu.";
+"booth.fact.onDevice" = "Nagrania z kabiny zostają na twoim urządzeniu, obok nagrań głosu.";
+"booth.fact.nothingLeaves" = "Nic nigdzie nie wychodzi do momentu eksportu, a każdy eksport najpierw pyta.";
+"booth.fact.reversible" = "Wyłącz, kiedy chcesz. Dubbing leci dalej bez tego.";
+"booth.settings.section" = "Booth Cam";
+"booth.settings.title" = "Booth Cam";
+"booth.settings.desc" = "Nagrywa twoją twarz podczas dubbingu, żeby reakcja podróżowała razem z podejściem.";
+"booth.settings.denied" = "Dostęp do aparatu jest wyłączony. Włącz go dla Dubloon w aplikacji Ustawienia.";
+"booth.mirror.title" = "Pokaż mnie lustrzanie";
+"booth.mirror.desc" = "Odbija podgląd, kiedy grasz. Zapisany plik nigdy nie jest odbijany.";
+"booth.footage" = "Materiał z kabiny";
+"booth.footage.usage" = "%1$@ · paczki: %2$d";
+"booth.deleteAll" = "Usuń wszystkie nagrania z kabiny";
+"booth.deleteAll.confirm" = "Usuń";
+"booth.deleteAll.message" = "To zmiata każdy klip z kabiny. Twoje nagrania głosu i dubbingi zostają.";
+
+/* Booth Cam: the export sheet */
+"booth.export.title" = "Eksport";
+"booth.export.subtitle" = "Wybierz montaż, a potem miejsce dla swojej twarzy.";
+"booth.export.lineSubtitle" = "Jedna kwestia, z twoją reakcją obok.";
+"booth.export.cut" = "Montaż";
+"booth.export.cut.fullScene" = "Cała scena";
+"booth.export.cut.sessionReel" = "Rolka z sesji";
+"booth.export.cut.detail" = "Gotowy dubbing od początku do końca. Rolka to każda zdubbingowana kwestia, jedna po drugiej, bez ciszy pomiędzy.";
+"booth.export.frame" = "Kadr kabiny";
+"booth.frame.off" = "Wyłączony";
+"booth.frame.corner" = "W rogu";
+"booth.frame.stacked" = "Jeden nad drugim";
+"booth.frame.split" = "Obok siebie";
+"booth.export.stackedNote" = "Układ pionowy renderuje się w 9:16, w sam raz na relację albo shorta.";
+"booth.export.noFootage" = "W tej scenie nie ma jeszcze materiału z kabiny. Włącz Booth Cam i zdubbinguj kwestię.";
+"booth.export.confirm" = "Wyeksportuj wideo";
+"booth.export.lineConfirm" = "Wyeksportuj kwestię";
+"booth.export.notice" = "Przed renderowaniem zobaczysz, czyja to scena.";
+"booth.export.runtime" = "Czas";
+"booth.export.shape" = "Kadr";
+"booth.shareLine" = "Udostępnij tę kwestię";

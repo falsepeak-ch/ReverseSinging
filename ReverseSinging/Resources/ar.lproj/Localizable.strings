@@ -1,0 +1,368 @@
+/*
+   Localizable.strings (Arabic)
+   ReverseSinging
+*/
+
+// MARK: - Onboarding
+"onboarding.welcome.title" = "أهلاً بك في Dubloon";
+"onboarding.welcome.message" = "لعبتان وميكروفون واحد. غنِّ أغنية بالمقلوب أو ضع صوتك داخل مشهد سينمائي. في الحالتين لن تبدو طبيعياً.";
+"onboarding.howItWorks.title" = "كيف تسير الحكاية";
+"onboarding.howItWorks.message" = "سجّل أغنية، اقلبها، ثم غنِّ فوق ذلك الكلام غير المفهوم. اقلب تسجيلك بعدها واكتشف إن كنت قد اقتربت أم اخترعت لغة جديدة.";
+"onboarding.dub.title" = "دبلج مشهداً سينمائياً";
+"onboarding.dub.message" = "اللعبة الثانية: شغّل المشهد، مثّل فوقه بمبالغة، ثم اسمع نفسك داخل الفيلم. مشهدان يأتيان مع التطبيق. وبعدهما تُحضر ملفاتك بنفسك.";
+"onboarding.uiPreference.title" = "اختر غرفة التحكم";
+"onboarding.uiPreference.message" = "أزرار كبيرة وصريحة، أو لوحة كاملة بمفاتيح. هذا يخص الغناء بالمقلوب، ويمكنك تغيير رأيك في الإعدادات متى شئت.";
+"onboarding.microphone.title" = "أمر أخير";
+"onboarding.microphone.message" = "اللعبتان تحتاجان أن تسمعاك: في الغناء بالمقلوب وفي الدبلجة. الميكروفون يستيقظ أثناء التسجيل فقط، وكل شيء يبقى على هذا الجهاز ولا يُرفع أي شيء إلى أي مكان. أسوأ محاولاتك تبقى بينك وبين الجهاز.";
+"onboarding.button.openSettings" = "افتح الإعدادات";
+"onboarding.button.letsRecord" = "هيا، لنسجّل!";
+"onboarding.button.continueLowercase" = "متابعة";
+"onboarding.button.microphoneContinue" = "متابعة";
+"onboarding.button.continueWithout" = "المتابعة بدونه";
+
+// MARK: - Main View - Buttons
+"main.button.stopRecording" = "إيقاف التسجيل";
+"main.button.recordAudio" = "تسجيل صوت";
+"main.button.recordAttempt" = "غنِّها بالمقلوب";
+"main.button.reRecord" = "محاولة أخرى";
+"main.button.newSession" = "جلسة جديدة";
+
+// MARK: - Simple Skin (buttons and their subtitles)
+"main.button.playRecorded" = "استمع إلى التسجيل";
+"main.button.playReverse" = "استمع بالمقلوب";
+"main.subtitle.recordingOriginal" = "الشريط يدور. هذا هو الأصل";
+"main.subtitle.recordingAttempt" = "الشريط يدور. هذه محاولتك";
+"main.subtitle.tapToRecord" = "المس وأطلق لنا أغنية";
+"main.subtitle.recordAttempt" = "دورك: غنِّ النسخة المقلوبة";
+"main.subtitle.reRecordAttempt" = "مرة أخرى، أنت تقترب";
+"main.subtitle.playAttempt" = "استمع إلى محاولتك";
+"main.subtitle.playOriginal" = "استمع إلى الأصل";
+"main.subtitle.noRecording" = "لا يوجد تسجيل بعد";
+"main.subtitle.playReversedAttempt" = "محاولتك، بالمقلوب";
+"main.subtitle.playReversedOriginal" = "الأصل، بالمقلوب";
+"main.subtitle.noReversed" = "لا شيء لقلبه بعد";
+"settings.version" = "الإصدار %@ ‏(%@)";
+
+// MARK: - Main View - Alerts
+"main.alert.microphoneRequired.title" = "الميكروفون مغلق";
+"main.alert.microphoneRequired.message" = "بدون إذن الميكروفون لا يسمع Dubloon شيئاً على الإطلاق. شغّله من الإعدادات ونكمل.";
+"main.alert.settings" = "الإعدادات";
+"main.alert.cancel" = "إلغاء";
+"main.alert.error.title" = "لم ينجح ذلك";
+"main.alert.ok" = "حسناً";
+"main.alert.startNewSession.title" = "نبدأ من جديد؟";
+"main.alert.startNewSession.message" = "هذه الجلسة تذهب بأمان إلى الأرشيف، وتبدأ أنت بشريط نظيف.";
+"main.alert.startNewSession.button" = "جلسة جديدة";
+
+// MARK: - Main View - Empty State
+"main.emptyState.title" = "لا أحد يسمعك";
+"main.emptyState.message" = "Dubloon الآن تطبيق تسجيل بلا شيء يسجّل به. فعّل إذن الميكروفون من إعدادات الجهاز، فتعود اللعبتان إلى الحياة.";
+"main.emptyState.button" = "افتح الإعدادات";
+
+// MARK: - Main View - Processing & Success
+"main.processing.reversingAudio" = "نقلب الصوت…";
+"main.success.sessionSaved" = "في الأرشيف، سالمة";
+
+// MARK: - Main View - Tips (Contextual Help)
+"main.tip.tapRecordToBegin" = "المس تسجيل صوت وأدر الشريط";
+"main.tip.recordSingingAttempt" = "غنِّ النسخة المقلوبة. وبثقة تامة";
+"main.tip.recordSongToReverse" = "سجّل الأغنية التي تريد تدميرها";
+"main.tip.tapPlayToSwitch" = "المس أي زر للتشغيل أو الإيقاف";
+"main.tip.reRecordOrNewSession" = "أعد المحاولة أو ابدأ جلسة جديدة";
+"main.tip.listenAndRecord" = "استمع إلى النسخة المقلوبة ثم غنِّها";
+"main.tip.processingAudio" = "نقلبها. لحظة واحدة";
+"main.tip.tapRecordAudio" = "المس تسجيل صوت وضع لنا أغنية";
+
+// MARK: - Comparison View
+
+// MARK: - Comparison View - Score Messages
+
+// MARK: - Session List View
+"sessionList.title" = "الجلسات المحفوظة";
+"sessionList.empty.title" = "لا شيء هنا بعد";
+"sessionList.empty.message" = "أنهِ جلسة غناء بالمقلوب واحفظها. أعظم أغانيك ستسكن هنا.";
+
+// MARK: - Recording Type Labels
+"recordingType.original" = "الأصل";
+"recordingType.reversed" = "مقلوب";
+"recordingType.attempt" = "محاولتك";
+"recordingType.reversedAttempt" = "محاولتك، مقلوبة";
+"recordingType.imported" = "مستورد";
+
+// MARK: - Timer Card
+"timerCard.deviceMicrophone" = "ميكروفون الجهاز (الافتراضي)";
+"timerCard.mins" = "دقيقة";
+"timerCard.secs" = "ثانية";
+"timerCard.playAudio" = "تشغيل الصوت";
+"timerCard.audioControls" = "أدوات الصوت";
+"timerCard.loop" = "تكرار";
+"timerCard.speed" = "السرعة";
+"timerCard.pitch" = "طبقة الصوت";
+"timerCard.semitones" = "أنصاف نغمة";
+
+// MARK: - Score Card
+"scoreCard.title" = "نتيجتك";
+"scoreCard.grade.perfectMatch" = "مثالي. مريب تقريباً";
+"scoreCard.grade.excellent" = "ممتاز";
+"scoreCard.grade.greatJob" = "هذه كانت جيدة فعلاً";
+"scoreCard.grade.veryGood" = "نظيفة جداً";
+"scoreCard.grade.goodEffort" = "محاولة محترمة";
+"scoreCard.grade.niceTry" = "جريء. جريء جداً";
+"scoreCard.grade.keepPracticing" = "واصل، إنها تقترب";
+"scoreCard.grade.tryAgain" = "لنقل إن تلك كانت البروفة";
+
+// MARK: - Processing Indicator
+
+// MARK: - Recording Indicator
+"recording.indicator" = "جارٍ التسجيل";
+
+// MARK: - Success Celebration
+
+// MARK: - Audio Session Model
+"session.defaultName" = "جلسة";
+
+// MARK: - Error Messages
+"error.microphonePermissionRequired" = "يحتاج Dubloon إلى الميكروفون لهذا. فعّله من الإعدادات.";
+"error.cannotStartRecording" = "التسجيل لا يبدأ الآن. جرّب مرة أخرى.";
+"error.noRecordingInProgress" = "لا يوجد تسجيل جارٍ الآن.";
+"error.failedToStopRecording" = "لم يتوقف التسجيل بشكل نظيف. أعد تلك المحاولة.";
+"error.failedToProcessRecording" = "تعذّرت معالجة هذه المحاولة.";
+
+// MARK: - Settings
+"settings.title" = "الإعدادات";
+"settings.interface" = "الواجهة";
+"uiMode.simple.name" = "بسيطة";
+"uiMode.simple.description" = "أزرار كبيرة ولا شيء تتعثر به";
+"uiMode.complex.name" = "متقدمة";
+"uiMode.complex.description" = "مفاتيح ومؤشرات وموجات صوتية";
+"settings.preferences" = "التفضيلات";
+"settings.about" = "حول";
+
+// Theme descriptions
+
+// Haptic feedback
+"settings.hapticFeedback" = "الاهتزاز";
+"settings.hapticFeedback.desc" = "نكزة صغيرة مع كل لمسة";
+
+// About
+"settings.privacyPolicy" = "سياسة الخصوصية";
+"settings.privacyPolicy.desc" = "قصيرة ومملة وصادقة";
+"settings.builtInSwitzerland" = "صُنع في سويسرا";
+"settings.builtInSwitzerland.desc" = "بأيدٍ بشرية في زيوريخ";
+
+// MARK: - Dub Mode
+"dub.unknownAuthor" = "مؤلف غير معروف";
+"dub.importPack" = "استيراد حزمة دبلجة";
+"dub.importing" = "نفتح المشهد…";
+"dub.delete" = "حذف";
+"dub.empty.title" = "لا مشاهد هنا بعد";
+"dub.empty.message" = "أحضر مجلد حزمة أو ملف ‎.zip من تطبيق الملفات، ويصبح المشهد لك لتبالغ في تمثيله كما تشاء.";
+"dub.playOriginal" = "شاهد الأصل";
+"dub.playMyDub" = "شاهد دبلجتي";
+"dub.record" = "ابدأ الدبلجة";
+"dub.continueRecording" = "أكمل الدبلجة";
+"dub.export" = "تصدير الفيديو";
+"dub.lines" = "الجمل";
+"dub.attribution" = "المصدر";
+"dub.listen" = "استماع";
+"dub.stop" = "إيقاف";
+"dub.recordTake" = "تسجيل";
+"dub.next" = "التالي";
+"dub.previous" = "السابق";
+"dub.recordingHint" = "قل الجملة كأنك تعنيها، والزم إيقاع الأصل.";
+"dub.listenHint" = "استمع مرة واحدة ثم اسرق طريقة الأداء.";
+"dub.original" = "الأصل";
+"dub.myDub" = "دبلجتي";
+"dub.noTakesYet" = "دبلج جملة أولاً، ثم نتحدث.";
+"dub.exporting" = "جارٍ التصدير…";
+"dub.export.mixing" = "مزج الصوت…";
+"dub.export.rendering" = "معالجة الفيديو…";
+"dub.error.missingPackInfo" = "هذا المجلد ليس حزمة دبلجة: لا يوجد بداخله ملف ‎_pack_info.ini.";
+"dub.error.noLines" = "لا توجد في هذه الحزمة جملة واحدة صالحة.";
+"dub.error.missingAsset" = "تنقص الحزمة ملفاً تحتاجه: %@";
+"dub.error.notAFolder" = "اختر مجلد حزمة أو أرشيف ‎.zip.";
+"dub.error.unreadableArchive" = "هذا الأرشيف رفض أن يُفتح: %@";
+"dub.error.nothingRecorded" = "دبلج جملة واحدة على الأقل قبل التصدير.";
+"dub.error.exportFailed" = "فشل التصدير: %@";
+"dub.playTake" = "استمع إلى محاولتك";
+"dub.loadingScene" = "نجهّز المشهد…";
+
+// MARK: - Editor Chrome
+"session.archiveTitle" = "الأرشيف";
+"main.section.transport" = "التحكم";
+"main.section.session" = "الجلسة";
+"main.state.idle" = "خامل";
+"main.state.recording" = "REC";
+"main.state.playing" = "PLAY";
+"main.state.processing" = "PROC";
+"main.state.error" = "خطأ";
+"main.state.countingIn" = "عدّ تنازلي";
+"main.section.hint" = "الآن";
+"dub.packsSection" = "الحزم";
+"dub.slate.lines" = "مدبلجة";
+"dub.slate.duration" = "المدة";
+"dub.slate.cast" = "الشخصيات";
+"settings.soundEffects" = "المؤثرات الصوتية";
+"settings.soundEffects.desc" = "الكلاكيت والنقرات وجرس المعالجة";
+
+// Headphone monitoring
+"settings.headphoneMonitor" = "الأصل في السماعات";
+"settings.headphoneMonitor.desc" = "اسمع الجملة التي تجاريها أثناء التسجيل. عبر السماعات فقط، لأنها من مكبر الصوت ستتسلل إلى تسجيلك.";
+"settings.headphoneMonitor.unavailable" = "لا توجد سماعات موصولة";
+
+// MARK: - Game Modes
+"main.mode.section" = "الوضع";
+"main.mode.reverse.title" = "الغناء بالمقلوب";
+"main.mode.dub.title" = "دبلجة مشهد";
+"main.button.back" = "رجوع";
+"main.mode.reverse.subtitle" = "سجّل، اقلب، وغنِّ الكلام غير المفهوم";
+"main.mode.dub.subtitle" = "ضع صوتك في فم شخص آخر";
+"dub.speakerAccessibility" = "يقولها %@";
+"dub.cast" = "الشخصيات";
+"dub.referenceTrack" = "المرجع";
+"dub.yourTake" = "محاولتك";
+"dub.convertingVideo" = "تحويل فيديو المشهد…";
+"dub.importReading" = "قراءة الحزمة…";
+
+// MARK: - Dub Content Gate
+"dubGate.close" = "إغلاق";
+"dubGate.ask.title" = "هل أفلامك معك أصلاً؟";
+"dubGate.ask.message" = "بعيداً عن المشهدين التجريبيين، نحن لا نُرفق أي فيلم ولا نستضيف أياً منها. لدبلجة أي شيء آخر، يجب أن يكون ملف الفيلم موجوداً على هذا الجهاز مسبقاً.";
+"dubGate.ask.confirm" = "نعم، هي عندي";
+"dubGate.ask.needDownload" = "لا، عليّ أن أجدها";
+"dubGate.download.title" = "من أين تحصل عليها";
+"dubGate.download.message" = "هذا أحد الأماكن التي يتشارك فيها الناس مثل هذه الملفات. خذ ما تريد دبلجته وعد فوراً.";
+"dubGate.download.open" = "افتح %@";
+"dubGate.download.back" = "رجوع";
+"dubGate.disclaimer.notAffiliated" = "‏%@ موقع يخص أشخاصاً آخرين. لا علاقة لنا به ولا نستضيف ولا نشارك أي ملف.";
+"dubGate.disclaimer.responsibility" = "تأكد أن لك الحق في استخدام ما تنزّله، والتزم بقواعد حقوق النشر في بلدك.";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "قبل أن تشارك";
+"dubShare.message" = "هذا الفيديو صوتك فوق مشهد يخص غيرك، فهو عملهم بقدر ما هو عملك.";
+"dubShare.cutFrom" = "مقتطع من %@";
+"dubShare.keepCredit" = "إن نشرته، أبقِ هذا الاعتراف معه.";
+"dubShare.unknownSource" = "هذا المشهد أحضرته بنفسك، فأنت تعرف من أين جاء وما المسموح به.";
+"dubShare.responsibility" = "أين ينتهي به المطاف أمر يخصك، فالتزم بقواعد حقوق النشر في بلدك.";
+"dubShare.confirm" = "تصدير الفيديو";
+
+/* MARK: - Dub Scoring */
+"dub.installingStarterPacks" = "نجهّز مشاهدك الأولى…";
+"dub.options" = "خيارات الدبلجة";
+"dub.score.setting.title" = "قيّم محاولاتي";
+"dub.score.setting.detail" = "يحكم على توقيتك وإيقاعك وأدائك. برفق.";
+"dub.score.sceneTitle" = "تقييم المشهد";
+"dub.score.notScoredYet" = "دبلج جملة وليبدأ الحكم.";
+"dub.score.slate" = "التقييم";
+"dub.score.lineTitle" = "محاولتك";
+"dub.score.timing" = "التوقيت";
+"dub.score.pacing" = "الإيقاع";
+"dub.score.delivery" = "الأداء";
+"dub.score.best" = "أفضل جملة";
+"dub.score.weakest" = "تستحق محاولة أخرى";
+"dub.score.progress" = "تم تقييم %1$d من %2$d جملة";
+"dub.score.grade.perfect" = "في الصميم";
+"dub.score.grade.great" = "ضبطتها";
+"dub.score.grade.good" = "محاولة متينة";
+"dub.score.grade.close" = "على وشك";
+"dub.score.grade.rough" = "نعيدها مرة أخرى";
+
+"dub.videoNeedsReimport" = "فيديو هذا المشهد حوّلته نسخة قديمة، وهو الآن يسبق الأصوات. استورد الحزمة من جديد ليعود كل شيء إلى مكانه.";
+
+// MARK: - Pro / Paywall
+"pro.trial.daysLeft" = "بقيت %d أيام";
+"pro.trial.oneDayLeft" = "اليوم الأخير";
+"pro.trial.over" = "انتهت فترتك المجانية";
+"pro.section" = "Dubloon Pro";
+"pro.unlock.title" = "افتح Dubloon";
+"pro.unlock.subtitle" = "دفعة واحدة، اللعبتان معاً، ملكك للأبد.";
+"pro.owned.title" = "Dubloon ملكك";
+"pro.owned.subtitle" = "شكراً لك. كل مشهد، وكل محاولة، بلا سقف.";
+"pro.manage.title" = "إدارة الشراء";
+"pro.manage.subtitle" = "الإيصالات والاستردادات والمساعدة في عملية الشراء.";
+"pro.restore.title" = "استعادة الشراء";
+"pro.restore.subtitle" = "هاتف جديد أو إعادة تثبيت؟ استرجعه.";
+"pro.testStore.warning" = "نسخة تصحيح: متصلة بمتجر RevenueCat التجريبي. لا أموال حقيقية تتحرك.";
+"pro.restored.title" = "تمت الاستعادة";
+"pro.restored.message" = "عاد شراؤك إلى هذا الجهاز.";
+"pro.nothingToRestore.title" = "لا شيء لاستعادته";
+"pro.nothingToRestore.message" = "لم يُعثر على أي شراء في حساب Apple هذا. إن كنت اشتريت Dubloon بحساب آخر، سجّل الدخول به وحاول مجدداً.";
+"pro.error.title" = "حدث خطأ ما";
+"pro.error.generic" = "لم يردّ المتجر. حاول بعد قليل.";
+"pro.ok" = "حسناً";
+"pro.fallback.title" = "افتح Dubloon";
+"pro.fallback.message" = "انتهت فترتك المجانية. دفعة واحدة تُبقي اللعبتين مفتوحتين للأبد.";
+"pro.fallback.message.beforeExpiry" = "دفعة واحدة تُبقي اللعبتين مفتوحتين للأبد.";
+"pro.fallback.buy" = "افتحه مقابل %@";
+"pro.fallback.buyUnpriced" = "افتحه";
+"pro.fallback.loading" = "نسأل المتجر…";
+"pro.fallback.unavailable" = "المتجر لا يستجيب الآن. تحقق من اتصالك وحاول مجدداً.";
+"pro.fallback.retry" = "حاول مجدداً";
+"pro.fallback.benefit.one" = "غنِّ بالمقلوب ما دام الجيران يحتملون";
+"pro.fallback.benefit.two" = "دبلج كل مشهد، وأحضر مشاهدك أيضاً";
+"pro.fallback.benefit.three" = "صدّر محاولاتك وشارك الأضرار";
+"pro.fallback.oneTime" = "دفعة واحدة. ليس اشتراكاً.";
+
+// MARK: - Pro / Early adopters
+"pro.earlyAdopter.title" = "أهلاً بك في النادي";
+"pro.earlyAdopter.message" = "صار Dubloon بمقابل الآن — إلا بالنسبة لك. كنت هنا قبل أن يظهر السعر، لذا تبقى اللعبتان لك، مجاناً، ما دام التطبيق موجوداً. شكراً على الأيام الأولى.";
+"pro.earlyAdopter.badge" = "مجاني مدى الحياة";
+"pro.earlyAdopter.confirm" = "جميل";
+"pro.earlyAdopter.settings.title" = "مجاني مدى الحياة";
+"pro.earlyAdopter.settings.subtitle" = "كنت هنا مبكراً. اللعبتان لك، ولا تدين لنا بشيء.";
+"pro.closePaywall" = "إغلاق";
+
+// Early adopter slate rows
+"pro.earlyAdopter.row.access" = "الوصول";
+"pro.earlyAdopter.row.access.value" = "اللعبتان";
+"pro.earlyAdopter.row.cost" = "التكلفة";
+"pro.earlyAdopter.row.cost.value" = "لا شيء";
+"pro.earlyAdopter.row.expires" = "ينتهي";
+"pro.earlyAdopter.row.expires.value" = "أبداً";
+
+/* MARK: - Booth Cam */
+"booth.slug" = "الكابينة";
+"booth.monitorAccessibility" = "معاينة الكاميرا الأمامية";
+"booth.turnOn" = "تشغيل كاميرا الكابينة";
+"booth.turnOff" = "إيقاف كاميرا الكابينة";
+"booth.primer.title" = "صوّر نفسك وأنت تدبلج";
+"booth.primer.message" = "كاميرا الكابينة تعمل بالكاميرا الأمامية أثناء أدائك، فيجتمع المشهد والجملة ووجهك على شاشة واحدة. ويمكنك لاحقاً مشاركة ردة فعلك مع الدبلجة.";
+"booth.primer.confirm" = "شغّل كاميرا الكابينة";
+"booth.primer.decline" = "دبلج بدونها";
+"booth.primer.systemPrompt" = "سيطلب iOS بعد قليل إذن الوصول إلى الكاميرا.";
+"booth.fact.onDevice" = "لقطات الكابينة تبقى على جهازك، إلى جوار تسجيلاتك الصوتية.";
+"booth.fact.nothingLeaves" = "لا شيء يغادر قبل التصدير، وكل تصدير يسألك أولاً.";
+"booth.fact.reversible" = "أوقفها متى شئت. الدبلجة تمضي بدونها.";
+"booth.settings.section" = "كاميرا الكابينة";
+"booth.settings.title" = "كاميرا الكابينة";
+"booth.settings.desc" = "تصوّر وجهك أثناء الدبلجة، لتسافر ردة الفعل مع التسجيل.";
+"booth.settings.denied" = "الوصول إلى الكاميرا مغلق. فعّله لـ Dubloon من تطبيق الإعدادات.";
+"booth.mirror.title" = "اعرضني كالمرآة";
+"booth.mirror.desc" = "يقلب شاشة الكابينة أثناء الأداء. أما الملف المسجّل فلا يُقلب أبداً.";
+"booth.footage" = "لقطات الكابينة";
+"booth.footage.usage" = "%1$@ · %2$d حزم";
+"booth.deleteAll" = "حذف كل لقطات الكابينة";
+"booth.deleteAll.confirm" = "حذف";
+"booth.deleteAll.message" = "هذا يمسح كل مقاطع الكابينة. تسجيلاتك الصوتية ودبلجاتك تبقى كما هي.";
+
+/* Booth Cam: the export sheet */
+"booth.export.title" = "تصدير";
+"booth.export.subtitle" = "اختر المونتاج، ثم أين يجلس وجهك فيه.";
+"booth.export.lineSubtitle" = "جملة واحدة، وردة فعلك بجانبها.";
+"booth.export.cut" = "المونتاج";
+"booth.export.cut.fullScene" = "المشهد كاملاً";
+"booth.export.cut.sessionReel" = "بكرة الجلسة";
+"booth.export.cut.detail" = "الدبلجة المكتملة من أولها إلى آخرها. أما البكرة فهي كل جملة دبلجتها، واحدة تلو الأخرى، بلا صمت بينها.";
+"booth.export.frame" = "إطار الكابينة";
+"booth.frame.off" = "بدون";
+"booth.frame.corner" = "في الزاوية";
+"booth.frame.stacked" = "فوق بعضهما";
+"booth.frame.split" = "جنباً إلى جنب";
+"booth.export.stackedNote" = "الوضع الطولي يخرج بنسبة 9:16، على مقاس ستوري أو مقطع قصير.";
+"booth.export.noFootage" = "لا توجد لقطات كابينة في هذا المشهد بعد. شغّل كاميرا الكابينة ودبلج جملة.";
+"booth.export.confirm" = "تصدير الفيديو";
+"booth.export.lineConfirm" = "تصدير الجملة";
+"booth.export.notice" = "سترى لمن يعود هذا المشهد قبل المعالجة.";
+"booth.export.runtime" = "المدة";
+"booth.export.shape" = "الإطار";
+"booth.shareLine" = "شارك هذه الجملة";

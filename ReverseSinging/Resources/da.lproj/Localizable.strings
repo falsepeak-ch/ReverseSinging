@@ -1,0 +1,368 @@
+/*
+   Localizable.strings (Danish)
+   ReverseSinging
+*/
+
+// MARK: - Onboarding
+"onboarding.welcome.title" = "Velkommen til Dubloon";
+"onboarding.welcome.message" = "To spil, én mikrofon. Syng en sang baglæns, eller læg din stemme ind i en filmscene. Ingen af delene får dig til at lyde normal.";
+"onboarding.howItWorks.title" = "Sådan virker det";
+"onboarding.howItWorks.message" = "Optag en sang, vend den om, og syng med på volapykken. Vend derefter din egen optagelse og hør, om du ramte plet eller lige har opfundet et nyt sprog.";
+"onboarding.dub.title" = "Dub en filmscene";
+"onboarding.dub.message" = "Det andet spil: sæt en scene i gang, overspil løs, og hør så dig selv i filmen. To scener følger med. Derefter tager du dine egne filer med.";
+"onboarding.uiPreference.title" = "Vælg dit kontrolrum";
+"onboarding.uiPreference.message" = "Store ærlige knapper, eller hele pulten med drejeknapper. Det gælder Baglænssang, og du må skifte mening i Indstillinger når som helst.";
+"onboarding.microphone.title" = "En sidste ting";
+"onboarding.microphone.message" = "Begge spil skal kunne høre dig: baglænssang eller dubbing af en scene. Mikrofonen vågner kun, mens du optager, alt bliver på denne enhed, og intet bliver nogensinde uploadet. Din værste optagelse bliver mellem jer to.";
+"onboarding.button.openSettings" = "Åbn Indstillinger";
+"onboarding.button.letsRecord" = "kom, lad os optage!";
+"onboarding.button.continueLowercase" = "fortsæt";
+"onboarding.button.microphoneContinue" = "Fortsæt";
+"onboarding.button.continueWithout" = "fortsæt uden";
+
+// MARK: - Main View - Buttons
+"main.button.stopRecording" = "Stop optagelsen";
+"main.button.recordAudio" = "Optag lyd";
+"main.button.recordAttempt" = "Syng den tilbage";
+"main.button.reRecord" = "En optagelse til";
+"main.button.newSession" = "Ny session";
+
+// MARK: - Simple Skin (buttons and their subtitles)
+"main.button.playRecorded" = "Afspil optagelsen";
+"main.button.playReverse" = "Afspil baglæns";
+"main.subtitle.recordingOriginal" = "Båndet kører. Det her er originalen";
+"main.subtitle.recordingAttempt" = "Båndet kører. Det her er din tur";
+"main.subtitle.tapToRecord" = "Tryk og giv den en sang";
+"main.subtitle.recordAttempt" = "Din tur: syng den baglæns version";
+"main.subtitle.reRecordAttempt" = "En gang til, du nærmer dig";
+"main.subtitle.playAttempt" = "Hør din optagelse";
+"main.subtitle.playOriginal" = "Hør originalen";
+"main.subtitle.noRecording" = "Der er ikke optaget noget endnu";
+"main.subtitle.playReversedAttempt" = "Din optagelse, baglæns";
+"main.subtitle.playReversedOriginal" = "Originalen, baglæns";
+"main.subtitle.noReversed" = "Der er ikke noget at vende endnu";
+"settings.version" = "Version %@ (%@)";
+
+// MARK: - Main View - Alerts
+"main.alert.microphoneRequired.title" = "Mikrofonen er slukket";
+"main.alert.microphoneRequired.message" = "Uden adgang til mikrofonen hører Dubloon ingenting overhovedet. Tænd for den i Indstillinger, så er vi i gang igen.";
+"main.alert.settings" = "Indstillinger";
+"main.alert.cancel" = "Annuller";
+"main.alert.error.title" = "Det gik ikke";
+"main.alert.ok" = "OK";
+"main.alert.startNewSession.title" = "Starte forfra?";
+"main.alert.startNewSession.message" = "Den her session ryger trygt i arkivet, og du begynder forfra med et rent bånd.";
+"main.alert.startNewSession.button" = "Ny session";
+
+// MARK: - Main View - Empty State
+"main.emptyState.title" = "Ingen kan høre dig";
+"main.emptyState.message" = "Lige nu er Dubloon en optageapp uden noget at optage med. Tænd for mikrofonadgang i enhedens indstillinger, så vågner begge spil til live igen.";
+"main.emptyState.button" = "Åbn Indstillinger";
+
+// MARK: - Main View - Processing & Success
+"main.processing.reversingAudio" = "Vender det hele om…";
+"main.success.sessionSaved" = "Trygt nede i arkivet";
+
+// MARK: - Main View - Tips (Contextual Help)
+"main.tip.tapRecordToBegin" = "Tryk på Optag lyd og lad båndet rulle";
+"main.tip.recordSingingAttempt" = "Syng den baglæns version. Og stå ved den";
+"main.tip.recordSongToReverse" = "Optag den sang, du vil ødelægge";
+"main.tip.tapPlayToSwitch" = "Tryk på en vilkårlig knap for at afspille eller stoppe";
+"main.tip.reRecordOrNewSession" = "Tag den om, eller start en ny session";
+"main.tip.listenAndRecord" = "Hør den baglæns version, og syng den så";
+"main.tip.processingAudio" = "Vender den. Et øjeblik";
+"main.tip.tapRecordAudio" = "Tryk på Optag lyd og læg en sang ned";
+
+// MARK: - Comparison View
+
+// MARK: - Comparison View - Score Messages
+
+// MARK: - Session List View
+"sessionList.title" = "Gemte sessioner";
+"sessionList.empty.title" = "Her er der ikke noget endnu";
+"sessionList.empty.message" = "Gør en baglænssession færdig og gem den. Dine største hits kommer til at bo her.";
+
+// MARK: - Recording Type Labels
+"recordingType.original" = "Original";
+"recordingType.reversed" = "Baglæns";
+"recordingType.attempt" = "Din optagelse";
+"recordingType.reversedAttempt" = "Din optagelse, baglæns";
+"recordingType.imported" = "Importeret";
+
+// MARK: - Timer Card
+"timerCard.deviceMicrophone" = "Enhedens mikrofon (standard)";
+"timerCard.mins" = "MIN";
+"timerCard.secs" = "SEK";
+"timerCard.playAudio" = "Afspil lyd";
+"timerCard.audioControls" = "Lydkontroller";
+"timerCard.loop" = "Løkke";
+"timerCard.speed" = "Hastighed";
+"timerCard.pitch" = "Toneleje";
+"timerCard.semitones" = "halvtoner";
+
+// MARK: - Score Card
+"scoreCard.title" = "Dit resultat";
+"scoreCard.grade.perfectMatch" = "Perfekt. Næsten mistænkeligt";
+"scoreCard.grade.excellent" = "Fremragende";
+"scoreCard.grade.greatJob" = "Den var rigtig god";
+"scoreCard.grade.veryGood" = "Flot og rent";
+"scoreCard.grade.goodEffort" = "Pænt forsøg";
+"scoreCard.grade.niceTry" = "Modigt. Meget modigt";
+"scoreCard.grade.keepPracticing" = "Bliv ved, det kommer";
+"scoreCard.grade.tryAgain" = "Lad os kalde det prøven";
+
+// MARK: - Processing Indicator
+
+// MARK: - Recording Indicator
+"recording.indicator" = "OPTAGER";
+
+// MARK: - Success Celebration
+
+// MARK: - Audio Session Model
+"session.defaultName" = "Session";
+
+// MARK: - Error Messages
+"error.microphonePermissionRequired" = "Dubloon skal bruge mikrofonen til det her. Tænd for den i Indstillinger.";
+"error.cannotStartRecording" = "Optageren vil ikke starte lige nu. Prøv igen.";
+"error.noRecordingInProgress" = "Der bliver ikke optaget noget lige nu.";
+"error.failedToStopRecording" = "Optageren stoppede ikke pænt. Tag den om.";
+"error.failedToProcessRecording" = "Den optagelse kunne ikke behandles.";
+
+// MARK: - Settings
+"settings.title" = "Indstillinger";
+"settings.interface" = "Grænseflade";
+"uiMode.simple.name" = "Enkel";
+"uiMode.simple.description" = "Store knapper, intet at falde over";
+"uiMode.complex.name" = "Avanceret";
+"uiMode.complex.description" = "Drejeknapper, målere og bølgeformer";
+"settings.preferences" = "Præferencer";
+"settings.about" = "Om";
+
+// Theme descriptions
+
+// Haptic feedback
+"settings.hapticFeedback" = "Haptisk feedback";
+"settings.hapticFeedback.desc" = "Et lille skub hver gang du trykker";
+
+// About
+"settings.privacyPolicy" = "Privatlivspolitik";
+"settings.privacyPolicy.desc" = "Kort, kedelig og ærlig";
+"settings.builtInSwitzerland" = "Bygget i Schweiz";
+"settings.builtInSwitzerland.desc" = "Håndlavet i Zürich";
+
+// MARK: - Dub Mode
+"dub.unknownAuthor" = "Ukendt ophavsperson";
+"dub.importPack" = "Importér en dubpakke";
+"dub.importing" = "Pakker scenen ud…";
+"dub.delete" = "Slet";
+"dub.empty.title" = "Ingen scener her endnu";
+"dub.empty.message" = "Hent en pakkemappe eller en .zip fra Filer, så er scenen din at overspille.";
+"dub.playOriginal" = "Se originalen";
+"dub.playMyDub" = "Se min dub";
+"dub.record" = "Begynd at dubbe";
+"dub.continueRecording" = "Dub videre";
+"dub.export" = "Eksportér video";
+"dub.lines" = "Replikker";
+"dub.attribution" = "Kilde";
+"dub.listen" = "Lyt";
+"dub.stop" = "Stop";
+"dub.recordTake" = "Optag";
+"dub.next" = "Næste";
+"dub.previous" = "Forrige";
+"dub.recordingHint" = "Sig replikken, som om du mente den, og hold originalens tempo.";
+"dub.listenHint" = "Lyt én gang, og stjæl så tonefaldet.";
+"dub.original" = "Original";
+"dub.myDub" = "Min dub";
+"dub.noTakesYet" = "Dub en replik først, så snakker vi.";
+"dub.exporting" = "Eksporterer…";
+"dub.export.mixing" = "Mikser lyden…";
+"dub.export.rendering" = "Renderer videoen…";
+"dub.error.missingPackInfo" = "Den mappe er ikke en dubpakke: der er ingen _pack_info.ini i den.";
+"dub.error.noLines" = "Der er ikke en eneste brugbar replik i pakken.";
+"dub.error.missingAsset" = "Pakken mangler en fil, den skal bruge: %@";
+"dub.error.notAFolder" = "Vælg en pakkemappe eller et .zip-arkiv.";
+"dub.error.unreadableArchive" = "Det arkiv nægtede at åbne: %@";
+"dub.error.nothingRecorded" = "Dub mindst én replik, før du eksporterer.";
+"dub.error.exportFailed" = "Eksporten mislykkedes: %@";
+"dub.playTake" = "Afspil din optagelse";
+"dub.loadingScene" = "Rigger scenen til…";
+
+// MARK: - Editor Chrome
+"session.archiveTitle" = "Arkiv";
+"main.section.transport" = "Transport";
+"main.section.session" = "Session";
+"main.state.idle" = "KLAR";
+"main.state.recording" = "REC";
+"main.state.playing" = "PLAY";
+"main.state.processing" = "PROC";
+"main.state.error" = "FEJL";
+"main.state.countingIn" = "OPTÆLLING";
+"main.section.hint" = "Nu";
+"dub.packsSection" = "Pakker";
+"dub.slate.lines" = "Dubbet";
+"dub.slate.duration" = "Spilletid";
+"dub.slate.cast" = "Medvirkende";
+"settings.soundEffects" = "Lydeffekter";
+"settings.soundEffects.desc" = "Klaptræ, klik og renderingsklokken";
+
+// Headphone monitoring
+"settings.headphoneMonitor" = "Originalen i høretelefonerne";
+"settings.headphoneMonitor.desc" = "Hør den replik, du matcher, mens du optager. Kun i høretelefoner, for gennem højttaleren ender den i din egen optagelse.";
+"settings.headphoneMonitor.unavailable" = "Ingen høretelefoner tilsluttet";
+
+// MARK: - Game Modes
+"main.mode.section" = "Tilstand";
+"main.mode.reverse.title" = "Baglænssang";
+"main.mode.dub.title" = "Dub en filmscene";
+"main.button.back" = "Tilbage";
+"main.mode.reverse.subtitle" = "Optag, vend om og syng volapykken";
+"main.mode.dub.subtitle" = "Læg din stemme i en andens mund";
+"dub.speakerAccessibility" = "Siges af %@";
+"dub.cast" = "Medvirkende";
+"dub.referenceTrack" = "Reference";
+"dub.yourTake" = "Din optagelse";
+"dub.convertingVideo" = "Konverterer scenens video…";
+"dub.importReading" = "Læser pakken…";
+
+// MARK: - Dub Content Gate
+"dubGate.close" = "Luk";
+"dubGate.ask.title" = "Har du allerede dine film?";
+"dubGate.ask.message" = "Ud over de to eksempelscener leverer og hoster vi ikke en eneste film. For at dubbe noget andet skal filmfilen allerede ligge på denne enhed.";
+"dubGate.ask.confirm" = "Ja, jeg har dem her";
+"dubGate.ask.needDownload" = "Nej, jeg skal hente dem";
+"dubGate.download.title" = "Hvor du finder dem";
+"dubGate.download.message" = "Her er et sted, hvor folk deler den slags filer. Hent det, du vil dubbe, og kom lige tilbage.";
+"dubGate.download.open" = "Åbn %@";
+"dubGate.download.back" = "Tilbage";
+"dubGate.disclaimer.notAffiliated" = "%@ er en andens side. Vi har intet med den at gøre, og vi hoster eller deler ikke en eneste fil.";
+"dubGate.disclaimer.responsibility" = "Sørg for, at du har ret til at bruge det, du henter, og følg ophavsretsreglerne der, hvor du bor.";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "Før du deler";
+"dubShare.message" = "Den her video er din stemme oven på en andens scene, så det er deres arbejde lige så meget som dit.";
+"dubShare.cutFrom" = "Klippet fra %@";
+"dubShare.keepCredit" = "Hvis du lægger den op, så tag den her kreditering med.";
+"dubShare.unknownSource" = "Den her scene tog du selv med, så du ved, hvor den kommer fra, og hvad du må med den.";
+"dubShare.responsibility" = "Hvor den ender, er op til dig, så følg ophavsretsreglerne der, hvor du bor.";
+"dubShare.confirm" = "Eksportér video";
+
+/* MARK: - Dub Scoring */
+"dub.installingStarterPacks" = "Rigger dine første scener til…";
+"dub.options" = "Dubindstillinger";
+"dub.score.setting.title" = "Bedøm mine optagelser";
+"dub.score.setting.detail" = "Dømmer din timing, dit tempo og dit spil. Nænsomt.";
+"dub.score.sceneTitle" = "Scenens score";
+"dub.score.notScoredYet" = "Dub en replik, så må dommen begynde.";
+"dub.score.slate" = "Score";
+"dub.score.lineTitle" = "Din optagelse";
+"dub.score.timing" = "Timing";
+"dub.score.pacing" = "Tempo";
+"dub.score.delivery" = "Spil";
+"dub.score.best" = "Bedste replik";
+"dub.score.weakest" = "Værd at tage om";
+"dub.score.progress" = "%d af %d replikker bedømt";
+"dub.score.grade.perfect" = "Lige i øjet";
+"dub.score.grade.great" = "Den sad";
+"dub.score.grade.good" = "Solid optagelse";
+"dub.score.grade.close" = "Lige på nippet";
+"dub.score.grade.rough" = "Vi tager den om";
+
+"dub.videoNeedsReimport" = "Scenens video blev konverteret af en ældre version og løber nu foran stemmerne. Importér pakken igen, så sidder det.";
+
+// MARK: - Pro / Paywall
+"pro.trial.daysLeft" = "%d dage tilbage";
+"pro.trial.oneDayLeft" = "Sidste dag";
+"pro.trial.over" = "Din gratis prøveperiode er slut";
+"pro.section" = "Dubloon Pro";
+"pro.unlock.title" = "Lås Dubloon op";
+"pro.unlock.subtitle" = "Én betaling, begge spil, dine for altid.";
+"pro.owned.title" = "Du ejer Dubloon";
+"pro.owned.subtitle" = "Tak. Hver scene, hver optagelse, uden loft.";
+"pro.manage.title" = "Administrér købet";
+"pro.manage.subtitle" = "Kvitteringer, refusioner og hjælp til dit køb.";
+"pro.restore.title" = "Gendan købet";
+"pro.restore.subtitle" = "Ny telefon eller geninstalleret? Hent det tilbage.";
+"pro.testStore.warning" = "Debug-build: forbundet til RevenueCats testbutik. Der flytter sig ingen rigtige penge.";
+"pro.restored.title" = "Gendannet";
+"pro.restored.message" = "Dit køb er tilbage på denne enhed.";
+"pro.nothingToRestore.title" = "Intet at gendanne";
+"pro.nothingToRestore.message" = "Der blev ikke fundet noget køb på denne Apple-konto. Hvis du købte Dubloon med en anden, så log ind med den og prøv igen.";
+"pro.error.title" = "Noget gik galt";
+"pro.error.generic" = "Butikken svarede ikke. Prøv igen om et øjeblik.";
+"pro.ok" = "OK";
+"pro.fallback.title" = "Lås Dubloon op";
+"pro.fallback.message" = "Din gratis prøveperiode er slut. Én betaling holder begge spil åbne for altid.";
+"pro.fallback.message.beforeExpiry" = "Én betaling holder begge spil åbne for altid.";
+"pro.fallback.buy" = "Lås op for %@";
+"pro.fallback.buyUnpriced" = "Lås op";
+"pro.fallback.loading" = "Spørger butikken…";
+"pro.fallback.unavailable" = "Butikken svarer ikke lige nu. Tjek forbindelsen og prøv igen.";
+"pro.fallback.retry" = "Prøv igen";
+"pro.fallback.benefit.one" = "Syng baglæns, så længe naboerne kan holde til det";
+"pro.fallback.benefit.two" = "Dub hver eneste scene, og tag dine egne med";
+"pro.fallback.benefit.three" = "Eksportér dine optagelser og del ulykken";
+"pro.fallback.oneTime" = "Én betaling. Ikke et abonnement.";
+
+// MARK: - Pro / Early adopters
+"pro.earlyAdopter.title" = "Velkommen i klubben";
+"pro.earlyAdopter.message" = "Dubloon koster penge nu — bare ikke for dig. Du var her, før der kom en prismærkat på, så begge spil bliver ved med at være dine, gratis, så længe appen findes. Tak for de første dage.";
+"pro.earlyAdopter.badge" = "Gratis for livet";
+"pro.earlyAdopter.confirm" = "Fedt";
+"pro.earlyAdopter.settings.title" = "Gratis for livet";
+"pro.earlyAdopter.settings.subtitle" = "Du var her tidligt. Begge spil er dine, og du skylder os ingenting.";
+"pro.closePaywall" = "Luk";
+
+// Early adopter slate rows
+"pro.earlyAdopter.row.access" = "Adgang";
+"pro.earlyAdopter.row.access.value" = "Begge spil";
+"pro.earlyAdopter.row.cost" = "Pris";
+"pro.earlyAdopter.row.cost.value" = "Ingenting";
+"pro.earlyAdopter.row.expires" = "Udløber";
+"pro.earlyAdopter.row.expires.value" = "Aldrig";
+
+/* MARK: - Booth Cam */
+"booth.slug" = "Boks";
+"booth.monitorAccessibility" = "Forhåndsvisning af frontkameraet";
+"booth.turnOn" = "Tænd Booth Cam";
+"booth.turnOff" = "Sluk Booth Cam";
+"booth.primer.title" = "Film dig selv, mens du dubber";
+"booth.primer.message" = "Booth Cam kører frontkameraet, mens du spiller, så scenen, replikken og dit ansigt deler den samme skærm. Bagefter kan du dele reaktionen sammen med dubben.";
+"booth.primer.confirm" = "Tænd Booth Cam";
+"booth.primer.decline" = "Dub uden";
+"booth.primer.systemPrompt" = "Om lidt spørger iOS om adgang til kameraet.";
+"booth.fact.onDevice" = "Boksoptagelserne bliver på din enhed, lige ved siden af stemmeoptagelserne.";
+"booth.fact.nothingLeaves" = "Intet forlader enheden, før du eksporterer, og hver eksport spørger først.";
+"booth.fact.reversible" = "Sluk når som helst. Dubben kører videre uden.";
+"booth.settings.section" = "Booth Cam";
+"booth.settings.title" = "Booth Cam";
+"booth.settings.desc" = "Filmer dit ansigt, mens du dubber, så reaktionen følger med optagelsen.";
+"booth.settings.denied" = "Adgangen til kameraet er slået fra. Slå den til for Dubloon i appen Indstillinger.";
+"booth.mirror.title" = "Vis mig spejlvendt";
+"booth.mirror.desc" = "Vender boksmonitoren, mens du spiller. Selve filen bliver aldrig spejlvendt.";
+"booth.footage" = "Boksoptagelser";
+"booth.footage.usage" = "%1$@ · %2$d pakker";
+"booth.deleteAll" = "Slet alle boksoptagelser";
+"booth.deleteAll.confirm" = "Slet";
+"booth.deleteAll.message" = "Det her fejer alle boksklip væk. Dine stemmeoptagelser og dubs bliver stående.";
+
+/* Booth Cam: the export sheet */
+"booth.export.title" = "Eksportér";
+"booth.export.subtitle" = "Vælg klippet, og så hvor dit ansigt skal sidde.";
+"booth.export.lineSubtitle" = "Én replik, med din reaktion ved siden af.";
+"booth.export.cut" = "Klip";
+"booth.export.cut.fullScene" = "Hele scenen";
+"booth.export.cut.sessionReel" = "Sessionsrulle";
+"booth.export.cut.detail" = "Den færdige dub fra ende til anden. Rullen er hver replik, du har dubbet, i træk og uden stilheden imellem.";
+"booth.export.frame" = "Boksbillede";
+"booth.frame.off" = "Fra";
+"booth.frame.corner" = "I hjørnet";
+"booth.frame.stacked" = "Oven på hinanden";
+"booth.frame.split" = "Side om side";
+"booth.export.stackedNote" = "Stablet renderes i 9:16, skåret til en story eller en short.";
+"booth.export.noFootage" = "Der er ingen boksoptagelser i denne scene endnu. Tænd Booth Cam og dub en replik.";
+"booth.export.confirm" = "Eksportér video";
+"booth.export.lineConfirm" = "Eksportér replikken";
+"booth.export.notice" = "Du får at se, hvis scene det er, før den renderes.";
+"booth.export.runtime" = "Spilletid";
+"booth.export.shape" = "Format";
+"booth.shareLine" = "Del denne replik";

@@ -2,36 +2,42 @@ Dubloon són dos jocs de veu en una sola app, i cap dels dos necessita res més 
 
 DOBLATGE D'ESCENA
 
-Carrega una escena i dobla-la tu. Dubloon et reprodueix la línia original, t'ensenya la imatge i el text, i et marca exactament quant dura. Després graves la teva presa. L'ona de l'original queda sota la teva, així que veus on has entrat abans d'hora, on has corregut i on has deixat un forat.
+Carrega una escena i dobla-la tu. Dubloon et reprodueix la línia original, t'ensenya la imatge i el text, i et marca exactament quant dura. Després graves la teva presa. L'ona de l'original queda sota la teva, així veus on has entrat abans d'hora, on has corregut i on has deixat un buit.
 
-• Línia a línia, al teu ritme: atura't i reprèn-ho quan vulguis
+• Línia a línia, al teu ritme: atura't i reprèn quan vulguis
 • La interpretació original als auriculars mentre graves, si et ve de gust
 • Cada personatge amb el seu color, per saber sempre qui parla
-• Una barra de ritme que es torna ambre així que et passes de l'original
+• Una barra de ritme que es posa ambre així que passes de l'original
+• Els diàlegs superposats es mesclen en pistes separades, així dos personatges parlant alhora sonen com toca
 • Mira l'original, escolta el teu doblatge o exporta l'escena sencera en vídeo
-• Els diàlegs superposats es mesclen en pistes separades, així que dos personatges parlant alhora sonen com tal
 
-Quan acabes, Dubloon renderitza l'escena amb la teva veu a dins i et dona un vídeo per compartir.
+CÀMERA DE CABINA
+
+Encén la càmera frontal i Dubloon et grava mentre actues. Exporta l'escena acabada amb la teva cara en un cantó, apilada a sobre per a una story, o al costat. O treu-ne una sola frase amb la reacció al costat. La càmera està apagada fins que tu l'encens, i el material es queda al teu telèfon fins que decideixes exportar-lo.
+
+AMB NOTA, SI EN VOLS
+
+Cada presa es puntua per sincronia, ritme i interpretació, amb una nota per a l'escena, la teva millor frase i la que es mereix un altre intent. Apaga-ho i aquí no compta ningú.
 
 DUES ESCENES PER COMENÇAR
 
-Dubloon ve amb dues escenes, així que el mode sempre s'obre amb alguna cosa per interpretar. Una és d'animació i l'altra és un clàssic en blanc i negre, i no s'assemblen gens.
+Camp Rules està tallada de Sprite Fright, la pel·lícula oberta de Blender Studio, compartida sota Creative Commons Attribution 4.0. Stuck Up ve de The Outsider, un film escolar del 1951 que és de domini públic als Estats Units. Cada escena indica la pel·lícula, l'any i els termes a la seva pròpia pantalla.
 
-Camp Rules està tallada de Sprite Fright, la pel·lícula lliure de Blender Studio, compartida amb llicència Creative Commons Reconeixement 4.0. Stuck Up està tallada de The Outsider, una pel·lícula escolar del 1951 que és de domini públic als Estats Units. Cada escena indica la pel·lícula, l'any i les condicions a la seva pantalla.
-
-A partir d'aquí, la prestatgeria l'omples tu. Dubloon no inclou, no allotja i no proporciona cap pel·lícula. Els packs de doblatge els fan i els comparteixen altres jugadors: descarregues els que vulguis i importes la carpeta o el .zip des de Fitxers, AirDrop o qualsevol full de compartir. Tu ets responsable de tenir els drets d'allò que doblis.
+A partir d'aquí, la prestatgeria la omples tu. Més enllà d'aquestes dues, Dubloon no inclou ni allotja cap pel·lícula. Els packs de doblatge els fan i els comparteixen altres jugadors: descarregues els que vulguis i importes la carpeta o el .zip des de Fitxers, AirDrop o qualsevol full de compartir. Assegura't de tenir dret a fer servir el que dobles.
 
 CANT INVERTIT
 
 El joc original. Grava una cançó i Dubloon la inverteix. Canta la versió del revés que sents i l'app gira el teu intent: si l'has clavat, acabes cantant la cançó de debò. Et puntua com de a prop has estat.
 
-• Dues interfícies: botons grans i senzills, o l'ona completa amb bucle, velocitat i to
+• Dues interfícies: botons grossos i senzills, o l'ona completa amb bucle, velocitat i to
 • Desa les teves millors preses i torna-hi
 
-PRIVADA PER DISSENY
+PRIVAT DE FÀBRICA
 
-Tot passa en aquest dispositiu. Les teves gravacions, les teves preses i els teus doblatges exportats no en surten: sense compte, sense registre, sense anuncis i sense res per pujar. L'app recull estadístiques d'ús anònimes per saber què construir després, mai el contingut d'una gravació.
+Tot passa en aquest dispositiu. Les teves gravacions, les teves preses, el material de cabina i els doblatges exportats no en surten mai. Sense compte, sense registre, sense anuncis i sense res per pujar. L'app recull estadístiques d'ús anònimes per saber què construir després, mai el contingut d'una gravació.
 
-Gratis. Sense subscripció, sense compres dins de l'app, sense res per desbloquejar.
+QUANT COSTA
 
-Fet a Suïssa. Fet amb cura a Zuric.
+Set dies gratis, els dos jocs, sense retallades. Després, un sol pagament desbloqueja l'app per sempre. No és una subscripció.
+
+Feta a Suïssa. Feta a mà a Zuric.

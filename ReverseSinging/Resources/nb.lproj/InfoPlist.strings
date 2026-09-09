@@ -1,0 +1,8 @@
+/*
+   InfoPlist.strings (Norwegian Bokmål)
+   ReverseSinging
+*/
+
+"NSMicrophoneUsageDescription" = "Dubloon trenger tilgang til mikrofonen for å ta opp stemmen din, så du kan synge sanger baklengs og dubbe filmscener.";
+
+"NSCameraUsageDescription" = "Dubloon filmer deg med frontkameraet mens du dubber, så du kan dele reaksjonen din sammen med taket. Kameraet er av til du slår det på.";

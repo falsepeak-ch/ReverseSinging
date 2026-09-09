@@ -198,6 +198,20 @@
 				fr,
 				"pt-PT",
 				ja,
+				de,
+				nl,
+				pl,
+				ru,
+				uk,
+				cs,
+				el,
+				sv,
+				da,
+				nb,
+				fi,
+				tr,
+				ar,
+				th,
 			);
 			mainGroup = FFA267BD2EA6B026008518FC;
 			minimizedProjectReferenceProxies = 1;

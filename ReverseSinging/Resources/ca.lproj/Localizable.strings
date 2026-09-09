@@ -5,111 +5,111 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Benvingut a Dubloon";
-"onboarding.welcome.message" = "Dos jocs, un micròfon: canta una cançó al revés o dobla una escena de pel·lícula amb la teva veu.";
-"onboarding.howItWorks.title" = "Com Funciona";
-"onboarding.howItWorks.message" = "Grava àudio, reverteix-lo, canta el que sents i després gira-ho altra vegada per veure com t'ha sortit!";
-"onboarding.dub.title" = "Dobla una Escena";
-"onboarding.dub.message" = "El segon joc: reprodueix una escena, grava la teva veu a sobre i escolta't dins de la pel·lícula. Vénen dues escenes incloses. Per a la resta, hi poses els teus fitxers!";
-"onboarding.uiPreference.title" = "Tria la Teva Interfície";
-"onboarding.uiPreference.message" = "Selecciona l'estil d'interfície que millor et funcioni. S'aplica al Cant Invertit i pots canviar-ho en qualsevol moment a Ajustos.";
-"onboarding.microphone.title" = "Una Última Cosa";
-"onboarding.microphone.message" = "Els dos jocs funcionen gravant la teva veu: cantar una cançó a l'inrevés o doblar una escena de pel·lícula. El micro només s'encén mentre graves. Tot es queda en aquest dispositiu i no es puja mai res.";
+"onboarding.welcome.message" = "Dos jocs, un micròfon. Canta una cançó del revés o fica la teva veu en una escena de pel·lícula. Amb cap dels dos sonaràs normal.";
+"onboarding.howItWorks.title" = "Com funciona";
+"onboarding.howItWorks.message" = "Grava una cançó, gira-la i canta damunt d'aquell embolic. Després gira el teu intent i descobreix si t'hi has acostat o has inventat un idioma nou.";
+"onboarding.dub.title" = "Dobla una escena";
+"onboarding.dub.message" = "El segon joc: posa una escena, sobreactua-hi al damunt i escolta't dins de la pel·lícula. En vénen dues de regal. A partir d'aquí, posa-hi les teves.";
+"onboarding.uiPreference.title" = "Tria la teva sala de control";
+"onboarding.uiPreference.message" = "Botons grossos i honestos, o la taula de mescles sencera. Això és per al Cant Invertit i pots canviar d'idea als Ajustos quan vulguis.";
+"onboarding.microphone.title" = "Una última cosa";
+"onboarding.microphone.message" = "Tots dos jocs necessiten sentir-te: cantant del revés o doblant una escena. El micro només es desperta mentre graves, tot es queda en aquest dispositiu i no es puja mai res. La teva pitjor presa es queda entre vosaltres dos.";
 "onboarding.button.openSettings" = "Obrir Ajustos";
-"onboarding.button.letsRecord" = "sí, gravem!";
+"onboarding.button.letsRecord" = "va, gravem!";
 "onboarding.button.continueLowercase" = "continuar";
 "onboarding.button.microphoneContinue" = "Continuar";
-"onboarding.button.continueWithout" = "continuar sense";
+"onboarding.button.continueWithout" = "seguir sense ell";
 
 // MARK: - Main View - Buttons
-"main.button.stopRecording" = "Aturar Gravació";
-"main.button.recordAudio" = "Gravar Àudio";
-"main.button.recordAttempt" = "Grava el Teu Intent";
-"main.button.reRecord" = "Tornar a Gravar";
-"main.button.newSession" = "Nova Sessió";
+"main.button.stopRecording" = "Aturar la gravació";
+"main.button.recordAudio" = "Gravar àudio";
+"main.button.recordAttempt" = "Canta-ho del revés";
+"main.button.reRecord" = "Una altra presa";
+"main.button.newSession" = "Nova sessió";
 
 // MARK: - Simple Skin (buttons and their subtitles)
-"main.button.playRecorded" = "Reproduir gravació";
-"main.button.playReverse" = "Reproduir a l'inrevés";
-"main.subtitle.recordingOriginal" = "Gravant l'àudio original";
-"main.subtitle.recordingAttempt" = "Gravant el teu intent";
-"main.subtitle.tapToRecord" = "Toca per gravar àudio";
-"main.subtitle.recordAttempt" = "Grava el teu intent de cant";
-"main.subtitle.reRecordAttempt" = "Torna a gravar el teu intent";
-"main.subtitle.playAttempt" = "Reproduir el teu intent";
-"main.subtitle.playOriginal" = "Reproduir la gravació original";
-"main.subtitle.noRecording" = "No hi ha cap gravació";
-"main.subtitle.playReversedAttempt" = "Reproduir el teu intent a l'inrevés";
-"main.subtitle.playReversedOriginal" = "Reproduir l'original a l'inrevés";
-"main.subtitle.noReversed" = "No hi ha àudio invertit";
+"main.button.playRecorded" = "Escoltar el que has gravat";
+"main.button.playReverse" = "Escoltar-ho del revés";
+"main.subtitle.recordingOriginal" = "Gravant. Això és l'original";
+"main.subtitle.recordingAttempt" = "Gravant. Aquesta és la teva presa";
+"main.subtitle.tapToRecord" = "Toca i etziba'ns una cançó";
+"main.subtitle.recordAttempt" = "Et toca: canta la versió del revés";
+"main.subtitle.reRecordAttempt" = "Una altra vegada, que ja gairebé hi ets";
+"main.subtitle.playAttempt" = "Escolta la teva presa";
+"main.subtitle.playOriginal" = "Escolta l'original";
+"main.subtitle.noRecording" = "Aquí encara no hi ha res";
+"main.subtitle.playReversedAttempt" = "La teva presa, del revés";
+"main.subtitle.playReversedOriginal" = "L'original, del revés";
+"main.subtitle.noReversed" = "Encara no hi ha res per girar";
 "settings.version" = "Versió %@ (%@)";
 
 // MARK: - Main View - Alerts
-"main.alert.microphoneRequired.title" = "Es Requereix Accés al Micròfon";
-"main.alert.microphoneRequired.message" = "Si us plau, activa l'accés al micròfon a Ajustos per gravar àudio.";
+"main.alert.microphoneRequired.title" = "El micro està apagat";
+"main.alert.microphoneRequired.message" = "Sense accés al micròfon, Dubloon no sent absolutament res. Activa'l als Ajustos i continuem.";
 "main.alert.settings" = "Ajustos";
 "main.alert.cancel" = "Cancel·lar";
-"main.alert.error.title" = "Error";
+"main.alert.error.title" = "Això no ha anat bé";
 "main.alert.ok" = "D'acord";
-"main.alert.startNewSession.title" = "Iniciar Nova Sessió?";
-"main.alert.startNewSession.message" = "La teva sessió actual es desarà a l'arxiu. Això iniciarà una sessió de gravació nova.";
-"main.alert.startNewSession.button" = "Iniciar Nova Sessió";
+"main.alert.startNewSession.title" = "Comencem de zero?";
+"main.alert.startNewSession.message" = "Aquesta sessió va a l'arxiu i tornes a començar amb la cinta neta.";
+"main.alert.startNewSession.button" = "Nova sessió";
 
 // MARK: - Main View - Empty State
-"main.emptyState.title" = "Es Requereix Accés al Micròfon";
-"main.emptyState.message" = "Per utilitzar Dubloon, si us plau activa l'accés al micròfon als ajustos del teu dispositiu. Això et permet gravar i revertir àudio.";
+"main.emptyState.title" = "Ningú no et sent";
+"main.emptyState.message" = "Ara mateix Dubloon és una app de gravar sense res amb què gravar. Activa el micròfon als ajustos del dispositiu i els dos jocs tornaran a la vida.";
 "main.emptyState.button" = "Obrir Ajustos";
 
 // MARK: - Main View - Processing & Success
-"main.processing.reversingAudio" = "Revertint àudio...";
-"main.success.sessionSaved" = "Sessió desada!";
+"main.processing.reversingAudio" = "Girant-ho tot…";
+"main.success.sessionSaved" = "A l'arxiu, sana i estàlvia";
 
 // MARK: - Main View - Tips (Contextual Help)
-"main.tip.tapRecordToBegin" = "Toca Gravar Àudio per començar";
-"main.tip.recordSingingAttempt" = "Grava el teu intent de cant";
-"main.tip.recordSongToReverse" = "Grava la cançó que vols revertir";
+"main.tip.tapRecordToBegin" = "Toca Gravar àudio i que roli la cinta";
+"main.tip.recordSingingAttempt" = "Canta la versió del revés. I creu-t'ho";
+"main.tip.recordSongToReverse" = "Grava la cançó que vulguis destrossar";
 "main.tip.tapPlayToSwitch" = "Toca qualsevol botó per reproduir o aturar";
-"main.tip.reRecordOrNewSession" = "Torna a gravar o inicia nova sessió";
-"main.tip.listenAndRecord" = "Escolta l'àudio revertit i després grava";
-"main.tip.processingAudio" = "Processant àudio, espera...";
-"main.tip.tapRecordAudio" = "Toca Gravar Àudio per gravar";
+"main.tip.reRecordOrNewSession" = "Repeteix la presa o comença una sessió nova";
+"main.tip.listenAndRecord" = "Escolta la versió del revés i després canta-la";
+"main.tip.processingAudio" = "Girant-ho. Un moment";
+"main.tip.tapRecordAudio" = "Toca Gravar àudio i etziba una cançó";
 
 // MARK: - Comparison View
 
 // MARK: - Comparison View - Score Messages
 
 // MARK: - Session List View
-"sessionList.title" = "Sessions Desades";
-"sessionList.empty.title" = "No Hi Ha Sessions Desades";
-"sessionList.empty.message" = "Completa una sessió de cant revertit i desa-la per veure-la aquí.";
+"sessionList.title" = "Sessions desades";
+"sessionList.empty.title" = "Aquí encara no hi ha res";
+"sessionList.empty.message" = "Acaba una sessió de cant invertit i desa-la. Els teus grans èxits viuran aquí.";
 
 // MARK: - Recording Type Labels
 "recordingType.original" = "Original";
-"recordingType.reversed" = "Revertit";
-"recordingType.attempt" = "Intent";
-"recordingType.reversedAttempt" = "Intent Revertit";
+"recordingType.reversed" = "Invertit";
+"recordingType.attempt" = "La teva presa";
+"recordingType.reversedAttempt" = "La teva presa, invertida";
 "recordingType.imported" = "Importat";
 
 // MARK: - Timer Card
-"timerCard.deviceMicrophone" = "Micròfon del Dispositiu (Per defecte)";
-"timerCard.mins" = "MINS";
-"timerCard.secs" = "SEGS";
-"timerCard.playAudio" = "Reproduir Àudio";
-"timerCard.audioControls" = "Controls d'Àudio";
+"timerCard.deviceMicrophone" = "Micròfon del dispositiu (per defecte)";
+"timerCard.mins" = "MIN";
+"timerCard.secs" = "SEG";
+"timerCard.playAudio" = "Reproduir àudio";
+"timerCard.audioControls" = "Controls d'àudio";
 "timerCard.loop" = "Bucle";
 "timerCard.speed" = "Velocitat";
 "timerCard.pitch" = "To";
 "timerCard.semitones" = "semitons";
 
 // MARK: - Score Card
-"scoreCard.title" = "La Teva Puntuació";
-"scoreCard.grade.perfectMatch" = "Coincidència Perfecta!";
-"scoreCard.grade.excellent" = "Excel·lent!";
-"scoreCard.grade.greatJob" = "Molt Bé!";
-"scoreCard.grade.veryGood" = "Molt Bo!";
-"scoreCard.grade.goodEffort" = "Bon Esforç!";
-"scoreCard.grade.niceTry" = "Bon Intent!";
-"scoreCard.grade.keepPracticing" = "Continua Practicant!";
-"scoreCard.grade.tryAgain" = "Torna-ho a Intentar!";
+"scoreCard.title" = "La teva puntuació";
+"scoreCard.grade.perfectMatch" = "Perfecte. Sospitosament perfecte";
+"scoreCard.grade.excellent" = "Impecable";
+"scoreCard.grade.greatJob" = "Això ha estat molt bé";
+"scoreCard.grade.veryGood" = "Molt net";
+"scoreCard.grade.goodEffort" = "Bon intent";
+"scoreCard.grade.niceTry" = "Valent. Molt valent";
+"scoreCard.grade.keepPracticing" = "Segueix, que ja arriba";
+"scoreCard.grade.tryAgain" = "Diguem que era l'assaig";
 
 // MARK: - Processing Indicator
 
@@ -122,195 +122,195 @@
 "session.defaultName" = "Sessió";
 
 // MARK: - Error Messages
-"error.microphonePermissionRequired" = "Es requereix permís de micròfon. Si us plau, activa'l a Ajustos.";
-"error.cannotStartRecording" = "No es pot iniciar la gravació ara mateix. Si us plau, torna-ho a intentar.";
-"error.noRecordingInProgress" = "No hi ha cap gravació en curs.";
-"error.failedToStopRecording" = "No s'ha pogut aturar la gravació correctament.";
-"error.failedToProcessRecording" = "No s'ha pogut processar la gravació.";
+"error.microphonePermissionRequired" = "Dubloon necessita el micròfon per a això. Activa'l als Ajustos.";
+"error.cannotStartRecording" = "La gravadora no arrenca ara mateix. Torna-ho a provar.";
+"error.noRecordingInProgress" = "Ara mateix no s'està gravant res.";
+"error.failedToStopRecording" = "La gravadora no s'ha aturat net. Torna-ho a provar.";
+"error.failedToProcessRecording" = "Aquesta presa no s'ha pogut processar.";
 
 // MARK: - Settings
 "settings.title" = "Ajustos";
 "settings.interface" = "Interfície";
-"uiMode.simple.name" = "Senzilla";
-"uiMode.simple.description" = "Botons grans, interfície mínima";
-"uiMode.complex.name" = "Completa";
-"uiMode.complex.description" = "Controls avançats i visualitzacions";
+"uiMode.simple.name" = "Simple";
+"uiMode.simple.description" = "Botons grossos i res on ensopegar";
+"uiMode.complex.name" = "Complex";
+"uiMode.complex.description" = "Rodes, mesuradors i formes d'ona";
 "settings.preferences" = "Preferències";
-"settings.about" = "Sobre";
+"settings.about" = "Quant a";
 
 // Theme descriptions
 
 // Haptic feedback
-"settings.hapticFeedback" = "Feedback Hàptic";
-"settings.hapticFeedback.desc" = "Vibració en tocar";
+"settings.hapticFeedback" = "Vibració";
+"settings.hapticFeedback.desc" = "Un petit toc cada cop que premes";
 
 // About
-"settings.privacyPolicy" = "Política de Privacitat";
-"settings.privacyPolicy.desc" = "Llegeix la nostra política de privacitat";
-"settings.builtInSwitzerland" = "Fet a Suïssa";
-"settings.builtInSwitzerland.desc" = "Fet amb cura a Zuric";
+"settings.privacyPolicy" = "Política de privacitat";
+"settings.privacyPolicy.desc" = "Curta, avorrida i sincera";
+"settings.builtInSwitzerland" = "Feta a Suïssa";
+"settings.builtInSwitzerland.desc" = "Feta a mà a Zuric";
 
 // MARK: - Dub Mode
 "dub.unknownAuthor" = "Autor desconegut";
-"dub.importPack" = "Importa un pack";
-"dub.importing" = "Important el pack…";
-"dub.delete" = "Elimina";
-"dub.empty.title" = "Encara no hi ha packs";
-"dub.empty.message" = "Importa una carpeta o un .zip des de Fitxers per doblar una escena amb la teva veu.";
-"dub.playOriginal" = "Mira l'original";
-"dub.playMyDub" = "Reprodueix el meu doblatge";
-"dub.record" = "Comença a doblar";
-"dub.continueRecording" = "Continua doblant";
-"dub.export" = "Exporta el vídeo";
+"dub.importPack" = "Importar un pack";
+"dub.importing" = "Obrint l'escena…";
+"dub.delete" = "Eliminar";
+"dub.empty.title" = "Aquí encara no hi ha escenes";
+"dub.empty.message" = "Porta una carpeta o un .zip de pack des d'Arxius i l'escena és teva per sobreactuar-la.";
+"dub.playOriginal" = "Veure l'original";
+"dub.playMyDub" = "Veure el meu doblatge";
+"dub.record" = "Començar a doblar";
+"dub.continueRecording" = "Seguir doblant";
+"dub.export" = "Exportar el vídeo";
 "dub.lines" = "Frases";
-"dub.attribution" = "Origen";
-"dub.listen" = "Escolta";
-"dub.stop" = "Atura";
-"dub.recordTake" = "Grava";
+"dub.attribution" = "Font";
+"dub.listen" = "Escoltar";
+"dub.stop" = "Aturar";
+"dub.recordTake" = "Gravar";
 "dub.next" = "Següent";
 "dub.previous" = "Anterior";
-"dub.recordingHint" = "Digues la frase i segueix el ritme de l'original.";
-"dub.listenHint" = "Escolta primer i després grava la teva presa.";
+"dub.recordingHint" = "Digues la frase com si te la creguessis i segueix el ritme de l'original.";
+"dub.listenHint" = "Escolta-la un cop i roba-li l'entonació.";
 "dub.original" = "Original";
 "dub.myDub" = "El meu doblatge";
-"dub.noTakesYet" = "Grava almenys una frase primer.";
+"dub.noTakesYet" = "Dobla una frase i després en parlem.";
 "dub.exporting" = "Exportant…";
 "dub.export.mixing" = "Mesclant l'àudio…";
 "dub.export.rendering" = "Renderitzant el vídeo…";
-"dub.error.missingPackInfo" = "Aquesta carpeta no és un pack de doblatge. No té el fitxer _pack_info.ini.";
-"dub.error.noLines" = "Aquest pack no té frases utilitzables.";
-"dub.error.missingAsset" = "Al pack li falta un fitxer necessari: %@";
+"dub.error.missingPackInfo" = "Aquesta carpeta no és un pack de doblatge: no hi ha cap _pack_info.ini a dins.";
+"dub.error.noLines" = "Aquest pack no té ni una sola frase aprofitable.";
+"dub.error.missingAsset" = "Al pack li falta un fitxer que necessita: %@";
 "dub.error.notAFolder" = "Tria una carpeta de pack o un fitxer .zip.";
-"dub.error.unreadableArchive" = "No s'ha pogut obrir aquest arxiu: %@";
-"dub.error.nothingRecorded" = "Grava almenys una frase abans d'exportar.";
-"dub.error.exportFailed" = "Ha fallat l'exportació: %@";
-"dub.playTake" = "Escolta la teva presa";
-"dub.loadingScene" = "Carregant l'escena…";
+"dub.error.unreadableArchive" = "Aquest arxiu no s'ha deixat obrir: %@";
+"dub.error.nothingRecorded" = "Dobla almenys una frase abans d'exportar.";
+"dub.error.exportFailed" = "L'exportació ha fallat: %@";
+"dub.playTake" = "Escoltar la teva presa";
+"dub.loadingScene" = "Preparant l'escena…";
 
 // MARK: - Editor Chrome
 "session.archiveTitle" = "Arxiu";
 "main.section.transport" = "Transport";
 "main.section.session" = "Sessió";
-"main.state.idle" = "INACTIU";
-"main.state.recording" = "GRAV";
-"main.state.playing" = "REPR";
+"main.state.idle" = "ATURAT";
+"main.state.recording" = "REC";
+"main.state.playing" = "PLAY";
 "main.state.processing" = "PROC";
 "main.state.error" = "ERROR";
-"main.state.countingIn" = "COMPTE ENRERE";
-"main.section.hint" = "Següent";
+"main.state.countingIn" = "COMPTE";
+"main.section.hint" = "Ara";
 "dub.packsSection" = "Packs";
 "dub.slate.lines" = "Doblades";
 "dub.slate.duration" = "Durada";
 "dub.slate.cast" = "Repartiment";
 "settings.soundEffects" = "Efectes de so";
-"settings.soundEffects.desc" = "Claqueta, transport i renderitzat";
+"settings.soundEffects.desc" = "Claquetes, clics i la campaneta del render";
 
 // Headphone monitoring
 "settings.headphoneMonitor" = "Original als auriculars";
-"settings.headphoneMonitor.desc" = "Escolta la frase que estàs imitant mentre graves. Només amb auriculars, perquè per l'altaveu acabaria dins de la teva presa.";
+"settings.headphoneMonitor.desc" = "Sent la frase que estàs imitant mentre graves. Només amb auriculars, perquè per l'altaveu acabaria colant-se a la teva presa.";
 "settings.headphoneMonitor.unavailable" = "No hi ha auriculars connectats";
 
 // MARK: - Game Modes
 "main.mode.section" = "Mode";
-"main.mode.reverse.title" = "Cant Invertit";
-"main.mode.dub.title" = "Doblatge d'Escena";
+"main.mode.reverse.title" = "Cant invertit";
+"main.mode.dub.title" = "Doblatge d'escenes";
 "main.button.back" = "Enrere";
-"main.mode.reverse.subtitle" = "Grava una cançó, inverteix-la i canta-la al revés";
-"main.mode.dub.subtitle" = "Dobla una escena de pel·lícula amb la teva veu";
-"dub.speakerAccessibility" = "Dit per %@";
+"main.mode.reverse.subtitle" = "Grava una cançó, gira-la i canta l'embolic";
+"main.mode.dub.subtitle" = "Posa la teva veu a la boca d'un altre";
+"dub.speakerAccessibility" = "Ho diu %@";
 "dub.cast" = "Repartiment";
 "dub.referenceTrack" = "Referència";
 "dub.yourTake" = "La teva presa";
-"dub.convertingVideo" = "Convertint el vídeo…";
+"dub.convertingVideo" = "Convertint el vídeo de l'escena…";
 "dub.importReading" = "Llegint el pack…";
 
 // MARK: - Dub Content Gate
 "dubGate.close" = "Tancar";
 "dubGate.ask.title" = "Ja tens les teves pel·lícules?";
-"dubGate.ask.message" = "A banda de les escenes d'exemple, no incloem ni allotgem cap pel·lícula. Per doblar qualsevol altra cosa, necessites el fitxer desat en aquest dispositiu.";
-"dubGate.ask.confirm" = "Sí, ja les tinc";
-"dubGate.ask.needDownload" = "No, les he de descarregar";
-"dubGate.download.title" = "On aconseguir-les";
-"dubGate.download.message" = "Aquí tens un lloc on la gent comparteix aquests fitxers. Descarrega el que vulguis doblar i torna!";
+"dubGate.ask.message" = "Més enllà de les dues escenes d'exemple, no incloem ni allotgem cap pel·lícula. Per doblar qualsevol altra cosa, el fitxer ha de ser ja en aquest dispositiu.";
+"dubGate.ask.confirm" = "Sí, ja les tinc aquí";
+"dubGate.ask.needDownload" = "No, les he de buscar";
+"dubGate.download.title" = "On trobar-les";
+"dubGate.download.message" = "Aquest és un dels llocs on la gent comparteix aquests fitxers. Agafa el que vulguis doblar i torna corrents.";
 "dubGate.download.open" = "Obrir %@";
 "dubGate.download.back" = "Enrere";
-"dubGate.disclaimer.notAffiliated" = "%@ és un lloc d'altres persones. No hi tenim relació i no allotgem ni compartim cap fitxer.";
-"dubGate.disclaimer.responsibility" = "Assegura't de tenir dret a fer servir el que descarreguis i segueix les normes de copyright d'on vius.";
+"dubGate.disclaimer.notAffiliated" = "%@ és el web d'una altra gent. No hi tenim cap relació i no allotgem ni compartim ni un sol fitxer.";
+"dubGate.disclaimer.responsibility" = "Assegura't de tenir dret a fer servir el que descarreguis i respecta les normes de copyright d'on visquis.";
 
 // MARK: - Dub Share Notice
-"dubShare.title" = "Abans de compartir";
-"dubShare.message" = "El teu vídeo porta la teva veu a sobre de l'escena original, així que inclou la feina d'una altra persona a més de la teva.";
-"dubShare.cutFrom" = "Extret de %@";
-"dubShare.keepCredit" = "Si el publiques, mantén aquest crèdit amb el vídeo.";
-"dubShare.unknownSource" = "Aquesta escena l'hi vas posar tu, així que saps d'on ve i què hi pots fer.";
-"dubShare.responsibility" = "On el comparteixis depèn de tu, així que segueix les normes de copyright d'on vius.";
-"dubShare.confirm" = "Exportar vídeo";
+"dubShare.title" = "Abans de compartir-ho";
+"dubShare.message" = "Aquest vídeo és la teva veu damunt de l'escena d'una altra persona, així que també és feina seva, no només teva.";
+"dubShare.cutFrom" = "Tret de %@";
+"dubShare.keepCredit" = "Si el publiques, mantén aquest crèdit amb ell.";
+"dubShare.unknownSource" = "Aquesta escena l'has portat tu, així que ja saps d'on surt i què en pots fer.";
+"dubShare.responsibility" = "On acabi és cosa teva, així que respecta les normes de copyright d'on visquis.";
+"dubShare.confirm" = "Exportar el vídeo";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Preparant les teves primeres escenes…";
 "dub.options" = "Opcions de doblatge";
 "dub.score.setting.title" = "Puntuar les meves preses";
-"dub.score.setting.detail" = "Puntua la teva entrada, ritme i interpretació.";
+"dub.score.setting.detail" = "Jutja la teva sincronia, el teu ritme i la teva interpretació. Amb caritat.";
 "dub.score.sceneTitle" = "Puntuació de l'escena";
-"dub.score.notScoredYet" = "Dobla una línia per veure com ho fas.";
-"dub.score.slate" = "Punts";
+"dub.score.notScoredYet" = "Dobla una frase i comencem a jutjar-te.";
+"dub.score.slate" = "Nota";
 "dub.score.lineTitle" = "La teva presa";
-"dub.score.timing" = "Entrada";
+"dub.score.timing" = "Sincronia";
 "dub.score.pacing" = "Ritme";
 "dub.score.delivery" = "Interpretació";
-"dub.score.best" = "Millor línia";
-"dub.score.weakest" = "Val la pena tornar-hi";
-"dub.score.progress" = "%d de %d línies puntuades";
+"dub.score.best" = "La teva millor frase";
+"dub.score.weakest" = "Es mereix un altre intent";
+"dub.score.progress" = "%d de %d frases puntuades";
 "dub.score.grade.perfect" = "Clavat";
-"dub.score.grade.great" = "Boníssim";
+"dub.score.grade.great" = "Brodat";
 "dub.score.grade.good" = "Bona presa";
-"dub.score.grade.close" = "Gairebé hi ets";
-"dub.score.grade.rough" = "Torna-hi";
+"dub.score.grade.close" = "Per poc";
+"dub.score.grade.rough" = "Va, una altra vegada";
 
-"dub.videoNeedsReimport" = "El vídeo d'aquesta escena es va convertir amb una versió anterior i va per davant de les veus. Torna a importar el pack per corregir-ho.";
+"dub.videoNeedsReimport" = "El vídeo d'aquesta escena el va convertir una versió antiga i ara va per davant de les veus. Torna a importar el pack per arreglar-ho.";
 
 // MARK: - Pro / Paywall
 "pro.trial.daysLeft" = "Queden %d dies";
 "pro.trial.oneDayLeft" = "Últim dia";
 "pro.trial.over" = "La teva prova gratuïta s'ha acabat";
 "pro.section" = "Dubloon Pro";
-"pro.unlock.title" = "Desbloqueja el Dubloon";
-"pro.unlock.subtitle" = "Un sol pagament, els dos jocs, per sempre.";
-"pro.owned.title" = "El Dubloon és teu";
-"pro.owned.subtitle" = "Gràcies. Totes les escenes, totes les preses, sense límits.";
-"pro.manage.title" = "Gestiona la compra";
+"pro.unlock.title" = "Desbloquejar Dubloon";
+"pro.unlock.subtitle" = "Un pagament, els dos jocs, teus per sempre.";
+"pro.owned.title" = "Dubloon és teu";
+"pro.owned.subtitle" = "Gràcies. Totes les escenes, totes les preses, sense sostre.";
+"pro.manage.title" = "Gestionar la compra";
 "pro.manage.subtitle" = "Rebuts, devolucions i ajuda amb la teva compra.";
-"pro.restore.title" = "Restaura la compra";
+"pro.restore.title" = "Restaurar la compra";
 "pro.restore.subtitle" = "Mòbil nou o app reinstal·lada? Recupera-la.";
-"pro.testStore.warning" = "Compilació de depuració: connectada a la botiga de proves de RevenueCat. No es mou diner real.";
+"pro.testStore.warning" = "Compilació de depuració: connectada a la botiga de proves de RevenueCat. Aquí no es mou diner real.";
 "pro.restored.title" = "Restaurada";
-"pro.restored.message" = "La teva compra torna a ser en aquest dispositiu.";
-"pro.nothingToRestore.title" = "No hi ha res a restaurar";
-"pro.nothingToRestore.message" = "No s'ha trobat cap compra en aquest compte d'Apple. Si vas comprar el Dubloon amb un altre, inicia-hi la sessió i torna-ho a provar.";
+"pro.restored.message" = "La teva compra ha tornat a aquest dispositiu.";
+"pro.nothingToRestore.title" = "Res per restaurar";
+"pro.nothingToRestore.message" = "No hi ha cap compra en aquest compte d'Apple. Si vas comprar Dubloon amb un altre, inicia sessió amb aquell i torna-ho a provar.";
 "pro.error.title" = "Alguna cosa ha anat malament";
-"pro.error.generic" = "No s'ha pogut contactar amb la botiga. Torna-ho a provar.";
+"pro.error.generic" = "La botiga no ha contestat. Torna-ho a provar d'aquí a un moment.";
 "pro.ok" = "D'acord";
-"pro.fallback.title" = "Desbloqueja el Dubloon";
+"pro.fallback.title" = "Desbloquejar Dubloon";
 "pro.fallback.message" = "La teva prova gratuïta s'ha acabat. Un sol pagament deixa els dos jocs oberts per sempre.";
 "pro.fallback.message.beforeExpiry" = "Un sol pagament deixa els dos jocs oberts per sempre.";
-"pro.fallback.buy" = "Desbloqueja per %@";
-"pro.fallback.buyUnpriced" = "Desbloqueja";
-"pro.fallback.loading" = "Consultant la botiga…";
-"pro.fallback.unavailable" = "Ara mateix no es pot contactar amb la botiga. Comprova la connexió i torna-ho a provar.";
-"pro.fallback.retry" = "Torna-ho a provar";
-"pro.fallback.benefit.one" = "Canta al revés tantes vegades com vulguis";
-"pro.fallback.benefit.two" = "Dobla totes les escenes, i porta-hi les teves";
-"pro.fallback.benefit.three" = "Exporta i comparteix les teves preses";
+"pro.fallback.buy" = "Desbloquejar per %@";
+"pro.fallback.buyUnpriced" = "Desbloquejar";
+"pro.fallback.loading" = "Preguntant a la botiga…";
+"pro.fallback.unavailable" = "La botiga no respon ara mateix. Revisa la connexió i torna-ho a provar.";
+"pro.fallback.retry" = "Tornar-ho a provar";
+"pro.fallback.benefit.one" = "Canta del revés fins que es queixin els veïns";
+"pro.fallback.benefit.two" = "Dobla totes les escenes i porta-hi les teves";
+"pro.fallback.benefit.three" = "Exporta les teves preses i comparteix el desastre";
 "pro.fallback.oneTime" = "Un sol pagament. No és una subscripció.";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Benvingut al club";
-"pro.earlyAdopter.message" = "El Dubloon ja és de pagament, però no per a tu. Hi eres abans que comencéssim a cobrar, així que els dos jocs continuen sent teus, gratis, mentre existeixi l'app. Gràcies per acompanyar-nos des del principi.";
-"pro.earlyAdopter.badge" = "Gratis per sempre";
+"pro.earlyAdopter.message" = "Dubloon ara costa diners, però no per a tu. Hi eres abans que hi hagués preu, així que els dos jocs continuen sent teus, gratis, mentre l'app existeixi. Gràcies pels primers dies.";
+"pro.earlyAdopter.badge" = "Gratis de per vida";
 "pro.earlyAdopter.confirm" = "Genial";
-"pro.earlyAdopter.settings.title" = "Gratis per sempre";
-"pro.earlyAdopter.settings.subtitle" = "Vas arribar aviat. Els dos jocs són teus, sense pagar res.";
-"pro.closePaywall" = "Tanca";
+"pro.earlyAdopter.settings.title" = "Gratis de per vida";
+"pro.earlyAdopter.settings.subtitle" = "Vas arribar aviat. Els dos jocs són teus i no ens deus res.";
+"pro.closePaywall" = "Tancar";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Accés";
@@ -322,47 +322,47 @@
 
 /* MARK: - Booth Cam */
 "booth.slug" = "Cabina";
-"booth.monitorAccessibility" = "Vista prèvia de la càmera frontal";
-"booth.turnOn" = "Activa la càmera de cabina";
-"booth.turnOff" = "Desactiva la càmera de cabina";
+"booth.monitorAccessibility" = "Vista de la càmera frontal";
+"booth.turnOn" = "Encendre la càmera de cabina";
+"booth.turnOff" = "Apagar la càmera de cabina";
 "booth.primer.title" = "Grava't mentre dobles";
-"booth.primer.message" = "La càmera de cabina fa servir la càmera frontal mentre actues, així tens l'escena, la frase i la teva cara en una sola pantalla. Després pots compartir la reacció amb el doblatge.";
-"booth.primer.confirm" = "Activa la càmera de cabina";
-"booth.primer.decline" = "Dobla sense càmera";
-"booth.primer.systemPrompt" = "Tot seguit iOS et demanarà accés a la càmera.";
-"booth.fact.onDevice" = "Les preses de cabina es desen al teu dispositiu, al costat de les preses de veu.";
-"booth.fact.nothingLeaves" = "No surt res fins que exportes. Cada exportació t'ho pregunta abans.";
-"booth.fact.reversible" = "Desactiva-la quan vulguis. El doblatge continua igualment.";
+"booth.primer.message" = "La càmera de cabina fa servir la càmera frontal mentre actues, així que l'escena, la frase i la teva cara caben en la mateixa pantalla. Després pots compartir la reacció juntament amb el doblatge.";
+"booth.primer.confirm" = "Encendre la cabina";
+"booth.primer.decline" = "Doblar sense ella";
+"booth.primer.systemPrompt" = "El següent que veuràs és iOS demanant-te accés a la càmera.";
+"booth.fact.onDevice" = "Les preses de cabina es queden al teu dispositiu, al costat de les preses de veu.";
+"booth.fact.nothingLeaves" = "D'aquí no surt res fins que exportes, i cada exportació t'ho pregunta abans.";
+"booth.fact.reversible" = "Apaga-la quan vulguis. El doblatge continua sense ella.";
 "booth.settings.section" = "Càmera de cabina";
 "booth.settings.title" = "Càmera de cabina";
-"booth.settings.desc" = "Grava la càmera frontal mentre dobles, així pots compartir la reacció amb la presa.";
-"booth.settings.denied" = "L'accés a la càmera està desactivat. Activa'l per al Dubloon a l'app Configuració.";
-"booth.mirror.title" = "Reflecteix la vista prèvia";
-"booth.mirror.desc" = "Inverteix el monitor de cabina mentre actues. El fitxer gravat no s'inverteix mai.";
+"booth.settings.desc" = "Et grava amb la càmera frontal mentre dobles, perquè la reacció viatgi amb la presa.";
+"booth.settings.denied" = "L'accés a la càmera està desactivat. Activa'l per a Dubloon a l'app Ajustos.";
+"booth.mirror.title" = "Veure'm com en un mirall";
+"booth.mirror.desc" = "Inverteix el monitor mentre actues. El fitxer gravat no s'inverteix mai.";
 "booth.footage" = "Material de cabina";
 "booth.footage.usage" = "%1$@ · %2$d packs";
-"booth.deleteAll" = "Esborra totes les preses de cabina";
-"booth.deleteAll.confirm" = "Esborra";
-"booth.deleteAll.message" = "Això elimina tots els clips de cabina. Les preses de veu i els doblatges es mantenen.";
+"booth.deleteAll" = "Esborrar totes les preses de cabina";
+"booth.deleteAll.confirm" = "Esborrar";
+"booth.deleteAll.message" = "Això s'emporta tots els clips de cabina. Les teves preses de veu i els teus doblatges es queden.";
 
 /* Booth Cam: the export sheet */
-"booth.export.title" = "Exporta";
-"booth.export.subtitle" = "Tria el tall i com hi encaixa la teva cabina.";
+"booth.export.title" = "Exportar";
+"booth.export.subtitle" = "Tria el muntatge i després on va la teva cara.";
 "booth.export.lineSubtitle" = "Una frase, amb la teva reacció al costat.";
-"booth.export.cut" = "Tall";
+"booth.export.cut" = "Muntatge";
 "booth.export.cut.fullScene" = "Escena sencera";
-"booth.export.cut.sessionReel" = "Resum de sessió";
-"booth.export.cut.detail" = "El doblatge acabat, de cap a peus. El resum de sessió són totes les frases que has doblat, una rere l'altra, sense els silencis del mig.";
-"booth.export.frame" = "Enquadrament de cabina";
-"booth.frame.off" = "Cap";
-"booth.frame.corner" = "Cantonada";
-"booth.frame.stacked" = "Apilat";
-"booth.frame.split" = "Partit";
-"booth.export.stackedNote" = "L'apilat es renderitza en 9:16, a mida per a una story o un short.";
-"booth.export.noFootage" = "Encara no hi ha material de cabina en aquesta escena. Activa la càmera de cabina i dobla una frase.";
-"booth.export.confirm" = "Exporta el vídeo";
-"booth.export.lineConfirm" = "Exporta la frase";
+"booth.export.cut.sessionReel" = "Bobina de la sessió";
+"booth.export.cut.detail" = "El doblatge acabat, de dalt a baix. La bobina és cada frase que has doblat, una darrere l'altra i sense els silencis.";
+"booth.export.frame" = "Enquadrament de la cabina";
+"booth.frame.off" = "Sense cabina";
+"booth.frame.corner" = "En un cantó";
+"booth.frame.stacked" = "Una sobre l'altra";
+"booth.frame.split" = "Costat a costat";
+"booth.export.stackedNote" = "Apilat es renderitza en 9:16, a mida per a una story o un short.";
+"booth.export.noFootage" = "Encara no hi ha material de cabina en aquesta escena. Encén la càmera i dobla una frase.";
+"booth.export.confirm" = "Exportar el vídeo";
+"booth.export.lineConfirm" = "Exportar la frase";
 "booth.export.notice" = "Abans de renderitzar veuràs de qui és aquesta escena.";
 "booth.export.runtime" = "Durada";
 "booth.export.shape" = "Format";
-"booth.shareLine" = "Comparteix aquesta frase";
+"booth.shareLine" = "Compartir aquesta frase";

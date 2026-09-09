@@ -1,1 +1,1 @@
-Nou a la 1.3.0: Doblatge d'Escena, amb dues escenes originals incloses. Grava la teva veu línia a línia i exporta el doblatge per compartir-lo. Ja en set idiomes.
+Nou a la 1.5.0: la càmera de cabina et grava la cara mentre dobles, perquè la reacció surti amb la presa. Ja en 21 idiomes.

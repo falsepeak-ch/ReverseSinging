@@ -1,0 +1,368 @@
+/*
+   Localizable.strings (Dutch)
+   ReverseSinging
+*/
+
+// MARK: - Onboarding
+"onboarding.welcome.title" = "Welkom bij Dubloon";
+"onboarding.welcome.message" = "Twee spellen, één microfoon. Zing een liedje achterstevoren of leg je stem over een filmscène. Bij geen van beide klink je normaal.";
+"onboarding.howItWorks.title" = "Hoe het werkt";
+"onboarding.howItWorks.message" = "Neem een liedje op, draai het om en zing het gebrabbel na. Draai je eigen take daarna terug en hoor of je in de buurt kwam of net een nieuwe taal hebt uitgevonden.";
+"onboarding.dub.title" = "Nasynchroniseer een scène";
+"onboarding.dub.message" = "Het tweede spel: zet een scène aan, speel er stevig overheen en hoor jezelf in de film. Twee scènes zitten erbij. Daarna neem je je eigen bestanden mee.";
+"onboarding.uiPreference.title" = "Kies je regiekamer";
+"onboarding.uiPreference.message" = "Grote eerlijke knoppen of het hele paneel met draaiknoppen. Dit geldt voor Achterstevoren Zingen en je mag altijd van gedachten veranderen in Instellingen.";
+"onboarding.microphone.title" = "Nog één ding";
+"onboarding.microphone.message" = "Beide spellen moeten je horen: achterstevoren zingen of een scène nasynchroniseren. De microfoon wordt alleen wakker tijdens het opnemen, alles blijft op dit apparaat en er wordt nooit iets geüpload. Je slechtste take blijft tussen jullie tweeën.";
+"onboarding.button.openSettings" = "Open Instellingen";
+"onboarding.button.letsRecord" = "kom op, opnemen!";
+"onboarding.button.continueLowercase" = "doorgaan";
+"onboarding.button.microphoneContinue" = "Doorgaan";
+"onboarding.button.continueWithout" = "ga verder zonder";
+
+// MARK: - Main View - Buttons
+"main.button.stopRecording" = "Opname stoppen";
+"main.button.recordAudio" = "Audio opnemen";
+"main.button.recordAttempt" = "Zing het terug";
+"main.button.reRecord" = "Nog een take";
+"main.button.newSession" = "Nieuwe sessie";
+
+// MARK: - Simple Skin (buttons and their subtitles)
+"main.button.playRecorded" = "Opname afspelen";
+"main.button.playReverse" = "Achterstevoren afspelen";
+"main.subtitle.recordingOriginal" = "Loopt. Dit is het origineel";
+"main.subtitle.recordingAttempt" = "Loopt. Dit is jouw take";
+"main.subtitle.tapToRecord" = "Tik en gooi er een liedje uit";
+"main.subtitle.recordAttempt" = "Jouw beurt: zing de omgekeerde versie";
+"main.subtitle.reRecordAttempt" = "Nog een keer, je komt dichterbij";
+"main.subtitle.playAttempt" = "Luister naar je take";
+"main.subtitle.playOriginal" = "Luister naar het origineel";
+"main.subtitle.noRecording" = "Nog niets opgenomen";
+"main.subtitle.playReversedAttempt" = "Jouw take, achterstevoren";
+"main.subtitle.playReversedOriginal" = "Het origineel, achterstevoren";
+"main.subtitle.noReversed" = "Nog niets om om te draaien";
+"settings.version" = "Versie %@ (%@)";
+
+// MARK: - Main View - Alerts
+"main.alert.microphoneRequired.title" = "De microfoon staat uit";
+"main.alert.microphoneRequired.message" = "Zonder microfoontoegang hoort Dubloon helemaal niets. Zet hem aan in Instellingen en we gaan weer verder.";
+"main.alert.settings" = "Instellingen";
+"main.alert.cancel" = "Annuleer";
+"main.alert.error.title" = "Dat ging mis";
+"main.alert.ok" = "OK";
+"main.alert.startNewSession.title" = "Opnieuw beginnen?";
+"main.alert.startNewSession.message" = "Deze sessie gaat veilig het archief in en jij begint met een schone band.";
+"main.alert.startNewSession.button" = "Nieuwe sessie";
+
+// MARK: - Main View - Empty State
+"main.emptyState.title" = "Niemand hoort je";
+"main.emptyState.message" = "Op dit moment is Dubloon een opname-app zonder iets om mee op te nemen. Zet microfoontoegang aan in je apparaatinstellingen en beide spellen komen weer tot leven.";
+"main.emptyState.button" = "Open Instellingen";
+
+// MARK: - Main View - Processing & Success
+"main.processing.reversingAudio" = "We draaien het om…";
+"main.success.sessionSaved" = "Veilig in het archief";
+
+// MARK: - Main View - Tips (Contextual Help)
+"main.tip.tapRecordToBegin" = "Tik op Audio opnemen en laat de band lopen";
+"main.tip.recordSingingAttempt" = "Zing de omgekeerde versie. En meen het";
+"main.tip.recordSongToReverse" = "Neem het liedje op dat je wilt slopen";
+"main.tip.tapPlayToSwitch" = "Tik op een knop om af te spelen of te stoppen";
+"main.tip.reRecordOrNewSession" = "Nog een take, of begin een nieuwe sessie";
+"main.tip.listenAndRecord" = "Luister naar de omgekeerde versie en zing hem dan";
+"main.tip.processingAudio" = "We draaien hem om. Momentje";
+"main.tip.tapRecordAudio" = "Tik op Audio opnemen en zet een liedje neer";
+
+// MARK: - Comparison View
+
+// MARK: - Comparison View - Score Messages
+
+// MARK: - Session List View
+"sessionList.title" = "Bewaarde sessies";
+"sessionList.empty.title" = "Hier staat nog niets";
+"sessionList.empty.message" = "Maak een sessie achterstevoren zingen af en bewaar hem. Je grootste hits wonen straks hier.";
+
+// MARK: - Recording Type Labels
+"recordingType.original" = "Origineel";
+"recordingType.reversed" = "Omgekeerd";
+"recordingType.attempt" = "Jouw take";
+"recordingType.reversedAttempt" = "Jouw take, omgekeerd";
+"recordingType.imported" = "Geïmporteerd";
+
+// MARK: - Timer Card
+"timerCard.deviceMicrophone" = "Microfoon van het apparaat (standaard)";
+"timerCard.mins" = "MIN";
+"timerCard.secs" = "SEC";
+"timerCard.playAudio" = "Audio afspelen";
+"timerCard.audioControls" = "Audiobediening";
+"timerCard.loop" = "Herhaal";
+"timerCard.speed" = "Snelheid";
+"timerCard.pitch" = "Toonhoogte";
+"timerCard.semitones" = "halve tonen";
+
+// MARK: - Score Card
+"scoreCard.title" = "Jouw score";
+"scoreCard.grade.perfectMatch" = "Perfect. Bijna verdacht";
+"scoreCard.grade.excellent" = "Uitstekend";
+"scoreCard.grade.greatJob" = "Dat was heel goed";
+"scoreCard.grade.veryGood" = "Netjes gedaan";
+"scoreCard.grade.goodEffort" = "Prima poging";
+"scoreCard.grade.niceTry" = "Gedurfd. Heel gedurfd";
+"scoreCard.grade.keepPracticing" = "Blijf oefenen, het komt";
+"scoreCard.grade.tryAgain" = "Laten we dat de repetitie noemen";
+
+// MARK: - Processing Indicator
+
+// MARK: - Recording Indicator
+"recording.indicator" = "OPNAME";
+
+// MARK: - Success Celebration
+
+// MARK: - Audio Session Model
+"session.defaultName" = "Sessie";
+
+// MARK: - Error Messages
+"error.microphonePermissionRequired" = "Dubloon heeft hiervoor de microfoon nodig. Zet hem aan in Instellingen.";
+"error.cannotStartRecording" = "De recorder start nu niet op. Probeer het nog eens.";
+"error.noRecordingInProgress" = "Er wordt op dit moment niets opgenomen.";
+"error.failedToStopRecording" = "De recorder stopte niet netjes. Probeer die take nog eens.";
+"error.failedToProcessRecording" = "Die take kon niet verwerkt worden.";
+
+// MARK: - Settings
+"settings.title" = "Instellingen";
+"settings.interface" = "Interface";
+"uiMode.simple.name" = "Simpel";
+"uiMode.simple.description" = "Grote knoppen, niets om over te struikelen";
+"uiMode.complex.name" = "Complex";
+"uiMode.complex.description" = "Draaiknoppen, meters en golfvormen";
+"settings.preferences" = "Voorkeuren";
+"settings.about" = "Over";
+
+// Theme descriptions
+
+// Haptic feedback
+"settings.hapticFeedback" = "Trillingen";
+"settings.hapticFeedback.desc" = "Een klein tikje bij elke tik";
+
+// About
+"settings.privacyPolicy" = "Privacybeleid";
+"settings.privacyPolicy.desc" = "Kort, saai en eerlijk";
+"settings.builtInSwitzerland" = "Gemaakt in Zwitserland";
+"settings.builtInSwitzerland.desc" = "Met de hand gemaakt in Zürich";
+
+// MARK: - Dub Mode
+"dub.unknownAuthor" = "Auteur onbekend";
+"dub.importPack" = "Dubpack importeren";
+"dub.importing" = "Scène uitpakken…";
+"dub.delete" = "Verwijder";
+"dub.empty.title" = "Nog geen scènes hier";
+"dub.empty.message" = "Haal een packmap of een .zip uit Bestanden, en de scène is van jou om lekker over te acteren.";
+"dub.playOriginal" = "Origineel bekijken";
+"dub.playMyDub" = "Mijn versie bekijken";
+"dub.record" = "Beginnen met dubben";
+"dub.continueRecording" = "Verder dubben";
+"dub.export" = "Video exporteren";
+"dub.lines" = "Zinnen";
+"dub.attribution" = "Bron";
+"dub.listen" = "Luister";
+"dub.stop" = "Stop";
+"dub.recordTake" = "Opnemen";
+"dub.next" = "Volgende";
+"dub.previous" = "Vorige";
+"dub.recordingHint" = "Zeg de zin alsof je hem meent en blijf in het tempo van het origineel.";
+"dub.listenHint" = "Luister één keer en steel dan de intonatie.";
+"dub.original" = "Origineel";
+"dub.myDub" = "Mijn versie";
+"dub.noTakesYet" = "Dub eerst een zin, dan praten we verder.";
+"dub.exporting" = "Exporteren…";
+"dub.export.mixing" = "Audio mixen…";
+"dub.export.rendering" = "Video renderen…";
+"dub.error.missingPackInfo" = "Die map is geen dubpack: er zit geen _pack_info.ini in.";
+"dub.error.noLines" = "In dit pack zit geen enkele bruikbare zin.";
+"dub.error.missingAsset" = "Het pack mist een bestand dat het nodig heeft: %@";
+"dub.error.notAFolder" = "Kies een packmap of een .zip-archief.";
+"dub.error.unreadableArchive" = "Dat archief wilde niet open: %@";
+"dub.error.nothingRecorded" = "Dub minstens één zin voordat je exporteert.";
+"dub.error.exportFailed" = "Exporteren mislukt: %@";
+"dub.playTake" = "Je take afspelen";
+"dub.loadingScene" = "Scène klaarzetten…";
+
+// MARK: - Editor Chrome
+"session.archiveTitle" = "Archief";
+"main.section.transport" = "Transport";
+"main.section.session" = "Sessie";
+"main.state.idle" = "STIL";
+"main.state.recording" = "REC";
+"main.state.playing" = "PLAY";
+"main.state.processing" = "PROC";
+"main.state.error" = "FOUT";
+"main.state.countingIn" = "AFTELLEN";
+"main.section.hint" = "Nu";
+"dub.packsSection" = "Packs";
+"dub.slate.lines" = "Gedubd";
+"dub.slate.duration" = "Speelduur";
+"dub.slate.cast" = "Cast";
+"settings.soundEffects" = "Geluidseffecten";
+"settings.soundEffects.desc" = "Klappers, klikjes en het rendergeluid";
+
+// Headphone monitoring
+"settings.headphoneMonitor" = "Origineel in de koptelefoon";
+"settings.headphoneMonitor.desc" = "Hoor de zin die je nadoet terwijl je opneemt. Alleen met koptelefoon, want via de speaker belandt hij in je eigen take.";
+"settings.headphoneMonitor.unavailable" = "Geen koptelefoon aangesloten";
+
+// MARK: - Game Modes
+"main.mode.section" = "Modus";
+"main.mode.reverse.title" = "Achterstevoren zingen";
+"main.mode.dub.title" = "Filmscène dubben";
+"main.button.back" = "Terug";
+"main.mode.reverse.subtitle" = "Neem op, draai om en zing het gebrabbel";
+"main.mode.dub.subtitle" = "Leg je stem in andermans mond";
+"dub.speakerAccessibility" = "Gezegd door %@";
+"dub.cast" = "Cast";
+"dub.referenceTrack" = "Referentie";
+"dub.yourTake" = "Jouw take";
+"dub.convertingVideo" = "Scènevideo omzetten…";
+"dub.importReading" = "Pack lezen…";
+
+// MARK: - Dub Content Gate
+"dubGate.close" = "Sluit";
+"dubGate.ask.title" = "Heb je je films al?";
+"dubGate.ask.message" = "Buiten de twee voorbeeldscènes leveren en hosten wij geen enkele film. Om iets anders te dubben moet het filmbestand al op dit apparaat staan.";
+"dubGate.ask.confirm" = "Ja, die heb ik al";
+"dubGate.ask.needDownload" = "Nee, ik moet ze nog halen";
+"dubGate.download.title" = "Waar je ze vindt";
+"dubGate.download.message" = "Dit is een plek waar mensen zulke bestanden delen. Pak wat je wilt dubben en kom meteen terug.";
+"dubGate.download.open" = "Open %@";
+"dubGate.download.back" = "Terug";
+"dubGate.disclaimer.notAffiliated" = "%@ is de site van iemand anders. Wij hebben er niets mee te maken en hosten of delen geen enkel bestand.";
+"dubGate.disclaimer.responsibility" = "Zorg dat je het recht hebt om te gebruiken wat je downloadt, en volg de auteursrechtregels waar jij woont.";
+
+// MARK: - Dub Share Notice
+"dubShare.title" = "Voordat je deelt";
+"dubShare.message" = "In deze video ligt jouw stem over de scène van iemand anders, dus het is ook hun werk en niet alleen dat van jou.";
+"dubShare.cutFrom" = "Geknipt uit %@";
+"dubShare.keepCredit" = "Als je hem post, houd deze vermelding erbij.";
+"dubShare.unknownSource" = "Deze scène heb je zelf meegebracht, dus jij weet waar hij vandaan komt en wat je ermee mag.";
+"dubShare.responsibility" = "Waar hij belandt is aan jou, dus volg de auteursrechtregels waar jij woont.";
+"dubShare.confirm" = "Video exporteren";
+
+/* MARK: - Dub Scoring */
+"dub.installingStarterPacks" = "Je eerste scènes klaarzetten…";
+"dub.options" = "Dubopties";
+"dub.score.setting.title" = "Mijn takes beoordelen";
+"dub.score.setting.detail" = "Beoordeelt je timing, je tempo en je spel. Vriendelijk.";
+"dub.score.sceneTitle" = "Scènescore";
+"dub.score.notScoredYet" = "Dub een zin, dan mag het oordeel beginnen.";
+"dub.score.slate" = "Score";
+"dub.score.lineTitle" = "Jouw take";
+"dub.score.timing" = "Timing";
+"dub.score.pacing" = "Tempo";
+"dub.score.delivery" = "Spel";
+"dub.score.best" = "Beste zin";
+"dub.score.weakest" = "Nog een poging waard";
+"dub.score.progress" = "%d van %d zinnen beoordeeld";
+"dub.score.grade.perfect" = "Precies raak";
+"dub.score.grade.great" = "Zit erin";
+"dub.score.grade.good" = "Degelijke take";
+"dub.score.grade.close" = "Net niet";
+"dub.score.grade.rough" = "Nog een keer";
+
+"dub.videoNeedsReimport" = "De video van deze scène is door een oudere versie omgezet en loopt nu voor op de stemmen. Importeer het pack opnieuw om dat recht te zetten.";
+
+// MARK: - Pro / Paywall
+"pro.trial.daysLeft" = "Nog %d dagen";
+"pro.trial.oneDayLeft" = "Laatste dag";
+"pro.trial.over" = "Je gratis proefperiode is voorbij";
+"pro.section" = "Dubloon Pro";
+"pro.unlock.title" = "Dubloon ontgrendelen";
+"pro.unlock.subtitle" = "Eén betaling, beide spellen, voorgoed van jou.";
+"pro.owned.title" = "Dubloon is van jou";
+"pro.owned.subtitle" = "Dank je. Elke scène, elke take, geen plafond.";
+"pro.manage.title" = "Aankoop beheren";
+"pro.manage.subtitle" = "Bonnen, terugbetalingen en hulp bij je aankoop.";
+"pro.restore.title" = "Aankoop herstellen";
+"pro.restore.subtitle" = "Nieuwe telefoon of opnieuw geïnstalleerd? Haal hem terug.";
+"pro.testStore.warning" = "Debug-build: verbonden met de RevenueCat-teststore. Hier gaat geen echt geld heen en weer.";
+"pro.restored.title" = "Hersteld";
+"pro.restored.message" = "Je aankoop staat weer op dit apparaat.";
+"pro.nothingToRestore.title" = "Niets te herstellen";
+"pro.nothingToRestore.message" = "Op dit Apple-account is geen aankoop gevonden. Als je Dubloon met een ander account hebt gekocht, log daarmee in en probeer het opnieuw.";
+"pro.error.title" = "Er ging iets mis";
+"pro.error.generic" = "De store gaf geen antwoord. Probeer het zo nog eens.";
+"pro.ok" = "OK";
+"pro.fallback.title" = "Dubloon ontgrendelen";
+"pro.fallback.message" = "Je gratis proefperiode is voorbij. Eén betaling houdt beide spellen voorgoed open.";
+"pro.fallback.message.beforeExpiry" = "Eén betaling houdt beide spellen voorgoed open.";
+"pro.fallback.buy" = "Ontgrendel voor %@";
+"pro.fallback.buyUnpriced" = "Ontgrendelen";
+"pro.fallback.loading" = "We vragen het de store…";
+"pro.fallback.unavailable" = "De store reageert nu niet. Check je verbinding en probeer het opnieuw.";
+"pro.fallback.retry" = "Opnieuw proberen";
+"pro.fallback.benefit.one" = "Achterstevoren zingen tot de buren klagen";
+"pro.fallback.benefit.two" = "Elke scène dubben, en je eigen meenemen";
+"pro.fallback.benefit.three" = "Je takes exporteren en de schade delen";
+"pro.fallback.oneTime" = "Eén betaling. Geen abonnement.";
+
+// MARK: - Pro / Early adopters
+"pro.earlyAdopter.title" = "Welkom bij de club";
+"pro.earlyAdopter.message" = "Dubloon kost nu geld — alleen bij jou niet. Jij was er voordat er een prijskaartje hing, dus beide spellen blijven van jou, gratis, zolang de app bestaat. Bedankt voor de begindagen.";
+"pro.earlyAdopter.badge" = "Levenslang gratis";
+"pro.earlyAdopter.confirm" = "Mooi";
+"pro.earlyAdopter.settings.title" = "Levenslang gratis";
+"pro.earlyAdopter.settings.subtitle" = "Jij was er vroeg bij. Beide spellen zijn van jou en je bent ons niets schuldig.";
+"pro.closePaywall" = "Sluit";
+
+// Early adopter slate rows
+"pro.earlyAdopter.row.access" = "Toegang";
+"pro.earlyAdopter.row.access.value" = "Beide spellen";
+"pro.earlyAdopter.row.cost" = "Kosten";
+"pro.earlyAdopter.row.cost.value" = "Niets";
+"pro.earlyAdopter.row.expires" = "Verloopt";
+"pro.earlyAdopter.row.expires.value" = "Nooit";
+
+/* MARK: - Booth Cam */
+"booth.slug" = "Cabine";
+"booth.monitorAccessibility" = "Voorbeeld van de camera aan de voorkant";
+"booth.turnOn" = "Booth Cam aanzetten";
+"booth.turnOff" = "Booth Cam uitzetten";
+"booth.primer.title" = "Film jezelf tijdens het dubben";
+"booth.primer.message" = "Booth Cam gebruikt de camera aan de voorkant terwijl je speelt, zodat de scène, de zin en jouw gezicht op één scherm passen. Later kun je de reactie samen met de dub delen.";
+"booth.primer.confirm" = "Booth Cam aanzetten";
+"booth.primer.decline" = "Dubben zonder";
+"booth.primer.systemPrompt" = "iOS vraagt zo om toegang tot de camera.";
+"booth.fact.onDevice" = "Cabinetakes blijven op je apparaat, netjes naast je stemtakes.";
+"booth.fact.nothingLeaves" = "Er gaat niets weg tot je exporteert, en elke export vraagt het eerst.";
+"booth.fact.reversible" = "Zet hem uit wanneer je wilt. De dub loopt gewoon door.";
+"booth.settings.section" = "Booth Cam";
+"booth.settings.title" = "Booth Cam";
+"booth.settings.desc" = "Filmt je gezicht terwijl je dubt, zodat de reactie met de take meereist.";
+"booth.settings.denied" = "Cameratoegang staat uit. Zet hem voor Dubloon weer aan in de Instellingen-app.";
+"booth.mirror.title" = "Mezelf gespiegeld zien";
+"booth.mirror.desc" = "Draait de cabinemonitor om terwijl je speelt. Het opgenomen bestand wordt nooit gespiegeld.";
+"booth.footage" = "Cabinebeelden";
+"booth.footage.usage" = "%1$@ · %2$d packs";
+"booth.deleteAll" = "Alle cabinetakes verwijderen";
+"booth.deleteAll.confirm" = "Verwijder";
+"booth.deleteAll.message" = "Dit veegt elke cabineclip weg. Je stemtakes en je dubs blijven staan.";
+
+/* Booth Cam: the export sheet */
+"booth.export.title" = "Exporteren";
+"booth.export.subtitle" = "Kies de montage en daarna waar je gezicht komt.";
+"booth.export.lineSubtitle" = "Eén zin, met je reactie ernaast.";
+"booth.export.cut" = "Montage";
+"booth.export.cut.fullScene" = "Hele scène";
+"booth.export.cut.sessionReel" = "Sessiereel";
+"booth.export.cut.detail" = "De afgemaakte dub, van kop tot staart. De reel is elke zin die je dubde, achter elkaar, zonder de stiltes.";
+"booth.export.frame" = "Cabinebeeld";
+"booth.frame.off" = "Uit";
+"booth.frame.corner" = "In de hoek";
+"booth.frame.stacked" = "Boven elkaar";
+"booth.frame.split" = "Naast elkaar";
+"booth.export.stackedNote" = "Boven elkaar rendert in 9:16, op maat voor een story of short.";
+"booth.export.noFootage" = "Nog geen cabinebeelden in deze scène. Zet Booth Cam aan en dub een zin.";
+"booth.export.confirm" = "Video exporteren";
+"booth.export.lineConfirm" = "Zin exporteren";
+"booth.export.notice" = "Voor het renderen zie je van wie deze scène is.";
+"booth.export.runtime" = "Speelduur";
+"booth.export.shape" = "Beeldvorm";
+"booth.shareLine" = "Deze zin delen";

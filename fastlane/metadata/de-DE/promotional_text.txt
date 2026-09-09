@@ -1,0 +1,1 @@
+Neu in 1.5.0: Die Booth Cam filmt dein Gesicht beim Synchronisieren, damit die Reaktion mit dem Take rausgeht. Jetzt in 21 Sprachen.

@@ -1,0 +1,8 @@
+/*
+   InfoPlist.strings (Dutch)
+   ReverseSinging
+*/
+
+"NSMicrophoneUsageDescription" = "Dubloon heeft toegang tot de microfoon nodig om je stem op te nemen, zodat je liedjes achterstevoren kunt zingen en filmscènes kunt dubben.";
+
+"NSCameraUsageDescription" = "Dubloon filmt je met de camera aan de voorkant terwijl je dubt, zodat je je reactie naast je take kunt delen. De camera blijft uit totdat je hem aanzet.";

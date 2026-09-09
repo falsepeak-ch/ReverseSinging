@@ -1,4 +1,4 @@
-Dubloon sono due giochi di voce in una sola app, e a nessuno dei due serve altro che il tuo microfono.
+Dubloon sono due giochi di voce in una sola app, e nessuno dei due ha bisogno di altro che del tuo microfono.
 
 DOPPIAGGIO DI SCENA
 
@@ -8,18 +8,22 @@ Carica una scena e doppiala tu. Dubloon ti riproduce la battuta originale, ti mo
 • L'interpretazione originale in cuffia mentre registri, se ti va
 • Ogni personaggio ha il suo colore, così sai sempre chi parla
 • Una barra di ritmo che diventa ambra appena superi l'originale
-• Guarda l'originale, riascolta il tuo doppiaggio o esporta l'intera scena in video
 • I dialoghi sovrapposti vengono mixati su piste separate, così due personaggi che parlano insieme suonano davvero così
+• Guarda l'originale, riascolta il tuo doppiaggio o esporta l'intera scena in video
 
-Alla fine Dubloon renderizza la scena con la tua voce dentro e ti consegna un video da condividere.
+CAMERA DELLA CABINA
+
+Accendi la fotocamera frontale e Dubloon ti riprende mentre reciti. Esporta la scena finita con la tua faccia in un angolo, impilata sopra per una storia, o affiancata. Oppure fai uscire una singola battuta con la reazione lì accanto. La fotocamera resta spenta finché non la accendi, e il girato resta sul telefono finché non decidi di esportare.
+
+CON UN VOTO, SE LO VUOI
+
+Ogni take viene valutata su tempi, ritmo e interpretazione, con un voto per la scena, la tua battuta migliore e quella che merita un altro giro. Spegnilo e non tiene il conto nessuno.
 
 DUE SCENE PER INIZIARE
 
-Dubloon arriva con due scene, così il modo si apre sempre su qualcosa da interpretare. Una è d'animazione e l'altra è un classico in bianco e nero, e non si somigliano per niente.
+Camp Rules è tratta da Sprite Fright, il film aperto di Blender Studio, condiviso con licenza Creative Commons Attribution 4.0. Stuck Up viene da The Outsider, un film scolastico del 1951 di pubblico dominio negli Stati Uniti. Ogni scena indica il film, l'anno e i termini sulla propria schermata.
 
-Camp Rules è ritagliata da Sprite Fright, il film libero di Blender Studio, condiviso con licenza Creative Commons Attribuzione 4.0. Stuck Up è ritagliata da The Outsider, un film scolastico del 1951 che è di pubblico dominio negli Stati Uniti. Ogni scena indica il film, l'anno e i termini sulla propria schermata.
-
-Da lì in poi lo scaffale lo riempi tu. Dubloon non include, non ospita e non fornisce alcun film. I pack di doppiaggio sono creati e condivisi dagli altri giocatori: scarichi quelli che vuoi e importi la cartella o lo .zip da File, AirDrop o qualsiasi foglio di condivisione. Sei tu il responsabile dei diritti su ciò che doppi.
+Da lì in poi lo scaffale lo riempi tu. Oltre a queste due, Dubloon non include e non ospita alcun film. I pack di doppiaggio sono creati e condivisi dagli altri giocatori: scarichi quelli che vuoi e importi la cartella o lo .zip da File, AirDrop o qualsiasi foglio di condivisione. Assicurati di avere il diritto di usare ciò che doppi.
 
 CANTO INVERTITO
 
@@ -30,8 +34,10 @@ Il gioco originale. Registra una canzone e Dubloon la inverte. Canta la versione
 
 PRIVATO PER SCELTA
 
-Tutto avviene su questo dispositivo. Le tue registrazioni, le tue take e i tuoi doppiaggi esportati non escono mai da qui: nessun account, nessuna registrazione, nessuna pubblicità, niente da caricare. L'app raccoglie statistiche d'uso anonime per capire cosa costruire dopo, mai il contenuto di una registrazione.
+Tutto avviene su questo dispositivo. Le tue registrazioni, le tue take, il girato della cabina e i doppiaggi esportati non escono mai da qui. Nessun account, nessuna registrazione, nessuna pubblicità, niente da caricare. L'app raccoglie statistiche d'uso anonime per capire cosa costruire dopo, mai il contenuto di una registrazione.
 
-Gratis. Nessun abbonamento, nessun acquisto in-app, niente da sbloccare.
+QUANTO COSTA
 
-Creato in Svizzera. Fatto con cura a Zurigo.
+Sette giorni gratis, entrambi i giochi, senza nulla di trattenuto. Poi un solo pagamento sblocca l'app per sempre. Non è un abbonamento.
+
+Creato in Svizzera. Fatto a mano a Zurigo.
