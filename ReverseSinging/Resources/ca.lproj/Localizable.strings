@@ -168,6 +168,7 @@
 "dub.stop" = "Aturar";
 "dub.recordTake" = "Gravar";
 "dub.next" = "Següent";
+"dub.finish" = "Fet";
 "dub.previous" = "Anterior";
 "dub.recordingHint" = "Digues la frase com si te la creguessis i segueix el ritme de l'original.";
 "dub.listenHint" = "Escolta-la un cop i roba-li l'entonació.";
@@ -347,13 +348,12 @@
 
 /* Booth Cam: the export sheet */
 "booth.export.title" = "Exportar";
-"booth.export.subtitle" = "Tria el muntatge i després on va la teva cara.";
-"booth.export.lineSubtitle" = "Una frase, amb la teva reacció al costat.";
 "booth.export.cut" = "Muntatge";
 "booth.export.cut.fullScene" = "Escena sencera";
 "booth.export.cut.sessionReel" = "Bobina de la sessió";
 "booth.export.cut.detail" = "El doblatge acabat, de dalt a baix. La bobina és cada frase que has doblat, una darrere l'altra i sense els silencis.";
 "booth.export.frame" = "Enquadrament de la cabina";
+"booth.export.advanced" = "Opcions avançades";
 "booth.frame.off" = "Sense cabina";
 "booth.frame.corner" = "En un cantó";
 "booth.frame.stacked" = "Una sobre l'altra";

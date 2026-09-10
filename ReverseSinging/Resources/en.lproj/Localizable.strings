@@ -168,6 +168,7 @@
 "dub.stop" = "Stop";
 "dub.recordTake" = "Record";
 "dub.next" = "Next";
+"dub.finish" = "Done";
 "dub.previous" = "Previous";
 "dub.recordingHint" = "Say the line like you mean it, and keep pace with the original.";
 "dub.listenHint" = "Listen once, then steal the delivery.";
@@ -347,13 +348,12 @@
 
 /* Booth Cam: the export sheet */
 "booth.export.title" = "Export";
-"booth.export.subtitle" = "Pick the cut, then decide where your face goes.";
-"booth.export.lineSubtitle" = "One line, with your reaction beside it.";
 "booth.export.cut" = "Cut";
 "booth.export.cut.fullScene" = "Full scene";
 "booth.export.cut.sessionReel" = "Session reel";
 "booth.export.cut.detail" = "The finished dub, top to tail. Session reel is every line you dubbed, back to back, with the dead air cut out.";
 "booth.export.frame" = "Booth frame";
+"booth.export.advanced" = "Advanced";
 "booth.frame.off" = "Off";
 "booth.frame.corner" = "Corner";
 "booth.frame.stacked" = "Stacked";

@@ -168,6 +168,7 @@
 "dub.stop" = "Pysäytä";
 "dub.recordTake" = "Äänitä";
 "dub.next" = "Seuraava";
+"dub.finish" = "Valmis";
 "dub.previous" = "Edellinen";
 "dub.recordingHint" = "Sano repliikki kuin tarkoittaisit sitä ja pysy alkuperäisen tahdissa.";
 "dub.listenHint" = "Kuuntele kerran ja varasta sitten äänenpaino.";
@@ -347,13 +348,12 @@
 
 /* Booth Cam: the export sheet */
 "booth.export.title" = "Vie";
-"booth.export.subtitle" = "Valitse leikkaus ja sitten paikka naamallesi.";
-"booth.export.lineSubtitle" = "Yksi repliikki ja reaktiosi sen vierellä.";
 "booth.export.cut" = "Leikkaus";
 "booth.export.cut.fullScene" = "Koko kohtaus";
 "booth.export.cut.sessionReel" = "Session kela";
 "booth.export.cut.detail" = "Valmis dubbaus alusta loppuun. Kela on jokainen dubbaamasi repliikki peräkkäin, hiljaisuudet pois leikattuina.";
 "booth.export.frame" = "Kopin kuva";
+"booth.export.advanced" = "Lisäasetukset";
 "booth.frame.off" = "Pois";
 "booth.frame.corner" = "Kulmassa";
 "booth.frame.stacked" = "Päällekkäin";

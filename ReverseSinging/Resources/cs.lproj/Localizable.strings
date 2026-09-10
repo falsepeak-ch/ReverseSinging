@@ -168,6 +168,7 @@
 "dub.stop" = "Stop";
 "dub.recordTake" = "Nahrát";
 "dub.next" = "Další";
+"dub.finish" = "Hotovo";
 "dub.previous" = "Předchozí";
 "dub.recordingHint" = "Řekni repliku, jako bys ji myslel vážně, a drž tempo originálu.";
 "dub.listenHint" = "Poslechni si to jednou a pak ukradni intonaci.";
@@ -347,13 +348,12 @@
 
 /* Booth Cam: the export sheet */
 "booth.export.title" = "Export";
-"booth.export.subtitle" = "Vyber sestřih a pak místo pro svůj obličej.";
-"booth.export.lineSubtitle" = "Jedna replika a tvoje reakce vedle ní.";
 "booth.export.cut" = "Sestřih";
 "booth.export.cut.fullScene" = "Celá scéna";
 "booth.export.cut.sessionReel" = "Cívka ze session";
 "booth.export.cut.detail" = "Hotový dabing od začátku do konce. Cívka je každá nadabovaná replika za sebou, bez ticha mezi nimi.";
 "booth.export.frame" = "Obraz kabiny";
+"booth.export.advanced" = "Pokročilé";
 "booth.frame.off" = "Vypnuto";
 "booth.frame.corner" = "V rohu";
 "booth.frame.stacked" = "Nad sebou";

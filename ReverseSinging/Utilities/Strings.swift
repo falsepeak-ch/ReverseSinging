@@ -267,13 +267,12 @@ nonisolated enum Strings {
 
         // The export sheet: which stretch of the film, and how the booth sits in it
         static let exportTitle = NSLocalizedString("booth.export.title", comment: "Export sheet title")
-        static let exportSubtitle = NSLocalizedString("booth.export.subtitle", comment: "Export sheet subtitle")
-        static let exportLineSubtitle = NSLocalizedString("booth.export.lineSubtitle", comment: "Export sheet subtitle when exporting a single line")
         static let cut = NSLocalizedString("booth.export.cut", comment: "Section label: which stretch of the film to export")
         static let cutFullScene = NSLocalizedString("booth.export.cut.fullScene", comment: "Export the finished dub end to end")
         static let cutSessionReel = NSLocalizedString("booth.export.cut.sessionReel", comment: "Export every dubbed line back to back")
         static let cutDetail = NSLocalizedString("booth.export.cut.detail", comment: "What the two cuts are")
         static let frameSection = NSLocalizedString("booth.export.frame", comment: "Section label: how the booth is composited")
+        static let advanced = NSLocalizedString("booth.export.advanced", comment: "Disclosure holding the export options most people never change")
         static let frameOff = NSLocalizedString("booth.frame.off", comment: "Booth frame: not included")
         static let frameCorner = NSLocalizedString("booth.frame.corner", comment: "Booth frame: inset in the corner")
         static let frameStacked = NSLocalizedString("booth.frame.stacked", comment: "Booth frame: scene above, booth below")
@@ -309,6 +308,7 @@ nonisolated enum Strings {
         static let record = NSLocalizedString("dub.record", comment: "Start recording lines")
         static let continueRecording = NSLocalizedString("dub.continueRecording", comment: "Resume recording lines")
         static let export = NSLocalizedString("dub.export", comment: "Export video button")
+        static let finish = NSLocalizedString("dub.finish", comment: "Leave the record screen from the last line")
         static let lines = NSLocalizedString("dub.lines", comment: "Lines section header")
         static let attribution = NSLocalizedString("dub.attribution", comment: "Header for the credit block: what the scene was cut from and under what licence")
         static let packsSection = NSLocalizedString("dub.packsSection", comment: "Packs section label")

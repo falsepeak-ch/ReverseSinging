@@ -168,6 +168,7 @@
 "dub.stop" = "Arrêter";
 "dub.recordTake" = "Enregistrer";
 "dub.next" = "Suivante";
+"dub.finish" = "Terminé";
 "dub.previous" = "Précédente";
 "dub.recordingHint" = "Dis la réplique comme si tu y croyais et garde le rythme de l'original.";
 "dub.listenHint" = "Écoute une fois, puis vole-lui son intonation.";
@@ -347,13 +348,12 @@
 
 /* Booth Cam: the export sheet */
 "booth.export.title" = "Exporter";
-"booth.export.subtitle" = "Choisis le montage, puis où se pose ta tête.";
-"booth.export.lineSubtitle" = "Une réplique, avec ta réaction à côté.";
 "booth.export.cut" = "Montage";
 "booth.export.cut.fullScene" = "Scène complète";
 "booth.export.cut.sessionReel" = "Bobine de session";
 "booth.export.cut.detail" = "Le doublage fini, du début à la fin. La bobine, c'est chaque réplique doublée, mises bout à bout, sans les blancs.";
 "booth.export.frame" = "Cadre de la cabine";
+"booth.export.advanced" = "Options avancées";
 "booth.frame.off" = "Sans";
 "booth.frame.corner" = "Dans un coin";
 "booth.frame.stacked" = "L'un sur l'autre";

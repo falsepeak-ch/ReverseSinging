@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 /// The two choices an export now has: the cut, and the booth frame.
 ///
@@ -34,6 +35,10 @@ struct DubExportOptionsModal: View {
     /// The scene picture's shape, read from the pack's own video. Nil until it has loaded, and
     /// for packs that have no video and are exported as a slideshow.
     @State private var sceneSize: CGSize?
+    @State private var showsAdvanced = false
+    /// A frame lifted out of one of the booth clips, so the diagram can show the performer
+    /// rather than a labelled rectangle. Nil for a scene that was never filmed.
+    @State private var boothStill: UIImage?
 
     init(
         pack: DubPack,
@@ -70,6 +75,27 @@ struct DubExportOptionsModal: View {
         .task {
             sceneSize = await DubBoothComposer.sceneDisplaySize(of: pack)
         }
+        .task {
+            boothStill = await Self.boothStill(in: pack)
+        }
+    }
+
+    /// A frame from the first booth clip this pack has, for the diagram.
+    ///
+    /// Half a second in rather than at zero: the first frame of a take is the performer still
+    /// arranging their face, which is nobody's idea of a thumbnail.
+    private static func boothStill(in pack: DubPack) async -> UIImage? {
+        guard let line = pack.lines.first(where: { pack.hasBoothTake(for: $0) }) else { return nil }
+
+        let asset = AVURLAsset(url: pack.boothTakeURL(for: line))
+        let generator = AVAssetImageGenerator(asset: asset)
+        generator.appliesPreferredTrackTransform = true
+        generator.maximumSize = CGSize(width: 240, height: 240)
+
+        guard let image = try? await generator.image(at: CMTime(seconds: 0.5, preferredTimescale: 600)).image
+        else { return nil }
+
+        return UIImage(cgImage: image)
     }
 
     /// The booth's own shape, for laying out the diagram before any footage is opened. Every
@@ -113,27 +139,21 @@ struct DubExportOptionsModal: View {
         VStack(spacing: 0) {
             titleBar
 
-            VStack(alignment: .leading, spacing: 18) {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(Strings.Booth.exportTitle)
-                        .font(.rsHeadingSmall)
-                        .foregroundColor(.rsTextPrimary)
+            VStack(alignment: .leading, spacing: 16) {
+                Text(Strings.Booth.exportTitle)
+                    .font(.rsHeadingSmall)
+                    .foregroundColor(.rsTextPrimary)
 
-                    Text(line == nil ? Strings.Booth.exportSubtitle : Strings.Booth.exportLineSubtitle)
-                        .font(.rsBodySmall)
-                        .foregroundColor(.rsTextSecondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-
+                // The preview says what the other choices used to have to explain, now that
+                // it is made of the actual scene and the actual face rather than two grey
+                // rectangles with words in them.
                 preview
 
-                if let line {
-                    lineIdentity(line)
-                } else {
-                    cutPicker
-                }
+                if let line { lineIdentity(line) }
 
                 framePicker
+
+                advanced
 
                 slate
 
@@ -206,16 +226,14 @@ struct DubExportOptionsModal: View {
                         .fill(Color.rsSurface3)
                         .frame(width: size.width, height: size.height)
 
-                    previewLabel(Strings.Dub.original, tint: .rsTextSecondary)
-                        .frame(
-                            width: sceneRect.width * scale,
-                            height: sceneRect.height * scale
-                        )
-                        .background(Color.rsSurface2)
-                        .offset(
-                            x: sceneRect.minX * scale,
-                            y: sceneRect.minY * scale
-                        )
+                    previewPane(
+                        image: sceneStillURL.map { DubStillImage(url: $0) },
+                        label: Strings.Dub.original,
+                        tint: .rsTextSecondary,
+                        fill: Color.rsSurface2
+                    )
+                    .frame(width: sceneRect.width * scale, height: sceneRect.height * scale)
+                    .offset(x: sceneRect.minX * scale, y: sceneRect.minY * scale)
 
                     if let waveRect = layout.waveRect {
                         previewWave
@@ -228,19 +246,22 @@ struct DubExportOptionsModal: View {
                     }
 
                     if let boothRect = layout.boothRect, showsBooth {
-                        previewLabel(Strings.Booth.slug, tint: .rsHighlight)
-                            .frame(
-                                width: boothRect.width * scale,
-                                height: boothRect.height * scale
+                        previewPane(
+                            image: boothStill.map { still in
+                                Image(uiImage: still).resizable().aspectRatio(contentMode: .fill)
+                            },
+                            label: Strings.Booth.slug,
+                            tint: .rsHighlight,
+                            fill: Color.rsHighlight.opacity(0.22)
+                        )
+                        .frame(width: boothRect.width * scale, height: boothRect.height * scale)
+                        .overlay(
+                            Rectangle().strokeBorder(
+                                Color.rsHighlight.opacity(0.55),
+                                lineWidth: EditorMetrics.hairline
                             )
-                            .background(Color.rsHighlight.opacity(0.22))
-                            .overlay(
-                                Rectangle().strokeBorder(
-                                    Color.rsHighlight.opacity(0.55),
-                                    lineWidth: EditorMetrics.hairline
-                                )
-                            )
-                            .offset(x: boothRect.minX * scale, y: boothRect.minY * scale)
+                        )
+                        .offset(x: boothRect.minX * scale, y: boothRect.minY * scale)
                     }
                 }
                 // Two frames, each doing one job: the first pins the stack to the render
@@ -279,6 +300,39 @@ struct DubExportOptionsModal: View {
     private static let previewBarHeights: [CGFloat] = [
         0.25, 0.55, 0.35, 0.75, 0.45, 0.9, 0.4, 0.6, 0.3, 0.7, 0.5, 0.35
     ]
+
+    /// One pane of the diagram: the real picture where there is one, the old labelled block
+    /// where there is not.
+    ///
+    /// A still rather than a moving preview on purpose — this is a diagram of a layout, and a
+    /// pane playing footage would read as the export itself and invite people to wait for it
+    /// to finish.
+    private func previewPane<Content: View>(
+        image: Content?,
+        label: String,
+        tint: Color,
+        fill: Color
+    ) -> some View {
+        // The picture goes in an overlay rather than as a sibling in a stack. An aspect-fill
+        // image is bigger than the space it is given, and as a stack child it sizes the stack
+        // — which here meant the booth pane growing out of the diagram and over the title.
+        fill
+            .overlay { image }
+            .clipped()
+            // Dimmed a little, so the labels stay legible over a bright frame and the panes
+            // still read as parts of a diagram rather than as the finished thing.
+            .overlay { if image != nil { Color.rsSurface0.opacity(0.28) } }
+            .overlay { previewLabel(label, tint: image == nil ? tint : .rsTextPrimary) }
+    }
+
+    /// The still that stands in for the scene: the line being exported when there is one,
+    /// otherwise a frame from the middle of the film rather than its first, which on these
+    /// packs is usually a title card.
+    private var sceneStillURL: URL? {
+        if let line { return pack.imageURL(for: line) }
+        guard !pack.lines.isEmpty else { return nil }
+        return pack.imageURL(for: pack.lines[pack.lines.count / 2])
+    }
 
     private func previewLabel(_ text: String, tint: Color) -> some View {
         Text(text)
@@ -379,13 +433,61 @@ struct DubExportOptionsModal: View {
                 }
             }
 
-            Text(hasBoothFootage ? Strings.Booth.stackedNote : Strings.Booth.noFootage)
-                .font(.rsCaptionSmall)
-                .foregroundColor(.rsTextTertiary)
-                .fixedSize(horizontal: false, vertical: true)
+            if !hasBoothFootage {
+                Text(Strings.Booth.noFootage)
+                    .font(.rsCaptionSmall)
+                    .foregroundColor(.rsTextTertiary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+    }
 
-            if frame.isVertical {
-                boothSwitch
+    // MARK: - Advanced
+
+    /// Everything that has a right answer for almost everybody.
+    ///
+    /// The cut is the whole scene, the booth goes in when there is booth footage, and the
+    /// runtime is whatever it is. Left on the surface, three sections of explanatory prose
+    /// were the first thing anyone met on the way to a button they had already decided to
+    /// press. They are still one tap away, and the panel remembers nothing: it opens closed
+    /// every time, because a sheet that reopens mid-scroll into a section nobody asked for is
+    /// the problem this is fixing.
+    private var advanced: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Button {
+                HapticManager.shared.light()
+                withAnimation(.easeInOut(duration: 0.2)) { showsAdvanced.toggle() }
+            } label: {
+                HStack(spacing: 6) {
+                    Text(Strings.Booth.advanced)
+                        .editorLabelStyle(.rsTextSecondary)
+
+                    Image(systemName: "chevron.down")
+                        .font(.system(size: 9, weight: .bold))
+                        .foregroundColor(.rsTextTertiary)
+                        .rotationEffect(.degrees(showsAdvanced ? 0 : -90))
+
+                    Spacer(minLength: 0)
+                }
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+
+            if showsAdvanced {
+                VStack(alignment: .leading, spacing: 16) {
+                    if line == nil { cutPicker }
+
+                    if frame.isVertical { boothSwitch }
+
+                    if hasBoothFootage {
+                        Text(Strings.Booth.stackedNote)
+                            .font(.rsCaptionSmall)
+                            .foregroundColor(.rsTextTertiary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+                .padding(.top, 12)
+                .transition(.opacity)
             }
         }
     }

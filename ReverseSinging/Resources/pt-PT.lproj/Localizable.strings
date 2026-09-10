@@ -168,6 +168,7 @@
 "dub.stop" = "Parar";
 "dub.recordTake" = "Gravar";
 "dub.next" = "Seguinte";
+"dub.finish" = "Concluído";
 "dub.previous" = "Anterior";
 "dub.recordingHint" = "Diz a fala como se acreditasses nela e acompanha o ritmo do original.";
 "dub.listenHint" = "Ouve uma vez e depois rouba-lhe a entoação.";
@@ -347,13 +348,12 @@
 
 /* Booth Cam: the export sheet */
 "booth.export.title" = "Exportar";
-"booth.export.subtitle" = "Escolhe a montagem e depois onde fica a tua cara.";
-"booth.export.lineSubtitle" = "Uma fala, com a tua reacção ao lado.";
 "booth.export.cut" = "Montagem";
 "booth.export.cut.fullScene" = "Cena completa";
 "booth.export.cut.sessionReel" = "Bobina da sessão";
 "booth.export.cut.detail" = "A dobragem acabada, do princípio ao fim. A bobina é cada fala que dobraste, uma atrás da outra, sem os silêncios.";
 "booth.export.frame" = "Enquadramento da cabine";
+"booth.export.advanced" = "Avançado";
 "booth.frame.off" = "Sem cabine";
 "booth.frame.corner" = "Num canto";
 "booth.frame.stacked" = "Uma por cima da outra";

@@ -168,6 +168,7 @@
 "dub.stop" = "Стоп";
 "dub.recordTake" = "Запис";
 "dub.next" = "Далі";
+"dub.finish" = "Готово";
 "dub.previous" = "Назад";
 "dub.recordingHint" = "Скажи репліку так, ніби ти в неї віриш, і тримай темп оригіналу.";
 "dub.listenHint" = "Послухай раз і вкради інтонацію.";
@@ -347,13 +348,12 @@
 
 /* Booth Cam: the export sheet */
 "booth.export.title" = "Експорт";
-"booth.export.subtitle" = "Обери монтаж, а потім місце для свого обличчя.";
-"booth.export.lineSubtitle" = "Одна репліка і твоя реакція поруч.";
 "booth.export.cut" = "Монтаж";
 "booth.export.cut.fullScene" = "Уся сцена";
 "booth.export.cut.sessionReel" = "Котушка сесії";
 "booth.export.cut.detail" = "Готове озвучення від початку до кінця. Котушка — усі озвучені репліки поспіль, без тиші між ними.";
 "booth.export.frame" = "Кадр кабіни";
+"booth.export.advanced" = "Додатково";
 "booth.frame.off" = "Вимк.";
 "booth.frame.corner" = "У кутку";
 "booth.frame.stacked" = "Одне над одним";

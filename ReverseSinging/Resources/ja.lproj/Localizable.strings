@@ -168,6 +168,7 @@
 "dub.stop" = "停止";
 "dub.recordTake" = "録音";
 "dub.next" = "次へ";
+"dub.finish" = "完了";
 "dub.previous" = "前へ";
 "dub.recordingHint" = "本気で言い切って、オリジナルのテンポについていこう。";
 "dub.listenHint" = "一度聴いて、言い回しをそのまま盗もう。";
@@ -347,13 +348,12 @@
 
 /* Booth Cam: the export sheet */
 "booth.export.title" = "書き出し";
-"booth.export.subtitle" = "まず編集を選んで、次に自分の顔の置き場所を決めましょう。";
-"booth.export.lineSubtitle" = "セリフ1本と、その横にあなたのリアクション。";
 "booth.export.cut" = "編集";
 "booth.export.cut.fullScene" = "シーン全体";
 "booth.export.cut.sessionReel" = "セッションリール";
 "booth.export.cut.detail" = "完成したアフレコを頭からお尻まで。リールはアフレコしたセリフを連続でつなぎ、あいだの無音は落とします。";
 "booth.export.frame" = "ブースの映り";
+"booth.export.advanced" = "詳細設定";
 "booth.frame.off" = "なし";
 "booth.frame.corner" = "隅に小さく";
 "booth.frame.stacked" = "上下に並べる";

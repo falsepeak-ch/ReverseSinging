@@ -168,6 +168,7 @@
 "dub.stop" = "Stopp";
 "dub.recordTake" = "Ta opp";
 "dub.next" = "Neste";
+"dub.finish" = "Ferdig";
 "dub.previous" = "Forrige";
 "dub.recordingHint" = "Si replikken som om du mente den, og hold tempoet til originalen.";
 "dub.listenHint" = "Hør én gang, og stjel så tonefallet.";
@@ -347,13 +348,12 @@
 
 /* Booth Cam: the export sheet */
 "booth.export.title" = "Eksporter";
-"booth.export.subtitle" = "Velg klippet, og så hvor ansiktet ditt skal sitte.";
-"booth.export.lineSubtitle" = "Én replikk, med reaksjonen din ved siden av.";
 "booth.export.cut" = "Klipp";
 "booth.export.cut.fullScene" = "Hele scenen";
 "booth.export.cut.sessionReel" = "Øktrull";
 "booth.export.cut.detail" = "Den ferdige dubben fra ende til annen. Rullen er hver replikk du har dubbet, på rad, uten stillheten imellom.";
 "booth.export.frame" = "Boksbilde";
+"booth.export.advanced" = "Avansert";
 "booth.frame.off" = "Av";
 "booth.frame.corner" = "I hjørnet";
 "booth.frame.stacked" = "Oppå hverandre";

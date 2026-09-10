@@ -168,6 +168,7 @@
 "dub.stop" = "Стоп";
 "dub.recordTake" = "Запись";
 "dub.next" = "Дальше";
+"dub.finish" = "Готово";
 "dub.previous" = "Назад";
 "dub.recordingHint" = "Скажи реплику так, будто ты в неё веришь, и держи темп оригинала.";
 "dub.listenHint" = "Послушай один раз и укради интонацию.";
@@ -347,13 +348,12 @@
 
 /* Booth Cam: the export sheet */
 "booth.export.title" = "Экспорт";
-"booth.export.subtitle" = "Выбери монтаж, а потом место для своего лица.";
-"booth.export.lineSubtitle" = "Одна реплика и твоя реакция рядом.";
 "booth.export.cut" = "Монтаж";
 "booth.export.cut.fullScene" = "Вся сцена";
 "booth.export.cut.sessionReel" = "Катушка сессии";
 "booth.export.cut.detail" = "Готовая озвучка от начала до конца. Катушка — все озвученные реплики подряд, без тишины между ними.";
 "booth.export.frame" = "Кадр кабины";
+"booth.export.advanced" = "Дополнительно";
 "booth.frame.off" = "Выкл.";
 "booth.frame.corner" = "В углу";
 "booth.frame.stacked" = "Друг над другом";

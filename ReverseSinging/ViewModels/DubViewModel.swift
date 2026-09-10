@@ -63,6 +63,14 @@ final class DubViewModel: ObservableObject {
 
     var hasAnyBoothTake: Bool { !boothSlugs.isEmpty }
 
+    /// The booth clip the monitor should be showing instead of the live camera, or nil when
+    /// it should be showing what the camera sees now.
+    ///
+    /// Set while a take is being played back, so the monitor becomes a playback window on the
+    /// take rather than a mirror: the point of filming was to watch it afterwards, and the
+    /// only screen the footage was reachable from until now was the export.
+    @Published private(set) var boothPlaybackURL: URL?
+
     func hasBoothTake(_ line: DubLine) -> Bool { boothSlugs.contains(line.slug) }
 
     // MARK: - Reference Preview
@@ -186,6 +194,13 @@ final class DubViewModel: ObservableObject {
 
         referencePlayer.$isPlaying
             .assign(to: &$isPreviewingReference)
+
+        // The monitor goes back to the live camera whenever the take stops, however it
+        // stopped: reaching the end, being stopped, or another line being selected.
+        referencePlayer.$isPlaying
+            .filter { !$0 }
+            .sink { [weak self] _ in self?.boothPlaybackURL = nil }
+            .store(in: &cancellables)
 
         referencePlayer.$currentTime
             .combineLatest(referencePlayer.$duration)
@@ -384,6 +399,9 @@ final class DubViewModel: ObservableObject {
             return
         }
 
+        // This is the film talking, not the user, so the monitor stays a mirror.
+        boothPlaybackURL = nil
+
         guard !isRecording else { return }
 
         do {
@@ -405,8 +423,12 @@ final class DubViewModel: ObservableObject {
 
         do {
             try referencePlayer.loadAudio(from: pack.takeURL(for: line))
+            // Set before play, so the monitor has already swapped when the first sample is
+            // heard rather than a frame after it.
+            boothPlaybackURL = hasBoothTake(line) ? pack.boothTakeURL(for: line) : nil
             referencePlayer.play()
         } catch {
+            boothPlaybackURL = nil
             errorMessage = error.localizedDescription
         }
     }

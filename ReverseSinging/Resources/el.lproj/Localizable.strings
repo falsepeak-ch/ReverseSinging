@@ -168,6 +168,7 @@
 "dub.stop" = "Στοπ";
 "dub.recordTake" = "Ηχογράφηση";
 "dub.next" = "Επόμενη";
+"dub.finish" = "Τέλος";
 "dub.previous" = "Προηγούμενη";
 "dub.recordingHint" = "Πες την ατάκα σαν να την εννοείς και κράτα τον ρυθμό του πρωτοτύπου.";
 "dub.listenHint" = "Άκουσέ την μία φορά και μετά κλέψε τον τόνο.";
@@ -347,13 +348,12 @@
 
 /* Booth Cam: the export sheet */
 "booth.export.title" = "Εξαγωγή";
-"booth.export.subtitle" = "Διάλεξε το μοντάζ και μετά πού κάθεται το πρόσωπό σου.";
-"booth.export.lineSubtitle" = "Μία ατάκα, με την αντίδρασή σου δίπλα.";
 "booth.export.cut" = "Μοντάζ";
 "booth.export.cut.fullScene" = "Όλη η σκηνή";
 "booth.export.cut.sessionReel" = "Μπομπίνα συνεδρίας";
 "booth.export.cut.detail" = "Η ολοκληρωμένη μεταγλώττιση από την αρχή ως το τέλος. Η μπομπίνα είναι κάθε ατάκα που μεταγλώττισες, στη σειρά, χωρίς τις σιωπές.";
 "booth.export.frame" = "Κάδρο θαλάμου";
+"booth.export.advanced" = "Για προχωρημένους";
 "booth.frame.off" = "Ανενεργό";
 "booth.frame.corner" = "Στη γωνία";
 "booth.frame.stacked" = "Το ένα πάνω στο άλλο";

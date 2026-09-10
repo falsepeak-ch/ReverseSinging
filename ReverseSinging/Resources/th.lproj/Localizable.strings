@@ -168,6 +168,7 @@
 "dub.stop" = "หยุด";
 "dub.recordTake" = "อัด";
 "dub.next" = "ถัดไป";
+"dub.finish" = "เสร็จ";
 "dub.previous" = "ก่อนหน้า";
 "dub.recordingHint" = "พูดบทนั้นให้เหมือนคุณเชื่อจริง ๆ และเกาะจังหวะต้นฉบับไว้";
 "dub.listenHint" = "ฟังหนึ่งรอบ แล้วขโมยลีลาการพูดมาเลย";
@@ -347,13 +348,12 @@
 
 /* Booth Cam: the export sheet */
 "booth.export.title" = "ส่งออก";
-"booth.export.subtitle" = "เลือกการตัดต่อก่อน แล้วค่อยเลือกว่าหน้าคุณจะไปอยู่ตรงไหน";
-"booth.export.lineSubtitle" = "หนึ่งบทพูด พร้อมปฏิกิริยาของคุณข้าง ๆ";
 "booth.export.cut" = "การตัดต่อ";
 "booth.export.cut.fullScene" = "ทั้งฉาก";
 "booth.export.cut.sessionReel" = "รีลของเซสชัน";
 "booth.export.cut.detail" = "เสียงพากย์ที่เสร็จแล้วตั้งแต่ต้นจนจบ ส่วนรีลคือทุกบทที่คุณพากย์ต่อกันรวด ตัดช่วงเงียบออก";
 "booth.export.frame" = "กรอบของบูธ";
+"booth.export.advanced" = "ขั้นสูง";
 "booth.frame.off" = "ปิด";
 "booth.frame.corner" = "มุมจอ";
 "booth.frame.stacked" = "ซ้อนบนล่าง";

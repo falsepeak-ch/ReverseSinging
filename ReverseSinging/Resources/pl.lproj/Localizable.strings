@@ -168,6 +168,7 @@
 "dub.stop" = "Zatrzymaj";
 "dub.recordTake" = "Nagraj";
 "dub.next" = "Dalej";
+"dub.finish" = "Gotowe";
 "dub.previous" = "Wstecz";
 "dub.recordingHint" = "Powiedz kwestię tak, jakbyś w nią wierzył, i trzymaj tempo oryginału.";
 "dub.listenHint" = "Posłuchaj raz, a potem ukradnij intonację.";
@@ -347,13 +348,12 @@
 
 /* Booth Cam: the export sheet */
 "booth.export.title" = "Eksport";
-"booth.export.subtitle" = "Wybierz montaż, a potem miejsce dla swojej twarzy.";
-"booth.export.lineSubtitle" = "Jedna kwestia, z twoją reakcją obok.";
 "booth.export.cut" = "Montaż";
 "booth.export.cut.fullScene" = "Cała scena";
 "booth.export.cut.sessionReel" = "Rolka z sesji";
 "booth.export.cut.detail" = "Gotowy dubbing od początku do końca. Rolka to każda zdubbingowana kwestia, jedna po drugiej, bez ciszy pomiędzy.";
 "booth.export.frame" = "Kadr kabiny";
+"booth.export.advanced" = "Zaawansowane";
 "booth.frame.off" = "Wyłączony";
 "booth.frame.corner" = "W rogu";
 "booth.frame.stacked" = "Jeden nad drugim";

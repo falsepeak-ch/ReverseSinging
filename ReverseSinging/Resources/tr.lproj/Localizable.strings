@@ -168,6 +168,7 @@
 "dub.stop" = "Dur";
 "dub.recordTake" = "Kaydet";
 "dub.next" = "Sonraki";
+"dub.finish" = "Bitti";
 "dub.previous" = "Önceki";
 "dub.recordingHint" = "Repliği inanarak söyle ve orijinalin temposunu tuttur.";
 "dub.listenHint" = "Bir kez dinle, sonra tonlamayı çal.";
@@ -347,13 +348,12 @@
 
 /* Booth Cam: the export sheet */
 "booth.export.title" = "Dışa aktar";
-"booth.export.subtitle" = "Önce kurguyu seç, sonra yüzünün nereye oturacağını.";
-"booth.export.lineSubtitle" = "Tek replik, yanında da senin tepkin.";
 "booth.export.cut" = "Kurgu";
 "booth.export.cut.fullScene" = "Sahnenin tamamı";
 "booth.export.cut.sessionReel" = "Oturum makarası";
 "booth.export.cut.detail" = "Bitmiş seslendirme, baştan sona. Makara ise seslendirdiğin her repliğin arka arkaya hali, aradaki sessizlikler kesilmiş.";
 "booth.export.frame" = "Kabin çerçevesi";
+"booth.export.advanced" = "Gelişmiş";
 "booth.frame.off" = "Kapalı";
 "booth.frame.corner" = "Köşede";
 "booth.frame.stacked" = "Üst üste";

@@ -168,6 +168,7 @@
 "dub.stop" = "إيقاف";
 "dub.recordTake" = "تسجيل";
 "dub.next" = "التالي";
+"dub.finish" = "إنهاء";
 "dub.previous" = "السابق";
 "dub.recordingHint" = "قل الجملة كأنك تعنيها، والزم إيقاع الأصل.";
 "dub.listenHint" = "استمع مرة واحدة ثم اسرق طريقة الأداء.";
@@ -347,13 +348,12 @@
 
 /* Booth Cam: the export sheet */
 "booth.export.title" = "تصدير";
-"booth.export.subtitle" = "اختر المونتاج، ثم أين يجلس وجهك فيه.";
-"booth.export.lineSubtitle" = "جملة واحدة، وردة فعلك بجانبها.";
 "booth.export.cut" = "المونتاج";
 "booth.export.cut.fullScene" = "المشهد كاملاً";
 "booth.export.cut.sessionReel" = "بكرة الجلسة";
 "booth.export.cut.detail" = "الدبلجة المكتملة من أولها إلى آخرها. أما البكرة فهي كل جملة دبلجتها، واحدة تلو الأخرى، بلا صمت بينها.";
 "booth.export.frame" = "إطار الكابينة";
+"booth.export.advanced" = "خيارات متقدمة";
 "booth.frame.off" = "بدون";
 "booth.frame.corner" = "في الزاوية";
 "booth.frame.stacked" = "فوق بعضهما";

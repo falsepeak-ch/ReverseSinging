@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AVFoundation
+import Combine
 
 // MARK: - Preview Layer
 
@@ -70,6 +71,8 @@ struct BoothMonitor: View {
     /// that says the voice is being heard at all.
     let level: Float
     let isRecording: Bool
+    /// A clip to play in place of the live camera, while a take is being reviewed.
+    var playbackURL: URL?
 
     static let width: CGFloat = 96
     static let height: CGFloat = 128
@@ -77,7 +80,12 @@ struct BoothMonitor: View {
     var body: some View {
         VStack(spacing: 5) {
             ZStack {
-                if recorder.isPreviewing {
+                if let playbackURL {
+                    // Never mirrored, whatever the preview preference says: this is the file,
+                    // and the file is what an export will show other people. A take reviewed
+                    // flipped and then posted unflipped is a surprise at the worst moment.
+                    BoothPlaybackView(url: playbackURL)
+                } else if recorder.isPreviewing {
                     BoothPreviewView(
                         session: recorder.session,
                         isMirrored: preference.mirrorsPreview
@@ -100,6 +108,7 @@ struct BoothMonitor: View {
                 .frame(width: Self.width)
         }
         .animation(.easeInOut(duration: 0.25), value: recorder.isPreviewing)
+        .animation(.easeInOut(duration: 0.2), value: playbackURL)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(Strings.Booth.monitorAccessibility)
     }
@@ -120,6 +129,34 @@ struct BoothMonitor: View {
         .padding(.vertical, 3)
         .background(Color.rsSurface0.opacity(0.78))
         .padding(5)
+    }
+}
+
+// MARK: - Playback
+
+/// The booth clip for a take, playing in the monitor's frame.
+///
+/// Its own `AVPlayer` rather than the scene's: the two are playing different footage at the
+/// same moment and the scene picture is driven by a scheduled anchor it does not share.
+private struct BoothPlaybackView: View {
+
+    let url: URL
+
+    @State private var player = AVPlayer()
+
+    var body: some View {
+        DubPlayerLayerView(player: player)
+            .onAppear { start() }
+            .onChange(of: url) { _, _ in start() }
+            .onDisappear { player.pause() }
+    }
+
+    private func start() {
+        player.replaceCurrentItem(with: AVPlayerItem(url: url))
+        // The clip is silent, but a player that has not been told so still claims the route.
+        player.isMuted = true
+        player.seek(to: .zero)
+        player.play()
     }
 }
 

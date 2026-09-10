@@ -168,6 +168,7 @@
 "dub.stop" = "Stopp";
 "dub.recordTake" = "Aufnehmen";
 "dub.next" = "Weiter";
+"dub.finish" = "Fertig";
 "dub.previous" = "Zurück";
 "dub.recordingHint" = "Sag die Zeile, als würdest du sie meinen, und bleib im Tempo des Originals.";
 "dub.listenHint" = "Einmal hören, dann die Betonung klauen.";
@@ -347,13 +348,12 @@
 
 /* Booth Cam: the export sheet */
 "booth.export.title" = "Export";
-"booth.export.subtitle" = "Erst den Schnitt wählen, dann entscheiden, wo dein Gesicht sitzt.";
-"booth.export.lineSubtitle" = "Eine Zeile, mit deiner Reaktion daneben.";
 "booth.export.cut" = "Schnitt";
 "booth.export.cut.fullScene" = "Ganze Szene";
 "booth.export.cut.sessionReel" = "Session-Reel";
 "booth.export.cut.detail" = "Die fertige Fassung von vorne bis hinten. Das Reel sind alle vertonten Zeilen hintereinander, ohne die Stille dazwischen.";
 "booth.export.frame" = "Kabinenbild";
+"booth.export.advanced" = "Erweitert";
 "booth.frame.off" = "Aus";
 "booth.frame.corner" = "In der Ecke";
 "booth.frame.stacked" = "Übereinander";

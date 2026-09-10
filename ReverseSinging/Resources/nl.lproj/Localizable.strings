@@ -168,6 +168,7 @@
 "dub.stop" = "Stop";
 "dub.recordTake" = "Opnemen";
 "dub.next" = "Volgende";
+"dub.finish" = "Klaar";
 "dub.previous" = "Vorige";
 "dub.recordingHint" = "Zeg de zin alsof je hem meent en blijf in het tempo van het origineel.";
 "dub.listenHint" = "Luister één keer en steel dan de intonatie.";
@@ -347,13 +348,12 @@
 
 /* Booth Cam: the export sheet */
 "booth.export.title" = "Exporteren";
-"booth.export.subtitle" = "Kies de montage en daarna waar je gezicht komt.";
-"booth.export.lineSubtitle" = "Eén zin, met je reactie ernaast.";
 "booth.export.cut" = "Montage";
 "booth.export.cut.fullScene" = "Hele scène";
 "booth.export.cut.sessionReel" = "Sessiereel";
 "booth.export.cut.detail" = "De afgemaakte dub, van kop tot staart. De reel is elke zin die je dubde, achter elkaar, zonder de stiltes.";
 "booth.export.frame" = "Cabinebeeld";
+"booth.export.advanced" = "Geavanceerd";
 "booth.frame.off" = "Uit";
 "booth.frame.corner" = "In de hoek";
 "booth.frame.stacked" = "Boven elkaar";

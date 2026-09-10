@@ -241,7 +241,8 @@ struct DubRecordView: View {
                     BoothMonitor(
                         recorder: viewModel.booth,
                         level: viewModel.recordingLevel,
-                        isRecording: viewModel.isRecording
+                        isRecording: viewModel.isRecording,
+                        playbackURL: viewModel.boothPlaybackURL
                     )
                     .padding(12)
                     .transition(.opacity.combined(with: .scale(scale: 0.94, anchor: .bottomTrailing)))
@@ -430,18 +431,36 @@ struct DubRecordView: View {
                 action: viewModel.playCurrentTake
             )
 
-            transportButton(
-                icon: "chevron.right",
-                label: Strings.Dub.next,
-                isEnabled: viewModel.currentLineIndex < viewModel.pack.lines.count - 1 && !viewModel.isRecording,
-                action: viewModel.goToNextLine
-            )
+            // On the last line there is nowhere to go next, and a permanently greyed chevron
+            // is a dead end where the session actually ends. It becomes the way out instead.
+            if isOnLastLine {
+                transportButton(
+                    icon: "checkmark",
+                    label: Strings.Dub.finish,
+                    isEnabled: !viewModel.isRecording,
+                    action: {
+                        viewModel.stopEverything()
+                        dismiss()
+                    }
+                )
+            } else {
+                transportButton(
+                    icon: "chevron.right",
+                    label: Strings.Dub.next,
+                    isEnabled: !viewModel.isRecording,
+                    action: viewModel.goToNextLine
+                )
+            }
         }
         .padding(.horizontal, 10)
         .padding(.top, 10)
         .padding(.bottom, 22)
         .background(Color.rsSurface1)
         .overlay(alignment: .top) { EditorRule() }
+    }
+
+    private var isOnLastLine: Bool {
+        viewModel.currentLineIndex >= viewModel.pack.lines.count - 1
     }
 
     /// The one saturated control on the screen, and the only round one, so the
