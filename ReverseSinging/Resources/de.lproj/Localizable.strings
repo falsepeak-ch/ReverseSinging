@@ -357,9 +357,12 @@
 "booth.frame.off" = "Aus";
 "booth.frame.corner" = "In der Ecke";
 "booth.frame.stacked" = "Übereinander";
+"booth.frame.reaction" = "Reaktion";
 "booth.frame.split" = "Nebeneinander";
-"booth.export.stackedNote" = "Übereinander rendert in 9:16, passend für Story oder Short.";
+"booth.export.stackedNote" = "Übereinander und Reaktion rendern in 9:16, mit einer Wellenform am Fuß: die Zeile der Szene oben, deine darunter.";
 "booth.export.noFootage" = "In dieser Szene gibt es noch kein Kabinenmaterial. Schalt die Booth Cam ein und vertone eine Zeile.";
+"booth.export.includeBooth" = "Kabinenmaterial einbeziehen";
+"booth.export.includeBooth.detail" = "Aus behält das Hochformat und die Wellenform, nur mit der Szene allein darin.";
 "booth.export.confirm" = "Video exportieren";
 "booth.export.lineConfirm" = "Zeile exportieren";
 "booth.export.notice" = "Vor dem Rendern siehst du, wessen Szene das ist.";

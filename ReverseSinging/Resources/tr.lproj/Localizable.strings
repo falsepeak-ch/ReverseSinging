@@ -357,9 +357,12 @@
 "booth.frame.off" = "Kapalı";
 "booth.frame.corner" = "Köşede";
 "booth.frame.stacked" = "Üst üste";
+"booth.frame.reaction" = "Tepki";
 "booth.frame.split" = "Yan yana";
-"booth.export.stackedNote" = "Üst üste seçeneği 9:16 çıkar, hikâye ya da short ölçüsünde.";
+"booth.export.stackedNote" = "Üst üste ve Tepki 9:16 çıkar, altta bir dalga formu olur: sahnenin repliği üstte, seninki altta.";
 "booth.export.noFootage" = "Bu sahnede henüz kabin görüntüsü yok. Booth Cam'i aç ve bir repliği seslendir.";
+"booth.export.includeBooth" = "Kabin görüntüsünü ekle";
+"booth.export.includeBooth.detail" = "Kapalıyken dikey çerçeve ve dalga formu kalır, içinde yalnızca sahne olur.";
 "booth.export.confirm" = "Videoyu dışa aktar";
 "booth.export.lineConfirm" = "Repliği dışa aktar";
 "booth.export.notice" = "İşlenmeden önce bu sahnenin kime ait olduğunu göreceksin.";

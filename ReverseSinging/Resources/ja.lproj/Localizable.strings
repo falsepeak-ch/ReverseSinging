@@ -357,9 +357,12 @@
 "booth.frame.off" = "なし";
 "booth.frame.corner" = "隅に小さく";
 "booth.frame.stacked" = "上下に並べる";
+"booth.frame.reaction" = "リアクション";
 "booth.frame.split" = "左右に並べる";
-"booth.export.stackedNote" = "上下並びは9:16で書き出され、ストーリーやショート向きです。";
+"booth.export.stackedNote" = "「上下に並べる」と「リアクション」は9:16で書き出され、下部に波形が入ります。上がシーンのセリフ、下があなたの声です。";
 "booth.export.noFootage" = "このシーンにはまだブースの映像がありません。ブースカメラをオンにして1本アフレコしてください。";
+"booth.export.includeBooth" = "ブースの映像を入れる";
+"booth.export.includeBooth.detail" = "オフにしても縦型フレームと波形は残り、シーンだけが映ります。";
 "booth.export.confirm" = "動画を書き出す";
 "booth.export.lineConfirm" = "このセリフを書き出す";
 "booth.export.notice" = "レンダリングの前に、このシーンが誰の作品かを表示します。";

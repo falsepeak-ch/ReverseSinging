@@ -23,18 +23,24 @@ struct DubExportOptionsModal: View {
     /// How long the finished file runs, for the selected cut.
     let runtime: (DubCut) -> TimeInterval
 
-    let onExport: (DubCut, DubBoothFrame) -> Void
+    let onExport: (DubCut, DubBoothFrame, Bool) -> Void
     let onCancel: () -> Void
 
     @State private var cut: DubCut
     @State private var frame: DubBoothFrame
+    /// Whether the performer's own footage goes into the file. Only the vertical frames can
+    /// be rendered without it, so only they show the switch.
+    @State private var includesBooth: Bool
+    /// The scene picture's shape, read from the pack's own video. Nil until it has loaded, and
+    /// for packs that have no video and are exported as a slideshow.
+    @State private var sceneSize: CGSize?
 
     init(
         pack: DubPack,
         line: DubLine? = nil,
         hasBoothFootage: Bool,
         runtime: @escaping (DubCut) -> TimeInterval,
-        onExport: @escaping (DubCut, DubBoothFrame) -> Void,
+        onExport: @escaping (DubCut, DubBoothFrame, Bool) -> Void,
         onCancel: @escaping () -> Void
     ) {
         self.pack = pack
@@ -48,6 +54,7 @@ struct DubExportOptionsModal: View {
         // A single line is four seconds, and four seconds is a vertical post. The whole scene
         // is not, so it keeps the shape it has always exported in.
         _frame = State(initialValue: hasBoothFootage ? (line == nil ? .corner : .stacked) : .off)
+        _includesBooth = State(initialValue: hasBoothFootage)
     }
 
     var body: some View {
@@ -60,6 +67,25 @@ struct DubExportOptionsModal: View {
                 .transition(.opacity)
         }
         .onAppear { AnalyticsManager.shared.trackScreenViewed(screenName: "DubExportOptions") }
+        .task {
+            sceneSize = await DubBoothComposer.sceneDisplaySize(of: pack)
+        }
+    }
+
+    /// The booth's own shape, for laying out the diagram before any footage is opened. Every
+    /// clip `BoothRecorder` writes is portrait; the exact numbers only move the inset by a
+    /// hair, and the render reads the real ones.
+    private static let boothDisplaySize = CGSize(width: 720, height: 1280)
+
+    /// The shape the export is laid out around: the pack's own video, or the 16:9 slideshow
+    /// that stands in for a pack that has none.
+    private var sceneDisplaySize: CGSize {
+        sceneSize ?? CGSize(width: 1280, height: 720)
+    }
+
+    /// Whether the performer will actually be in the file.
+    private var showsBooth: Bool {
+        hasBoothFootage && (includesBooth || !frame.isVertical)
     }
 
     private var backdrop: some View {
@@ -116,7 +142,7 @@ struct DubExportOptionsModal: View {
                         title: line == nil ? Strings.Booth.exportConfirm : Strings.Booth.exportLineConfirm,
                         icon: "square.and.arrow.up",
                         color: .rsTextPrimary,
-                        action: { onExport(cut, frame) },
+                        action: { onExport(cut, frame, includesBooth && hasBoothFootage) },
                         style: .primary,
                         textFont: .rsButtonMedium
                     )
@@ -156,9 +182,12 @@ struct DubExportOptionsModal: View {
     private var preview: some View {
         let layout = DubBoothLayout.make(
             frame: frame,
-            sceneDisplaySize: CGSize(width: 1280, height: 720),
-            boothDisplaySize: CGSize(width: 720, height: 1280)
+            sceneDisplaySize: sceneDisplaySize,
+            boothDisplaySize: Self.boothDisplaySize
         )
+        // What the scene actually gets: the band it shares with the booth, or the whole
+        // picture area when there is no booth in the file.
+        let sceneRect = showsBooth ? layout.sceneRect : layout.sceneRectAlone
 
         return VStack(spacing: 0) {
             GeometryReader { geometry in
@@ -179,16 +208,26 @@ struct DubExportOptionsModal: View {
 
                     previewLabel(Strings.Dub.original, tint: .rsTextSecondary)
                         .frame(
-                            width: layout.sceneRect.width * scale,
-                            height: layout.sceneRect.height * scale
+                            width: sceneRect.width * scale,
+                            height: sceneRect.height * scale
                         )
                         .background(Color.rsSurface2)
                         .offset(
-                            x: layout.sceneRect.minX * scale,
-                            y: layout.sceneRect.minY * scale
+                            x: sceneRect.minX * scale,
+                            y: sceneRect.minY * scale
                         )
 
-                    if let boothRect = layout.boothRect {
+                    if let waveRect = layout.waveRect {
+                        previewWave
+                            .frame(
+                                width: waveRect.width * scale,
+                                height: waveRect.height * scale
+                            )
+                            .background(Color.rsSurface1)
+                            .offset(x: waveRect.minX * scale, y: waveRect.minY * scale)
+                    }
+
+                    if let boothRect = layout.boothRect, showsBooth {
                         previewLabel(Strings.Booth.slug, tint: .rsHighlight)
                             .frame(
                                 width: boothRect.width * scale,
@@ -216,7 +255,30 @@ struct DubExportOptionsModal: View {
         }
         .editorPanel(.rsSurface0)
         .animation(.easeInOut(duration: 0.18), value: frame)
+        .animation(.easeInOut(duration: 0.18), value: includesBooth)
     }
+
+    /// A token waveform, so the strip in the diagram reads as the strip in the file rather
+    /// than as another empty band.
+    private var previewWave: some View {
+        GeometryReader { geometry in
+            let bars = max(1, Int(geometry.size.width / 4))
+            HStack(alignment: .center, spacing: 1) {
+                ForEach(0..<bars, id: \.self) { index in
+                    Capsule()
+                        .fill(Color.rsTextTertiary)
+                        .frame(height: Self.previewBarHeights[index % Self.previewBarHeights.count] * geometry.size.height)
+                }
+            }
+            .frame(width: geometry.size.width, height: geometry.size.height)
+        }
+        .padding(.horizontal, 3)
+    }
+
+    /// A fixed, unremarkable shape. A random one would redraw differently on every body pass.
+    private static let previewBarHeights: [CGFloat] = [
+        0.25, 0.55, 0.35, 0.75, 0.45, 0.9, 0.4, 0.6, 0.3, 0.7, 0.5, 0.35
+    ]
 
     private func previewLabel(_ text: String, tint: Color) -> some View {
         Text(text)
@@ -311,7 +373,7 @@ struct DubExportOptionsModal: View {
         VStack(alignment: .leading, spacing: 8) {
             EditorSectionHeader(title: Strings.Booth.frameSection)
 
-            HStack(spacing: 8) {
+            HStack(spacing: 6) {
                 ForEach(DubBoothFrame.allCases) { option in
                     frameTile(option)
                 }
@@ -321,21 +383,59 @@ struct DubExportOptionsModal: View {
                 .font(.rsCaptionSmall)
                 .foregroundColor(.rsTextTertiary)
                 .fixedSize(horizontal: false, vertical: true)
+
+            if frame.isVertical {
+                boothSwitch
+            }
         }
-        .opacity(hasBoothFootage ? 1 : 0.55)
-        .disabled(!hasBoothFootage)
+    }
+
+    /// Whether the performer is in the vertical frame at all.
+    ///
+    /// Only shown for the frames that stand up without the booth: a corner inset or a split
+    /// with the face taken out is not a shape, it is `off` with extra steps. Forced off, and
+    /// explained, when the scene has no footage to include.
+    private var boothSwitch: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Toggle(isOn: $includesBooth) {
+                Text(Strings.Booth.includeBooth)
+                    .font(.rsBodySmall)
+                    .foregroundColor(.rsTextPrimary)
+            }
+            .toggleStyle(SwitchToggleStyle(tint: .rsHighlight))
+            .disabled(!hasBoothFootage)
+            .opacity(hasBoothFootage ? 1 : 0.55)
+
+            Text(Strings.Booth.includeBoothDetail)
+                .font(.rsCaptionSmall)
+                .foregroundColor(.rsTextTertiary)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(.top, 2)
+    }
+
+    /// Whether a frame can be picked at all. Without booth footage the vertical frames are
+    /// still worth having — they reshape the export and draw the waveform strip — but the
+    /// ones that exist only to place a face are not.
+    private func isAvailable(_ option: DubBoothFrame) -> Bool {
+        hasBoothFootage || !option.needsCompositing || option.isVertical
     }
 
     private func frameTile(_ option: DubBoothFrame) -> some View {
         let isSelected = frame == option
+        let isAvailable = isAvailable(option)
 
         return Button {
             HapticManager.shared.light()
             frame = option
         } label: {
             VStack(spacing: 6) {
-                FrameDiagram(frame: option)
-                    .frame(height: 34)
+                FrameDiagram(
+                    frame: option,
+                    sceneDisplaySize: sceneDisplaySize,
+                    showsBooth: hasBoothFootage && (includesBooth || !option.isVertical)
+                )
+                .frame(height: 34)
 
                 Text(name(for: option))
                     .font(.system(size: 10, weight: .semibold))
@@ -361,6 +461,8 @@ struct DubExportOptionsModal: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .opacity(isAvailable ? 1 : 0.4)
+        .disabled(!isAvailable)
         .accessibilityLabel(name(for: option))
         .accessibilityAddTraits(isSelected ? [.isSelected] : [])
     }
@@ -370,6 +472,7 @@ struct DubExportOptionsModal: View {
         case .off: return Strings.Booth.frameOff
         case .corner: return Strings.Booth.frameCorner
         case .stacked: return Strings.Booth.frameStacked
+        case .reaction: return Strings.Booth.frameReaction
         case .split: return Strings.Booth.frameSplit
         }
     }
@@ -385,10 +488,23 @@ struct DubExportOptionsModal: View {
                 .fill(Color.rsStroke)
                 .frame(width: EditorMetrics.hairline, height: 22)
 
-            slateField(Strings.Booth.shape, frame == .stacked ? "9:16" : "16:9")
+            slateField(Strings.Booth.shape, shapeLabel)
         }
         .frame(height: 44)
         .editorPanel(.rsSurface2)
+    }
+
+    /// The shape the file really comes out at.
+    ///
+    /// The vertical frames render to a fixed 9:16 canvas. Every other frame keeps the scene's
+    /// own shape, which is whatever the pack ships — a 4:3 short from 1951 as readily as a
+    /// 16:9 one — so this reads it rather than assuming.
+    private var shapeLabel: String {
+        DubBoothLayout.make(
+            frame: frame,
+            sceneDisplaySize: sceneDisplaySize,
+            boothDisplaySize: Self.boothDisplaySize
+        ).renderSize.rsAspectLabel
     }
 
     private func slateField(_ label: String, _ value: String) -> some View {
@@ -412,13 +528,18 @@ struct DubExportOptionsModal: View {
 /// The little picture on a frame tile, drawn from the layout rather than described twice.
 private struct FrameDiagram: View {
     let frame: DubBoothFrame
+    let sceneDisplaySize: CGSize
+    /// Whether the tile should show a booth band. A frame rendered without the performer is a
+    /// different shape on screen, and the tile is what the user picks from.
+    let showsBooth: Bool
 
     var body: some View {
         let layout = DubBoothLayout.make(
             frame: frame,
-            sceneDisplaySize: CGSize(width: 1280, height: 720),
+            sceneDisplaySize: sceneDisplaySize,
             boothDisplaySize: CGSize(width: 720, height: 1280)
         )
+        let sceneRect = showsBooth ? layout.sceneRect : layout.sceneRectAlone
 
         GeometryReader { geometry in
             let scale = min(
@@ -433,13 +554,17 @@ private struct FrameDiagram: View {
             ZStack(alignment: .topLeading) {
                 Rectangle()
                     .fill(Color.rsStrokeStrong)
-                    .frame(
-                        width: layout.sceneRect.width * scale,
-                        height: layout.sceneRect.height * scale
-                    )
-                    .offset(x: layout.sceneRect.minX * scale, y: layout.sceneRect.minY * scale)
+                    .frame(width: sceneRect.width * scale, height: sceneRect.height * scale)
+                    .offset(x: sceneRect.minX * scale, y: sceneRect.minY * scale)
 
-                if let boothRect = layout.boothRect {
+                if let waveRect = layout.waveRect {
+                    Rectangle()
+                        .fill(Color.rsStroke)
+                        .frame(width: waveRect.width * scale, height: waveRect.height * scale)
+                        .offset(x: waveRect.minX * scale, y: waveRect.minY * scale)
+                }
+
+                if let boothRect = layout.boothRect, showsBooth {
                     Rectangle()
                         .fill(Color.rsTextSecondary)
                         .frame(width: boothRect.width * scale, height: boothRect.height * scale)

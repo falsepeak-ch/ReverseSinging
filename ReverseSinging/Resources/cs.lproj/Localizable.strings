@@ -357,9 +357,12 @@
 "booth.frame.off" = "Vypnuto";
 "booth.frame.corner" = "V rohu";
 "booth.frame.stacked" = "Nad sebou";
+"booth.frame.reaction" = "Reakce";
 "booth.frame.split" = "Vedle sebe";
-"booth.export.stackedNote" = "Nad sebou se renderuje v 9:16, přesně na story nebo short.";
+"booth.export.stackedNote" = "Nad sebou a Reakce se renderují v 9:16 s křivkou dole: replika scény nahoře, tvoje pod ní.";
 "booth.export.noFootage" = "V téhle scéně zatím nejsou žádné záběry z kabiny. Zapni Booth Cam a nadabuj repliku.";
+"booth.export.includeBooth" = "Zahrnout záběry z kabiny";
+"booth.export.includeBooth.detail" = "Když vypneš, zůstane svislý formát i křivka, jen scéna v něm bude sama.";
 "booth.export.confirm" = "Exportovat video";
 "booth.export.lineConfirm" = "Exportovat repliku";
 "booth.export.notice" = "Před renderem uvidíš, čí je tahle scéna.";

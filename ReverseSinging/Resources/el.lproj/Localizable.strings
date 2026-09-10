@@ -357,9 +357,12 @@
 "booth.frame.off" = "Ανενεργό";
 "booth.frame.corner" = "Στη γωνία";
 "booth.frame.stacked" = "Το ένα πάνω στο άλλο";
+"booth.frame.reaction" = "Αντίδραση";
 "booth.frame.split" = "Δίπλα δίπλα";
-"booth.export.stackedNote" = "Στοιβαγμένο βγαίνει σε 9:16, κομμένο και ραμμένο για story ή short.";
+"booth.export.stackedNote" = "Το ένα πάνω στο άλλο και Αντίδραση βγαίνουν σε 9:16 με κυματομορφή στο κάτω μέρος: η ατάκα της σκηνής πάνω, η δική σου κάτω.";
 "booth.export.noFootage" = "Δεν υπάρχει ακόμα υλικό θαλάμου σε αυτή τη σκηνή. Άνοιξε το Booth Cam και μεταγλώττισε μία ατάκα.";
+"booth.export.includeBooth" = "Να μπει το υλικό θαλάμου";
+"booth.export.includeBooth.detail" = "Κλειστό, κρατάς το κάθετο κάδρο και την κυματομορφή, με μόνη τη σκηνή μέσα.";
 "booth.export.confirm" = "Εξαγωγή βίντεο";
 "booth.export.lineConfirm" = "Εξαγωγή ατάκας";
 "booth.export.notice" = "Πριν την απόδοση θα δεις σε ποιον ανήκει αυτή η σκηνή.";

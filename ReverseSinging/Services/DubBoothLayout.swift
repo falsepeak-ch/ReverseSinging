@@ -18,6 +18,8 @@ nonisolated enum DubBoothFrame: String, CaseIterable, Identifiable, Sendable, Co
     case corner
     /// Scene above, booth below, rendered 9:16 for a story or a short.
     case stacked
+    /// Booth above, scene below, 9:16. The reaction-video order.
+    case reaction
     /// Scene and booth side by side, each filling half a landscape frame.
     case split
 
@@ -25,6 +27,17 @@ nonisolated enum DubBoothFrame: String, CaseIterable, Identifiable, Sendable, Co
 
     /// Whether choosing this frame means re-encoding rather than remuxing.
     var needsCompositing: Bool { self != .off }
+
+    /// Whether this frame reshapes the export to 9:16 and carries the waveform strip.
+    ///
+    /// These are the only frames worth rendering with no booth footage in them: the others
+    /// exist purely to place the booth, and without it are just `off` the long way round.
+    var isVertical: Bool {
+        switch self {
+        case .stacked, .reaction: return true
+        case .off, .corner, .split: return false
+        }
+    }
 }
 
 // MARK: - Layout
@@ -40,14 +53,28 @@ nonisolated enum DubBoothFrame: String, CaseIterable, Identifiable, Sendable, Co
 /// whose coordinate space is a source of bugs, the overflow is *covered*: `boothIsOnTop` says
 /// which layer is drawn last, and each layout is arranged so the layer drawn last hides the
 /// other's spill. See the per-case notes below.
+///
+/// **Every rect is in the video composition's space**, whose origin is the top left. The
+/// waveform strip is the one thing drawn by Core Animation instead, and Core Animation's
+/// origin is the bottom left; `DubWaveOverlay` does that flip, and is the only place that
+/// should.
 nonisolated struct DubBoothLayout: Equatable {
 
     /// The size of the exported video.
     let renderSize: CGSize
-    /// Where the scene picture is filled to.
+    /// Where the scene picture is filled to while the booth is in frame with it.
     let sceneRect: CGRect
+    /// Where the scene sits over the stretches with no booth footage behind them.
+    ///
+    /// Between two dubbed lines there is genuinely no film of the performer — the camera only
+    /// rolls for a take — so a frame that keeps a band reserved for it spends most of its
+    /// runtime showing black. In the vertical frames the scene moves to the middle of the
+    /// picture area instead and the band closes up; everywhere else this is `sceneRect`.
+    let sceneRectAlone: CGRect
     /// Where the booth is filled to, or nil when the booth is not in this frame.
     let boothRect: CGRect?
+    /// The waveform strip along the foot of the frame, or nil when this frame has none.
+    let waveRect: CGRect?
     /// Whether the booth is drawn after the scene.
     let boothIsOnTop: Bool
 
@@ -59,8 +86,10 @@ nonisolated struct DubBoothLayout: Equatable {
     private static let cornerHeightFraction: CGFloat = 0.34
     /// Its margin from the frame edge, as a fraction of the frame's height.
     private static let cornerMarginFraction: CGFloat = 0.045
-    /// The 9:16 canvas `stacked` renders to.
-    private static let stackedSize = CGSize(width: 1080, height: 1920)
+    /// The 9:16 canvas the vertical frames render to.
+    private static let verticalSize = CGSize(width: 1080, height: 1920)
+    /// How much of a vertical frame's height the waveform strip takes.
+    private static let waveHeightFraction: CGFloat = 0.115
 
     /// - Parameters:
     ///   - sceneDisplaySize: the scene picture's size *after* its preferred transform.
@@ -75,10 +104,13 @@ nonisolated struct DubBoothLayout: Equatable {
 
         switch frame {
         case .off:
+            let full = CGRect(origin: .zero, size: scene)
             return DubBoothLayout(
                 renderSize: scene,
-                sceneRect: CGRect(origin: .zero, size: scene),
+                sceneRect: full,
+                sceneRectAlone: full,
                 boothRect: nil,
+                waveRect: nil,
                 boothIsOnTop: false
             )
 
@@ -88,37 +120,26 @@ nonisolated struct DubBoothLayout: Equatable {
             let height = (scene.height * cornerHeightFraction).rounded()
             let width = (height * booth.width / booth.height).rounded()
             let margin = (scene.height * cornerMarginFraction).rounded()
+            let full = CGRect(origin: .zero, size: scene)
 
             return DubBoothLayout(
                 renderSize: scene,
-                sceneRect: CGRect(origin: .zero, size: scene),
+                sceneRect: full,
+                // The scene already has the whole frame; dropping the inset leaves nothing to
+                // rearrange.
+                sceneRectAlone: full,
                 boothRect: CGRect(
                     x: scene.width - width - margin,
                     y: scene.height - height - margin,
                     width: width,
                     height: height
                 ),
+                waveRect: nil,
                 boothIsOnTop: true
             )
 
-        case .stacked:
-            // Scene across the top at its own aspect, booth filling everything below it.
-            // The booth is taller than its band and spills upward into the scene, so the
-            // scene is drawn last and covers it.
-            let size = stackedSize
-            let sceneHeight = (size.width * scene.height / scene.width).rounded()
-
-            return DubBoothLayout(
-                renderSize: size,
-                sceneRect: CGRect(x: 0, y: 0, width: size.width, height: sceneHeight),
-                boothRect: CGRect(
-                    x: 0,
-                    y: sceneHeight,
-                    width: size.width,
-                    height: size.height - sceneHeight
-                ),
-                boothIsOnTop: false
-            )
+        case .stacked, .reaction:
+            return vertical(frame: frame, scene: scene)
 
         case .split:
             // Two halves of a landscape frame. The scene is wider than its half and spills
@@ -130,19 +151,80 @@ nonisolated struct DubBoothLayout: Equatable {
             return DubBoothLayout(
                 renderSize: size,
                 sceneRect: CGRect(x: 0, y: 0, width: half, height: size.height),
+                // With no booth beside it the scene takes the whole frame back, rather than
+                // playing at half width against a black right-hand side.
+                sceneRectAlone: CGRect(origin: .zero, size: size),
                 boothRect: CGRect(x: half, y: 0, width: size.width - half, height: size.height),
+                waveRect: nil,
                 boothIsOnTop: true
             )
         }
     }
 
+    // MARK: - Vertical Frames
+
+    /// The two 9:16 frames, which differ only in which band is on top.
+    ///
+    /// Both reserve a strip at the foot for the waveform and split what is left between the
+    /// scene, at its own aspect so filling its band is exact, and the booth, which gets
+    /// whatever remains. The booth is portrait and its band is not, so it spills out of the
+    /// band on both sides: the scene covers the spill that reaches into the picture, the
+    /// waveform strip covers the spill that reaches the foot, and the frame edge takes the
+    /// rest. That is why the scene is drawn last in both.
+    private static func vertical(frame: DubBoothFrame, scene: CGSize) -> DubBoothLayout {
+        let size = verticalSize
+        let waveHeight = even(size.height * waveHeightFraction)
+        let stageHeight = size.height - waveHeight
+
+        let sceneHeight = min(stageHeight, (size.width * scene.height / scene.width).rounded())
+        let boothHeight = stageHeight - sceneHeight
+
+        let waveRect = CGRect(x: 0, y: stageHeight, width: size.width, height: waveHeight)
+
+        // A pack that is already portrait fills the picture area on its own. There is no band
+        // left to put a face in, and inventing one would mean cropping the film to make room.
+        guard boothHeight >= size.width * 0.25 else {
+            let full = CGRect(x: 0, y: 0, width: size.width, height: stageHeight)
+            return DubBoothLayout(
+                renderSize: size,
+                sceneRect: full,
+                sceneRectAlone: full,
+                boothRect: nil,
+                waveRect: waveRect,
+                boothIsOnTop: false
+            )
+        }
+
+        let sceneY: CGFloat = frame == .stacked ? 0 : boothHeight
+        let boothY: CGFloat = frame == .stacked ? sceneHeight : 0
+
+        return DubBoothLayout(
+            renderSize: size,
+            sceneRect: CGRect(x: 0, y: sceneY, width: size.width, height: sceneHeight),
+            // Centred in the picture area, so a stretch with nobody in it reads as an
+            // ordinary letterboxed vertical post rather than as half a broken one. The scene
+            // keeps its size and only moves, which makes the change at each line a cut rather
+            // than a resize.
+            sceneRectAlone: CGRect(
+                x: 0,
+                y: ((stageHeight - sceneHeight) / 2).rounded(),
+                width: size.width,
+                height: sceneHeight
+            ),
+            boothRect: CGRect(x: 0, y: boothY, width: size.width, height: boothHeight),
+            waveRect: waveRect,
+            boothIsOnTop: false
+        )
+    }
+
     /// H.264 wants even dimensions, and a zero anywhere here would divide by it later.
     private static func sanitised(_ size: CGSize, fallback: CGSize) -> CGSize {
         guard size.width >= 2, size.height >= 2 else { return fallback }
-        return CGSize(
-            width: (size.width / 2).rounded() * 2,
-            height: (size.height / 2).rounded() * 2
-        )
+        return CGSize(width: even(size.width), height: even(size.height))
+    }
+
+    private static func even(_ value: CGFloat) -> CGFloat {
+        (value / 2).rounded() * 2
     }
 
     /// The transform that fills `rect` with a source of `displaySize`, centred.

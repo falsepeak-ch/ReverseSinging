@@ -21,7 +21,7 @@ struct DubPackDetailView: View {
     @State private var showShareNotice = false
     /// The export the user has configured but not yet agreed to send. Held between the
     /// options sheet and the attribution notice, which still has the last word.
-    @State private var pendingExport: (cut: DubCut, frame: DubBoothFrame)?
+    @State private var pendingExport: (cut: DubCut, frame: DubBoothFrame, includesBooth: Bool)?
     @State private var exportOptionsLine: DubLine?
     @State private var showExportOptions = false
     @State private var playbackMode: DubPlaybackMode?
@@ -100,7 +100,13 @@ struct DubPackDetailView: View {
         .dubShareNotice(isPresented: $showShareNotice, pack: pack) {
             guard let pending = pendingExport else { return }
             pendingExport = nil
-            Task { await viewModel.export(cut: pending.cut, frame: pending.frame) }
+            Task {
+                await viewModel.export(
+                    cut: pending.cut,
+                    frame: pending.frame,
+                    includesBooth: pending.includesBooth
+                )
+            }
         }
         // Options first, then the notice. The notice is about provenance and is the last
         // word before anything renders; what shape the file takes is a separate question and
@@ -112,9 +118,9 @@ struct DubPackDetailView: View {
                     line: exportOptionsLine,
                     hasBoothFootage: viewModel.hasAnyBoothTake,
                     runtime: { viewModel.runtime(of: $0) },
-                    onExport: { cut, frame in
+                    onExport: { cut, frame, includesBooth in
                         showExportOptions = false
-                        pendingExport = (cut, frame)
+                        pendingExport = (cut, frame, includesBooth)
                         showShareNotice = true
                     },
                     onCancel: { showExportOptions = false }

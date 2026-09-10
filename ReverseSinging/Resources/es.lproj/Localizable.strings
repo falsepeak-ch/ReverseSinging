@@ -357,9 +357,12 @@
 "booth.frame.off" = "Sin cabina";
 "booth.frame.corner" = "En una esquina";
 "booth.frame.stacked" = "Una encima de otra";
+"booth.frame.reaction" = "Reacción";
 "booth.frame.split" = "Lado a lado";
-"booth.export.stackedNote" = "Apilado se renderiza en 9:16, a medida para una story o un short.";
+"booth.export.stackedNote" = "Una encima de otra y Reacción se renderizan en 9:16 con una onda al pie: la frase de la escena arriba, la tuya abajo.";
 "booth.export.noFootage" = "Todavía no hay material de cabina en esta escena. Enciende la cámara y dobla una frase.";
+"booth.export.includeBooth" = "Incluir el material de cabina";
+"booth.export.includeBooth.detail" = "Si lo apagas, mantienes el marco vertical y la onda, con la escena sola.";
 "booth.export.confirm" = "Exportar vídeo";
 "booth.export.lineConfirm" = "Exportar frase";
 "booth.export.notice" = "Antes de renderizar verás de quién es esta escena.";

@@ -357,9 +357,12 @@
 "booth.frame.off" = "ปิด";
 "booth.frame.corner" = "มุมจอ";
 "booth.frame.stacked" = "ซ้อนบนล่าง";
+"booth.frame.reaction" = "รีแอ็กชัน";
 "booth.frame.split" = "วางคู่กัน";
-"booth.export.stackedNote" = "แบบซ้อนจะเรนเดอร์เป็น 9:16 พอดีกับสตอรีหรือคลิปสั้น";
+"booth.export.stackedNote" = "แบบซ้อนบนล่างและรีแอ็กชันจะเรนเดอร์เป็น 9:16 พร้อมคลื่นเสียงด้านล่าง บทของฉากอยู่บน เสียงคุณอยู่ล่าง";
 "booth.export.noFootage" = "ฉากนี้ยังไม่มีฟุตเทจจากบูธ เปิดกล้องบูธแล้วพากย์สักบท";
+"booth.export.includeBooth" = "ใส่ฟุตเทจจากบูธ";
+"booth.export.includeBooth.detail" = "ปิดไว้ก็ยังได้กรอบแนวตั้งและคลื่นเสียง โดยมีแค่ฉากอยู่ในนั้น";
 "booth.export.confirm" = "ส่งออกวิดีโอ";
 "booth.export.lineConfirm" = "ส่งออกบทนี้";
 "booth.export.notice" = "ก่อนเรนเดอร์ คุณจะเห็นว่าฉากนี้เป็นของใคร";

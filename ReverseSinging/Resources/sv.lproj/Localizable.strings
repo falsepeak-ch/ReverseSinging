@@ -357,9 +357,12 @@
 "booth.frame.off" = "Av";
 "booth.frame.corner" = "I hörnet";
 "booth.frame.stacked" = "Ovanpå varandra";
+"booth.frame.reaction" = "Reaktion";
 "booth.frame.split" = "Sida vid sida";
-"booth.export.stackedNote" = "Staplat renderas i 9:16, måttsytt för en story eller en short.";
+"booth.export.stackedNote" = "Ovanpå varandra och Reaktion renderas i 9:16 med en vågform längst ner: scenens replik överst, din under.";
 "booth.export.noFootage" = "Inget båsmaterial i den här scenen än. Slå på Booth Cam och dubba en replik.";
+"booth.export.includeBooth" = "Ta med båsmaterialet";
+"booth.export.includeBooth.detail" = "Av behåller det stående formatet och vågformen, med bara scenen i.";
 "booth.export.confirm" = "Exportera video";
 "booth.export.lineConfirm" = "Exportera repliken";
 "booth.export.notice" = "Du får se vems scen det här är innan den renderas.";

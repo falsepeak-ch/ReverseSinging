@@ -357,9 +357,12 @@
 "booth.frame.off" = "Uit";
 "booth.frame.corner" = "In de hoek";
 "booth.frame.stacked" = "Boven elkaar";
+"booth.frame.reaction" = "Reactie";
 "booth.frame.split" = "Naast elkaar";
-"booth.export.stackedNote" = "Boven elkaar rendert in 9:16, op maat voor een story of short.";
+"booth.export.stackedNote" = "Boven elkaar en Reactie renderen in 9:16 met een golfvorm onderaan: de zin van de scène boven, die van jou eronder.";
 "booth.export.noFootage" = "Nog geen cabinebeelden in deze scène. Zet Booth Cam aan en dub een zin.";
+"booth.export.includeBooth" = "Cabinebeelden meenemen";
+"booth.export.includeBooth.detail" = "Uit houdt het staande kader en de golfvorm, met alleen de scène erin.";
 "booth.export.confirm" = "Video exporteren";
 "booth.export.lineConfirm" = "Zin exporteren";
 "booth.export.notice" = "Voor het renderen zie je van wie deze scène is.";

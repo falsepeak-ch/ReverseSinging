@@ -357,9 +357,12 @@
 "booth.frame.off" = "Pois";
 "booth.frame.corner" = "Kulmassa";
 "booth.frame.stacked" = "Päällekkäin";
+"booth.frame.reaction" = "Reaktio";
 "booth.frame.split" = "Vierekkäin";
-"booth.export.stackedNote" = "Päällekkäin renderöityy 9:16, sopivasti tarinaan tai shorttiin.";
+"booth.export.stackedNote" = "Päällekkäin ja Reaktio renderöityvät 9:16 ja alareunaan tulee aaltomuoto: kohtauksen repliikki ylhäällä, sinun alhaalla.";
 "booth.export.noFootage" = "Tässä kohtauksessa ei ole vielä koppimateriaalia. Laita Booth Cam päälle ja dubbaa repliikki.";
+"booth.export.includeBooth" = "Ota koppimateriaali mukaan";
+"booth.export.includeBooth.detail" = "Pois päältä säilyttää pystykuvan ja aaltomuodon, kohtaus vain yksin.";
 "booth.export.confirm" = "Vie video";
 "booth.export.lineConfirm" = "Vie repliikki";
 "booth.export.notice" = "Näet kenen kohtaus tämä on ennen renderöintiä.";

@@ -55,6 +55,9 @@ nonisolated struct DubMixer {
     private static let frameRate: Int32 = 10
     private static let videoSize = CGSize(width: 1280, height: 720)
     private static let outputSampleRate: Double = 44_100
+    /// Stands in for a booth clip while working out the strip's band, which does not depend on
+    /// it. The real clip's size is read by the composer.
+    private static let boothPlaceholderSize = CGSize(width: 720, height: 1280)
 
     typealias ProgressHandler = @Sendable (DubExportStage, Double) -> Void
 
@@ -71,10 +74,13 @@ nonisolated struct DubMixer {
     ///     what Export has always produced.
     ///   - frame: how the booth sits in it. `.off` keeps the export a remux; anything else
     ///     means a re-encode, and takes correspondingly longer.
+    ///   - includesBooth: whether the performer's footage goes in. Off still reshapes a
+    ///     vertical frame and draws its waveform strip; it only leaves the face out.
     func export(
         pack: DubPack,
         cut: DubCut = .fullScene,
         frame: DubBoothFrame = .off,
+        includesBooth: Bool = true,
         progress: ProgressHandler? = nil
     ) async throws -> URL {
         let recorded = recordedLines(in: pack)
@@ -113,16 +119,41 @@ nonisolated struct DubMixer {
 
         progress?(.finishing, 0)
 
+        // Only the vertical frames carry a strip, and sampling every take to render one
+        // nobody will see is the most expensive no-op in the export.
+        var waveURL: URL?
+        if frame.isVertical,
+           let band = DubBoothLayout.make(
+               frame: frame,
+               // The same shape the composer will lay the strip out against, so the clip is
+               // rendered at exactly the size of the band it goes into.
+               sceneDisplaySize: await DubBoothComposer.sceneDisplaySize(of: pack) ?? Self.videoSize,
+               boothDisplaySize: Self.boothPlaceholderSize
+           ).waveRect {
+            let bars = await DubWaveOverlay.bars(pack: pack, segments: segments)
+            let url = workingDirectory.appendingPathComponent("wave.mp4")
+            try await DubWaveOverlay.renderStrip(
+                bars: bars,
+                labels: (Strings.Dub.original, Strings.Dub.myDub),
+                size: band.size,
+                duration: segments.reduce(0) { $0 + $1.duration },
+                to: url
+            )
+            waveURL = url
+        }
+
         let composed = try await DubBoothComposer.compose(
             pack: pack,
             segments: segments,
             frame: frame,
+            includesBooth: includesBooth,
             sceneVideo: videoURL,
             audio: audioURL,
-            boothClips: boothClips(in: pack)
+            boothClips: boothClips(in: pack),
+            waveVideo: waveURL
         )
 
-        let finalURL = try await write(composed, pack: pack)
+        let finalURL = try await write(composed, pack: pack, progress: progress)
         progress?(.finishing, 1)
 
         await MainActor.run {
@@ -133,7 +164,11 @@ nonisolated struct DubMixer {
             )
             AnalyticsManager.shared.trackCustomEvent(
                 name: "dub_export_shape",
-                parameters: ["cut": cut.analyticsName, "booth_frame": frame.rawValue]
+                parameters: [
+                    "cut": cut.analyticsName,
+                    "booth_frame": frame.rawValue,
+                    "booth_included": includesBooth
+                ]
             )
         }
 
@@ -427,7 +462,11 @@ nonisolated struct DubMixer {
     /// Passthrough when there is nothing to composite, which is every export that does not use
     /// the booth: both tracks are already H.264/AAC in MP4, so it is a remux and costs almost
     /// nothing. A booth frame means a real re-encode, because the picture is being rebuilt.
-    private func write(_ composed: DubBoothComposer.Composed, pack: DubPack) async throws -> URL {
+    private func write(
+        _ composed: DubBoothComposer.Composed,
+        pack: DubPack,
+        progress: ProgressHandler? = nil
+    ) async throws -> URL {
         let outputURL = AudioFileManager.shared.dubExportsDirectory()
             .appendingPathComponent("\(exportFilename(for: pack)).mp4")
 
@@ -435,25 +474,185 @@ nonisolated struct DubMixer {
             try FileManager.default.removeItem(at: outputURL)
         }
 
-        let preset = composed.videoComposition == nil
-            ? AVAssetExportPresetPassthrough
-            : AVAssetExportPresetHighestQuality
+        // Nothing to composite: both tracks are already H.264/AAC in an MP4, so this is a
+        // remux and the export session does it without touching a single pixel.
+        guard let videoComposition = composed.videoComposition else {
+            guard let session = AVAssetExportSession(
+                asset: composed.composition,
+                presetName: AVAssetExportPresetPassthrough
+            ) else { throw DubExportError.exportFailed(nil) }
 
-        guard let session = AVAssetExportSession(asset: composed.composition, presetName: preset) else {
-            throw DubExportError.exportFailed(nil)
+            session.outputURL = outputURL
+            session.outputFileType = .mp4
+            await session.exportAsync()
+
+            guard session.status == .completed else {
+                throw DubExportError.exportFailed(session.error)
+            }
+            return outputURL
         }
 
-        session.outputURL = outputURL
-        session.outputFileType = .mp4
-        session.videoComposition = composed.videoComposition
-
-        await session.exportAsync()
-
-        guard session.status == .completed else {
-            throw DubExportError.exportFailed(session.error)
-        }
-
+        try await encode(
+            composed.composition,
+            through: videoComposition,
+            to: outputURL,
+            progress: progress
+        )
         return outputURL
+    }
+
+    /// Re-encodes a composited export, choosing the encoder's settings rather than inheriting
+    /// them.
+    ///
+    /// **`AVAssetExportPresetHighestQuality` is the wrong tool for this**, which is what it was
+    /// doing before: it takes the word "highest" literally and gave a 35-second dub of a
+    /// 140 kbit 480x360 transfer an 11.6 Mbit/s bitrate and a 50 MB file. None of that is
+    /// picture — the source has no such detail to carry — it is just time in the encoder and
+    /// minutes in an upload. A preset also cannot be told a bitrate, so the only way to pick
+    /// one is to drive the reader and the writer directly, which is also what makes the
+    /// progress bar report the render instead of guessing at it.
+    private func encode(
+        _ asset: AVAsset,
+        through videoComposition: AVVideoComposition,
+        to outputURL: URL,
+        progress: ProgressHandler?
+    ) async throws {
+        let reader = try AVAssetReader(asset: asset)
+        let writer = try AVAssetWriter(outputURL: outputURL, fileType: .mp4)
+
+        let size = videoComposition.renderSize
+        let frameRate = videoComposition.frameDuration.seconds > 0
+            ? 1 / videoComposition.frameDuration.seconds
+            : 30
+
+        let videoTracks = try await asset.loadTracks(withMediaType: .video)
+        guard !videoTracks.isEmpty else { throw DubExportError.renderSetupFailed }
+
+        // BGRA rather than the encoder's own YUV. Asking the compositor for YUV looks like it
+        // should save the conversion and measurably does not — it renders in BGRA regardless
+        // and converts on the way out, so requesting YUV buys a second conversion, not none.
+        let videoOutput = AVAssetReaderVideoCompositionOutput(
+            videoTracks: videoTracks,
+            videoSettings: [
+                kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_32BGRA)
+            ]
+        )
+        videoOutput.videoComposition = videoComposition
+        videoOutput.alwaysCopiesSampleData = false
+        guard reader.canAdd(videoOutput) else { throw DubExportError.renderSetupFailed }
+        reader.add(videoOutput)
+
+        let videoInput = AVAssetWriterInput(
+            mediaType: .video,
+            outputSettings: [
+                AVVideoCodecKey: AVVideoCodecType.h264,
+                AVVideoWidthKey: Int(size.width),
+                AVVideoHeightKey: Int(size.height),
+                AVVideoCompressionPropertiesKey: [
+                    AVVideoAverageBitRateKey: Self.bitRate(for: size, frameRate: frameRate),
+                    AVVideoMaxKeyFrameIntervalKey: Int(frameRate.rounded()) * 2,
+                    AVVideoProfileLevelKey: AVVideoProfileLevelH264HighAutoLevel
+                ]
+            ]
+        )
+        videoInput.expectsMediaDataInRealTime = false
+        guard writer.canAdd(videoInput) else { throw DubExportError.renderSetupFailed }
+        writer.add(videoInput)
+
+        // Copied across, not decoded and encoded again. The mix is already AAC in an MP4 and
+        // nothing in this pass touches a sample of it, so a second encode would cost a couple
+        // of seconds to make it very slightly worse.
+        //
+        // **The format hint is what makes that work.** A writer input with no output settings
+        // is asking to pass compressed samples straight through, and it cannot do that until
+        // it knows what they are; without the hint it accepts every sample and writes no
+        // track at all. Silently — which is how the first version of this shipped an export
+        // with no sound in it, so the wiring is checked rather than assumed from here on.
+        var audioOutput: AVAssetReaderTrackOutput?
+        var audioInput: AVAssetWriterInput?
+        if let audioTrack = try await asset.loadTracks(withMediaType: .audio).first {
+            let formats = try await audioTrack.load(.formatDescriptions)
+
+            let output = AVAssetReaderTrackOutput(track: audioTrack, outputSettings: nil)
+            output.alwaysCopiesSampleData = false
+
+            let input = AVAssetWriterInput(
+                mediaType: .audio,
+                outputSettings: nil,
+                sourceFormatHint: formats.first
+            )
+            input.expectsMediaDataInRealTime = false
+
+            guard formats.first != nil, reader.canAdd(output), writer.canAdd(input) else {
+                throw DubExportError.renderSetupFailed
+            }
+            reader.add(output)
+            writer.add(input)
+            audioOutput = output
+            audioInput = input
+        }
+
+        guard writer.startWriting() else { throw DubExportError.writerFailed(writer.error) }
+        guard reader.startReading() else { throw DubExportError.exportFailed(reader.error) }
+        writer.startSession(atSourceTime: .zero)
+
+        let duration = try await asset.load(.duration).seconds
+
+        async let video: Void = pump(videoOutput, into: videoInput, label: "video") { time in
+            guard duration > 0 else { return }
+            progress?(.finishing, min(max(time / duration, 0), 1))
+        }
+        async let audio: Void = {
+            guard let audioOutput, let audioInput else { return }
+            await pump(audioOutput, into: audioInput, label: "audio", onTime: nil)
+        }()
+
+        _ = await (video, audio)
+
+        await withCheckedContinuation { continuation in
+            writer.finishWriting { continuation.resume() }
+        }
+
+        if reader.status == .failed { throw DubExportError.exportFailed(reader.error) }
+        guard writer.status == .completed else { throw DubExportError.writerFailed(writer.error) }
+    }
+
+    /// Moves every sample an output has into an input, waiting on the input rather than
+    /// spinning on it.
+    private func pump(
+        _ output: AVAssetReaderOutput,
+        into input: AVAssetWriterInput,
+        label: String,
+        onTime: (@Sendable (TimeInterval) -> Void)?
+    ) async {
+        await withCheckedContinuation { continuation in
+            let queue = DispatchQueue(label: "ch.falsepeak.dubloon.export.\(label)")
+            input.requestMediaDataWhenReady(on: queue) {
+                while input.isReadyForMoreMediaData {
+                    guard let sample = output.copyNextSampleBuffer() else {
+                        input.markAsFinished()
+                        continuation.resume()
+                        return
+                    }
+                    onTime?(CMSampleBufferGetPresentationTimeStamp(sample).seconds)
+                    if !input.append(sample) {
+                        input.markAsFinished()
+                        continuation.resume()
+                        return
+                    }
+                }
+            }
+        }
+    }
+
+    /// Bits per second for a frame of this size at this rate.
+    ///
+    /// About 0.12 bits per pixel per frame, which is roughly what a streaming service spends
+    /// on H.264 at these sizes and comfortably more than the source material carries. Floored
+    /// so a small frame still gets a usable rate.
+    private static func bitRate(for size: CGSize, frameRate: Double) -> Int {
+        let pixels = Double(size.width * size.height)
+        return max(2_000_000, Int(pixels * frameRate * 0.12))
     }
 
     private func exportFilename(for pack: DubPack) -> String {

@@ -357,9 +357,12 @@
 "booth.frame.off" = "Senza";
 "booth.frame.corner" = "In un angolo";
 "booth.frame.stacked" = "Una sopra l'altra";
+"booth.frame.reaction" = "Reazione";
 "booth.frame.split" = "Fianco a fianco";
-"booth.export.stackedNote" = "In verticale il rendering è 9:16, su misura per una storia o uno short.";
+"booth.export.stackedNote" = "Una sopra l'altra e Reazione escono in 9:16 con una forma d'onda in basso: la battuta della scena sopra, la tua sotto.";
 "booth.export.noFootage" = "In questa scena non c'è ancora girato di cabina. Accendi la camera e doppia una battuta.";
+"booth.export.includeBooth" = "Includi il girato di cabina";
+"booth.export.includeBooth.detail" = "Spento tieni il formato verticale e la forma d'onda, con la scena da sola.";
 "booth.export.confirm" = "Esporta il video";
 "booth.export.lineConfirm" = "Esporta la battuta";
 "booth.export.notice" = "Prima del rendering vedrai di chi è questa scena.";

@@ -357,9 +357,12 @@
 "booth.frame.off" = "Sem cabine";
 "booth.frame.corner" = "Num canto";
 "booth.frame.stacked" = "Uma por cima da outra";
+"booth.frame.reaction" = "Reação";
 "booth.frame.split" = "Lado a lado";
-"booth.export.stackedNote" = "Empilhado sai em 9:16, à medida para uma story ou um short.";
+"booth.export.stackedNote" = "Uma por cima da outra e Reação saem em 9:16 com uma onda no rodapé: a fala da cena em cima, a tua em baixo.";
 "booth.export.noFootage" = "Ainda não há imagens de cabine nesta cena. Liga a câmara e dobra uma fala.";
+"booth.export.includeBooth" = "Incluir as imagens de cabine";
+"booth.export.includeBooth.detail" = "Desligado mantém o formato vertical e a onda, com a cena sozinha.";
 "booth.export.confirm" = "Exportar vídeo";
 "booth.export.lineConfirm" = "Exportar fala";
 "booth.export.notice" = "Antes de renderizar vais ver de quem é esta cena.";

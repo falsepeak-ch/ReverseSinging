@@ -357,9 +357,12 @@
 "booth.frame.off" = "Wyłączony";
 "booth.frame.corner" = "W rogu";
 "booth.frame.stacked" = "Jeden nad drugim";
+"booth.frame.reaction" = "Reakcja";
 "booth.frame.split" = "Obok siebie";
-"booth.export.stackedNote" = "Układ pionowy renderuje się w 9:16, w sam raz na relację albo shorta.";
+"booth.export.stackedNote" = "Jeden nad drugim i Reakcja renderują się w 9:16 z falą na dole: kwestia sceny u góry, twoja pod nią.";
 "booth.export.noFootage" = "W tej scenie nie ma jeszcze materiału z kabiny. Włącz Booth Cam i zdubbinguj kwestię.";
+"booth.export.includeBooth" = "Dołącz materiał z kabiny";
+"booth.export.includeBooth.detail" = "Wyłączone zostawia pionowy kadr i falę, ze sceną w środku samą.";
 "booth.export.confirm" = "Wyeksportuj wideo";
 "booth.export.lineConfirm" = "Wyeksportuj kwestię";
 "booth.export.notice" = "Przed renderowaniem zobaczysz, czyja to scena.";

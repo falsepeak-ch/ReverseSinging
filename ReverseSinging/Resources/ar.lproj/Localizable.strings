@@ -357,9 +357,12 @@
 "booth.frame.off" = "بدون";
 "booth.frame.corner" = "في الزاوية";
 "booth.frame.stacked" = "فوق بعضهما";
+"booth.frame.reaction" = "ردّة فعل";
 "booth.frame.split" = "جنباً إلى جنب";
-"booth.export.stackedNote" = "الوضع الطولي يخرج بنسبة 9:16، على مقاس ستوري أو مقطع قصير.";
+"booth.export.stackedNote" = "«فوق بعضهما» و«ردّة فعل» يخرجان بنسبة 9:16 مع موجة صوتية في الأسفل: جملة المشهد فوق، وجملتك تحت.";
 "booth.export.noFootage" = "لا توجد لقطات كابينة في هذا المشهد بعد. شغّل كاميرا الكابينة ودبلج جملة.";
+"booth.export.includeBooth" = "تضمين لقطات الكابينة";
+"booth.export.includeBooth.detail" = "عند الإيقاف يبقى الإطار الطولي والموجة الصوتية، والمشهد وحده فيه.";
 "booth.export.confirm" = "تصدير الفيديو";
 "booth.export.lineConfirm" = "تصدير الجملة";
 "booth.export.notice" = "سترى لمن يعود هذا المشهد قبل المعالجة.";

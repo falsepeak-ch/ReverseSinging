@@ -357,9 +357,12 @@
 "booth.frame.off" = "Off";
 "booth.frame.corner" = "Corner";
 "booth.frame.stacked" = "Stacked";
+"booth.frame.reaction" = "Reaction";
 "booth.frame.split" = "Split";
-"booth.export.stackedNote" = "Stacked renders 9:16, sized for a story or a short.";
+"booth.export.stackedNote" = "Stacked and Reaction render 9:16 with a waveform along the foot: the scene's line above, yours below.";
 "booth.export.noFootage" = "No booth footage in this scene yet. Turn Booth Cam on and dub a line.";
+"booth.export.includeBooth" = "Include booth footage";
+"booth.export.includeBooth.detail" = "Off keeps the vertical frame and the waveform, with the scene on its own.";
 "booth.export.confirm" = "Export Video";
 "booth.export.lineConfirm" = "Export Line";
 "booth.export.notice" = "You'll see whose scene this is before it renders.";

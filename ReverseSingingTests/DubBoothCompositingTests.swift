@@ -63,19 +63,104 @@ struct DubBoothLayoutTests {
         #expect(rect.maxY < scene.height)
     }
 
-    /// 9:16, and the two bands meet with no gap and no overlap in the visible result.
+    /// 9:16, scene on top, and the three bands meet with no gap and no overlap.
     @Test func stackedRendersPortraitWithTheSceneOnTop() throws {
         let layout = DubBoothLayout.make(frame: .stacked, sceneDisplaySize: scene, boothDisplaySize: booth)
         let rect = try #require(layout.boothRect)
+        let wave = try #require(layout.waveRect)
 
         #expect(layout.renderSize == CGSize(width: 1080, height: 1920))
         #expect(layout.sceneRect.minY == 0)
         #expect(rect.minY == layout.sceneRect.maxY, "the bands must meet exactly")
-        #expect(rect.maxY == layout.renderSize.height)
+        #expect(rect.maxY == wave.minY, "the booth runs down to the waveform and no further")
+        #expect(wave.maxY == layout.renderSize.height)
         #expect(
             !layout.boothIsOnTop,
             "the booth overflows its band upward, so the scene has to be drawn after it"
         )
+    }
+
+    /// The mirror of `stacked`: the face goes on top, the film underneath.
+    @Test func reactionPutsTheBoothAboveTheScene() throws {
+        let layout = DubBoothLayout.make(frame: .reaction, sceneDisplaySize: scene, boothDisplaySize: booth)
+        let rect = try #require(layout.boothRect)
+        let wave = try #require(layout.waveRect)
+
+        #expect(layout.renderSize == CGSize(width: 1080, height: 1920))
+        #expect(rect.minY == 0, "the booth starts at the top of the frame")
+        #expect(rect.maxY == layout.sceneRect.minY, "the bands must meet exactly")
+        #expect(layout.sceneRect.maxY == wave.minY)
+        #expect(
+            !layout.boothIsOnTop,
+            "the booth overflows downward into the scene, so the scene is drawn after it"
+        )
+    }
+
+    /// The two vertical frames use exactly the same bands, in the other order.
+    @Test func theVerticalFramesAreOneAnothersMirror() throws {
+        let stacked = DubBoothLayout.make(frame: .stacked, sceneDisplaySize: scene, boothDisplaySize: booth)
+        let reaction = DubBoothLayout.make(frame: .reaction, sceneDisplaySize: scene, boothDisplaySize: booth)
+
+        #expect(stacked.renderSize == reaction.renderSize)
+        #expect(stacked.waveRect == reaction.waveRect)
+        #expect(stacked.sceneRect.size == reaction.sceneRect.size)
+        #expect(try #require(stacked.boothRect).size == (try #require(reaction.boothRect)).size)
+        #expect(stacked.sceneRectAlone == reaction.sceneRectAlone,
+                "with nobody in the booth the two frames are the same picture")
+    }
+
+    /// The fix for the band of black that a scene with gaps used to export.
+    @Test func aVerticalFrameGivesTheBoothBandBackWhenThereIsNoFootageForIt() throws {
+        for frame in [DubBoothFrame.stacked, .reaction] {
+            let layout = DubBoothLayout.make(frame: frame, sceneDisplaySize: scene, boothDisplaySize: booth)
+            let wave = try #require(layout.waveRect)
+
+            #expect(layout.sceneRectAlone.size == layout.sceneRect.size,
+                    "the scene moves rather than resizing, so each line reads as a cut")
+            #expect(
+                abs(layout.sceneRectAlone.midY - wave.minY / 2) < 1,
+                "the scene is centred in the picture area, so what black is left is symmetrical"
+            )
+            #expect(layout.sceneRectAlone.minY > 0, "and it is no longer pinned to an edge")
+        }
+    }
+
+    /// The same gap, in the landscape frame that has one.
+    @Test func splitGivesTheWholeFrameBackWhenTheBoothIsNotRolling() {
+        let layout = DubBoothLayout.make(frame: .split, sceneDisplaySize: scene, boothDisplaySize: booth)
+
+        #expect(layout.sceneRectAlone == CGRect(origin: .zero, size: layout.renderSize))
+    }
+
+    /// A pack that is already portrait leaves no room for a face, and is not cropped to make
+    /// some. It still gets the vertical canvas and the waveform.
+    @Test func aPortraitPackKeepsItsPictureRatherThanMakingRoomForTheBooth() {
+        let layout = DubBoothLayout.make(
+            frame: .stacked,
+            sceneDisplaySize: CGSize(width: 1080, height: 1920),
+            boothDisplaySize: booth
+        )
+
+        #expect(layout.boothRect == nil)
+        #expect(layout.waveRect != nil)
+        #expect(layout.sceneRect == layout.sceneRectAlone)
+    }
+
+    /// Only the frames that stand up on their own are worth rendering with no booth in them.
+    @Test func onlyTheVerticalFramesAreVerticalOnes() {
+        #expect(DubBoothFrame.stacked.isVertical)
+        #expect(DubBoothFrame.reaction.isVertical)
+        #expect(!DubBoothFrame.off.isVertical)
+        #expect(!DubBoothFrame.corner.isVertical)
+        #expect(!DubBoothFrame.split.isVertical)
+    }
+
+    /// Only the vertical frames carry a strip; the rest are the shapes they always were.
+    @Test func onlyTheVerticalFramesReserveAWaveformStrip() {
+        for frame in DubBoothFrame.allCases {
+            let layout = DubBoothLayout.make(frame: frame, sceneDisplaySize: scene, boothDisplaySize: booth)
+            #expect((layout.waveRect != nil) == frame.isVertical, "\(frame)")
+        }
     }
 
     @Test func splitGivesEachHalfTheFullHeight() throws {
@@ -402,7 +487,10 @@ struct DubBoothCompositingOutputTests {
     // MARK: Rendering
 
     /// Composes, exports and hands back a frame from the middle of the result.
-    private func render(frame: DubBoothFrame) async throws -> (image: CGImage, size: CGSize) {
+    private func render(
+        frame: DubBoothFrame,
+        includesBooth: Bool = true
+    ) async throws -> (image: CGImage, size: CGSize) {
         let directory = FileManager.default.temporaryDirectory
             .appendingPathComponent("booth-geometry-\(UUID().uuidString)", isDirectory: true)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
@@ -425,6 +513,7 @@ struct DubBoothCompositingOutputTests {
                 recordedSlugs: [line.slug]
             ),
             frame: frame,
+            includesBooth: includesBooth,
             sceneVideo: sceneURL,
             // The composer takes whatever audio track this asset has, which is none. The
             // geometry does not care, and a silent fixture keeps the test to one concern.
@@ -523,6 +612,142 @@ struct DubBoothCompositingOutputTests {
                 "the bottom band is the booth")
         #expect(dominant(at: CGPoint(x: size.width / 2, y: size.height - 30), in: image) == .blue,
                 "the booth reaches the bottom of the frame")
+    }
+
+    /// Booth above, scene below, in the same portrait frame.
+    @Test func reactionPutsTheBoothAboveTheScene() async throws {
+        let (image, size) = try await render(frame: .reaction)
+
+        #expect(size == CGSize(width: 1080, height: 1920))
+
+        let layout = DubBoothLayout.make(
+            frame: .reaction,
+            sceneDisplaySize: CGSize(width: 640, height: 360),
+            boothDisplaySize: CGSize(width: 360, height: 640)
+        )
+        let boothBand = try #require(layout.boothRect)
+
+        #expect(dominant(at: CGPoint(x: size.width / 2, y: boothBand.midY), in: image) == .blue,
+                "the top band is the booth")
+        #expect(dominant(at: CGPoint(x: size.width / 2, y: layout.sceneRect.midY), in: image) == .red,
+                "the bottom band is the scene")
+    }
+
+    /// A vertical frame with the booth switched off is still a 9:16 render, and the picture
+    /// sits in the middle of it rather than clinging to one edge with black under it.
+    @Test func aVerticalFrameWithoutTheBoothCentresTheSceneAndKeepsTheShape() async throws {
+        let (image, size) = try await render(frame: .stacked, includesBooth: false)
+
+        #expect(size == CGSize(width: 1080, height: 1920), "the vertical canvas survives")
+
+        let layout = DubBoothLayout.make(
+            frame: .stacked,
+            sceneDisplaySize: CGSize(width: 640, height: 360),
+            boothDisplaySize: CGSize(width: 360, height: 640)
+        )
+
+        #expect(dominant(at: CGPoint(x: size.width / 2, y: layout.sceneRectAlone.midY), in: image) == .red,
+                "the scene is where the layout says it moved to")
+        #expect(dominant(at: CGPoint(x: size.width / 2, y: layout.boothRect!.midY), in: image) != .blue,
+                "and nobody is in the band it used to keep for the booth")
+    }
+
+    /// The strip goes into the frame, in the band the layout reserved for it.
+    @Test func aVerticalExportCarriesItsWaveformStrip() async throws {
+        let directory = FileManager.default.temporaryDirectory
+            .appendingPathComponent("booth-strip-\(UUID().uuidString)", isDirectory: true)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+
+        let duration: TimeInterval = 1.0
+        let sceneURL = directory.appendingPathComponent("scene.mp4")
+        let boothURL = directory.appendingPathComponent("booth.mp4")
+        let waveURL = directory.appendingPathComponent("wave.mp4")
+
+        try await writeClip(size: CGSize(width: 640, height: 360), duration: duration, red: true, to: sceneURL)
+        try await writeClip(size: CGSize(width: 360, height: 640), duration: duration, red: false, to: boothURL)
+
+        let layout = DubBoothLayout.make(
+            frame: .stacked,
+            sceneDisplaySize: CGSize(width: 640, height: 360),
+            boothDisplaySize: CGSize(width: 360, height: 640)
+        )
+        let band = try #require(layout.waveRect)
+
+        try await DubWaveOverlay.renderStrip(
+            // Every bar at full height, so the strip is unambiguous wherever it is sampled.
+            bars: DubWaveOverlay.Bars(
+                reference: Array(repeating: 1, count: 160),
+                take: Array(repeating: 1, count: 160)
+            ),
+            labels: ("Original", "My Dub"),
+            size: band.size,
+            duration: duration,
+            to: waveURL
+        )
+
+        let (pack, line) = makePack(lineDuration: duration)
+
+        let composed = try await DubBoothComposer.compose(
+            pack: pack,
+            segments: DubCutPlanner.segments(for: .fullScene, pack: pack, recordedSlugs: [line.slug]),
+            frame: .stacked,
+            sceneVideo: sceneURL,
+            audio: sceneURL,
+            boothClips: [line.slug: boothURL],
+            waveVideo: waveURL
+        )
+
+        let videoComposition = try #require(composed.videoComposition)
+        let generator = AVAssetImageGenerator(asset: composed.composition)
+        generator.videoComposition = videoComposition
+        generator.appliesPreferredTrackTransform = false
+        generator.requestedTimeToleranceBefore = .zero
+        generator.requestedTimeToleranceAfter = .zero
+
+        let image = try generator.copyCGImage(
+            at: CMTime(seconds: duration / 2, preferredTimescale: 600),
+            actualTime: nil
+        )
+
+        // The waveform's own grey is far brighter than the panel it sits on, and brighter than
+        // the black an empty band would leave.
+        #expect(
+            brightest(in: band, of: image) > 120,
+            "the strip is missing: the band reserved for it is empty"
+        )
+        #expect(
+            dominant(at: CGPoint(x: band.midX, y: band.midY - band.height / 3), in: image) != .blue,
+            "and the booth no longer spills into it"
+        )
+    }
+
+    /// The brightest channel value anywhere in a band of the frame, top-left origin.
+    private func brightest(in rect: CGRect, of image: CGImage) -> Int {
+        let width = image.width
+        let height = image.height
+        var pixels = [UInt8](repeating: 0, count: width * height * 4)
+
+        guard let context = CGContext(
+            data: &pixels,
+            width: width,
+            height: height,
+            bitsPerComponent: 8,
+            bytesPerRow: width * 4,
+            space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ) else { return 0 }
+
+        context.draw(image, in: CGRect(x: 0, y: 0, width: width, height: height))
+
+        var peak = 0
+        for y in stride(from: max(0, Int(rect.minY)), to: min(height, Int(rect.maxY)), by: 4) {
+            for x in stride(from: max(0, Int(rect.minX)), to: min(width, Int(rect.maxX)), by: 4) {
+                let offset = y * width * 4 + x * 4
+                peak = max(peak, Int(pixels[offset]), Int(pixels[offset + 1]), Int(pixels[offset + 2]))
+            }
+        }
+        return peak
     }
 
     /// Two halves, scene on the left.

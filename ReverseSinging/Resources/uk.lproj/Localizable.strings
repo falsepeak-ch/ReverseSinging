@@ -357,9 +357,12 @@
 "booth.frame.off" = "Вимк.";
 "booth.frame.corner" = "У кутку";
 "booth.frame.stacked" = "Одне над одним";
+"booth.frame.reaction" = "Реакція";
 "booth.frame.split" = "Поруч";
-"booth.export.stackedNote" = "Вертикальний варіант рендериться в 9:16, якраз під сторіс чи шортс.";
+"booth.export.stackedNote" = "«Одне над одним» і «Реакція» рендеряться в 9:16 з осцилограмою внизу: репліка сцени зверху, твоя знизу.";
 "booth.export.noFootage" = "У цій сцені ще немає матеріалу з кабіни. Увімкни Booth Cam і озвуч репліку.";
+"booth.export.includeBooth" = "Додати матеріал з кабіни";
+"booth.export.includeBooth.detail" = "Вимкнено — вертикальний кадр і осцилограма залишаються, у кадрі лише сцена.";
 "booth.export.confirm" = "Експортувати відео";
 "booth.export.lineConfirm" = "Експортувати репліку";
 "booth.export.notice" = "Перед рендером ти побачиш, чия це сцена.";

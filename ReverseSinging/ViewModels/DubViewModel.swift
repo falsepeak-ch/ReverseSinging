@@ -129,9 +129,9 @@ final class DubViewModel: ObservableObject {
         for step in 0...steps {
             let progress = Double(step) / Double(steps)
             exportProgress = progress
-            // The same weighting the real export reports: the mix is quick, the render
-            // is most of the wait, and finishing is the tail.
-            exportStage = progress < 0.25 ? .mixingAudio : (progress < 0.9 ? .renderingVideo : .finishing)
+            // The same weighting the real export reports: the mix and the picture are over
+            // almost at once, and the render at the end is nearly all of the wait.
+            exportStage = progress < 0.04 ? .mixingAudio : (progress < 0.10 ? .renderingVideo : .finishing)
             try? await Task.sleep(for: .seconds(duration / Double(steps)))
             if Task.isCancelled { break }
         }
@@ -758,7 +758,11 @@ final class DubViewModel: ObservableObject {
             .reduce(0) { $0 + $1.duration }
     }
 
-    func export(cut: DubCut = .fullScene, frame: DubBoothFrame = .off) async {
+    func export(
+        cut: DubCut = .fullScene,
+        frame: DubBoothFrame = .off,
+        includesBooth: Bool = true
+    ) async {
         guard hasAnyTake else {
             errorMessage = Strings.Dub.Error.nothingRecorded
             return
@@ -771,7 +775,12 @@ final class DubViewModel: ObservableObject {
         defer { isExporting = false }
 
         do {
-            let url = try await DubMixer.shared.export(pack: pack, cut: cut, frame: frame) { [weak self] stage, value in
+            let url = try await DubMixer.shared.export(
+                pack: pack,
+                cut: cut,
+                frame: frame,
+                includesBooth: includesBooth
+            ) { [weak self] stage, value in
                 Task { @MainActor [weak self] in
                     self?.exportStage = stage
                     self?.exportProgress = Self.overallProgress(stage: stage, value: value)
@@ -797,12 +806,17 @@ final class DubViewModel: ObservableObject {
         }
     }
 
-    /// Weighted so the bar moves at a believable pace: mixing is fast, video is the long part.
+    /// Weighted by what the stages actually cost, measured rather than guessed.
+    ///
+    /// The mix and the picture are a fraction of a second between them; the render at the end
+    /// is nine tenths of the wait. The old weighting had it the other way round, so the bar
+    /// raced to ninety per cent and then sat there for the whole of the actual work, which is
+    /// the single most reliable way to make something feel slower than it is.
     private static func overallProgress(stage: DubExportStage, value: Double) -> Double {
         switch stage {
-        case .mixingAudio: return value * 0.25
-        case .renderingVideo: return 0.25 + value * 0.65
-        case .finishing: return 0.90 + value * 0.10
+        case .mixingAudio: return value * 0.04
+        case .renderingVideo: return 0.04 + value * 0.06
+        case .finishing: return 0.10 + value * 0.90
         }
     }
 

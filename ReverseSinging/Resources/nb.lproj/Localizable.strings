@@ -357,9 +357,12 @@
 "booth.frame.off" = "Av";
 "booth.frame.corner" = "I hjørnet";
 "booth.frame.stacked" = "Oppå hverandre";
+"booth.frame.reaction" = "Reaksjon";
 "booth.frame.split" = "Side ved side";
-"booth.export.stackedNote" = "Stablet rendres i 9:16, skreddersydd for en story eller en short.";
+"booth.export.stackedNote" = "Oppå hverandre og Reaksjon rendres i 9:16 med en bølgeform nederst: scenens replikk øverst, din under.";
 "booth.export.noFootage" = "Ingen boksopptak i denne scenen ennå. Slå på Booth Cam og dubb en replikk.";
+"booth.export.includeBooth" = "Ta med boksopptaket";
+"booth.export.includeBooth.detail" = "Av beholder det stående formatet og bølgeformen, med scenen alene i.";
 "booth.export.confirm" = "Eksporter video";
 "booth.export.lineConfirm" = "Eksporter replikken";
 "booth.export.notice" = "Du får se hvem scenen tilhører før den rendres.";

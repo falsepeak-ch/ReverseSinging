@@ -357,9 +357,12 @@
 "booth.frame.off" = "Sans";
 "booth.frame.corner" = "Dans un coin";
 "booth.frame.stacked" = "L'un sur l'autre";
+"booth.frame.reaction" = "Réaction";
 "booth.frame.split" = "Côte à côte";
-"booth.export.stackedNote" = "En empilé, le rendu est en 9:16, taillé pour une story ou un short.";
+"booth.export.stackedNote" = "Empilé et Réaction sont rendus en 9:16 avec une forme d'onde en bas : la réplique de la scène au-dessus, la tienne en dessous.";
 "booth.export.noFootage" = "Pas encore d'images de cabine dans cette scène. Active la caméra et double une réplique.";
+"booth.export.includeBooth" = "Inclure les images de cabine";
+"booth.export.includeBooth.detail" = "Désactivé, tu gardes le cadre vertical et la forme d'onde, avec la scène seule dedans.";
 "booth.export.confirm" = "Exporter la vidéo";
 "booth.export.lineConfirm" = "Exporter la réplique";
 "booth.export.notice" = "Tu verras à qui appartient cette scène avant le rendu.";

@@ -357,9 +357,12 @@
 "booth.frame.off" = "Sense cabina";
 "booth.frame.corner" = "En un cantó";
 "booth.frame.stacked" = "Una sobre l'altra";
+"booth.frame.reaction" = "Reacció";
 "booth.frame.split" = "Costat a costat";
-"booth.export.stackedNote" = "Apilat es renderitza en 9:16, a mida per a una story o un short.";
+"booth.export.stackedNote" = "Una sobre l'altra i Reacció es renderitzen en 9:16 amb una ona al peu: la frase de l'escena a dalt, la teva a baix.";
 "booth.export.noFootage" = "Encara no hi ha material de cabina en aquesta escena. Encén la càmera i dobla una frase.";
+"booth.export.includeBooth" = "Inclou el material de cabina";
+"booth.export.includeBooth.detail" = "Si l'apagues, mantens el marc vertical i l'ona, amb l'escena tota sola.";
 "booth.export.confirm" = "Exportar el vídeo";
 "booth.export.lineConfirm" = "Exportar la frase";
 "booth.export.notice" = "Abans de renderitzar veuràs de qui és aquesta escena.";
