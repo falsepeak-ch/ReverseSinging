@@ -411,6 +411,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Dubloon uses the front camera to film you while you dub, so you can share your reaction alongside the take. Filming stays off until you turn it on.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Dubloon needs microphone access to record your voice, so you can sing songs backwards and dub movie scenes.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Dubloon adds your finished dub to Photos when you choose Save Video. It never reads anything already in your library.";
 				INFOPLIST_KEY_UIAppFonts = Eugello.ttf;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -453,6 +454,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Dubloon uses the front camera to film you while you dub, so you can share your reaction alongside the take. Filming stays off until you turn it on.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Dubloon needs microphone access to record your voice, so you can sing songs backwards and dub movie scenes.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Dubloon adds your finished dub to Photos when you choose Save Video. It never reads anything already in your library.";
 				INFOPLIST_KEY_UIAppFonts = Eugello.ttf;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
