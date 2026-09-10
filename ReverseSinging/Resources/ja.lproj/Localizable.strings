@@ -10,8 +10,6 @@
 "onboarding.howItWorks.message" = "曲を録音して、逆さまにして、その意味不明な音に合わせて歌う。歌ったテイクをもう一度ひっくり返せば、近づけたのか、新しい言語を発明しただけなのかが分かります。";
 "onboarding.dub.title" = "映画のシーンをアフレコ";
 "onboarding.dub.message" = "2つめのゲーム。シーンを流し、思いきり大げさに演じて、映画の中の自分を聴く。シーンは2本同梱。その先は自分のファイルを持ち込んでください。";
-"onboarding.uiPreference.title" = "コントロールルームを選ぶ";
-"onboarding.uiPreference.message" = "大きくて正直なボタンか、つまみ付きのフル卓か。これは逆さ歌用の設定で、気が変わったら設定でいつでも変えられます。";
 "onboarding.microphone.title" = "最後にひとつ";
 "onboarding.microphone.message" = "どちらのゲームもあなたの声を聴く必要があります。マイクが起きるのは録音中だけ。すべてこの端末に残り、どこにもアップロードされません。いちばんひどいテイクは、あなたとこの端末だけの秘密です。";
 "onboarding.button.openSettings" = "設定を開く";
@@ -369,3 +367,27 @@
 "booth.export.runtime" = "尺";
 "booth.export.shape" = "画面比";
 "booth.shareLine" = "このセリフを共有";
+
+/* Dub: the scene player, and the first-run tips (see DubTips) */
+"dub.play" = "再生";
+"dub.pause" = "一時停止";
+"dub.timeline" = "タイムライン";
+"dub.tip.record.title" = "聴いてから録音";
+"dub.tip.record.message" = "元のセリフを再生してから録音を押す。3拍のカウントのあと、セリフが終わるとマイクは自動で閉じます。";
+"dub.tip.booth.title" = "自分も撮ろう";
+"dub.tip.booth.message" = "ブースカメラは演じている間、フロントカメラを回します。アフレコの中でシーンの横にあなたの顔が流れ、書き出しにも入れられます。";
+"dub.tip.playDub.title" = "映画の中の自分を聴く";
+"dub.tip.playDub.message" = "あなたのテイクが元のセリフの代わりにシーンへ入ります。まだアフレコしていない部分は元のまま流れます。";
+
+/* What's new: Booth Cam, for the people who updated into it */
+"whatsNew.badge" = "新機能";
+"whatsNew.booth.title" = "アフレコ中に自分を撮れるようになりました";
+"whatsNew.booth.message" = "ブースカメラの登場です。セリフを言っている間フロントカメラが回り、シーンのすぐ横にあなたの顔が記録されます。シーンプレーヤーで見返して、書き出すときは隅に置いたり、上下や左右に並べたりできます。オンにするまではオフのままです。";
+"whatsNew.booth.row.switch" = "オンにする";
+"whatsNew.booth.row.switch.value" = "カメラキー";
+"whatsNew.booth.row.footage" = "映像";
+"whatsNew.booth.row.footage.value" = "端末に残る";
+"whatsNew.booth.row.default" = "初期設定";
+"whatsNew.booth.row.default.value" = "オフ";
+"whatsNew.booth.confirm" = "シーンで試す";
+"whatsNew.booth.later" = "あとで";

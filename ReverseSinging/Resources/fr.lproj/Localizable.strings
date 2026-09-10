@@ -10,8 +10,6 @@
 "onboarding.howItWorks.message" = "Enregistre une chanson, retourne-la, puis chante par-dessus le charabia. Retourne ta prise et découvre si tu t'en es approché ou si tu viens d'inventer une langue.";
 "onboarding.dub.title" = "Double une scène de film";
 "onboarding.dub.message" = "Le deuxième jeu : lance une scène, surjoue par-dessus, puis écoute-toi dans le film. Deux scènes sont fournies. Ensuite, ce sera avec tes propres fichiers.";
-"onboarding.uiPreference.title" = "Choisis ta régie";
-"onboarding.uiPreference.message" = "Des gros boutons bien francs, ou la console complète avec les potards. C'est pour le Chant Inversé, et tu peux changer d'avis dans les Réglages quand tu veux.";
 "onboarding.microphone.title" = "Une dernière chose";
 "onboarding.microphone.message" = "Les deux jeux ont besoin de t'entendre : chanter à l'envers ou doubler une scène. Le micro ne se réveille que pendant l'enregistrement, tout reste sur cet appareil et rien n'est jamais envoyé ailleurs. Ta pire prise restera entre vous deux.";
 "onboarding.button.openSettings" = "Ouvrir les Réglages";
@@ -369,3 +367,27 @@
 "booth.export.runtime" = "Durée";
 "booth.export.shape" = "Format";
 "booth.shareLine" = "Partager cette réplique";
+
+/* Dub: the scene player, and the first-run tips (see DubTips) */
+"dub.play" = "Lire";
+"dub.pause" = "Pause";
+"dub.timeline" = "Chronologie";
+"dub.tip.record.title" = "Écoute, puis enregistre";
+"dub.tip.record.message" = "Lance la réplique originale, puis appuie sur enregistrer. Trois temps de décompte, et le micro se coupe tout seul à la fin de la réplique.";
+"dub.tip.booth.title" = "Filme-toi aussi";
+"dub.tip.booth.message" = "La cabine allume la caméra frontale pendant que tu joues. Ton visage apparaît à côté de la scène dans ton doublage, et peut partir dans l'export.";
+"dub.tip.playDub.title" = "Écoute-toi dans le film";
+"dub.tip.playDub.message" = "Tes prises remplacent les répliques originales dans la scène. Ce que tu n'as pas encore doublé reste tel quel.";
+
+/* What's new: Booth Cam, for the people who updated into it */
+"whatsNew.badge" = "Nouveautés";
+"whatsNew.booth.title" = "Tu peux maintenant te filmer en doublant";
+"whatsNew.booth.message" = "Voici la cabine. La caméra frontale tourne pendant que tu dis une réplique, et ton visage est enregistré juste à côté de la scène. Regarde le résultat dans le lecteur de scène, puis mets-le dans un coin, en pile ou en écran partagé à l'export. Elle reste éteinte tant que tu ne l'allumes pas.";
+"whatsNew.booth.row.switch" = "Pour l'allumer";
+"whatsNew.booth.row.switch.value" = "Touche caméra";
+"whatsNew.booth.row.footage" = "Images";
+"whatsNew.booth.row.footage.value" = "Restent sur l'appareil";
+"whatsNew.booth.row.default" = "Par défaut";
+"whatsNew.booth.row.default.value" = "Éteinte";
+"whatsNew.booth.confirm" = "Essayer sur une scène";
+"whatsNew.booth.later" = "Plus tard";

@@ -13,7 +13,6 @@ struct OnboardingView: View {
     @State private var permissionGranted = false
     @State private var permissionRequested = false
     @State private var permissionDenied = false
-    @State private var selectedUIMode: UIMode = .simple
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.scenePhase) private var scenePhase
 
@@ -39,12 +38,6 @@ struct OnboardingView: View {
             description: Strings.Onboarding.dubMessage,
             matteColor: Color.rsSurface1
         ),
-        OnboardingPage(
-            imageName: "microphone",  // Placeholder, won't be used
-            title: Strings.Onboarding.uiPreferenceTitle,
-            description: Strings.Onboarding.uiPreferenceMessage,
-            matteColor: Color.rsSurface1
-        ),
         // The permission ask comes last, once both games have been shown: by
         // now "we need the microphone" reads as the obvious next step rather
         // than a toll gate in front of an app the user hasn't seen yet.
@@ -56,8 +49,6 @@ struct OnboardingView: View {
         )
     ]
 
-    /// The interface picker draws itself; every other page is a plain illustration.
-    private var uiPreferenceIndex: Int { pages.count - 2 }
     /// The microphone ask, and the end of onboarding.
     private var permissionIndex: Int { pages.count - 1 }
 
@@ -122,14 +113,8 @@ struct OnboardingView: View {
 
                 TabView(selection: $currentPage) {
                     ForEach(Array(pages.enumerated()), id: \.offset) { index, page in
-                        if index == uiPreferenceIndex {
-                            // UI Preference page with custom layout
-                            uiPreferencePage
-                                .tag(index)
-                        } else {
-                            OnboardingPageView(page: page)
-                                .tag(index)
-                        }
+                        OnboardingPageView(page: page)
+                            .tag(index)
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
@@ -203,69 +188,6 @@ struct OnboardingView: View {
         }
     }
 
-    // MARK: - UI Preference Page
-
-    private var uiPreferencePage: some View {
-        GeometryReader { geometry in
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 24) {
-                    // Top spacing
-                    Spacer()
-                        .frame(height: 40)
-
-                    // Title
-                    Text(Strings.Onboarding.uiPreferenceTitle)
-                        .font(.rsDisplayLarge)
-                        .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 24)
-
-                    // Description
-                    Text(Strings.Onboarding.uiPreferenceMessage)
-                        .font(.rsBodyLarge)
-                        .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
-                        .multilineTextAlignment(.center)
-                        .lineSpacing(6)
-                        .padding(.horizontal, 24)
-                        .padding(.bottom, 8)
-
-                    // UI Mode Cards
-                    HStack(spacing: 16) {
-                        UIPreferenceCard(
-                            mode: .simple,
-                            isSelected: selectedUIMode == .simple,
-                            action: {
-                                withAnimation(.rsSpring) {
-                                    selectedUIMode = .simple
-                                }
-                                viewModel.setUIMode(.simple)
-                                HapticManager.shared.light()
-                            }
-                        )
-
-                        UIPreferenceCard(
-                            mode: .complex,
-                            isSelected: selectedUIMode == .complex,
-                            action: {
-                                withAnimation(.rsSpring) {
-                                    selectedUIMode = .complex
-                                }
-                                viewModel.setUIMode(.complex)
-                                HapticManager.shared.light()
-                            }
-                        )
-                    }
-                    .padding(.horizontal, 24)
-
-                    // Bottom spacing
-                    Spacer()
-                        .frame(height: 40)
-                }
-                .frame(minHeight: geometry.size.height)
-            }
-        }
-    }
-
     // MARK: - Navigation
 
     private func nextPage() {
@@ -279,9 +201,10 @@ struct OnboardingView: View {
 
     private func finishOnboarding() {
         withAnimation(.rsSpring) {
-            // Belt and braces: the picker already saved this on selection, but
-            // nobody has to touch it, so the default still needs writing.
-            viewModel.setUIMode(selectedUIMode)
+            // The reverse game opens in its simple skin. The picker that used to sit
+            // here is gone: choosing between two control rooms before seeing either
+            // was the page everyone flicked past. Settings still offers the choice.
+            viewModel.setUIMode(.simple)
             AnalyticsManager.shared.trackOnboardingCompleted()
             viewModel.completeOnboarding()
         }

@@ -10,8 +10,6 @@
 "onboarding.howItWorks.message" = "Äänitä biisi, käännä se takaperin ja laula siansaksan mukana. Käännä sitten oma otoksesi ja kuule, osuitko lähelle vai keksitkö juuri uuden kielen.";
 "onboarding.dub.title" = "Dubbaa elokuvakohtaus";
 "onboarding.dub.message" = "Toinen peli: laita kohtaus pyörimään, ylinäyttele kunnolla ja kuule sitten itsesi elokuvassa. Kaksi kohtausta tulee mukana. Sen jälkeen tuot omat tiedostosi.";
-"onboarding.uiPreference.title" = "Valitse ohjaamosi";
-"onboarding.uiPreference.message" = "Isot rehelliset napit tai koko miksauspöytä nuppeineen. Tämä koskee Takaperinlaulua, ja voit vaihtaa mieltä Asetuksissa milloin vain.";
 "onboarding.microphone.title" = "Vielä yksi juttu";
 "onboarding.microphone.message" = "Molempien pelien pitää kuulla sinut: takaperin laulaessa tai kohtausta dubatessa. Mikrofoni herää vain äänityksen ajaksi, kaikki pysyy tällä laitteella eikä mitään lähetetä koskaan minnekään. Surkein otoksesi jää teidän kahden väliseksi.";
 "onboarding.button.openSettings" = "Avaa Asetukset";
@@ -369,3 +367,27 @@
 "booth.export.runtime" = "Kesto";
 "booth.export.shape" = "Kuvasuhde";
 "booth.shareLine" = "Jaa tämä repliikki";
+
+/* Dub: the scene player, and the first-run tips (see DubTips) */
+"dub.play" = "Toista";
+"dub.pause" = "Tauko";
+"dub.timeline" = "Aikajana";
+"dub.tip.record.title" = "Kuuntele, sitten äänitä";
+"dub.tip.record.message" = "Toista alkuperäinen repliikki ja paina sitten äänitä. Kolme iskua lähtölaskentaa, ja mikki sulkeutuu itsestään, kun repliikki päättyy.";
+"dub.tip.booth.title" = "Kuvaa myös itsesi";
+"dub.tip.booth.message" = "Booth Cam pitää etukameran käynnissä, kun esiinnyt. Kasvosi pyörivät kohtauksen vieressä dubbauksessasi, ja ne voi ottaa mukaan vientiin.";
+"dub.tip.playDub.title" = "Kuule itsesi elokuvassa";
+"dub.tip.playDub.message" = "Ottosi menevät kohtaukseen alkuperäisten repliikkien tilalle. Se, mitä et ole vielä dubannut, soi entisellään.";
+
+/* What's new: Booth Cam, for the people who updated into it */
+"whatsNew.badge" = "Uutta";
+"whatsNew.booth.title" = "Nyt voit kuvata itsesi dubatessasi";
+"whatsNew.booth.message" = "Tässä on Booth Cam. Etukamera pyörii, kun sanot repliikin, joten kasvosi tallentuvat aivan kohtauksen viereen. Katso se kohtaussoittimesta ja laita se viedessäsi nurkkaan, päällekkäin tai rinnakkain. Se pysyy pois päältä, kunnes kytket sen päälle.";
+"whatsNew.booth.row.switch" = "Päälle";
+"whatsNew.booth.row.switch.value" = "Kamerapainike";
+"whatsNew.booth.row.footage" = "Kuvamateriaali";
+"whatsNew.booth.row.footage.value" = "Pysyy laitteella";
+"whatsNew.booth.row.default" = "Oletus";
+"whatsNew.booth.row.default.value" = "Pois";
+"whatsNew.booth.confirm" = "Kokeile kohtauksessa";
+"whatsNew.booth.later" = "Myöhemmin";

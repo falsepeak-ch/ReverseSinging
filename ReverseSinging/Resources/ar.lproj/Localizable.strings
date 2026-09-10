@@ -10,8 +10,6 @@
 "onboarding.howItWorks.message" = "سجّل أغنية، اقلبها، ثم غنِّ فوق ذلك الكلام غير المفهوم. اقلب تسجيلك بعدها واكتشف إن كنت قد اقتربت أم اخترعت لغة جديدة.";
 "onboarding.dub.title" = "دبلج مشهداً سينمائياً";
 "onboarding.dub.message" = "اللعبة الثانية: شغّل المشهد، مثّل فوقه بمبالغة، ثم اسمع نفسك داخل الفيلم. مشهدان يأتيان مع التطبيق. وبعدهما تُحضر ملفاتك بنفسك.";
-"onboarding.uiPreference.title" = "اختر غرفة التحكم";
-"onboarding.uiPreference.message" = "أزرار كبيرة وصريحة، أو لوحة كاملة بمفاتيح. هذا يخص الغناء بالمقلوب، ويمكنك تغيير رأيك في الإعدادات متى شئت.";
 "onboarding.microphone.title" = "أمر أخير";
 "onboarding.microphone.message" = "اللعبتان تحتاجان أن تسمعاك: في الغناء بالمقلوب وفي الدبلجة. الميكروفون يستيقظ أثناء التسجيل فقط، وكل شيء يبقى على هذا الجهاز ولا يُرفع أي شيء إلى أي مكان. أسوأ محاولاتك تبقى بينك وبين الجهاز.";
 "onboarding.button.openSettings" = "افتح الإعدادات";
@@ -369,3 +367,27 @@
 "booth.export.runtime" = "المدة";
 "booth.export.shape" = "الإطار";
 "booth.shareLine" = "شارك هذه الجملة";
+
+/* Dub: the scene player, and the first-run tips (see DubTips) */
+"dub.play" = "تشغيل";
+"dub.pause" = "إيقاف مؤقت";
+"dub.timeline" = "الخط الزمني";
+"dub.tip.record.title" = "استمع ثم سجّل";
+"dub.tip.record.message" = "شغّل الجملة الأصلية ثم اضغط تسجيل. ثلاث نقرات عدّ تنازلي، ويُغلق الميكروفون نفسه عند انتهاء الجملة.";
+"dub.tip.booth.title" = "صوّر نفسك أيضًا";
+"dub.tip.booth.message" = "تُشغّل كاميرا الكابينة الكاميرا الأمامية أثناء أدائك. يظهر وجهك بجانب المشهد في دبلجتك، ويمكن أن يدخل في التصدير.";
+"dub.tip.playDub.title" = "اسمع نفسك داخل الفيلم";
+"dub.tip.playDub.message" = "تدخل تسجيلاتك في المشهد مكان الجمل الأصلية. وما لم تدبلجه بعد يُعرض كما كان.";
+
+/* What's new: Booth Cam, for the people who updated into it */
+"whatsNew.badge" = "ما الجديد";
+"whatsNew.booth.title" = "صار بإمكانك تصوير نفسك أثناء الدبلجة";
+"whatsNew.booth.message" = "تعرّف على كاميرا الكابينة. تعمل الكاميرا الأمامية بينما تقول الجملة، فيُسجَّل وجهك بجانب المشهد مباشرة. شاهده في مشغّل المشهد، وعند التصدير ضعه في الزاوية أو فوق المشهد أو بجانبه. تبقى مطفأة حتى تشغّلها.";
+"whatsNew.booth.row.switch" = "للتشغيل";
+"whatsNew.booth.row.switch.value" = "زر الكاميرا";
+"whatsNew.booth.row.footage" = "اللقطات";
+"whatsNew.booth.row.footage.value" = "تبقى على الجهاز";
+"whatsNew.booth.row.default" = "الافتراضي";
+"whatsNew.booth.row.default.value" = "مطفأة";
+"whatsNew.booth.confirm" = "جرّبها على مشهد";
+"whatsNew.booth.later" = "لاحقًا";

@@ -19,6 +19,8 @@ struct HomeView: View {
     @ObservedObject private var access = AccessController.shared
     @State private var isPaywallPresented = false
     @State private var isEarlyAdopterWelcomePresented = false
+    /// The Booth Cam note for people who updated, see `BoothCamAnnouncement`.
+    @State private var isBoothAnnouncementPresented = false
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -47,22 +49,31 @@ struct HomeView: View {
                 .preferredColorScheme(.dark)
                 // Marked on the way out rather than on the way in, so a user who
                 // kills the app mid-animation still gets told.
-                .onDisappear { access.markEarlyAdopterWelcomed() }
+                .onDisappear {
+                    access.markEarlyAdopterWelcomed()
+                    // Two notes on one launch happen to whoever skipped 1.4. The
+                    // gift first, then the feature, never both at once.
+                    presentBoothAnnouncementIfDue()
+                }
+        }
+        .sheet(isPresented: $isBoothAnnouncementPresented) {
+            BoothCamAnnouncementView(onTryIt: { path = [.dub] })
+                .preferredColorScheme(.dark)
+                .onDisappear {
+                    BoothCamAnnouncement.shared.markShown()
+                    presentEarlyAdopterWelcomeIfDue()
+                }
         }
         // Watched rather than checked once on appear: the exemption can be granted
         // a beat after launch, when the receipt lands, and this is the menu the
         // user is already looking at when it does.
-        .onChange(of: access.shouldWelcomeEarlyAdopter, initial: true) { _, shouldWelcome in
-            guard shouldWelcome, !isEarlyAdopterWelcomePresented else { return }
-            #if DEBUG
-            if ScreenshotMode.isActive { return }
-            #endif
-            isEarlyAdopterWelcomePresented = true
-            AnalyticsManager.shared.trackEarlyAdopterWelcomeShown()
+        .onChange(of: access.shouldWelcomeEarlyAdopter, initial: true) { _, _ in
+            presentEarlyAdopterWelcomeIfDue()
         }
         .onAppear {
             viewModel.checkPermissionStatus()
             AnalyticsManager.shared.trackScreenViewed(screenName: "Home")
+            presentBoothAnnouncementIfDue()
             #if DEBUG
             applyScreenshotDestination()
             #endif
@@ -76,6 +87,31 @@ struct HomeView: View {
             // not stacked on top of whatever game was open.
             path = [.dub]
         }
+    }
+
+    // MARK: - Notes
+
+    private func presentEarlyAdopterWelcomeIfDue() {
+        guard access.shouldWelcomeEarlyAdopter,
+              !isEarlyAdopterWelcomePresented,
+              !isBoothAnnouncementPresented else { return }
+        #if DEBUG
+        if ScreenshotMode.isActive { return }
+        #endif
+        isEarlyAdopterWelcomePresented = true
+        AnalyticsManager.shared.trackEarlyAdopterWelcomeShown()
+    }
+
+    private func presentBoothAnnouncementIfDue() {
+        guard BoothCamAnnouncement.shared.isDue,
+              !isBoothAnnouncementPresented,
+              !isEarlyAdopterWelcomePresented,
+              !access.shouldWelcomeEarlyAdopter else { return }
+        #if DEBUG
+        if ScreenshotMode.isActive { return }
+        #endif
+        isBoothAnnouncementPresented = true
+        AnalyticsManager.shared.trackCustomEvent(name: "booth_announcement_shown", parameters: nil)
     }
 
     // MARK: - Screenshots

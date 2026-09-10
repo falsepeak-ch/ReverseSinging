@@ -10,8 +10,6 @@
 "onboarding.howItWorks.message" = "Nahraj písničku, otoč ji a zpívej s tou hatmatilkou. Pak otoč vlastní pokus a zjisti, jestli ses trefil, nebo právě vynalezl nový jazyk.";
 "onboarding.dub.title" = "Nadabuj filmovou scénu";
 "onboarding.dub.message" = "Druhá hra: pusť scénu, přehrávej přes ni jako o život a pak se poslechni ve filmu. Dvě scény jsou v balení. Zbytek si přineseš sám.";
-"onboarding.uiPreference.title" = "Vyber si režii";
-"onboarding.uiPreference.message" = "Velká poctivá tlačítka, nebo celý pult s knoflíky. Platí to pro Zpívání pozpátku a v Nastavení si to můžeš kdykoliv rozmyslet.";
 "onboarding.microphone.title" = "Ještě jedna věc";
 "onboarding.microphone.message" = "Obě hry tě potřebují slyšet: při zpívání pozpátku i při dabování. Mikrofon se probouzí jen během nahrávání, všechno zůstává v tomhle zařízení a nikdy se nic nikam neposílá. Tvůj nejhorší pokus zůstane mezi vámi dvěma.";
 "onboarding.button.openSettings" = "Otevřít Nastavení";
@@ -369,3 +367,27 @@
 "booth.export.runtime" = "Stopáž";
 "booth.export.shape" = "Formát";
 "booth.shareLine" = "Sdílet tuhle repliku";
+
+/* Dub: the scene player, and the first-run tips (see DubTips) */
+"dub.play" = "Přehrát";
+"dub.pause" = "Pauza";
+"dub.timeline" = "Časová osa";
+"dub.tip.record.title" = "Poslechni si, pak nahraj";
+"dub.tip.record.message" = "Pusť si původní repliku a pak stiskni nahrát. Tři doby odpočtu a mikrofon se sám zavře, když replika skončí.";
+"dub.tip.booth.title" = "Natoč i sebe";
+"dub.tip.booth.message" = "Booth Cam nechá běžet přední kameru, zatímco hraješ. Tvoje tvář jede v dabingu vedle scény a může jít i do exportu.";
+"dub.tip.playDub.title" = "Poslechni si sebe ve filmu";
+"dub.tip.playDub.message" = "Tvoje nahrávky vstoupí do scény místo původních replik. Co jsi ještě nenadaboval, zůstane, jak bylo.";
+
+/* What's new: Booth Cam, for the people who updated into it */
+"whatsNew.badge" = "Novinky";
+"whatsNew.booth.title" = "Teď se můžeš při dabování natáčet";
+"whatsNew.booth.message" = "Seznam se s Booth Cam. Přední kamera běží, zatímco říkáš repliku, takže tvoje tvář se nahrává hned vedle scény. Přehraj si to v přehrávači scény a při exportu to dej do rohu, nad sebe nebo vedle sebe. Zůstává vypnutá, dokud ji nezapneš.";
+"whatsNew.booth.row.switch" = "Zapnutí";
+"whatsNew.booth.row.switch.value" = "Klávesa kamery";
+"whatsNew.booth.row.footage" = "Záběry";
+"whatsNew.booth.row.footage.value" = "Zůstávají v zařízení";
+"whatsNew.booth.row.default" = "Výchozí";
+"whatsNew.booth.row.default.value" = "Vypnuto";
+"whatsNew.booth.confirm" = "Vyzkoušet na scéně";
+"whatsNew.booth.later" = "Později";

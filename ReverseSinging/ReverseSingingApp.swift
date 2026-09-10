@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 import FirebaseCore
 import FirebaseAnalytics
 import FirebaseCrashlytics
@@ -44,6 +45,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         // `FirebaseApp` configured above.
         AccessController.shared.start()
 
+        // Whether this launch is an update. Decided here for the same reason the
+        // early-adopter check is: the first screen writes the very marker it reads.
+        BoothCamAnnouncement.shared.resolveAtLaunch()
+
         return true
     }
 }
@@ -62,6 +67,16 @@ struct ReverseSingingApp: App {
 
         // The dub gate no longer remembers a "yes"; drop what 1.3.0 wrote.
         DubContentGate.clearLegacyOwnershipFlag()
+
+        #if DEBUG
+        // A screenshot is of the app, not of the help laid over it.
+        if ScreenshotMode.isActive { Tips.hideAllTipsForTesting() }
+        #endif
+
+        // The dub game's first-run tips, see `DubTips`. Shown as soon as they are due
+        // rather than on TipKit's one-a-day budget: there are three, they take turns,
+        // and the second waiting a day for the first would read as the app forgetting.
+        try? Tips.configure([.displayFrequency(.immediate)])
     }
 
     var body: some Scene {

@@ -119,6 +119,19 @@ final class DubScenePicture: ObservableObject {
         player?.pause()
     }
 
+    /// Parks the picture on one frame of the scene, for a head moved while the scene is held.
+    ///
+    /// Scrubbing fires this many times a second. AVPlayer drops a seek that is still in
+    /// flight when the next one arrives, so the picture lands on the last position asked for
+    /// rather than working through every one on the way.
+    func showFrame(at time: TimeInterval) {
+        clearEndObserver()
+        pendingSceneAnchor = nil
+        guard let player else { return }
+        player.pause()
+        seek(player, to: time)
+    }
+
     /// Nudges the picture back onto the audio clock. `DubPlayer` runs the mix on its own
     /// engine, so audio is the master and the video is corrected towards it, never the
     /// other way, which would stutter the mix.

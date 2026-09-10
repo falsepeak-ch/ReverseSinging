@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 struct DubPackDetailView: View {
     let pack: DubPack
@@ -31,6 +32,9 @@ struct DubPackDetailView: View {
     /// Reads the file, so it is settled once when the screen appears rather than on every
     /// evaluation of the body.
     @State private var videoNeedsReimport = false
+
+    /// The last of the first-run tips: there is a dub to hear now. See `DubTips`.
+    private let playDubTip = DubPlayDubTip()
 
     init(pack: DubPack, library: DubPackLibrary) {
         self.pack = pack
@@ -78,11 +82,14 @@ struct DubPackDetailView: View {
             }
         }
         .toolbar(.hidden, for: .navigationBar)
-        .fullScreenCover(isPresented: $showRecorder) {
+        // `onDismiss` fires once the cover has actually gone, which is when a tip on this
+        // screen can be presented. See `DubTips.isRecorderOpen`.
+        .fullScreenCover(isPresented: $showRecorder, onDismiss: { DubTips.isRecorderOpen = false }) {
             // Hooked here rather than at the four buttons that set `showRecorder`, so a
             // fifth way into the recorder cannot quietly stop being counted.
             DubRecordView(viewModel: viewModel)
                 .onAppear {
+                    DubTips.isRecorderOpen = true
                     AnalyticsManager.shared.trackDubPackOpened(
                         title: pack.title,
                         lineCount: pack.lines.count,
@@ -145,8 +152,15 @@ struct DubPackDetailView: View {
                 DubPackLibrary.sceneVideoIsTruncated(pack)
             }.value
         }
+        .dubTipStyle()
+        .advancesDubTips(past: 2, when: playDubTip)
         .onAppear {
             AnalyticsManager.shared.trackScreenViewed(screenName: "DubPackDetail")
+            // Takes that were here before the tips existed count too.
+            if viewModel.hasAnyTake { DubTips.hasRecordedATake = true }
+            // The recorder cannot be up when this screen appears. Cleared here so an app
+            // killed mid-take does not leave the flag set, and the tip held, for good.
+            DubTips.isRecorderOpen = false
             #if DEBUG
             applyScreenshotPose()
             #endif
@@ -450,8 +464,12 @@ struct DubPackDetailView: View {
                     color: .rsGood,
                     isEnabled: viewModel.hasAnyTake,
                     recordingLevel: 0,
-                    action: { playbackMode = .myDub }
+                    action: {
+                        playDubTip.invalidate(reason: .actionPerformed)
+                        playbackMode = .myDub
+                    }
                 )
+                .popoverTip(playDubTip, arrowEdge: .bottom)
 
                 // Through the notice, never straight to the export: the file about to be
                 // made is the user's voice over someone else's picture, and this is the

@@ -10,8 +10,6 @@
 "onboarding.howItWorks.message" = "Neem een liedje op, draai het om en zing het gebrabbel na. Draai je eigen take daarna terug en hoor of je in de buurt kwam of net een nieuwe taal hebt uitgevonden.";
 "onboarding.dub.title" = "Nasynchroniseer een scène";
 "onboarding.dub.message" = "Het tweede spel: zet een scène aan, speel er stevig overheen en hoor jezelf in de film. Twee scènes zitten erbij. Daarna neem je je eigen bestanden mee.";
-"onboarding.uiPreference.title" = "Kies je regiekamer";
-"onboarding.uiPreference.message" = "Grote eerlijke knoppen of het hele paneel met draaiknoppen. Dit geldt voor Achterstevoren Zingen en je mag altijd van gedachten veranderen in Instellingen.";
 "onboarding.microphone.title" = "Nog één ding";
 "onboarding.microphone.message" = "Beide spellen moeten je horen: achterstevoren zingen of een scène nasynchroniseren. De microfoon wordt alleen wakker tijdens het opnemen, alles blijft op dit apparaat en er wordt nooit iets geüpload. Je slechtste take blijft tussen jullie tweeën.";
 "onboarding.button.openSettings" = "Open Instellingen";
@@ -369,3 +367,27 @@
 "booth.export.runtime" = "Speelduur";
 "booth.export.shape" = "Beeldvorm";
 "booth.shareLine" = "Deze zin delen";
+
+/* Dub: the scene player, and the first-run tips (see DubTips) */
+"dub.play" = "Afspelen";
+"dub.pause" = "Pauze";
+"dub.timeline" = "Tijdlijn";
+"dub.tip.record.title" = "Eerst luisteren, dan opnemen";
+"dub.tip.record.message" = "Speel de originele zin af en druk dan op opnemen. Drie tellen aftellen, en de microfoon sluit vanzelf als de zin klaar is.";
+"dub.tip.booth.title" = "Film jezelf erbij";
+"dub.tip.booth.message" = "Booth Cam laat de frontcamera meelopen terwijl je speelt. Je gezicht draait naast de scène mee in je versie, en kan mee in de export.";
+"dub.tip.playDub.title" = "Hoor jezelf in de film";
+"dub.tip.playDub.message" = "Je opnames komen in de scène in plaats van de originele zinnen. Wat je nog niet hebt ingesproken blijft zoals het was.";
+
+/* What's new: Booth Cam, for the people who updated into it */
+"whatsNew.badge" = "Nieuw";
+"whatsNew.booth.title" = "Nu kun je jezelf filmen terwijl je nasynchroniseert";
+"whatsNew.booth.message" = "Dit is Booth Cam. De frontcamera loopt mee terwijl je een zin inspreekt, zodat je gezicht pal naast de scène wordt opgenomen. Bekijk het terug in de scènespeler en zet het bij het exporteren in de hoek, erboven of ernaast. Hij staat uit tot je hem aanzet.";
+"whatsNew.booth.row.switch" = "Aanzetten";
+"whatsNew.booth.row.switch.value" = "Cameratoets";
+"whatsNew.booth.row.footage" = "Beelden";
+"whatsNew.booth.row.footage.value" = "Blijven op dit apparaat";
+"whatsNew.booth.row.default" = "Standaard";
+"whatsNew.booth.row.default.value" = "Uit";
+"whatsNew.booth.confirm" = "Probeer het op een scène";
+"whatsNew.booth.later" = "Later";

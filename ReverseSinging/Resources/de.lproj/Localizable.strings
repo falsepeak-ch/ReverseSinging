@@ -10,8 +10,6 @@
 "onboarding.howItWorks.message" = "Nimm ein Lied auf, dreh es um und sing das Kauderwelsch nach. Dann dreh deine Aufnahme zurück und hör, ob du nah dran warst oder gerade eine neue Sprache erfunden hast.";
 "onboarding.dub.title" = "Eine Filmszene synchronisieren";
 "onboarding.dub.message" = "Das zweite Spiel: Szene starten, kräftig drüberspielen und dich anschließend im Film hören. Zwei Szenen sind dabei. Danach bringst du deine eigenen mit.";
-"onboarding.uiPreference.title" = "Wähl deine Regie";
-"onboarding.uiPreference.message" = "Große ehrliche Knöpfe oder das ganze Pult mit Reglern. Gilt fürs Rückwärtssingen, und du kannst es in den Einstellungen jederzeit anders entscheiden.";
 "onboarding.microphone.title" = "Noch eine Sache";
 "onboarding.microphone.message" = "Beide Spiele müssen dich hören: rückwärts singen oder eine Szene synchronisieren. Das Mikro wacht nur während der Aufnahme auf, alles bleibt auf diesem Gerät und nichts wird jemals hochgeladen. Deine schlimmste Aufnahme bleibt unter euch beiden.";
 "onboarding.button.openSettings" = "Einstellungen öffnen";
@@ -369,3 +367,27 @@
 "booth.export.runtime" = "Länge";
 "booth.export.shape" = "Format";
 "booth.shareLine" = "Diese Zeile teilen";
+
+/* Dub: the scene player, and the first-run tips (see DubTips) */
+"dub.play" = "Abspielen";
+"dub.pause" = "Pause";
+"dub.timeline" = "Zeitleiste";
+"dub.tip.record.title" = "Erst hören, dann aufnehmen";
+"dub.tip.record.message" = "Spiel die Originalzeile ab und drück dann auf Aufnehmen. Drei Schläge Vorzählen, und das Mikro schließt sich von selbst, wenn die Zeile endet.";
+"dub.tip.booth.title" = "Film dich dabei";
+"dub.tip.booth.message" = "Booth Cam lässt die Frontkamera mitlaufen, während du spielst. Dein Gesicht läuft in deiner Fassung neben der Szene und kann mit in den Export.";
+"dub.tip.playDub.title" = "Hör dich im Film";
+"dub.tip.playDub.message" = "Deine Takes ersetzen in der Szene die Originalzeilen. Was du noch nicht gesprochen hast, bleibt wie es war.";
+
+/* What's new: Booth Cam, for the people who updated into it */
+"whatsNew.badge" = "Neu";
+"whatsNew.booth.title" = "Jetzt kannst du dich beim Synchronisieren filmen";
+"whatsNew.booth.message" = "Das ist Booth Cam. Die Frontkamera läuft mit, während du eine Zeile sprichst, und dein Gesicht wird direkt neben der Szene aufgezeichnet. Sieh es dir im Szenenplayer an und leg es beim Export in die Ecke, darüber oder daneben. Sie bleibt aus, bis du sie einschaltest.";
+"whatsNew.booth.row.switch" = "Einschalten";
+"whatsNew.booth.row.switch.value" = "Kamerataste";
+"whatsNew.booth.row.footage" = "Aufnahmen";
+"whatsNew.booth.row.footage.value" = "Bleiben auf dem Gerät";
+"whatsNew.booth.row.default" = "Standard";
+"whatsNew.booth.row.default.value" = "Aus";
+"whatsNew.booth.confirm" = "An einer Szene ausprobieren";
+"whatsNew.booth.later" = "Später";

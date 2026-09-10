@@ -10,8 +10,6 @@
 "onboarding.howItWorks.message" = "Registra una canzone, girala al contrario e canta sopra quel guazzabuglio. Poi rigira la tua presa e scopri se ci sei andato vicino o hai inventato una lingua nuova.";
 "onboarding.dub.title" = "Doppia una scena";
 "onboarding.dub.message" = "Il secondo gioco: fai partire una scena, recitaci sopra alla grande e poi ascoltati dentro il film. Due scene sono incluse. Per il resto, porta i tuoi file.";
-"onboarding.uiPreference.title" = "Scegli la tua regia";
-"onboarding.uiPreference.message" = "Pulsantoni onesti o il mixer completo con le manopole. Vale per il Canto Invertito e puoi cambiare idea nelle Impostazioni quando vuoi.";
 "onboarding.microphone.title" = "Un'ultima cosa";
 "onboarding.microphone.message" = "Entrambi i giochi devono sentirti: cantare al contrario o doppiare una scena. Il microfono si sveglia solo mentre registri, tutto resta su questo dispositivo e non viene mai caricato niente. La tua presa peggiore resta tra voi due.";
 "onboarding.button.openSettings" = "Apri Impostazioni";
@@ -369,3 +367,27 @@
 "booth.export.runtime" = "Durata";
 "booth.export.shape" = "Formato";
 "booth.shareLine" = "Condividi questa battuta";
+
+/* Dub: the scene player, and the first-run tips (see DubTips) */
+"dub.play" = "Riproduci";
+"dub.pause" = "Pausa";
+"dub.timeline" = "Linea temporale";
+"dub.tip.record.title" = "Ascolta, poi registra";
+"dub.tip.record.message" = "Fai partire la battuta originale, poi premi registra. Tre battiti di conto alla rovescia, e il microfono si chiude da solo quando la battuta finisce.";
+"dub.tip.booth.title" = "Riprenditi anche tu";
+"dub.tip.booth.message" = "La cabina accende la fotocamera frontale mentre reciti. La tua faccia compare accanto alla scena nel tuo doppiaggio, e può finire nell'esportazione.";
+"dub.tip.playDub.title" = "Ascoltati nel film";
+"dub.tip.playDub.message" = "Le tue prese entrano nella scena al posto delle battute originali. Quello che non hai ancora doppiato resta com'era.";
+
+/* What's new: Booth Cam, for the people who updated into it */
+"whatsNew.badge" = "Novità";
+"whatsNew.booth.title" = "Ora puoi riprenderti mentre doppi";
+"whatsNew.booth.message" = "Ecco la cabina. La fotocamera frontale gira mentre dici una battuta, così la tua faccia viene registrata proprio accanto alla scena. Riguardala nel lettore della scena e, quando esporti, mettila in un angolo, impilata o a schermo diviso. Resta spenta finché non la accendi.";
+"whatsNew.booth.row.switch" = "Per accenderla";
+"whatsNew.booth.row.switch.value" = "Tasto fotocamera";
+"whatsNew.booth.row.footage" = "Riprese";
+"whatsNew.booth.row.footage.value" = "Restano sul telefono";
+"whatsNew.booth.row.default" = "Predefinito";
+"whatsNew.booth.row.default.value" = "Spenta";
+"whatsNew.booth.confirm" = "Provala su una scena";
+"whatsNew.booth.later" = "Più tardi";

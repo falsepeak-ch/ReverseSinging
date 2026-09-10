@@ -179,7 +179,10 @@ struct EarlyAdopterWelcomeView: View {
 /// resampling, and so the two colours stay the ones in `Colors.swift` plus the
 /// single cream the illustrations use. Purely decorative, and hidden from
 /// VoiceOver accordingly.
-private struct ClapperBand: View {
+///
+/// Shared with `BoothCamAnnouncementView`, which is the same kind of screen: a
+/// fact about the app, told once.
+struct ClapperBand: View {
 
     var height: CGFloat = 8
 

@@ -10,8 +10,6 @@
 "onboarding.howItWorks.message" = "Запиши песню, переверни её и спой эту тарабарщину. Потом переверни свой дубль и узнай, попал ты близко или только что изобрёл новый язык.";
 "onboarding.dub.title" = "Озвучь сцену из фильма";
 "onboarding.dub.message" = "Вторая игра: включи сцену, переиграй как следует, а потом услышь себя в фильме. Две сцены уже внутри. Дальше приносишь свои файлы.";
-"onboarding.uiPreference.title" = "Выбери свою аппаратную";
-"onboarding.uiPreference.message" = "Большие честные кнопки или весь пульт с ручками. Это про Пение задом наперёд, и передумать можно в Настройках когда угодно.";
 "onboarding.microphone.title" = "И последнее";
 "onboarding.microphone.message" = "Обеим играм нужно тебя слышать: и пению задом наперёд, и озвучке. Микрофон просыпается только на время записи, всё остаётся на этом устройстве и никуда не отправляется. Твой худший дубль останется между вами двумя.";
 "onboarding.button.openSettings" = "Открыть Настройки";
@@ -369,3 +367,27 @@
 "booth.export.runtime" = "Хронометраж";
 "booth.export.shape" = "Кадр";
 "booth.shareLine" = "Поделиться этой репликой";
+
+/* Dub: the scene player, and the first-run tips (see DubTips) */
+"dub.play" = "Воспроизвести";
+"dub.pause" = "Пауза";
+"dub.timeline" = "Шкала времени";
+"dub.tip.record.title" = "Послушай, потом запиши";
+"dub.tip.record.message" = "Включи оригинальную реплику, затем нажми запись. Три удара отсчёта, и микрофон сам закроется, когда реплика закончится.";
+"dub.tip.booth.title" = "Сними и себя";
+"dub.tip.booth.message" = "Booth Cam включает фронтальную камеру, пока ты играешь. Твоё лицо идёт рядом со сценой в твоей озвучке и может попасть в экспорт.";
+"dub.tip.playDub.title" = "Услышь себя в фильме";
+"dub.tip.playDub.message" = "Твои дубли встают в сцену вместо оригинальных реплик. То, что ты ещё не озвучил, звучит как было.";
+
+/* What's new: Booth Cam, for the people who updated into it */
+"whatsNew.badge" = "Что нового";
+"whatsNew.booth.title" = "Теперь можно снимать себя во время озвучки";
+"whatsNew.booth.message" = "Знакомься: Booth Cam. Фронтальная камера пишет, пока ты произносишь реплику, и твоё лицо записывается прямо рядом со сценой. Посмотри это в плеере сцены, а при экспорте поставь в угол, друг над другом или бок о бок. Она выключена, пока ты её не включишь.";
+"whatsNew.booth.row.switch" = "Включение";
+"whatsNew.booth.row.switch.value" = "Клавиша камеры";
+"whatsNew.booth.row.footage" = "Записи";
+"whatsNew.booth.row.footage.value" = "Остаются на устройстве";
+"whatsNew.booth.row.default" = "По умолчанию";
+"whatsNew.booth.row.default.value" = "Выкл.";
+"whatsNew.booth.confirm" = "Попробовать на сцене";
+"whatsNew.booth.later" = "Позже";

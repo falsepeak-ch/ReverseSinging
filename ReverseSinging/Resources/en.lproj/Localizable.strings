@@ -10,8 +10,6 @@
 "onboarding.howItWorks.message" = "Record a song, flip it backwards, then sing along to the nonsense. Flip your take around and find out whether you got close or invented a new language.";
 "onboarding.dub.title" = "Dub a movie scene";
 "onboarding.dub.message" = "The second game: play a scene, act all over it, then hear yourself in the film. Two scenes come in the box. After that, bring your own.";
-"onboarding.uiPreference.title" = "Pick your control room";
-"onboarding.uiPreference.message" = "Big honest buttons, or the full desk with knobs on. This is for Reverse Singing, and you can change your mind in Settings whenever.";
 "onboarding.microphone.title" = "One last thing";
 "onboarding.microphone.message" = "Both games need to hear you: singing backwards, or dubbing a scene. The mic wakes up only while you record, everything stays on this device, and nothing is ever uploaded. Your worst take stays between the two of you.";
 "onboarding.button.openSettings" = "Open Settings";
@@ -369,3 +367,27 @@
 "booth.export.runtime" = "Runtime";
 "booth.export.shape" = "Frame";
 "booth.shareLine" = "Share this line";
+
+/* Dub: the scene player, and the first-run tips (see DubTips) */
+"dub.play" = "Play";
+"dub.pause" = "Pause";
+"dub.timeline" = "Timeline";
+"dub.tip.record.title" = "Listen, then record";
+"dub.tip.record.message" = "Play the original line, then press record. Three beats of count-in, and the mic closes by itself when the line ends.";
+"dub.tip.booth.title" = "Film yourself too";
+"dub.tip.booth.message" = "Booth Cam rolls the front camera while you perform. Your face plays beside the scene in your dub, and can go into the export.";
+"dub.tip.playDub.title" = "Hear yourself in the film";
+"dub.tip.playDub.message" = "Your takes drop into the scene in place of the original lines. Anything you haven't dubbed yet plays as it was.";
+
+/* What's new: Booth Cam, for the people who updated into it */
+"whatsNew.badge" = "What's new";
+"whatsNew.booth.title" = "Now you can film yourself dubbing";
+"whatsNew.booth.message" = "Meet Booth Cam. The front camera rolls while you perform a line, so your face is recorded right beside the scene. Watch it back in the scene player, then put it in the corner, stack it or split the screen when you export. It stays off until you turn it on.";
+"whatsNew.booth.row.switch" = "Turn it on";
+"whatsNew.booth.row.switch.value" = "Camera key";
+"whatsNew.booth.row.footage" = "Footage";
+"whatsNew.booth.row.footage.value" = "Stays on device";
+"whatsNew.booth.row.default" = "Default";
+"whatsNew.booth.row.default.value" = "Off";
+"whatsNew.booth.confirm" = "Try it on a scene";
+"whatsNew.booth.later" = "Later";

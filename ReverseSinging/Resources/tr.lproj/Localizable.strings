@@ -10,8 +10,6 @@
 "onboarding.howItWorks.message" = "Bir şarkı kaydet, tersine çevir ve o anlamsız sesin üstüne söyle. Sonra kendi çekimini ters çevir ve yaklaşmış mısın yoksa yeni bir dil mi icat etmişsin, öğren.";
 "onboarding.dub.title" = "Bir film sahnesini seslendir";
 "onboarding.dub.message" = "İkinci oyun: sahneyi başlat, üstüne abartarak oyna ve sonra kendini filmin içinde duy. İki sahne kutudan çıkıyor. Gerisi için kendi dosyalarını getiriyorsun.";
-"onboarding.uiPreference.title" = "Kumanda odanı seç";
-"onboarding.uiPreference.message" = "Kocaman dürüst düğmeler ya da düğmeli koca masa. Bu, Tersten Şarkı için geçerli ve Ayarlar'dan istediğin zaman fikrini değiştirebilirsin.";
 "onboarding.microphone.title" = "Son bir şey";
 "onboarding.microphone.message" = "İki oyunun da seni duyması gerek: tersten söylerken de, seslendirirken de. Mikrofon sadece kayıt sırasında uyanır, her şey bu cihazda kalır ve hiçbir şey hiçbir yere yüklenmez. En kötü çekimin ikinizin arasında kalır.";
 "onboarding.button.openSettings" = "Ayarlar'ı aç";
@@ -369,3 +367,27 @@
 "booth.export.runtime" = "Süre";
 "booth.export.shape" = "Çerçeve";
 "booth.shareLine" = "Bu repliği paylaş";
+
+/* Dub: the scene player, and the first-run tips (see DubTips) */
+"dub.play" = "Oynat";
+"dub.pause" = "Duraklat";
+"dub.timeline" = "Zaman çizelgesi";
+"dub.tip.record.title" = "Önce dinle, sonra kaydet";
+"dub.tip.record.message" = "Orijinal repliği çal, sonra kaydete bas. Üç vuruşluk geri sayım, ve replik bitince mikrofon kendiliğinden kapanır.";
+"dub.tip.booth.title" = "Kendini de çek";
+"dub.tip.booth.message" = "Booth Cam sen oynarken ön kamerayı çalıştırır. Yüzün seslendirmende sahnenin yanında oynar ve dışa aktarmaya girebilir.";
+"dub.tip.playDub.title" = "Kendini filmde duy";
+"dub.tip.playDub.message" = "Kayıtların sahnede orijinal repliklerin yerine geçer. Henüz seslendirmediklerin olduğu gibi kalır.";
+
+/* What's new: Booth Cam, for the people who updated into it */
+"whatsNew.badge" = "Yenilikler";
+"whatsNew.booth.title" = "Artık seslendirirken kendini çekebilirsin";
+"whatsNew.booth.message" = "Booth Cam ile tanış. Bir repliği söylerken ön kamera çalışır, böylece yüzün sahnenin hemen yanına kaydedilir. Sahne oynatıcısında izle, dışa aktarırken köşeye, üst üste ya da yan yana koy. Sen açana kadar kapalı kalır.";
+"whatsNew.booth.row.switch" = "Açmak için";
+"whatsNew.booth.row.switch.value" = "Kamera tuşu";
+"whatsNew.booth.row.footage" = "Görüntüler";
+"whatsNew.booth.row.footage.value" = "Cihazda kalır";
+"whatsNew.booth.row.default" = "Varsayılan";
+"whatsNew.booth.row.default.value" = "Kapalı";
+"whatsNew.booth.confirm" = "Bir sahnede dene";
+"whatsNew.booth.later" = "Sonra";

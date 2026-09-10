@@ -10,8 +10,6 @@
 "onboarding.howItWorks.message" = "อัดเพลงไว้ กลับด้านมัน แล้วร้องตามเสียงมั่ว ๆ นั้น จากนั้นกลับเทคของตัวเองอีกที แล้วดูว่าใกล้เคียงหรือเพิ่งประดิษฐ์ภาษาใหม่ขึ้นมา";
 "onboarding.dub.title" = "พากย์ฉากหนัง";
 "onboarding.dub.message" = "เกมที่สอง เปิดฉาก เล่นทับให้สุด แล้วฟังตัวเองอยู่ในหนัง มีสองฉากแถมมาให้ นอกจากนั้นเอาไฟล์ของคุณเองมาเอง";
-"onboarding.uiPreference.title" = "เลือกห้องคอนโทรลของคุณ";
-"onboarding.uiPreference.message" = "ปุ่มใหญ่ตรงไปตรงมา หรือคอนโซลเต็มพร้อมลูกบิด อันนี้ใช้กับโหมดร้องกลับหลัง และเปลี่ยนใจได้ในการตั้งค่าตลอดเวลา";
 "onboarding.microphone.title" = "อีกเรื่องสุดท้าย";
 "onboarding.microphone.message" = "ทั้งสองเกมต้องได้ยินคุณ ทั้งตอนร้องกลับหลังและตอนพากย์ ไมค์จะตื่นเฉพาะตอนอัด ทุกอย่างอยู่ในเครื่องนี้ และไม่มีอะไรถูกอัปโหลดไปไหน เทคที่แย่ที่สุดของคุณจะอยู่กันแค่สองคน";
 "onboarding.button.openSettings" = "เปิดการตั้งค่า";
@@ -369,3 +367,27 @@
 "booth.export.runtime" = "ความยาว";
 "booth.export.shape" = "กรอบภาพ";
 "booth.shareLine" = "แชร์บทนี้";
+
+/* Dub: the scene player, and the first-run tips (see DubTips) */
+"dub.play" = "เล่น";
+"dub.pause" = "หยุดชั่วคราว";
+"dub.timeline" = "ไทม์ไลน์";
+"dub.tip.record.title" = "ฟังก่อน แล้วค่อยอัด";
+"dub.tip.record.message" = "เปิดฟังบทต้นฉบับ แล้วกดอัด นับถอยหลังสามจังหวะ และไมค์จะปิดเองเมื่อจบบท";
+"dub.tip.booth.title" = "ถ่ายตัวเองด้วย";
+"dub.tip.booth.message" = "กล้องบูธจะเปิดกล้องหน้าขณะที่คุณแสดง หน้าของคุณจะเล่นข้างฉากในเสียงพากย์ของคุณ และใส่ในไฟล์ส่งออกได้";
+"dub.tip.playDub.title" = "ฟังเสียงตัวเองในหนัง";
+"dub.tip.playDub.message" = "เทคของคุณจะเข้าไปแทนบทต้นฉบับในฉาก ส่วนที่ยังไม่ได้พากย์จะเล่นตามเดิม";
+
+/* What's new: Booth Cam, for the people who updated into it */
+"whatsNew.badge" = "มีอะไรใหม่";
+"whatsNew.booth.title" = "ตอนนี้ถ่ายตัวเองขณะพากย์ได้แล้ว";
+"whatsNew.booth.message" = "พบกับกล้องบูธ กล้องหน้าจะบันทึกขณะที่คุณพูดบท หน้าของคุณจึงถูกบันทึกไว้ข้างฉากพอดี ดูย้อนหลังในตัวเล่นฉาก แล้วตอนส่งออกจะวางไว้ที่มุม ซ้อนบนล่าง หรือแบ่งครึ่งจอก็ได้ ปิดอยู่จนกว่าคุณจะเปิดเอง";
+"whatsNew.booth.row.switch" = "วิธีเปิด";
+"whatsNew.booth.row.switch.value" = "ปุ่มกล้อง";
+"whatsNew.booth.row.footage" = "ฟุตเทจ";
+"whatsNew.booth.row.footage.value" = "อยู่ในเครื่อง";
+"whatsNew.booth.row.default" = "ค่าเริ่มต้น";
+"whatsNew.booth.row.default.value" = "ปิด";
+"whatsNew.booth.confirm" = "ลองกับฉากสักฉาก";
+"whatsNew.booth.later" = "ไว้ทีหลัง";

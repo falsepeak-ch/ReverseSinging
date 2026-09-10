@@ -10,8 +10,6 @@
 "onboarding.howItWorks.message" = "Nagraj piosenkę, odwróć ją i zaśpiewaj do tego bełkotu. Potem odwróć własne nagranie i sprawdź, czy było blisko, czy właśnie wymyśliłeś nowy język.";
 "onboarding.dub.title" = "Zdubbinguj scenę z filmu";
 "onboarding.dub.message" = "Druga gra: puść scenę, przeszarżuj na całego i usłysz siebie w filmie. Dwie sceny są w zestawie. Resztę przynosisz sam.";
-"onboarding.uiPreference.title" = "Wybierz swoją reżyserkę";
-"onboarding.uiPreference.message" = "Duże, uczciwe przyciski albo cała konsoleta z pokrętłami. Dotyczy Śpiewania od Tyłu, a zdanie możesz zmienić w Ustawieniach, kiedy chcesz.";
 "onboarding.microphone.title" = "Jeszcze jedno";
 "onboarding.microphone.message" = "Obie gry muszą cię słyszeć: przy śpiewaniu od tyłu i przy dubbingu. Mikrofon budzi się tylko na czas nagrania, wszystko zostaje na tym urządzeniu i nic nigdy nigdzie nie wędruje. Twoje najgorsze podejście zostanie między wami.";
 "onboarding.button.openSettings" = "Otwórz Ustawienia";
@@ -369,3 +367,27 @@
 "booth.export.runtime" = "Czas";
 "booth.export.shape" = "Kadr";
 "booth.shareLine" = "Udostępnij tę kwestię";
+
+/* Dub: the scene player, and the first-run tips (see DubTips) */
+"dub.play" = "Odtwórz";
+"dub.pause" = "Pauza";
+"dub.timeline" = "Oś czasu";
+"dub.tip.record.title" = "Posłuchaj, potem nagraj";
+"dub.tip.record.message" = "Odtwórz oryginalną kwestię, a potem naciśnij nagraj. Trzy uderzenia odliczania i mikrofon sam się zamyka, gdy kwestia się kończy.";
+"dub.tip.booth.title" = "Nagraj też siebie";
+"dub.tip.booth.message" = "Booth Cam włącza przedni aparat, gdy grasz. Twoja twarz leci obok sceny w twoim dubbingu i może trafić do eksportu.";
+"dub.tip.playDub.title" = "Usłysz siebie w filmie";
+"dub.tip.playDub.message" = "Twoje nagrania wchodzą do sceny w miejsce oryginalnych kwestii. To, czego jeszcze nie zdubbingowałeś, gra tak jak było.";
+
+/* What's new: Booth Cam, for the people who updated into it */
+"whatsNew.badge" = "Nowości";
+"whatsNew.booth.title" = "Teraz możesz nagrywać siebie podczas dubbingu";
+"whatsNew.booth.message" = "Poznaj Booth Cam. Przedni aparat pracuje, gdy mówisz kwestię, więc twoja twarz nagrywa się tuż obok sceny. Obejrzyj to w odtwarzaczu sceny, a przy eksporcie ustaw w rogu, jedno nad drugim albo obok siebie. Jest wyłączony, dopóki go nie włączysz.";
+"whatsNew.booth.row.switch" = "Włączanie";
+"whatsNew.booth.row.switch.value" = "Klawisz kamery";
+"whatsNew.booth.row.footage" = "Nagrania";
+"whatsNew.booth.row.footage.value" = "Zostają na urządzeniu";
+"whatsNew.booth.row.default" = "Domyślnie";
+"whatsNew.booth.row.default.value" = "Wyłączony";
+"whatsNew.booth.confirm" = "Wypróbuj na scenie";
+"whatsNew.booth.later" = "Później";

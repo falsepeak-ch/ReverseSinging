@@ -73,10 +73,14 @@ final class DubPlayer: ObservableObject {
     /// repeatedly exact-seeked back towards the audio clock. High-frame-rate scenes made
     /// those corrections especially visible. Publishing the audio engine's actual host-time
     /// deadline lets AVPlayer map the requested video frame onto that same instant instead.
-    private(set) var playbackAnchor: DubPlaybackAnchor?
+    ///
+    /// Published, because a seek mid-play is a new deadline without ever passing through
+    /// "not playing", and the screen has to move the picture to it.
+    @Published private(set) var playbackAnchor: DubPlaybackAnchor?
 
-    /// Backing track sits under the voices rather than competing with them.
-    private static let backingGain: Float = 0.75
+    /// Where this pack's bed sits for the mode being played, decided when it is loaded and
+    /// held there for the whole scene. See `DubBackingBalance`.
+    private var backingGain: Float = DubBackingBalance.originalBedGain
 
     /// How long after a node starts rendering its samples are actually heard.
     ///
@@ -127,11 +131,23 @@ final class DubPlayer: ObservableObject {
         let sources = voiceSources(for: pack, mode: mode)
         let alreadyLoaded = loadedMode == mode ? placements : [:]
 
-        let loaded: (AVAudioPCMBuffer?, [String: DubVoiceAlignment.Placement]) =
+        let loaded: (AVAudioPCMBuffer?, [String: DubVoiceAlignment.Placement], Float) =
             await Task.detached(priority: .userInitiated) {
                 var backing: AVAudioPCMBuffer?
+                var bedGain = DubBackingBalance.originalBedGain
                 if let backingURL {
                     backing = try? DubAudioLoader.loadBuffer(from: backingURL)
+
+                    // The two modes want different things from the bed. The film's own chunks
+                    // carry its music and effects, and the bed is dipped under each line so
+                    // that chunk plus bed is the film: the original plays over it untouched,
+                    // at unity, and anything done to it here is heard as the room jumping at
+                    // every line. A take carries a voice and nothing else, so under a dub the
+                    // bed is dimmed by one fixed amount, the way the export dims it. See
+                    // `DubBackingBalance`.
+                    if let backing, mode == .myDub {
+                        bedGain = DubBackingBalance.bedGain(for: backing, in: pack)
+                    }
                 }
 
                 var placed: [String: DubVoiceAlignment.Placement] = [:]
@@ -142,6 +158,13 @@ final class DubPlayer: ObservableObject {
                     }
                     guard let buffer = try? DubAudioLoader.loadVoiceBuffer(from: source.url) else { continue }
 
+                    // Only a take needs either of these. The reference chunks are the film's
+                    // own dialogue: already clean, and already at the level being matched to.
+                    if source.isTake {
+                        DubTakeCleanup.apply(to: buffer)
+                        DubVoiceLevel.match(buffer, toReferenceAt: source.referenceURL)
+                    }
+
                     placed[source.line.slug] = source.isTake
                         ? DubVoiceAlignment.place(
                             take: buffer,
@@ -151,9 +174,10 @@ final class DubPlayer: ObservableObject {
                         : DubVoiceAlignment.placeReference(buffer, for: source.line)
                 }
 
-                return (backing, placed)
+                return (backing, placed, bedGain)
             }.value
 
+        backingGain = loaded.2
         backingBuffer = loaded.0
         backingFormat = loaded.0?.format
         placements = loaded.1
@@ -212,7 +236,7 @@ final class DubPlayer: ObservableObject {
         if let backingFormat {
             engine.connect(backingNode, to: engine.mainMixerNode, format: backingFormat)
         }
-        backingNode.volume = Self.backingGain
+        backingNode.volume = backingGain
 
         rebuildVoiceNodes(count: voiceLanes.count)
     }
@@ -256,6 +280,7 @@ final class DubPlayer: ObservableObject {
     /// Starts (or restarts) playback from `offset` seconds into the scene.
     func play(from offset: TimeInterval = 0) {
         guard pack != nil else { return }
+        let wasPlaying = isPlaying
 
         stopNodes()
 
@@ -301,7 +326,10 @@ final class DubPlayer: ObservableObject {
         isPlaying = true
         startProgressTimer()
 
-        AnalyticsManager.shared.trackDubPlaybackStarted(mode: mode.rawValue)
+        // A seek mid-play comes through here too, and that is not a new playback.
+        if !wasPlaying {
+            AnalyticsManager.shared.trackDubPlaybackStarted(mode: mode.rawValue)
+        }
     }
 
     func stop() {
@@ -312,6 +340,43 @@ final class DubPlayer: ObservableObject {
         playbackStartOffset = 0
         playbackAnchor = nil
         stopProgressTimer()
+    }
+
+    /// Holds the scene where it is, so it can be picked up from the same place.
+    ///
+    /// `stop()` rewinds; this does not. The difference only exists because the timeline can
+    /// be scrubbed: a pause that went back to the top would throw away the position the user
+    /// had just dragged to. The engine is left running, so the resume is as quick as the
+    /// first start.
+    func pause() {
+        guard isPlaying else { return }
+        stopNodes()
+        isPlaying = false
+        playbackAnchor = nil
+        playbackStartOffset = currentTime
+    }
+
+    /// Picks up from wherever the head was left, or from the top if it ran off the end.
+    func resume() {
+        play(from: currentTime < duration ? currentTime : 0)
+    }
+
+    /// Moves the head to `time`, running or not.
+    ///
+    /// Running, everything is rescheduled from the new offset: the nodes hold buffers trimmed
+    /// to the old one, so there is no cheaper way to move than to start again, and the restart
+    /// is well inside the lead-in. Held, only the position moves; putting the right frame
+    /// under it is the screen's job.
+    func seek(to time: TimeInterval) {
+        guard pack != nil else { return }
+        let clamped = min(max(0, time), duration)
+
+        if isPlaying {
+            play(from: clamped)
+        } else {
+            playbackStartOffset = clamped
+            currentTime = clamped
+        }
     }
 
     private func stopNodes() {

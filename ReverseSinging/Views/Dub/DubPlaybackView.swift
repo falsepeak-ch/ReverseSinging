@@ -16,7 +16,15 @@ struct DubPlaybackView: View {
     @ObservedObject private var player: DubPlayer
 
     @StateObject private var scenePicture = DubScenePicture()
+    /// The performer's own footage, running alongside. Left empty in `.original`: that mode
+    /// is the film, and the film has nobody filming themselves in the corner.
+    @StateObject private var boothReel = DubBoothReel()
     @State private var sceneSamples: [Float] = []
+
+    /// True from the first touch on the timeline to the lift. The scene is held while the
+    /// finger is down and picked up again after, if it was running before.
+    @State private var isScrubbing = false
+    @State private var wasPlayingBeforeScrub = false
 
     init(viewModel: DubViewModel, mode: DubPlaybackMode) {
         self.viewModel = viewModel
@@ -56,24 +64,39 @@ struct DubPlaybackView: View {
         }
         .statusBarHidden()
         .animation(.easeInOut(duration: 0.2), value: captionLine?.slug)
+        .animation(.easeInOut(duration: 0.2), value: boothReel.currentSlug)
         .task {
             scenePicture.configure(with: viewModel.pack)
+            if mode == .myDub {
+                boothReel.configure(with: viewModel.pack, slugs: viewModel.boothSlugs)
+            }
             await viewModel.playScene(mode: mode)
         }
         .onDisappear {
             scenePicture.tearDown()
+            boothReel.tearDown()
             player.stop()
         }
-        .onChange(of: player.isPlaying) { _, isPlaying in
-            if isPlaying, let anchor = player.playbackAnchor {
+        // The anchor rather than `isPlaying`: a seek mid-play restarts the engine on a new
+        // deadline without ever passing through "not playing", and the pictures have to move
+        // to the new deadline with it.
+        .onChange(of: player.playbackAnchor) { _, anchor in
+            if let anchor {
                 scenePicture.playScene(at: anchor)
             } else {
                 scenePicture.pauseScene()
             }
+            boothReel.follow(time: player.currentTime, anchor: anchor)
         }
-        // The mix is the master clock; the picture is corrected towards it.
+        // The mix is the master clock; the pictures are corrected towards it. Held, the head
+        // can still be moved, and the frame under it has to follow.
         .onChange(of: player.currentTime) { _, time in
-            scenePicture.resync(to: time)
+            if player.isPlaying {
+                scenePicture.resync(to: time)
+            } else {
+                scenePicture.showFrame(at: time)
+            }
+            boothReel.follow(time: time, anchor: player.playbackAnchor)
         }
         .task(id: viewModel.pack.backingTrackURL) {
             guard let url = viewModel.pack.backingTrackURL else { return }
@@ -141,6 +164,17 @@ struct DubPlaybackView: View {
         .frame(maxHeight: .infinity)
         .cinemaVignette()
         .filmGrain(opacity: 0.06)
+        // The booth, wherever a line has footage. Above the vignette and the grain: it is a
+        // monitor on the picture, not part of it. The top corner rather than the bottom one
+        // the record screen uses, because the subtitle lives along the foot of this picture
+        // and a caption is not something to cover with a face.
+        .overlay(alignment: .topTrailing) {
+            if boothReel.currentSlug != nil {
+                BoothReelMonitor(reel: boothReel)
+                    .padding(12)
+                    .transition(.opacity.combined(with: .scale(scale: 0.94, anchor: .topTrailing)))
+            }
+        }
     }
 
     private func subtitle(for line: DubLine) -> some View {
@@ -168,20 +202,7 @@ struct DubPlaybackView: View {
 
     private var timeline: some View {
         VStack(spacing: 10) {
-            if !sceneSamples.isEmpty {
-                DubWaveformView(
-                    samples: sceneSamples,
-                    progress: progressFraction,
-                    height: 40
-                )
-                .padding(.horizontal, EditorMetrics.gutter)
-            }
-
-            EditorTickRuler(duration: player.duration)
-                .padding(.horizontal, EditorMetrics.gutter)
-
-            EditorTrack(progress: progressFraction)
-                .padding(.horizontal, EditorMetrics.gutter)
+            scrubber
 
             HStack {
                 Text(player.currentTime.rsClockFrames)
@@ -192,12 +213,12 @@ struct DubPlaybackView: View {
 
                 Button {
                     if player.isPlaying {
-                        player.stop()
+                        player.pause()
                     } else {
-                        player.play(from: 0)
+                        player.resume()
                     }
                 } label: {
-                    Image(systemName: player.isPlaying ? "stop.fill" : "play.fill")
+                    Image(systemName: player.isPlaying ? "pause.fill" : "play.fill")
                         .font(.system(size: 17, weight: .medium))
                         .foregroundColor(.rsTextPrimary)
                         .frame(width: 54, height: 42)
@@ -210,6 +231,7 @@ struct DubPlaybackView: View {
                                 .strokeBorder(Color.rsStrokeStrong, lineWidth: EditorMetrics.hairline)
                         )
                 }
+                .accessibilityLabel(player.isPlaying ? Strings.Dub.pause : Strings.Dub.play)
 
                 Spacer()
 
@@ -223,6 +245,73 @@ struct DubPlaybackView: View {
         .padding(.bottom, 22)
         .background(Color.rsSurface1)
         .overlay(alignment: .top) { EditorRule() }
+    }
+
+    /// The waveform, the ruler and the track, as one thing a finger can land anywhere on.
+    ///
+    /// Tap or drag: the head goes where the finger is and stays under it. Playback is held
+    /// for as long as the finger is down and picked up again from the new place, so dragging
+    /// through a scene is silent rather than a stutter of restarts. Every part of this bay
+    /// already draws the same position, so every part of it is the scrubber.
+    private var scrubber: some View {
+        VStack(spacing: 10) {
+            if !sceneSamples.isEmpty {
+                DubWaveformView(
+                    samples: sceneSamples,
+                    progress: progressFraction,
+                    height: 40
+                )
+            }
+
+            EditorTickRuler(duration: player.duration)
+
+            EditorTrack(progress: progressFraction)
+        }
+        .padding(.horizontal, EditorMetrics.gutter)
+        .contentShape(Rectangle())
+        .overlay {
+            GeometryReader { geometry in
+                Color.clear
+                    .contentShape(Rectangle())
+                    .gesture(scrubGesture(width: geometry.size.width, inset: EditorMetrics.gutter))
+            }
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Strings.Dub.timeline)
+        .accessibilityValue(player.currentTime.rsClockFrames)
+        .accessibilityAdjustableAction { direction in
+            let step: TimeInterval = 5
+            switch direction {
+            case .increment: player.seek(to: player.currentTime + step)
+            case .decrement: player.seek(to: player.currentTime - step)
+            @unknown default: break
+            }
+        }
+    }
+
+    /// - Parameter inset: the gutter either side of the track, so a finger on the margin
+    ///   reads as the nearest end rather than as somewhere off the scene.
+    private func scrubGesture(width: CGFloat, inset: CGFloat) -> some Gesture {
+        DragGesture(minimumDistance: 0)
+            .onChanged { value in
+                let span = width - inset * 2
+                guard span > 0, player.duration > 0 else { return }
+
+                if !isScrubbing {
+                    isScrubbing = true
+                    wasPlayingBeforeScrub = player.isPlaying
+                    player.pause()
+                }
+
+                let fraction = min(max(0, (value.location.x - inset) / span), 1)
+                player.seek(to: Double(fraction) * player.duration)
+            }
+            .onEnded { _ in
+                guard isScrubbing else { return }
+                isScrubbing = false
+                if wasPlayingBeforeScrub { player.resume() }
+                HapticManager.shared.light()
+            }
     }
 
     private var progressFraction: Double {

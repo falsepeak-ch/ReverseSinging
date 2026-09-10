@@ -10,8 +10,6 @@
 "onboarding.howItWorks.message" = "Grava una cançó, gira-la i canta damunt d'aquell embolic. Després gira el teu intent i descobreix si t'hi has acostat o has inventat un idioma nou.";
 "onboarding.dub.title" = "Dobla una escena";
 "onboarding.dub.message" = "El segon joc: posa una escena, sobreactua-hi al damunt i escolta't dins de la pel·lícula. En vénen dues de regal. A partir d'aquí, posa-hi les teves.";
-"onboarding.uiPreference.title" = "Tria la teva sala de control";
-"onboarding.uiPreference.message" = "Botons grossos i honestos, o la taula de mescles sencera. Això és per al Cant Invertit i pots canviar d'idea als Ajustos quan vulguis.";
 "onboarding.microphone.title" = "Una última cosa";
 "onboarding.microphone.message" = "Tots dos jocs necessiten sentir-te: cantant del revés o doblant una escena. El micro només es desperta mentre graves, tot es queda en aquest dispositiu i no es puja mai res. La teva pitjor presa es queda entre vosaltres dos.";
 "onboarding.button.openSettings" = "Obrir Ajustos";
@@ -369,3 +367,27 @@
 "booth.export.runtime" = "Durada";
 "booth.export.shape" = "Format";
 "booth.shareLine" = "Compartir aquesta frase";
+
+/* Dub: the scene player, and the first-run tips (see DubTips) */
+"dub.play" = "Reproduir";
+"dub.pause" = "Pausa";
+"dub.timeline" = "Línia de temps";
+"dub.tip.record.title" = "Escolta i després grava";
+"dub.tip.record.message" = "Posa la frase original i després prem gravar. Tres tocs de compte enrere, i el micro es tanca sol quan s'acaba la frase.";
+"dub.tip.booth.title" = "Filma't també";
+"dub.tip.booth.message" = "La cabina engega la càmera frontal mentre actues. La teva cara surt al costat de l'escena en el teu doblatge, i pot anar a l'exportació.";
+"dub.tip.playDub.title" = "Escolta't dins la pel·lícula";
+"dub.tip.playDub.message" = "Les teves preses entren a l'escena en lloc de les frases originals. El que encara no hagis doblat sona tal com era.";
+
+/* What's new: Booth Cam, for the people who updated into it */
+"whatsNew.badge" = "Novetats";
+"whatsNew.booth.title" = "Ara pots filmar-te mentre dobles";
+"whatsNew.booth.message" = "Et presentem la cabina. La càmera frontal grava mentre dius una frase, així la teva cara queda enregistrada just al costat de l'escena. Mira-ho al reproductor de l'escena i, quan exportis, posa-la a la cantonada, apilada o a pantalla partida. Està apagada fins que l'engeguis.";
+"whatsNew.booth.row.switch" = "Per engegar-la";
+"whatsNew.booth.row.switch.value" = "Tecla de càmera";
+"whatsNew.booth.row.footage" = "Vídeo";
+"whatsNew.booth.row.footage.value" = "Es queda al mòbil";
+"whatsNew.booth.row.default" = "Per defecte";
+"whatsNew.booth.row.default.value" = "Apagada";
+"whatsNew.booth.confirm" = "Prova-ho en una escena";
+"whatsNew.booth.later" = "Més tard";

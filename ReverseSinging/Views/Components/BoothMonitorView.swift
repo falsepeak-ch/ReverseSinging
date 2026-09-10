@@ -98,7 +98,7 @@ struct BoothMonitor: View {
             }
             .frame(width: Self.width, height: Self.height)
             .clipped()
-            .overlay(alignment: .topLeading) { slug }
+            .overlay(alignment: .topLeading) { BoothSlugBadge(isRecording: isRecording) }
             .overlay {
                 Rectangle()
                     .strokeBorder(Color.rsStrokeStrong, lineWidth: EditorMetrics.hairline)
@@ -113,7 +113,15 @@ struct BoothMonitor: View {
         .accessibilityLabel(Strings.Booth.monitorAccessibility)
     }
 
-    private var slug: some View {
+}
+
+// MARK: - Slug
+
+/// The label in the monitor's corner: the booth's name, and whether it is rolling.
+struct BoothSlugBadge: View {
+    let isRecording: Bool
+
+    var body: some View {
         HStack(spacing: 4) {
             Circle()
                 .fill(isRecording ? Color.rsRecord : Color.rsTextTertiary)
@@ -129,6 +137,30 @@ struct BoothMonitor: View {
         .padding(.vertical, 3)
         .background(Color.rsSurface0.opacity(0.78))
         .padding(5)
+    }
+}
+
+// MARK: - Reel Monitor
+
+/// The booth footage playing back in step with the scene, in the frame the monitor uses.
+///
+/// The record screen's monitor swaps between the live camera and one take; this one only
+/// ever shows footage, and which footage is `DubBoothReel`'s business. The dot is never lit,
+/// because nothing is being recorded here. Never mirrored either: this is the file, and the
+/// file is what an export shows other people.
+struct BoothReelMonitor: View {
+    @ObservedObject var reel: DubBoothReel
+
+    var body: some View {
+        DubPlayerLayerView(player: reel.player)
+            .frame(width: BoothMonitor.width, height: BoothMonitor.height)
+            .clipped()
+            .overlay(alignment: .topLeading) { BoothSlugBadge(isRecording: false) }
+            .overlay {
+                Rectangle()
+                    .strokeBorder(Color.rsStrokeStrong, lineWidth: EditorMetrics.hairline)
+            }
+            .accessibilityLabel(Strings.Booth.monitorAccessibility)
     }
 }
 

@@ -10,8 +10,6 @@
 "onboarding.howItWorks.message" = "Grava uma música, vira-a do avesso e canta por cima da algaraviada. Depois vira a tua tentativa e descobre se chegaste perto ou inventaste uma língua nova.";
 "onboarding.dub.title" = "Dobra uma cena de filme";
 "onboarding.dub.message" = "O segundo jogo: põe uma cena a andar, representa por cima e depois ouve-te dentro do filme. Vêm duas cenas incluídas. Para as outras, trazes os teus ficheiros.";
-"onboarding.uiPreference.title" = "Escolhe a tua régie";
-"onboarding.uiPreference.message" = "Botões grandes e honestos, ou a mesa toda com os botões rotativos. Isto é para o Canto Invertido e podes mudar de ideias nos Ajustes quando quiseres.";
 "onboarding.microphone.title" = "Uma última coisa";
 "onboarding.microphone.message" = "Os dois jogos precisam de te ouvir: a cantar ao contrário ou a dobrar uma cena. O microfone só acorda enquanto gravas, tudo fica neste dispositivo e nada é enviado para lado nenhum. A tua pior gravação fica entre vocês os dois.";
 "onboarding.button.openSettings" = "Abrir Ajustes";
@@ -369,3 +367,27 @@
 "booth.export.runtime" = "Duração";
 "booth.export.shape" = "Formato";
 "booth.shareLine" = "Partilhar esta fala";
+
+/* Dub: the scene player, and the first-run tips (see DubTips) */
+"dub.play" = "Reproduzir";
+"dub.pause" = "Pausa";
+"dub.timeline" = "Linha temporal";
+"dub.tip.record.title" = "Ouve e depois grava";
+"dub.tip.record.message" = "Põe a fala original a tocar e depois carrega em gravar. Três toques de contagem, e o micro fecha-se sozinho quando a fala acaba.";
+"dub.tip.booth.title" = "Filma-te também";
+"dub.tip.booth.message" = "A cabine liga a câmara frontal enquanto representas. A tua cara aparece ao lado da cena na tua dobragem, e pode ir para a exportação.";
+"dub.tip.playDub.title" = "Ouve-te dentro do filme";
+"dub.tip.playDub.message" = "As tuas tomadas entram na cena no lugar das falas originais. O que ainda não dobraste fica como estava.";
+
+/* What's new: Booth Cam, for the people who updated into it */
+"whatsNew.badge" = "Novidades";
+"whatsNew.booth.title" = "Agora podes filmar-te enquanto dobras";
+"whatsNew.booth.message" = "Apresentamos a cabine. A câmara frontal grava enquanto dizes uma fala, e a tua cara fica registada mesmo ao lado da cena. Vê o resultado no leitor da cena e, ao exportar, põe-na no canto, empilhada ou em ecrã dividido. Fica desligada até a ligares.";
+"whatsNew.booth.row.switch" = "Para ligar";
+"whatsNew.booth.row.switch.value" = "Tecla da câmara";
+"whatsNew.booth.row.footage" = "Vídeo";
+"whatsNew.booth.row.footage.value" = "Fica no telemóvel";
+"whatsNew.booth.row.default" = "Por omissão";
+"whatsNew.booth.row.default.value" = "Desligada";
+"whatsNew.booth.confirm" = "Experimenta numa cena";
+"whatsNew.booth.later" = "Mais tarde";

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 struct DubRecordView: View {
     @ObservedObject var viewModel: DubViewModel
@@ -18,6 +19,10 @@ struct DubRecordView: View {
 
     /// Shown the first time someone reaches for the camera key, never on arrival.
     @State private var isBoothPrimerPresented = false
+
+    /// The first-run coaching, one at a time. See `DubTips`.
+    private let recordTip = DubRecordTip()
+    private let boothTip = DubBoothTip()
 
     var body: some View {
         ZStack {
@@ -57,6 +62,12 @@ struct DubRecordView: View {
         }
         .boothCamPrimer(isPresented: $isBoothPrimerPresented) {
             Task { await viewModel.setBoothEnabled(true) }
+        }
+        .dubTipStyle()
+        .advancesDubTips(past: 0, when: recordTip)
+        .advancesDubTips(past: 1, when: boothTip)
+        .onChange(of: booth.isEnabled, initial: true) { _, isOn in
+            DubTips.noteBooth(isOn: isOn)
         }
         .onAppear {
             scenePicture.configure(with: viewModel.pack)
@@ -164,6 +175,8 @@ struct DubRecordView: View {
     private var boothKey: some View {
         Button {
             HapticManager.shared.light()
+            // Reaching for the key is the tip's whole point made.
+            boothTip.invalidate(reason: .actionPerformed)
 
             if booth.isEnabled {
                 Task { await viewModel.setBoothEnabled(false) }
@@ -207,6 +220,7 @@ struct DubRecordView: View {
         .disabled(viewModel.isRecording)
         .opacity(viewModel.isRecording ? 0.4 : 1)
         .accessibilityLabel(booth.isEnabled ? Strings.Booth.turnOff : Strings.Booth.turnOn)
+        .popoverTip(boothTip, arrowEdge: .top)
     }
 
     // MARK: - Picture
@@ -467,6 +481,7 @@ struct DubRecordView: View {
     /// thumb finds it without looking.
     private var recordButton: some View {
         Button {
+            recordTip.invalidate(reason: .actionPerformed)
             viewModel.toggleRecording()
         } label: {
             ZStack {
@@ -493,6 +508,7 @@ struct DubRecordView: View {
         }
         .animation(.easeOut(duration: 0.12), value: viewModel.recordingLevel)
         .accessibilityLabel(viewModel.isRecording ? Strings.Dub.stop : Strings.Dub.recordTake)
+        .popoverTip(recordTip, arrowEdge: .bottom)
     }
 
     private func transportButton(

@@ -10,8 +10,6 @@
 "onboarding.howItWorks.message" = "Ta opp en sang, snu den, og syng med på volapyken. Snu så ditt eget opptak og hør om du traff eller nettopp fant opp et nytt språk.";
 "onboarding.dub.title" = "Dubb en filmscene";
 "onboarding.dub.message" = "Det andre spillet: start en scene, overspill i vei, og hør deg selv i filmen. To scener følger med. Etter det tar du med dine egne filer.";
-"onboarding.uiPreference.title" = "Velg kontrollrommet ditt";
-"onboarding.uiPreference.message" = "Store ærlige knapper, eller hele pulten med rattene. Det gjelder Baklengssang, og du kan ombestemme deg i Innstillinger når som helst.";
 "onboarding.microphone.title" = "En siste ting";
 "onboarding.microphone.message" = "Begge spillene må høre deg: baklengssang eller dubbing av en scene. Mikrofonen våkner bare mens du tar opp, alt blir værende på denne enheten, og ingenting lastes noen gang opp. Det verste opptaket ditt blir mellom dere to.";
 "onboarding.button.openSettings" = "Åpne Innstillinger";
@@ -369,3 +367,27 @@
 "booth.export.runtime" = "Spilletid";
 "booth.export.shape" = "Format";
 "booth.shareLine" = "Del denne replikken";
+
+/* Dub: the scene player, and the first-run tips (see DubTips) */
+"dub.play" = "Spill av";
+"dub.pause" = "Pause";
+"dub.timeline" = "Tidslinje";
+"dub.tip.record.title" = "Lytt, og ta opp etterpå";
+"dub.tip.record.message" = "Spill av originalreplikken, og trykk så på ta opp. Tre slag telles inn, og mikrofonen lukker seg selv når replikken er ferdig.";
+"dub.tip.booth.title" = "Film deg selv også";
+"dub.tip.booth.message" = "Booth Cam kjører frontkameraet mens du spiller. Ansiktet ditt går ved siden av scenen i dubben din, og kan bli med i eksporten.";
+"dub.tip.playDub.title" = "Hør deg selv i filmen";
+"dub.tip.playDub.message" = "Opptakene dine legges inn i scenen i stedet for originalreplikkene. Det du ikke har dubbet ennå, spilles som det var.";
+
+/* What's new: Booth Cam, for the people who updated into it */
+"whatsNew.badge" = "Nytt";
+"whatsNew.booth.title" = "Nå kan du filme deg selv mens du dubber";
+"whatsNew.booth.message" = "Møt Booth Cam. Frontkameraet kjører mens du sier en replikk, så ansiktet ditt tas opp rett ved siden av scenen. Se det igjen i sceneavspilleren, og legg det i hjørnet, oppå eller ved siden av når du eksporterer. Det er av til du slår det på.";
+"whatsNew.booth.row.switch" = "Slå på";
+"whatsNew.booth.row.switch.value" = "Kameraknappen";
+"whatsNew.booth.row.footage" = "Opptak";
+"whatsNew.booth.row.footage.value" = "Blir på enheten";
+"whatsNew.booth.row.default" = "Standard";
+"whatsNew.booth.row.default.value" = "Av";
+"whatsNew.booth.confirm" = "Prøv det på en scene";
+"whatsNew.booth.later" = "Senere";

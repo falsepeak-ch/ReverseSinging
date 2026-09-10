@@ -17,8 +17,6 @@ nonisolated enum Strings {
         static let howItWorksMessage = NSLocalizedString("onboarding.howItWorks.message", comment: "How it works message")
         static let dubTitle = NSLocalizedString("onboarding.dub.title", comment: "Movie scene dub game title")
         static let dubMessage = NSLocalizedString("onboarding.dub.message", comment: "Movie scene dub game message")
-        static let uiPreferenceTitle = NSLocalizedString("onboarding.uiPreference.title", comment: "UI preference title")
-        static let uiPreferenceMessage = NSLocalizedString("onboarding.uiPreference.message", comment: "UI preference message")
         static let microphoneTitle = NSLocalizedString("onboarding.microphone.title", comment: "Microphone permission title")
         static let microphoneMessage = NSLocalizedString("onboarding.microphone.message", comment: "Microphone permission message")
         static let buttonOpenSettings = NSLocalizedString("onboarding.button.openSettings", comment: "Open settings button")
@@ -336,6 +334,19 @@ nonisolated enum Strings {
         static let original = NSLocalizedString("dub.original", comment: "Original audio mode")
         static let myDub = NSLocalizedString("dub.myDub", comment: "User dub audio mode")
         static let noTakesYet = NSLocalizedString("dub.noTakesYet", comment: "Shown when nothing has been recorded")
+        static let play = NSLocalizedString("dub.play", comment: "Start the scene, or pick it up where it was held")
+        static let pause = NSLocalizedString("dub.pause", comment: "Hold the scene where it is")
+        static let timeline = NSLocalizedString("dub.timeline", comment: "Accessibility label for the scrubbable timeline")
+
+        // First-run coaching, see `DubTips`
+        enum Tip {
+            static let recordTitle = NSLocalizedString("dub.tip.record.title", comment: "Tip title: listen to the line, then record it")
+            static let recordMessage = NSLocalizedString("dub.tip.record.message", comment: "Tip body: the count-in, and the mic stopping on its own")
+            static let boothTitle = NSLocalizedString("dub.tip.booth.title", comment: "Tip title: the front camera can film the performer")
+            static let boothMessage = NSLocalizedString("dub.tip.booth.message", comment: "Tip body: what Booth Cam does")
+            static let playDubTitle = NSLocalizedString("dub.tip.playDub.title", comment: "Tip title: play the scene with your own takes in it")
+            static let playDubMessage = NSLocalizedString("dub.tip.playDub.message", comment: "Tip body: takes replace the original lines, the rest plays as it was")
+        }
 
         // Export
         static let exporting = NSLocalizedString("dub.exporting", comment: "Export in progress")
@@ -410,6 +421,25 @@ nonisolated enum Strings {
         static let unknownSource = NSLocalizedString("dubShare.unknownSource", comment: "Shown for a pack the user imported, whose origin the app does not know")
         static let responsibility = NSLocalizedString("dubShare.responsibility", comment: "Distributing the export is the user's own act and responsibility")
         static let confirm = NSLocalizedString("dubShare.confirm", comment: "Go ahead and export")
+    }
+
+    // MARK: - What's New
+    enum WhatsNew {
+        static let badge = NSLocalizedString("whatsNew.badge", comment: "Tracked label at the head of an update note")
+
+        /// The note shown once to people who updated into Booth Cam, see `BoothCamAnnouncement`
+        enum Booth {
+            static let title = NSLocalizedString("whatsNew.booth.title", comment: "Update note title: the app can now film the performer")
+            static let message = NSLocalizedString("whatsNew.booth.message", comment: "Update note body: what Booth Cam is and where it shows up")
+            static let rowSwitch = NSLocalizedString("whatsNew.booth.row.switch", comment: "Slate row label: how to turn Booth Cam on")
+            static let rowSwitchValue = NSLocalizedString("whatsNew.booth.row.switch.value", comment: "Slate row value: the camera key in the record screen")
+            static let rowFootage = NSLocalizedString("whatsNew.booth.row.footage", comment: "Slate row label: the recorded footage")
+            static let rowFootageValue = NSLocalizedString("whatsNew.booth.row.footage.value", comment: "Slate row value: footage never leaves the device")
+            static let rowDefault = NSLocalizedString("whatsNew.booth.row.default", comment: "Slate row label: the default state")
+            static let rowDefaultValue = NSLocalizedString("whatsNew.booth.row.default.value", comment: "Slate row value: off")
+            static let confirm = NSLocalizedString("whatsNew.booth.confirm", comment: "Go to the dub library to try Booth Cam")
+            static let later = NSLocalizedString("whatsNew.booth.later", comment: "Close the update note without going anywhere")
+        }
     }
 
     // MARK: - Pro / Paywall

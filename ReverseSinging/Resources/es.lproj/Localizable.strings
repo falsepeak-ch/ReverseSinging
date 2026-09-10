@@ -10,8 +10,6 @@
 "onboarding.howItWorks.message" = "Graba una canción, dale la vuelta y canta encima de ese galimatías. Luego invierte tu intento y descubre si te acercaste o inventaste un idioma nuevo.";
 "onboarding.dub.title" = "Dobla una escena";
 "onboarding.dub.message" = "El segundo juego: pon una escena, sobreactúa encima y escúchate dentro de la película. Vienen dos escenas de regalo. A partir de ahí, pon las tuyas.";
-"onboarding.uiPreference.title" = "Elige tu sala de control";
-"onboarding.uiPreference.message" = "Botones grandes y honestos, o la mesa de mezclas entera. Esto es para el Canto Invertido y puedes cambiar de idea en Ajustes cuando quieras.";
 "onboarding.microphone.title" = "Una última cosa";
 "onboarding.microphone.message" = "Los dos juegos necesitan oírte: cantando al revés o doblando una escena. El micro solo se despierta mientras grabas, todo se queda en este dispositivo y nunca se sube nada. Tu peor toma se queda entre vosotros dos.";
 "onboarding.button.openSettings" = "Abrir Ajustes";
@@ -369,3 +367,27 @@
 "booth.export.runtime" = "Duración";
 "booth.export.shape" = "Formato";
 "booth.shareLine" = "Compartir esta frase";
+
+/* Dub: the scene player, and the first-run tips (see DubTips) */
+"dub.play" = "Reproducir";
+"dub.pause" = "Pausa";
+"dub.timeline" = "Línea de tiempo";
+"dub.tip.record.title" = "Escucha y luego graba";
+"dub.tip.record.message" = "Pon la frase original y después pulsa grabar. Tres toques de cuenta atrás, y el micro se cierra solo cuando termina la frase.";
+"dub.tip.booth.title" = "Fílmate también";
+"dub.tip.booth.message" = "La cabina enciende la cámara frontal mientras actúas. Tu cara sale junto a la escena en tu doblaje, y puede ir a la exportación.";
+"dub.tip.playDub.title" = "Escúchate dentro de la película";
+"dub.tip.playDub.message" = "Tus tomas entran en la escena en lugar de las frases originales. Lo que aún no hayas doblado suena tal como era.";
+
+/* What's new: Booth Cam, for the people who updated into it */
+"whatsNew.badge" = "Novedades";
+"whatsNew.booth.title" = "Ahora puedes filmarte mientras doblas";
+"whatsNew.booth.message" = "Te presentamos la cabina. La cámara frontal graba mientras dices una frase, así tu cara queda registrada justo al lado de la escena. Míralo en el reproductor de la escena y, al exportar, ponla en la esquina, apilada o a pantalla partida. Está apagada hasta que la enciendas.";
+"whatsNew.booth.row.switch" = "Para encenderla";
+"whatsNew.booth.row.switch.value" = "Tecla de cámara";
+"whatsNew.booth.row.footage" = "Vídeo";
+"whatsNew.booth.row.footage.value" = "Se queda en el móvil";
+"whatsNew.booth.row.default" = "Por defecto";
+"whatsNew.booth.row.default.value" = "Apagada";
+"whatsNew.booth.confirm" = "Pruébalo en una escena";
+"whatsNew.booth.later" = "Más tarde";

@@ -650,6 +650,8 @@ final class DubViewModel: ObservableObject {
                 }.value
 
                 recordedSlugs.insert(line.slug)
+                // There is a dub to hear now, which is what the playback tip waits for.
+                DubTips.hasRecordedATake = true
 
                 // The file just changed on disk; anything cached for it is the old take.
                 await WaveformSampler.shared.invalidate(destination)
