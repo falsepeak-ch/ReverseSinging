@@ -45,21 +45,41 @@ nonisolated enum DubStarterPacks {
     /// *Camp Rules* stays on top: it is the shorter of the two and the easier to finish.
     static let bundled = ["StuckUp", "CampRules"]
 
+    /// Which build of each pack this app carries. Bump a pack's number when its zip is
+    /// rebuilt and the rebuild is worth putting on devices that already have the old one.
+    ///
+    /// A device remembers which revision it installed, so a rebuilt pack goes on once, over
+    /// the copy it replaces — and `DubPackImporter` keeps the pack's identity across that, so
+    /// the takes a user recorded against the old build stay attached to the new one. A pack
+    /// whose zip changed without its number changing is invisible to every existing install,
+    /// which is the state *Camp Rules* was in when its bed was rebuilt.
+    ///
+    /// - `CampRules` 2: the bed is a separated music-and-effects track rather than a loop of
+    ///   the scene's longest silence, and the reference chunks are 22 kHz rather than 11.
+    static let revisions: [String: Int] = ["StuckUp": 1, "CampRules": 2]
+
     private static let installedKey = "dub.starterPacksInstalled"
 
-    /// Names already installed at some point.
+    /// What has been installed on this device, as `name#revision`. A bare name is a record
+    /// written before revisions existed, and reads as revision 1.
     ///
     /// Remembered so a user who deletes a starter pack keeps it deleted. Re-adding it on
-    /// every launch would make the delete button look broken.
+    /// every launch would make the delete button look broken. A *rebuilt* pack does come
+    /// back once, on purpose: what the user deleted was the old build.
     private static var installed: Set<String> {
         get { Set(UserDefaults.standard.stringArray(forKey: installedKey) ?? []) }
         set { UserDefaults.standard.set(Array(newValue).sorted(), forKey: installedKey) }
     }
 
-    /// The bundled packs that have never been installed on this device.
+    private static func record(for name: String) -> String {
+        let revision = revisions[name] ?? 1
+        return revision == 1 ? name : "\(name)#\(revision)"
+    }
+
+    /// The bundled packs whose current build has never been installed on this device.
     static var pending: [String] {
         let done = installed
-        return bundled.filter { !done.contains($0) && url(for: $0) != nil }
+        return bundled.filter { !done.contains(record(for: $0)) && url(for: $0) != nil }
     }
 
     private static func url(for name: String) -> URL? {
@@ -73,7 +93,7 @@ nonisolated enum DubStarterPacks {
     /// only spend the user's battery finding that out again.
     @discardableResult
     static func install(_ name: String) async -> DubPack? {
-        defer { installed.insert(name) }
+        defer { installed.insert(record(for: name)) }
 
         guard let url = url(for: name) else { return nil }
 
@@ -97,6 +117,11 @@ nonisolated enum DubStarterPacks {
     /// Lets a test start from a clean device without touching `UserDefaults` by hand.
     static func forgetInstallsForTesting() {
         UserDefaults.standard.removeObject(forKey: installedKey)
+    }
+
+    /// Lets a test stand in for a device that installed an earlier build of a pack.
+    static func recordInstallForTesting(_ name: String, revision: Int) {
+        installed.insert(revision == 1 ? name : "\(name)#\(revision)")
     }
     #endif
 }

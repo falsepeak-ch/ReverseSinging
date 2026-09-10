@@ -204,6 +204,32 @@ struct DubStarterPackTests {
         #expect(!DubStarterPacks.pending.contains(name),
                 "an installed starter pack must not come back once it is gone")
     }
+
+    /// A rebuilt pack does come back, once. A device that installed an earlier build — or
+    /// one that predates revisions altogether — is owed the new one; a device that already
+    /// has the new build is not.
+    @MainActor
+    @Test func aRebuiltStarterPackReinstallsOverAnEarlierBuild() throws {
+        DubStarterPacks.forgetInstallsForTesting()
+        defer { DubStarterPacks.forgetInstallsForTesting() }
+
+        let rebuilt = try #require(DubStarterPacks.revisions.first { $0.value > 1 }?.key,
+                                   "this test needs a pack that has been rebuilt at least once")
+        let current = try #require(DubStarterPacks.revisions[rebuilt])
+
+        DubStarterPacks.recordInstallForTesting(rebuilt, revision: 1)
+        #expect(DubStarterPacks.pending.contains(rebuilt), "the old build is on the device; the new one is owed")
+
+        DubStarterPacks.recordInstallForTesting(rebuilt, revision: current)
+        #expect(!DubStarterPacks.pending.contains(rebuilt), "and once it is there, it stays deleted if deleted")
+    }
+
+    /// Every bundled pack has a revision, so a rebuild cannot silently ship as a no-op.
+    @Test func everyBundledPackHasARevision() {
+        for name in DubStarterPacks.bundled {
+            #expect(DubStarterPacks.revisions[name] != nil, "\(name) has no revision")
+        }
+    }
 }
 
 /// Serialized: both tests write the same `dub.scoringEnabled` key, and in parallel the one

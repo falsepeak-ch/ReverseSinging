@@ -112,7 +112,8 @@ nonisolated struct DubBoothComposer {
     ///     with this off is still composited: it is reshaped to 9:16 and carries the waveform
     ///     strip, which is a different file from the untouched remux `off` produces.
     ///   - sceneVideo: the pack's own film, or the rendered slideshow standing in for it.
-    ///   - audio: the finished mix, covering the whole scene.
+    ///   - audio: the finished mix, already cut to `segments` and running the length of the
+    ///     export. See `DubAudioCut`.
     ///   - boothClips: booth footage by line slug. Lines with no entry simply have none.
     ///   - waveVideo: the rendered waveform strip, when the frame carries one. Laid in as a
     ///     third track rather than drawn over the top; see `DubWaveOverlay`.
@@ -174,13 +175,6 @@ nonisolated struct DubBoothComposer {
                 try sceneTrack.insertTimeRange(videoRange, of: sceneSource, at: cursor)
             }
 
-            if let audioTrack, let audioSource {
-                let audioRange = clamp(CMTimeRange(start: start, duration: duration), to: audioDuration)
-                if audioRange.duration.seconds > 0 {
-                    try audioTrack.insertTimeRange(audioRange, of: audioSource, at: cursor)
-                }
-            }
-
             if frame.needsCompositing && includesBooth {
                 for line in pack.lines {
                     guard let clipURL = boothClips[line.slug] else { continue }
@@ -229,6 +223,15 @@ nonisolated struct DubBoothComposer {
         }
 
         guard cursor.seconds > 0 else { throw DubExportError.nothingRecorded }
+
+        // The audio is already the cut, in output time, so it is laid in once from the top.
+        // Clamped to the picture: the mix runs past the scene when a take does.
+        if let audioTrack, let audioSource {
+            let audioRange = clamp(CMTimeRange(start: .zero, duration: cursor), to: audioDuration)
+            if audioRange.duration.seconds > 0 {
+                try audioTrack.insertTimeRange(audioRange, of: audioSource, at: .zero)
+            }
+        }
 
         // The strip runs the length of the export, so it is laid in once rather than per
         // segment. Its clip is rendered to the output's own duration, which is `cursor`.

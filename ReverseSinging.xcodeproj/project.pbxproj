@@ -9,13 +9,13 @@
 /* Begin PBXBuildFile section */
 		DB2AF10120250001000000A1 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = DB2AF10220250002000000A2 /* ZIPFoundation */; };
 		DB3AF20220250002000000B2 /* XiphTheora.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB3AF20120250002000000B1 /* XiphTheora.xcframework */; };
+		DB4AF30520260904000000C5 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = DB4AF30220260904000000C2 /* RevenueCat */; };
+		DB4AF30620260904000000C6 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = DB4AF30320260904000000C3 /* RevenueCatUI */; };
+		DB4AF30720260904000000C7 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = DB4AF30420260904000000C4 /* FirebaseRemoteConfig */; };
 		E2CE0E60FF574C54BA229923 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		FF2EE2D92EAF91B100549684 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = FF3C44EB2EAF8B000055F61C /* FirebaseCore */; };
 		FF2EE3E72EB028B600549684 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = FF2EE3E62EB028B600549684 /* FirebaseCrashlytics */; };
 		FF2EE5362EB135D500549684 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FF2EE5352EB135D500549684 /* FirebaseAnalytics */; };
-		DB4AF30520260904000000C5 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = DB4AF30220260904000000C2 /* RevenueCat */; };
-		DB4AF30620260904000000C6 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = DB4AF30320260904000000C3 /* RevenueCatUI */; };
-		DB4AF30720260904000000C7 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = DB4AF30420260904000000C4 /* FirebaseRemoteConfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -567,20 +567,20 @@
 				minimumVersion = 0.9.19;
 			};
 		};
-		FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 12.4.0;
-			};
-		};
 		DB4AF30120260904000000C1 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.88.0;
+			};
+		};
+		FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.4.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -590,6 +590,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB2AF10320250003000000A3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;
+		};
+		DB4AF30220260904000000C2 /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB4AF30120260904000000C1 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCat;
+		};
+		DB4AF30320260904000000C3 /* RevenueCatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB4AF30120260904000000C1 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCatUI;
+		};
+		DB4AF30420260904000000C4 /* FirebaseRemoteConfig */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfig;
 		};
 		FF2EE3E62EB028B600549684 /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -605,21 +620,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCore;
-		};
-		DB4AF30420260904000000C4 /* FirebaseRemoteConfig */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseRemoteConfig;
-		};
-		DB4AF30220260904000000C2 /* RevenueCat */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB4AF30120260904000000C1 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
-			productName = RevenueCat;
-		};
-		DB4AF30320260904000000C3 /* RevenueCatUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB4AF30120260904000000C1 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
-			productName = RevenueCatUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

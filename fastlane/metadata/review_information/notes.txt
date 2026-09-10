@@ -1,55 +1,37 @@
-RESPONSE TO GUIDELINE 4.1(a) (submission c8eee46d-321c-4588-a2f2-902d9a582ada)
+No account is needed. Everything runs on device; nothing is uploaded. Firebase provides anonymous usage statistics and crash reports only, never audio or file contents.
 
-The previous build was rejected because the app's name and screenshots referenced "Reverso".
-The app is now called Dubloon. That reference is gone from the name, the in-app wordmark,
-every localised string, and every screenshot and app preview, all of which were regenerated.
+MOVIE SCENE DUB
 
-No account needed. Everything runs on device; nothing is uploaded. Firebase is used for anonymous usage statistics and crash reports only. It never records audio, recordings or file contents.
+The app ships with two short example scenes and does not host, provide or distribute any other film, clip or dialogue: no catalogue, no search, no download. Every further scene is a file the user already has and imports.
 
-ABOUT MOVIE SCENE DUB
+1. "Camp Rules" (23s), from "Sprite Fright" (Blender Studio, 2021), released by its rights holder under Creative Commons Attribution 4.0, which permits adaptation and redistribution on the single condition of credit.
 
-Dubloon ships with two short example scenes, one animated and one classic. It does not host, provide or distribute any other film, clip or dialogue: there is no in-app catalogue, no search and no download. Every further scene is a file the user already has on their own device and imports themselves.
+2. "Stuck Up" (35s), from "The Outsider" (Centron Productions, 1951), a US classroom film whose copyright was never renewed in its 28th year and is therefore US public domain. Verified against the Copyright Office's post-1977 records, which cover the whole 1979 renewal window: no renewal exists. Our record of that search is available on request.
 
-1. "Camp Rules" (23s) is cut from "Sprite Fright" (Blender Studio, 2021), an open movie released by its rights holder under Creative Commons Attribution 4.0. CC BY expressly permits adaptation and redistribution; its one condition is credit.
+Both scenes state their provenance in a source panel on the scene screen and in the notice before every export, naming film, year, producer and terms, with licence and source as tappable links.
 
-2. "Stuck Up" (35s) is cut from "The Outsider" (Centron Productions, 1951), a US classroom film whose copyright was never renewed in its 28th year, and which is therefore in the US public domain. Verified against the Copyright Office's post-1977 records, which cover the whole 1979 renewal window: no motion-picture renewal exists for this title, and neither Centron nor notice holder Young America Films renewed it, though both renewed other titles in those years. Our record of that search is available on request.
+THE PURCHASE (new)
 
-Both scenes state their provenance in two places: a source panel on the scene screen, and a notice before every export. Each names the film, year, producer and terms, with licence and source as tappable links.
+Free to download, opening on a seven-day trial from first launch. A fresh install has both games in full for the whole trial, so the app can be reviewed end to end without buying anything.
 
-THE PURCHASE (new in this build)
+After the trial, one non-consumable purchase ("com.falsepeak.reverse_singing_ios.lifetime") unlocks the app permanently. Not a subscription, and nothing else is on sale. Anyone who installed before this update keeps both games free for life, decided on device from the earlier install, not a receipt. If the trial has elapsed on the review device, deleting and reinstalling restarts it.
 
-The app is free to download and opens on a seven-day free trial that starts at first launch. No account, no sign-in and no demo credentials are needed: a fresh install has both games in full for the whole trial, so the app can be reviewed end to end without buying anything.
+BOOTH CAM (new)
 
-After the trial there is one non-consumable in-app purchase, "com.falsepeak.reverse_singing_ios.lifetime", which unlocks the app permanently. It is not a subscription and there is nothing else on sale. Anyone who installed the app before this update keeps both games free for life; that is decided on device from the earlier install, not from a receipt.
+Booth Cam films the performer with the front camera while they dub, so the reaction can be shared with the take. It is off by default and never starts on its own. Tapping the camera key shows the app's own explanation first - where footage is kept, that nothing leaves the device until an export, and that it can be switched off at any time - and only then does the system prompt appear. Declining costs nothing. Clips stay in the app's container beside the voice takes, are never uploaded, and appear only in a video the user explicitly exports. Settings has a switch, a mirror-preview option and a delete-all control.
 
-If the trial has already elapsed on the review device, deleting and reinstalling the app starts it again.
+TWO NOTICES, SHOWN EVERY TIME (never a remembered one-time consent)
 
-BOOTH CAM (new in this build)
+Before any import, the app asks whether the user already has the movie files. If not, a panel states, before any link is offered, that the destination is an unaffiliated third-party site, that we neither host nor distribute files, and that the user is responsible for the rights to what they download and for obeying local copyright law.
 
-Booth Cam films the performer with the front camera while they dub, so the reaction can be shared alongside the take. It is off by default and is never started by the app on its own.
-
-Tapping the camera key on the record screen shows the app's own explanation first: where the footage is kept, that nothing leaves the device until an export, and that it can be switched off at any time. Only after that does the system camera prompt appear. Declining costs nothing, and the dub continues without it.
-
-Booth clips are written to the app's own container beside the voice takes, are never uploaded, and are only ever included in a video the user explicitly exports. Settings has a switch for the feature, a mirror-preview option and a control that deletes every booth clip. The code is in BoothRecorder.swift, BoothCamPrimerModal.swift and DubBoothComposer.swift.
-
-TWO NOTICES, BOTH SHOWN EVERY TIME
-
-Neither is a one-time consent that is remembered and skipped.
-
-Before any import, the app asks whether the user already has the movie files. If they say they do not, a second panel states, before any link is offered, that the destination is an unaffiliated third-party community site, that we neither host nor distribute any files, and that the user is responsible for holding the rights to what they download and for obeying their local copyright law. Only then is a Safari link offered.
-
-Before any export, the app states that the exported video is the user's voice mixed over the original scene and therefore contains someone else's work; it names that work and its terms; it asks the user to keep the credit with the video if they post it; and it says that sharing or publishing the export is the user's own act and that staying within the law where they live is their responsibility. For a scene the user imported themselves, it says instead that Dubloon does not know who made it or on what terms.
-
-The gate is in DubContentGate.swift and DubContentGateModal.swift; the export notice is in DubShareNoticeModal.swift.
+Before any export, the app states that the video is the user's voice over the original scene and so contains someone else's work; names that work and its terms; asks that the credit stay with the video; and says that sharing it is the user's own act, within local law, and their responsibility. For a scene the user imported, it says instead that the app cannot know its origin or terms.
 
 HOW TO TEST
 
-Open the app and tap "Movie Scene Dub". The two bundled scenes install themselves on first open, so the whole mode can be exercised without supplying anything: pick a scene, tap "Start Dubbing", record a line, then "Play My Dub" or "Export Video". The bottom of any scene's screen shows its source and licence panel, and "Export Video" opens the notice described above.
+Tap "Movie Scene Dub". The two bundled scenes install on first open: pick one, tap "Start Dubbing", record a line, then "Play My Dub" or "Export Video". The source and licence panel sits at the bottom of a scene's screen.
 
-To see the ownership gate, tap the "+" import button in the library. It appears every time. Reverse Singing, the other mode, needs only the microphone and a few seconds of any sound.
-
-To see Booth Cam, tap the camera key at the top right of the record screen: the explanation panel appears before iOS asks for the camera. The simulator has no front camera, so on a device is the only place the monitor itself will show a picture.
+For the ownership gate, tap "+" in the library; it appears every time. For Booth Cam, tap the camera key at the top right of the record screen. The simulator has no front camera, so only a device shows a picture.
 
 MICROPHONE
 
-Microphone access is required for both modes because both record the user's voice, and the app explains this on its own screen during onboarding before the system prompt is shown. That screen's button reads "Continue" rather than "Allow", because tapping it opens the system prompt rather than granting anything. Recordings are written to the app's own container and never leave the device.
+Both modes record the user's voice, and the app explains this on its own onboarding screen before the system prompt. That screen's button reads "Continue" rather than "Allow", because it opens the prompt rather than granting anything. Recordings stay in the app's container and never leave the device.

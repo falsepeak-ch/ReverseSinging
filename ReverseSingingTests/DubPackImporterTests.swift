@@ -87,6 +87,27 @@ struct DubPackImporterTests {
         try? FileManager.default.removeItem(at: source.deletingLastPathComponent())
     }
 
+    // MARK: - Identity
+
+    /// Bringing the same pack in again replaces the copy on disk but not the pack: the takes
+    /// live under its id, and a rebuilt starter pack that changed id would orphan every line
+    /// the user had recorded against it.
+    @Test func reimportingAPackKeepsItsIdentity() async throws {
+        let name = "Reimported-\(UUID().uuidString.prefix(6))"
+        let first = try makeSourcePack(named: name)
+        let second = try makeSourcePack(named: name)
+
+        let original = try await DubPackImporter.shared.importPack(from: first)
+        let replacement = try await DubPackImporter.shared.importPack(from: second)
+        defer {
+            cleanUp(replacement, source: second)
+            try? FileManager.default.removeItem(at: first.deletingLastPathComponent())
+        }
+
+        #expect(replacement.id == original.id)
+        #expect(replacement.folderName == original.folderName)
+    }
+
     // MARK: - Folder
 
     @Test func importsAFolder() async throws {

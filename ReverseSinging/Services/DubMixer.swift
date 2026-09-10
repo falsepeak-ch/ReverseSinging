@@ -104,6 +104,9 @@ nonisolated struct DubMixer {
             progress?(.mixingAudio, value)
         }
 
+        // The mix covers the scene; the export plays a cut of it. See `DubAudioCut`.
+        let cutAudioURL = try DubAudioCut.cut(audioURL, to: segments, in: workingDirectory)
+
         let videoURL: URL
         if let sourceVideo = pack.videoURL {
             // Nothing to render. The picture is the pack's own track.
@@ -148,7 +151,7 @@ nonisolated struct DubMixer {
             frame: frame,
             includesBooth: includesBooth,
             sceneVideo: videoURL,
-            audio: audioURL,
+            audio: cutAudioURL,
             boothClips: boothClips(in: pack),
             waveVideo: waveURL
         )
@@ -207,7 +210,12 @@ nonisolated struct DubMixer {
                 engine.connect(backingNode, to: engine.mainMixerNode, format: backingBuffer.format)
             }
 
-            backingNode.volume = 0.75
+            // One level for the whole scene, set against this scene's own dialogue rather
+            // than by a fixed number, so a feature's music stem and a 1951 short's both end
+            // up in the same place. See `DubBackingBalance`.
+            backingNode.volume = backingBuffer.map {
+                DubBackingBalance.bedGain(for: $0, in: pack)
+            } ?? DubBackingBalance.fallbackBedGain
 
             // Load first, then split: lines that overlap have to land on separate nodes or
             // they are queued rather than mixed. See `DubVoiceLanes`.
@@ -219,6 +227,15 @@ nonisolated struct DubMixer {
                 let takeURL = pack.takeURL(for: line)
                 guard FileManager.default.fileExists(atPath: takeURL.path),
                       let take = try? DubAudioLoader.loadVoiceBuffer(from: takeURL) else { return nil }
+
+                // The room this take was recorded in, held down between its words, so the
+                // scene's noise floor does not step at every line boundary. Before the level
+                // match, which would otherwise scale each take's room along with its voice.
+                DubTakeCleanup.apply(to: take)
+
+                // Brought up to the level the film played this line at, so the scene arrives
+                // at one volume rather than at whatever each take was recorded at.
+                DubVoiceLevel.match(take, toReferenceAt: pack.referenceAudioURL(for: line))
 
                 return DubVoiceAlignment.place(
                     take: take,
@@ -492,12 +509,7 @@ nonisolated struct DubMixer {
             return outputURL
         }
 
-        try await encode(
-            composed.composition,
-            through: videoComposition,
-            to: outputURL,
-            progress: progress
-        )
+        try await encode(composed.composition, through: videoComposition, to: outputURL, progress: progress)
         return outputURL
     }
 

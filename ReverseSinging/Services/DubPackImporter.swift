@@ -62,7 +62,18 @@ nonisolated struct DubPackImporter {
             progress?(.copying, 0.6)
 
             let packRoot = try locatePackRoot(in: staging.url)
-            let folderName = try install(packRoot, preferredName: sourceURL.deletingPathExtension().lastPathComponent)
+            let preferredName = sourceURL.deletingPathExtension().lastPathComponent
+
+            // A pack that replaces one already installed under the same name keeps that
+            // pack's identity. The takes live under the pack's id, so a re-import — a
+            // rebuilt starter pack, or a user bringing the same zip in again — would
+            // otherwise orphan every line they had recorded against it.
+            let previous = self.readManifest(
+                at: AudioFileManager.shared.dubPacksDirectory()
+                    .appendingPathComponent(self.sanitize(preferredName.nilIfEmpty ?? packRoot.lastPathComponent), isDirectory: true)
+            )
+
+            let folderName = try install(packRoot, preferredName: preferredName)
 
             CrashReporter.shared.log("dub_pack.import installed")
 
@@ -82,7 +93,11 @@ nonisolated struct DubPackImporter {
             progress?(.reading, 0)
 
             do {
-                let parsed = try DubPackParser.parse(at: destination, folderName: folderName)
+                let parsed = try DubPackParser.parse(
+                    at: destination,
+                    folderName: folderName,
+                    id: previous?.id ?? UUID()
+                )
                 try writeManifest(parsed.pack, to: destination)
                 report(parsed.diagnostics, for: parsed.pack)
                 progress?(.reading, 1)
