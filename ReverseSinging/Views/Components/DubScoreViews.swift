@@ -5,9 +5,10 @@
 //  How a dub scored, shown three ways: a chip, a card, a panel
 //
 
+import DubScoring
 import SwiftUI
 
-// MARK: - Grade Colour
+// MARK: - Grade Colour and Name
 
 extension DubGrade {
     /// The one place a grade becomes a colour, so the chip beside a line and the panel at the
@@ -20,14 +21,17 @@ extension DubGrade {
         case .rough:           return .rsRecord
         }
     }
-}
 
-extension DubLineScore {
-    var grade: DubGrade { DubGrade.forScore(overall) }
-}
-
-extension DubSceneScore {
-    var grade: DubGrade { DubGrade.forScore(overall) }
+    /// The band's name, in the user's language.
+    var title: String {
+        switch self {
+        case .perfect: return Strings.Dub.Score.gradePerfect
+        case .great:   return Strings.Dub.Score.gradeGreat
+        case .good:    return Strings.Dub.Score.gradeGood
+        case .close:   return Strings.Dub.Score.gradeClose
+        case .rough:   return Strings.Dub.Score.gradeRough
+        }
+    }
 }
 
 // MARK: - Line Chip

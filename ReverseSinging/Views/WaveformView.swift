@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import DubloonFoundation
 
 struct WaveformView: View {
     @Environment(\.colorScheme) var colorScheme

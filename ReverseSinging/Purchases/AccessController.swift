@@ -9,6 +9,7 @@
 import Combine
 import Foundation
 import RevenueCat
+import DubloonFoundation
 
 /// Why the app is open to someone who has not bought it.
 nonisolated enum UnlockReason: Equatable {
@@ -120,7 +121,7 @@ final class AccessController: ObservableObject {
     private var hasCustomerInfo = false
 
     private init(
-        trialClock: TrialClock = .shared,
+        trialClock: TrialClock = TrialClock(),
         earlyAdopter: EarlyAdopter = .shared,
         remoteConfig: RemoteConfigService = .shared
     ) {

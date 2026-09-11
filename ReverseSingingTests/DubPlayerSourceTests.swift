@@ -8,6 +8,7 @@
 import Testing
 import AVFoundation
 @testable import ReverseSinging
+import DubAudio
 
 @Suite("Dub Player Sources")
 @MainActor

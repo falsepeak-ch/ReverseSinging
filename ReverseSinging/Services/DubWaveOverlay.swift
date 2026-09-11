@@ -8,6 +8,7 @@
 import AVFoundation
 import CoreGraphics
 import CoreText
+import DubAudio
 
 /// Draws the line the film says against the line the user said, along the bottom of a
 /// vertical export.

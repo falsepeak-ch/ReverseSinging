@@ -5,6 +5,7 @@
 //  Whether the people who updated need telling that the booth exists
 //
 
+import DubloonFoundation
 import Foundation
 
 /// Decides who sees the note about Booth Cam, and remembers once they have.
@@ -50,12 +51,11 @@ struct BoothCamAnnouncement {
     /// Answers the question from what is already on the device. Called once, at launch,
     /// before the first screen writes anything.
     func resolveAtLaunch() {
-        guard !defaults.bool(forKey: Key.decided) else { return }
-        defaults.set(true, forKey: Key.decided)
-
-        let wasInUse = defaults.bool(forKey: Self.onboardingMarker)
-        let hasMetTheBooth = defaults.bool(forKey: Self.primerMarker)
-        defaults.set(wasInUse && !hasMetTheBooth, forKey: Key.due)
+        LaunchDecision(key: Key.decided, defaults: defaults).makeOnce {
+            let wasInUse = defaults.bool(forKey: Self.onboardingMarker)
+            let hasMetTheBooth = defaults.bool(forKey: Self.primerMarker)
+            defaults.set(wasInUse && !hasMetTheBooth, forKey: Key.due)
+        }
     }
 
     // MARK: - Reading

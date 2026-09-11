@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import DubScoring
 
 /// Reads and writes a pack's scores.
 ///

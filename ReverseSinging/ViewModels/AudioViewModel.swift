@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Combine
+import DubAudio
+import DubScoring
 
 @MainActor
 final class AudioViewModel: ObservableObject {
@@ -40,7 +42,6 @@ final class AudioViewModel: ObservableObject {
 
     private let recorder = AudioRecorder()
     private let player = AudioPlayer()
-    private let reverser = AudioReverser.shared
     private let fileManager = AudioFileManager.shared
 
     // MARK: - Private Properties
@@ -316,7 +317,7 @@ final class AudioViewModel: ObservableObject {
         let startTime = Date()
         AnalyticsManager.shared.trackAudioReversalStarted()
 
-        reverser.reverseAudio(inputURL: originalRecording.url) { [weak self] result in
+        reverseAudio(inputURL: originalRecording.url) { [weak self] result in
             guard let self = self else { return }
 
             self.isReversing = false
@@ -381,7 +382,7 @@ final class AudioViewModel: ObservableObject {
         isReversing = true
         appState.recordingState = .reversing
 
-        reverser.reverseAudio(inputURL: attemptRecording.url) { [weak self] result in
+        reverseAudio(inputURL: attemptRecording.url) { [weak self] result in
             guard let self = self else { return }
 
             self.isReversing = false
@@ -414,7 +415,7 @@ final class AudioViewModel: ObservableObject {
                         }
 
                         // Calculate similarity score on background thread
-                        let score = await AudioSimilarityCalculator.shared.calculateSimilarity(
+                        let score = await AudioSimilarityCalculator.similarity(
                             original: originalRecording.url,
                             comparison: savedURL
                         )
@@ -695,5 +696,23 @@ final class AudioViewModel: ObservableObject {
         recorder.cleanup()
         player.cleanup()
         fileManager.deleteAllTemporaryFiles()
+    }
+}
+
+// MARK: - Reversing
+
+private extension AudioViewModel {
+
+    /// Reverses a recording into a new temporary file off the main thread, and reports back on it.
+    func reverseAudio(inputURL: URL, completion: @escaping (Result<URL, Error>) -> Void) {
+        let outputURL = fileManager.createTemporaryAudioURL()
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            let result = Result { () throws -> URL in
+                try AudioReverser.reverseFile(at: inputURL, to: outputURL)
+                return outputURL
+            }
+            DispatchQueue.main.async { completion(result) }
+        }
     }
 }

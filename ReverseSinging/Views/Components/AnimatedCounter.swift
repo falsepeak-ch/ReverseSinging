@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DubloonFoundation
 
 struct AnimatedCounter: View {
     let value: TimeInterval

@@ -7,6 +7,8 @@
 
 import SwiftUI
 import TipKit
+import DubScoring
+import DubCompositing
 
 struct DubPackDetailView: View {
     let pack: DubPack
@@ -75,7 +77,6 @@ struct DubPackDetailView: View {
                     .padding(.bottom, 40)
                 }
             }
-            .ignoresSafeArea(edges: .top)
 
             if viewModel.isExporting {
                 exportOverlay

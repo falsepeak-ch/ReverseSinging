@@ -5,6 +5,7 @@
 //  Who was already here before the app started charging, and therefore never pays.
 //
 
+import DubloonFoundation
 import Foundation
 
 /// The grandfather clause.
@@ -78,13 +79,10 @@ struct EarlyAdopter {
     /// `AudioViewModel` writes `hasCompletedOnboarding` as soon as the first screen
     /// appears, so this has to run in `didFinishLaunching`, ahead of both.
     func resolveFromLocalUsage() {
-        guard !defaults.bool(forKey: Key.decided) else { return }
-        defaults.set(true, forKey: Key.decided)
-
-        let hasUsedTheAppBefore = Self.usageMarkers.contains { defaults.object(forKey: $0) != nil }
-        guard hasUsedTheAppBefore else { return }
-
-        grant(source: "local_usage")
+        LaunchDecision(key: Key.decided, defaults: defaults).makeOnce {
+            guard defaults.containsValue(forAnyOf: Self.usageMarkers) else { return }
+            grant(source: "local_usage")
+        }
     }
 
     /// A second chance, from the App Store receipt.

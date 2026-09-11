@@ -9,6 +9,7 @@ import Testing
 import Foundation
 import AVFoundation
 @testable import ReverseSinging
+import DubAudio
 
 /// Checks the export against the geometry of a real scene rather than a convenient one.
 ///

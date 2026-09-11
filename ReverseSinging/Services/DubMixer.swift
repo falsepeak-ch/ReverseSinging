@@ -7,6 +7,8 @@
 
 import AVFoundation
 import UIKit
+import DubAudio
+import DubCompositing
 
 nonisolated enum DubExportError: LocalizedError {
     case nothingRecorded

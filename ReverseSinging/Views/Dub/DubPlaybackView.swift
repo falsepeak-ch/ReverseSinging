@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import DubAudio
+import DubloonFoundation
 
 struct DubPlaybackView: View {
     @ObservedObject var viewModel: DubViewModel

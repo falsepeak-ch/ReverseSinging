@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DubloonFoundation
 
 struct MainViewSimple: View {
     @EnvironmentObject var viewModel: AudioViewModel
@@ -64,7 +65,7 @@ struct MainViewSimple: View {
     private var transportStack: some View {
         VStack(spacing: 0) {
             // Clears the fixed header bar
-            Spacer().frame(height: 96)
+            Spacer().frame(height: EditorMetrics.headerBarHeight)
 
             monitorPanel
                 .padding(.horizontal, EditorMetrics.gutter)

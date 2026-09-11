@@ -7,6 +7,8 @@
 
 import SwiftUI
 import AVFoundation
+import DubCompositing
+import DubloonFoundation
 
 /// The two choices an export now has: the cut, and the booth frame.
 ///

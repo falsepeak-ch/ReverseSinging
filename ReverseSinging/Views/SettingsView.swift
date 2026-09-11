@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RevenueCatUI
+import DubAudio
 
 /// Which settings a presentation is allowed to show.
 ///

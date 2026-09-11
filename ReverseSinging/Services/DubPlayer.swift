@@ -7,6 +7,7 @@
 
 import AVFoundation
 import Combine
+import DubAudio
 
 /// A point on the scene timeline tied to the device host clock.
 ///

@@ -7,6 +7,7 @@
 
 import AVFoundation
 import CoreGraphics
+import DubCompositing
 
 // MARK: - Cut
 

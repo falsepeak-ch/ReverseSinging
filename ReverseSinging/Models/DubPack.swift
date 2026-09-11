@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import DubloonFoundation
 
 /// The stretch of a reference chunk the character is actually speaking over, in seconds from
 /// the chunk's own start.

@@ -13,6 +13,7 @@
 
 import AVFoundation
 import Foundation
+import DubScoring
 
 /// One screen the capture script can ask for. The raw values must stay in sync with
 /// `SCREENS_ALL` in `Local/Tools/screenshots/capture.sh` and with the keys in `captions.json`.

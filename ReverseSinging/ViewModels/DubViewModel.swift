@@ -9,6 +9,9 @@ import SwiftUI
 import Combine
 import QuartzCore
 import AVFoundation
+import DubAudio
+import DubScoring
+import DubCompositing
 
 @MainActor
 final class DubViewModel: ObservableObject {

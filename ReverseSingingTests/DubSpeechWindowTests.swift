@@ -9,11 +9,13 @@ import Testing
 import Foundation
 import AVFoundation
 @testable import ReverseSinging
+import DubAudio
+import DubScoring
 
 @Suite("Dub Speech Windows")
 struct DubSpeechWindowTests {
 
-    // MARK: - Onset Windows
+    // MARK: - Fixtures
 
     private func clip(silence: TimeInterval, tone: TimeInterval, trailing: TimeInterval) -> AVAudioPCMBuffer {
         let format = DubAudioLoader.canonicalFormat
@@ -32,31 +34,6 @@ struct DubSpeechWindowTests {
                 : 0
         }
         return buffer
-    }
-
-    @Test func aWindowFindsBothEdgesOfTheSpeech() throws {
-        let window = try #require(DubSpeechOnset.window(of: clip(silence: 0.5, tone: 1.2, trailing: 0.8)))
-
-        #expect(abs(window.start - 0.5) < 0.05, "start was \(window.start)")
-        #expect(abs(window.end - 1.7) < 0.05, "end was \(window.end)")
-    }
-
-    @Test func aWindowNeverClosesBeforeItOpens() throws {
-        let window = try #require(DubSpeechOnset.window(of: clip(silence: 1.0, tone: 0.05, trailing: 1.0)))
-        #expect(window.end >= window.start)
-        #expect(window.duration >= 0)
-    }
-
-    @Test func silenceHasNoWindow() {
-        #expect(DubSpeechOnset.window(of: clip(silence: 2, tone: 0, trailing: 0)) == nil)
-    }
-
-    /// `leadIn` remains a useful description of the clip for captions and scoring.
-    @Test func leadInStillAgreesWithTheWindowStart() throws {
-        let buffer = clip(silence: 0.75, tone: 1.0, trailing: 0.5)
-        let window = try #require(DubSpeechOnset.window(of: buffer))
-
-        #expect(abs(DubSpeechOnset.leadIn(of: buffer) - window.start) < 0.001)
     }
 
     // MARK: - Alignment
@@ -150,7 +127,7 @@ struct DubSpeechWindowTests {
 
     /// A manifest written before windows existed still decodes. And reports itself as stale
     /// so the library re-measures it rather than serving chunk timings forever.
-    @Test func aManifestWithoutWindowsDecodesAndAsksToBeReparsed() throws {
+    @Test func aManifestWithoutWindowsDecodesAndAsksToBeReparsed() async throws {
         let legacy = """
         {
           "id": "\(UUID().uuidString)",
@@ -180,7 +157,7 @@ struct DubSpeechWindowTests {
 
         #expect(pack.lines[0].speech == nil)
         #expect(!pack.hasMeasuredSpeech)
-        #expect(DubPackLibrary.manifestIsStale(pack, in: pack.directoryURL),
+        #expect(await DubPackLibrary.manifestIsStale(pack, in: pack.directoryURL),
                 "an unmeasured pack must not keep winning on the fast path")
     }
 
