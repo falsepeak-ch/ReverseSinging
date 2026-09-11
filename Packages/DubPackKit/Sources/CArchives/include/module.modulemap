@@ -1,0 +1,5 @@
+module CArchives {
+    header "SevenZipExtract.h"
+    header "ZipRecover.h"
+    export *
+}

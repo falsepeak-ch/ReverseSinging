@@ -178,9 +178,13 @@
 "dub.export.rendering" = "Rendu de la vidéo…";
 "dub.error.missingPackInfo" = "Ce dossier n'est pas un pack de doublage : il n'y a aucun _pack_info.ini dedans.";
 "dub.error.noLines" = "Ce pack n'a pas une seule réplique exploitable.";
-"dub.error.missingAsset" = "Il manque un fichier au pack : %@";
-"dub.error.notAFolder" = "Choisis un dossier de pack ou une archive .zip.";
+"dub.error.notAFolder" = "Choisis un dossier de pack, ou une archive .zip ou .7z.";
 "dub.error.unreadableArchive" = "Cette archive a refusé de s'ouvrir : %@";
+"dub.error.unsupportedArchive" = "Dubloon ne peut pas ouvrir les archives .%@. Réenregistre le pack en .zip ou en .7z.";
+"dub.error.archiveEncrypted" = "L'archive est protégée par un mot de passe. Demande à son créateur une copie sans mot de passe.";
+"dub.error.archiveUnsupported" = "L'archive utilise une compression que Dubloon ne sait pas décompresser. Essaie de la réenregistrer en .zip.";
+"dub.error.archiveCorrupt" = "L'archive est endommagée ou son téléchargement n'est pas allé au bout.";
+"dub.error.archiveTooLarge" = "L'archive est trop grosse pour être décompressée sur cet appareil. Essaie plutôt un .zip.";
 "dub.error.nothingRecorded" = "Double au moins une réplique avant d'exporter.";
 "dub.error.exportFailed" = "L'export a échoué : %@";
 "dub.playTake" = "Écouter ta prise";

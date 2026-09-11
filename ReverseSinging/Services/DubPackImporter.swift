@@ -2,386 +2,57 @@
 //  DubPackImporter.swift
 //  ReverseSinging
 //
-//  Brings a dub pack folder or .zip into the app's own storage
+//  Brings a dub pack into the app's own storage
 //
 
-import AVFoundation
+import DubPackKit
 import Foundation
-import ZIPFoundation
 
-/// Stages of an import, so a multi-minute video conversion can say what it is doing rather
-/// than showing a bar that looks stuck.
-nonisolated enum DubImportStage: Equatable {
-    case copying
-    case convertingVideo
-    case reading
-
-    var message: String {
-        switch self {
-        case .copying: return Strings.Dub.importing
-        case .convertingVideo: return Strings.Dub.convertingVideo
-        case .reading: return Strings.Dub.importReading
-        }
-    }
-}
-
-/// Copies a user-chosen pack into `Documents/DubPacks/`, parses it once, and caches the
-/// parse as `manifest.json` so later launches don't re-read 60+ text files and re-measure
-/// every reference wav.
+/// Imports a dub pack: a folder, a `.zip` or a `.7z`.
+///
+/// DubPackKit does the installing and the reading, and reports to Crashlytics everything it
+/// had to drop or could not open. This adds what only the app knows about: the pack's identity,
+/// its speech windows, and the manifest that caches both.
 nonisolated struct DubPackImporter {
 
     static let shared = DubPackImporter()
 
-    private init() {}
+    typealias ProgressHandler = @Sendable (DubPackInstallProgress) -> Void
 
-    /// Imports a pack from a security-scoped URL (a folder or a `.zip`).
-    /// Runs entirely off the main actor. A pack is tens of megabytes across ~190 files.
-    typealias ProgressHandler = @Sendable (DubImportStage, Double) -> Void
+    private let installer: DubPackInstaller
 
-    func importPack(from sourceURL: URL, progress: ProgressHandler? = nil) async throws -> DubPack {
-        try await Task.detached(priority: .userInitiated) {
-            let didScope = sourceURL.startAccessingSecurityScopedResource()
-            defer { if didScope { sourceURL.stopAccessingSecurityScopedResource() } }
-
-            // Breadcrumbs rather than one report at the end. An import that throws is
-            // reported by `DubPackLibrary` with the error, but the error alone does not say
-            // how far the pack got, and the four stages fail for completely different
-            // reasons: a security scope that was never granted, a zip that will not open, a
-            // layout with no `_pack_info.ini` anywhere in it, a disk with no room left.
-            // One of these is also the last thing written before a hard crash mid-import.
-            CrashReporter.shared.log("dub_pack.import began (.\(sourceURL.pathExtension.lowercased()))")
-
-            progress?(.copying, 0.2)
-
-            // Resolve to a plain directory containing _pack_info.ini
-            let staging = try stagedDirectory(for: sourceURL)
-            defer { staging.cleanup() }
-
-            CrashReporter.shared.log("dub_pack.import staged")
-
-            progress?(.copying, 0.6)
-
-            let packRoot = try locatePackRoot(in: staging.url)
-            let preferredName = sourceURL.deletingPathExtension().lastPathComponent
-
-            // A pack that replaces one already installed under the same name keeps that
-            // pack's identity. The takes live under the pack's id, so a re-import — a
-            // rebuilt starter pack, or a user bringing the same zip in again — would
-            // otherwise orphan every line they had recorded against it.
-            let previous = self.readManifest(
-                at: AudioFileManager.shared.dubPacksDirectory()
-                    .appendingPathComponent(self.sanitize(preferredName.nilIfEmpty ?? packRoot.lastPathComponent), isDirectory: true)
-            )
-
-            let folderName = try install(packRoot, preferredName: preferredName)
-
-            CrashReporter.shared.log("dub_pack.import installed")
-
-            progress?(.copying, 1)
-
-            let destination = AudioFileManager.shared.dubPacksDirectory()
-                .appendingPathComponent(folderName, isDirectory: true)
-
-            // The scene arrives as Ogg Theora, which nothing on iOS can play. Convert it
-            // once here so every screen downstream deals in ordinary H.264.
-            convertSceneVideoIfNeeded(in: destination) { value in
-                progress?(.convertingVideo, value)
-            }
-
-            CrashReporter.shared.log("dub_pack.import converted")
-
-            progress?(.reading, 0)
-
-            do {
-                let parsed = try DubPackParser.parse(
-                    at: destination,
-                    folderName: folderName,
-                    id: previous?.id ?? UUID()
-                )
-                try writeManifest(parsed.pack, to: destination)
-                report(parsed.diagnostics, for: parsed.pack)
-                progress?(.reading, 1)
-                return parsed.pack
-            } catch {
-                // Don't leave a half-imported pack behind for the library to trip over
-                try? FileManager.default.removeItem(at: destination)
-                throw error
-            }
-        }.value
+    init(installer: DubPackInstaller = DubPackInstaller(
+        libraryDirectory: AudioFileManager.shared.dubPacksDirectory(),
+        ignoredFileNames: [DubPackManifest.filename],
+        reporter: CrashlyticsDubPackReporter()
+    )) {
+        self.installer = installer
     }
 
-    // MARK: - Reporting
-
-    /// Reports a pack that imported but did not arrive whole.
+    /// Imports the pack at `source`, which may be security scoped.
     ///
-    /// The gap this fills: an import either throws, and the user sees an alert and we get a
-    /// non-fatal from `DubPackLibrary`, or it succeeds and is counted as a win. Nothing
-    /// covers the middle, which is where the format's tolerance puts most real failures. A
-    /// pack whose entries all lack `dub_timestamps` imports "successfully" with four lines
-    /// out of sixty; a pack with an Ogg Vorbis backing track imports "successfully" and then
-    /// plays in silence. The author of that pack sees a broken app and has nowhere to say so.
-    ///
-    /// One non-fatal per kind of loss rather than one for the pack, so Crashlytics groups
-    /// them by the thing that has to be fixed. `pack_title` is what the pack calls itself,
-    /// which is the same class of author-written text already sent with the import event;
-    /// nothing here comes from a recording or from the contents of a file.
-    private func report(_ diagnostics: DubPackDiagnostics, for pack: DubPack) {
-        guard !diagnostics.isClean else { return }
+    /// - Throws: `DubPackImportError`. `DubPackImportMessage` turns it into a sentence.
+    @concurrent
+    func importPack(from source: URL, progress: ProgressHandler? = nil) async throws -> DubPack {
+        let didScope = source.startAccessingSecurityScopedResource()
+        defer { if didScope { source.stopAccessingSecurityScopedResource() } }
 
-        if !diagnostics.droppedLines.isEmpty {
-            let reasons = Set(diagnostics.droppedLines.map(\.reason.rawValue)).sorted()
+        // A pack that replaces one installed under the same name keeps that pack's identity.
+        // Takes are stored under the id, so a re-import (a rebuilt starter pack, or the same
+        // zip brought in again) would otherwise orphan every line recorded against it.
+        let previous = DubPackManifest.read(at: installer.installLocation(for: source))
 
-            CrashReporter.shared.recordFailure(
-                "dub_pack.dropped_lines",
-                reason: "\(diagnostics.droppedLines.count) of \(diagnostics.candidateLineCount) entries dropped (\(reasons.joined(separator: ", ")))",
-                keys: [
-                    "pack_title": pack.title,
-                    "dropped_count": diagnostics.droppedLines.count,
-                    "candidate_count": diagnostics.candidateLineCount,
-                    "kept_count": pack.lines.count,
-                    "reasons": reasons.joined(separator: ", "),
-                    // A sample rather than all of them: a pack whose every entry is
-                    // malformed would otherwise push a sixty-name list into one key, and
-                    // the first few are enough to go and look at the pack.
-                    "sample": diagnostics.droppedLines.prefix(5)
-                        .map { "\($0.file) (\($0.reason.rawValue))" }
-                        .joined(separator: ", ")
-                ]
-            )
-        }
-
-        if let backingTrack = diagnostics.unplayableBackingTrack {
-            CrashReporter.shared.recordFailure(
-                "dub_pack.unplayable_backing_track",
-                reason: "AVFoundation cannot decode \(backingTrack)",
-                keys: [
-                    "pack_title": pack.title,
-                    "file_extension": (backingTrack as NSString).pathExtension.lowercased()
-                ]
-            )
-        }
-
-        if let video = diagnostics.unplayableVideo {
-            CrashReporter.shared.recordFailure(
-                "dub_pack.unplayable_video",
-                reason: "No readable video track in \(video)",
-                keys: [
-                    "pack_title": pack.title,
-                    "file_extension": (video as NSString).pathExtension.lowercased()
-                ]
-            )
-        }
-    }
-
-    // MARK: - Video
-
-    /// Converts `dub_video.ogv` to `dub_video.mp4` and deletes the original.
-    ///
-    /// Deliberately non-throwing: a pack whose video is corrupt, truncated or in some
-    /// unexpected Theora flavour should still import and play from its stills. Losing the
-    /// picture is a worse outcome than losing the whole scene.
-    private func convertSceneVideoIfNeeded(
-        in directory: URL,
-        progress: (@Sendable (Double) -> Void)? = nil
-    ) {
-        let fileManager = FileManager.default
-
-        let contents = (try? fileManager.contentsOfDirectory(
-            at: directory,
-            includingPropertiesForKeys: nil,
-            options: [.skipsHiddenFiles]
-        )) ?? []
-
-        guard let source = contents.first(where: {
-            $0.deletingPathExtension().lastPathComponent == DubPackParser.videoPrefix
-                && Self.theoraExtensions.contains($0.pathExtension.lowercased())
-        }) else { return }
-
-        let destination = directory.appendingPathComponent("\(DubPackParser.videoPrefix).mp4")
+        let installed = try await installer.install(from: source, progress: progress)
+        let pack = DubPack(parsed: installed.pack, directory: installed.directory, id: previous?.id ?? UUID())
 
         do {
-            let written = try TheoraTranscoder.transcode(ogv: source, to: destination, progress: progress)
-
-            // Check what landed on disk against what the decoder said it wrote, rather than
-            // assuming. A scene video that comes out short is the one failure this whole path
-            // cannot afford: it plays, it looks fine, and every line after the missing frames
-            // is early. Which is exactly how a dropped-duplicate-frame bug went unnoticed
-            // through a release. Better to fall back to the stills than to ship the drift.
-            let measured = try Self.videoDuration(at: destination)
-            let tolerance = max(0.05, written.duration * 0.001)
-
-            guard abs(measured - written.duration) <= tolerance else {
-                throw TheoraTranscoder.TranscodeError.lengthMismatch(
-                    expected: written.duration,
-                    actual: measured
-                )
-            }
-
-            // The Theora original is by far the largest file in a pack and is useless once
-            // converted, so it does not get to sit in the user's storage.
-            try? fileManager.removeItem(at: source)
+            try DubPackManifest.write(pack, to: installed.directory)
         } catch {
-            print("⚠️ Dub scene video could not be converted, falling back to stills: \(error.localizedDescription)")
-            // Silent by design for the user, who still gets a playable pack from the stills.
-            // Not silent for us: this is the one failure that degrades a scene without ever
-            // showing an error, so without a non-fatal we would never learn a Theora
-            // flavour in the wild does not decode.
-            CrashReporter.shared.record(
-                error,
-                context: "dub_pack.video_transcode",
-                keys: ["source_extension": source.pathExtension.lowercased()]
-            )
-            try? fileManager.removeItem(at: destination)
-            try? fileManager.removeItem(at: source)
-        }
-    }
-
-    /// The duration of a written video, read back off disk.
-    ///
-    /// Synchronous on purpose. The whole convert runs on a detached task already, and the
-    /// async `load(.duration)` would need this non-isolated helper to become async along with
-    /// every caller above it.
-    private static func videoDuration(at url: URL) throws -> TimeInterval {
-        let asset = AVURLAsset(url: url)
-        let duration = CMTimeGetSeconds(asset.duration)
-        guard duration.isFinite, duration > 0 else {
-            throw TheoraTranscoder.TranscodeError.noFrames
-        }
-        return duration
-    }
-
-    // MARK: - Manifest
-
-    func writeManifest(_ pack: DubPack, to directory: URL) throws {
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
-        let data = try encoder.encode(pack)
-        try data.write(to: directory.appendingPathComponent(DubPackParser.manifestFilename), options: .atomic)
-    }
-
-    func readManifest(at directory: URL) -> DubPack? {
-        let url = directory.appendingPathComponent(DubPackParser.manifestFilename)
-        guard let data = try? Data(contentsOf: url) else { return nil }
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
-        return try? decoder.decode(DubPack.self, from: data)
-    }
-
-    // MARK: - Staging
-
-    private struct Staging {
-        let url: URL
-        let isTemporary: Bool
-
-        func cleanup() {
-            guard isTemporary else { return }
-            try? FileManager.default.removeItem(at: url)
-        }
-    }
-
-    /// Unzips into a temp directory, or passes a folder through untouched.
-    private func stagedDirectory(for sourceURL: URL) throws -> Staging {
-        var isDirectory: ObjCBool = false
-        let exists = FileManager.default.fileExists(atPath: sourceURL.path, isDirectory: &isDirectory)
-
-        guard exists else { throw DubPackError.notAFolder }
-
-        if isDirectory.boolValue {
-            return Staging(url: sourceURL, isTemporary: false)
+            // The pack is installed and plays; without a manifest the library reads it again
+            // on the next launch, which is slower but correct.
+            CrashReporter.shared.record(error, context: "dub_pack.manifest_write", keys: ["pack_title": pack.title])
         }
 
-        guard sourceURL.pathExtension.lowercased() == "zip" else {
-            throw DubPackError.notAFolder
-        }
-
-        let unzipped = FileManager.default.temporaryDirectory
-            .appendingPathComponent("dubpack-\(UUID().uuidString)", isDirectory: true)
-
-        do {
-            try FileManager.default.createDirectory(at: unzipped, withIntermediateDirectories: true)
-            try FileManager.default.unzipItem(at: sourceURL, to: unzipped)
-        } catch {
-            try? FileManager.default.removeItem(at: unzipped)
-            throw DubPackError.unreadableArchive(error)
-        }
-
-        return Staging(url: unzipped, isTemporary: true)
-    }
-
-    /// Handles both zip layouts: files at the archive root, and a single wrapping folder
-    /// (which is what most desktop "compress this folder" commands produce).
-    private func locatePackRoot(in directory: URL) throws -> URL {
-        let fileManager = FileManager.default
-
-        if fileManager.fileExists(atPath: directory.appendingPathComponent(DubPackParser.packInfoFilename).path) {
-            return directory
-        }
-
-        let children = (try? fileManager.contentsOfDirectory(
-            at: directory,
-            includingPropertiesForKeys: [.isDirectoryKey],
-            options: [.skipsHiddenFiles]
-        )) ?? []
-
-        for child in children {
-            let isDirectory = (try? child.resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory ?? false
-            guard isDirectory, child.lastPathComponent != "__MACOSX" else { continue }
-
-            if fileManager.fileExists(atPath: child.appendingPathComponent(DubPackParser.packInfoFilename).path) {
-                return child
-            }
-        }
-
-        throw DubPackError.missingPackInfo
-    }
-
-    // MARK: - Install
-
-    /// Copies the pack into DubPacks/ and returns the folder name it landed under.
-    /// Re-importing the same pack replaces the previous copy rather than accumulating.
-    private func install(_ packRoot: URL, preferredName: String) throws -> String {
-        let fileManager = FileManager.default
-        let folderName = sanitize(preferredName.nilIfEmpty ?? packRoot.lastPathComponent)
-        let destination = AudioFileManager.shared.dubPacksDirectory()
-            .appendingPathComponent(folderName, isDirectory: true)
-
-        if fileManager.fileExists(atPath: destination.path) {
-            try fileManager.removeItem(at: destination)
-        }
-
-        try fileManager.createDirectory(at: destination, withIntermediateDirectories: true)
-
-        // Copy the pack's own files only: no nested directories exist in this format, and
-        // skipping them keeps a stray __MACOSX or thumbnail folder out of the install.
-        let contents = try fileManager.contentsOfDirectory(
-            at: packRoot,
-            includingPropertiesForKeys: [.isDirectoryKey],
-            options: [.skipsHiddenFiles]
-        )
-
-        for item in contents {
-            let isDirectory = (try? item.resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory ?? false
-            guard !isDirectory, !Self.skippedExtensions.contains(item.pathExtension.lowercased()) else { continue }
-            try fileManager.copyItem(at: item, to: destination.appendingPathComponent(item.lastPathComponent))
-        }
-
-        return folderName
-    }
-
-    /// Ogg containers a pack may ship its scene in. AVFoundation cannot decode Theora, so
-    /// these are converted to H.264 during import and then deleted.
-    static let theoraExtensions: Set<String> = ["ogv", "ogg"]
-
-    /// Nothing is skipped at copy time any more: the Theora video has to land in the pack
-    /// directory so it can be converted, and it is removed once it has been.
-    private static let skippedExtensions: Set<String> = []
-
-    private func sanitize(_ name: String) -> String {
-        let illegal = CharacterSet(charactersIn: "/\\:*?\"<>|")
-        let cleaned = name
-            .components(separatedBy: illegal)
-            .joined(separator: "-")
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-        return cleaned.nilIfEmpty ?? "DubPack"
+        return pack
     }
 }

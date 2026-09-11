@@ -178,9 +178,13 @@
 "dub.export.rendering" = "Renderöidään videota…";
 "dub.error.missingPackInfo" = "Tuo kansio ei ole dubbauspaketti: siellä ei ole _pack_info.ini-tiedostoa.";
 "dub.error.noLines" = "Tässä paketissa ei ole yhtäkään kelvollista repliikkiä.";
-"dub.error.missingAsset" = "Paketista puuttuu tiedosto, jota se tarvitsee: %@";
-"dub.error.notAFolder" = "Valitse pakettikansio tai .zip-arkisto.";
+"dub.error.notAFolder" = "Valitse pakettikansio tai .zip- tai .7z-arkisto.";
 "dub.error.unreadableArchive" = "Tuo arkisto ei suostunut aukeamaan: %@";
+"dub.error.unsupportedArchive" = "Dubloon ei osaa avata .%@-arkistoja. Tallenna paketti uudelleen .zip- tai .7z-muodossa.";
+"dub.error.archiveEncrypted" = "Arkisto on suojattu salasanalla. Pyydä tekijältä kopio ilman salasanaa.";
+"dub.error.archiveUnsupported" = "Arkisto käyttää pakkausta, jota Dubloon ei osaa purkaa. Kokeile tallentaa se uudelleen .zip-muodossa.";
+"dub.error.archiveCorrupt" = "Arkisto on vioittunut tai sen lataus jäi kesken.";
+"dub.error.archiveTooLarge" = "Arkisto on liian iso purettavaksi tällä laitteella. Kokeile .zip-tiedostoa.";
 "dub.error.nothingRecorded" = "Dubbaa vähintään yksi repliikki ennen vientiä.";
 "dub.error.exportFailed" = "Vienti epäonnistui: %@";
 "dub.playTake" = "Kuuntele otoksesi";

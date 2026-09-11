@@ -26,7 +26,9 @@ import FirebaseCrashlytics
 /// work was on. A transcode runs on a detached task and a starter-pack install is nonisolated,
 /// so a main-actor reporter would either not compile against them or, worse, hop actors and
 /// report after the state it was describing had already moved on.
-nonisolated final class CrashReporter {
+///
+/// `Sendable` because it holds no state of its own: every call goes straight to Crashlytics.
+nonisolated final class CrashReporter: Sendable {
     static let shared = CrashReporter()
 
     private init() {}

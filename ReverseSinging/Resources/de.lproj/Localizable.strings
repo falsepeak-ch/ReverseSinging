@@ -178,9 +178,13 @@
 "dub.export.rendering" = "Video wird gerendert…";
 "dub.error.missingPackInfo" = "Dieser Ordner ist kein Dub-Pack. Es liegt keine _pack_info.ini darin.";
 "dub.error.noLines" = "In diesem Pack steckt keine einzige brauchbare Zeile.";
-"dub.error.missingAsset" = "Dem Pack fehlt eine Datei, die es braucht: %@";
-"dub.error.notAFolder" = "Wähl einen Pack-Ordner oder ein .zip-Archiv.";
+"dub.error.notAFolder" = "Wähl einen Pack-Ordner oder ein .zip- oder .7z-Archiv.";
 "dub.error.unreadableArchive" = "Dieses Archiv wollte sich nicht öffnen lassen: %@";
+"dub.error.unsupportedArchive" = "Dubloon kann keine .%@-Archive öffnen. Speicher den Pack noch mal als .zip oder .7z.";
+"dub.error.archiveEncrypted" = "Das Archiv ist passwortgeschützt. Bitte den Ersteller um eine Kopie ohne Passwort.";
+"dub.error.archiveUnsupported" = "Das Archiv nutzt eine Komprimierung, die Dubloon nicht entpacken kann. Speicher es noch mal als .zip.";
+"dub.error.archiveCorrupt" = "Das Archiv ist beschädigt oder wurde nicht fertig heruntergeladen.";
+"dub.error.archiveTooLarge" = "Das Archiv ist zu groß, um es auf diesem Gerät zu entpacken. Versuch es mit einer .zip.";
 "dub.error.nothingRecorded" = "Synchronisiere mindestens eine Zeile, bevor du exportierst.";
 "dub.error.exportFailed" = "Export fehlgeschlagen: %@";
 "dub.playTake" = "Deinen Take anhören";

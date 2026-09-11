@@ -64,7 +64,6 @@ struct DubLibraryView: View {
                     packList
                 }
             }
-            .ignoresSafeArea(edges: .top)
 
             if library.isImporting {
                 ProcessingIndicator(
@@ -78,9 +77,12 @@ struct DubLibraryView: View {
         // Beyond the starter scenes the app hosts nothing, so every import is the
         // moment to ask where the user's own came from.
         .dubContentGate(isPresented: $showContentGate) { showFileImporter = true }
+        // Every archive kind is pickable, not only the ones the importer can open: a file
+        // the picker greys out tells the user nothing, whereas picking a .rar gets them the
+        // alert that says to re-save it as a .zip or .7z.
         .fileImporter(
             isPresented: $showFileImporter,
-            allowedContentTypes: [.folder, .zip],
+            allowedContentTypes: [.folder, .zip, .sevenZipArchive, .archive],
             allowsMultipleSelection: false
         ) { result in
             handleImport(result)

@@ -178,9 +178,13 @@
 "dub.export.rendering" = "Video işleniyor…";
 "dub.error.missingPackInfo" = "Bu klasör bir seslendirme paketi değil: içinde _pack_info.ini yok.";
 "dub.error.noLines" = "Bu pakette kullanılabilir tek bir replik bile yok.";
-"dub.error.missingAsset" = "Pakette ihtiyaç duyduğu bir dosya eksik: %@";
-"dub.error.notAFolder" = "Bir paket klasörü ya da .zip arşivi seç.";
+"dub.error.notAFolder" = "Bir paket klasörü ya da .zip veya .7z arşivi seç.";
 "dub.error.unreadableArchive" = "O arşiv açılmadı: %@";
+"dub.error.unsupportedArchive" = "Dubloon .%@ arşivlerini açamıyor. Paketi .zip ya da .7z olarak yeniden kaydet.";
+"dub.error.archiveEncrypted" = "Arşiv parola korumalı. Yapımcısından parolasız bir kopya iste.";
+"dub.error.archiveUnsupported" = "Arşiv, Dubloon'un açamadığı bir sıkıştırma yöntemi kullanıyor. .zip olarak yeniden kaydetmeyi dene.";
+"dub.error.archiveCorrupt" = "Arşiv bozuk ya da indirme tamamlanmamış.";
+"dub.error.archiveTooLarge" = "Arşiv bu cihazda açılamayacak kadar büyük. Bunun yerine bir .zip dene.";
 "dub.error.nothingRecorded" = "Dışa aktarmadan önce en az bir repliği seslendir.";
 "dub.error.exportFailed" = "Dışa aktarma başarısız oldu: %@";
 "dub.playTake" = "Kendi çekimini dinle";

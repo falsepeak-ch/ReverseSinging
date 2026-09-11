@@ -178,9 +178,13 @@
 "dub.export.rendering" = "معالجة الفيديو…";
 "dub.error.missingPackInfo" = "هذا المجلد ليس حزمة دبلجة: لا يوجد بداخله ملف ‎_pack_info.ini.";
 "dub.error.noLines" = "لا توجد في هذه الحزمة جملة واحدة صالحة.";
-"dub.error.missingAsset" = "تنقص الحزمة ملفاً تحتاجه: %@";
-"dub.error.notAFolder" = "اختر مجلد حزمة أو أرشيف ‎.zip.";
+"dub.error.notAFolder" = "اختر مجلد حزمة أو أرشيف ‎.zip أو ‎.7z.";
 "dub.error.unreadableArchive" = "هذا الأرشيف رفض أن يُفتح: %@";
+"dub.error.unsupportedArchive" = "لا يستطيع Dubloon فتح أرشيفات ‎.%@. احفظ الحزمة من جديد بصيغة ‎.zip أو ‎.7z.";
+"dub.error.archiveEncrypted" = "الأرشيف محمي بكلمة مرور. اطلب من صاحبه نسخة بلا كلمة مرور.";
+"dub.error.archiveUnsupported" = "الأرشيف يستخدم طريقة ضغط لا يستطيع Dubloon فكّها. جرّب حفظه من جديد بصيغة ‎.zip.";
+"dub.error.archiveCorrupt" = "الأرشيف تالف أو لم يكتمل تنزيله.";
+"dub.error.archiveTooLarge" = "الأرشيف أكبر من أن يُفكّ على هذا الجهاز. جرّب ملف ‎.zip بدلاً منه.";
 "dub.error.nothingRecorded" = "دبلج جملة واحدة على الأقل قبل التصدير.";
 "dub.error.exportFailed" = "فشل التصدير: %@";
 "dub.playTake" = "استمع إلى محاولتك";

@@ -178,9 +178,13 @@
 "dub.export.rendering" = "Рендерим видео…";
 "dub.error.missingPackInfo" = "Эта папка — не пак для озвучки: внутри нет файла _pack_info.ini.";
 "dub.error.noLines" = "В этом паке нет ни одной пригодной реплики.";
-"dub.error.missingAsset" = "Паку не хватает нужного файла: %@";
-"dub.error.notAFolder" = "Выбери папку пака или архив .zip.";
+"dub.error.notAFolder" = "Выбери папку пака или архив .zip или .7z.";
 "dub.error.unreadableArchive" = "Этот архив не открылся: %@";
+"dub.error.unsupportedArchive" = "Dubloon не умеет открывать архивы .%@. Пересохрани пак как .zip или .7z.";
+"dub.error.archiveEncrypted" = "Архив защищён паролем. Попроси у автора копию без пароля.";
+"dub.error.archiveUnsupported" = "Архив сжат методом, который Dubloon не умеет распаковывать. Попробуй пересохранить его как .zip.";
+"dub.error.archiveCorrupt" = "Архив повреждён или скачался не до конца.";
+"dub.error.archiveTooLarge" = "Архив слишком большой, чтобы распаковать его на этом устройстве. Попробуй .zip.";
 "dub.error.nothingRecorded" = "Озвучь хотя бы одну реплику перед экспортом.";
 "dub.error.exportFailed" = "Экспорт не удался: %@";
 "dub.playTake" = "Послушать свой дубль";

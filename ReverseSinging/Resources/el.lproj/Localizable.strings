@@ -178,9 +178,13 @@
 "dub.export.rendering" = "Απόδοση βίντεο…";
 "dub.error.missingPackInfo" = "Αυτός ο φάκελος δεν είναι πακέτο μεταγλώττισης: δεν έχει μέσα _pack_info.ini.";
 "dub.error.noLines" = "Σε αυτό το πακέτο δεν υπάρχει ούτε μία χρησιμοποιήσιμη ατάκα.";
-"dub.error.missingAsset" = "Στο πακέτο λείπει ένα αρχείο που χρειάζεται: %@";
-"dub.error.notAFolder" = "Διάλεξε φάκελο πακέτου ή αρχείο .zip.";
+"dub.error.notAFolder" = "Διάλεξε φάκελο πακέτου ή αρχείο .zip ή .7z.";
 "dub.error.unreadableArchive" = "Αυτό το αρχείο δεν άνοιξε: %@";
+"dub.error.unsupportedArchive" = "Το Dubloon δεν ανοίγει αρχεία .%@. Αποθήκευσε ξανά το πακέτο ως .zip ή .7z.";
+"dub.error.archiveEncrypted" = "Το αρχείο προστατεύεται με κωδικό. Ζήτα από τον δημιουργό ένα αντίγραφο χωρίς κωδικό.";
+"dub.error.archiveUnsupported" = "Το αρχείο χρησιμοποιεί μια συμπίεση που το Dubloon δεν μπορεί να αποσυμπιέσει. Δοκίμασε να το αποθηκεύσεις ξανά ως .zip.";
+"dub.error.archiveCorrupt" = "Το αρχείο είναι κατεστραμμένο ή δεν κατέβηκε ολόκληρο.";
+"dub.error.archiveTooLarge" = "Το αρχείο είναι πολύ μεγάλο για αποσυμπίεση σε αυτή τη συσκευή. Δοκίμασε ένα .zip.";
 "dub.error.nothingRecorded" = "Μεταγλώττισε τουλάχιστον μία ατάκα πριν την εξαγωγή.";
 "dub.error.exportFailed" = "Η εξαγωγή απέτυχε: %@";
 "dub.playTake" = "Άκου τη λήψη σου";

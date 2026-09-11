@@ -178,9 +178,13 @@
 "dub.export.rendering" = "Rendering del video…";
 "dub.error.missingPackInfo" = "Quella cartella non è un pack di doppiaggio: dentro non c'è nessun _pack_info.ini.";
 "dub.error.noLines" = "In questo pack non c'è una sola battuta utilizzabile.";
-"dub.error.missingAsset" = "Al pack manca un file che gli serve: %@";
-"dub.error.notAFolder" = "Scegli una cartella pack o un archivio .zip.";
+"dub.error.notAFolder" = "Scegli una cartella pack, o un archivio .zip o .7z.";
 "dub.error.unreadableArchive" = "Quell'archivio non si è fatto aprire: %@";
+"dub.error.unsupportedArchive" = "Dubloon non riesce ad aprire archivi .%@. Salva di nuovo il pack come .zip o .7z.";
+"dub.error.archiveEncrypted" = "L'archivio è protetto da password. Chiedi a chi l'ha creato una copia senza password.";
+"dub.error.archiveUnsupported" = "L'archivio usa una compressione che Dubloon non riesce a estrarre. Prova a salvarlo di nuovo come .zip.";
+"dub.error.archiveCorrupt" = "L'archivio è danneggiato o il download non è finito.";
+"dub.error.archiveTooLarge" = "L'archivio è troppo grande per essere estratto su questo dispositivo. Prova con uno .zip.";
 "dub.error.nothingRecorded" = "Doppia almeno una battuta prima di esportare.";
 "dub.error.exportFailed" = "Esportazione fallita: %@";
 "dub.playTake" = "Ascolta la tua presa";

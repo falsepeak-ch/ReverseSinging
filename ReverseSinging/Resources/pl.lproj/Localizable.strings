@@ -178,9 +178,13 @@
 "dub.export.rendering" = "Renderujemy wideo…";
 "dub.error.missingPackInfo" = "Ten folder to nie paczka dubbingowa: nie ma w nim pliku _pack_info.ini.";
 "dub.error.noLines" = "W tej paczce nie ma ani jednej użytecznej kwestii.";
-"dub.error.missingAsset" = "Paczce brakuje pliku, którego potrzebuje: %@";
-"dub.error.notAFolder" = "Wybierz folder paczki albo archiwum .zip.";
+"dub.error.notAFolder" = "Wybierz folder paczki albo archiwum .zip lub .7z.";
 "dub.error.unreadableArchive" = "To archiwum nie dało się otworzyć: %@";
+"dub.error.unsupportedArchive" = "Dubloon nie otwiera archiwów .%@. Zapisz paczkę ponownie jako .zip albo .7z.";
+"dub.error.archiveEncrypted" = "Archiwum jest chronione hasłem. Poproś autora o kopię bez hasła.";
+"dub.error.archiveUnsupported" = "Archiwum używa kompresji, której Dubloon nie potrafi rozpakować. Spróbuj zapisać je ponownie jako .zip.";
+"dub.error.archiveCorrupt" = "Archiwum jest uszkodzone albo nie pobrało się do końca.";
+"dub.error.archiveTooLarge" = "Archiwum jest za duże, żeby rozpakować je na tym urządzeniu. Spróbuj z .zip.";
 "dub.error.nothingRecorded" = "Zdubbinguj chociaż jedną kwestię przed eksportem.";
 "dub.error.exportFailed" = "Eksport się nie udał: %@";
 "dub.playTake" = "Odtwórz swoje podejście";

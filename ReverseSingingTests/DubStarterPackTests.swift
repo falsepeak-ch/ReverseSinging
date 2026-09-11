@@ -12,10 +12,9 @@ import AVFoundation
 
 /// Serialized, because every test in here installs a real pack.
 ///
-/// Installing writes to one shared `DubPacks` directory and one shared `UserDefaults` key,
-/// and `DubPackImporter.install` deletes any existing destination before copying, so two of
-/// these running at once race on the same folder and one of them imports into a directory the
-/// other just removed. It was survivable with two packs and stopped being so with three.
+/// Installing writes to one shared `DubPacks` directory and one shared `UserDefaults` key, and
+/// an install replaces any pack already there under the same name, so two of these running at
+/// once race on the same folder and on the record of what is installed.
 @Suite("Dub Starter Packs", .serialized)
 struct DubStarterPackTests {
 
@@ -118,8 +117,8 @@ struct DubStarterPackTests {
 
             let videoURL = try #require(pack.videoURL, "\(pack.title) ships no scene video")
             #expect(FileManager.default.fileExists(atPath: videoURL.path))
-            #expect(DubPackParser.hasReadableVideoTrack(at: videoURL),
-                    "\(pack.title)'s video has no track AVFoundation can decode")
+            let videoTracks = try await AVURLAsset(url: videoURL).loadTracks(withMediaType: .video)
+            #expect(!videoTracks.isEmpty, "\(pack.title)'s video has no track AVFoundation can decode")
 
             // Long enough to cover the whole scene. `DubMixer` clamps the exported audio to
             // the video's length, so a short video would crop the tail off every export.

@@ -178,9 +178,13 @@
 "dub.export.rendering" = "Renderujeme video…";
 "dub.error.missingPackInfo" = "Tahle složka není dabingový balíček: není v ní žádný _pack_info.ini.";
 "dub.error.noLines" = "V tomhle balíčku není ani jedna použitelná replika.";
-"dub.error.missingAsset" = "Balíčku chybí soubor, který potřebuje: %@";
-"dub.error.notAFolder" = "Vyber složku balíčku nebo archiv .zip.";
+"dub.error.notAFolder" = "Vyber složku balíčku nebo archiv .zip či .7z.";
 "dub.error.unreadableArchive" = "Tenhle archiv se nenechal otevřít: %@";
+"dub.error.unsupportedArchive" = "Dubloon neumí otevřít archivy .%@. Ulož balíček znovu jako .zip nebo .7z.";
+"dub.error.archiveEncrypted" = "Archiv je chráněný heslem. Požádej autora o kopii bez hesla.";
+"dub.error.archiveUnsupported" = "Archiv používá kompresi, kterou Dubloon neumí rozbalit. Zkus ho uložit znovu jako .zip.";
+"dub.error.archiveCorrupt" = "Archiv je poškozený nebo se nestáhl celý.";
+"dub.error.archiveTooLarge" = "Archiv je na rozbalení na tomhle zařízení moc velký. Zkus místo něj .zip.";
 "dub.error.nothingRecorded" = "Před exportem nadabuj aspoň jednu repliku.";
 "dub.error.exportFailed" = "Export selhal: %@";
 "dub.playTake" = "Přehrát tvůj pokus";

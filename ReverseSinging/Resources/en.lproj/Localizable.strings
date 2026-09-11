@@ -178,9 +178,13 @@
 "dub.export.rendering" = "Rendering video…";
 "dub.error.missingPackInfo" = "That folder isn't a dub pack. There's no _pack_info.ini in it.";
 "dub.error.noLines" = "There isn't a single usable line in this pack.";
-"dub.error.missingAsset" = "The pack is missing a file it needs: %@";
-"dub.error.notAFolder" = "Pick a dub pack folder or a .zip archive.";
+"dub.error.notAFolder" = "Pick a dub pack folder, or a .zip or .7z archive.";
 "dub.error.unreadableArchive" = "That archive wouldn't open: %@";
+"dub.error.unsupportedArchive" = "Dubloon can't open .%@ archives. Re-save the pack as a .zip or .7z.";
+"dub.error.archiveEncrypted" = "The archive is password-protected. Ask its creator for a copy without a password.";
+"dub.error.archiveUnsupported" = "The archive uses a compression method Dubloon can't unpack. Try re-saving it as a .zip.";
+"dub.error.archiveCorrupt" = "The archive is damaged or didn't finish downloading.";
+"dub.error.archiveTooLarge" = "The archive is too big to unpack on this device. Try a .zip instead.";
 "dub.error.nothingRecorded" = "Dub at least one line before you export.";
 "dub.error.exportFailed" = "Export failed: %@";
 "dub.playTake" = "Play your take";

@@ -178,9 +178,13 @@
 "dub.export.rendering" = "A renderizar o vídeo…";
 "dub.error.missingPackInfo" = "Essa pasta não é um pack de dobragem: não tem lá nenhum _pack_info.ini.";
 "dub.error.noLines" = "Este pack não tem uma única fala aproveitável.";
-"dub.error.missingAsset" = "Falta um ficheiro ao pack: %@";
-"dub.error.notAFolder" = "Escolhe uma pasta de pack ou um ficheiro .zip.";
+"dub.error.notAFolder" = "Escolhe uma pasta de pack, ou um ficheiro .zip ou .7z.";
 "dub.error.unreadableArchive" = "Esse ficheiro não se deixou abrir: %@";
+"dub.error.unsupportedArchive" = "O Dubloon não consegue abrir ficheiros .%@. Volta a guardar o pack como .zip ou .7z.";
+"dub.error.archiveEncrypted" = "O ficheiro está protegido por palavra-passe. Pede ao criador uma cópia sem palavra-passe.";
+"dub.error.archiveUnsupported" = "O ficheiro usa uma compressão que o Dubloon não consegue extrair. Tenta voltar a guardá-lo como .zip.";
+"dub.error.archiveCorrupt" = "O ficheiro está danificado ou a transferência não chegou ao fim.";
+"dub.error.archiveTooLarge" = "O ficheiro é demasiado grande para extrair neste dispositivo. Tenta antes um .zip.";
 "dub.error.nothingRecorded" = "Dobra pelo menos uma fala antes de exportares.";
 "dub.error.exportFailed" = "A exportação falhou: %@";
 "dub.playTake" = "Ouvir a tua gravação";

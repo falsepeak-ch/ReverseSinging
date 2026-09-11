@@ -178,9 +178,13 @@
 "dub.export.rendering" = "กำลังเรนเดอร์วิดีโอ…";
 "dub.error.missingPackInfo" = "โฟลเดอร์นั้นไม่ใช่แพ็กพากย์ ข้างในไม่มีไฟล์ _pack_info.ini";
 "dub.error.noLines" = "แพ็กนี้ไม่มีบทพูดที่ใช้ได้แม้แต่บทเดียว";
-"dub.error.missingAsset" = "แพ็กขาดไฟล์ที่ต้องใช้: %@";
-"dub.error.notAFolder" = "เลือกโฟลเดอร์แพ็กหรือไฟล์ .zip";
+"dub.error.notAFolder" = "เลือกโฟลเดอร์แพ็ก หรือไฟล์ .zip หรือ .7z";
 "dub.error.unreadableArchive" = "ไฟล์บีบอัดนั้นเปิดไม่ได้: %@";
+"dub.error.unsupportedArchive" = "Dubloon เปิดไฟล์ .%@ ไม่ได้ ลองบันทึกแพ็กใหม่เป็น .zip หรือ .7z";
+"dub.error.archiveEncrypted" = "ไฟล์นี้ใส่รหัสผ่านไว้ ลองขอผู้สร้างให้ส่งเวอร์ชันที่ไม่มีรหัสผ่าน";
+"dub.error.archiveUnsupported" = "ไฟล์นี้ใช้วิธีบีบอัดที่ Dubloon แตกไฟล์ไม่ได้ ลองบันทึกใหม่เป็น .zip";
+"dub.error.archiveCorrupt" = "ไฟล์นี้เสียหายหรือดาวน์โหลดไม่เสร็จ";
+"dub.error.archiveTooLarge" = "ไฟล์นี้ใหญ่เกินกว่าจะแตกไฟล์บนเครื่องนี้ได้ ลองใช้ .zip แทน";
 "dub.error.nothingRecorded" = "พากย์อย่างน้อยหนึ่งบทก่อนส่งออก";
 "dub.error.exportFailed" = "ส่งออกไม่สำเร็จ: %@";
 "dub.playTake" = "ฟังเทคของคุณ";

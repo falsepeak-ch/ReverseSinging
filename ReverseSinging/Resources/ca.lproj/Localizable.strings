@@ -178,9 +178,13 @@
 "dub.export.rendering" = "Renderitzant el vídeo…";
 "dub.error.missingPackInfo" = "Aquesta carpeta no és un pack de doblatge: no hi ha cap _pack_info.ini a dins.";
 "dub.error.noLines" = "Aquest pack no té ni una sola frase aprofitable.";
-"dub.error.missingAsset" = "Al pack li falta un fitxer que necessita: %@";
-"dub.error.notAFolder" = "Tria una carpeta de pack o un fitxer .zip.";
+"dub.error.notAFolder" = "Tria una carpeta de pack, o un fitxer .zip o .7z.";
 "dub.error.unreadableArchive" = "Aquest arxiu no s'ha deixat obrir: %@";
+"dub.error.unsupportedArchive" = "El Dubloon no pot obrir fitxers .%@. Torna a desar el pack com a .zip o .7z.";
+"dub.error.archiveEncrypted" = "El fitxer està protegit amb contrasenya. Demana-li al creador una còpia sense contrasenya.";
+"dub.error.archiveUnsupported" = "El fitxer fa servir un mètode de compressió que el Dubloon no pot desempaquetar. Prova de tornar-lo a desar com a .zip.";
+"dub.error.archiveCorrupt" = "El fitxer està malmès o no s'ha acabat de baixar.";
+"dub.error.archiveTooLarge" = "El fitxer és massa gran per desempaquetar-lo en aquest dispositiu. Prova amb un .zip.";
 "dub.error.nothingRecorded" = "Dobla almenys una frase abans d'exportar.";
 "dub.error.exportFailed" = "L'exportació ha fallat: %@";
 "dub.playTake" = "Escoltar la teva presa";

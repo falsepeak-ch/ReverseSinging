@@ -132,3 +132,6 @@ fastlane/screenshots/**/*.mp4
 fastlane/live/
 fastlane/live/
 vendor/bundle/
+
+# Local packages: Xcode and SwiftPM generate this when a package is opened or tested on its own
+Packages/DubPackKit/.swiftpm/

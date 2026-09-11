@@ -8,6 +8,7 @@
 import Testing
 import Foundation
 import AVFoundation
+import DubPackKit
 @testable import ReverseSinging
 
 private final class ScenePictureBundleToken {}

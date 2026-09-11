@@ -178,9 +178,13 @@
 "dub.export.rendering" = "映像をレンダリング中…";
 "dub.error.missingPackInfo" = "そのフォルダはアフレコパックではありません。中に_pack_info.iniがありません。";
 "dub.error.noLines" = "このパックには使えるセリフが1本もありません。";
-"dub.error.missingAsset" = "パックに必要なファイルが足りません: %@";
-"dub.error.notAFolder" = "パックのフォルダか.zipを選んでください。";
+"dub.error.notAFolder" = "パックのフォルダか、.zip または .7z を選んでください。";
 "dub.error.unreadableArchive" = "そのアーカイブは開けませんでした: %@";
+"dub.error.unsupportedArchive" = "Dubloon は .%@ のアーカイブを開けません。パックを .zip か .7z で保存し直してください。";
+"dub.error.archiveEncrypted" = "このアーカイブはパスワードで保護されています。作者にパスワードなしの版をもらってください。";
+"dub.error.archiveUnsupported" = "このアーカイブは Dubloon が展開できない圧縮方式を使っています。.zip で保存し直してみてください。";
+"dub.error.archiveCorrupt" = "このアーカイブは壊れているか、ダウンロードが途中で終わっています。";
+"dub.error.archiveTooLarge" = "このアーカイブは大きすぎて、この端末では展開できません。代わりに .zip を試してください。";
 "dub.error.nothingRecorded" = "書き出す前に、せめて1本アフレコを。";
 "dub.error.exportFailed" = "書き出しに失敗しました: %@";
 "dub.playTake" = "自分のテイクを聴く";

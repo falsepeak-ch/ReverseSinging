@@ -28,7 +28,7 @@ import Foundation
 ///   far it goes, is written down in `Local/Tools/DubPacks/PD_SHORTLIST.md` (not tracked, see `.gitignore`).
 ///
 /// Either way the pack states its own provenance: `build_clip_pack.py` writes `source`,
-/// `source_url` and `rights` into `_pack_info.ini`, `DubPackParser` reads them, and both the
+/// `source_url` and `rights` into `_pack_info.ini`, DubPackKit reads them, and both the
 /// pack detail screen and the notice before every export print them. For *Camp Rules* that is
 /// the licence condition being discharged, not decoration.
 ///

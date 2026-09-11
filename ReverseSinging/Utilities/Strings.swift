@@ -383,9 +383,13 @@ nonisolated enum Strings {
         enum Error {
             static let missingPackInfo = NSLocalizedString("dub.error.missingPackInfo", comment: "Pack info file missing")
             static let noLines = NSLocalizedString("dub.error.noLines", comment: "No usable lines in pack")
-            static let missingAsset = NSLocalizedString("dub.error.missingAsset", comment: "Referenced asset missing, takes a filename")
             static let notAFolder = NSLocalizedString("dub.error.notAFolder", comment: "Selected item is not a pack")
             static let unreadableArchive = NSLocalizedString("dub.error.unreadableArchive", comment: "Zip could not be read, takes an error message")
+            static let unsupportedArchive = NSLocalizedString("dub.error.unsupportedArchive", comment: "Archive format the app cannot open, takes the file extension")
+            static let archiveEncrypted = NSLocalizedString("dub.error.archiveEncrypted", comment: "7z archive is password protected")
+            static let archiveUnsupported = NSLocalizedString("dub.error.archiveUnsupported", comment: "7z archive uses a compression method the decoder lacks")
+            static let archiveCorrupt = NSLocalizedString("dub.error.archiveCorrupt", comment: "Archive is damaged or truncated")
+            static let archiveTooLarge = NSLocalizedString("dub.error.archiveTooLarge", comment: "Archive block too big to decode in memory")
             static let nothingRecorded = NSLocalizedString("dub.error.nothingRecorded", comment: "Export attempted with no takes")
             static let exportFailed = NSLocalizedString("dub.error.exportFailed", comment: "Export failed, takes an error message")
         }

@@ -178,9 +178,13 @@
 "dub.export.rendering" = "Rendrer videoen…";
 "dub.error.missingPackInfo" = "Den mappa er ikke en dubbpakke: det ligger ingen _pack_info.ini i den.";
 "dub.error.noLines" = "Det finnes ikke én eneste brukbar replikk i pakken.";
-"dub.error.missingAsset" = "Pakken mangler en fil den trenger: %@";
-"dub.error.notAFolder" = "Velg en pakkemappe eller et .zip-arkiv.";
+"dub.error.notAFolder" = "Velg en pakkemappe eller et .zip- eller .7z-arkiv.";
 "dub.error.unreadableArchive" = "Det arkivet nektet å åpne seg: %@";
+"dub.error.unsupportedArchive" = "Dubloon kan ikke åpne .%@-arkiver. Lagre pakken på nytt som .zip eller .7z.";
+"dub.error.archiveEncrypted" = "Arkivet er passordbeskyttet. Be den som laget det om en kopi uten passord.";
+"dub.error.archiveUnsupported" = "Arkivet bruker en komprimering Dubloon ikke kan pakke ut. Prøv å lagre det på nytt som .zip.";
+"dub.error.archiveCorrupt" = "Arkivet er skadet eller ble ikke lastet ned ferdig.";
+"dub.error.archiveTooLarge" = "Arkivet er for stort til å pakkes ut på denne enheten. Prøv en .zip i stedet.";
 "dub.error.nothingRecorded" = "Dubb minst én replikk før du eksporterer.";
 "dub.error.exportFailed" = "Eksporten mislyktes: %@";
 "dub.playTake" = "Spill av opptaket ditt";
