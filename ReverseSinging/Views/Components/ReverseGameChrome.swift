@@ -80,7 +80,6 @@ struct ReverseGameHeader: View {
 
             Spacer()
         }
-        .ignoresSafeArea(edges: .top)
     }
 
     /// This game's own settings, in the same shape the dub library uses.

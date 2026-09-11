@@ -285,7 +285,7 @@ struct OnboardingPageView: View {
                     VStack(spacing: 16) {
                         // Title
                         Text(page.title)
-                            .font(.rsDisplay(titleSize(for: geometry.size.height), relativeTo: .largeTitle))
+                            .font(.rsDisplay(titleSize(for: geometry.size.height)))
                             .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
                             .multilineTextAlignment(.center)
                             .lineLimit(3)

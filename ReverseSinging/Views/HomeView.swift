@@ -157,7 +157,7 @@ struct HomeView: View {
 
     private var menu: some View {
         VStack(spacing: 0) {
-            Spacer().frame(height: 96)
+            Spacer().frame(height: EditorMetrics.headerBarHeight)
 
             VStack(alignment: .leading, spacing: 10) {
                 EditorSectionHeader(title: Strings.Main.Mode.section)
@@ -177,41 +177,31 @@ struct HomeView: View {
 
     private var header: some View {
         VStack(spacing: 0) {
-            VStack(spacing: 0) {
-                Spacer(minLength: 0)
+            EditorHeaderBar {
+                Image("icon-lettering")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 40)
 
-                HStack(spacing: 10) {
-                    Image("icon-lettering")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 40)
+                Spacer()
 
-                    Spacer()
-
-                    if let daysRemaining = access.trialDaysRemaining {
-                        TrialBadge(daysRemaining: daysRemaining) {
-                            isPaywallPresented = true
-                        }
-                        .transition(.scale.combined(with: .opacity))
+                if let daysRemaining = access.trialDaysRemaining {
+                    TrialBadge(daysRemaining: daysRemaining) {
+                        isPaywallPresented = true
                     }
-
-                    EditorToolbarButton(
-                        icon: "slider.horizontal.3",
-                        label: Strings.Settings.title
-                    ) {
-                        viewModel.showSettings = true
-                    }
+                    .transition(.scale.combined(with: .opacity))
                 }
-                .padding(.horizontal, EditorMetrics.gutter)
-                .padding(.bottom, 10)
+
+                EditorToolbarButton(
+                    icon: "slider.horizontal.3",
+                    label: Strings.Settings.title
+                ) {
+                    viewModel.showSettings = true
+                }
             }
-            .frame(height: 96)
-            .background(Color.rsSurface1)
-            .overlay(alignment: .bottom) { EditorRule() }
 
             Spacer()
         }
-        .ignoresSafeArea(edges: .top)
     }
 }
 

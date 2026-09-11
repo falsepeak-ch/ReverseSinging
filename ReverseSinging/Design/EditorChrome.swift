@@ -19,8 +19,9 @@ enum EditorMetrics {
     static let gutter: CGFloat = 16
     /// Letter-spacing for uppercase section labels.
     static let tracking: CGFloat = 1.2
-    /// Screen header, status bar included. Content below it clears this much.
-    static let headerHeight: CGFloat = 96
+    /// The screen header's bar, measured below the status bar. Its fill runs up under the
+    /// status bar on its own, so content laid out from the top safe area clears this much.
+    static let headerBarHeight: CGFloat = 64
 }
 
 // MARK: - Panels
@@ -316,46 +317,59 @@ private extension Image {
     }
 }
 
+// MARK: - Header Bar
+
+/// The strip every header is built on: a row of controls below the status bar, with the
+/// panel fill running up under the status bar behind it.
+///
+/// It sits inside the safe area rather than taking a fixed height that includes the status
+/// bar. That fixed height left a Dynamic Island phone about 37pt for 38pt controls, so the
+/// row pressed up against the clock. Callers place it at the top of the safe area.
+struct EditorHeaderBar<Content: View>: View {
+    @ViewBuilder var content: Content
+
+    var body: some View {
+        HStack(spacing: 10) {
+            content
+        }
+        .padding(.horizontal, EditorMetrics.gutter)
+        .frame(maxWidth: .infinity)
+        .frame(height: EditorMetrics.headerBarHeight)
+        .background(Color.rsSurface1.ignoresSafeArea(edges: .top))
+        .overlay(alignment: .bottom) { EditorRule() }
+    }
+}
+
 // MARK: - Screen Header
 
 /// The bar at the top of a pushed screen: back, the screen's own title, its actions.
 ///
 /// Pushed screens name themselves rather than repeat the app logo, the branding
 /// belongs to the menu the user came from, and a title is what tells them which
-/// game they are in. Sized to swallow the status bar, so callers place it at the
-/// top of a stack that ignores the top safe area.
+/// game they are in.
 struct EditorScreenHeader<Trailing: View>: View {
     let title: String
     let onBack: () -> Void
     @ViewBuilder var trailing: Trailing
 
     var body: some View {
-        VStack(spacing: 0) {
-            Spacer(minLength: 0)
+        EditorHeaderBar {
+            EditorToolbarButton(
+                icon: "chevron.left",
+                label: Strings.Main.back,
+                action: onBack
+            )
 
-            HStack(spacing: 10) {
-                EditorToolbarButton(
-                    icon: "chevron.left",
-                    label: Strings.Main.back,
-                    action: onBack
-                )
+            Text(title)
+                .font(.rsHeadingSmall)
+                .foregroundColor(.rsTextPrimary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
 
-                Text(title)
-                    .font(.rsHeadingSmall)
-                    .foregroundColor(.rsTextPrimary)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.7)
+            Spacer(minLength: 8)
 
-                Spacer(minLength: 8)
-
-                trailing
-            }
-            .padding(.horizontal, EditorMetrics.gutter)
-            .padding(.bottom, 10)
+            trailing
         }
-        .frame(height: EditorMetrics.headerHeight)
-        .background(Color.rsSurface1)
-        .overlay(alignment: .bottom) { EditorRule() }
     }
 }
 

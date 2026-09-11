@@ -58,7 +58,7 @@ struct MainViewPremium: View {
             VStack(spacing: 0) {
                 // Top spacer for fixed header
                 Color.clear
-                    .frame(height: 100)
+                    .frame(height: EditorMetrics.headerBarHeight + 20)
 
                 // Waveform visualization (hidden when playing)
                 if shouldShowWaveform {

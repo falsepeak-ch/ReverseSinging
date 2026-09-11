@@ -82,7 +82,7 @@ struct SessionListView: View {
                 .scaleIn(delay: 0.1)
 
             Text(Strings.SessionList.Empty.title)
-                .font(.rsDisplay(32, relativeTo: .title))
+                .font(.rsDisplay(32))
                 .foregroundColor(Color.rsTextAdaptive(for: effectiveColorScheme))
                 .fadeIn(delay: 0.2)
 
