@@ -11,8 +11,12 @@ import SwiftUI
 /// navigation stack they are pushed onto, so each game is a level deeper rather
 /// than something hidden behind a toolbar glyph.
 struct HomeView: View {
-    @EnvironmentObject var viewModel: AudioViewModel
+    @EnvironmentObject var viewModel: AppViewModel
     @State private var path: [GameMode] = []
+
+    /// The reverse game's model. Held by the menu rather than by the game screen, so a
+    /// session in progress survives going back to the menu and in again.
+    @StateObject private var game = AudioViewModel()
 
     /// The counter lives here because this is the screen every session starts on,
     /// and it is the only place in the app that mentions the trial unprompted.
@@ -71,7 +75,7 @@ struct HomeView: View {
             presentEarlyAdopterWelcomeIfDue()
         }
         .onAppear {
-            viewModel.checkPermissionStatus()
+            game.checkPermissionStatus()
             AnalyticsManager.shared.trackScreenViewed(screenName: "Home")
             presentBoothAnnouncementIfDue()
             #if DEBUG
@@ -125,7 +129,7 @@ struct HomeView: View {
         if destination.opensDubGame {
             path = [.dub]
         } else if destination.opensReverseGame {
-            ScreenshotMode.seedReverseSession(into: &viewModel.appState)
+            ScreenshotMode.seedReverseSession(into: &game.appState)
             path = [.reverse]
         } else if destination.opensSettings {
             viewModel.showSettings = true
@@ -141,12 +145,12 @@ struct HomeView: View {
         case .reverse:
             // The interface preference chooses how reverse singing looks. It is a
             // setting on this one game, not a separate game.
-            if viewModel.appState.uiMode == .simple {
+            if viewModel.uiMode == .simple {
                 MainViewSimple()
-                    .environmentObject(viewModel)
+                    .environmentObject(game)
             } else {
                 MainViewPremium()
-                    .environmentObject(viewModel)
+                    .environmentObject(game)
             }
         case .dub:
             DubLibraryView(pendingImportURL: $viewModel.pendingDubImportURL, isPushed: true)
@@ -207,6 +211,6 @@ struct HomeView: View {
 
 #Preview {
     HomeView()
-        .environmentObject(AudioViewModel())
+        .environmentObject(AppViewModel())
         .preferredColorScheme(.dark)
 }

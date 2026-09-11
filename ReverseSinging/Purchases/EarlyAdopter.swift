@@ -47,11 +47,11 @@ struct EarlyAdopter {
     /// A false negative here charges a loyal user, so the test is deliberately
     /// generous.
     private static let usageMarkers = [
-        "hasCompletedOnboarding",       // AudioViewModel, set on finishing onboarding
+        "hasCompletedOnboarding",       // AppViewModel, set on finishing onboarding
         "review.appOpenCount",          // ReviewPrompt, incremented on every open
         "dub.starterPacksInstalled",    // DubStarterPacks, written on first dub library open
         "savedSessions",                // AudioViewModel, any saved reverse-singing session
-        "uiMode"                        // AudioViewModel, written when the interface is chosen
+        "uiMode"                        // AppViewModel, written when the interface is chosen
     ]
 
     private let defaults: UserDefaults
@@ -76,7 +76,7 @@ struct EarlyAdopter {
     /// launch, before anything else this build writes.
     ///
     /// Order matters more than it looks: `ReviewPrompt` bumps its open counter and
-    /// `AudioViewModel` writes `hasCompletedOnboarding` as soon as the first screen
+    /// `AppViewModel` writes `hasCompletedOnboarding` as soon as the first screen
     /// appears, so this has to run in `didFinishLaunching`, ahead of both.
     func resolveFromLocalUsage() {
         LaunchDecision(key: Key.decided, defaults: defaults).makeOnce {

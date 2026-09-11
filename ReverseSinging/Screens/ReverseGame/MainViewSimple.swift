@@ -10,6 +10,7 @@ import DubloonFoundation
 
 struct MainViewSimple: View {
     @EnvironmentObject var viewModel: AudioViewModel
+    @EnvironmentObject var app: AppViewModel
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) private var dismiss
     @State private var showNewSessionAlert = false
@@ -31,7 +32,7 @@ struct MainViewSimple: View {
             }
 
             // Fixed header overlay (always visible)
-            ReverseGameHeader(viewModel: viewModel, onBack: { dismiss() })
+            ReverseGameHeader(viewModel: viewModel, app: app, onBack: { dismiss() })
 
             // Overlays (processing, tips, etc.)
             overlaysView
@@ -46,7 +47,7 @@ struct MainViewSimple: View {
         } message: {
             Text(Strings.Main.Alert.startNewSessionMessage)
         }
-        .reverseGameChrome(viewModel: viewModel, screenName: "MainViewSimple")
+        .reverseGameChrome(viewModel: viewModel, app: app, screenName: "MainViewSimple")
     }
 
     // MARK: - Main Content
@@ -396,4 +397,5 @@ struct MainViewSimple: View {
 #Preview {
     MainViewSimple()
         .environmentObject(AudioViewModel())
+        .environmentObject(AppViewModel())
 }

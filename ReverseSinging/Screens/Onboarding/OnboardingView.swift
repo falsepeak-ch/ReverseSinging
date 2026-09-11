@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnboardingView: View {
-    @ObservedObject var viewModel: AudioViewModel
+    @ObservedObject var viewModel: AppViewModel
     @State private var currentPage = 0
     @State private var permissionGranted = false
     @State private var permissionRequested = false
@@ -387,5 +387,5 @@ struct OnboardingPageView: View {
 // MARK: - Preview
 
 #Preview {
-    OnboardingView(viewModel: AudioViewModel())
+    OnboardingView(viewModel: AppViewModel())
 }

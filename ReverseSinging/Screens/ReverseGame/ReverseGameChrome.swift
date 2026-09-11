@@ -66,6 +66,8 @@ struct MicrophonePermissionEmptyState: View {
 /// Title, back, archive and options, pinned above whatever the skin scrolls beneath it.
 struct ReverseGameHeader: View {
     @ObservedObject var viewModel: AudioViewModel
+    /// The skin is an app preference, offered here because this is the game it changes.
+    @ObservedObject var app: AppViewModel
     let onBack: () -> Void
 
     var body: some View {
@@ -95,8 +97,8 @@ struct ReverseGameHeader: View {
     private var optionsMenu: some View {
         EditorToolbarMenu(icon: "slider.horizontal.3", label: Strings.Settings.title) {
             Picker(Strings.Settings.interface, selection: Binding(
-                get: { viewModel.appState.uiMode },
-                set: { viewModel.setUIMode($0) }
+                get: { app.uiMode },
+                set: { app.setUIMode($0) }
             )) {
                 ForEach(UIMode.allCases, id: \.self) { mode in
                     Label(mode.displayName, systemImage: mode.menuSymbol).tag(mode)
@@ -105,7 +107,7 @@ struct ReverseGameHeader: View {
 
             // Menus give a footer no styling of its own, so the explanation is a plain row,
             // the same trick the dub options menu uses to say what the control does.
-            Text(viewModel.appState.uiMode.description)
+            Text(app.uiMode.description)
 
             Divider()
 
@@ -115,7 +117,7 @@ struct ReverseGameHeader: View {
                 Label(Strings.Settings.title, systemImage: "gearshape")
             }
         }
-        .onChange(of: viewModel.appState.uiMode) { _, _ in
+        .onChange(of: app.uiMode) { _, _ in
             HapticManager.shared.light()
         }
     }
@@ -127,7 +129,7 @@ extension View {
 
     /// The archive and settings sheets, the permission and error alerts, and the screen
     /// bookkeeping every reverse-singing skin needs on appear.
-    func reverseGameChrome(viewModel: AudioViewModel, screenName: String) -> some View {
+    func reverseGameChrome(viewModel: AudioViewModel, app: AppViewModel, screenName: String) -> some View {
         self
             .onAppear {
                 viewModel.checkPermissionStatus()
@@ -143,7 +145,7 @@ extension View {
                 get: { viewModel.showSettings },
                 set: { viewModel.showSettings = $0 }
             )) {
-                SettingsView(viewModel: viewModel, scope: .reverseSinging)
+                SettingsView(viewModel: app, scope: .reverseSinging)
             }
             .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: Binding(
                 get: { viewModel.showPermissionAlert },

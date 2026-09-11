@@ -2,7 +2,7 @@
 //  AudioViewModel.swift
 //  ReverseSinging
 //
-//  Main view model coordinating audio services
+//  The reverse-singing game: recording, reversal, playback and sessions
 //
 
 import SwiftUI
@@ -31,12 +31,8 @@ final class AudioViewModel: ObservableObject {
 
     @Published var isReversing = false
     @Published var showSessionList = false
+    /// The game's own settings sheet; the menu presents settings through `AppViewModel`.
     @Published var showSettings = false
-    @Published var showDubLibrary = false
-
-    /// Set when the system hands us a pack from AirDrop or "Open with"; the dub library
-    /// picks it up and imports it.
-    @Published var pendingDubImportURL: URL?
 
     // MARK: - Services
 
@@ -134,12 +130,6 @@ final class AudioViewModel: ObservableObject {
         recorder.requestPermission { [weak self] granted in
             self?.hasRecordingPermission = granted
             completion(granted)
-        }
-    }
-
-    func requestPermission(completion: ((Bool) -> Void)? = nil) {
-        requestPermissionIfNeeded { granted in
-            completion?(granted)
         }
     }
 
@@ -555,10 +545,8 @@ final class AudioViewModel: ObservableObject {
             UserDefaults.standard.set(encoded, forKey: "savedSessions")
         }
 
-        UserDefaults.standard.set(appState.hasCompletedOnboarding, forKey: "hasCompletedOnboarding")
         UserDefaults.standard.set(appState.isScoreVisible, forKey: "isScoreVisible")
         UserDefaults.standard.set(appState.themeMode.rawValue, forKey: "themeMode")
-        UserDefaults.standard.set(appState.hapticsEnabled, forKey: "hapticsEnabled")
     }
 
     private func loadSessions() {
@@ -566,8 +554,6 @@ final class AudioViewModel: ObservableObject {
            let sessions = try? JSONDecoder().decode([AudioSession].self, from: data) {
             appState.savedSessions = sessions
         }
-
-        appState.hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "hasCompletedOnboarding")
 
         // Load isScoreVisible with default true if key doesn't exist
         if UserDefaults.standard.object(forKey: "isScoreVisible") != nil {
@@ -583,26 +569,6 @@ final class AudioViewModel: ObservableObject {
         } else {
             appState.themeMode = .system  // Default to system on first launch
         }
-
-        // Load haptics enabled with default true if key doesn't exist
-        if UserDefaults.standard.object(forKey: "hapticsEnabled") != nil {
-            appState.hapticsEnabled = UserDefaults.standard.bool(forKey: "hapticsEnabled")
-        } else {
-            appState.hapticsEnabled = true  // Default to enabled on first launch
-        }
-
-        // Load UI mode with default simple if key doesn't exist
-        if let uiModeString = UserDefaults.standard.string(forKey: "uiMode"),
-           let uiMode = UIMode(rawValue: uiModeString) {
-            appState.uiMode = uiMode
-        } else {
-            appState.uiMode = .simple  // Default to simple on first launch
-        }
-    }
-
-    func completeOnboarding() {
-        appState.hasCompletedOnboarding = true
-        saveSessions()
     }
 
     #if DEBUG
@@ -612,51 +578,23 @@ final class AudioViewModel: ObservableObject {
     /// `saveSessions` and forgotten here would silently reintroduce the problem below.
     static let persistedStateKeysForTesting = [
         "savedSessions",
-        "hasCompletedOnboarding",
         "isScoreVisible",
         "themeMode",
-        "hapticsEnabled",
-        "uiMode",
     ]
 
     /// Puts the device back to the state of one the app has never been run on.
     ///
     /// `AudioViewModel()` loads its whole `appState` from `UserDefaults`, so any test that
     /// constructs one is really asserting about the simulator, not about the view model. The
-    /// suite used to *assume* a clean device, `completeOnboarding()` asserted
-    /// `!hasCompletedOnboarding` on a fresh instance. Which held right up until someone ran
-    /// the app on the same simulator, and then failed until it was uninstalled. Establishing
-    /// the state is the fix; assuming it is the bug.
+    /// suite used to *assume* a clean device, which held right up until someone ran the app on
+    /// the same simulator, and then failed until it was uninstalled. Establishing the state is
+    /// the fix; assuming it is the bug.
     static func resetPersistedStateForTesting() {
         for key in persistedStateKeysForTesting {
             UserDefaults.standard.removeObject(forKey: key)
         }
     }
     #endif
-
-    // MARK: - Settings
-
-    func setSoundsEnabled(_ enabled: Bool) {
-        objectWillChange.send()
-        SoundManager.shared.setEnabled(enabled)
-        AnalyticsManager.shared.trackCustomEvent(name: "sounds_changed", parameters: ["enabled": enabled])
-    }
-
-    var soundsEnabled: Bool { SoundManager.shared.isEnabled }
-
-    func setHapticsEnabled(_ enabled: Bool) {
-        objectWillChange.send()
-        appState.hapticsEnabled = enabled
-        UserDefaults.standard.set(enabled, forKey: "hapticsEnabled")
-        AnalyticsManager.shared.trackCustomEvent(name: "haptics_changed", parameters: ["enabled": enabled])
-    }
-
-    func setUIMode(_ mode: UIMode) {
-        objectWillChange.send()
-        appState.uiMode = mode
-        UserDefaults.standard.set(mode.rawValue, forKey: "uiMode")
-        AnalyticsManager.shared.trackCustomEvent(name: "ui_mode_changed", parameters: ["mode": mode.rawValue])
-    }
 
     // MARK: - Error Handling
 

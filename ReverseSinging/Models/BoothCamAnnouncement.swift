@@ -32,7 +32,7 @@ struct BoothCamAnnouncement {
         static let due = "announce.booth.due"
     }
 
-    /// Written by `AudioViewModel` when onboarding finishes. Present means the app was in
+    /// Written by `AppViewModel` when onboarding finishes. Present means the app was in
     /// use before this build arrived.
     private static let onboardingMarker = "hasCompletedOnboarding"
 

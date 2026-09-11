@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var viewModel = AudioViewModel()
+    @StateObject private var viewModel = AppViewModel()
     @Environment(\.scenePhase) private var scenePhase
 
     /// Nil until the first activation, so a cold launch counts as an open too.
@@ -16,7 +16,7 @@ struct ContentView: View {
 
     var body: some View {
         Group {
-            if viewModel.appState.hasCompletedOnboarding {
+            if viewModel.hasCompletedOnboarding {
                 // The menu is the root; each game is pushed from it. The UI mode
                 // preference picks how reverse singing looks, one level deeper.
                 HomeView()
@@ -61,7 +61,7 @@ struct ContentView: View {
 
         // Onboarding is the wrong moment to ask for anything, and the ask reads better
         // once the screen has settled rather than on top of the launch animation.
-        guard viewModel.appState.hasCompletedOnboarding else { return }
+        guard viewModel.hasCompletedOnboarding else { return }
         Task {
             try? await Task.sleep(for: .seconds(2))
             ReviewPrompt.shared.requestIfAppropriate(trigger: "app_open")

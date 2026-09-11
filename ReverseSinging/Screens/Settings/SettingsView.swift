@@ -20,7 +20,7 @@ enum SettingsScope {
 }
 
 struct SettingsView: View {
-    @ObservedObject var viewModel: AudioViewModel
+    @ObservedObject var viewModel: AppViewModel
 
     /// Defaults to the narrow set; a game screen opts in to its own options.
     var scope: SettingsScope = .app
@@ -159,7 +159,7 @@ struct SettingsView: View {
             HStack(spacing: 14) {
                 settingsIcon(
                     mode.settingsAssetName,
-                    isActive: viewModel.appState.uiMode == mode
+                    isActive: viewModel.uiMode == mode
                 )
 
                 // Text
@@ -176,7 +176,7 @@ struct SettingsView: View {
                 Spacer()
 
                 // Checkmark
-                if viewModel.appState.uiMode == mode {
+                if viewModel.uiMode == mode {
                     Image(systemName: "checkmark.circle.fill")
                         .font(.system(size: 22))
                         .foregroundStyle(Color.rsTurquoise)
@@ -190,14 +190,14 @@ struct SettingsView: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                             .stroke(
-                                viewModel.appState.uiMode == mode ?
+                                viewModel.uiMode == mode ?
                                     Color.rsTurquoise.opacity(0.4) :
                                     Color.rsTurquoise.opacity(0.15),
-                                lineWidth: viewModel.appState.uiMode == mode ? 1.5 : 1
+                                lineWidth: viewModel.uiMode == mode ? 1.5 : 1
                             )
                     )
             )
-            .cardShadow(viewModel.appState.uiMode == mode ? .elevated : .card)
+            .cardShadow(viewModel.uiMode == mode ? .elevated : .card)
         }
         .buttonStyle(ScaleButtonStyle())
     }
@@ -215,7 +215,7 @@ struct SettingsView: View {
                 title: Strings.Settings.hapticFeedback,
                 subtitle: Strings.Settings.hapticFeedbackDesc,
                 isOn: Binding(
-                    get: { viewModel.appState.hapticsEnabled },
+                    get: { viewModel.hapticsEnabled },
                     set: { newValue in
                         viewModel.setHapticsEnabled(newValue)
                         if newValue {
@@ -226,7 +226,7 @@ struct SettingsView: View {
             ) {
                 settingsIcon(
                     "settings-haptics",
-                    isActive: viewModel.appState.hapticsEnabled
+                    isActive: viewModel.hapticsEnabled
                 )
             }
 
@@ -738,7 +738,7 @@ struct ScaleButtonStyle: ButtonStyle {
 // MARK: - Preview
 
 #Preview {
-    @Previewable @StateObject var viewModel = AudioViewModel()
+    @Previewable @StateObject var viewModel = AppViewModel()
 
     SettingsView(viewModel: viewModel)
 }

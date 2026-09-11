@@ -125,7 +125,6 @@ struct AppStateTests {
 
         #expect(state.savedSessions.isEmpty)
         #expect(state.currentSession == nil)
-        #expect(state.hasCompletedOnboarding == false)
         #expect(state.playbackSpeed == 1.0)
         #expect(state.isLooping == false)
     }
@@ -263,8 +262,8 @@ struct HapticManagerTests {
 /// Two things make them deterministic. `.serialized`, because they share one global
 /// `UserDefaults` and a reset in one test would otherwise wipe state another had just written;
 /// and `onCleanDevice`, which establishes the empty state each test used to assume. Before
-/// this, `completeOnboarding()` failed on any simulator the app had ever been run on, and
-/// `saveSession()` would have started counting other tests' sessions.
+/// this, `saveSession()` would have started counting other tests' sessions, and the onboarding
+/// test, now in `AppViewModelTests`, failed on any simulator the app had ever been run on.
 @Suite("AudioViewModel Tests", .serialized) @MainActor
 struct AudioViewModelTests {
 
@@ -336,29 +335,6 @@ struct AudioViewModelTests {
             viewModel.setPlaybackSpeed(2.0)
             #expect(viewModel.appState.playbackSpeed == 2.0)
         }
-    }
-
-    /// The one that used to fail on any simulator that had been through onboarding.
-    @Test func completeOnboarding() async {
-        onCleanDevice { viewModel in
-            #expect(!viewModel.appState.hasCompletedOnboarding)
-
-            viewModel.completeOnboarding()
-
-            #expect(viewModel.appState.hasCompletedOnboarding)
-        }
-    }
-
-    /// Onboarding survives a relaunch. The half of `completeOnboarding` the old test could
-    /// not check, because it could not tell a saved flag from a left-over one.
-    @Test func completedOnboardingIsRemembered() async {
-        AudioViewModel.resetPersistedStateForTesting()
-        defer { AudioViewModel.resetPersistedStateForTesting() }
-
-        AudioViewModel().completeOnboarding()
-
-        #expect(AudioViewModel().appState.hasCompletedOnboarding,
-                "a fresh launch should not put the user back through onboarding")
     }
 }
 

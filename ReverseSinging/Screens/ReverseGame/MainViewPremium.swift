@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainViewPremium: View {
     @EnvironmentObject var viewModel: AudioViewModel
+    @EnvironmentObject var app: AppViewModel
     @State private var showSuccessToast = false
     @State private var showCelebration = false
     @State private var showNewSessionAlert = false
@@ -33,7 +34,7 @@ struct MainViewPremium: View {
             }
 
             // Fixed header overlay (always visible)
-            ReverseGameHeader(viewModel: viewModel, onBack: { dismiss() })
+            ReverseGameHeader(viewModel: viewModel, app: app, onBack: { dismiss() })
 
             // Overlays (processing, toasts, etc.)
             overlaysView
@@ -48,7 +49,7 @@ struct MainViewPremium: View {
         } message: {
             Text(Strings.Main.Alert.startNewSessionMessage)
         }
-        .reverseGameChrome(viewModel: viewModel, screenName: "MainView")
+        .reverseGameChrome(viewModel: viewModel, app: app, screenName: "MainView")
     }
 
     // MARK: - Main Content
@@ -473,4 +474,5 @@ struct MainViewPremium: View {
 #Preview {
     MainViewPremium()
         .environmentObject(AudioViewModel())
+        .environmentObject(AppViewModel())
 }
