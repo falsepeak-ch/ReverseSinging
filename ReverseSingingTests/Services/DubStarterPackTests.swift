@@ -204,6 +204,57 @@ struct DubStarterPackTests {
                 "an installed starter pack must not come back once it is gone")
     }
 
+    /// An install cut short says nothing about the zip, so it has to stay pending and go on at
+    /// the next launch. Recording it is how a device lost both starter packs for good.
+    @MainActor
+    @Test func aCancelledInstallIsNotRecorded() async throws {
+        DubStarterPacks.forgetInstallsForTesting()
+        defer { DubStarterPacks.forgetInstallsForTesting() }
+
+        let name = try #require(DubStarterPacks.bundled.first)
+
+        let install = Task { await DubStarterPacks.install(name) }
+        install.cancel()
+        let pack = await install.value
+
+        if let pack {
+            try? AudioFileManager.shared.deleteDubPack(folderName: pack.folderName, packID: pack.id)
+        }
+        #expect(pack == nil, "a cancelled task should stop the import")
+        #expect(DubStarterPacks.pending.contains(name), "an interrupted install must be retried")
+    }
+
+    /// The library screen creates the library and reloads it in `.onAppear` straight away,
+    /// while the starter install is still under way. The reload has to wait for the install,
+    /// not cancel it.
+    @MainActor
+    @Test func aReloadDuringTheStarterInstallDoesNotCancelIt() async throws {
+        DubStarterPacks.forgetInstallsForTesting()
+
+        // Starter packs left over from an earlier run would be on the shelf whether or not
+        // this install finished.
+        let root = AudioFileManager.shared.dubPacksDirectory()
+        for name in DubStarterPacks.bundled {
+            try? FileManager.default.removeItem(at: root.appendingPathComponent(name))
+        }
+
+        let library = DubPackLibrary()
+        library.reload()
+        await library.waitForReloadForTesting()
+
+        let starters = library.packs.filter { DubStarterPacks.bundled.contains($0.folderName) }
+        defer {
+            for pack in starters {
+                try? AudioFileManager.shared.deleteDubPack(folderName: pack.folderName, packID: pack.id)
+            }
+            DubStarterPacks.forgetInstallsForTesting()
+        }
+
+        #expect(DubStarterPacks.pending.isEmpty, "every starter pack should have been installed")
+        #expect(Set(starters.map(\.folderName)) == Set(DubStarterPacks.bundled),
+                "every starter pack should be on the shelf once the reload finishes")
+    }
+
     /// A rebuilt pack does come back, once. A device that installed an earlier build — or
     /// one that predates revisions altogether — is owed the new one; a device that already
     /// has the new build is not.

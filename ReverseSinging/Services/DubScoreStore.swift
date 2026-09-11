@@ -53,19 +53,30 @@ nonisolated struct DubScoreStore {
 
     // MARK: - Writing
 
+    /// Held across every read-modify-write of the file.
+    ///
+    /// Two lines scored back to back are saved from two tasks that can overlap, and without
+    /// this the second could read the file before the first had written it, and write the
+    /// first score away.
+    private static let writeLock = NSLock()
+
     /// Records one line's score, replacing whatever was there.
     func save(_ score: DubLineScore, forPackID packID: UUID) {
-        var stored = scores(forPackID: packID)
-        stored[score.slug] = score
-        write(stored, forPackID: packID)
+        Self.writeLock.withLock {
+            var stored = scores(forPackID: packID)
+            stored[score.slug] = score
+            write(stored, forPackID: packID)
+        }
     }
 
     /// Forgets a line's score, so a scene average never counts a performance whose take is
     /// gone. Covered by `scoresRoundTripAndAreForgottenWithTheirTake`.
     func remove(slug: String, forPackID packID: UUID) {
-        var stored = scores(forPackID: packID)
-        guard stored.removeValue(forKey: slug) != nil else { return }
-        write(stored, forPackID: packID)
+        Self.writeLock.withLock {
+            var stored = scores(forPackID: packID)
+            guard stored.removeValue(forKey: slug) != nil else { return }
+            write(stored, forPackID: packID)
+        }
     }
 
     private func write(_ scores: [String: DubLineScore], forPackID packID: UUID) {

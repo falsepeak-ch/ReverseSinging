@@ -71,11 +71,12 @@ final class AudioSessionManager {
     // MARK: - Permission
 
     func requestRecordPermission(completion: @escaping (Bool) -> Void) {
-        AVAudioApplication.requestRecordPermission { granted in
-            DispatchQueue.main.async {
-                print(granted ? "✅ Microphone permission granted" : "❌ Microphone permission denied")
-                completion(granted)
-            }
+        // The async form rather than the handler one: that handler is called on an arbitrary
+        // thread and is not marked Sendable, so entering this main-actor code from it traps.
+        Task {
+            let granted = await AVAudioApplication.requestRecordPermission()
+            print(granted ? "✅ Microphone permission granted" : "❌ Microphone permission denied")
+            completion(granted)
         }
     }
 

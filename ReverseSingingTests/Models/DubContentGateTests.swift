@@ -13,7 +13,7 @@ import Foundation
 /// they clear it out from under each other. The guard assertion in the first test is what
 /// caught that, and it stays. A fixture that silently fails to take would make the real
 /// assertion pass for the wrong reason.
-@Suite("Dub Content Gate", .serialized)
+@Suite("Dub Content Gate", .serialized) @MainActor
 struct DubContentGateTests {
 
     /// The gate remembers nothing, and the flag 1.3.0 left behind gets cleared.

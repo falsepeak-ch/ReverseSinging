@@ -7,7 +7,7 @@ import Testing
 import Foundation
 @testable import ReverseSinging
 
-@Suite("HapticManager Tests")
+@Suite("HapticManager Tests") @MainActor
 struct HapticManagerTests {
 
     @Test func sharedInstance() {

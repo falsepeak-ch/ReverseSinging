@@ -30,12 +30,23 @@ final class AudioPlayer: NSObject, ObservableObject {
     private var progressTimer: Timer?
     private var audioBuffer: AVAudioPCMBuffer?
 
+    /// Which scheduled buffer is the current one.
+    ///
+    /// A buffer scheduled with `.interrupts` still calls its completion handler when it is
+    /// stopped or replaced, so without this a seek, a stop or a loop toggle had the old
+    /// buffer's handler arrive a moment later and mark the new playback finished.
+    private var playbackGeneration = 0
+
     override init() {
         super.init()
         setupAudioEngine()
         // Audio session now managed centrally by AudioSessionManager
         // No need to configure here - prevents conflicts with recording
     }
+
+    // No `deinit`: a released engine stops and lets go of its nodes by itself, and the
+    // progress timer invalidates itself once `self` is gone. `cleanup()` is for tearing
+    // everything down while the player is still alive.
 
     private func setupAudioEngine() {
         audioEngine = AVAudioEngine()
@@ -123,18 +134,7 @@ final class AudioPlayer: NSObject, ObservableObject {
                 try engine.start()
             }
 
-            // Schedule buffer
-            if isLooping {
-                // Schedule with looping
-                player.scheduleBuffer(buffer, at: nil, options: .loops)
-            } else {
-                // Schedule once with completion handler
-                player.scheduleBuffer(buffer, at: nil, options: .interrupts) { [weak self] in
-                    DispatchQueue.main.async {
-                        self?.handlePlaybackCompletion()
-                    }
-                }
-            }
+            schedule(buffer, on: player)
 
             if let hostTime {
                 player.play(at: AVAudioTime(hostTime: hostTime))
@@ -165,6 +165,9 @@ final class AudioPlayer: NSObject, ObservableObject {
     /// stops before it loads. So the engine was cold on every single press. An idle engine
     /// costs almost nothing; it is torn down in `cleanup()`.
     func stop() {
+        // Stopping the node fires the current buffer's completion; this playback is already
+        // being ended here, so that late arrival must not end it a second time.
+        playbackGeneration += 1
         playerNode?.stop()
         isPlaying = false
         currentTime = 0
@@ -209,15 +212,7 @@ final class AudioPlayer: NSObject, ObservableObject {
             seekBuffer.frameLength = AVAudioFrameCount(frameCount)
 
             // Schedule new buffer
-            if isLooping {
-                player.scheduleBuffer(seekBuffer, at: nil, options: .loops)
-            } else {
-                player.scheduleBuffer(seekBuffer, at: nil, options: .interrupts) { [weak self] in
-                    DispatchQueue.main.async {
-                        self?.handlePlaybackCompletion()
-                    }
-                }
-            }
+            schedule(seekBuffer, on: player)
 
             currentTime = time
 
@@ -228,13 +223,31 @@ final class AudioPlayer: NSObject, ObservableObject {
         }
     }
 
-    private func handlePlaybackCompletion() {
-        if !isLooping {
-            isPlaying = false
-            currentTime = 0
-            stopProgressTimer()
-            HapticManager.shared.light()
+    /// Schedules `buffer` on `player`, looping or once, as the current playback.
+    private func schedule(_ buffer: AVAudioPCMBuffer, on player: AVAudioPlayerNode) {
+        playbackGeneration += 1
+
+        if isLooping {
+            player.scheduleBuffer(buffer, at: nil, options: .loops)
+            return
         }
+
+        // Called on the engine's render thread, so the handler must not be main-actor
+        // isolated; it only carries the generation back to the main actor.
+        let generation = playbackGeneration
+        let completion: @Sendable () -> Void = { [weak self] in
+            Task { @MainActor in self?.handlePlaybackCompletion(generation: generation) }
+        }
+        player.scheduleBuffer(buffer, at: nil, options: .interrupts, completionHandler: completion)
+    }
+
+    private func handlePlaybackCompletion(generation: Int) {
+        guard generation == playbackGeneration, !isLooping else { return }
+
+        isPlaying = false
+        currentTime = 0
+        stopProgressTimer()
+        HapticManager.shared.light()
     }
 
     private func rescheduleWithLoopSetting() {
@@ -247,17 +260,7 @@ final class AudioPlayer: NSObject, ObservableObject {
         player.stop()
 
         // Reschedule buffer with new loop setting
-        if isLooping {
-            // Schedule with looping
-            player.scheduleBuffer(buffer, at: nil, options: .loops)
-        } else {
-            // Schedule once with completion handler
-            player.scheduleBuffer(buffer, at: nil, options: .interrupts) { [weak self] in
-                DispatchQueue.main.async {
-                    self?.handlePlaybackCompletion()
-                }
-            }
-        }
+        schedule(buffer, on: player)
 
         // Resume playback immediately
         player.play()
@@ -276,8 +279,13 @@ final class AudioPlayer: NSObject, ObservableObject {
     // MARK: - Progress Monitoring
 
     private func startProgressTimer() {
-        progressTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { [weak self] _ in
-            self?.updateProgress()
+        // Playing while already playing would otherwise leave the previous timer running.
+        stopProgressTimer()
+
+        progressTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { [weak self] timer in
+            guard let self else { return timer.invalidate() }
+            // Scheduled on the main run loop, so this always fires on the main thread.
+            MainActor.assumeIsolated { self.updateProgress() }
         }
     }
 
@@ -323,9 +331,5 @@ final class AudioPlayer: NSObject, ObservableObject {
 
         audioFile = nil
         audioBuffer = nil
-    }
-
-    deinit {
-        cleanup()
     }
 }

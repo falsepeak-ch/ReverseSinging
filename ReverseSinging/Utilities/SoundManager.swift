@@ -10,7 +10,7 @@ import Foundation
 
 /// The app's interface sounds. Short, dry and used sparingly. They mark the moments
 /// that matter (slate, take saved, render done) rather than every tap.
-enum UISound: String, CaseIterable {
+nonisolated enum UISound: String, CaseIterable {
     case clapperSnap = "clapper-snap"
     case tapeStop = "tape-stop"
     case mechanicalClick = "mechanical-click"
@@ -48,7 +48,9 @@ enum UISound: String, CaseIterable {
     }
 }
 
-final class SoundManager: @unchecked Sendable {
+/// Safe to call from any thread: the players and the microphone flag are only ever touched
+/// under `lock`, which is what `@unchecked Sendable` is vouching for.
+nonisolated final class SoundManager: @unchecked Sendable {
 
     static let shared = SoundManager()
 

@@ -9,7 +9,7 @@ import Foundation
 import Testing
 @testable import ReverseSinging
 
-@Suite("Booth Cam Announcement")
+@Suite("Booth Cam Announcement") @MainActor
 struct BoothCamAnnouncementTests {
 
     private static func makeDefaults() -> UserDefaults {

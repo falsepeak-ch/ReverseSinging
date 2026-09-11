@@ -642,7 +642,7 @@ final class AudioViewModel: ObservableObject {
 private extension AudioViewModel {
 
     /// Reverses a recording into a new temporary file off the main thread, and reports back on it.
-    func reverseAudio(inputURL: URL, completion: @escaping (Result<URL, Error>) -> Void) {
+    func reverseAudio(inputURL: URL, completion: @escaping @MainActor @Sendable (Result<URL, Error>) -> Void) {
         let outputURL = fileManager.createTemporaryAudioURL()
 
         DispatchQueue.global(qos: .userInitiated).async {
@@ -650,7 +650,7 @@ private extension AudioViewModel {
                 try AudioReverser.reverseFile(at: inputURL, to: outputURL)
                 return outputURL
             }
-            DispatchQueue.main.async { completion(result) }
+            Task { @MainActor in completion(result) }
         }
     }
 }

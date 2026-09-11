@@ -14,11 +14,12 @@ enum GameMode: String, CaseIterable, Identifiable, Hashable {
 
     var id: String { rawValue }
 
-    /// Asset-catalog images rather than SF Symbols. The illustrated mic and
-    /// clapperboard are what the rest of the interface uses for these two games.
+    /// Asset-catalog images rather than SF Symbols. Reverse singing takes the boom mic
+    /// rather than the desk mic, because the desk mic is the one in the Dubloon logo
+    /// right above this list, and the same drawing twice on one screen reads as a mistake.
     var image: String {
         switch self {
-        case .reverse: return "microphone"
+        case .reverse: return "studio-mic-boom"
         case .dub: return "clapperboard"
         }
     }

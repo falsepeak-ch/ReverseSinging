@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Model Tests
 
-@Suite("Recording Model Tests")
+@Suite("Recording Model Tests") @MainActor
 struct RecordingTests {
 
     @Test func recordingInitialization() {
@@ -45,7 +45,7 @@ struct RecordingTests {
     }
 }
 
-@Suite("AudioSession Model Tests")
+@Suite("AudioSession Model Tests") @MainActor
 struct AudioSessionTests {
 
     @Test func sessionInitialization() {
@@ -115,7 +115,7 @@ struct AudioSessionTests {
     }
 }
 
-@Suite("AppState Model Tests")
+@Suite("AppState Model Tests") @MainActor
 struct AppStateTests {
 
     @Test func defaultState() {

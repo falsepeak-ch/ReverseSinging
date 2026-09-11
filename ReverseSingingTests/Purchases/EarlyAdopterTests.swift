@@ -9,7 +9,7 @@ import Foundation
 import Testing
 @testable import ReverseSinging
 
-@Suite("Early Adopter")
+@Suite("Early Adopter") @MainActor
 struct EarlyAdopterTests {
 
     private static func makeDefaults(_ name: String = UUID().uuidString) -> UserDefaults {

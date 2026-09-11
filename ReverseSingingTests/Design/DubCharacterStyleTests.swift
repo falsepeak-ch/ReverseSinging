@@ -8,7 +8,7 @@
 import Testing
 @testable import ReverseSinging
 
-@Suite("Dub Character Style")
+@Suite("Dub Character Style") @MainActor
 struct DubCharacterStyleTests {
 
     /// Two characters in the same scene must never be the same colour, or the colour tells the

@@ -5,6 +5,7 @@
 //  The two scenes that ship with the app: one animated, one classic
 //
 
+import DubPackKit
 import Foundation
 
 /// Installs the scenes bundled with the app, once.
@@ -91,14 +92,23 @@ nonisolated enum DubStarterPacks {
     /// Marked as installed whether or not the import succeeded. A bundled zip that will not
     /// parse is broken in the build, not on the device, and retrying it on every launch would
     /// only spend the user's battery finding that out again.
+    ///
+    /// The exception is an import that was cancelled. That says nothing about the zip, so the
+    /// pack stays pending and goes on at the next launch.
     @discardableResult
     static func install(_ name: String) async -> DubPack? {
-        defer { installed.insert(record(for: name)) }
+        var finished = true
+        defer { if finished { installed.insert(record(for: name)) } }
 
         guard let url = url(for: name) else { return nil }
 
         do {
             return try await DubPackImporter.shared.importPack(from: url)
+        } catch DubPackImportError.cancelled, is CancellationError {
+            // Not reported either: DubPackKit treats a cancelled import as nobody's failure.
+            print("⚠️ Starter pack \(name) install was cancelled; it will be retried")
+            finished = false
+            return nil
         } catch {
             print("⚠️ Starter pack \(name) could not be installed: \(error.localizedDescription)")
             // A bundled zip that will not parse is broken in the build we shipped, and the

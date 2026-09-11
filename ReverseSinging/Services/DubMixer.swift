@@ -71,6 +71,10 @@ nonisolated struct DubMixer {
     /// per-line stills is rendered as a stand-in. Returns the finished file, ready to hand
     /// to a share sheet.
     ///
+    /// Runs off the main actor from start to finish. The audio cut, the waveform strip and the
+    /// composition are all synchronous work between the awaits, and they used to run on
+    /// whatever actor called this, which was the main one.
+    ///
     /// - Parameters:
     ///   - cut: which stretch of the film to export. Defaults to the whole scene, which is
     ///     what Export has always produced.
@@ -78,6 +82,7 @@ nonisolated struct DubMixer {
     ///     means a re-encode, and takes correspondingly longer.
     ///   - includesBooth: whether the performer's footage goes in. Off still reshapes a
     ///     vertical frame and draws its waveform strip; it only leaves the face out.
+    @concurrent
     func export(
         pack: DubPack,
         cut: DubCut = .fullScene,
@@ -199,227 +204,238 @@ nonisolated struct DubMixer {
     ///
     /// Uses the engine's manual rendering mode rather than realtime playback, so a 5-minute
     /// scene mixes in a couple of seconds instead of 5 minutes.
+    @concurrent
     func mixAudio(pack: DubPack, to outputURL: URL, progress: (@Sendable (Double) -> Void)? = nil) async throws {
-        try await Task.detached(priority: .userInitiated) {
-            let engine = AVAudioEngine()
-            let backingNode = AVAudioPlayerNode()
+        try Self.renderMix(pack: pack, to: outputURL, progress: progress)
+    }
 
-            engine.attach(backingNode)
+    /// The whole offline render, synchronously.
+    ///
+    /// Kept out of the async `mixAudio` on purpose: in an async context the compiler steers
+    /// `scheduleBuffer` towards its awaiting form, and a buffer's completion in an offline
+    /// render only arrives once the render loop below has played it out.
+    private static func renderMix(
+        pack: DubPack,
+        to outputURL: URL,
+        progress: (@Sendable (Double) -> Void)?
+    ) throws {
+        let engine = AVAudioEngine()
+        let backingNode = AVAudioPlayerNode()
 
-            let backingBuffer = pack.backingTrackURL.flatMap { try? DubAudioLoader.loadBuffer(from: $0) }
+        engine.attach(backingNode)
 
-            if let backingBuffer {
-                engine.connect(backingNode, to: engine.mainMixerNode, format: backingBuffer.format)
-            }
+        let backingBuffer = pack.backingTrackURL.flatMap { try? DubAudioLoader.loadBuffer(from: $0) }
 
-            // One level for the whole scene, set against this scene's own dialogue rather
-            // than by a fixed number, so a feature's music stem and a 1951 short's both end
-            // up in the same place. See `DubBackingBalance`.
-            backingNode.volume = backingBuffer.map {
-                DubBackingBalance.bedGain(for: $0, in: pack)
-            } ?? DubBackingBalance.fallbackBedGain
+        if let backingBuffer {
+            engine.connect(backingNode, to: engine.mainMixerNode, format: backingBuffer.format)
+        }
 
-            // Load first, then split: lines that overlap have to land on separate nodes or
-            // they are queued rather than mixed. See `DubVoiceLanes`.
-            let voiceSampleRate = DubAudioLoader.canonicalFormat.sampleRate
+        // One level for the whole scene, set against this scene's own dialogue rather
+        // than by a fixed number, so a feature's music stem and a 1951 short's both end
+        // up in the same place. See `DubBackingBalance`.
+        backingNode.volume = backingBuffer.map {
+            DubBackingBalance.bedGain(for: $0, in: pack)
+        } ?? DubBackingBalance.fallbackBedGain
 
-            // Placed by the same code the in-app scene player uses, so the file the user
-            // shares is the mix they auditioned. See `DubVoiceAlignment`.
-            let takes: [DubVoiceAlignment.Placement] = pack.lines.compactMap { line in
-                let takeURL = pack.takeURL(for: line)
-                guard FileManager.default.fileExists(atPath: takeURL.path),
-                      let take = try? DubAudioLoader.loadVoiceBuffer(from: takeURL) else { return nil }
+        // Load first, then split: lines that overlap have to land on separate nodes or
+        // they are queued rather than mixed. See `DubVoiceLanes`.
+        let voiceSampleRate = DubAudioLoader.canonicalFormat.sampleRate
 
-                // The room this take was recorded in, held down between its words, so the
-                // scene's noise floor does not step at every line boundary. Before the level
-                // match, which would otherwise scale each take's room along with its voice.
-                DubTakeCleanup.apply(to: take)
+        // Placed by the same code the in-app scene player uses, so the file the user
+        // shares is the mix they auditioned. See `DubVoiceAlignment`.
+        let takes: [DubVoiceAlignment.Placement] = pack.lines.compactMap { line in
+            let takeURL = pack.takeURL(for: line)
+            guard FileManager.default.fileExists(atPath: takeURL.path),
+                  let take = try? DubAudioLoader.loadVoiceBuffer(from: takeURL) else { return nil }
 
-                // Brought up to the level the film played this line at, so the scene arrives
-                // at one volume rather than at whatever each take was recorded at.
-                DubVoiceLevel.match(take, toReferenceAt: pack.referenceAudioURL(for: line))
+            // The room this take was recorded in, held down between its words, so the
+            // scene's noise floor does not step at every line boundary. Before the level
+            // match, which would otherwise scale each take's room along with its voice.
+            DubTakeCleanup.apply(to: take)
 
-                return DubVoiceAlignment.place(
-                    take: take,
-                    for: line,
-                    referenceURL: pack.referenceAudioURL(for: line)
-                )
-            }
+            // Brought up to the level the film played this line at, so the scene arrives
+            // at one volume rather than at whatever each take was recorded at.
+            DubVoiceLevel.match(take, toReferenceAt: pack.referenceAudioURL(for: line))
 
-            let lanes = DubVoiceLanes.assign(
-                takes,
-                start: { $0.startTime },
-                end: { $0.endTime(sampleRate: voiceSampleRate) }
+            return DubVoiceAlignment.place(
+                take: take,
+                for: line,
+                referenceURL: pack.referenceAudioURL(for: line)
             )
+        }
 
-            let voiceNodes: [AVAudioPlayerNode] = lanes.map { _ in
-                let node = AVAudioPlayerNode()
-                engine.attach(node)
-                engine.connect(node, to: engine.mainMixerNode, format: DubAudioLoader.canonicalFormat)
-                node.volume = 1.0
-                return node
+        let lanes = DubVoiceLanes.assign(
+            takes,
+            start: { $0.startTime },
+            end: { $0.endTime(sampleRate: voiceSampleRate) }
+        )
+
+        let voiceNodes: [AVAudioPlayerNode] = lanes.map { _ in
+            let node = AVAudioPlayerNode()
+            engine.attach(node)
+            engine.connect(node, to: engine.mainMixerNode, format: DubAudioLoader.canonicalFormat)
+            node.volume = 1.0
+            return node
+        }
+
+        guard let outputFormat = AVAudioFormat(standardFormatWithSampleRate: outputSampleRate, channels: 2) else {
+            throw DubExportError.renderSetupFailed
+        }
+
+        // Voices sum, so the mix can add up past full scale before it reaches the
+        // encoder. Installed before manual rendering is enabled. The engine must not be
+        // running while its output is rewired.
+        DubMasterLimiter.install(in: engine)
+
+        let maximumFrameCount: AVAudioFrameCount = 4096
+        try engine.enableManualRenderingMode(.offline, format: outputFormat, maximumFrameCount: maximumFrameCount)
+        try engine.start()
+
+        if let backingBuffer {
+            backingNode.scheduleBuffer(backingBuffer, at: nil, options: [])
+        }
+
+        var latestVoiceEnd: TimeInterval = 0
+
+        for (laneIndex, lane) in lanes.enumerated() {
+            for take in lane {
+                let time = AVAudioTime(
+                    sampleTime: AVAudioFramePosition(take.startTime * voiceSampleRate),
+                    atRate: voiceSampleRate
+                )
+                voiceNodes[laneIndex].scheduleBuffer(take.buffer, at: time, options: [])
+
+                latestVoiceEnd = max(latestVoiceEnd, take.endTime(sampleRate: voiceSampleRate))
             }
+        }
 
-            guard let outputFormat = AVAudioFormat(standardFormatWithSampleRate: Self.outputSampleRate, channels: 2) else {
+        // Starting a player node that was never connected (no backing track, or one
+        // AVFoundation can't read) raises inside AVAudioEngine
+        if backingBuffer != nil { backingNode.play() }
+        voiceNodes.forEach { $0.play() }
+
+        // Long takes are allowed to run past the backing track rather than being clipped
+        let totalDuration = max(pack.duration, latestVoiceEnd)
+        let totalFrames = AVAudioFramePosition(totalDuration * outputFormat.sampleRate)
+
+        let settings: [String: Any] = [
+            AVFormatIDKey: kAudioFormatMPEG4AAC,
+            AVSampleRateKey: outputSampleRate,
+            AVNumberOfChannelsKey: 2,
+            AVEncoderBitRateKey: 192_000
+        ]
+        let outputFile = try AVAudioFile(forWriting: outputURL, settings: settings)
+
+        guard let renderBuffer = AVAudioPCMBuffer(
+            pcmFormat: engine.manualRenderingFormat,
+            frameCapacity: maximumFrameCount
+        ) else {
+            throw DubExportError.renderSetupFailed
+        }
+
+        while engine.manualRenderingSampleTime < totalFrames {
+            let remaining = totalFrames - engine.manualRenderingSampleTime
+            let framesToRender = AVAudioFrameCount(min(AVAudioFramePosition(renderBuffer.frameCapacity), remaining))
+
+            let status = try engine.renderOffline(framesToRender, to: renderBuffer)
+
+            switch status {
+            case .success:
+                try outputFile.write(from: renderBuffer)
+                progress?(Double(engine.manualRenderingSampleTime) / Double(totalFrames))
+            case .insufficientDataFromInputNode:
+                continue
+            case .cannotDoInCurrentContext, .error:
+                throw DubExportError.renderSetupFailed
+            @unknown default:
                 throw DubExportError.renderSetupFailed
             }
+        }
 
-            // Voices sum, so the mix can add up past full scale before it reaches the
-            // encoder. Installed before manual rendering is enabled. The engine must not be
-            // running while its output is rewired.
-            DubMasterLimiter.install(in: engine)
-
-            let maximumFrameCount: AVAudioFrameCount = 4096
-            try engine.enableManualRenderingMode(.offline, format: outputFormat, maximumFrameCount: maximumFrameCount)
-            try engine.start()
-
-            if let backingBuffer {
-                backingNode.scheduleBuffer(backingBuffer, at: nil, options: [])
-            }
-
-            var latestVoiceEnd: TimeInterval = 0
-
-            for (laneIndex, lane) in lanes.enumerated() {
-                for take in lane {
-                    let time = AVAudioTime(
-                        sampleTime: AVAudioFramePosition(take.startTime * voiceSampleRate),
-                        atRate: voiceSampleRate
-                    )
-                    voiceNodes[laneIndex].scheduleBuffer(take.buffer, at: time, options: [])
-
-                    latestVoiceEnd = max(latestVoiceEnd, take.endTime(sampleRate: voiceSampleRate))
-                }
-            }
-
-            // Starting a player node that was never connected (no backing track, or one
-            // AVFoundation can't read) raises inside AVAudioEngine
-            if backingBuffer != nil { backingNode.play() }
-            voiceNodes.forEach { $0.play() }
-
-            // Long takes are allowed to run past the backing track rather than being clipped
-            let totalDuration = max(pack.duration, latestVoiceEnd)
-            let totalFrames = AVAudioFramePosition(totalDuration * outputFormat.sampleRate)
-
-            let settings: [String: Any] = [
-                AVFormatIDKey: kAudioFormatMPEG4AAC,
-                AVSampleRateKey: Self.outputSampleRate,
-                AVNumberOfChannelsKey: 2,
-                AVEncoderBitRateKey: 192_000
-            ]
-            let outputFile = try AVAudioFile(forWriting: outputURL, settings: settings)
-
-            guard let renderBuffer = AVAudioPCMBuffer(
-                pcmFormat: engine.manualRenderingFormat,
-                frameCapacity: maximumFrameCount
-            ) else {
-                throw DubExportError.renderSetupFailed
-            }
-
-            while engine.manualRenderingSampleTime < totalFrames {
-                let remaining = totalFrames - engine.manualRenderingSampleTime
-                let framesToRender = AVAudioFrameCount(min(AVAudioFramePosition(renderBuffer.frameCapacity), remaining))
-
-                let status = try engine.renderOffline(framesToRender, to: renderBuffer)
-
-                switch status {
-                case .success:
-                    try outputFile.write(from: renderBuffer)
-                    progress?(Double(engine.manualRenderingSampleTime) / Double(totalFrames))
-                case .insufficientDataFromInputNode:
-                    continue
-                case .cannotDoInCurrentContext, .error:
-                    throw DubExportError.renderSetupFailed
-                @unknown default:
-                    throw DubExportError.renderSetupFailed
-                }
-            }
-
-            engine.stop()
-            engine.disableManualRenderingMode()
-            progress?(1.0)
-        }.value
+        engine.stop()
+        engine.disableManualRenderingMode()
+        progress?(1.0)
     }
 
     // MARK: - Slideshow Video
 
     /// Writes a silent H.264 slideshow: each line's still held for its stretch of the timeline.
+    @concurrent
     func renderSlideshow(pack: DubPack, to outputURL: URL, progress: (@Sendable (Double) -> Void)? = nil) async throws {
-        try await Task.detached(priority: .userInitiated) {
-            let writer = try AVAssetWriter(outputURL: outputURL, fileType: .mp4)
+        let writer = try AVAssetWriter(outputURL: outputURL, fileType: .mp4)
 
-            let videoSettings: [String: Any] = [
-                AVVideoCodecKey: AVVideoCodecType.h264,
-                AVVideoWidthKey: Int(Self.videoSize.width),
-                AVVideoHeightKey: Int(Self.videoSize.height),
-                AVVideoCompressionPropertiesKey: [
-                    AVVideoAverageBitRateKey: 4_000_000,
-                    AVVideoMaxKeyFrameIntervalKey: Int(Self.frameRate) * 2
-                ]
+        let videoSettings: [String: Any] = [
+            AVVideoCodecKey: AVVideoCodecType.h264,
+            AVVideoWidthKey: Int(Self.videoSize.width),
+            AVVideoHeightKey: Int(Self.videoSize.height),
+            AVVideoCompressionPropertiesKey: [
+                AVVideoAverageBitRateKey: 4_000_000,
+                AVVideoMaxKeyFrameIntervalKey: Int(Self.frameRate) * 2
             ]
+        ]
 
-            let input = AVAssetWriterInput(mediaType: .video, outputSettings: videoSettings)
-            input.expectsMediaDataInRealTime = false
+        let input = AVAssetWriterInput(mediaType: .video, outputSettings: videoSettings)
+        input.expectsMediaDataInRealTime = false
 
-            let adaptor = AVAssetWriterInputPixelBufferAdaptor(
-                assetWriterInput: input,
-                sourcePixelBufferAttributes: [
-                    kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_32ARGB),
-                    kCVPixelBufferWidthKey as String: Int(Self.videoSize.width),
-                    kCVPixelBufferHeightKey as String: Int(Self.videoSize.height)
-                ]
-            )
+        let adaptor = AVAssetWriterInputPixelBufferAdaptor(
+            assetWriterInput: input,
+            sourcePixelBufferAttributes: [
+                kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_32ARGB),
+                kCVPixelBufferWidthKey as String: Int(Self.videoSize.width),
+                kCVPixelBufferHeightKey as String: Int(Self.videoSize.height)
+            ]
+        )
 
-            guard writer.canAdd(input) else { throw DubExportError.writerFailed(nil) }
-            writer.add(input)
+        guard writer.canAdd(input) else { throw DubExportError.writerFailed(nil) }
+        writer.add(input)
 
-            guard writer.startWriting() else { throw DubExportError.writerFailed(writer.error) }
-            writer.startSession(atSourceTime: .zero)
+        guard writer.startWriting() else { throw DubExportError.writerFailed(writer.error) }
+        writer.startSession(atSourceTime: .zero)
 
-            let totalFrames = max(1, Int(pack.duration * Double(Self.frameRate)))
+        let totalFrames = max(1, Int(pack.duration * Double(Self.frameRate)))
 
-            // Only redraw when the visible line changes: ~60 image decodes for a whole scene,
-            // with the same pixel buffer re-appended for every frame in between.
-            var currentSlug: String?
-            var currentPixelBuffer: CVPixelBuffer?
+        // Only redraw when the visible line changes: ~60 image decodes for a whole scene,
+        // with the same pixel buffer re-appended for every frame in between.
+        var currentSlug: String?
+        var currentPixelBuffer: CVPixelBuffer?
 
-            for frame in 0..<totalFrames {
-                let time = Double(frame) / Double(Self.frameRate)
-                let line = pack.line(at: time)
+        for frame in 0..<totalFrames {
+            let time = Double(frame) / Double(Self.frameRate)
+            let line = pack.line(at: time)
 
-                if line?.slug != currentSlug || currentPixelBuffer == nil {
-                    currentSlug = line?.slug
-                    let imageURL = line.map { pack.imageURL(for: $0) } ?? pack.iconURL
-                    currentPixelBuffer = Self.makePixelBuffer(from: imageURL, pool: adaptor.pixelBufferPool)
-                }
-
-                guard let pixelBuffer = currentPixelBuffer else { continue }
-
-                while !input.isReadyForMoreMediaData {
-                    try await Task.sleep(nanoseconds: 5_000_000)
-                }
-
-                let presentationTime = CMTime(value: CMTimeValue(frame), timescale: Self.frameRate)
-                if !adaptor.append(pixelBuffer, withPresentationTime: presentationTime) {
-                    throw DubExportError.writerFailed(writer.error)
-                }
-
-                if frame % Int(Self.frameRate) == 0 {
-                    progress?(Double(frame) / Double(totalFrames))
-                }
+            if line?.slug != currentSlug || currentPixelBuffer == nil {
+                currentSlug = line?.slug
+                let imageURL = line.map { pack.imageURL(for: $0) } ?? pack.iconURL
+                currentPixelBuffer = Self.makePixelBuffer(from: imageURL, pool: adaptor.pixelBufferPool)
             }
 
-            input.markAsFinished()
+            guard let pixelBuffer = currentPixelBuffer else { continue }
 
-            await withCheckedContinuation { continuation in
-                writer.finishWriting { continuation.resume() }
+            while !input.isReadyForMoreMediaData {
+                try await Task.sleep(nanoseconds: 5_000_000)
             }
 
-            if writer.status != .completed {
+            let presentationTime = CMTime(value: CMTimeValue(frame), timescale: Self.frameRate)
+            if !adaptor.append(pixelBuffer, withPresentationTime: presentationTime) {
                 throw DubExportError.writerFailed(writer.error)
             }
 
-            progress?(1.0)
-        }.value
+            if frame % Int(Self.frameRate) == 0 {
+                progress?(Double(frame) / Double(totalFrames))
+            }
+        }
+
+        input.markAsFinished()
+
+        await withCheckedContinuation { continuation in
+            writer.finishWriting { continuation.resume() }
+        }
+
+        if writer.status != .completed {
+            throw DubExportError.writerFailed(writer.error)
+        }
+
+        progress?(1.0)
     }
 
     /// Draws a still into a pixel buffer, aspect-fit on black so odd-sized packs don't stretch.
@@ -503,7 +519,12 @@ nonisolated struct DubMixer {
 
             session.outputURL = outputURL
             session.outputFileType = .mp4
-            await session.exportAsync()
+            // `export(to:as:)` is iOS 18+; the app ships to iOS 17. Awaited inline rather than
+            // through an async wrapper method, which Swift 6 treats as a hop off this task and
+            // so as sending the session somewhere else.
+            await withCheckedContinuation { continuation in
+                session.exportAsynchronously { continuation.resume() }
+            }
 
             guard session.status == .completed else {
                 throw DubExportError.exportFailed(session.error)
@@ -573,6 +594,8 @@ nonisolated struct DubMixer {
         guard writer.canAdd(videoInput) else { throw DubExportError.renderSetupFailed }
         writer.add(videoInput)
 
+        let videoPump = SamplePump(videoOutput, into: videoInput, label: "video")
+
         // Copied across, not decoded and encoded again. The mix is already AAC in an MP4 and
         // nothing in this pass touches a sample of it, so a second encode would cost a couple
         // of seconds to make it very slightly worse.
@@ -582,8 +605,7 @@ nonisolated struct DubMixer {
         // it knows what they are; without the hint it accepts every sample and writes no
         // track at all. Silently — which is how the first version of this shipped an export
         // with no sound in it, so the wiring is checked rather than assumed from here on.
-        var audioOutput: AVAssetReaderTrackOutput?
-        var audioInput: AVAssetWriterInput?
+        let audioPump: SamplePump?
         if let audioTrack = try await asset.loadTracks(withMediaType: .audio).first {
             let formats = try await audioTrack.load(.formatDescriptions)
 
@@ -602,8 +624,9 @@ nonisolated struct DubMixer {
             }
             reader.add(output)
             writer.add(input)
-            audioOutput = output
-            audioInput = input
+            audioPump = SamplePump(output, into: input, label: "audio")
+        } else {
+            audioPump = nil
         }
 
         guard writer.startWriting() else { throw DubExportError.writerFailed(writer.error) }
@@ -612,16 +635,14 @@ nonisolated struct DubMixer {
 
         let duration = try await asset.load(.duration).seconds
 
-        async let video: Void = pump(videoOutput, into: videoInput, label: "video") { time in
+        async let video: Void = videoPump.run { time in
             guard duration > 0 else { return }
             progress?(.finishing, min(max(time / duration, 0), 1))
         }
-        async let audio: Void = {
-            guard let audioOutput, let audioInput else { return }
-            await pump(audioOutput, into: audioInput, label: "audio", onTime: nil)
-        }()
-
-        _ = await (video, audio)
+        if let audioPump {
+            await audioPump.run(onTime: nil)
+        }
+        await video
 
         await withCheckedContinuation { continuation in
             writer.finishWriting { continuation.resume() }
@@ -629,34 +650,6 @@ nonisolated struct DubMixer {
 
         if reader.status == .failed { throw DubExportError.exportFailed(reader.error) }
         guard writer.status == .completed else { throw DubExportError.writerFailed(writer.error) }
-    }
-
-    /// Moves every sample an output has into an input, waiting on the input rather than
-    /// spinning on it.
-    private func pump(
-        _ output: AVAssetReaderOutput,
-        into input: AVAssetWriterInput,
-        label: String,
-        onTime: (@Sendable (TimeInterval) -> Void)?
-    ) async {
-        await withCheckedContinuation { continuation in
-            let queue = DispatchQueue(label: "ch.falsepeak.dubloon.export.\(label)")
-            input.requestMediaDataWhenReady(on: queue) {
-                while input.isReadyForMoreMediaData {
-                    guard let sample = output.copyNextSampleBuffer() else {
-                        input.markAsFinished()
-                        continuation.resume()
-                        return
-                    }
-                    onTime?(CMSampleBufferGetPresentationTimeStamp(sample).seconds)
-                    if !input.append(sample) {
-                        input.markAsFinished()
-                        continuation.resume()
-                        return
-                    }
-                }
-            }
-        }
     }
 
     /// Bits per second for a frame of this size at this rate.
@@ -683,14 +676,43 @@ nonisolated struct DubMixer {
     }
 }
 
+// MARK: - Sample Pump
 
-// MARK: - Export Compatibility
+/// Moves every sample a reader output has into a writer input, waiting on the input rather
+/// than spinning on it.
+///
+/// **Confined to `queue`.** Once `run` starts, the output and the input are only touched from
+/// the writer's `requestMediaDataWhenReady` callbacks, which all arrive on that one serial
+/// queue. That is what `@unchecked Sendable` stands for; AVFoundation's types cannot say it.
+nonisolated private final class SamplePump: @unchecked Sendable {
 
-private extension AVAssetExportSession {
-    /// `export(to:as:)` is iOS 18+; the app ships to iOS 17.
-    func exportAsync() async {
+    private let output: AVAssetReaderOutput
+    private let input: AVAssetWriterInput
+    private let queue: DispatchQueue
+
+    init(_ output: AVAssetReaderOutput, into input: AVAssetWriterInput, label: String) {
+        self.output = output
+        self.input = input
+        queue = DispatchQueue(label: "ch.falsepeak.dubloon.export.\(label)")
+    }
+
+    func run(onTime: (@Sendable (TimeInterval) -> Void)?) async {
         await withCheckedContinuation { continuation in
-            exportAsynchronously { continuation.resume() }
+            input.requestMediaDataWhenReady(on: queue) {
+                while self.input.isReadyForMoreMediaData {
+                    guard let sample = self.output.copyNextSampleBuffer() else {
+                        self.input.markAsFinished()
+                        continuation.resume()
+                        return
+                    }
+                    onTime?(CMSampleBufferGetPresentationTimeStamp(sample).seconds)
+                    if !self.input.append(sample) {
+                        self.input.markAsFinished()
+                        continuation.resume()
+                        return
+                    }
+                }
+            }
         }
     }
 }

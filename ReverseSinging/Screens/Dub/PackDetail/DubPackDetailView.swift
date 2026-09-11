@@ -148,10 +148,7 @@ struct DubPackDetailView: View {
             Text(viewModel.errorMessage ?? "")
         }
         .task {
-            let pack = pack
-            videoNeedsReimport = await Task.detached(priority: .utility) {
-                DubPackLibrary.sceneVideoIsTruncated(pack)
-            }.value
+            videoNeedsReimport = await DubPackLibrary.sceneVideoIsTruncated(pack)
         }
         .dubTipStyle()
         .advancesDubTips(past: 2, when: playDubTip)

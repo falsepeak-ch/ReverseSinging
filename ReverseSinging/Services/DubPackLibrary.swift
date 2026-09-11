@@ -20,13 +20,17 @@ final class DubPackLibrary: ObservableObject {
     @Published private(set) var importMessage: String = Strings.Dub.importing
     @Published var errorMessage: String?
 
+    /// Kept apart from `reloadTask`, which every reload cancels. The screen reloads the moment
+    /// it appears, right after creating the library, and cancelling the install there left a
+    /// first launch with no starter packs, recorded as installed, never to be retried.
+    private var starterInstallTask: Task<Void, Never>?
     private var reloadTask: Task<Void, Never>?
 
     init() {
-        reloadTask = Task { [weak self] in
+        starterInstallTask = Task { [weak self] in
             await self?.installStarterPacksIfNeeded()
-            await self?.reloadNow()
         }
+        reload()
     }
 
     // MARK: - Starter Packs
@@ -60,8 +64,21 @@ final class DubPackLibrary: ObservableObject {
     /// list is ready, so a reload never blanks the screen it is refreshing.
     func reload() {
         reloadTask?.cancel()
-        reloadTask = Task { await reloadNow() }
+        reloadTask = Task { [starterInstallTask] in
+            // Waits for the starter packs rather than reading a shelf they are still going
+            // onto. A reload replaced while it waits leaves the reading to its replacement.
+            await starterInstallTask?.value
+            guard !Task.isCancelled else { return }
+            await reloadNow()
+        }
     }
+
+    #if DEBUG
+    /// Lets a test wait for the latest `reload()`, starter install included.
+    func waitForReloadForTesting() async {
+        await reloadTask?.value
+    }
+    #endif
 
     /// The same refresh, awaited, used where the next step depends on the result.
     func reloadNow() async {
@@ -189,11 +206,13 @@ final class DubPackLibrary: ObservableObject {
     /// seen: the video is short by exactly the frames that went missing, whatever build did
     /// it. A pack that ships its video as MP4 and never went through the transcoder is
     /// correct by construction and reads well inside the tolerance.
-    nonisolated static func sceneVideoIsTruncated(_ pack: DubPack) -> Bool {
+    @concurrent
+    nonisolated static func sceneVideoIsTruncated(_ pack: DubPack) async -> Bool {
         guard pack.duration > 0, let videoURL = pack.videoURL,
-              FileManager.default.fileExists(atPath: videoURL.path) else { return false }
+              FileManager.default.fileExists(atPath: videoURL.path),
+              let length = try? await AVURLAsset(url: videoURL).load(.duration) else { return false }
 
-        let video = CMTimeGetSeconds(AVURLAsset(url: videoURL).duration)
+        let video = CMTimeGetSeconds(length)
         guard video.isFinite, video > 0 else { return false }
 
         return pack.duration - video > truncatedVideoTolerance

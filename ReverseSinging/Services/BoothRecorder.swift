@@ -26,7 +26,7 @@ import CoreMedia
 /// rather than written, so a camera that took a moment longer to deliver its first buffer
 /// does not bake a leading offset into every clip. That is the same mistake the scene picture
 /// used to make, and it was still visible on playback.
-final class BoothRecorder: NSObject, ObservableObject {
+final class BoothRecorder: ObservableObject {
 
     // MARK: State
 
@@ -58,20 +58,11 @@ final class BoothRecorder: NSObject, ObservableObject {
         }
     }
 
-    /// Handed to `BoothPreviewView`. Owned here so the session outlives any view redraw.
-    let session = AVCaptureSession()
+    /// Handed to `BoothPreviewView`. Owned by the capture core so the session outlives any
+    /// view redraw.
+    var session: AVCaptureSession { capture.session }
 
-    // MARK: Capture plumbing
-
-    /// Everything below is touched only on this queue: the delegate callbacks arrive here,
-    /// and every command from the main actor hops onto it first.
-    private let captureQueue = DispatchQueue(label: "ch.falsepeak.dubloon.booth.capture")
-    private let output = AVCaptureVideoDataOutput()
-    /// Queue-confined, like everything else the session touches.
-    private nonisolated(unsafe) var isConfigured = false
-
-    /// The take being written, or the one waiting for its first frame. Queue-confined.
-    private nonisolated(unsafe) var take: Take?
+    private let capture = BoothCapture()
 
     // MARK: - Permission
 
@@ -125,19 +116,7 @@ final class BoothRecorder: NSObject, ObservableObject {
             return
         }
 
-        // Configuring and running both happen on the capture queue, and so does every
-        // delegate callback. A session reconfigured from the main thread while frames are
-        // being delivered on another is the classic way to get an intermittent stall.
-        let isRunning = await withCheckedContinuation { continuation in
-            captureQueue.async {
-                guard self.configureIfNeeded() else {
-                    continuation.resume(returning: false)
-                    return
-                }
-                if !self.session.isRunning { self.session.startRunning() }
-                continuation.resume(returning: self.session.isRunning)
-            }
-        }
+        let isRunning = await capture.configureAndRun()
 
         availability = isRunning ? .ready : .unavailable
         isPreviewing = isRunning
@@ -148,20 +127,133 @@ final class BoothRecorder: NSObject, ObservableObject {
     func stop() {
         isPreviewing = false
         isWriting = false
-        captureQueue.async { [session] in
-            self.take?.abandon()
-            self.take = nil
-            if session.isRunning { session.stopRunning() }
+        capture.stop()
+    }
+
+    // MARK: - Takes
+
+    /// Begins writing a clip that starts at `anchorHostTime` and runs for `duration`.
+    ///
+    /// - Parameters:
+    ///   - anchorHostTime: the `mach_absolute_time()` deadline the microphone opens on.
+    ///   - duration: the line's length. Zero means "until told to stop".
+    ///   - destination: where the clip lands. Overwritten if it already exists.
+    func startTake(anchorHostTime: UInt64, duration: TimeInterval, to destination: URL) {
+        guard availability == .ready, isPreviewing else { return }
+
+        isWriting = true
+        let anchor = CMClockMakeHostTimeFromSystemUnits(anchorHostTime)
+
+        capture.startTake(destination: destination, anchor: anchor, duration: duration) { [weak self] in
+            Task { @MainActor in self?.isWriting = false }
         }
     }
 
-    // MARK: - Configuration
+    /// Closes the current clip and returns where it landed, or nil if nothing was written.
+    ///
+    /// A take that never received a frame produces no file rather than an empty one, so
+    /// "is there booth footage for this line" stays a question about the filesystem.
+    @discardableResult
+    func finishTake() async -> URL? {
+        isWriting = false
+        return await capture.finishTake()
+    }
 
-    /// Wires the front camera in, once. Runs on `captureQueue`.
+    /// Drops the current clip without keeping it. For a take the user abandoned.
+    func cancelTake() {
+        isWriting = false
+        capture.cancelTake()
+    }
+}
+
+// MARK: - Capture
+
+/// The capture pipeline itself: the session, its output, and the take being written.
+///
+/// **Everything here lives on `queue`.** The sample-buffer delegate is called on it, and every
+/// command from `BoothRecorder` hops onto it before touching anything. A session reconfigured
+/// from the main thread while frames are being delivered on another is the classic way to get
+/// an intermittent stall. That confinement is what `@unchecked Sendable` stands for: the
+/// compiler cannot see a dispatch queue, and an actor running on this queue cannot be entered
+/// synchronously from the delegate on iOS 17.
+///
+/// The one exception is `session`, which `BoothPreviewView` attaches to its preview layer from
+/// the main thread. That is how AVFoundation expects a preview to be wired.
+nonisolated private final class BoothCapture: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, @unchecked Sendable {
+
+    let session = AVCaptureSession()
+
+    private let queue = DispatchQueue(label: "ch.falsepeak.dubloon.booth.capture")
+    private let output = AVCaptureVideoDataOutput()
+    private var isConfigured = false
+
+    /// The take being written, or the one waiting for its first frame.
+    private var take: Take?
+
+    /// Configures the session if it has not been, and starts it.
+    ///
+    /// - Returns: whether it is running.
+    func configureAndRun() async -> Bool {
+        await withCheckedContinuation { continuation in
+            queue.async {
+                guard self.configureIfNeeded() else {
+                    continuation.resume(returning: false)
+                    return
+                }
+                if !self.session.isRunning { self.session.startRunning() }
+                continuation.resume(returning: self.session.isRunning)
+            }
+        }
+    }
+
+    func stop() {
+        queue.async {
+            self.take?.abandon()
+            self.take = nil
+            if self.session.isRunning { self.session.stopRunning() }
+        }
+    }
+
+    /// - Parameter onEnd: called on `queue` when the take reaches `duration` by itself.
+    func startTake(
+        destination: URL,
+        anchor: CMTime,
+        duration: TimeInterval,
+        onEnd: @escaping @Sendable () -> Void
+    ) {
+        queue.async {
+            self.take?.abandon()
+            self.take = Take(destination: destination, anchor: anchor, duration: duration, onEnd: onEnd)
+        }
+    }
+
+    func finishTake() async -> URL? {
+        await withCheckedContinuation { continuation in
+            queue.async {
+                guard let take = self.take else {
+                    continuation.resume(returning: nil)
+                    return
+                }
+                self.take = nil
+                take.finish { continuation.resume(returning: $0) }
+            }
+        }
+    }
+
+    func cancelTake() {
+        queue.async {
+            self.take?.abandon()
+            self.take = nil
+        }
+    }
+
+    // MARK: Configuration
+
+    /// Wires the front camera in, once. Runs on `queue`.
     ///
     /// - Returns: whether there is a usable front camera to preview at all. False on a
     ///   device without one, and on the Simulator, which has no capture device to offer.
-    private nonisolated func configureIfNeeded() -> Bool {
+    private func configureIfNeeded() -> Bool {
         guard !isConfigured else { return true }
 
         // The one line that keeps this out of `AudioRecorder`'s way. Left at its default,
@@ -185,7 +277,7 @@ final class BoothRecorder: NSObject, ObservableObject {
         session.addInput(input)
 
         output.alwaysDiscardsLateVideoFrames = true
-        output.setSampleBufferDelegate(self, queue: captureQueue)
+        output.setSampleBufferDelegate(self, queue: queue)
         guard session.canAddOutput(output) else { return false }
         session.addOutput(output)
 
@@ -207,62 +299,10 @@ final class BoothRecorder: NSObject, ObservableObject {
         return true
     }
 
-    // MARK: - Takes
+    // MARK: Sample Buffer Delegate
 
-    /// Begins writing a clip that starts at `anchorHostTime` and runs for `duration`.
-    ///
-    /// - Parameters:
-    ///   - anchorHostTime: the `mach_absolute_time()` deadline the microphone opens on.
-    ///   - duration: the line's length. Zero means "until told to stop".
-    ///   - destination: where the clip lands. Overwritten if it already exists.
-    func startTake(anchorHostTime: UInt64, duration: TimeInterval, to destination: URL) {
-        guard availability == .ready, isPreviewing else { return }
-
-        isWriting = true
-        let anchor = CMClockMakeHostTimeFromSystemUnits(anchorHostTime)
-
-        captureQueue.async {
-            self.take?.abandon()
-            self.take = Take(destination: destination, anchor: anchor, duration: duration)
-        }
-    }
-
-    /// Closes the current clip and returns where it landed, or nil if nothing was written.
-    ///
-    /// A take that never received a frame produces no file rather than an empty one, so
-    /// "is there booth footage for this line" stays a question about the filesystem.
-    @discardableResult
-    func finishTake() async -> URL? {
-        isWriting = false
-
-        return await withCheckedContinuation { continuation in
-            captureQueue.async {
-                guard let take = self.take else {
-                    continuation.resume(returning: nil)
-                    return
-                }
-                self.take = nil
-                take.finish { continuation.resume(returning: $0) }
-            }
-        }
-    }
-
-    /// Drops the current clip without keeping it. For a take the user abandoned.
-    func cancelTake() {
-        isWriting = false
-        captureQueue.async {
-            self.take?.abandon()
-            self.take = nil
-        }
-    }
-}
-
-// MARK: - Sample Buffer Delegate
-
-extension BoothRecorder: AVCaptureVideoDataOutputSampleBufferDelegate {
-
-    /// Arrives on `captureQueue`, which is where every piece of writer state lives.
-    nonisolated func captureOutput(
+    /// Arrives on `queue`, which is where every piece of writer state lives.
+    func captureOutput(
         _ output: AVCaptureOutput,
         didOutput sampleBuffer: CMSampleBuffer,
         from connection: AVCaptureConnection
@@ -274,17 +314,19 @@ extension BoothRecorder: AVCaptureVideoDataOutputSampleBufferDelegate {
             // notice, so every clip is exactly the stretch of film it belongs to.
             self.take = nil
             take.finish { _ in }
-            Task { @MainActor [weak self] in self?.isWriting = false }
+            take.onEnd()
         }
     }
 }
 
 // MARK: - Take
 
-/// One clip being written. Created and used only on `BoothRecorder.captureQueue`.
-private final class Take {
+/// One clip being written. Created and used only on `BoothCapture`'s queue.
+nonisolated private final class Take {
 
     enum AppendResult { case ignored, written, reachedEnd }
+
+    let onEnd: @Sendable () -> Void
 
     private let destination: URL
     private let anchor: CMTime
@@ -295,10 +337,11 @@ private final class Take {
     private var hasStartedSession = false
     private var wroteAnything = false
 
-    init(destination: URL, anchor: CMTime, duration: TimeInterval) {
+    init(destination: URL, anchor: CMTime, duration: TimeInterval, onEnd: @escaping @Sendable () -> Void) {
         self.destination = destination
         self.anchor = anchor
         self.duration = duration
+        self.onEnd = onEnd
     }
 
     func append(_ sampleBuffer: CMSampleBuffer) -> AppendResult {
@@ -335,7 +378,7 @@ private final class Take {
         return .ignored
     }
 
-    func finish(_ completion: @escaping (URL?) -> Void) {
+    func finish(_ completion: @escaping @Sendable (URL?) -> Void) {
         guard let writer, let input, writer.status == .writing, wroteAnything else {
             abandon()
             completion(nil)
@@ -344,8 +387,11 @@ private final class Take {
 
         input.markAsFinished()
         let destination = self.destination
-        writer.finishWriting {
-            completion(writer.status == .completed ? destination : nil)
+        // Only its final status is read, from its own completion handler, after this take
+        // has already been let go of.
+        nonisolated(unsafe) let finishedWriter = writer
+        finishedWriter.finishWriting {
+            completion(finishedWriter.status == .completed ? destination : nil)
         }
     }
 

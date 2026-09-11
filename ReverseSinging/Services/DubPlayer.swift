@@ -108,9 +108,7 @@ final class DubPlayer: ObservableObject {
         DubMasterLimiter.install(in: engine)
     }
 
-    deinit {
-        progressTimer?.invalidate()
-    }
+    // No `deinit`: the progress timer invalidates itself once `self` is gone.
 
     // MARK: - Loading
 
@@ -128,60 +126,22 @@ final class DubPlayer: ObservableObject {
         self.mode = mode
         duration = pack.duration
 
-        let backingURL = pack.backingTrackURL
         let sources = voiceSources(for: pack, mode: mode)
-        let alreadyLoaded = loadedMode == mode ? placements : [:]
+        // Voices already placed for this mode never leave the main actor; only the rest are read.
+        let cached = loadedMode == mode ? placements : [:]
 
-        let loaded: (AVAudioPCMBuffer?, [String: DubVoiceAlignment.Placement], Float) =
-            await Task.detached(priority: .userInitiated) {
-                var backing: AVAudioPCMBuffer?
-                var bedGain = DubBackingBalance.originalBedGain
-                if let backingURL {
-                    backing = try? DubAudioLoader.loadBuffer(from: backingURL)
+        let loaded = await Self.loadScene(
+            sources.filter { cached[$0.line.slug] == nil },
+            pack: pack,
+            isMyDub: mode == .myDub
+        )
 
-                    // The two modes want different things from the bed. The film's own chunks
-                    // carry its music and effects, and the bed is dipped under each line so
-                    // that chunk plus bed is the film: the original plays over it untouched,
-                    // at unity, and anything done to it here is heard as the room jumping at
-                    // every line. A take carries a voice and nothing else, so under a dub the
-                    // bed is dimmed by one fixed amount, the way the export dims it. See
-                    // `DubBackingBalance`.
-                    if let backing, mode == .myDub {
-                        bedGain = DubBackingBalance.bedGain(for: backing, in: pack)
-                    }
-                }
-
-                var placed: [String: DubVoiceAlignment.Placement] = [:]
-                for source in sources {
-                    if let cached = alreadyLoaded[source.line.slug] {
-                        placed[source.line.slug] = cached
-                        continue
-                    }
-                    guard let buffer = try? DubAudioLoader.loadVoiceBuffer(from: source.url) else { continue }
-
-                    // Only a take needs either of these. The reference chunks are the film's
-                    // own dialogue: already clean, and already at the level being matched to.
-                    if source.isTake {
-                        DubTakeCleanup.apply(to: buffer)
-                        DubVoiceLevel.match(buffer, toReferenceAt: source.referenceURL)
-                    }
-
-                    placed[source.line.slug] = source.isTake
-                        ? DubVoiceAlignment.place(
-                            take: buffer,
-                            for: source.line,
-                            referenceURL: source.referenceURL
-                          )
-                        : DubVoiceAlignment.placeReference(buffer, for: source.line)
-                }
-
-                return (backing, placed, bedGain)
-            }.value
-
-        backingGain = loaded.2
-        backingBuffer = loaded.0
-        backingFormat = loaded.0?.format
-        placements = loaded.1
+        backingGain = loaded.bedGain
+        backingBuffer = loaded.backing
+        backingFormat = loaded.backing?.format
+        placements = sources.reduce(into: [:]) { placed, source in
+            placed[source.line.slug] = cached[source.line.slug] ?? loaded.placements[source.line.slug]
+        }
         loadedMode = mode
 
         // Only lines that actually have audio take up a lane.
@@ -198,8 +158,65 @@ final class DubPlayer: ObservableObject {
         connectNodes()
     }
 
+    /// What `loadScene` hands back: buffers read for that one call, which nothing else holds.
+    nonisolated private struct LoadedScene {
+        var backing: AVAudioPCMBuffer?
+        var bedGain: Float
+        var placements: [String: DubVoiceAlignment.Placement]
+    }
+
+    /// Reads the backing track and every voice in `sources`, and places each on the timeline.
+    ///
+    /// `@concurrent`, so the file reads and the per-take cleanup never land on the main actor.
+    /// The result is `sending`: every buffer in it was made here, so handing it over shares
+    /// nothing with this function.
+    @concurrent
+    nonisolated private static func loadScene(
+        _ sources: [VoiceSource],
+        pack: DubPack,
+        isMyDub: Bool
+    ) async -> sending LoadedScene {
+        var scene = LoadedScene(backing: nil, bedGain: DubBackingBalance.originalBedGain, placements: [:])
+
+        if let backingURL = pack.backingTrackURL {
+            scene.backing = try? DubAudioLoader.loadBuffer(from: backingURL)
+
+            // The two modes want different things from the bed. The film's own chunks
+            // carry its music and effects, and the bed is dipped under each line so
+            // that chunk plus bed is the film: the original plays over it untouched,
+            // at unity, and anything done to it here is heard as the room jumping at
+            // every line. A take carries a voice and nothing else, so under a dub the
+            // bed is dimmed by one fixed amount, the way the export dims it. See
+            // `DubBackingBalance`.
+            if let backing = scene.backing, isMyDub {
+                scene.bedGain = DubBackingBalance.bedGain(for: backing, in: pack)
+            }
+        }
+
+        for source in sources {
+            guard let buffer = try? DubAudioLoader.loadVoiceBuffer(from: source.url) else { continue }
+
+            // Only a take needs either of these. The reference chunks are the film's
+            // own dialogue: already clean, and already at the level being matched to.
+            if source.isTake {
+                DubTakeCleanup.apply(to: buffer)
+                DubVoiceLevel.match(buffer, toReferenceAt: source.referenceURL)
+            }
+
+            scene.placements[source.line.slug] = source.isTake
+                ? DubVoiceAlignment.place(
+                    take: buffer,
+                    for: source.line,
+                    referenceURL: source.referenceURL
+                  )
+                : DubVoiceAlignment.placeReference(buffer, for: source.line)
+        }
+
+        return scene
+    }
+
     /// Where a line's voice comes from in this mode.
-    private struct VoiceSource: Sendable {
+    nonisolated private struct VoiceSource: Sendable {
         let line: DubLine
         let url: URL
         /// True for the user's own take. Take and reference both use the pack timestamp;
@@ -438,8 +455,13 @@ final class DubPlayer: ObservableObject {
     // MARK: - Progress
 
     private func startProgressTimer() {
-        let timer = Timer(timeInterval: 0.05, repeats: true) { [weak self] _ in
-            Task { @MainActor [weak self] in self?.updateProgress() }
+        stopProgressTimer()
+
+        let timer = Timer(timeInterval: 0.05, repeats: true) { [weak self] timer in
+            guard let self else { return timer.invalidate() }
+            // On the main run loop, so this fires on the main thread and can update in place
+            // rather than scheduling a task twenty times a second.
+            MainActor.assumeIsolated { self.updateProgress() }
         }
         RunLoop.main.add(timer, forMode: .common)
         progressTimer = timer
