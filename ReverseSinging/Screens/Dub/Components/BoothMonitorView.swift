@@ -145,11 +145,11 @@ struct BoothSlugBadge: View {
 /// The booth footage playing back in step with the scene, in the frame the monitor uses.
 ///
 /// The record screen's monitor swaps between the live camera and one take; this one only
-/// ever shows footage, and which footage is `DubBoothReel`'s business. The dot is never lit,
+/// ever shows footage, and which footage is `DubBoothReelViewModel`'s business. The dot is never lit,
 /// because nothing is being recorded here. Never mirrored either: this is the file, and the
 /// file is what an export shows other people.
 struct BoothReelMonitor: View {
-    @ObservedObject var reel: DubBoothReel
+    @ObservedObject var reel: DubBoothReelViewModel
 
     var body: some View {
         DubPlayerLayerView(player: reel.player)

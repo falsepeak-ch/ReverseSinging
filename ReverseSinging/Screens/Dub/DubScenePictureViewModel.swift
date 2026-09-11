@@ -1,5 +1,5 @@
 //
-//  DubScenePicture.swift
+//  DubScenePictureViewModel.swift
 //  ReverseSinging
 //
 //  Drives the scene video for one line at a time
@@ -15,7 +15,7 @@ import Combine
 /// in the take; in the playback screen the audio comes from `DubPlayer`, which mixes the
 /// backing track with the user's voices. The video is picture only in both cases.
 @MainActor
-final class DubScenePicture: ObservableObject {
+final class DubScenePictureViewModel: ObservableObject {
 
     /// Nil when the pack ships no playable video, callers fall back to the per-line still.
     @Published private(set) var player: AVPlayer?

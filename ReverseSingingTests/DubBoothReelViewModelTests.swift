@@ -1,5 +1,5 @@
 //
-//  DubBoothReelTests.swift
+//  DubBoothReelViewModelTests.swift
 //  ReverseSingingTests
 //
 //  Which booth clip is up at any point in the scene
@@ -10,7 +10,7 @@ import Testing
 @testable import ReverseSinging
 
 @Suite("Dub Booth Reel")
-struct DubBoothReelTests {
+struct DubBoothReelViewModelTests {
 
     private func line(_ index: Int, start: TimeInterval, duration: TimeInterval) -> DubLine {
         let slug = String(format: "%03d_Tester", index)
@@ -48,7 +48,7 @@ struct DubBoothReelTests {
             line(3, start: 6, duration: 2)
         ])
 
-        let clips = DubBoothReel.clips(for: pack, slugs: ["003_Tester", "001_Tester"])
+        let clips = DubBoothReelViewModel.clips(for: pack, slugs: ["003_Tester", "001_Tester"])
 
         #expect(clips.map(\.slug) == ["001_Tester", "003_Tester"])
         #expect(clips.map(\.start) == [0, 6])
@@ -61,7 +61,7 @@ struct DubBoothReelTests {
     @Test func aZeroLengthLineIsLeftOff() {
         let pack = pack([line(1, start: 0, duration: 0), line(2, start: 1, duration: 2)])
 
-        let clips = DubBoothReel.clips(for: pack, slugs: ["001_Tester", "002_Tester"])
+        let clips = DubBoothReelViewModel.clips(for: pack, slugs: ["001_Tester", "002_Tester"])
 
         #expect(clips.map(\.slug) == ["002_Tester"])
     }
@@ -69,23 +69,23 @@ struct DubBoothReelTests {
     /// The clip under the head, or nothing in the gaps and after the last one.
     @Test func theClipUnderTheHeadIsChosen() {
         let pack = pack([line(1, start: 1, duration: 2), line(2, start: 5, duration: 2)])
-        let clips = DubBoothReel.clips(for: pack, slugs: ["001_Tester", "002_Tester"])
+        let clips = DubBoothReelViewModel.clips(for: pack, slugs: ["001_Tester", "002_Tester"])
 
-        #expect(DubBoothReel.clip(at: 0.5, in: clips) == nil)
-        #expect(DubBoothReel.clip(at: 1.0, in: clips)?.slug == "001_Tester")
-        #expect(DubBoothReel.clip(at: 2.99, in: clips)?.slug == "001_Tester")
-        #expect(DubBoothReel.clip(at: 3.0, in: clips) == nil, "a clip ends where its line does")
-        #expect(DubBoothReel.clip(at: 6.0, in: clips)?.slug == "002_Tester")
-        #expect(DubBoothReel.clip(at: 9.0, in: clips) == nil)
+        #expect(DubBoothReelViewModel.clip(at: 0.5, in: clips) == nil)
+        #expect(DubBoothReelViewModel.clip(at: 1.0, in: clips)?.slug == "001_Tester")
+        #expect(DubBoothReelViewModel.clip(at: 2.99, in: clips)?.slug == "001_Tester")
+        #expect(DubBoothReelViewModel.clip(at: 3.0, in: clips) == nil, "a clip ends where its line does")
+        #expect(DubBoothReelViewModel.clip(at: 6.0, in: clips)?.slug == "002_Tester")
+        #expect(DubBoothReelViewModel.clip(at: 9.0, in: clips) == nil)
     }
 
     /// Lines can overlap. The monitor shows one thing, so the earlier line keeps it until it
     /// ends, the same way the export lays the earlier clip first.
     @Test func anEarlierLineKeepsTheMonitorThroughAnOverlap() {
         let pack = pack([line(1, start: 0, duration: 4), line(2, start: 2, duration: 4)])
-        let clips = DubBoothReel.clips(for: pack, slugs: ["001_Tester", "002_Tester"])
+        let clips = DubBoothReelViewModel.clips(for: pack, slugs: ["001_Tester", "002_Tester"])
 
-        #expect(DubBoothReel.clip(at: 3.0, in: clips)?.slug == "001_Tester")
-        #expect(DubBoothReel.clip(at: 4.0, in: clips)?.slug == "002_Tester")
+        #expect(DubBoothReelViewModel.clip(at: 3.0, in: clips)?.slug == "001_Tester")
+        #expect(DubBoothReelViewModel.clip(at: 4.0, in: clips)?.slug == "002_Tester")
     }
 }

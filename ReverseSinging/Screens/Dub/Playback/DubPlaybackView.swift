@@ -17,10 +17,10 @@ struct DubPlaybackView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject private var player: DubPlayer
 
-    @StateObject private var scenePicture = DubScenePicture()
+    @StateObject private var scenePicture = DubScenePictureViewModel()
     /// The performer's own footage, running alongside. Left empty in `.original`: that mode
     /// is the film, and the film has nobody filming themselves in the corner.
-    @StateObject private var boothReel = DubBoothReel()
+    @StateObject private var boothReel = DubBoothReelViewModel()
     @State private var sceneSamples: [Float] = []
 
     /// True from the first touch on the timeline to the lift. The scene is held while the

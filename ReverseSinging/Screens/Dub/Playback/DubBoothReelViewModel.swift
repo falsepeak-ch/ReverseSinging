@@ -1,5 +1,5 @@
 //
-//  DubBoothReel.swift
+//  DubBoothReelViewModel.swift
 //  ReverseSinging
 //
 //  The performer's own footage, played back in step with the scene
@@ -13,12 +13,12 @@ import Combine
 /// A booth clip is one line long and starts at that line's zero, because `BoothRecorder`
 /// writes it from the microphone's own anchor. So the scene timeline decides which clip is up
 /// and where in it we are, and nothing here has to be told when a line begins. `DubPlayer` is
-/// the clock: this is corrected towards it the way `DubScenePicture` is, never the other way,
+/// the clock: this is corrected towards it the way `DubScenePictureViewModel` is, never the other way,
 /// which would stutter the mix.
 ///
 /// Its own `AVPlayer`, not the scene's. Two pieces of footage are running at once.
 @MainActor
-final class DubBoothReel: ObservableObject {
+final class DubBoothReelViewModel: ObservableObject {
 
     /// Where one line's footage lives, and when on the scene timeline it is up.
     nonisolated struct Clip: Equatable, Sendable {

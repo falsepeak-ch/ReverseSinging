@@ -15,7 +15,7 @@ struct DubRecordView: View {
     @ObservedObject private var booth = BoothCamPreference.shared
     @Environment(\.dismiss) private var dismiss
 
-    @StateObject private var scenePicture = DubScenePicture()
+    @StateObject private var scenePicture = DubScenePictureViewModel()
 
     /// Shown the first time someone reaches for the camera key, never on arrival.
     @State private var isBoothPrimerPresented = false

@@ -103,7 +103,7 @@ struct DubStarterPackTests {
 
     /// A starter pack ships a real scene video, not a slideshow of stills.
     ///
-    /// The video is what the picture actually is: `DubScenePicture` plays it and the record
+    /// The video is what the picture actually is: `DubScenePictureViewModel` plays it and the record
     /// screen seeks it to a single line. A pack that lost its video would silently fall back
     /// to frozen stills, which is exactly the regression this guards.
     @MainActor

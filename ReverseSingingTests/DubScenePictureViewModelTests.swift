@@ -1,5 +1,5 @@
 //
-//  DubScenePictureTests.swift
+//  DubScenePictureViewModelTests.swift
 //  ReverseSingingTests
 //
 //  The scene video actually rolling. Not merely being on screen
@@ -26,10 +26,10 @@ private final class ScenePictureBundleToken {}
 /// one. This only removes the part of the busyness that was self-inflicted.
 @Suite("Dub Scene Picture", .serialized)
 @MainActor
-struct DubScenePictureTests {
+struct DubScenePictureViewModelTests {
 
     /// A picture pointed at a freshly transcoded copy of the Theora fixture.
-    private func makePicture() throws -> (DubScenePicture, URL) {
+    private func makePicture() throws -> (DubScenePictureViewModel, URL) {
         let directory = FileManager.default.temporaryDirectory
             .appendingPathComponent("scenepic-\(UUID().uuidString)", isDirectory: true)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
@@ -39,7 +39,7 @@ struct DubScenePictureTests {
         let video = directory.appendingPathComponent("dub_video.mp4")
         try TheoraTranscoder.transcode(ogv: source, to: video)
 
-        let picture = DubScenePicture()
+        let picture = DubScenePictureViewModel()
         picture.configureForTesting(videoURL: video)
         return (picture, directory)
     }
@@ -85,7 +85,7 @@ struct DubScenePictureTests {
     /// the host clock has been checked, which makes each one provably inside it. Returns nil
     /// when too few samples fit to mean anything. Which at these lead-ins means the machine
     /// stalled for seconds, and is worth failing on rather than passing quietly.
-    private func drift(beforeHostDeadline deadline: UInt64, of picture: DubScenePicture) async throws -> TimeInterval? {
+    private func drift(beforeHostDeadline deadline: UInt64, of picture: DubScenePictureViewModel) async throws -> TimeInterval? {
         var samples: [TimeInterval] = []
 
         while mach_absolute_time() < deadline {
