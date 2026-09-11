@@ -50,7 +50,7 @@ struct EarlyAdopter {
         "hasCompletedOnboarding",       // AppViewModel, set on finishing onboarding
         "review.appOpenCount",          // ReviewPrompt, incremented on every open
         "dub.starterPacksInstalled",    // DubStarterPacks, written on first dub library open
-        "savedSessions",                // AudioViewModel, any saved reverse-singing session
+        "savedSessions",                // ReverseGameViewModel, any saved reverse-singing session
         "uiMode"                        // AppViewModel, written when the interface is chosen
     ]
 

@@ -1,5 +1,5 @@
 //
-//  AudioViewModel.swift
+//  ReverseGameViewModel.swift
 //  ReverseSinging
 //
 //  The reverse-singing game: recording, reversal, playback and sessions
@@ -11,7 +11,7 @@ import DubAudio
 import DubScoring
 
 @MainActor
-final class AudioViewModel: ObservableObject {
+final class ReverseGameViewModel: ObservableObject {
     // MARK: - Published Properties
 
     @Published var appState = AppState()
@@ -584,7 +584,7 @@ final class AudioViewModel: ObservableObject {
 
     /// Puts the device back to the state of one the app has never been run on.
     ///
-    /// `AudioViewModel()` loads its whole `appState` from `UserDefaults`, so any test that
+    /// `ReverseGameViewModel()` loads its whole `appState` from `UserDefaults`, so any test that
     /// constructs one is really asserting about the simulator, not about the view model. The
     /// suite used to *assume* a clean device, which held right up until someone ran the app on
     /// the same simulator, and then failed until it was uninstalled. Establishing the state is
@@ -639,7 +639,7 @@ final class AudioViewModel: ObservableObject {
 
 // MARK: - Reversing
 
-private extension AudioViewModel {
+private extension ReverseGameViewModel {
 
     /// Reverses a recording into a new temporary file off the main thread, and reports back on it.
     func reverseAudio(inputURL: URL, completion: @escaping @MainActor @Sendable (Result<URL, Error>) -> Void) {

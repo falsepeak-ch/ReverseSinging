@@ -261,7 +261,8 @@ final class DubPlayer: ObservableObject {
 
     /// Tears down the previous pack's voice nodes and builds one per lane.
     ///
-    /// Always runs with the engine stopped: `prepare` is only reached through `stopEverything`,
+    /// Always runs with the engine stopped: `prepare` is only reached through
+    /// `DubSessionViewModel.playScene`, which stops playback first,
     /// and detaching a node from a running engine is not something to rely on.
     private func rebuildVoiceNodes(count: Int) {
         for node in voiceNodes {

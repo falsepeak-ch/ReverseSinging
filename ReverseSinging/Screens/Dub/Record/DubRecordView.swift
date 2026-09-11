@@ -10,25 +10,26 @@ import SwiftUI
 import TipKit
 
 struct DubRecordView: View {
-    @ObservedObject var viewModel: DubViewModel
+    @ObservedObject var session: DubSessionViewModel
+    @StateObject private var viewModel: DubRecordViewModel
     @ObservedObject private var scoring = DubScoringPreference.shared
     @ObservedObject private var booth = BoothCamPreference.shared
     @Environment(\.dismiss) private var dismiss
-
-    @StateObject private var scenePicture = DubScenePictureViewModel()
-
-    /// Shown the first time someone reaches for the camera key, never on arrival.
-    @State private var isBoothPrimerPresented = false
 
     /// The first-run coaching, one at a time. See `DubTips`.
     private let recordTip = DubRecordTip()
     private let boothTip = DubBoothTip()
 
+    init(session: DubSessionViewModel) {
+        self.session = session
+        _viewModel = StateObject(wrappedValue: DubRecordViewModel(session: session))
+    }
+
     var body: some View {
         ZStack {
             Color.rsSurface0.ignoresSafeArea()
 
-            if let line = viewModel.currentLine {
+            if let line = session.currentLine {
                 VStack(spacing: 0) {
                     hud(for: line)
 
@@ -47,9 +48,9 @@ struct DubRecordView: View {
             CountdownOverlay(value: viewModel.countdown)
         }
         .statusBarHidden()
-        .animation(.easeInOut(duration: 0.2), value: viewModel.currentLineIndex)
+        .animation(.easeInOut(duration: 0.2), value: session.currentLineIndex)
         .animation(.easeInOut(duration: 0.2), value: viewModel.isRecording)
-        .animation(.rsSpring, value: viewModel.latestScore)
+        .animation(.rsSpring, value: session.latestScore)
         .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: $viewModel.showPermissionAlert) {
             Button(Strings.Main.Alert.settings) {
                 if let url = URL(string: UIApplication.openSettingsURLString) {
@@ -60,57 +61,32 @@ struct DubRecordView: View {
         } message: {
             Text(Strings.Main.Alert.microphoneRequiredMessage)
         }
-        .boothCamPrimer(isPresented: $isBoothPrimerPresented) {
-            Task { await viewModel.setBoothEnabled(true) }
+        .boothCamPrimer(isPresented: $viewModel.isBoothPrimerPresented) {
+            viewModel.boothPrimerDidEnable()
         }
         .dubTipStyle()
         .advancesDubTips(past: 0, when: recordTip)
         .advancesDubTips(past: 1, when: boothTip)
         .onChange(of: booth.isEnabled, initial: true) { _, isOn in
-            DubTips.noteBooth(isOn: isOn)
+            viewModel.boothPreferenceDidChange(isOn: isOn)
         }
-        .onAppear {
-            scenePicture.configure(with: viewModel.pack)
-            if let line = viewModel.currentLine { scenePicture.show(line) }
-            AnalyticsManager.shared.trackScreenViewed(screenName: "DubRecord")
-            #if DEBUG
-            // The `boothCam` slot on the product page. The primer, not the monitor:
-            // a simulator has no front camera to preview.
-            if ScreenshotMode.isActive, ScreenshotMode.destination?.presentsBoothPrimer == true {
-                isBoothPrimerPresented = true
-            }
-            #endif
-        }
+        .onAppear { viewModel.onAppear() }
         // Only ever live while this screen is on top, so the camera indicator is never lit
         // somewhere else in the app.
         .task { await viewModel.startBoothIfEnabled() }
-        .onDisappear {
-            scenePicture.tearDown()
-            viewModel.stopBooth()
-            viewModel.stopEverything()
-        }
+        .onDisappear { viewModel.onDisappear() }
         .animation(.easeInOut(duration: 0.2), value: booth.isEnabled)
-        // Park the picture on whichever line is up next.
-        .onChange(of: viewModel.currentLineIndex) { _, _ in
-            guard let line = viewModel.currentLine else { return }
-            scenePicture.show(line)
+        .onChange(of: session.currentLineIndex) { _, _ in
+            viewModel.lineDidChange()
         }
-        // Roll the picture whenever the line is being heard or performed, so the user is
-        // always dubbing to something rather than to a frozen frame.
-        .onChange(of: viewModel.isPreviewingReference) { _, isPreviewing in
-            guard let line = viewModel.currentLine else { return }
-            isPreviewing ? scenePicture.play(line) : scenePicture.stop(returningTo: line)
+        .onChange(of: session.isPreviewingReference) { _, isPreviewing in
+            viewModel.previewDidChange(isPreviewing: isPreviewing)
         }
-        // Schedule the first frame on the microphone's exact future start boundary. Starting
-        // the recorder and only then reacting here used to bake the asynchronous video seek
-        // into every take as leading silence; that delay was still present on playback.
         .onChange(of: viewModel.recordingAnchor) { _, anchor in
-            guard let anchor, let line = viewModel.currentLine else { return }
-            scenePicture.play(line, at: anchor, loop: line.duration <= 0)
+            viewModel.recordingAnchorDidChange(anchor)
         }
         .onChange(of: viewModel.isRecording) { _, isRecording in
-            guard let line = viewModel.currentLine else { return }
-            if !isRecording { scenePicture.stop(returningTo: line) }
+            viewModel.recordingDidChange(isRecording: isRecording)
         }
     }
 
@@ -121,7 +97,7 @@ struct DubRecordView: View {
         VStack(spacing: 0) {
             HStack(spacing: 12) {
                 Button {
-                    viewModel.stopEverything()
+                    viewModel.stop()
                     dismiss()
                 } label: {
                     Image(systemName: "xmark")
@@ -148,7 +124,7 @@ struct DubRecordView: View {
 
                 boothKey
 
-                Text(String(format: "%03d / %03d", line.index, viewModel.pack.lines.count))
+                Text(String(format: "%03d / %03d", line.index, session.pack.lines.count))
                     .font(.rsTimecodeSmall)
                     .foregroundColor(.rsTextSecondary)
             }
@@ -157,8 +133,8 @@ struct DubRecordView: View {
             .padding(.bottom, 9)
 
             DubProgressBar(
-                recorded: viewModel.recordedCount,
-                total: viewModel.pack.lines.count
+                recorded: session.recordedCount,
+                total: session.pack.lines.count
             )
             .padding(.horizontal, EditorMetrics.gutter)
             .padding(.bottom, 10)
@@ -177,16 +153,7 @@ struct DubRecordView: View {
             HapticManager.shared.light()
             // Reaching for the key is the tip's whole point made.
             boothTip.invalidate(reason: .actionPerformed)
-
-            if booth.isEnabled {
-                Task { await viewModel.setBoothEnabled(false) }
-            } else if booth.hasSeenPrimer, BoothRecorder.cameraPermission == .granted {
-                Task { await viewModel.setBoothEnabled(true) }
-            } else {
-                // Either the case has never been made, or the system said no and the user
-                // needs to be told why nothing happened.
-                isBoothPrimerPresented = true
-            }
+            viewModel.toggleBooth()
         } label: {
             Image(systemName: booth.isEnabled ? "video.fill" : "video.slash.fill")
                 .font(.system(size: 14, weight: .medium))
@@ -227,12 +194,12 @@ struct DubRecordView: View {
 
     private func picture(for line: DubLine) -> some View {
         DubPicture(
-            player: scenePicture.player,
-            stillURL: viewModel.pack.imageURL(for: line)
+            player: viewModel.scenePicture.player,
+            stillURL: session.pack.imageURL(for: line)
         )
             .frame(maxWidth: .infinity)
             .frame(maxHeight: .infinity)
-            .id(scenePicture.player == nil ? line.slug : "video")
+            .id(viewModel.scenePicture.player == nil ? line.slug : "video")
             .cinemaVignette()
             .filmGrain(opacity: 0.06)
             .overlay(alignment: .topLeading) {
@@ -256,7 +223,7 @@ struct DubRecordView: View {
                         recorder: viewModel.booth,
                         level: viewModel.recordingLevel,
                         isRecording: viewModel.isRecording,
-                        playbackURL: viewModel.boothPlaybackURL
+                        playbackURL: session.boothPlaybackURL
                     )
                     .padding(12)
                     .transition(.opacity.combined(with: .scale(scale: 0.94, anchor: .bottomTrailing)))
@@ -285,9 +252,9 @@ struct DubRecordView: View {
 
             DubWaveformView(
                 samples: viewModel.referenceSamples,
-                overlay: takeOverlay,
+                overlay: viewModel.takeOverlay,
                 overlayTint: .rsRecord,
-                progress: waveformProgress(for: line),
+                progress: viewModel.waveformProgress(for: line),
                 height: 52,
                 onTap: {
                     HapticManager.shared.impact(.light)
@@ -299,17 +266,6 @@ struct DubRecordView: View {
         .padding(.vertical, 12)
         .background(Color.rsSurface1)
         .overlay(alignment: .top) { EditorRule() }
-    }
-
-    /// While the mic is open this is the live trace; once a take exists it is that take's
-    /// real shape, so the comparison survives past the end of the recording.
-    ///
-    /// Both fill the rail, because a take is always the length of the line it replaces.
-    private var takeOverlay: [Float]? {
-        if viewModel.isRecording {
-            return viewModel.liveTrace.isEmpty ? nil : viewModel.liveTrace
-        }
-        return viewModel.takeSamples.isEmpty ? nil : viewModel.takeSamples
     }
 
     // MARK: - Subtitle Plate
@@ -342,7 +298,7 @@ struct DubRecordView: View {
 
                     Rectangle()
                         .fill(pacingColor(for: line))
-                        .frame(width: geometry.size.width * pacingFraction(for: line), height: 2)
+                        .frame(width: geometry.size.width * viewModel.pacingFraction(for: line), height: 2)
                 }
                 .frame(height: 2)
             }
@@ -357,9 +313,9 @@ struct DubRecordView: View {
 
                 Spacer()
 
-                Text(timerText(for: line))
+                Text(viewModel.timerText(for: line))
                     .font(.rsTimecodeSmall)
-                    .foregroundColor(overLength(line) ? .rsCaution : .rsTextSecondary)
+                    .foregroundColor(viewModel.isOverLength(line) ? .rsCaution : .rsTextSecondary)
             }
             .padding(.horizontal, 20)
         }
@@ -368,49 +324,19 @@ struct DubRecordView: View {
         .overlay(alignment: .top) { EditorRule() }
     }
 
-    /// The playhead: where the preview has got to, or, while the mic is open, where the take
-    /// has. During a take it is the only thing on screen that says *where in the line you are*,
-    /// which is what lets a performer see the original's run-up coming rather than talking
-    /// straight over it.
-    private func waveformProgress(for line: DubLine) -> Double? {
-        if viewModel.isRecording {
-            guard line.duration > 0 else { return nil }
-            return min(1, viewModel.recordingDuration / line.duration)
-        }
-        return viewModel.isPreviewingReference ? viewModel.previewProgress : nil
-    }
-
     private func characterColor(for line: DubLine) -> Color {
-        DubCharacterStyle.color(for: line.character, in: viewModel.pack.characters)
-    }
-
-    private func pacingFraction(for line: DubLine) -> Double {
-        guard viewModel.isRecording, line.duration > 0 else { return 0 }
-        return min(1.0, viewModel.recordingDuration / line.duration)
-    }
-
-    private func overLength(_ line: DubLine) -> Bool {
-        viewModel.isRecording && line.duration > 0 && viewModel.recordingDuration > line.duration
+        DubCharacterStyle.color(for: line.character, in: session.pack.characters)
     }
 
     private func pacingColor(for line: DubLine) -> Color {
-        overLength(line) ? .rsCaution : .rsRecord
-    }
-
-    private func timerText(for line: DubLine) -> String {
-        let elapsed = viewModel.isRecording ? viewModel.recordingDuration : 0
-        return String(format: "%05.2f / %05.2f", elapsed, line.duration)
+        viewModel.isOverLength(line) ? .rsCaution : .rsRecord
     }
 
     // MARK: - Score Bay
 
-    /// How the last take scored, or nothing at all.
-    ///
-    /// Hidden while the mic is open: mid-take, the previous attempt's verdict is a distraction
-    /// from the line being performed, and the number it shows is about to be replaced anyway.
     @ViewBuilder
     private var scoreBay: some View {
-        if scoring.isEnabled, let score = viewModel.latestScore, !viewModel.isRecording {
+        if viewModel.showsScoreCard, let score = session.latestScore {
             DubTakeScoreCard(score: score)
                 .padding(.horizontal, EditorMetrics.gutter)
                 .padding(.top, 10)
@@ -425,12 +351,12 @@ struct DubRecordView: View {
             transportButton(
                 icon: "chevron.left",
                 label: Strings.Dub.previous,
-                isEnabled: viewModel.currentLineIndex > 0 && !viewModel.isRecording,
+                isEnabled: viewModel.canGoToPreviousLine,
                 action: viewModel.goToPreviousLine
             )
 
             transportButton(
-                icon: viewModel.isPreviewingReference ? "stop.fill" : "speaker.wave.2.fill",
+                icon: session.isPreviewingReference ? "stop.fill" : "speaker.wave.2.fill",
                 label: Strings.Dub.listen,
                 isEnabled: !viewModel.isRecording,
                 action: viewModel.toggleReferencePreview
@@ -441,19 +367,19 @@ struct DubRecordView: View {
             transportButton(
                 icon: "play.fill",
                 label: Strings.Dub.playTake,
-                isEnabled: viewModel.isRecorded(line) && !viewModel.isRecording,
+                isEnabled: viewModel.canPlayTake(of: line),
                 action: viewModel.playCurrentTake
             )
 
             // On the last line there is nowhere to go next, and a permanently greyed chevron
             // is a dead end where the session actually ends. It becomes the way out instead.
-            if isOnLastLine {
+            if viewModel.isOnLastLine {
                 transportButton(
                     icon: "checkmark",
                     label: Strings.Dub.finish,
                     isEnabled: !viewModel.isRecording,
                     action: {
-                        viewModel.stopEverything()
+                        viewModel.stop()
                         dismiss()
                     }
                 )
@@ -471,10 +397,6 @@ struct DubRecordView: View {
         .padding(.bottom, 22)
         .background(Color.rsSurface1)
         .overlay(alignment: .top) { EditorRule() }
-    }
-
-    private var isOnLastLine: Bool {
-        viewModel.currentLineIndex >= viewModel.pack.lines.count - 1
     }
 
     /// The one saturated control on the screen, and the only round one, so the

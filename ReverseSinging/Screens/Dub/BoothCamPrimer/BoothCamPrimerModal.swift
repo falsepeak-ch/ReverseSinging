@@ -16,12 +16,17 @@ import SwiftUI
 /// nothing, and the system prompt is never spent.
 struct BoothCamPrimerModal: View {
 
-    /// Called when the user turns the feature on, after the system has had its say.
-    let onEnabled: () -> Void
-    /// Called when the user backs out, whichever way they did it.
-    let onDismiss: () -> Void
+    @StateObject private var viewModel: BoothCamPrimerViewModel
 
-    @State private var isRequesting = false
+    /// - Parameters:
+    ///   - onEnabled: called when the user turns the feature on, after the system has had its say.
+    ///   - onDismiss: called when the user backs out, whichever way they did it.
+    init(onEnabled: @escaping () -> Void, onDismiss: @escaping () -> Void) {
+        _viewModel = StateObject(wrappedValue: BoothCamPrimerViewModel(
+            onEnabled: onEnabled,
+            onDismiss: onDismiss
+        ))
+    }
 
     var body: some View {
         ZStack {
@@ -32,7 +37,7 @@ struct BoothCamPrimerModal: View {
                 .padding(.vertical, 24)
                 .transition(.opacity)
         }
-        .onAppear { AnalyticsManager.shared.trackScreenViewed(screenName: "BoothCamPrimer") }
+        .onAppear { viewModel.onAppear() }
     }
 
     // MARK: - Backdrop
@@ -42,7 +47,7 @@ struct BoothCamPrimerModal: View {
             .opacity(0.88)
             .ignoresSafeArea()
             .contentShape(Rectangle())
-            .onTapGesture { dismiss() }
+            .onTapGesture { viewModel.dismiss() }
             .accessibilityHidden(true)
     }
 
@@ -88,9 +93,9 @@ struct BoothCamPrimerModal: View {
                         title: Strings.Booth.primerConfirm,
                         icon: "video.fill",
                         color: .rsTextPrimary,
-                        action: enable,
-                        isEnabled: !isRequesting,
-                        isLoading: isRequesting,
+                        action: viewModel.enable,
+                        isEnabled: !viewModel.isRequesting,
+                        isLoading: viewModel.isRequesting,
                         style: .primary,
                         textFont: .rsButtonMedium
                     )
@@ -100,12 +105,12 @@ struct BoothCamPrimerModal: View {
                         .foregroundColor(.rsTextTertiary)
                         .multilineTextAlignment(.center)
 
-                    Button(action: dismiss) {
+                    Button(action: viewModel.dismiss) {
                         Text(Strings.Booth.primerDecline)
                             .font(.rsButtonMedium)
                             .foregroundColor(.rsTextSecondary)
                     }
-                    .disabled(isRequesting)
+                    .disabled(viewModel.isRequesting)
                 }
             }
             .padding(EditorMetrics.gutter)
@@ -124,7 +129,7 @@ struct BoothCamPrimerModal: View {
                 EditorToolbarButton(
                     icon: "xmark",
                     label: Strings.DubGate.close,
-                    action: dismiss
+                    action: viewModel.dismiss
                 )
             }
             .padding(.horizontal, 12)
@@ -187,46 +192,6 @@ struct BoothCamPrimerModal: View {
 
             if !isLast { EditorRule() }
         }
-    }
-
-    // MARK: - Behaviour
-
-    private func enable() {
-        guard !isRequesting else { return }
-        isRequesting = true
-
-        Task {
-            let granted: Bool
-
-            switch BoothRecorder.cameraPermission {
-            case .granted:
-                granted = true
-            case .unasked:
-                granted = await BoothRecorder.requestAccess()
-            case .refused:
-                granted = false
-            }
-
-            isRequesting = false
-            // Either way the case has been made; asking again on the next line would be
-            // nagging rather than explaining.
-            BoothCamPreference.shared.markPrimerSeen()
-
-            if granted {
-                AnalyticsManager.shared.trackCustomEvent(name: "booth_cam_enabled", parameters: nil)
-                onEnabled()
-            } else {
-                AnalyticsManager.shared.trackPermissionDenied()
-                onDismiss()
-            }
-        }
-    }
-
-    private func dismiss() {
-        guard !isRequesting else { return }
-        HapticManager.shared.light()
-        BoothCamPreference.shared.markPrimerSeen()
-        onDismiss()
     }
 }
 

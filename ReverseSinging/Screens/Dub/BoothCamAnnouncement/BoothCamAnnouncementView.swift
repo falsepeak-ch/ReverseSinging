@@ -16,10 +16,15 @@ import SwiftUI
 /// for the key, and the slate says where the key is.
 struct BoothCamAnnouncementView: View {
 
-    /// Called when the user wants to go and try it, after the sheet has dismissed itself.
-    let onTryIt: () -> Void
+    @StateObject private var viewModel: BoothCamAnnouncementViewModel
 
     @Environment(\.dismiss) private var dismiss
+
+    /// - Parameter onTryIt: called when the user wants to go and try it, after the sheet has
+    ///   dismissed itself.
+    init(onTryIt: @escaping () -> Void) {
+        _viewModel = StateObject(wrappedValue: BoothCamAnnouncementViewModel(onTryIt: onTryIt))
+    }
 
     var body: some View {
         ZStack {
@@ -64,7 +69,7 @@ struct BoothCamAnnouncementView: View {
                 footer
             }
         }
-        .onAppear { AnalyticsManager.shared.trackScreenViewed(screenName: "BoothCamAnnouncement") }
+        .onAppear { viewModel.onAppear() }
     }
 
     // MARK: - Pieces
@@ -134,7 +139,7 @@ struct BoothCamAnnouncementView: View {
             Button {
                 HapticManager.shared.medium()
                 dismiss()
-                onTryIt()
+                viewModel.tryIt()
             } label: {
                 Text(Strings.WhatsNew.Booth.confirm)
                     .font(.rsButtonLarge)

@@ -22,7 +22,7 @@ struct ContentView: View {
                 HomeView()
                     .environmentObject(viewModel)
             } else {
-                OnboardingView(viewModel: viewModel)
+                OnboardingView(app: viewModel)
             }
         }
         .preferredColorScheme(preferredColorScheme)

@@ -18,29 +18,11 @@ import DubloonFoundation
 /// of a compositing option does the first time the layout changes.
 struct DubExportOptionsModal: View {
 
-    let pack: DubPack
-    /// Non-nil when this is one line's own export, reached from its row in the list.
-    let line: DubLine?
-    /// Whether there is any booth footage to composite at all.
-    let hasBoothFootage: Bool
-    /// How long the finished file runs, for the selected cut.
-    let runtime: (DubCut) -> TimeInterval
-
     let onExport: (DubCut, DubBoothFrame, Bool) -> Void
     let onCancel: () -> Void
 
-    @State private var cut: DubCut
-    @State private var frame: DubBoothFrame
-    /// Whether the performer's own footage goes into the file. Only the vertical frames can
-    /// be rendered without it, so only they show the switch.
-    @State private var includesBooth: Bool
-    /// The scene picture's shape, read from the pack's own video. Nil until it has loaded, and
-    /// for packs that have no video and are exported as a slideshow.
-    @State private var sceneSize: CGSize?
+    @StateObject private var viewModel: DubExportOptionsViewModel
     @State private var showsAdvanced = false
-    /// A frame lifted out of one of the booth clips, so the diagram can show the performer
-    /// rather than a labelled rectangle. Nil for a scene that was never filmed.
-    @State private var boothStill: UIImage?
 
     init(
         pack: DubPack,
@@ -50,18 +32,14 @@ struct DubExportOptionsModal: View {
         onExport: @escaping (DubCut, DubBoothFrame, Bool) -> Void,
         onCancel: @escaping () -> Void
     ) {
-        self.pack = pack
-        self.line = line
-        self.hasBoothFootage = hasBoothFootage
-        self.runtime = runtime
         self.onExport = onExport
         self.onCancel = onCancel
-
-        _cut = State(initialValue: line.map { DubCut.line($0.slug) } ?? .fullScene)
-        // A single line is four seconds, and four seconds is a vertical post. The whole scene
-        // is not, so it keeps the shape it has always exported in.
-        _frame = State(initialValue: hasBoothFootage ? (line == nil ? .corner : .stacked) : .off)
-        _includesBooth = State(initialValue: hasBoothFootage)
+        _viewModel = StateObject(wrappedValue: DubExportOptionsViewModel(
+            pack: pack,
+            line: line,
+            hasBoothFootage: hasBoothFootage,
+            runtime: runtime
+        ))
     }
 
     var body: some View {
@@ -73,47 +51,9 @@ struct DubExportOptionsModal: View {
                 .padding(.vertical, 20)
                 .transition(.opacity)
         }
-        .onAppear { AnalyticsManager.shared.trackScreenViewed(screenName: "DubExportOptions") }
-        .task {
-            sceneSize = await DubBoothComposer.sceneDisplaySize(of: pack)
-        }
-        .task {
-            boothStill = await Self.boothStill(in: pack)
-        }
-    }
-
-    /// A frame from the first booth clip this pack has, for the diagram.
-    ///
-    /// Half a second in rather than at zero: the first frame of a take is the performer still
-    /// arranging their face, which is nobody's idea of a thumbnail.
-    private static func boothStill(in pack: DubPack) async -> UIImage? {
-        guard let line = pack.lines.first(where: { pack.hasBoothTake(for: $0) }) else { return nil }
-
-        let asset = AVURLAsset(url: pack.boothTakeURL(for: line))
-        let generator = AVAssetImageGenerator(asset: asset)
-        generator.appliesPreferredTrackTransform = true
-        generator.maximumSize = CGSize(width: 240, height: 240)
-
-        guard let image = try? await generator.image(at: CMTime(seconds: 0.5, preferredTimescale: 600)).image
-        else { return nil }
-
-        return UIImage(cgImage: image)
-    }
-
-    /// The booth's own shape, for laying out the diagram before any footage is opened. Every
-    /// clip `BoothRecorder` writes is portrait; the exact numbers only move the inset by a
-    /// hair, and the render reads the real ones.
-    private static let boothDisplaySize = CGSize(width: 720, height: 1280)
-
-    /// The shape the export is laid out around: the pack's own video, or the 16:9 slideshow
-    /// that stands in for a pack that has none.
-    private var sceneDisplaySize: CGSize {
-        sceneSize ?? CGSize(width: 1280, height: 720)
-    }
-
-    /// Whether the performer will actually be in the file.
-    private var showsBooth: Bool {
-        hasBoothFootage && (includesBooth || !frame.isVertical)
+        .onAppear { viewModel.onAppear() }
+        .task { await viewModel.loadSceneSize() }
+        .task { await viewModel.loadBoothStill() }
     }
 
     private var backdrop: some View {
@@ -151,7 +91,7 @@ struct DubExportOptionsModal: View {
                 // rectangles with words in them.
                 preview
 
-                if let line { lineIdentity(line) }
+                if let line = viewModel.line { lineIdentity(line) }
 
                 framePicker
 
@@ -161,10 +101,10 @@ struct DubExportOptionsModal: View {
 
                 VStack(spacing: 8) {
                     BigButton(
-                        title: line == nil ? Strings.Booth.exportConfirm : Strings.Booth.exportLineConfirm,
+                        title: viewModel.line == nil ? Strings.Booth.exportConfirm : Strings.Booth.exportLineConfirm,
                         icon: "square.and.arrow.up",
                         color: .rsTextPrimary,
-                        action: { onExport(cut, frame, includesBooth && hasBoothFootage) },
+                        action: { onExport(viewModel.cut, viewModel.frame, viewModel.exportsBooth) },
                         style: .primary,
                         textFont: .rsButtonMedium
                     )
@@ -183,7 +123,7 @@ struct DubExportOptionsModal: View {
     private var titleBar: some View {
         VStack(spacing: 0) {
             HStack(spacing: 10) {
-                Text(pack.title)
+                Text(viewModel.pack.title)
                     .editorLabelStyle(.rsTextSecondary)
                     .lineLimit(1)
 
@@ -203,13 +143,13 @@ struct DubExportOptionsModal: View {
     /// The output frame, at the shape it will actually be, with each picture in its place.
     private var preview: some View {
         let layout = DubBoothLayout.make(
-            frame: frame,
-            sceneDisplaySize: sceneDisplaySize,
-            boothDisplaySize: Self.boothDisplaySize
+            frame: viewModel.frame,
+            sceneDisplaySize: viewModel.sceneDisplaySize,
+            boothDisplaySize: DubExportOptionsViewModel.boothDisplaySize
         )
         // What the scene actually gets: the band it shares with the booth, or the whole
         // picture area when there is no booth in the file.
-        let sceneRect = showsBooth ? layout.sceneRect : layout.sceneRectAlone
+        let sceneRect = viewModel.showsBooth ? layout.sceneRect : layout.sceneRectAlone
 
         return VStack(spacing: 0) {
             GeometryReader { geometry in
@@ -229,7 +169,7 @@ struct DubExportOptionsModal: View {
                         .frame(width: size.width, height: size.height)
 
                     previewPane(
-                        image: sceneStillURL.map { DubStillImage(url: $0) },
+                        image: viewModel.sceneStillURL.map { DubStillImage(url: $0) },
                         label: Strings.Dub.original,
                         tint: .rsTextSecondary,
                         fill: Color.rsSurface2
@@ -247,9 +187,9 @@ struct DubExportOptionsModal: View {
                             .offset(x: waveRect.minX * scale, y: waveRect.minY * scale)
                     }
 
-                    if let boothRect = layout.boothRect, showsBooth {
+                    if let boothRect = layout.boothRect, viewModel.showsBooth {
                         previewPane(
-                            image: boothStill.map { still in
+                            image: viewModel.boothStill.map { still in
                                 Image(uiImage: still).resizable().aspectRatio(contentMode: .fill)
                             },
                             label: Strings.Booth.slug,
@@ -277,8 +217,8 @@ struct DubExportOptionsModal: View {
             .background(Color.rsSurface0)
         }
         .editorPanel(.rsSurface0)
-        .animation(.easeInOut(duration: 0.18), value: frame)
-        .animation(.easeInOut(duration: 0.18), value: includesBooth)
+        .animation(.easeInOut(duration: 0.18), value: viewModel.frame)
+        .animation(.easeInOut(duration: 0.18), value: viewModel.includesBooth)
     }
 
     /// A token waveform, so the strip in the diagram reads as the strip in the file rather
@@ -327,15 +267,6 @@ struct DubExportOptionsModal: View {
             .overlay { previewLabel(label, tint: image == nil ? tint : .rsTextPrimary) }
     }
 
-    /// The still that stands in for the scene: the line being exported when there is one,
-    /// otherwise a frame from the middle of the film rather than its first, which on these
-    /// packs is usually a title card.
-    private var sceneStillURL: URL? {
-        if let line { return pack.imageURL(for: line) }
-        guard !pack.lines.isEmpty else { return nil }
-        return pack.imageURL(for: pack.lines[pack.lines.count / 2])
-    }
-
     private func previewLabel(_ text: String, tint: Color) -> some View {
         Text(text)
             .font(.system(size: 9, weight: .semibold))
@@ -358,16 +289,16 @@ struct DubExportOptionsModal: View {
             EditorSectionHeader(title: Strings.Booth.cut)
 
             HStack(spacing: 0) {
-                segment(Strings.Booth.cutFullScene, isSelected: cut == .fullScene) {
-                    cut = .fullScene
+                segment(Strings.Booth.cutFullScene, isSelected: viewModel.cut == .fullScene) {
+                    viewModel.cut = .fullScene
                 }
 
                 Rectangle()
                     .fill(Color.rsStroke)
                     .frame(width: EditorMetrics.hairline)
 
-                segment(Strings.Booth.cutSessionReel, isSelected: cut == .sessionReel) {
-                    cut = .sessionReel
+                segment(Strings.Booth.cutSessionReel, isSelected: viewModel.cut == .sessionReel) {
+                    viewModel.cut = .sessionReel
                 }
             }
             .frame(height: 36)
@@ -403,13 +334,13 @@ struct DubExportOptionsModal: View {
     private func lineIdentity(_ line: DubLine) -> some View {
         HStack(alignment: .top, spacing: 10) {
             Rectangle()
-                .fill(DubCharacterStyle.color(for: line.character, in: pack.characters))
+                .fill(DubCharacterStyle.color(for: line.character, in: viewModel.pack.characters))
                 .frame(width: 3, height: 34)
 
             VStack(alignment: .leading, spacing: 3) {
                 DubCharacterPlate(
                     character: line.character,
-                    color: DubCharacterStyle.color(for: line.character, in: pack.characters)
+                    color: DubCharacterStyle.color(for: line.character, in: viewModel.pack.characters)
                 )
 
                 Text(line.caption)
@@ -435,7 +366,7 @@ struct DubExportOptionsModal: View {
                 }
             }
 
-            if !hasBoothFootage {
+            if !viewModel.hasBoothFootage {
                 Text(Strings.Booth.noFootage)
                     .font(.rsCaptionSmall)
                     .foregroundColor(.rsTextTertiary)
@@ -477,11 +408,11 @@ struct DubExportOptionsModal: View {
 
             if showsAdvanced {
                 VStack(alignment: .leading, spacing: 16) {
-                    if line == nil { cutPicker }
+                    if viewModel.line == nil { cutPicker }
 
-                    if frame.isVertical { boothSwitch }
+                    if viewModel.frame.isVertical { boothSwitch }
 
-                    if hasBoothFootage {
+                    if viewModel.hasBoothFootage {
                         Text(Strings.Booth.stackedNote)
                             .font(.rsCaptionSmall)
                             .foregroundColor(.rsTextTertiary)
@@ -501,14 +432,14 @@ struct DubExportOptionsModal: View {
     /// explained, when the scene has no footage to include.
     private var boothSwitch: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Toggle(isOn: $includesBooth) {
+            Toggle(isOn: $viewModel.includesBooth) {
                 Text(Strings.Booth.includeBooth)
                     .font(.rsBodySmall)
                     .foregroundColor(.rsTextPrimary)
             }
             .toggleStyle(SwitchToggleStyle(tint: .rsHighlight))
-            .disabled(!hasBoothFootage)
-            .opacity(hasBoothFootage ? 1 : 0.55)
+            .disabled(!viewModel.hasBoothFootage)
+            .opacity(viewModel.hasBoothFootage ? 1 : 0.55)
 
             Text(Strings.Booth.includeBoothDetail)
                 .font(.rsCaptionSmall)
@@ -518,26 +449,19 @@ struct DubExportOptionsModal: View {
         .padding(.top, 2)
     }
 
-    /// Whether a frame can be picked at all. Without booth footage the vertical frames are
-    /// still worth having — they reshape the export and draw the waveform strip — but the
-    /// ones that exist only to place a face are not.
-    private func isAvailable(_ option: DubBoothFrame) -> Bool {
-        hasBoothFootage || !option.needsCompositing || option.isVertical
-    }
-
     private func frameTile(_ option: DubBoothFrame) -> some View {
-        let isSelected = frame == option
-        let isAvailable = isAvailable(option)
+        let isSelected = viewModel.frame == option
+        let isAvailable = viewModel.isAvailable(option)
 
         return Button {
             HapticManager.shared.light()
-            frame = option
+            viewModel.frame = option
         } label: {
             VStack(spacing: 6) {
                 FrameDiagram(
                     frame: option,
-                    sceneDisplaySize: sceneDisplaySize,
-                    showsBooth: hasBoothFootage && (includesBooth || !option.isVertical)
+                    sceneDisplaySize: viewModel.sceneDisplaySize,
+                    showsBooth: viewModel.showsBooth(in: option)
                 )
                 .frame(height: 34)
 
@@ -586,29 +510,16 @@ struct DubExportOptionsModal: View {
     /// What comes out, in the same camera-report style the scene's own facts are set in.
     private var slate: some View {
         HStack(spacing: 0) {
-            slateField(Strings.Booth.runtime, runtime(cut).rsClock)
+            slateField(Strings.Booth.runtime, viewModel.runtimeText)
 
             Rectangle()
                 .fill(Color.rsStroke)
                 .frame(width: EditorMetrics.hairline, height: 22)
 
-            slateField(Strings.Booth.shape, shapeLabel)
+            slateField(Strings.Booth.shape, viewModel.shapeLabel)
         }
         .frame(height: 44)
         .editorPanel(.rsSurface2)
-    }
-
-    /// The shape the file really comes out at.
-    ///
-    /// The vertical frames render to a fixed 9:16 canvas. Every other frame keeps the scene's
-    /// own shape, which is whatever the pack ships — a 4:3 short from 1951 as readily as a
-    /// 16:9 one — so this reads it rather than assuming.
-    private var shapeLabel: String {
-        DubBoothLayout.make(
-            frame: frame,
-            sceneDisplaySize: sceneDisplaySize,
-            boothDisplaySize: Self.boothDisplaySize
-        ).renderSize.rsAspectLabel
     }
 
     private func slateField(_ label: String, _ value: String) -> some View {

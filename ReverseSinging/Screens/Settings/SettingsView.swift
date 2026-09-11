@@ -9,44 +9,27 @@ import SwiftUI
 import RevenueCatUI
 import DubAudio
 
-/// Which settings a presentation is allowed to show.
-///
-/// The menu owns nothing but the app itself, so opening settings from there must
-/// not offer choices that belong to one game. The Simple/Complex interface is a
-/// property of reverse singing, and is meaningless before a game is picked.
-enum SettingsScope {
-    case app
-    case reverseSinging
-}
-
 struct SettingsView: View {
-    @ObservedObject var viewModel: AppViewModel
-
-    /// Defaults to the narrow set; a game screen opts in to its own options.
-    var scope: SettingsScope = .app
+    @StateObject private var viewModel: SettingsViewModel
 
     @Environment(\.dismiss) var dismiss
-    @Environment(\.colorScheme) var systemColorScheme
-    @State private var soundsOn = SoundManager.shared.isEnabled
 
     /// A singleton, so observed rather than owned. The route it reports is the device's,
     /// not this screen's.
     @ObservedObject private var headphones = HeadphoneMonitor.shared
 
-    @ObservedObject private var access = AccessController.shared
-    @State private var isPaywallPresented = false
-    @State private var isCustomerCenterPresented = false
-
     /// The front camera that films a dub take. A singleton like the others, so the switch
     /// here and the key in the record HUD are the same switch.
     @ObservedObject private var booth = BoothCamPreference.shared
-    @State private var boothUsage: (bytes: Int64, packs: Int) = (0, 0)
-    @State private var isConfirmingBoothDelete = false
-    @State private var isBoothDenied = BoothRecorder.cameraPermission == .refused
 
     /// The interface is dark-only; kept as a constant so the many call sites below
     /// don't each need rewriting.
     private var effectiveColorScheme: ColorScheme { .dark }
+
+    /// - Parameter scope: defaults to the narrow set; a game screen opts in to its own options.
+    init(app: AppViewModel, scope: SettingsScope = .app) {
+        _viewModel = StateObject(wrappedValue: SettingsViewModel(app: app, scope: scope))
+    }
 
     var body: some View {
         NavigationStack {
@@ -61,9 +44,7 @@ struct SettingsView: View {
                         purchaseSection
                             .slideIn(delay: 0.1)
 
-                        // The interface choice belongs to reverse singing, so it
-                        // only appears when settings are opened from that game.
-                        if scope == .reverseSinging {
+                        if viewModel.showsInterfaceSection {
                             uiModeSection
                                 .slideIn(delay: 0.15)
                         }
@@ -106,13 +87,10 @@ struct SettingsView: View {
                     }
                 }
             }
-            .onAppear {
-                AnalyticsManager.shared.trackSettingsOpened()
-                AnalyticsManager.shared.trackScreenViewed(screenName: "SettingsView")
-            }
+            .onAppear { viewModel.onAppear() }
         }
         .purchaseAlerts()
-        .sheet(isPresented: $isPaywallPresented) {
+        .sheet(isPresented: $viewModel.isPaywallPresented) {
             ProPaywallView(source: "settings")
                 .preferredColorScheme(.dark)
         }
@@ -121,11 +99,11 @@ struct SettingsView: View {
         // dashboard, so the app supplies only the entry point and the reaction to
         // a restore that happened inside it.
         .presentCustomerCenter(
-            isPresented: $isCustomerCenterPresented,
+            isPresented: $viewModel.isCustomerCenterPresented,
             restoreCompleted: { customerInfo in
-                access.handleCompletion(customerInfo)
+                viewModel.customerCenterDidRestore(customerInfo)
             },
-            onDismiss: { isCustomerCenterPresented = false }
+            onDismiss: { viewModel.isCustomerCenterPresented = false }
         )
         .preferredColorScheme(preferredColorScheme)
     }
@@ -216,12 +194,7 @@ struct SettingsView: View {
                 subtitle: Strings.Settings.hapticFeedbackDesc,
                 isOn: Binding(
                     get: { viewModel.hapticsEnabled },
-                    set: { newValue in
-                        viewModel.setHapticsEnabled(newValue)
-                        if newValue {
-                            HapticManager.shared.medium()
-                        }
-                    }
+                    set: { viewModel.setHapticsEnabled($0) }
                 )
             ) {
                 settingsIcon(
@@ -242,14 +215,11 @@ struct SettingsView: View {
             title: Strings.Settings.soundEffects,
             subtitle: Strings.Settings.soundEffectsDesc,
             isOn: Binding(
-                get: { soundsOn },
-                set: { newValue in
-                    viewModel.setSoundsEnabled(newValue)
-                    soundsOn = newValue
-                }
+                get: { viewModel.soundsEnabled },
+                set: { viewModel.setSoundsEnabled($0) }
             )
         ) {
-            settingsIcon("settings-sound", isActive: soundsOn)
+            settingsIcon("settings-sound", isActive: viewModel.soundsEnabled)
         }
     }
 
@@ -288,16 +258,16 @@ struct SettingsView: View {
 
             SettingsToggleRow(
                 title: Strings.Booth.settingsTitle,
-                subtitle: isBoothDenied ? Strings.Booth.settingsDenied : Strings.Booth.settingsDesc,
+                subtitle: viewModel.isBoothDenied ? Strings.Booth.settingsDenied : Strings.Booth.settingsDesc,
                 isOn: Binding(
                     get: { booth.isEnabled },
-                    set: { setBoothEnabled($0) }
+                    set: { viewModel.setBoothEnabled($0) }
                 )
             ) {
                 boothIcon
             }
-            .disabled(isBoothDenied)
-            .opacity(isBoothDenied ? 0.55 : 1)
+            .disabled(viewModel.isBoothDenied)
+            .opacity(viewModel.isBoothDenied ? 0.55 : 1)
 
             // Only meaningful once there is a monitor to mirror.
             if booth.isEnabled {
@@ -313,16 +283,16 @@ struct SettingsView: View {
 
             // Shown only when there is something to account for. An empty storage row is
             // just a reminder of a cost nobody has paid yet.
-            if boothUsage.bytes > 0 {
+            if viewModel.boothUsage.bytes > 0 {
                 boothFootagePanel
                     .transition(.opacity)
             }
         }
         .animation(.easeInOut(duration: 0.2), value: booth.isEnabled)
-        .animation(.easeInOut(duration: 0.2), value: boothUsage.bytes)
-        .onAppear { refreshBoothUsage() }
-        .alert(Strings.Booth.deleteAll, isPresented: $isConfirmingBoothDelete) {
-            Button(Strings.Booth.deleteAllConfirm, role: .destructive) { deleteBoothFootage() }
+        .animation(.easeInOut(duration: 0.2), value: viewModel.boothUsage.bytes)
+        .onAppear { viewModel.refreshBoothUsage() }
+        .alert(Strings.Booth.deleteAll, isPresented: $viewModel.isConfirmingBoothDelete) {
+            Button(Strings.Booth.deleteAllConfirm, role: .destructive) { viewModel.deleteBoothFootage() }
             Button(Strings.Main.Alert.cancel, role: .cancel) {}
         } message: {
             Text(Strings.Booth.deleteAllMessage)
@@ -343,8 +313,8 @@ struct SettingsView: View {
                 Text(
                     String(
                         format: Strings.Booth.footageUsage,
-                        ByteCountFormatter.string(fromByteCount: boothUsage.bytes, countStyle: .file),
-                        boothUsage.packs
+                        ByteCountFormatter.string(fromByteCount: viewModel.boothUsage.bytes, countStyle: .file),
+                        viewModel.boothUsage.packs
                     )
                 )
                 .font(.rsTimecodeSmall)
@@ -357,7 +327,7 @@ struct SettingsView: View {
 
             Button {
                 HapticManager.shared.light()
-                isConfirmingBoothDelete = true
+                viewModel.isConfirmingBoothDelete = true
             } label: {
                 Text(Strings.Booth.deleteAll)
                     .font(.rsBodyMedium)
@@ -373,59 +343,11 @@ struct SettingsView: View {
     }
 
     private var boothIcon: some View {
-        settingsIcon("settings-booth-cam", isActive: booth.isEnabled && !isBoothDenied)
+        settingsIcon("settings-booth-cam", isActive: booth.isEnabled && !viewModel.isBoothDenied)
     }
 
     private var mirrorIcon: some View {
         settingsIcon("settings-mirror-preview", isActive: booth.mirrorsPreview)
-    }
-
-    // MARK: - Booth Cam Actions
-
-    /// Flipping this on is also where the camera gets asked for, if it never has been.
-    ///
-    /// The full explanation lives on the record screen, where the feature is about to be
-    /// used. Here the row itself is the explanation, so this goes straight to the system.
-    private func setBoothEnabled(_ enabled: Bool) {
-        guard enabled else {
-            booth.isEnabled = false
-            return
-        }
-
-        switch BoothRecorder.cameraPermission {
-        case .granted:
-            booth.isEnabled = true
-            BoothCamPreference.shared.markPrimerSeen()
-        case .unasked:
-            Task {
-                let granted = await BoothRecorder.requestAccess()
-                BoothCamPreference.shared.markPrimerSeen()
-                booth.isEnabled = granted
-                isBoothDenied = !granted
-            }
-        case .refused:
-            isBoothDenied = true
-            booth.isEnabled = false
-        }
-    }
-
-    private func refreshBoothUsage() {
-        isBoothDenied = BoothRecorder.cameraPermission == .refused
-
-        Task.detached(priority: .utility) {
-            let usage = AudioFileManager.shared.boothFootageUsage()
-            await MainActor.run { boothUsage = usage }
-        }
-    }
-
-    private func deleteBoothFootage() {
-        HapticManager.shared.medium()
-        Task.detached(priority: .userInitiated) {
-            try? AudioFileManager.shared.deleteAllBoothFootage()
-            let usage = AudioFileManager.shared.boothFootageUsage()
-            await MainActor.run { boothUsage = usage }
-        }
-        AnalyticsManager.shared.trackCustomEvent(name: "booth_footage_deleted", parameters: nil)
     }
 
     // MARK: - Purchase Section
@@ -442,7 +364,7 @@ struct SettingsView: View {
             sectionHeader(title: Strings.Pro.section, icon: "sparkles")
 
             VStack(spacing: 8) {
-                if access.isEarlyAdopter {
+                if viewModel.isEarlyAdopter {
                     // Nothing to sell them and nothing to manage: there is no
                     // transaction behind this, so no Customer Center either.
                     statusCard(
@@ -450,7 +372,7 @@ struct SettingsView: View {
                         title: Strings.Pro.EarlyAdopter.settingsTitle,
                         subtitle: Strings.Pro.EarlyAdopter.settingsSubtitle
                     )
-                } else if access.isPro {
+                } else if viewModel.isPro {
                     statusCard(
                         assetName: "settings-owned",
                         title: Strings.Pro.ownedTitle,
@@ -462,28 +384,27 @@ struct SettingsView: View {
                         title: Strings.Pro.manageTitle,
                         subtitle: Strings.Pro.manageSubtitle
                     ) {
-                        AnalyticsManager.shared.trackCustomerCenterOpened()
-                        isCustomerCenterPresented = true
+                        viewModel.openCustomerCenter()
                     }
                 } else {
                     settingsRow(
                         assetName: "settings-unlock",
                         title: Strings.Pro.unlockTitle,
-                        subtitle: unlockSubtitle,
+                        subtitle: viewModel.unlockSubtitle,
                         isProminent: true
                     ) {
-                        isPaywallPresented = true
+                        viewModel.showPaywall()
                     }
                 }
 
-                if !access.isEarlyAdopter {
+                if !viewModel.isEarlyAdopter {
                     settingsRow(
                         assetName: "settings-restore-purchase",
                         title: Strings.Pro.restoreTitle,
                         subtitle: Strings.Pro.restoreSubtitle,
-                        isBusy: access.isRestoring
+                        isBusy: viewModel.isRestoring
                     ) {
-                        Task { await access.restore() }
+                        viewModel.restore()
                     }
                 }
 
@@ -498,14 +419,6 @@ struct SettingsView: View {
                 #endif
             }
         }
-    }
-
-    /// The trial counter, restated as a sentence, or the plain offer once it is over.
-    private var unlockSubtitle: String {
-        guard let days = access.trialDaysRemaining else { return Strings.Pro.unlockSubtitle }
-        return days <= 1
-            ? Strings.Pro.Trial.oneDayLeft
-            : String(format: Strings.Pro.Trial.daysLeft, days)
     }
 
     /// A row that does something. Shares the geometry of `privacyPolicyButton`.
@@ -615,7 +528,7 @@ struct SettingsView: View {
     }
 
     private var privacyPolicyButton: some View {
-        Button(action: openPrivacyPolicy) {
+        Button(action: viewModel.openPrivacyPolicy) {
             HStack(spacing: 14) {
                 settingsIcon("settings-privacy")
 
@@ -685,9 +598,8 @@ struct SettingsView: View {
     private var versionInfo: some View {
         HStack {
             Spacer()
-            if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
-               let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
-                Text(String(format: Strings.Settings.version, version, build))
+            if let versionText = viewModel.versionText {
+                Text(versionText)
                     .font(.rsCaption)
                     .foregroundColor(Color.rsSecondaryTextAdaptive(for: effectiveColorScheme).opacity(0.5))
             }
@@ -712,77 +624,10 @@ struct SettingsView: View {
         .padding(.horizontal, 4)
         .padding(.top, 8)
     }
-
-    // MARK: - Actions
-
-    private func openPrivacyPolicy() {
-        HapticManager.shared.light()
-        AnalyticsManager.shared.trackCustomEvent(name: "privacy_policy_opened", parameters: nil)
-
-        if let url = URL(string: "https://falsepeak.ch/privacy") {
-            UIApplication.shared.open(url)
-        }
-    }
-}
-
-// MARK: - Scale Button Style
-
-struct ScaleButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .scaleEffect(configuration.isPressed ? 0.97 : 1.0)
-            .animation(.rsQuick, value: configuration.isPressed)
-    }
 }
 
 // MARK: - Preview
 
 #Preview {
-    @Previewable @StateObject var viewModel = AppViewModel()
-
-    SettingsView(viewModel: viewModel)
-}
-
-/// A preference: what it is and its switch on one line, the explanation on its own line
-/// underneath.
-///
-/// The explanation used to sit beside the switch, sharing the row's width with the icon and
-/// the title. A column narrow enough that "Haptic Feedback" broke onto two lines and the
-/// descriptions onto three. Given the full width below the row instead, the titles fit on one
-/// line and the copy reads as a sentence.
-private struct SettingsToggleRow<Icon: View>: View {
-    let title: String
-    let subtitle: String
-    @Binding var isOn: Bool
-    @ViewBuilder let icon: () -> Icon
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            HStack(spacing: 14) {
-                icon()
-
-                Text(title)
-                    .font(.rsBodyLarge)
-                    .foregroundColor(.rsTextPrimary)
-                    // Wraps rather than truncating: some of these titles are a good deal
-                    // longer in Spanish and Catalan than they are in English.
-                    .fixedSize(horizontal: false, vertical: true)
-
-                Spacer(minLength: 12)
-
-                // Labelled for VoiceOver, hidden on screen. The title beside it is the label.
-                Toggle(title, isOn: $isOn)
-                    .labelsHidden()
-                    .tint(.rsHighlight)
-            }
-
-            Text(subtitle)
-                .font(.rsCaption)
-                .foregroundColor(.rsTextTertiary)
-                .fixedSize(horizontal: false, vertical: true)
-                .frame(maxWidth: .infinity, alignment: .leading)
-        }
-        .padding(16)
-        .editorPanel()
-    }
+    SettingsView(app: AppViewModel())
 }

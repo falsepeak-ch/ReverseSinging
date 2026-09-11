@@ -1,5 +1,5 @@
 //
-//  AudioViewModelTests.swift
+//  ReverseGameViewModelTests.swift
 //  ReverseSingingTests
 //
 
@@ -7,7 +7,7 @@ import Testing
 import Foundation
 @testable import ReverseSinging
 
-/// Every test here builds an `AudioViewModel`, and building one loads the whole of `appState`
+/// Every test here builds an `ReverseGameViewModel`, and building one loads the whole of `appState`
 /// out of `UserDefaults`. So without help these are assertions about the simulator rather
 /// than about the view model.
 ///
@@ -16,17 +16,17 @@ import Foundation
 /// and `onCleanDevice`, which establishes the empty state each test used to assume. Before
 /// this, `saveSession()` would have started counting other tests' sessions, and the onboarding
 /// test, now in `AppViewModelTests`, failed on any simulator the app had ever been run on.
-@Suite("AudioViewModel Tests", .serialized) @MainActor
-struct AudioViewModelTests {
+@Suite("ReverseGameViewModel Tests", .serialized) @MainActor
+struct ReverseGameViewModelTests {
 
     /// Runs `body` against a device with no saved state, and leaves none behind.
     ///
     /// Resetting afterwards as well as before matters: these keys are the real app's, and a
     /// session left in `UserDefaults` outlives the test run on that simulator.
-    private func onCleanDevice(_ body: (AudioViewModel) throws -> Void) rethrows {
-        AudioViewModel.resetPersistedStateForTesting()
-        defer { AudioViewModel.resetPersistedStateForTesting() }
-        try body(AudioViewModel())
+    private func onCleanDevice(_ body: (ReverseGameViewModel) throws -> Void) rethrows {
+        ReverseGameViewModel.resetPersistedStateForTesting()
+        defer { ReverseGameViewModel.resetPersistedStateForTesting() }
+        try body(ReverseGameViewModel())
     }
 
     @Test func initialization() async {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainViewPremium: View {
-    @EnvironmentObject var viewModel: AudioViewModel
+    @EnvironmentObject var viewModel: ReverseGameViewModel
     @EnvironmentObject var app: AppViewModel
     @State private var showSuccessToast = false
     @State private var showCelebration = false
@@ -473,6 +473,6 @@ struct MainViewPremium: View {
 
 #Preview {
     MainViewPremium()
-        .environmentObject(AudioViewModel())
+        .environmentObject(ReverseGameViewModel())
         .environmentObject(AppViewModel())
 }

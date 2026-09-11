@@ -12,7 +12,7 @@ import Combine
 ///
 /// Onboarding, the interface and feedback preferences, and the hand-off of a pack opened from
 /// outside belong to the app rather than to reverse singing, so they live here and
-/// `AudioViewModel` keeps only the game.
+/// `ReverseGameViewModel` keeps only the game.
 ///
 /// The `UserDefaults` keys are the ones installs already have. `EarlyAdopter` and
 /// `BoothCamAnnouncement` read `hasCompletedOnboarding` and `uiMode` as evidence of earlier

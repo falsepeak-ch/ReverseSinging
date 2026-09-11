@@ -24,10 +24,7 @@ struct PaywallFallbackView: View {
     var isDismissible: Bool = true
 
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject private var access = AccessController.shared
-
-    @State private var product: StoreProduct?
-    @State private var isLoading = true
+    @StateObject private var viewModel = PaywallFallbackViewModel()
 
     var body: some View {
         ZStack {
@@ -52,7 +49,7 @@ struct PaywallFallbackView: View {
             }
         }
         .purchaseAlerts()
-        .task { await loadProduct() }
+        .task { await viewModel.loadProduct() }
     }
 
     // MARK: - Pieces
@@ -72,13 +69,7 @@ struct PaywallFallbackView: View {
                 .font(.rsDisplayMedium)
                 .foregroundStyle(Color.rsTextPrimary)
 
-            // Keyed off the access state rather than off `isDismissible`: the
-            // presentation is a good proxy for "the trial is over" but not the
-            // fact itself, and this is the one line on the screen that must not
-            // be able to say something the user can see is untrue.
-            Text(access.isLocked
-                 ? Strings.Pro.Fallback.messageAfterExpiry
-                 : Strings.Pro.Fallback.messageBeforeExpiry)
+            Text(viewModel.headerMessage)
                 .font(.rsBodyMedium)
                 .foregroundStyle(Color.rsTextSecondary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -117,11 +108,11 @@ struct PaywallFallbackView: View {
 
     private var actions: some View {
         VStack(spacing: 12) {
-            if isLoading {
+            if viewModel.isLoading {
                 ProgressView()
                     .tint(Color.rsHighlight)
                     .frame(height: 52)
-            } else if let product {
+            } else if let product = viewModel.product {
                 buyButton(for: product)
 
                 Text(Strings.Pro.Fallback.oneTime)
@@ -134,18 +125,16 @@ struct PaywallFallbackView: View {
                     .multilineTextAlignment(.center)
 
                 Button(Strings.Pro.Fallback.retry) {
-                    Task { await loadProduct(force: true) }
+                    viewModel.retry()
                 }
                 .font(.rsButtonMedium)
                 .foregroundStyle(Color.rsHighlight)
             }
 
-            // Always reachable, price or no price: someone who already paid must
-            // be able to get back in even when nothing else on this screen works.
             Button {
-                Task { await access.restore() }
+                viewModel.restore()
             } label: {
-                if access.isRestoring {
+                if viewModel.isRestoring {
                     ProgressView().tint(Color.rsTextSecondary)
                 } else {
                     Text(Strings.Pro.restoreTitle)
@@ -153,12 +142,10 @@ struct PaywallFallbackView: View {
                         .foregroundStyle(Color.rsTextSecondary)
                 }
             }
-            .disabled(access.isRestoring)
+            .disabled(viewModel.isRestoring)
 
             Button(Strings.Settings.privacyPolicy) {
-                if let url = URL(string: "https://falsepeak.ch/privacy") {
-                    UIApplication.shared.open(url)
-                }
+                viewModel.openPrivacyPolicy()
             }
             .font(.rsCaptionSmall)
             .foregroundStyle(Color.rsTextTertiary)
@@ -173,10 +160,10 @@ struct PaywallFallbackView: View {
     private func buyButton(for product: StoreProduct) -> some View {
         Button {
             HapticManager.shared.medium()
-            Task { await access.purchase(product) }
+            viewModel.buy(product)
         } label: {
             Group {
-                if access.isPurchasing {
+                if viewModel.isPurchasing {
                     ProgressView().tint(Color.rsSurface0)
                 } else {
                     Text(String(format: Strings.Pro.Fallback.buy, product.localizedPriceString))
@@ -192,31 +179,6 @@ struct PaywallFallbackView: View {
             )
         }
         .buttonStyle(ScaleButtonStyle())
-        .disabled(access.isPurchasing)
-    }
-
-    // MARK: - Loading
-
-    private func loadProduct(force: Bool = false) async {
-        guard force || product == nil else { return }
-        guard Purchases.isConfigured else {
-            isLoading = false
-            return
-        }
-
-        isLoading = true
-        defer { isLoading = false }
-
-        // Try the offering first even here: the earlier failure may have been a
-        // blip, and the offering is the source of truth for what is on sale.
-        if let current = try? await Purchases.shared.offerings().current,
-           let package = current.availablePackages.first {
-            product = package.storeProduct
-            return
-        }
-
-        product = await Purchases.shared
-            .products([PurchaseConfiguration.lifetimeProductID])
-            .first
+        .disabled(viewModel.isPurchasing)
     }
 }

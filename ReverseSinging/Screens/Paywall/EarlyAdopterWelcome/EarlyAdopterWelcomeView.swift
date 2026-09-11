@@ -27,6 +27,7 @@ import SwiftUI
 /// around, one button.
 struct EarlyAdopterWelcomeView: View {
 
+    @StateObject private var viewModel = EarlyAdopterWelcomeViewModel()
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -74,6 +75,7 @@ struct EarlyAdopterWelcomeView: View {
                 footer
             }
         }
+        .onAppear { viewModel.onAppear() }
     }
 
     // MARK: - Pieces

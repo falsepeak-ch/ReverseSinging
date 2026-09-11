@@ -11,23 +11,15 @@ import SwiftUI
 /// navigation stack they are pushed onto, so each game is a level deeper rather
 /// than something hidden behind a toolbar glyph.
 struct HomeView: View {
-    @EnvironmentObject var viewModel: AppViewModel
-    @State private var path: [GameMode] = []
+    @EnvironmentObject var app: AppViewModel
+    @StateObject private var viewModel = HomeViewModel()
 
     /// The reverse game's model. Held by the menu rather than by the game screen, so a
     /// session in progress survives going back to the menu and in again.
-    @StateObject private var game = AudioViewModel()
-
-    /// The counter lives here because this is the screen every session starts on,
-    /// and it is the only place in the app that mentions the trial unprompted.
-    @ObservedObject private var access = AccessController.shared
-    @State private var isPaywallPresented = false
-    @State private var isEarlyAdopterWelcomePresented = false
-    /// The Booth Cam note for people who updated, see `BoothCamAnnouncement`.
-    @State private var isBoothAnnouncementPresented = false
+    @StateObject private var game = ReverseGameViewModel()
 
     var body: some View {
-        NavigationStack(path: $path) {
+        NavigationStack(path: $viewModel.path) {
             ZStack {
                 Color.rsSurface0
                     .ignoresSafeArea()
@@ -41,101 +33,34 @@ struct HomeView: View {
                 destination(for: mode)
             }
         }
-        .sheet(isPresented: $viewModel.showSettings) {
-            SettingsView(viewModel: viewModel)
+        .sheet(isPresented: $app.showSettings) {
+            SettingsView(app: app)
         }
-        .sheet(isPresented: $isPaywallPresented) {
+        .sheet(isPresented: $viewModel.isPaywallPresented) {
             ProPaywallView(source: "trial_badge")
                 .preferredColorScheme(.dark)
         }
-        .sheet(isPresented: $isEarlyAdopterWelcomePresented) {
+        .sheet(isPresented: $viewModel.isEarlyAdopterWelcomePresented) {
             EarlyAdopterWelcomeView()
                 .preferredColorScheme(.dark)
-                // Marked on the way out rather than on the way in, so a user who
-                // kills the app mid-animation still gets told.
-                .onDisappear {
-                    access.markEarlyAdopterWelcomed()
-                    // Two notes on one launch happen to whoever skipped 1.4. The
-                    // gift first, then the feature, never both at once.
-                    presentBoothAnnouncementIfDue()
-                }
+                .onDisappear { viewModel.earlyAdopterWelcomeDidDisappear() }
         }
-        .sheet(isPresented: $isBoothAnnouncementPresented) {
-            BoothCamAnnouncementView(onTryIt: { path = [.dub] })
+        .sheet(isPresented: $viewModel.isBoothAnnouncementPresented) {
+            BoothCamAnnouncementView(onTryIt: { viewModel.openDub() })
                 .preferredColorScheme(.dark)
-                .onDisappear {
-                    BoothCamAnnouncement.shared.markShown()
-                    presentEarlyAdopterWelcomeIfDue()
-                }
+                .onDisappear { viewModel.boothAnnouncementDidDisappear() }
         }
         // Watched rather than checked once on appear: the exemption can be granted
         // a beat after launch, when the receipt lands, and this is the menu the
         // user is already looking at when it does.
-        .onChange(of: access.shouldWelcomeEarlyAdopter, initial: true) { _, _ in
-            presentEarlyAdopterWelcomeIfDue()
+        .onChange(of: viewModel.shouldWelcomeEarlyAdopter, initial: true) { _, _ in
+            viewModel.presentEarlyAdopterWelcomeIfDue()
         }
-        .onAppear {
-            game.checkPermissionStatus()
-            AnalyticsManager.shared.trackScreenViewed(screenName: "Home")
-            presentBoothAnnouncementIfDue()
-            #if DEBUG
-            applyScreenshotDestination()
-            #endif
-        }
-        // A dub pack arriving from Files or AirDrop opens the library the same way
-        // a tap would, so imports land on a screen the user can navigate back from.
-        .onChange(of: viewModel.showDubLibrary) { _, wantsLibrary in
-            guard wantsLibrary else { return }
-            viewModel.showDubLibrary = false
-            // Reset rather than append: an import should land on the library itself,
-            // not stacked on top of whatever game was open.
-            path = [.dub]
+        .onAppear { viewModel.onAppear(game: game, app: app) }
+        .onChange(of: app.showDubLibrary) { _, wantsLibrary in
+            viewModel.dubLibraryRequestDidChange(wantsLibrary, app: app)
         }
     }
-
-    // MARK: - Notes
-
-    private func presentEarlyAdopterWelcomeIfDue() {
-        guard access.shouldWelcomeEarlyAdopter,
-              !isEarlyAdopterWelcomePresented,
-              !isBoothAnnouncementPresented else { return }
-        #if DEBUG
-        if ScreenshotMode.isActive { return }
-        #endif
-        isEarlyAdopterWelcomePresented = true
-        AnalyticsManager.shared.trackEarlyAdopterWelcomeShown()
-    }
-
-    private func presentBoothAnnouncementIfDue() {
-        guard BoothCamAnnouncement.shared.isDue,
-              !isBoothAnnouncementPresented,
-              !isEarlyAdopterWelcomePresented,
-              !access.shouldWelcomeEarlyAdopter else { return }
-        #if DEBUG
-        if ScreenshotMode.isActive { return }
-        #endif
-        isBoothAnnouncementPresented = true
-        AnalyticsManager.shared.trackCustomEvent(name: "booth_announcement_shown", parameters: nil)
-    }
-
-    // MARK: - Screenshots
-
-    #if DEBUG
-    /// Pushes the game the capture script asked for, so every screen below the menu
-    /// is reachable from a cold launch without anything having to tap.
-    private func applyScreenshotDestination() {
-        guard ScreenshotMode.isActive, let destination = ScreenshotMode.destination else { return }
-
-        if destination.opensDubGame {
-            path = [.dub]
-        } else if destination.opensReverseGame {
-            ScreenshotMode.seedReverseSession(into: &game.appState)
-            path = [.reverse]
-        } else if destination.opensSettings {
-            viewModel.showSettings = true
-        }
-    }
-    #endif
 
     // MARK: - Destinations
 
@@ -145,7 +70,7 @@ struct HomeView: View {
         case .reverse:
             // The interface preference chooses how reverse singing looks. It is a
             // setting on this one game, not a separate game.
-            if viewModel.uiMode == .simple {
+            if app.uiMode == .simple {
                 MainViewSimple()
                     .environmentObject(game)
             } else {
@@ -153,7 +78,7 @@ struct HomeView: View {
                     .environmentObject(game)
             }
         case .dub:
-            DubLibraryView(pendingImportURL: $viewModel.pendingDubImportURL, isPushed: true)
+            DubLibraryView(pendingImportURL: $app.pendingDubImportURL, isPushed: true)
         }
     }
 
@@ -167,7 +92,7 @@ struct HomeView: View {
                 EditorSectionHeader(title: Strings.Main.Mode.section)
 
                 ForEach(GameMode.allCases) { mode in
-                    GameModeRow(mode: mode) { path.append(mode) }
+                    GameModeRow(mode: mode) { viewModel.open(mode) }
                 }
             }
             .padding(.horizontal, EditorMetrics.gutter)
@@ -189,9 +114,9 @@ struct HomeView: View {
 
                 Spacer()
 
-                if let daysRemaining = access.trialDaysRemaining {
+                if let daysRemaining = viewModel.trialDaysRemaining {
                     TrialBadge(daysRemaining: daysRemaining) {
-                        isPaywallPresented = true
+                        viewModel.showPaywall()
                     }
                     .transition(.scale.combined(with: .opacity))
                 }
@@ -200,7 +125,7 @@ struct HomeView: View {
                     icon: "slider.horizontal.3",
                     label: Strings.Settings.title
                 ) {
-                    viewModel.showSettings = true
+                    app.showSettings = true
                 }
             }
 

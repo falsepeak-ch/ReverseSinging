@@ -12,37 +12,26 @@ import DubCompositing
 
 struct DubPackDetailView: View {
     let pack: DubPack
-    @ObservedObject var library: DubPackLibrary
 
-    @StateObject private var viewModel: DubViewModel
+    @StateObject private var viewModel: DubPackDetailViewModel
     @ObservedObject private var scoring = DubScoringPreference.shared
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL
 
-    @State private var showRecorder = false
-    @State private var showShareNotice = false
-    /// The export the user has configured but not yet agreed to send. Held between the
-    /// options sheet and the attribution notice, which still has the last word.
-    @State private var pendingExport: (cut: DubCut, frame: DubBoothFrame, includesBooth: Bool)?
-    @State private var exportOptionsLine: DubLine?
-    @State private var showExportOptions = false
-    @State private var playbackMode: DubPlaybackMode?
     @State private var reelIsBreathing = false
-    /// True for a pack whose video was converted by a build that dropped duplicate frames.
-    ///
-    /// Reads the file, so it is settled once when the screen appears rather than on every
-    /// evaluation of the body.
-    @State private var videoNeedsReimport = false
 
     /// The last of the first-run tips: there is a dub to hear now. See `DubTips`.
     private let playDubTip = DubPlayDubTip()
 
     init(pack: DubPack, library: DubPackLibrary) {
         self.pack = pack
-        self.library = library
-        _viewModel = StateObject(wrappedValue: DubViewModel(pack: pack))
+        _viewModel = StateObject(wrappedValue: DubPackDetailViewModel(pack: pack, library: library))
     }
+
+    /// The session the record and playback screens share. Its changes reach this screen
+    /// through `viewModel`, which passes them on.
+    private var session: DubSessionViewModel { viewModel.session }
 
     var body: some View {
         ZStack {
@@ -59,7 +48,7 @@ struct DubPackDetailView: View {
                     VStack(spacing: 24) {
                         hero
 
-                        if videoNeedsReimport {
+                        if viewModel.videoNeedsReimport {
                             reimportNotice
                         }
 
@@ -83,107 +72,53 @@ struct DubPackDetailView: View {
             }
         }
         .toolbar(.hidden, for: .navigationBar)
-        // `onDismiss` fires once the cover has actually gone, which is when a tip on this
-        // screen can be presented. See `DubTips.isRecorderOpen`.
-        .fullScreenCover(isPresented: $showRecorder, onDismiss: { DubTips.isRecorderOpen = false }) {
-            // Hooked here rather than at the four buttons that set `showRecorder`, so a
-            // fifth way into the recorder cannot quietly stop being counted.
-            DubRecordView(viewModel: viewModel)
-                .onAppear {
-                    DubTips.isRecorderOpen = true
-                    AnalyticsManager.shared.trackDubPackOpened(
-                        title: pack.title,
-                        lineCount: pack.lines.count,
-                        recordedCount: library.recordedCount(for: pack),
-                        source: pack.source
-                    )
-                    CrashReporter.shared.set(.screen, "DubRecordView")
-                    CrashReporter.shared.set(.packLineCount, pack.lines.count)
-                    CrashReporter.shared.set(.packHasVideo, pack.videoFile != nil)
-                }
+        .fullScreenCover(isPresented: $viewModel.showRecorder, onDismiss: { viewModel.recorderDidDismiss() }) {
+            DubRecordView(session: session)
+                .onAppear { viewModel.recorderDidAppear() }
         }
-        .fullScreenCover(item: $playbackMode) { mode in
-            DubPlaybackView(viewModel: viewModel, mode: mode)
+        .fullScreenCover(item: $viewModel.playbackMode) { mode in
+            DubPlaybackView(session: session, mode: mode)
         }
-        .dubShareNotice(isPresented: $showShareNotice, pack: pack) {
-            guard let pending = pendingExport else { return }
-            pendingExport = nil
-            Task {
-                await viewModel.export(
-                    cut: pending.cut,
-                    frame: pending.frame,
-                    includesBooth: pending.includesBooth
-                )
-            }
+        .dubShareNotice(isPresented: $viewModel.showShareNotice, pack: pack) {
+            viewModel.confirmExport()
         }
-        // Options first, then the notice. The notice is about provenance and is the last
-        // word before anything renders; what shape the file takes is a separate question and
-        // asking both in one panel made neither of them land.
         .overlay {
-            if showExportOptions {
+            if viewModel.showExportOptions {
                 DubExportOptionsModal(
                     pack: pack,
-                    line: exportOptionsLine,
-                    hasBoothFootage: viewModel.hasAnyBoothTake,
+                    line: viewModel.exportOptionsLine,
+                    hasBoothFootage: session.hasAnyBoothTake,
                     runtime: { viewModel.runtime(of: $0) },
                     onExport: { cut, frame, includesBooth in
-                        showExportOptions = false
-                        pendingExport = (cut, frame, includesBooth)
-                        showShareNotice = true
+                        viewModel.configureExport(cut: cut, frame: frame, includesBooth: includesBooth)
                     },
-                    onCancel: { showExportOptions = false }
+                    onCancel: { viewModel.cancelExportOptions() }
                 )
             }
         }
-        .animation(.rsSmooth, value: showExportOptions)
+        .animation(.rsSmooth, value: viewModel.showExportOptions)
         .sheet(item: $viewModel.exportedURL) { url in
             DubShareSheet(url: url)
         }
         .alert(Strings.Main.Alert.errorTitle, isPresented: .init(
-            get: { viewModel.errorMessage != nil },
-            set: { if !$0 { viewModel.errorMessage = nil } }
+            get: { session.errorMessage != nil },
+            set: { if !$0 { session.errorMessage = nil } }
         )) {
-            Button(Strings.Main.Alert.ok, role: .cancel) { viewModel.errorMessage = nil }
+            Button(Strings.Main.Alert.ok, role: .cancel) { session.errorMessage = nil }
         } message: {
-            Text(viewModel.errorMessage ?? "")
+            Text(session.errorMessage ?? "")
         }
-        .task {
-            videoNeedsReimport = await DubPackLibrary.sceneVideoIsTruncated(pack)
-        }
+        .task { await viewModel.checkVideo() }
         .dubTipStyle()
         .advancesDubTips(past: 2, when: playDubTip)
-        .onAppear {
-            AnalyticsManager.shared.trackScreenViewed(screenName: "DubPackDetail")
-            // Takes that were here before the tips existed count too.
-            if viewModel.hasAnyTake { DubTips.hasRecordedATake = true }
-            // The recorder cannot be up when this screen appears. Cleared here so an app
-            // killed mid-take does not leave the flag set, and the tip held, for good.
-            DubTips.isRecorderOpen = false
-            #if DEBUG
-            applyScreenshotPose()
-            #endif
-        }
+        .onAppear { viewModel.onAppear() }
         #if DEBUG
-        .task {
-            guard ScreenshotMode.isActive, ScreenshotMode.destination?.isTour == true else { return }
-            await runScreenshotTour()
-        }
+        .task { await viewModel.runScreenshotTour() }
         #endif
         // Keyed on the preference, so switching scoring on from the library and coming
         // straight back marks what is already here rather than showing a half-empty panel.
-        .task(id: scoring.isEnabled) {
-            guard scoring.isEnabled else { return }
-            await viewModel.scoreTakesRecordedBeforeScoringWasOn()
-            AnalyticsManager.shared.trackDubSceneScored(
-                score: viewModel.sceneScore.overall,
-                recordedLines: viewModel.sceneScore.recordedLines,
-                totalLines: pack.lines.count
-            )
-        }
-        .onDisappear {
-            viewModel.stopEverything()
-            library.reload()
-        }
+        .task(id: scoring.isEnabled) { await viewModel.scoringDidChange() }
+        .onDisappear { viewModel.onDisappear() }
         .animation(.rsSpring, value: viewModel.isExporting)
     }
 
@@ -218,93 +153,6 @@ struct DubPackDetailView: View {
         .padding(.horizontal, EditorMetrics.gutter)
     }
 
-    // MARK: - Screenshots
-
-    #if DEBUG
-    /// Keeps the reference playing under the record screen, so the still lands on a
-    /// moving picture.
-    ///
-    /// The scenes ship with video, and the bay only rolls it while the line is being heard
-    /// or performed. Sitting idle it shows the line's still, and a screenshot of that is a
-    /// screenshot of a photograph in a dark frame; a screenshot mid-playback is the app
-    /// doing the thing it is for. The line is barely two seconds long, so this restarts it
-    /// rather than firing once and hoping the shutter agrees.
-    private func keepScenePictureRolling() {
-        Task {
-            for _ in 0..<160 {
-                if !viewModel.isPreviewingReference {
-                    viewModel.toggleReferencePreview()
-                }
-                try? await Task.sleep(for: .milliseconds(250))
-                if Task.isCancelled { return }
-            }
-        }
-    }
-
-    /// The App Store app preview, played by the app itself.
-    ///
-    /// Recorded with `simctl io recordVideo` while this runs, once per locale. Driving it
-    /// from inside means the same 30 seconds come out of every locale, which tapping a
-    /// simulator by hand could never promise. And the whole thing is real app in real
-    /// use, which is what Apple requires of a preview.
-    private func runScreenshotTour() async {
-        let tour = ScreenshotMode.Tour.self
-
-        func hold(_ seconds: TimeInterval) async {
-            try? await Task.sleep(for: .seconds(seconds))
-        }
-
-        // 1. The pack: what a scene is, who is in it, how far in you are.
-        await hold(tour.detailHold)
-
-        // 2. The bay, on a line already dubbed, so the take is drawn over the reference.
-        showRecorder = true
-        await hold(tour.recorderOpen)
-
-        // 3. Hear the original, then hear yourself against it.
-        viewModel.toggleReferencePreview()
-        await hold(tour.listen)
-        viewModel.playCurrentTake()
-        await hold(tour.playTake)
-
-        // 4. The line-by-line loop, which is the actual shape of the game.
-        viewModel.goToNextLine()
-        await hold(tour.lineStep)
-        viewModel.goToNextLine()
-        await hold(tour.lineStep)
-
-        // 5. Back out and watch the scene with your own voice in it.
-        viewModel.stopEverything()
-        showRecorder = false
-        await hold(tour.backToDetail)
-        playbackMode = .myDub
-        await hold(tour.playback)
-        playbackMode = nil
-        await hold(tour.beforeExport)
-
-        // 6. The render, which is what you came for.
-        await viewModel.runExportRampForScreenshot(over: tour.exportRamp)
-        await hold(tour.tail)
-    }
-
-    /// Puts the session partway in, a line selected, takes behind it, and opens
-    /// whichever full-screen surface the capture script asked for.
-    private func applyScreenshotPose() {
-        guard ScreenshotMode.isActive, let destination = ScreenshotMode.destination else { return }
-
-        if viewModel.pack.lines.indices.contains(ScreenshotMode.posedLineIndex) {
-            viewModel.select(viewModel.pack.lines[ScreenshotMode.posedLineIndex])
-        }
-
-        if destination.opensRecorder {
-            showRecorder = true
-            keepScenePictureRolling()
-        } else if destination.posesExport {
-            viewModel.poseExportForScreenshot(progress: ScreenshotMode.posedExportProgress)
-        }
-    }
-    #endif
-
     // MARK: - Hero
 
     private var hero: some View {
@@ -329,28 +177,28 @@ struct DubPackDetailView: View {
             HStack(spacing: 0) {
                 slateField(
                     Strings.Dub.slateLines,
-                    "\(viewModel.recordedCount)/\(pack.lines.count)"
+                    "\(session.recordedCount)/\(pack.lines.count)"
                 )
                 slateDivider
                 slateField(Strings.Dub.slateDuration, pack.formattedDuration)
                 slateDivider
                 // Only for a scene that has been filmed. An empty field on every other pack
                 // would advertise a feature rather than report a fact.
-                if viewModel.hasAnyBoothTake {
+                if session.hasAnyBoothTake {
                     slateField(
                         Strings.Booth.slug,
-                        String(format: "%02d", viewModel.boothSlugs.count)
+                        String(format: "%02d", session.boothSlugs.count)
                     )
                     slateDivider
                 }
                 if scoring.isEnabled {
                     slateField(
                         Strings.Dub.Score.slate,
-                        viewModel.sceneScore.recordedLines > 0
-                            ? String(format: "%d", Int(viewModel.sceneScore.overall.rounded()))
+                        session.sceneScore.recordedLines > 0
+                            ? String(format: "%d", Int(session.sceneScore.overall.rounded()))
                             : "-",
-                        tint: viewModel.sceneScore.recordedLines > 0
-                            ? viewModel.sceneScore.grade.color
+                        tint: session.sceneScore.recordedLines > 0
+                            ? session.sceneScore.grade.color
                             : .rsTextPrimary
                     )
                 } else {
@@ -409,7 +257,7 @@ struct DubPackDetailView: View {
             EditorSectionHeader(title: Strings.Dub.Score.sceneTitle)
 
             DubSceneScorePanel(
-                score: viewModel.sceneScore,
+                score: session.sceneScore,
                 line: { slug in pack.lines.first { $0.slug == slug } }
             )
         }
@@ -430,17 +278,14 @@ struct DubPackDetailView: View {
 
             VStack(spacing: 8) {
                 LargeActionButton(
-                    title: viewModel.hasAnyTake ? Strings.Dub.continueRecording : Strings.Dub.record,
-                    subtitle: viewModel.currentLine?.character,
+                    title: session.hasAnyTake ? Strings.Dub.continueRecording : Strings.Dub.record,
+                    subtitle: session.currentLine?.character,
                     icon: "mic.fill",
                     dotCount: 0,
                     color: .rsRecord,
                     isEnabled: true,
                     recordingLevel: 0,
-                    action: {
-                        viewModel.jumpToFirstUnrecordedLine()
-                        showRecorder = true
-                    }
+                    action: { viewModel.openRecorder() }
                 )
 
                 LargeActionButton(
@@ -451,20 +296,20 @@ struct DubPackDetailView: View {
                     color: .rsHighlight,
                     isEnabled: true,
                     recordingLevel: 0,
-                    action: { playbackMode = .original }
+                    action: { viewModel.playOriginal() }
                 )
 
                 LargeActionButton(
                     title: Strings.Dub.playMyDub,
-                    subtitle: viewModel.hasAnyTake ? nil : Strings.Dub.noTakesYet,
+                    subtitle: session.hasAnyTake ? nil : Strings.Dub.noTakesYet,
                     icon: "person.wave.2.fill",
                     dotCount: 0,
                     color: .rsGood,
-                    isEnabled: viewModel.hasAnyTake,
+                    isEnabled: session.hasAnyTake,
                     recordingLevel: 0,
                     action: {
                         playDubTip.invalidate(reason: .actionPerformed)
-                        playbackMode = .myDub
+                        viewModel.playMyDub()
                     }
                 )
                 .popoverTip(playDubTip, arrowEdge: .bottom)
@@ -476,11 +321,8 @@ struct DubPackDetailView: View {
                     title: Strings.Dub.export,
                     icon: "square.and.arrow.up",
                     color: .rsTextPrimary,
-                    action: {
-                        exportOptionsLine = nil
-                        showExportOptions = true
-                    },
-                    isEnabled: viewModel.hasAnyTake && !viewModel.isExporting,
+                    action: { viewModel.beginExport(line: nil) },
+                    isEnabled: session.hasAnyTake && !viewModel.isExporting,
                     style: .secondary
                 )
                 .padding(.top, 4)
@@ -501,14 +343,13 @@ struct DubPackDetailView: View {
             LazyVStack(spacing: 0) {
                 ForEach(Array(pack.lines.enumerated()), id: \.element.id) { index, line in
                     Button {
-                        viewModel.select(line)
-                        showRecorder = true
+                        viewModel.openRecorder(at: line)
                     } label: {
                         DubLineRow(
                             line: line,
-                            isRecorded: viewModel.isRecorded(line),
-                            score: viewModel.score(for: line),
-                            hasBoothTake: viewModel.hasBoothTake(line),
+                            isRecorded: session.isRecorded(line),
+                            score: session.score(for: line),
+                            hasBoothTake: session.hasBoothTake(line),
                             characterColor: DubCharacterStyle.color(
                                 for: line.character,
                                 in: pack.characters
@@ -520,10 +361,9 @@ struct DubPackDetailView: View {
                     // "record it", and that is the thing someone reaches for a hundred times
                     // more often than sharing one.
                     .contextMenu {
-                        if viewModel.isRecorded(line) {
+                        if session.isRecorded(line) {
                             Button {
-                                exportOptionsLine = line
-                                showExportOptions = true
+                                viewModel.beginExport(line: line)
                             } label: {
                                 Label(Strings.Booth.shareLine, systemImage: "square.and.arrow.up")
                             }
@@ -661,96 +501,6 @@ struct DubPackDetailView: View {
         }
         .transition(.opacity)
     }
-}
-
-// MARK: - Line Row
-
-struct DubLineRow: View {
-    let line: DubLine
-    let isRecorded: Bool
-    var score: DubLineScore?
-    /// Whether there is a reaction to send along with this line.
-    var hasBoothTake: Bool = false
-    let characterColor: Color
-
-    var body: some View {
-        HStack(spacing: 12) {
-            Text(String(format: "%03d", line.index))
-                .font(.rsTimecodeSmall)
-                .foregroundColor(.rsTextTertiary)
-
-            Rectangle()
-                .fill(statusColor)
-                .frame(width: 2, height: 30)
-
-            VStack(alignment: .leading, spacing: 4) {
-                HStack(spacing: 8) {
-                    DubCharacterPlate(character: line.character, color: characterColor)
-
-                    Text(line.formattedStartTime)
-                        .font(.rsTimecodeSmall)
-                        .foregroundColor(.rsTextTertiary)
-                }
-
-                Text(line.caption)
-                    .font(.rsBodySmall)
-                    .foregroundColor(isRecorded ? .rsTextPrimary : .rsTextSecondary)
-                    .lineLimit(2)
-                    .multilineTextAlignment(.leading)
-            }
-
-            Spacer(minLength: 8)
-
-            // Says there is a reaction to send with this line, which is what decides whether
-            // sharing it on its own is worth doing at all.
-            if hasBoothTake {
-                Image(systemName: "video.fill")
-                    .font(.system(size: 11, weight: .medium))
-                    .foregroundColor(.rsTextTertiary)
-                    .accessibilityLabel(Strings.Booth.slug)
-            }
-
-            // The grade stands in for the tick: a scored line is a recorded line, and
-            // "how did it go" is more use than "is there a file".
-            if let score {
-                DubScoreChip(score: score)
-            } else {
-                Image(systemName: isRecorded ? "checkmark" : "circle.dashed")
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundColor(isRecorded ? .rsGood : .rsTextTertiary)
-            }
-        }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 11)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .contentShape(Rectangle())
-    }
-
-    /// The spine beside the index: graded once there is a score, plain green for a take that
-    /// could not be measured, and inert until something has been recorded.
-    private var statusColor: Color {
-        if let score { return score.grade.color }
-        return isRecorded ? .rsGood : .rsSurface3
-    }
-}
-
-// MARK: - Share Sheet
-
-struct DubShareSheet: UIViewControllerRepresentable {
-    let url: URL
-
-    func makeUIViewController(context: Context) -> UIActivityViewController {
-        let controller = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-        // Only a dub that actually left the app counts. Opening the sheet and backing out
-        // is not the finished thing we would be asking someone to rate.
-        controller.completionWithItemsHandler = { _, completed, _, _ in
-            guard completed else { return }
-            Task { @MainActor in ReviewPrompt.shared.registerVideoShared() }
-        }
-        return controller
-    }
-
-    func updateUIViewController(_ controller: UIActivityViewController, context: Context) {}
 }
 
 // MARK: - Presentation Helpers

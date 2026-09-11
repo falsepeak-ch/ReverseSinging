@@ -9,7 +9,7 @@ import SwiftUI
 import DubloonFoundation
 
 struct MainViewSimple: View {
-    @EnvironmentObject var viewModel: AudioViewModel
+    @EnvironmentObject var viewModel: ReverseGameViewModel
     @EnvironmentObject var app: AppViewModel
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) private var dismiss
@@ -396,6 +396,6 @@ struct MainViewSimple: View {
 
 #Preview {
     MainViewSimple()
-        .environmentObject(AudioViewModel())
+        .environmentObject(ReverseGameViewModel())
         .environmentObject(AppViewModel())
 }

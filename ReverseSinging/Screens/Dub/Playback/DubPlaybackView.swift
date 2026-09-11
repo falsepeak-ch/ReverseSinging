@@ -11,43 +11,16 @@ import DubAudio
 import DubloonFoundation
 
 struct DubPlaybackView: View {
-    @ObservedObject var viewModel: DubViewModel
-    let mode: DubPlaybackMode
-
-    @Environment(\.dismiss) private var dismiss
+    @StateObject private var viewModel: DubPlaybackViewModel
+    /// The clock, observed here rather than through the view model: it ticks many times a
+    /// second, and only this screen's timeline needs to hear about every tick.
     @ObservedObject private var player: DubPlayer
 
-    @StateObject private var scenePicture = DubScenePictureViewModel()
-    /// The performer's own footage, running alongside. Left empty in `.original`: that mode
-    /// is the film, and the film has nobody filming themselves in the corner.
-    @StateObject private var boothReel = DubBoothReelViewModel()
-    @State private var sceneSamples: [Float] = []
+    @Environment(\.dismiss) private var dismiss
 
-    /// True from the first touch on the timeline to the lift. The scene is held while the
-    /// finger is down and picked up again after, if it was running before.
-    @State private var isScrubbing = false
-    @State private var wasPlayingBeforeScrub = false
-
-    init(viewModel: DubViewModel, mode: DubPlaybackMode) {
-        self.viewModel = viewModel
-        self.mode = mode
-        self.player = viewModel.scenePlayer
-    }
-
-    /// The line whose picture is on screen right now. The same lookup the exporter uses to
-    /// pick slideshow frames, so what plays here is what gets rendered.
-    private var pictureLine: DubLine? {
-        viewModel.pack.line(at: player.currentTime)
-    }
-
-    /// The caption to burn in right now, or nil in a gap.
-    ///
-    /// Not the same question as `pictureLine`: a still has to show *something* for every
-    /// frame of the scene, but a subtitle that stays up through the silence between two lines
-    ///, having gone up a beat or two before the character opened their mouth, reads as
-    /// broken. See `DubPack.captionLine(at:)`.
-    private var captionLine: DubLine? {
-        viewModel.pack.captionLine(at: player.currentTime)
+    init(session: DubSessionViewModel, mode: DubPlaybackMode) {
+        _viewModel = StateObject(wrappedValue: DubPlaybackViewModel(session: session, mode: mode))
+        self.player = session.scenePlayer
     }
 
     var body: some View {
@@ -65,44 +38,18 @@ struct DubPlaybackView: View {
             }
         }
         .statusBarHidden()
-        .animation(.easeInOut(duration: 0.2), value: captionLine?.slug)
-        .animation(.easeInOut(duration: 0.2), value: boothReel.currentSlug)
-        .task {
-            scenePicture.configure(with: viewModel.pack)
-            if mode == .myDub {
-                boothReel.configure(with: viewModel.pack, slugs: viewModel.boothSlugs)
-            }
-            await viewModel.playScene(mode: mode)
-        }
-        .onDisappear {
-            scenePicture.tearDown()
-            boothReel.tearDown()
-            player.stop()
-        }
-        // The anchor rather than `isPlaying`: a seek mid-play restarts the engine on a new
-        // deadline without ever passing through "not playing", and the pictures have to move
-        // to the new deadline with it.
+        .animation(.easeInOut(duration: 0.2), value: viewModel.captionLine?.slug)
+        .animation(.easeInOut(duration: 0.2), value: viewModel.boothReel.currentSlug)
+        .task { await viewModel.start() }
+        .onDisappear { viewModel.onDisappear() }
         .onChange(of: player.playbackAnchor) { _, anchor in
-            if let anchor {
-                scenePicture.playScene(at: anchor)
-            } else {
-                scenePicture.pauseScene()
-            }
-            boothReel.follow(time: player.currentTime, anchor: anchor)
+            viewModel.playbackAnchorDidChange(anchor)
         }
-        // The mix is the master clock; the pictures are corrected towards it. Held, the head
-        // can still be moved, and the frame under it has to follow.
         .onChange(of: player.currentTime) { _, time in
-            if player.isPlaying {
-                scenePicture.resync(to: time)
-            } else {
-                scenePicture.showFrame(at: time)
-            }
-            boothReel.follow(time: time, anchor: player.playbackAnchor)
+            viewModel.currentTimeDidChange(time)
         }
         .task(id: viewModel.pack.backingTrackURL) {
-            guard let url = viewModel.pack.backingTrackURL else { return }
-            sceneSamples = await WaveformSampler.shared.samples(from: url, buckets: 160)
+            await viewModel.loadSceneWaveform()
         }
     }
 
@@ -111,7 +58,7 @@ struct DubPlaybackView: View {
     private var hud: some View {
         HStack(spacing: 12) {
             Button {
-                player.stop()
+                viewModel.close()
                 dismiss()
             } label: {
                 Image(systemName: "xmark")
@@ -128,12 +75,12 @@ struct DubPlaybackView: View {
                     )
             }
 
-            Text(mode.displayName)
-                .editorLabelStyle(mode == .myDub ? .rsGood : .rsHighlight)
+            Text(viewModel.mode.displayName)
+                .editorLabelStyle(viewModel.mode == .myDub ? .rsGood : .rsHighlight)
 
             Spacer()
 
-            if let line = captionLine ?? pictureLine {
+            if let line = viewModel.captionLine ?? viewModel.pictureLine {
                 Text(String(format: "%03d", line.index))
                     .font(.rsTimecodeSmall)
                     .foregroundColor(.rsTextTertiary)
@@ -151,14 +98,14 @@ struct DubPlaybackView: View {
     private var program: some View {
         ZStack(alignment: .bottom) {
             DubPicture(
-                player: scenePicture.player,
-                stillURL: pictureLine.map { viewModel.pack.imageURL(for: $0) }
+                player: viewModel.scenePicture.player,
+                stillURL: viewModel.pictureLine.map { viewModel.pack.imageURL(for: $0) }
             )
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             // Only the still needs re-identifying per line; the video runs continuously.
-            .id(scenePicture.player == nil ? (pictureLine?.slug ?? "black") : "video")
+            .id(viewModel.scenePicture.player == nil ? (viewModel.pictureLine?.slug ?? "black") : "video")
 
-            if let line = captionLine {
+            if let line = viewModel.captionLine {
                 subtitle(for: line)
                     .transition(.opacity)
             }
@@ -171,8 +118,8 @@ struct DubPlaybackView: View {
         // the record screen uses, because the subtitle lives along the foot of this picture
         // and a caption is not something to cover with a face.
         .overlay(alignment: .topTrailing) {
-            if boothReel.currentSlug != nil {
-                BoothReelMonitor(reel: boothReel)
+            if viewModel.boothReel.currentSlug != nil {
+                BoothReelMonitor(reel: viewModel.boothReel)
                     .padding(12)
                     .transition(.opacity.combined(with: .scale(scale: 0.94, anchor: .topTrailing)))
             }
@@ -214,11 +161,7 @@ struct DubPlaybackView: View {
                 Spacer()
 
                 Button {
-                    if player.isPlaying {
-                        player.pause()
-                    } else {
-                        player.resume()
-                    }
+                    viewModel.togglePlayPause()
                 } label: {
                     Image(systemName: player.isPlaying ? "pause.fill" : "play.fill")
                         .font(.system(size: 17, weight: .medium))
@@ -257,17 +200,17 @@ struct DubPlaybackView: View {
     /// already draws the same position, so every part of it is the scrubber.
     private var scrubber: some View {
         VStack(spacing: 10) {
-            if !sceneSamples.isEmpty {
+            if !viewModel.sceneSamples.isEmpty {
                 DubWaveformView(
-                    samples: sceneSamples,
-                    progress: progressFraction,
+                    samples: viewModel.sceneSamples,
+                    progress: viewModel.progressFraction,
                     height: 40
                 )
             }
 
             EditorTickRuler(duration: player.duration)
 
-            EditorTrack(progress: progressFraction)
+            EditorTrack(progress: viewModel.progressFraction)
         }
         .padding(.horizontal, EditorMetrics.gutter)
         .contentShape(Rectangle())
@@ -284,8 +227,8 @@ struct DubPlaybackView: View {
         .accessibilityAdjustableAction { direction in
             let step: TimeInterval = 5
             switch direction {
-            case .increment: player.seek(to: player.currentTime + step)
-            case .decrement: player.seek(to: player.currentTime - step)
+            case .increment: viewModel.seek(by: step)
+            case .decrement: viewModel.seek(by: -step)
             @unknown default: break
             }
         }
@@ -297,27 +240,13 @@ struct DubPlaybackView: View {
         DragGesture(minimumDistance: 0)
             .onChanged { value in
                 let span = width - inset * 2
-                guard span > 0, player.duration > 0 else { return }
-
-                if !isScrubbing {
-                    isScrubbing = true
-                    wasPlayingBeforeScrub = player.isPlaying
-                    player.pause()
-                }
+                guard span > 0 else { return }
 
                 let fraction = min(max(0, (value.location.x - inset) / span), 1)
-                player.seek(to: Double(fraction) * player.duration)
+                viewModel.scrub(to: Double(fraction))
             }
             .onEnded { _ in
-                guard isScrubbing else { return }
-                isScrubbing = false
-                if wasPlayingBeforeScrub { player.resume() }
-                HapticManager.shared.light()
+                viewModel.endScrub()
             }
-    }
-
-    private var progressFraction: Double {
-        guard player.duration > 0 else { return 0 }
-        return min(1, player.currentTime / player.duration)
     }
 }

@@ -65,7 +65,7 @@ struct MicrophonePermissionEmptyState: View {
 
 /// Title, back, archive and options, pinned above whatever the skin scrolls beneath it.
 struct ReverseGameHeader: View {
-    @ObservedObject var viewModel: AudioViewModel
+    @ObservedObject var viewModel: ReverseGameViewModel
     /// The skin is an app preference, offered here because this is the game it changes.
     @ObservedObject var app: AppViewModel
     let onBack: () -> Void
@@ -129,7 +129,7 @@ extension View {
 
     /// The archive and settings sheets, the permission and error alerts, and the screen
     /// bookkeeping every reverse-singing skin needs on appear.
-    func reverseGameChrome(viewModel: AudioViewModel, app: AppViewModel, screenName: String) -> some View {
+    func reverseGameChrome(viewModel: ReverseGameViewModel, app: AppViewModel, screenName: String) -> some View {
         self
             .onAppear {
                 viewModel.checkPermissionStatus()
@@ -139,13 +139,13 @@ extension View {
                 get: { viewModel.showSessionList },
                 set: { viewModel.showSessionList = $0 }
             )) {
-                SessionListView(viewModel: viewModel)
+                SessionListView(game: viewModel)
             }
             .sheet(isPresented: Binding(
                 get: { viewModel.showSettings },
                 set: { viewModel.showSettings = $0 }
             )) {
-                SettingsView(viewModel: app, scope: .reverseSinging)
+                SettingsView(app: app, scope: .reverseSinging)
             }
             .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: Binding(
                 get: { viewModel.showPermissionAlert },
