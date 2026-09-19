@@ -36,6 +36,9 @@ final class AudioSessionManager {
             isConfigured = true
         } catch {
             print("❌ Failed to configure audio session: \(error)")
+            // Nothing downstream can record or play if this failed, so it is the first
+            // thing worth knowing about when a user reports silence.
+            CrashReporter.shared.record(error, context: "audio_session.configure")
         }
     }
 
@@ -50,6 +53,7 @@ final class AudioSessionManager {
             print("✅ Audio session activated")
         } catch {
             print("❌ Failed to activate audio session: \(error)")
+            CrashReporter.shared.record(error, context: "audio_session.activate")
         }
     }
 
@@ -59,6 +63,7 @@ final class AudioSessionManager {
             try audioSession.setActive(false, options: .notifyOthersOnDeactivation)
             print("✅ Audio session deactivated")
         } catch {
+            // Not reported: another app holding the session is normal and self-corrects.
             print("⚠️ Failed to deactivate audio session: \(error)")
         }
     }
@@ -66,11 +71,12 @@ final class AudioSessionManager {
     // MARK: - Permission
 
     func requestRecordPermission(completion: @escaping (Bool) -> Void) {
-        AVAudioApplication.requestRecordPermission { granted in
-            DispatchQueue.main.async {
-                print(granted ? "✅ Microphone permission granted" : "❌ Microphone permission denied")
-                completion(granted)
-            }
+        // The async form rather than the handler one: that handler is called on an arbitrary
+        // thread and is not marked Sendable, so entering this main-actor code from it traps.
+        Task {
+            let granted = await AVAudioApplication.requestRecordPermission()
+            print(granted ? "✅ Microphone permission granted" : "❌ Microphone permission denied")
+            completion(granted)
         }
     }
 

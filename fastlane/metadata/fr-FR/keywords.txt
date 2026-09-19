@@ -1,1 +1,1 @@
-choicer,voicer,dubbing,voiceover,doublage,doubler,imitation,envers,chanter,karaoke,anime,micro
+choicer,voicer,dubbing,voiceover,doublage,imitation,imiter,envers,chanter,karaoke,anime,micro

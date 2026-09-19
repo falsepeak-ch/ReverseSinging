@@ -80,10 +80,9 @@ final class AudioRecorder: NSObject, ObservableObject {
         setupNotifications()
     }
 
-    deinit {
-        removeNotifications()
-        cleanup()
-    }
+    // No `deinit`. What `cleanup()` does already happens on release: the timers invalidate
+    // themselves once `self` is gone, `AVAudioRecorder` stops when it is freed, and
+    // NotificationCenter drops selector observers of a deallocated object by itself.
 
     // MARK: - Notifications
 
@@ -103,19 +102,24 @@ final class AudioRecorder: NSObject, ObservableObject {
         )
     }
 
-    private func removeNotifications() {
-        NotificationCenter.default.removeObserver(self)
-    }
-
     // MARK: - Interruption Handling
 
-    @objc private func handleInterruption(notification: Notification) {
+    /// AVAudioSession posts on whichever thread noticed the change, so this cannot be
+    /// main-actor isolated. It reads the notification here and hands plain values over.
+    @objc nonisolated private func handleInterruption(notification: Notification) {
         guard let userInfo = notification.userInfo,
               let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
               let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
             return
         }
+        let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt
 
+        Task { @MainActor [weak self] in
+            self?.interruptionChanged(type, optionsValue: optionsValue)
+        }
+    }
+
+    private func interruptionChanged(_ type: AVAudioSession.InterruptionType, optionsValue: UInt?) {
         print("📱 Audio interruption: \(type == .began ? "began" : "ended")")
 
         switch type {
@@ -131,7 +135,7 @@ final class AudioRecorder: NSObject, ObservableObject {
 
         case .ended:
             // Interruption ended
-            guard let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt else {
+            guard let optionsValue else {
                 return
             }
             let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
@@ -146,13 +150,20 @@ final class AudioRecorder: NSObject, ObservableObject {
         }
     }
 
-    @objc private func handleRouteChange(notification: Notification) {
+    /// Posted off the main thread too, like `handleInterruption`.
+    @objc nonisolated private func handleRouteChange(notification: Notification) {
         guard let userInfo = notification.userInfo,
               let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
               let reason = AVAudioSession.RouteChangeReason(rawValue: reasonValue) else {
             return
         }
 
+        Task { @MainActor [weak self] in
+            self?.routeChanged(reason)
+        }
+    }
+
+    private func routeChanged(_ reason: AVAudioSession.RouteChangeReason) {
         print("🎧 Audio route changed: \(reason.rawValue)")
 
         switch reason {
@@ -362,17 +373,24 @@ final class AudioRecorder: NSObject, ObservableObject {
     // MARK: - Level Monitoring
 
     private func startTimers() {
+        // Starting again while the old timers are live would leave them firing.
+        levelTimer?.invalidate()
+        durationTimer?.invalidate()
+
         // Create level timer and add to .common RunLoop mode
         // This ensures it fires during UI updates and scrolling
-        let levelTimerInstance = Timer(timeInterval: 0.05, repeats: true) { [weak self] _ in
-            self?.updateLevel()
+        let levelTimerInstance = Timer(timeInterval: 0.05, repeats: true) { [weak self] timer in
+            guard let self else { return timer.invalidate() }
+            // On the main run loop, so this always fires on the main thread.
+            MainActor.assumeIsolated { self.updateLevel() }
         }
         RunLoop.main.add(levelTimerInstance, forMode: .common)
         levelTimer = levelTimerInstance
         print("🔊 Level timer started on .common RunLoop mode")
 
-        durationTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
-            self?.updateDuration()
+        durationTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
+            guard let self else { return timer.invalidate() }
+            MainActor.assumeIsolated { self.updateDuration() }
         }
     }
 
@@ -435,8 +453,9 @@ final class AudioRecorder: NSObject, ObservableObject {
 
 // MARK: - AVAudioRecorderDelegate
 
+/// Called on AVFoundation's own thread. Both only log, so neither needs the main actor.
 extension AudioRecorder: AVAudioRecorderDelegate {
-    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+    nonisolated func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if flag {
             print("✅ Recording finished successfully")
         } else {
@@ -444,7 +463,7 @@ extension AudioRecorder: AVAudioRecorderDelegate {
         }
     }
 
-    func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
+    nonisolated func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
         if let error = error {
             print("❌ Recording encode error: \(error.localizedDescription)")
         }

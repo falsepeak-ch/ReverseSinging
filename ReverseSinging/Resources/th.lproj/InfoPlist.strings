@@ -1,0 +1,8 @@
+/*
+   InfoPlist.strings (Thai)
+   ReverseSinging
+*/
+
+"NSMicrophoneUsageDescription" = "Dubloon ต้องขอสิทธิ์ใช้ไมโครโฟนเพื่ออัดเสียงของคุณ คุณจะได้ร้องเพลงย้อนกลับและพากย์ฉากหนังได้";
+
+"NSCameraUsageDescription" = "Dubloon ใช้กล้องหน้าถ่ายคุณระหว่างพากย์ เพื่อให้คุณแชร์รีแอ็กชันไปพร้อมกับเทคได้ กล้องจะปิดอยู่จนกว่าคุณจะเปิดเอง";

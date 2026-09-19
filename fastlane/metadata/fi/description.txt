@@ -1,0 +1,43 @@
+Dubloon on kaksi ääntä käyttävää peliä yhdessä sovelluksessa, eikä kumpikaan tarvitse muuta kuin mikrofonisi.
+
+DUBBAA ELOKUVAKOHTAUS
+
+Lataa kohtaus ja dubbaa se itse. Dubloon soittaa sinulle alkuperäisen repliikin, näyttää kuvan ja tekstin ja antaa täsmällisen keston, johon osua. Sitten äänität oman otoksesi. Alkuperäisen aaltomuoto asettuu omasi alle, joten näet, missä tulit liian aikaisin, missä kiirehdit ja mihin jäi aukko.
+
+• Repliikki kerrallaan, omaan tahtiin. Lopeta ja jatka milloin haluat
+• Alkuperäinen tulkinta kuulokkeissa äänityksen aikana, jos haluat
+• Jokaisella hahmolla oma värinsä, joten tiedät aina kuka puhuu
+• Tempopalkki, joka muuttuu meripihkaksi heti kun ohitat alkuperäisen keston
+• Päällekkäiset repliikit miksataan omille raidoilleen, joten kaksi yhtä aikaa puhuvaa myös kuulostaa siltä
+• Katso alkuperäinen, kuuntele oma dubbauksesi tai vie koko kohtaus videona
+
+BOOTH CAM
+
+Kytke etukamera päälle, niin Dubloon kuvaa sinut esityksen ajan. Vie valmis kohtaus niin, että naamasi on kulmassa, päällekkäin tarinaa varten tai vierekkäin. Tai lähetä yksi ainoa repliikki reaktion kanssa. Kamera on pois päältä kunnes itse kytket sen, ja materiaali pysyy puhelimessa kunnes päätät viedä sen ulos.
+
+PISTEYTETTYNÄ, JOS HALUAT
+
+Jokainen otos arvioidaan ajoituksesta, rytmistä ja tulkinnasta, ja saat pisteet kohtaukselle, parhaan repliikkisi ja sen, joka kannattaa ottaa uusiksi. Kytke pois, eikä kukaan laske.
+
+KAKSI KOHTAUSTA ALKUUN
+
+Camp Rules on leikattu Blender Studion avoimesta elokuvasta Sprite Fright, joka on jaettu Creative Commons Attribution 4.0 -lisenssillä. Stuck Up on leikattu vuoden 1951 opetuselokuvasta The Outsider, joka on Yhdysvalloissa vapaasti käytettävä. Kummankin kohtauksen omalla ruudulla kerrotaan elokuva, vuosi ja ehdot.
+
+Sen jälkeen hyllyn täytät itse. Näiden kahden lisäksi Dubloon ei sisällä eikä säilytä yhtään elokuvaa. Dubbauspaketit tekevät ja jakavat muut pelaajat: lataat haluamasi ja tuot kansion tai .zip-tiedoston Tiedostoista, AirDropilla tai mistä tahansa jakovalikosta. Varmista, että sinulla on oikeus käyttää sitä, mitä dubbaat.
+
+TAKAPERINLAULU
+
+Alkuperäinen peli. Äänitä kappale, ja Dubloon kääntää sen. Laula kuulemasi takaperinversio, ja sovellus kääntää yrityksesi takaisin. Jos osuit, tuloksena olet laulamassa oikeaa kappaletta. Se pisteyttää, miten lähelle pääsit.
+
+• Kaksi käyttöliittymää: isot yksinkertaiset napit tai koko aaltomuoto toistoineen, nopeuksineen ja sävelkorkeuksineen
+• Tallenna parhaat otoksesi ja palaa niihin
+
+YKSITYINEN JO RAKENTEELTAAN
+
+Kaikki tapahtuu tällä laitteella. Äänityksesi, otoksesi, koppimateriaalisi ja viemäsi dubbaukset eivät poistu siitä koskaan. Ei tiliä, ei rekisteröitymistä, ei mainoksia, ei mitään ladattavaa. Sovellus kerää nimettömiä käyttötilastoja päättääkseen, mitä rakennetaan seuraavaksi, ei koskaan äänityksen sisältöä.
+
+MITÄ SE MAKSAA
+
+Seitsemän päivää ilmaiseksi, molemmat pelit, mitään pidättämättä. Sen jälkeen yksi maksu avaa sovelluksen lopullisesti. Ei tilaus.
+
+Rakennettu Sveitsissä. Käsityönä Zürichissä.

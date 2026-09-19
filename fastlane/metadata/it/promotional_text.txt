@@ -1,1 +1,1 @@
-Novità nella 1.3.0: Doppiaggio di Scena, con due scene originali incluse. Registra la tua voce battuta per battuta, poi esporta il doppiaggio e condividilo.
+Novità della 1.5.0: la camera della cabina ti riprende mentre doppi, così la reazione esce insieme alla take. Ora in 21 lingue.

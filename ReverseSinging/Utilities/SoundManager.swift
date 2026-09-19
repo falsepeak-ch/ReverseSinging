@@ -10,7 +10,7 @@ import Foundation
 
 /// The app's interface sounds. Short, dry and used sparingly. They mark the moments
 /// that matter (slate, take saved, render done) rather than every tap.
-enum UISound: String, CaseIterable {
+nonisolated enum UISound: String, CaseIterable {
     case clapperSnap = "clapper-snap"
     case tapeStop = "tape-stop"
     case mechanicalClick = "mechanical-click"
@@ -48,7 +48,9 @@ enum UISound: String, CaseIterable {
     }
 }
 
-final class SoundManager: @unchecked Sendable {
+/// Safe to call from any thread: the players and the microphone flag are only ever touched
+/// under `lock`, which is what `@unchecked Sendable` is vouching for.
+nonisolated final class SoundManager: @unchecked Sendable {
 
     static let shared = SoundManager()
 
@@ -62,7 +64,7 @@ final class SoundManager: @unchecked Sendable {
     /// `AVAudioPlayer.play()` returns straight away and does its work on the audio thread.
     private var players: [UISound: AVAudioPlayer] = [:]
     private let lock = NSLock()
-    private let loadQueue = DispatchQueue(label: "com.falsepeak.reverso.sound", qos: .userInitiated)
+    private let loadQueue = DispatchQueue(label: "com.falsepeak.dubloon.sound", qos: .userInitiated)
 
     /// Set while the mic is open. Interface sounds would bleed straight into the take,
     /// so everything is suppressed until recording stops.

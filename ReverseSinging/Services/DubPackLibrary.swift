@@ -6,8 +6,9 @@
 //
 
 import AVFoundation
-import Foundation
 import Combine
+import DubPackKit
+import Foundation
 
 @MainActor
 final class DubPackLibrary: ObservableObject {
@@ -19,13 +20,17 @@ final class DubPackLibrary: ObservableObject {
     @Published private(set) var importMessage: String = Strings.Dub.importing
     @Published var errorMessage: String?
 
+    /// Kept apart from `reloadTask`, which every reload cancels. The screen reloads the moment
+    /// it appears, right after creating the library, and cancelling the install there left a
+    /// first launch with no starter packs, recorded as installed, never to be retried.
+    private var starterInstallTask: Task<Void, Never>?
     private var reloadTask: Task<Void, Never>?
 
     init() {
-        reloadTask = Task { [weak self] in
+        starterInstallTask = Task { [weak self] in
             await self?.installStarterPacksIfNeeded()
-            await self?.reloadNow()
         }
+        reload()
     }
 
     // MARK: - Starter Packs
@@ -59,59 +64,95 @@ final class DubPackLibrary: ObservableObject {
     /// list is ready, so a reload never blanks the screen it is refreshing.
     func reload() {
         reloadTask?.cancel()
-        reloadTask = Task { await reloadNow() }
+        reloadTask = Task { [starterInstallTask] in
+            // Waits for the starter packs rather than reading a shelf they are still going
+            // onto. A reload replaced while it waits leaves the reading to its replacement.
+            await starterInstallTask?.value
+            guard !Task.isCancelled else { return }
+            await reloadNow()
+        }
     }
+
+    #if DEBUG
+    /// Lets a test wait for the latest `reload()`, starter install included.
+    func waitForReloadForTesting() async {
+        await reloadTask?.value
+    }
+    #endif
 
     /// The same refresh, awaited, used where the next step depends on the result.
     func reloadNow() async {
-        // Off the main actor: a re-parse reads every reference wav in the pack, which is
-        // exactly the work that must not happen on the way to drawing a frame.
-        packs = await Task.detached(priority: .userInitiated) { Self.loadAll() }.value
+        packs = await Self.loadAll()
     }
 
-    private nonisolated static func loadAll() -> [DubPack] {
+    /// Off the main actor: a re-read measures every reference recording in the pack, which is
+    /// exactly the work that must not happen on the way to drawing a frame.
+    @concurrent
+    private nonisolated static func loadAll() async -> [DubPack] {
         let root = AudioFileManager.shared.dubPacksDirectory()
 
-        let directories = (try? FileManager.default.contentsOfDirectory(
+        // Hidden folders are installs still in progress, or ones a crash left behind.
+        let directories = ((try? FileManager.default.contentsOfDirectory(
             at: root,
             includingPropertiesForKeys: [.isDirectoryKey],
             options: [.skipsHiddenFiles]
-        )) ?? []
+        )) ?? []).filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory ?? false }
 
-        return directories
-            .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory ?? false }
-            .compactMap { load(from: $0) }
-            .sorted { $0.importedAt > $1.importedAt }
+        var packs: [DubPack] = []
+        for directory in directories {
+            if let pack = await load(from: directory) {
+                packs.append(pack)
+            }
+        }
+        return packs.sorted { $0.importedAt > $1.importedAt }
     }
 
-    private nonisolated static func load(from directory: URL) -> DubPack? {
+    /// Loads one installed pack: from its manifest when that is current, else by reading the
+    /// folder again. Nil when the folder does not read as a pack.
+    nonisolated static func load(from directory: URL) async -> DubPack? {
         let folderName = directory.lastPathComponent
-        let importer = DubPackImporter.shared
+        let cached = DubPackManifest.read(at: directory)
 
-        // The cached manifest is the fast path; a pack copied in by hand (or written by an
-        // older build) still loads, and gets a manifest written for next time.
-        if let cached = importer.readManifest(at: directory),
-           cached.folderName == folderName,
-           !manifestIsStale(cached, in: directory) {
+        // The cached manifest is the fast path; a pack copied in by hand, or written by an
+        // older build, still loads, and gets a manifest written for next time.
+        if let cached, cached.folderName == folderName, await !manifestIsStale(cached, in: directory) {
             return cached
         }
 
-        guard let parsed = try? DubPackParser.parsePack(at: directory, folderName: folderName) else {
+        do {
+            // The identity, date and fallback title carry over from the manifest being replaced:
+            // takes are stored under the pack's id, and a fresh one would orphan every take
+            // recorded; a pack without pack info would otherwise lose the title it was installed under.
+            let reading = try await DubPackReader().read(at: directory, fallbackTitle: cached?.title)
+            let pack = DubPack(
+                parsed: reading.pack,
+                directory: directory,
+                id: cached?.id ?? UUID(),
+                importedAt: cached?.importedAt ?? Date()
+            )
+            try? DubPackManifest.write(pack, to: directory)
+            return pack
+        } catch {
+            // A pack that is installed and will not load is the quietest failure in the app:
+            // the folder is on disk, the user imported it and performed it, and it is simply
+            // not on the shelf any more. There is no alert for this, because nobody asked
+            // for anything. Reported per launch while it lasts, which is the point. A pack
+            // that stops loading after an OS update is a regression we would otherwise only
+            // hear about as "my scenes disappeared".
+            CrashReporter.shared.record(
+                error,
+                context: "dub_pack.load",
+                keys: ["folder_name": folderName]
+            )
             return nil
         }
-
-        try? importer.writeManifest(parsed, to: directory)
-        return parsed
     }
 
-    /// True when the cached manifest is missing something a re-parse would find.
+    /// True when the cached manifest is missing something a re-read would find.
     ///
     /// The cache is the fast path, so anything a manifest predates would otherwise win on
-    /// every launch and never be corrected. Two cases so far:
+    /// every launch and never be corrected:
     ///
-    /// - **A video on disk the manifest doesn't name.** Manifests written before the video
-    ///   field existed decode with `videoFile == nil`, and the scene would keep showing
-    ///   stills with the video sitting right there in the folder.
     /// - **Unmeasured speech windows.** Lines without one fall back to their whole chunk,
     ///   which puts captions up to two seconds early and drops takes at the chunk's start
     ///   rather than where the character speaks.
@@ -119,29 +160,31 @@ final class DubPackLibrary: ObservableObject {
     ///   decode with `source == nil`, and the starter packs. The only ones that carry
     ///   someone else's work, are precisely the packs already installed on every device
     ///   that has ever opened dub mode. Without this they would keep printing no credit.
+    /// - **A video on disk the manifest doesn't name.** Manifests written before the video
+    ///   field existed decode with `videoFile == nil`, and the scene would keep showing
+    ///   stills with the video sitting right there in the folder.
     ///
-    /// Re-parsing costs one pass over the pack, and only for packs in that state.
-    static nonisolated func manifestIsStale(_ pack: DubPack, in directory: URL) -> Bool {
+    /// Re-reading costs one pass over the pack, and only for packs in that state.
+    nonisolated static func manifestIsStale(_ pack: DubPack, in directory: URL) async -> Bool {
         guard pack.hasMeasuredSpeech else { return true }
         if manifestIsMissingAttributionOnDisk(pack, in: directory) { return true }
-        return manifestIsMissingAVideoOnDisk(pack, in: directory)
+        return await manifestIsMissingAVideoOnDisk(pack, in: directory)
     }
 
-    /// True when the pack's own `_pack_info.ini` names a source the manifest doesn't carry.
+    /// True when the pack's own info names a source the manifest doesn't carry.
     ///
     /// Deliberately keyed on the file rather than on a version stamp: the question is only
     /// ever "is there credit here that isn't being shown", and the pack folder is where the
     /// answer is. A pack that genuinely has no provenance answers no on every launch, at the
     /// cost of one small read.
-    static nonisolated func manifestIsMissingAttributionOnDisk(_ pack: DubPack, in directory: URL) -> Bool {
+    nonisolated static func manifestIsMissingAttributionOnDisk(_ pack: DubPack, in directory: URL) -> Bool {
         guard pack.source == nil else { return false }
+        return DubPackReader().provenance(in: directory).source != nil
+    }
 
-        let packInfoURL = directory.appendingPathComponent(DubPackParser.packInfoFilename)
-        guard let contents = try? String(contentsOf: packInfoURL, encoding: .utf8) else {
-            return false
-        }
-
-        return DubPackParser.parseKeyValues(contents)["source"]?.stringValue?.nilIfEmpty != nil
+    nonisolated static func manifestIsMissingAVideoOnDisk(_ pack: DubPack, in directory: URL) async -> Bool {
+        guard pack.videoFile == nil else { return false }
+        return await DubPackReader().playableSceneVideo(in: directory) != nil
     }
 
     /// How far a scene video may fall short of the pack's own timeline before it is treated
@@ -150,7 +193,7 @@ final class DubPackLibrary: ObservableObject {
     /// A sound conversion lands within a frame or two. The real packs measure 0.02 s and
     /// 0.06 s out. A pack converted by the build that dropped duplicate frames is short by the
     /// whole run of them, which on a two-minute scene came to over five seconds.
-    static nonisolated let truncatedVideoTolerance: TimeInterval = 0.25
+    nonisolated static let truncatedVideoTolerance: TimeInterval = 0.25
 
     /// True when a pack's video ends materially before the scene's audio does.
     ///
@@ -163,38 +206,25 @@ final class DubPackLibrary: ObservableObject {
     /// seen: the video is short by exactly the frames that went missing, whatever build did
     /// it. A pack that ships its video as MP4 and never went through the transcoder is
     /// correct by construction and reads well inside the tolerance.
-    static nonisolated func sceneVideoIsTruncated(_ pack: DubPack) -> Bool {
+    @concurrent
+    nonisolated static func sceneVideoIsTruncated(_ pack: DubPack) async -> Bool {
         guard pack.duration > 0, let videoURL = pack.videoURL,
-              FileManager.default.fileExists(atPath: videoURL.path) else { return false }
+              FileManager.default.fileExists(atPath: videoURL.path),
+              let length = try? await AVURLAsset(url: videoURL).load(.duration) else { return false }
 
-        let video = CMTimeGetSeconds(AVURLAsset(url: videoURL).duration)
+        let video = CMTimeGetSeconds(length)
         guard video.isFinite, video > 0 else { return false }
 
         return pack.duration - video > truncatedVideoTolerance
     }
 
-    static nonisolated func manifestIsMissingAVideoOnDisk(_ pack: DubPack, in directory: URL) -> Bool {
-        guard pack.videoFile == nil else { return false }
-
-        let contents = (try? FileManager.default.contentsOfDirectory(
-            at: directory,
-            includingPropertiesForKeys: nil,
-            options: [.skipsHiddenFiles]
-        )) ?? []
-
-        return contents.contains {
-            $0.deletingPathExtension().lastPathComponent == DubPackParser.videoPrefix
-                && DubPackParser.hasReadableVideoTrack(at: $0)
-        }
-    }
-
     /// Weighted by how long each stage actually takes. A Theora scene can be 150 MB, so
     /// conversion owns most of the bar.
-    private static func overallProgress(stage: DubImportStage, value: Double) -> Double {
-        switch stage {
-        case .copying: return value * 0.15
-        case .convertingVideo: return 0.15 + value * 0.75
-        case .reading: return 0.90 + value * 0.10
+    private static func overallProgress(_ progress: DubPackInstallProgress) -> Double {
+        switch progress.stage {
+        case .copying: progress.fraction * 0.15
+        case .convertingVideo: 0.15 + progress.fraction * 0.75
+        case .reading: 0.90 + progress.fraction * 0.10
         }
     }
 
@@ -206,20 +236,50 @@ final class DubPackLibrary: ObservableObject {
         importMessage = Strings.Dub.importing
         defer { isImporting = false }
 
+        let sourceExtension = url.pathExtension.lowercased()
+
+        // Before any work, so an import the user abandons partway through a long video
+        // conversion is still counted as an attempt rather than vanishing entirely.
+        AnalyticsManager.shared.trackDubPackImportStarted(
+            sourceName: url.lastPathComponent,
+            sourceExtension: sourceExtension
+        )
+
         do {
-            let pack = try await DubPackImporter.shared.importPack(from: url) { [weak self] stage, value in
+            let pack = try await DubPackImporter.shared.importPack(from: url) { [weak self] progress in
                 Task { @MainActor [weak self] in
-                    self?.importMessage = stage.message
-                    self?.importProgress = Self.overallProgress(stage: stage, value: value)
+                    self?.importMessage = progress.stage.message
+                    self?.importProgress = Self.overallProgress(progress)
                 }
             }
 
             await reloadNow()
             HapticManager.shared.success()
-            AnalyticsManager.shared.trackDubPackImported(title: pack.title, lineCount: pack.lines.count)
+            AnalyticsManager.shared.trackDubPackImported(
+                title: pack.title,
+                authors: pack.authors,
+                sourceName: url.lastPathComponent,
+                lineCount: pack.lines.count,
+                characterCount: Set(pack.lines.map(\.character)).count,
+                duration: pack.duration,
+                hasVideo: pack.videoFile != nil,
+                hasBackingTrack: pack.backingTrackFile != nil,
+                hasAttribution: pack.hasAttribution,
+                source: pack.source,
+                sourceURL: pack.sourceURL
+            )
         } catch {
-            errorMessage = error.localizedDescription
+            errorMessage = DubPackImportMessage.text(for: error)
             HapticManager.shared.error()
+
+            // The non-fatal for this failure has already been sent by DubPackKit, together with
+            // the issues that led to it. The event is what makes failing packs countable next
+            // to the ones that work.
+            AnalyticsManager.shared.trackDubPackImportFailed(
+                sourceName: url.lastPathComponent,
+                sourceExtension: sourceExtension,
+                reason: (error as? DubPackImportError)?.telemetryCode ?? String(describing: error)
+            )
         }
     }
 
