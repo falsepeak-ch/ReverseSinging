@@ -2,7 +2,7 @@
 //  AppState.swift
 //  ReverseSinging
 //
-//  Global app state
+//  State of the reverse-singing game
 //
 
 import Foundation
@@ -25,7 +25,6 @@ struct AppState {
     var recordingState: RecordingState = .idle
     var currentSession: AudioSession?
     var savedSessions: [AudioSession] = []
-    var hasCompletedOnboarding: Bool = false
     var playbackSpeed: Double = 1.0
     var isLooping: Bool = false
     var pitchShift: Float = 0.0  // In cents: -1200 to +1200 (±12 semitones)
@@ -38,8 +37,6 @@ struct AppState {
 
     // Settings
     var themeMode: ThemeMode = .system
-    var hapticsEnabled: Bool = true
-    var uiMode: UIMode = .simple
 
     // MARK: - Methods
     // Removed currentGameStep - no longer using step-based flow

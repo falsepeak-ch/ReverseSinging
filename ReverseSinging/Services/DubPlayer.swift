@@ -7,6 +7,7 @@
 
 import AVFoundation
 import Combine
+import DubAudio
 
 /// A point on the scene timeline tied to the device host clock.
 ///
@@ -73,10 +74,14 @@ final class DubPlayer: ObservableObject {
     /// repeatedly exact-seeked back towards the audio clock. High-frame-rate scenes made
     /// those corrections especially visible. Publishing the audio engine's actual host-time
     /// deadline lets AVPlayer map the requested video frame onto that same instant instead.
-    private(set) var playbackAnchor: DubPlaybackAnchor?
+    ///
+    /// Published, because a seek mid-play is a new deadline without ever passing through
+    /// "not playing", and the screen has to move the picture to it.
+    @Published private(set) var playbackAnchor: DubPlaybackAnchor?
 
-    /// Backing track sits under the voices rather than competing with them.
-    private static let backingGain: Float = 0.75
+    /// Where this pack's bed sits for the mode being played, decided when it is loaded and
+    /// held there for the whole scene. See `DubBackingBalance`.
+    private var backingGain: Float = DubBackingBalance.originalBedGain
 
     /// How long after a node starts rendering its samples are actually heard.
     ///
@@ -103,9 +108,7 @@ final class DubPlayer: ObservableObject {
         DubMasterLimiter.install(in: engine)
     }
 
-    deinit {
-        progressTimer?.invalidate()
-    }
+    // No `deinit`: the progress timer invalidates itself once `self` is gone.
 
     // MARK: - Loading
 
@@ -123,40 +126,22 @@ final class DubPlayer: ObservableObject {
         self.mode = mode
         duration = pack.duration
 
-        let backingURL = pack.backingTrackURL
         let sources = voiceSources(for: pack, mode: mode)
-        let alreadyLoaded = loadedMode == mode ? placements : [:]
+        // Voices already placed for this mode never leave the main actor; only the rest are read.
+        let cached = loadedMode == mode ? placements : [:]
 
-        let loaded: (AVAudioPCMBuffer?, [String: DubVoiceAlignment.Placement]) =
-            await Task.detached(priority: .userInitiated) {
-                var backing: AVAudioPCMBuffer?
-                if let backingURL {
-                    backing = try? DubAudioLoader.loadBuffer(from: backingURL)
-                }
+        let loaded = await Self.loadScene(
+            sources.filter { cached[$0.line.slug] == nil },
+            pack: pack,
+            isMyDub: mode == .myDub
+        )
 
-                var placed: [String: DubVoiceAlignment.Placement] = [:]
-                for source in sources {
-                    if let cached = alreadyLoaded[source.line.slug] {
-                        placed[source.line.slug] = cached
-                        continue
-                    }
-                    guard let buffer = try? DubAudioLoader.loadVoiceBuffer(from: source.url) else { continue }
-
-                    placed[source.line.slug] = source.isTake
-                        ? DubVoiceAlignment.place(
-                            take: buffer,
-                            for: source.line,
-                            referenceURL: source.referenceURL
-                          )
-                        : DubVoiceAlignment.placeReference(buffer, for: source.line)
-                }
-
-                return (backing, placed)
-            }.value
-
-        backingBuffer = loaded.0
-        backingFormat = loaded.0?.format
-        placements = loaded.1
+        backingGain = loaded.bedGain
+        backingBuffer = loaded.backing
+        backingFormat = loaded.backing?.format
+        placements = sources.reduce(into: [:]) { placed, source in
+            placed[source.line.slug] = cached[source.line.slug] ?? loaded.placements[source.line.slug]
+        }
         loadedMode = mode
 
         // Only lines that actually have audio take up a lane.
@@ -173,8 +158,65 @@ final class DubPlayer: ObservableObject {
         connectNodes()
     }
 
+    /// What `loadScene` hands back: buffers read for that one call, which nothing else holds.
+    nonisolated private struct LoadedScene {
+        var backing: AVAudioPCMBuffer?
+        var bedGain: Float
+        var placements: [String: DubVoiceAlignment.Placement]
+    }
+
+    /// Reads the backing track and every voice in `sources`, and places each on the timeline.
+    ///
+    /// `@concurrent`, so the file reads and the per-take cleanup never land on the main actor.
+    /// The result is `sending`: every buffer in it was made here, so handing it over shares
+    /// nothing with this function.
+    @concurrent
+    nonisolated private static func loadScene(
+        _ sources: [VoiceSource],
+        pack: DubPack,
+        isMyDub: Bool
+    ) async -> sending LoadedScene {
+        var scene = LoadedScene(backing: nil, bedGain: DubBackingBalance.originalBedGain, placements: [:])
+
+        if let backingURL = pack.backingTrackURL {
+            scene.backing = try? DubAudioLoader.loadBuffer(from: backingURL)
+
+            // The two modes want different things from the bed. The film's own chunks
+            // carry its music and effects, and the bed is dipped under each line so
+            // that chunk plus bed is the film: the original plays over it untouched,
+            // at unity, and anything done to it here is heard as the room jumping at
+            // every line. A take carries a voice and nothing else, so under a dub the
+            // bed is dimmed by one fixed amount, the way the export dims it. See
+            // `DubBackingBalance`.
+            if let backing = scene.backing, isMyDub {
+                scene.bedGain = DubBackingBalance.bedGain(for: backing, in: pack)
+            }
+        }
+
+        for source in sources {
+            guard let buffer = try? DubAudioLoader.loadVoiceBuffer(from: source.url) else { continue }
+
+            // Only a take needs either of these. The reference chunks are the film's
+            // own dialogue: already clean, and already at the level being matched to.
+            if source.isTake {
+                DubTakeCleanup.apply(to: buffer)
+                DubVoiceLevel.match(buffer, toReferenceAt: source.referenceURL)
+            }
+
+            scene.placements[source.line.slug] = source.isTake
+                ? DubVoiceAlignment.place(
+                    take: buffer,
+                    for: source.line,
+                    referenceURL: source.referenceURL
+                  )
+                : DubVoiceAlignment.placeReference(buffer, for: source.line)
+        }
+
+        return scene
+    }
+
     /// Where a line's voice comes from in this mode.
-    private struct VoiceSource: Sendable {
+    nonisolated private struct VoiceSource: Sendable {
         let line: DubLine
         let url: URL
         /// True for the user's own take. Take and reference both use the pack timestamp;
@@ -212,14 +254,15 @@ final class DubPlayer: ObservableObject {
         if let backingFormat {
             engine.connect(backingNode, to: engine.mainMixerNode, format: backingFormat)
         }
-        backingNode.volume = Self.backingGain
+        backingNode.volume = backingGain
 
         rebuildVoiceNodes(count: voiceLanes.count)
     }
 
     /// Tears down the previous pack's voice nodes and builds one per lane.
     ///
-    /// Always runs with the engine stopped: `prepare` is only reached through `stopEverything`,
+    /// Always runs with the engine stopped: `prepare` is only reached through
+    /// `DubSessionViewModel.playScene`, which stops playback first,
     /// and detaching a node from a running engine is not something to rely on.
     private func rebuildVoiceNodes(count: Int) {
         for node in voiceNodes {
@@ -256,6 +299,7 @@ final class DubPlayer: ObservableObject {
     /// Starts (or restarts) playback from `offset` seconds into the scene.
     func play(from offset: TimeInterval = 0) {
         guard pack != nil else { return }
+        let wasPlaying = isPlaying
 
         stopNodes()
 
@@ -301,7 +345,10 @@ final class DubPlayer: ObservableObject {
         isPlaying = true
         startProgressTimer()
 
-        AnalyticsManager.shared.trackDubPlaybackStarted(mode: mode.rawValue)
+        // A seek mid-play comes through here too, and that is not a new playback.
+        if !wasPlaying {
+            AnalyticsManager.shared.trackDubPlaybackStarted(mode: mode.rawValue)
+        }
     }
 
     func stop() {
@@ -312,6 +359,43 @@ final class DubPlayer: ObservableObject {
         playbackStartOffset = 0
         playbackAnchor = nil
         stopProgressTimer()
+    }
+
+    /// Holds the scene where it is, so it can be picked up from the same place.
+    ///
+    /// `stop()` rewinds; this does not. The difference only exists because the timeline can
+    /// be scrubbed: a pause that went back to the top would throw away the position the user
+    /// had just dragged to. The engine is left running, so the resume is as quick as the
+    /// first start.
+    func pause() {
+        guard isPlaying else { return }
+        stopNodes()
+        isPlaying = false
+        playbackAnchor = nil
+        playbackStartOffset = currentTime
+    }
+
+    /// Picks up from wherever the head was left, or from the top if it ran off the end.
+    func resume() {
+        play(from: currentTime < duration ? currentTime : 0)
+    }
+
+    /// Moves the head to `time`, running or not.
+    ///
+    /// Running, everything is rescheduled from the new offset: the nodes hold buffers trimmed
+    /// to the old one, so there is no cheaper way to move than to start again, and the restart
+    /// is well inside the lead-in. Held, only the position moves; putting the right frame
+    /// under it is the screen's job.
+    func seek(to time: TimeInterval) {
+        guard pack != nil else { return }
+        let clamped = min(max(0, time), duration)
+
+        if isPlaying {
+            play(from: clamped)
+        } else {
+            playbackStartOffset = clamped
+            currentTime = clamped
+        }
     }
 
     private func stopNodes() {
@@ -372,8 +456,13 @@ final class DubPlayer: ObservableObject {
     // MARK: - Progress
 
     private func startProgressTimer() {
-        let timer = Timer(timeInterval: 0.05, repeats: true) { [weak self] _ in
-            Task { @MainActor [weak self] in self?.updateProgress() }
+        stopProgressTimer()
+
+        let timer = Timer(timeInterval: 0.05, repeats: true) { [weak self] timer in
+            guard let self else { return timer.invalidate() }
+            // On the main run loop, so this fires on the main thread and can update in place
+            // rather than scheduling a task twenty times a second.
+            MainActor.assumeIsolated { self.updateProgress() }
         }
         RunLoop.main.add(timer, forMode: .common)
         progressTimer = timer

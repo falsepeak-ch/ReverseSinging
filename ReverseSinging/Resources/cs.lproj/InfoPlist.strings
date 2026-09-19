@@ -1,0 +1,8 @@
+/*
+   InfoPlist.strings (Czech)
+   ReverseSinging
+*/
+
+"NSMicrophoneUsageDescription" = "Dubloon potřebuje přístup k mikrofonu, aby mohl nahrát tvůj hlas – díky tomu můžeš zpívat písničky pozpátku a dabovat filmové scény.";
+
+"NSCameraUsageDescription" = "Dubloon tě při dabování natáčí přední kamerou, ať můžeš svou reakci sdílet spolu s nahrávkou. Kamera zůstává vypnutá, dokud ji nezapneš.";

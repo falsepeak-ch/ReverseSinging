@@ -1,1 +1,1 @@
-Nuevo en 1.3.0: Doblaje de Escena, con dos escenas originales incluidas. Graba tu voz línea a línea y exporta el doblaje para compartirlo. Ya en siete idiomas.
+Nuevo en 1.5.0: la cámara de cabina te graba la cara mientras doblas, para que la reacción salga junto con la toma. Ya en 21 idiomas.

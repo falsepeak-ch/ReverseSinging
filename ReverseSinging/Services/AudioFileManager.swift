@@ -49,6 +49,64 @@ nonisolated final class AudioFileManager: @unchecked Sendable {
         return url
     }
 
+    /// The user's booth footage for one pack, named `<lineSlug>.mov`.
+    ///
+    /// Separate from `dubTakesDirectory` on purpose: video is by far the largest thing this
+    /// app writes, and "delete my footage" has to be answerable without touching the voice
+    /// takes that footage was recorded against.
+    nonisolated func dubBoothDirectory(packID: UUID) -> URL {
+        let url = documentsDirectory
+            .appendingPathComponent("DubBooth", isDirectory: true)
+            .appendingPathComponent(packID.uuidString, isDirectory: true)
+        createIfNeeded(url)
+        return url
+    }
+
+    /// Every pack's booth footage, for the size shown in Settings and the button beside it.
+    nonisolated func dubBoothRootDirectory() -> URL {
+        let url = documentsDirectory.appendingPathComponent("DubBooth", isDirectory: true)
+        createIfNeeded(url)
+        return url
+    }
+
+    /// How much booth footage is on disk, and how many packs it is spread across.
+    nonisolated func boothFootageUsage() -> (bytes: Int64, packs: Int) {
+        let root = dubBoothRootDirectory()
+        guard let packDirs = try? fileManager.contentsOfDirectory(
+            at: root,
+            includingPropertiesForKeys: [.isDirectoryKey]
+        ) else { return (0, 0) }
+
+        var bytes: Int64 = 0
+        var packs = 0
+
+        for dir in packDirs {
+            guard let clips = try? fileManager.contentsOfDirectory(
+                at: dir,
+                includingPropertiesForKeys: [.fileSizeKey]
+            ), !clips.isEmpty else { continue }
+
+            packs += 1
+            for clip in clips {
+                let size = (try? clip.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0
+                bytes += Int64(size)
+            }
+        }
+
+        return (bytes, packs)
+    }
+
+    /// Removes every booth clip, leaving the voice takes and the packs themselves alone.
+    nonisolated func deleteAllBoothFootage() throws {
+        let root = dubBoothRootDirectory()
+        guard let packDirs = try? fileManager.contentsOfDirectory(at: root, includingPropertiesForKeys: nil) else {
+            return
+        }
+        for dir in packDirs {
+            try fileManager.removeItem(at: dir)
+        }
+    }
+
     /// Rendered dub videos ready to share.
     nonisolated func dubExportsDirectory() -> URL {
         let url = documentsDirectory.appendingPathComponent("DubExports", isDirectory: true)
@@ -66,6 +124,11 @@ nonisolated final class AudioFileManager: @unchecked Sendable {
         let takesURL = dubTakesDirectory(packID: packID)
         if fileManager.fileExists(atPath: takesURL.path) {
             try fileManager.removeItem(at: takesURL)
+        }
+
+        let boothURL = dubBoothDirectory(packID: packID)
+        if fileManager.fileExists(atPath: boothURL.path) {
+            try fileManager.removeItem(at: boothURL)
         }
     }
 

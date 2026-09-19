@@ -221,10 +221,104 @@ final class AnalyticsManager {
 
     // MARK: - Dub Mode
 
-    func trackDubPackImported(title: String, lineCount: Int) {
+    /// Firebase drops a string parameter longer than 100 characters, and drops it silently:
+    /// the event still arrives, just without that field. Pack titles and author lists are
+    /// written by whoever made the pack, so neither has a length we control.
+    private func truncated(_ value: String, limit: Int = 100) -> String {
+        value.count <= limit ? value : String(value.prefix(limit - 1)) + "…"
+    }
+
+    /// An import that has begun, before anything has been read.
+    ///
+    /// The denominator the completed and failed events never had. A Theora scene can take
+    /// minutes to convert, and a user who backgrounds the app or force-quits during it
+    /// produces neither a success nor a failure: today that attempt is invisible, so the
+    /// packs that are hardest to import are exactly the ones missing from the counts. The
+    /// filename is all there is at this point, and it is usually the pack's real name.
+    func trackDubPackImportStarted(sourceName: String, sourceExtension: String) {
+        log("dub_pack_import_started", parameters: [
+            "source_name": truncated(sourceName),
+            // "zip", or "" for a folder picked out of Files.
+            "source_extension": truncated(sourceExtension)
+        ])
+    }
+
+    /// A pack the user brought themselves, as it landed.
+    ///
+    /// This is the only view we get of what the community is actually making: the packs
+    /// live on other people's devices and on sites we do not run, so what is imported here
+    /// is the whole sample. `pack_title` and `authors` are what the pack's own
+    /// `_pack_info.ini` claims; `source_name` is what the file was called when the user
+    /// picked it, which is often the more recognisable name of the two.
+    ///
+    /// `source` and `source_url` are the pack's own statement of what it was cut from — the
+    /// film, series, game or mod behind the scene, which is the question the pack title
+    /// alone rarely answers. A pack called "the bit with the door" says nothing; its
+    /// `source` says which work someone spent an evening cutting up. That is what decides
+    /// which scenes are worth building starter packs from, and which rights holders the app
+    /// is in fact putting in front of people.
+    ///
+    /// `has_backing_track` rides along because it is free here and cannot be recovered
+    /// later: a pack that arrives without one plays in silence, and the share of the
+    /// community's packs in that state is the case for supporting more audio formats.
+    ///
+    /// Only user imports reach this. The bundled starter packs install through
+    /// `DubStarterPacks`, which calls the importer directly, so they never inflate it.
+    func trackDubPackImported(
+        title: String,
+        authors: [String],
+        sourceName: String,
+        lineCount: Int,
+        characterCount: Int,
+        duration: Double,
+        hasVideo: Bool,
+        hasBackingTrack: Bool,
+        hasAttribution: Bool,
+        source: String?,
+        sourceURL: String?
+    ) {
         log("dub_pack_imported", parameters: [
-            "pack_title": title,
-            "line_count": lineCount
+            "pack_title": truncated(title),
+            "authors": truncated(authors.joined(separator: ", ")),
+            "source_name": truncated(sourceName),
+            "line_count": lineCount,
+            "character_count": characterCount,
+            "duration": duration,
+            "has_video": hasVideo,
+            "has_backing_track": hasBackingTrack,
+            "has_attribution": hasAttribution,
+            // Empty rather than absent for a pack that claims no origin: a parameter that
+            // is sometimes missing cannot be counted against the packs that do have one.
+            "work_source": truncated(source ?? ""),
+            "work_source_url": truncated(sourceURL ?? "")
+        ])
+    }
+
+    /// An import that threw.
+    ///
+    /// Worth as much as the successful ones: a pack that will not open is a pack somebody
+    /// made and could not use, and the name is the only way to go and find out why. There is
+    /// no parsed title at this point, so the file the user picked is the name we have.
+    func trackDubPackImportFailed(sourceName: String, sourceExtension: String, reason: String) {
+        log("dub_pack_import_failed", parameters: [
+            "source_name": truncated(sourceName),
+            "source_extension": truncated(sourceExtension),
+            "reason": truncated(reason)
+        ])
+    }
+
+    /// Which packs are actually performed, as opposed to merely imported. An import is
+    /// curiosity; opening the recorder is the pack earning its place.
+    ///
+    /// Carries `work_source` for the same reason the import event does, and it is the more
+    /// interesting of the two here: what people import says what they can find, what they
+    /// open says what they actually want to dub.
+    func trackDubPackOpened(title: String, lineCount: Int, recordedCount: Int, source: String?) {
+        log("dub_pack_opened", parameters: [
+            "pack_title": truncated(title),
+            "line_count": lineCount,
+            "recorded_count": recordedCount,
+            "work_source": truncated(source ?? "")
         ])
     }
 
@@ -274,6 +368,75 @@ final class AnalyticsManager {
             "recorded_count": recordedCount,
             "duration": duration
         ])
+    }
+
+    // MARK: - Purchases
+
+    /// The paywall reached the screen. `source` says what put it there — the
+    /// expired trial, the counter in the header, or the settings row — which is
+    /// the only way to tell a hard paywall's numbers apart from an offer someone
+    /// chose to look at.
+    func trackPaywallShown(source: String, isHardPaywall: Bool) {
+        log("paywall_shown", parameters: [
+            "source": source,
+            "is_hard_paywall": isHardPaywall
+        ])
+    }
+
+    func trackPaywallDismissed(source: String) {
+        log("paywall_dismissed", parameters: [
+            "source": source
+        ])
+    }
+
+    func trackPurchaseCompleted(productID: String, source: String) {
+        log("purchase_completed", parameters: [
+            "product_id": productID,
+            "source": source
+        ])
+    }
+
+    func trackPurchaseFailed(reason: String) {
+        log("purchase_failed", parameters: [
+            "reason": reason
+        ])
+    }
+
+    func trackRestoreCompleted(foundEntitlement: Bool) {
+        log("restore_completed", parameters: [
+            "found_entitlement": foundEntitlement
+        ])
+    }
+
+    func trackRestoreFailed(reason: String) {
+        log("restore_failed", parameters: [
+            "reason": reason
+        ])
+    }
+
+    /// Fired once, on the launch that finds the free window closed.
+    func trackTrialExpired(trialLengthInDays: Int) {
+        log("trial_expired", parameters: [
+            "trial_length_days": trialLengthInDays
+        ])
+    }
+
+    /// Fired once per install, when the grandfather clause is applied. `source`
+    /// says which signal found them — the traces on the device, or the receipt
+    /// after a reinstall — which is the only way to tell whether the receipt
+    /// fallback is earning its keep.
+    func trackEarlyAdopterGranted(source: String) {
+        log("early_adopter_granted", parameters: [
+            "source": source
+        ])
+    }
+
+    func trackEarlyAdopterWelcomeShown() {
+        log("early_adopter_welcome_shown", parameters: nil)
+    }
+
+    func trackCustomerCenterOpened() {
+        log("customer_center_opened", parameters: nil)
     }
 
     // MARK: - Custom Event

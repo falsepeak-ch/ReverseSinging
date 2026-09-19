@@ -1,0 +1,8 @@
+/*
+   InfoPlist.strings (Finnish)
+   ReverseSinging
+*/
+
+"NSMicrophoneUsageDescription" = "Dubloon tarvitsee pääsyn mikrofoniin nauhoittaakseen äänesi, jotta voit laulaa biisejä takaperin ja dubata elokuvakohtauksia.";
+
+"NSCameraUsageDescription" = "Dubloon kuvaa sinua etukameralla dubatessasi, jotta voit jakaa reaktiosi oton ohella. Kuvaus on pois päältä, kunnes otat sen käyttöön.";

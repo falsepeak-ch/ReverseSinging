@@ -7,8 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DB2AF10120250001000000A1 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = DB2AF10220250002000000A2 /* ZIPFoundation */; };
-		DB3AF20220250002000000B2 /* XiphTheora.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB3AF20120250002000000B1 /* XiphTheora.xcframework */; };
+		DB4AF30520260904000000C5 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = DB4AF30220260904000000C2 /* RevenueCat */; };
+		DB4AF30620260904000000C6 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = DB4AF30320260904000000C3 /* RevenueCatUI */; };
+		DB4AF30720260904000000C7 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = DB4AF30420260904000000C4 /* FirebaseRemoteConfig */; };
+		DB6AF50320260910000000E3 /* DubPackKit in Frameworks */ = {isa = PBXBuildFile; productRef = DB6AF50220260910000000E2 /* DubPackKit */; };
+		DB7AF66620260911000000F6 /* DubAudio in Frameworks */ = {isa = PBXBuildFile; productRef = DB7AF62220260911000000F2 /* DubAudio */; };
+		DB7AF67720260911000000F7 /* DubScoring in Frameworks */ = {isa = PBXBuildFile; productRef = DB7AF63320260911000000F3 /* DubScoring */; };
+		DB7AF68820260911000000F8 /* DubCompositing in Frameworks */ = {isa = PBXBuildFile; productRef = DB7AF64420260911000000F4 /* DubCompositing */; };
+		DB7AF69920260911000000F9 /* DubloonFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = DB7AF65520260911000000F5 /* DubloonFoundation */; };
 		E2CE0E60FF574C54BA229923 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		FF2EE2D92EAF91B100549684 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = FF3C44EB2EAF8B000055F61C /* FirebaseCore */; };
 		FF2EE3E72EB028B600549684 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = FF2EE3E62EB028B600549684 /* FirebaseCrashlytics */; };
@@ -26,7 +32,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DB3AF20120250002000000B1 /* XiphTheora.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = XiphTheora.xcframework; path = Vendor/XiphTheora.xcframework; sourceTree = "<group>"; };
 		FFA267C62EA6B026008518FC /* ReverseSinging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReverseSinging.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFA267D32EA6B028008518FC /* ReverseSingingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReverseSingingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -65,8 +70,14 @@
 				FF2EE2D92EAF91B100549684 /* FirebaseCore in Frameworks */,
 				FF2EE3E72EB028B600549684 /* FirebaseCrashlytics in Frameworks */,
 				FF2EE5362EB135D500549684 /* FirebaseAnalytics in Frameworks */,
-				DB2AF10120250001000000A1 /* ZIPFoundation in Frameworks */,
-				DB3AF20220250002000000B2 /* XiphTheora.xcframework in Frameworks */,
+				DB6AF50320260910000000E3 /* DubPackKit in Frameworks */,
+				DB7AF66620260911000000F6 /* DubAudio in Frameworks */,
+				DB7AF67720260911000000F7 /* DubScoring in Frameworks */,
+				DB7AF68820260911000000F8 /* DubCompositing in Frameworks */,
+				DB7AF69920260911000000F9 /* DubloonFoundation in Frameworks */,
+				DB4AF30720260904000000C7 /* FirebaseRemoteConfig in Frameworks */,
+				DB4AF30520260904000000C5 /* RevenueCat in Frameworks */,
+				DB4AF30620260904000000C6 /* RevenueCatUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,20 +91,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		FF2EE3E52EB028B600549684 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				DB3AF20120250002000000B1 /* XiphTheora.xcframework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		FFA267BD2EA6B026008518FC = {
 			isa = PBXGroup;
 			children = (
 				FFA267C82EA6B026008518FC /* ReverseSinging */,
 				FFA267D62EA6B028008518FC /* ReverseSingingTests */,
-				FF2EE3E52EB028B600549684 /* Frameworks */,
 				FFA267C72EA6B026008518FC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -130,6 +132,14 @@
 				FF3C44EB2EAF8B000055F61C /* FirebaseCore */,
 				FF2EE3E62EB028B600549684 /* FirebaseCrashlytics */,
 				FF2EE5352EB135D500549684 /* FirebaseAnalytics */,
+				DB4AF30420260904000000C4 /* FirebaseRemoteConfig */,
+				DB4AF30220260904000000C2 /* RevenueCat */,
+				DB4AF30320260904000000C3 /* RevenueCatUI */,
+				DB6AF50220260910000000E2 /* DubPackKit */,
+				DB7AF62220260911000000F2 /* DubAudio */,
+				DB7AF63320260911000000F3 /* DubScoring */,
+				DB7AF64420260911000000F4 /* DubCompositing */,
+				DB7AF65520260911000000F5 /* DubloonFoundation */,
 			);
 			productName = ReverseSinging;
 			productReference = FFA267C62EA6B026008518FC /* ReverseSinging.app */;
@@ -166,7 +176,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2600;
-				LastUpgradeCheck = 2600;
+				LastUpgradeCheck = 2630;
 				TargetAttributes = {
 					FFA267C52EA6B026008518FC = {
 						CreatedOnToolsVersion = 26.0;
@@ -189,12 +199,28 @@
 				fr,
 				"pt-PT",
 				ja,
+				de,
+				nl,
+				pl,
+				ru,
+				uk,
+				cs,
+				el,
+				sv,
+				da,
+				nb,
+				fi,
+				tr,
+				ar,
+				th,
 			);
 			mainGroup = FFA267BD2EA6B026008518FC;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				DB2AF10320250003000000A3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+				DB6AF50120260910000000E1 /* XCLocalSwiftPackageReference "Packages/DubPackKit" */,
+				DB7AF60120260911000000F1 /* XCLocalSwiftPackageReference "Packages/DubloonKit" */,
+				DB4AF30120260904000000C1 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FFA267C72EA6B026008518FC /* Products */;
@@ -256,6 +282,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -310,6 +337,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -320,6 +348,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -367,6 +396,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -378,14 +408,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 4YGWZWHTHM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReverseSinging/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Reverso;
+				INFOPLIST_KEY_CFBundleDisplayName = Dubloon;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Reverso needs microphone access to record your voice, so you can sing songs backwards and dub movie scenes.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Dubloon uses the front camera to film you while you dub, so you can share your reaction alongside the take. Filming stays off until you turn it on.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Dubloon needs microphone access to record your voice, so you can sing songs backwards and dub movie scenes.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Dubloon adds your finished dub to Photos when you choose Save Video. It never reads anything already in your library.";
 				INFOPLIST_KEY_UIAppFonts = Eugello.ttf;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -396,7 +428,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				LM_SKIP_METADATA_EXTRACTION = YES;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.falsepeak.reverse-singing-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -408,7 +441,7 @@
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -419,14 +452,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 4YGWZWHTHM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReverseSinging/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Reverso;
+				INFOPLIST_KEY_CFBundleDisplayName = Dubloon;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Reverso needs microphone access to record your voice, so you can sing songs backwards and dub movie scenes.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Dubloon uses the front camera to film you while you dub, so you can share your reaction alongside the take. Filming stays off until you turn it on.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Dubloon needs microphone access to record your voice, so you can sing songs backwards and dub movie scenes.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Dubloon adds your finished dub to Photos when you choose Save Video. It never reads anything already in your library.";
 				INFOPLIST_KEY_UIAppFonts = Eugello.ttf;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -437,7 +472,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				LM_SKIP_METADATA_EXTRACTION = YES;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.falsepeak.reverse-singing-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -449,7 +485,7 @@
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -459,10 +495,11 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 4YGWZWHTHM;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LM_SKIP_METADATA_EXTRACTION = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.falsepeak.ReverseSingingTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -470,7 +507,7 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReverseSinging.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ReverseSinging";
 			};
@@ -481,10 +518,11 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 4YGWZWHTHM;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LM_SKIP_METADATA_EXTRACTION = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.falsepeak.ReverseSingingTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -492,7 +530,7 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReverseSinging.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ReverseSinging";
 			};
@@ -530,13 +568,24 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		DB6AF50120260910000000E1 /* XCLocalSwiftPackageReference "Packages/DubPackKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/DubPackKit;
+		};
+		DB7AF60120260911000000F1 /* XCLocalSwiftPackageReference "Packages/DubloonKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/DubloonKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
-		DB2AF10320250003000000A3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+		DB4AF30120260904000000C1 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/weichsel/ZIPFoundation";
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.19;
+				minimumVersion = 5.88.0;
 			};
 		};
 		FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
@@ -550,10 +599,45 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DB2AF10220250002000000A2 /* ZIPFoundation */ = {
+		DB4AF30220260904000000C2 /* RevenueCat */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB2AF10320250003000000A3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
-			productName = ZIPFoundation;
+			package = DB4AF30120260904000000C1 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCat;
+		};
+		DB4AF30320260904000000C3 /* RevenueCatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB4AF30120260904000000C1 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCatUI;
+		};
+		DB4AF30420260904000000C4 /* FirebaseRemoteConfig */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfig;
+		};
+		DB6AF50220260910000000E2 /* DubPackKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB6AF50120260910000000E1 /* XCLocalSwiftPackageReference "Packages/DubPackKit" */;
+			productName = DubPackKit;
+		};
+		DB7AF62220260911000000F2 /* DubAudio */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB7AF60120260911000000F1 /* XCLocalSwiftPackageReference "Packages/DubloonKit" */;
+			productName = DubAudio;
+		};
+		DB7AF63320260911000000F3 /* DubScoring */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB7AF60120260911000000F1 /* XCLocalSwiftPackageReference "Packages/DubloonKit" */;
+			productName = DubScoring;
+		};
+		DB7AF64420260911000000F4 /* DubCompositing */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB7AF60120260911000000F1 /* XCLocalSwiftPackageReference "Packages/DubloonKit" */;
+			productName = DubCompositing;
+		};
+		DB7AF65520260911000000F5 /* DubloonFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB7AF60120260911000000F1 /* XCLocalSwiftPackageReference "Packages/DubloonKit" */;
+			productName = DubloonFoundation;
 		};
 		FF2EE3E62EB028B600549684 /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -1,0 +1,8 @@
+/*
+   InfoPlist.strings (Polish)
+   ReverseSinging
+*/
+
+"NSMicrophoneUsageDescription" = "Dubloon potrzebuje dostępu do mikrofonu, żeby nagrywać twój głos — dzięki temu zaśpiewasz piosenki od tyłu i zdubbingujesz sceny z filmów.";
+
+"NSCameraUsageDescription" = "Dubloon nagrywa cię przednim aparatem podczas dubbingu, żebyś mógł udostępnić swoją reakcję razem z ujęciem. Aparat jest wyłączony, dopóki go nie włączysz.";
