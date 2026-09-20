@@ -1,16 +1,15 @@
-Uusi nimi, kamera ja neljätoista kieltä lisää.
+Yhä useampi dubbauspaketti aukeaa, ja harvempi asia menee pieleen.
 
-BOOTH CAM
-• Kuvaa itsesi etukameralla dubatessasi ja ota reaktio mukaan vientiin: kulmaan, kohtauksen päälle tarinaa varten tai vierekkäin
-• Vie yksi ainoa repliikki, naamasi vieressä
-• Vie session kela: kaikki dubbaamasi repliikit peräkkäin, hiljaisuudet pois leikattuina
-• Kamera on pois päältä kunnes kytket sen, eivätkä koppipätkät poistu puhelimesta ellet vie niitä
+DUBBAUSPAKETIT
+• .rar-muotoiset paketit aukeavat nyt, vaikka ne olisi nimetty uudelleen .zip-tiedostoiksi
+• Paketit, joiden äänet ja musiikki ovat .ogg-muodossa, toistuvat nyt; aiemmin nuo repliikit putosivat pois ja kohtaus jäi äänettömäksi. Myös jo asentamasi paketit korjataan
+• Repliikin ajoituksen kirjoitustapoja ymmärretään paljon enemmän, joten paketit, jotka menettivät puolet repliikeistään, tuodaan nyt kokonaisina
+• Vielä iCloudissa oleva paketti ladataan ensin sen sijaan, että tuonti epäonnistuisi
+• Kun tiedostoa ei voi tuoda, appi kertoo, mitä siinä on ja miksi se ei kelpaa
 
-PISTEYTYS
-• Otokset arvioidaan ajoituksesta, rytmistä ja tulkinnasta, ja saat pisteet kohtaukselle sekä repliikin, joka eniten kaipaa uusintaa. Voit kytkeä pois Asetuksista, jos haluat vain esiintyä
+KORJAUKSET
+• Korjattu kaatumiset, joita tapahtui, kun toinen appi piti ääntä varattuna ja kun kohtauksen toisto alkoi
+• Apista poistumisen keskeyttämä videomuunnos jatkuu myöhemmin sen sijaan, että kuva katoaisi
 
 MYÖS
-• Paketit, jotka eivät suostu latautumaan, kertovat nyt mikä niissä on vikana sen sijaan että kaatuisivat hiljaa
-• Dubloon puhuu nyt 21 kieltä, muun muassa saksaa, hollantia, ruotsia, tanskaa, norjaa, suomea, puolaa, tšekkiä, venäjää, ukrainaa, kreikkaa, turkkia, thaita ja arabiaa
-• Sovelluksella on uusi nimi ja siihen sopiva uusi logo. Samat kaksi peliä, ei mitään uudelleen opeteltavaa
-• Seitsemän päivää ilmaiseksi, sitten yksi maksu avaa molemmat pelit lopullisesti ilman tilausta. Jos pelasit jo ennen tätä päivitystä, molemmat pelit pysyvät sinulle ilmaisina
+• Kun ilmainen kokeilu päättyy, valikko pysyy auki ja tarjous odottaa napautustasi sen sijaan, että se peittäisi koko apin

@@ -1,16 +1,15 @@
-Yeni bir isim, bir kamera ve on dört dil daha.
+Daha fazla dublaj paketi açılıyor, daha az şey ters gidiyor.
 
-BOOTH CAM
-• Seslendirirken ön kamerayla kendini çek ve tepkiyi dışa aktarıma kat: köşede, hikâye için sahnenin üstünde ya da yan yana
-• Tek bir repliği, yüzün yanında olacak şekilde dışa aktar
-• Oturum makarası olarak dışa aktar: seslendirdiğin her replik arka arkaya, aradaki sessizlikler kesilmiş
-• Kamera sen açana kadar kapalı kalır ve kabin klipleri, sen dışa aktarmadıkça telefondan çıkmaz
+DUBLAJ PAKETLERİ
+• .rar biçimindeki paketler artık açılıyor, adı .zip olarak değiştirilmiş olsa bile
+• Sesleri ve müziği .ogg olan paketler artık çalıyor; önceden bu replikler düşüyor ve sahne sessiz kalıyordu. Zaten yüklediğin paketler de onarılıyor
+• Bir repliğin zamanlamasını yazmanın çok daha fazla biçimi anlaşılıyor, böylece repliklerinin yarısını kaybeden paketler artık eksiksiz içe aktarılıyor
+• Hâlâ iCloud'da duran bir paket, hata vermek yerine önce indiriliyor
+• Bir dosya içe aktarılamadığında uygulama içinde ne olduğunu ve neden olmadığını söylüyor
 
-PUANLAMA
-• Çekimler zamanlama, tempo ve oyunculuk üzerinden değerlendirilir; sahnenin puanı ve en çok tekrar edilmeye değen replik gösterilir. Sadece oynamak istiyorsan Ayarlar'dan kapat
+DÜZELTMELER
+• Sesi başka bir uygulama tuttuğunda ve bir sahne oynatılmaya başladığında yaşanan çökmeler giderildi
+• Uygulamadan çıkınca yarıda kalan video dönüştürme, görüntüyü kaybetmek yerine sonra devam ediyor
 
 AYRICA
-• İçe aktarılamayan paketler artık sessizce başarısız olmak yerine sorunun ne olduğunu söylüyor
-• Dubloon artık 21 dil konuşuyor: Almanca, Felemenkçe, İsveççe, Danca, Norveççe, Fince, Lehçe, Çekçe, Rusça, Ukraynaca, Yunanca, Türkçe, Tayca ve Arapça dâhil
-• Uygulamanın yeni bir adı ve ona yakışan yeni bir logosu var. Aynı iki oyun, yeniden öğrenilecek bir şey yok
-• Yedi gün ücretsiz, ardından tek bir ödeme iki oyunu da temelli açıyor, abonelik yok. Bu güncellemeden önce oynuyorduysan iki oyun da senin için ücretsiz kalıyor
+• Ücretsiz deneme bittiğinde menü açık kalıyor ve teklif, tüm uygulamayı kaplamak yerine sen dokunana kadar bekliyor

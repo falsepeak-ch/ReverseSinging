@@ -1,16 +1,15 @@
-Nowa nazwa, aparat i czternaście języków więcej.
+Otwiera się więcej paczek dubbingowych i mniej rzeczy idzie nie tak.
 
-BOOTH CAM
-• Nagrywaj się przednim aparatem podczas dubbingu i zabierz reakcję do eksportu: w rogu, nad sceną na potrzeby relacji, albo obok
-• Wyeksportuj pojedynczą kwestię, z twoją twarzą obok
-• Wyeksportuj rolkę z sesji: wszystkie zdubbingowane kwestie po kolei, bez ciszy pomiędzy
-• Aparat jest wyłączony, dopóki go nie włączysz, a klipy z kabiny opuszczają telefon tylko wtedy, gdy eksportujesz
+PACZKI DUBBINGOWE
+• Paczki w formacie .rar teraz się otwierają, nawet gdy zmieniono im nazwę na .zip
+• Paczki z głosami i muzyką w .ogg teraz grają; wcześniej te kwestie przepadały, a scena była niema. Naprawiane są też paczki, które masz już zainstalowane
+• Rozumianych jest znacznie więcej sposobów zapisu czasu kwestii, więc paczki, które traciły połowę kwestii, importują się teraz w całości
+• Paczka, która wciąż leży w iCloud, jest najpierw pobierana, zamiast kończyć się błędem
+• Gdy pliku nie da się zaimportować, aplikacja mówi, co w nim jest i dlaczego się nie nadaje
 
-OCENY
-• Podejścia oceniane są za synchronizację, tempo i grę, z wynikiem sceny i kwestią, która najbardziej zasługuje na powtórkę. Można to wyłączyć w Ustawieniach, jeśli wolisz po prostu grać
+POPRAWKI
+• Naprawiono awarie, które zdarzały się, gdy inna aplikacja zajmowała dźwięk, oraz przy rozpoczęciu odtwarzania sceny
+• Konwersja wideo przerwana wyjściem z aplikacji jest dokańczana później, zamiast tracić obraz
 
 PONADTO
-• Paczki, które nie chcą się zaimportować, mówią teraz, co jest z nimi nie tak, zamiast po cichu zawodzić
-• Dubloon mówi już w 21 językach, w tym po niemiecku, niderlandzku, szwedzku, duńsku, norwesku, fińsku, polsku, czesku, rosyjsku, ukraińsku, grecku, turecku, tajsku i arabsku
-• Aplikacja ma nową nazwę i pasujący do niej znak. Te same dwie gry, nic do nauczenia się od nowa
-• Siedem dni za darmo, potem jedna płatność odblokowuje obie gry na zawsze, bez subskrypcji. Jeśli grałeś już przed tą aktualizacją, obie gry pozostają dla ciebie darmowe
+• Gdy kończy się darmowy okres próbny, menu zostaje otwarte, a oferta czeka, aż ją stukniesz, zamiast zasłaniać całą aplikację
