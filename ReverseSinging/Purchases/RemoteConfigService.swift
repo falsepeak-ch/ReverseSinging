@@ -2,7 +2,7 @@
 //  RemoteConfigService.swift
 //  ReverseSinging
 //
-//  The two numbers the paywall is allowed to change without a release.
+//  What the paywall is allowed to change without a release.
 //
 
 import Combine
@@ -10,9 +10,9 @@ import Foundation
 import FirebaseCore
 import FirebaseRemoteConfig
 
-/// Firebase Remote Config, narrowed to the paywall's two knobs.
+/// Firebase Remote Config, narrowed to the paywall's knobs.
 ///
-/// Both have in-app defaults, so a device that has never reached Firebase — first
+/// All of them have in-app defaults, so a device that has never reached Firebase — first
 /// launch on a plane, a fetch that times out — behaves like the shipped build
 /// rather than waiting on the network to decide whether the app works.
 @MainActor
@@ -28,9 +28,17 @@ final class RemoteConfigService: ObservableObject {
         /// The kill switch. Set to `false` in the console to stop gating anyone,
         /// which is the way out if the paywall goes wrong after release.
         static let paywallEnabled = "paywall_enabled"
-        /// `YYYY-MM-DD`. Anyone whose Apple Account downloaded the app before this
-        /// never pays. See `EarlyAdopter`.
+        /// `YYYY-MM-DD`, read as midnight UTC at the start of that day. An Apple
+        /// Account that downloaded the app before it never pays; one that downloaded
+        /// it on that day or later gets the trial and then the paywall. There is no
+        /// in-app default: until the console supplies a date nobody is gated. See
+        /// `PaywallEligibility`.
         static let paywallReleaseDate = "paywall_release_date"
+        /// How a closed free window is presented. `false`, the default, leaves the
+        /// menu open with both games disabled and the paywall one tap away; `true`
+        /// brings back the full-screen paywall that cannot be closed. See
+        /// `LockPresentation`.
+        static let hardPaywallEnabled = "hard_paywall_enabled"
     }
 
     // MARK: - Defaults
@@ -39,13 +47,7 @@ final class RemoteConfigService: ObservableObject {
     private enum Default {
         static let trialLengthInDays = 7
         static let paywallEnabled = true
-        /// The date this shipped, as a last resort.
-        ///
-        /// The real cutoff is the App Store release date, which is not knowable at
-        /// build time — Apple decides it — which is exactly why it comes from the
-        /// console. This default only has to hold for the seconds before the first
-        /// fetch lands, and the grant is re-evaluated once it does.
-        static let paywallReleaseDate = "2026-09-04"
+        static let hardPaywallEnabled = false
     }
 
     /// A console typo should not hand out a decade of free use, nor zero days to
@@ -60,9 +62,20 @@ final class RemoteConfigService: ObservableObject {
     /// Whether anyone is gated at all.
     @Published private(set) var isPaywallEnabled: Bool = Default.paywallEnabled
 
-    /// The grandfather cutoff: a download before this date never pays.
-    @Published private(set) var paywallReleaseDate: Date =
-        RemoteConfigService.parseReleaseDate(Default.paywallReleaseDate) ?? .distantFuture
+    /// The cutoff between people who never pay and people who may be asked to, or
+    /// nil until the console has supplied one.
+    ///
+    /// Deliberately without a shipped default. The real date is the App Store
+    /// release of the first version that charges, which Apple decides after the
+    /// build is cut, so any constant here would be a guess — and a guess that is
+    /// too early puts a paywall in front of people who were here first, while one
+    /// that is too late hands out an exemption that can never be taken back. Nil
+    /// gates nobody and exempts nobody, which is the only safe thing to do with a
+    /// date that is not known.
+    @Published private(set) var paywallReleaseDate: Date?
+
+    /// Whether an expired trial covers the whole app rather than disabling the games.
+    @Published private(set) var isHardPaywallEnabled: Bool = Default.hardPaywallEnabled
 
     /// Whether a fetch has landed. Until it has, the values above are the shipped
     /// defaults rather than the console's.
@@ -90,7 +103,7 @@ final class RemoteConfigService: ObservableObject {
         config.setDefaults([
             Key.trialLengthInDays: Default.trialLengthInDays as NSNumber,
             Key.paywallEnabled: Default.paywallEnabled as NSNumber,
-            Key.paywallReleaseDate: Default.paywallReleaseDate as NSString
+            Key.hardPaywallEnabled: Default.hardPaywallEnabled as NSNumber
         ])
 
         let settings = RemoteConfigSettings()
@@ -125,12 +138,19 @@ final class RemoteConfigService: ObservableObject {
             Self.allowedTrialLength.upperBound
         )
         isPaywallEnabled = config[Key.paywallEnabled].boolValue
+        isHardPaywallEnabled = config[Key.hardPaywallEnabled].boolValue
 
+        // Only a date the console actually sent counts, which `source` says: a
+        // cached fetch from an earlier launch is `.remote` too, so this is nil only
+        // on a device that has never once reached Firebase.
+        //
         // A value the console cannot parse keeps whatever we already had. The
         // alternative — treating an unparseable date as "the beginning of time" —
         // would quietly un-grandfather every early adopter who reinstalls, from a
         // typo, with no error anywhere.
-        if let fetched = Self.parseReleaseDate(config[Key.paywallReleaseDate].stringValue) {
+        let releaseDate = config[Key.paywallReleaseDate]
+        if releaseDate.source == .remote,
+           let fetched = Self.parseReleaseDate(releaseDate.stringValue) {
             paywallReleaseDate = fetched
         }
     }

@@ -10,7 +10,7 @@ import SwiftUI
 /// How much of the free window is left, as a tappable pill.
 ///
 /// Shown only during the trial: once the app is bought there is nothing to count,
-/// and once the window closes the hard paywall is covering the screen anyway.
+/// and once the window closes `TrialEndedCard` says so in the menu instead.
 ///
 /// It turns amber on the last day. That is the only visual difference, deliberately
 /// — a counter that grows more alarming each day reads as a pressure tactic, and

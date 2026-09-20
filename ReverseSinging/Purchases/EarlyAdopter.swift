@@ -104,8 +104,13 @@ struct EarlyAdopter {
     ///
     /// Safe to call repeatedly and with a changing cutoff — the grant is one-way,
     /// so a later, more accurate date can only ever add people, never remove them.
-    func considerOriginalPurchaseDate(_ date: Date?, before releaseDate: Date) {
-        guard !isEarlyAdopter, let date, date < releaseDate else { return }
+    ///
+    /// Either date can be nil — the receipt not reported yet, the console not
+    /// heard from yet — and then nothing is granted: the grant is permanent, so it
+    /// is only ever made on two known dates. See `PaywallEligibility`.
+    func considerOriginalPurchaseDate(_ date: Date?, before releaseDate: Date?) {
+        guard !isEarlyAdopter,
+              PaywallEligibility(downloadedAt: date, cutoff: releaseDate) == .exempt else { return }
         grant(source: "original_purchase_date")
     }
 

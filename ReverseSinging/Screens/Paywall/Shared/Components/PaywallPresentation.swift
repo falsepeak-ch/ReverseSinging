@@ -9,7 +9,12 @@ import SwiftUI
 
 extension View {
 
-    /// Covers the whole app once the free window has closed.
+    /// Covers the whole app once the free window has closed, when the console asks
+    /// for that.
+    ///
+    /// By default it does nothing: a closed window disables the games on the menu
+    /// instead, and the paywall is opened from there (see `HomeViewModel`). Remote
+    /// Config's `hard_paywall_enabled` is what turns this one on.
     ///
     /// Attached at the root, above onboarding, so there is no screen it can be
     /// escaped onto. It is driven by `AccessController.state` rather than by a
@@ -36,7 +41,7 @@ private struct HardPaywallModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .fullScreenCover(isPresented: isLocked) {
+            .fullScreenCover(isPresented: isCovering) {
                 ProPaywallView(source: "trial_expired", isDismissible: false)
                     .preferredColorScheme(.dark)
             }
@@ -45,8 +50,8 @@ private struct HardPaywallModifier: ViewModifier {
     /// Read-only in practice. The setter is required by `fullScreenCover` and is
     /// deliberately inert: the cover goes away when the entitlement arrives, and
     /// there is no gesture or button that should be able to do it instead.
-    private var isLocked: Binding<Bool> {
-        Binding(get: { access.isLocked }, set: { _ in })
+    private var isCovering: Binding<Bool> {
+        Binding(get: { access.lockPresentation == .hard }, set: { _ in })
     }
 }
 

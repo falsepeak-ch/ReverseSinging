@@ -36,8 +36,8 @@ struct HomeView: View {
         .sheet(isPresented: $app.showSettings) {
             SettingsView(app: app)
         }
-        .sheet(isPresented: $viewModel.isPaywallPresented) {
-            ProPaywallView(source: "trial_badge")
+        .sheet(item: $viewModel.paywallSource) { source in
+            ProPaywallView(source: source.rawValue)
                 .preferredColorScheme(.dark)
         }
         .sheet(isPresented: $viewModel.isEarlyAdopterWelcomePresented) {
@@ -89,14 +89,23 @@ struct HomeView: View {
             Spacer().frame(height: EditorMetrics.headerBarHeight)
 
             VStack(alignment: .leading, spacing: 10) {
+                if viewModel.areGamesLocked {
+                    TrialEndedCard { viewModel.showPaywall(from: .trialEndedCard) }
+                        .padding(.bottom, 10)
+                        .transition(.opacity)
+                }
+
                 EditorSectionHeader(title: Strings.Main.Mode.section)
 
                 ForEach(GameMode.allCases) { mode in
-                    GameModeRow(mode: mode) { viewModel.open(mode) }
+                    GameModeRow(mode: mode, isLocked: viewModel.areGamesLocked) {
+                        viewModel.open(mode)
+                    }
                 }
             }
             .padding(.horizontal, EditorMetrics.gutter)
             .padding(.top, 20)
+            .animation(.rsQuick, value: viewModel.areGamesLocked)
 
             Spacer()
         }
@@ -116,7 +125,7 @@ struct HomeView: View {
 
                 if let daysRemaining = viewModel.trialDaysRemaining {
                     TrialBadge(daysRemaining: daysRemaining) {
-                        viewModel.showPaywall()
+                        viewModel.showPaywall(from: .trialBadge)
                     }
                     .transition(.scale.combined(with: .opacity))
                 }
