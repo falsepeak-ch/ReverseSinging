@@ -223,7 +223,7 @@ struct DubPackInstallerTests {
         let rar = temp.appending("pack.rar")
         try Data("Rar!\u{1A}\u{07}\u{00}".utf8).write(to: rar)
 
-        await #expect(throws: DubPackImportError.unsupportedSource(fileExtension: "rar")) {
+        await #expect(throws: DubPackImportError.unsupportedSource(fileExtension: "rar", looksLike: "rar")) {
             try await DubPackInstaller.testing(library: temp.appending("library")).install(from: rar)
         }
     }
@@ -254,5 +254,47 @@ struct DubPackInstallerTests {
         }
         #expect(error as? DubPackImportError == .cancelled)
         #expect(contents(of: library).isEmpty)
+    }
+}
+
+@Suite("Installer commit hook")
+struct InstallerCommitHookTests {
+
+    @Test func runsTheHostsStepInsideTheFolderBeforeItIsCommitted() async throws {
+        let temp = try TemporaryDirectory()
+        defer { temp.remove() }
+        let source = try PackBuilder(in: temp.appending("source"), named: "Hooked")
+        try source.packInfo()
+        try source.line("001_A", at: 0)
+        let library = temp.appending("library")
+
+        let installed = try await DubPackInstaller.testing(library: library).install(from: source.directory, beforeCommit: { incoming, destination, pack in
+            #expect(incoming.lastPathComponent.hasPrefix(".incoming-"))
+            #expect(destination.lastPathComponent == "Hooked")
+            #expect(pack.lines.count == 1)
+            try "cached".write(to: incoming.appendingPathComponent("manifest.json"), atomically: true, encoding: .utf8)
+        })
+
+        let manifest = installed.directory.appendingPathComponent("manifest.json")
+        #expect(try String(contentsOf: manifest, encoding: .utf8) == "cached")
+    }
+
+    @Test func aHookThatThrowsFailsTheInstallAndLeavesNothingBehind() async throws {
+        let temp = try TemporaryDirectory()
+        defer { temp.remove() }
+        let source = try PackBuilder(in: temp.appending("source"), named: "Hooked")
+        try source.packInfo()
+        try source.line("001_A", at: 0)
+        let library = temp.appending("library")
+
+        struct Refused: Error {}
+        await #expect(throws: DubPackImportError.self) {
+            try await DubPackInstaller.testing(library: library).install(from: source.directory, beforeCommit: { _, _, _ in
+                throw Refused()
+            })
+        }
+
+        let contents = (try? FileManager.default.contentsOfDirectory(atPath: library.path)) ?? []
+        #expect(contents.isEmpty)
     }
 }

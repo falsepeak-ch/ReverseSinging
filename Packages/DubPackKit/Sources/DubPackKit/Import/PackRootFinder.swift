@@ -9,12 +9,13 @@ import Foundation
 ///
 /// Files at the archive root, one wrapping folder (what "compress this folder" produces), or a
 /// folder inside that (an archive of a release folder). Searched breadth first, so the shallowest
-/// folder with a pack info file wins. Without one anywhere, the folder with the most numbered line
-/// entries does.
+/// folder with a pack info file wins. Without one anywhere, the folder with the most line entries
+/// does: numbered ones, or text files with a recording of the same name beside them.
 enum PackRootFinder {
 
     /// How many folders deep a pack may sit. Deeper than this is a different thing being imported.
-    static let maxDepth = 3
+    /// Four allows for `Downloads/Pack v2/Pack v2/pack/` and the like, which people do produce.
+    static let maxDepth = 4
 
     static func root(in directory: URL, maxDepth: Int = maxDepth) -> URL? {
         var best: (url: URL, numberedEntries: Int)?
@@ -22,9 +23,9 @@ enum PackRootFinder {
         for folder in folders(in: directory, maxDepth: maxDepth) {
             if folder.packInfoFile != nil { return folder.url }
 
-            let numbered = folder.numberedEntryCount
-            if numbered > (best?.numberedEntries ?? 0) {
-                best = (folder.url, numbered)
+            let entries = folder.likelyEntryCount
+            if entries > (best?.numberedEntries ?? 0) {
+                best = (folder.url, entries)
             }
         }
 

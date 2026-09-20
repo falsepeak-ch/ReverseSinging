@@ -395,3 +395,10 @@
 "whatsNew.booth.row.default.value" = "ปิด";
 "whatsNew.booth.confirm" = "ลองกับฉากสักฉาก";
 "whatsNew.booth.later" = "ไว้ทีหลัง";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "แอปอื่นกำลังใช้เสียงอยู่ วางสายหรือปิดแอปนั้นแล้วลองอีกครั้ง";
+"error.playbackUnavailable" = "ไม่สามารถเล่นได้ในขณะนี้ ลองอีกครั้งในอีกสักครู่";
+"dub.convertingAudio" = "กำลังแปลงไฟล์เสียง…";
+"dub.error.notDownloaded" = "ไฟล์นี้ยังดาวน์โหลดจาก iCloud ไม่เสร็จ เปิดในแอปไฟล์ก่อนแล้วลองอีกครั้ง";
+"dub.error.notAnArchive" = "ไฟล์ .%1$@ นี้ไม่ใช่ไฟล์บีบอัด แต่เป็น %2$@ ดาวน์โหลดแพ็กใหม่จากที่ที่คุณได้มา";

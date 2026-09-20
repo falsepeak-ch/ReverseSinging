@@ -31,6 +31,10 @@ struct StagedSource: Sendable {
             throw .sourceMissing
         }
 
+        // A file or folder still in iCloud is brought down first, however long that takes,
+        // rather than read as the placeholder it currently is.
+        try SourceAvailability.ensureDownloaded(source)
+
         if isDirectory.boolValue {
             // `fileExists` follows a symbolic link, but the directory reads after it do not: a link
             // to a pack folder would list as empty and be refused as holding no pack.
@@ -39,7 +43,11 @@ struct StagedSource: Sendable {
         }
 
         guard let kind = ArchiveKind.detect(at: source) else {
-            throw .unsupportedSource(fileExtension: source.pathExtension.lowercased())
+            // What the bytes say, so a `.zip` that is really a saved web page, an mp3 or an
+            // iCloud stub is refused for what it is.
+            let looksLike = ArchiveKind.looksLike(source)
+            if looksLike == "icloud_placeholder" { throw .sourceNotDownloaded }
+            throw .unsupportedSource(fileExtension: source.pathExtension.lowercased(), looksLike: looksLike)
         }
 
         let unpacked = temporaryRoot.appendingPathComponent("dubpack-\(UUID().uuidString)", isDirectory: true)

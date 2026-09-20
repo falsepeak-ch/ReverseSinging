@@ -395,3 +395,10 @@
 "whatsNew.booth.row.default.value" = "Apagada";
 "whatsNew.booth.confirm" = "Prova-ho en una escena";
 "whatsNew.booth.later" = "Més tard";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "Una altra app està fent servir l'àudio ara mateix. Acaba la trucada o tanca-la i torna-ho a provar.";
+"error.playbackUnavailable" = "La reproducció no està disponible ara. Torna-ho a provar d'aquí a un moment.";
+"dub.convertingAudio" = "Convertint les gravacions…";
+"dub.error.notDownloaded" = "Aquest fitxer encara no s'ha baixat de l'iCloud. Obre'l primer a Fitxers i torna-ho a provar.";
+"dub.error.notAnArchive" = "Aquest .%1$@ no és un arxiu comprimit, és %2$@. Torna a baixar el pack d'on el vas obtenir.";

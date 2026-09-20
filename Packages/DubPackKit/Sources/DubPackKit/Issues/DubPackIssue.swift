@@ -11,10 +11,11 @@
 /// sixty lines looks, to the person who made it, exactly like a broken app.
 ///
 /// File names are names inside the pack. Nothing here carries a caption or anything else the
-/// pack says.
+/// pack says, with one exception: the raw text of a timestamp that would not parse, which is a
+/// number somebody typed and the only way to learn what shape it had.
 public enum DubPackIssue: Sendable, Hashable {
-    /// An entry that could not become a line.
-    case droppedLine(file: String, reason: DroppedLineReason)
+    /// An entry that could not become a line. `detail` is the offending value, when there is one.
+    case droppedLine(file: String, reason: DroppedLineReason, detail: String? = nil)
     /// Nothing in the pack looks like a line entry. Carries how many files there are of each
     /// extension, which shows at a glance what the pack uses instead.
     case noLineEntries(fileTypes: [String: Int])
@@ -39,6 +40,12 @@ public enum DubPackIssue: Sendable, Hashable {
     case unplayableSceneVideo(file: String)
     /// A Theora scene that could not be converted. The scene shows its stills.
     case videoConversionFailed(file: String, failure: VideoConversionFailure)
+    /// A Theora scene whose conversion was cut short by the system, not by the file. The
+    /// original is kept and converted on a later launch; until then the scene shows its stills.
+    case videoConversionDeferred(file: String, failure: VideoConversionFailure)
+    /// An Ogg Vorbis recording that could not be converted to AAC. Its line is dropped, or the
+    /// scene plays in silence, exactly as if the file were unplayable.
+    case audioConversionFailed(file: String, failure: AudioConversionFailure)
     /// A zip whose index was missing or unreadable, recovered entry by entry from the front.
     /// Carries the file the end of the archive cut through, if any, whether that partial file was
     /// kept, and how many entries failed their checksum and were left out.

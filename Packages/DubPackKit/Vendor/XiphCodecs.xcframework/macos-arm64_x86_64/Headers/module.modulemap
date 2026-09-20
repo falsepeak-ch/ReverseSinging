@@ -1,5 +1,7 @@
-module XiphTheora {
+module XiphCodecs {
     header "ogg/ogg.h"
+    header "vorbis/codec.h"
+    header "vorbis/vorbisfile.h"
     header "theora/codec.h"
     header "theora/theoradec.h"
     header "theora/theora.h"

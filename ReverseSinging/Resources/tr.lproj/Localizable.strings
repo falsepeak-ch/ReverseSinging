@@ -395,3 +395,10 @@
 "whatsNew.booth.row.default.value" = "Kapalı";
 "whatsNew.booth.confirm" = "Bir sahnede dene";
 "whatsNew.booth.later" = "Sonra";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "Başka bir uygulama şu anda sesi kullanıyor. Aramayı bitir veya uygulamayı kapat, sonra tekrar dene.";
+"error.playbackUnavailable" = "Oynatma şu anda kullanılamıyor. Biraz sonra tekrar dene.";
+"dub.convertingAudio" = "Kayıtlar dönüştürülüyor…";
+"dub.error.notDownloaded" = "Bu dosya iCloud'dan indirilmeyi henüz bitirmedi. Önce Dosyalar'da aç, sonra tekrar dene.";
+"dub.error.notAnArchive" = "Bu .%1$@ bir arşiv değil, %2$@. Paketi aldığın yerden yeniden indir.";

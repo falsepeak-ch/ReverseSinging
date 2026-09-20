@@ -186,6 +186,8 @@ nonisolated enum Strings {
         static let cannotStartRecording = NSLocalizedString("error.cannotStartRecording", comment: "Cannot start recording error")
         static let noRecordingInProgress = NSLocalizedString("error.noRecordingInProgress", comment: "No recording in progress error")
         static let failedToStopRecording = NSLocalizedString("error.failedToStopRecording", comment: "Failed to stop recording error")
+        static let audioInUse = NSLocalizedString("error.audioInUse", comment: "Another app holds the audio hardware, so nothing can play or record right now")
+        static let playbackUnavailable = NSLocalizedString("error.playbackUnavailable", comment: "The audio engine refused to start playback")
         static let failedToProcessRecording = NSLocalizedString("error.failedToProcessRecording", comment: "Failed to process recording error")
     }
 
@@ -292,6 +294,7 @@ nonisolated enum Strings {
         static let unknownAuthor = NSLocalizedString("dub.unknownAuthor", comment: "Fallback pack author")
         static let importPack = NSLocalizedString("dub.importPack", comment: "Import pack button")
         static let importing = NSLocalizedString("dub.importing", comment: "Importing progress message")
+        static let convertingAudio = NSLocalizedString("dub.convertingAudio", comment: "Import stage: converting Ogg Vorbis recordings")
         static let convertingVideo = NSLocalizedString("dub.convertingVideo", comment: "Import stage: converting the scene video")
         static let importReading = NSLocalizedString("dub.importReading", comment: "Import stage: reading the pack")
         static let delete = NSLocalizedString("dub.delete", comment: "Delete pack action")
@@ -384,6 +387,8 @@ nonisolated enum Strings {
             static let missingPackInfo = NSLocalizedString("dub.error.missingPackInfo", comment: "Pack info file missing")
             static let noLines = NSLocalizedString("dub.error.noLines", comment: "No usable lines in pack")
             static let notAFolder = NSLocalizedString("dub.error.notAFolder", comment: "Selected item is not a pack")
+            static let notDownloaded = NSLocalizedString("dub.error.notDownloaded", comment: "The chosen file or folder is still in iCloud, or is empty")
+            static let notAnArchive = NSLocalizedString("dub.error.notAnArchive", comment: "A file with an archive extension whose contents are something else; takes the extension and what it looks like")
             static let unreadableArchive = NSLocalizedString("dub.error.unreadableArchive", comment: "Zip could not be read, takes an error message")
             static let unsupportedArchive = NSLocalizedString("dub.error.unsupportedArchive", comment: "Archive format the app cannot open, takes the file extension")
             static let archiveEncrypted = NSLocalizedString("dub.error.archiveEncrypted", comment: "7z archive is password protected")

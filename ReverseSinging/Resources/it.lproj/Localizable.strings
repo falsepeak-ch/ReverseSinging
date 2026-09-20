@@ -395,3 +395,10 @@
 "whatsNew.booth.row.default.value" = "Spenta";
 "whatsNew.booth.confirm" = "Provala su una scena";
 "whatsNew.booth.later" = "Più tardi";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "Un'altra app sta usando l'audio adesso. Termina la chiamata o chiudila, poi riprova.";
+"error.playbackUnavailable" = "La riproduzione non è disponibile ora. Riprova tra un attimo.";
+"dub.convertingAudio" = "Conversione delle registrazioni…";
+"dub.error.notDownloaded" = "Quel file non ha finito di scaricarsi da iCloud. Aprilo prima in File, poi riprova.";
+"dub.error.notAnArchive" = "Quel .%1$@ non è un archivio, è %2$@. Scarica di nuovo il pack da dove lo hai preso.";

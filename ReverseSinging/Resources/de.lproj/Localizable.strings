@@ -395,3 +395,10 @@
 "whatsNew.booth.row.default.value" = "Aus";
 "whatsNew.booth.confirm" = "An einer Szene ausprobieren";
 "whatsNew.booth.later" = "Später";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "Eine andere App nutzt gerade den Ton. Beende den Anruf oder schließe sie und versuche es erneut.";
+"error.playbackUnavailable" = "Die Wiedergabe ist gerade nicht möglich. Versuche es gleich noch einmal.";
+"dub.convertingAudio" = "Aufnahmen werden konvertiert…";
+"dub.error.notDownloaded" = "Diese Datei ist noch nicht vollständig aus iCloud geladen. Öffne sie zuerst in Dateien und versuche es erneut.";
+"dub.error.notAnArchive" = "Diese .%1$@ ist kein Archiv, sondern %2$@. Lade das Pack noch einmal von dort, wo du es bekommen hast.";

@@ -5,6 +5,7 @@
 //  Crash and non-fatal error reporting
 //
 
+import AVFoundation
 import Foundation
 import FirebaseCrashlytics
 
@@ -79,8 +80,18 @@ nonisolated final class CrashReporter: Sendable {
     /// `context` is what separates otherwise identical `NSError`s: a Core Audio failure
     /// during a transcode and the same code during a mixdown are two different bugs, and
     /// without this they land in one issue.
+    ///
+    /// An error that describes the device's situation rather than the app's, no network, no
+    /// storage, the audio hardware in use by a call, is logged as a breadcrumb instead. Those
+    /// were most of the non-fatals, and they buried the ones that pointed at code.
     func record(_ error: Error, context: String, keys: [String: Any] = [:]) {
         guard isEnabled else { return }
+
+        if Self.isEnvironmental(error) {
+            let reported = error as NSError
+            Crashlytics.crashlytics().log("\(context) skipped (environmental): \(reported.domain) \(reported.code)")
+            return
+        }
 
         var info: [String: Any] = [
             "context": context,
@@ -96,6 +107,50 @@ nonisolated final class CrashReporter: Sendable {
         Crashlytics.crashlytics().record(
             error: NSError(domain: reported.domain, code: reported.code, userInfo: info)
         )
+    }
+
+    // MARK: - Environmental Errors
+
+    /// True for a failure of the moment or the device that no change to the app would prevent.
+    ///
+    /// Judged by domain and code, never by message, which arrives in the user's language.
+    /// Underlying errors are followed, since RevenueCat and Remote Config both wrap the URL
+    /// error that actually happened.
+    static func isEnvironmental(_ error: Error) -> Bool {
+        if let sessionError = error as? AudioSessionError { return sessionError.isEnvironmental }
+        if let playerError = error as? AudioPlayerError { return playerError.isEnvironmental }
+        if let recordingError = error as? RecordingError { return recordingError.isEnvironmental }
+
+        let nsError = error as NSError
+        switch nsError.domain {
+        case NSURLErrorDomain:
+            // Every URL error but a genuinely malformed request is the network's doing.
+            return nsError.code != NSURLErrorBadURL && nsError.code != NSURLErrorUnsupportedURL
+        case NSPOSIXErrorDomain:
+            return [Int(ENOSPC), Int(ENETDOWN), Int(ENETUNREACH), Int(ECONNRESET), Int(ETIMEDOUT), Int(EHOSTUNREACH)].contains(nsError.code)
+        case NSCocoaErrorDomain:
+            return nsError.code == CocoaError.fileWriteOutOfSpace.rawValue
+        case AVFoundationErrorDomain:
+            // Operation interrupted, session interrupted, disk full: the encoder was taken
+            // away by the system or the disk ran out.
+            return [-11847, -11818, -11807].contains(nsError.code)
+        case "RevenueCat.ErrorCode":
+            // networkError, offlineConnectionError.
+            return [10, 35].contains(nsError.code)
+        case "com.google.remoteconfig.ErrorDomain":
+            // "Failed to get installations token": Firebase Installations could not reach
+            // its backend, which is the network again.
+            return nsError.code == 8003
+        case "com.firebase.installations":
+            return true
+        default:
+            break
+        }
+
+        if let underlying = nsError.userInfo[NSUnderlyingErrorKey] as? any Error {
+            return isEnvironmental(underlying)
+        }
+        return false
     }
 
     /// A failure with no `Error` behind it. Guard statements that fall through, and the

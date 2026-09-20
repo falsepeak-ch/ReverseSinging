@@ -13,8 +13,13 @@ public enum DubPackImportError: Error, Sendable, Hashable {
     /// Nothing exists at the location the import was given, or it cannot be listed.
     case sourceMissing
     /// A file that is neither a folder nor an archive this package opens. Carries its
-    /// extension, lower-cased, or an empty string when it has none.
-    case unsupportedSource(fileExtension: String)
+    /// extension, lower-cased, or an empty string when it has none, and what its first bytes
+    /// say it really is (`html`, `mp4`, `empty`), which is the only clue there is when a
+    /// `.zip` is not a zip.
+    case unsupportedSource(fileExtension: String, looksLike: String? = nil)
+    /// The file is in iCloud and not on the device, and did not download in time. The user
+    /// has to open it in Files first, or wait for it.
+    case sourceNotDownloaded
     /// An archive that would not unpack.
     case archiveUnreadable(ArchiveFailure)
     /// Nothing in the folder or archive looks like a pack.
@@ -31,6 +36,7 @@ public enum DubPackImportError: Error, Sendable, Hashable {
         switch self {
         case .sourceMissing: "source_missing"
         case .unsupportedSource: "unsupported_source"
+        case .sourceNotDownloaded: "source_not_downloaded"
         case .archiveUnreadable(let failure): "archive.\(failure.telemetryCode)"
         case .noPackFound: "no_pack_found"
         case .noLines: "no_lines"
@@ -39,13 +45,32 @@ public enum DubPackImportError: Error, Sendable, Hashable {
         }
     }
 
+    /// True for a failure of the device or the moment rather than of the pack: no storage
+    /// left, a file iCloud has not delivered. Nothing about the format to learn from it.
+    public var isEnvironmental: Bool {
+        switch self {
+        case .sourceNotDownloaded, .cancelled:
+            true
+        case .archiveUnreadable(.io), .archiveUnreadable(.outOfMemory), .archiveUnreadable(.tooLarge):
+            true
+        case .installFailed(let detail):
+            detail.localizedCaseInsensitiveContains("space") || detail.localizedCaseInsensitiveContains("ENOSPC")
+        case .unsupportedSource(_, let looksLike):
+            looksLike == "icloud_placeholder" || looksLike == "empty"
+        default:
+            false
+        }
+    }
+
     /// Free-form English detail for crash reports, when the case carries any.
     public var detail: String? {
         switch self {
-        case .unsupportedSource(let fileExtension): fileExtension
+        case .unsupportedSource(let fileExtension, let looksLike):
+            // `rar (rar)` says nothing twice; only a disagreement is worth the parenthesis.
+            looksLike.map { $0 == fileExtension ? fileExtension : "\(fileExtension) (\($0))" } ?? fileExtension
         case .archiveUnreadable(let failure): failure.detail
         case .installFailed(let detail): detail
-        case .sourceMissing, .noPackFound, .noLines, .cancelled: nil
+        case .sourceMissing, .sourceNotDownloaded, .noPackFound, .noLines, .cancelled: nil
         }
     }
 }
@@ -101,6 +126,7 @@ extension DubPackImportError: CustomNSError {
         case .noLines: 5
         case .installFailed: 6
         case .cancelled: 7
+        case .sourceNotDownloaded: 8
         }
     }
 

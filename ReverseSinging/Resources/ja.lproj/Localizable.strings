@@ -395,3 +395,10 @@
 "whatsNew.booth.row.default.value" = "オフ";
 "whatsNew.booth.confirm" = "シーンで試す";
 "whatsNew.booth.later" = "あとで";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "別のアプリがオーディオを使用中です。通話を終了するかそのアプリを閉じてから、もう一度お試しください。";
+"error.playbackUnavailable" = "現在再生できません。しばらくしてからもう一度お試しください。";
+"dub.convertingAudio" = "録音を変換中…";
+"dub.error.notDownloaded" = "このファイルはまだiCloudからダウンロードが完了していません。先に「ファイル」で開いてから、もう一度お試しください。";
+"dub.error.notAnArchive" = "この.%1$@はアーカイブではなく%2$@です。入手元からパックをもう一度ダウンロードしてください。";

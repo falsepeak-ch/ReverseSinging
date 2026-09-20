@@ -1,22 +1,24 @@
 #!/bin/bash
-# Builds XiphTheora.xcframework: libogg plus libtheora's decoder, as static libraries for iOS
-# devices, the iOS simulator and macOS. The macOS slice is what lets `swift test` exercise the
-# transcoder on the Mac without a simulator.
+# Builds XiphCodecs.xcframework: libogg, libvorbis (with vorbisfile) and libtheora's decoder, as
+# static libraries for iOS devices, the iOS simulator and macOS. The macOS slice is what lets
+# `swift test` exercise the transcoders on the Mac without a simulator.
 #
-# Decoder only: the encoder half of libtheora is stubbed out through encoder_disabled.c, which
-# is exactly what that file exists for.
+# Decoders only. The encoder half of libtheora is stubbed out through encoder_disabled.c, which
+# is exactly what that file exists for; libvorbis's encoder entry points (vorbisenc.c) and its
+# standalone tools are simply left out.
 #
 #     ./Vendor/build-xiph.sh <dir-with-unpacked-sources> [output.xcframework]
 #
-# The directory must contain libogg-1.3.5/ and libtheora-1.1.1/, unpacked from
+# The directory must contain libogg-1.3.5/, libvorbis-1.3.7/ and libtheora-1.1.1/, unpacked from
 # https://downloads.xiph.org/releases/ and checked against the SHA256SUMS published there.
 # Needs only Xcode's clang: no autotools, no Homebrew packages.
 set -euo pipefail
 
 ROOT="$1"
 HERE="$(cd "$(dirname "$0")" && pwd)"
-OUT="${2:-$HERE/XiphTheora.xcframework}"
+OUT="${2:-$HERE/XiphCodecs.xcframework}"
 OGG="$ROOT/libogg-1.3.5"
+VORBIS="$ROOT/libvorbis-1.3.7"
 THEORA="$ROOT/libtheora-1.1.1"
 
 # Keep in step with the platforms in Package.swift.
@@ -29,7 +31,7 @@ rm -rf "$OUT"
 
 # libogg's config_types.h is normally produced by configure; on Apple platforms the answers
 # are fixed, so it is written directly.
-mkdir -p "$WORK/include/ogg" "$WORK/include/theora"
+mkdir -p "$WORK/include/ogg" "$WORK/include/vorbis" "$WORK/include/theora"
 cat > "$WORK/include/ogg/config_types.h" <<'HDR'
 #ifndef __CONFIG_TYPES_H__
 #define __CONFIG_TYPES_H__
@@ -59,13 +61,17 @@ typedef uint64_t ogg_uint64_t;
 HDR
 
 cp "$OGG/include/ogg/ogg.h" "$OGG/include/ogg/os_types.h" "$WORK/include/ogg/"
+cp "$VORBIS/include/vorbis/codec.h" "$VORBIS/include/vorbis/vorbisfile.h" "$WORK/include/vorbis/"
 cp "$THEORA/include/theora/codec.h" "$THEORA/include/theora/theora.h" \
    "$THEORA/include/theora/theoradec.h" "$WORK/include/theora/"
 
-# The headers stay flat under Headers/ because libtheora's own headers include <ogg/ogg.h>.
+# The headers stay flat under Headers/ because libtheora's and libvorbis's own headers include
+# <ogg/ogg.h> and <vorbis/codec.h>.
 cat > "$WORK/include/module.modulemap" <<'MOD'
-module XiphTheora {
+module XiphCodecs {
     header "ogg/ogg.h"
+    header "vorbis/codec.h"
+    header "vorbis/vorbisfile.h"
     header "theora/codec.h"
     header "theora/theoradec.h"
     header "theora/theora.h"
@@ -74,6 +80,10 @@ module XiphTheora {
 MOD
 
 OGG_SRC=("$OGG/src/bitwise.c" "$OGG/src/framing.c")
+# Every library file except the encoder API and the three standalone tuning tools. The decoder
+# and encoder share most files, so the split cannot be made any finer than this.
+VORBIS_SRC=(analysis bitrate block codebook envelope floor0 floor1 info lookup lpc lsp mapping0 \
+            mdct psy registry res0 sharedbook smallft synthesis vorbisfile window)
 # The decoder file list from libtheora's own Makefile.am, minus the x86 assembly (ARM has no
 # equivalent there, so the portable C paths are used on every slice).
 THEORA_SRC=(apiwrapper bitpack decapiwrapper decinfo decode dequant fragment \
@@ -86,11 +96,15 @@ build_slice() {
 
   local cflags=(-arch "${target%%-*}" -target "$target" -isysroot "$sysroot"
                 -O2 -fno-strict-aliasing -Wno-everything
-                -I"$WORK/include" -I"$OGG/include" -I"$THEORA/include" -I"$THEORA/lib"
+                -I"$WORK/include" -I"$OGG/include" -I"$VORBIS/include" -I"$VORBIS/lib"
+                -I"$THEORA/include" -I"$THEORA/lib"
                 -DTHEORA_DISABLE_ENCODE=1)
 
   for src in "${OGG_SRC[@]}"; do
     clang "${cflags[@]}" -c "$src" -o "$objdir/ogg_$(basename "${src%.c}").o"
+  done
+  for file in "${VORBIS_SRC[@]}"; do
+    clang "${cflags[@]}" -c "$VORBIS/lib/$file.c" -o "$objdir/vb_$file.o"
   done
   for file in "${THEORA_SRC[@]}"; do
     clang "${cflags[@]}" -c "$THEORA/lib/$file.c" -o "$objdir/th_$file.o"
@@ -111,9 +125,9 @@ lipo -create "$WORK/lib_mac_arm64.a" "$WORK/lib_mac_x86_64.a" -output "$WORK/lib
 library_args=()
 for slice in ios_device ios_sim mac; do
   mkdir -p "$WORK/stage/$slice"
-  cp "$WORK/lib_$slice.a" "$WORK/stage/$slice/libXiphTheora.a"
+  cp "$WORK/lib_$slice.a" "$WORK/stage/$slice/libXiphCodecs.a"
   cp -R "$WORK/include" "$WORK/stage/$slice/Headers"
-  library_args+=(-library "$WORK/stage/$slice/libXiphTheora.a" -headers "$WORK/stage/$slice/Headers")
+  library_args+=(-library "$WORK/stage/$slice/libXiphCodecs.a" -headers "$WORK/stage/$slice/Headers")
 done
 
 xcodebuild -create-xcframework "${library_args[@]}" -output "$OUT" > /dev/null

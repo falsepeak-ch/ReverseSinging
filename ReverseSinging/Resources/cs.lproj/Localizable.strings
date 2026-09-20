@@ -395,3 +395,10 @@
 "whatsNew.booth.row.default.value" = "Vypnuto";
 "whatsNew.booth.confirm" = "Vyzkoušet na scéně";
 "whatsNew.booth.later" = "Později";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "Zvuk právě používá jiná aplikace. Ukončete hovor nebo ji zavřete a zkuste to znovu.";
+"error.playbackUnavailable" = "Přehrávání teď není k dispozici. Zkuste to za chvíli znovu.";
+"dub.convertingAudio" = "Převádíme nahrávky…";
+"dub.error.notDownloaded" = "Tento soubor se ještě nestáhl z iCloudu. Nejdřív ho otevřete v Souborech a pak to zkuste znovu.";
+"dub.error.notAnArchive" = "Tento .%1$@ není archiv, je to %2$@. Stáhněte balíček znovu odtud, kde jste ho získali.";

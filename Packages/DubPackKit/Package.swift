@@ -5,7 +5,7 @@ import PackageDescription
 let swiftSettings: [SwiftSetting] = [
     .enableUpcomingFeature("ExistentialAny"),
     .enableUpcomingFeature("MemberImportVisibility"),
-    // Keeps ZIPFoundation, CArchives and XiphTheora out of the app's view: nothing they
+    // Keeps ZIPFoundation, CArchives and XiphCodecs out of the app's view: nothing they
     // declare can leak through DubPackKit's public API.
     .enableUpcomingFeature("InternalImportsByDefault"),
 ]
@@ -24,7 +24,7 @@ let package = Package(
             name: "DubPackKit",
             dependencies: [
                 "CArchives",
-                "XiphTheora",
+                "XiphCodecs",
                 .product(name: "ZIPFoundation", package: "ZIPFoundation"),
             ],
             swiftSettings: swiftSettings
@@ -44,8 +44,8 @@ let package = Package(
                 .linkedLibrary("bz2"),
             ]
         ),
-        // libogg + libtheora's decoder, prebuilt by Vendor/build-xiph.sh.
-        .binaryTarget(name: "XiphTheora", path: "Vendor/XiphTheora.xcframework"),
+        // libogg, libvorbis and libtheora's decoder, prebuilt by Vendor/build-xiph.sh.
+        .binaryTarget(name: "XiphCodecs", path: "Vendor/XiphCodecs.xcframework"),
         .testTarget(
             name: "DubPackKitTests",
             dependencies: [

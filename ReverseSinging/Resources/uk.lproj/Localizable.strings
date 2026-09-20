@@ -395,3 +395,10 @@
 "whatsNew.booth.row.default.value" = "Вимк.";
 "whatsNew.booth.confirm" = "Спробувати на сцені";
 "whatsNew.booth.later" = "Пізніше";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "Інша програма зараз використовує звук. Завершіть дзвінок або закрийте її та спробуйте ще раз.";
+"error.playbackUnavailable" = "Відтворення зараз недоступне. Спробуйте ще раз за мить.";
+"dub.convertingAudio" = "Конвертуємо записи…";
+"dub.error.notDownloaded" = "Цей файл ще не завантажився з iCloud. Спочатку відкрийте його у «Файлах», потім спробуйте знову.";
+"dub.error.notAnArchive" = "Цей .%1$@ — не архів, а %2$@. Завантажте пак знову там, де ви його взяли.";

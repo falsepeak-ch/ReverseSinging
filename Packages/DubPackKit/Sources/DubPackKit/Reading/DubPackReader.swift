@@ -65,9 +65,9 @@ public struct DubPackReader: Sendable {
                 candidateLineCount += 1
                 lines.append(line)
                 issues += lineIssues
-            case .dropped(let reason):
+            case .dropped(let reason, let detail):
                 candidateLineCount += 1
-                issues.append(.droppedLine(file: entry.name, reason: reason))
+                issues.append(.droppedLine(file: entry.name, reason: reason, detail: detail))
             case .notAnEntry:
                 notes.append(entry.name)
             }
@@ -110,6 +110,17 @@ public struct DubPackReader: Sendable {
             return .unknown
         }
         return PackProvenance(fields: PackFields(parsing: text))
+    }
+
+    /// The name of the backing track in `directory`, when there is one AVFoundation can play
+    /// and it is named as one. An unnamed candidate would need the lines to rule it out.
+    public func playableBackingTrack(in directory: URL) -> String? {
+        guard let folder = PackDirectory(url: directory),
+              case .found(let file) = folder.backingTrack(claimedNames: []),
+              probe.audioDuration(of: file.url) != nil else {
+            return nil
+        }
+        return file.name
     }
 
     /// The name of the scene video in `directory`, when there is one AVFoundation can play.

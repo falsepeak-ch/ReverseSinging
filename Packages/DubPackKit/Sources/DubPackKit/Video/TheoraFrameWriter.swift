@@ -6,7 +6,7 @@
 import AVFoundation
 import CoreVideo
 import Foundation
-import XiphTheora
+import XiphCodecs
 
 /// The `AVAssetWriter` half of `TheoraTranscoder`: H.264 at the video's own size and frame
 /// rate, fed one decoded Theora frame at a time.
@@ -42,7 +42,7 @@ final class TheoraFrameWriter {
         do {
             writer = try AVAssetWriter(outputURL: destination, fileType: .mp4)
         } catch {
-            throw .writerFailed(detail: error.localizedDescription)
+            throw VideoConversionFailure.writer(error)
         }
 
         input = AVAssetWriterInput(mediaType: .video, outputSettings: [
@@ -71,7 +71,7 @@ final class TheoraFrameWriter {
         )
 
         writer.add(input)
-        guard writer.startWriting() else { throw .writerFailed(detail: Self.describe(writer.error)) }
+        guard writer.startWriting() else { throw VideoConversionFailure.writer(writer.error) }
         writer.startSession(atSourceTime: .zero)
     }
 
@@ -88,13 +88,13 @@ final class TheoraFrameWriter {
 
     func append(planes: [th_img_plane], info: th_info, at index: Int64) throws(VideoConversionFailure) {
         guard let pool = adaptor.pixelBufferPool else {
-            throw .writerFailed(detail: Self.describe(writer.error))
+            throw VideoConversionFailure.writer(writer.error)
         }
 
         var pixelBuffer: CVPixelBuffer?
         guard CVPixelBufferPoolCreatePixelBuffer(kCFAllocatorDefault, pool, &pixelBuffer) == kCVReturnSuccess,
               let buffer = pixelBuffer else {
-            throw .writerFailed(detail: Self.describe(writer.error))
+            throw VideoConversionFailure.writer(writer.error)
         }
 
         try Self.fill(buffer, from: planes, info: info, width: width, height: height)
@@ -105,7 +105,7 @@ final class TheoraFrameWriter {
 
         let time = CMTime(value: frameDuration * index, timescale: timescale)
         guard adaptor.append(buffer, withPresentationTime: time) else {
-            throw .writerFailed(detail: Self.describe(writer.error))
+            throw VideoConversionFailure.writer(writer.error)
         }
 
         lastIndex = max(lastIndex, index)
@@ -124,13 +124,9 @@ final class TheoraFrameWriter {
         done.wait()
 
         guard writer.status == .completed else {
-            throw .writerFailed(detail: Self.describe(writer.error))
+            throw VideoConversionFailure.writer(writer.error)
         }
         return TheoraTranscoder.Output(frameCount: framesAppended, duration: end.seconds)
-    }
-
-    private static func describe(_ error: (any Error)?) -> String {
-        error?.localizedDescription ?? "unknown"
     }
 
     // MARK: - Pixel Conversion

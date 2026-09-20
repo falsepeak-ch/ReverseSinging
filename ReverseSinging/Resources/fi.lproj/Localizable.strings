@@ -395,3 +395,10 @@
 "whatsNew.booth.row.default.value" = "Pois";
 "whatsNew.booth.confirm" = "Kokeile kohtauksessa";
 "whatsNew.booth.later" = "Myöhemmin";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "Toinen sovellus käyttää ääntä juuri nyt. Lopeta puhelu tai sulje se ja yritä uudelleen.";
+"error.playbackUnavailable" = "Toisto ei ole nyt käytettävissä. Yritä hetken päästä uudelleen.";
+"dub.convertingAudio" = "Muunnetaan äänityksiä…";
+"dub.error.notDownloaded" = "Tiedoston lataus iCloudista ei ole valmis. Avaa se ensin Tiedostot-sovelluksessa ja yritä uudelleen.";
+"dub.error.notAnArchive" = "Tuo .%1$@ ei ole arkisto, vaan %2$@. Hae paketti uudelleen sieltä, mistä sait sen.";

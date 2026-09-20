@@ -343,7 +343,7 @@ struct DubPackReaderDroppedEntryTests {
 
         let reading = try await DubPackReader.testing().read(at: pack.directory)
 
-        #expect(reading.issues == [.droppedLine(file: "020_Vernon.txt", reason: .invalidTimestamp)])
+        #expect(reading.issues == [.droppedLine(file: "020_Vernon.txt", reason: .invalidTimestamp, detail: "soon")])
     }
 
     @Test func dropsANumberedEntryThatIsNotText() async throws {

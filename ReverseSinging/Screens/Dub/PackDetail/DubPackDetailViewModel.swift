@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 import Combine
 import DubScoring
 import DubCompositing
@@ -198,6 +199,14 @@ final class DubPackDetailViewModel: ObservableObject {
         SoundManager.shared.play(.reelSpinUp)
         defer { isExporting = false }
 
+        // A render takes a while and people put the phone down. Without this the encoder
+        // was taken away the moment the app left the foreground, and the whole export ended
+        // in "Operation Interrupted"; with it the render gets the background time iOS allows.
+        let backgroundTask = UIApplication.shared.beginBackgroundTask(withName: "dub.export")
+        defer {
+            if backgroundTask != .invalid { UIApplication.shared.endBackgroundTask(backgroundTask) }
+        }
+
         do {
             let url = try await DubMixer.shared.export(
                 pack: pack,
@@ -220,7 +229,8 @@ final class DubPackDetailViewModel: ObservableObject {
             HapticManager.shared.error()
 
             // The last step of the whole mode, after the user has recorded every line.
-            // Failing here throws away the most work of any error in the app.
+            // Failing here throws away the most work of any error in the app. (An export
+            // the system interrupted is filtered out by the reporter itself.)
             CrashReporter.shared.record(error, context: "dub.export", keys: [
                 "line_count": pack.lines.count,
                 // The case name, not `.message`, which is localised and would split one

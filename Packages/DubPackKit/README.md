@@ -94,7 +94,7 @@ Sources/DubPackKit/
   Media/      The AVFoundation probe for what decodes
   Issues/     DubPackIssue, grouping into reports, the reporter protocol
 Sources/CArchives/   In C: the LZMA SDK's 7z decoder with a streaming extractor, and the zip recovery
-Vendor/              XiphTheora.xcframework (libogg + libtheora decoder) and its build script
+Vendor/              XiphCodecs.xcframework (libogg + libvorbis + libtheora decoders) and its build script
 Tests/DubPackKitTests/  Mirrors Sources; fixtures in Fixtures/ (see its README)
 ```
 
@@ -121,4 +121,4 @@ films.
   `ZipRecover.c` is this package's own: it walks a zip's local headers with the system's zlib,
   for archives whose index is gone. Both share `ArchivePaths.c`, so they refuse the same unsafe
   names in the same way.
-- **XiphTheora:** see `Vendor/README.md`.
+- **XiphCodecs:** see `Vendor/README.md`.

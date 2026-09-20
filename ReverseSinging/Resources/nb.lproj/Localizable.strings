@@ -395,3 +395,10 @@
 "whatsNew.booth.row.default.value" = "Av";
 "whatsNew.booth.confirm" = "Prøv det på en scene";
 "whatsNew.booth.later" = "Senere";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "En annen app bruker lyden akkurat nå. Avslutt samtalen eller lukk den, og prøv igjen.";
+"error.playbackUnavailable" = "Avspilling er ikke tilgjengelig nå. Prøv igjen om et øyeblikk.";
+"dub.convertingAudio" = "Konverterer opptakene…";
+"dub.error.notDownloaded" = "Filen er ikke ferdig lastet ned fra iCloud. Åpne den i Filer først, og prøv igjen.";
+"dub.error.notAnArchive" = "Den .%1$@ er ikke et arkiv, det er %2$@. Hent pakken igjen der du fikk den.";

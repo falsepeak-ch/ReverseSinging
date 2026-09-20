@@ -23,7 +23,9 @@ enum RecordingError: LocalizedError {
         case .permissionDenied:
             return "Microphone permission is required to record audio. Please enable it in Settings."
         case .sessionActivationFailed(let error):
-            return "Failed to activate audio session: \(error.localizedDescription)"
+            // An `AudioSessionError` already says it in the user's language.
+            return (error as? AudioSessionError)?.errorDescription
+                ?? "Failed to activate audio session: \(error.localizedDescription)"
         case .recorderInitializationFailed(let error):
             return "Failed to initialize recorder: \(error.localizedDescription)"
         case .alreadyRecording:
@@ -32,6 +34,16 @@ enum RecordingError: LocalizedError {
             return "No recording in progress."
         case .interruptedBySystem:
             return "Recording was interrupted by the system."
+        }
+    }
+
+    /// True when the recorder could not start for a reason outside the app: the hardware in
+    /// use by a call, a permission withheld, an interruption.
+    var isEnvironmental: Bool {
+        switch self {
+        case .permissionDenied, .interruptedBySystem: true
+        case .sessionActivationFailed(let error): (error as? AudioSessionError)?.isEnvironmental ?? false
+        case .recorderInitializationFailed, .alreadyRecording, .notRecording: false
         }
     }
 }
@@ -183,7 +195,11 @@ final class AudioRecorder: NSObject, ObservableObject {
 
     private func activateAudioSession() throws {
         print("🎤 Activating audio session...")
-        AudioSessionManager.shared.activate()
+        do {
+            try AudioSessionManager.shared.activate()
+        } catch {
+            throw RecordingError.sessionActivationFailed(error)
+        }
         print("✅ Audio session activated successfully")
     }
 

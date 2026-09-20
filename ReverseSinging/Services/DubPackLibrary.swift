@@ -9,6 +9,7 @@ import AVFoundation
 import Combine
 import DubPackKit
 import Foundation
+import UIKit
 
 @MainActor
 final class DubPackLibrary: ObservableObject {
@@ -107,11 +108,26 @@ final class DubPackLibrary: ObservableObject {
         return packs.sorted { $0.importedAt > $1.importedAt }
     }
 
+    /// Folders whose failure to load has already been reported, so a pack that will not read
+    /// is one non-fatal, not one per launch for as long as it sits there.
+    nonisolated private static let reportedLoadFailuresKey = "dub.reportedLoadFailures"
+
     /// Loads one installed pack: from its manifest when that is current, else by reading the
     /// folder again. Nil when the folder does not read as a pack.
     nonisolated static func load(from directory: URL) async -> DubPack? {
         let folderName = directory.lastPathComponent
         let cached = DubPackManifest.read(at: directory)
+
+        // Media an earlier install left in a format the platform does not play: Vorbis
+        // audio from a build that did not convert it, a Theora scene whose conversion the
+        // system cut short. Finished here, so the pack is whole the next time it is read.
+        if DubPackRepair.hasPendingConversions(in: directory) {
+            CrashReporter.shared.log("dub_pack.load repairing \(folderName)")
+            let issues = await DubPackRepair.convertPending(in: directory)
+            if !issues.isEmpty {
+                CrashReporter.shared.log("dub_pack.load repair left: \(issues)")
+            }
+        }
 
         // The cached manifest is the fast path; a pack copied in by hand, or written by an
         // older build, still loads, and gets a manifest written for next time.
@@ -136,14 +152,21 @@ final class DubPackLibrary: ObservableObject {
             // A pack that is installed and will not load is the quietest failure in the app:
             // the folder is on disk, the user imported it and performed it, and it is simply
             // not on the shelf any more. There is no alert for this, because nobody asked
-            // for anything. Reported per launch while it lasts, which is the point. A pack
-            // that stops loading after an OS update is a regression we would otherwise only
-            // hear about as "my scenes disappeared".
-            CrashReporter.shared.record(
-                error,
-                context: "dub_pack.load",
-                keys: ["folder_name": folderName]
-            )
+            // for anything. Reported once per folder: one user's pack sent the same report
+            // twenty-seven launches running, which is noise, not twenty-seven bugs. A pack
+            // that stops loading after an OS update still shows up, once per affected pack.
+            let defaults = UserDefaults.standard
+            var reported = Set(defaults.stringArray(forKey: reportedLoadFailuresKey) ?? [])
+            if reported.insert(folderName).inserted {
+                defaults.set(Array(reported).sorted(), forKey: reportedLoadFailuresKey)
+                CrashReporter.shared.record(
+                    error,
+                    context: "dub_pack.load",
+                    keys: ["folder_name": folderName]
+                )
+            } else {
+                CrashReporter.shared.log("dub_pack.load still failing for \(folderName)")
+            }
             return nil
         }
     }
@@ -168,7 +191,15 @@ final class DubPackLibrary: ObservableObject {
     nonisolated static func manifestIsStale(_ pack: DubPack, in directory: URL) async -> Bool {
         guard pack.hasMeasuredSpeech else { return true }
         if manifestIsMissingAttributionOnDisk(pack, in: directory) { return true }
+        if manifestIsMissingABackingTrackOnDisk(pack, in: directory) { return true }
         return await manifestIsMissingAVideoOnDisk(pack, in: directory)
+    }
+
+    /// True when the manifest has no backing track but the folder holds one AVFoundation
+    /// reads: the Vorbis bed a repair has just converted, most likely.
+    nonisolated static func manifestIsMissingABackingTrackOnDisk(_ pack: DubPack, in directory: URL) -> Bool {
+        guard pack.backingTrackFile == nil else { return false }
+        return DubPackReader().playableBackingTrack(in: directory) != nil
     }
 
     /// True when the pack's own info names a source the manifest doesn't carry.
@@ -222,8 +253,9 @@ final class DubPackLibrary: ObservableObject {
     /// conversion owns most of the bar.
     private static func overallProgress(_ progress: DubPackInstallProgress) -> Double {
         switch progress.stage {
-        case .copying: progress.fraction * 0.15
-        case .convertingVideo: 0.15 + progress.fraction * 0.75
+        case .copying: progress.fraction * 0.12
+        case .convertingAudio: 0.12 + progress.fraction * 0.08
+        case .convertingVideo: 0.20 + progress.fraction * 0.70
         case .reading: 0.90 + progress.fraction * 0.10
         }
     }
@@ -235,6 +267,15 @@ final class DubPackLibrary: ObservableObject {
         importProgress = 0
         importMessage = Strings.Dub.importing
         defer { isImporting = false }
+
+        // A scene takes minutes to convert and people put the phone down. Without this the
+        // system suspended the app mid-encode and the video was lost with an "Operation
+        // Interrupted"; with it the import gets the background time iOS allows, and a
+        // conversion that still does not make it is kept for the next launch.
+        let backgroundTask = UIApplication.shared.beginBackgroundTask(withName: "dub_pack.import")
+        defer {
+            if backgroundTask != .invalid { UIApplication.shared.endBackgroundTask(backgroundTask) }
+        }
 
         let sourceExtension = url.pathExtension.lowercased()
 

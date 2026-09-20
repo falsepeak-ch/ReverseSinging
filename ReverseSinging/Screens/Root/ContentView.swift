@@ -38,6 +38,10 @@ struct ContentView: View {
         .onChange(of: scenePhase, initial: true) { _, phase in
             handleScenePhase(phase)
         }
+        #if DEBUG
+        // `-importPacksFrom <folder>`: bring in a folder of packs and print a verdict for each.
+        .task { await DebugImportRun.runIfRequested() }
+        #endif
     }
 
     /// Counts an open on a launch or a return from the background — not on the flickers

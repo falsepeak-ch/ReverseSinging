@@ -30,6 +30,8 @@ struct PackDirectory: Sendable {
     /// Visible regular files at the top level, in Finder order.
     let files: [PackFile]
     private let filesByKey: [String: PackFile]
+    /// Files by lower-cased stem, in Finder order, for a name whose extension is wrong.
+    private let filesByStem: [String: [PackFile]]
 
     /// Nil when the folder cannot be listed.
     init?(url: URL) {
@@ -46,10 +48,13 @@ struct PackDirectory: Sendable {
             .map { PackFile(url: $0, name: $0.lastPathComponent) }
 
         var byKey: [String: PackFile] = [:]
-        for file in files where byKey[Self.key(file.name)] == nil {
-            byKey[Self.key(file.name)] = file
+        var byStem: [String: [PackFile]] = [:]
+        for file in files {
+            if byKey[Self.key(file.name)] == nil { byKey[Self.key(file.name)] = file }
+            byStem[Self.key(file.stem), default: []].append(file)
         }
         filesByKey = byKey
+        filesByStem = byStem
     }
 
     static func key(_ name: String) -> String {
@@ -60,9 +65,13 @@ struct PackDirectory: Sendable {
 
     /// The file a pack names. Tried as a top-level name, then as a relative path, then by its
     /// last path component, since most packs that write `stills/001.png` ship it flat.
+    ///
+    /// A name whose extension is wrong still finds its file when one of the same kind sits
+    /// there under the same stem: `icon="icon.png"` with an `icon.jpg` in the folder is the
+    /// same picture saved by a different tool, not a missing icon.
     func file(named name: String) -> PackFile? {
         guard let name = name.trimmedOrNil else { return nil }
-        if let hit = filesByKey[Self.key(name)] { return hit }
+        if let hit = lookup(name) { return hit }
 
         let components = name.split(whereSeparator: { $0 == "/" || $0 == "\\" }).map(String.init)
         guard components.count > 1 else { return nil }
@@ -74,7 +83,27 @@ struct PackDirectory: Sendable {
                 return PackFile(url: candidate, name: components.joined(separator: "/"))
             }
         }
-        return components.last.flatMap { filesByKey[Self.key($0)] }
+        return components.last.flatMap(lookup)
+    }
+
+    /// A top-level file by exact name, else by stem among files of the same kind.
+    private func lookup(_ name: String) -> PackFile? {
+        if let hit = filesByKey[Self.key(name)] { return hit }
+
+        let stem = (name as NSString).deletingPathExtension
+        let fileExtension = (name as NSString).pathExtension.lowercased()
+        guard !stem.isEmpty, !fileExtension.isEmpty, let kind = Self.kind(of: fileExtension) else { return nil }
+        return filesByStem[Self.key(stem)]?.first { kind.contains($0.fileExtension) }
+    }
+
+    /// The family an extension belongs to, so a stem lookup never hands a text file to
+    /// something asking for audio.
+    private static func kind(of fileExtension: String) -> Set<String>? {
+        for family in [PackFormat.Files.imageExtensions, PackFormat.Files.audioExtensions, PackFormat.Files.videoExtensions]
+        where family.contains(fileExtension) {
+            return Set(family)
+        }
+        return nil
     }
 
     /// `stem.<extension>` for the first of `extensions` that exists.
@@ -122,11 +151,28 @@ struct PackDirectory: Sendable {
         entryCandidates.filter(\.isNumbered).count
     }
 
-    /// The icon by convention, `icon.png` or `cover.jpg`, when the pack info names none.
+    /// How many candidates are probably line entries: numbered, or with a recording of the
+    /// same name beside them, the way a pack written without numbers still pairs its files.
+    var likelyEntryCount: Int {
+        entryCandidates.filter { $0.isNumbered || hasRecording(beside: $0) }.count
+    }
+
+    /// True when an audio file shares `file`'s stem.
+    func hasRecording(beside file: PackFile) -> Bool {
+        self.file(stem: file.stem, extensions: PackFormat.Files.audioExtensions) != nil
+    }
+
+    /// The icon by convention, `icon.png` or `cover.jpg`, when the pack info names none, or
+    /// else any unnumbered image whose name says icon or cover, such as `scene_icon.png`.
     var conventionalIcon: PackFile? {
-        PackFormat.Files.iconStems.lazy
-            .compactMap { file(stem: $0, extensions: PackFormat.Files.imageExtensions) }
-            .first
+        if let exact = PackFormat.Files.iconStems.lazy
+            .compactMap({ file(stem: $0, extensions: PackFormat.Files.imageExtensions) })
+            .first {
+            return exact
+        }
+        return files(extensions: PackFormat.Files.imageExtensions).first { image in
+            !image.isNumbered && PackFormat.Files.iconStems.contains { Self.key(image.stem).contains($0) }
+        }
     }
 
     /// The scene video: the file named like one, or else the only unnumbered video there is.

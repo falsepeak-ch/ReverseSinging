@@ -41,18 +41,23 @@ nonisolated struct DubPackImporter {
         // Takes are stored under the id, so a re-import (a rebuilt starter pack, or the same
         // zip brought in again) would otherwise orphan every line recorded against it.
         let previous = DubPackManifest.read(at: installer.installLocation(for: source))
+        let id = previous?.id ?? UUID()
 
-        let installed = try await installer.install(from: source, progress: progress)
-        let pack = DubPack(parsed: installed.pack, directory: installed.directory, id: previous?.id ?? UUID())
+        // The manifest is written into the folder while it is still staging, before it takes
+        // the installed pack's place. Written afterwards, it raced anything else touching the
+        // library; a second install of the same pack could retire the folder in between.
+        let installed = try await installer.install(from: source, progress: progress, beforeCommit: { incoming, destination, parsed in
+            let pack = DubPack(parsed: parsed, directory: incoming, folderName: destination.lastPathComponent, id: id)
+            do {
+                try DubPackManifest.write(pack, to: incoming)
+            } catch {
+                // The pack still installs and plays; without a manifest the library reads it
+                // again on the next launch, which is slower but correct.
+                CrashReporter.shared.record(error, context: "dub_pack.manifest_write", keys: ["pack_title": pack.title])
+            }
+        })
 
-        do {
-            try DubPackManifest.write(pack, to: installed.directory)
-        } catch {
-            // The pack is installed and plays; without a manifest the library reads it again
-            // on the next launch, which is slower but correct.
-            CrashReporter.shared.record(error, context: "dub_pack.manifest_write", keys: ["pack_title": pack.title])
-        }
-
-        return pack
+        return DubPackManifest.read(at: installed.directory)
+            ?? DubPack(parsed: installed.pack, directory: installed.directory, id: id)
     }
 }

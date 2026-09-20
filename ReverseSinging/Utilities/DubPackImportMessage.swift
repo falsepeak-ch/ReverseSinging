@@ -21,9 +21,16 @@ nonisolated enum DubPackImportMessage {
         switch error {
         case .sourceMissing:
             return Strings.Dub.Error.notAFolder
-        case .unsupportedSource(let fileExtension) where fileExtension.isEmpty:
+        case .sourceNotDownloaded:
+            return Strings.Dub.Error.notDownloaded
+        case .unsupportedSource(_, let looksLike?) where looksLike == "empty" || looksLike == "icloud_placeholder":
+            return Strings.Dub.Error.notDownloaded
+        case .unsupportedSource(let fileExtension, let looksLike?) where ["zip", "7z"].contains(fileExtension):
+            // A `.zip` that is not a zip: say what it is instead.
+            return String(format: Strings.Dub.Error.notAnArchive, fileExtension, looksLike.replacingOccurrences(of: "_", with: " "))
+        case .unsupportedSource(let fileExtension, _) where fileExtension.isEmpty:
             return Strings.Dub.Error.notAFolder
-        case .unsupportedSource(let fileExtension):
+        case .unsupportedSource(let fileExtension, _):
             return String(format: Strings.Dub.Error.unsupportedArchive, fileExtension)
         case .archiveUnreadable(let failure):
             return String(format: Strings.Dub.Error.unreadableArchive, text(for: failure))
@@ -60,6 +67,7 @@ nonisolated extension DubPackInstallProgress.Stage {
     var message: String {
         switch self {
         case .copying: Strings.Dub.importing
+        case .convertingAudio: Strings.Dub.convertingAudio
         case .convertingVideo: Strings.Dub.convertingVideo
         case .reading: Strings.Dub.importReading
         }

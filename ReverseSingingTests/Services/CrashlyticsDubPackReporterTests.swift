@@ -50,22 +50,38 @@ struct CrashlyticsDubPackReporterTests {
     @Test func recordsAReportAsANonFatalGroupedByItsKind() throws {
         let sink = RecordingSink()
         let report = DubPackIssueReport(
-            kind: .missingStills,
-            reason: "2 of 10 entries had no still",
-            keys: ["pack_title": .string("Scene"), "missing_count": .int(2), "ratio": .double(0.2), "partial_kept": .bool(true)]
+            kind: .droppedLines,
+            reason: "2 of 10 entries dropped (missing_audio)",
+            keys: ["pack_title": .string("Scene"), "dropped_count": .int(2), "ratio": .double(0.2), "partial_kept": .bool(true)]
         )
 
         CrashlyticsDubPackReporter(sink: sink).record(report)
 
         let record = try #require(sink.records.first)
         #expect(record.error.domain == CrashlyticsDubPackReporter.errorDomain)
-        #expect(record.error.code == DubPackIssueReport.Kind.missingStills.code)
-        #expect(record.error.localizedDescription == "2 of 10 entries had no still")
-        #expect(record.context == "dub_pack.missing_stills")
+        #expect(record.error.code == DubPackIssueReport.Kind.droppedLines.code)
+        #expect(record.error.localizedDescription == "2 of 10 entries dropped (missing_audio)")
+        #expect(record.context == "dub_pack.dropped_lines")
         #expect(record.keys["pack_title"] as? String == "Scene")
-        #expect(record.keys["missing_count"] as? Int == 2)
+        #expect(record.keys["dropped_count"] as? Int == 2)
         #expect(record.keys["ratio"] as? Double == 0.2)
         #expect(record.keys["partial_kept"] as? Bool == true)
+    }
+
+    /// A still borrowed from the line before costs the user nothing. It goes into the log
+    /// that ships with the next real report, not into the non-fatals it would otherwise bury.
+    @Test func anIssueWorkedAroundWithoutLossIsABreadcrumbNotANonFatal() {
+        let sink = RecordingSink()
+        let report = DubPackIssueReport(
+            kind: .missingStills,
+            reason: "2 of 10 entries had no still",
+            keys: ["pack_title": .string("Scene"), "missing_count": .int(2)]
+        )
+
+        CrashlyticsDubPackReporter(sink: sink).record(report)
+
+        #expect(sink.records.isEmpty)
+        #expect(sink.logs == ["dub_pack.missing_stills: 2 of 10 entries had no still [Scene]"])
     }
 
     /// End to end: a pack that loses a line on the way in produces exactly one non-fatal, and

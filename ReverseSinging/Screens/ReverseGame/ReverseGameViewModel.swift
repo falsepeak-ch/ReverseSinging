@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 import Combine
 import DubAudio
 import DubScoring
@@ -188,6 +189,8 @@ final class ReverseGameViewModel: ObservableObject {
 
     private func beginRecording() {
         guard recorder.canStartRecording() else { return }
+        // The slate ran while the user switched apps; an inactive app cannot open the mic.
+        guard UIApplication.shared.applicationState == .active else { return }
 
         do {
             SoundManager.shared.setMicrophoneOpen(true)
