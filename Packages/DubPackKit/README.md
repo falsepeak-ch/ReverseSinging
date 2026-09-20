@@ -1,6 +1,6 @@
 # DubPackKit
 
-Imports community dub packs ("mods") for Dubloon: from a folder, a `.zip` or a `.7z`, in the
+Imports community dub packs ("mods") for Dubloon: from a folder, a `.zip`, a `.7z` or a `.rar`, in the
 shapes packs actually arrive in rather than only the one the format describes, from zips that
 did not finish downloading, and from files iCloud has not delivered yet. Media the platform does
 not play (Ogg Vorbis audio, Theora video) is converted on the way in. It knows nothing
@@ -49,7 +49,8 @@ The format as specified is `_pack_info.ini`, then `NNN_Character.txt` + `.jpg` +
 | Part | Accepted |
 |---|---|
 | Where the pack is | Files at the top of the archive, or up to four folders down. `__MACOSX` is ignored. A folder can also be reached through a symbolic link. A file or folder still in iCloud is downloaded first. |
-| Archive | `.zip`, and `.7z` compressed with LZMA, LZMA2, PPMd, Deflate, BZip2 or stored. Recognised by their bytes, so a renamed file still opens, and a `.zip` that is really a web page or an mp3 is refused as one (`looksLike`). |
+| Archive | `.zip`; `.7z` compressed with LZMA, LZMA2, PPMd, Deflate, BZip2 or stored; `.rar`, RAR 4 and RAR 5, without a password and in one volume. Recognised by their bytes, so a renamed file still opens (the most imported file that would not was a `.rar` called `.zip`), and a `.zip` that is really a web page or an mp3 is refused as one (`looksLike`). |
+| Damaged rar | Entries that fail their checksum are left out, and an archive cut off partway keeps every entry before the break. Nothing partial is kept: a RAR entry is one compressed stream. |
 | Damaged zip | A zip whose index is missing or refused, typically a cut-off download, is read entry by entry from the front. Entries failing their checksum are left out; a file cut off by the end is kept only if it is audio. |
 | Pack info | `_pack_info.ini`, `pack_info.ini`, `_packinfo.ini`, `packinfo.ini`, `_pack_info.txt`, `pack_info.txt`, in any case. Optional: without one, the pack is titled after the folder it came wrapped in, else after the archive or folder name. |
 | Line entries | `NN_Character.txt` or `NN_Character.ini`; the `.txt` wins when both exist. Unnumbered text files count when they carry line keys or have a recording of the same name beside them. A file with no keys at all is its own caption. |
@@ -106,13 +107,14 @@ Breadcrumbs go to `DubPackIssueReporter.log`: `dub_pack.import began (.7z)`, the
 ```
 Sources/DubPackKit/
   Import/     DubPackInstaller and the steps of an install: staging, finding the pack, installing
-  Archives/   Recognising and unpacking .zip and .7z, and recovering damaged zips
+  Archives/   Recognising and unpacking .zip, .7z and .rar, and recovering damaged zips
   Reading/    DubPackReader and the format: fields, text encodings, timestamps, file lookup
   Video/      Theora to H.264
   Audio/      Vorbis to AAC
   Media/      The AVFoundation probe for what decodes
   Issues/     DubPackIssue, grouping into reports, the reporter protocol
-Sources/CArchives/   In C: the LZMA SDK's 7z decoder with a streaming extractor, and the zip recovery
+Sources/CArchives/   In C: the LZMA SDK's 7z decoder and libarchive's RAR readers, each behind a
+                     streaming extractor, and the zip recovery
 Vendor/              XiphCodecs.xcframework (libogg + libvorbis + libtheora decoders) and its build script
 Tests/DubPackKitTests/  Mirrors Sources; fixtures in Fixtures/ (see its README)
 ```
@@ -138,6 +140,14 @@ films.
   blocks with a memory cap. Deflate and BZip2 come from the system's libz and libbz2. To take a
   newer SDK, replace the files in `lzma-sdk/` with the same-named ones from its `C/` folder.
   `ZipRecover.c` is this package's own: it walks a zip's local headers with the system's zlib,
-  for archives whose index is gone. Both share `ArchivePaths.c`, so they refuse the same unsafe
-  names in the same way.
+  for archives whose index is gone. All three extractors share `ArchivePaths.c`, so they refuse
+  the same unsafe names in the same way.
+- **libarchive:** the RAR 4 and RAR 5 readers of libarchive 3.8.9 (BSD-2-Clause, Tim Kientzle and
+  contributors; the RAR 5 reader is Grzegorz Antoniak's clean-room decoder) and the core they sit
+  on, 25 sources in `Sources/CArchives/libarchive`, plus `RarExtract.c`. Deliberately not RARLAB's
+  `unrar`, whose licence is not an open-source one. `config.h` there is written by hand for Apple
+  platforms and switches everything else off: no compression libraries, no iconv, no crypto (an
+  encrypted archive is refused), no ACLs or extended attributes. `archive_blake2*` is CC0 and
+  `archive_ppmd7.c` public domain; see `libarchive/COPYING`. To take a newer libarchive, replace
+  the files with the same-named ones from its `libarchive/` folder and keep `config.h`.
 - **XiphCodecs:** see `Vendor/README.md`.

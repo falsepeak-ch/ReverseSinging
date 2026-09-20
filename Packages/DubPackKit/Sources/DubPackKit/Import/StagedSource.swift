@@ -56,6 +56,7 @@ struct StagedSource: Sendable {
             let summary = switch kind {
             case .zip: try ZipExtractor.extract(source, to: unpacked, progress: progress)
             case .sevenZip: try SevenZipExtractor.extract(source, to: unpacked, progress: progress)
+            case .rar: try RarExtractor.extract(source, to: unpacked, progress: progress)
             }
             return StagedSource(
                 directory: unpacked,

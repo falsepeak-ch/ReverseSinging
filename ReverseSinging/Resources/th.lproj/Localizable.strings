@@ -178,9 +178,9 @@
 "dub.export.rendering" = "กำลังเรนเดอร์วิดีโอ…";
 "dub.error.missingPackInfo" = "โฟลเดอร์นั้นไม่ใช่แพ็กพากย์ ข้างในไม่มีไฟล์ _pack_info.ini";
 "dub.error.noLines" = "แพ็กนี้ไม่มีบทพูดที่ใช้ได้แม้แต่บทเดียว";
-"dub.error.notAFolder" = "เลือกโฟลเดอร์แพ็ก หรือไฟล์ .zip หรือ .7z";
+"dub.error.notAFolder" = "เลือกโฟลเดอร์แพ็ก หรือไฟล์ .zip, .7z หรือ .rar";
 "dub.error.unreadableArchive" = "ไฟล์บีบอัดนั้นเปิดไม่ได้: %@";
-"dub.error.unsupportedArchive" = "Dubloon เปิดไฟล์ .%@ ไม่ได้ ลองบันทึกแพ็กใหม่เป็น .zip หรือ .7z";
+"dub.error.unsupportedArchive" = "Dubloon เปิดไฟล์ .%@ ไม่ได้ ลองบันทึกแพ็กใหม่เป็น .zip, .7z หรือ .rar";
 "dub.error.archiveEncrypted" = "ไฟล์นี้ใส่รหัสผ่านไว้ ลองขอผู้สร้างให้ส่งเวอร์ชันที่ไม่มีรหัสผ่าน";
 "dub.error.archiveUnsupported" = "ไฟล์นี้ใช้วิธีบีบอัดที่ Dubloon แตกไฟล์ไม่ได้ ลองบันทึกใหม่เป็น .zip";
 "dub.error.archiveCorrupt" = "ไฟล์นี้เสียหายหรือดาวน์โหลดไม่เสร็จ";

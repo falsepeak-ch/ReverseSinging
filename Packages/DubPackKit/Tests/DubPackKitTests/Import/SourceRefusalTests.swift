@@ -18,7 +18,6 @@ struct SourceRefusalTests {
         ("ID3\u{03}\u{00}", "mp3"),
         ("OggS", "ogg"),
         ("bplist00", "icloud_placeholder"),
-        ("Rar!\u{1A}\u{07}", "rar"),
         ("just some text", "text"),
         ("", "empty"),
     ])

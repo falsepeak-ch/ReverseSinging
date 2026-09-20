@@ -220,11 +220,11 @@ struct DubPackInstallerTests {
     @Test func namesAFileTypeItCannotOpen() async throws {
         let temp = try TemporaryDirectory()
         defer { temp.remove() }
-        let rar = temp.appending("pack.rar")
-        try Data("Rar!\u{1A}\u{07}\u{00}".utf8).write(to: rar)
+        let tarball = temp.appending("pack.tgz")
+        try Data([0x1F, 0x8B, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]).write(to: tarball)
 
-        await #expect(throws: DubPackImportError.unsupportedSource(fileExtension: "rar", looksLike: "rar")) {
-            try await DubPackInstaller.testing(library: temp.appending("library")).install(from: rar)
+        await #expect(throws: DubPackImportError.unsupportedSource(fileExtension: "tgz", looksLike: "gzip")) {
+            try await DubPackInstaller.testing(library: temp.appending("library")).install(from: tarball)
         }
     }
 

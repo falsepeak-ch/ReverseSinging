@@ -178,9 +178,9 @@
 "dub.export.rendering" = "Video wird gerendert…";
 "dub.error.missingPackInfo" = "Dieser Ordner ist kein Dub-Pack. Es liegt keine _pack_info.ini darin.";
 "dub.error.noLines" = "In diesem Pack steckt keine einzige brauchbare Zeile.";
-"dub.error.notAFolder" = "Wähl einen Pack-Ordner oder ein .zip- oder .7z-Archiv.";
+"dub.error.notAFolder" = "Wähl einen Pack-Ordner oder ein .zip-, .7z- oder .rar-Archiv.";
 "dub.error.unreadableArchive" = "Dieses Archiv wollte sich nicht öffnen lassen: %@";
-"dub.error.unsupportedArchive" = "Dubloon kann keine .%@-Archive öffnen. Speicher den Pack noch mal als .zip oder .7z.";
+"dub.error.unsupportedArchive" = "Dubloon kann keine .%@-Archive öffnen. Speicher den Pack noch mal als .zip, .7z oder .rar.";
 "dub.error.archiveEncrypted" = "Das Archiv ist passwortgeschützt. Bitte den Ersteller um eine Kopie ohne Passwort.";
 "dub.error.archiveUnsupported" = "Das Archiv nutzt eine Komprimierung, die Dubloon nicht entpacken kann. Speicher es noch mal als .zip.";
 "dub.error.archiveCorrupt" = "Das Archiv ist beschädigt oder wurde nicht fertig heruntergeladen.";

@@ -178,9 +178,9 @@
 "dub.export.rendering" = "Rendering video…";
 "dub.error.missingPackInfo" = "That folder isn't a dub pack. There's no _pack_info.ini in it.";
 "dub.error.noLines" = "There isn't a single usable line in this pack.";
-"dub.error.notAFolder" = "Pick a dub pack folder, or a .zip or .7z archive.";
+"dub.error.notAFolder" = "Pick a dub pack folder, or a .zip, .7z or .rar archive.";
 "dub.error.unreadableArchive" = "That archive wouldn't open: %@";
-"dub.error.unsupportedArchive" = "Dubloon can't open .%@ archives. Re-save the pack as a .zip or .7z.";
+"dub.error.unsupportedArchive" = "Dubloon can't open .%@ archives. Re-save the pack as a .zip, .7z or .rar.";
 "dub.error.archiveEncrypted" = "The archive is password-protected. Ask its creator for a copy without a password.";
 "dub.error.archiveUnsupported" = "The archive uses a compression method Dubloon can't unpack. Try re-saving it as a .zip.";
 "dub.error.archiveCorrupt" = "The archive is damaged or didn't finish downloading.";

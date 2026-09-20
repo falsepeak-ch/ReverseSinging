@@ -178,9 +178,9 @@
 "dub.export.rendering" = "Video renderen…";
 "dub.error.missingPackInfo" = "Die map is geen dubpack: er zit geen _pack_info.ini in.";
 "dub.error.noLines" = "In dit pack zit geen enkele bruikbare zin.";
-"dub.error.notAFolder" = "Kies een packmap of een .zip- of .7z-archief.";
+"dub.error.notAFolder" = "Kies een packmap of een .zip-, .7z- of .rar-archief.";
 "dub.error.unreadableArchive" = "Dat archief wilde niet open: %@";
-"dub.error.unsupportedArchive" = "Dubloon kan geen .%@-archieven openen. Sla de pack opnieuw op als .zip of .7z.";
+"dub.error.unsupportedArchive" = "Dubloon kan geen .%@-archieven openen. Sla de pack opnieuw op als .zip, .7z of .rar.";
 "dub.error.archiveEncrypted" = "Het archief is beveiligd met een wachtwoord. Vraag de maker om een kopie zonder wachtwoord.";
 "dub.error.archiveUnsupported" = "Het archief gebruikt een compressie die Dubloon niet kan uitpakken. Probeer het opnieuw op te slaan als .zip.";
 "dub.error.archiveCorrupt" = "Het archief is beschadigd of niet helemaal gedownload.";

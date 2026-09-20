@@ -178,9 +178,9 @@
 "dub.export.rendering" = "Renderöidään videota…";
 "dub.error.missingPackInfo" = "Tuo kansio ei ole dubbauspaketti: siellä ei ole _pack_info.ini-tiedostoa.";
 "dub.error.noLines" = "Tässä paketissa ei ole yhtäkään kelvollista repliikkiä.";
-"dub.error.notAFolder" = "Valitse pakettikansio tai .zip- tai .7z-arkisto.";
+"dub.error.notAFolder" = "Valitse pakettikansio tai .zip-, .7z- tai .rar-arkisto.";
 "dub.error.unreadableArchive" = "Tuo arkisto ei suostunut aukeamaan: %@";
-"dub.error.unsupportedArchive" = "Dubloon ei osaa avata .%@-arkistoja. Tallenna paketti uudelleen .zip- tai .7z-muodossa.";
+"dub.error.unsupportedArchive" = "Dubloon ei osaa avata .%@-arkistoja. Tallenna paketti uudelleen .zip-, .7z- tai .rar-muodossa.";
 "dub.error.archiveEncrypted" = "Arkisto on suojattu salasanalla. Pyydä tekijältä kopio ilman salasanaa.";
 "dub.error.archiveUnsupported" = "Arkisto käyttää pakkausta, jota Dubloon ei osaa purkaa. Kokeile tallentaa se uudelleen .zip-muodossa.";
 "dub.error.archiveCorrupt" = "Arkisto on vioittunut tai sen lataus jäi kesken.";

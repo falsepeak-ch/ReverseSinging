@@ -29,15 +29,19 @@ let package = Package(
             ],
             swiftSettings: swiftSettings
         ),
-        // The LZMA SDK's 7z decoder (public domain) behind a streaming extractor, and a zip reader
-        // that recovers archives whose index is missing.
+        // The LZMA SDK's 7z decoder (public domain) and libarchive's RAR readers (BSD-2-Clause),
+        // each behind a streaming extractor, and a zip reader that recovers archives whose index
+        // is missing.
         .target(
             name: "CArchives",
-            exclude: ["lzma-sdk/LICENSE.txt"],
+            exclude: ["lzma-sdk/LICENSE.txt", "libarchive/COPYING"],
             cSettings: [
                 .headerSearchPath("lzma-sdk"),
+                .headerSearchPath("libarchive"),
                 .define("Z7_PPMD_SUPPORT"),
                 .define("Z7_EXTRACT_ONLY"),
+                // libarchive reads its hand-written `libarchive/config.h` only when told to.
+                .define("HAVE_CONFIG_H"),
             ],
             linkerSettings: [
                 .linkedLibrary("z"),

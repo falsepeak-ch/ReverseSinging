@@ -25,7 +25,7 @@ nonisolated enum DubPackImportMessage {
             return Strings.Dub.Error.notDownloaded
         case .unsupportedSource(_, let looksLike?) where looksLike == "empty" || looksLike == "icloud_placeholder":
             return Strings.Dub.Error.notDownloaded
-        case .unsupportedSource(let fileExtension, let looksLike?) where ["zip", "7z"].contains(fileExtension):
+        case .unsupportedSource(let fileExtension, let looksLike?) where ["zip", "7z", "rar"].contains(fileExtension):
             // A `.zip` that is not a zip: say what it is instead.
             return String(format: Strings.Dub.Error.notAnArchive, fileExtension, looksLike.replacingOccurrences(of: "_", with: " "))
         case .unsupportedSource(let fileExtension, _) where fileExtension.isEmpty:

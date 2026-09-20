@@ -46,12 +46,19 @@ struct TimestampParserTests {
         ("1.234,5", 1234.5),
         ("1,234.5", 1234.5),
         ("6.716\u{00A0}s", 6.716),
+        // What the game itself does with a value it cannot read whole: the number it starts
+        // with. From a real pack, "Mean Girls (Regina Bus Scene)", which lost 15 of 30 lines.
+        ("070.010.110", 70.01),
+        ("101.420.200", 101.42),
+        ("[095.360.200]", 95.36),
+        ("6.7-", 6.7),
+        ("12abc", 12.0),
     ])
     func readsTheWaysPeopleWriteATime(text: String, seconds: Double) {
         #expect(TimestampParser.seconds(from: text) == seconds)
     }
 
-    @Test(arguments: ["", "s", "abc", "-1", "1:2:3:4:5", "1:x", "1::2", "inf", "1.5:30", "three", "t=", "6.7-", "-6.7"])
+    @Test(arguments: ["", "s", "abc", "-1", "1:2:3:4:5", "1:x", "1::2", "inf", "1.5:30", "three", "t=", "-6.7", ".5.5x:"])
     func refusesWhatIsNotATime(text: String) {
         #expect(TimestampParser.seconds(from: text) == nil)
     }

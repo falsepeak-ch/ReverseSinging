@@ -178,9 +178,9 @@
 "dub.export.rendering" = "Rendering del video…";
 "dub.error.missingPackInfo" = "Quella cartella non è un pack di doppiaggio: dentro non c'è nessun _pack_info.ini.";
 "dub.error.noLines" = "In questo pack non c'è una sola battuta utilizzabile.";
-"dub.error.notAFolder" = "Scegli una cartella pack, o un archivio .zip o .7z.";
+"dub.error.notAFolder" = "Scegli una cartella pack, o un archivio .zip, .7z o .rar.";
 "dub.error.unreadableArchive" = "Quell'archivio non si è fatto aprire: %@";
-"dub.error.unsupportedArchive" = "Dubloon non riesce ad aprire archivi .%@. Salva di nuovo il pack come .zip o .7z.";
+"dub.error.unsupportedArchive" = "Dubloon non riesce ad aprire archivi .%@. Salva di nuovo il pack come .zip, .7z o .rar.";
 "dub.error.archiveEncrypted" = "L'archivio è protetto da password. Chiedi a chi l'ha creato una copia senza password.";
 "dub.error.archiveUnsupported" = "L'archivio usa una compressione che Dubloon non riesce a estrarre. Prova a salvarlo di nuovo come .zip.";
 "dub.error.archiveCorrupt" = "L'archivio è danneggiato o il download non è finito.";

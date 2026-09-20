@@ -11,6 +11,10 @@ import Foundation
 ///
 /// Anything that looks like a time is read, because a line dropped for its timestamp is a line
 /// the user cannot perform, and the format never said how a time had to be written.
+///
+/// The last resort is what the game these packs were made for does: it reads the number a value
+/// starts with and ignores the rest. One real pack writes `070.010.110` for half its lines and
+/// plays correctly there, at 70.010 seconds, so it has to play here too.
 enum TimestampParser {
 
     /// Seconds from the start of the scene, or nil for anything that is not a time.
@@ -18,7 +22,31 @@ enum TimestampParser {
         guard var value = normalised(text) else { return nil }
         if let start = rangeStart(of: value) { value = start }
         if let units = unitSeconds(value) { return units }
-        return clockSeconds(value)
+        if let clock = clockSeconds(value) { return clock }
+        return leadingNumber(of: value)
+    }
+
+    /// The number a value starts with, `70.010` for `070.010.110` and `6.7` for `6.7-`, the way
+    /// the original game reads a float. Never for a clock time: `1:x` is a typing mistake with
+    /// no safe reading, where a second decimal point is only ever trailing noise.
+    private static func leadingNumber(of value: String) -> TimeInterval? {
+        guard !value.contains(":"), value.first?.isNumber == true else { return nil }
+
+        var number = ""
+        var hasSeparator = false
+        for character in value {
+            if character.isNumber {
+                number.append(character)
+            } else if (character == "." || character == ","), !hasSeparator {
+                hasSeparator = true
+                number.append(".")
+            } else {
+                break
+            }
+        }
+        if number.hasSuffix(".") { number.removeLast() }
+        guard let seconds = TimeInterval(number), seconds.isFinite else { return nil }
+        return seconds
     }
 
     // MARK: - Cleaning

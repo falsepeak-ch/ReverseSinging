@@ -9,6 +9,7 @@ import Foundation
 enum ArchiveKind: String, Sendable {
     case zip
     case sevenZip = "7z"
+    case rar
 
     /// What the file is, by its first bytes before its name.
     ///
@@ -20,6 +21,8 @@ enum ArchiveKind: String, Sendable {
             return ArchiveKind(fileExtension: url.pathExtension)
         }
         if head.starts(with: [0x37, 0x7A, 0xBC, 0xAF, 0x27, 0x1C]) { return .sevenZip }
+        // `Rar!` 1A 07, then 00 for RAR 1.5 to 4 and 01 00 for RAR 5.
+        if head.starts(with: [0x52, 0x61, 0x72, 0x21, 0x1A, 0x07]) { return .rar }
         if head.count >= 4, head[0] == 0x50, head[1] == 0x4B, [0x03, 0x05, 0x07].contains(head[2]) {
             return .zip
         }
@@ -30,6 +33,7 @@ enum ArchiveKind: String, Sendable {
         switch fileExtension.lowercased() {
         case "zip": self = .zip
         case "7z": self = .sevenZip
+        case "rar": self = .rar
         default: return nil
         }
     }
@@ -45,7 +49,6 @@ enum ArchiveKind: String, Sendable {
         if ascii.hasPrefix("bplist") { return "icloud_placeholder" }
         if ascii.hasPrefix("<!doctype") || ascii.hasPrefix("<html") || ascii.hasPrefix("<?xml") || ascii.hasPrefix("<") { return "html" }
         if ascii.hasPrefix("{") || ascii.hasPrefix("[") { return "json" }
-        if ascii.hasPrefix("rar!") { return "rar" }
         if ascii.hasPrefix("id3") { return "mp3" }
         if ascii.hasPrefix("oggs") { return "ogg" }
         if ascii.hasPrefix("riff") { return "riff" }
