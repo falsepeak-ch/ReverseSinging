@@ -176,11 +176,10 @@
 "dub.exporting" = "กำลังส่งออก…";
 "dub.export.mixing" = "กำลังมิกซ์เสียง…";
 "dub.export.rendering" = "กำลังเรนเดอร์วิดีโอ…";
-"dub.error.missingPackInfo" = "โฟลเดอร์นั้นไม่ใช่แพ็กพากย์ ข้างในไม่มีไฟล์ _pack_info.ini";
 "dub.error.noLines" = "แพ็กนี้ไม่มีบทพูดที่ใช้ได้แม้แต่บทเดียว";
-"dub.error.notAFolder" = "เลือกโฟลเดอร์แพ็ก หรือไฟล์ .zip หรือ .7z";
+"dub.error.notAFolder" = "เลือกโฟลเดอร์แพ็ก หรือไฟล์ .zip, .7z หรือ .rar";
 "dub.error.unreadableArchive" = "ไฟล์บีบอัดนั้นเปิดไม่ได้: %@";
-"dub.error.unsupportedArchive" = "Dubloon เปิดไฟล์ .%@ ไม่ได้ ลองบันทึกแพ็กใหม่เป็น .zip หรือ .7z";
+"dub.error.unsupportedArchive" = "Dubloon เปิดไฟล์ .%@ ไม่ได้ ลองบันทึกแพ็กใหม่เป็น .zip, .7z หรือ .rar";
 "dub.error.archiveEncrypted" = "ไฟล์นี้ใส่รหัสผ่านไว้ ลองขอผู้สร้างให้ส่งเวอร์ชันที่ไม่มีรหัสผ่าน";
 "dub.error.archiveUnsupported" = "ไฟล์นี้ใช้วิธีบีบอัดที่ Dubloon แตกไฟล์ไม่ได้ ลองบันทึกใหม่เป็น .zip";
 "dub.error.archiveCorrupt" = "ไฟล์นี้เสียหายหรือดาวน์โหลดไม่เสร็จ";
@@ -395,3 +394,16 @@
 "whatsNew.booth.row.default.value" = "ปิด";
 "whatsNew.booth.confirm" = "ลองกับฉากสักฉาก";
 "whatsNew.booth.later" = "ไว้ทีหลัง";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "แอปอื่นกำลังใช้เสียงอยู่ วางสายหรือปิดแอปนั้นแล้วลองอีกครั้ง";
+"error.playbackUnavailable" = "ไม่สามารถเล่นได้ในขณะนี้ ลองอีกครั้งในอีกสักครู่";
+"dub.convertingAudio" = "กำลังแปลงไฟล์เสียง…";
+"dub.error.notDownloaded" = "ไฟล์นี้ยังดาวน์โหลดจาก iCloud ไม่เสร็จ เปิดในแอปไฟล์ก่อนแล้วลองอีกครั้ง";
+"dub.error.notAnArchive" = "ไฟล์ .%1$@ นี้ไม่ใช่ไฟล์บีบอัด แต่เป็น %2$@ ดาวน์โหลดแพ็กใหม่จากที่ที่คุณได้มา";
+"dub.error.emptySource" = "ข้างในไม่มีอะไรเลย ถ้าอยู่ใน iCloud ให้เปิดในแอปไฟล์ก่อนเพื่อให้ดาวน์โหลด แล้วลองอีกครั้ง";
+"dub.error.notADubPack" = "นี่ไม่ใช่แพ็กพากย์เสียง ข้างในเป็นไฟล์ %@ และไม่มีบทพูดเลย แพ็กพากย์ต้องมีไฟล์ข้อความและไฟล์เสียงสำหรับทุกบทพูด";
+"dub.error.linesNoTimestamps" = "แพ็กนี้ไม่ได้บอกว่าบทพูดแต่ละบทเริ่มเมื่อไร จึงไม่มีอะไรให้พากย์ ผู้ทำแพ็กต้องเพิ่มเวลาเริ่มให้ทุกบทพูด";
+"dub.error.linesBadTimestamps" = "เวลาเริ่มในแพ็กนี้ไม่ได้เขียนเป็นเวลา จึงจัดวางบทพูดไม่ได้";
+"dub.error.linesNoAudio" = "บทพูดในแพ็กนี้ไม่มีไฟล์เสียงมาด้วย จึงไม่มีอะไรให้พากย์ทับ";
+"dub.error.linesUnplayableAudio" = "ไฟล์เสียงในแพ็กนี้เล่นบนอุปกรณ์นี้ไม่ได้เลย";

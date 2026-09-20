@@ -5,7 +5,7 @@ import PackageDescription
 let swiftSettings: [SwiftSetting] = [
     .enableUpcomingFeature("ExistentialAny"),
     .enableUpcomingFeature("MemberImportVisibility"),
-    // Keeps ZIPFoundation, CArchives and XiphTheora out of the app's view: nothing they
+    // Keeps ZIPFoundation, CArchives and XiphCodecs out of the app's view: nothing they
     // declare can leak through DubPackKit's public API.
     .enableUpcomingFeature("InternalImportsByDefault"),
 ]
@@ -24,28 +24,32 @@ let package = Package(
             name: "DubPackKit",
             dependencies: [
                 "CArchives",
-                "XiphTheora",
+                "XiphCodecs",
                 .product(name: "ZIPFoundation", package: "ZIPFoundation"),
             ],
             swiftSettings: swiftSettings
         ),
-        // The LZMA SDK's 7z decoder (public domain) behind a streaming extractor, and a zip reader
-        // that recovers archives whose index is missing.
+        // The LZMA SDK's 7z decoder (public domain) and libarchive's RAR readers (BSD-2-Clause),
+        // each behind a streaming extractor, and a zip reader that recovers archives whose index
+        // is missing.
         .target(
             name: "CArchives",
-            exclude: ["lzma-sdk/LICENSE.txt"],
+            exclude: ["lzma-sdk/LICENSE.txt", "libarchive/COPYING"],
             cSettings: [
                 .headerSearchPath("lzma-sdk"),
+                .headerSearchPath("libarchive"),
                 .define("Z7_PPMD_SUPPORT"),
                 .define("Z7_EXTRACT_ONLY"),
+                // libarchive reads its hand-written `libarchive/config.h` only when told to.
+                .define("HAVE_CONFIG_H"),
             ],
             linkerSettings: [
                 .linkedLibrary("z"),
                 .linkedLibrary("bz2"),
             ]
         ),
-        // libogg + libtheora's decoder, prebuilt by Vendor/build-xiph.sh.
-        .binaryTarget(name: "XiphTheora", path: "Vendor/XiphTheora.xcframework"),
+        // libogg, libvorbis and libtheora's decoder, prebuilt by Vendor/build-xiph.sh.
+        .binaryTarget(name: "XiphCodecs", path: "Vendor/XiphCodecs.xcframework"),
         .testTarget(
             name: "DubPackKitTests",
             dependencies: [

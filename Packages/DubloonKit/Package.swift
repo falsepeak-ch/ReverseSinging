@@ -19,8 +19,11 @@ let package = Package(
         .library(name: "DubloonFoundation", targets: ["DubloonFoundation"]),
     ],
     targets: [
-        // Loading, measuring, cleaning, levelling and mixing voice audio.
-        .target(name: "DubAudio", swiftSettings: swiftSettings),
+        // Loading, measuring, cleaning, levelling and mixing voice audio, and keeping
+        // AVAudioEngine's Objective-C exceptions from ending the process.
+        .target(name: "DubAudio", dependencies: ["DubObjCSupport"], swiftSettings: swiftSettings),
+        // The one thing Swift cannot do: catch an NSException. Objective-C, kept to a file.
+        .target(name: "DubObjCSupport"),
         // How close a take came to the line it replaces, and how close two recordings sound.
         .target(name: "DubScoring", dependencies: ["DubAudio"], swiftSettings: swiftSettings),
         // Where the scene and the booth sit in an exported frame.

@@ -176,11 +176,10 @@
 "dub.exporting" = "Eksporterer…";
 "dub.export.mixing" = "Mikser lyden…";
 "dub.export.rendering" = "Rendrer videoen…";
-"dub.error.missingPackInfo" = "Den mappa er ikke en dubbpakke: det ligger ingen _pack_info.ini i den.";
 "dub.error.noLines" = "Det finnes ikke én eneste brukbar replikk i pakken.";
-"dub.error.notAFolder" = "Velg en pakkemappe eller et .zip- eller .7z-arkiv.";
+"dub.error.notAFolder" = "Velg en pakkemappe eller et .zip-, .7z- eller .rar-arkiv.";
 "dub.error.unreadableArchive" = "Det arkivet nektet å åpne seg: %@";
-"dub.error.unsupportedArchive" = "Dubloon kan ikke åpne .%@-arkiver. Lagre pakken på nytt som .zip eller .7z.";
+"dub.error.unsupportedArchive" = "Dubloon kan ikke åpne .%@-arkiver. Lagre pakken på nytt som .zip, .7z eller .rar.";
 "dub.error.archiveEncrypted" = "Arkivet er passordbeskyttet. Be den som laget det om en kopi uten passord.";
 "dub.error.archiveUnsupported" = "Arkivet bruker en komprimering Dubloon ikke kan pakke ut. Prøv å lagre det på nytt som .zip.";
 "dub.error.archiveCorrupt" = "Arkivet er skadet eller ble ikke lastet ned ferdig.";
@@ -395,3 +394,16 @@
 "whatsNew.booth.row.default.value" = "Av";
 "whatsNew.booth.confirm" = "Prøv det på en scene";
 "whatsNew.booth.later" = "Senere";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "En annen app bruker lyden akkurat nå. Avslutt samtalen eller lukk den, og prøv igjen.";
+"error.playbackUnavailable" = "Avspilling er ikke tilgjengelig nå. Prøv igjen om et øyeblikk.";
+"dub.convertingAudio" = "Konverterer opptakene…";
+"dub.error.notDownloaded" = "Filen er ikke ferdig lastet ned fra iCloud. Åpne den i Filer først, og prøv igjen.";
+"dub.error.notAnArchive" = "Den .%1$@ er ikke et arkiv, det er %2$@. Hent pakken igjen der du fikk den.";
+"dub.error.emptySource" = "Det er ingenting der. Ligger den i iCloud, åpne den i Filer først så den lastes ned, og prøv igjen.";
+"dub.error.notADubPack" = "Det der er ikke en dubbepakke. Den inneholder %@-filer og ingen replikker. En dubbepakke har en tekstfil og et opptak for hver replikk.";
+"dub.error.linesNoTimestamps" = "Pakken sier ikke når replikkene starter, så det er ingenting å spille inn. Den som laget den, må gi hver replikk en starttid.";
+"dub.error.linesBadTimestamps" = "Starttidene i pakken er ikke skrevet som tider, så replikkene kan ikke plasseres.";
+"dub.error.linesNoAudio" = "Replikkene i pakken har ingen opptak, så det er ingenting å dubbe.";
+"dub.error.linesUnplayableAudio" = "Ingen av opptakene i pakken kan spilles av på denne enheten.";

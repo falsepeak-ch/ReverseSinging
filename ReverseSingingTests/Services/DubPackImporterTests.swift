@@ -102,9 +102,10 @@ struct DubPackImporterTests {
         try FileManager.default.createDirectory(at: source, withIntermediateDirectories: true)
         defer { try? FileManager.default.removeItem(at: source) }
 
-        await #expect(throws: DubPackImportError.noPackFound) {
+        let refusal = await #expect(throws: DubPackImportError.self) {
             try await DubPackImporter.shared.importPack(from: source)
         }
+        #expect(refusal?.telemetryCode == "no_pack_found")
     }
 
     // MARK: - Identity

@@ -80,7 +80,7 @@ struct DubLibraryView: View {
         // alert that says to re-save it as a .zip or .7z.
         .fileImporter(
             isPresented: $viewModel.showFileImporter,
-            allowedContentTypes: [.folder, .zip, .sevenZipArchive, .archive],
+            allowedContentTypes: [.folder, .zip, .sevenZipArchive, .rarArchive, .archive],
             allowsMultipleSelection: false
         ) { result in
             viewModel.handleImport(result)

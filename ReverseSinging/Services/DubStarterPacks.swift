@@ -87,6 +87,15 @@ nonisolated enum DubStarterPacks {
         Bundle.main.url(forResource: name, withExtension: "zip")
     }
 
+    /// Installs in flight, by pack name.
+    ///
+    /// Two libraries can exist at once (the shelf and a detail screen each own one), and each
+    /// used to start its own install of the same starter pack. The second commit retired the
+    /// folder the first was still writing its manifest into, which is how "the folder
+    /// manifest.json doesn't exist" reached the crash reporter. Now the second caller waits
+    /// for the first.
+    @MainActor private static var inFlight: [String: Task<DubPack?, Never>] = [:]
+
     /// Imports one pending pack and remembers it.
     ///
     /// Marked as installed whether or not the import succeeded. A bundled zip that will not
@@ -97,6 +106,24 @@ nonisolated enum DubStarterPacks {
     /// pack stays pending and goes on at the next launch.
     @discardableResult
     static func install(_ name: String) async -> DubPack? {
+        let task = await MainActor.run { () -> Task<DubPack?, Never> in
+            if let running = inFlight[name] { return running }
+            let started = Task { await performInstall(name) }
+            inFlight[name] = started
+            return started
+        }
+        // A caller that is cancelled cancels the install, as it did when the install ran
+        // inline: the pack stays pending and goes on at the next launch.
+        let pack = await withTaskCancellationHandler {
+            await task.value
+        } onCancel: {
+            task.cancel()
+        }
+        await MainActor.run { if inFlight[name] == task { inFlight[name] = nil } }
+        return pack
+    }
+
+    private static func performInstall(_ name: String) async -> DubPack? {
         var finished = true
         defer { if finished { installed.insert(record(for: name)) } }
 

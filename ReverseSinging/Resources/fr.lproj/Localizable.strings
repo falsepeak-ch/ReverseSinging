@@ -176,11 +176,10 @@
 "dub.exporting" = "Export en cours…";
 "dub.export.mixing" = "Mixage de l'audio…";
 "dub.export.rendering" = "Rendu de la vidéo…";
-"dub.error.missingPackInfo" = "Ce dossier n'est pas un pack de doublage : il n'y a aucun _pack_info.ini dedans.";
 "dub.error.noLines" = "Ce pack n'a pas une seule réplique exploitable.";
-"dub.error.notAFolder" = "Choisis un dossier de pack, ou une archive .zip ou .7z.";
+"dub.error.notAFolder" = "Choisis un dossier de pack, ou une archive .zip, .7z ou .rar.";
 "dub.error.unreadableArchive" = "Cette archive a refusé de s'ouvrir : %@";
-"dub.error.unsupportedArchive" = "Dubloon ne peut pas ouvrir les archives .%@. Réenregistre le pack en .zip ou en .7z.";
+"dub.error.unsupportedArchive" = "Dubloon ne peut pas ouvrir les archives .%@. Réenregistre le pack en .zip, en .7z ou en .rar.";
 "dub.error.archiveEncrypted" = "L'archive est protégée par un mot de passe. Demande à son créateur une copie sans mot de passe.";
 "dub.error.archiveUnsupported" = "L'archive utilise une compression que Dubloon ne sait pas décompresser. Essaie de la réenregistrer en .zip.";
 "dub.error.archiveCorrupt" = "L'archive est endommagée ou son téléchargement n'est pas allé au bout.";
@@ -395,3 +394,16 @@
 "whatsNew.booth.row.default.value" = "Éteinte";
 "whatsNew.booth.confirm" = "Essayer sur une scène";
 "whatsNew.booth.later" = "Plus tard";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "Une autre app utilise l'audio en ce moment. Terminez l'appel ou fermez-la, puis réessayez.";
+"error.playbackUnavailable" = "La lecture n'est pas disponible pour le moment. Réessayez dans un instant.";
+"dub.convertingAudio" = "Conversion des enregistrements…";
+"dub.error.notDownloaded" = "Ce fichier n'a pas fini de se télécharger depuis iCloud. Ouvrez-le d'abord dans Fichiers, puis réessayez.";
+"dub.error.notAnArchive" = "Ce .%1$@ n'est pas une archive, c'est %2$@. Récupérez le pack à nouveau là où vous l'avez obtenu.";
+"dub.error.emptySource" = "Il n'y a rien là-dedans. Si c'est dans iCloud, ouvre-le d'abord dans Fichiers pour qu'il se télécharge, puis réessaie.";
+"dub.error.notADubPack" = "Ce n'est pas un pack de doublage. Il contient des fichiers %@ et aucune réplique. Un pack a un fichier texte et un enregistrement pour chaque réplique.";
+"dub.error.linesNoTimestamps" = "Ce pack ne dit pas quand ses répliques commencent, donc il n'y a rien à jouer. Son auteur doit ajouter un temps de départ à chaque réplique.";
+"dub.error.linesBadTimestamps" = "Les temps de départ de ce pack ne sont pas écrits comme des temps, donc ses répliques ne peuvent pas être placées.";
+"dub.error.linesNoAudio" = "Les répliques de ce pack n'ont pas d'enregistrement, donc il n'y a rien à doubler.";
+"dub.error.linesUnplayableAudio" = "Aucun des enregistrements de ce pack ne peut être lu sur cet appareil.";

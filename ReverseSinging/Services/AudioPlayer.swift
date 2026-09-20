@@ -8,6 +8,38 @@
 
 import AVFoundation
 import Combine
+import DubAudio
+
+/// Why the player could not load or start.
+enum AudioPlayerError: LocalizedError {
+    /// The audio session could not be made active, most often because another app holds it.
+    case sessionUnavailable(AudioSessionError)
+    /// The session is active but the output has nowhere to go, so there is no format to build
+    /// the engine's graph against.
+    case noOutputRoute
+    /// The file could not be read.
+    case unreadableFile(Error)
+    /// `AVAudioEngine` refused the graph, even after a rebuild. Carries what it raised.
+    case graphRejected(String)
+
+    var errorDescription: String? {
+        switch self {
+        case .sessionUnavailable(let error): error.errorDescription
+        case .noOutputRoute: Strings.Error.audioInUse
+        case .unreadableFile(let error): error.localizedDescription
+        case .graphRejected: Strings.Error.playbackUnavailable
+        }
+    }
+
+    /// True when nothing in the app could have done better: the device is busy elsewhere.
+    var isEnvironmental: Bool {
+        switch self {
+        case .sessionUnavailable(let error): error.isEnvironmental
+        case .noOutputRoute: true
+        case .unreadableFile, .graphRejected: false
+        }
+    }
+}
 
 final class AudioPlayer: NSObject, ObservableObject {
     @Published var isPlaying = false
@@ -30,6 +62,10 @@ final class AudioPlayer: NSObject, ObservableObject {
     private var progressTimer: Timer?
     private var audioBuffer: AVAudioPCMBuffer?
 
+    /// Set when the system rebuilt the engine under us (a route change, an interruption), so
+    /// the next play reconnects the graph rather than trusting connections that are gone.
+    private var needsReconnect = false
+
     /// Which scheduled buffer is the current one.
     ///
     /// A buffer scheduled with `.interrupts` still calls its completion handler when it is
@@ -37,9 +73,15 @@ final class AudioPlayer: NSObject, ObservableObject {
     /// buffer's handler arrive a moment later and mark the new playback finished.
     private var playbackGeneration = 0
 
+    /// How long to wait for the engine's first render cycle before starting a node at a
+    /// host time. `play(at:)` on a node that has never rendered raises, and ended the
+    /// process; a few milliseconds of patience is what it actually needed.
+    private static let firstRenderTimeout: TimeInterval = 0.08
+
     override init() {
         super.init()
         setupAudioEngine()
+        observeEngineChanges()
         // Audio session now managed centrally by AudioSessionManager
         // No need to configure here - prevents conflicts with recording
     }
@@ -66,13 +108,66 @@ final class AudioPlayer: NSObject, ObservableObject {
         timePitch.pitch = pitchShift
     }
 
+    // MARK: - Engine Changes
+
+    /// The engine posts a configuration change when the route or the session changes under
+    /// it: headphones out, a call in. It stops itself, and its connections are not to be
+    /// trusted afterwards. Both notifications arrive off the main thread.
+    private func observeEngineChanges() {
+        guard let engine = audioEngine else { return }
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleConfigurationChange),
+            name: .AVAudioEngineConfigurationChange,
+            object: engine
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleInterruption),
+            name: AVAudioSession.interruptionNotification,
+            object: AVAudioSession.sharedInstance()
+        )
+    }
+
+    @objc nonisolated private func handleConfigurationChange(_ notification: Notification) {
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            self.needsReconnect = true
+            self.isPlaying = false
+            self.stopProgressTimer()
+        }
+    }
+
+    @objc nonisolated private func handleInterruption(_ notification: Notification) {
+        guard let value = notification.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt,
+              AVAudioSession.InterruptionType(rawValue: value) == .began else { return }
+        Task { @MainActor [weak self] in
+            self?.stop()
+        }
+    }
+
     // MARK: - Playback Control
 
     func loadAudio(from url: URL) throws {
         stop()
 
+        // The graph is built against the output's format, and the output has none until the
+        // session is active. Building it anyway is what `AVAudioEngine` answered with an
+        // exception, and the app with a crash, every time a call or another app held the
+        // hardware.
+        do {
+            try AudioSessionManager.shared.activate()
+        } catch {
+            throw AudioPlayerError.sessionUnavailable(error)
+        }
+        guard AudioSessionManager.shared.hasOutputRoute else { throw AudioPlayerError.noOutputRoute }
+
         // Load audio file
-        audioFile = try AVAudioFile(forReading: url)
+        do {
+            audioFile = try AVAudioFile(forReading: url)
+        } catch {
+            throw AudioPlayerError.unreadableFile(error)
+        }
 
         guard let file = audioFile,
               let engine = audioEngine,
@@ -98,17 +193,14 @@ final class AudioPlayer: NSObject, ObservableObject {
         )
 
         if let buffer = audioBuffer {
-            try file.read(into: buffer)
+            do {
+                try file.read(into: buffer)
+            } catch {
+                throw AudioPlayerError.unreadableFile(error)
+            }
         }
 
-        // Connect nodes with the audio file's format
-        // Disconnect first if already connected
-        engine.disconnectNodeOutput(player)
-        engine.disconnectNodeOutput(timePitch)
-
-        // Connect: playerNode -> timePitch -> mainMixerNode using file format
-        engine.connect(player, to: timePitch, format: format)
-        engine.connect(timePitch, to: engine.mainMixerNode, format: format)
+        try connect(player, through: timePitch, in: engine, format: format)
 
         // Warm the engine now rather than on the first press. Loading happens while the user
         // is still reaching for the transport, so this is free time; doing it inside `play()`
@@ -117,6 +209,40 @@ final class AudioPlayer: NSObject, ObservableObject {
         if !engine.isRunning {
             try? engine.start()
         }
+    }
+
+    /// Connects `player -> timePitch -> main mixer` in the file's format.
+    ///
+    /// `connect` does not return errors, it raises. A graph the engine will not build, which
+    /// happens when the mixer's own format is unusable, is tried once more over a stopped
+    /// engine and then given up as a thrown error rather than a crash.
+    private func connect(
+        _ player: AVAudioPlayerNode,
+        through timePitch: AVAudioUnitTimePitch,
+        in engine: AVAudioEngine,
+        format: AVAudioFormat
+    ) throws {
+        let wire = {
+            // Disconnect first if already connected
+            engine.disconnectNodeOutput(player)
+            engine.disconnectNodeOutput(timePitch)
+            engine.connect(player, to: timePitch, format: format)
+            engine.connect(timePitch, to: engine.mainMixerNode, format: format)
+        }
+
+        do {
+            try AudioGraphGuard.attempt(wire)
+        } catch {
+            CrashReporter.shared.log("audio_player.connect raised, rebuilding: \(error)")
+            if engine.isRunning { engine.stop() }
+            engine.reset()
+            do {
+                try AudioGraphGuard.attempt(wire)
+            } catch {
+                throw AudioPlayerError.graphRejected(error.description)
+            }
+        }
+        needsReconnect = false
     }
 
     /// Plays now, or on an exact future host-clock boundary when one is supplied.
@@ -128,6 +254,13 @@ final class AudioPlayer: NSObject, ObservableObject {
               let player = playerNode,
               let buffer = audioBuffer else { return }
 
+        if needsReconnect, let file = audioFile, let timePitch = timePitchNode {
+            guard (try? connect(player, through: timePitch, in: engine, format: file.processingFormat)) != nil else {
+                isPlaying = false
+                return
+            }
+        }
+
         do {
             // Start engine if not running
             if !engine.isRunning {
@@ -136,10 +269,9 @@ final class AudioPlayer: NSObject, ObservableObject {
 
             schedule(buffer, on: player)
 
-            if let hostTime {
-                player.play(at: AVAudioTime(hostTime: hostTime))
-            } else {
-                player.play()
+            guard start(player, in: engine, atHostTime: hostTime) else {
+                isPlaying = false
+                return
             }
             isPlaying = true
             startProgressTimer()
@@ -149,6 +281,31 @@ final class AudioPlayer: NSObject, ObservableObject {
             print("❌ Error starting audio engine: \(error)")
             isPlaying = false
         }
+    }
+
+    /// Starts `player`, at `hostTime` when the engine has rendered at least once and so can
+    /// honour a deadline, immediately otherwise. False when the node would not start at all.
+    ///
+    /// Each `play` here can raise rather than return, so each runs behind `AudioGraphGuard`.
+    @discardableResult
+    private func start(_ player: AVAudioPlayerNode, in engine: AVAudioEngine, atHostTime hostTime: UInt64?) -> Bool {
+        if let hostTime, Self.waitForFirstRender(of: engine) {
+            if AudioGraphGuard.succeeds({ player.play(at: AVAudioTime(hostTime: hostTime)) }) { return true }
+            CrashReporter.shared.log("audio_player.play(at:) raised; starting immediately")
+        }
+        if AudioGraphGuard.succeeds({ player.play() }) { return true }
+        CrashReporter.shared.recordFailure("audio_player.play", reason: "player node refused to start")
+        return false
+    }
+
+    /// True once the engine's output has rendered, or false after a short wait if it has not.
+    private static func waitForFirstRender(of engine: AVAudioEngine) -> Bool {
+        let deadline = Date().addingTimeInterval(firstRenderTimeout)
+        while engine.outputNode.lastRenderTime?.isSampleTimeValid != true {
+            if Date() >= deadline { return false }
+            usleep(2_000)
+        }
+        return true
     }
 
     func pause() {
@@ -176,6 +333,7 @@ final class AudioPlayer: NSObject, ObservableObject {
 
     func seek(to time: TimeInterval) {
         guard let player = playerNode,
+              let engine = audioEngine,
               let file = audioFile,
               let buffer = audioBuffer else { return }
 
@@ -217,8 +375,9 @@ final class AudioPlayer: NSObject, ObservableObject {
             currentTime = time
 
             // Resume playback if it was playing
-            if wasPlaying {
-                player.play()
+            if wasPlaying, !start(player, in: engine, atHostTime: nil) {
+                isPlaying = false
+                stopProgressTimer()
             }
         }
     }
@@ -254,6 +413,7 @@ final class AudioPlayer: NSObject, ObservableObject {
         // Only reschedule if currently playing
         guard isPlaying,
               let player = playerNode,
+              let engine = audioEngine,
               let buffer = audioBuffer else { return }
 
         // Stop current playback (but don't stop engine)
@@ -263,7 +423,10 @@ final class AudioPlayer: NSObject, ObservableObject {
         schedule(buffer, on: player)
 
         // Resume playback immediately
-        player.play()
+        if !start(player, in: engine, atHostTime: nil) {
+            isPlaying = false
+            stopProgressTimer()
+        }
     }
 
     // MARK: - Speed and Pitch Control

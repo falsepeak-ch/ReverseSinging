@@ -19,7 +19,7 @@ struct DubPackIssueReportTests {
             "missing_pack_info": 5, "unreadable_pack_info": 6, "ambiguous_backing_track": 7,
             "unplayable_backing_track": 8, "ambiguous_video": 9, "unplayable_video": 10,
             "video_transcode": 11, "skipped_archive_entries": 12, "no_line_entries": 13,
-            "recovered_archive": 14, "import": 100,
+            "recovered_archive": 14, "audio_transcode": 15, "import": 100,
         ])
     }
 
@@ -177,6 +177,7 @@ struct DubPackIssueReportTests {
             .ambiguousSceneVideo(candidates: ["a", "b"]),
             .unplayableSceneVideo(file: "a.ogv"),
             .videoConversionFailed(file: "a.ogv", failure: .noFrames),
+            .audioConversionFailed(file: "a.ogg", failure: .notVorbis),
             .archiveRecovered(truncatedEntry: "a.mp3", partialKept: true, damagedEntries: 0),
             .unsafeArchiveEntriesSkipped(count: 1),
         ]

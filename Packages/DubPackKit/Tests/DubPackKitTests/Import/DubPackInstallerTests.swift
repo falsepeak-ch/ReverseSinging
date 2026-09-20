@@ -212,19 +212,20 @@ struct DubPackInstallerTests {
         let photos = try PackBuilder(in: temp.url, named: "Holiday Photos")
         try photos.still("IMG_0001.jpg")
 
-        await #expect(throws: DubPackImportError.noPackFound) {
+        let refusal = await #expect(throws: DubPackImportError.self) {
             try await DubPackInstaller.testing(library: temp.appending("library")).install(from: photos.directory)
         }
+        #expect(refusal?.telemetryCode == "no_pack_found")
     }
 
     @Test func namesAFileTypeItCannotOpen() async throws {
         let temp = try TemporaryDirectory()
         defer { temp.remove() }
-        let rar = temp.appending("pack.rar")
-        try Data("Rar!\u{1A}\u{07}\u{00}".utf8).write(to: rar)
+        let tarball = temp.appending("pack.tgz")
+        try Data([0x1F, 0x8B, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]).write(to: tarball)
 
-        await #expect(throws: DubPackImportError.unsupportedSource(fileExtension: "rar")) {
-            try await DubPackInstaller.testing(library: temp.appending("library")).install(from: rar)
+        await #expect(throws: DubPackImportError.unsupportedSource(fileExtension: "tgz", looksLike: "gzip")) {
+            try await DubPackInstaller.testing(library: temp.appending("library")).install(from: tarball)
         }
     }
 
@@ -254,5 +255,47 @@ struct DubPackInstallerTests {
         }
         #expect(error as? DubPackImportError == .cancelled)
         #expect(contents(of: library).isEmpty)
+    }
+}
+
+@Suite("Installer commit hook")
+struct InstallerCommitHookTests {
+
+    @Test func runsTheHostsStepInsideTheFolderBeforeItIsCommitted() async throws {
+        let temp = try TemporaryDirectory()
+        defer { temp.remove() }
+        let source = try PackBuilder(in: temp.appending("source"), named: "Hooked")
+        try source.packInfo()
+        try source.line("001_A", at: 0)
+        let library = temp.appending("library")
+
+        let installed = try await DubPackInstaller.testing(library: library).install(from: source.directory, beforeCommit: { incoming, destination, pack in
+            #expect(incoming.lastPathComponent.hasPrefix(".incoming-"))
+            #expect(destination.lastPathComponent == "Hooked")
+            #expect(pack.lines.count == 1)
+            try "cached".write(to: incoming.appendingPathComponent("manifest.json"), atomically: true, encoding: .utf8)
+        })
+
+        let manifest = installed.directory.appendingPathComponent("manifest.json")
+        #expect(try String(contentsOf: manifest, encoding: .utf8) == "cached")
+    }
+
+    @Test func aHookThatThrowsFailsTheInstallAndLeavesNothingBehind() async throws {
+        let temp = try TemporaryDirectory()
+        defer { temp.remove() }
+        let source = try PackBuilder(in: temp.appending("source"), named: "Hooked")
+        try source.packInfo()
+        try source.line("001_A", at: 0)
+        let library = temp.appending("library")
+
+        struct Refused: Error {}
+        await #expect(throws: DubPackImportError.self) {
+            try await DubPackInstaller.testing(library: library).install(from: source.directory, beforeCommit: { _, _, _ in
+                throw Refused()
+            })
+        }
+
+        let contents = (try? FileManager.default.contentsOfDirectory(atPath: library.path)) ?? []
+        #expect(contents.isEmpty)
     }
 }

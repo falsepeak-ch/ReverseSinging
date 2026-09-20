@@ -8,9 +8,10 @@ public import Foundation
 /// Brings a dub pack into a library folder: from a folder, a `.zip` or a `.7z`.
 ///
 /// One install stages the source (unpacking an archive, which is recognised by its bytes rather
-/// than its name, and recovering a zip that was cut off), finds the pack inside it however deeply
-/// it is wrapped, assembles it out of sight in the library, converts a Theora scene to H.264,
-/// reads it, and only then puts it in place of any installed pack with the same name.
+/// than its name, and recovering a zip that was cut off, and waiting for iCloud when the file is
+/// not here yet), finds the pack inside it however deeply it is wrapped, assembles it out of
+/// sight in the library, converts Vorbis audio to AAC and a Theora scene to H.264, reads it, and
+/// only then puts it in place of any installed pack with the same name.
 ///
 /// Everything the install had to drop or work around is returned in `InstalledDubPack.issues`
 /// and, when a reporter is given, sent to it once at the end, grouped by kind. A failure sends
@@ -64,13 +65,20 @@ public struct DubPackInstaller: Sendable {
         installation.destination(forFolderName: PackInstallation.folderName(for: source))
     }
 
+    /// A step the host runs on the assembled pack before it replaces the installed one: the
+    /// place to write anything of the host's own into the folder, such as a cache file. Gets
+    /// the folder as it is now (hidden, inside the library), where it is about to be, and what
+    /// was read from it. A throw fails the install and leaves the previous one untouched.
+    public typealias BeforeCommit = @Sendable (_ incoming: URL, _ destination: URL, _ pack: ParsedPack) throws -> Void
+
     /// Installs the pack at `source`.
     ///
     /// `source` may be security scoped; the caller is responsible for accessing it.
     @concurrent
     public func install(
         from source: URL,
-        progress: (@Sendable (DubPackInstallProgress) -> Void)? = nil
+        progress: (@Sendable (DubPackInstallProgress) -> Void)? = nil,
+        beforeCommit: BeforeCommit? = nil
     ) async throws(DubPackImportError) -> InstalledDubPack {
         let sourceExtension = source.pathExtension.lowercased()
         let folderName = PackInstallation.folderName(for: source)
@@ -104,8 +112,9 @@ public struct DubPackInstaller: Sendable {
 
             try checkCancellation()
             guard let root = PackRootFinder.root(in: staged.directory) else {
-                issues.append(.noLineEntries(fileTypes: PackRootFinder.fileTypeCounts(in: staged.directory)))
-                throw .noPackFound
+                let fileTypes = PackRootFinder.fileTypeCounts(in: staged.directory)
+                issues.append(.noLineEntries(fileTypes: fileTypes))
+                throw .noPackFound(fileTypes: fileTypes)
             }
 
             // Without pack info, a pack is titled after the folder it came wrapped in, which was named
@@ -118,13 +127,29 @@ public struct DubPackInstaller: Sendable {
             reporter?.log("dub_pack.import installed")
             progress?(.init(stage: .copying, fraction: 1))
 
+            stage = .convertingAudio
+            try checkCancellation()
+            progress?(.init(stage: .convertingAudio, fraction: 0))
+            let audio = AudioTrackConverter.convertIfNeeded(in: assembled) { fraction in
+                progress?(.init(stage: .convertingAudio, fraction: fraction))
+            }
+            issues += audio.issues
+            if !audio.converted.isEmpty {
+                reporter?.log("dub_pack.import converted \(audio.converted.count) vorbis files")
+            }
+
             stage = .convertingVideo
             try checkCancellation()
             let conversion = await SceneVideoConverter.convertIfNeeded(in: assembled, probe: probe) { fraction in
                 progress?(.init(stage: .convertingVideo, fraction: fraction))
             }
-            if case .failed(let file, let failure) = conversion {
+            switch conversion {
+            case .nothingToConvert, .converted:
+                break
+            case .failed(let file, let failure):
                 issues.append(.videoConversionFailed(file: file, failure: failure))
+            case .deferred(let file, let failure):
+                issues.append(.videoConversionDeferred(file: file, failure: failure))
             }
             reporter?.log("dub_pack.import converted")
 
@@ -133,6 +158,14 @@ public struct DubPackInstaller: Sendable {
             progress?(.init(stage: .reading, fraction: 0))
             let reading = try await DubPackReader(probe: probe).read(at: assembled, fallbackTitle: fallbackTitle)
             issues += reading.issues
+
+            if let beforeCommit {
+                do {
+                    try beforeCommit(assembled, installation.destination(forFolderName: folderName), reading.pack)
+                } catch {
+                    throw DubPackImportError.installFailed(detail: error.localizedDescription)
+                }
+            }
 
             let directory = try installation.commit(assembled, as: folderName)
             incoming = nil

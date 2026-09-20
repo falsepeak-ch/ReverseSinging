@@ -176,11 +176,10 @@
 "dub.exporting" = "Export läuft…";
 "dub.export.mixing" = "Audio wird gemischt…";
 "dub.export.rendering" = "Video wird gerendert…";
-"dub.error.missingPackInfo" = "Dieser Ordner ist kein Dub-Pack. Es liegt keine _pack_info.ini darin.";
 "dub.error.noLines" = "In diesem Pack steckt keine einzige brauchbare Zeile.";
-"dub.error.notAFolder" = "Wähl einen Pack-Ordner oder ein .zip- oder .7z-Archiv.";
+"dub.error.notAFolder" = "Wähl einen Pack-Ordner oder ein .zip-, .7z- oder .rar-Archiv.";
 "dub.error.unreadableArchive" = "Dieses Archiv wollte sich nicht öffnen lassen: %@";
-"dub.error.unsupportedArchive" = "Dubloon kann keine .%@-Archive öffnen. Speicher den Pack noch mal als .zip oder .7z.";
+"dub.error.unsupportedArchive" = "Dubloon kann keine .%@-Archive öffnen. Speicher den Pack noch mal als .zip, .7z oder .rar.";
 "dub.error.archiveEncrypted" = "Das Archiv ist passwortgeschützt. Bitte den Ersteller um eine Kopie ohne Passwort.";
 "dub.error.archiveUnsupported" = "Das Archiv nutzt eine Komprimierung, die Dubloon nicht entpacken kann. Speicher es noch mal als .zip.";
 "dub.error.archiveCorrupt" = "Das Archiv ist beschädigt oder wurde nicht fertig heruntergeladen.";
@@ -395,3 +394,16 @@
 "whatsNew.booth.row.default.value" = "Aus";
 "whatsNew.booth.confirm" = "An einer Szene ausprobieren";
 "whatsNew.booth.later" = "Später";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "Eine andere App nutzt gerade den Ton. Beende den Anruf oder schließe sie und versuche es erneut.";
+"error.playbackUnavailable" = "Die Wiedergabe ist gerade nicht möglich. Versuche es gleich noch einmal.";
+"dub.convertingAudio" = "Aufnahmen werden konvertiert…";
+"dub.error.notDownloaded" = "Diese Datei ist noch nicht vollständig aus iCloud geladen. Öffne sie zuerst in Dateien und versuche es erneut.";
+"dub.error.notAnArchive" = "Diese .%1$@ ist kein Archiv, sondern %2$@. Lade das Pack noch einmal von dort, wo du es bekommen hast.";
+"dub.error.emptySource" = "Da ist nichts drin. Falls es in iCloud liegt, öffne es zuerst in Dateien, damit es geladen wird, und versuch es dann noch mal.";
+"dub.error.notADubPack" = "Das ist kein Dub-Pack. Es enthält %@-Dateien und keine Dialogzeilen. Ein Dub-Pack hat für jede Zeile eine Textdatei und eine Aufnahme.";
+"dub.error.linesNoTimestamps" = "Dieses Pack sagt nicht, wann seine Zeilen beginnen, also gibt es nichts zu sprechen. Wer es gemacht hat, muss jeder Zeile eine Startzeit geben.";
+"dub.error.linesBadTimestamps" = "Die Startzeiten in diesem Pack sind nicht als Zeiten geschrieben, also lassen sich die Zeilen nicht platzieren.";
+"dub.error.linesNoAudio" = "Die Zeilen dieses Packs haben keine Aufnahmen dabei, also gibt es nichts zu synchronisieren.";
+"dub.error.linesUnplayableAudio" = "Keine der Aufnahmen in diesem Pack lässt sich auf diesem Gerät abspielen.";

@@ -82,3 +82,16 @@ descriptors:
             info.compress_type = method
             archive.writestr(info, data)
 
+## RAR archives
+
+- **pack_store.rar:** the same two-line `Fixture Pack/` as the 7z fixtures, as a RAR 5 archive with
+  every entry stored. Tests derive a cut-off archive from it by taking a prefix of its bytes.
+- **pack_unsafe_path.rar:** one entry named `../evil.txt` and one safe entry.
+
+There is no free RAR writer, so `mkrar.py` writes the format by hand from RARLAB's technote, which
+is enough for stored entries; `bsdtar -tvf` on a Mac lists the result. What these fixtures cannot
+cover is decompression itself. That is libarchive's own tested code, and it is exercised here by
+the real-pack harness: both RAR packs found in the wild (one of them named `.zip`) install whole.
+
+    mkrar.py pack_store.rar "Fixture Pack"
+    mkrar.py pack_unsafe_path.rar --entry "../evil.txt=nope" --entry "Fixture Pack/ok.txt=fine"

@@ -11,6 +11,14 @@
 /// are in order of preference, canonical name first, and every comparison ignores case.
 enum PackFormat {
 
+    /// True when a set of files, counted by extension, could be somebody's attempt at a pack:
+    /// text that might be line entries, and recordings that might be the lines.
+    static func looksLikeAPackAttempt(_ fileTypes: [String: Int]) -> Bool {
+        let hasEntryText = !Files.entryExtensions.isDisjoint(with: fileTypes.keys)
+        let hasRecordings = !Set(Files.audioExtensions).isDisjoint(with: fileTypes.keys)
+        return hasEntryText && hasRecordings
+    }
+
     enum Files {
         static let packInfo = [
             "_pack_info.ini", "pack_info.ini", "_packinfo.ini", "packinfo.ini",
