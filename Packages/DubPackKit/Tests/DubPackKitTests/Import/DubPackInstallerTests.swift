@@ -212,9 +212,10 @@ struct DubPackInstallerTests {
         let photos = try PackBuilder(in: temp.url, named: "Holiday Photos")
         try photos.still("IMG_0001.jpg")
 
-        await #expect(throws: DubPackImportError.noPackFound) {
+        let refusal = await #expect(throws: DubPackImportError.self) {
             try await DubPackInstaller.testing(library: temp.appending("library")).install(from: photos.directory)
         }
+        #expect(refusal?.telemetryCode == "no_pack_found")
     }
 
     @Test func namesAFileTypeItCannotOpen() async throws {

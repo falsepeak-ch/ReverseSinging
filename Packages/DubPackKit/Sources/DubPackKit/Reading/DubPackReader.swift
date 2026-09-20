@@ -39,7 +39,9 @@ public struct DubPackReader: Sendable {
         guard let folder = PackDirectory(url: directory) else { throw .sourceMissing }
 
         let entries = folder.entryCandidates
-        guard folder.packInfoFile != nil || !entries.isEmpty else { throw .noPackFound }
+        guard folder.packInfoFile != nil || !entries.isEmpty else {
+            throw .noPackFound(fileTypes: folder.fileTypeCounts)
+        }
 
         var issues: [DubPackIssue] = []
         let info = packInfo(in: folder, issues: &issues)

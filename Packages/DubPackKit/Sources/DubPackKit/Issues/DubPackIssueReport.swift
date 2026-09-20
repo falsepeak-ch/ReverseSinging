@@ -90,9 +90,12 @@ public struct DubPackIssueReport: Sendable, Hashable {
         case .videoTranscode:
             keys["deferred"] == .bool(true) ? .informational : .degraded
         case .importFailed:
-            // Somebody else's disk being full, or their file not having come down from
-            // iCloud yet, is not a failing of the pack format.
-            keys["environmental"] == .bool(true) ? .informational : .degraded
+            // Somebody else's disk being full, their file not having come down from iCloud
+            // yet, or their having picked a font instead of a pack, is not a failing of the
+            // pack format.
+            keys["environmental"] == .bool(true) || keys["not_a_pack"] == .bool(true) ? .informational : .degraded
+        case .noLineEntries:
+            keys["not_a_pack"] == .bool(true) ? .informational : .degraded
         default:
             .degraded
         }
@@ -151,6 +154,9 @@ extension DubPackIssueReport {
         if error.isEnvironmental {
             keys["environmental"] = .bool(true)
         }
+        if error.isNotAPackAttempt {
+            keys["not_a_pack"] = .bool(true)
+        }
         return DubPackIssueReport(kind: .importFailed, reason: "Import failed: \(error.telemetryCode)", keys: keys)
     }
 
@@ -189,6 +195,10 @@ extension DubPackIssueReport {
             let fileCount = fileTypes.values.reduce(0, +)
             keys["file_count"] = .int(fileCount)
             keys["file_types"] = .string(describe(fileTypes))
+            // A font, a game mod, an empty folder: nothing to learn the format from.
+            if !PackFormat.looksLikeAPackAttempt(fileTypes) {
+                keys["not_a_pack"] = .bool(true)
+            }
             reason = "No line entries among \(fileCount) files"
 
         case .extraTimestamps:

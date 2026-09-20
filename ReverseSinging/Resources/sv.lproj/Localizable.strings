@@ -176,7 +176,6 @@
 "dub.exporting" = "Exporterar…";
 "dub.export.mixing" = "Mixar ljudet…";
 "dub.export.rendering" = "Renderar videon…";
-"dub.error.missingPackInfo" = "Den mappen är inget dubbpaket: det finns ingen _pack_info.ini i den.";
 "dub.error.noLines" = "Det finns inte en enda användbar replik i paketet.";
 "dub.error.notAFolder" = "Välj en paketmapp eller ett .zip-, .7z- eller .rar-arkiv.";
 "dub.error.unreadableArchive" = "Arkivet vägrade öppna sig: %@";
@@ -402,3 +401,9 @@
 "dub.convertingAudio" = "Konverterar inspelningarna…";
 "dub.error.notDownloaded" = "Filen har inte laddats ned helt från iCloud. Öppna den i Filer först och försök igen.";
 "dub.error.notAnArchive" = "Den där .%1$@ är inget arkiv, det är %2$@. Hämta paketet igen därifrån du fick det.";
+"dub.error.emptySource" = "Det finns inget där. Ligger det i iCloud, öppna det i Filer först så att det laddas ned, och försök igen.";
+"dub.error.notADubPack" = "Det där är inget dubbpaket. Det innehåller %@-filer och inga repliker. Ett dubbpaket har en textfil och en inspelning för varje replik.";
+"dub.error.linesNoTimestamps" = "Paketet säger inte när replikerna börjar, så det finns inget att spela in. Den som gjorde det behöver lägga till en starttid för varje replik.";
+"dub.error.linesBadTimestamps" = "Starttiderna i paketet är inte skrivna som tider, så replikerna kan inte placeras.";
+"dub.error.linesNoAudio" = "Paketets repliker har inga inspelningar, så det finns inget att dubba.";
+"dub.error.linesUnplayableAudio" = "Ingen av inspelningarna i paketet kan spelas upp på den här enheten.";

@@ -88,9 +88,10 @@ struct DamagedZipInstallTests {
         try photos.still("IMG_0002.jpg")
         try photos.write("notes", to: "Itinerary.pdf")
 
-        await #expect(throws: DubPackImportError.noPackFound) {
+        let refusal = await #expect(throws: DubPackImportError.self) {
             try await DubPackInstaller.testing(library: temp.appending("library"), reporter: reporter).install(from: photos.directory)
         }
+        #expect(refusal?.telemetryCode == "no_pack_found")
 
         #expect(reporter.kinds == [.noLineEntries, .importFailed])
         let report = try #require(reporter.report(.noLineEntries))

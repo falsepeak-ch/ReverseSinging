@@ -176,7 +176,6 @@
 "dub.exporting" = "Exportant…";
 "dub.export.mixing" = "Mesclant l'àudio…";
 "dub.export.rendering" = "Renderitzant el vídeo…";
-"dub.error.missingPackInfo" = "Aquesta carpeta no és un pack de doblatge: no hi ha cap _pack_info.ini a dins.";
 "dub.error.noLines" = "Aquest pack no té ni una sola frase aprofitable.";
 "dub.error.notAFolder" = "Tria una carpeta de pack, o un fitxer .zip, .7z o .rar.";
 "dub.error.unreadableArchive" = "Aquest arxiu no s'ha deixat obrir: %@";
@@ -402,3 +401,9 @@
 "dub.convertingAudio" = "Convertint les gravacions…";
 "dub.error.notDownloaded" = "Aquest fitxer encara no s'ha baixat de l'iCloud. Obre'l primer a Fitxers i torna-ho a provar.";
 "dub.error.notAnArchive" = "Aquest .%1$@ no és un arxiu comprimit, és %2$@. Torna a baixar el pack d'on el vas obtenir.";
+"dub.error.emptySource" = "Aquí no hi ha res. Si és a l'iCloud, obre'l primer a Fitxers perquè es baixi i torna-ho a provar.";
+"dub.error.notADubPack" = "Això no és un pack de doblatge. Conté fitxers %@ i cap línia de diàleg. Un pack té un fitxer de text i una gravació per a cada línia.";
+"dub.error.linesNoTimestamps" = "Aquest pack no diu quan comença cada línia, així que no hi ha res a interpretar. Qui l'ha fet hi ha d'afegir el temps d'inici de cada línia.";
+"dub.error.linesBadTimestamps" = "Els temps d'inici d'aquest pack no estan escrits com a temps, així que les línies no es poden col·locar.";
+"dub.error.linesNoAudio" = "Les línies d'aquest pack no porten gravacions, així que no hi ha res a doblar.";
+"dub.error.linesUnplayableAudio" = "Cap de les gravacions d'aquest pack es pot reproduir en aquest dispositiu.";

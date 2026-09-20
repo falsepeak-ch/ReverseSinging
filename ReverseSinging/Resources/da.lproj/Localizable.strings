@@ -176,7 +176,6 @@
 "dub.exporting" = "Eksporterer…";
 "dub.export.mixing" = "Mikser lyden…";
 "dub.export.rendering" = "Renderer videoen…";
-"dub.error.missingPackInfo" = "Den mappe er ikke en dubpakke: der er ingen _pack_info.ini i den.";
 "dub.error.noLines" = "Der er ikke en eneste brugbar replik i pakken.";
 "dub.error.notAFolder" = "Vælg en pakkemappe eller et .zip-, .7z- eller .rar-arkiv.";
 "dub.error.unreadableArchive" = "Det arkiv nægtede at åbne: %@";
@@ -402,3 +401,9 @@
 "dub.convertingAudio" = "Konverterer optagelserne…";
 "dub.error.notDownloaded" = "Filen er ikke færdig med at hente fra iCloud. Åbn den i Arkiver først, og prøv igen.";
 "dub.error.notAnArchive" = "Den .%1$@ er ikke et arkiv, det er %2$@. Hent pakken igen dér, hvor du fik den.";
+"dub.error.emptySource" = "Der er ikke noget i den. Ligger den i iCloud, så åbn den i Arkiver først, så den bliver hentet, og prøv igen.";
+"dub.error.notADubPack" = "Det er ikke en dubpakke. Den indeholder %@-filer og ingen replikker. En dubpakke har en tekstfil og en optagelse for hver replik.";
+"dub.error.linesNoTimestamps" = "Pakken siger ikke, hvornår replikkerne starter, så der er ikke noget at indtale. Den, der lavede den, skal give hver replik en starttid.";
+"dub.error.linesBadTimestamps" = "Starttiderne i pakken er ikke skrevet som tider, så replikkerne kan ikke placeres.";
+"dub.error.linesNoAudio" = "Pakkens replikker har ingen optagelser, så der er ikke noget at dubbe.";
+"dub.error.linesUnplayableAudio" = "Ingen af optagelserne i pakken kan afspilles på denne enhed.";

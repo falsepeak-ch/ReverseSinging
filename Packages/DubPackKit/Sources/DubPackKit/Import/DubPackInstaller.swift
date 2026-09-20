@@ -112,8 +112,9 @@ public struct DubPackInstaller: Sendable {
 
             try checkCancellation()
             guard let root = PackRootFinder.root(in: staged.directory) else {
-                issues.append(.noLineEntries(fileTypes: PackRootFinder.fileTypeCounts(in: staged.directory)))
-                throw .noPackFound
+                let fileTypes = PackRootFinder.fileTypeCounts(in: staged.directory)
+                issues.append(.noLineEntries(fileTypes: fileTypes))
+                throw .noPackFound(fileTypes: fileTypes)
             }
 
             // Without pack info, a pack is titled after the folder it came wrapped in, which was named

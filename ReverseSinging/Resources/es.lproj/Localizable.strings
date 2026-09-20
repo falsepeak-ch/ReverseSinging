@@ -176,7 +176,6 @@
 "dub.exporting" = "Exportando…";
 "dub.export.mixing" = "Mezclando el audio…";
 "dub.export.rendering" = "Renderizando el vídeo…";
-"dub.error.missingPackInfo" = "Esa carpeta no es un pack de doblaje: no hay ningún _pack_info.ini dentro.";
 "dub.error.noLines" = "Este pack no tiene ni una sola frase utilizable.";
 "dub.error.notAFolder" = "Elige una carpeta de pack, o un archivo .zip, .7z o .rar.";
 "dub.error.unreadableArchive" = "Ese archivo no se ha dejado abrir: %@";
@@ -402,3 +401,9 @@
 "dub.convertingAudio" = "Convirtiendo las grabaciones…";
 "dub.error.notDownloaded" = "Ese archivo aún no se ha descargado de iCloud. Ábrelo en Archivos primero y vuelve a intentarlo.";
 "dub.error.notAnArchive" = "Ese .%1$@ no es un archivo comprimido, es %2$@. Vuelve a descargar el pack de donde lo obtuviste.";
+"dub.error.emptySource" = "Ahí no hay nada. Si está en iCloud, ábrelo primero en Archivos para que se descargue y vuelve a intentarlo.";
+"dub.error.notADubPack" = "Eso no es un pack de doblaje. Contiene archivos %@ y ninguna línea de diálogo. Un pack tiene un archivo de texto y una grabación por cada línea.";
+"dub.error.linesNoTimestamps" = "Este pack no dice cuándo empieza cada línea, así que no hay nada que interpretar. Quien lo hizo tiene que añadir el tiempo de inicio de cada línea.";
+"dub.error.linesBadTimestamps" = "Los tiempos de inicio de este pack no están escritos como tiempos, así que sus líneas no se pueden colocar.";
+"dub.error.linesNoAudio" = "Las líneas de este pack no traen grabaciones, así que no hay nada que doblar.";
+"dub.error.linesUnplayableAudio" = "Ninguna de las grabaciones de este pack se puede reproducir en este dispositivo.";

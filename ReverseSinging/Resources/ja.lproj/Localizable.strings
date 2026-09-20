@@ -176,7 +176,6 @@
 "dub.exporting" = "書き出し中…";
 "dub.export.mixing" = "音をミックス中…";
 "dub.export.rendering" = "映像をレンダリング中…";
-"dub.error.missingPackInfo" = "そのフォルダはアフレコパックではありません。中に_pack_info.iniがありません。";
 "dub.error.noLines" = "このパックには使えるセリフが1本もありません。";
 "dub.error.notAFolder" = "パックのフォルダか、.zip、.7z または .rar を選んでください。";
 "dub.error.unreadableArchive" = "そのアーカイブは開けませんでした: %@";
@@ -402,3 +401,9 @@
 "dub.convertingAudio" = "録音を変換中…";
 "dub.error.notDownloaded" = "このファイルはまだiCloudからダウンロードが完了していません。先に「ファイル」で開いてから、もう一度お試しください。";
 "dub.error.notAnArchive" = "この.%1$@はアーカイブではなく%2$@です。入手元からパックをもう一度ダウンロードしてください。";
+"dub.error.emptySource" = "中身が空です。iCloudにある場合は、先に「ファイル」で開いてダウンロードしてから、もう一度試してください。";
+"dub.error.notADubPack" = "これは吹き替えパックではありません。%@ ファイルが入っていて、セリフがひとつもありません。パックにはセリフごとにテキストファイルと録音が必要です。";
+"dub.error.linesNoTimestamps" = "このパックにはセリフの開始時間が書かれていないので、演じるものがありません。作者がセリフごとに開始時間を追加する必要があります。";
+"dub.error.linesBadTimestamps" = "このパックの開始時間は時間として書かれていないので、セリフを配置できません。";
+"dub.error.linesNoAudio" = "このパックのセリフには録音が付いていないので、吹き替えるものがありません。";
+"dub.error.linesUnplayableAudio" = "このパックの録音はどれもこのデバイスで再生できません。";

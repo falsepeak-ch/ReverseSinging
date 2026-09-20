@@ -176,7 +176,6 @@
 "dub.exporting" = "Exportujeme…";
 "dub.export.mixing" = "Mixujeme zvuk…";
 "dub.export.rendering" = "Renderujeme video…";
-"dub.error.missingPackInfo" = "Tahle složka není dabingový balíček: není v ní žádný _pack_info.ini.";
 "dub.error.noLines" = "V tomhle balíčku není ani jedna použitelná replika.";
 "dub.error.notAFolder" = "Vyber složku balíčku nebo archiv .zip, .7z či .rar.";
 "dub.error.unreadableArchive" = "Tenhle archiv se nenechal otevřít: %@";
@@ -402,3 +401,9 @@
 "dub.convertingAudio" = "Převádíme nahrávky…";
 "dub.error.notDownloaded" = "Tento soubor se ještě nestáhl z iCloudu. Nejdřív ho otevřete v Souborech a pak to zkuste znovu.";
 "dub.error.notAnArchive" = "Tento .%1$@ není archiv, je to %2$@. Stáhněte balíček znovu odtud, kde jste ho získali.";
+"dub.error.emptySource" = "Nic tam není. Jestli je to na iCloudu, otevři to nejdřív v Souborech, ať se to stáhne, a zkus to znovu.";
+"dub.error.notADubPack" = "Tohle není dabingový balíček. Obsahuje soubory %@ a žádné repliky. Balíček má pro každou repliku textový soubor a nahrávku.";
+"dub.error.linesNoTimestamps" = "Balíček neříká, kdy repliky začínají, takže není co hrát. Autor musí ke každé replice doplnit čas začátku.";
+"dub.error.linesBadTimestamps" = "Časy začátku v balíčku nejsou zapsané jako časy, takže repliky nejde umístit.";
+"dub.error.linesNoAudio" = "Repliky v balíčku nemají nahrávky, takže není co dabovat.";
+"dub.error.linesUnplayableAudio" = "Žádnou z nahrávek v balíčku nejde na tomhle zařízení přehrát.";

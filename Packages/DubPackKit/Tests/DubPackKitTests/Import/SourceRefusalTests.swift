@@ -60,8 +60,66 @@ struct SourceRefusalTests {
         #expect(report.severity == .informational)
         #expect(report.keys["environmental"] == .bool(true))
 
-        let real = DubPackIssueReport.importFailure(.noPackFound, stage: .copying, sourceExtension: "zip", packTitle: "t")
+        // A pack this package could not make sense of is the one refusal worth hearing about.
+        let attempt = DubPackImportError.noPackFound(fileTypes: ["txt": 7, "mp3": 8, "jpg": 7])
+        let real = DubPackIssueReport.importFailure(attempt, stage: .copying, sourceExtension: "zip", packTitle: "t")
         #expect(real.severity == .degraded)
+        #expect(real.keys["not_a_pack"] == nil)
+    }
+
+    /// A font, a game mod, an empty folder. Most of what was in the crash reporter.
+    @Test(arguments: [
+        ["bfotf": 2, "webp": 1],
+        ["class": 189, "json": 59, "png": 3],
+        ["wav": 4],
+        ["txt": 1, "otf": 1, "ttf": 1, "png": 1],
+        [:],
+    ])
+    func somethingThatWasNeverAPackIsNotReportedAsAFailure(fileTypes: [String: Int]) {
+        let error = DubPackImportError.noPackFound(fileTypes: fileTypes)
+        let failure = DubPackIssueReport.importFailure(error, stage: .copying, sourceExtension: "zip", packTitle: "t")
+        let entries = DubPackIssueReport.reports(
+            for: [.noLineEntries(fileTypes: fileTypes)], packTitle: "t", candidateLineCount: 0, keptLineCount: 0
+        )
+
+        #expect(error.isNotAPackAttempt)
+        #expect(failure.severity == .informational)
+        #expect(entries.map(\.severity) == [.informational])
+    }
+
+    @Test func saysWhatWasFoundInsteadOfAPack() async throws {
+        let temp = try TemporaryDirectory()
+        defer { temp.remove() }
+        let font = try PackBuilder(in: temp.appending("source"), named: "starborn_font")
+        try font.write(Data([0, 1, 2]), to: "Starborn.bfotf")
+        try font.write(Data([0, 1, 2]), to: "Starborn Bold.bfotf")
+        try font.write(Data([0, 1, 2]), to: "preview.webp")
+
+        let error = await #expect(throws: DubPackImportError.self) {
+            try await DubPackInstaller.testing(library: temp.appending("library")).install(from: font.directory)
+        }
+
+        #expect(error == .noPackFound(fileTypes: ["bfotf": 2, "webp": 1]))
+        #expect(error?.foundFileExtensions == ["bfotf", "webp"])
+    }
+
+    @Test func saysWhyAPackWithNoUsableLinesHasNone() async throws {
+        let temp = try TemporaryDirectory()
+        defer { temp.remove() }
+        let pack = try PackBuilder(in: temp.appending("source"), named: "buddy")
+        for slug in ["clean song 1", "clean song 2", "clean song last"] {
+            try pack.write("Its time to clean clean clean", to: "\(slug).txt")
+            try pack.silentWav("\(slug).wav")
+        }
+        try pack.silentWav("_backing_track.wav", duration: 5)
+
+        let error = await #expect(throws: DubPackImportError.self) {
+            try await DubPackInstaller.testing(library: temp.appending("library")).install(from: pack.directory)
+        }
+
+        #expect(error?.telemetryCode == "no_lines")
+        #expect(error?.dominantDropReason == .missingTimestamp)
+        #expect(error?.isNotAPackAttempt == false)
     }
 
     @Test func cosmeticIssuesAreInformational() {

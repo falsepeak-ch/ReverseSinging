@@ -384,9 +384,14 @@ nonisolated enum Strings {
         }
 
         enum Error {
-            static let missingPackInfo = NSLocalizedString("dub.error.missingPackInfo", comment: "Pack info file missing")
             static let noLines = NSLocalizedString("dub.error.noLines", comment: "No usable lines in pack")
             static let notAFolder = NSLocalizedString("dub.error.notAFolder", comment: "Selected item is not a pack")
+            static let emptySource = NSLocalizedString("dub.error.emptySource", comment: "The chosen folder or archive holds no files at all")
+            static let notADubPack = NSLocalizedString("dub.error.notADubPack", comment: "The chosen item is something else entirely; takes the file extensions found, e.g. '.otf, .png'")
+            static let linesNoTimestamps = NSLocalizedString("dub.error.linesNoTimestamps", comment: "Every line was dropped because none says when it starts")
+            static let linesBadTimestamps = NSLocalizedString("dub.error.linesBadTimestamps", comment: "Every line was dropped because its start time is not a time")
+            static let linesNoAudio = NSLocalizedString("dub.error.linesNoAudio", comment: "Every line was dropped because it has no recording")
+            static let linesUnplayableAudio = NSLocalizedString("dub.error.linesUnplayableAudio", comment: "Every line was dropped because its recording does not decode")
             static let notDownloaded = NSLocalizedString("dub.error.notDownloaded", comment: "The chosen file or folder is still in iCloud, or is empty")
             static let notAnArchive = NSLocalizedString("dub.error.notAnArchive", comment: "A file with an archive extension whose contents are something else; takes the extension and what it looks like")
             static let unreadableArchive = NSLocalizedString("dub.error.unreadableArchive", comment: "Zip could not be read, takes an error message")

@@ -253,9 +253,10 @@ struct DubPackReaderTests {
         let pack = try PackBuilder(in: temp.url)
         try pack.still("IMG_0001.jpg")
 
-        await #expect(throws: DubPackImportError.noPackFound) {
+        let refusal = await #expect(throws: DubPackImportError.self) {
             try await DubPackReader.testing().read(at: pack.directory)
         }
+        #expect(refusal?.telemetryCode == "no_pack_found")
     }
 
     /// Before `.ini` entries were read, the Shrek 2 pack failed here with nothing to say why.

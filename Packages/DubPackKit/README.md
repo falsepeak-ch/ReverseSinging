@@ -38,7 +38,9 @@ install could not: a Theora conversion the system cut short (the original is kep
 audio installed by a build that did not convert it. Call `hasPendingConversions(in:)` on load.
 
 A failed install throws `DubPackImportError`. It carries no user-facing text: switch over it and
-say it in the user's language. A failed re-install leaves the pack already installed under the
+say it in the user's language. It does carry what a good sentence needs: `foundFileExtensions`
+for a source that was never a pack ("it holds .otf and .png files"), and `dominantDropReason`
+for a pack whose every line was dropped ("its lines have no start times"). A failed re-install leaves the pack already installed under the
 same name untouched.
 
 ## What a pack may look like
@@ -78,7 +80,9 @@ Each report has a `severity`. `.degraded` is content the user lost: dropped line
 not play, a failed install. `.informational` is something worked around without loss: an icon
 found by convention, a title from the folder, a still borrowed from the line before, a video
 conversion deferred to a later launch, an install refused because the device is out of storage
-or the file has not come down from iCloud. A reporter should send only the first as non-fatals.
+or the file has not come down from iCloud, or somebody picking a font or a game mod instead of a
+pack (`not_a_pack`: no entry text, or no recordings). A reporter should send only the first as
+non-fatals.
 
 | Context | When | Keys besides `pack_title` |
 |---|---|---|

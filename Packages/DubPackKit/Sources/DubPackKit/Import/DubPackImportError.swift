@@ -22,8 +22,10 @@ public enum DubPackImportError: Error, Sendable, Hashable {
     case sourceNotDownloaded
     /// An archive that would not unpack.
     case archiveUnreadable(ArchiveFailure)
-    /// Nothing in the folder or archive looks like a pack.
-    case noPackFound
+    /// Nothing in the folder or archive looks like a pack. Carries how many files of each
+    /// extension were there instead, which is what the host needs to say something better than
+    /// "not a pack": empty when the source held nothing at all.
+    case noPackFound(fileTypes: [String: Int] = [:])
     /// A pack was found, but not one entry in it became a line. Carries everything the reader
     /// found wrong, which is the only explanation there will be.
     case noLines(issues: [DubPackIssue])
@@ -43,6 +45,35 @@ public enum DubPackImportError: Error, Sendable, Hashable {
         case .installFailed: "install_failed"
         case .cancelled: "cancelled"
         }
+    }
+
+    /// For `noPackFound`: the extensions that were found instead, most common first, without
+    /// the dot. Empty for a source with nothing in it, and for every other error.
+    public var foundFileExtensions: [String] {
+        guard case .noPackFound(let fileTypes) = self else { return [] }
+        return fileTypes
+            .filter { !$0.key.isEmpty }
+            .sorted { $0.value != $1.value ? $0.value > $1.value : $0.key < $1.key }
+            .map(\.key)
+    }
+
+    /// For `noPackFound`: true when the source held nothing resembling a pack, no entry text
+    /// or no recordings, rather than a pack this package failed to understand. Somebody picking
+    /// a font or a game mod is not something a crash reporter needs to hear about.
+    public var isNotAPackAttempt: Bool {
+        guard case .noPackFound(let fileTypes) = self else { return false }
+        return !PackFormat.looksLikeAPackAttempt(fileTypes)
+    }
+
+    /// For `noLines`: why most of the entries were dropped, which is the sentence the user
+    /// needs. Nil when nothing was dropped, and for every other error.
+    public var dominantDropReason: DroppedLineReason? {
+        guard case .noLines(let issues) = self else { return nil }
+        var counts: [DroppedLineReason: Int] = [:]
+        for issue in issues {
+            if case .droppedLine(_, let reason, _) = issue { counts[reason, default: 0] += 1 }
+        }
+        return counts.max { $0.value != $1.value ? $0.value < $1.value : $0.key.rawValue > $1.key.rawValue }?.key
     }
 
     /// True for a failure of the device or the moment rather than of the pack: no storage
