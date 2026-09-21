@@ -112,6 +112,25 @@ final class DubPackLibrary: ObservableObject {
     /// is one non-fatal, not one per launch for as long as it sits there.
     nonisolated private static let reportedLoadFailuresKey = "dub.reportedLoadFailures"
 
+    /// What a folder that will not load is worth telling the crash reporter.
+    nonisolated enum LoadFailureAction: Equatable, Sendable {
+        /// An installed pack that stopped loading, seen for the first time.
+        case report
+        /// The same installed pack, already reported.
+        case logStillFailing
+        /// A folder with no manifest: the app never installed it. The packs folder is visible
+        /// in the Files app, and a folder somebody made there by hand ("Neuer Ordner") is
+        /// not a pack the app broke.
+        case logNotInstalled
+    }
+
+    /// Decides how a load failure is reported. Every install writes a manifest, so a folder
+    /// without one was put there by hand, not by the app.
+    nonisolated static func loadFailureAction(installedByApp: Bool, alreadyReported: Bool) -> LoadFailureAction {
+        guard installedByApp else { return .logNotInstalled }
+        return alreadyReported ? .logStillFailing : .report
+    }
+
     /// Loads one installed pack: from its manifest when that is current, else by reading the
     /// folder again. Nil when the folder does not read as a pack.
     nonisolated static func load(from directory: URL) async -> DubPack? {
@@ -153,19 +172,23 @@ final class DubPackLibrary: ObservableObject {
             // the folder is on disk, the user imported it and performed it, and it is simply
             // not on the shelf any more. There is no alert for this, because nobody asked
             // for anything. Reported once per folder: one user's pack sent the same report
-            // twenty-seven launches running, which is noise, not twenty-seven bugs. A pack
+            // twenty-seven times in one sitting, which is noise, not twenty-seven bugs. A pack
             // that stops loading after an OS update still shows up, once per affected pack.
             let defaults = UserDefaults.standard
             var reported = Set(defaults.stringArray(forKey: reportedLoadFailuresKey) ?? [])
-            if reported.insert(folderName).inserted {
+            switch loadFailureAction(installedByApp: cached != nil, alreadyReported: reported.contains(folderName)) {
+            case .report:
+                reported.insert(folderName)
                 defaults.set(Array(reported).sorted(), forKey: reportedLoadFailuresKey)
                 CrashReporter.shared.record(
                     error,
                     context: "dub_pack.load",
                     keys: ["folder_name": folderName]
                 )
-            } else {
+            case .logStillFailing:
                 CrashReporter.shared.log("dub_pack.load still failing for \(folderName)")
+            case .logNotInstalled:
+                CrashReporter.shared.log("dub_pack.load skipped \(folderName), not installed by the app")
             }
             return nil
         }
