@@ -10,6 +10,8 @@ public struct DubPackInstallProgress: Sendable, Hashable {
     public enum Stage: String, Sendable, Hashable, CaseIterable {
         /// Unpacking the archive, or copying the folder, into the library.
         case copying
+        /// Converting Ogg Vorbis recordings to AAC. Seconds, even for a long backing track.
+        case convertingAudio = "converting_audio"
         /// Converting a Theora scene to H.264. Usually by far the longest stage.
         case convertingVideo = "converting_video"
         /// Reading every entry and measuring every reference recording.

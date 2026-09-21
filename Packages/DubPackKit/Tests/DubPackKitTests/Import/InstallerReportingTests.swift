@@ -107,11 +107,11 @@ struct InstallerReportingTests {
         let temp = try TemporaryDirectory()
         defer { temp.remove() }
         let reporter = RecordingIssueReporter()
-        let rar = temp.appending("Something.rar")
-        try Data("Rar!".utf8).write(to: rar)
+        let tarball = temp.appending("Something.tgz")
+        try Data([0x1F, 0x8B, 0x08, 0x00]).write(to: tarball)
 
         await #expect(throws: DubPackImportError.self) {
-            try await DubPackInstaller.testing(library: temp.appending("library"), reporter: reporter).install(from: rar)
+            try await DubPackInstaller.testing(library: temp.appending("library"), reporter: reporter).install(from: tarball)
         }
 
         #expect(reporter.reports == [DubPackIssueReport(
@@ -121,8 +121,8 @@ struct InstallerReportingTests {
                 "pack_title": .string("Something"),
                 "failure": .string("unsupported_source"),
                 "stage": .string("copying"),
-                "source_extension": .string("rar"),
-                "detail": .string("rar"),
+                "source_extension": .string("tgz"),
+                "detail": .string("tgz (gzip)"),
             ]
         )])
     }

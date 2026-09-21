@@ -176,11 +176,10 @@
 "dub.exporting" = "Dışa aktarılıyor…";
 "dub.export.mixing" = "Ses miksleniyor…";
 "dub.export.rendering" = "Video işleniyor…";
-"dub.error.missingPackInfo" = "Bu klasör bir seslendirme paketi değil: içinde _pack_info.ini yok.";
 "dub.error.noLines" = "Bu pakette kullanılabilir tek bir replik bile yok.";
-"dub.error.notAFolder" = "Bir paket klasörü ya da .zip veya .7z arşivi seç.";
+"dub.error.notAFolder" = "Bir paket klasörü ya da .zip, .7z veya .rar arşivi seç.";
 "dub.error.unreadableArchive" = "O arşiv açılmadı: %@";
-"dub.error.unsupportedArchive" = "Dubloon .%@ arşivlerini açamıyor. Paketi .zip ya da .7z olarak yeniden kaydet.";
+"dub.error.unsupportedArchive" = "Dubloon .%@ arşivlerini açamıyor. Paketi .zip, .7z ya da .rar olarak yeniden kaydet.";
 "dub.error.archiveEncrypted" = "Arşiv parola korumalı. Yapımcısından parolasız bir kopya iste.";
 "dub.error.archiveUnsupported" = "Arşiv, Dubloon'un açamadığı bir sıkıştırma yöntemi kullanıyor. .zip olarak yeniden kaydetmeyi dene.";
 "dub.error.archiveCorrupt" = "Arşiv bozuk ya da indirme tamamlanmamış.";
@@ -395,3 +394,16 @@
 "whatsNew.booth.row.default.value" = "Kapalı";
 "whatsNew.booth.confirm" = "Bir sahnede dene";
 "whatsNew.booth.later" = "Sonra";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "Başka bir uygulama şu anda sesi kullanıyor. Aramayı bitir veya uygulamayı kapat, sonra tekrar dene.";
+"error.playbackUnavailable" = "Oynatma şu anda kullanılamıyor. Biraz sonra tekrar dene.";
+"dub.convertingAudio" = "Kayıtlar dönüştürülüyor…";
+"dub.error.notDownloaded" = "Bu dosya iCloud'dan indirilmeyi henüz bitirmedi. Önce Dosyalar'da aç, sonra tekrar dene.";
+"dub.error.notAnArchive" = "Bu .%1$@ bir arşiv değil, %2$@. Paketi aldığın yerden yeniden indir.";
+"dub.error.emptySource" = "İçinde hiçbir şey yok. iCloud'daysa önce Dosyalar'da aç ki insin, sonra tekrar dene.";
+"dub.error.notADubPack" = "Bu bir dublaj paketi değil. İçinde %@ dosyaları var, tek bir replik yok. Bir dublaj paketinde her replik için bir metin dosyası ve bir kayıt bulunur.";
+"dub.error.linesNoTimestamps" = "Bu paket repliklerin ne zaman başladığını söylemiyor, o yüzden seslendirilecek bir şey yok. Paketi yapanın her repliğe bir başlangıç zamanı eklemesi gerekiyor.";
+"dub.error.linesBadTimestamps" = "Bu paketteki başlangıç zamanları zaman olarak yazılmamış, bu yüzden replikler yerleştirilemiyor.";
+"dub.error.linesNoAudio" = "Bu paketin repliklerinin yanında kayıt yok, o yüzden dublajlanacak bir şey yok.";
+"dub.error.linesUnplayableAudio" = "Bu paketteki kayıtların hiçbiri bu cihazda çalınamıyor.";

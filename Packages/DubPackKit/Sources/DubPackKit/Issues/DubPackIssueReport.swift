@@ -25,6 +25,7 @@ public struct DubPackIssueReport: Sendable, Hashable {
         case ambiguousVideo = "ambiguous_video"
         case unplayableVideo = "unplayable_video"
         case videoTranscode = "video_transcode"
+        case audioTranscode = "audio_transcode"
         case recoveredArchive = "recovered_archive"
         case skippedArchiveEntries = "skipped_archive_entries"
         case importFailed = "import"
@@ -49,9 +50,23 @@ public struct DubPackIssueReport: Sendable, Hashable {
             case .skippedArchiveEntries: 12
             case .noLineEntries: 13
             case .recoveredArchive: 14
+            case .audioTranscode: 15
             case .importFailed: 100
             }
         }
+    }
+
+    /// How much a report matters to whoever reads the crash reporter.
+    ///
+    /// The app copes with every issue here, but some cost the user content and some cost them
+    /// nothing they would notice. Only the first kind belongs among the non-fatals; the rest
+    /// would bury it, sixty missing-icon reports deep.
+    public enum Severity: Sendable, Hashable {
+        /// Worked around without loss: an icon by convention, a title from the folder name, a
+        /// still borrowed from the line before, a conversion that will be retried.
+        case informational
+        /// Lines dropped, media that will not play, an install that failed.
+        case degraded
     }
 
     public enum Value: Sendable, Hashable {
@@ -67,6 +82,24 @@ public struct DubPackIssueReport: Sendable, Hashable {
     public let keys: [String: Value]
 
     public var context: String { kind.context }
+
+    public var severity: Severity {
+        switch kind {
+        case .missingIcon, .missingPackInfo, .missingStills, .extraTimestamps:
+            .informational
+        case .videoTranscode:
+            keys["deferred"] == .bool(true) ? .informational : .degraded
+        case .importFailed:
+            // Somebody else's disk being full, their file not having come down from iCloud
+            // yet, or their having picked a font instead of a pack, is not a failing of the
+            // pack format.
+            keys["environmental"] == .bool(true) || keys["not_a_pack"] == .bool(true) ? .informational : .degraded
+        case .noLineEntries:
+            keys["not_a_pack"] == .bool(true) ? .informational : .degraded
+        default:
+            .degraded
+        }
+    }
 
     public init(kind: Kind, reason: String, keys: [String: Value]) {
         self.kind = kind
@@ -118,6 +151,12 @@ extension DubPackIssueReport {
         if let detail = error.detail {
             keys["detail"] = .string(clip(detail, to: detailLength))
         }
+        if error.isEnvironmental {
+            keys["environmental"] = .bool(true)
+        }
+        if error.isNotAPackAttempt {
+            keys["not_a_pack"] = .bool(true)
+        }
         return DubPackIssueReport(kind: .importFailed, reason: "Import failed: \(error.telemetryCode)", keys: keys)
     }
 
@@ -135,8 +174,8 @@ extension DubPackIssueReport {
 
         switch kind {
         case .droppedLines:
-            let dropped: [(file: String, reason: DroppedLineReason)] = group.compactMap {
-                if case .droppedLine(let file, let reason) = $0 { (file, reason) } else { nil }
+            let dropped: [(file: String, reason: DroppedLineReason, detail: String?)] = group.compactMap {
+                if case .droppedLine(let file, let reason, let detail) = $0 { (file, reason, detail) } else { nil }
             }
             let reasons = Set(dropped.map(\.reason.rawValue)).sorted().joined(separator: ", ")
             keys["dropped_count"] = .int(dropped.count)
@@ -144,6 +183,11 @@ extension DubPackIssueReport {
             keys["kept_count"] = .int(context.keptLineCount)
             keys["reasons"] = .string(reasons)
             keys["sample"] = sample(dropped.map { "\($0.file) (\($0.reason.rawValue))" })
+            // The value that would not parse, so the parser can learn it. A timestamp is a
+            // number somebody typed, not a line of the scene.
+            if let detail = dropped.lazy.compactMap(\.detail).first {
+                keys["detail_sample"] = .string(clip(detail, to: sampleItemLength))
+            }
             reason = "\(dropped.count) of \(context.candidateLineCount) entries dropped (\(reasons))"
 
         case .noLineEntries:
@@ -151,6 +195,10 @@ extension DubPackIssueReport {
             let fileCount = fileTypes.values.reduce(0, +)
             keys["file_count"] = .int(fileCount)
             keys["file_types"] = .string(describe(fileTypes))
+            // A font, a game mod, an empty folder: nothing to learn the format from.
+            if !PackFormat.looksLikeAPackAttempt(fileTypes) {
+                keys["not_a_pack"] = .bool(true)
+            }
             reason = "No line entries among \(fileCount) files"
 
         case .extraTimestamps:
@@ -208,9 +256,17 @@ extension DubPackIssueReport {
             reason = "No readable video track in the scene video"
 
         case .videoTranscode:
-            guard case .videoConversionFailed(let file, let failure) = group[0] else { preconditionFailure("grouped by kind") }
+            let file: String
+            let failure: VideoConversionFailure
+            let deferred: Bool
+            switch group[0] {
+            case .videoConversionFailed(let failedFile, let cause): (file, failure, deferred) = (failedFile, cause, false)
+            case .videoConversionDeferred(let keptFile, let cause): (file, failure, deferred) = (keptFile, cause, true)
+            default: preconditionFailure("grouped by kind")
+            }
             keys["source_extension"] = .string(fileExtension(of: file))
             keys["failure"] = .string(failure.telemetryName)
+            if deferred { keys["deferred"] = .bool(true) }
             if case .lengthMismatch(let expected, let actual) = failure {
                 keys["expected_seconds"] = .double(expected)
                 keys["actual_seconds"] = .double(actual)
@@ -218,7 +274,22 @@ extension DubPackIssueReport {
             if let detail = failure.detail {
                 keys["detail"] = .string(clip(detail, to: detailLength))
             }
-            reason = "The scene video could not be converted: \(failure.telemetryName)"
+            reason = deferred
+                ? "The scene video conversion was cut short and will be retried: \(failure.telemetryName)"
+                : "The scene video could not be converted: \(failure.telemetryName)"
+
+        case .audioTranscode:
+            let failed: [(file: String, failure: AudioConversionFailure)] = group.compactMap {
+                if case .audioConversionFailed(let file, let failure) = $0 { (file, failure) } else { nil }
+            }
+            let failures = Set(failed.map(\.failure.telemetryName)).sorted().joined(separator: ", ")
+            keys["file_count"] = .int(failed.count)
+            keys["failures"] = .string(failures)
+            keys["sample"] = sample(failed.map { "\($0.file) (\($0.failure.telemetryName))" })
+            if let detail = failed.lazy.compactMap(\.failure.detail).first {
+                keys["detail"] = .string(clip(detail, to: detailLength))
+            }
+            reason = "\(failed.count) Ogg Vorbis recordings could not be converted (\(failures))"
 
         case .recoveredArchive:
             guard case .archiveRecovered(let truncatedEntry, let partialKept, let damagedEntries) = group[0] else {
@@ -284,7 +355,8 @@ extension DubPackIssue {
         case .unplayableBackingTrack: .unplayableBackingTrack
         case .ambiguousSceneVideo: .ambiguousVideo
         case .unplayableSceneVideo: .unplayableVideo
-        case .videoConversionFailed: .videoTranscode
+        case .videoConversionFailed, .videoConversionDeferred: .videoTranscode
+        case .audioConversionFailed: .audioTranscode
         case .archiveRecovered: .recoveredArchive
         case .unsafeArchiveEntriesSkipped: .skippedArchiveEntries
         }

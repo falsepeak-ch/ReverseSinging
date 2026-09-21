@@ -176,11 +176,10 @@
 "dub.exporting" = "Экспортируем…";
 "dub.export.mixing" = "Сводим звук…";
 "dub.export.rendering" = "Рендерим видео…";
-"dub.error.missingPackInfo" = "Эта папка — не пак для озвучки: внутри нет файла _pack_info.ini.";
 "dub.error.noLines" = "В этом паке нет ни одной пригодной реплики.";
-"dub.error.notAFolder" = "Выбери папку пака или архив .zip или .7z.";
+"dub.error.notAFolder" = "Выбери папку пака или архив .zip, .7z или .rar.";
 "dub.error.unreadableArchive" = "Этот архив не открылся: %@";
-"dub.error.unsupportedArchive" = "Dubloon не умеет открывать архивы .%@. Пересохрани пак как .zip или .7z.";
+"dub.error.unsupportedArchive" = "Dubloon не умеет открывать архивы .%@. Пересохрани пак как .zip, .7z или .rar.";
 "dub.error.archiveEncrypted" = "Архив защищён паролем. Попроси у автора копию без пароля.";
 "dub.error.archiveUnsupported" = "Архив сжат методом, который Dubloon не умеет распаковывать. Попробуй пересохранить его как .zip.";
 "dub.error.archiveCorrupt" = "Архив повреждён или скачался не до конца.";
@@ -395,3 +394,16 @@
 "whatsNew.booth.row.default.value" = "Выкл.";
 "whatsNew.booth.confirm" = "Попробовать на сцене";
 "whatsNew.booth.later" = "Позже";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "Другое приложение сейчас использует звук. Завершите звонок или закройте его и попробуйте снова.";
+"error.playbackUnavailable" = "Воспроизведение сейчас недоступно. Попробуйте ещё раз через минуту.";
+"dub.convertingAudio" = "Конвертируем записи…";
+"dub.error.notDownloaded" = "Этот файл ещё не загрузился из iCloud. Сначала откройте его в «Файлах», затем попробуйте снова.";
+"dub.error.notAnArchive" = "Этот .%1$@ — не архив, а %2$@. Скачайте пак заново там, где вы его взяли.";
+"dub.error.emptySource" = "Там ничего нет. Если это лежит в iCloud, сначала открой его в «Файлах», чтобы оно загрузилось, и попробуй снова.";
+"dub.error.notADubPack" = "Это не пак для озвучки. В нём файлы %@ и ни одной реплики. В паке для каждой реплики есть текстовый файл и запись.";
+"dub.error.linesNoTimestamps" = "В этом паке не указано, когда начинаются реплики, так что озвучивать нечего. Автору нужно добавить время начала каждой реплики.";
+"dub.error.linesBadTimestamps" = "Время начала в этом паке записано не как время, поэтому реплики нельзя расставить.";
+"dub.error.linesNoAudio" = "У реплик этого пака нет записей, так что озвучивать нечего.";
+"dub.error.linesUnplayableAudio" = "Ни одна запись из этого пака не воспроизводится на этом устройстве.";

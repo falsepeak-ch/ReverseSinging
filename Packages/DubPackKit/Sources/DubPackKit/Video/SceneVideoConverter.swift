@@ -8,11 +8,20 @@ import Foundation
 /// Converts a pack's Theora scene video to H.264, in place, when it has one.
 enum SceneVideoConverter {
 
+    /// True when the folder holds a Theora scene that has not been converted.
+    static func hasPendingConversion(in directory: URL) -> Bool {
+        guard let folder = PackDirectory(url: directory), case .found(let source) = folder.sceneVideo else { return false }
+        return PackFormat.Files.theoraExtensions.contains(source.fileExtension)
+    }
+
     enum Outcome: Sendable, Equatable {
         case nothingToConvert
         case converted(file: String)
         /// The scene will show its stills. Neither the source nor a partial output is left behind.
         case failed(file: String, failure: VideoConversionFailure)
+        /// The system cut the conversion short. The source is kept for a later attempt; the
+        /// scene shows its stills until then.
+        case deferred(file: String, failure: VideoConversionFailure)
     }
 
     static let convertedFileName = "dub_video.mp4"
@@ -48,6 +57,12 @@ enum SceneVideoConverter {
             return .converted(file: convertedFileName)
         } catch {
             try? FileManager.default.removeItem(at: destination)
+            // An encoder taken away by the system, or a full disk, says nothing about the
+            // file. Deleting the original here is what turned a two-second interruption into
+            // a scene with no picture for good.
+            if error.isRetryable {
+                return .deferred(file: source.name, failure: error)
+            }
             try? FileManager.default.removeItem(at: source.url)
             return .failed(file: source.name, failure: error)
         }

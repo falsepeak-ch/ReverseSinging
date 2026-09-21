@@ -1,1 +1,1 @@
-Nyt i 1.5.0: Booth Cam filmer dit ansigt, mens du dubber, så reaktionen følger med optagelsen. Nu på 21 sprog.
+Nyt i 1.5.1: mange flere communitypakker kan åbnes og afspilles, også .rar og .ogg. Film dig selv, mens du dubber, med Booth Cam. På 21 sprog.

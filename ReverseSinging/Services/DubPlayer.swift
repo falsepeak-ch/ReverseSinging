@@ -42,8 +42,12 @@ final class DubPlayer: ObservableObject {
     @Published private(set) var currentTime: TimeInterval = 0
     @Published private(set) var duration: TimeInterval = 0
     @Published private(set) var isPreparing = false
+    /// Why the last `play(from:)` did not start, in the user's language. Nil when it did.
+    @Published private(set) var playbackErrorMessage: String?
 
     private let engine = AVAudioEngine()
+    /// Set when the engine refused the graph; cleared when `connectNodes` next succeeds.
+    private var graphIsBroken = false
     private let backingNode = AVAudioPlayerNode()
 
     /// One player node per overlapping voice, rebuilt whenever a pack is prepared.
@@ -155,6 +159,9 @@ final class DubPlayer: ObservableObject {
             }
         )
 
+        // The graph is built against the output's format, which there is none of until the
+        // session is active. Without this, `connect` raised on the way to the first play.
+        AudioSessionManager.shared.tryActivate()
         connectNodes()
     }
 
@@ -246,17 +253,30 @@ final class DubPlayer: ObservableObject {
         }
     }
 
+    /// Wires the backing node and one node per voice lane into the mixer.
+    ///
+    /// `connect` raises rather than returns when the mixer cannot take a format, so the whole
+    /// wiring runs behind `AudioGraphGuard`. A refusal leaves `graphIsBroken` set and
+    /// `play(from:)` declining, which the user sees as a sentence rather than the app closing.
     private func connectNodes() {
-        engine.disconnectNodeOutput(backingNode)
+        graphIsBroken = !AudioGraphGuard.succeeds {
+            engine.disconnectNodeOutput(backingNode)
 
-        // The backing node keeps the file's own format; the voice nodes always get the
-        // canonical one, which is why every line buffer is converted at load.
-        if let backingFormat {
-            engine.connect(backingNode, to: engine.mainMixerNode, format: backingFormat)
+            // The backing node keeps the file's own format; the voice nodes always get the
+            // canonical one, which is why every line buffer is converted at load.
+            if let backingFormat {
+                engine.connect(backingNode, to: engine.mainMixerNode, format: backingFormat)
+            }
+            backingNode.volume = backingGain
+
+            rebuildVoiceNodes(count: voiceLanes.count)
         }
-        backingNode.volume = backingGain
-
-        rebuildVoiceNodes(count: voiceLanes.count)
+        if graphIsBroken {
+            CrashReporter.shared.recordFailure("dub_player.connect", reason: "engine refused the graph", keys: [
+                "has_backing": backingBuffer != nil,
+                "lane_count": voiceLanes.count,
+            ])
+        }
     }
 
     /// Tears down the previous pack's voice nodes and builds one per lane.
@@ -296,14 +316,30 @@ final class DubPlayer: ObservableObject {
 
     // MARK: - Transport
 
-    /// Starts (or restarts) playback from `offset` seconds into the scene.
-    func play(from offset: TimeInterval = 0) {
-        guard pack != nil else { return }
+    /// Starts (or restarts) playback from `offset` seconds into the scene. False, with
+    /// `playbackErrorMessage` set, when the audio hardware is not available.
+    @discardableResult
+    func play(from offset: TimeInterval = 0) -> Bool {
+        guard pack != nil else { return false }
         let wasPlaying = isPlaying
 
         stopNodes()
+        playbackErrorMessage = nil
 
-        AudioSessionManager.shared.activate()
+        do {
+            try AudioSessionManager.shared.activate()
+        } catch {
+            playbackErrorMessage = error.errorDescription
+            return false
+        }
+
+        // A graph the engine refused when the pack was prepared, over a session that was
+        // not active then, is worth one more try now that it is.
+        if graphIsBroken { connectNodes() }
+        guard !graphIsBroken else {
+            playbackErrorMessage = Strings.Error.playbackUnavailable
+            return false
+        }
 
         do {
             if !engine.isRunning {
@@ -312,7 +348,9 @@ final class DubPlayer: ObservableObject {
             }
         } catch {
             print("❌ DubPlayer failed to start engine: \(error)")
-            return
+            CrashReporter.shared.record(error, context: "dub_player.engine_start")
+            playbackErrorMessage = Strings.Error.playbackUnavailable
+            return false
         }
 
         playbackStartOffset = max(0, offset)
@@ -326,9 +364,19 @@ final class DubPlayer: ObservableObject {
         let hostTime = mach_absolute_time() + AVAudioTime.hostTime(forSeconds: Self.startLeadIn)
         let startTime = AVAudioTime(hostTime: hostTime)
 
-        // Only the nodes that were actually connected may be started
-        if backingBuffer != nil { backingNode.play(at: startTime) }
-        voiceNodes.forEach { $0.play(at: startTime) }
+        // Only the nodes that were actually connected may be started. `play(at:)` raises on a
+        // node that has not seen a render cycle yet, which a freshly started engine's have
+        // not; a short wait for the first one is what it needs, and a node that still will
+        // not take a deadline starts at once rather than taking the app down.
+        let canSchedule = Self.waitForFirstRender(of: engine)
+        var started = true
+        if backingBuffer != nil { started = start(backingNode, at: canSchedule ? startTime : nil) && started }
+        for node in voiceNodes { started = start(node, at: canSchedule ? startTime : nil) && started }
+        guard started else {
+            stopNodes()
+            playbackErrorMessage = Strings.Error.playbackUnavailable
+            return false
+        }
 
         // The picture is anchored a little later than the audio, by however long this route
         // takes to actually make a sound. `hostTime` is when the nodes start *rendering*; the
@@ -349,6 +397,32 @@ final class DubPlayer: ObservableObject {
         if !wasPlaying {
             AnalyticsManager.shared.trackDubPlaybackStarted(mode: mode.rawValue)
         }
+        return true
+    }
+
+    /// How long to wait for the engine's first render cycle before scheduling against it.
+    private static let firstRenderTimeout: TimeInterval = 0.08
+
+    /// True once the engine's output has rendered, or false after a short wait if it has not.
+    private static func waitForFirstRender(of engine: AVAudioEngine) -> Bool {
+        let deadline = Date().addingTimeInterval(firstRenderTimeout)
+        while engine.outputNode.lastRenderTime?.isSampleTimeValid != true {
+            if Date() >= deadline { return false }
+            usleep(2_000)
+        }
+        return true
+    }
+
+    /// Starts one node, at `time` when given, immediately when not or when the deadline is
+    /// refused. False when the node will not start at all.
+    private func start(_ node: AVAudioPlayerNode, at time: AVAudioTime?) -> Bool {
+        if let time {
+            if AudioGraphGuard.succeeds({ node.play(at: time) }) { return true }
+            CrashReporter.shared.log("dub_player.play(at:) raised; starting immediately")
+        }
+        if AudioGraphGuard.succeeds({ node.play() }) { return true }
+        CrashReporter.shared.recordFailure("dub_player.play", reason: "player node refused to start")
+        return false
     }
 
     func stop() {

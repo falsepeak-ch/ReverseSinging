@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import UIKit
 import Combine
 import QuartzCore
 import AVFoundation
@@ -419,6 +420,9 @@ final class DubRecordViewModel: ObservableObject {
 
     private func beginRecording() {
         guard recorder.canStartRecording(), let line = currentLine else { return }
+        // The slate ran while the user switched apps: an inactive app cannot open the
+        // microphone, and asking anyway was a "recorder won't start" for every one of them.
+        guard UIApplication.shared.applicationState == .active else { return }
 
         do {
             SoundManager.shared.setMicrophoneOpen(true)
@@ -480,6 +484,7 @@ final class DubRecordViewModel: ObservableObject {
             SoundManager.shared.setMicrophoneOpen(false)
             session.errorMessage = error.localizedDescription
             SoundManager.shared.play(.errorThunk)
+            // The reporter skips a recorder refused by a call or a held session on its own.
             CrashReporter.shared.record(error, context: "dub.record_start")
         }
     }

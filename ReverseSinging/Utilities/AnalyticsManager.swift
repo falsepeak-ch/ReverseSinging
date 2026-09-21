@@ -372,10 +372,11 @@ final class AnalyticsManager {
 
     // MARK: - Purchases
 
-    /// The paywall reached the screen. `source` says what put it there — the
-    /// expired trial, the counter in the header, or the settings row — which is
-    /// the only way to tell a hard paywall's numbers apart from an offer someone
-    /// chose to look at.
+    /// The paywall reached the screen. `source` says what put it there — the hard
+    /// paywall (`trial_expired`), the settings row, or one of the menu's
+    /// `HomePaywallSource`s: the counter, the trial-ended card, a locked game, a
+    /// pack opened while locked — which is the only way to tell a hard paywall's
+    /// numbers apart from an offer someone chose to look at.
     func trackPaywallShown(source: String, isHardPaywall: Bool) {
         log("paywall_shown", parameters: [
             "source": source,

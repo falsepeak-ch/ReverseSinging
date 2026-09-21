@@ -1,16 +1,15 @@
-Ett nytt namn, en kamera och fjorton språk till.
+Fler dubbpaket går att öppna, och mindre går fel.
 
-BOOTH CAM
-• Filma dig själv med framsideskameran medan du dubbar, och ta med reaktionen i exporten: i hörnet, staplad ovanför scenen för en story, eller sida vid sida
-• Exportera en enda replik, med ditt ansikte bredvid
-• Exportera en sessionsrulle: varje dubbad replik på rad, utan tystnaden emellan
-• Kameran är av tills du slår på den, och båsklipp lämnar bara telefonen om du exporterar
+DUBBPAKET
+• Paket i .rar-format går nu att öppna, även när de har döpts om till .zip
+• Paket med röster och musik i .ogg spelas nu upp; tidigare föll de replikerna bort och scenen blev tyst. Paket du redan har installerat lagas också
+• Många fler sätt att skriva en repliks tider förstås, så paket som brukade förlora hälften av sina repliker importeras nu hela
+• Ett paket som fortfarande ligger i iCloud laddas ner först i stället för att misslyckas
+• När en fil inte går att importera säger appen vad den innehåller och varför det inte fungerar
 
-BETYG
-• Tagningar bedöms på timing, tempo och spel, med ett betyg för scenen och repliken som mest förtjänar ett försök till. Stängs av i Inställningar om du hellre bara spelar
+FIXAR
+• Åtgärdade krascher som uppstod när en annan app höll i ljudet, och när en scen började spelas upp
+• En videokonvertering som avbröts när du lämnade appen fortsätter senare i stället för att tappa bilden
 
 DESSUTOM
-• Paket som inte går att importera säger nu vad som är fel i stället för att misslyckas tyst
-• Dubloon talar nu 21 språk, bland dem tyska, nederländska, svenska, danska, norska, finska, polska, tjeckiska, ryska, ukrainska, grekiska, turkiska, thailändska och arabiska
-• Appen har ett nytt namn och en ny ordbild till. Samma två spel, ingenting att lära om
-• Sju dagar gratis, sedan låser en engångsbetalning upp båda spelen för gott, utan prenumeration. Spelade du redan före den här uppdateringen förblir båda spelen gratis för dig
+• När gratisperioden tar slut förblir menyn öppen, och erbjudandet väntar tills du trycker på det i stället för att täcka hela appen

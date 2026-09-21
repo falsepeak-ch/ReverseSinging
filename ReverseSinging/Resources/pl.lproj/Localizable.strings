@@ -176,11 +176,10 @@
 "dub.exporting" = "Eksportowanie…";
 "dub.export.mixing" = "Miksujemy dźwięk…";
 "dub.export.rendering" = "Renderujemy wideo…";
-"dub.error.missingPackInfo" = "Ten folder to nie paczka dubbingowa: nie ma w nim pliku _pack_info.ini.";
 "dub.error.noLines" = "W tej paczce nie ma ani jednej użytecznej kwestii.";
-"dub.error.notAFolder" = "Wybierz folder paczki albo archiwum .zip lub .7z.";
+"dub.error.notAFolder" = "Wybierz folder paczki albo archiwum .zip, .7z lub .rar.";
 "dub.error.unreadableArchive" = "To archiwum nie dało się otworzyć: %@";
-"dub.error.unsupportedArchive" = "Dubloon nie otwiera archiwów .%@. Zapisz paczkę ponownie jako .zip albo .7z.";
+"dub.error.unsupportedArchive" = "Dubloon nie otwiera archiwów .%@. Zapisz paczkę ponownie jako .zip, .7z albo .rar.";
 "dub.error.archiveEncrypted" = "Archiwum jest chronione hasłem. Poproś autora o kopię bez hasła.";
 "dub.error.archiveUnsupported" = "Archiwum używa kompresji, której Dubloon nie potrafi rozpakować. Spróbuj zapisać je ponownie jako .zip.";
 "dub.error.archiveCorrupt" = "Archiwum jest uszkodzone albo nie pobrało się do końca.";
@@ -395,3 +394,16 @@
 "whatsNew.booth.row.default.value" = "Wyłączony";
 "whatsNew.booth.confirm" = "Wypróbuj na scenie";
 "whatsNew.booth.later" = "Później";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "Inna aplikacja używa teraz dźwięku. Zakończ rozmowę lub zamknij ją i spróbuj ponownie.";
+"error.playbackUnavailable" = "Odtwarzanie jest teraz niedostępne. Spróbuj ponownie za chwilę.";
+"dub.convertingAudio" = "Konwertowanie nagrań…";
+"dub.error.notDownloaded" = "Ten plik nie skończył się pobierać z iCloud. Otwórz go najpierw w Plikach, potem spróbuj ponownie.";
+"dub.error.notAnArchive" = "Ten .%1$@ nie jest archiwum, to %2$@. Pobierz pakiet ponownie stamtąd, skąd go masz.";
+"dub.error.emptySource" = "Tam nic nie ma. Jeśli to leży w iCloud, otwórz to najpierw w Plikach, żeby się pobrało, i spróbuj ponownie.";
+"dub.error.notADubPack" = "To nie jest paczka do dubbingu. Zawiera pliki %@ i ani jednej kwestii. Paczka ma plik tekstowy i nagranie dla każdej kwestii.";
+"dub.error.linesNoTimestamps" = "Ta paczka nie mówi, kiedy zaczynają się kwestie, więc nie ma czego grać. Autor musi dodać czas rozpoczęcia każdej kwestii.";
+"dub.error.linesBadTimestamps" = "Czasy rozpoczęcia w tej paczce nie są zapisane jako czasy, więc kwestii nie da się rozmieścić.";
+"dub.error.linesNoAudio" = "Kwestie w tej paczce nie mają nagrań, więc nie ma czego dubbingować.";
+"dub.error.linesUnplayableAudio" = "Żadnego nagrania z tej paczki nie da się odtworzyć na tym urządzeniu.";

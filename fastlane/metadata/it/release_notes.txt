@@ -1,16 +1,15 @@
-Un nome nuovo, una fotocamera e quattordici lingue in più.
+Si aprono più pack di doppiaggio, e meno cose vanno storte.
 
-CAMERA DELLA CABINA
-• Riprenditi con la fotocamera frontale mentre doppi e porta la reazione dentro l'esportazione: in un angolo, impilata sopra la scena per una storia, o affiancata
-• Esporta una singola battuta, con la tua faccia accanto
-• Esporta la bobina della sessione: tutte le battute doppiate, una dietro l'altra, senza i silenzi
-• La fotocamera resta spenta finché non la accendi, e le clip della cabina non lasciano il telefono se non esporti
+PACK DI DOPPIAGGIO
+• I pack in formato .rar ora si aprono, anche quando erano stati rinominati in .zip
+• I pack con voci e musica in .ogg ora si sentono; prima quelle battute andavano perse e la scena restava muta. Anche i pack già installati vengono riparati
+• Vengono capiti molti più modi di scrivere i tempi di una battuta, quindi i pack che perdevano metà delle battute ora si importano per intero
+• Un pack ancora su iCloud viene prima scaricato invece di fallire
+• Quando un file non si può importare, l'app dice cosa contiene e perché non va bene
 
-PUNTEGGIO
-• Le take vengono valutate su tempi, ritmo e interpretazione, con un voto per la scena e la battuta che più merita un altro giro. Si spegne nelle Impostazioni se preferisci recitare e basta
+CORREZIONI
+• Corretti i crash che avvenivano quando un'altra app teneva occupato l'audio e all'avvio della riproduzione di una scena
+• Una conversione video interrotta uscendo dall'app riprende più tardi invece di perdere l'immagine
 
 INOLTRE
-• I pack che non si importano ora dicono cosa non va, invece di fallire in silenzio
-• Dubloon ora parla 21 lingue, tra cui tedesco, olandese, svedese, danese, norvegese, finlandese, polacco, ceco, russo, ucraino, greco, turco, thailandese e arabo
-• L'app ha un nome nuovo e un logotipo che gli va dietro. Gli stessi due giochi, niente da reimparare
-• Sette giorni gratis, poi un pagamento unico che sblocca entrambi i giochi per sempre, senza abbonamento. Se giocavi già prima di questo aggiornamento, entrambi i giochi restano gratis per te
+• Quando la prova gratuita finisce il menu resta aperto, e l'offerta aspetta che la tocchi invece di coprire tutta l'app

@@ -17,9 +17,12 @@ nonisolated extension DubPack {
     /// pack and exactly why the result is cached in the manifest: call this off the main actor.
     ///
     /// - Parameters:
-    ///   - directory: the installed pack's folder; its name is the pack's `folderName`.
+    ///   - directory: where the pack's files are right now, which is where the recordings are
+    ///     measured from. Its name is the pack's `folderName` unless one is given.
+    ///   - folderName: the folder the pack will live in, when it is still being staged
+    ///     elsewhere.
     ///   - id: the pack's identity. Pass the previous install's to keep the user's takes.
-    init(parsed: ParsedPack, directory: URL, id: UUID = UUID(), importedAt: Date = Date()) {
+    init(parsed: ParsedPack, directory: URL, folderName: String? = nil, id: UUID = UUID(), importedAt: Date = Date()) {
         self.init(
             id: id,
             title: parsed.title,
@@ -27,7 +30,7 @@ nonisolated extension DubPack {
             iconFile: parsed.iconFile ?? "",
             backingTrackFile: parsed.backingTrackFile,
             videoFile: parsed.videoFile,
-            folderName: directory.lastPathComponent,
+            folderName: folderName ?? directory.lastPathComponent,
             lines: parsed.lines.map { DubLine(parsed: $0, in: directory) },
             duration: parsed.duration,
             importedAt: importedAt,

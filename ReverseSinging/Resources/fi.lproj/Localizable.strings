@@ -176,11 +176,10 @@
 "dub.exporting" = "Viedään…";
 "dub.export.mixing" = "Miksataan ääntä…";
 "dub.export.rendering" = "Renderöidään videota…";
-"dub.error.missingPackInfo" = "Tuo kansio ei ole dubbauspaketti: siellä ei ole _pack_info.ini-tiedostoa.";
 "dub.error.noLines" = "Tässä paketissa ei ole yhtäkään kelvollista repliikkiä.";
-"dub.error.notAFolder" = "Valitse pakettikansio tai .zip- tai .7z-arkisto.";
+"dub.error.notAFolder" = "Valitse pakettikansio tai .zip-, .7z- tai .rar-arkisto.";
 "dub.error.unreadableArchive" = "Tuo arkisto ei suostunut aukeamaan: %@";
-"dub.error.unsupportedArchive" = "Dubloon ei osaa avata .%@-arkistoja. Tallenna paketti uudelleen .zip- tai .7z-muodossa.";
+"dub.error.unsupportedArchive" = "Dubloon ei osaa avata .%@-arkistoja. Tallenna paketti uudelleen .zip-, .7z- tai .rar-muodossa.";
 "dub.error.archiveEncrypted" = "Arkisto on suojattu salasanalla. Pyydä tekijältä kopio ilman salasanaa.";
 "dub.error.archiveUnsupported" = "Arkisto käyttää pakkausta, jota Dubloon ei osaa purkaa. Kokeile tallentaa se uudelleen .zip-muodossa.";
 "dub.error.archiveCorrupt" = "Arkisto on vioittunut tai sen lataus jäi kesken.";
@@ -395,3 +394,16 @@
 "whatsNew.booth.row.default.value" = "Pois";
 "whatsNew.booth.confirm" = "Kokeile kohtauksessa";
 "whatsNew.booth.later" = "Myöhemmin";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "Toinen sovellus käyttää ääntä juuri nyt. Lopeta puhelu tai sulje se ja yritä uudelleen.";
+"error.playbackUnavailable" = "Toisto ei ole nyt käytettävissä. Yritä hetken päästä uudelleen.";
+"dub.convertingAudio" = "Muunnetaan äänityksiä…";
+"dub.error.notDownloaded" = "Tiedoston lataus iCloudista ei ole valmis. Avaa se ensin Tiedostot-sovelluksessa ja yritä uudelleen.";
+"dub.error.notAnArchive" = "Tuo .%1$@ ei ole arkisto, vaan %2$@. Hae paketti uudelleen sieltä, mistä sait sen.";
+"dub.error.emptySource" = "Siellä ei ole mitään. Jos se on iCloudissa, avaa se ensin Tiedostot-sovelluksessa, jotta se latautuu, ja yritä uudelleen.";
+"dub.error.notADubPack" = "Tuo ei ole dubbauspaketti. Siinä on %@-tiedostoja eikä yhtään repliikkiä. Dubbauspaketissa on jokaiselle repliikille tekstitiedosto ja äänite.";
+"dub.error.linesNoTimestamps" = "Paketti ei kerro, milloin repliikit alkavat, joten esitettävää ei ole. Tekijän pitää lisätä jokaiselle repliikille alkamisaika.";
+"dub.error.linesBadTimestamps" = "Paketin alkamisaikoja ei ole kirjoitettu aikoina, joten repliikkejä ei voi sijoittaa.";
+"dub.error.linesNoAudio" = "Paketin repliikeillä ei ole äänitteitä, joten dubattavaa ei ole.";
+"dub.error.linesUnplayableAudio" = "Yhtäkään paketin äänitteistä ei voi toistaa tällä laitteella.";

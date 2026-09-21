@@ -55,11 +55,14 @@ struct RealPackSamplesTests {
     }
 
     /// Issues that say a pack arrived differently rather than with less: no pack info to title it,
-    /// or a cut-off archive whose only casualty was the tail of a recording that still plays.
+    /// a still borrowed from the line before, an icon found by convention, or a cut-off archive
+    /// whose only casualty was the tail of a recording that still plays.
     private static func keepsAllContent(_ issue: DubPackIssue) -> Bool {
         switch issue {
-        case .missingPackInfo:
+        case .missingPackInfo, .missingIcon, .extraTimestampsIgnored:
             true
+        case .missingStill(_, let substitute):
+            substitute != nil
         case .archiveRecovered(let truncatedEntry, let partialKept, let damagedEntries):
             damagedEntries == 0 && (truncatedEntry == nil || partialKept)
         default:

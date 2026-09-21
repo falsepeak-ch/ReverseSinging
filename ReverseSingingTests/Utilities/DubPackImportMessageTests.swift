@@ -42,7 +42,7 @@ struct DubPackImportMessageTests {
     }
 
     @Test func explainsAPackThatCameInEmpty() {
-        #expect(DubPackImportMessage.text(for: DubPackImportError.noPackFound) == Strings.Dub.Error.missingPackInfo)
+        #expect(DubPackImportMessage.text(for: DubPackImportError.noPackFound()) == Strings.Dub.Error.emptySource)
         #expect(DubPackImportMessage.text(for: DubPackImportError.noLines(issues: [])) == Strings.Dub.Error.noLines)
     }
 
@@ -60,5 +60,27 @@ struct DubPackImportMessageTests {
         for stage in DubPackInstallProgress.Stage.allCases {
             #expect(!stage.message.isEmpty)
         }
+    }
+
+    /// A font pack, as one user picked: the message names what was in it.
+    @Test func somethingThatIsNotAPackIsDescribedByWhatItHolds() {
+        let font = DubPackImportError.noPackFound(fileTypes: ["bfotf": 2, "webp": 1])
+        #expect(DubPackImportMessage.text(for: font) == String(format: Strings.Dub.Error.notADubPack, ".bfotf, .webp"))
+
+        let mod = DubPackImportError.noPackFound(fileTypes: ["class": 189, "json": 59, "png": 3, "toml": 1])
+        #expect(DubPackImportMessage.text(for: mod) == String(format: Strings.Dub.Error.notADubPack, ".class, .json, .png, …"))
+    }
+
+    /// A pack whose every line was dropped says why, by the reason most of its lines share.
+    @Test func aPackWithNoUsableLinesSaysWhy() {
+        func dropped(_ reasons: [DroppedLineReason]) -> DubPackImportError {
+            .noLines(issues: reasons.enumerated().map { .droppedLine(file: "\($0.offset).txt", reason: $0.element) })
+        }
+
+        #expect(DubPackImportMessage.text(for: dropped([.missingTimestamp, .missingTimestamp, .missingAudio])) == Strings.Dub.Error.linesNoTimestamps)
+        #expect(DubPackImportMessage.text(for: dropped([.invalidTimestamp])) == Strings.Dub.Error.linesBadTimestamps)
+        #expect(DubPackImportMessage.text(for: dropped([.missingAudio])) == Strings.Dub.Error.linesNoAudio)
+        #expect(DubPackImportMessage.text(for: dropped([.unplayableAudio])) == Strings.Dub.Error.linesUnplayableAudio)
+        #expect(DubPackImportMessage.text(for: dropped([.unreadableText])) == Strings.Dub.Error.noLines)
     }
 }

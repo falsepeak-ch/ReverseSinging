@@ -176,11 +176,10 @@
 "dub.exporting" = "A exportar…";
 "dub.export.mixing" = "A misturar o áudio…";
 "dub.export.rendering" = "A renderizar o vídeo…";
-"dub.error.missingPackInfo" = "Essa pasta não é um pack de dobragem: não tem lá nenhum _pack_info.ini.";
 "dub.error.noLines" = "Este pack não tem uma única fala aproveitável.";
-"dub.error.notAFolder" = "Escolhe uma pasta de pack, ou um ficheiro .zip ou .7z.";
+"dub.error.notAFolder" = "Escolhe uma pasta de pack, ou um ficheiro .zip, .7z ou .rar.";
 "dub.error.unreadableArchive" = "Esse ficheiro não se deixou abrir: %@";
-"dub.error.unsupportedArchive" = "O Dubloon não consegue abrir ficheiros .%@. Volta a guardar o pack como .zip ou .7z.";
+"dub.error.unsupportedArchive" = "O Dubloon não consegue abrir ficheiros .%@. Volta a guardar o pack como .zip, .7z ou .rar.";
 "dub.error.archiveEncrypted" = "O ficheiro está protegido por palavra-passe. Pede ao criador uma cópia sem palavra-passe.";
 "dub.error.archiveUnsupported" = "O ficheiro usa uma compressão que o Dubloon não consegue extrair. Tenta voltar a guardá-lo como .zip.";
 "dub.error.archiveCorrupt" = "O ficheiro está danificado ou a transferência não chegou ao fim.";
@@ -395,3 +394,16 @@
 "whatsNew.booth.row.default.value" = "Desligada";
 "whatsNew.booth.confirm" = "Experimenta numa cena";
 "whatsNew.booth.later" = "Mais tarde";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "Outra app está a usar o áudio neste momento. Termine a chamada ou feche-a e tente de novo.";
+"error.playbackUnavailable" = "A reprodução não está disponível agora. Tente de novo daqui a um momento.";
+"dub.convertingAudio" = "A converter as gravações…";
+"dub.error.notDownloaded" = "Esse ficheiro ainda não acabou de transferir do iCloud. Abra-o primeiro em Ficheiros e tente de novo.";
+"dub.error.notAnArchive" = "Esse .%1$@ não é um arquivo, é %2$@. Volte a obter o pack onde o encontrou.";
+"dub.error.emptySource" = "Não há nada aí dentro. Se estiver no iCloud, abre-o primeiro em Ficheiros para que seja transferido e tenta de novo.";
+"dub.error.notADubPack" = "Isso não é um pack de dobragem. Contém ficheiros %@ e nenhuma fala. Um pack tem um ficheiro de texto e uma gravação para cada fala.";
+"dub.error.linesNoTimestamps" = "Este pack não diz quando começam as falas, por isso não há nada para interpretar. Quem o fez tem de acrescentar um tempo de início a cada fala.";
+"dub.error.linesBadTimestamps" = "Os tempos de início deste pack não estão escritos como tempos, por isso as falas não podem ser colocadas.";
+"dub.error.linesNoAudio" = "As falas deste pack não trazem gravações, por isso não há nada para dobrar.";
+"dub.error.linesUnplayableAudio" = "Nenhuma das gravações deste pack pode ser reproduzida neste dispositivo.";

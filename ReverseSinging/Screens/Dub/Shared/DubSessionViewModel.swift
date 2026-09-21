@@ -228,6 +228,7 @@ final class DubSessionViewModel: ObservableObject {
             referencePlayer.play()
         } catch {
             errorMessage = error.localizedDescription
+            CrashReporter.shared.record(error, context: "dub.play_reference")
         }
     }
 
@@ -249,6 +250,7 @@ final class DubSessionViewModel: ObservableObject {
         } catch {
             boothPlaybackURL = nil
             errorMessage = error.localizedDescription
+            CrashReporter.shared.record(error, context: "dub.play_take")
         }
     }
 
@@ -339,7 +341,9 @@ final class DubSessionViewModel: ObservableObject {
     func playScene(mode: DubPlaybackMode, from offset: TimeInterval = 0) async {
         stopPlayback()
         await scenePlayer.prepare(pack: pack, mode: mode)
-        scenePlayer.play(from: offset)
+        if !scenePlayer.play(from: offset) {
+            errorMessage = scenePlayer.playbackErrorMessage
+        }
     }
 
     /// Silences the reference and the scene. The record screen closes its own microphone and

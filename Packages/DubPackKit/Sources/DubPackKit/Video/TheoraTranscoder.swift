@@ -4,7 +4,7 @@
 //
 
 public import Foundation
-import XiphTheora
+import XiphCodecs
 
 /// Turns an Ogg Theora scene video into an H.264 MP4 that AVFoundation can play.
 ///

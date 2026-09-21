@@ -56,10 +56,25 @@ struct PackRootFinderTests {
     @Test func givesUpBelowTheMaximumDepth() throws {
         let temp = try TemporaryDirectory()
         defer { temp.remove() }
-        let deep = try PackBuilder(in: temp.url.appendingPathComponent("1/2/3"), named: "4")
+        let deep = try PackBuilder(in: temp.url.appendingPathComponent("1/2/3/4"), named: "5")
         try deep.packInfo()
 
         #expect(PackRootFinder.root(in: temp.url) == nil)
-        #expect(PackRootFinder.root(in: temp.url, maxDepth: 4) != nil)
+        #expect(PackRootFinder.root(in: temp.url, maxDepth: 5) != nil)
+    }
+
+    /// A pack typed by hand, `cady.txt` + `cady.mp3`, has no numbers anywhere; the recordings
+    /// beside the text are what say it is a pack.
+    @Test func withoutNumbersPicksTheFolderWhoseTextHasRecordingsBesideIt() throws {
+        let temp = try TemporaryDirectory()
+        defer { temp.remove() }
+        let notes = try PackBuilder(in: temp.url, named: "notes")
+        try notes.write("x", to: "readme.txt")
+        try notes.write("x", to: "credits.txt")
+        let pack = try PackBuilder(in: temp.url, named: "scene")
+        try pack.write("x", to: "cady.txt")
+        try pack.silentWav("cady.wav")
+
+        #expect(PackRootFinder.root(in: temp.url)?.standardizedFileURL == pack.directory.standardizedFileURL)
     }
 }

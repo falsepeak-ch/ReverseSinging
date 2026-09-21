@@ -176,11 +176,10 @@
 "dub.exporting" = "Exporting…";
 "dub.export.mixing" = "Mixing audio…";
 "dub.export.rendering" = "Rendering video…";
-"dub.error.missingPackInfo" = "That folder isn't a dub pack. There's no _pack_info.ini in it.";
 "dub.error.noLines" = "There isn't a single usable line in this pack.";
-"dub.error.notAFolder" = "Pick a dub pack folder, or a .zip or .7z archive.";
+"dub.error.notAFolder" = "Pick a dub pack folder, or a .zip, .7z or .rar archive.";
 "dub.error.unreadableArchive" = "That archive wouldn't open: %@";
-"dub.error.unsupportedArchive" = "Dubloon can't open .%@ archives. Re-save the pack as a .zip or .7z.";
+"dub.error.unsupportedArchive" = "Dubloon can't open .%@ archives. Re-save the pack as a .zip, .7z or .rar.";
 "dub.error.archiveEncrypted" = "The archive is password-protected. Ask its creator for a copy without a password.";
 "dub.error.archiveUnsupported" = "The archive uses a compression method Dubloon can't unpack. Try re-saving it as a .zip.";
 "dub.error.archiveCorrupt" = "The archive is damaged or didn't finish downloading.";
@@ -395,3 +394,16 @@
 "whatsNew.booth.row.default.value" = "Off";
 "whatsNew.booth.confirm" = "Try it on a scene";
 "whatsNew.booth.later" = "Later";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "Another app is using the audio right now. End the call or close it, then try again.";
+"error.playbackUnavailable" = "Playback isn't available right now. Try again in a moment.";
+"dub.convertingAudio" = "Converting the recordings…";
+"dub.error.notDownloaded" = "That file hasn't finished downloading from iCloud. Open it in Files first, then try again.";
+"dub.error.notAnArchive" = "That .%1$@ isn't an archive, it's %2$@. Get the pack again from wherever it came from.";
+"dub.error.emptySource" = "There's nothing in there. If it lives in iCloud, open it in Files first so it downloads, then try again.";
+"dub.error.notADubPack" = "That isn't a dub pack. It holds %@ files and no dialogue lines. A dub pack has a text file and a recording for every line.";
+"dub.error.linesNoTimestamps" = "This pack doesn't say when its lines start, so there's nothing to perform. Its maker needs to add a start time to every line.";
+"dub.error.linesBadTimestamps" = "The start times in this pack aren't written as times, so its lines can't be placed.";
+"dub.error.linesNoAudio" = "This pack's lines have no recordings with them, so there's nothing to dub over.";
+"dub.error.linesUnplayableAudio" = "None of this pack's recordings will play on this device.";

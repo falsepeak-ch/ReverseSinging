@@ -9,8 +9,13 @@ import SwiftUI
 
 /// A menu row for one game. The chevron and the full-width shape are what say
 /// "this goes somewhere". The home screen picks a game. It does not play one.
+///
+/// Locked, once the trial is over, it is dimmed and the chevron becomes a padlock. It stays a
+/// button: a disabled row that swallowed the tap would leave the user guessing why, so the tap
+/// goes to the caller, which answers with the paywall.
 struct GameModeRow: View {
     let mode: GameMode
+    var isLocked = false
     let action: () -> Void
 
     var body: some View {
@@ -23,6 +28,7 @@ struct GameModeRow: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 52, height: 52)
+                    .saturation(isLocked ? 0 : 1)
                     .frame(width: 68, height: 68)
                     .background(
                         RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
@@ -36,7 +42,7 @@ struct GameModeRow: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text(mode.title)
                         .font(.rsButtonMedium)
-                        .foregroundColor(.rsTextPrimary)
+                        .foregroundColor(isLocked ? .rsTextSecondary : .rsTextPrimary)
                         .fixedSize(horizontal: false, vertical: true)
 
                     Text(mode.subtitle)
@@ -48,17 +54,19 @@ struct GameModeRow: View {
 
                 Spacer(minLength: 8)
 
-                Image(systemName: "chevron.right")
+                Image(systemName: isLocked ? "lock.fill" : "chevron.right")
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundColor(.rsTextTertiary)
             }
             .padding(14)
             .frame(maxWidth: .infinity, alignment: .leading)
+            .opacity(isLocked ? 0.5 : 1)
             .editorPanel()
         }
         .buttonStyle(.plain)
         .accessibilityLabel(mode.title)
-        .accessibilityHint(mode.subtitle)
+        .accessibilityValue(isLocked ? Strings.Pro.Trial.over : "")
+        .accessibilityHint(isLocked ? Strings.Pro.unlockTitle : mode.subtitle)
     }
 }
 
@@ -68,6 +76,9 @@ struct GameModeRow: View {
         VStack(spacing: 10) {
             ForEach(GameMode.allCases) { mode in
                 GameModeRow(mode: mode) {}
+            }
+            ForEach(GameMode.allCases) { mode in
+                GameModeRow(mode: mode, isLocked: true) {}
             }
         }
         .padding(EditorMetrics.gutter)

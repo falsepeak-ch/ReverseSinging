@@ -176,11 +176,10 @@
 "dub.exporting" = "جارٍ التصدير…";
 "dub.export.mixing" = "مزج الصوت…";
 "dub.export.rendering" = "معالجة الفيديو…";
-"dub.error.missingPackInfo" = "هذا المجلد ليس حزمة دبلجة: لا يوجد بداخله ملف ‎_pack_info.ini.";
 "dub.error.noLines" = "لا توجد في هذه الحزمة جملة واحدة صالحة.";
-"dub.error.notAFolder" = "اختر مجلد حزمة أو أرشيف ‎.zip أو ‎.7z.";
+"dub.error.notAFolder" = "اختر مجلد حزمة أو أرشيف ‎.zip أو ‎.7z أو ‎.rar.";
 "dub.error.unreadableArchive" = "هذا الأرشيف رفض أن يُفتح: %@";
-"dub.error.unsupportedArchive" = "لا يستطيع Dubloon فتح أرشيفات ‎.%@. احفظ الحزمة من جديد بصيغة ‎.zip أو ‎.7z.";
+"dub.error.unsupportedArchive" = "لا يستطيع Dubloon فتح أرشيفات ‎.%@. احفظ الحزمة من جديد بصيغة ‎.zip أو ‎.7z أو ‎.rar.";
 "dub.error.archiveEncrypted" = "الأرشيف محمي بكلمة مرور. اطلب من صاحبه نسخة بلا كلمة مرور.";
 "dub.error.archiveUnsupported" = "الأرشيف يستخدم طريقة ضغط لا يستطيع Dubloon فكّها. جرّب حفظه من جديد بصيغة ‎.zip.";
 "dub.error.archiveCorrupt" = "الأرشيف تالف أو لم يكتمل تنزيله.";
@@ -395,3 +394,16 @@
 "whatsNew.booth.row.default.value" = "مطفأة";
 "whatsNew.booth.confirm" = "جرّبها على مشهد";
 "whatsNew.booth.later" = "لاحقًا";
+
+/* Import resilience (1.6): busy audio hardware, iCloud placeholders, Vorbis conversion */
+"error.audioInUse" = "تطبيق آخر يستخدم الصوت الآن. أنهِ المكالمة أو أغلقه ثم حاول مرة أخرى.";
+"error.playbackUnavailable" = "التشغيل غير متاح الآن. حاول مرة أخرى بعد لحظات.";
+"dub.convertingAudio" = "جارٍ تحويل التسجيلات…";
+"dub.error.notDownloaded" = "لم ينتهِ تنزيل هذا الملف من iCloud بعد. افتحه في تطبيق الملفات أولاً ثم حاول مرة أخرى.";
+"dub.error.notAnArchive" = "هذا الملف .%1$@ ليس أرشيفاً، بل هو %2$@. احصل على الحزمة مرة أخرى من حيث جلبتها.";
+"dub.error.emptySource" = "لا يوجد شيء بالداخل. إذا كان على iCloud، فافتحه أولاً في تطبيق الملفات ليتم تنزيله ثم حاول مرة أخرى.";
+"dub.error.notADubPack" = "هذه ليست حزمة دبلجة. تحتوي على ملفات %@ ولا تحتوي على أي جملة حوار. حزمة الدبلجة فيها ملف نصي وتسجيل لكل جملة.";
+"dub.error.linesNoTimestamps" = "هذه الحزمة لا تذكر متى تبدأ جملها، فلا يوجد ما يمكن أداؤه. على صانعها أن يضيف وقت بدء لكل جملة.";
+"dub.error.linesBadTimestamps" = "أوقات البدء في هذه الحزمة ليست مكتوبة كأوقات، فلا يمكن وضع الجمل في مكانها.";
+"dub.error.linesNoAudio" = "جمل هذه الحزمة بلا تسجيلات، فلا يوجد ما يمكن دبلجته.";
+"dub.error.linesUnplayableAudio" = "لا يمكن تشغيل أي من تسجيلات هذه الحزمة على هذا الجهاز.";
