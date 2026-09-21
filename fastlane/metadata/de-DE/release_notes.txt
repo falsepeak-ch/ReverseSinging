@@ -1,16 +1,15 @@
-Ein neuer Name, eine Kamera und vierzehn weitere Sprachen.
+Mehr Dub-Packs lassen sich öffnen, und weniger geht schief.
 
-BOOTH CAM
-• Film dich mit der Frontkamera, während du synchronisierst, und nimm die Reaktion in den Export mit: in der Ecke, über der Szene gestapelt für eine Story, oder nebeneinander
-• Exportiere eine einzelne Zeile, mit deinem Gesicht daneben
-• Exportiere ein Session-Reel: alle vertonten Zeilen hintereinander, ohne die Stille dazwischen
-• Die Kamera bleibt aus, bis du sie einschaltest, und Kabinenclips verlassen das Handy nur, wenn du exportierst
+DUB-PACKS
+• Packs im .rar-Format lassen sich jetzt öffnen, auch wenn sie in .zip umbenannt wurden
+• Packs mit Stimmen und Musik im .ogg-Format werden jetzt abgespielt; vorher gingen diese Zeilen verloren und die Szene blieb stumm. Bereits installierte Packs werden ebenfalls repariert
+• Viel mehr Schreibweisen für das Timing einer Zeile werden verstanden, sodass Packs, die bisher die Hälfte ihrer Zeilen verloren, vollständig importiert werden
+• Ein Pack, das noch in iCloud liegt, wird erst geladen, statt zu scheitern
+• Lässt sich eine Datei nicht importieren, sagt die App, was darin steckt und warum das nicht passt
 
-WERTUNG
-• Takes werden auf Timing, Tempo und Spiel bewertet, mit einer Wertung für die Szene und der Zeile, die einen zweiten Versuch am ehesten verdient. In den Einstellungen abschaltbar, wenn du lieber einfach spielst
+FEHLERBEHEBUNGEN
+• Abstürze behoben, die auftraten, wenn eine andere App den Ton belegte, und beim Start der Wiedergabe einer Szene
+• Eine Videokonvertierung, die durch Verlassen der App unterbrochen wurde, läuft später weiter, statt das Bild zu verlieren
 
 AUSSERDEM
-• Packs, die sich nicht importieren lassen, sagen jetzt, was mit ihnen nicht stimmt, statt still zu scheitern
-• Dubloon spricht jetzt 21 Sprachen, darunter Deutsch, Niederländisch, Schwedisch, Dänisch, Norwegisch, Finnisch, Polnisch, Tschechisch, Russisch, Ukrainisch, Griechisch, Türkisch, Thai und Arabisch
-• Die App hat einen neuen Namen und eine neue Wortmarke dazu. Dieselben zwei Spiele, nichts neu zu lernen
-• Sieben Tage gratis, danach schaltet eine einmalige Zahlung beide Spiele dauerhaft frei, ohne Abo. Wer schon vor diesem Update gespielt hat, behält beide Spiele kostenlos
+• Wenn die kostenlose Testphase endet, bleibt das Menü offen, und das Angebot wartet, bis du es antippst, statt die ganze App zu verdecken

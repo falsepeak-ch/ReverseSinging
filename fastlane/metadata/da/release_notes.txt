@@ -1,16 +1,15 @@
-Et nyt navn, et kamera og fjorten sprog mere.
+Flere dubpakker kan åbnes, og færre ting går galt.
 
-BOOTH CAM
-• Film dig selv med frontkameraet, mens du dubber, og tag reaktionen med i eksporten: i hjørnet, stablet over scenen til en story, eller side om side
-• Eksportér en enkelt replik, med dit ansigt ved siden af
-• Eksportér en sessionsrulle: hver dubbet replik i træk, uden stilheden imellem
-• Kameraet er slukket, indtil du tænder det, og boksklip forlader kun telefonen, hvis du eksporterer
+DUBPAKKER
+• Pakker i .rar-format kan nu åbnes, også når de er blevet omdøbt til .zip
+• Pakker med stemmer og musik i .ogg afspilles nu; før faldt de replikker ud, og scenen blev stille. Pakker, du allerede har installeret, bliver også repareret
+• Mange flere måder at skrive en repliks tider på bliver forstået, så pakker, der plejede at miste halvdelen af deres replikker, nu importeres hele
+• En pakke, der stadig ligger i iCloud, bliver hentet først i stedet for at fejle
+• Når en fil ikke kan importeres, siger appen, hvad der er i den, og hvorfor det ikke dur
 
-BEDØMMELSE
-• Optagelser bedømmes på timing, tempo og spil, med en karakter for scenen og den replik, der bedst kan betale sig at tage om. Kan slås fra i Indstillinger, hvis du hellere bare vil spille
+RETTELSER
+• Rettede nedbrud, der opstod, når en anden app holdt på lyden, og når en scene begyndte at spille
+• En videokonvertering, der blev afbrudt, da du forlod appen, fortsætter senere i stedet for at miste billedet
 
 DESUDEN
-• Pakker, der ikke vil importeres, siger nu hvad der er galt i stedet for at fejle i stilhed
-• Dubloon taler nu 21 sprog, heriblandt tysk, hollandsk, svensk, dansk, norsk, finsk, polsk, tjekkisk, russisk, ukrainsk, græsk, tyrkisk, thai og arabisk
-• Appen har fået nyt navn og et nyt ordmærke til. De samme to spil, intet at lære forfra
-• Syv dage gratis, derefter låser én enkelt betaling begge spil op for altid, uden abonnement. Spillede du allerede før denne opdatering, forbliver begge spil gratis for dig
+• Når den gratis prøveperiode slutter, forbliver menuen åben, og tilbuddet venter, til du trykker på det, i stedet for at dække hele appen

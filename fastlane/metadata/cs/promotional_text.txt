@@ -1,1 +1,1 @@
-Novinka v 1.5.0: Booth Cam natáčí tvůj obličej při dabování, takže reakce jde ven spolu s nahrávkou. Nově ve 21 jazycích.
+Novinka v 1.5.1: otevře se a hraje mnohem víc komunitních balíčků, včetně .rar a .ogg. Natoč se při dabování s Booth Cam. Ve 21 jazycích.
