@@ -209,6 +209,21 @@ final class AudioRecorder: NSObject, ObservableObject {
         print("✅ Keeping audio session active for playback")
     }
 
+    /// One line on the state the recorder was refused in: whether the device has an input at
+    /// all, where audio is routed, at what rate, and who else is playing. Everything the
+    /// "Failed to start recording" reports never said.
+    private static func sessionDiagnostics(prepared: Bool) -> String {
+        let session = AVAudioSession.sharedInstance()
+        let route = session.currentRoute
+        let inputs = route.inputs.map(\.portType.rawValue).joined(separator: "+")
+        let outputs = route.outputs.map(\.portType.rawValue).joined(separator: "+")
+        return "prepared=\(prepared) inputAvailable=\(session.isInputAvailable)"
+            + " inputs=[\(inputs)] outputs=[\(outputs)]"
+            + " category=\(session.category.rawValue) mode=\(session.mode.rawValue)"
+            + " sampleRate=\(session.sampleRate) otherAudio=\(session.isOtherAudioPlaying)"
+            + " permission=\(AVAudioApplication.shared.recordPermission.rawValue)"
+    }
+
     // MARK: - Permission
 
     func requestPermission(completion: @escaping (Bool) -> Void) {
@@ -286,10 +301,15 @@ final class AudioRecorder: NSObject, ObservableObject {
                 )
             }
 
+            // Prepared explicitly so the device clock read below belongs to a recorder that
+            // already owns its audio queue. `record(atTime:)` prepares implicitly, but then
+            // the deadline was computed against a clock that did not exist yet.
+            let prepared = recorder.prepareToRecord()
+
             // Start recording. `record(atTime:)` is relative to the audio device clock and is
             // Apple's synchronization API; using it gives the picture enough runway to map
             // its first frame onto the same future instant.
-            let success: Bool
+            var success: Bool
             let delay = max(0, startDelay)
             var scheduledHostTime: UInt64?
             if delay > 0 {
@@ -302,10 +322,34 @@ final class AudioRecorder: NSObject, ObservableObject {
                 } else {
                     success = recorder.record(atTime: deviceStart)
                 }
+
+                // A refused schedule was the single most reported failure in the dub mode,
+                // on every iPhone and every iOS 26 build, and it refused again on every
+                // retry. Apple documents the false and not the reason. A take that starts
+                // now, a lead-in early, is a take; a slate that ends in an error is not.
+                if !success {
+                    CrashReporter.shared.log(
+                        "audio_recorder.scheduled_start_refused, starting now: \(Self.sessionDiagnostics(prepared: prepared))"
+                    )
+                    scheduledHostTime = mach_absolute_time()
+                    if let maxDuration, maxDuration > 0 {
+                        success = recorder.record(forDuration: maxDuration)
+                    } else {
+                        success = recorder.record()
+                    }
+                }
             } else if let maxDuration, maxDuration > 0 {
                 success = recorder.record(forDuration: maxDuration)
             } else {
                 success = recorder.record()
+            }
+
+            if !success {
+                // The report that follows names the recorder; this names the session it
+                // was refused by, which is the half that has been missing from every one.
+                CrashReporter.shared.log(
+                    "audio_recorder.start_refused: \(Self.sessionDiagnostics(prepared: prepared))"
+                )
             }
 
             if success {
