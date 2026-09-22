@@ -1,15 +1,8 @@
-Meer dubpacks gaan open, en er gaat minder mis.
+Ontgrendel Dubloon per maand of per jaar, en de microfoon start elke keer.
 
-DUBPACKS
-• Packs in .rar-formaat gaan nu open, ook als ze zijn hernoemd naar .zip
-• Packs met stemmen en muziek in .ogg spelen nu af; eerder vielen die regels weg en bleef de scène stil. Packs die je al had geïnstalleerd worden ook gerepareerd
-• Veel meer manieren om de timing van een regel te noteren worden begrepen, dus packs die de helft van hun regels kwijtraakten worden nu volledig geïmporteerd
-• Een pack dat nog in iCloud staat wordt eerst gedownload in plaats van te mislukken
-• Als een bestand niet kan worden geïmporteerd, zegt de app wat erin zit en waarom dat niet werkt
+MANIEREN OM TE ONTGRENDELEN
+• Dubloon Pro is er nu ook als abonnement: maandelijks, of jaarlijks met de eerste week gratis
+• Eén keer kopen en voor altijd houden kan nog steeds
 
-OPGELOST
-• Crashes opgelost die optraden wanneer een andere app het geluid bezet hield, en bij het starten van een scène
-• Een videoconversie die werd onderbroken doordat je de app verliet, gaat later verder in plaats van het beeld te verliezen
-
-VERDER
-• Als de gratis proefperiode afloopt blijft het menu open, en het aanbod wacht tot je erop tikt in plaats van de hele app te bedekken
+OPLOSSINGEN
+• De microfoon weigerde op sommige iPhones een opname te starten. Nu begint hij meteen in plaats van een fout te tonen

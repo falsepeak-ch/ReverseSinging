@@ -1,15 +1,8 @@
-Flere dubpakker kan åbnes, og færre ting går galt.
+Lås Dubloon op pr. måned eller pr. år, og mikrofonen starter hver gang.
 
-DUBPAKKER
-• Pakker i .rar-format kan nu åbnes, også når de er blevet omdøbt til .zip
-• Pakker med stemmer og musik i .ogg afspilles nu; før faldt de replikker ud, og scenen blev stille. Pakker, du allerede har installeret, bliver også repareret
-• Mange flere måder at skrive en repliks tider på bliver forstået, så pakker, der plejede at miste halvdelen af deres replikker, nu importeres hele
-• En pakke, der stadig ligger i iCloud, bliver hentet først i stedet for at fejle
-• Når en fil ikke kan importeres, siger appen, hvad der er i den, og hvorfor det ikke dur
+MÅDER AT LÅSE OP
+• Dubloon Pro fås nu også som abonnement: månedligt, eller årligt med den første uge gratis
+• At købe én gang og beholde for altid er der stadig
 
 RETTELSER
-• Rettede nedbrud, der opstod, når en anden app holdt på lyden, og når en scene begyndte at spille
-• En videokonvertering, der blev afbrudt, da du forlod appen, fortsætter senere i stedet for at miste billedet
-
-DESUDEN
-• Når den gratis prøveperiode slutter, forbliver menuen åben, og tilbuddet venter, til du trykker på det, i stedet for at dække hele appen
+• Mikrofonen nægtede at starte en optagelse på nogle iPhones. Nu går den i gang med det samme i stedet for at vise en fejl

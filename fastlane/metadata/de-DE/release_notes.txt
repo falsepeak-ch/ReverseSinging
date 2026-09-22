@@ -1,15 +1,8 @@
-Mehr Dub-Packs lassen sich öffnen, und weniger geht schief.
+Schalte Dubloon monatlich oder jährlich frei, und das Mikro startet jedes Mal.
 
-DUB-PACKS
-• Packs im .rar-Format lassen sich jetzt öffnen, auch wenn sie in .zip umbenannt wurden
-• Packs mit Stimmen und Musik im .ogg-Format werden jetzt abgespielt; vorher gingen diese Zeilen verloren und die Szene blieb stumm. Bereits installierte Packs werden ebenfalls repariert
-• Viel mehr Schreibweisen für das Timing einer Zeile werden verstanden, sodass Packs, die bisher die Hälfte ihrer Zeilen verloren, vollständig importiert werden
-• Ein Pack, das noch in iCloud liegt, wird erst geladen, statt zu scheitern
-• Lässt sich eine Datei nicht importieren, sagt die App, was darin steckt und warum das nicht passt
+WEGE ZUM FREISCHALTEN
+• Dubloon Pro gibt es jetzt auch als Abo: monatlich, oder jährlich mit der ersten Woche gratis
+• Einmal kaufen und für immer behalten geht weiterhin
 
 FEHLERBEHEBUNGEN
-• Abstürze behoben, die auftraten, wenn eine andere App den Ton belegte, und beim Start der Wiedergabe einer Szene
-• Eine Videokonvertierung, die durch Verlassen der App unterbrochen wurde, läuft später weiter, statt das Bild zu verlieren
-
-AUSSERDEM
-• Wenn die kostenlose Testphase endet, bleibt das Menü offen, und das Angebot wartet, bis du es antippst, statt die ganze App zu verdecken
+• Das Mikrofon verweigerte auf manchen iPhones den Start einer Aufnahme. Jetzt läuft es sofort los, statt einen Fehler zu zeigen

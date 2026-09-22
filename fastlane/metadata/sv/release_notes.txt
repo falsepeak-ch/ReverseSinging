@@ -1,15 +1,8 @@
-Fler dubbpaket går att öppna, och mindre går fel.
+Lås upp Dubloon per månad eller per år, och micken startar varje gång.
 
-DUBBPAKET
-• Paket i .rar-format går nu att öppna, även när de har döpts om till .zip
-• Paket med röster och musik i .ogg spelas nu upp; tidigare föll de replikerna bort och scenen blev tyst. Paket du redan har installerat lagas också
-• Många fler sätt att skriva en repliks tider förstås, så paket som brukade förlora hälften av sina repliker importeras nu hela
-• Ett paket som fortfarande ligger i iCloud laddas ner först i stället för att misslyckas
-• När en fil inte går att importera säger appen vad den innehåller och varför det inte fungerar
+SÄTT ATT LÅSA UPP
+• Dubloon Pro finns nu även som prenumeration: månadsvis, eller årsvis med första veckan gratis
+• Att köpa en gång och behålla för alltid finns kvar
 
-FIXAR
-• Åtgärdade krascher som uppstod när en annan app höll i ljudet, och när en scen började spelas upp
-• En videokonvertering som avbröts när du lämnade appen fortsätter senare i stället för att tappa bilden
-
-DESSUTOM
-• När gratisperioden tar slut förblir menyn öppen, och erbjudandet väntar tills du trycker på det i stället för att täcka hela appen
+RÄTTNINGAR
+• Mikrofonen vägrade starta en tagning på vissa iPhone. Nu drar den igång direkt i stället för att visa ett fel

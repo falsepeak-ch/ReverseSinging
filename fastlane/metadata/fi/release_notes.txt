@@ -1,15 +1,8 @@
-Yhä useampi dubbauspaketti aukeaa, ja harvempi asia menee pieleen.
+Avaa Dubloon kuukaudeksi tai vuodeksi, ja mikrofoni käynnistyy joka kerta.
 
-DUBBAUSPAKETIT
-• .rar-muotoiset paketit aukeavat nyt, vaikka ne olisi nimetty uudelleen .zip-tiedostoiksi
-• Paketit, joiden äänet ja musiikki ovat .ogg-muodossa, toistuvat nyt; aiemmin nuo repliikit putosivat pois ja kohtaus jäi äänettömäksi. Myös jo asentamasi paketit korjataan
-• Repliikin ajoituksen kirjoitustapoja ymmärretään paljon enemmän, joten paketit, jotka menettivät puolet repliikeistään, tuodaan nyt kokonaisina
-• Vielä iCloudissa oleva paketti ladataan ensin sen sijaan, että tuonti epäonnistuisi
-• Kun tiedostoa ei voi tuoda, appi kertoo, mitä siinä on ja miksi se ei kelpaa
+TAVAT AVATA
+• Dubloon Pro on nyt saatavilla myös tilauksena: kuukausittain, tai vuosittain ensimmäinen viikko ilmaiseksi
+• Kertaostos, joka jää sinulle ikuisesti, on yhä tarjolla
 
 KORJAUKSET
-• Korjattu kaatumiset, joita tapahtui, kun toinen appi piti ääntä varattuna ja kun kohtauksen toisto alkoi
-• Apista poistumisen keskeyttämä videomuunnos jatkuu myöhemmin sen sijaan, että kuva katoaisi
-
-MYÖS
-• Kun ilmainen kokeilu päättyy, valikko pysyy auki ja tarjous odottaa napautustasi sen sijaan, että se peittäisi koko apin
+• Mikrofoni kieltäytyi aloittamasta ottoa joillakin iPhoneilla. Nyt se käynnistyy heti virheen näyttämisen sijaan

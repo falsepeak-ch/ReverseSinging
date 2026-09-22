@@ -1,15 +1,8 @@
-Se abren más packs de doblaje y fallan menos cosas.
+Desbloquea Dubloon por meses o por años, y el micro arranca siempre.
 
-PACKS DE DOBLAJE
-• Los packs que vienen en .rar ya se abren, incluso cuando los habían renombrado a .zip
-• Los packs con voces y música en .ogg ya suenan; antes esas líneas se perdían y la escena quedaba en silencio. Los packs que ya tenías instalados también se reparan
-• Se entienden muchas más formas de escribir los tiempos de una línea, así que los packs que perdían la mitad de sus líneas ahora se importan enteros
-• Un pack que sigue en iCloud se descarga primero en vez de fallar
-• Cuando un archivo no se puede importar, la app te dice qué hay dentro y por qué no sirve
+FORMAS DE DESBLOQUEAR
+• Dubloon Pro ahora también es una suscripción: mensual, o anual con la primera semana gratis
+• Comprarlo una vez y quedártelo para siempre sigue ahí
 
 CORRECCIONES
-• Corregidos los cierres que ocurrían cuando otra app tenía ocupado el audio y al empezar a reproducir una escena
-• Una conversión de vídeo interrumpida al salir de la app se retoma más tarde en vez de perder la imagen
-
-ADEMÁS
-• Cuando termina la prueba gratuita el menú sigue abierto, y la oferta espera a que la toques en vez de tapar toda la app
+• Corregido el micrófono que se negaba a empezar una toma en algunos iPhone. Ahora arranca al momento en vez de mostrar un error

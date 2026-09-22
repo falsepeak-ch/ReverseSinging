@@ -1,1 +1,1 @@
-Nytt i 1.5.1: många fler communitypaket går att öppna och spela, även .rar och .ogg. Filma dig själv när du dubbar med Booth Cam. På 21 språk.
+Nytt i 1.6.0: lås upp Dubloon per månad eller per år, med första veckan gratis på årsplanen. Filma dig själv när du dubbar med Booth Cam. På 21 språk.

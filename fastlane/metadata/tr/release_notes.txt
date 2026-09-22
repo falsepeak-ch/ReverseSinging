@@ -1,15 +1,8 @@
-Daha fazla dublaj paketi açılıyor, daha az şey ters gidiyor.
+Dubloon'un kilidini aylık veya yıllık aç, mikrofon her seferinde çalışsın.
 
-DUBLAJ PAKETLERİ
-• .rar biçimindeki paketler artık açılıyor, adı .zip olarak değiştirilmiş olsa bile
-• Sesleri ve müziği .ogg olan paketler artık çalıyor; önceden bu replikler düşüyor ve sahne sessiz kalıyordu. Zaten yüklediğin paketler de onarılıyor
-• Bir repliğin zamanlamasını yazmanın çok daha fazla biçimi anlaşılıyor, böylece repliklerinin yarısını kaybeden paketler artık eksiksiz içe aktarılıyor
-• Hâlâ iCloud'da duran bir paket, hata vermek yerine önce indiriliyor
-• Bir dosya içe aktarılamadığında uygulama içinde ne olduğunu ve neden olmadığını söylüyor
+KİLİDİ AÇMANIN YOLLARI
+• Dubloon Pro artık abonelik olarak da var: aylık, ya da ilk haftası ücretsiz yıllık
+• Bir kez satın alıp sonsuza dek tutmak hâlâ mümkün
 
 DÜZELTMELER
-• Sesi başka bir uygulama tuttuğunda ve bir sahne oynatılmaya başladığında yaşanan çökmeler giderildi
-• Uygulamadan çıkınca yarıda kalan video dönüştürme, görüntüyü kaybetmek yerine sonra devam ediyor
-
-AYRICA
-• Ücretsiz deneme bittiğinde menü açık kalıyor ve teklif, tüm uygulamayı kaplamak yerine sen dokunana kadar bekliyor
+• Bazı iPhone'larda mikrofonun çekimi başlatmayı reddetmesi düzeltildi. Artık hata göstermek yerine hemen başlıyor
