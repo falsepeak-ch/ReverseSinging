@@ -275,6 +275,7 @@
 "pro.trial.daysLeft" = "Nog %d dagen";
 "pro.trial.oneDayLeft" = "Laatste dag";
 "pro.trial.over" = "Je gratis proefperiode is voorbij";
+"pro.locked.title" = "Neem Dubloon Pro om te spelen";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Dubloon ontgrendelen";
 "pro.unlock.subtitle" = "Beide spellen, elke scène, geen grenzen.";
@@ -298,6 +299,7 @@
 "pro.fallback.title" = "Dubloon ontgrendelen";
 "pro.fallback.message" = "Je gratis proefperiode is voorbij. Ontgrendel Dubloon om beide spellen open te houden.";
 "pro.fallback.message.beforeExpiry" = "Ontgrendel Dubloon om beide spellen open te houden.";
+"pro.fallback.message.noTrial" = "Ontgrendel Dubloon om beide spellen te openen.";
 "pro.fallback.buy" = "Ontgrendel voor %@";
 "pro.fallback.buyUnpriced" = "Ontgrendelen";
 "pro.fallback.loading" = "We vragen het de store…";

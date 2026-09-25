@@ -468,6 +468,7 @@ nonisolated enum Strings {
         }
 
         // Settings
+        static let lockedTitle = NSLocalizedString("pro.locked.title", comment: "Headline of the menu card over the locked games when there was no free trial, so it must not mention one")
         static let section = NSLocalizedString("pro.section", comment: "Settings section header for the purchase")
         static let unlockTitle = NSLocalizedString("pro.unlock.title", comment: "Settings row that opens the paywall")
         static let unlockSubtitle = NSLocalizedString("pro.unlock.subtitle", comment: "Explains what unlocking costs and gives")
@@ -523,6 +524,7 @@ nonisolated enum Strings {
             /// can see is untrue reads as a trick rather than an offer.
             static let messageAfterExpiry = NSLocalizedString("pro.fallback.message", comment: "Body of the built-in paywall when the free trial is over")
             static let messageBeforeExpiry = NSLocalizedString("pro.fallback.message.beforeExpiry", comment: "Body of the built-in paywall when the user still has trial time left, so it must not claim the trial has ended")
+            static let messageNoTrial = NSLocalizedString("pro.fallback.message.noTrial", comment: "Body of the built-in paywall when there was no free trial at all, so it must not mention one")
             static let buy = NSLocalizedString("pro.fallback.buy", comment: "Buy button with the price, %@ is the localized price")
             static let buyUnpriced = NSLocalizedString("pro.fallback.buyUnpriced", comment: "Buy button before the price is known")
             static let loading = NSLocalizedString("pro.fallback.loading", comment: "Shown while the store is being asked for the price")

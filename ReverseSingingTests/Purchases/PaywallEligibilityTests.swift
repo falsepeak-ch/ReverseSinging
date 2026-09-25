@@ -175,4 +175,24 @@ struct PaywallEligibilityTests {
         justBefore.considerOriginalPurchaseDate(cutoff.addingTimeInterval(-1), before: cutoff)
         #expect(justBefore.isEarlyAdopter)
     }
+
+    // MARK: - The sandbox's placeholder date
+
+    /// Sandbox and TestFlight report every download as 2013-08-01. Taken at face value it would
+    /// exempt App Review from the paywall it is meant to review.
+    @Test func sandboxPlaceholderIsNotADownloadDate() {
+        let sandbox = RemoteConfigService.parseReleaseDate("2013-08-01")!
+        #expect(PaywallEligibility.plausibleDownloadDate(sandbox) == nil)
+    }
+
+    @Test func dateBeforeTheStoreDebutIsNotADownloadDate() {
+        let dayBefore = PaywallEligibility.storeDebut.addingTimeInterval(-1)
+        #expect(PaywallEligibility.plausibleDownloadDate(dayBefore) == nil)
+    }
+
+    @Test func realDownloadDatesPassThrough() {
+        #expect(PaywallEligibility.plausibleDownloadDate(PaywallEligibility.storeDebut) == PaywallEligibility.storeDebut)
+        #expect(PaywallEligibility.plausibleDownloadDate(cutoff) == cutoff)
+        #expect(PaywallEligibility.plausibleDownloadDate(nil) == nil)
+    }
 }

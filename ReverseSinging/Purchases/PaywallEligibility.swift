@@ -43,6 +43,21 @@ nonisolated enum PaywallEligibility: Equatable {
     ///   - cutoff: the console's `paywall_release_date`, or nil while the console
     ///     has not supplied a readable one. The instant is midnight UTC at the
     ///     start of that day, so the day itself counts as "on or after".
+    /// The start of the day version 1.0.0 was created in App Store Connect (2025-10-26 UTC).
+    /// Nobody downloaded the app before it.
+    static let storeDebut = Date(timeIntervalSince1970: 1_761_436_800)
+
+    /// The store's download date, or nil when it cannot be a real one.
+    ///
+    /// Sandbox and TestFlight receipts report every download as 2013-08-01, twelve years
+    /// before the app existed. Read at face value that makes every tester, and App Review,
+    /// an early adopter: free for life, with no way to reach the purchase screen. Dropping
+    /// it leaves them on the first-launch fallback, which gates a fresh install.
+    static func plausibleDownloadDate(_ date: Date?) -> Date? {
+        guard let date, date >= storeDebut else { return nil }
+        return date
+    }
+
     init(downloadedAt: Date?, firstLaunchedAt: Date? = nil, cutoff: Date?) {
         guard let cutoff else {
             self = .undetermined

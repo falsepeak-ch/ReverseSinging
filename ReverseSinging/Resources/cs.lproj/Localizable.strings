@@ -275,6 +275,7 @@
 "pro.trial.daysLeft" = "Zbývá %d dní";
 "pro.trial.oneDayLeft" = "Poslední den";
 "pro.trial.over" = "Tvoje zkušební doba skončila";
+"pro.locked.title" = "Pro hraní si pořiď Dubloon Pro";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Odemknout Dubloon";
 "pro.unlock.subtitle" = "Obě hry, všechny scény, bez omezení.";
@@ -298,6 +299,7 @@
 "pro.fallback.title" = "Odemknout Dubloon";
 "pro.fallback.message" = "Tvoje zkušební doba skončila. Odemkni Dubloon a obě hry zůstanou otevřené.";
 "pro.fallback.message.beforeExpiry" = "Odemkni Dubloon a obě hry zůstanou otevřené.";
+"pro.fallback.message.noTrial" = "Odemkni Dubloon a otevři obě hry.";
 "pro.fallback.buy" = "Odemknout za %@";
 "pro.fallback.buyUnpriced" = "Odemknout";
 "pro.fallback.loading" = "Ptáme se obchodu…";

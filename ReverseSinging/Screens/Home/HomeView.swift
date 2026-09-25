@@ -90,7 +90,7 @@ struct HomeView: View {
 
             VStack(alignment: .leading, spacing: 10) {
                 if viewModel.areGamesLocked {
-                    TrialEndedCard { viewModel.showPaywall(from: .trialEndedCard) }
+                    TrialEndedCard(title: viewModel.lockedCardTitle) { viewModel.showPaywall(from: .trialEndedCard) }
                         .padding(.bottom, 10)
                         .transition(.opacity)
                 }

@@ -275,6 +275,7 @@
 "pro.trial.daysLeft" = "เหลืออีก %d วัน";
 "pro.trial.oneDayLeft" = "วันสุดท้าย";
 "pro.trial.over" = "ช่วงทดลองใช้ฟรีจบแล้ว";
+"pro.locked.title" = "รับ Dubloon Pro เพื่อเล่น";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "ปลดล็อก Dubloon";
 "pro.unlock.subtitle" = "ทั้งสองเกม ทุกฉาก ไม่มีขีดจำกัด";
@@ -298,6 +299,7 @@
 "pro.fallback.title" = "ปลดล็อก Dubloon";
 "pro.fallback.message" = "ช่วงทดลองใช้ฟรีจบแล้ว ปลดล็อก Dubloon เพื่อเปิดทั้งสองเกมไว้ต่อ";
 "pro.fallback.message.beforeExpiry" = "ปลดล็อก Dubloon เพื่อเปิดทั้งสองเกมไว้ต่อ";
+"pro.fallback.message.noTrial" = "ปลดล็อก Dubloon เพื่อเปิดทั้งสองเกม";
 "pro.fallback.buy" = "ปลดล็อกในราคา %@";
 "pro.fallback.buyUnpriced" = "ปลดล็อก";
 "pro.fallback.loading" = "กำลังถามร้านค้า…";

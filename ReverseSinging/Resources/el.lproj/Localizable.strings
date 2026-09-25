@@ -275,6 +275,7 @@
 "pro.trial.daysLeft" = "Απομένουν %d ημέρες";
 "pro.trial.oneDayLeft" = "Τελευταία μέρα";
 "pro.trial.over" = "Η δωρεάν δοκιμή σου τελείωσε";
+"pro.locked.title" = "Απόκτησε το Dubloon Pro για να παίξεις";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Ξεκλείδωσε το Dubloon";
 "pro.unlock.subtitle" = "Και τα δύο παιχνίδια, κάθε σκηνή, χωρίς όρια.";
@@ -298,6 +299,7 @@
 "pro.fallback.title" = "Ξεκλείδωσε το Dubloon";
 "pro.fallback.message" = "Η δωρεάν δοκιμή σου τελείωσε. Ξεκλείδωσε το Dubloon για να μείνουν ανοιχτά και τα δύο παιχνίδια.";
 "pro.fallback.message.beforeExpiry" = "Ξεκλείδωσε το Dubloon για να μείνουν ανοιχτά και τα δύο παιχνίδια.";
+"pro.fallback.message.noTrial" = "Ξεκλείδωσε το Dubloon για να ανοίξεις και τα δύο παιχνίδια.";
 "pro.fallback.buy" = "Ξεκλείδωσε με %@";
 "pro.fallback.buyUnpriced" = "Ξεκλείδωμα";
 "pro.fallback.loading" = "Ρωτάμε το κατάστημα…";

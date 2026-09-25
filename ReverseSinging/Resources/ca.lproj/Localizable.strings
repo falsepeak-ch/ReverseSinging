@@ -275,6 +275,7 @@
 "pro.trial.daysLeft" = "Queden %d dies";
 "pro.trial.oneDayLeft" = "Últim dia";
 "pro.trial.over" = "La teva prova gratuïta s'ha acabat";
+"pro.locked.title" = "Aconsegueix Dubloon Pro per jugar";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Desbloquejar Dubloon";
 "pro.unlock.subtitle" = "Els dos jocs, totes les escenes, sense límits.";
@@ -298,6 +299,7 @@
 "pro.fallback.title" = "Desbloquejar Dubloon";
 "pro.fallback.message" = "La teva prova gratuïta s'ha acabat. Desbloqueja Dubloon per mantenir els dos jocs oberts.";
 "pro.fallback.message.beforeExpiry" = "Desbloqueja Dubloon per mantenir els dos jocs oberts.";
+"pro.fallback.message.noTrial" = "Desbloqueja Dubloon per obrir els dos jocs.";
 "pro.fallback.buy" = "Desbloquejar per %@";
 "pro.fallback.buyUnpriced" = "Desbloquejar";
 "pro.fallback.loading" = "Preguntant a la botiga…";

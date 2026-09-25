@@ -275,6 +275,7 @@
 "pro.trial.daysLeft" = "%d gün kaldı";
 "pro.trial.oneDayLeft" = "Son gün";
 "pro.trial.over" = "Ücretsiz deneme süren bitti";
+"pro.locked.title" = "Oynamak için Dubloon Pro'yu al";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Dubloon'un kilidini aç";
 "pro.unlock.subtitle" = "İki oyun, tüm sahneler, sınır yok.";
@@ -298,6 +299,7 @@
 "pro.fallback.title" = "Dubloon'un kilidini aç";
 "pro.fallback.message" = "Ücretsiz deneme süren bitti. İki oyunu da açık tutmak için Dubloon'un kilidini aç.";
 "pro.fallback.message.beforeExpiry" = "İki oyunu da açık tutmak için Dubloon'un kilidini aç.";
+"pro.fallback.message.noTrial" = "İki oyunu da açmak için Dubloon'un kilidini aç.";
 "pro.fallback.buy" = "%@ karşılığında aç";
 "pro.fallback.buyUnpriced" = "Kilidi aç";
 "pro.fallback.loading" = "Mağazaya soruyoruz…";

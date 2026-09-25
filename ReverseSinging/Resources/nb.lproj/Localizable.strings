@@ -275,6 +275,7 @@
 "pro.trial.daysLeft" = "%d dager igjen";
 "pro.trial.oneDayLeft" = "Siste dag";
 "pro.trial.over" = "Prøveperioden din er over";
+"pro.locked.title" = "Skaff deg Dubloon Pro for å spille";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Lås opp Dubloon";
 "pro.unlock.subtitle" = "Begge spillene, alle scener, ingen grenser.";
@@ -298,6 +299,7 @@
 "pro.fallback.title" = "Lås opp Dubloon";
 "pro.fallback.message" = "Prøveperioden din er over. Lås opp Dubloon for å holde begge spillene åpne.";
 "pro.fallback.message.beforeExpiry" = "Lås opp Dubloon for å holde begge spillene åpne.";
+"pro.fallback.message.noTrial" = "Lås opp Dubloon for å åpne begge spillene.";
 "pro.fallback.buy" = "Lås opp for %@";
 "pro.fallback.buyUnpriced" = "Lås opp";
 "pro.fallback.loading" = "Spør butikken…";

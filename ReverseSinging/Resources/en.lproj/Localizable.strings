@@ -275,6 +275,7 @@
 "pro.trial.daysLeft" = "%d days left";
 "pro.trial.oneDayLeft" = "Last day";
 "pro.trial.over" = "Your free trial is done";
+"pro.locked.title" = "Get Dubloon Pro to play";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Unlock Dubloon";
 "pro.unlock.subtitle" = "Both games, every scene, no limits.";
@@ -298,6 +299,7 @@
 "pro.fallback.title" = "Unlock Dubloon";
 "pro.fallback.message" = "Your free trial has ended. Unlock Dubloon to keep both games open.";
 "pro.fallback.message.beforeExpiry" = "Unlock Dubloon to keep both games open.";
+"pro.fallback.message.noTrial" = "Unlock Dubloon to open both games.";
 "pro.fallback.buy" = "Unlock for %@";
 "pro.fallback.buyUnpriced" = "Unlock";
 "pro.fallback.loading" = "Asking the store…";

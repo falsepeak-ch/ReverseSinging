@@ -275,6 +275,7 @@
 "pro.trial.daysLeft" = "残り%d日";
 "pro.trial.oneDayLeft" = "最終日";
 "pro.trial.over" = "無料期間が終了しました";
+"pro.locked.title" = "Dubloon Proで遊べます";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Dubloonをアンロック";
 "pro.unlock.subtitle" = "2つのゲーム、すべてのシーン、制限なし。";
@@ -298,6 +299,7 @@
 "pro.fallback.title" = "Dubloonをアンロック";
 "pro.fallback.message" = "無料期間が終了しました。Dubloonをアンロックすると、2つのゲームをそのまま遊べます。";
 "pro.fallback.message.beforeExpiry" = "Dubloonをアンロックすると、2つのゲームをそのまま遊べます。";
+"pro.fallback.message.noTrial" = "Dubloonをアンロックすると、2つのゲームを遊べます。";
 "pro.fallback.buy" = "%@ でアンロック";
 "pro.fallback.buyUnpriced" = "アンロック";
 "pro.fallback.loading" = "ストアに問い合わせ中…";

@@ -275,6 +275,7 @@
 "pro.trial.daysLeft" = "%d päivää jäljellä";
 "pro.trial.oneDayLeft" = "Viimeinen päivä";
 "pro.trial.over" = "Ilmainen kokeilusi on ohi";
+"pro.locked.title" = "Hanki Dubloon Pro pelataksesi";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Avaa Dubloon";
 "pro.unlock.subtitle" = "Molemmat pelit, kaikki kohtaukset, ei rajoja.";
@@ -298,6 +299,7 @@
 "pro.fallback.title" = "Avaa Dubloon";
 "pro.fallback.message" = "Ilmainen kokeilusi on ohi. Avaa Dubloon, niin molemmat pelit pysyvät auki.";
 "pro.fallback.message.beforeExpiry" = "Avaa Dubloon, niin molemmat pelit pysyvät auki.";
+"pro.fallback.message.noTrial" = "Avaa Dubloon, niin molemmat pelit aukeavat.";
 "pro.fallback.buy" = "Avaa hintaan %@";
 "pro.fallback.buyUnpriced" = "Avaa";
 "pro.fallback.loading" = "Kysytään kaupalta…";

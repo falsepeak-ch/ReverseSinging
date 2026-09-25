@@ -17,6 +17,8 @@ import SwiftUI
 /// The whole card is the button. The pill at the bottom is only there to say so.
 struct TrialEndedCard: View {
 
+    /// "Your free trial is done", or, when there never was one, a plain offer.
+    let title: String
     let action: () -> Void
 
     var body: some View {
@@ -32,7 +34,7 @@ struct TrialEndedCard: View {
                         .frame(width: 24, height: 22)
 
                     VStack(alignment: .leading, spacing: 5) {
-                        Text(Strings.Pro.Trial.over)
+                        Text(title)
                             .font(.rsButtonMedium)
                             .foregroundColor(.rsTextPrimary)
                             .fixedSize(horizontal: false, vertical: true)
@@ -69,7 +71,7 @@ struct TrialEndedCard: View {
         }
         .buttonStyle(ScaleButtonStyle())
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("\(Strings.Pro.Trial.over). \(Strings.Pro.unlockSubtitle)")
+        .accessibilityLabel("\(title). \(Strings.Pro.unlockSubtitle)")
         .accessibilityHint(Strings.Pro.unlockTitle)
         .accessibilityAddTraits(.isButton)
     }
@@ -78,7 +80,7 @@ struct TrialEndedCard: View {
 #Preview {
     ZStack {
         Color.rsSurface0.ignoresSafeArea()
-        TrialEndedCard {}
+        TrialEndedCard(title: Strings.Pro.Trial.over) {}
             .padding(EditorMetrics.gutter)
     }
     .preferredColorScheme(.dark)

@@ -275,6 +275,7 @@
 "pro.trial.daysLeft" = "%d giorni rimasti";
 "pro.trial.oneDayLeft" = "Ultimo giorno";
 "pro.trial.over" = "La tua prova gratuita è finita";
+"pro.locked.title" = "Prendi Dubloon Pro per giocare";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Sblocca Dubloon";
 "pro.unlock.subtitle" = "Entrambi i giochi, tutte le scene, senza limiti.";
@@ -298,6 +299,7 @@
 "pro.fallback.title" = "Sblocca Dubloon";
 "pro.fallback.message" = "La tua prova gratuita è finita. Sblocca Dubloon per tenere aperti entrambi i giochi.";
 "pro.fallback.message.beforeExpiry" = "Sblocca Dubloon per tenere aperti entrambi i giochi.";
+"pro.fallback.message.noTrial" = "Sblocca Dubloon per aprire entrambi i giochi.";
 "pro.fallback.buy" = "Sblocca per %@";
 "pro.fallback.buyUnpriced" = "Sblocca";
 "pro.fallback.loading" = "Stiamo chiedendo allo store…";

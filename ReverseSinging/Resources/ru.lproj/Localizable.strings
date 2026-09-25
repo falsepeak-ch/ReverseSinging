@@ -275,6 +275,7 @@
 "pro.trial.daysLeft" = "Осталось дней: %d";
 "pro.trial.oneDayLeft" = "Последний день";
 "pro.trial.over" = "Пробный период закончился";
+"pro.locked.title" = "Чтобы играть, возьми Dubloon Pro";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Открыть Dubloon";
 "pro.unlock.subtitle" = "Обе игры, все сцены, без ограничений.";
@@ -298,6 +299,7 @@
 "pro.fallback.title" = "Открыть Dubloon";
 "pro.fallback.message" = "Пробный период закончился. Открой Dubloon, чтобы обе игры остались доступны.";
 "pro.fallback.message.beforeExpiry" = "Открой Dubloon, чтобы обе игры остались доступны.";
+"pro.fallback.message.noTrial" = "Открой Dubloon, чтобы играть в обе игры.";
 "pro.fallback.buy" = "Открыть за %@";
 "pro.fallback.buyUnpriced" = "Открыть";
 "pro.fallback.loading" = "Спрашиваем магазин…";

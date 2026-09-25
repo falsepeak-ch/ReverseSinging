@@ -275,6 +275,7 @@
 "pro.trial.daysLeft" = "بقيت %d أيام";
 "pro.trial.oneDayLeft" = "اليوم الأخير";
 "pro.trial.over" = "انتهت فترتك المجانية";
+"pro.locked.title" = "احصل على Dubloon Pro لتلعب";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "افتح Dubloon";
 "pro.unlock.subtitle" = "اللعبتان، كل المشاهد، بلا حدود.";
@@ -298,6 +299,7 @@
 "pro.fallback.title" = "افتح Dubloon";
 "pro.fallback.message" = "انتهت فترتك المجانية. افتح Dubloon لتبقى اللعبتان مفتوحتين.";
 "pro.fallback.message.beforeExpiry" = "افتح Dubloon لتبقى اللعبتان مفتوحتين.";
+"pro.fallback.message.noTrial" = "افتح Dubloon لتفتح اللعبتين.";
 "pro.fallback.buy" = "افتحه مقابل %@";
 "pro.fallback.buyUnpriced" = "افتحه";
 "pro.fallback.loading" = "نسأل المتجر…";

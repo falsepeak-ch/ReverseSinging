@@ -75,6 +75,12 @@ final class HomeViewModel: ObservableObject {
     /// paywall rather than themselves.
     var areGamesLocked: Bool { access.isLocked }
 
+    /// The locked card's headline. Saying a trial ended is only true if there was one: with
+    /// the console's trial length at zero, the lock is there from the first launch.
+    var lockedCardTitle: String {
+        access.hasTrial ? Strings.Pro.Trial.over : Strings.Pro.lockedTitle
+    }
+
     var shouldWelcomeEarlyAdopter: Bool { access.shouldWelcomeEarlyAdopter }
 
     // MARK: - Screen

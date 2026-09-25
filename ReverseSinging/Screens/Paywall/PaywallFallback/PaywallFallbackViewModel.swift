@@ -37,9 +37,10 @@ final class PaywallFallbackViewModel: ObservableObject {
     /// is the one line on the screen that must not be able to say something the user can see
     /// is untrue.
     var headerMessage: String {
-        access.isLocked
+        guard access.isLocked else { return Strings.Pro.Fallback.messageBeforeExpiry }
+        return access.hasTrial
             ? Strings.Pro.Fallback.messageAfterExpiry
-            : Strings.Pro.Fallback.messageBeforeExpiry
+            : Strings.Pro.Fallback.messageNoTrial
     }
 
     // MARK: - Loading
