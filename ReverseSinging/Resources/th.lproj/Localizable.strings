@@ -277,11 +277,14 @@
 "pro.trial.over" = "ช่วงทดลองใช้ฟรีจบแล้ว";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "ปลดล็อก Dubloon";
-"pro.unlock.subtitle" = "จ่ายครั้งเดียว ได้ทั้งสองเกม เป็นของคุณตลอดไป";
+"pro.unlock.subtitle" = "ทั้งสองเกม ทุกฉาก ไม่มีขีดจำกัด";
 "pro.owned.title" = "Dubloon เป็นของคุณแล้ว";
 "pro.owned.subtitle" = "ขอบคุณนะ ทุกฉาก ทุกเทค ไม่มีเพดาน";
 "pro.manage.title" = "จัดการการซื้อ";
 "pro.manage.subtitle" = "ใบเสร็จ การคืนเงิน และความช่วยเหลือเรื่องการซื้อ";
+"pro.subscribed.title" = "คุณใช้ Dubloon Pro อยู่";
+"pro.manageSubscription.title" = "จัดการการสมัครสมาชิก";
+"pro.manageSubscription.subtitle" = "เปลี่ยนแผน ยกเลิก หรือขอความช่วยเหลือ";
 "pro.restore.title" = "กู้คืนการซื้อ";
 "pro.restore.subtitle" = "เปลี่ยนเครื่องหรือลงแอปใหม่ใช่ไหม เอากลับคืนมาเลย";
 "pro.testStore.warning" = "บิลด์ดีบัก: เชื่อมกับร้านทดสอบของ RevenueCat ไม่มีเงินจริงเคลื่อนไหว";
@@ -293,8 +296,8 @@
 "pro.error.generic" = "ร้านค้าไม่ตอบกลับ ลองใหม่อีกสักครู่";
 "pro.ok" = "ตกลง";
 "pro.fallback.title" = "ปลดล็อก Dubloon";
-"pro.fallback.message" = "ช่วงทดลองใช้ฟรีจบแล้ว จ่ายครั้งเดียวก็เปิดทั้งสองเกมไว้ตลอดไป";
-"pro.fallback.message.beforeExpiry" = "จ่ายครั้งเดียวก็เปิดทั้งสองเกมไว้ตลอดไป";
+"pro.fallback.message" = "ช่วงทดลองใช้ฟรีจบแล้ว ปลดล็อก Dubloon เพื่อเปิดทั้งสองเกมไว้ต่อ";
+"pro.fallback.message.beforeExpiry" = "ปลดล็อก Dubloon เพื่อเปิดทั้งสองเกมไว้ต่อ";
 "pro.fallback.buy" = "ปลดล็อกในราคา %@";
 "pro.fallback.buyUnpriced" = "ปลดล็อก";
 "pro.fallback.loading" = "กำลังถามร้านค้า…";
@@ -304,6 +307,11 @@
 "pro.fallback.benefit.two" = "พากย์ได้ทุกฉาก และเอาฉากของคุณเองมาด้วย";
 "pro.fallback.benefit.three" = "ส่งออกเทคของคุณแล้วแบ่งความเสียหายให้คนอื่น";
 "pro.fallback.oneTime" = "จ่ายครั้งเดียว ไม่ใช่การสมัครสมาชิก";
+"pro.fallback.subscribe.monthly" = "สมัครสมาชิกในราคา %@/เดือน";
+"pro.fallback.subscribe.yearly" = "สมัครสมาชิกในราคา %@/ปี";
+"pro.fallback.subscribe" = "สมัครสมาชิกในราคา %@";
+"pro.fallback.renews" = "ต่ออายุอัตโนมัติจนกว่าคุณจะยกเลิก ยกเลิกได้ทุกเมื่อในการตั้งค่าบัญชี Apple";
+"pro.fallback.terms" = "ข้อกำหนดการใช้งาน";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "ยินดีต้อนรับสู่สโมสร";

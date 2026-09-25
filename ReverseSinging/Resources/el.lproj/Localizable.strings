@@ -277,11 +277,14 @@
 "pro.trial.over" = "Η δωρεάν δοκιμή σου τελείωσε";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Ξεκλείδωσε το Dubloon";
-"pro.unlock.subtitle" = "Μία πληρωμή, και τα δύο παιχνίδια, δικά σου για πάντα.";
+"pro.unlock.subtitle" = "Και τα δύο παιχνίδια, κάθε σκηνή, χωρίς όρια.";
 "pro.owned.title" = "Το Dubloon είναι δικό σου";
 "pro.owned.subtitle" = "Ευχαριστούμε. Κάθε σκηνή, κάθε λήψη, χωρίς ταβάνι.";
 "pro.manage.title" = "Διαχείριση αγοράς";
 "pro.manage.subtitle" = "Αποδείξεις, επιστροφές και βοήθεια για την αγορά σου.";
+"pro.subscribed.title" = "Έχεις το Dubloon Pro";
+"pro.manageSubscription.title" = "Διαχείριση συνδρομής";
+"pro.manageSubscription.subtitle" = "Άλλαξε πρόγραμμα, ακύρωσε ή ζήτα βοήθεια.";
 "pro.restore.title" = "Επαναφορά αγοράς";
 "pro.restore.subtitle" = "Καινούργιο κινητό ή επανεγκατάσταση; Φέρ' την πίσω.";
 "pro.testStore.warning" = "Έκδοση debug: συνδεδεμένη στο δοκιμαστικό κατάστημα του RevenueCat. Δεν κινούνται πραγματικά χρήματα.";
@@ -293,8 +296,8 @@
 "pro.error.generic" = "Το κατάστημα δεν απάντησε. Δοκίμασε σε λίγο.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Ξεκλείδωσε το Dubloon";
-"pro.fallback.message" = "Η δωρεάν δοκιμή σου τελείωσε. Μία πληρωμή κρατά και τα δύο παιχνίδια ανοιχτά για πάντα.";
-"pro.fallback.message.beforeExpiry" = "Μία πληρωμή κρατά και τα δύο παιχνίδια ανοιχτά για πάντα.";
+"pro.fallback.message" = "Η δωρεάν δοκιμή σου τελείωσε. Ξεκλείδωσε το Dubloon για να μείνουν ανοιχτά και τα δύο παιχνίδια.";
+"pro.fallback.message.beforeExpiry" = "Ξεκλείδωσε το Dubloon για να μείνουν ανοιχτά και τα δύο παιχνίδια.";
 "pro.fallback.buy" = "Ξεκλείδωσε με %@";
 "pro.fallback.buyUnpriced" = "Ξεκλείδωμα";
 "pro.fallback.loading" = "Ρωτάμε το κατάστημα…";
@@ -304,6 +307,11 @@
 "pro.fallback.benefit.two" = "Μεταγλώττισε κάθε σκηνή και φέρε και δικές σου";
 "pro.fallback.benefit.three" = "Κάνε εξαγωγή τις λήψεις σου και μοίρασε τη ζημιά";
 "pro.fallback.oneTime" = "Μία πληρωμή. Όχι συνδρομή.";
+"pro.fallback.subscribe.monthly" = "Εγγραφή με %@/μήνα";
+"pro.fallback.subscribe.yearly" = "Εγγραφή με %@/έτος";
+"pro.fallback.subscribe" = "Εγγραφή με %@";
+"pro.fallback.renews" = "Ανανεώνεται αυτόματα μέχρι να την ακυρώσεις. Ακύρωσε όποτε θέλεις από τις ρυθμίσεις του λογαριασμού σου Apple.";
+"pro.fallback.terms" = "Όροι χρήσης";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Καλώς ήρθες στο κλαμπ";

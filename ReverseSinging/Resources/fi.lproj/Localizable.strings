@@ -277,11 +277,14 @@
 "pro.trial.over" = "Ilmainen kokeilusi on ohi";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Avaa Dubloon";
-"pro.unlock.subtitle" = "Yksi maksu, molemmat pelit, sinun lopullisesti.";
+"pro.unlock.subtitle" = "Molemmat pelit, kaikki kohtaukset, ei rajoja.";
 "pro.owned.title" = "Dubloon on sinun";
 "pro.owned.subtitle" = "Kiitos. Joka kohtaus, joka otos, ilman kattoa.";
 "pro.manage.title" = "Hallitse ostosta";
 "pro.manage.subtitle" = "Kuitit, hyvitykset ja apu ostoosi.";
+"pro.subscribed.title" = "Sinulla on Dubloon Pro";
+"pro.manageSubscription.title" = "Hallitse tilausta";
+"pro.manageSubscription.subtitle" = "Vaihda tilausta, peru tai pyydä apua.";
 "pro.restore.title" = "Palauta osto";
 "pro.restore.subtitle" = "Uusi puhelin tai uudelleenasennus? Hae se takaisin.";
 "pro.testStore.warning" = "Debug-käännös: yhteydessä RevenueCatin testikauppaan. Oikeaa rahaa ei liiku.";
@@ -293,8 +296,8 @@
 "pro.error.generic" = "Kauppa ei vastannut. Yritä hetken päästä uudelleen.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Avaa Dubloon";
-"pro.fallback.message" = "Ilmainen kokeilusi on ohi. Yksi maksu pitää molemmat pelit auki lopullisesti.";
-"pro.fallback.message.beforeExpiry" = "Yksi maksu pitää molemmat pelit auki lopullisesti.";
+"pro.fallback.message" = "Ilmainen kokeilusi on ohi. Avaa Dubloon, niin molemmat pelit pysyvät auki.";
+"pro.fallback.message.beforeExpiry" = "Avaa Dubloon, niin molemmat pelit pysyvät auki.";
 "pro.fallback.buy" = "Avaa hintaan %@";
 "pro.fallback.buyUnpriced" = "Avaa";
 "pro.fallback.loading" = "Kysytään kaupalta…";
@@ -304,6 +307,11 @@
 "pro.fallback.benefit.two" = "Dubbaa jokainen kohtaus ja tuo omasi";
 "pro.fallback.benefit.three" = "Vie otoksesi ja jaa vahingot";
 "pro.fallback.oneTime" = "Yksi maksu. Ei tilaus.";
+"pro.fallback.subscribe.monthly" = "Tilaa hintaan %@/kk";
+"pro.fallback.subscribe.yearly" = "Tilaa hintaan %@/v";
+"pro.fallback.subscribe" = "Tilaa hintaan %@";
+"pro.fallback.renews" = "Uusiutuu automaattisesti, kunnes perut sen. Voit perua milloin tahansa Apple-tilisi asetuksista.";
+"pro.fallback.terms" = "Käyttöehdot";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Tervetuloa kerhoon";

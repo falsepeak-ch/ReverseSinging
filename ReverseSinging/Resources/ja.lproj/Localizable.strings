@@ -277,11 +277,14 @@
 "pro.trial.over" = "無料期間が終了しました";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Dubloonをアンロック";
-"pro.unlock.subtitle" = "一度の支払いで、2つのゲームがずっとあなたのもの。";
+"pro.unlock.subtitle" = "2つのゲーム、すべてのシーン、制限なし。";
 "pro.owned.title" = "Dubloonはあなたのものです";
 "pro.owned.subtitle" = "ありがとうございます。どのシーンも、どのテイクも、上限なし。";
 "pro.manage.title" = "購入を管理";
 "pro.manage.subtitle" = "領収書、返金、購入まわりのサポート。";
+"pro.subscribed.title" = "Dubloon Proをご利用中です";
+"pro.manageSubscription.title" = "サブスクリプションを管理";
+"pro.manageSubscription.subtitle" = "プランの変更、解約、サポート。";
 "pro.restore.title" = "購入を復元";
 "pro.restore.subtitle" = "機種変更や再インストール？ 取り戻しましょう。";
 "pro.testStore.warning" = "デバッグビルド: RevenueCatのテストストアに接続中。実際のお金は動きません。";
@@ -293,8 +296,8 @@
 "pro.error.generic" = "ストアから返事がありません。少ししてからもう一度どうぞ。";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Dubloonをアンロック";
-"pro.fallback.message" = "無料期間が終了しました。一度の支払いで、2つのゲームがずっと開いたままになります。";
-"pro.fallback.message.beforeExpiry" = "一度の支払いで、2つのゲームがずっと開いたままになります。";
+"pro.fallback.message" = "無料期間が終了しました。Dubloonをアンロックすると、2つのゲームをそのまま遊べます。";
+"pro.fallback.message.beforeExpiry" = "Dubloonをアンロックすると、2つのゲームをそのまま遊べます。";
 "pro.fallback.buy" = "%@ でアンロック";
 "pro.fallback.buyUnpriced" = "アンロック";
 "pro.fallback.loading" = "ストアに問い合わせ中…";
@@ -304,6 +307,11 @@
 "pro.fallback.benefit.two" = "どのシーンもアフレコ、自分の作品も持ち込める";
 "pro.fallback.benefit.three" = "テイクを書き出して、被害を共有";
 "pro.fallback.oneTime" = "支払いは一度きり。サブスクではありません。";
+"pro.fallback.subscribe.monthly" = "%@/月で登録";
+"pro.fallback.subscribe.yearly" = "%@/年で登録";
+"pro.fallback.subscribe" = "%@で登録";
+"pro.fallback.renews" = "解約するまで自動更新されます。Appleアカウントの設定からいつでも解約できます。";
+"pro.fallback.terms" = "利用規約";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "ようこそクラブへ";

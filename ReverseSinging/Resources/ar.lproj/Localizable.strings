@@ -277,11 +277,14 @@
 "pro.trial.over" = "انتهت فترتك المجانية";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "افتح Dubloon";
-"pro.unlock.subtitle" = "دفعة واحدة، اللعبتان معاً، ملكك للأبد.";
+"pro.unlock.subtitle" = "اللعبتان، كل المشاهد، بلا حدود.";
 "pro.owned.title" = "Dubloon ملكك";
 "pro.owned.subtitle" = "شكراً لك. كل مشهد، وكل محاولة، بلا سقف.";
 "pro.manage.title" = "إدارة الشراء";
 "pro.manage.subtitle" = "الإيصالات والاستردادات والمساعدة في عملية الشراء.";
+"pro.subscribed.title" = "أنت مشترك في Dubloon Pro";
+"pro.manageSubscription.title" = "إدارة الاشتراك";
+"pro.manageSubscription.subtitle" = "غيّر الخطة أو ألغِ الاشتراك أو اطلب المساعدة.";
 "pro.restore.title" = "استعادة الشراء";
 "pro.restore.subtitle" = "هاتف جديد أو إعادة تثبيت؟ استرجعه.";
 "pro.testStore.warning" = "نسخة تصحيح: متصلة بمتجر RevenueCat التجريبي. لا أموال حقيقية تتحرك.";
@@ -293,8 +296,8 @@
 "pro.error.generic" = "لم يردّ المتجر. حاول بعد قليل.";
 "pro.ok" = "حسناً";
 "pro.fallback.title" = "افتح Dubloon";
-"pro.fallback.message" = "انتهت فترتك المجانية. دفعة واحدة تُبقي اللعبتين مفتوحتين للأبد.";
-"pro.fallback.message.beforeExpiry" = "دفعة واحدة تُبقي اللعبتين مفتوحتين للأبد.";
+"pro.fallback.message" = "انتهت فترتك المجانية. افتح Dubloon لتبقى اللعبتان مفتوحتين.";
+"pro.fallback.message.beforeExpiry" = "افتح Dubloon لتبقى اللعبتان مفتوحتين.";
 "pro.fallback.buy" = "افتحه مقابل %@";
 "pro.fallback.buyUnpriced" = "افتحه";
 "pro.fallback.loading" = "نسأل المتجر…";
@@ -304,6 +307,11 @@
 "pro.fallback.benefit.two" = "دبلج كل مشهد، وأحضر مشاهدك أيضاً";
 "pro.fallback.benefit.three" = "صدّر محاولاتك وشارك الأضرار";
 "pro.fallback.oneTime" = "دفعة واحدة. ليس اشتراكاً.";
+"pro.fallback.subscribe.monthly" = "اشترك مقابل %@ شهرياً";
+"pro.fallback.subscribe.yearly" = "اشترك مقابل %@ سنوياً";
+"pro.fallback.subscribe" = "اشترك مقابل %@";
+"pro.fallback.renews" = "يتجدد تلقائياً حتى تلغيه. يمكنك الإلغاء في أي وقت من إعدادات حساب Apple.";
+"pro.fallback.terms" = "شروط الاستخدام";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "أهلاً بك في النادي";

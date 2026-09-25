@@ -277,11 +277,14 @@
 "pro.trial.over" = "Пробный период закончился";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Открыть Dubloon";
-"pro.unlock.subtitle" = "Один платёж, обе игры, твои навсегда.";
+"pro.unlock.subtitle" = "Обе игры, все сцены, без ограничений.";
 "pro.owned.title" = "Dubloon твой";
 "pro.owned.subtitle" = "Спасибо. Каждая сцена, каждый дубль, без потолка.";
 "pro.manage.title" = "Управление покупкой";
 "pro.manage.subtitle" = "Чеки, возвраты и помощь с покупкой.";
+"pro.subscribed.title" = "У тебя Dubloon Pro";
+"pro.manageSubscription.title" = "Управление подпиской";
+"pro.manageSubscription.subtitle" = "Сменить план, отменить или получить помощь.";
 "pro.restore.title" = "Восстановить покупку";
 "pro.restore.subtitle" = "Новый телефон или переустановка? Верни её.";
 "pro.testStore.warning" = "Отладочная сборка: подключена к тестовому магазину RevenueCat. Настоящие деньги не двигаются.";
@@ -293,8 +296,8 @@
 "pro.error.generic" = "Магазин не ответил. Попробуй через минуту.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Открыть Dubloon";
-"pro.fallback.message" = "Пробный период закончился. Один платёж оставляет обе игры открытыми навсегда.";
-"pro.fallback.message.beforeExpiry" = "Один платёж оставляет обе игры открытыми навсегда.";
+"pro.fallback.message" = "Пробный период закончился. Открой Dubloon, чтобы обе игры остались доступны.";
+"pro.fallback.message.beforeExpiry" = "Открой Dubloon, чтобы обе игры остались доступны.";
 "pro.fallback.buy" = "Открыть за %@";
 "pro.fallback.buyUnpriced" = "Открыть";
 "pro.fallback.loading" = "Спрашиваем магазин…";
@@ -304,6 +307,11 @@
 "pro.fallback.benefit.two" = "Озвучивай любые сцены и приноси свои";
 "pro.fallback.benefit.three" = "Экспортируй дубли и делись последствиями";
 "pro.fallback.oneTime" = "Один платёж. Это не подписка.";
+"pro.fallback.subscribe.monthly" = "Подписаться за %@/мес.";
+"pro.fallback.subscribe.yearly" = "Подписаться за %@/год";
+"pro.fallback.subscribe" = "Подписаться за %@";
+"pro.fallback.renews" = "Продлевается автоматически, пока ты её не отменишь. Отменить можно в любой момент в настройках аккаунта Apple.";
+"pro.fallback.terms" = "Условия использования";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Добро пожаловать в клуб";

@@ -83,11 +83,14 @@ final class ProPaywallViewModel: ObservableObject {
 
     // MARK: - Paywall Events
 
-    func purchaseCompleted(_ customerInfo: CustomerInfo) {
+    /// The product comes from the transaction, not the offering: an offering can hold more than
+    /// one package (monthly and yearly), and guessing the first would misreport the experiment.
+    func purchaseCompleted(_ transaction: StoreTransaction?, _ customerInfo: CustomerInfo) {
         access.handleCompletion(customerInfo)
         AnalyticsManager.shared.trackPurchaseCompleted(
-            productID: offering?.availablePackages.first?
-                .storeProduct.productIdentifier ?? PurchaseConfiguration.lifetimeProductID,
+            productID: transaction?.productIdentifier
+                ?? offering?.availablePackages.first?.storeProduct.productIdentifier
+                ?? PurchaseConfiguration.lifetimeProductID,
             source: source
         )
         close()

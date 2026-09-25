@@ -277,11 +277,14 @@
 "pro.trial.over" = "La teva prova gratuïta s'ha acabat";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Desbloquejar Dubloon";
-"pro.unlock.subtitle" = "Un pagament, els dos jocs, teus per sempre.";
+"pro.unlock.subtitle" = "Els dos jocs, totes les escenes, sense límits.";
 "pro.owned.title" = "Dubloon és teu";
 "pro.owned.subtitle" = "Gràcies. Totes les escenes, totes les preses, sense sostre.";
 "pro.manage.title" = "Gestionar la compra";
 "pro.manage.subtitle" = "Rebuts, devolucions i ajuda amb la teva compra.";
+"pro.subscribed.title" = "Tens Dubloon Pro";
+"pro.manageSubscription.title" = "Gestionar la subscripció";
+"pro.manageSubscription.subtitle" = "Canvia de pla, cancel·la o demana ajuda.";
 "pro.restore.title" = "Restaurar la compra";
 "pro.restore.subtitle" = "Mòbil nou o app reinstal·lada? Recupera-la.";
 "pro.testStore.warning" = "Compilació de depuració: connectada a la botiga de proves de RevenueCat. Aquí no es mou diner real.";
@@ -293,8 +296,8 @@
 "pro.error.generic" = "La botiga no ha contestat. Torna-ho a provar d'aquí a un moment.";
 "pro.ok" = "D'acord";
 "pro.fallback.title" = "Desbloquejar Dubloon";
-"pro.fallback.message" = "La teva prova gratuïta s'ha acabat. Un sol pagament deixa els dos jocs oberts per sempre.";
-"pro.fallback.message.beforeExpiry" = "Un sol pagament deixa els dos jocs oberts per sempre.";
+"pro.fallback.message" = "La teva prova gratuïta s'ha acabat. Desbloqueja Dubloon per mantenir els dos jocs oberts.";
+"pro.fallback.message.beforeExpiry" = "Desbloqueja Dubloon per mantenir els dos jocs oberts.";
 "pro.fallback.buy" = "Desbloquejar per %@";
 "pro.fallback.buyUnpriced" = "Desbloquejar";
 "pro.fallback.loading" = "Preguntant a la botiga…";
@@ -304,6 +307,11 @@
 "pro.fallback.benefit.two" = "Dobla totes les escenes i porta-hi les teves";
 "pro.fallback.benefit.three" = "Exporta les teves preses i comparteix el desastre";
 "pro.fallback.oneTime" = "Un sol pagament. No és una subscripció.";
+"pro.fallback.subscribe.monthly" = "Subscriu-te per %@/mes";
+"pro.fallback.subscribe.yearly" = "Subscriu-te per %@/any";
+"pro.fallback.subscribe" = "Subscriu-te per %@";
+"pro.fallback.renews" = "Es renova automàticament fins que la cancel·lis. Cancel·la quan vulguis des de la configuració del teu compte d'Apple.";
+"pro.fallback.terms" = "Condicions d'ús";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Benvingut al club";

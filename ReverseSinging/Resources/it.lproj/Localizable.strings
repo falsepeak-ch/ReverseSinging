@@ -277,11 +277,14 @@
 "pro.trial.over" = "La tua prova gratuita è finita";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Sblocca Dubloon";
-"pro.unlock.subtitle" = "Un pagamento, entrambi i giochi, tuoi per sempre.";
+"pro.unlock.subtitle" = "Entrambi i giochi, tutte le scene, senza limiti.";
 "pro.owned.title" = "Dubloon è tuo";
 "pro.owned.subtitle" = "Grazie. Ogni scena, ogni presa, senza tetto.";
 "pro.manage.title" = "Gestisci l'acquisto";
 "pro.manage.subtitle" = "Ricevute, rimborsi e aiuto sul tuo acquisto.";
+"pro.subscribed.title" = "Hai Dubloon Pro";
+"pro.manageSubscription.title" = "Gestisci l'abbonamento";
+"pro.manageSubscription.subtitle" = "Cambia piano, disdici o chiedi aiuto.";
 "pro.restore.title" = "Ripristina l'acquisto";
 "pro.restore.subtitle" = "Telefono nuovo o app reinstallata? Riprendilo.";
 "pro.testStore.warning" = "Build di debug: collegata allo store di test di RevenueCat. Qui non si muove denaro vero.";
@@ -293,8 +296,8 @@
 "pro.error.generic" = "Lo store non ha risposto. Riprova tra un attimo.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Sblocca Dubloon";
-"pro.fallback.message" = "La tua prova gratuita è finita. Un solo pagamento tiene aperti entrambi i giochi per sempre.";
-"pro.fallback.message.beforeExpiry" = "Un solo pagamento tiene aperti entrambi i giochi per sempre.";
+"pro.fallback.message" = "La tua prova gratuita è finita. Sblocca Dubloon per tenere aperti entrambi i giochi.";
+"pro.fallback.message.beforeExpiry" = "Sblocca Dubloon per tenere aperti entrambi i giochi.";
 "pro.fallback.buy" = "Sblocca per %@";
 "pro.fallback.buyUnpriced" = "Sblocca";
 "pro.fallback.loading" = "Stiamo chiedendo allo store…";
@@ -304,6 +307,11 @@
 "pro.fallback.benefit.two" = "Doppia ogni scena e porta le tue";
 "pro.fallback.benefit.three" = "Esporta le tue prese e condividi i danni";
 "pro.fallback.oneTime" = "Un pagamento. Non è un abbonamento.";
+"pro.fallback.subscribe.monthly" = "Abbonati a %@/mese";
+"pro.fallback.subscribe.yearly" = "Abbonati a %@/anno";
+"pro.fallback.subscribe" = "Abbonati a %@";
+"pro.fallback.renews" = "Si rinnova automaticamente finché non lo disdici. Disdici quando vuoi dalle impostazioni del tuo Account Apple.";
+"pro.fallback.terms" = "Condizioni d'uso";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Benvenuto nel club";

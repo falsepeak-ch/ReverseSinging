@@ -277,11 +277,14 @@
 "pro.trial.over" = "Tvoje zkušební doba skončila";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Odemknout Dubloon";
-"pro.unlock.subtitle" = "Jedna platba, obě hry, tvoje napořád.";
+"pro.unlock.subtitle" = "Obě hry, všechny scény, bez omezení.";
 "pro.owned.title" = "Dubloon je tvůj";
 "pro.owned.subtitle" = "Díky. Každá scéna, každý pokus, bez stropu.";
 "pro.manage.title" = "Spravovat nákup";
 "pro.manage.subtitle" = "Účtenky, vrácení peněz a pomoc s nákupem.";
+"pro.subscribed.title" = "Máš Dubloon Pro";
+"pro.manageSubscription.title" = "Spravovat předplatné";
+"pro.manageSubscription.subtitle" = "Změna tarifu, zrušení nebo pomoc.";
 "pro.restore.title" = "Obnovit nákup";
 "pro.restore.subtitle" = "Nový telefon nebo přeinstalace? Vrať si ho.";
 "pro.testStore.warning" = "Debug build: připojeno k testovacímu obchodu RevenueCat. Žádné skutečné peníze se nehýbou.";
@@ -293,8 +296,8 @@
 "pro.error.generic" = "Obchod neodpověděl. Zkus to za chvíli.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Odemknout Dubloon";
-"pro.fallback.message" = "Tvoje zkušební doba skončila. Jedna platba nechá obě hry otevřené napořád.";
-"pro.fallback.message.beforeExpiry" = "Jedna platba nechá obě hry otevřené napořád.";
+"pro.fallback.message" = "Tvoje zkušební doba skončila. Odemkni Dubloon a obě hry zůstanou otevřené.";
+"pro.fallback.message.beforeExpiry" = "Odemkni Dubloon a obě hry zůstanou otevřené.";
 "pro.fallback.buy" = "Odemknout za %@";
 "pro.fallback.buyUnpriced" = "Odemknout";
 "pro.fallback.loading" = "Ptáme se obchodu…";
@@ -304,6 +307,11 @@
 "pro.fallback.benefit.two" = "Nadabuj každou scénu a přines si vlastní";
 "pro.fallback.benefit.three" = "Exportuj své pokusy a poděl se o škody";
 "pro.fallback.oneTime" = "Jedna platba. Žádné předplatné.";
+"pro.fallback.subscribe.monthly" = "Předplatit za %@/měsíc";
+"pro.fallback.subscribe.yearly" = "Předplatit za %@/rok";
+"pro.fallback.subscribe" = "Předplatit za %@";
+"pro.fallback.renews" = "Obnovuje se automaticky, dokud ho nezrušíš. Zrušit ho můžeš kdykoli v nastavení účtu Apple.";
+"pro.fallback.terms" = "Podmínky použití";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Vítej v klubu";

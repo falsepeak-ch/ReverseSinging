@@ -103,6 +103,12 @@ final class AccessController: ObservableObject {
     /// They have paid.
     var isPro: Bool { state == .unlocked(.entitlement) }
 
+    /// They pay for it by subscription rather than having bought it outright. The lifetime
+    /// purchase grants an entitlement with no expiry date; every subscription has one.
+    var isSubscriber: Bool {
+        isPro && customerInfo?.entitlements[PurchaseConfiguration.entitlementID]?.expirationDate != nil
+    }
+
     /// They were here before the paywall and are exempt from it for good.
     var isEarlyAdopter: Bool { state == .unlocked(.earlyAdopter) }
 

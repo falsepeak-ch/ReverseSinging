@@ -277,11 +277,14 @@
 "pro.trial.over" = "Пробний період завершився";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Відкрити Dubloon";
-"pro.unlock.subtitle" = "Один платіж, обидві гри, твої назавжди.";
+"pro.unlock.subtitle" = "Обидві гри, усі сцени, без обмежень.";
 "pro.owned.title" = "Dubloon твій";
 "pro.owned.subtitle" = "Дякуємо. Кожна сцена, кожен дубль, без стелі.";
 "pro.manage.title" = "Керування покупкою";
 "pro.manage.subtitle" = "Чеки, повернення і допомога з покупкою.";
+"pro.subscribed.title" = "У тебе Dubloon Pro";
+"pro.manageSubscription.title" = "Керування підпискою";
+"pro.manageSubscription.subtitle" = "Змінити план, скасувати або отримати допомогу.";
 "pro.restore.title" = "Відновити покупку";
 "pro.restore.subtitle" = "Новий телефон чи перевстановлення? Поверни її.";
 "pro.testStore.warning" = "Debug-збірка: під'єднано до тестового магазину RevenueCat. Справжні гроші не рухаються.";
@@ -293,8 +296,8 @@
 "pro.error.generic" = "Магазин не відповів. Спробуй за хвилину.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Відкрити Dubloon";
-"pro.fallback.message" = "Пробний період завершився. Один платіж лишає обидві гри відкритими назавжди.";
-"pro.fallback.message.beforeExpiry" = "Один платіж лишає обидві гри відкритими назавжди.";
+"pro.fallback.message" = "Пробний період завершився. Відкрий Dubloon, щоб обидві гри лишилися доступними.";
+"pro.fallback.message.beforeExpiry" = "Відкрий Dubloon, щоб обидві гри лишилися доступними.";
 "pro.fallback.buy" = "Відкрити за %@";
 "pro.fallback.buyUnpriced" = "Відкрити";
 "pro.fallback.loading" = "Питаємо магазин…";
@@ -304,6 +307,11 @@
 "pro.fallback.benefit.two" = "Озвучуй будь-які сцени і приноси власні";
 "pro.fallback.benefit.three" = "Експортуй дублі й ділися наслідками";
 "pro.fallback.oneTime" = "Один платіж. Це не підписка.";
+"pro.fallback.subscribe.monthly" = "Підписатися за %@/міс.";
+"pro.fallback.subscribe.yearly" = "Підписатися за %@/рік";
+"pro.fallback.subscribe" = "Підписатися за %@";
+"pro.fallback.renews" = "Поновлюється автоматично, доки ти її не скасуєш. Скасувати можна будь-коли в налаштуваннях облікового запису Apple.";
+"pro.fallback.terms" = "Умови використання";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Вітаємо в клубі";

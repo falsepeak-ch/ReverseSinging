@@ -277,11 +277,14 @@
 "pro.trial.over" = "Din gratis prøveperiode er slut";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Lås Dubloon op";
-"pro.unlock.subtitle" = "Én betaling, begge spil, dine for altid.";
+"pro.unlock.subtitle" = "Begge spil, alle scener, ingen grænser.";
 "pro.owned.title" = "Du ejer Dubloon";
 "pro.owned.subtitle" = "Tak. Hver scene, hver optagelse, uden loft.";
 "pro.manage.title" = "Administrér købet";
 "pro.manage.subtitle" = "Kvitteringer, refusioner og hjælp til dit køb.";
+"pro.subscribed.title" = "Du har Dubloon Pro";
+"pro.manageSubscription.title" = "Administrér abonnement";
+"pro.manageSubscription.subtitle" = "Skift plan, opsig eller få hjælp.";
 "pro.restore.title" = "Gendan købet";
 "pro.restore.subtitle" = "Ny telefon eller geninstalleret? Hent det tilbage.";
 "pro.testStore.warning" = "Debug-build: forbundet til RevenueCats testbutik. Der flytter sig ingen rigtige penge.";
@@ -293,8 +296,8 @@
 "pro.error.generic" = "Butikken svarede ikke. Prøv igen om et øjeblik.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Lås Dubloon op";
-"pro.fallback.message" = "Din gratis prøveperiode er slut. Én betaling holder begge spil åbne for altid.";
-"pro.fallback.message.beforeExpiry" = "Én betaling holder begge spil åbne for altid.";
+"pro.fallback.message" = "Din gratis prøveperiode er slut. Lås Dubloon op for at holde begge spil åbne.";
+"pro.fallback.message.beforeExpiry" = "Lås Dubloon op for at holde begge spil åbne.";
 "pro.fallback.buy" = "Lås op for %@";
 "pro.fallback.buyUnpriced" = "Lås op";
 "pro.fallback.loading" = "Spørger butikken…";
@@ -304,6 +307,11 @@
 "pro.fallback.benefit.two" = "Dub hver eneste scene, og tag dine egne med";
 "pro.fallback.benefit.three" = "Eksportér dine optagelser og del ulykken";
 "pro.fallback.oneTime" = "Én betaling. Ikke et abonnement.";
+"pro.fallback.subscribe.monthly" = "Abonnér for %@/md.";
+"pro.fallback.subscribe.yearly" = "Abonnér for %@/år";
+"pro.fallback.subscribe" = "Abonnér for %@";
+"pro.fallback.renews" = "Fornyes automatisk, indtil du opsiger det. Opsig når som helst i indstillingerne for din Apple-konto.";
+"pro.fallback.terms" = "Brugsvilkår";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Velkommen i klubben";

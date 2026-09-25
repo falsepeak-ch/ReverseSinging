@@ -277,11 +277,14 @@
 "pro.trial.over" = "Din gratisperiod är slut";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Lås upp Dubloon";
-"pro.unlock.subtitle" = "En betalning, båda spelen, dina för gott.";
+"pro.unlock.subtitle" = "Båda spelen, alla scener, inga gränser.";
 "pro.owned.title" = "Du äger Dubloon";
 "pro.owned.subtitle" = "Tack. Varje scen, varje tagning, utan tak.";
 "pro.manage.title" = "Hantera köpet";
 "pro.manage.subtitle" = "Kvitton, återbetalningar och hjälp med köpet.";
+"pro.subscribed.title" = "Du har Dubloon Pro";
+"pro.manageSubscription.title" = "Hantera prenumerationen";
+"pro.manageSubscription.subtitle" = "Byt plan, säg upp eller få hjälp.";
 "pro.restore.title" = "Återställ köpet";
 "pro.restore.subtitle" = "Ny telefon eller ominstallerat? Hämta tillbaka det.";
 "pro.testStore.warning" = "Debugbygge: kopplat till RevenueCats testbutik. Inga riktiga pengar rör sig.";
@@ -293,8 +296,8 @@
 "pro.error.generic" = "Butiken svarade inte. Försök igen om en stund.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Lås upp Dubloon";
-"pro.fallback.message" = "Din gratisperiod är slut. En enda betalning håller båda spelen öppna för gott.";
-"pro.fallback.message.beforeExpiry" = "En enda betalning håller båda spelen öppna för gott.";
+"pro.fallback.message" = "Din gratisperiod är slut. Lås upp Dubloon för att hålla båda spelen öppna.";
+"pro.fallback.message.beforeExpiry" = "Lås upp Dubloon för att hålla båda spelen öppna.";
 "pro.fallback.buy" = "Lås upp för %@";
 "pro.fallback.buyUnpriced" = "Lås upp";
 "pro.fallback.loading" = "Frågar butiken…";
@@ -304,6 +307,11 @@
 "pro.fallback.benefit.two" = "Dubba varje scen, och ta med dina egna";
 "pro.fallback.benefit.three" = "Exportera dina tagningar och dela skadan";
 "pro.fallback.oneTime" = "En betalning. Ingen prenumeration.";
+"pro.fallback.subscribe.monthly" = "Prenumerera för %@/mån";
+"pro.fallback.subscribe.yearly" = "Prenumerera för %@/år";
+"pro.fallback.subscribe" = "Prenumerera för %@";
+"pro.fallback.renews" = "Förnyas automatiskt tills du säger upp den. Säg upp när du vill i inställningarna för ditt Apple-konto.";
+"pro.fallback.terms" = "Användarvillkor";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Välkommen till klubben";

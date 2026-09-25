@@ -277,11 +277,14 @@
 "pro.trial.over" = "Twój darmowy okres się skończył";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Odblokuj Dubloon";
-"pro.unlock.subtitle" = "Jedna płatność, obie gry, twoje na zawsze.";
+"pro.unlock.subtitle" = "Obie gry, każda scena, bez limitów.";
 "pro.owned.title" = "Dubloon jest twój";
 "pro.owned.subtitle" = "Dzięki. Każda scena, każde podejście, bez limitów.";
 "pro.manage.title" = "Zarządzaj zakupem";
 "pro.manage.subtitle" = "Paragony, zwroty i pomoc przy zakupie.";
+"pro.subscribed.title" = "Masz Dubloon Pro";
+"pro.manageSubscription.title" = "Zarządzaj subskrypcją";
+"pro.manageSubscription.subtitle" = "Zmień plan, anuluj albo poproś o pomoc.";
 "pro.restore.title" = "Przywróć zakup";
 "pro.restore.subtitle" = "Nowy telefon albo reinstalacja? Odzyskaj go.";
 "pro.testStore.warning" = "Kompilacja debugowa: podłączona do testowego sklepu RevenueCat. Prawdziwe pieniądze nie krążą.";
@@ -293,8 +296,8 @@
 "pro.error.generic" = "Sklep nie odpowiedział. Spróbuj za chwilę.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Odblokuj Dubloon";
-"pro.fallback.message" = "Twój darmowy okres się skończył. Jedna płatność zostawia obie gry otwarte na zawsze.";
-"pro.fallback.message.beforeExpiry" = "Jedna płatność zostawia obie gry otwarte na zawsze.";
+"pro.fallback.message" = "Twój darmowy okres się skończył. Odblokuj Dubloon, żeby obie gry zostały otwarte.";
+"pro.fallback.message.beforeExpiry" = "Odblokuj Dubloon, żeby obie gry zostały otwarte.";
 "pro.fallback.buy" = "Odblokuj za %@";
 "pro.fallback.buyUnpriced" = "Odblokuj";
 "pro.fallback.loading" = "Pytamy sklep…";
@@ -304,6 +307,11 @@
 "pro.fallback.benefit.two" = "Dubbinguj każdą scenę i przynoś własne";
 "pro.fallback.benefit.three" = "Eksportuj podejścia i dziel się szkodami";
 "pro.fallback.oneTime" = "Jedna płatność. To nie subskrypcja.";
+"pro.fallback.subscribe.monthly" = "Subskrybuj za %@/mies.";
+"pro.fallback.subscribe.yearly" = "Subskrybuj za %@/rok";
+"pro.fallback.subscribe" = "Subskrybuj za %@";
+"pro.fallback.renews" = "Odnawia się automatycznie, dopóki jej nie anulujesz. Anuluj w dowolnej chwili w ustawieniach konta Apple.";
+"pro.fallback.terms" = "Warunki użytkowania";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Witaj w klubie";

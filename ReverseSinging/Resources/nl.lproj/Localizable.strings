@@ -277,11 +277,14 @@
 "pro.trial.over" = "Je gratis proefperiode is voorbij";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Dubloon ontgrendelen";
-"pro.unlock.subtitle" = "Eén betaling, beide spellen, voorgoed van jou.";
+"pro.unlock.subtitle" = "Beide spellen, elke scène, geen grenzen.";
 "pro.owned.title" = "Dubloon is van jou";
 "pro.owned.subtitle" = "Dank je. Elke scène, elke take, geen plafond.";
 "pro.manage.title" = "Aankoop beheren";
 "pro.manage.subtitle" = "Bonnen, terugbetalingen en hulp bij je aankoop.";
+"pro.subscribed.title" = "Je hebt Dubloon Pro";
+"pro.manageSubscription.title" = "Abonnement beheren";
+"pro.manageSubscription.subtitle" = "Wissel van plan, zeg op of vraag hulp.";
 "pro.restore.title" = "Aankoop herstellen";
 "pro.restore.subtitle" = "Nieuwe telefoon of opnieuw geïnstalleerd? Haal hem terug.";
 "pro.testStore.warning" = "Debug-build: verbonden met de RevenueCat-teststore. Hier gaat geen echt geld heen en weer.";
@@ -293,8 +296,8 @@
 "pro.error.generic" = "De store gaf geen antwoord. Probeer het zo nog eens.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Dubloon ontgrendelen";
-"pro.fallback.message" = "Je gratis proefperiode is voorbij. Eén betaling houdt beide spellen voorgoed open.";
-"pro.fallback.message.beforeExpiry" = "Eén betaling houdt beide spellen voorgoed open.";
+"pro.fallback.message" = "Je gratis proefperiode is voorbij. Ontgrendel Dubloon om beide spellen open te houden.";
+"pro.fallback.message.beforeExpiry" = "Ontgrendel Dubloon om beide spellen open te houden.";
 "pro.fallback.buy" = "Ontgrendel voor %@";
 "pro.fallback.buyUnpriced" = "Ontgrendelen";
 "pro.fallback.loading" = "We vragen het de store…";
@@ -304,6 +307,11 @@
 "pro.fallback.benefit.two" = "Elke scène dubben, en je eigen meenemen";
 "pro.fallback.benefit.three" = "Je takes exporteren en de schade delen";
 "pro.fallback.oneTime" = "Eén betaling. Geen abonnement.";
+"pro.fallback.subscribe.monthly" = "Abonneer voor %@/maand";
+"pro.fallback.subscribe.yearly" = "Abonneer voor %@/jaar";
+"pro.fallback.subscribe" = "Abonneer voor %@";
+"pro.fallback.renews" = "Wordt automatisch verlengd tot je opzegt. Zeg op wanneer je wilt via de instellingen van je Apple Account.";
+"pro.fallback.terms" = "Gebruiksvoorwaarden";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Welkom bij de club";

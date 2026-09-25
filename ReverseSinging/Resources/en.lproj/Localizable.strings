@@ -277,11 +277,14 @@
 "pro.trial.over" = "Your free trial is done";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Unlock Dubloon";
-"pro.unlock.subtitle" = "One payment, both games, yours for good.";
+"pro.unlock.subtitle" = "Both games, every scene, no limits.";
 "pro.owned.title" = "You own Dubloon";
 "pro.owned.subtitle" = "Thank you. Every scene, every take, no ceiling.";
 "pro.manage.title" = "Manage purchase";
 "pro.manage.subtitle" = "Receipts, refunds and help with your purchase.";
+"pro.subscribed.title" = "You're on Dubloon Pro";
+"pro.manageSubscription.title" = "Manage subscription";
+"pro.manageSubscription.subtitle" = "Change plan, cancel, or get help.";
 "pro.restore.title" = "Restore purchase";
 "pro.restore.subtitle" = "New phone, or reinstalled? Bring it back.";
 "pro.testStore.warning" = "Debug build: connected to the RevenueCat test store. No real money moves.";
@@ -293,8 +296,8 @@
 "pro.error.generic" = "The store didn't answer. Try again in a moment.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Unlock Dubloon";
-"pro.fallback.message" = "Your free trial has ended. One payment keeps both games open for good.";
-"pro.fallback.message.beforeExpiry" = "One payment keeps both games open for good.";
+"pro.fallback.message" = "Your free trial has ended. Unlock Dubloon to keep both games open.";
+"pro.fallback.message.beforeExpiry" = "Unlock Dubloon to keep both games open.";
 "pro.fallback.buy" = "Unlock for %@";
 "pro.fallback.buyUnpriced" = "Unlock";
 "pro.fallback.loading" = "Asking the store…";
@@ -304,6 +307,11 @@
 "pro.fallback.benefit.two" = "Dub every scene, and bring your own";
 "pro.fallback.benefit.three" = "Export your takes and share the damage";
 "pro.fallback.oneTime" = "One payment. Not a subscription.";
+"pro.fallback.subscribe.monthly" = "Subscribe for %@/month";
+"pro.fallback.subscribe.yearly" = "Subscribe for %@/year";
+"pro.fallback.subscribe" = "Subscribe for %@";
+"pro.fallback.renews" = "Renews automatically until cancelled. Cancel anytime in your Apple Account settings.";
+"pro.fallback.terms" = "Terms of Use";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Welcome to the club";

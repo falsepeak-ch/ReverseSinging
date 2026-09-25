@@ -475,6 +475,9 @@ nonisolated enum Strings {
         static let ownedSubtitle = NSLocalizedString("pro.owned.subtitle", comment: "Thank-you line under the owned row")
         static let manageTitle = NSLocalizedString("pro.manage.title", comment: "Opens the RevenueCat Customer Center")
         static let manageSubtitle = NSLocalizedString("pro.manage.subtitle", comment: "What the Customer Center is for")
+        static let subscribedTitle = NSLocalizedString("pro.subscribed.title", comment: "Settings row shown to someone with an active subscription, in place of the owned row")
+        static let manageSubscriptionTitle = NSLocalizedString("pro.manageSubscription.title", comment: "Opens the RevenueCat Customer Center for a subscriber")
+        static let manageSubscriptionSubtitle = NSLocalizedString("pro.manageSubscription.subtitle", comment: "What the Customer Center is for, to a subscriber")
         static let restoreTitle = NSLocalizedString("pro.restore.title", comment: "Restore a previous purchase")
         static let restoreSubtitle = NSLocalizedString("pro.restore.subtitle", comment: "Explains who the restore button is for")
         static let testStoreWarning = NSLocalizedString("pro.testStore.warning", comment: "Debug-only banner: this build talks to the RevenueCat test store")
@@ -528,7 +531,12 @@ nonisolated enum Strings {
             static let benefitOne = NSLocalizedString("pro.fallback.benefit.one", comment: "First selling point on the built-in paywall")
             static let benefitTwo = NSLocalizedString("pro.fallback.benefit.two", comment: "Second selling point on the built-in paywall")
             static let benefitThree = NSLocalizedString("pro.fallback.benefit.three", comment: "Third selling point on the built-in paywall")
-            static let oneTime = NSLocalizedString("pro.fallback.oneTime", comment: "Reassures that the price is paid once, not per month")
+            static let oneTime = NSLocalizedString("pro.fallback.oneTime", comment: "Under the buy button for the lifetime purchase only: the price is paid once, not per month")
+            static let subscribeMonthly = NSLocalizedString("pro.fallback.subscribe.monthly", comment: "Buy button for a monthly subscription, %@ is the localized price")
+            static let subscribeYearly = NSLocalizedString("pro.fallback.subscribe.yearly", comment: "Buy button for a yearly subscription, %@ is the localized price")
+            static let subscribe = NSLocalizedString("pro.fallback.subscribe", comment: "Buy button for a subscription of any other length, %@ is the localized price")
+            static let renews = NSLocalizedString("pro.fallback.renews", comment: "Under the buy button for a subscription: it renews until cancelled")
+            static let terms = NSLocalizedString("pro.fallback.terms", comment: "Link to the Terms of Use (Apple's standard licence agreement)")
         }
     }
 }

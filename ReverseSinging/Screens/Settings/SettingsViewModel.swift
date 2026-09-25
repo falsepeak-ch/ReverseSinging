@@ -153,6 +153,19 @@ final class SettingsViewModel: ObservableObject {
 
     var isRestoring: Bool { access.isRestoring }
 
+    /// A subscriber does not own the app, and what they come to manage is the subscription.
+    var ownedTitle: String {
+        access.isSubscriber ? Strings.Pro.subscribedTitle : Strings.Pro.ownedTitle
+    }
+
+    var manageTitle: String {
+        access.isSubscriber ? Strings.Pro.manageSubscriptionTitle : Strings.Pro.manageTitle
+    }
+
+    var manageSubtitle: String {
+        access.isSubscriber ? Strings.Pro.manageSubscriptionSubtitle : Strings.Pro.manageSubtitle
+    }
+
     /// The trial counter, restated as a sentence, or the plain offer once it is over.
     var unlockSubtitle: String {
         guard let days = access.trialDaysRemaining else { return Strings.Pro.unlockSubtitle }

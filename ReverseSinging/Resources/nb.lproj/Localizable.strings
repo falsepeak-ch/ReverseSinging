@@ -277,11 +277,14 @@
 "pro.trial.over" = "Prøveperioden din er over";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Lås opp Dubloon";
-"pro.unlock.subtitle" = "Én betaling, begge spillene, dine for godt.";
+"pro.unlock.subtitle" = "Begge spillene, alle scener, ingen grenser.";
 "pro.owned.title" = "Du eier Dubloon";
 "pro.owned.subtitle" = "Takk. Hver scene, hvert opptak, uten tak.";
 "pro.manage.title" = "Administrer kjøpet";
 "pro.manage.subtitle" = "Kvitteringer, refusjoner og hjelp med kjøpet.";
+"pro.subscribed.title" = "Du har Dubloon Pro";
+"pro.manageSubscription.title" = "Administrer abonnementet";
+"pro.manageSubscription.subtitle" = "Bytt plan, avslutt eller få hjelp.";
 "pro.restore.title" = "Gjenopprett kjøpet";
 "pro.restore.subtitle" = "Ny telefon eller reinstallert? Hent det tilbake.";
 "pro.testStore.warning" = "Debug-bygg: koblet til testbutikken til RevenueCat. Ingen ekte penger flytter på seg.";
@@ -293,8 +296,8 @@
 "pro.error.generic" = "Butikken svarte ikke. Prøv igjen om et øyeblikk.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Lås opp Dubloon";
-"pro.fallback.message" = "Prøveperioden din er over. Én betaling holder begge spillene åpne for godt.";
-"pro.fallback.message.beforeExpiry" = "Én betaling holder begge spillene åpne for godt.";
+"pro.fallback.message" = "Prøveperioden din er over. Lås opp Dubloon for å holde begge spillene åpne.";
+"pro.fallback.message.beforeExpiry" = "Lås opp Dubloon for å holde begge spillene åpne.";
 "pro.fallback.buy" = "Lås opp for %@";
 "pro.fallback.buyUnpriced" = "Lås opp";
 "pro.fallback.loading" = "Spør butikken…";
@@ -304,6 +307,11 @@
 "pro.fallback.benefit.two" = "Dubb hver eneste scene, og ta med dine egne";
 "pro.fallback.benefit.three" = "Eksporter opptakene dine og del skaden";
 "pro.fallback.oneTime" = "Én betaling. Ikke et abonnement.";
+"pro.fallback.subscribe.monthly" = "Abonner for %@/mnd.";
+"pro.fallback.subscribe.yearly" = "Abonner for %@/år";
+"pro.fallback.subscribe" = "Abonner for %@";
+"pro.fallback.renews" = "Fornyes automatisk til du avslutter. Avslutt når som helst i innstillingene for Apple-kontoen din.";
+"pro.fallback.terms" = "Bruksvilkår";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Velkommen i klubben";

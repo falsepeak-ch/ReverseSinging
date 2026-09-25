@@ -277,11 +277,14 @@
 "pro.trial.over" = "Ücretsiz deneme süren bitti";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Dubloon'un kilidini aç";
-"pro.unlock.subtitle" = "Tek ödeme, iki oyun, temelli senin.";
+"pro.unlock.subtitle" = "İki oyun, tüm sahneler, sınır yok.";
 "pro.owned.title" = "Dubloon senin";
 "pro.owned.subtitle" = "Teşekkürler. Her sahne, her çekim, tavan yok.";
 "pro.manage.title" = "Satın almayı yönet";
 "pro.manage.subtitle" = "Makbuzlar, iadeler ve satın alma yardımı.";
+"pro.subscribed.title" = "Dubloon Pro'n var";
+"pro.manageSubscription.title" = "Aboneliği yönet";
+"pro.manageSubscription.subtitle" = "Planı değiştir, iptal et ya da yardım al.";
 "pro.restore.title" = "Satın almayı geri yükle";
 "pro.restore.subtitle" = "Yeni telefon mu, yeniden kurulum mu? Geri getir.";
 "pro.testStore.warning" = "Hata ayıklama derlemesi: RevenueCat test mağazasına bağlı. Gerçek para el değiştirmiyor.";
@@ -293,8 +296,8 @@
 "pro.error.generic" = "Mağaza cevap vermedi. Birazdan tekrar dene.";
 "pro.ok" = "Tamam";
 "pro.fallback.title" = "Dubloon'un kilidini aç";
-"pro.fallback.message" = "Ücretsiz deneme süren bitti. Tek bir ödeme iki oyunu da temelli açık tutuyor.";
-"pro.fallback.message.beforeExpiry" = "Tek bir ödeme iki oyunu da temelli açık tutuyor.";
+"pro.fallback.message" = "Ücretsiz deneme süren bitti. İki oyunu da açık tutmak için Dubloon'un kilidini aç.";
+"pro.fallback.message.beforeExpiry" = "İki oyunu da açık tutmak için Dubloon'un kilidini aç.";
 "pro.fallback.buy" = "%@ karşılığında aç";
 "pro.fallback.buyUnpriced" = "Kilidi aç";
 "pro.fallback.loading" = "Mağazaya soruyoruz…";
@@ -304,6 +307,11 @@
 "pro.fallback.benefit.two" = "Her sahneyi seslendir, kendi sahnelerini de getir";
 "pro.fallback.benefit.three" = "Çekimlerini dışa aktar ve hasarı paylaş";
 "pro.fallback.oneTime" = "Tek ödeme. Abonelik değil.";
+"pro.fallback.subscribe.monthly" = "%@/ay karşılığında abone ol";
+"pro.fallback.subscribe.yearly" = "%@/yıl karşılığında abone ol";
+"pro.fallback.subscribe" = "%@ karşılığında abone ol";
+"pro.fallback.renews" = "İptal edene kadar otomatik olarak yenilenir. Apple Hesabı ayarlarından istediğin zaman iptal edebilirsin.";
+"pro.fallback.terms" = "Kullanım Koşulları";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Kulübe hoş geldin";

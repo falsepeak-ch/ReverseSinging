@@ -375,14 +375,14 @@ struct SettingsView: View {
                 } else if viewModel.isPro {
                     statusCard(
                         assetName: "settings-owned",
-                        title: Strings.Pro.ownedTitle,
+                        title: viewModel.ownedTitle,
                         subtitle: Strings.Pro.ownedSubtitle
                     )
 
                     settingsRow(
                         assetName: "settings-manage-purchase",
-                        title: Strings.Pro.manageTitle,
-                        subtitle: Strings.Pro.manageSubtitle
+                        title: viewModel.manageTitle,
+                        subtitle: viewModel.manageSubtitle
                     ) {
                         viewModel.openCustomerCenter()
                     }

@@ -277,11 +277,14 @@
 "pro.trial.over" = "Deine Testphase ist vorbei";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Dubloon freischalten";
-"pro.unlock.subtitle" = "Einmal zahlen, beide Spiele, für immer deins.";
+"pro.unlock.subtitle" = "Beide Spiele, jede Szene, keine Grenzen.";
 "pro.owned.title" = "Dubloon gehört dir";
 "pro.owned.subtitle" = "Danke. Jede Szene, jeder Take, keine Grenze.";
 "pro.manage.title" = "Kauf verwalten";
 "pro.manage.subtitle" = "Belege, Rückerstattungen und Hilfe zu deinem Kauf.";
+"pro.subscribed.title" = "Du hast Dubloon Pro";
+"pro.manageSubscription.title" = "Abo verwalten";
+"pro.manageSubscription.subtitle" = "Plan wechseln, kündigen oder Hilfe holen.";
 "pro.restore.title" = "Kauf wiederherstellen";
 "pro.restore.subtitle" = "Neues Handy oder neu installiert? Hol ihn zurück.";
 "pro.testStore.warning" = "Debug-Build: verbunden mit dem RevenueCat-Teststore. Hier fließt kein echtes Geld.";
@@ -293,8 +296,8 @@
 "pro.error.generic" = "Der Store hat nicht geantwortet. Versuch es gleich noch mal.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Dubloon freischalten";
-"pro.fallback.message" = "Deine Testphase ist vorbei. Eine Zahlung hält beide Spiele für immer offen.";
-"pro.fallback.message.beforeExpiry" = "Eine Zahlung hält beide Spiele für immer offen.";
+"pro.fallback.message" = "Deine Testphase ist vorbei. Schalte Dubloon frei, damit beide Spiele offen bleiben.";
+"pro.fallback.message.beforeExpiry" = "Schalte Dubloon frei, damit beide Spiele offen bleiben.";
 "pro.fallback.buy" = "Für %@ freischalten";
 "pro.fallback.buyUnpriced" = "Freischalten";
 "pro.fallback.loading" = "Wir fragen den Store…";
@@ -304,6 +307,11 @@
 "pro.fallback.benefit.two" = "Jede Szene synchronisieren und eigene mitbringen";
 "pro.fallback.benefit.three" = "Takes exportieren und den Schaden teilen";
 "pro.fallback.oneTime" = "Einmal zahlen. Kein Abo.";
+"pro.fallback.subscribe.monthly" = "Abonnieren für %@/Monat";
+"pro.fallback.subscribe.yearly" = "Abonnieren für %@/Jahr";
+"pro.fallback.subscribe" = "Abonnieren für %@";
+"pro.fallback.renews" = "Verlängert sich automatisch, bis du kündigst. Jederzeit in den Einstellungen deines Apple Accounts kündbar.";
+"pro.fallback.terms" = "Nutzungsbedingungen";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Willkommen im Club";
