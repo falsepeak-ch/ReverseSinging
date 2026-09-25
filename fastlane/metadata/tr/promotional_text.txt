@@ -1,1 +1,1 @@
-1.6.0'da yeni: Dubloon'un kilidini aylık veya yıllık aç, yıllık planda ilk hafta ücretsiz. Booth Cam ile dublaj yaparken kendini çek. 21 dilde.
+1.6.0'da yeni: mikrofon her çekimde hemen başlıyor. Booth Cam ile dublaj yaparken kendini çek. 21 dilde.

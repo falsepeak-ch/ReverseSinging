@@ -1,8 +1,4 @@
-Desbloqueia o Dubloon ao mês ou ao ano, e o micro arranca sempre.
-
-FORMAS DE DESBLOQUEAR
-• O Dubloon Pro agora também existe como subscrição: mensal, ou anual com a primeira semana grátis
-• Comprá-lo uma vez e ficar com ele para sempre continua disponível
+Agora o microfone arranca sempre.
 
 CORREÇÕES
 • Corrigido o microfone que se recusava a iniciar um take em alguns iPhone. Agora arranca de imediato em vez de mostrar um erro

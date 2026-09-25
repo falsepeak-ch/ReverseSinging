@@ -1,8 +1,4 @@
-Schalte Dubloon monatlich oder jährlich frei, und das Mikro startet jedes Mal.
-
-WEGE ZUM FREISCHALTEN
-• Dubloon Pro gibt es jetzt auch als Abo: monatlich, oder jährlich mit der ersten Woche gratis
-• Einmal kaufen und für immer behalten geht weiterhin
+Das Mikrofon läuft jetzt jedes Mal los.
 
 FEHLERBEHEBUNGEN
 • Das Mikrofon verweigerte auf manchen iPhones den Start einer Aufnahme. Jetzt läuft es sofort los, statt einen Fehler zu zeigen

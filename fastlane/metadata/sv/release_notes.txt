@@ -1,8 +1,4 @@
-Lås upp Dubloon per månad eller per år, och micken startar varje gång.
-
-SÄTT ATT LÅSA UPP
-• Dubloon Pro finns nu även som prenumeration: månadsvis, eller årsvis med första veckan gratis
-• Att köpa en gång och behålla för alltid finns kvar
+Nu drar mikrofonen igång varje gång.
 
 RÄTTNINGAR
 • Mikrofonen vägrade starta en tagning på vissa iPhone. Nu drar den igång direkt i stället för att visa ett fel

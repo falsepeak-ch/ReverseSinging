@@ -1,8 +1,4 @@
-Unlock Dubloon by the month or the year, and the mic rolls every time.
-
-WAYS TO UNLOCK
-• Dubloon Pro now also comes as a subscription: monthly, or yearly with the first week free
-• Buying it once and keeping it forever is still there
+The mic now rolls every time.
 
 FIXES
 • Fixed the microphone refusing to start a take on some iPhones. It now rolls straight away instead of showing an error

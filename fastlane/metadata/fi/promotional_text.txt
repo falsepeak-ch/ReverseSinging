@@ -1,1 +1,1 @@
-Uutta versiossa 1.6.0: avaa Dubloon kuukaudeksi tai vuodeksi, vuositilauksessa ensimmäinen viikko ilmaiseksi. Kuvaa itseäsi dubbaamassa Booth Camilla. 21 kielellä.
+Uutta versiossa 1.6.0: mikrofoni käynnistyy heti joka otossa. Kuvaa itseäsi dubbaamassa Booth Camilla. 21 kielellä.

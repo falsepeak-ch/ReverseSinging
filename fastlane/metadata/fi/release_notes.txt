@@ -1,8 +1,4 @@
-Avaa Dubloon kuukaudeksi tai vuodeksi, ja mikrofoni käynnistyy joka kerta.
-
-TAVAT AVATA
-• Dubloon Pro on nyt saatavilla myös tilauksena: kuukausittain, tai vuosittain ensimmäinen viikko ilmaiseksi
-• Kertaostos, joka jää sinulle ikuisesti, on yhä tarjolla
+Mikrofoni käynnistyy nyt joka kerta.
 
 KORJAUKSET
 • Mikrofoni kieltäytyi aloittamasta ottoa joillakin iPhoneilla. Nyt se käynnistyy heti virheen näyttämisen sijaan

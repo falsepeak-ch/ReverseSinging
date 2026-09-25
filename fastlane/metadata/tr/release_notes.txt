@@ -1,8 +1,4 @@
-Dubloon'un kilidini aylık veya yıllık aç, mikrofon her seferinde çalışsın.
-
-KİLİDİ AÇMANIN YOLLARI
-• Dubloon Pro artık abonelik olarak da var: aylık, ya da ilk haftası ücretsiz yıllık
-• Bir kez satın alıp sonsuza dek tutmak hâlâ mümkün
+Mikrofon artık her seferinde başlıyor.
 
 DÜZELTMELER
 • Bazı iPhone'larda mikrofonun çekimi başlatmayı reddetmesi düzeltildi. Artık hata göstermek yerine hemen başlıyor

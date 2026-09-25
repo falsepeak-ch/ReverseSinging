@@ -1,8 +1,4 @@
-Odblokuj Dubloon na miesiąc lub na rok, a mikrofon rusza za każdym razem.
-
-SPOSOBY ODBLOKOWANIA
-• Dubloon Pro jest teraz dostępny także w subskrypcji: miesięcznej lub rocznej z pierwszym tygodniem za darmo
-• Jednorazowy zakup na zawsze nadal jest dostępny
+Mikrofon rusza teraz za każdym razem.
 
 POPRAWKI
 • Naprawiono mikrofon, który na niektórych iPhone'ach odmawiał rozpoczęcia nagrania. Teraz rusza od razu zamiast pokazywać błąd

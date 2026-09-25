@@ -1,8 +1,4 @@
-Débloque Dubloon au mois ou à l'année, et le micro démarre à chaque fois.
-
-FAÇONS DE DÉBLOQUER
-• Dubloon Pro existe désormais aussi en abonnement : mensuel, ou annuel avec la première semaine offerte
-• L'acheter une fois et le garder pour toujours reste possible
+Le micro démarre maintenant à chaque fois.
 
 CORRECTIONS
 • Correction du micro qui refusait de lancer une prise sur certains iPhone. Il démarre maintenant tout de suite au lieu d'afficher une erreur

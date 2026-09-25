@@ -12,11 +12,11 @@ Both scenes state their provenance (film, year, producer, terms, with tappable l
 
 THE PURCHASE
 
-Free to download, on a seven-day trial from first launch, so a fresh install can be reviewed end to end without buying anything.
+Free to download, with no trial: the menu opens, and both games stay locked until a purchase, which a sandbox account can make. Sandbox dates every download 2013-08-01; the app ignores that date, so a review device counts as a new install and meets the paywall.
 
-After the trial, any of three products unlocks the same content: the existing non-consumable "com.falsepeak.reverse_singing_ios.lifetime", or one of the two auto-renewable subscriptions submitted with this version, "com.falsepeak.reverse_singing_ios.monthly" and "com.falsepeak.reverse_singing_ios.yearly" (the yearly one with a 7-day introductory free trial). The purchase screen shows either the lifetime product alone or the two subscriptions, chosen per install by a remotely configured test, so a review device may see either layout; both are the real, complete offer. Users who installed before the paywall existed keep both games free for life, decided on device from the earlier install. If the trial has elapsed on the review device, deleting and reinstalling restarts it.
+Any of three products unlocks the same content: the existing non-consumable "com.falsepeak.reverse_singing_ios.lifetime", or one of the two auto-renewable subscriptions submitted with this version, "com.falsepeak.reverse_singing_ios.monthly" and "com.falsepeak.reverse_singing_ios.yearly" (the yearly one with a 7-day introductory free trial). The purchase screen shows either the lifetime product alone or the two subscriptions, chosen per install by a remotely configured test, so a review device may see either layout; both are the real, complete offer. Users who installed before the paywall existed keep both games free for life.
 
-To reach the purchase screen: the sliders icon at the top right of the main menu, then "Unlock Dubloon". It also opens from the "N days left" badge in the header and from the "trial is done" card.
+To reach the purchase screen: tap either game, or the "Get Dubloon Pro to play" card on the main menu, or the sliders icon at the top right, then "Unlock Dubloon".
 
 BOOTH CAM
 

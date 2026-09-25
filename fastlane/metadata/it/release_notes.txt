@@ -1,8 +1,4 @@
-Sblocca Dubloon al mese o all'anno, e il microfono parte ogni volta.
-
-MODI PER SBLOCCARE
-• Dubloon Pro ora è disponibile anche in abbonamento: mensile, o annuale con la prima settimana gratis
-• Comprarlo una volta e tenerlo per sempre resta possibile
+Ora il microfono parte ogni volta.
 
 CORREZIONI
 • Corretto il microfono che si rifiutava di avviare una ripresa su alcuni iPhone. Ora parte subito invece di mostrare un errore

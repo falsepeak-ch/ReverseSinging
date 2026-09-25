@@ -1,8 +1,4 @@
-Desbloqueja Dubloon per mesos o per anys, i el micro arrenca sempre.
-
-MANERES DE DESBLOQUEJAR
-• Dubloon Pro ara també és una subscripció: mensual, o anual amb la primera setmana gratis
-• Comprar-lo un cop i quedar-te'l per sempre continua sent-hi
+Ara el micròfon arrenca cada vegada.
 
 CORRECCIONS
 • Corregit el micròfon que es negava a començar una presa en alguns iPhone. Ara arrenca a l'instant en comptes de mostrar un error
