@@ -54,6 +54,9 @@ nonisolated enum PurchaseConfiguration {
     /// The key for this build, or `nil` when none is configured.
     static var apiKey: String? {
         #if DEBUG
+        // `-useAppStorePurchases YES` points a debug build at the real products in the App
+        // Store sandbox, to check the live configuration without shipping a build.
+        if UserDefaults.standard.bool(forKey: "useAppStorePurchases") { return appStoreAPIKey }
         return testStoreAPIKey
         #else
         return appStoreAPIKey.isEmpty ? nil : appStoreAPIKey

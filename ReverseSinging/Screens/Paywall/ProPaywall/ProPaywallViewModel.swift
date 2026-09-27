@@ -64,7 +64,14 @@ final class ProPaywallViewModel: ObservableObject {
 
         do {
             let offerings = try await Purchases.shared.offerings()
-            guard let current = offerings.current else {
+            var current = offerings.current
+            #if DEBUG
+            // `-paywallOffering <id>` previews another arm of the experiment.
+            if let id = UserDefaults.standard.string(forKey: "paywallOffering") {
+                current = offerings.offering(identifier: id) ?? current
+            }
+            #endif
+            guard let current else {
                 // Configured, reachable, and nothing is on sale. A dashboard
                 // problem rather than a network one, and worth reporting.
                 CrashReporter.shared.recordFailure(

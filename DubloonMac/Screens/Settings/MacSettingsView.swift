@@ -41,7 +41,6 @@ struct MacSettingsView: View {
         }
         .sheet(isPresented: $viewModel.isPaywallPresented) {
             ProPaywallView(source: "settings")
-                .frame(minWidth: 520, minHeight: 640)
         }
         .alert(Strings.Booth.deleteAll, isPresented: $viewModel.isConfirmingBoothDelete) {
             Button(Strings.Booth.deleteAllConfirm, role: .destructive) { viewModel.deleteBoothFootage() }
@@ -49,6 +48,8 @@ struct MacSettingsView: View {
         } message: {
             Text(Strings.Booth.deleteAllMessage)
         }
+        // A restore from the Pro tab answers here, not by closing the window.
+        .purchaseAlerts()
         .preferredColorScheme(.dark)
 
     }

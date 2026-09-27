@@ -8,6 +8,7 @@
 #if DEBUG
 import AppKit
 import SwiftUI
+import RevenueCat
 
 /// Started with `-macShot <name>` (plus `-screenshotMode YES`). Poses the window and logs
 /// `E2E|SHOT|<name>|main` once it has settled, for the capture script to photograph, then
@@ -25,6 +26,7 @@ enum MacShotPoser {
         case "dub": await dubLine(workspace: workspace)
         case "scene": await dubScene(workspace: workspace)
         case "library": await library(workspace: workspace)
+        case "paywall": await paywall(workspace: workspace)
         case "reverse": await reverse(workspace: workspace)
         case "imitate": await imitate(workspace: workspace)
         default: break
@@ -83,6 +85,36 @@ enum MacShotPoser {
         await sleep(1)
         studio.challenge?.playReference()
         await sleep(0.5)
+    }
+
+    /// Reports what RevenueCat and the store answer, then opens the paywall.
+    private static func paywall(workspace: MacWorkspaceViewModel) async {
+        func log(_ line: String) { FileHandle.standardError.write(Data("RC|\(line)\n".utf8)) }
+        _ = await waitUntil(10) { Purchases.isConfigured }
+        log("configured=\(Purchases.isConfigured) key=\(PurchaseConfiguration.isUsingTestStore ? "test" : "appstore")")
+        guard Purchases.isConfigured else { return }
+        do {
+            let info = try await Purchases.shared.customerInfo()
+            log("customer=\(info.originalAppUserId) entitlements=\(info.entitlements.all.keys.sorted()) active=\(info.entitlements.active.keys.sorted()) env=\(info.entitlements.verification)")
+            let offerings = try await Purchases.shared.offerings()
+            log("offerings=\(offerings.all.keys.sorted()) current=\(offerings.current?.identifier ?? "nil")")
+            for (id, offering) in offerings.all.sorted(by: { $0.key < $1.key }) {
+                for package in offering.availablePackages {
+                    let product = package.storeProduct
+                    log("offering=\(id) package=\(package.identifier) product=\(product.productIdentifier) price=\(product.localizedPriceString) type=\(product.productType) intro=\(product.introductoryDiscount.map { "\($0.subscriptionPeriod.value) \($0.subscriptionPeriod.unit) \($0.paymentMode)" } ?? "none")")
+                }
+            }
+            let direct = await Purchases.shared.products([
+                "com.falsepeak.reverse_singing_ios.lifetime",
+                "com.falsepeak.reverse_singing_ios.monthly",
+                "com.falsepeak.reverse_singing_ios.yearly"
+            ])
+            log("direct products=\(direct.map { "\($0.productIdentifier) \($0.localizedPriceString)" }.sorted())")
+        } catch {
+            log("error=\(error)")
+        }
+        workspace.home.showPaywall(from: .trialBadge)
+        await sleep(6)
     }
 
     // MARK: - Helpers

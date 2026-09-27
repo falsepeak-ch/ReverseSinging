@@ -80,7 +80,6 @@ struct MacWorkspaceView: View {
         // The menu's paywall and notes, as sheets on the window.
         .sheet(item: Binding(get: { home.paywallSource }, set: { home.paywallSource = $0 })) { source in
             ProPaywallView(source: source.rawValue)
-                .frame(minWidth: 520, minHeight: 640)
         }
         .sheet(isPresented: Binding(
             get: { home.isEarlyAdopterWelcomePresented },

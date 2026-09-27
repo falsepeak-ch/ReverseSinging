@@ -512,20 +512,37 @@ final class AccessController: ObservableObject {
         }
     }
 
-    /// Buys a product directly. Only the fallback paywall uses this; the
-    /// dashboard paywall does its own buying.
+    /// Buys a product directly. The fallback paywall uses this when there is no offering to
+    /// buy from; the dashboard paywall does its own buying.
     func purchase(_ product: StoreProduct) async {
+        await runPurchase(productID: product.productIdentifier, source: "fallback_paywall") {
+            try await Purchases.shared.purchase(product: product)
+        }
+    }
+
+    /// Buys a package from an offering: the Mac's paywall. Buying the package rather than its
+    /// product tells RevenueCat which offering was on screen, which is what attributes the
+    /// purchase to the experiment arm that sold it.
+    func purchase(_ package: Package, source: String) async {
+        await runPurchase(productID: package.storeProduct.productIdentifier, source: source) {
+            try await Purchases.shared.purchase(package: package)
+        }
+    }
+
+    private func runPurchase(
+        productID: String,
+        source: String,
+        _ buy: () async throws -> PurchaseResultData
+    ) async {
         guard Purchases.isConfigured, !isPurchasing else { return }
         isPurchasing = true
         defer { isPurchasing = false }
 
         do {
-            let result = try await Purchases.shared.purchase(product: product)
+            let result = try await buy()
             guard !result.userCancelled else { return }
             apply(result.customerInfo)
-            AnalyticsManager.shared.trackPurchaseCompleted(
-                productID: product.productIdentifier, source: "fallback_paywall"
-            )
+            AnalyticsManager.shared.trackPurchaseCompleted(productID: productID, source: source)
         } catch {
             // A cancel is a decision, not a failure, and gets no alert.
             guard !Self.isCancellation(error) else { return }
