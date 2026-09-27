@@ -7,8 +7,8 @@
 
 import AppKit
 
-/// Sends Space, R, L, P, Home and the arrows to the workspace's transport before a focused list can
-/// eat them.
+/// Sends Space, R, L, P, Home and the arrows to the transport of the window they were typed
+/// into, before a focused list can eat them.
 ///
 /// AppKit offers a key to the focused view before it looks for a menu item without modifiers.
 /// A table uses letters to jump to rows and the sidebar uses them to jump to games, so with
@@ -19,11 +19,9 @@ import AppKit
 enum MacKeyRouter {
 
     private static var monitor: Any?
-    @MainActor private static weak var workspace: MacWorkspaceViewModel?
 
     @MainActor
-    static func install(workspace: MacWorkspaceViewModel) {
-        self.workspace = workspace
+    static func install() {
         guard monitor == nil else { return }
         monitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
             // Local monitors run on the main thread, inside the event loop.
@@ -48,9 +46,9 @@ enum MacKeyRouter {
             return false
         }
 
-        // Only the editing window, and only when nothing is on top of it: Space in a sheet or in
-        // Settings belongs to whatever control is there.
-        guard let window = event.window, window.identifier?.rawValue.hasPrefix("main") == true,
+        // Only an editing window, and only when nothing is on top of it: Space in a sheet, in
+        // Settings or in the shortcuts panel belongs to whatever control is there.
+        guard let window = event.window, MacWindowID.isEditing(window),
               window.attachedSheet == nil else { return false }
 
         let responder = window.firstResponder
@@ -62,7 +60,9 @@ enum MacKeyRouter {
         // The sidebar is walked with the arrows; everywhere else they move between lines.
         if isArrow, let list = responder as? NSOutlineView, list.numberOfColumns == 1 { return false }
 
-        guard let transport = workspace?.transport else { return false }
+        // An editing window with nothing to play still takes the keys, so a list never turns
+        // them into a jump to some row.
+        let transport = MacTransportHub.shared.transport(for: window) ?? MacTransport()
 
         let action: (@MainActor () -> Void)??
         switch key {

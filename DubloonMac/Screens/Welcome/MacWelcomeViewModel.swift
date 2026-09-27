@@ -25,9 +25,11 @@ final class MacWelcomeViewModel: ObservableObject {
     @Published private(set) var step: Step = .welcome
 
     let onboarding: OnboardingViewModel
+    private let app: AppViewModel
     private var cancellables = Set<AnyCancellable>()
 
     init(app: AppViewModel) {
+        self.app = app
         onboarding = OnboardingViewModel(app: app)
         onboarding.objectWillChange
             .sink { [weak self] _ in self?.objectWillChange.send() }
@@ -59,6 +61,12 @@ final class MacWelcomeViewModel: ObservableObject {
     /// Leaves the microphone for later: every game asks again when it first records.
     func skip() {
         onboarding.finishOnboarding()
+    }
+
+    /// The window closed with its close button: the same as Not Now, so it is not back at the
+    /// next launch asking again.
+    func windowDidClose() {
+        if !app.hasCompletedOnboarding { skip() }
     }
 
     var isDenied: Bool { onboarding.isPermissionDenied }

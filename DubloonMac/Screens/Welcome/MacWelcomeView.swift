@@ -41,6 +41,7 @@ struct MacWelcomeView: View {
             #endif
         }
         .onChange(of: scenePhase) { _, phase in viewModel.scenePhaseDidChange(phase) }
+        .onDisappear { viewModel.windowDidClose() }
     }
 
     // MARK: - Welcome
@@ -154,12 +155,29 @@ struct MacWelcomeView: View {
 
             Button(viewModel.primaryTitle) { viewModel.primaryAction() }
                 .controlSize(.large)
-                .buttonStyle(.borderedProminent)
+                .platformProminentButton()
                 .keyboardShortcut(.defaultAction)
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 18)
         .background(Color.rsSurface2)
         .overlay(alignment: .top) { EditorRule() }
+    }
+}
+
+// MARK: - Window
+
+/// The welcome in a window of its own, in front of the library, the way Xcode and Final Cut
+/// greet a first launch. It closes itself once onboarding is done, and never comes back.
+struct MacWelcomeWindow: View {
+    @ObservedObject var app: AppViewModel
+    @Environment(\.dismissWindow) private var dismissWindow
+
+    var body: some View {
+        MacWelcomeView(app: app)
+            .preferredColorScheme(.dark)
+            .onChange(of: app.hasCompletedOnboarding, initial: true) { _, isDone in
+                if isDone { dismissWindow(id: MacWindowID.welcome) }
+            }
     }
 }

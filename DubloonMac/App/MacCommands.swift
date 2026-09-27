@@ -20,7 +20,8 @@ struct MacCommands: Commands {
         SidebarCommands()
         ToolbarCommands()
 
-        // One window, reopened from the Window menu; no "New Window".
+        // The library window is reopened from the Window menu, and a pack gets its own window
+        // from Open in New Window; there is no blank "New Window".
         CommandGroup(replacing: .newItem) {
             Button(Strings.Main.newSession) { workspace.newSession() }
                 .keyboardShortcut("n")
@@ -28,11 +29,13 @@ struct MacCommands: Commands {
             Button(MacStrings.Menu.importPack) { workspace.requestImport() }
                 .keyboardShortcut("o")
 
+            OpenInNewWindowMenuItem(workspace: workspace)
+
             OpenRecentMenu(workspace: workspace)
         }
 
         CommandGroup(after: .importExport) {
-            ExportMenuItem(workspace: workspace)
+            ExportMenuItem()
         }
 
         // Edit ▸ Delete… for the pack or session selected in the sidebar.
@@ -55,23 +58,22 @@ struct MacCommands: Commands {
 
             Divider()
 
-            ViewerMenu(workspace: workspace)
-            ZoomMenuItems(workspace: workspace)
+            ViewerMenu()
+            ZoomMenuItems()
 
             Divider()
 
-            InspectorMenuItem(workspace: workspace)
+            InspectorMenuItem()
 
             Divider()
         }
 
         CommandMenu(MacStrings.Menu.playback) {
-            PlaybackMenu(workspace: workspace)
+            PlaybackMenu()
         }
 
         CommandGroup(replacing: .help) {
-            Button(MacStrings.Menu.shortcuts) { workspace.showsShortcuts = true }
-                .keyboardShortcut("/")
+            ShortcutsMenuItem()
 
             Divider()
 
@@ -88,14 +90,14 @@ struct MacCommands: Commands {
 
 // MARK: - Menu Contents
 
-// Views rather than inline buttons: a view inside a menu watches the workspace and redraws when
-// its transport changes, where the `Commands` body itself does not reliably.
+// Views rather than inline buttons: a view inside a menu watches the hub and redraws when the
+// front window's transport changes, where the `Commands` body itself does not reliably.
 
 private struct PlaybackMenu: View {
-    @ObservedObject var workspace: MacWorkspaceViewModel
+    @ObservedObject private var hub = MacTransportHub.shared
 
     var body: some View {
-        let transport = workspace.transport
+        let transport = hub.current
 
         Button(MacStrings.Menu.playPause) { transport.togglePlay?() }
             .keyboardShortcut(.space, modifiers: [])
@@ -148,10 +150,10 @@ private struct PlaybackMenu: View {
 }
 
 private struct ViewerMenu: View {
-    @ObservedObject var workspace: MacWorkspaceViewModel
+    @ObservedObject private var hub = MacTransportHub.shared
 
     var body: some View {
-        let transport = workspace.transport
+        let transport = hub.current
         Menu(MacStrings.Menu.viewer) {
             ForEach(Array(DubViewerMode.allCases.enumerated()), id: \.element) { index, mode in
                 Toggle(isOn: Binding(
@@ -168,10 +170,10 @@ private struct ViewerMenu: View {
 }
 
 private struct ZoomMenuItems: View {
-    @ObservedObject var workspace: MacWorkspaceViewModel
+    @ObservedObject private var hub = MacTransportHub.shared
 
     var body: some View {
-        let transport = workspace.transport
+        let transport = hub.current
         Button(MacStrings.Menu.zoomIn) { transport.zoomIn?() }
             .keyboardShortcut("=")
             .disabled(transport.zoomIn == nil)
@@ -217,22 +219,46 @@ private struct DeleteMenuItem: View {
 }
 
 private struct ExportMenuItem: View {
-    @ObservedObject var workspace: MacWorkspaceViewModel
+    @ObservedObject private var hub = MacTransportHub.shared
 
     var body: some View {
-        Button(MacStrings.Menu.export) { workspace.transport.export?() }
+        Button(MacStrings.Menu.export) { hub.current.export?() }
             .keyboardShortcut("e")
-            .disabled(workspace.transport.export == nil)
+            .disabled(hub.current.export == nil)
     }
 }
 
 private struct InspectorMenuItem: View {
+    @ObservedObject private var hub = MacTransportHub.shared
+
+    var body: some View {
+        let transport = hub.current
+        Button(transport.isInspectorShown ? MacStrings.Menu.hideInspector : MacStrings.Menu.showInspector) {
+            transport.toggleInspector?()
+        }
+        .keyboardShortcut("i", modifiers: [.command, .option])
+        .disabled(transport.toggleInspector == nil)
+    }
+}
+
+/// The selected pack, out of the library and into a window of its own.
+private struct OpenInNewWindowMenuItem: View {
     @ObservedObject var workspace: MacWorkspaceViewModel
 
     var body: some View {
-        Button(workspace.showsInspector ? MacStrings.Menu.hideInspector : MacStrings.Menu.showInspector) {
-            withAnimation(.easeInOut(duration: 0.2)) { workspace.showsInspector.toggle() }
+        Button(MacStrings.Menu.openInNewWindow) {
+            if let id = workspace.selectedPackID { workspace.openInNewWindow(id) }
         }
-        .keyboardShortcut("i", modifiers: [.command, .option])
+        .keyboardShortcut("o", modifiers: [.command, .option])
+        .disabled(workspace.selectedPackID == nil)
+    }
+}
+
+private struct ShortcutsMenuItem: View {
+    @Environment(\.openWindow) private var openWindow
+
+    var body: some View {
+        Button(MacStrings.Menu.shortcuts) { openWindow(id: MacWindowID.shortcuts) }
+            .keyboardShortcut("/")
     }
 }

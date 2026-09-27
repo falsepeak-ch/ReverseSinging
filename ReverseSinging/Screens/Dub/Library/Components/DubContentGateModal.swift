@@ -76,13 +76,14 @@ struct DubContentGateModal: View {
         switch step {
         case .ask:
             Button(Strings.DubGate.askNeedDownload, action: showDownloadStep)
+                .platformGlassButton()
             Button(Strings.DubGate.askConfirm, action: confirmOwnership)
                 .keyboardShortcut(.defaultAction)
-                .buttonStyle(.borderedProminent)
+                .platformProminentButton()
         case .download:
             Button(String(format: Strings.DubGate.downloadOpen, source.name), action: openSource)
                 .keyboardShortcut(.defaultAction)
-                .buttonStyle(.borderedProminent)
+                .platformProminentButton()
         }
     }
 

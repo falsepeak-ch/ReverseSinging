@@ -141,14 +141,7 @@ struct ProDashboard: View {
         }
         .padding(.horizontal, 12)
         .frame(height: 30)
-        .background(
-            RoundedRectangle(cornerRadius: 6, style: .continuous)
-                .fill(Color.black.opacity(0.55))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 6, style: .continuous)
-                .strokeBorder(Color.white.opacity(0.08), lineWidth: 1)
-        )
+        .modifier(DashboardPlate())
         .fixedSize()
         .accessibilityElement(children: .combine)
     }
@@ -202,14 +195,11 @@ struct ProTransportButton: View {
             Image(systemName: icon)
                 .font(.system(size: 13, weight: .semibold))
                 .foregroundColor(isActive || (isHovered && isEnabled) ? .rsTextPrimary : .rsTextSecondary)
-                .frame(width: 32, height: 26)
-                .background(
-                    RoundedRectangle(cornerRadius: ProMetrics.radius, style: .continuous)
-                        .fill(isActive || (isHovered && isEnabled) ? Color.rsSurface3 : Color.rsSurface2)
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: ProMetrics.radius, style: .continuous)
-                        .strokeBorder(isActive ? Color.rsStrokeStrong : Color.rsStroke, lineWidth: 1)
+                .frame(width: 34, height: 28)
+                .platformGlass(
+                    in: RoundedRectangle(cornerRadius: 8, style: .continuous),
+                    tint: isActive ? Color.accentColor.opacity(0.35) : nil,
+                    fallback: isActive || (isHovered && isEnabled) ? Color.rsSurface3 : Color.rsSurface2
                 )
                 .contentShape(Rectangle())
         }
@@ -237,6 +227,8 @@ struct ProRecordButton: View {
                 Circle()
                     .fill(Color.rsRecord.opacity(isRecording ? 0.2 : 0))
                     .scaleEffect(1 + CGFloat(level) * 0.3)
+                Color.clear
+                    .platformGlass(in: Circle(), tint: Color.rsRecord.opacity(isRecording ? 0.35 : 0.12), fallback: .clear)
                 Circle()
                     .strokeBorder(Color.rsRecord.opacity(isCountingIn ? 1 : 0.55), lineWidth: 1.5)
                 RoundedRectangle(cornerRadius: isRecording ? 3 : size, style: .continuous)
@@ -491,5 +483,25 @@ private struct ProHoverLift: ViewModifier {
             .shadow(color: .black.opacity(isHovered ? 0.35 : 0), radius: 8, y: 4)
             .animation(.easeOut(duration: 0.15), value: isHovered)
             .onHover { isHovered = $0 }
+    }
+}
+
+/// The recessed plate behind the dashboard, before Liquid Glass. From macOS 26 the toolbar puts
+/// its own glass around the item, and a black plate inside it would read as a hole.
+private struct DashboardPlate: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(macOS 26, *) {
+            content
+        } else {
+            content
+                .background(
+                    RoundedRectangle(cornerRadius: 6, style: .continuous)
+                        .fill(Color.black.opacity(0.55))
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 6, style: .continuous)
+                        .strokeBorder(Color.white.opacity(0.08), lineWidth: 1)
+                )
+        }
     }
 }

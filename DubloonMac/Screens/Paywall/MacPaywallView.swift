@@ -189,13 +189,14 @@ struct MacPaywallView: View {
                 if viewModel.paywall.isDismissible {
                     Button(Strings.Main.Alert.cancel) { viewModel.close() }
                         .keyboardShortcut(.cancelAction)
+                        .platformGlassButton()
                         .controlSize(.large)
                         .fixedSize()
                 }
 
                 Button(viewModel.buyTitle) { viewModel.buy() }
                     .keyboardShortcut(.defaultAction)
-                    .buttonStyle(.borderedProminent)
+                    .platformProminentButton()
                     .controlSize(.large)
                     .fixedSize()
                     .disabled(viewModel.product == nil || viewModel.isBusy)

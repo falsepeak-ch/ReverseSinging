@@ -85,7 +85,7 @@ struct BoothCamPrimerModal: View {
             }
             Button(Strings.Booth.primerConfirm, action: viewModel.enable)
                 .keyboardShortcut(.defaultAction)
-                .buttonStyle(.borderedProminent)
+                .platformProminentButton()
                 .disabled(viewModel.isRequesting)
         }
         .onAppear { viewModel.onAppear() }

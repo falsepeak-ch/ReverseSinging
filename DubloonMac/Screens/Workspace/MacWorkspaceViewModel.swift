@@ -79,8 +79,6 @@ final class MacWorkspaceViewModel: ObservableObject {
     @Published private(set) var selection: MacDestination? {
         didSet {
             guard selection != oldValue else { return }
-            // Cleared on every swap; the incoming workspace publishes its own as it appears.
-            transport = MacTransport()
             // Remembered, so the app reopens where it was left.
             defaults.set(selection?.storageKey, forKey: Key.lastSelection)
             if case .pack(let id)? = selection { noteRecent(id) }
@@ -99,8 +97,12 @@ final class MacWorkspaceViewModel: ObservableObject {
     /// A pack or session waiting on "are you sure".
     @Published var pendingDeletion: MacDeletion?
 
-    /// Help ▸ Keyboard Shortcuts.
-    @Published var showsShortcuts = false
+    /// The packs open in windows of their own. A pack is edited in one place at a time: two
+    /// editors on one pack would be two owners of its audio and of its takes.
+    @Published private(set) var packsInWindows: Set<UUID> = []
+
+    /// Opens a scene's window; handed over by the library window, which has one to give.
+    var openWindow: OpenWindowAction?
 
     /// Packs opened lately, newest first, for File ▸ Open Recent.
     @Published private(set) var recentPackIDs: [UUID]
@@ -112,9 +114,6 @@ final class MacWorkspaceViewModel: ObservableObject {
         static let showsInspector = "mac.showsInspector"
         static let recentPacks = "mac.recentPacks"
     }
-
-    /// What the Playback menu can do in the workspace on screen. See `publishesTransport`.
-    @Published var transport = MacTransport()
 
     /// The reverse game's model, held here so a session in progress survives a trip to a pack.
     let game = ReverseGameViewModel()
@@ -189,7 +188,13 @@ final class MacWorkspaceViewModel: ObservableObject {
             return
         }
         guard destination != selection else { return }
+        // Already open on its own: that window comes to the front instead.
+        if case .pack(let id) = destination, packsInWindows.contains(id) {
+            openInNewWindow(id)
+            return
+        }
         guard home.requestEntry(destination.mode) else { return }
+        showLibraryWindow()
         // Leaving a take half-recorded behind is not a thing a sidebar click should do.
         game.stopPlayback()
         selection = destination
@@ -198,6 +203,44 @@ final class MacWorkspaceViewModel: ObservableObject {
     /// A binding for the sidebar's `List`, routed through the paywall.
     var selectionBinding: Binding<MacDestination?> {
         Binding(get: { self.selection }, set: { self.select($0) })
+    }
+
+    // MARK: - Windows
+
+    /// File ▸ Open in New Window, a double-click on a pack, or its context menu: the pack in a
+    /// window of its own, which the library window stops showing. The same pack again brings
+    /// its window to the front.
+    func openInNewWindow(_ id: UUID) {
+        guard pack(id: id) != nil else { return }
+        guard packsInWindows.contains(id) || home.requestEntry(.dub) else { return }
+        if selection == .pack(id) { selection = .dubLibrary }
+        noteRecent(id)
+        openWindow?(id: MacWindowID.pack, value: id)
+    }
+
+    /// The pack the menus mean by "the selected pack".
+    var selectedPackID: UUID? {
+        if case .pack(let id)? = selection { return id }
+        return nil
+    }
+
+    /// The menus that choose a workspace, typed with a pack's window in front, bring the
+    /// library window forward, or back if it was closed.
+    func showLibraryWindow() {
+        if let window = NSApp.windows.first(where: { MacWindowID.isKind(MacWindowID.main, $0) }), window.isVisible {
+            if !window.isKeyWindow, NSApp.isActive { window.makeKeyAndOrderFront(nil) }
+        } else {
+            openWindow?(id: MacWindowID.main)
+        }
+    }
+
+    func packWindowDidOpen(_ id: UUID) {
+        packsInWindows.insert(id)
+        if selection == .pack(id) { selection = .dubLibrary }
+    }
+
+    func packWindowDidClose(_ id: UUID) {
+        packsInWindows.remove(id)
     }
 
     func openFirstPack() {
@@ -240,7 +283,10 @@ final class MacWorkspaceViewModel: ObservableObject {
         #if DEBUG
         FileHandle.standardError.write(Data("FIND|called key=\(NSApp.keyWindow != nil)\n".utf8))
         #endif
-        guard let window = NSApp.keyWindow ?? NSApp.mainWindow, let root = window.contentView?.superview else { return }
+        // The search field lives in the library window's sidebar, whichever window is in front.
+        guard let window = NSApp.windows.first(where: { MacWindowID.isKind(MacWindowID.main, $0) }),
+              let root = window.contentView?.superview else { return }
+        window.makeKeyAndOrderFront(nil)
         func find(_ view: NSView) -> NSSearchField? {
             if let field = view as? NSSearchField { return field }
             for sub in view.subviews { if let hit = find(sub) { return hit } }
@@ -311,6 +357,7 @@ final class MacWorkspaceViewModel: ObservableObject {
 
     func requestImport() {
         guard home.requestEntry(.dub) else { return }
+        showLibraryWindow()
         dubLibrary.requestImport()
     }
 

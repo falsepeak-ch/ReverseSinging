@@ -549,3 +549,4 @@
 "mac.export.dragHint" = "Drag the video anywhere to save a copy";
 "mac.search.prompt" = "Search";
 "mac.menu.find" = "Find";
+"mac.menu.openInNewWindow" = "Open in New Window";

@@ -97,8 +97,7 @@ struct DubInspector: View {
             DubProgressBar(recorded: session.recordedCount, total: pack.lines.count)
 
             Toggle(Strings.Dub.Score.settingTitle, isOn: $scoring.isEnabled)
-                .toggleStyle(.switch)
-                .controlSize(.small)
+                .platformSwitch()
                 .font(.rsMeta)
 
             if scoring.isEnabled {
@@ -125,23 +124,20 @@ struct DubInspector: View {
             )) {
                 Text(Strings.Booth.settingsTitle).font(.rsMeta)
             }
-            .toggleStyle(.switch)
-            .controlSize(.small)
+            .platformSwitch()
             .disabled(viewModel.record.isRecording || viewModel.mode != .line)
 
             if booth.isEnabled {
                 Toggle(isOn: $booth.mirrorsPreview) {
                     Text(Strings.Booth.mirrorTitle).font(.rsMeta)
                 }
-                .toggleStyle(.switch)
-                .controlSize(.small)
+                .platformSwitch()
             }
 
             Toggle(isOn: $headphones.isEnabled) {
                 Text(Strings.Settings.headphoneMonitor).font(.rsMeta)
             }
-            .toggleStyle(.switch)
-            .controlSize(.small)
+            .platformSwitch()
             .disabled(!headphones.isHeadphonesConnected)
             .help(headphones.isHeadphonesConnected
                   ? Strings.Settings.headphoneMonitorDesc
@@ -159,7 +155,7 @@ struct DubInspector: View {
                 Label(MacStrings.Menu.export, systemImage: "square.and.arrow.up")
                     .frame(maxWidth: .infinity)
             }
-            .buttonStyle(.borderedProminent)
+            .platformProminentButton()
             .controlSize(.large)
             .disabled(!session.hasAnyTake || viewModel.detail.isExporting)
 

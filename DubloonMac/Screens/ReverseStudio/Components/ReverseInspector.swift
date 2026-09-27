@@ -102,8 +102,7 @@ struct ReverseInspector: View {
             Toggle(isOn: Binding(get: { game.appState.isLooping }, set: { _ in game.toggleLooping() })) {
                 Text(Strings.TimerCard.loop).font(.rsMeta)
             }
-            .toggleStyle(.switch)
-            .controlSize(.small)
+            .platformSwitch()
         }
     }
 

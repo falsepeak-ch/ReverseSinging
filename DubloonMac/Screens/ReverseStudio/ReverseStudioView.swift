@@ -52,7 +52,7 @@ struct ReverseStudioView: View {
         }
         .toolbar { toolbar }
         .navigationSubtitle(viewModel.session?.name ?? "")
-        .publishesTransport(transport, to: workspace)
+        .publishesTransport(transport)
         .task(id: viewModel.waveformKey) { await viewModel.loadWaveforms() }
         .onAppear {
             viewModel.onAppear()
@@ -211,6 +211,9 @@ struct ReverseStudioView: View {
     private var transport: MacTransport {
         let model = viewModel
         var transport = MacTransport()
+        let workspace = workspace
+        transport.toggleInspector = { withAnimation(.easeInOut(duration: 0.2)) { workspace.showsInspector.toggle() } }
+        transport.isInspectorShown = workspace.showsInspector
         transport.isRecording = model.isRecording
         if !model.isRecording { transport.togglePlay = { model.togglePlay() } }
         if model.recordStep != .unavailable { transport.toggleRecord = { model.toggleRecord() } }

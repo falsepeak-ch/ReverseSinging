@@ -2,7 +2,8 @@
 //  DubloonMacApp.swift
 //  DubloonMac
 //
-//  The Mac app: one editing-suite window, the settings window, and the menu bar.
+//  The Mac app: the library window, a window per pack opened on its own, the welcome and
+//  shortcuts panels, Settings, and the menu bar.
 //
 
 import SwiftUI
@@ -23,7 +24,8 @@ final class MacAppDelegate: NSObject, NSApplicationDelegate {
             // The Mac App Store takes 2560×1600: a 1280×800-point window on a Retina screen.
             // Set here rather than trusted to `defaultSize`, which a remembered frame beats.
             DispatchQueue.main.async {
-                NSApp.windows.first?.setContentSize(NSSize(width: 1280, height: 800))
+                NSApp.windows.first { MacWindowID.isKind(MacWindowID.main, $0) }?
+                    .setContentSize(NSSize(width: 1280, height: 800))
             }
             return
         }
@@ -67,7 +69,7 @@ final class MacAppDelegate: NSObject, NSApplicationDelegate {
         MainActor.assumeIsolated { MacFileInbox.shared.deliver(urls) }
     }
 
-    /// One window: closing it is quitting, as it is for any single-window Mac app.
+    /// Closing the last window, library and packs alike, is quitting.
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         true
     }
@@ -77,7 +79,7 @@ final class MacAppDelegate: NSObject, NSApplicationDelegate {
 struct DubloonMacApp: App {
     @NSApplicationDelegateAdaptor(MacAppDelegate.self) var delegate
 
-    /// Shared by the window, the Settings window and the menu bar.
+    /// Shared by every window and the menu bar.
     @StateObject private var app = AppViewModel()
     @StateObject private var workspace = MacWorkspaceViewModel()
 
@@ -93,7 +95,7 @@ struct DubloonMacApp: App {
     }
 
     var body: some Scene {
-        Window("Dubloon", id: "main") {
+        Window("Dubloon", id: MacWindowID.main) {
             MacRootView(app: app, workspace: workspace)
                 .frame(minWidth: 1180, minHeight: 700)
         }
@@ -102,31 +104,52 @@ struct DubloonMacApp: App {
         .windowResizability(.contentMinSize)
         .commands { MacCommands(app: app, workspace: workspace) }
 
+        // A pack in a window of its own. One window per pack: opening the same pack again
+        // brings its window forward. Reopened at launch with the rest of the windows.
+        WindowGroup(GameMode.dub.title, id: MacWindowID.pack, for: UUID.self) { $packID in
+            MacPackWindow(packID: packID, workspace: workspace)
+        }
+        .windowToolbarStyle(.unified(showsTitle: true))
+        .defaultSize(width: 1360, height: 860)
+        .windowResizability(.contentMinSize)
+        // Opened from the library, not from File ▸ New Window.
+        .commandsRemoved()
+
+        Window(MacStrings.Menu.shortcuts, id: MacWindowID.shortcuts) {
+            MacShortcutsView()
+        }
+        .windowResizability(.contentSize)
+        .defaultPosition(.center)
+        .commandsRemoved()
+
+        Window(Strings.Onboarding.welcomeTitle, id: MacWindowID.welcome) {
+            MacWelcomeWindow(app: app)
+        }
+        .windowStyle(.hiddenTitleBar)
+        .windowResizability(.contentSize)
+        .defaultPosition(.center)
+        .commandsRemoved()
+
         Settings {
             MacSettingsView(app: app)
         }
     }
 }
 
-/// The window's root: the workspace, the welcome sheet on first run, and what `ContentView`
-/// does around the iPhone's menu. Its paywall, links and open-counting.
+/// The library window's root: the workspace, the welcome window on first run, and what
+/// `ContentView` does around the iPhone's menu. Its paywall, links and open-counting.
 struct MacRootView: View {
     @ObservedObject var app: AppViewModel
     @ObservedObject var workspace: MacWorkspaceViewModel
+    @Environment(\.openWindow) private var openWindow
 
     var body: some View {
         MacWorkspaceView(app: app, workspace: workspace)
-            .sheet(isPresented: Binding(
-                get: { !app.hasCompletedOnboarding },
-                set: { _ in }
-            )) {
-                MacWelcomeView(app: app)
-                    .interactiveDismissDisabled()
-        
-            }
             .appLifecycle(app: app)
             .onAppear {
-                MacKeyRouter.install(workspace: workspace)
+                workspace.openWindow = openWindow
+                if !app.hasCompletedOnboarding { openWindow(id: MacWindowID.welcome) }
+                MacKeyRouter.install()
                 // Tab walks every pane SwiftUI builds, not only the ones it knew at first.
                 for window in NSApp.windows { window.autorecalculatesKeyViewLoop = true }
             }
@@ -140,6 +163,5 @@ struct MacRootView: View {
             .task { await MacShotPoser.runIfRequested(workspace: workspace) }
             #endif
             .preferredColorScheme(.dark)
-
     }
 }

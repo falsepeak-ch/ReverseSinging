@@ -2,16 +2,18 @@
 //  MacShortcutsView.swift
 //  DubloonMac
 //
-//  Help ▸ Keyboard Shortcuts: every key the app answers, grouped the way the menus are
+//  Help ▸ Keyboard Shortcuts: every key the app answers, grouped the way the menus are, in a
+//  panel that can stay open beside the work
 //
 
 import SwiftUI
 import TipKit
 
 /// The list a keyboard-first app owes its users: each shortcut with its keys drawn as keycaps,
-/// in the order the menu bar has them.
+/// in the order the menu bar has them. Its own window rather than a sheet, so it can be kept
+/// open next to a pack while the keys are learned.
 struct MacShortcutsView: View {
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.dismissWindow) private var dismissWindow
 
     private struct Shortcut: Identifiable {
         let title: String
@@ -54,6 +56,7 @@ struct MacShortcutsView: View {
             Group(title: MacStrings.Shortcuts.file, shortcuts: [
                 Shortcut(title: Strings.Main.newSession, keys: ["⌘", "N"]),
                 Shortcut(title: MacStrings.Menu.importPack, keys: ["⌘", "O"]),
+                Shortcut(title: MacStrings.Menu.openInNewWindow, keys: ["⌥", "⌘", "O"]),
                 Shortcut(title: MacStrings.Menu.export, keys: ["⌘", "E"]),
                 Shortcut(title: MacStrings.Menu.deleteEllipsis, keys: ["⌘", "⌫"]),
                 Shortcut(title: MacStrings.Menu.shortcuts, keys: ["⌘", "/"])
@@ -62,60 +65,40 @@ struct MacShortcutsView: View {
     }
 
     var body: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 10) {
-                Image(systemName: "keyboard")
-                    .font(.system(size: 20))
-                    .foregroundColor(.rsTextSecondary)
-                Text(MacStrings.Menu.shortcuts)
-                    .font(.system(size: 18, weight: .bold))
-                    .foregroundColor(.rsTextPrimary)
-                Spacer()
-            }
-            .padding(.horizontal, 24)
-            .padding(.top, 22)
-            .padding(.bottom, 14)
-
-            HStack(alignment: .top, spacing: 28) {
-                ForEach(groups) { group in
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text(group.title)
-                            .editorLabelStyle(.rsTextTertiary)
-                            .padding(.bottom, 2)
-                        ForEach(group.shortcuts) { shortcut in
-                            HStack(spacing: 12) {
-                                Text(shortcut.title)
-                                    .font(.system(size: 12))
-                                    .foregroundColor(.rsTextPrimary)
-                                    .lineLimit(1)
-                                Spacer(minLength: 8)
-                                HStack(spacing: 3) {
-                                    ForEach(shortcut.keys, id: \.self) { key in
-                                        Keycap(label: key)
-                                    }
+        HStack(alignment: .top, spacing: 28) {
+            ForEach(groups) { group in
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(group.title)
+                        .editorLabelStyle(.rsTextTertiary)
+                        .padding(.bottom, 2)
+                    ForEach(group.shortcuts) { shortcut in
+                        HStack(spacing: 12) {
+                            Text(shortcut.title)
+                                .font(.system(size: 12))
+                                .foregroundColor(.rsTextPrimary)
+                                .lineLimit(1)
+                            Spacer(minLength: 8)
+                            HStack(spacing: 3) {
+                                ForEach(shortcut.keys, id: \.self) { key in
+                                    Keycap(label: key)
                                 }
                             }
                         }
                     }
-                    .frame(width: 250, alignment: .leading)
                 }
+                .frame(width: 250, alignment: .leading)
             }
-            .padding(.horizontal, 24)
-            .padding(.bottom, 22)
-
-            HStack {
-                Spacer()
-                Button(Strings.Main.Alert.ok) { dismiss() }
-                    .keyboardShortcut(.defaultAction)
-                    .controlSize(.large)
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 14)
-            .background(Color.rsSurface2)
-            .overlay(alignment: .top) { EditorRule() }
         }
+        .padding(24)
         .fixedSize()
         .background(Color.rsSurface1)
+        // Esc closes the panel, as it would a sheet.
+        .background {
+            Button("") { dismissWindow(id: MacWindowID.shortcuts) }
+                .keyboardShortcut(.cancelAction)
+                .hidden()
+        }
+        .preferredColorScheme(.dark)
         .onAppear { MacShortcutsTip().invalidate(reason: .actionPerformed) }
     }
 }

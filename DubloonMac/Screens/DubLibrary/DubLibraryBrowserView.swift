@@ -63,7 +63,12 @@ struct DubLibraryBrowserView: View {
         let total = max(pack.lines.count, 1)
 
         return Button {
-            workspace.select(.pack(pack.id))
+            // ⌥-click opens the pack in a window of its own.
+            if NSEvent.modifierFlags.contains(.option) {
+                workspace.openInNewWindow(pack.id)
+            } else {
+                workspace.select(.pack(pack.id))
+            }
         } label: {
             VStack(alignment: .leading, spacing: 8) {
                 DubStillImage(url: pack.iconURL)
@@ -110,6 +115,7 @@ struct DubLibraryBrowserView: View {
         .proHoverLift()
         .contextMenu {
             Button(MacStrings.Menu.open) { workspace.select(.pack(pack.id)) }
+            Button(MacStrings.Menu.openInNewWindow) { workspace.openInNewWindow(pack.id) }
             Button(MacStrings.Menu.showInFinder) { workspace.revealInFinder(pack) }
             Divider()
             Button(MacStrings.Menu.deleteEllipsis, role: .destructive) { workspace.pendingDeletion = .pack(pack) }
@@ -174,7 +180,7 @@ struct DubLibraryBrowserView: View {
                 .frame(maxWidth: 380)
 
             Button(MacStrings.Menu.importPack) { workspace.requestImport() }
-                .buttonStyle(.borderedProminent)
+                .platformProminentButton()
                 .controlSize(.large)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

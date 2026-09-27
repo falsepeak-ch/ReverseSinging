@@ -88,7 +88,7 @@ struct DubExportOptionsModal: View {
         } macActions: {
             Button(confirmTitle, action: export)
                 .keyboardShortcut(.defaultAction)
-                .buttonStyle(.borderedProminent)
+                .platformProminentButton()
         }
         .onAppear { viewModel.onAppear() }
         .task { await viewModel.loadSceneSize() }
@@ -414,7 +414,7 @@ struct DubExportOptionsModal: View {
                     .font(.rsBodySmall)
                     .foregroundColor(.rsTextPrimary)
             }
-            .toggleStyle(SwitchToggleStyle(tint: .rsHighlight))
+            .platformSwitch(tint: .rsHighlight)
             .disabled(!viewModel.hasBoothFootage)
             .opacity(viewModel.hasBoothFootage ? 1 : 0.55)
 

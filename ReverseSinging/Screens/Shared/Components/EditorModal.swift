@@ -50,6 +50,7 @@ struct EditorModal<Content: View, PhoneActions: View, MacActions: View>: View {
                     Button(action: onBack) {
                         Label(Strings.DubGate.downloadBack, systemImage: "chevron.left")
                     }
+                    .platformGlassButton()
                     .controlSize(.large)
                 }
 
@@ -57,6 +58,7 @@ struct EditorModal<Content: View, PhoneActions: View, MacActions: View>: View {
 
                 Button(Strings.Main.Alert.cancel, action: onClose)
                     .keyboardShortcut(.cancelAction)
+                    .platformGlassButton()
                     .controlSize(.large)
 
                 macActions()
@@ -142,5 +144,49 @@ extension View {
         }
         .animation(.rsSmooth, value: isPresented.wrappedValue)
         #endif
+    }
+}
+
+// MARK: - Glass
+
+extension View {
+    /// The default action's button: Liquid Glass where the system draws it, bordered before.
+    @ViewBuilder
+    func platformProminentButton() -> some View {
+        if #available(iOS 26, macOS 26, *) {
+            buttonStyle(.glassProminent)
+        } else {
+            buttonStyle(.borderedProminent)
+        }
+    }
+
+    /// Any other button that sits on its own: glass where the system draws it.
+    @ViewBuilder
+    func platformGlassButton() -> some View {
+        if #available(iOS 26, macOS 26, *) {
+            buttonStyle(.glass)
+        } else {
+            buttonStyle(.bordered)
+        }
+    }
+
+    /// An on/off switch the way the system draws it: on macOS 26 and later a full-size Liquid
+    /// Glass switch, whose knob turns to glass under the pointer. A small control size would
+    /// draw the older flat switch, so every switch keeps the regular size.
+    func platformSwitch(tint: Color = .accentColor) -> some View {
+        toggleStyle(.switch)
+            .controlSize(.regular)
+            .tint(tint)
+    }
+
+    /// Liquid Glass behind a control drawn by hand, in its own shape; the fallback is the fill
+    /// the control used before glass existed.
+    @ViewBuilder
+    func platformGlass<S: Shape>(in shape: S, tint: Color? = nil, fallback: Color) -> some View {
+        if #available(iOS 26, macOS 26, *) {
+            glassEffect(tint.map { Glass.regular.tint($0).interactive() } ?? Glass.regular.interactive(), in: shape)
+        } else {
+            background(shape.fill(fallback))
+        }
     }
 }

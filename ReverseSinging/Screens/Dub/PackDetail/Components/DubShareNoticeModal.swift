@@ -54,7 +54,7 @@ struct DubShareNoticeModal: View {
         } macActions: {
             Button(Strings.DubShare.confirm, action: confirm)
                 .keyboardShortcut(.defaultAction)
-                .buttonStyle(.borderedProminent)
+                .platformProminentButton()
         }
         .onAppear {
             AnalyticsManager.shared.trackDubShareNoticeShown(hasAttribution: pack.hasAttribution)

@@ -39,6 +39,7 @@ enum MacE2ERunner {
         await imitate(workspace: workspace)
         await menus(workspace: workspace)
         await native(workspace: workspace)
+        await packWindows(workspace: workspace)
         await settingsWindow()
         await windowSizes(workspace: workspace)
 
@@ -51,18 +52,25 @@ enum MacE2ERunner {
 
     private static func welcome(app: AppViewModel, workspace: MacWorkspaceViewModel) async {
         section("welcome")
-        check("welcome sheet is up on first run", mainWindow?.attachedSheet != nil)
+        _ = await waitUntil(3) { window(MacWindowID.welcome) != nil }
+        let welcomeWindow = window(MacWindowID.welcome)
+        check("the welcome window is up on first run", welcomeWindow != nil)
+        check("the welcome is its own window, not a sheet", mainWindow?.attachedSheet == nil)
         check("onboarding not yet complete", !app.hasCompletedOnboarding)
-        await shot("01-welcome")
+        welcomeWindow?.makeKeyAndOrderFront(nil)
+        pressTarget = welcomeWindow
+        await shot("01-welcome", window: "welcome")
 
         press(.return)
         let reachedMic = await waitUntil(2) { MacE2EProbe.shared.welcome?.step == .microphone }
         check("Return moves to the microphone step", reachedMic)
-        await shot("02-welcome-microphone")
+        await shot("02-welcome-microphone", window: "welcome")
 
         press(.escape)
-        let finished = await waitUntil(3) { app.hasCompletedOnboarding && mainWindow?.attachedSheet == nil }
-        check("Escape (Not Now) finishes onboarding and closes the sheet", finished)
+        let finished = await waitUntil(3) { app.hasCompletedOnboarding && window(MacWindowID.welcome) == nil }
+        check("Escape (Not Now) finishes onboarding and closes the welcome window", finished)
+        pressTarget = nil
+        mainWindow?.makeKeyAndOrderFront(nil)
         check("a workspace is selected after onboarding", workspace.selection != nil)
     }
 
@@ -448,11 +456,16 @@ enum MacE2ERunner {
 
         // ⌘/ shows every shortcut.
         press(.key("/"), command: true)
-        let shortcuts = await waitUntil(2) { mainWindow?.attachedSheet != nil }
-        check("⌘/ opens the keyboard shortcuts", shortcuts)
-        await shot("22-shortcuts")
-        press(.return)
-        _ = await waitUntil(2) { mainWindow?.attachedSheet == nil }
+        let shortcuts = await waitUntil(2) { window(MacWindowID.shortcuts) != nil }
+        check("⌘/ opens the keyboard shortcuts in a window of their own", shortcuts && mainWindow?.attachedSheet == nil)
+        await shot("22-shortcuts", window: "shortcuts")
+        pressTarget = window(MacWindowID.shortcuts)
+        press(.escape)
+        let closed = await waitUntil(2) { window(MacWindowID.shortcuts) == nil }
+        check("Esc closes the shortcuts window", closed)
+        pressTarget = nil
+        window(MacWindowID.shortcuts)?.close()
+        mainWindow?.makeKeyAndOrderFront(nil)
 
         // ⌘⌫ asks before deleting, and Esc keeps the pack.
         workspace.select(.pack(pack.id))
@@ -476,6 +489,74 @@ enum MacE2ERunner {
         }
         check("a pack opened from Finder is imported and opened", opened)
         await shot("24-opened-from-finder")
+    }
+
+    // MARK: - Pack Windows
+
+    private static func packWindows(workspace: MacWorkspaceViewModel) async {
+        section("windows")
+        guard let pack = workspace.packs.first(where: { $0.title == "Stuck Up" }) ?? workspace.packs.first else { return }
+        workspace.select(.pack(pack.id))
+        _ = await waitUntil(3) { MacE2EProbe.shared.dubEditor?.pack.id == pack.id }
+        await sleep(0.6)
+
+        // ⌥⌘O: the selected pack leaves the library for a window of its own.
+        MacE2EProbe.shared.dubEditor = nil
+        press(.key("o"), command: true, option: true)
+        let opened = await waitUntil(4) { window(MacWindowID.pack) != nil && workspace.packsInWindows.contains(pack.id) }
+        check("⌥⌘O opens the pack in a window of its own", opened)
+        guard let packWindow = window(MacWindowID.pack) else { return }
+        check("the library window stops showing the pack", workspace.selection != .pack(pack.id))
+        check("the pack window is titled with the pack", packWindow.title.contains(pack.title), packWindow.title)
+        _ = await waitUntil(4) { MacE2EProbe.shared.dubEditor?.pack.id == pack.id }
+        guard let editor = MacE2EProbe.shared.dubEditor else { return }
+
+        // Smaller than the library window, so the screenshot tool can tell them apart.
+        packWindow.setContentSize(NSSize(width: 1100, height: 700))
+        packWindow.makeKeyAndOrderFront(nil)
+        await sleep(0.8)
+        check("the menus follow the pack window", MacTransportHub.shared.current.toggleRecord != nil
+              && MacTransportHub.shared.transport(for: packWindow) != nil)
+        await shot("25-pack-window", window: "pack")
+
+        // Keys typed into the pack window play that pack.
+        pressTarget = packWindow
+        press(.key("2"), command: true, control: true)
+        let original = await waitUntil(2) { editor.mode == .original }
+        check("⌃⌘2 in the pack window switches its viewer", original)
+        press(.key("1"), command: true, control: true)
+        _ = await waitUntil(2) { editor.mode == .line }
+
+        // Its inspector is its own.
+        let libraryInspector = workspace.showsInspector
+        let before = UserDefaults.standard.object(forKey: "mac.packWindow.showsInspector") as? Bool ?? true
+        press(.key("i"), command: true, option: true)
+        let toggled = await waitUntil(1) {
+            (UserDefaults.standard.object(forKey: "mac.packWindow.showsInspector") as? Bool ?? true) != before
+        }
+        check("⌥⌘I toggles the pack window's own inspector", toggled && workspace.showsInspector == libraryInspector)
+        press(.key("i"), command: true, option: true)
+        await sleep(0.4)
+        pressTarget = nil
+
+        // The pack chosen again in the library brings its window forward rather than opening
+        // a second editor on it.
+        mainWindow?.makeKeyAndOrderFront(nil)
+        await sleep(0.4)
+        workspace.select(.pack(pack.id))
+        await sleep(0.8)
+        check("choosing the pack again does not open it twice",
+              workspace.selection != .pack(pack.id) && NSApp.windows.filter { $0.isVisible && MacWindowID.isKind(MacWindowID.pack, $0) }.count == 1)
+        await shot("26-library-with-pack-window")
+
+        packWindow.performClose(nil)
+        let closed = await waitUntil(3) { window(MacWindowID.pack) == nil && !workspace.packsInWindows.contains(pack.id) }
+        check("closing the pack window hands the pack back to the library", closed)
+        workspace.select(.pack(pack.id))
+        let back = await waitUntil(2) { workspace.selection == .pack(pack.id) }
+        check("the library opens the pack again", back)
+        mainWindow?.makeKeyAndOrderFront(nil)
+        await sleep(0.6)
     }
 
     // MARK: - Settings
@@ -568,7 +649,7 @@ enum MacE2ERunner {
         if option { flags.insert(.option) }
         if control { flags.insert(.control) }
         if key.isArrow { flags.formUnion([.numericPad, .function]) }
-        let window = NSApp.keyWindow ?? mainWindow
+        let window = pressTarget ?? NSApp.keyWindow ?? mainWindow
         for type in [NSEvent.EventType.keyDown, .keyUp] {
             guard let event = NSEvent.keyEvent(
                 with: type,
@@ -610,6 +691,13 @@ enum MacE2ERunner {
         } else {
             log("E2E|INFO|no \(target) to focus among \(tables.map { "\(Swift.type(of: $0))/\($0.numberOfColumns)" })")
         }
+    }
+
+    /// Where keys go when a step means a window other than the one that happens to be key.
+    private static var pressTarget: NSWindow?
+
+    private static func window(_ kind: String) -> NSWindow? {
+        NSApp.windows.first { $0.isVisible && MacWindowID.isKind(kind, $0) }
     }
 
     private static var mainWindow: NSWindow? {

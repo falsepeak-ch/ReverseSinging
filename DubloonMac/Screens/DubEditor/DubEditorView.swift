@@ -10,16 +10,18 @@ import TipKit
 
 struct DubEditorView: View {
     @StateObject private var viewModel: DubEditorViewModel
-    @ObservedObject private var workspace: MacWorkspaceViewModel
+    /// The inspector of the window the editor is in: the library window and each pack window
+    /// keep their own.
+    @Binding private var showsInspector: Bool
     @ObservedObject private var scoring = DubScoringPreference.shared
     @ObservedObject private var booth = BoothCamPreference.shared
 
     @AppStorage("mac.dub.browserWidth") private var browserWidth: Double = 360
     @AppStorage("mac.dub.timelineHeight") private var timelineHeight: Double = 220
 
-    init(pack: DubPack, library: DubPackLibrary, workspace: MacWorkspaceViewModel) {
+    init(pack: DubPack, library: DubPackLibrary, showsInspector: Binding<Bool>) {
         _viewModel = StateObject(wrappedValue: DubEditorViewModel(pack: pack, library: library))
-        self.workspace = workspace
+        _showsInspector = showsInspector
     }
 
     private var session: DubSessionViewModel { viewModel.session }
@@ -50,12 +52,12 @@ struct DubEditorView: View {
                 .clipped()
         }
         .background(Color.rsSurface0)
-        .proInspector(isPresented: workspace.showsInspector) {
+        .proInspector(isPresented: showsInspector) {
             DubInspector(viewModel: viewModel)
         }
         .toolbar { toolbar }
         .navigationSubtitle(String(format: "%d/%d %@", session.recordedCount, viewModel.pack.lines.count, Strings.Dub.slateLines))
-        .publishesTransport(transport, to: workspace)
+        .publishesTransport(transport)
         // The bay's own bookkeeping, which the iPhone's record screen does in its body. Kept
         // in the view, one line each, for the reason given there: a Combine sink would fire
         // before the view update and reorder the AV scheduling.
@@ -165,12 +167,16 @@ struct DubEditorView: View {
             .help(Strings.Dub.export)
 
             Button {
-                withAnimation(.easeInOut(duration: 0.2)) { workspace.showsInspector.toggle() }
+                toggleInspector()
             } label: {
                 Label(MacStrings.Panel.inspector, systemImage: "sidebar.trailing")
             }
-            .help(workspace.showsInspector ? MacStrings.Menu.hideInspector : MacStrings.Menu.showInspector)
+            .help(showsInspector ? MacStrings.Menu.hideInspector : MacStrings.Menu.showInspector)
         }
+    }
+
+    private func toggleInspector() {
+        withAnimation(.easeInOut(duration: 0.2)) { showsInspector.toggle() }
     }
 
     private var transport: MacTransport {
@@ -200,6 +206,8 @@ struct DubEditorView: View {
         transport.isBoothOn = booth.isEnabled
         transport.zoomIn = { model.zoomIn() }
         transport.zoomOut = { model.zoomOut() }
+        transport.toggleInspector = toggleInspector
+        transport.isInspectorShown = showsInspector
         if let playback = model.playback {
             transport.skipBack = { playback.seek(by: -5) }
             transport.skipForward = { playback.seek(by: 5) }

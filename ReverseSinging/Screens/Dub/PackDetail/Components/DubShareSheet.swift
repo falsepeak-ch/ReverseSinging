@@ -82,7 +82,7 @@ struct DubShareSheet: View {
 
                 Button(Strings.Main.Alert.ok) { dismiss() }
                     .keyboardShortcut(.defaultAction)
-                    .buttonStyle(.borderedProminent)
+                    .platformProminentButton()
             }
             .controlSize(.large)
             .padding(.horizontal, 20)

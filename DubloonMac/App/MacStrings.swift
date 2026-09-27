@@ -30,6 +30,7 @@ enum MacStrings {
         static let openRecent = NSLocalizedString("mac.menu.openRecent", comment: "File menu: submenu of recently opened dub packs")
         static let clearRecent = NSLocalizedString("mac.menu.clearRecent", comment: "Last item of Open Recent: forget the list")
         static let open = NSLocalizedString("mac.menu.open", comment: "Context menu: open the pack or session")
+        static let openInNewWindow = NSLocalizedString("mac.menu.openInNewWindow", comment: "File menu / context menu: open the dub pack in a window of its own")
         static let showInFinder = NSLocalizedString("mac.menu.showInFinder", comment: "Context menu: reveal the pack's folder in Finder")
         static let viewer = NSLocalizedString("mac.menu.viewer", comment: "View menu: submenu choosing what the dub viewer shows")
         static let zoomIn = NSLocalizedString("mac.menu.zoomIn", comment: "View menu: zoom the timeline in")

@@ -75,6 +75,7 @@ struct MacSettingsView: View {
             }
         }
         .formStyle(.grouped)
+        .platformSwitch()
     }
 
     private var recording: some View {
@@ -122,6 +123,7 @@ struct MacSettingsView: View {
             }
         }
         .formStyle(.grouped)
+        .platformSwitch()
     }
 
     private var account: some View {
@@ -140,7 +142,7 @@ struct MacSettingsView: View {
                 } else {
                     LabeledContent(Strings.Pro.unlockTitle) {
                         Button(Strings.Pro.unlockTitle) { viewModel.showPaywall() }
-                            .buttonStyle(.borderedProminent)
+                            .platformProminentButton()
                     }
                     Text(viewModel.unlockSubtitle).foregroundColor(.secondary)
                 }
@@ -156,6 +158,7 @@ struct MacSettingsView: View {
             }
         }
         .formStyle(.grouped)
+        .platformSwitch()
     }
 
     private var about: some View {

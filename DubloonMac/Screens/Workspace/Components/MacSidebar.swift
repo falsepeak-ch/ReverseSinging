@@ -50,6 +50,7 @@ struct MacSidebar: View {
                             .tag(MacDestination.pack(pack.id))
                             .contextMenu {
                                 Button(MacStrings.Menu.open) { workspace.select(.pack(pack.id)) }
+                                Button(MacStrings.Menu.openInNewWindow) { workspace.openInNewWindow(pack.id) }
                                 Button(MacStrings.Menu.showInFinder) { workspace.revealInFinder(pack) }
                                 Divider()
                                 Button(MacStrings.Menu.deleteEllipsis, role: .destructive) {
@@ -145,6 +146,14 @@ struct MacSidebar: View {
 
             Spacer(minLength: 4)
 
+            // Open in a window of its own: a click brings that window forward.
+            if workspace.packsInWindows.contains(pack.id) {
+                Image(systemName: "macwindow")
+                    .font(.system(size: 10))
+                    .foregroundStyle(.secondary)
+                    .help(MacStrings.Menu.openInNewWindow)
+            }
+
             Text("\(recorded)/\(pack.lines.count)")
                 .font(.system(size: 10, weight: .medium, design: .monospaced))
                 .foregroundStyle(.secondary)
@@ -186,7 +195,7 @@ struct MacSidebar: View {
                         .frame(maxWidth: .infinity)
                 }
                 .controlSize(.large)
-                .buttonStyle(.borderedProminent)
+                .platformProminentButton()
             } else if let days = home.trialDaysRemaining {
                 TrialBadge(daysRemaining: days) { home.showPaywall(from: .trialBadge) }
             }
@@ -205,7 +214,7 @@ struct MacSidebar: View {
                 Button(Strings.ReviewBanner.rate) {
                     openURL(home.reviewBannerWentToStore())
                 }
-                .buttonStyle(.borderedProminent)
+                .platformProminentButton()
                 .controlSize(.small)
 
                 Button(Strings.ReviewBanner.later) {

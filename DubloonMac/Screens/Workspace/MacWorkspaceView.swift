@@ -8,8 +8,9 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-/// The Mac window, laid out like an editing suite: libraries down the left, the workspace
-/// filling the rest, each workspace bringing its own viewer, timeline and inspector.
+/// The library window, laid out like an editing suite: libraries down the left, the workspace
+/// filling the rest, each workspace bringing its own viewer, timeline and inspector. A pack can
+/// also leave for a window of its own; see `MacPackWindow`.
 struct MacWorkspaceView: View {
     @ObservedObject var app: AppViewModel
     @ObservedObject var workspace: MacWorkspaceViewModel
@@ -98,9 +99,6 @@ struct MacWorkspaceView: View {
                 .frame(width: 480, height: 640)
                 .onDisappear { home.boothAnnouncementDidDisappear() }
         }
-        .sheet(isPresented: $workspace.showsShortcuts) {
-            MacShortcutsView()
-        }
         // Delete asks first: a pack takes its takes and footage with it.
         .confirmationDialog(
             deletionTitle,
@@ -159,7 +157,7 @@ struct MacWorkspaceView: View {
             DubLibraryBrowserView(workspace: workspace)
         case .pack(let id):
             if let pack = workspace.pack(id: id) {
-                DubEditorView(pack: pack, library: library, workspace: workspace)
+                DubEditorView(pack: pack, library: library, showsInspector: $workspace.showsInspector)
                     // A different pack is a different project: nothing carries over.
                     .id(pack.id)
             } else {

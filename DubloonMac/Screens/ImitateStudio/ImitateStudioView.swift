@@ -41,7 +41,7 @@ struct ImitateStudioView: View {
         }
         .toolbar { toolbar }
         .navigationSubtitle(viewModel.selectedSound?.name ?? "")
-        .publishesTransport(transport, to: workspace)
+        .publishesTransport(transport)
         .onAppear {
             viewModel.onAppear()
             #if DEBUG
@@ -135,6 +135,9 @@ struct ImitateStudioView: View {
 
     private var transport: MacTransport {
         var transport = MacTransport()
+        let workspace = workspace
+        transport.toggleInspector = { withAnimation(.easeInOut(duration: 0.2)) { workspace.showsInspector.toggle() } }
+        transport.isInspectorShown = workspace.showsInspector
         guard let challenge = viewModel.challenge else { return transport }
         let isBusy = challenge.isBusy
         let phase = challenge.phase
