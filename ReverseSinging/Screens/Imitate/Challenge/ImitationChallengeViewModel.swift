@@ -5,6 +5,7 @@
 //  One sound: hear it, imitate it, get the verdict, make the video
 //
 
+import AVFoundation
 import Combine
 import DubAudio
 import DubScoring
@@ -347,6 +348,28 @@ final class ImitationChallengeViewModel: ObservableObject {
             withBooth: hasBoothClip
         )
     }
+
+    #if DEBUG
+    /// Screenshots: judges an existing recording as if it had just been made, for a scored
+    /// result without a microphone. Converted to the take's own format on the way in.
+    func debugJudge(takeFrom source: URL) async {
+        let destination = takeURL
+        do {
+            let input = try AVAudioFile(forReading: source)
+            try? FileManager.default.removeItem(at: destination)
+            let output = try AVAudioFile(forWriting: destination, settings: input.processingFormat.settings)
+            let buffer = AVAudioPCMBuffer(pcmFormat: input.processingFormat, frameCapacity: AVAudioFrameCount(input.length))!
+            try input.read(into: buffer)
+            try output.write(from: buffer)
+        } catch {
+            errorMessage = error.localizedDescription
+            return
+        }
+        phase = .scoring
+        await WaveformSampler.shared.invalidate(destination)
+        await judge(take: destination)
+    }
+    #endif
 
     /// The stamp hit the desk: the thud, and confetti if it was a pass.
     func stampDidLand() {

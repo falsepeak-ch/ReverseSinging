@@ -9,6 +9,7 @@
 import AppKit
 import SwiftUI
 import RevenueCat
+import DubScoring
 
 /// Started with `-macShot <name>` (plus `-screenshotMode YES`). Poses the window and logs
 /// `E2E|SHOT|<name>|main` once it has settled, for the capture script to photograph, then
@@ -43,6 +44,12 @@ enum MacShotPoser {
         }
 
         await sleep(1.5)
+        // Key and in front, or the capture shows a dimmed, inactive window.
+        NSApp.activate(ignoringOtherApps: true)
+        NSApp.windows.first { MacWindowID.isKind(MacWindowID.main, $0) }?.makeKeyAndOrderFront(nil)
+        await sleep(0.5)
+        let windows = NSApp.windows.map { "\($0.identifier?.rawValue ?? "nil") visible=\($0.isVisible) key=\($0.isKeyWindow) \(Int($0.frame.width))x\(Int($0.frame.height))" }
+        FileHandle.standardError.write(Data("SHOT|active=\(NSApp.isActive) windows=\(windows)\n".utf8))
         FileHandle.standardError.write(Data("E2E|SHOT|\(name)|main\n".utf8))
         await sleep(5)
         NSApp.terminate(nil)
@@ -91,10 +98,16 @@ enum MacShotPoser {
         workspace.select(.imitate)
         _ = await waitUntil(3) { MacE2EProbe.shared.imitate?.challenge != nil }
         guard let studio = MacE2EProbe.shared.imitate else { return }
-        if let rooster = ImitationSoundLibrary.sound(id: "rooster") { studio.select(rooster) }
+        let sound = UserDefaults.standard.string(forKey: "macShotSound") ?? "cat"
+        let attempt = UserDefaults.standard.string(forKey: "macShotAttempt") ?? "horn"
+        if let target = ImitationSoundLibrary.sound(id: sound) { studio.select(target) }
         await sleep(1)
-        studio.challenge?.playReference()
-        await sleep(0.5)
+        // A scored attempt, so the comparison, the verdict and the radar are all on show.
+        guard let challenge = studio.challenge,
+              let take = ImitationSoundLibrary.sound(id: attempt)?.url else { return }
+        await challenge.debugJudge(takeFrom: take)
+        FileHandle.standardError.write(Data("SHOT|score=\(challenge.score?.overall ?? -1)\n".utf8))
+        await sleep(2.5)
     }
 
     /// Reports what RevenueCat and the store answer, then opens the paywall.
