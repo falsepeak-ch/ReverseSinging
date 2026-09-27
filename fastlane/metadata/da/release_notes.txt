@@ -1,4 +1,6 @@
-Nu går mikrofonen i gang hver gang.
+Et tredje spil, og baglænssang er nu gratis.
 
-RETTELSER
-• Mikrofonen nægtede at starte en optagelse på nogle iPhones. Nu går den i gang med det samme i stedet for at vise en fejl
+NYT
+• Lydimitation: hør en lyd, efterlign den, og få en stemplet dom over din rytme, dit toneleje og din klang. Lav derefter forsøget om til en video
+• Baglænssang er gratis for alle
+• Dubloon Pro låser nu også Mac-appen op, med den samme Apple-konto

@@ -1,4 +1,6 @@
-Ahora el micrófono arranca siempre.
+Un tercer juego, y el canto invertido ya es gratis.
 
-CORRECCIONES
-• Corregido el micrófono que se negaba a empezar una toma en algunos iPhone. Ahora arranca al momento en vez de mostrar un error
+NOVEDADES
+• Imitación de sonidos: escucha un sonido, cópialo y recibe un veredicto estampado sobre tu ritmo, tono y timbre. Luego convierte el intento en un vídeo
+• El canto invertido es gratis para todos
+• Dubloon Pro ahora también desbloquea la app de Mac, con la misma cuenta de Apple

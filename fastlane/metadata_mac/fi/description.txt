@@ -1,4 +1,8 @@
-Dubloon on kaksi ääntä käyttävää peliä yhdessä sovelluksessa, eikä kumpikaan tarvitse muuta kuin mikrofonisi.
+Dubloon on kolme ääntä käyttävää peliä yhdessä sovelluksessa, eikä mikään niistä tarvitse muuta kuin mikrofonisi.
+
+TEHTY MACILLE
+
+Editointiohjelma, ei puhelinsovellus isolla näytöllä. Pelisi ja kohtauksesi ovat sivupalkissa. Kohtaus avautuu niin, että repliikit ovat listassa, kuva katseluikkunassa, jokainen repliikki ja otos aikajanalla ja yksityiskohdat tarkastimessa. Kaikki toimii myös näppäimistöllä: R äänittää, välilyönti toistaa ja nuolinäppäimillä siirryt repliikistä toiseen.
 
 DUBBAA ELOKUVAKOHTAUS
 
@@ -10,7 +14,6 @@ Lataa kohtaus ja dubbaa se itse. Dubloon soittaa sinulle alkuperäisen repliikin
 • Tempopalkki, joka muuttuu meripihkaksi heti kun ohitat alkuperäisen keston
 • Päällekkäiset repliikit miksataan omille raidoilleen, joten kaksi yhtä aikaa puhuvaa myös kuulostaa siltä
 • Katso alkuperäinen, kuuntele oma dubbauksesi tai vie koko kohtaus videona
-• Välilyönnillä äänität, nuolinäppäimillä siirryt repliikistä toiseen
 
 BOOTH CAM
 
@@ -30,8 +33,15 @@ TAKAPERINLAULU
 
 Alkuperäinen peli. Äänitä kappale, ja Dubloon kääntää sen. Laula kuulemasi takaperinversio, ja sovellus kääntää yrityksesi takaisin. Jos osuit, tuloksena olet laulamassa oikeaa kappaletta. Se pisteyttää, miten lähelle pääsit.
 
-• Kaksi käyttöliittymää: isot yksinkertaiset napit tai koko aaltomuoto toistoineen, nopeuksineen ja sävelkorkeuksineen
+• Kappaleesi, sen takaperinversio ja molemmat otoksesi neljällä raidalla, toistoineen, nopeuksineen ja sävelkorkeuksineen
 • Tallenna parhaat otoksesi ja palaa niihin
+
+ÄÄNTEN MATKIMINEN
+
+Kuuntele ääni ja tee se sitten itse. Haukkuva koira, kukko, auton torvi, laser. Dubloon kuuntelee yrityksesi, arvioi sen rytmin, sävelkorkeuden ja sointivärin oikeaa ääntä vasten ja leimaa sille tuomion. Päihitä paras tuloksesi ja tee yrityksestä sitten video jaettavaksi.
+
+• 24 ääntä: eläimiä, torvia ja hälyttimiä, piirrettyjen tehosteita ja ihmisten ääniä
+• Booth Cam kuvaa kasvosi kesken matkimisen, jos haluat
 
 YKSITYINEN JO RAKENTEELTAAN
 
@@ -39,6 +49,6 @@ Kaikki tapahtuu tällä Macilla. Äänityksesi, otoksesi, koppimateriaalisi ja v
 
 MITÄ SE MAKSAA
 
-Takaperinlaulu on ilmaista. Dubloon Pro avaa elokuvakohtausten dubbauksen, Booth Camin ja viennit, mitään pidättämättä, kertaostona tai tilauksena. Ostitko sen jo iPhonella? Se avautuu täälläkin samalla Apple-tilillä.
+Takaperinlaulu on ilmaista. Dubloon Pro avaa elokuvakohtausten dubbauksen, äänten matkimisen, Booth Camin ja viennit, mitään pidättämättä, kertaostona tai tilauksena. Ostitko sen jo iPhonella? Se avautuu täälläkin samalla Apple-tilillä.
 
 Rakennettu Sveitsissä. Käsityönä Zürichissä.

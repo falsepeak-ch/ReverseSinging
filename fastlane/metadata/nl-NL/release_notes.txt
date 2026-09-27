@@ -1,4 +1,6 @@
-De microfoon start nu elke keer.
+Een derde spel, en achterstevoren zingen is nu gratis.
 
-OPLOSSINGEN
-• De microfoon weigerde op sommige iPhones een opname te starten. Nu begint hij meteen in plaats van een fout te tonen
+NIEUW
+• Geluiden nadoen: hoor een geluid, doe het na en krijg een gestempeld oordeel over je ritme, toonhoogte en klank. Maak er daarna een video van
+• Achterstevoren zingen is gratis voor iedereen
+• Dubloon Pro ontgrendelt nu ook de Mac-app, met hetzelfde Apple Account

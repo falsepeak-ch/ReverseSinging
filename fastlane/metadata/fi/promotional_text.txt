@@ -1,1 +1,1 @@
-Uutta versiossa 1.6.0: mikrofoni käynnistyy heti joka otossa. Kuvaa itseäsi dubbaamassa Booth Camilla. 21 kielellä.
+Uutta versiossa 1.7.0: Äänten matkiminen, kolmas peli. Matki ääntä, saat tuomion, jaa video. Ja takaperinlaulu on nyt ilmaista kaikille.

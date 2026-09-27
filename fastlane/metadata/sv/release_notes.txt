@@ -1,4 +1,6 @@
-Nu drar mikrofonen igång varje gång.
+Ett tredje spel, och baklängessång är nu gratis.
 
-RÄTTNINGAR
-• Mikrofonen vägrade starta en tagning på vissa iPhone. Nu drar den igång direkt i stället för att visa ett fel
+NYTT
+• Ljudimitation: hör ett ljud, härma det och få en stämplad dom över din rytm, tonhöjd och klang. Gör sedan försöket till en video
+• Baklängessång är gratis för alla
+• Dubloon Pro låser nu upp Mac-appen också, med samma Apple-konto

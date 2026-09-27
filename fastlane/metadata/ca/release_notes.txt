@@ -1,4 +1,6 @@
-Ara el micròfon arrenca cada vegada.
+Un tercer joc, i el cant invertit ara és gratuït.
 
-CORRECCIONS
-• Corregit el micròfon que es negava a començar una presa en alguns iPhone. Ara arrenca a l'instant en comptes de mostrar un error
+NOVETATS
+• Imitació de sons: escolta un so, copia'l i rep un veredicte estampat sobre el ritme, el to i el timbre. Després converteix l'intent en un vídeo
+• El cant invertit és gratuït per a tothom
+• Dubloon Pro ara també desbloqueja l'app de Mac, amb el mateix compte d'Apple

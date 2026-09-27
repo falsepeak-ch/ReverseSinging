@@ -1,4 +1,8 @@
-Dubloon är två röstspel i en app, och inget av dem behöver något annat än din mikrofon.
+Dubloon är tre röstspel i en app, och inget av dem behöver något annat än din mikrofon.
+
+GJORD FÖR MAC
+
+En redigeringssvit, inte en mobilapp på en stor skärm. Dina spel och scener ligger i ett sidofält. En scen öppnas med replikerna i en lista, bilden i en visare, varje replik och tagning på en tidslinje och detaljerna i en inspektör. Allt går också att styra med tangentbordet: R för att spela in, mellanslag för att spela upp, piltangenterna för att byta mellan repliker.
 
 DUBBA EN FILMSCEN
 
@@ -10,7 +14,6 @@ Ladda en scen och dubba den själv. Dubloon spelar upp originalrepliken, visar d
 • En tempomätare som blir bärnstensfärgad så fort du springer förbi originalet
 • Överlappande dialog mixas på separata spår, så två som talar i mun på varandra låter också så
 • Se originalet, lyssna på din dubbning, eller exportera hela scenen som video
-• Mellanslag för att spela in, piltangenter för att byta mellan repliker
 
 BOOTH CAM
 
@@ -30,8 +33,15 @@ BAKLÄNGESSÅNG
 
 Det ursprungliga spelet. Spela in en låt så vänder Dubloon på den. Sjung baklängesversionen du hör, så vänder appen på ditt försök. Träffade du rätt kommer du ut sjungande den riktiga låten. Den betygsätter hur nära du kom.
 
-• Två gränssnitt: stora enkla knappar, eller hela vågformen med loop, hastighet och tonhöjd
+• Din låt, baklängesversionen och båda dina tagningar utlagda på fyra spår, med loop, hastighet och tonhöjd
 • Spara dina bästa tagningar och återvänd till dem
+
+LJUDIMITATION
+
+Hör ett ljud och gör det sedan själv. En skällande hund, en tupp, ett bilhorn, en laser. Dubloon lyssnar på ditt försök, bedömer rytm, tonhöjd och klang mot originalet och stämplar en dom på det. Slå ditt rekord, och gör sedan försöket till en video att dela.
+
+• 24 ljud: djur, signalhorn och larm, effekter från tecknat och mänskliga läten
+• Booth Cam filmar ditt ansikte mitt i imitationen, om du vill
 
 PRIVAT FRÅN GRUNDEN
 
@@ -39,6 +49,6 @@ Allt sker på den här Macen. Dina inspelningar, dina tagningar, ditt båsmateri
 
 VAD DET KOSTAR
 
-Baklängessång är gratis. Dubloon Pro öppnar dubbning av filmscener, Booth Cam och export, ingenting undanhållet, som engångsköp eller prenumeration. Har du redan köpt det på din iPhone? Då låses det upp här också, med samma Apple-konto.
+Baklängessång är gratis. Dubloon Pro öppnar dubbning av filmscener, ljudimitation, Booth Cam och export, ingenting undanhållet, som engångsköp eller prenumeration. Har du redan köpt det på din iPhone? Då låses det upp här också, med samma Apple-konto.
 
 Byggd i Schweiz. Handgjord i Zürich.

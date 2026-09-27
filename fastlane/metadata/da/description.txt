@@ -1,4 +1,4 @@
-Dubloon er to stemmespil i én app, og ingen af dem behøver andet end din mikrofon.
+Dubloon er tre stemmespil i én app, og ingen af dem behøver andet end din mikrofon.
 
 DUB EN FILMSCENE
 
@@ -32,12 +32,19 @@ Det oprindelige spil. Optag en sang, og Dubloon vender den om. Syng den baglæns
 • To grænseflader: store enkle knapper, eller hele bølgeformen med løkke, hastighed og toneleje
 • Gem dine bedste optagelser og vend tilbage til dem
 
+LYDIMITATION
+
+Hør en lyd, og lav den så selv. En gøende hund, en hane, et bilhorn, en laser. Dubloon lytter til dit forsøg, bedømmer rytme, toneleje og klang mod den ægte lyd og stempler en dom på det. Slå din rekord, og lav så forsøget om til en video, du kan dele.
+
+• 24 lyde: dyr, horn og alarmer, tegnefilmseffekter og menneskelyde
+• Booth Cam filmer dit ansigt midt i efterligningen, hvis du vil
+
 PRIVAT FRA BUNDEN
 
 Alt sker på denne enhed. Dine optagelser, dine takes, dine boksoptagelser og dine eksporterede dubs forlader den aldrig. Ingen konto, ingen tilmelding, ingen reklamer, intet at uploade. Appen indsamler anonym brugsstatistik for at afgøre, hvad der bygges næste gang, aldrig indholdet af en optagelse.
 
 HVAD DET KOSTER
 
-Baglænssang er gratis. Dubloon Pro åbner dub af filmscener, Booth Cam og eksport, uden noget holdt tilbage, som et engangskøb eller et abonnement.
+Baglænssang er gratis. Dubloon Pro åbner dub af filmscener, lydimitation, Booth Cam og eksport, uden noget holdt tilbage, som et engangskøb eller et abonnement.
 
 Bygget i Schweiz. Håndlavet i Zürich.

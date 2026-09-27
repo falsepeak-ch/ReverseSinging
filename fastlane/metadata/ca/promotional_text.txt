@@ -1,1 +1,1 @@
-Nou a la 1.6.0: el micròfon arrenca a l'instant a cada presa. Grava't doblant amb la càmera de cabina. En 21 idiomes.
+Nou a la 1.7.0: Imitació de sons, un tercer joc. Copia un so, rep el veredicte i comparteix el vídeo. I el cant invertit ara és gratuït per a tothom.

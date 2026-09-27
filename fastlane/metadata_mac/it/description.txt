@@ -1,4 +1,8 @@
-Dubloon sono due giochi di voce in una sola app, e nessuno dei due ha bisogno di altro che del tuo microfono.
+Dubloon sono tre giochi di voce in una sola app, e nessuno dei tre ha bisogno di altro che del tuo microfono.
+
+FATTO PER IL MAC
+
+Una suite di montaggio, non un'app per telefono su schermo grande. Giochi e scene stanno in una barra laterale. Una scena si apre con le battute in elenco, l'immagine nel visore, battute e take su una timeline e i dettagli nell'inspector. Tutto si fa anche da tastiera: R per registrare, Spazio per riprodurre, le frecce per cambiare battuta.
 
 DOPPIAGGIO DI SCENA
 
@@ -10,7 +14,6 @@ Carica una scena e doppiala tu. Dubloon ti riproduce la battuta originale, ti mo
 • Una barra di ritmo che diventa ambra appena superi l'originale
 • I dialoghi sovrapposti vengono mixati su piste separate, così due personaggi che parlano insieme suonano davvero così
 • Guarda l'originale, riascolta il tuo doppiaggio o esporta l'intera scena in video
-• Barra spaziatrice per registrare, tasti freccia per passare da una battuta all'altra
 
 CAMERA DELLA CABINA
 
@@ -30,8 +33,15 @@ CANTO INVERTITO
 
 Il gioco originale. Registra una canzone e Dubloon la inverte. Canta la versione al contrario che senti e l'app ribalta il tuo tentativo: se l'hai presa, esci cantando la canzone vera. Ti dà un punteggio su quanto ci sei andato vicino.
 
-• Due interfacce: pulsanti grandi e semplici, oppure la forma d'onda completa con loop, velocità e tonalità
+• La tua canzone, la sua versione al contrario e le tue due take su quattro tracce, con loop, velocità e tonalità
 • Salva le tue take migliori e torna ad ascoltarle
+
+IMITAZIONE DI SUONI
+
+Ascolta un suono, poi rifallo tu: un cane che abbaia, un gallo, un clacson, un laser. Dubloon confronta ritmo, tonalità e timbro del tuo tentativo con quello vero e ci stampa sopra un verdetto. Batti il tuo record, poi condividilo in video.
+
+• 24 suoni: animali, clacson e allarmi, effetti da cartone animato, rumori umani
+• La camera della cabina riprende la tua faccia mentre imiti, se ti va
 
 PRIVATO PER SCELTA
 
@@ -39,6 +49,6 @@ Tutto avviene su questo Mac. Le tue registrazioni, le tue take, il girato della 
 
 QUANTO COSTA
 
-Il canto invertito è gratis. Dubloon Pro apre il doppiaggio di scene, la camera della cabina e le esportazioni, senza nulla di trattenuto, con un acquisto unico o con un abbonamento. L'hai già acquistato su iPhone? Si sblocca anche qui, con lo stesso Account Apple.
+Il canto invertito è gratis. Dubloon Pro apre il doppiaggio di scene, l'imitazione di suoni, la camera della cabina e le esportazioni, con un acquisto unico o con un abbonamento. L'hai già acquistato su iPhone? Si sblocca anche qui, con lo stesso Account Apple.
 
 Creato in Svizzera. Fatto a mano a Zurigo.

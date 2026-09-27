@@ -1,4 +1,6 @@
-Mikrofon rusza teraz za każdym razem.
+Trzecia gra, a śpiewanie od tyłu jest teraz za darmo.
 
-POPRAWKI
-• Naprawiono mikrofon, który na niektórych iPhone'ach odmawiał rozpoczęcia nagrania. Teraz rusza od razu zamiast pokazywać błąd
+NOWOŚCI
+• Naśladowanie dźwięków: usłysz dźwięk, skopiuj go i dostań werdykt z pieczątką za rytm, wysokość i barwę. Potem zamień podejście w wideo
+• Śpiewanie od tyłu jest za darmo dla wszystkich
+• Dubloon Pro odblokowuje teraz także aplikację na Maca, na tym samym koncie Apple

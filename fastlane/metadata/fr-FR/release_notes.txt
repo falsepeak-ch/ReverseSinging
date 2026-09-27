@@ -1,4 +1,6 @@
-Le micro démarre maintenant à chaque fois.
+Un troisième jeu, et le chant inversé est désormais gratuit.
 
-CORRECTIONS
-• Correction du micro qui refusait de lancer une prise sur certains iPhone. Il démarre maintenant tout de suite au lieu d'afficher une erreur
+NOUVEAUTÉS
+• Imitation de sons : écoute un son, imite-le et reçois un verdict tamponné sur ton rythme, ta hauteur et ton timbre. Puis transforme ta tentative en vidéo
+• Le chant inversé est gratuit pour tout le monde
+• Dubloon Pro débloque maintenant aussi l'app Mac, avec le même compte Apple

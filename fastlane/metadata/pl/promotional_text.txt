@@ -1,1 +1,1 @@
-Nowość w 1.6.0: mikrofon rusza od razu przy każdym nagraniu. Nagraj siebie podczas dubbingu z Booth Cam. W 21 językach.
+Nowość w 1.7.0: Naśladowanie dźwięków, trzecia gra. Skopiuj dźwięk, dostań werdykt, udostępnij wideo. A śpiewanie od tyłu jest teraz za darmo dla wszystkich.

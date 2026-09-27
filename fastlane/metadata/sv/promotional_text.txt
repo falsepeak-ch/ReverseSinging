@@ -1,1 +1,1 @@
-Nytt i 1.6.0: mikrofonen drar igång direkt vid varje tagning. Filma dig själv när du dubbar med Booth Cam. På 21 språk.
+Nytt i 1.7.0: Ljudimitation, ett tredje spel. Härma ett ljud, få en dom, dela videon. Och baklängessång är nu gratis för alla.

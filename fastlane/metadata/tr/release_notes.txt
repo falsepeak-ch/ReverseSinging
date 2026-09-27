@@ -1,4 +1,6 @@
-Mikrofon artık her seferinde başlıyor.
+Üçüncü bir oyun, ve tersten şarkı artık ücretsiz.
 
-DÜZELTMELER
-• Bazı iPhone'larda mikrofonun çekimi başlatmayı reddetmesi düzeltildi. Artık hata göstermek yerine hemen başlıyor
+YENİLER
+• Ses taklidi: bir sesi dinle, taklit et ve ritmin, perden ve tının hakkında damgalı bir hüküm al. Sonra denemeni videoya dönüştür
+• Tersten şarkı herkese ücretsiz
+• Dubloon Pro artık aynı Apple Hesabı ile Mac uygulamasının da kilidini açıyor

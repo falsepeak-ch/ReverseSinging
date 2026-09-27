@@ -6,32 +6,36 @@ The app ships with two short example scenes and does not host, provide or distri
 
 1. "Camp Rules" (23s), from "Sprite Fright" (Blender Studio, 2021), released by its rights holder under Creative Commons Attribution 4.0, which permits adaptation and redistribution on the single condition of credit.
 
-2. "Stuck Up" (35s), from "The Outsider" (Centron Productions, 1951), a US classroom film whose copyright was never renewed in its 28th year and is therefore US public domain. Verified against the Copyright Office's post-1977 records: no renewal exists; our record of that search is available on request.
+2. "Stuck Up" (35s), from "The Outsider" (Centron Productions, 1951), a US classroom film whose copyright was never renewed in its 28th year and is therefore US public domain. Verified against the Copyright Office's post-1977 records: no renewal exists.
 
-Both scenes state their provenance (film, year, producer, terms, with tappable links) in a source panel on the scene screen and in the notice before every export.
+Both scenes state their provenance (film, year, producer, terms, with links) on the scene screen and before every export.
 
 THE PURCHASE
 
-Free to download, with no trial: the menu opens, and both games stay locked until a purchase, which a sandbox account can make. Sandbox dates every download 2013-08-01; the app ignores that date, so a review device counts as a new install and meets the paywall.
+Free to download, with no trial. Reverse Singing is free for everyone. Movie Scene Dub and Sound Imitation stay locked until a purchase, which a sandbox account can make. Sandbox download dates are ignored, so a review device meets the paywall.
 
-Any of three products unlocks the same content: the existing non-consumable "com.falsepeak.reverse_singing_ios.lifetime", or one of the two auto-renewable subscriptions submitted with this version, "com.falsepeak.reverse_singing_ios.monthly" and "com.falsepeak.reverse_singing_ios.yearly" (the yearly one with a 7-day introductory free trial). The purchase screen shows either the lifetime product alone or the two subscriptions, chosen per install by a remotely configured test, so a review device may see either layout; both are the real, complete offer. Users who installed before the paywall existed keep both games free for life.
+Any of three products unlocks the same content: the existing non-consumable "com.falsepeak.reverse_singing_ios.lifetime", or one of the two auto-renewable subscriptions submitted with this version, "com.falsepeak.reverse_singing_ios.monthly" and "com.falsepeak.reverse_singing_ios.yearly" (the yearly one with a 7-day introductory free trial). The purchase screen shows either the lifetime product alone or the two subscriptions, chosen per install by a remotely configured test, so a review device may see either layout; both are the real, complete offer. Users who installed before the paywall existed keep the paid games free for life.
 
-To reach the purchase screen: tap either game, or the "Get Dubloon Pro to play" card on the main menu, or the sliders icon at the top right, then "Unlock Dubloon".
+To reach the purchase screen: tap a locked game, or the "Get Dubloon Pro to play" card on the main menu, or the sliders icon at the top right, then "Unlock Dubloon".
 
 BOOTH CAM
 
-Booth Cam films the performer with the front camera while they dub. Off by default, it never starts on its own: tapping the camera key shows the app's own explanation first, then the system prompt, and declining costs nothing. Clips stay in the app's container, are never uploaded, and appear only in a video the user explicitly exports. Settings has a switch, a mirror-preview option and a delete-all control.
+Booth Cam films the performer with the front camera while they dub. Off by default, it never starts on its own: tapping the camera key shows the app's own explanation first, then the system prompt, and declining costs nothing. Clips stay in the app's container, are never uploaded, and appear only in a video the user explicitly exports.
 
 TWO NOTICES, SHOWN EVERY TIME
 
 Before any import, the app asks whether the user already has the movie files. If not, a panel states, before any link is offered, that the destination is an unaffiliated third-party site, that we neither host nor distribute files, and that the user is responsible for the rights to what they download and for obeying local copyright law.
 
-Before any export, the app states that the video is the user's voice over the original scene and so contains someone else's work; names that work and its terms; asks that the credit stay with the video; and says that sharing it is the user's own act, within local law, and their responsibility. For a scene the user imported, it says instead that the app cannot know its origin or terms.
+Before any export, the app states that the video is the user's voice over the original scene and so contains someone else's work; names that work and its terms; asks that the credit stay with the video; and says that sharing it is the user's responsibility, within local law. For a scene the user imported, it says instead that the app cannot know its origin or terms.
 
 HOW TO TEST
 
 Tap "Movie Scene Dub". The two bundled scenes install on first open: pick one, tap "Start Dubbing", record a line, then "Play My Dub" or "Export Video". The source and licence panel sits at the bottom of a scene's screen. For the ownership gate, tap "+" in the library; it appears every time. For Booth Cam, tap the camera key at the top right of the record screen; the simulator has no front camera.
 
+SOUND IMITATION (NEW IN 1.7.0)
+
+The third game plays one of 24 bundled sound effects, all CC0 from Freesound (credited per sound), records the user's imitation and scores it on the device. A video is made only when the user taps "Make video".
+
 MICROPHONE
 
-Both modes record the user's voice; the app explains this on its own onboarding screen before the system prompt. Recordings never leave the device.
+All three games record the user's voice; the app explains this on its own onboarding screen before the system prompt. Recordings never leave the device.
