@@ -8,7 +8,9 @@
 import DubloonFoundation
 import Foundation
 import StoreKit
+#if os(iOS)
 import UIKit
+#endif
 
 /// Asks for an App Store review when `ReviewPromptPolicy` says the moment has come.
 ///
@@ -43,11 +45,16 @@ final class ReviewPrompt {
     /// that does not qualify costs nothing.
     func requestIfAppropriate(trigger: String) {
         guard policy.isEligible else { return }
+        #if os(iOS)
         guard let scene = UIApplication.shared.connectedScenes
             .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene else { return }
 
         policy.recordAsked()
         SKStoreReviewController.requestReview(in: scene)
+        #else
+        policy.recordAsked()
+        SKStoreReviewController.requestReview()
+        #endif
         AnalyticsManager.shared.trackReviewPromptRequested(
             trigger: trigger,
             openCount: policy.openCount,

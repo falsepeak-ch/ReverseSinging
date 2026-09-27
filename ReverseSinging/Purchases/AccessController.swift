@@ -112,8 +112,11 @@ final class AccessController: ObservableObject {
     /// They were here before the paywall and are exempt from it for good.
     var isEarlyAdopter: Bool { state == .unlocked(.earlyAdopter) }
 
-    /// The games must not be playable until something is bought.
+    /// The paid games must not be playable until something is bought.
     var isLocked: Bool { state == .locked }
+
+    /// Whether reverse singing stays open while `isLocked`. Dubbing never does.
+    var isReverseGameFree: Bool { remoteConfig.isReverseGameFree }
 
     /// Whether being locked covers the app or only disables the games.
     var lockPresentation: LockPresentation {

@@ -219,6 +219,7 @@
 "main.button.back" = "Geri";
 "main.mode.reverse.subtitle" = "Kaydet, ters çevir ve o anlamsız şeyi söyle";
 "main.mode.dub.subtitle" = "Sesini başkasının ağzına koy";
+"main.mode.free" = "Ücretsiz";
 "dub.speakerAccessibility" = "Söyleyen: %@";
 "dub.cast" = "Oyuncular";
 "dub.referenceTrack" = "Referans";
@@ -247,6 +248,8 @@
 "dubShare.unknownSource" = "Bu sahneyi kendin getirdin, yani nereden geldiğini ve neler yapabileceğini biliyorsun.";
 "dubShare.responsibility" = "Nereye gideceği sana kalmış, o yüzden yaşadığın yerin telif kurallarına uy.";
 "dubShare.confirm" = "Videoyu dışa aktar";
+"dubShare.share" = "Paylaş…";
+"dubShare.save" = "Kaydet…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "İlk sahnelerin hazırlanıyor…";
@@ -275,10 +278,10 @@
 "pro.trial.daysLeft" = "%d gün kaldı";
 "pro.trial.oneDayLeft" = "Son gün";
 "pro.trial.over" = "Ücretsiz deneme süren bitti";
-"pro.locked.title" = "Oynamak için Dubloon Pro'yu al";
+"pro.locked.title" = "Seslendirmek için Dubloon Pro'yu al";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Dubloon'un kilidini aç";
-"pro.unlock.subtitle" = "İki oyun, tüm sahneler, sınır yok.";
+"pro.unlock.subtitle" = "Tüm sahneler, Booth Cam ve dışa aktarma. Tersten şarkı ücretsiz kalıyor.";
 "pro.owned.title" = "Dubloon senin";
 "pro.owned.subtitle" = "Teşekkürler. Her sahne, her çekim, tavan yok.";
 "pro.manage.title" = "Satın almayı yönet";
@@ -297,15 +300,15 @@
 "pro.error.generic" = "Mağaza cevap vermedi. Birazdan tekrar dene.";
 "pro.ok" = "Tamam";
 "pro.fallback.title" = "Dubloon'un kilidini aç";
-"pro.fallback.message" = "Ücretsiz deneme süren bitti. İki oyunu da açık tutmak için Dubloon'un kilidini aç.";
-"pro.fallback.message.beforeExpiry" = "İki oyunu da açık tutmak için Dubloon'un kilidini aç.";
-"pro.fallback.message.noTrial" = "İki oyunu da açmak için Dubloon'un kilidini aç.";
+"pro.fallback.message" = "Ücretsiz deneme süren bitti. Seslendirmeye devam etmek için Dubloon'un kilidini aç.";
+"pro.fallback.message.beforeExpiry" = "Seslendirmeye devam etmek için Dubloon'un kilidini aç.";
+"pro.fallback.message.noTrial" = "Her sahneyi seslendirmek için Dubloon'un kilidini aç.";
 "pro.fallback.buy" = "%@ karşılığında aç";
 "pro.fallback.buyUnpriced" = "Kilidi aç";
 "pro.fallback.loading" = "Mağazaya soruyoruz…";
 "pro.fallback.unavailable" = "Mağaza şu anda cevap vermiyor. Bağlantını kontrol edip tekrar dene.";
 "pro.fallback.retry" = "Tekrar dene";
-"pro.fallback.benefit.one" = "Komşular dayandığı sürece tersten söyle";
+"pro.fallback.benefit.one" = "Booth Cam ile kabinde kendini çek";
 "pro.fallback.benefit.two" = "Her sahneyi seslendir, kendi sahnelerini de getir";
 "pro.fallback.benefit.three" = "Çekimlerini dışa aktar ve hasarı paylaş";
 "pro.fallback.oneTime" = "Tek ödeme. Abonelik değil.";
@@ -314,6 +317,12 @@
 "pro.fallback.subscribe" = "%@ karşılığında abone ol";
 "pro.fallback.renews" = "İptal edene kadar otomatik olarak yenilenir. Apple Hesabı ayarlarından istediğin zaman iptal edebilirsin.";
 "pro.fallback.terms" = "Kullanım Koşulları";
+
+// MARK: - Review banner
+"review.banner.title" = "Pro'ya geçtiğin için teşekkürler";
+"review.banner.message" = "Dubloon'u Zürih'te tek bir kişi yapıyor ve yeni oyuncular onu yorumlar sayesinde buluyor. Keyif alıyorsan, App Store'da birkaç kelime çok şey ifade eder.";
+"review.banner.rate" = "Yorum yaz";
+"review.banner.later" = "Şimdi değil";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Kulübe hoş geldin";

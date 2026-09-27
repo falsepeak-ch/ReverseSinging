@@ -68,7 +68,7 @@ struct ReverseGameHeader: View {
     @ObservedObject var viewModel: ReverseGameViewModel
     /// The skin is an app preference, offered here because this is the game it changes.
     @ObservedObject var app: AppViewModel
-    let onBack: () -> Void
+    let onBack: (() -> Void)?
 
     var body: some View {
         VStack(spacing: 0) {
@@ -166,7 +166,7 @@ extension View {
             } message: {
                 Text(viewModel.errorMessage ?? "")
             }
-            .toolbar(.hidden, for: .navigationBar)
+            .hidesNavigationBar()
     }
 }
 
@@ -179,8 +179,14 @@ enum AppSettings {
     /// to the main actor happens here rather than at every call site.
     nonisolated static func open() {
         Task { @MainActor in
+            #if os(iOS)
             guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
             UIApplication.shared.open(url)
+            #else
+            // System Settings, at the list of apps allowed to use the microphone.
+            guard let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone") else { return }
+            NSWorkspace.shared.open(url)
+            #endif
         }
     }
 }

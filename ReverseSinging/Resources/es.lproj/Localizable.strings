@@ -219,6 +219,7 @@
 "main.button.back" = "Atrás";
 "main.mode.reverse.subtitle" = "Graba una canción, dale la vuelta y canta el galimatías";
 "main.mode.dub.subtitle" = "Pon tu voz en boca de otro";
+"main.mode.free" = "Gratis";
 "dub.speakerAccessibility" = "Lo dice %@";
 "dub.cast" = "Reparto";
 "dub.referenceTrack" = "Referencia";
@@ -247,6 +248,8 @@
 "dubShare.unknownSource" = "Esta escena la has traído tú, así que sabes de dónde sale y qué puedes hacer con ella.";
 "dubShare.responsibility" = "Dónde acabe es cosa tuya, así que respeta las normas de copyright de donde vivas.";
 "dubShare.confirm" = "Exportar vídeo";
+"dubShare.share" = "Compartir…";
+"dubShare.save" = "Guardar…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Preparando tus primeras escenas…";
@@ -275,10 +278,10 @@
 "pro.trial.daysLeft" = "Quedan %d días";
 "pro.trial.oneDayLeft" = "Último día";
 "pro.trial.over" = "Tu prueba gratuita se ha acabado";
-"pro.locked.title" = "Consigue Dubloon Pro para jugar";
+"pro.locked.title" = "Consigue Dubloon Pro para doblar";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Desbloquear Dubloon";
-"pro.unlock.subtitle" = "Los dos juegos, todas las escenas, sin límites.";
+"pro.unlock.subtitle" = "Todas las escenas, la cámara de cabina y las exportaciones. El canto invertido sigue siendo gratis.";
 "pro.owned.title" = "Dubloon es tuyo";
 "pro.owned.subtitle" = "Gracias. Todas las escenas, todas las tomas, sin techo.";
 "pro.manage.title" = "Gestionar la compra";
@@ -297,15 +300,15 @@
 "pro.error.generic" = "La tienda no ha contestado. Inténtalo dentro de un momento.";
 "pro.ok" = "Vale";
 "pro.fallback.title" = "Desbloquear Dubloon";
-"pro.fallback.message" = "Tu prueba gratuita se ha acabado. Desbloquea Dubloon para mantener los dos juegos abiertos.";
-"pro.fallback.message.beforeExpiry" = "Desbloquea Dubloon para mantener los dos juegos abiertos.";
-"pro.fallback.message.noTrial" = "Desbloquea Dubloon para abrir los dos juegos.";
+"pro.fallback.message" = "Tu prueba gratuita se ha acabado. Desbloquea Dubloon para seguir doblando.";
+"pro.fallback.message.beforeExpiry" = "Desbloquea Dubloon para seguir doblando.";
+"pro.fallback.message.noTrial" = "Desbloquea Dubloon para doblar todas las escenas.";
 "pro.fallback.buy" = "Desbloquear por %@";
 "pro.fallback.buyUnpriced" = "Desbloquear";
 "pro.fallback.loading" = "Preguntando a la tienda…";
 "pro.fallback.unavailable" = "La tienda no responde ahora mismo. Revisa tu conexión y prueba otra vez.";
 "pro.fallback.retry" = "Reintentar";
-"pro.fallback.benefit.one" = "Canta al revés hasta que protesten los vecinos";
+"pro.fallback.benefit.one" = "Grábate mientras doblas con la cámara de cabina";
 "pro.fallback.benefit.two" = "Dobla todas las escenas y trae las tuyas";
 "pro.fallback.benefit.three" = "Exporta tus tomas y comparte el destrozo";
 "pro.fallback.oneTime" = "Un solo pago. No es una suscripción.";
@@ -314,6 +317,12 @@
 "pro.fallback.subscribe" = "Suscribirse por %@";
 "pro.fallback.renews" = "Se renueva automáticamente hasta que la canceles. Cancela cuando quieras desde los ajustes de tu cuenta de Apple.";
 "pro.fallback.terms" = "Condiciones de uso";
+
+// MARK: - Review banner
+"review.banner.title" = "Gracias por pasarte a Pro";
+"review.banner.message" = "Dubloon lo hace una sola persona en Zúrich, y las reseñas son la forma en que lo encuentran nuevos jugadores. Si lo estás disfrutando, unas palabras en el App Store significarían mucho.";
+"review.banner.rate" = "Escribir una reseña";
+"review.banner.later" = "Ahora no";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Bienvenido al club";

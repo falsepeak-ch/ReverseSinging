@@ -219,6 +219,7 @@
 "main.button.back" = "Takaisin";
 "main.mode.reverse.subtitle" = "Äänitä, käännä ja laula siansaksa";
 "main.mode.dub.subtitle" = "Laita oma äänesi toisen suuhun";
+"main.mode.free" = "Ilmainen";
 "dub.speakerAccessibility" = "Sanoo %@";
 "dub.cast" = "Roolit";
 "dub.referenceTrack" = "Referenssi";
@@ -247,6 +248,8 @@
 "dubShare.unknownSource" = "Tämän kohtauksen toit itse, joten tiedät mistä se on peräisin ja mitä sillä saa tehdä.";
 "dubShare.responsibility" = "Minne se päätyy, on sinun asiasi, joten noudata oman maasi tekijänoikeussääntöjä.";
 "dubShare.confirm" = "Vie video";
+"dubShare.share" = "Jaa…";
+"dubShare.save" = "Tallenna…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Pystytetään ensimmäisiä kohtauksiasi…";
@@ -275,10 +278,10 @@
 "pro.trial.daysLeft" = "%d päivää jäljellä";
 "pro.trial.oneDayLeft" = "Viimeinen päivä";
 "pro.trial.over" = "Ilmainen kokeilusi on ohi";
-"pro.locked.title" = "Hanki Dubloon Pro pelataksesi";
+"pro.locked.title" = "Hanki Dubloon Pro dubataksesi";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Avaa Dubloon";
-"pro.unlock.subtitle" = "Molemmat pelit, kaikki kohtaukset, ei rajoja.";
+"pro.unlock.subtitle" = "Kaikki kohtaukset, Booth Cam ja viennit. Takaperinlaulu pysyy ilmaisena.";
 "pro.owned.title" = "Dubloon on sinun";
 "pro.owned.subtitle" = "Kiitos. Joka kohtaus, joka otos, ilman kattoa.";
 "pro.manage.title" = "Hallitse ostosta";
@@ -297,15 +300,15 @@
 "pro.error.generic" = "Kauppa ei vastannut. Yritä hetken päästä uudelleen.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Avaa Dubloon";
-"pro.fallback.message" = "Ilmainen kokeilusi on ohi. Avaa Dubloon, niin molemmat pelit pysyvät auki.";
-"pro.fallback.message.beforeExpiry" = "Avaa Dubloon, niin molemmat pelit pysyvät auki.";
-"pro.fallback.message.noTrial" = "Avaa Dubloon, niin molemmat pelit aukeavat.";
+"pro.fallback.message" = "Ilmainen kokeilusi on ohi. Avaa Dubloon, niin voit jatkaa dubbaamista.";
+"pro.fallback.message.beforeExpiry" = "Avaa Dubloon, niin voit jatkaa dubbaamista.";
+"pro.fallback.message.noTrial" = "Avaa Dubloon, niin voit dubata jokaisen kohtauksen.";
 "pro.fallback.buy" = "Avaa hintaan %@";
 "pro.fallback.buyUnpriced" = "Avaa";
 "pro.fallback.loading" = "Kysytään kaupalta…";
 "pro.fallback.unavailable" = "Kauppa ei vastaa juuri nyt. Tarkista yhteys ja yritä uudelleen.";
 "pro.fallback.retry" = "Yritä uudelleen";
-"pro.fallback.benefit.one" = "Laula takaperin niin kauan kuin naapurit kestävät";
+"pro.fallback.benefit.one" = "Kuvaa itsesi kopissa Booth Camilla";
 "pro.fallback.benefit.two" = "Dubbaa jokainen kohtaus ja tuo omasi";
 "pro.fallback.benefit.three" = "Vie otoksesi ja jaa vahingot";
 "pro.fallback.oneTime" = "Yksi maksu. Ei tilaus.";
@@ -314,6 +317,12 @@
 "pro.fallback.subscribe" = "Tilaa hintaan %@";
 "pro.fallback.renews" = "Uusiutuu automaattisesti, kunnes perut sen. Voit perua milloin tahansa Apple-tilisi asetuksista.";
 "pro.fallback.terms" = "Käyttöehdot";
+
+// MARK: - Review banner
+"review.banner.title" = "Kiitos, että siirryit Prohon";
+"review.banner.message" = "Dubloonia tekee yksi ihminen Zürichissä, ja arvostelujen kautta uudet pelaajat löytävät sen. Jos pidät siitä, muutama sana App Storessa merkitsisi paljon.";
+"review.banner.rate" = "Kirjoita arvostelu";
+"review.banner.later" = "Ei nyt";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Tervetuloa kerhoon";

@@ -219,6 +219,7 @@
 "main.button.back" = "Назад";
 "main.mode.reverse.subtitle" = "Запиши, переверни и спой тарабарщину";
 "main.mode.dub.subtitle" = "Вложи свой голос в чужие уста";
+"main.mode.free" = "Бесплатно";
 "dub.speakerAccessibility" = "Говорит %@";
 "dub.cast" = "Актёры";
 "dub.referenceTrack" = "Образец";
@@ -247,6 +248,8 @@
 "dubShare.unknownSource" = "Эту сцену ты принёс сам, так что знаешь, откуда она и что с ней можно делать.";
 "dubShare.responsibility" = "Куда это отправится, решаешь ты, так что соблюдай авторские правила там, где живёшь.";
 "dubShare.confirm" = "Экспортировать видео";
+"dubShare.share" = "Поделиться…";
+"dubShare.save" = "Сохранить…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Готовим твои первые сцены…";
@@ -275,10 +278,10 @@
 "pro.trial.daysLeft" = "Осталось дней: %d";
 "pro.trial.oneDayLeft" = "Последний день";
 "pro.trial.over" = "Пробный период закончился";
-"pro.locked.title" = "Чтобы играть, возьми Dubloon Pro";
+"pro.locked.title" = "Чтобы озвучивать, возьми Dubloon Pro";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Открыть Dubloon";
-"pro.unlock.subtitle" = "Обе игры, все сцены, без ограничений.";
+"pro.unlock.subtitle" = "Все сцены, Booth Cam и экспорт. Пение задом наперёд остаётся бесплатным.";
 "pro.owned.title" = "Dubloon твой";
 "pro.owned.subtitle" = "Спасибо. Каждая сцена, каждый дубль, без потолка.";
 "pro.manage.title" = "Управление покупкой";
@@ -297,15 +300,15 @@
 "pro.error.generic" = "Магазин не ответил. Попробуй через минуту.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Открыть Dubloon";
-"pro.fallback.message" = "Пробный период закончился. Открой Dubloon, чтобы обе игры остались доступны.";
-"pro.fallback.message.beforeExpiry" = "Открой Dubloon, чтобы обе игры остались доступны.";
-"pro.fallback.message.noTrial" = "Открой Dubloon, чтобы играть в обе игры.";
+"pro.fallback.message" = "Пробный период закончился. Открой Dubloon, чтобы продолжать озвучивать.";
+"pro.fallback.message.beforeExpiry" = "Открой Dubloon, чтобы продолжать озвучивать.";
+"pro.fallback.message.noTrial" = "Открой Dubloon, чтобы озвучивать любые сцены.";
 "pro.fallback.buy" = "Открыть за %@";
 "pro.fallback.buyUnpriced" = "Открыть";
 "pro.fallback.loading" = "Спрашиваем магазин…";
 "pro.fallback.unavailable" = "Магазин сейчас не отвечает. Проверь соединение и попробуй снова.";
 "pro.fallback.retry" = "Ещё раз";
-"pro.fallback.benefit.one" = "Пой задом наперёд, пока соседи терпят";
+"pro.fallback.benefit.one" = "Снимай себя в кабине с Booth Cam";
 "pro.fallback.benefit.two" = "Озвучивай любые сцены и приноси свои";
 "pro.fallback.benefit.three" = "Экспортируй дубли и делись последствиями";
 "pro.fallback.oneTime" = "Один платёж. Это не подписка.";
@@ -314,6 +317,12 @@
 "pro.fallback.subscribe" = "Подписаться за %@";
 "pro.fallback.renews" = "Продлевается автоматически, пока ты её не отменишь. Отменить можно в любой момент в настройках аккаунта Apple.";
 "pro.fallback.terms" = "Условия использования";
+
+// MARK: - Review banner
+"review.banner.title" = "Спасибо за переход на Pro";
+"review.banner.message" = "Dubloon делает один человек в Цюрихе, и именно по отзывам его находят новые игроки. Если тебе нравится, пара слов в App Store значила бы очень много.";
+"review.banner.rate" = "Написать отзыв";
+"review.banner.later" = "Не сейчас";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Добро пожаловать в клуб";

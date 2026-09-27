@@ -47,16 +47,12 @@ struct DubRecordView: View {
 
             CountdownOverlay(value: viewModel.countdown)
         }
-        .statusBarHidden()
+        .hidesStatusBar()
         .animation(.easeInOut(duration: 0.2), value: session.currentLineIndex)
         .animation(.easeInOut(duration: 0.2), value: viewModel.isRecording)
         .animation(.rsSpring, value: session.latestScore)
         .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: $viewModel.showPermissionAlert) {
-            Button(Strings.Main.Alert.settings) {
-                if let url = URL(string: UIApplication.openSettingsURLString) {
-                    UIApplication.shared.open(url)
-                }
-            }
+            Button(Strings.Main.Alert.settings, action: AppSettings.open)
             Button(Strings.Main.Alert.cancel, role: .cancel) {}
         } message: {
             Text(Strings.Main.Alert.microphoneRequiredMessage)
@@ -354,6 +350,7 @@ struct DubRecordView: View {
                 isEnabled: viewModel.canGoToPreviousLine,
                 action: viewModel.goToPreviousLine
             )
+            .macKeyboardShortcut(.leftArrow)
 
             transportButton(
                 icon: session.isPreviewingReference ? "stop.fill" : "speaker.wave.2.fill",
@@ -361,8 +358,10 @@ struct DubRecordView: View {
                 isEnabled: !viewModel.isRecording,
                 action: viewModel.toggleReferencePreview
             )
+            .macKeyboardShortcut("l")
 
             recordButton
+                .macKeyboardShortcut(.space)
 
             transportButton(
                 icon: "play.fill",
@@ -370,6 +369,7 @@ struct DubRecordView: View {
                 isEnabled: viewModel.canPlayTake(of: line),
                 action: viewModel.playCurrentTake
             )
+            .macKeyboardShortcut("p")
 
             // On the last line there is nowhere to go next, and a permanently greyed chevron
             // is a dead end where the session actually ends. It becomes the way out instead.
@@ -390,6 +390,7 @@ struct DubRecordView: View {
                     isEnabled: !viewModel.isRecording,
                     action: viewModel.goToNextLine
                 )
+                .macKeyboardShortcut(.rightArrow)
             }
         }
         .padding(.horizontal, 10)

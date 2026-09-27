@@ -219,6 +219,7 @@
 "main.button.back" = "Tilbage";
 "main.mode.reverse.subtitle" = "Optag, vend om og syng volapykken";
 "main.mode.dub.subtitle" = "Læg din stemme i en andens mund";
+"main.mode.free" = "Gratis";
 "dub.speakerAccessibility" = "Siges af %@";
 "dub.cast" = "Medvirkende";
 "dub.referenceTrack" = "Reference";
@@ -247,6 +248,8 @@
 "dubShare.unknownSource" = "Den her scene tog du selv med, så du ved, hvor den kommer fra, og hvad du må med den.";
 "dubShare.responsibility" = "Hvor den ender, er op til dig, så følg ophavsretsreglerne der, hvor du bor.";
 "dubShare.confirm" = "Eksportér video";
+"dubShare.share" = "Del…";
+"dubShare.save" = "Gem…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Rigger dine første scener til…";
@@ -275,10 +278,10 @@
 "pro.trial.daysLeft" = "%d dage tilbage";
 "pro.trial.oneDayLeft" = "Sidste dag";
 "pro.trial.over" = "Din gratis prøveperiode er slut";
-"pro.locked.title" = "Få Dubloon Pro for at spille";
+"pro.locked.title" = "Få Dubloon Pro for at dubbe";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Lås Dubloon op";
-"pro.unlock.subtitle" = "Begge spil, alle scener, ingen grænser.";
+"pro.unlock.subtitle" = "Alle scener, Booth Cam og eksport. Baglænssang forbliver gratis.";
 "pro.owned.title" = "Du ejer Dubloon";
 "pro.owned.subtitle" = "Tak. Hver scene, hver optagelse, uden loft.";
 "pro.manage.title" = "Administrér købet";
@@ -297,15 +300,15 @@
 "pro.error.generic" = "Butikken svarede ikke. Prøv igen om et øjeblik.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Lås Dubloon op";
-"pro.fallback.message" = "Din gratis prøveperiode er slut. Lås Dubloon op for at holde begge spil åbne.";
-"pro.fallback.message.beforeExpiry" = "Lås Dubloon op for at holde begge spil åbne.";
-"pro.fallback.message.noTrial" = "Lås Dubloon op for at åbne begge spil.";
+"pro.fallback.message" = "Din gratis prøveperiode er slut. Lås Dubloon op for at blive ved med at dubbe.";
+"pro.fallback.message.beforeExpiry" = "Lås Dubloon op for at blive ved med at dubbe.";
+"pro.fallback.message.noTrial" = "Lås Dubloon op for at dubbe hver eneste scene.";
 "pro.fallback.buy" = "Lås op for %@";
 "pro.fallback.buyUnpriced" = "Lås op";
 "pro.fallback.loading" = "Spørger butikken…";
 "pro.fallback.unavailable" = "Butikken svarer ikke lige nu. Tjek forbindelsen og prøv igen.";
 "pro.fallback.retry" = "Prøv igen";
-"pro.fallback.benefit.one" = "Syng baglæns, så længe naboerne kan holde til det";
+"pro.fallback.benefit.one" = "Film dig selv i boksen med Booth Cam";
 "pro.fallback.benefit.two" = "Dub hver eneste scene, og tag dine egne med";
 "pro.fallback.benefit.three" = "Eksportér dine optagelser og del ulykken";
 "pro.fallback.oneTime" = "Én betaling. Ikke et abonnement.";
@@ -314,6 +317,12 @@
 "pro.fallback.subscribe" = "Abonnér for %@";
 "pro.fallback.renews" = "Fornyes automatisk, indtil du opsiger det. Opsig når som helst i indstillingerne for din Apple-konto.";
 "pro.fallback.terms" = "Brugsvilkår";
+
+// MARK: - Review banner
+"review.banner.title" = "Tak, fordi du gik over til Pro";
+"review.banner.message" = "Dubloon er lavet af én person i Zürich, og anmeldelser er dér, nye spillere finder det. Hvis du er glad for det, ville et par ord i App Store betyde meget.";
+"review.banner.rate" = "Skriv en anmeldelse";
+"review.banner.later" = "Ikke nu";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Velkommen i klubben";

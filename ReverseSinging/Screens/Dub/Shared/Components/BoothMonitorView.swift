@@ -16,6 +16,7 @@ import Combine
 /// A `UIView` whose backing layer *is* the preview layer, rather than one with a sublayer
 /// added to it: a sublayer has to be resized by hand on every bounds change, and getting that
 /// wrong is what leaves a preview stretched for one frame after a rotation.
+#if os(iOS)
 struct BoothPreviewView: UIViewRepresentable {
 
     let session: AVCaptureSession
@@ -54,6 +55,47 @@ struct BoothPreviewView: UIViewRepresentable {
         var previewLayer: AVCaptureVideoPreviewLayer { layer as! AVCaptureVideoPreviewLayer }
     }
 }
+#else
+/// The Mac's webcam preview. A laptop camera is already landscape and upright, so there is no
+/// rotation to apply, only the mirror.
+struct BoothPreviewView: NSViewRepresentable {
+
+    let session: AVCaptureSession
+    var isMirrored: Bool
+
+    func makeNSView(context: Context) -> PreviewView {
+        let view = PreviewView()
+        view.previewLayer.session = session
+        view.previewLayer.videoGravity = .resizeAspectFill
+        view.previewLayer.backgroundColor = CGColor(gray: 0, alpha: 1)
+        apply(to: view)
+        return view
+    }
+
+    func updateNSView(_ view: PreviewView, context: Context) {
+        if view.previewLayer.session !== session { view.previewLayer.session = session }
+        apply(to: view)
+    }
+
+    private func apply(to view: PreviewView) {
+        guard let connection = view.previewLayer.connection, connection.isVideoMirroringSupported else { return }
+        connection.automaticallyAdjustsVideoMirroring = false
+        connection.isVideoMirrored = isMirrored
+    }
+
+    final class PreviewView: NSView {
+        let previewLayer = AVCaptureVideoPreviewLayer()
+
+        override init(frame: NSRect) {
+            super.init(frame: frame)
+            wantsLayer = true
+            layer = previewLayer
+        }
+
+        required init?(coder: NSCoder) { nil }
+    }
+}
+#endif
 
 // MARK: - Booth Monitor
 

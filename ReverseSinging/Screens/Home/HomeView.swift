@@ -12,6 +12,7 @@ import SwiftUI
 /// than something hidden behind a toolbar glyph.
 struct HomeView: View {
     @EnvironmentObject var app: AppViewModel
+    @Environment(\.openURL) private var openURL
     @StateObject private var viewModel = HomeViewModel()
 
     /// The reverse game's model. Held by the menu rather than by the game screen, so a
@@ -28,7 +29,7 @@ struct HomeView: View {
 
                 header
             }
-            .toolbar(.hidden, for: .navigationBar)
+            .hidesNavigationBar()
             .navigationDestination(for: GameMode.self) { mode in
                 destination(for: mode)
             }
@@ -89,6 +90,16 @@ struct HomeView: View {
             Spacer().frame(height: EditorMetrics.headerBarHeight)
 
             VStack(alignment: .leading, spacing: 10) {
+                if viewModel.showsReviewBanner {
+                    ReviewBannerCard(
+                        onRate: { openURL(viewModel.reviewBannerWentToStore()) },
+                        onDismiss: { viewModel.dismissReviewBanner() }
+                    )
+                    .padding(.bottom, 10)
+                    .transition(.opacity)
+                    .onAppear { viewModel.reviewBannerDidAppear() }
+                }
+
                 if viewModel.areGamesLocked {
                     TrialEndedCard(title: viewModel.lockedCardTitle) { viewModel.showPaywall(from: .trialEndedCard) }
                         .padding(.bottom, 10)
@@ -98,7 +109,11 @@ struct HomeView: View {
                 EditorSectionHeader(title: Strings.Main.Mode.section)
 
                 ForEach(GameMode.allCases) { mode in
-                    GameModeRow(mode: mode, isLocked: viewModel.areGamesLocked) {
+                    GameModeRow(
+                        mode: mode,
+                        isLocked: viewModel.isLocked(mode),
+                        isFree: viewModel.isFree(mode)
+                    ) {
                         viewModel.open(mode)
                     }
                 }
@@ -106,6 +121,7 @@ struct HomeView: View {
             .padding(.horizontal, EditorMetrics.gutter)
             .padding(.top, 20)
             .animation(.rsQuick, value: viewModel.areGamesLocked)
+            .animation(.rsQuick, value: viewModel.showsReviewBanner)
 
             Spacer()
         }

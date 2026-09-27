@@ -73,7 +73,7 @@ struct DubLibraryView: View {
                 .transition(.scale.combined(with: .opacity))
             }
         }
-        .toolbar(.hidden, for: .navigationBar)
+        .hidesNavigationBar()
         .dubContentGate(isPresented: $viewModel.showContentGate) { viewModel.contentGateDidConfirm() }
         // Every archive kind is pickable, not only the ones the importer can open: a file
         // the picker greys out tells the user nothing, whereas picking a .rar gets them the

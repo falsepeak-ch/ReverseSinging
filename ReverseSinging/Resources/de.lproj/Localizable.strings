@@ -219,6 +219,7 @@
 "main.button.back" = "Zurück";
 "main.mode.reverse.subtitle" = "Lied aufnehmen, umdrehen, Kauderwelsch singen";
 "main.mode.dub.subtitle" = "Leg deine Stimme in einen fremden Mund";
+"main.mode.free" = "Gratis";
 "dub.speakerAccessibility" = "Gesprochen von %@";
 "dub.cast" = "Besetzung";
 "dub.referenceTrack" = "Referenz";
@@ -247,6 +248,8 @@
 "dubShare.unknownSource" = "Diese Szene hast du selbst mitgebracht, also weißt du, woher sie kommt und was du damit darfst.";
 "dubShare.responsibility" = "Wo es landet, entscheidest du, also halt dich ans Urheberrecht bei dir.";
 "dubShare.confirm" = "Video exportieren";
+"dubShare.share" = "Teilen …";
+"dubShare.save" = "Sichern …";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Deine ersten Szenen werden eingerichtet…";
@@ -275,10 +278,10 @@
 "pro.trial.daysLeft" = "Noch %d Tage";
 "pro.trial.oneDayLeft" = "Letzter Tag";
 "pro.trial.over" = "Deine Testphase ist vorbei";
-"pro.locked.title" = "Hol dir Dubloon Pro zum Spielen";
+"pro.locked.title" = "Hol dir Dubloon Pro zum Synchronisieren";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Dubloon freischalten";
-"pro.unlock.subtitle" = "Beide Spiele, jede Szene, keine Grenzen.";
+"pro.unlock.subtitle" = "Jede Szene, Booth Cam und Exporte. Rückwärtssingen bleibt kostenlos.";
 "pro.owned.title" = "Dubloon gehört dir";
 "pro.owned.subtitle" = "Danke. Jede Szene, jeder Take, keine Grenze.";
 "pro.manage.title" = "Kauf verwalten";
@@ -297,15 +300,15 @@
 "pro.error.generic" = "Der Store hat nicht geantwortet. Versuch es gleich noch mal.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Dubloon freischalten";
-"pro.fallback.message" = "Deine Testphase ist vorbei. Schalte Dubloon frei, damit beide Spiele offen bleiben.";
-"pro.fallback.message.beforeExpiry" = "Schalte Dubloon frei, damit beide Spiele offen bleiben.";
-"pro.fallback.message.noTrial" = "Schalte Dubloon frei, um beide Spiele zu öffnen.";
+"pro.fallback.message" = "Deine Testphase ist vorbei. Schalte Dubloon frei, um weiter zu synchronisieren.";
+"pro.fallback.message.beforeExpiry" = "Schalte Dubloon frei, um weiter zu synchronisieren.";
+"pro.fallback.message.noTrial" = "Schalte Dubloon frei, um jede Szene zu synchronisieren.";
 "pro.fallback.buy" = "Für %@ freischalten";
 "pro.fallback.buyUnpriced" = "Freischalten";
 "pro.fallback.loading" = "Wir fragen den Store…";
 "pro.fallback.unavailable" = "Der Store antwortet gerade nicht. Prüf deine Verbindung und versuch es noch mal.";
 "pro.fallback.retry" = "Noch mal versuchen";
-"pro.fallback.benefit.one" = "Rückwärts singen, so lange die Nachbarn es aushalten";
+"pro.fallback.benefit.one" = "Film dich in der Kabine mit Booth Cam";
 "pro.fallback.benefit.two" = "Jede Szene synchronisieren und eigene mitbringen";
 "pro.fallback.benefit.three" = "Takes exportieren und den Schaden teilen";
 "pro.fallback.oneTime" = "Einmal zahlen. Kein Abo.";
@@ -314,6 +317,12 @@
 "pro.fallback.subscribe" = "Abonnieren für %@";
 "pro.fallback.renews" = "Verlängert sich automatisch, bis du kündigst. Jederzeit in den Einstellungen deines Apple Accounts kündbar.";
 "pro.fallback.terms" = "Nutzungsbedingungen";
+
+// MARK: - Review banner
+"review.banner.title" = "Danke, dass du auf Pro umgestiegen bist";
+"review.banner.message" = "Dubloon wird von einer einzigen Person in Zürich gemacht, und über Bewertungen finden neue Spieler es. Wenn es dir Spaß macht, würden ein paar Worte im App Store viel bedeuten.";
+"review.banner.rate" = "Bewertung schreiben";
+"review.banner.later" = "Jetzt nicht";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Willkommen im Club";

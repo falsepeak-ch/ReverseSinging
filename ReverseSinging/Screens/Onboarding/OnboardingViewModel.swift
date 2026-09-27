@@ -180,8 +180,6 @@ final class OnboardingViewModel: ObservableObject {
     private func openSettings() {
         HapticManager.shared.light()
 
-        if let url = URL(string: UIApplication.openSettingsURLString) {
-            UIApplication.shared.open(url)
-        }
+        AppSettings.open()
     }
 }

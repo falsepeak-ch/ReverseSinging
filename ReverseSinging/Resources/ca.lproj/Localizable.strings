@@ -219,6 +219,7 @@
 "main.button.back" = "Enrere";
 "main.mode.reverse.subtitle" = "Grava una cançó, gira-la i canta l'embolic";
 "main.mode.dub.subtitle" = "Posa la teva veu a la boca d'un altre";
+"main.mode.free" = "Gratis";
 "dub.speakerAccessibility" = "Ho diu %@";
 "dub.cast" = "Repartiment";
 "dub.referenceTrack" = "Referència";
@@ -247,6 +248,8 @@
 "dubShare.unknownSource" = "Aquesta escena l'has portat tu, així que ja saps d'on surt i què en pots fer.";
 "dubShare.responsibility" = "On acabi és cosa teva, així que respecta les normes de copyright d'on visquis.";
 "dubShare.confirm" = "Exportar el vídeo";
+"dubShare.share" = "Compartir…";
+"dubShare.save" = "Desar…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Preparant les teves primeres escenes…";
@@ -275,10 +278,10 @@
 "pro.trial.daysLeft" = "Queden %d dies";
 "pro.trial.oneDayLeft" = "Últim dia";
 "pro.trial.over" = "La teva prova gratuïta s'ha acabat";
-"pro.locked.title" = "Aconsegueix Dubloon Pro per jugar";
+"pro.locked.title" = "Aconsegueix Dubloon Pro per doblar";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Desbloquejar Dubloon";
-"pro.unlock.subtitle" = "Els dos jocs, totes les escenes, sense límits.";
+"pro.unlock.subtitle" = "Totes les escenes, la càmera de cabina i les exportacions. El cant invertit continua sent gratuït.";
 "pro.owned.title" = "Dubloon és teu";
 "pro.owned.subtitle" = "Gràcies. Totes les escenes, totes les preses, sense sostre.";
 "pro.manage.title" = "Gestionar la compra";
@@ -297,15 +300,15 @@
 "pro.error.generic" = "La botiga no ha contestat. Torna-ho a provar d'aquí a un moment.";
 "pro.ok" = "D'acord";
 "pro.fallback.title" = "Desbloquejar Dubloon";
-"pro.fallback.message" = "La teva prova gratuïta s'ha acabat. Desbloqueja Dubloon per mantenir els dos jocs oberts.";
-"pro.fallback.message.beforeExpiry" = "Desbloqueja Dubloon per mantenir els dos jocs oberts.";
-"pro.fallback.message.noTrial" = "Desbloqueja Dubloon per obrir els dos jocs.";
+"pro.fallback.message" = "La teva prova gratuïta s'ha acabat. Desbloqueja Dubloon per continuar doblant.";
+"pro.fallback.message.beforeExpiry" = "Desbloqueja Dubloon per continuar doblant.";
+"pro.fallback.message.noTrial" = "Desbloqueja Dubloon per doblar totes les escenes.";
 "pro.fallback.buy" = "Desbloquejar per %@";
 "pro.fallback.buyUnpriced" = "Desbloquejar";
 "pro.fallback.loading" = "Preguntant a la botiga…";
 "pro.fallback.unavailable" = "La botiga no respon ara mateix. Revisa la connexió i torna-ho a provar.";
 "pro.fallback.retry" = "Tornar-ho a provar";
-"pro.fallback.benefit.one" = "Canta del revés fins que es queixin els veïns";
+"pro.fallback.benefit.one" = "Grava't mentre dobles amb la càmera de cabina";
 "pro.fallback.benefit.two" = "Dobla totes les escenes i porta-hi les teves";
 "pro.fallback.benefit.three" = "Exporta les teves preses i comparteix el desastre";
 "pro.fallback.oneTime" = "Un sol pagament. No és una subscripció.";
@@ -314,6 +317,12 @@
 "pro.fallback.subscribe" = "Subscriu-te per %@";
 "pro.fallback.renews" = "Es renova automàticament fins que la cancel·lis. Cancel·la quan vulguis des de la configuració del teu compte d'Apple.";
 "pro.fallback.terms" = "Condicions d'ús";
+
+// MARK: - Review banner
+"review.banner.title" = "Gràcies per passar-te a Pro";
+"review.banner.message" = "Dubloon el fa una sola persona a Zuric, i les ressenyes són la manera com el troben els nous jugadors. Si t'agrada, unes quantes paraules a l'App Store voldrien dir molt.";
+"review.banner.rate" = "Escriure una ressenya";
+"review.banner.later" = "Ara no";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Benvingut al club";

@@ -180,7 +180,16 @@ final class SettingsViewModel: ObservableObject {
 
     func openCustomerCenter() {
         AnalyticsManager.shared.trackCustomerCenterOpened()
+        #if os(iOS)
         isCustomerCenterPresented = true
+        #else
+        // RevenueCat's Customer Center is iOS only. On the Mac the App Store's own page is where
+        // subscriptions are changed and purchases looked up.
+        if let url = access.customerInfo?.managementURL
+            ?? URL(string: "https://apps.apple.com/account/subscriptions") {
+            openExternally(url)
+        }
+        #endif
     }
 
     /// A restore that happened inside RevenueCat's Customer Center.
@@ -205,7 +214,7 @@ final class SettingsViewModel: ObservableObject {
         AnalyticsManager.shared.trackCustomEvent(name: "privacy_policy_opened", parameters: nil)
 
         if let url = URL(string: "https://falsepeak.ch/privacy") {
-            UIApplication.shared.open(url)
+            openExternally(url)
         }
     }
 }

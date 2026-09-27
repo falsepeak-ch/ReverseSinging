@@ -42,6 +42,7 @@ nonisolated enum Strings {
             static let reverseSubtitle = NSLocalizedString("main.mode.reverse.subtitle", comment: "Reverse singing game description")
             static let dubTitle = NSLocalizedString("main.mode.dub.title", comment: "Movie scene dub game mode")
             static let dubSubtitle = NSLocalizedString("main.mode.dub.subtitle", comment: "Movie scene dub game description")
+            static let free = NSLocalizedString("main.mode.free", comment: "Short pill on a game that stays open without Dubloon Pro. One word")
         }
 
         /// Transport state, shown uppercase in the monitor strip.
@@ -435,6 +436,8 @@ nonisolated enum Strings {
         static let unknownSource = NSLocalizedString("dubShare.unknownSource", comment: "Shown for a pack the user imported, whose origin the app does not know")
         static let responsibility = NSLocalizedString("dubShare.responsibility", comment: "Distributing the export is the user's own act and responsibility")
         static let confirm = NSLocalizedString("dubShare.confirm", comment: "Go ahead and export")
+        static let share = NSLocalizedString("dubShare.share", comment: "Mac: button that opens the system share menu for a finished dub")
+        static let save = NSLocalizedString("dubShare.save", comment: "Mac: button that saves a finished dub to a folder the user picks")
     }
 
     // MARK: - What's New
@@ -540,5 +543,14 @@ nonisolated enum Strings {
             static let renews = NSLocalizedString("pro.fallback.renews", comment: "Under the buy button for a subscription: it renews until cancelled")
             static let terms = NSLocalizedString("pro.fallback.terms", comment: "Link to the Terms of Use (Apple's standard licence agreement)")
         }
+    }
+
+    // MARK: - Review banner
+    /// The menu note that thanks someone who bought Dubloon Pro and asks for a review.
+    enum ReviewBanner {
+        static let title = NSLocalizedString("review.banner.title", comment: "Headline of the menu note shown after buying Dubloon Pro")
+        static let message = NSLocalizedString("review.banner.message", comment: "Why a review matters to a one-person studio. Personal, not pushy")
+        static let rate = NSLocalizedString("review.banner.rate", comment: "Button that opens the App Store's write-a-review page")
+        static let later = NSLocalizedString("review.banner.later", comment: "Button that puts the review note away for now")
     }
 }

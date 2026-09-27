@@ -113,13 +113,13 @@ final class PaywallFallbackViewModel: ObservableObject {
     /// screen that sells an auto-renewable subscription.
     func openTermsOfUse() {
         if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
-            UIApplication.shared.open(url)
+            openExternally(url)
         }
     }
 
     func openPrivacyPolicy() {
         if let url = URL(string: "https://falsepeak.ch/privacy") {
-            UIApplication.shared.open(url)
+            openExternally(url)
         }
     }
 }

@@ -6,7 +6,11 @@
 //
 
 import SwiftUI
+#if os(iOS)
 import UIKit
+#else
+import AppKit
+#endif
 import AVFoundation
 
 /// Hosts an `AVPlayerLayer`.
@@ -14,6 +18,7 @@ import AVFoundation
 /// Deliberately not AVKit's `VideoPlayer`: that ships its own transport controls and a
 /// tap-to-scrub overlay, which would sit on top of the picture and compete with the app's
 /// own transport bar.
+#if os(iOS)
 struct DubPlayerLayerView: UIViewRepresentable {
     let player: AVPlayer
 
@@ -39,6 +44,38 @@ struct DubPlayerLayerView: UIViewRepresentable {
         var playerLayer: AVPlayerLayer { layer as! AVPlayerLayer }
     }
 }
+#else
+struct DubPlayerLayerView: NSViewRepresentable {
+    let player: AVPlayer
+
+    func makeNSView(context: Context) -> PlayerLayerBackedView {
+        let view = PlayerLayerBackedView()
+        view.playerLayer.player = player
+        view.playerLayer.videoGravity = .resizeAspect
+        view.playerLayer.backgroundColor = CGColor(gray: 0, alpha: 1)
+        return view
+    }
+
+    func updateNSView(_ view: PlayerLayerBackedView, context: Context) {
+        if view.playerLayer.player !== player {
+            view.playerLayer.player = player
+        }
+    }
+
+    /// The Mac spelling of the same idea: a layer-hosting view whose layer is the player's.
+    final class PlayerLayerBackedView: NSView {
+        let playerLayer = AVPlayerLayer()
+
+        override init(frame: NSRect) {
+            super.init(frame: frame)
+            wantsLayer = true
+            layer = playerLayer
+        }
+
+        required init?(coder: NSCoder) { nil }
+    }
+}
+#endif
 
 /// The picture for a dub screen: the scene video when the pack has one, the per-line still
 /// when it doesn't. Packs imported before video support keep working unchanged.

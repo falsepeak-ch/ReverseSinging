@@ -37,7 +37,7 @@ struct DubPlaybackView: View {
                 ProcessingIndicator(message: Strings.Dub.loadingScene)
             }
         }
-        .statusBarHidden()
+        .hidesStatusBar()
         .animation(.easeInOut(duration: 0.2), value: viewModel.captionLine?.slug)
         .animation(.easeInOut(duration: 0.2), value: viewModel.boothReel.currentSlug)
         .task { await viewModel.start() }

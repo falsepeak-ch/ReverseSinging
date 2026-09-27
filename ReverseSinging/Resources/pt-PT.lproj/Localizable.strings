@@ -219,6 +219,7 @@
 "main.button.back" = "Voltar";
 "main.mode.reverse.subtitle" = "Grava, vira do avesso e canta a algaraviada";
 "main.mode.dub.subtitle" = "Põe a tua voz na boca de outra pessoa";
+"main.mode.free" = "Grátis";
 "dub.speakerAccessibility" = "Dito por %@";
 "dub.cast" = "Elenco";
 "dub.referenceTrack" = "Referência";
@@ -247,6 +248,8 @@
 "dubShare.unknownSource" = "Esta cena foste tu que a trouxeste, por isso sabes de onde vem e o que podes fazer com ela.";
 "dubShare.responsibility" = "Onde vai parar é contigo, por isso cumpre as regras de direitos de autor do sítio onde vives.";
 "dubShare.confirm" = "Exportar vídeo";
+"dubShare.share" = "Partilhar…";
+"dubShare.save" = "Guardar…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "A preparar as tuas primeiras cenas…";
@@ -275,10 +278,10 @@
 "pro.trial.daysLeft" = "Faltam %d dias";
 "pro.trial.oneDayLeft" = "Último dia";
 "pro.trial.over" = "O teu período gratuito acabou";
-"pro.locked.title" = "Obtém o Dubloon Pro para jogar";
+"pro.locked.title" = "Obtém o Dubloon Pro para dobrar";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Desbloquear o Dubloon";
-"pro.unlock.subtitle" = "Os dois jogos, todas as cenas, sem limites.";
+"pro.unlock.subtitle" = "Todas as cenas, a câmara da cabine e as exportações. O canto invertido continua grátis.";
 "pro.owned.title" = "O Dubloon é teu";
 "pro.owned.subtitle" = "Obrigado. Todas as cenas, todas as gravações, sem tecto.";
 "pro.manage.title" = "Gerir a compra";
@@ -297,15 +300,15 @@
 "pro.error.generic" = "A loja não respondeu. Tenta daqui a pouco.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Desbloquear o Dubloon";
-"pro.fallback.message" = "O teu período gratuito acabou. Desbloqueia o Dubloon para manter os dois jogos abertos.";
-"pro.fallback.message.beforeExpiry" = "Desbloqueia o Dubloon para manter os dois jogos abertos.";
-"pro.fallback.message.noTrial" = "Desbloqueia o Dubloon para abrir os dois jogos.";
+"pro.fallback.message" = "O teu período gratuito acabou. Desbloqueia o Dubloon para continuares a dobrar.";
+"pro.fallback.message.beforeExpiry" = "Desbloqueia o Dubloon para continuares a dobrar.";
+"pro.fallback.message.noTrial" = "Desbloqueia o Dubloon para dobrar todas as cenas.";
 "pro.fallback.buy" = "Desbloquear por %@";
 "pro.fallback.buyUnpriced" = "Desbloquear";
 "pro.fallback.loading" = "A perguntar à loja…";
 "pro.fallback.unavailable" = "A loja não está a responder neste momento. Vê a tua ligação e tenta outra vez.";
 "pro.fallback.retry" = "Tentar de novo";
-"pro.fallback.benefit.one" = "Canta ao contrário até os vizinhos se queixarem";
+"pro.fallback.benefit.one" = "Filma-te a dobrar com a câmara da cabine";
 "pro.fallback.benefit.two" = "Dobra todas as cenas e traz as tuas";
 "pro.fallback.benefit.three" = "Exporta as tuas gravações e partilha o estrago";
 "pro.fallback.oneTime" = "Um pagamento. Não é uma subscrição.";
@@ -314,6 +317,12 @@
 "pro.fallback.subscribe" = "Subscrever por %@";
 "pro.fallback.renews" = "Renova-se automaticamente até cancelares. Cancela quando quiseres nas definições da tua Conta Apple.";
 "pro.fallback.terms" = "Termos de utilização";
+
+// MARK: - Review banner
+"review.banner.title" = "Obrigado por passares para o Pro";
+"review.banner.message" = "O Dubloon é feito por uma só pessoa em Zurique, e é pelas avaliações que novos jogadores o encontram. Se estás a gostar, umas palavras na App Store significariam muito.";
+"review.banner.rate" = "Escrever uma avaliação";
+"review.banner.later" = "Agora não";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Bem-vindo ao clube";

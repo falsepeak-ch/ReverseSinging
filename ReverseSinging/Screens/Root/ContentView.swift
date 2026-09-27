@@ -8,7 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var viewModel = AppViewModel()
+    @StateObject private var viewModel: AppViewModel
+
+    /// - Parameter app: the app-wide state, when something outside this view shares it. The
+    ///   Mac's Settings window does; the iPhone's root owns its own.
+    init(app: AppViewModel? = nil) {
+        _viewModel = StateObject(wrappedValue: app ?? AppViewModel())
+    }
     @Environment(\.scenePhase) private var scenePhase
 
     /// Nil until the first activation, so a cold launch counts as an open too.

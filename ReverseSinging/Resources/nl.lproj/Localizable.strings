@@ -219,6 +219,7 @@
 "main.button.back" = "Terug";
 "main.mode.reverse.subtitle" = "Neem op, draai om en zing het gebrabbel";
 "main.mode.dub.subtitle" = "Leg je stem in andermans mond";
+"main.mode.free" = "Gratis";
 "dub.speakerAccessibility" = "Gezegd door %@";
 "dub.cast" = "Cast";
 "dub.referenceTrack" = "Referentie";
@@ -247,6 +248,8 @@
 "dubShare.unknownSource" = "Deze scène heb je zelf meegebracht, dus jij weet waar hij vandaan komt en wat je ermee mag.";
 "dubShare.responsibility" = "Waar hij belandt is aan jou, dus volg de auteursrechtregels waar jij woont.";
 "dubShare.confirm" = "Video exporteren";
+"dubShare.share" = "Deel…";
+"dubShare.save" = "Bewaar…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Je eerste scènes klaarzetten…";
@@ -275,10 +278,10 @@
 "pro.trial.daysLeft" = "Nog %d dagen";
 "pro.trial.oneDayLeft" = "Laatste dag";
 "pro.trial.over" = "Je gratis proefperiode is voorbij";
-"pro.locked.title" = "Neem Dubloon Pro om te spelen";
+"pro.locked.title" = "Neem Dubloon Pro om te dubben";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Dubloon ontgrendelen";
-"pro.unlock.subtitle" = "Beide spellen, elke scène, geen grenzen.";
+"pro.unlock.subtitle" = "Elke scène, Booth Cam en exports. Achterstevoren zingen blijft gratis.";
 "pro.owned.title" = "Dubloon is van jou";
 "pro.owned.subtitle" = "Dank je. Elke scène, elke take, geen plafond.";
 "pro.manage.title" = "Aankoop beheren";
@@ -297,15 +300,15 @@
 "pro.error.generic" = "De store gaf geen antwoord. Probeer het zo nog eens.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Dubloon ontgrendelen";
-"pro.fallback.message" = "Je gratis proefperiode is voorbij. Ontgrendel Dubloon om beide spellen open te houden.";
-"pro.fallback.message.beforeExpiry" = "Ontgrendel Dubloon om beide spellen open te houden.";
-"pro.fallback.message.noTrial" = "Ontgrendel Dubloon om beide spellen te openen.";
+"pro.fallback.message" = "Je gratis proefperiode is voorbij. Ontgrendel Dubloon om te blijven dubben.";
+"pro.fallback.message.beforeExpiry" = "Ontgrendel Dubloon om te blijven dubben.";
+"pro.fallback.message.noTrial" = "Ontgrendel Dubloon om elke scène te dubben.";
 "pro.fallback.buy" = "Ontgrendel voor %@";
 "pro.fallback.buyUnpriced" = "Ontgrendelen";
 "pro.fallback.loading" = "We vragen het de store…";
 "pro.fallback.unavailable" = "De store reageert nu niet. Check je verbinding en probeer het opnieuw.";
 "pro.fallback.retry" = "Opnieuw proberen";
-"pro.fallback.benefit.one" = "Achterstevoren zingen tot de buren klagen";
+"pro.fallback.benefit.one" = "Film jezelf in de cabine met Booth Cam";
 "pro.fallback.benefit.two" = "Elke scène dubben, en je eigen meenemen";
 "pro.fallback.benefit.three" = "Je takes exporteren en de schade delen";
 "pro.fallback.oneTime" = "Eén betaling. Geen abonnement.";
@@ -314,6 +317,12 @@
 "pro.fallback.subscribe" = "Abonneer voor %@";
 "pro.fallback.renews" = "Wordt automatisch verlengd tot je opzegt. Zeg op wanneer je wilt via de instellingen van je Apple Account.";
 "pro.fallback.terms" = "Gebruiksvoorwaarden";
+
+// MARK: - Review banner
+"review.banner.title" = "Bedankt dat je voor Pro hebt gekozen";
+"review.banner.message" = "Dubloon wordt gemaakt door één persoon in Zürich, en via reviews vinden nieuwe spelers het. Als je ervan geniet, zouden een paar woorden in de App Store veel betekenen.";
+"review.banner.rate" = "Schrijf een review";
+"review.banner.later" = "Niet nu";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Welkom bij de club";

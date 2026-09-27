@@ -219,6 +219,7 @@
 "main.button.back" = "Zpět";
 "main.mode.reverse.subtitle" = "Nahraj, otoč a zazpívej tu hatmatilku";
 "main.mode.dub.subtitle" = "Vlož svůj hlas do cizích úst";
+"main.mode.free" = "Zdarma";
 "dub.speakerAccessibility" = "Říká %@";
 "dub.cast" = "Obsazení";
 "dub.referenceTrack" = "Předloha";
@@ -247,6 +248,8 @@
 "dubShare.unknownSource" = "Tuhle scénu sis přinesl sám, takže víš, odkud je a co s ní smíš dělat.";
 "dubShare.responsibility" = "Kam to poputuje, je na tobě, tak se drž autorských pravidel tam, kde žiješ.";
 "dubShare.confirm" = "Exportovat video";
+"dubShare.share" = "Sdílet…";
+"dubShare.save" = "Uložit…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Chystáme tvoje první scény…";
@@ -275,10 +278,10 @@
 "pro.trial.daysLeft" = "Zbývá %d dní";
 "pro.trial.oneDayLeft" = "Poslední den";
 "pro.trial.over" = "Tvoje zkušební doba skončila";
-"pro.locked.title" = "Pro hraní si pořiď Dubloon Pro";
+"pro.locked.title" = "Pro dabování si pořiď Dubloon Pro";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Odemknout Dubloon";
-"pro.unlock.subtitle" = "Obě hry, všechny scény, bez omezení.";
+"pro.unlock.subtitle" = "Všechny scény, Booth Cam a exporty. Zpívání pozpátku zůstává zdarma.";
 "pro.owned.title" = "Dubloon je tvůj";
 "pro.owned.subtitle" = "Díky. Každá scéna, každý pokus, bez stropu.";
 "pro.manage.title" = "Spravovat nákup";
@@ -297,15 +300,15 @@
 "pro.error.generic" = "Obchod neodpověděl. Zkus to za chvíli.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Odemknout Dubloon";
-"pro.fallback.message" = "Tvoje zkušební doba skončila. Odemkni Dubloon a obě hry zůstanou otevřené.";
-"pro.fallback.message.beforeExpiry" = "Odemkni Dubloon a obě hry zůstanou otevřené.";
-"pro.fallback.message.noTrial" = "Odemkni Dubloon a otevři obě hry.";
+"pro.fallback.message" = "Tvoje zkušební doba skončila. Odemkni Dubloon a dabuj dál.";
+"pro.fallback.message.beforeExpiry" = "Odemkni Dubloon a dabuj dál.";
+"pro.fallback.message.noTrial" = "Odemkni Dubloon a nadabuj každou scénu.";
 "pro.fallback.buy" = "Odemknout za %@";
 "pro.fallback.buyUnpriced" = "Odemknout";
 "pro.fallback.loading" = "Ptáme se obchodu…";
 "pro.fallback.unavailable" = "Obchod teď neodpovídá. Zkontroluj připojení a zkus to znovu.";
 "pro.fallback.retry" = "Zkusit znovu";
-"pro.fallback.benefit.one" = "Zpívej pozpátku, dokud to sousedi vydrží";
+"pro.fallback.benefit.one" = "Nafilmuj se v kabině s Booth Cam";
 "pro.fallback.benefit.two" = "Nadabuj každou scénu a přines si vlastní";
 "pro.fallback.benefit.three" = "Exportuj své pokusy a poděl se o škody";
 "pro.fallback.oneTime" = "Jedna platba. Žádné předplatné.";
@@ -314,6 +317,12 @@
 "pro.fallback.subscribe" = "Předplatit za %@";
 "pro.fallback.renews" = "Obnovuje se automaticky, dokud ho nezrušíš. Zrušit ho můžeš kdykoli v nastavení účtu Apple.";
 "pro.fallback.terms" = "Podmínky použití";
+
+// MARK: - Review banner
+"review.banner.title" = "Díky za přechod na Pro";
+"review.banner.message" = "Dubloon dělá jeden člověk v Curychu a právě díky recenzím ho nacházejí noví hráči. Jestli tě baví, pár slov v App Store by hodně znamenalo.";
+"review.banner.rate" = "Napsat recenzi";
+"review.banner.later" = "Teď ne";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Vítej v klubu";
