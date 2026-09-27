@@ -232,7 +232,7 @@ final class ImitationChallengeViewModel: ObservableObject {
 
     private func beginRecording() {
         // The count ran out while the user was in another app, which can't open the mic.
-        guard AppActivity.isActive, recorder.canStartRecording() else {
+        guard AppActivity.canOpenMicrophone, recorder.canStartRecording() else {
             phase = score == nil ? .ready : .result
             return
         }

@@ -12,13 +12,17 @@ import UIKit
 import AppKit
 #endif
 
-/// Whether the app is the one in front, which is when it may open the microphone.
+/// Whether the microphone may be opened right now.
 enum AppActivity {
-    static var isActive: Bool {
+    /// On the iPhone only an app in the foreground can open the mic, so a count-in that runs
+    /// out after the user switched apps must not try. A Mac app records from behind another
+    /// window, with the menu bar's mic indicator lit, so clicking away mid count-in must not
+    /// silently throw the take away.
+    static var canOpenMicrophone: Bool {
         #if os(iOS)
         UIApplication.shared.applicationState == .active
         #else
-        NSApp.isActive
+        true
         #endif
     }
 }

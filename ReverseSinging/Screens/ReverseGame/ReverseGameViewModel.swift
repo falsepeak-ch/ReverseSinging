@@ -197,7 +197,7 @@ final class ReverseGameViewModel: ObservableObject {
     private func beginRecording() {
         guard recorder.canStartRecording() else { return }
         // The slate ran while the user switched apps; an inactive app cannot open the mic.
-        guard AppActivity.isActive else { return }
+        guard AppActivity.canOpenMicrophone else { return }
 
         do {
             SoundManager.shared.setMicrophoneOpen(true)
