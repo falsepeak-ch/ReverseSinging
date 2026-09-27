@@ -1,4 +1,6 @@
-Mikrofon se teď rozjede pokaždé.
+Třetí hra a zpívání pozpátku je teď zdarma.
 
-OPRAVY
-• Mikrofon na některých iPhonech odmítal spustit záběr. Teď se rozjede hned místo zobrazení chyby
+NOVINKY
+• Napodobování zvuků: poslechni si zvuk, napodob ho a dostaň verdikt s razítkem za rytmus, výšku tónu a barvu. Pak z pokusu udělej video
+• Zpívání pozpátku je zdarma pro všechny
+• Dubloon Pro teď odemyká i aplikaci pro Mac, se stejným účtem Apple

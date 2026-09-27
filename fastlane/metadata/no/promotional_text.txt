@@ -1,1 +1,1 @@
-Nytt i 1.6.0: mikrofonen går i gang med en gang ved hvert opptak. Film deg selv mens du dubber med Booth Cam. På 21 språk.
+Nytt i 1.7.0: Lydimitasjon, et tredje spill. Etterlign en lyd, få en dom, del videoen. Og baklengssang er nå gratis for alle.

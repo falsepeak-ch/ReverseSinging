@@ -1,4 +1,4 @@
-Dubloon jsou dvě hlasové hry v jedné aplikaci a ani jedna nepotřebuje nic víc než tvůj mikrofon.
+Dubloon jsou tři hlasové hry v jedné aplikaci a žádná z nich nepotřebuje nic víc než tvůj mikrofon.
 
 DABING FILMOVÉ SCÉNY
 
@@ -32,12 +32,19 @@ Původní hra. Nahraj písničku a Dubloon ji otočí. Zazpívej obrácenou verz
 • Dvě rozhraní: velká jednoduchá tlačítka, nebo celý průběh vlny se smyčkou, rychlostí a výškou tónu
 • Ulož si nejlepší pokusy a vracej se k nim
 
+NAPODOBOVÁNÍ ZVUKŮ
+
+Poslechni si zvuk a pak ho udělej sám. Štěkající pes, kohout, klakson, laser. Dubloon si poslechne tvůj pokus, posoudí jeho rytmus, výšku tónu a barvu vůči originálu a opatří ho razítkem s verdiktem. Překonej svůj rekord a pak z pokusu udělej video ke sdílení.
+
+• 24 zvuků: zvířata, klaksony a alarmy, kreslené efekty a lidské zvuky
+• Booth Cam natočí tvůj obličej uprostřed napodobování, pokud chceš
+
 SOUKROMÉ OD ZÁKLADU
 
 Všechno se děje v tomhle zařízení. Tvoje nahrávky, tvoje pokusy, záběry z kabiny i exportované dabingy ho nikdy neopustí. Žádný účet, žádná registrace, žádné reklamy, nic k nahrání. Aplikace sbírá anonymní statistiky používání, aby věděla, co postavit dál — nikdy obsah nahrávky.
 
 CO TO STOJÍ
 
-Zpívání pozpátku je zdarma. Dubloon Pro otevře dabing filmových scén, Booth Cam a exporty, nic není zadržené, jednorázovým nákupem nebo předplatným.
+Zpívání pozpátku je zdarma. Dubloon Pro otevře dabing filmových scén, napodobování zvuků, Booth Cam a exporty, nic není zadržené, jednorázovým nákupem nebo předplatným.
 
 Postaveno ve Švýcarsku. Ručně vyrobeno v Curychu.

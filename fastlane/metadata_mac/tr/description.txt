@@ -1,4 +1,8 @@
-Dubloon tek uygulamada iki ses oyunu, ve ikisinin de mikrofonundan başka hiçbir şeye ihtiyacı yok.
+Dubloon tek uygulamada üç ses oyunu, ve hiçbirinin mikrofonundan başka bir şeye ihtiyacı yok.
+
+MAC İÇİN YAPILDI
+
+Büyük ekrana taşınmış bir telefon uygulaması değil, bir kurgu stüdyosu. Oyunların ve sahnelerin bir kenar çubuğunda durur. Bir sahne açıldığında replikler bir listede, görüntü bir izleyicide, her replik ve çekim bir zaman çizelgesinde, ayrıntılar da bir denetçide yer alır. Hepsi klavyeden de yapılır: kaydetmek için R, oynatmak için boşluk tuşu, replikler arasında geçmek için ok tuşları.
 
 FİLM SAHNESİ SESLENDİRME
 
@@ -10,7 +14,6 @@ Bir sahne yükle ve kendin seslendir. Dubloon sana orijinal repliği dinletir, g
 • Orijinali aşar aşmaz kehribar rengine dönen bir tempo çubuğu
 • Üst üste binen diyaloglar ayrı kanallarda mikslenir, yani aynı anda konuşan iki kişi gerçekten öyle duyulur
 • Orijinali izle, kendi seslendirmeni dinle ya da tüm sahneyi video olarak dışa aktar
-• Kaydetmek için boşluk tuşu, replikler arasında geçmek için ok tuşları
 
 BOOTH CAM
 
@@ -30,8 +33,15 @@ TERSTEN ŞARKI
 
 İlk oyun. Bir şarkı kaydet, Dubloon onu ters çevirsin. Duyduğun ters sürümü söyle, uygulama da senin çekimini geri çevirsin. Tutturduysan ortaya gerçek şarkıyı söylediğin bir kayıt çıkar. Ne kadar yaklaştığını puanlar.
 
-• İki arayüz: kocaman basit düğmeler ya da döngü, hız ve perde ile tam dalga formu
+• Şarkın, tersi ve iki çekimin dört kanalda dizili; döngü, hız ve perde ile
 • En iyi çekimlerini kaydet ve onlara geri dön
+
+SES TAKLİDİ
+
+Bir sesi dinle, sonra kendin çıkar. Havlayan bir köpek, bir horoz, bir araba kornası, bir lazer. Dubloon denemeni dinler, ritmini, perdesini ve tınısını gerçeğiyle karşılaştırır ve üzerine hükmünü damgalar. Rekorunu kır, sonra denemeni paylaşmak için videoya dönüştür.
+
+• 24 ses: hayvanlar, kornalar ve alarmlar, çizgi film efektleri ve insan sesleri
+• İstersen Booth Cam taklit ederken yüzünü çeker
 
 TASARIMI GEREĞİ ÖZEL
 
@@ -39,6 +49,6 @@ Her şey bu Mac'te olur. Kayıtların, çekimlerin, kabin görüntülerin ve dı
 
 NE KADAR
 
-Tersten şarkı ücretsiz. Dubloon Pro film sahnesi seslendirmeyi, Booth Cam'i ve dışa aktarmayı açar, hiçbir şey saklanmadan; tek seferlik satın alma ya da abonelikle. iPhone'unda zaten satın aldın mı? Aynı Apple Hesabı ile burada da açılır.
+Tersten şarkı ücretsiz. Dubloon Pro film sahnesi seslendirmeyi, ses taklidini, Booth Cam'i ve dışa aktarmayı açar, hiçbir şey saklanmadan; tek seferlik satın alma ya da abonelikle. iPhone'unda zaten satın aldın mı? Aynı Apple Hesabı ile burada da açılır.
 
 İsviçre'de yapıldı. Zürih'te elde üretildi.

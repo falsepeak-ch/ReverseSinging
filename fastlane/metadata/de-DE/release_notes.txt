@@ -1,4 +1,6 @@
-Das Mikrofon läuft jetzt jedes Mal los.
+Ein drittes Spiel, und Rückwärtssingen ist jetzt kostenlos.
 
-FEHLERBEHEBUNGEN
-• Das Mikrofon verweigerte auf manchen iPhones den Start einer Aufnahme. Jetzt läuft es sofort los, statt einen Fehler zu zeigen
+NEU
+• Geräusche imitieren: Hör dir ein Geräusch an, mach es nach und hol dir ein gestempeltes Urteil zu Rhythmus, Tonhöhe und Klangfarbe. Dann mach aus dem Versuch ein Video
+• Rückwärtssingen ist für alle kostenlos
+• Dubloon Pro schaltet jetzt auch die Mac-App frei, mit demselben Apple Account

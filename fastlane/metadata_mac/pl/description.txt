@@ -1,4 +1,8 @@
-Dubloon to dwie głosowe gry w jednej aplikacji, a żadna z nich nie potrzebuje niczego poza twoim mikrofonem.
+Dubloon to trzy głosowe gry w jednej aplikacji, a żadna z nich nie potrzebuje niczego poza twoim mikrofonem.
+
+STWORZONE DLA MACA
+
+Studio montażowe, a nie aplikacja z telefonu na dużym ekranie. Gry i sceny są na pasku bocznym. Scena otwiera się z kwestiami na liście, obrazem w podglądzie, każdą kwestią i podejściem na osi czasu i szczegółami w inspektorze. Wszystko działa też z klawiatury: R nagrywa, spacja odtwarza, strzałki przenoszą między kwestiami.
 
 DUBBING SCENY Z FILMU
 
@@ -10,7 +14,6 @@ Wczytaj scenę i zdubbinguj ją sam. Dubloon odtwarza oryginalną kwestię, poka
 • Pasek tempa, który robi się bursztynowy w chwili, gdy przekraczasz oryginał
 • Nakładające się dialogi miksowane są na osobnych ścieżkach, więc dwie osoby mówiące jednocześnie tak właśnie brzmią
 • Obejrzyj oryginał, odsłuchaj swój dubbing albo wyeksportuj całą scenę jako wideo
-• Spacja nagrywa, strzałki przenoszą między kwestiami
 
 BOOTH CAM
 
@@ -30,8 +33,15 @@ Dalej półkę zapełniasz sam. Poza tymi dwiema Dubloon nie zawiera ani nie hos
 
 Pierwotna gra. Nagraj piosenkę, a Dubloon ją odwróci. Zaśpiewaj odwróconą wersję, którą słyszysz, a aplikacja odwróci twoje podejście z powrotem. Jeśli trafiłeś, wychodzisz śpiewając prawdziwą piosenkę. Dostajesz punkty za to, jak blisko byłeś.
 
-• Dwa interfejsy: duże proste przyciski albo pełny przebieg fali z pętlą, tempem i wysokością dźwięku
+• Twoja piosenka, jej odwrócona wersja i oba twoje podejścia rozłożone na cztery ścieżki, z pętlą, tempem i wysokością dźwięku
 • Zapisuj najlepsze podejścia i wracaj do nich
+
+NAŚLADOWANIE DŹWIĘKÓW
+
+Usłysz dźwięk, a potem zrób go sam. Szczekający pies, kogut, klakson, laser. Dubloon słucha twojego podejścia, ocenia jego rytm, wysokość i barwę względem oryginału i przybija na nim pieczątkę z werdyktem. Pobij swój rekord, a potem zamień podejście w wideo do udostępnienia.
+
+• 24 dźwięki: zwierzęta, klaksony i alarmy, efekty z kreskówek i ludzkie odgłosy
+• Booth Cam nagrywa twoją twarz w trakcie naśladowania, jeśli chcesz
 
 PRYWATNE Z ZAŁOŻENIA
 
@@ -39,6 +49,6 @@ Wszystko dzieje się na tym Macu. Twoje nagrania, twoje podejścia, materiał z 
 
 ILE TO KOSZTUJE
 
-Śpiewanie od tyłu jest za darmo. Dubloon Pro otwiera dubbing scen z filmów, Booth Cam i eksport, nic nie jest przytrzymane, jako jednorazowy zakup albo subskrypcja. Kupiłeś go już na iPhonie? Tu też się odblokuje, na tym samym koncie Apple.
+Śpiewanie od tyłu jest za darmo. Dubloon Pro otwiera dubbing scen z filmów, naśladowanie dźwięków, Booth Cam i eksport, nic nie jest przytrzymane, jako jednorazowy zakup albo subskrypcja. Kupiłeś go już na iPhonie? Tu też się odblokuje, na tym samym koncie Apple.
 
 Zbudowane w Szwajcarii. Ręcznie złożone w Zurychu.

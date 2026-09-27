@@ -1,4 +1,6 @@
-Mikrofoni käynnistyy nyt joka kerta.
+Kolmas peli, ja takaperinlaulu on nyt ilmaista.
 
-KORJAUKSET
-• Mikrofoni kieltäytyi aloittamasta ottoa joillakin iPhoneilla. Nyt se käynnistyy heti virheen näyttämisen sijaan
+UUTTA
+• Äänten matkiminen: kuuntele ääni, matki sitä ja saat leimatun tuomion rytmistäsi, sävelkorkeudestasi ja sointiväristäsi. Tee yrityksestä sitten video
+• Takaperinlaulu on ilmaista kaikille
+• Dubloon Pro avaa nyt myös Mac-sovelluksen samalla Apple-tilillä

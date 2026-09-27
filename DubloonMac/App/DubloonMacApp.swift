@@ -103,6 +103,7 @@ struct MacRootView: View {
             .onAppear { MacKeyRouter.install(workspace: workspace) }
             #if DEBUG
             .task { await MacE2ERunner.runIfRequested(app: app, workspace: workspace) }
+            .task { await MacShotPoser.runIfRequested(workspace: workspace) }
             #endif
             .preferredColorScheme(.dark)
 

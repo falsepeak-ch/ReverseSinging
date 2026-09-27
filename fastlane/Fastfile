@@ -356,6 +356,14 @@ platform :mac do
     )
   end
 
+  # build_mac_app leaves DSYM_OUTPUT_PATH unset, so the zip it writes beside the app is used.
+  def mac_dsym_path
+    lane_context[SharedValues::DSYM_OUTPUT_PATH] ||
+      File.expand_path("../build/mac/Dubloon.app.dSYM.zip", __dir__).tap do |path|
+        UI.user_error!("No dSYM at #{path}") unless File.exist?(path)
+      end
+  end
+
   desc "Archive the Mac app and upload it to App Store Connect. Never submits for review."
   lane :release do
     build_mac_app(
@@ -371,7 +379,7 @@ platform :mac do
     # addresses. The Firebase checkout lives under this lane's own derived data path.
     sh(
       "../build/MacDerivedData/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols",
-      "-gsp", GSP_PATH, "-p", "mac", lane_context[SharedValues::DSYM_OUTPUT_PATH]
+      "-gsp", GSP_PATH, "-p", "mac", mac_dsym_path
     )
     upload_to_app_store(
       api_key: @api_key,

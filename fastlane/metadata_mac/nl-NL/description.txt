@@ -1,4 +1,8 @@
-Dubloon zijn twee stemspellen in één app, en geen van beide heeft meer nodig dan je microfoon.
+Dubloon zijn drie stemspellen in één app, en geen van alle heeft meer nodig dan je microfoon.
+
+GEMAAKT VOOR DE MAC
+
+Een montagesuite, geen telefoonapp op een groot scherm. Spellen en scènes staan in een zijbalk. Een scène opent met de zinnen in een lijst, het beeld in een viewer, elke zin en take op een tijdlijn en de details in een inspector. Alles kan ook met het toetsenbord: R neemt op, spatie speelt af, de pijltoetsen gaan van zin naar zin.
 
 FILMSCÈNE DUBBEN
 
@@ -10,7 +14,6 @@ Laad een scène en dub hem zelf. Dubloon speelt je de originele zin voor, laat h
 • Een tempobalk die amber wordt zodra je over het origineel heen loopt
 • Overlappende dialoog wordt op aparte sporen gemixt, dus twee mensen die door elkaar praten klinken ook zo
 • Bekijk het origineel, luister je dub terug, of exporteer de hele scène als video
-• Spatiebalk om op te nemen, pijltoetsen om van zin naar zin te gaan
 
 BOOTH CAM
 
@@ -30,8 +33,15 @@ ACHTERSTEVOREN ZINGEN
 
 Het oorspronkelijke spel. Neem een liedje op en Dubloon draait het om. Zing de omgekeerde versie die je hoort, en de app draait jouw poging terug. Klopt het, dan kom je er zingend uit met het echte liedje. Hij geeft een score voor hoe dichtbij je kwam.
 
-• Twee interfaces: grote simpele knoppen, of de volledige golfvorm met herhaling, snelheid en toonhoogte
+• Je liedje, het omgekeerde en je twee takes op vier sporen, met herhaling, snelheid en toonhoogte
 • Bewaar je beste takes en kom erop terug
+
+GELUIDEN NADOEN
+
+Hoor een geluid en maak het dan zelf. Een blaffende hond, een haan, een autotoeter, een laser. Dubloon luistert naar je poging, beoordeelt ritme, toonhoogte en klank tegen het echte geluid, en stempelt er een oordeel op. Verbeter je record en deel je poging daarna als video.
+
+• 24 geluiden: dieren, toeters en alarmen, tekenfilmeffecten en menselijke geluiden
+• Booth Cam filmt je gezicht midden in je imitatie, als je wilt
 
 PRIVÉ VAN ONTWERP
 
@@ -39,6 +49,6 @@ Alles gebeurt op deze Mac. Je opnames, je takes, je cabinebeelden en je geëxpor
 
 WAT HET KOST
 
-Achterstevoren zingen is gratis. Dubloon Pro opent het dubben van filmscènes, Booth Cam en exports, niets achtergehouden, als eenmalige aankoop of als abonnement. Al gekocht op je iPhone? Dan is het hier ook ontgrendeld, met hetzelfde Apple Account.
+Achterstevoren zingen is gratis. Dubloon Pro opent het dubben van filmscènes, het nadoen van geluiden, Booth Cam en exports, niets achtergehouden, als eenmalige aankoop of als abonnement. Al gekocht op je iPhone? Dan is het hier ook ontgrendeld, met hetzelfde Apple Account.
 
 Gemaakt in Zwitserland. Met de hand gemaakt in Zürich.

@@ -1,1 +1,1 @@
-Neu in 1.6.0: Das Mikrofon startet bei jeder Aufnahme sofort. Film dich beim Synchronisieren mit der Booth Cam. In 21 Sprachen.
+Neu in 1.7.0: Geräusche imitieren, ein drittes Spiel. Mach ein Geräusch nach, hol dir ein Urteil, teil das Video. Und Rückwärtssingen ist jetzt für alle kostenlos.

@@ -1,4 +1,8 @@
-Dubloon són dos jocs de veu en una sola app, i cap dels dos necessita res més que el teu micròfon.
+Dubloon són tres jocs de veu en una sola app, i cap d'ells necessita res més que el teu micròfon.
+
+FETA PER AL MAC
+
+Una suite d'edició, no una app de mòbil en una pantalla gran. Els teus jocs i escenes viuen en una barra lateral. Una escena s'obre amb les línies en una llista, la imatge en un visor, cada línia i cada presa en una línia de temps, i els detalls en un inspector. I tot funciona amb el teclat: R per gravar, barra espaiadora per reproduir i les fletxes per moure't entre línies.
 
 DOBLATGE D'ESCENA
 
@@ -10,7 +14,6 @@ Carrega una escena i dobla-la tu. Dubloon et reprodueix la línia original, t'en
 • Una barra de ritme que es posa ambre així que passes de l'original
 • Els diàlegs superposats es mesclen en pistes separades, així dos personatges parlant alhora sonen com toca
 • Mira l'original, escolta el teu doblatge o exporta l'escena sencera en vídeo
-• Barra espaiadora per gravar, tecles de fletxa per moure't entre línies
 
 CÀMERA DE CABINA
 
@@ -30,8 +33,15 @@ CANT INVERTIT
 
 El joc original. Grava una cançó i Dubloon la inverteix. Canta la versió del revés que sents i l'app gira el teu intent: si l'has clavat, acabes cantant la cançó de debò. Et puntua com de a prop has estat.
 
-• Dues interfícies: botons grossos i senzills, o l'ona completa amb bucle, velocitat i to
+• La teva cançó, la versió invertida i les teves dues preses en quatre pistes, amb bucle, velocitat i to
 • Desa les teves millors preses i torna-hi
+
+IMITACIÓ DE SONS
+
+Escolta un so i fes-lo tu. Un gos que borda, un gall, un clàxon, un làser. Dubloon escolta el teu intent, en jutja el ritme, el to i el timbre comparant-lo amb el so real, i hi estampa un veredicte. Supera el teu rècord i després converteix l'intent en un vídeo per compartir.
+
+• 24 sons: animals, clàxons i alarmes, efectes de dibuixos animats i sorolls humans
+• La càmera de cabina et grava la cara enmig de la imitació, si et ve de gust
 
 PRIVAT DE FÀBRICA
 
@@ -39,6 +49,6 @@ Tot passa en aquest Mac. Les teves gravacions, les teves preses, el material de 
 
 QUANT COSTA
 
-El cant invertit és gratuït. Dubloon Pro obre el doblatge d'escenes, la càmera de cabina i les exportacions, sense retallades, amb una compra única o amb una subscripció. Ja el vas comprar a l'iPhone? Aquí també es desbloqueja, amb el mateix compte d'Apple.
+El cant invertit és gratuït. Dubloon Pro obre el doblatge d'escenes, la imitació de sons, la càmera de cabina i les exportacions, sense retallades, amb una compra única o amb una subscripció. Ja el vas comprar a l'iPhone? Aquí també es desbloqueja, amb el mateix compte d'Apple.
 
 Feta a Suïssa. Feta a mà a Zuric.
