@@ -240,7 +240,8 @@ final class ReverseStudioViewModel: ObservableObject {
     /// The next thing to do, in the words the iPhone's hint bar uses.
     var hint: String {
         guard !isArchived else { return session?.formattedDate ?? "" }
-        guard let session = game.appState.currentSession else { return Strings.Main.Tip.tapRecordToBegin }
+        // The iPhone's "Tap…" tips are left out: here it is a click or a key.
+        guard let session = game.appState.currentSession else { return Strings.Main.Tip.recordSongToReverse }
 
         switch game.appState.recordingState {
         case .recording:
@@ -248,12 +249,23 @@ final class ReverseStudioViewModel: ObservableObject {
                 ? Strings.Main.Tip.recordSingingAttempt
                 : Strings.Main.Tip.recordSongToReverse
         case .playing:
-            return Strings.Main.Tip.tapPlayToSwitch
+            return playingDescription
         default:
             if session.attemptRecording != nil { return Strings.Main.Tip.reRecordOrNewSession }
             if session.reversedRecording != nil { return Strings.Main.Tip.listenAndRecord }
             if session.originalRecording != nil { return Strings.Main.Tip.processingAudio }
-            return Strings.Main.Tip.tapRecordAudio
+            return Strings.Main.Tip.recordSongToReverse
+        }
+    }
+
+    /// Which recording is playing, in words.
+    private var playingDescription: String {
+        switch lanes.first(where: isPlaying)?.type {
+        case .original, .imported: Strings.Main.Subtitle.playOriginal
+        case .reversed: Strings.Main.Subtitle.playReversedOriginal
+        case .attempt: Strings.Main.Subtitle.playAttempt
+        case .reversedAttempt: Strings.Main.Subtitle.playReversedAttempt
+        case nil: Strings.Main.Tip.tapPlayToSwitch
         }
     }
 
