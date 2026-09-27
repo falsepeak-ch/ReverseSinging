@@ -91,9 +91,14 @@ final class DubPlayer: ObservableObject {
     ///
     /// Clamped: the session reports zero before it has ever been activated, and a wild figure
     /// from an unusual route should not be allowed to shove the picture half a second out.
-    private static func audibleDelay() -> TimeInterval {
+    private func audibleDelay() -> TimeInterval {
+        #if os(iOS)
         let session = AVAudioSession.sharedInstance()
         return min(max(0, session.outputLatency + session.ioBufferDuration), 0.5)
+        #else
+        // No session on the Mac; the output node knows its own device's latency.
+        return min(max(0, engine.outputNode.presentationLatency), 0.5)
+        #endif
     }
 
     /// How far ahead of "now" playback is scheduled to begin.
@@ -387,7 +392,7 @@ final class DubPlayer: ObservableObject {
         // Read per playback rather than cached: the user can change route between takes.
         playbackAnchor = DubPlaybackAnchor(
             offset: playbackStartOffset,
-            hostTime: hostTime + AVAudioTime.hostTime(forSeconds: Self.audibleDelay())
+            hostTime: hostTime + AVAudioTime.hostTime(forSeconds: audibleDelay())
         )
         currentTime = playbackStartOffset
         isPlaying = true

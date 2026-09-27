@@ -14,7 +14,7 @@ enum HomePaywallSource: String, Identifiable {
     case trialBadge = "trial_badge"
     /// The note that says the trial is over.
     case trialEndedCard = "trial_ended_card"
-    /// A game that is disabled because the trial is over.
+    /// A paid game that is disabled because the trial is over.
     case lockedGame = "locked_game"
     /// A dub pack opened from Files or AirDrop while the games are disabled.
     case lockedImport = "locked_import"
@@ -28,8 +28,11 @@ enum HomePaywallSource: String, Identifiable {
 /// the early-adopter welcome and the Booth Cam announcement, is on screen. Never both at once.
 ///
 /// It is also where a closed free window is enforced when the hard paywall is off: every way
-/// into a game asks `canEnterGames(orShowPaywallFrom:)`, which opens the paywall instead once
-/// the trial is over.
+/// into a game asks `canEnter(_:orShowPaywallFrom:)`, which opens the paywall instead once the
+/// trial is over. Reverse singing is free unless the console says otherwise, so only dubbing
+/// is ever locked by default.
+///
+/// And once someone has bought Dubloon Pro, it is where they are asked for a review.
 @MainActor
 final class HomeViewModel: ObservableObject {
 
@@ -46,6 +49,9 @@ final class HomeViewModel: ObservableObject {
     /// The Booth Cam note for people who updated, see `BoothCamAnnouncement`.
     @Published var isBoothAnnouncementPresented = false
 
+    /// Mirrors `ReviewBanner.isDue`, which is not observable, so answering it hides the banner.
+    @Published private var isReviewBannerDue: Bool
+
     /// The trial counter lives on the menu because this is the screen every session starts on,
     /// and it is the only place in the app that mentions the trial unprompted. Its changes are
     /// passed on as this model's own.
@@ -56,8 +62,13 @@ final class HomeViewModel: ObservableObject {
     /// purchase, the library opens and takes the pack in, as it would have done.
     private var opensDubOnceUnlocked = false
 
-    init() {
+    private let reviewBanner: ReviewBanner
+    private var hasReportedReviewBannerShown = false
+
+    init(reviewBanner: ReviewBanner = .shared) {
         access = AccessController.shared
+        self.reviewBanner = reviewBanner
+        isReviewBannerDue = reviewBanner.isDue()
 
         access.objectWillChange
             .sink { [weak self] _ in self?.objectWillChange.send() }
@@ -71,11 +82,38 @@ final class HomeViewModel: ObservableObject {
 
     var trialDaysRemaining: Int? { access.trialDaysRemaining }
 
-    /// The trial is over and nothing was bought: the menu says so, and its games open the
+    /// The trial is over and nothing was bought: the menu says so, and its paid games open the
     /// paywall rather than themselves.
     var areGamesLocked: Bool { access.isLocked }
 
+    /// Whether this game is disabled right now.
+    func isLocked(_ mode: GameMode) -> Bool {
+        areGamesLocked && requiresPro(mode)
+    }
+
+    /// Whether this game stays open while the paid ones are locked, so the menu can say so.
+    func isFree(_ mode: GameMode) -> Bool {
+        areGamesLocked && !requiresPro(mode)
+    }
+
+    private func requiresPro(_ mode: GameMode) -> Bool {
+        switch mode {
+        case .reverse: !access.isReverseGameFree
+        case .dub: true
+        }
+    }
+
+    /// The locked card's headline. Saying a trial ended is only true if there was one: with
+    /// the console's trial length at zero, the lock is there from the first launch.
+    var lockedCardTitle: String {
+        access.hasTrial ? Strings.Pro.Trial.over : Strings.Pro.lockedTitle
+    }
+
     var shouldWelcomeEarlyAdopter: Bool { access.shouldWelcomeEarlyAdopter }
+
+    /// The thank-you note that asks for a review. Only for people who paid: an early adopter
+    /// got the app for nothing, and asking someone mid-trial is asking before they have decided.
+    var showsReviewBanner: Bool { access.isPro && isReviewBannerDue }
 
     // MARK: - Screen
 
@@ -91,19 +129,19 @@ final class HomeViewModel: ObservableObject {
     // MARK: - Navigation
 
     func open(_ mode: GameMode) {
-        guard canEnterGames(orShowPaywallFrom: .lockedGame) else { return }
+        guard canEnter(mode, orShowPaywallFrom: .lockedGame) else { return }
         path.append(mode)
     }
 
     func openDub() {
-        guard canEnterGames(orShowPaywallFrom: .lockedGame) else { return }
+        guard canEnter(.dub, orShowPaywallFrom: .lockedGame) else { return }
         path = [.dub]
     }
 
-    /// The one check every way into a game makes. While the trial is over it answers no and
-    /// opens the paywall, so a disabled game still does something when tapped.
-    private func canEnterGames(orShowPaywallFrom source: HomePaywallSource) -> Bool {
-        guard areGamesLocked else { return true }
+    /// The one check every way into a game makes. While the trial is over it answers no for a
+    /// paid game and opens the paywall, so a disabled game still does something when tapped.
+    private func canEnter(_ mode: GameMode, orShowPaywallFrom source: HomePaywallSource) -> Bool {
+        guard isLocked(mode) else { return true }
         showPaywall(from: source)
         return false
     }
@@ -119,7 +157,7 @@ final class HomeViewModel: ObservableObject {
         app.showDubLibrary = false
         // The pack stays pending on `app` either way: the library takes it in whenever it
         // next opens.
-        guard canEnterGames(orShowPaywallFrom: .lockedImport) else {
+        guard canEnter(.dub, orShowPaywallFrom: .lockedImport) else {
             opensDubOnceUnlocked = true
             return
         }
@@ -128,12 +166,12 @@ final class HomeViewModel: ObservableObject {
         path = [.dub]
     }
 
-    /// A trial that runs out with a game open closes the game; the menu is where the offer is.
-    /// Fed the new value rather than reading `access`, which has not changed yet when a
-    /// `@Published` sink fires.
+    /// A trial that runs out with a paid game open closes the game; the menu is where the offer
+    /// is. A free game carries on. Fed the new value rather than reading `access.isLocked`,
+    /// which has not changed yet when a `@Published` sink fires.
     private func accessStateDidChange(_ state: AccessState) {
         if state == .locked {
-            path = []
+            if path.contains(where: requiresPro) { path = [] }
         } else if opensDubOnceUnlocked {
             opensDubOnceUnlocked = false
             path = [.dub]
@@ -179,6 +217,27 @@ final class HomeViewModel: ObservableObject {
     func boothAnnouncementDidDisappear() {
         BoothCamAnnouncement.shared.markShown()
         presentEarlyAdopterWelcomeIfDue()
+    }
+
+    // MARK: - Review banner
+
+    /// Counted once per menu, not once per redraw.
+    func reviewBannerDidAppear() {
+        guard !hasReportedReviewBannerShown else { return }
+        hasReportedReviewBannerShown = true
+        reviewBanner.recordShown()
+    }
+
+    /// Where "Write a review" goes. The view opens it, so the tap stays a plain link.
+    func reviewBannerWentToStore() -> URL {
+        reviewBanner.recordWentToStore()
+        isReviewBannerDue = false
+        return ReviewBanner.writeReviewURL
+    }
+
+    func dismissReviewBanner() {
+        reviewBanner.recordDismissed()
+        isReviewBannerDue = false
     }
 
     // MARK: - Screenshots

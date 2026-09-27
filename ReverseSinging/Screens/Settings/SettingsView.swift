@@ -74,9 +74,9 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle(Strings.Settings.title)
-            .navigationBarTitleDisplayMode(.large)
+            .largeNavigationTitle()
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .rsTrailing) {
                     Button(action: {
                         HapticManager.shared.light()
                         dismiss()
@@ -98,6 +98,7 @@ struct SettingsView: View {
         // refund requests and the feedback survey. All of it is configured in the
         // dashboard, so the app supplies only the entry point and the reaction to
         // a restore that happened inside it.
+        #if os(iOS)
         .presentCustomerCenter(
             isPresented: $viewModel.isCustomerCenterPresented,
             restoreCompleted: { customerInfo in
@@ -105,6 +106,7 @@ struct SettingsView: View {
             },
             onDismiss: { viewModel.isCustomerCenterPresented = false }
         )
+        #endif
         .preferredColorScheme(preferredColorScheme)
     }
 
@@ -375,14 +377,14 @@ struct SettingsView: View {
                 } else if viewModel.isPro {
                     statusCard(
                         assetName: "settings-owned",
-                        title: Strings.Pro.ownedTitle,
+                        title: viewModel.ownedTitle,
                         subtitle: Strings.Pro.ownedSubtitle
                     )
 
                     settingsRow(
                         assetName: "settings-manage-purchase",
-                        title: Strings.Pro.manageTitle,
-                        subtitle: Strings.Pro.manageSubtitle
+                        title: viewModel.manageTitle,
+                        subtitle: viewModel.manageSubtitle
                     ) {
                         viewModel.openCustomerCenter()
                     }

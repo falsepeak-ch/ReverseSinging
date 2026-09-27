@@ -253,12 +253,24 @@ nonisolated private final class BoothCapture: NSObject, AVCaptureVideoDataOutput
     ///
     /// - Returns: whether there is a usable front camera to preview at all. False on a
     ///   device without one, and on the Simulator, which has no capture device to offer.
+    /// The camera facing the performer: the front camera on an iPhone, the one in the lid
+    /// (or whichever the system picks by default) on a Mac.
+    private static func boothCamera() -> AVCaptureDevice? {
+        #if os(iOS)
+        AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front)
+        #else
+        AVCaptureDevice.default(for: .video)
+        #endif
+    }
+
     private func configureIfNeeded() -> Bool {
         guard !isConfigured else { return true }
 
         // The one line that keeps this out of `AudioRecorder`'s way. Left at its default,
         // AVFoundation reconfigures the shared audio session when capture starts.
+        #if os(iOS)
         session.automaticallyConfiguresApplicationAudioSession = false
+        #endif
 
         session.beginConfiguration()
         defer { session.commitConfiguration() }
@@ -267,11 +279,7 @@ nonisolated private final class BoothCapture: NSObject, AVCaptureVideoDataOutput
         // one, and this roughly halves what a session costs on disk.
         session.sessionPreset = .hd1280x720
 
-        guard let camera = AVCaptureDevice.default(
-            .builtInWideAngleCamera,
-            for: .video,
-            position: .front
-        ), let input = try? AVCaptureDeviceInput(device: camera), session.canAddInput(input) else {
+        guard let camera = Self.boothCamera(), let input = try? AVCaptureDeviceInput(device: camera), session.canAddInput(input) else {
             return false
         }
         session.addInput(input)
@@ -282,10 +290,13 @@ nonisolated private final class BoothCapture: NSObject, AVCaptureVideoDataOutput
         session.addOutput(output)
 
         if let connection = output.connection(with: .video) {
-            // The app is portrait-locked, so the written file is too.
+            // The app is portrait-locked, so the written file is too. A Mac camera is
+            // already the right way up, and its clip stays landscape.
+            #if os(iOS)
             if connection.isVideoRotationAngleSupported(90) {
                 connection.videoRotationAngle = 90
             }
+            #endif
             // The preview is mirrored to taste (see `BoothCamPreference.mirrorsPreview`); the
             // recording never is, so a shirt with writing on it reads correctly to whoever
             // ends up watching the clip.

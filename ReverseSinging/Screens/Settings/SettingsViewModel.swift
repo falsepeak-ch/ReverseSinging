@@ -153,6 +153,19 @@ final class SettingsViewModel: ObservableObject {
 
     var isRestoring: Bool { access.isRestoring }
 
+    /// A subscriber does not own the app, and what they come to manage is the subscription.
+    var ownedTitle: String {
+        access.isSubscriber ? Strings.Pro.subscribedTitle : Strings.Pro.ownedTitle
+    }
+
+    var manageTitle: String {
+        access.isSubscriber ? Strings.Pro.manageSubscriptionTitle : Strings.Pro.manageTitle
+    }
+
+    var manageSubtitle: String {
+        access.isSubscriber ? Strings.Pro.manageSubscriptionSubtitle : Strings.Pro.manageSubtitle
+    }
+
     /// The trial counter, restated as a sentence, or the plain offer once it is over.
     var unlockSubtitle: String {
         guard let days = access.trialDaysRemaining else { return Strings.Pro.unlockSubtitle }
@@ -167,7 +180,16 @@ final class SettingsViewModel: ObservableObject {
 
     func openCustomerCenter() {
         AnalyticsManager.shared.trackCustomerCenterOpened()
+        #if os(iOS)
         isCustomerCenterPresented = true
+        #else
+        // RevenueCat's Customer Center is iOS only. On the Mac the App Store's own page is where
+        // subscriptions are changed and purchases looked up.
+        if let url = access.customerInfo?.managementURL
+            ?? URL(string: "https://apps.apple.com/account/subscriptions") {
+            openExternally(url)
+        }
+        #endif
     }
 
     /// A restore that happened inside RevenueCat's Customer Center.
@@ -192,7 +214,7 @@ final class SettingsViewModel: ObservableObject {
         AnalyticsManager.shared.trackCustomEvent(name: "privacy_policy_opened", parameters: nil)
 
         if let url = URL(string: "https://falsepeak.ch/privacy") {
-            UIApplication.shared.open(url)
+            openExternally(url)
         }
     }
 }

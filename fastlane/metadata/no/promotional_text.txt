@@ -1,1 +1,1 @@
-Nytt i 1.5.1: mange flere pakker fra fellesskapet lar seg åpne og spille, også .rar og .ogg. Film deg selv mens du dubber med Booth Cam.
+Nytt i 1.6.0: mikrofonen går i gang med en gang ved hvert opptak. Film deg selv mens du dubber med Booth Cam. På 21 språk.

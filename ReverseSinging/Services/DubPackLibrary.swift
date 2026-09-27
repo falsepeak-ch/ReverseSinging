@@ -9,7 +9,6 @@ import AVFoundation
 import Combine
 import DubPackKit
 import Foundation
-import UIKit
 
 @MainActor
 final class DubPackLibrary: ObservableObject {
@@ -295,10 +294,8 @@ final class DubPackLibrary: ObservableObject {
         // system suspended the app mid-encode and the video was lost with an "Operation
         // Interrupted"; with it the import gets the background time iOS allows, and a
         // conversion that still does not make it is kept for the next launch.
-        let backgroundTask = UIApplication.shared.beginBackgroundTask(withName: "dub_pack.import")
-        defer {
-            if backgroundTask != .invalid { UIApplication.shared.endBackgroundTask(backgroundTask) }
-        }
+        let work = LongRunningWork(name: "dub_pack.import")
+        defer { work.end() }
 
         let sourceExtension = url.pathExtension.lowercased()
 

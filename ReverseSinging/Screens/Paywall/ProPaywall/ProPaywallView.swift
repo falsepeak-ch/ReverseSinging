@@ -39,8 +39,8 @@ struct ProPaywallView: View {
         Group {
             if let offering = viewModel.offering {
                 PaywallView(offering: offering, displayCloseButton: viewModel.isDismissible)
-                    .onPurchaseCompleted { customerInfo in
-                        viewModel.purchaseCompleted(customerInfo)
+                    .onPurchaseCompleted { transaction, customerInfo in
+                        viewModel.purchaseCompleted(transaction, customerInfo)
                     }
                     .onRestoreCompleted { customerInfo in
                         viewModel.restoreCompleted(customerInfo)

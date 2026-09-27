@@ -37,9 +37,10 @@ final class PaywallFallbackViewModel: ObservableObject {
     /// is the one line on the screen that must not be able to say something the user can see
     /// is untrue.
     var headerMessage: String {
-        access.isLocked
+        guard access.isLocked else { return Strings.Pro.Fallback.messageBeforeExpiry }
+        return access.hasTrial
             ? Strings.Pro.Fallback.messageAfterExpiry
-            : Strings.Pro.Fallback.messageBeforeExpiry
+            : Strings.Pro.Fallback.messageNoTrial
     }
 
     // MARK: - Loading
@@ -56,8 +57,10 @@ final class PaywallFallbackViewModel: ObservableObject {
 
         // Try the offering first even here: the earlier failure may have been a
         // blip, and the offering is the source of truth for what is on sale.
+        // With one button to offer, the lifetime purchase comes first where the offering has
+        // it, then the yearly plan, rather than whichever package happens to be listed first.
         if let current = try? await Purchases.shared.offerings().current,
-           let package = current.availablePackages.first {
+           let package = current.lifetime ?? current.annual ?? current.availablePackages.first {
             product = package.storeProduct
             return
         }
@@ -69,6 +72,29 @@ final class PaywallFallbackViewModel: ObservableObject {
 
     func retry() {
         Task { await loadProduct(force: true) }
+    }
+
+    // MARK: - Wording
+
+    /// A subscription's price means nothing without its period, and Apple requires it on the button.
+    func buyTitle(for product: StoreProduct) -> String {
+        let price = product.localizedPriceString
+        guard product.productType == .autoRenewableSubscription else {
+            return String(format: Strings.Pro.Fallback.buy, price)
+        }
+        switch product.subscriptionPeriod?.unit {
+        case .month: return String(format: Strings.Pro.Fallback.subscribeMonthly, price)
+        case .year: return String(format: Strings.Pro.Fallback.subscribeYearly, price)
+        default: return String(format: Strings.Pro.Fallback.subscribe, price)
+        }
+    }
+
+    /// The line under the button. "Not a subscription" is only true of the lifetime purchase; a
+    /// subscription gets the renewal terms instead.
+    func purchaseNote(for product: StoreProduct) -> String {
+        product.productType == .autoRenewableSubscription
+            ? Strings.Pro.Fallback.renews
+            : Strings.Pro.Fallback.oneTime
     }
 
     // MARK: - Purchase
@@ -83,9 +109,17 @@ final class PaywallFallbackViewModel: ObservableObject {
         Task { await access.restore() }
     }
 
+    /// Apple's standard licence agreement, which is the one the app ships under. Required on any
+    /// screen that sells an auto-renewable subscription.
+    func openTermsOfUse() {
+        if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
+            openExternally(url)
+        }
+    }
+
     func openPrivacyPolicy() {
         if let url = URL(string: "https://falsepeak.ch/privacy") {
-            UIApplication.shared.open(url)
+            openExternally(url)
         }
     }
 }

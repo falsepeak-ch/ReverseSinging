@@ -173,6 +173,7 @@ struct MainViewSimple: View {
                 recordingLevel: viewModel.recordingLevel,
                 action: handleRecordToggle
             )
+            .macKeyboardShortcut(.space)
 
             // Button 2: Play Recorded (Green)
             LargeActionButton(
@@ -185,6 +186,7 @@ struct MainViewSimple: View {
                 recordingLevel: 0,
                 action: handlePlayOriginal
             )
+            .macKeyboardShortcut("p")
 
             // Button 3: Play Reverse (Blue)
             LargeActionButton(
@@ -197,6 +199,7 @@ struct MainViewSimple: View {
                 recordingLevel: 0,
                 action: handlePlayReversed
             )
+            .macKeyboardShortcut("b")
         }
     }
 

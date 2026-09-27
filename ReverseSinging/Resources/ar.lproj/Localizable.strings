@@ -219,6 +219,7 @@
 "main.button.back" = "رجوع";
 "main.mode.reverse.subtitle" = "سجّل، اقلب، وغنِّ الكلام غير المفهوم";
 "main.mode.dub.subtitle" = "ضع صوتك في فم شخص آخر";
+"main.mode.free" = "مجاني";
 "dub.speakerAccessibility" = "يقولها %@";
 "dub.cast" = "الشخصيات";
 "dub.referenceTrack" = "المرجع";
@@ -247,6 +248,8 @@
 "dubShare.unknownSource" = "هذا المشهد أحضرته بنفسك، فأنت تعرف من أين جاء وما المسموح به.";
 "dubShare.responsibility" = "أين ينتهي به المطاف أمر يخصك، فالتزم بقواعد حقوق النشر في بلدك.";
 "dubShare.confirm" = "تصدير الفيديو";
+"dubShare.share" = "مشاركة…";
+"dubShare.save" = "حفظ…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "نجهّز مشاهدك الأولى…";
@@ -275,13 +278,17 @@
 "pro.trial.daysLeft" = "بقيت %d أيام";
 "pro.trial.oneDayLeft" = "اليوم الأخير";
 "pro.trial.over" = "انتهت فترتك المجانية";
+"pro.locked.title" = "احصل على Dubloon Pro لتدبلج";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "افتح Dubloon";
-"pro.unlock.subtitle" = "دفعة واحدة، اللعبتان معاً، ملكك للأبد.";
+"pro.unlock.subtitle" = "كل المشاهد، وكاميرا الكابينة، والتصدير. الغناء بالمقلوب يبقى مجانياً.";
 "pro.owned.title" = "Dubloon ملكك";
 "pro.owned.subtitle" = "شكراً لك. كل مشهد، وكل محاولة، بلا سقف.";
 "pro.manage.title" = "إدارة الشراء";
 "pro.manage.subtitle" = "الإيصالات والاستردادات والمساعدة في عملية الشراء.";
+"pro.subscribed.title" = "أنت مشترك في Dubloon Pro";
+"pro.manageSubscription.title" = "إدارة الاشتراك";
+"pro.manageSubscription.subtitle" = "غيّر الخطة أو ألغِ الاشتراك أو اطلب المساعدة.";
 "pro.restore.title" = "استعادة الشراء";
 "pro.restore.subtitle" = "هاتف جديد أو إعادة تثبيت؟ استرجعه.";
 "pro.testStore.warning" = "نسخة تصحيح: متصلة بمتجر RevenueCat التجريبي. لا أموال حقيقية تتحرك.";
@@ -293,17 +300,29 @@
 "pro.error.generic" = "لم يردّ المتجر. حاول بعد قليل.";
 "pro.ok" = "حسناً";
 "pro.fallback.title" = "افتح Dubloon";
-"pro.fallback.message" = "انتهت فترتك المجانية. دفعة واحدة تُبقي اللعبتين مفتوحتين للأبد.";
-"pro.fallback.message.beforeExpiry" = "دفعة واحدة تُبقي اللعبتين مفتوحتين للأبد.";
+"pro.fallback.message" = "انتهت فترتك المجانية. افتح Dubloon لتواصل الدبلجة.";
+"pro.fallback.message.beforeExpiry" = "افتح Dubloon لتواصل الدبلجة.";
+"pro.fallback.message.noTrial" = "افتح Dubloon لتدبلج كل المشاهد.";
 "pro.fallback.buy" = "افتحه مقابل %@";
 "pro.fallback.buyUnpriced" = "افتحه";
 "pro.fallback.loading" = "نسأل المتجر…";
 "pro.fallback.unavailable" = "المتجر لا يستجيب الآن. تحقق من اتصالك وحاول مجدداً.";
 "pro.fallback.retry" = "حاول مجدداً";
-"pro.fallback.benefit.one" = "غنِّ بالمقلوب ما دام الجيران يحتملون";
+"pro.fallback.benefit.one" = "صوّر نفسك في الكابينة بكاميرا الكابينة";
 "pro.fallback.benefit.two" = "دبلج كل مشهد، وأحضر مشاهدك أيضاً";
 "pro.fallback.benefit.three" = "صدّر محاولاتك وشارك الأضرار";
 "pro.fallback.oneTime" = "دفعة واحدة. ليس اشتراكاً.";
+"pro.fallback.subscribe.monthly" = "اشترك مقابل %@ شهرياً";
+"pro.fallback.subscribe.yearly" = "اشترك مقابل %@ سنوياً";
+"pro.fallback.subscribe" = "اشترك مقابل %@";
+"pro.fallback.renews" = "يتجدد تلقائياً حتى تلغيه. يمكنك الإلغاء في أي وقت من إعدادات حساب Apple.";
+"pro.fallback.terms" = "شروط الاستخدام";
+
+// MARK: - Review banner
+"review.banner.title" = "شكراً لأنك اخترت Pro";
+"review.banner.message" = "يصنع Dubloon شخص واحد في زيوريخ، والمراجعات هي الطريقة التي يجده بها لاعبون جدد. إن كان يعجبك، فبضع كلمات على App Store ستعني الكثير.";
+"review.banner.rate" = "اكتب مراجعة";
+"review.banner.later" = "ليس الآن";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "أهلاً بك في النادي";

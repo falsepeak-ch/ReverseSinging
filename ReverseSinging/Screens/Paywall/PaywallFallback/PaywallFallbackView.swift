@@ -115,9 +115,10 @@ struct PaywallFallbackView: View {
             } else if let product = viewModel.product {
                 buyButton(for: product)
 
-                Text(Strings.Pro.Fallback.oneTime)
+                Text(viewModel.purchaseNote(for: product))
                     .font(.rsCaptionSmall)
                     .foregroundStyle(Color.rsTextTertiary)
+                    .multilineTextAlignment(.center)
             } else {
                 Text(Strings.Pro.Fallback.unavailable)
                     .font(.rsBodySmall)
@@ -144,8 +145,14 @@ struct PaywallFallbackView: View {
             }
             .disabled(viewModel.isRestoring)
 
-            Button(Strings.Settings.privacyPolicy) {
-                viewModel.openPrivacyPolicy()
+            HStack(spacing: 16) {
+                Button(Strings.Pro.Fallback.terms) {
+                    viewModel.openTermsOfUse()
+                }
+
+                Button(Strings.Settings.privacyPolicy) {
+                    viewModel.openPrivacyPolicy()
+                }
             }
             .font(.rsCaptionSmall)
             .foregroundStyle(Color.rsTextTertiary)
@@ -166,7 +173,7 @@ struct PaywallFallbackView: View {
                 if viewModel.isPurchasing {
                     ProgressView().tint(Color.rsSurface0)
                 } else {
-                    Text(String(format: Strings.Pro.Fallback.buy, product.localizedPriceString))
+                    Text(viewModel.buyTitle(for: product))
                         .font(.rsButtonLarge)
                         .foregroundStyle(Color.rsSurface0)
                 }

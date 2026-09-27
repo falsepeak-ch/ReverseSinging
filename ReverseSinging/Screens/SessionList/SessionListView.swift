@@ -34,10 +34,10 @@ struct SessionListView: View {
             }
             .id(viewModel.game.appState.themeMode)
             .navigationTitle(viewModel.title)
-            .navigationBarTitleDisplayMode(.large)
+            .largeNavigationTitle()
             .onAppear { viewModel.onAppear() }
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .rsTrailing) {
                     Button(action: {
                         HapticManager.shared.light()
                         dismiss()

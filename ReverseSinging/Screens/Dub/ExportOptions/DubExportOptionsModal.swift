@@ -190,7 +190,7 @@ struct DubExportOptionsModal: View {
                     if let boothRect = layout.boothRect, viewModel.showsBooth {
                         previewPane(
                             image: viewModel.boothStill.map { still in
-                                Image(uiImage: still).resizable().aspectRatio(contentMode: .fill)
+                                Image(platformImage: still).resizable().aspectRatio(contentMode: .fill)
                             },
                             label: Strings.Booth.slug,
                             tint: .rsHighlight,

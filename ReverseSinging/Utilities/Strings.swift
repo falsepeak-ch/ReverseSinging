@@ -42,6 +42,7 @@ nonisolated enum Strings {
             static let reverseSubtitle = NSLocalizedString("main.mode.reverse.subtitle", comment: "Reverse singing game description")
             static let dubTitle = NSLocalizedString("main.mode.dub.title", comment: "Movie scene dub game mode")
             static let dubSubtitle = NSLocalizedString("main.mode.dub.subtitle", comment: "Movie scene dub game description")
+            static let free = NSLocalizedString("main.mode.free", comment: "Short pill on a game that stays open without Dubloon Pro. One word")
         }
 
         /// Transport state, shown uppercase in the monitor strip.
@@ -435,6 +436,8 @@ nonisolated enum Strings {
         static let unknownSource = NSLocalizedString("dubShare.unknownSource", comment: "Shown for a pack the user imported, whose origin the app does not know")
         static let responsibility = NSLocalizedString("dubShare.responsibility", comment: "Distributing the export is the user's own act and responsibility")
         static let confirm = NSLocalizedString("dubShare.confirm", comment: "Go ahead and export")
+        static let share = NSLocalizedString("dubShare.share", comment: "Mac: button that opens the system share menu for a finished dub")
+        static let save = NSLocalizedString("dubShare.save", comment: "Mac: button that saves a finished dub to a folder the user picks")
     }
 
     // MARK: - What's New
@@ -468,6 +471,7 @@ nonisolated enum Strings {
         }
 
         // Settings
+        static let lockedTitle = NSLocalizedString("pro.locked.title", comment: "Headline of the menu card over the locked games when there was no free trial, so it must not mention one")
         static let section = NSLocalizedString("pro.section", comment: "Settings section header for the purchase")
         static let unlockTitle = NSLocalizedString("pro.unlock.title", comment: "Settings row that opens the paywall")
         static let unlockSubtitle = NSLocalizedString("pro.unlock.subtitle", comment: "Explains what unlocking costs and gives")
@@ -475,6 +479,9 @@ nonisolated enum Strings {
         static let ownedSubtitle = NSLocalizedString("pro.owned.subtitle", comment: "Thank-you line under the owned row")
         static let manageTitle = NSLocalizedString("pro.manage.title", comment: "Opens the RevenueCat Customer Center")
         static let manageSubtitle = NSLocalizedString("pro.manage.subtitle", comment: "What the Customer Center is for")
+        static let subscribedTitle = NSLocalizedString("pro.subscribed.title", comment: "Settings row shown to someone with an active subscription, in place of the owned row")
+        static let manageSubscriptionTitle = NSLocalizedString("pro.manageSubscription.title", comment: "Opens the RevenueCat Customer Center for a subscriber")
+        static let manageSubscriptionSubtitle = NSLocalizedString("pro.manageSubscription.subtitle", comment: "What the Customer Center is for, to a subscriber")
         static let restoreTitle = NSLocalizedString("pro.restore.title", comment: "Restore a previous purchase")
         static let restoreSubtitle = NSLocalizedString("pro.restore.subtitle", comment: "Explains who the restore button is for")
         static let testStoreWarning = NSLocalizedString("pro.testStore.warning", comment: "Debug-only banner: this build talks to the RevenueCat test store")
@@ -520,6 +527,7 @@ nonisolated enum Strings {
             /// can see is untrue reads as a trick rather than an offer.
             static let messageAfterExpiry = NSLocalizedString("pro.fallback.message", comment: "Body of the built-in paywall when the free trial is over")
             static let messageBeforeExpiry = NSLocalizedString("pro.fallback.message.beforeExpiry", comment: "Body of the built-in paywall when the user still has trial time left, so it must not claim the trial has ended")
+            static let messageNoTrial = NSLocalizedString("pro.fallback.message.noTrial", comment: "Body of the built-in paywall when there was no free trial at all, so it must not mention one")
             static let buy = NSLocalizedString("pro.fallback.buy", comment: "Buy button with the price, %@ is the localized price")
             static let buyUnpriced = NSLocalizedString("pro.fallback.buyUnpriced", comment: "Buy button before the price is known")
             static let loading = NSLocalizedString("pro.fallback.loading", comment: "Shown while the store is being asked for the price")
@@ -528,7 +536,21 @@ nonisolated enum Strings {
             static let benefitOne = NSLocalizedString("pro.fallback.benefit.one", comment: "First selling point on the built-in paywall")
             static let benefitTwo = NSLocalizedString("pro.fallback.benefit.two", comment: "Second selling point on the built-in paywall")
             static let benefitThree = NSLocalizedString("pro.fallback.benefit.three", comment: "Third selling point on the built-in paywall")
-            static let oneTime = NSLocalizedString("pro.fallback.oneTime", comment: "Reassures that the price is paid once, not per month")
+            static let oneTime = NSLocalizedString("pro.fallback.oneTime", comment: "Under the buy button for the lifetime purchase only: the price is paid once, not per month")
+            static let subscribeMonthly = NSLocalizedString("pro.fallback.subscribe.monthly", comment: "Buy button for a monthly subscription, %@ is the localized price")
+            static let subscribeYearly = NSLocalizedString("pro.fallback.subscribe.yearly", comment: "Buy button for a yearly subscription, %@ is the localized price")
+            static let subscribe = NSLocalizedString("pro.fallback.subscribe", comment: "Buy button for a subscription of any other length, %@ is the localized price")
+            static let renews = NSLocalizedString("pro.fallback.renews", comment: "Under the buy button for a subscription: it renews until cancelled")
+            static let terms = NSLocalizedString("pro.fallback.terms", comment: "Link to the Terms of Use (Apple's standard licence agreement)")
         }
+    }
+
+    // MARK: - Review banner
+    /// The menu note that thanks someone who bought Dubloon Pro and asks for a review.
+    enum ReviewBanner {
+        static let title = NSLocalizedString("review.banner.title", comment: "Headline of the menu note shown after buying Dubloon Pro")
+        static let message = NSLocalizedString("review.banner.message", comment: "Why a review matters to a one-person studio. Personal, not pushy")
+        static let rate = NSLocalizedString("review.banner.rate", comment: "Button that opens the App Store's write-a-review page")
+        static let later = NSLocalizedString("review.banner.later", comment: "Button that puts the review note away for now")
     }
 }

@@ -103,11 +103,20 @@ final class AccessController: ObservableObject {
     /// They have paid.
     var isPro: Bool { state == .unlocked(.entitlement) }
 
+    /// They pay for it by subscription rather than having bought it outright. The lifetime
+    /// purchase grants an entitlement with no expiry date; every subscription has one.
+    var isSubscriber: Bool {
+        isPro && customerInfo?.entitlements[PurchaseConfiguration.entitlementID]?.expirationDate != nil
+    }
+
     /// They were here before the paywall and are exempt from it for good.
     var isEarlyAdopter: Bool { state == .unlocked(.earlyAdopter) }
 
-    /// The games must not be playable until something is bought.
+    /// The paid games must not be playable until something is bought.
     var isLocked: Bool { state == .locked }
+
+    /// Whether reverse singing stays open while `isLocked`. Dubbing never does.
+    var isReverseGameFree: Bool { remoteConfig.isReverseGameFree }
 
     /// Whether being locked covers the app or only disables the games.
     var lockPresentation: LockPresentation {
@@ -123,6 +132,10 @@ final class AccessController: ObservableObject {
         if case .trial(let days, _) = state { return days }
         return nil
     }
+
+    /// Whether the console gives new users a free window at all. With a length of zero the
+    /// lock arrives on first launch, and nothing may say a trial has ended.
+    var hasTrial: Bool { remoteConfig.trialLengthInDays > 0 }
 
     /// Whether there is still something to sell this person. An early adopter
     /// already has everything, so there is not.
@@ -299,6 +312,12 @@ final class AccessController: ObservableObject {
         Task { await refresh() }
     }
 
+    /// Apple's download date, minus the sandbox's placeholder. See
+    /// `PaywallEligibility.plausibleDownloadDate`.
+    private var storeDownloadDate: Date? {
+        PaywallEligibility.plausibleDownloadDate(customerInfo?.originalPurchaseDate)
+    }
+
     private func apply(_ info: CustomerInfo) {
         customerInfo = info
         hasCustomerInfo = true
@@ -331,7 +350,7 @@ final class AccessController: ObservableObject {
         // separately and in either order — the customer info and the Remote Config
         // cutoff — and this runs when either of them lands.
         earlyAdopter.considerOriginalPurchaseDate(
-            customerInfo?.originalPurchaseDate, before: remoteConfig.paywallReleaseDate
+            storeDownloadDate, before: remoteConfig.paywallReleaseDate
         )
 
         // Ahead of the kill switch and the trial both, and not conditional on the
@@ -359,7 +378,7 @@ final class AccessController: ObservableObject {
         // after the console's date, and for nobody else. Apple's date decides it
         // when there is one. When the store has been asked and has none, the app's
         // own first-launch date stands in — see `PaywallEligibility` for how far.
-        let downloadedAt = customerInfo?.originalPurchaseDate
+        let downloadedAt = storeDownloadDate
         if downloadedAt == nil {
             syncReceiptForDownloadDate()
         } else {
@@ -433,7 +452,7 @@ final class AccessController: ObservableObject {
         Task { [weak self] in
             do {
                 let info = try await Purchases.shared.syncPurchases()
-                if info.originalPurchaseDate == nil {
+                if PaywallEligibility.plausibleDownloadDate(info.originalPurchaseDate) == nil {
                     // Reachable, and still no date, so the first-launch date is
                     // what decides from here.
                     self?.storeHadNoDownloadDate = true

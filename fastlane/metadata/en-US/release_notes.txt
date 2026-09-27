@@ -1,15 +1,4 @@
-More dub packs open, and fewer things go wrong.
-
-DUB PACKS
-• Packs that come as .rar now open, even when they were renamed .zip
-• Packs with .ogg voices and music now play, where before the lines were dropped and the scene ran silent. Packs you already installed are repaired too
-• Many more ways of writing a line's timing are understood, so packs that used to lose half their lines import whole
-• A pack still sitting in iCloud is downloaded first instead of failing
-• When a file can't be imported, the app says what is in it and why that won't work
+The mic now rolls every time.
 
 FIXES
-• Fixed crashes when another app was holding the audio, and when a scene started playing
-• A video conversion interrupted by leaving the app picks up later instead of losing the picture
-
-ALSO
-• When the free trial ends the menu stays open, and the offer waits until you tap it instead of covering the app
+• Fixed the microphone refusing to start a take on some iPhones. It now rolls straight away instead of showing an error

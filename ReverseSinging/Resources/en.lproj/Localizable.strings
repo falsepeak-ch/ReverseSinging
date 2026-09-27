@@ -219,6 +219,7 @@
 "main.button.back" = "Back";
 "main.mode.reverse.subtitle" = "Record a song, flip it, sing the nonsense";
 "main.mode.dub.subtitle" = "Put your voice in someone else's mouth";
+"main.mode.free" = "Free";
 "dub.speakerAccessibility" = "Spoken by %@";
 "dub.cast" = "Cast";
 "dub.referenceTrack" = "Reference";
@@ -247,6 +248,8 @@
 "dubShare.unknownSource" = "You brought this scene in yourself, so you know where it came from and what you can do with it.";
 "dubShare.responsibility" = "Where it goes next is up to you, so follow the copyright rules where you live.";
 "dubShare.confirm" = "Export Video";
+"dubShare.share" = "Share…";
+"dubShare.save" = "Save…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Setting up your first scenes…";
@@ -275,13 +278,17 @@
 "pro.trial.daysLeft" = "%d days left";
 "pro.trial.oneDayLeft" = "Last day";
 "pro.trial.over" = "Your free trial is done";
+"pro.locked.title" = "Get Dubloon Pro to dub";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Unlock Dubloon";
-"pro.unlock.subtitle" = "One payment, both games, yours for good.";
+"pro.unlock.subtitle" = "Every scene, Booth Cam and exports. Reverse singing stays free.";
 "pro.owned.title" = "You own Dubloon";
 "pro.owned.subtitle" = "Thank you. Every scene, every take, no ceiling.";
 "pro.manage.title" = "Manage purchase";
 "pro.manage.subtitle" = "Receipts, refunds and help with your purchase.";
+"pro.subscribed.title" = "You're on Dubloon Pro";
+"pro.manageSubscription.title" = "Manage subscription";
+"pro.manageSubscription.subtitle" = "Change plan, cancel, or get help.";
 "pro.restore.title" = "Restore purchase";
 "pro.restore.subtitle" = "New phone, or reinstalled? Bring it back.";
 "pro.testStore.warning" = "Debug build: connected to the RevenueCat test store. No real money moves.";
@@ -293,17 +300,29 @@
 "pro.error.generic" = "The store didn't answer. Try again in a moment.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Unlock Dubloon";
-"pro.fallback.message" = "Your free trial has ended. One payment keeps both games open for good.";
-"pro.fallback.message.beforeExpiry" = "One payment keeps both games open for good.";
+"pro.fallback.message" = "Your free trial has ended. Unlock Dubloon to keep dubbing.";
+"pro.fallback.message.beforeExpiry" = "Unlock Dubloon to keep dubbing.";
+"pro.fallback.message.noTrial" = "Unlock Dubloon to dub every scene.";
 "pro.fallback.buy" = "Unlock for %@";
 "pro.fallback.buyUnpriced" = "Unlock";
 "pro.fallback.loading" = "Asking the store…";
 "pro.fallback.unavailable" = "The store isn't answering right now. Check your connection and try again.";
 "pro.fallback.retry" = "Try again";
-"pro.fallback.benefit.one" = "Sing backwards as often as the neighbours can stand";
+"pro.fallback.benefit.one" = "Film yourself in the booth with Booth Cam";
 "pro.fallback.benefit.two" = "Dub every scene, and bring your own";
 "pro.fallback.benefit.three" = "Export your takes and share the damage";
 "pro.fallback.oneTime" = "One payment. Not a subscription.";
+"pro.fallback.subscribe.monthly" = "Subscribe for %@/month";
+"pro.fallback.subscribe.yearly" = "Subscribe for %@/year";
+"pro.fallback.subscribe" = "Subscribe for %@";
+"pro.fallback.renews" = "Renews automatically until cancelled. Cancel anytime in your Apple Account settings.";
+"pro.fallback.terms" = "Terms of Use";
+
+// MARK: - Review banner
+"review.banner.title" = "Thank you for going Pro";
+"review.banner.message" = "Dubloon is made by one person in Zürich, and reviews are how new players find it. If you're enjoying it, a few words on the App Store would mean a lot.";
+"review.banner.rate" = "Write a review";
+"review.banner.later" = "Not now";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Welcome to the club";

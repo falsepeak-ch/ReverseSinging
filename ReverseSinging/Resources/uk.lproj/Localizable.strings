@@ -219,6 +219,7 @@
 "main.button.back" = "Назад";
 "main.mode.reverse.subtitle" = "Запиши, переверни і заспівай тарабарщину";
 "main.mode.dub.subtitle" = "Вклади свій голос у чужі вуста";
+"main.mode.free" = "Безплатно";
 "dub.speakerAccessibility" = "Говорить %@";
 "dub.cast" = "Актори";
 "dub.referenceTrack" = "Зразок";
@@ -247,6 +248,8 @@
 "dubShare.unknownSource" = "Цю сцену ти приніс сам, тож знаєш, звідки вона і що з нею можна робити.";
 "dubShare.responsibility" = "Куди воно поїде далі — вирішуєш ти, тож дотримуйся авторських правил там, де живеш.";
 "dubShare.confirm" = "Експортувати відео";
+"dubShare.share" = "Поширити…";
+"dubShare.save" = "Зберегти…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Готуємо твої перші сцени…";
@@ -275,13 +278,17 @@
 "pro.trial.daysLeft" = "Лишилося днів: %d";
 "pro.trial.oneDayLeft" = "Останній день";
 "pro.trial.over" = "Пробний період завершився";
+"pro.locked.title" = "Щоб озвучувати, візьми Dubloon Pro";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Відкрити Dubloon";
-"pro.unlock.subtitle" = "Один платіж, обидві гри, твої назавжди.";
+"pro.unlock.subtitle" = "Усі сцени, Booth Cam та експорт. Спів задом наперед лишається безплатним.";
 "pro.owned.title" = "Dubloon твій";
 "pro.owned.subtitle" = "Дякуємо. Кожна сцена, кожен дубль, без стелі.";
 "pro.manage.title" = "Керування покупкою";
 "pro.manage.subtitle" = "Чеки, повернення і допомога з покупкою.";
+"pro.subscribed.title" = "У тебе Dubloon Pro";
+"pro.manageSubscription.title" = "Керування підпискою";
+"pro.manageSubscription.subtitle" = "Змінити план, скасувати або отримати допомогу.";
 "pro.restore.title" = "Відновити покупку";
 "pro.restore.subtitle" = "Новий телефон чи перевстановлення? Поверни її.";
 "pro.testStore.warning" = "Debug-збірка: під'єднано до тестового магазину RevenueCat. Справжні гроші не рухаються.";
@@ -293,17 +300,29 @@
 "pro.error.generic" = "Магазин не відповів. Спробуй за хвилину.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Відкрити Dubloon";
-"pro.fallback.message" = "Пробний період завершився. Один платіж лишає обидві гри відкритими назавжди.";
-"pro.fallback.message.beforeExpiry" = "Один платіж лишає обидві гри відкритими назавжди.";
+"pro.fallback.message" = "Пробний період завершився. Відкрий Dubloon, щоб і далі озвучувати.";
+"pro.fallback.message.beforeExpiry" = "Відкрий Dubloon, щоб і далі озвучувати.";
+"pro.fallback.message.noTrial" = "Відкрий Dubloon, щоб озвучувати будь-які сцени.";
 "pro.fallback.buy" = "Відкрити за %@";
 "pro.fallback.buyUnpriced" = "Відкрити";
 "pro.fallback.loading" = "Питаємо магазин…";
 "pro.fallback.unavailable" = "Магазин зараз не відповідає. Перевір з'єднання і спробуй ще раз.";
 "pro.fallback.retry" = "Ще раз";
-"pro.fallback.benefit.one" = "Співай задом наперед, доки сусіди терплять";
+"pro.fallback.benefit.one" = "Знімай себе в кабіні з Booth Cam";
 "pro.fallback.benefit.two" = "Озвучуй будь-які сцени і приноси власні";
 "pro.fallback.benefit.three" = "Експортуй дублі й ділися наслідками";
 "pro.fallback.oneTime" = "Один платіж. Це не підписка.";
+"pro.fallback.subscribe.monthly" = "Підписатися за %@/міс.";
+"pro.fallback.subscribe.yearly" = "Підписатися за %@/рік";
+"pro.fallback.subscribe" = "Підписатися за %@";
+"pro.fallback.renews" = "Поновлюється автоматично, доки ти її не скасуєш. Скасувати можна будь-коли в налаштуваннях облікового запису Apple.";
+"pro.fallback.terms" = "Умови використання";
+
+// MARK: - Review banner
+"review.banner.title" = "Дякуємо за перехід на Pro";
+"review.banner.message" = "Dubloon робить одна людина в Цюриху, і саме завдяки відгукам його знаходять нові гравці. Якщо тобі подобається, кілька слів в App Store важили б дуже багато.";
+"review.banner.rate" = "Написати відгук";
+"review.banner.later" = "Не зараз";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Вітаємо в клубі";

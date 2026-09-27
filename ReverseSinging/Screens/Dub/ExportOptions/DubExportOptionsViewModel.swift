@@ -34,7 +34,7 @@ final class DubExportOptionsViewModel: ObservableObject {
     @Published private(set) var sceneSize: CGSize?
     /// A frame lifted out of one of the booth clips, so the diagram can show the performer
     /// rather than a labelled rectangle. Nil for a scene that was never filmed.
-    @Published private(set) var boothStill: UIImage?
+    @Published private(set) var boothStill: PlatformImage?
 
     init(
         pack: DubPack,
@@ -72,7 +72,7 @@ final class DubExportOptionsViewModel: ObservableObject {
     ///
     /// Half a second in rather than at zero: the first frame of a take is the performer still
     /// arranging their face, which is nobody's idea of a thumbnail.
-    private static func boothStill(in pack: DubPack) async -> UIImage? {
+    private static func boothStill(in pack: DubPack) async -> PlatformImage? {
         guard let line = pack.lines.first(where: { pack.hasBoothTake(for: $0) }) else { return nil }
 
         let asset = AVURLAsset(url: pack.boothTakeURL(for: line))
@@ -83,7 +83,7 @@ final class DubExportOptionsViewModel: ObservableObject {
         guard let image = try? await generator.image(at: CMTime(seconds: 0.5, preferredTimescale: 600)).image
         else { return nil }
 
-        return UIImage(cgImage: image)
+        return PlatformImage.make(cgImage: image)
     }
 
     // MARK: - Layout

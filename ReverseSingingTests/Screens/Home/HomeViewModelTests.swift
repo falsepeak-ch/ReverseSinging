@@ -39,17 +39,40 @@ struct HomeViewModelTests {
         }
     }
 
-    /// Once the trial is over a game answers a tap with the paywall, and is not pushed.
-    @Test(arguments: GameMode.allCases)
-    func aLockedGameOpensThePaywallInstead(mode: GameMode) {
+    /// Once the trial is over dubbing answers a tap with the paywall, and is not pushed.
+    @Test func aLockedGameOpensThePaywallInstead() {
         withAccess(.locked) {
             let viewModel = HomeViewModel()
 
-            viewModel.open(mode)
+            viewModel.open(.dub)
 
             #expect(viewModel.areGamesLocked)
+            #expect(viewModel.isLocked(.dub))
             #expect(viewModel.path.isEmpty)
             #expect(viewModel.paywallSource == .lockedGame)
+        }
+    }
+
+    /// Reverse singing is free: it opens with the trial over, and the menu says it is free.
+    @Test func theReverseGameStaysOpenWhenLocked() {
+        withAccess(.locked) {
+            let viewModel = HomeViewModel()
+
+            viewModel.open(.reverse)
+
+            #expect(!viewModel.isLocked(.reverse))
+            #expect(viewModel.isFree(.reverse))
+            #expect(!viewModel.isFree(.dub))
+            #expect(viewModel.path == [.reverse])
+            #expect(viewModel.paywallSource == nil)
+        }
+    }
+
+    /// "Free" only means something beside a padlock. With nothing locked, no game says it.
+    @Test(arguments: GameMode.allCases)
+    func nothingIsMarkedFreeWhileNothingIsLocked(mode: GameMode) {
+        withAccess(.trial(daysRemaining: 3, endsAt: .distantFuture)) {
+            #expect(!HomeViewModel().isFree(mode))
         }
     }
 
@@ -98,15 +121,70 @@ struct HomeViewModelTests {
         }
     }
 
-    /// A trial that runs out overnight with a game open closes the game.
-    @Test func expiringInsideAGameReturnsToTheMenu() {
+    /// A trial that runs out overnight with dubbing open closes it.
+    @Test func expiringInsideAPaidGameReturnsToTheMenu() {
+        withAccess(.trial(daysRemaining: 1, endsAt: .distantFuture)) {
+            let viewModel = HomeViewModel()
+            viewModel.open(.dub)
+
+            AccessController.shared.overrideStateForTesting(.locked)
+
+            #expect(viewModel.path.isEmpty)
+        }
+    }
+
+    /// The same moment inside reverse singing changes nothing: it was never paid for.
+    @Test func expiringInsideTheFreeGameKeepsItOpen() {
         withAccess(.trial(daysRemaining: 1, endsAt: .distantFuture)) {
             let viewModel = HomeViewModel()
             viewModel.open(.reverse)
 
             AccessController.shared.overrideStateForTesting(.locked)
 
-            #expect(viewModel.path.isEmpty)
+            #expect(viewModel.path == [.reverse])
+        }
+    }
+
+    // MARK: - Review banner
+
+    private func makeBanner() -> ReviewBanner {
+        let name = "HomeViewModelTests.banner.\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: name)!
+        defaults.removePersistentDomain(forName: name)
+        return ReviewBanner(defaults: defaults)
+    }
+
+    @Test func aBuyerIsAskedForAReview() {
+        withAccess(.unlocked(.entitlement)) {
+            #expect(HomeViewModel(reviewBanner: makeBanner()).showsReviewBanner)
+        }
+    }
+
+    /// Nobody who has not paid is asked: not mid-trial, not locked, not an early adopter.
+    @Test(arguments: [
+        AccessState.trial(daysRemaining: 3, endsAt: .distantFuture),
+        .locked,
+        .unlocked(.earlyAdopter),
+        .unlocked(.gatingDisabled),
+        .unknown
+    ])
+    func onlyBuyersAreAskedForAReview(state: AccessState) {
+        withAccess(state) {
+            #expect(!HomeViewModel(reviewBanner: makeBanner()).showsReviewBanner)
+        }
+    }
+
+    @Test func answeringTheBannerPutsItAway() {
+        withAccess(.unlocked(.entitlement)) {
+            let banner = makeBanner()
+            let rated = HomeViewModel(reviewBanner: banner)
+            #expect(rated.reviewBannerWentToStore() == ReviewBanner.writeReviewURL)
+            #expect(!rated.showsReviewBanner)
+            #expect(!HomeViewModel(reviewBanner: banner).showsReviewBanner)
+
+            let dismissed = HomeViewModel(reviewBanner: makeBanner())
+            dismissed.dismissReviewBanner()
+            #expect(!dismissed.showsReviewBanner)
         }
     }
 }

@@ -219,6 +219,7 @@
 "main.button.back" = "Wstecz";
 "main.mode.reverse.subtitle" = "Nagraj, odwróć i zaśpiewaj bełkot";
 "main.mode.dub.subtitle" = "Włóż swój głos w cudze usta";
+"main.mode.free" = "Gratis";
 "dub.speakerAccessibility" = "Mówi %@";
 "dub.cast" = "Obsada";
 "dub.referenceTrack" = "Wzorzec";
@@ -247,6 +248,8 @@
 "dubShare.unknownSource" = "Tę scenę przyniosłeś sam, więc wiesz, skąd pochodzi i co wolno z nią zrobić.";
 "dubShare.responsibility" = "Gdzie to trafi, zależy od ciebie, więc trzymaj się przepisów o prawie autorskim tam, gdzie mieszkasz.";
 "dubShare.confirm" = "Wyeksportuj wideo";
+"dubShare.share" = "Udostępnij…";
+"dubShare.save" = "Zachowaj…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Przygotowujemy twoje pierwsze sceny…";
@@ -275,13 +278,17 @@
 "pro.trial.daysLeft" = "Zostało %d dni";
 "pro.trial.oneDayLeft" = "Ostatni dzień";
 "pro.trial.over" = "Twój darmowy okres się skończył";
+"pro.locked.title" = "Weź Dubloon Pro, żeby dubbingować";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Odblokuj Dubloon";
-"pro.unlock.subtitle" = "Jedna płatność, obie gry, twoje na zawsze.";
+"pro.unlock.subtitle" = "Każda scena, Booth Cam i eksport. Śpiewanie od tyłu zostaje za darmo.";
 "pro.owned.title" = "Dubloon jest twój";
 "pro.owned.subtitle" = "Dzięki. Każda scena, każde podejście, bez limitów.";
 "pro.manage.title" = "Zarządzaj zakupem";
 "pro.manage.subtitle" = "Paragony, zwroty i pomoc przy zakupie.";
+"pro.subscribed.title" = "Masz Dubloon Pro";
+"pro.manageSubscription.title" = "Zarządzaj subskrypcją";
+"pro.manageSubscription.subtitle" = "Zmień plan, anuluj albo poproś o pomoc.";
 "pro.restore.title" = "Przywróć zakup";
 "pro.restore.subtitle" = "Nowy telefon albo reinstalacja? Odzyskaj go.";
 "pro.testStore.warning" = "Kompilacja debugowa: podłączona do testowego sklepu RevenueCat. Prawdziwe pieniądze nie krążą.";
@@ -293,17 +300,29 @@
 "pro.error.generic" = "Sklep nie odpowiedział. Spróbuj za chwilę.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Odblokuj Dubloon";
-"pro.fallback.message" = "Twój darmowy okres się skończył. Jedna płatność zostawia obie gry otwarte na zawsze.";
-"pro.fallback.message.beforeExpiry" = "Jedna płatność zostawia obie gry otwarte na zawsze.";
+"pro.fallback.message" = "Twój darmowy okres się skończył. Odblokuj Dubloon, żeby dalej dubbingować.";
+"pro.fallback.message.beforeExpiry" = "Odblokuj Dubloon, żeby dalej dubbingować.";
+"pro.fallback.message.noTrial" = "Odblokuj Dubloon, żeby zdubbingować każdą scenę.";
 "pro.fallback.buy" = "Odblokuj za %@";
 "pro.fallback.buyUnpriced" = "Odblokuj";
 "pro.fallback.loading" = "Pytamy sklep…";
 "pro.fallback.unavailable" = "Sklep w tej chwili nie odpowiada. Sprawdź połączenie i spróbuj ponownie.";
 "pro.fallback.retry" = "Spróbuj ponownie";
-"pro.fallback.benefit.one" = "Śpiewaj od tyłu, dopóki sąsiedzi wytrzymają";
+"pro.fallback.benefit.one" = "Nagraj siebie w kabinie z Booth Cam";
 "pro.fallback.benefit.two" = "Dubbinguj każdą scenę i przynoś własne";
 "pro.fallback.benefit.three" = "Eksportuj podejścia i dziel się szkodami";
 "pro.fallback.oneTime" = "Jedna płatność. To nie subskrypcja.";
+"pro.fallback.subscribe.monthly" = "Subskrybuj za %@/mies.";
+"pro.fallback.subscribe.yearly" = "Subskrybuj za %@/rok";
+"pro.fallback.subscribe" = "Subskrybuj za %@";
+"pro.fallback.renews" = "Odnawia się automatycznie, dopóki jej nie anulujesz. Anuluj w dowolnej chwili w ustawieniach konta Apple.";
+"pro.fallback.terms" = "Warunki użytkowania";
+
+// MARK: - Review banner
+"review.banner.title" = "Dzięki za przejście na Pro";
+"review.banner.message" = "Dubloon tworzy jedna osoba w Zurychu, a to dzięki recenzjom znajdują go nowi gracze. Jeśli ci się podoba, kilka słów w App Store wiele by znaczyło.";
+"review.banner.rate" = "Napisz recenzję";
+"review.banner.later" = "Nie teraz";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Witaj w klubie";

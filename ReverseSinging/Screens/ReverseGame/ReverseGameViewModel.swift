@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import UIKit
 import Combine
 import DubAudio
 import DubScoring
@@ -124,6 +123,14 @@ final class ReverseGameViewModel: ObservableObject {
 
     /// Check current microphone permission status
     func checkPermissionStatus() {
+        #if DEBUG
+        // A capture poses a finished session and records nothing, so it needs no microphone,
+        // and a machine that was never asked must not photograph the "nobody can hear you" screen.
+        if ScreenshotMode.isActive {
+            hasRecordingPermission = true
+            return
+        }
+        #endif
         hasRecordingPermission = AudioSessionManager.shared.hasRecordPermission
     }
 
@@ -190,7 +197,7 @@ final class ReverseGameViewModel: ObservableObject {
     private func beginRecording() {
         guard recorder.canStartRecording() else { return }
         // The slate ran while the user switched apps; an inactive app cannot open the mic.
-        guard UIApplication.shared.applicationState == .active else { return }
+        guard AppActivity.isActive else { return }
 
         do {
             SoundManager.shared.setMicrophoneOpen(true)

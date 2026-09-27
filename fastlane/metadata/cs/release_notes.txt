@@ -1,15 +1,4 @@
-Otevře se víc dabingových balíčků a míň věcí se pokazí.
-
-DABINGOVÉ BALÍČKY
-• Balíčky ve formátu .rar se teď otevřou, i když byly přejmenované na .zip
-• Balíčky s hlasy a hudbou v .ogg teď hrají; dřív tyhle repliky vypadly a scéna zůstala němá. Opraví se i balíčky, které už máš nainstalované
-• Rozumí se mnohem více způsobům zápisu časování repliky, takže balíčky, které ztrácely polovinu replik, se teď naimportují celé
-• Balíček, který ještě leží na iCloudu, se nejdřív stáhne, místo aby import selhal
-• Když soubor nejde naimportovat, aplikace řekne, co v něm je a proč to nestačí
+Mikrofon se teď rozjede pokaždé.
 
 OPRAVY
-• Opraveny pády, ke kterým docházelo, když zvuk držela jiná aplikace, a při spuštění přehrávání scény
-• Převod videa přerušený odchodem z aplikace se dokončí později, místo aby se obraz ztratil
-
-DÁLE
-• Když skončí zkušební doba zdarma, nabídka her zůstane otevřená a výzva ke koupi počká, až na ni klepneš, místo aby zakryla celou aplikaci
+• Mikrofon na některých iPhonech odmítal spustit záběr. Teď se rozjede hned místo zobrazení chyby

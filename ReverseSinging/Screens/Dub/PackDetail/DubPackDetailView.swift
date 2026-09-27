@@ -71,12 +71,12 @@ struct DubPackDetailView: View {
                 exportOverlay
             }
         }
-        .toolbar(.hidden, for: .navigationBar)
-        .fullScreenCover(isPresented: $viewModel.showRecorder, onDismiss: { viewModel.recorderDidDismiss() }) {
+        .hidesNavigationBar()
+        .coversScreen(isPresented: $viewModel.showRecorder, onDismiss: { viewModel.recorderDidDismiss() }) {
             DubRecordView(session: session)
                 .onAppear { viewModel.recorderDidAppear() }
         }
-        .fullScreenCover(item: $viewModel.playbackMode) { mode in
+        .coversScreen(item: $viewModel.playbackMode) { mode in
             DubPlaybackView(session: session, mode: mode)
         }
         .dubShareNotice(isPresented: $viewModel.showShareNotice, pack: pack) {

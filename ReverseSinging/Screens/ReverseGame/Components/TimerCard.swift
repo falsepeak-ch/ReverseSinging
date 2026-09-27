@@ -363,7 +363,12 @@ struct TimerCard: View {
     // MARK: - Computed Properties
 
     private var timeLabelWidth: CGFloat {
+        #if os(iOS)
         UIScreen.main.bounds.width / 4  // For 2 labels (MINS, SECS)
+        #else
+        // A window rather than a screen, and never wider than the phone layout it came from.
+        100
+        #endif
     }
 
     private var backgroundColor: Color {

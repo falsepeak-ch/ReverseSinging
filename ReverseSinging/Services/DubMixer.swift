@@ -6,7 +6,7 @@
 //
 
 import AVFoundation
-import UIKit
+import ImageIO
 import DubAudio
 import DubCompositing
 
@@ -440,7 +440,10 @@ nonisolated struct DubMixer {
 
     /// Draws a still into a pixel buffer, aspect-fit on black so odd-sized packs don't stretch.
     private static func makePixelBuffer(from imageURL: URL, pool: CVPixelBufferPool?) -> CVPixelBuffer? {
-        guard let image = UIImage(contentsOfFile: imageURL.path) else { return nil }
+        guard let source = CGImageSourceCreateWithURL(imageURL as CFURL, nil),
+              let cgImage = CGImageSourceCreateImageAtIndex(source, 0, [
+                  kCGImageSourceShouldCacheImmediately: true
+              ] as CFDictionary) else { return nil }
 
         var pixelBuffer: CVPixelBuffer?
         if let pool {
@@ -469,11 +472,11 @@ nonisolated struct DubMixer {
             bytesPerRow: CVPixelBufferGetBytesPerRow(buffer),
             space: CGColorSpaceCreateDeviceRGB(),
             bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue
-        ), let cgImage = image.cgImage else {
+        ) else {
             return nil
         }
 
-        context.setFillColor(UIColor.black.cgColor)
+        context.setFillColor(CGColor(gray: 0, alpha: 1))
         context.fill(CGRect(origin: .zero, size: videoSize))
 
         let imageSize = CGSize(width: cgImage.width, height: cgImage.height)

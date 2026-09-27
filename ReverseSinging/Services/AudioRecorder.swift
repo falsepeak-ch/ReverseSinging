@@ -99,6 +99,7 @@ final class AudioRecorder: NSObject, ObservableObject {
     // MARK: - Notifications
 
     private func setupNotifications() {
+        #if os(iOS)
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(handleInterruption),
@@ -112,8 +113,10 @@ final class AudioRecorder: NSObject, ObservableObject {
             name: AVAudioSession.routeChangeNotification,
             object: AVAudioSession.sharedInstance()
         )
+        #endif
     }
 
+    #if os(iOS)
     // MARK: - Interruption Handling
 
     /// AVAudioSession posts on whichever thread noticed the change, so this cannot be
@@ -189,6 +192,7 @@ final class AudioRecorder: NSObject, ObservableObject {
             break
         }
     }
+    #endif
 
     // MARK: - Audio Session Management
     // Now using centralized AudioSessionManager to prevent conflicts
@@ -213,6 +217,7 @@ final class AudioRecorder: NSObject, ObservableObject {
     /// all, where audio is routed, at what rate, and who else is playing. Everything the
     /// "Failed to start recording" reports never said.
     private static func sessionDiagnostics(prepared: Bool) -> String {
+        #if os(iOS)
         let session = AVAudioSession.sharedInstance()
         let route = session.currentRoute
         let inputs = route.inputs.map(\.portType.rawValue).joined(separator: "+")
@@ -222,6 +227,9 @@ final class AudioRecorder: NSObject, ObservableObject {
             + " category=\(session.category.rawValue) mode=\(session.mode.rawValue)"
             + " sampleRate=\(session.sampleRate) otherAudio=\(session.isOtherAudioPlaying)"
             + " permission=\(AVAudioApplication.shared.recordPermission.rawValue)"
+        #else
+        return "prepared=\(prepared) permission=\(AVAudioApplication.shared.recordPermission.rawValue)"
+        #endif
     }
 
     // MARK: - Permission
