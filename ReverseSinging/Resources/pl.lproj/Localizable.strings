@@ -326,16 +326,16 @@
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Witaj w klubie";
-"pro.earlyAdopter.message" = "Dubloon kosztuje teraz pieniądze — tylko nie u ciebie. Byłeś tu, zanim pojawiła się cena, więc obie gry zostają twoje, za darmo, tak długo jak aplikacja istnieje. Dziękujemy za te pierwsze dni.";
+"pro.earlyAdopter.message" = "Dubloon kosztuje teraz pieniądze — tylko nie u ciebie. Byłeś tu, zanim pojawiła się cena, więc wszystkie trzy gry zostają twoje, za darmo, tak długo jak aplikacja istnieje. Dziękujemy za te pierwsze dni.";
 "pro.earlyAdopter.badge" = "Za darmo na zawsze";
 "pro.earlyAdopter.confirm" = "Super";
 "pro.earlyAdopter.settings.title" = "Za darmo na zawsze";
-"pro.earlyAdopter.settings.subtitle" = "Byłeś tu wcześnie. Obie gry są twoje i nic nam nie jesteś winien.";
+"pro.earlyAdopter.settings.subtitle" = "Byłeś tu wcześnie. Wszystkie trzy gry są twoje i nic nam nie jesteś winien.";
 "pro.closePaywall" = "Zamknij";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Dostęp";
-"pro.earlyAdopter.row.access.value" = "Obie gry";
+"pro.earlyAdopter.row.access.value" = "Wszystkie trzy gry";
 "pro.earlyAdopter.row.cost" = "Koszt";
 "pro.earlyAdopter.row.cost.value" = "Zero";
 "pro.earlyAdopter.row.expires" = "Wygasa";

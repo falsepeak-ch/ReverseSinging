@@ -326,16 +326,16 @@
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Добро пожаловать в клуб";
-"pro.earlyAdopter.message" = "Теперь Dubloon стоит денег — но не для тебя. Ты был здесь до ценника, так что обе игры остаются твоими, бесплатно, пока существует приложение. Спасибо за первые дни.";
+"pro.earlyAdopter.message" = "Теперь Dubloon стоит денег — но не для тебя. Ты был здесь до ценника, так что все три игры остаются твоими, бесплатно, пока существует приложение. Спасибо за первые дни.";
 "pro.earlyAdopter.badge" = "Бесплатно навсегда";
 "pro.earlyAdopter.confirm" = "Отлично";
 "pro.earlyAdopter.settings.title" = "Бесплатно навсегда";
-"pro.earlyAdopter.settings.subtitle" = "Ты пришёл рано. Обе игры твои, и ты нам ничего не должен.";
+"pro.earlyAdopter.settings.subtitle" = "Ты пришёл рано. Все три игры твои, и ты нам ничего не должен.";
 "pro.closePaywall" = "Закрыть";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Доступ";
-"pro.earlyAdopter.row.access.value" = "Обе игры";
+"pro.earlyAdopter.row.access.value" = "Все три игры";
 "pro.earlyAdopter.row.cost" = "Цена";
 "pro.earlyAdopter.row.cost.value" = "Ноль";
 "pro.earlyAdopter.row.expires" = "Истекает";

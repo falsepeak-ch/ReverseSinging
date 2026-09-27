@@ -326,16 +326,16 @@
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Welkom bij de club";
-"pro.earlyAdopter.message" = "Dubloon kost nu geld — alleen bij jou niet. Jij was er voordat er een prijskaartje hing, dus beide spellen blijven van jou, gratis, zolang de app bestaat. Bedankt voor de begindagen.";
+"pro.earlyAdopter.message" = "Dubloon kost nu geld — alleen bij jou niet. Jij was er voordat er een prijskaartje hing, dus alle drie de spellen blijven van jou, gratis, zolang de app bestaat. Bedankt voor de begindagen.";
 "pro.earlyAdopter.badge" = "Levenslang gratis";
 "pro.earlyAdopter.confirm" = "Mooi";
 "pro.earlyAdopter.settings.title" = "Levenslang gratis";
-"pro.earlyAdopter.settings.subtitle" = "Jij was er vroeg bij. Beide spellen zijn van jou en je bent ons niets schuldig.";
+"pro.earlyAdopter.settings.subtitle" = "Jij was er vroeg bij. Alle drie de spellen zijn van jou en je bent ons niets schuldig.";
 "pro.closePaywall" = "Sluit";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Toegang";
-"pro.earlyAdopter.row.access.value" = "Beide spellen";
+"pro.earlyAdopter.row.access.value" = "Alle drie de spellen";
 "pro.earlyAdopter.row.cost" = "Kosten";
 "pro.earlyAdopter.row.cost.value" = "Niets";
 "pro.earlyAdopter.row.expires" = "Verloopt";

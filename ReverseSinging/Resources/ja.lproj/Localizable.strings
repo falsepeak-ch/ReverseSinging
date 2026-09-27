@@ -326,16 +326,16 @@
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "ようこそクラブへ";
-"pro.earlyAdopter.message" = "Dubloonは有料になりました。ただし、あなたは別です。値札が付く前からいてくれたので、2つのゲームはこのアプリが続くかぎり無料であなたのものです。初期のころをありがとう。";
+"pro.earlyAdopter.message" = "Dubloonは有料になりました。ただし、あなたは別です。値札が付く前からいてくれたので、3つのゲームはすべて、このアプリが続くかぎり無料であなたのものです。初期のころをありがとう。";
 "pro.earlyAdopter.badge" = "生涯無料";
 "pro.earlyAdopter.confirm" = "いいね";
 "pro.earlyAdopter.settings.title" = "生涯無料";
-"pro.earlyAdopter.settings.subtitle" = "早くから来てくれた人へ。2つのゲームはあなたのもの、支払いは不要です。";
+"pro.earlyAdopter.settings.subtitle" = "早くから来てくれた人へ。3つのゲームはすべてあなたのもの、支払いは不要です。";
 "pro.closePaywall" = "閉じる";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "アクセス";
-"pro.earlyAdopter.row.access.value" = "2つのゲーム";
+"pro.earlyAdopter.row.access.value" = "3つのゲームすべて";
 "pro.earlyAdopter.row.cost" = "料金";
 "pro.earlyAdopter.row.cost.value" = "なし";
 "pro.earlyAdopter.row.expires" = "期限";

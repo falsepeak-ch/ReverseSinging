@@ -326,16 +326,16 @@
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Tervetuloa kerhoon";
-"pro.earlyAdopter.message" = "Dubloon maksaa nyt rahaa — paitsi sinulle. Olit täällä ennen hintalappua, joten molemmat pelit pysyvät sinun, ilmaiseksi, niin kauan kuin sovellus on olemassa. Kiitos alkuajoista.";
+"pro.earlyAdopter.message" = "Dubloon maksaa nyt rahaa — paitsi sinulle. Olit täällä ennen hintalappua, joten kaikki kolme peliä pysyvät sinun, ilmaiseksi, niin kauan kuin sovellus on olemassa. Kiitos alkuajoista.";
 "pro.earlyAdopter.badge" = "Ilmainen ikuisesti";
 "pro.earlyAdopter.confirm" = "Hienoa";
 "pro.earlyAdopter.settings.title" = "Ilmainen ikuisesti";
-"pro.earlyAdopter.settings.subtitle" = "Olit mukana aikaisin. Molemmat pelit ovat sinun, etkä ole meille mitään velkaa.";
+"pro.earlyAdopter.settings.subtitle" = "Olit mukana aikaisin. Kaikki kolme peliä ovat sinun, etkä ole meille mitään velkaa.";
 "pro.closePaywall" = "Sulje";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Käyttöoikeus";
-"pro.earlyAdopter.row.access.value" = "Molemmat pelit";
+"pro.earlyAdopter.row.access.value" = "Kaikki kolme peliä";
 "pro.earlyAdopter.row.cost" = "Hinta";
 "pro.earlyAdopter.row.cost.value" = "Ei mitään";
 "pro.earlyAdopter.row.expires" = "Päättyy";

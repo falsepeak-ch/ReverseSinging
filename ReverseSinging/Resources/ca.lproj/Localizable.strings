@@ -326,16 +326,16 @@
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Benvingut al club";
-"pro.earlyAdopter.message" = "Dubloon ara costa diners, però no per a tu. Hi eres abans que hi hagués preu, així que els dos jocs continuen sent teus, gratis, mentre l'app existeixi. Gràcies pels primers dies.";
+"pro.earlyAdopter.message" = "Dubloon ara costa diners, però no per a tu. Hi eres abans que hi hagués preu, així que els tres jocs continuen sent teus, gratis, mentre l'app existeixi. Gràcies pels primers dies.";
 "pro.earlyAdopter.badge" = "Gratis de per vida";
 "pro.earlyAdopter.confirm" = "Genial";
 "pro.earlyAdopter.settings.title" = "Gratis de per vida";
-"pro.earlyAdopter.settings.subtitle" = "Vas arribar aviat. Els dos jocs són teus i no ens deus res.";
+"pro.earlyAdopter.settings.subtitle" = "Vas arribar aviat. Els tres jocs són teus i no ens deus res.";
 "pro.closePaywall" = "Tancar";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Accés";
-"pro.earlyAdopter.row.access.value" = "Els dos jocs";
+"pro.earlyAdopter.row.access.value" = "Els tres jocs";
 "pro.earlyAdopter.row.cost" = "Cost";
 "pro.earlyAdopter.row.cost.value" = "Res";
 "pro.earlyAdopter.row.expires" = "Caduca";

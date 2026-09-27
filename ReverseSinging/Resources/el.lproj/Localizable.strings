@@ -326,16 +326,16 @@
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Καλώς ήρθες στο κλαμπ";
-"pro.earlyAdopter.message" = "Το Dubloon πλέον κοστίζει — αλλά όχι για σένα. Ήσουν εδώ πριν μπει ταμπελάκι με τιμή, οπότε και τα δύο παιχνίδια μένουν δικά σου, δωρεάν, όσο υπάρχει η εφαρμογή. Ευχαριστούμε για τις πρώτες μέρες.";
+"pro.earlyAdopter.message" = "Το Dubloon πλέον κοστίζει — αλλά όχι για σένα. Ήσουν εδώ πριν μπει ταμπελάκι με τιμή, οπότε και τα τρία παιχνίδια μένουν δικά σου, δωρεάν, όσο υπάρχει η εφαρμογή. Ευχαριστούμε για τις πρώτες μέρες.";
 "pro.earlyAdopter.badge" = "Δωρεάν για πάντα";
 "pro.earlyAdopter.confirm" = "Τέλεια";
 "pro.earlyAdopter.settings.title" = "Δωρεάν για πάντα";
-"pro.earlyAdopter.settings.subtitle" = "Ήσουν εδώ από νωρίς. Και τα δύο παιχνίδια είναι δικά σου και δεν μας χρωστάς τίποτα.";
+"pro.earlyAdopter.settings.subtitle" = "Ήσουν εδώ από νωρίς. Και τα τρία παιχνίδια είναι δικά σου και δεν μας χρωστάς τίποτα.";
 "pro.closePaywall" = "Κλείσιμο";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Πρόσβαση";
-"pro.earlyAdopter.row.access.value" = "Και τα δύο παιχνίδια";
+"pro.earlyAdopter.row.access.value" = "Και τα τρία παιχνίδια";
 "pro.earlyAdopter.row.cost" = "Κόστος";
 "pro.earlyAdopter.row.cost.value" = "Τίποτα";
 "pro.earlyAdopter.row.expires" = "Λήγει";

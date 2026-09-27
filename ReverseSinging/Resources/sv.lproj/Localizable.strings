@@ -326,16 +326,16 @@
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Välkommen till klubben";
-"pro.earlyAdopter.message" = "Dubloon kostar pengar nu — fast inte för dig. Du var här före prislappen, så båda spelen förblir dina, gratis, så länge appen finns. Tack för de första dagarna.";
+"pro.earlyAdopter.message" = "Dubloon kostar pengar nu — fast inte för dig. Du var här före prislappen, så alla tre spelen förblir dina, gratis, så länge appen finns. Tack för de första dagarna.";
 "pro.earlyAdopter.badge" = "Gratis för alltid";
 "pro.earlyAdopter.confirm" = "Fint";
 "pro.earlyAdopter.settings.title" = "Gratis för alltid";
-"pro.earlyAdopter.settings.subtitle" = "Du var här tidigt. Båda spelen är dina och du är oss ingenting skyldig.";
+"pro.earlyAdopter.settings.subtitle" = "Du var här tidigt. Alla tre spelen är dina och du är oss ingenting skyldig.";
 "pro.closePaywall" = "Stäng";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Åtkomst";
-"pro.earlyAdopter.row.access.value" = "Båda spelen";
+"pro.earlyAdopter.row.access.value" = "Alla tre spelen";
 "pro.earlyAdopter.row.cost" = "Kostnad";
 "pro.earlyAdopter.row.cost.value" = "Ingenting";
 "pro.earlyAdopter.row.expires" = "Går ut";

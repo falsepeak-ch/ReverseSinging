@@ -326,16 +326,16 @@
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Kulübe hoş geldin";
-"pro.earlyAdopter.message" = "Dubloon artık para ediyor — ama senin için değil. Fiyat etiketi gelmeden önce buradaydın, o yüzden iki oyun da uygulama var olduğu sürece ücretsiz senin kalıyor. İlk günler için teşekkürler.";
+"pro.earlyAdopter.message" = "Dubloon artık para ediyor — ama senin için değil. Fiyat etiketi gelmeden önce buradaydın, o yüzden üç oyun da uygulama var olduğu sürece ücretsiz senin kalıyor. İlk günler için teşekkürler.";
 "pro.earlyAdopter.badge" = "Ömür boyu ücretsiz";
 "pro.earlyAdopter.confirm" = "Güzel";
 "pro.earlyAdopter.settings.title" = "Ömür boyu ücretsiz";
-"pro.earlyAdopter.settings.subtitle" = "Erken geldin. İki oyun da senin ve bize hiçbir borcun yok.";
+"pro.earlyAdopter.settings.subtitle" = "Erken geldin. Üç oyun da senin ve bize hiçbir borcun yok.";
 "pro.closePaywall" = "Kapat";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Erişim";
-"pro.earlyAdopter.row.access.value" = "İki oyun";
+"pro.earlyAdopter.row.access.value" = "Üç oyun";
 "pro.earlyAdopter.row.cost" = "Bedel";
 "pro.earlyAdopter.row.cost.value" = "Yok";
 "pro.earlyAdopter.row.expires" = "Bitiş";

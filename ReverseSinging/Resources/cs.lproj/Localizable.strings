@@ -326,16 +326,16 @@
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Vítej v klubu";
-"pro.earlyAdopter.message" = "Dubloon teď stojí peníze — jenom u tebe ne. Byl jsi tu dřív, než přišla cenovka, takže obě hry zůstávají tvoje, zdarma, dokud aplikace existuje. Díky za ty první dny.";
+"pro.earlyAdopter.message" = "Dubloon teď stojí peníze — jenom u tebe ne. Byl jsi tu dřív, než přišla cenovka, takže všechny tři hry zůstávají tvoje, zdarma, dokud aplikace existuje. Díky za ty první dny.";
 "pro.earlyAdopter.badge" = "Zdarma navždy";
 "pro.earlyAdopter.confirm" = "Paráda";
 "pro.earlyAdopter.settings.title" = "Zdarma navždy";
-"pro.earlyAdopter.settings.subtitle" = "Byl jsi tu brzy. Obě hry jsou tvoje a nic nám nedlužíš.";
+"pro.earlyAdopter.settings.subtitle" = "Byl jsi tu brzy. Všechny tři hry jsou tvoje a nic nám nedlužíš.";
 "pro.closePaywall" = "Zavřít";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Přístup";
-"pro.earlyAdopter.row.access.value" = "Obě hry";
+"pro.earlyAdopter.row.access.value" = "Všechny tři hry";
 "pro.earlyAdopter.row.cost" = "Cena";
 "pro.earlyAdopter.row.cost.value" = "Nic";
 "pro.earlyAdopter.row.expires" = "Vyprší";

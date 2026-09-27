@@ -326,16 +326,16 @@
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "ยินดีต้อนรับสู่สโมสร";
-"pro.earlyAdopter.message" = "ตอนนี้ Dubloon มีค่าใช้จ่ายแล้ว แต่ไม่ใช่สำหรับคุณ คุณอยู่ตรงนี้ตั้งแต่ก่อนจะมีป้ายราคา ทั้งสองเกมจึงยังเป็นของคุณ ฟรี ตราบเท่าที่แอปนี้ยังอยู่ ขอบคุณสำหรับวันแรก ๆ";
+"pro.earlyAdopter.message" = "ตอนนี้ Dubloon มีค่าใช้จ่ายแล้ว แต่ไม่ใช่สำหรับคุณ คุณอยู่ตรงนี้ตั้งแต่ก่อนจะมีป้ายราคา ทั้งสามเกมจึงยังเป็นของคุณ ฟรี ตราบเท่าที่แอปนี้ยังอยู่ ขอบคุณสำหรับวันแรก ๆ";
 "pro.earlyAdopter.badge" = "ฟรีตลอดชีพ";
 "pro.earlyAdopter.confirm" = "ดีเลย";
 "pro.earlyAdopter.settings.title" = "ฟรีตลอดชีพ";
-"pro.earlyAdopter.settings.subtitle" = "คุณมาตั้งแต่แรก ทั้งสองเกมเป็นของคุณ และไม่ต้องจ่ายอะไรเลย";
+"pro.earlyAdopter.settings.subtitle" = "คุณมาตั้งแต่แรก ทั้งสามเกมเป็นของคุณ และไม่ต้องจ่ายอะไรเลย";
 "pro.closePaywall" = "ปิด";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "สิทธิ์เข้าถึง";
-"pro.earlyAdopter.row.access.value" = "ทั้งสองเกม";
+"pro.earlyAdopter.row.access.value" = "ทั้งสามเกม";
 "pro.earlyAdopter.row.cost" = "ค่าใช้จ่าย";
 "pro.earlyAdopter.row.cost.value" = "ไม่มี";
 "pro.earlyAdopter.row.expires" = "หมดอายุ";

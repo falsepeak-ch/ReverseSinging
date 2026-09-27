@@ -326,16 +326,16 @@
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "أهلاً بك في النادي";
-"pro.earlyAdopter.message" = "صار Dubloon بمقابل الآن — إلا بالنسبة لك. كنت هنا قبل أن يظهر السعر، لذا تبقى اللعبتان لك، مجاناً، ما دام التطبيق موجوداً. شكراً على الأيام الأولى.";
+"pro.earlyAdopter.message" = "صار Dubloon بمقابل الآن — إلا بالنسبة لك. كنت هنا قبل أن يظهر السعر، لذا تبقى الألعاب الثلاث لك، مجاناً، ما دام التطبيق موجوداً. شكراً على الأيام الأولى.";
 "pro.earlyAdopter.badge" = "مجاني مدى الحياة";
 "pro.earlyAdopter.confirm" = "جميل";
 "pro.earlyAdopter.settings.title" = "مجاني مدى الحياة";
-"pro.earlyAdopter.settings.subtitle" = "كنت هنا مبكراً. اللعبتان لك، ولا تدين لنا بشيء.";
+"pro.earlyAdopter.settings.subtitle" = "كنت هنا مبكراً. الألعاب الثلاث لك، ولا تدين لنا بشيء.";
 "pro.closePaywall" = "إغلاق";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "الوصول";
-"pro.earlyAdopter.row.access.value" = "اللعبتان";
+"pro.earlyAdopter.row.access.value" = "الألعاب الثلاث";
 "pro.earlyAdopter.row.cost" = "التكلفة";
 "pro.earlyAdopter.row.cost.value" = "لا شيء";
 "pro.earlyAdopter.row.expires" = "ينتهي";
