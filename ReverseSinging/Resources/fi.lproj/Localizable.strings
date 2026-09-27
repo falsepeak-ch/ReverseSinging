@@ -550,3 +550,6 @@
 "mac.search.prompt" = "Hae";
 "mac.menu.find" = "Etsi";
 "mac.menu.openInNewWindow" = "Avaa uudessa ikkunassa";
+"mac.panel.sound" = "Ääni";
+"mac.panel.allSounds" = "Kaikki";
+"mac.panel.compare" = "Vertailu";

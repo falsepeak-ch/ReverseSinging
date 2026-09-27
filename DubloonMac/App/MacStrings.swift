@@ -72,6 +72,9 @@ enum MacStrings {
         static let duration = NSLocalizedString("mac.panel.duration", comment: "Inspector or column header: how long something lasts")
         static let notDubbed = NSLocalizedString("mac.panel.notDubbed", comment: "Status of a line with no take yet")
         static let attempts = NSLocalizedString("mac.panel.attempts", comment: "Inspector: how many times the user sang it back")
+        static let sound = NSLocalizedString("mac.panel.sound", comment: "Column header in the sound imitation browser: the sound's name")
+        static let allSounds = NSLocalizedString("mac.panel.allSounds", comment: "Filter in the sound imitation browser: every category")
+        static let compare = NSLocalizedString("mac.panel.compare", comment: "Title of the panel that draws the original sound above the user's imitation of it")
         static let emptyTitle = NSLocalizedString("mac.panel.emptyTitle", comment: "Shown when nothing is selected in the sidebar")
         static let emptyMessage = NSLocalizedString("mac.panel.emptyMessage", comment: "Shown when nothing is selected in the sidebar")
     }

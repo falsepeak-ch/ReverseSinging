@@ -20,10 +20,18 @@ final class ImitateStudioViewModel: ObservableObject {
 
     @Published private(set) var challenge: ImitationChallengeViewModel?
 
+    /// The browser's filter; nil lists every category. Remembered across launches.
+    @Published var category: ImitationCategory? {
+        didSet { UserDefaults.standard.set(category?.rawValue, forKey: Self.categoryKey) }
+    }
+
+    private static let categoryKey = "mac.imitate.category"
+
     private var cancellables = Set<AnyCancellable>()
     private var challengeCancellable: AnyCancellable?
 
     init() {
+        category = UserDefaults.standard.string(forKey: Self.categoryKey).flatMap(ImitationCategory.init(rawValue:))
         library.objectWillChange
             .sink { [weak self] _ in self?.objectWillChange.send() }
             .store(in: &cancellables)
@@ -35,7 +43,7 @@ final class ImitateStudioViewModel: ObservableObject {
 
     func onAppear() {
         library.onAppear()
-        if challenge == nil, let first = library.categories.lazy.flatMap(library.sounds(in:)).first {
+        if challenge == nil, let first = visibleSounds.first {
             select(first)
         }
     }
@@ -56,6 +64,21 @@ final class ImitateStudioViewModel: ObservableObject {
         challenge = model
         model.onAppear()
         HapticManager.shared.light()
+    }
+
+    /// The sounds the browser lists, in its order.
+    var visibleSounds: [ImitationSound] {
+        let categories = category.map { [$0] } ?? library.categories
+        return categories.flatMap(library.sounds(in:))
+    }
+
+    /// ↑ and ↓ from the Playback menu: the neighbouring sound in the browser.
+    func selectNeighbour(_ step: Int) {
+        let sounds = visibleSounds
+        guard !sounds.isEmpty else { return }
+        let index = selectedSound.flatMap { sounds.firstIndex(of: $0) } ?? -step
+        let target = min(max(index + step, 0), sounds.count - 1)
+        select(sounds[target])
     }
 
     func select(id: ImitationSound.ID?) {

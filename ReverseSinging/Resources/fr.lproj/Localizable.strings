@@ -550,3 +550,6 @@
 "mac.search.prompt" = "Rechercher";
 "mac.menu.find" = "Rechercher";
 "mac.menu.openInNewWindow" = "Ouvrir dans une nouvelle fenêtre";
+"mac.panel.sound" = "Son";
+"mac.panel.allSounds" = "Tous";
+"mac.panel.compare" = "Comparer";

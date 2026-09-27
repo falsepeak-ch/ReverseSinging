@@ -351,11 +351,35 @@ enum MacE2ERunner {
         check("L plays the sound", playing)
         await shot("18-imitate-listening")
 
-        let next = ImitationSoundLibrary.all.first { $0.id != challenge.sound.id }!
-        studio.select(next)
-        let switched = await waitUntil(1.5) { studio.challenge?.sound.id == next.id }
-        check("picking another sound swaps the stage", switched)
+        press(.key("l"))
+        _ = await waitUntil(1.5) { challenge.playingClip == nil }
+
+        // An attempt, drawn live and then against the sound.
+        press(.key("r"))
+        let recording = await waitUntil(6) { challenge.phase == .recording }
+        check("R starts an imitation", recording)
+        await sleep(1.0)
+        await shot("18a-imitate-recording")
+        if challenge.phase == .recording { press(.key("r")) }
+        let judged = await waitUntil(12) { challenge.phase == .result }
+        check("the attempt is judged", judged)
+        check("the attempt's audio is there to draw", challenge.takeFileURL != nil)
+        await sleep(1.5)
+        await shot("18b-imitate-result")
+
+        // ↓ walks the browser.
+        let order = studio.visibleSounds
+        let expected = order.firstIndex(of: challenge.sound).map { order[min($0 + 1, order.count - 1)] }
+        press(.down)
+        let walked = await waitUntil(1.5) { studio.challenge?.sound == expected }
+        check("↓ moves to the next sound", walked, studio.challenge?.sound.id ?? "none")
         check("the previous sound stopped", challenge.playingClip == nil)
+
+        // The filter narrows the browser to one category.
+        let saved = studio.category
+        studio.category = .vehicles
+        check("the filter lists one category", studio.visibleSounds.allSatisfy { $0.category == .vehicles } && !studio.visibleSounds.isEmpty)
+        studio.category = saved
     }
 
     // MARK: - Menus
@@ -365,7 +389,7 @@ enum MacE2ERunner {
         let expectations: [(MacDestination?, [String: Bool])] = [
             (.reverse, [MacStrings.Menu.playPause: true, MacStrings.Menu.nextLine: false, MacStrings.Menu.export: false]),
             (workspace.packs.first.map { .pack($0.id) }, [MacStrings.Menu.playPause: true, MacStrings.Menu.nextLine: true, MacStrings.Menu.listen: true, MacStrings.Menu.export: true]),
-            (.imitate, [MacStrings.Menu.playPause: true, MacStrings.Menu.nextLine: false, MacStrings.Menu.listen: true])
+            (.imitate, [MacStrings.Menu.playPause: true, MacStrings.Menu.nextLine: true, MacStrings.Menu.listen: true])
         ]
         for (destination, expected) in expectations {
             guard let destination else { continue }

@@ -78,8 +78,10 @@ final class MacTransportHub: ObservableObject {
 
     private init() {
         for name in [NSWindow.didBecomeKeyNotification, NSWindow.didBecomeMainNotification, NSWindow.willCloseNotification] {
+            // Delivered on the main queue, and refreshed there and then: a shortcut typed the
+            // moment a window comes forward must already find that window's transport.
             NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { _ in
-                Task { @MainActor in MacTransportHub.shared.refresh() }
+                MainActor.assumeIsolated { MacTransportHub.shared.refresh() }
             }
         }
     }

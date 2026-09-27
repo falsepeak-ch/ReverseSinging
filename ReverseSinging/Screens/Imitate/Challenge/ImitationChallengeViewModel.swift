@@ -102,6 +102,11 @@ final class ImitationChallengeViewModel: ObservableObject {
     /// Booth footage of the attempt on screen, to play back under the verdict.
     var boothPlaybackURL: URL? { phase == .result && hasBoothClip ? boothURL : nil }
 
+    /// The attempt's audio once it has been judged, for drawing it beside the reference.
+    var takeFileURL: URL? {
+        phase == .result && FileManager.default.fileExists(atPath: takeURL.path) ? takeURL : nil
+    }
+
     private var takeURL: URL {
         AudioFileManager.shared.imitateTakesDirectory().appendingPathComponent("\(sound.id).caf")
     }

@@ -39,10 +39,13 @@ struct ImitateInspector: View {
             }
 
             ProInspectorRow(label: MacStrings.Panel.duration, value: sound.duration.proShortTime)
-            ProInspectorRow(
-                label: Strings.Imitate.difficulty,
-                value: String(repeating: "●", count: sound.difficulty) + String(repeating: "○", count: max(0, 3 - sound.difficulty))
-            )
+            HStack {
+                Text(Strings.Imitate.difficulty)
+                    .font(.rsMeta)
+                    .foregroundColor(.rsTextSecondary)
+                Spacer()
+                DifficultyMeter(level: sound.difficulty)
+            }
 
             if let best = viewModel.library.best(for: sound), let grade = viewModel.library.grade(for: sound) {
                 ProInspectorRow(
@@ -73,6 +76,8 @@ struct ImitateInspector: View {
                         .foregroundColor(.rsGood)
                 }
             }
+
+            ImitateScoreRadar(score: score)
 
             ImitationScoreParts(score: score)
         }

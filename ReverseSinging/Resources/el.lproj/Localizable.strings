@@ -550,3 +550,6 @@
 "mac.search.prompt" = "Αναζήτηση";
 "mac.menu.find" = "Εύρεση";
 "mac.menu.openInNewWindow" = "Άνοιγμα σε νέο παράθυρο";
+"mac.panel.sound" = "Ήχος";
+"mac.panel.allSounds" = "Όλα";
+"mac.panel.compare" = "Σύγκριση";

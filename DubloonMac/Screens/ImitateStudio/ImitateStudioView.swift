@@ -2,7 +2,8 @@
 //  ImitateStudioView.swift
 //  DubloonMac
 //
-//  Sound Imitation: a browser of sounds, the stage, and an inspector with the verdict
+//  Sound Imitation as an analysis bench: a sound browser, the stage over a comparison of the
+//  sound and the attempt, and an inspector with the verdict
 //
 
 import SwiftUI
@@ -13,15 +14,15 @@ struct ImitateStudioView: View {
     @StateObject private var viewModel = ImitateStudioViewModel()
     @ObservedObject private var boothPreference = BoothCamPreference.shared
 
-    @AppStorage("mac.imitate.browserWidth") private var browserWidth: Double = 300
+    @AppStorage("mac.imitate.browserWidth") private var browserWidth: Double = 340
 
     var body: some View {
         GeometryReader { geometry in
         HStack(spacing: 0) {
-            browser
-                .frame(width: ProPane.width(browserWidth, of: geometry.size.width, leaving: 400, minimum: 220))
+            ImitateSoundBrowser(viewModel: viewModel)
+                .frame(width: ProPane.width(browserWidth, of: geometry.size.width, leaving: 420, minimum: 260))
 
-            ProResizeHandle(direction: .horizontal, value: $browserWidth, range: 220...560)
+            ProResizeHandle(direction: .horizontal, value: $browserWidth, range: 280...560)
 
             Group {
                 if let challenge = viewModel.challenge {
@@ -49,49 +50,6 @@ struct ImitateStudioView: View {
             #endif
         }
         .onDisappear { viewModel.onDisappear() }
-    }
-
-    // MARK: - Browser
-
-    private var browser: some View {
-        VStack(spacing: 0) {
-            ProPanelHeader(title: GameMode.imitate.title, subtitle: String(format: "%02d", ImitationSoundLibrary.all.count))
-
-            ScrollView {
-                VStack(alignment: .leading, spacing: 18) {
-                    Text(Strings.Imitate.libraryHint)
-                        .font(.rsCaption)
-                        .foregroundColor(.rsTextTertiary)
-                        .fixedSize(horizontal: false, vertical: true)
-
-                    ForEach(viewModel.library.categories) { category in
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(category.title)
-                                .editorLabelStyle(.rsTextSecondary)
-
-                            LazyVGrid(columns: [GridItem(.adaptive(minimum: 92, maximum: 140), spacing: 8)], spacing: 8) {
-                                ForEach(viewModel.library.sounds(in: category)) { sound in
-                                    SoundTile(
-                                        sound: sound,
-                                        best: viewModel.library.best(for: sound),
-                                        grade: viewModel.library.grade(for: sound)
-                                    ) {
-                                        viewModel.select(sound)
-                                    }
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: EditorMetrics.radius)
-                                            .strokeBorder(Color.proSelection, lineWidth: 2)
-                                            .opacity(viewModel.selectedSound == sound ? 1 : 0)
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
-                .padding(12)
-            }
-        }
-        .background(Color.rsSurface1)
     }
 
     // MARK: - Toolbar
@@ -143,8 +101,11 @@ struct ImitateStudioView: View {
         let phase = challenge.phase
         transport.isRecording = phase == .recording
         if !isBusy {
+            let studio = viewModel
             transport.togglePlay = { challenge.playReference() }
             transport.listen = { challenge.playReference() }
+            transport.previous = { studio.selectNeighbour(-1) }
+            transport.next = { studio.selectNeighbour(1) }
         }
         if phase != .scoring { transport.toggleRecord = { challenge.toggleRecording() } }
         if phase == .result && !isBusy {
@@ -157,27 +118,43 @@ struct ImitateStudioView: View {
 
 // MARK: - Stage
 
-/// The selected sound's stage, the reference to copy, and the record key.
+/// The selected sound's stage above the comparison of the sound and the attempt, and the
+/// transport under both.
 private struct ImitateStagePane: View {
     @ObservedObject var challenge: ImitationChallengeViewModel
 
+    @AppStorage("mac.imitate.compareHeight") private var compareHeight: Double = 230
+
     var body: some View {
         VStack(spacing: 0) {
-            ProPanelHeader(title: MacStrings.Panel.viewer, subtitle: challenge.sound.name)
+            ProPanelHeader(title: MacStrings.Panel.viewer, subtitle: challenge.sound.name) {
+                HStack(spacing: 8) {
+                    Text(challenge.sound.category.title)
+                        .editorLabelStyle(.rsTextTertiary)
+                    if challenge.phase == .recording {
+                        RecordingBadge(elapsed: challenge.recordingElapsed)
+                    }
+                }
+            }
 
             ZStack {
                 Color.proViewer
 
                 ImitationStage(viewModel: challenge)
-                    .aspectRatio(4 / 3, contentMode: .fit)
-                    .frame(maxWidth: 760)
-                    .padding(24)
+                    .aspectRatio(16 / 9, contentMode: .fit)
+                    .frame(maxWidth: 900)
+                    .padding(18)
 
                 CountdownOverlay(value: challenge.countdown)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .frame(maxWidth: .infinity, minHeight: 180, maxHeight: .infinity)
+            .clipped()
 
-            reference
+            ProResizeHandle(direction: .vertical, value: $compareHeight, range: 170...420, inverted: true)
+
+            ImitateComparePanel(challenge: challenge)
+                .frame(height: CGFloat(compareHeight))
+                .clipped()
 
             transport
         }
@@ -208,30 +185,6 @@ private struct ImitateStagePane: View {
         } message: {
             Text(Strings.Main.Alert.microphoneRequiredMessage)
         }
-    }
-
-    private var reference: some View {
-        HStack(spacing: 12) {
-            Text(Strings.Dub.referenceTrack)
-                .editorLabelStyle(.rsTextTertiary)
-                .frame(width: 92, alignment: .leading)
-
-            SoundWaveBars(
-                bars: challenge.referenceBars,
-                progress: challenge.playingClip == .reference ? challenge.playbackProgress : nil
-            )
-            .frame(height: 34)
-            .contentShape(Rectangle())
-            .onTapGesture { challenge.playReference() }
-
-            Text(challenge.sound.duration.proShortTime)
-                .font(.rsTimecodeSmall)
-                .foregroundColor(.rsTextTertiary)
-        }
-        .padding(.horizontal, 14)
-        .padding(.vertical, 8)
-        .background(Color.rsSurface1)
-        .overlay(alignment: .top) { EditorRule() }
     }
 
     private var transport: some View {
@@ -295,6 +248,29 @@ private struct ImitateStagePane: View {
         case .recording: Strings.Imitate.recordingHint
         case .scoring: Strings.Imitate.scoring
         default: Strings.Imitate.instruction
+        }
+    }
+}
+
+// MARK: - Recording Badge
+
+/// The red light and running time a recorder shows while it is rolling.
+private struct RecordingBadge: View {
+    let elapsed: TimeInterval
+    @State private var isLit = true
+
+    var body: some View {
+        HStack(spacing: 5) {
+            Circle()
+                .fill(Color.rsRecord)
+                .frame(width: 7, height: 7)
+                .opacity(isLit ? 1 : 0.25)
+            Text(verbatim: "REC \(elapsed.proShortTime)")
+                .font(.system(size: 10, weight: .bold, design: .monospaced))
+                .foregroundColor(.rsRecord)
+        }
+        .onAppear {
+            withAnimation(.easeInOut(duration: 0.6).repeatForever(autoreverses: true)) { isLit = false }
         }
     }
 }
