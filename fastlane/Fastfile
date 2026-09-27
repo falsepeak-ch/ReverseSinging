@@ -367,6 +367,12 @@ platform :mac do
       output_directory: "build/mac",
       xcargs: "-allowProvisioningUpdates"
     )
+    # Same reason as the iOS lanes: without this, a Mac crash reaches Crashlytics as raw
+    # addresses. The Firebase checkout lives under this lane's own derived data path.
+    sh(
+      "../build/MacDerivedData/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols",
+      "-gsp", GSP_PATH, "-p", "mac", lane_context[SharedValues::DSYM_OUTPUT_PATH]
+    )
     upload_to_app_store(
       api_key: @api_key,
       platform: "osx",
