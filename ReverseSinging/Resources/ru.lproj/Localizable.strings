@@ -524,3 +524,5 @@
 "mac.settings.general" = "Основные";
 "mac.settings.recording" = "Запись";
 "mac.welcome.notNow" = "Не сейчас";
+"mac.booth.primer.message" = "Booth Cam держит камеру Mac включённой, пока ты играешь, так что сцена, реплика и твоё лицо помещаются на одном экране. Потом можно поделиться реакцией вместе с озвучкой.";
+"mac.booth.primer.systemPrompt" = "Сейчас macOS попросит доступ к камере.";

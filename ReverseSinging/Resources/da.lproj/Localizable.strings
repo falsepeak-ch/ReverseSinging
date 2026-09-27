@@ -524,3 +524,5 @@
 "mac.settings.general" = "Generelt";
 "mac.settings.recording" = "Optagelse";
 "mac.welcome.notNow" = "Ikke nu";
+"mac.booth.primer.message" = "Booth Cam kører Mac'ens kamera, mens du spiller, så scenen, replikken og dit ansigt deler den samme skærm. Bagefter kan du dele reaktionen sammen med dubben.";
+"mac.booth.primer.systemPrompt" = "Om lidt spørger macOS om adgang til kameraet.";

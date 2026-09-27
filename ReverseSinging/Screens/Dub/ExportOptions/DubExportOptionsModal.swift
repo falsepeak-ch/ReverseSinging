@@ -43,99 +43,64 @@ struct DubExportOptionsModal: View {
     }
 
     var body: some View {
-        ZStack {
-            backdrop
+        EditorModal(title: viewModel.pack.title, width: 540, onClose: cancel) {
+            Text(Strings.Booth.exportTitle)
+                .font(.rsHeadingSmall)
+                .foregroundColor(.rsTextPrimary)
+                .frame(maxWidth: .infinity, alignment: .leading)
 
-            panel
-                .padding(.horizontal, EditorMetrics.gutter)
-                .padding(.vertical, 20)
-                .transition(.opacity)
+            // The preview says what the other choices used to have to explain, now that
+            // it is made of the actual scene and the actual face rather than two grey
+            // rectangles with words in them.
+            preview
+
+            if let line = viewModel.line { lineIdentity(line) }
+
+            framePicker
+
+            advanced
+
+            slate
+
+            #if os(macOS)
+            Text(Strings.Booth.exportNotice)
+                .font(.rsCaptionSmall)
+                .foregroundColor(.rsTextTertiary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            #endif
+        } phoneActions: {
+            VStack(spacing: 8) {
+                BigButton(
+                    title: confirmTitle,
+                    icon: "square.and.arrow.up",
+                    color: .rsTextPrimary,
+                    action: export,
+                    style: .primary,
+                    textFont: .rsButtonMedium
+                )
+
+                Text(Strings.Booth.exportNotice)
+                    .font(.rsCaptionSmall)
+                    .foregroundColor(.rsTextTertiary)
+                    .frame(maxWidth: .infinity)
+                    .multilineTextAlignment(.center)
+            }
+        } macActions: {
+            Button(confirmTitle, action: export)
+                .keyboardShortcut(.defaultAction)
+                .buttonStyle(.borderedProminent)
         }
         .onAppear { viewModel.onAppear() }
         .task { await viewModel.loadSceneSize() }
         .task { await viewModel.loadBoothStill() }
     }
 
-    private var backdrop: some View {
-        Color.rsSurface0
-            .opacity(0.88)
-            .ignoresSafeArea()
-            .contentShape(Rectangle())
-            .onTapGesture { cancel() }
-            .accessibilityHidden(true)
+    private var confirmTitle: String {
+        viewModel.line == nil ? Strings.Booth.exportConfirm : Strings.Booth.exportLineConfirm
     }
 
-    // MARK: - Panel
-
-    private var panel: some View {
-        ViewThatFits(in: .vertical) {
-            content
-            ScrollView { content }
-                .scrollBounceBehavior(.basedOnSize)
-        }
-        .editorPanel(.rsSurface1, radius: EditorMetrics.radiusLarge)
-        .frame(maxWidth: 420)
-    }
-
-    private var content: some View {
-        VStack(spacing: 0) {
-            titleBar
-
-            VStack(alignment: .leading, spacing: 16) {
-                Text(Strings.Booth.exportTitle)
-                    .font(.rsHeadingSmall)
-                    .foregroundColor(.rsTextPrimary)
-
-                // The preview says what the other choices used to have to explain, now that
-                // it is made of the actual scene and the actual face rather than two grey
-                // rectangles with words in them.
-                preview
-
-                if let line = viewModel.line { lineIdentity(line) }
-
-                framePicker
-
-                advanced
-
-                slate
-
-                VStack(spacing: 8) {
-                    BigButton(
-                        title: viewModel.line == nil ? Strings.Booth.exportConfirm : Strings.Booth.exportLineConfirm,
-                        icon: "square.and.arrow.up",
-                        color: .rsTextPrimary,
-                        action: { onExport(viewModel.cut, viewModel.frame, viewModel.exportsBooth) },
-                        style: .primary,
-                        textFont: .rsButtonMedium
-                    )
-
-                    Text(Strings.Booth.exportNotice)
-                        .font(.rsCaptionSmall)
-                        .foregroundColor(.rsTextTertiary)
-                        .frame(maxWidth: .infinity)
-                        .multilineTextAlignment(.center)
-                }
-            }
-            .padding(EditorMetrics.gutter)
-        }
-    }
-
-    private var titleBar: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 10) {
-                Text(viewModel.pack.title)
-                    .editorLabelStyle(.rsTextSecondary)
-                    .lineLimit(1)
-
-                Spacer(minLength: 8)
-
-                EditorToolbarButton(icon: "xmark", label: Strings.DubGate.close, action: cancel)
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 10)
-
-            EditorRule()
-        }
+    private func export() {
+        onExport(viewModel.cut, viewModel.frame, viewModel.exportsBooth)
     }
 
     // MARK: - Preview
@@ -288,6 +253,17 @@ struct DubExportOptionsModal: View {
         VStack(alignment: .leading, spacing: 8) {
             EditorSectionHeader(title: Strings.Booth.cut)
 
+            #if os(macOS)
+            Picker(Strings.Booth.cut, selection: Binding(
+                get: { viewModel.cut == .fullScene },
+                set: { viewModel.cut = $0 ? .fullScene : .sessionReel }
+            )) {
+                Text(Strings.Booth.cutFullScene).tag(true)
+                Text(Strings.Booth.cutSessionReel).tag(false)
+            }
+            .pickerStyle(.segmented)
+            .labelsHidden()
+            #else
             HStack(spacing: 0) {
                 segment(Strings.Booth.cutFullScene, isSelected: viewModel.cut == .fullScene) {
                     viewModel.cut = .fullScene
@@ -307,6 +283,7 @@ struct DubExportOptionsModal: View {
                 RoundedRectangle(cornerRadius: 5, style: .continuous)
                     .strokeBorder(Color.rsStroke, lineWidth: EditorMetrics.hairline)
             )
+            #endif
 
             Text(Strings.Booth.cutDetail)
                 .font(.rsCaptionSmall)
@@ -533,7 +510,6 @@ struct DubExportOptionsModal: View {
     }
 
     private func cancel() {
-        HapticManager.shared.light()
         onCancel()
     }
 }

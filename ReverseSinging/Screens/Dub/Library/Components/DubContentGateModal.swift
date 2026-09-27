@@ -28,104 +28,61 @@ struct DubContentGateModal: View {
     @Environment(\.openURL) private var openURL
 
     var body: some View {
-        ZStack {
-            backdrop
+        EditorModal(
+            title: Strings.Main.Mode.dubTitle,
+            onBack: backAction,
+            onClose: cancel
+        ) {
+            hero
 
-            panel
-                .padding(.horizontal, EditorMetrics.gutter)
-                .padding(.vertical, 24)
-                .transition(.opacity)
+            VStack(spacing: 10) {
+                Text(title)
+                    .font(.rsHeadingSmall)
+                    .foregroundColor(.rsTextPrimary)
+                    .multilineTextAlignment(.center)
+
+                Text(message)
+                    .font(.rsBodySmall)
+                    .foregroundColor(.rsTextSecondary)
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(5)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            if step == .download {
+                disclaimer
+            }
+        } phoneActions: {
+            actions
+        } macActions: {
+            macActions
         }
+        .animation(.rsSpring, value: step)
         .onAppear {
             AnalyticsManager.shared.trackDubGateShown()
         }
     }
 
-    // MARK: - Backdrop
-
-    private var backdrop: some View {
-        Color.rsSurface0
-            .opacity(0.88)
-            .ignoresSafeArea()
-            .contentShape(Rectangle())
-            .onTapGesture { cancel() }
-            .accessibilityHidden(true)
+    /// Only the download step has a step to go back to.
+    private var backAction: (() -> Void)? {
+        guard step == .download else { return nil }
+        return { goBack() }
     }
 
-    // MARK: - Panel
-
-    private var panel: some View {
-        // Tall on the download step, so it scrolls rather than overflowing a short screen.
-        ViewThatFits(in: .vertical) {
-            panelContent
-            ScrollView { panelContent }
-                .scrollBounceBehavior(.basedOnSize)
-        }
-        .editorPanel(.rsSurface1, radius: EditorMetrics.radiusLarge)
-        .frame(maxWidth: 400)
-        .animation(.rsSpring, value: step)
-    }
-
-    private var panelContent: some View {
-        VStack(spacing: 0) {
-            titleBar
-
-            VStack(spacing: 20) {
-                hero
-
-                VStack(spacing: 10) {
-                    Text(title)
-                        .font(.rsHeadingSmall)
-                        .foregroundColor(.rsTextPrimary)
-                        .multilineTextAlignment(.center)
-
-                    Text(message)
-                        .font(.rsBodySmall)
-                        .foregroundColor(.rsTextSecondary)
-                        .multilineTextAlignment(.center)
-                        .lineSpacing(5)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-
-                if step == .download {
-                    disclaimer
-                }
-
-                actions
-            }
-            .padding(EditorMetrics.gutter)
-        }
-    }
-
-    /// Reads like a panel header in the editor chrome rather than a floating close
-    /// glyph: back on the left, what you are looking at in the middle, close on the right.
-    private var titleBar: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 10) {
-                if step == .download {
-                    EditorToolbarButton(
-                        icon: "chevron.left",
-                        label: Strings.DubGate.downloadBack,
-                        action: goBack
-                    )
-                }
-
-                Text(Strings.Main.Mode.dubTitle)
-                    .editorLabelStyle(.rsTextSecondary)
-                    .lineLimit(1)
-
-                Spacer(minLength: 8)
-
-                EditorToolbarButton(
-                    icon: "xmark",
-                    label: Strings.DubGate.close,
-                    action: cancel
-                )
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 10)
-
-            EditorRule()
+    /// The same two answers as on the iPhone, as the Mac footer's buttons: the one that moves
+    /// on is the default.
+    @ViewBuilder
+    private var macActions: some View {
+        switch step {
+        case .ask:
+            Button(Strings.DubGate.askNeedDownload, action: showDownloadStep)
+            Button(Strings.DubGate.askConfirm, action: confirmOwnership)
+                .keyboardShortcut(.defaultAction)
+                .buttonStyle(.borderedProminent)
+        case .download:
+            Button(String(format: Strings.DubGate.downloadOpen, source.name), action: openSource)
+                .keyboardShortcut(.defaultAction)
+                .buttonStyle(.borderedProminent)
         }
     }
 
@@ -251,7 +208,6 @@ struct DubContentGateModal: View {
     }
 
     private func cancel() {
-        HapticManager.shared.light()
         onCancel()
     }
 }
@@ -264,22 +220,18 @@ private struct DubContentGateModifier: ViewModifier {
     let onReady: () -> Void
 
     func body(content: Content) -> some View {
-        content
-            .overlay {
-                if isPresented {
-                    DubContentGateModal(
-                        source: source,
-                        onReady: {
-                            isPresented = false
-                            onReady()
-                        },
-                        onCancel: {
-                            isPresented = false
-                        }
-                    )
+        content.editorModal(isPresented: $isPresented) {
+            DubContentGateModal(
+                source: source,
+                onReady: {
+                    isPresented = false
+                    onReady()
+                },
+                onCancel: {
+                    isPresented = false
                 }
-            }
-            .animation(.rsSmooth, value: isPresented)
+            )
+        }
     }
 }
 

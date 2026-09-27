@@ -524,3 +524,5 @@
 "mac.settings.general" = "Yleiset";
 "mac.settings.recording" = "Nauhoitus";
 "mac.welcome.notNow" = "Ei nyt";
+"mac.booth.primer.message" = "Booth Cam pitää Macin kameran käynnissä esityksesi ajan, joten kohtaus, repliikki ja naamasi mahtuvat samalle ruudulle. Myöhemmin voit jakaa reaktion dubbauksen mukana.";
+"mac.booth.primer.systemPrompt" = "Seuraavaksi macOS kysyy oikeutta kameraan.";

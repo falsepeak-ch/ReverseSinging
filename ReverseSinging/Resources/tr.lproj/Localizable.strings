@@ -524,3 +524,5 @@
 "mac.settings.general" = "Genel";
 "mac.settings.recording" = "Kayıt";
 "mac.welcome.notNow" = "Şimdi değil";
+"mac.booth.primer.message" = "Booth Cam sen oynarken Mac'in kamerasını çalıştırır; böylece sahne, replik ve yüzün aynı ekranda olur. Sonrasında tepkini seslendirmeyle birlikte paylaşabilirsin.";
+"mac.booth.primer.systemPrompt" = "Birazdan macOS kamera izni isteyecek.";

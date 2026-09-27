@@ -77,19 +77,20 @@ struct DubEditorView: View {
         .task { await detail.checkVideo() }
         .task(id: scoring.isEnabled) { await detail.scoringDidChange() }
         // Export: options, then the notice, then the render and the save panel.
-        .overlay {
-            if detail.showExportOptions {
-                DubExportOptionsModal(
-                    pack: viewModel.pack,
-                    line: detail.exportOptionsLine,
-                    hasBoothFootage: session.hasAnyBoothTake,
-                    runtime: { detail.runtime(of: $0) },
-                    onExport: { cut, frame, includesBooth in
-                        detail.configureExport(cut: cut, frame: frame, includesBooth: includesBooth)
-                    },
-                    onCancel: { detail.cancelExportOptions() }
-                )
-            }
+        .editorModal(isPresented: Binding(
+            get: { detail.showExportOptions },
+            set: { if !$0 { detail.cancelExportOptions() } }
+        )) {
+            DubExportOptionsModal(
+                pack: viewModel.pack,
+                line: detail.exportOptionsLine,
+                hasBoothFootage: session.hasAnyBoothTake,
+                runtime: { detail.runtime(of: $0) },
+                onExport: { cut, frame, includesBooth in
+                    detail.configureExport(cut: cut, frame: frame, includesBooth: includesBooth)
+                },
+                onCancel: { detail.cancelExportOptions() }
+            )
         }
         .overlay {
             if detail.isExporting {
@@ -97,7 +98,6 @@ struct DubEditorView: View {
                     .transition(.opacity)
             }
         }
-        .animation(.rsSmooth, value: detail.showExportOptions)
         .animation(.rsSpring, value: detail.isExporting)
         .dubShareNotice(isPresented: Binding(
             get: { detail.showShareNotice },

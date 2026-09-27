@@ -524,3 +524,5 @@
 "mac.settings.general" = "一般";
 "mac.settings.recording" = "録音";
 "mac.welcome.notNow" = "今はしない";
+"mac.booth.primer.message" = "ブースカメラは演技中にMacのカメラを回します。シーンとセリフとあなたの顔がひとつの画面に収まり、あとからリアクションごとアフレコを共有できます。";
+"mac.booth.primer.systemPrompt" = "このあとmacOSがカメラの許可を尋ねます。";

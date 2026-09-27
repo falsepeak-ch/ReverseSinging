@@ -524,3 +524,5 @@
 "mac.settings.general" = "Γενικά";
 "mac.settings.recording" = "Εγγραφή";
 "mac.welcome.notNow" = "Όχι τώρα";
+"mac.booth.primer.message" = "Το Booth Cam κρατά ανοιχτή την κάμερα του Mac όσο παίζεις, ώστε η σκηνή, η ατάκα και το πρόσωπό σου να χωράνε στην ίδια οθόνη. Μετά μπορείς να μοιραστείς την αντίδραση μαζί με τη μεταγλώττιση.";
+"mac.booth.primer.systemPrompt" = "Αμέσως μετά το macOS θα ζητήσει πρόσβαση στην κάμερα.";

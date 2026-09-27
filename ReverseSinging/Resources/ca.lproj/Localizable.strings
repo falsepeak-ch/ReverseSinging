@@ -524,3 +524,5 @@
 "mac.settings.general" = "General";
 "mac.settings.recording" = "Gravació";
 "mac.welcome.notNow" = "Ara no";
+"mac.booth.primer.message" = "La càmera de cabina fa servir la càmera del Mac mentre actues, així que l'escena, la frase i la teva cara caben en la mateixa pantalla. Després pots compartir la reacció juntament amb el doblatge.";
+"mac.booth.primer.systemPrompt" = "El següent que veuràs és macOS demanant-te accés a la càmera.";

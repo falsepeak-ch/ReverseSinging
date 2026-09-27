@@ -524,3 +524,5 @@
 "mac.settings.general" = "Général";
 "mac.settings.recording" = "Enregistrement";
 "mac.welcome.notNow" = "Plus tard";
+"mac.booth.primer.message" = "La caméra de cabine utilise la caméra du Mac pendant que tu joues : la scène, la réplique et ta tête tiennent sur le même écran. Ensuite, tu peux partager la réaction avec le doublage.";
+"mac.booth.primer.systemPrompt" = "macOS va te demander l'accès à la caméra juste après.";

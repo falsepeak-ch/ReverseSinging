@@ -524,3 +524,5 @@
 "mac.settings.general" = "عام";
 "mac.settings.recording" = "التسجيل";
 "mac.welcome.notNow" = "ليس الآن";
+"mac.booth.primer.message" = "كاميرا الكابينة تعمل بكاميرا جهاز Mac أثناء أدائك، فيجتمع المشهد والجملة ووجهك على شاشة واحدة. ويمكنك لاحقاً مشاركة ردة فعلك مع الدبلجة.";
+"mac.booth.primer.systemPrompt" = "سيطلب macOS بعد قليل إذن الوصول إلى الكاميرا.";

@@ -524,3 +524,5 @@
 "mac.settings.general" = "Algemeen";
 "mac.settings.recording" = "Opnemen";
 "mac.welcome.notNow" = "Niet nu";
+"mac.booth.primer.message" = "Booth Cam gebruikt de camera van je Mac terwijl je speelt, zodat de scène, de zin en jouw gezicht op één scherm passen. Later kun je de reactie samen met de dub delen.";
+"mac.booth.primer.systemPrompt" = "macOS vraagt zo om toegang tot de camera.";

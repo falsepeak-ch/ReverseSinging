@@ -524,3 +524,5 @@
 "mac.settings.general" = "Generali";
 "mac.settings.recording" = "Registrazione";
 "mac.welcome.notNow" = "Non ora";
+"mac.booth.primer.message" = "La camera della cabina usa la videocamera del Mac mentre reciti, così la scena, la battuta e la tua faccia stanno sullo stesso schermo. Poi puoi condividere la reazione insieme al doppiaggio.";
+"mac.booth.primer.systemPrompt" = "Subito dopo macOS ti chiederà l'accesso alla videocamera.";

@@ -524,3 +524,5 @@
 "mac.settings.general" = "Allmänt";
 "mac.settings.recording" = "Inspelning";
 "mac.welcome.notNow" = "Inte nu";
+"mac.booth.primer.message" = "Booth Cam använder Macens kamera medan du spelar, så scenen, repliken och ditt ansikte får plats på samma skärm. Sedan kan du dela reaktionen tillsammans med dubbningen.";
+"mac.booth.primer.systemPrompt" = "Härnäst frågar macOS om åtkomst till kameran.";

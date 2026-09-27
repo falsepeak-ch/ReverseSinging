@@ -524,3 +524,5 @@
 "mac.settings.general" = "ทั่วไป";
 "mac.settings.recording" = "การบันทึก";
 "mac.welcome.notNow" = "ไม่ใช่ตอนนี้";
+"mac.booth.primer.message" = "กล้องบูธจะเปิดกล้องของ Macไว้ขณะคุณแสดง ทั้งฉาก บทพูด และหน้าคุณจึงอยู่บนจอเดียวกัน หลังจากนั้นจะแชร์ปฏิกิริยาไปพร้อมกับเสียงพากย์ก็ได้";
+"mac.booth.primer.systemPrompt" = "เดี๋ยว macOS จะขอสิทธิ์เข้าถึงกล้อง";

@@ -524,3 +524,5 @@
 "mac.settings.general" = "Geral";
 "mac.settings.recording" = "Gravação";
 "mac.welcome.notNow" = "Agora não";
+"mac.booth.primer.message" = "A câmara da cabine usa a câmara do Mac enquanto representas, por isso a cena, a fala e a tua cara ficam todas no mesmo ecrã. Depois podes partilhar a reacção juntamente com a dobragem.";
+"mac.booth.primer.systemPrompt" = "A seguir o macOS vai pedir acesso à câmara.";

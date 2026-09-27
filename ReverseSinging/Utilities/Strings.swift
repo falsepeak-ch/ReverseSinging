@@ -251,6 +251,9 @@ nonisolated enum Strings {
         static let primerConfirm = NSLocalizedString("booth.primer.confirm", comment: "Turn Booth Cam on")
         static let primerDecline = NSLocalizedString("booth.primer.decline", comment: "Carry on dubbing without the camera")
         static let primerSystemPrompt = NSLocalizedString("booth.primer.systemPrompt", comment: "Warns that the iOS camera prompt comes next")
+        /// The Mac's own wording: its camera is not a front camera, and macOS asks, not iOS.
+        static let primerMessageMac = NSLocalizedString("mac.booth.primer.message", comment: "Booth Cam explanation on the Mac, which films with the Mac's camera")
+        static let primerSystemPromptMac = NSLocalizedString("mac.booth.primer.systemPrompt", comment: "Tells the user macOS will ask for camera access next")
         static let factOnDevice = NSLocalizedString("booth.fact.onDevice", comment: "Where booth footage is kept")
         static let factNothingLeaves = NSLocalizedString("booth.fact.nothingLeaves", comment: "Nothing is shared until an export")
         static let factReversible = NSLocalizedString("booth.fact.reversible", comment: "The camera can be switched off at any time")

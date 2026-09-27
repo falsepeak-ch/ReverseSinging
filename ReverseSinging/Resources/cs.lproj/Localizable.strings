@@ -524,3 +524,5 @@
 "mac.settings.general" = "Obecné";
 "mac.settings.recording" = "Nahrávání";
 "mac.welcome.notNow" = "Teď ne";
+"mac.booth.primer.message" = "Booth Cam nechá běžet kameru Macu, zatímco hraješ, takže scéna, replika i tvůj obličej se vejdou na jednu obrazovku. Později můžeš reakci sdílet spolu s dabingem.";
+"mac.booth.primer.systemPrompt" = "Za chvíli si macOS řekne o přístup ke kameře.";

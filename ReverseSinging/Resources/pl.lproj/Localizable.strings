@@ -524,3 +524,5 @@
 "mac.settings.general" = "Ogólne";
 "mac.settings.recording" = "Nagrywanie";
 "mac.welcome.notNow" = "Nie teraz";
+"mac.booth.primer.message" = "Booth Cam trzyma włączoną kamerę Maca, kiedy grasz, więc scena, kwestia i twoja twarz mieszczą się na jednym ekranie. Później możesz udostępnić reakcję razem z dubbingiem.";
+"mac.booth.primer.systemPrompt" = "Za chwilę macOS poprosi o dostęp do kamery.";

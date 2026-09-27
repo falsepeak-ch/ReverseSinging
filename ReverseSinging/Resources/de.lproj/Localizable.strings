@@ -524,3 +524,5 @@
 "mac.settings.general" = "Allgemein";
 "mac.settings.recording" = "Aufnahme";
 "mac.welcome.notNow" = "Nicht jetzt";
+"mac.booth.primer.message" = "Die Booth Cam läuft über die Kamera deines Mac, während du spielst: Szene, Zeile und dein Gesicht teilen sich einen Bildschirm. Später kannst du die Reaktion zusammen mit der Fassung teilen.";
+"mac.booth.primer.systemPrompt" = "Gleich fragt macOS nach dem Kamerazugriff.";

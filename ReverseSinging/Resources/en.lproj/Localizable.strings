@@ -524,3 +524,5 @@
 "mac.settings.general" = "General";
 "mac.settings.recording" = "Recording";
 "mac.welcome.notNow" = "Not Now";
+"mac.booth.primer.message" = "Booth Cam runs your Mac's camera while you perform, so the scene, the line and your face all share one screen. Later you can share the reaction along with the dub.";
+"mac.booth.primer.systemPrompt" = "macOS will ask for camera access next.";
