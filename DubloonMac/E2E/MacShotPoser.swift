@@ -27,6 +27,16 @@ enum MacShotPoser {
         case "scene": await dubScene(workspace: workspace)
         case "library": await library(workspace: workspace)
         case "paywall": await paywall(workspace: workspace)
+        case "gate":
+            workspace.select(.dubLibrary)
+            await sleep(1)
+            workspace.requestImport()
+            await sleep(1.5)
+        case "primer":
+            if let editor = await openPack(workspace: workspace) {
+                editor.record.isBoothPrimerPresented = true
+                await sleep(1.5)
+            }
         case "reverse": await reverse(workspace: workspace)
         case "imitate": await imitate(workspace: workspace)
         default: break

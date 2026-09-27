@@ -152,6 +152,12 @@ enum MacE2ERunner {
             check("a dub pack is installed", false)
             return
         }
+        // A known start: every run records a take, so earlier runs' takes are cleared and the
+        // standard seven seeded again.
+        let takes = AudioFileManager.shared.dubTakesDirectory(packID: pack.id)
+        for file in (try? FileManager.default.contentsOfDirectory(at: takes, includingPropertiesForKeys: nil)) ?? [] {
+            try? FileManager.default.removeItem(at: file)
+        }
         ScreenshotMode.seedTakes(for: pack)
         await workspace.dubLibrary.library.reloadNow()
 
@@ -364,6 +370,10 @@ enum MacE2ERunner {
             await sleep(1.2)
             if let editor = MacE2EProbe.shared.dubEditor, let item = menuItem(MacStrings.Menu.nextLine),
                let menu = item.menu, let index = menu.items.firstIndex(of: item) {
+                // From the top: every run records a take, so the first undubbed line drifts
+                // towards the end, where there is no next line to go to.
+                if let first = editor.pack.lines.first { editor.select(first) }
+                await sleep(0.3)
                 let before = editor.session.currentLineIndex
                 MacKeyRouter.refreshMenus(NSApp.mainMenu)
                 menu.performActionForItem(at: index)
