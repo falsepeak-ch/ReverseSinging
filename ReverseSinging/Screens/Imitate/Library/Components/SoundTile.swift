@@ -63,18 +63,11 @@ struct ImitationSoundArtwork: View {
     let size: CGFloat
 
     var body: some View {
-        Group {
-            if let artworkName = sound.artworkName {
-                Image(artworkName)
-                    .resizable()
-                    .scaledToFit()
-            } else {
-                Text(sound.emoji)
-                    .font(.system(size: size * 0.84))
-            }
-        }
-        .frame(width: size, height: size)
-        .accessibilityHidden(true)
+        Image(sound.artworkName)
+            .resizable()
+            .scaledToFit()
+            .frame(width: size, height: size)
+            .accessibilityHidden(true)
     }
 }
 

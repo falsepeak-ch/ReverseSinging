@@ -352,6 +352,7 @@ nonisolated private struct ReelPainter {
     let takeBars: [Float]
     let confetti: ConfettiSimulation
     let artwork: UIImage?
+    let microphone = UIImage(named: "microphone")
 
     init(reel: ImitationReel, timeline: ImitationReelTimeline, referenceBars: [Float], takeBars: [Float]) {
         self.reel = reel
@@ -427,13 +428,15 @@ nonisolated private struct ReelPainter {
             waveform(takeBars, progress: progress, tint: Self.record,
                      in: CGRect(x: 90, y: height - 380, width: width - 180, height: 200))
         } else {
-            emoji("🎤", size: 300, centre: CGPoint(x: width / 2, y: height * 0.36))
+            if let microphone {
+                drawArtwork(microphone, size: 300, centre: CGPoint(x: width / 2, y: height * 0.36))
+            }
             waveform(takeBars, progress: progress, tint: Self.record,
                      in: CGRect(x: 90, y: height * 0.56, width: width - 180, height: 320))
         }
 
         chip(Strings.Imitate.Reel.you, color: Self.record, at: CGPoint(x: 70, y: 160), centred: false, dot: true)
-        chip("\(reel.emoji) \(reel.soundName)", color: Self.panel, at: CGPoint(x: width - 70, y: 160), centred: false, alignRight: true)
+        chip(reel.soundName, color: Self.panel, at: CGPoint(x: width - 70, y: 160), centred: false, alignRight: true, icon: artwork)
     }
 
     private func paintReveal(_ context: CGContext, _ t: TimeInterval, boothFrame: CGImage?) {
@@ -585,22 +588,24 @@ nonisolated private struct ReelPainter {
         }
     }
 
-    private func emoji(_ glyph: String, size: CGFloat, centre: CGPoint) {
-        guard size > 1 else { return }
-        text(glyph, size: size, weight: .regular, color: .white, centre: centre)
+    private func soundArtwork(size: CGFloat, centre: CGPoint) {
+        guard let image = artwork ?? microphone else { return }
+        drawArtwork(image, size: size, centre: centre)
     }
 
-    private func soundArtwork(size: CGFloat, centre: CGPoint) {
+    private func drawArtwork(_ artwork: UIImage, size: CGFloat, centre: CGPoint) {
         guard size > 1 else { return }
-        guard let artwork else {
-            emoji(reel.emoji, size: size, centre: centre)
-            return
-        }
         let scale = size / max(artwork.size.width, artwork.size.height)
         let width = artwork.size.width * scale
         let height = artwork.size.height * scale
-        artwork.draw(in: CGRect(x: centre.x - width / 2, y: centre.y - height / 2,
-                                width: width, height: height))
+        let rect = CGRect(x: centre.x - width / 2, y: centre.y - height / 2,
+                          width: width, height: height)
+        #if canImport(UIKit)
+        artwork.draw(in: rect)
+        #else
+        artwork.draw(in: rect, from: .zero, operation: .sourceOver, fraction: 1,
+                     respectFlipped: true, hints: nil)
+        #endif
     }
 
     private func kicker(_ string: String, at y: CGFloat, alpha: CGFloat) {
@@ -611,7 +616,7 @@ nonisolated private struct ReelPainter {
     /// A label on a pill, the booth slug's shape at video size.
     private func chip(
         _ string: String, color: UIColor, at point: CGPoint,
-        centred: Bool, alignRight: Bool = false, dot: Bool = false
+        centred: Bool, alignRight: Bool = false, dot: Bool = false, icon: UIImage? = nil
     ) {
         let label = NSAttributedString(string: string.uppercased(), attributes: [
             .font: UIFont.systemFont(ofSize: 38, weight: .bold),
@@ -620,7 +625,8 @@ nonisolated private struct ReelPainter {
         ])
         let textSize = label.size()
         let dotSpace: CGFloat = dot ? 40 : 0
-        let chipSize = CGSize(width: textSize.width + 56 + dotSpace, height: textSize.height + 28)
+        let iconSpace: CGFloat = icon == nil ? 0 : 56
+        let chipSize = CGSize(width: textSize.width + 56 + dotSpace + iconSpace, height: textSize.height + 28)
         let origin: CGPoint
         if centred {
             origin = CGPoint(x: point.x - chipSize.width / 2, y: point.y - chipSize.height / 2)
@@ -636,7 +642,10 @@ nonisolated private struct ReelPainter {
             UIColor.white.setFill()
             UIBezierPath(ovalIn: CGRect(x: rect.minX + 30, y: rect.midY - 9, width: 18, height: 18)).fill()
         }
-        label.draw(at: CGPoint(x: rect.minX + 28 + dotSpace, y: rect.minY + 14))
+        if let icon {
+            drawArtwork(icon, size: 48, centre: CGPoint(x: rect.minX + 52 + dotSpace, y: rect.midY))
+        }
+        label.draw(at: CGPoint(x: rect.minX + 28 + dotSpace + iconSpace, y: rect.minY + 14))
     }
 
     private func text(
@@ -689,7 +698,7 @@ nonisolated private struct ReelPainter {
         return t * t
     }
 
-    /// Overshoots to about 1.12 and settles, the emoji popping in.
+    /// Overshoots to about 1.12 and settles, the artwork popping in.
     private func spring(_ x: Double) -> CGFloat {
         let t = min(1, max(0, x))
         return CGFloat(1 - exp(-6 * t) * cos(9 * t))

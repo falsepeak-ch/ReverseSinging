@@ -46,11 +46,8 @@ nonisolated struct ImitationSound: Codable, Identifiable, Hashable, Sendable {
     /// The sound's name in the user's language.
     var name: String { Strings.Imitate.soundName(id) }
 
-    /// Custom illustrations for the animal library; other categories retain their glyphs.
-    var artworkName: String? {
-        guard category == .animals else { return nil }
-        return "imitate-\(id)"
-    }
+    /// Every sound has a matching illustration in the shared iOS/macOS asset catalog.
+    var artworkName: String { "imitate-\(id)" }
 
     /// The clip in the app bundle. The bundle is flat, which is why every file carries the
     /// `imitate-` prefix.

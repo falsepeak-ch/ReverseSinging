@@ -9,6 +9,7 @@ import Testing
 import Foundation
 import AVFoundation
 import DubScoring
+import UIKit
 @testable import ReverseSinging
 
 @Suite("Imitation Sound Library") @MainActor
@@ -27,6 +28,13 @@ struct ImitationSoundLibraryTests {
         for category in ImitationCategory.allCases {
             #expect(!ImitationSoundLibrary.sounds(in: category).isEmpty, "\(category) is empty")
         }
+    }
+
+    /// Asset names must resolve in the compiled app, including non-animal categories.
+    @Test(arguments: ImitationSoundLibrary.all)
+    func everySoundHasBundledArtwork(sound: ImitationSound) throws {
+        let image = try #require(UIImage(named: sound.artworkName), "Missing artwork for \(sound.id)")
+        #expect(image.size.width > 0 && image.size.height > 0)
     }
 
     /// A missing file or an untranslated name would show up as a broken tile, not a crash,

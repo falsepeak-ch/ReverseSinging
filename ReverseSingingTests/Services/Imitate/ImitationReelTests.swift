@@ -87,7 +87,8 @@ struct ImitationReelTests {
             boothURL: nil,
             score: score,
             verdict: ImitationVerdict.forGrade(.great, seed: 0),
-            seed: 7
+            seed: 7,
+            artworkName: "imitate-cat"
         )
 
         let url = try await ImitationReelRenderer.render(reel) { _ in }
@@ -119,7 +120,8 @@ struct ImitationReelTests {
         let reel = ImitationReel(
             soundName: "Cat", emoji: "🐱", referenceURL: cat, takeURL: owl, boothURL: booth,
             score: ImitationScore(rhythm: 90, pitch: 90, tone: 90, duration: 90),
-            verdict: ImitationVerdict.forGrade(.perfect, seed: 0), seed: 1
+            verdict: ImitationVerdict.forGrade(.perfect, seed: 0), seed: 1,
+            artworkName: "imitate-cat"
         )
         let url = try await ImitationReelRenderer.render(reel) { _ in }
         defer { try? FileManager.default.removeItem(at: url) }
