@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Benvingut a Dubloon";
-"onboarding.welcome.message" = "Dos jocs, un micròfon. Canta una cançó del revés o fica la teva veu en una escena de pel·lícula. Amb cap dels dos sonaràs normal.";
+"onboarding.welcome.message" = "Tres jocs, un micròfon. Canta una cançó del revés, fica la teva veu en una escena de pel·lícula o imita un so fins que et surti clavat. Amb cap dels tres sonaràs normal.";
 "onboarding.howItWorks.title" = "Com funciona";
 "onboarding.howItWorks.message" = "Grava una cançó, gira-la i canta damunt d'aquell embolic. Després gira el teu intent i descobreix si t'hi has acostat o has inventat un idioma nou.";
 "onboarding.dub.title" = "Dobla una escena";
 "onboarding.dub.message" = "El segon joc: posa una escena, sobreactua-hi al damunt i escolta't dins de la pel·lícula. En vénen dues de regal. A partir d'aquí, posa-hi les teves.";
 "onboarding.microphone.title" = "Una última cosa";
-"onboarding.microphone.message" = "Tots dos jocs necessiten sentir-te: cantant del revés o doblant una escena. El micro només es desperta mentre graves, tot es queda en aquest dispositiu i no es puja mai res. La teva pitjor presa es queda entre vosaltres dos.";
+"onboarding.microphone.message" = "Els tres jocs necessiten sentir-te: cantant del revés, doblant una escena o imitant un so. El micro només es desperta mentre graves, tot es queda en aquest dispositiu i no es puja mai res. La teva pitjor presa es queda entre vosaltres dos.";
 "onboarding.button.openSettings" = "Obrir Ajustos";
 "onboarding.button.letsRecord" = "va, gravem!";
 "onboarding.button.continueLowercase" = "continuar";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Ningú no et sent";
-"main.emptyState.message" = "Ara mateix Dubloon és una app de gravar sense res amb què gravar. Activa el micròfon als ajustos del dispositiu i els dos jocs tornaran a la vida.";
+"main.emptyState.message" = "Ara mateix Dubloon és una app de gravar sense res amb què gravar. Activa el micròfon als ajustos del dispositiu i els tres jocs tornaran a la vida.";
 "main.emptyState.button" = "Obrir Ajustos";
 
 // MARK: - Main View - Processing & Success
@@ -426,3 +426,101 @@
 "dub.error.linesBadTimestamps" = "Els temps d'inici d'aquest pack no estan escrits com a temps, així que les línies no es poden col·locar.";
 "dub.error.linesNoAudio" = "Les línies d'aquest pack no porten gravacions, així que no hi ha res a doblar.";
 "dub.error.linesUnplayableAudio" = "Cap de les gravacions d'aquest pack es pot reproduir en aquest dispositiu.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Imitació de sons";
+"main.mode.imitate.subtitle" = "Copia un so i rep el veredicte";
+"imitate.library.hint" = "Tria un so, escolta'l i fes la teva millor imitació.";
+"imitate.library.best" = "Rècord";
+"imitate.library.untried" = "Nou";
+"imitate.challenge.listen" = "Escoltar";
+"imitate.challenge.record" = "Imitar";
+"imitate.challenge.stop" = "Aturar";
+"imitate.challenge.instruction" = "Escolta primer, després prem Imitar i fes el so.";
+"imitate.challenge.recordingHint" = "Som-hi! Fes el so.";
+"imitate.challenge.scoring" = "Jutjant…";
+"imitate.challenge.tryAgain" = "Un altre cop";
+"imitate.challenge.playMine" = "Sentir el meu";
+"imitate.challenge.makeVideo" = "Crear vídeo";
+"imitate.challenge.rendering" = "Creant el teu vídeo…";
+"imitate.challenge.newBest" = "Nou rècord!";
+"imitate.challenge.exportFailed" = "No s'ha pogut crear el vídeo. Torna-ho a provar.";
+"imitate.challenge.difficulty" = "Dificultat";
+"imitate.category.animals" = "Animals";
+"imitate.category.vehicles" = "Clàxons i alarmes";
+"imitate.category.cartoon" = "Dibuixos i ciència-ficció";
+"imitate.category.human" = "Sorolls humans";
+"imitate.part.rhythm" = "Ritme";
+"imitate.part.pitch" = "To";
+"imitate.part.tone" = "Timbre";
+"imitate.part.duration" = "Durada";
+"imitate.verdict.nailedIt" = "CLAVAT!";
+"imitate.verdict.legendary" = "LLEGENDARI";
+"imitate.verdict.approved" = "APROVAT";
+"imitate.verdict.certified" = "CERTIFICAT";
+"imitate.verdict.notBad" = "GENS MALAMENT";
+"imitate.verdict.almost" = "GAIREBÉ…";
+"imitate.verdict.soClose" = "PER UN PÈL";
+"imitate.verdict.failed" = "SUSPÈS";
+"imitate.verdict.whatWasThat" = "QUÈ HA ESTAT AIXÒ?";
+"imitate.reel.challenge" = "Repte de sons";
+"imitate.reel.canYouSoundLike" = "Saps imitar…";
+"imitate.reel.original" = "Original";
+"imitate.reel.you" = "Tu";
+"imitate.reel.score" = "Puntuació";
+"imitate.reel.beatMyScore" = "Superes la meva puntuació?";
+"imitate.sound.cat" = "Gat";
+"imitate.sound.dog" = "Gos";
+"imitate.sound.cow" = "Vaca";
+"imitate.sound.sheep" = "Ovella";
+"imitate.sound.chicken" = "Gallina";
+"imitate.sound.rooster" = "Gall";
+"imitate.sound.duck" = "Ànec";
+"imitate.sound.pig" = "Porc";
+"imitate.sound.wolf" = "Llop";
+"imitate.sound.owl" = "Mussol";
+"imitate.sound.horn" = "Clàxon";
+"imitate.sound.siren" = "Sirena";
+"imitate.sound.train" = "Xiulet de tren";
+"imitate.sound.bell" = "Timbre de bici";
+"imitate.sound.laser" = "Làser";
+"imitate.sound.boing" = "Boing";
+"imitate.sound.slide" = "Xiulet d'èmbol";
+"imitate.sound.zap" = "Descàrrega";
+"imitate.sound.burp" = "Rot";
+"imitate.sound.sneeze" = "Esternut";
+"imitate.sound.snore" = "Ronc";
+"imitate.sound.laugh" = "Riure malvat";
+"imitate.sound.yawn" = "Badall";
+"imitate.sound.hiccup" = "Singlot";
+
+/* Mac */
+"mac.sidebar.games" = "Jocs";
+"mac.sidebar.packs" = "Packs de doblatge";
+"mac.sidebar.sessions" = "Sessions";
+"mac.menu.importPack" = "Importa un pack de doblatge…";
+"mac.menu.export" = "Exporta el vídeo…";
+"mac.menu.playback" = "Reproducció";
+"mac.menu.playPause" = "Reprodueix/Pausa";
+"mac.menu.record" = "Grava";
+"mac.menu.listen" = "Reprodueix l'original";
+"mac.menu.playTake" = "Reprodueix la presa";
+"mac.menu.previousLine" = "Frase anterior";
+"mac.menu.nextLine" = "Frase següent";
+"mac.menu.showInspector" = "Mostra l'inspector";
+"mac.menu.hideInspector" = "Amaga l'inspector";
+"mac.panel.inspector" = "Inspector";
+"mac.panel.viewer" = "Visor";
+"mac.panel.line" = "Frase";
+"mac.panel.scene" = "Escena";
+"mac.panel.takes" = "Preses";
+"mac.panel.character" = "Personatge";
+"mac.panel.start" = "Inici";
+"mac.panel.duration" = "Durada";
+"mac.panel.notDubbed" = "Encara sense doblar";
+"mac.panel.attempts" = "Intents";
+"mac.panel.emptyTitle" = "Tria alguna cosa per treballar";
+"mac.panel.emptyMessage" = "Tria un joc o un pack de doblatge a la barra lateral.";
+"mac.settings.general" = "General";
+"mac.settings.recording" = "Gravació";
+"mac.welcome.notNow" = "Ara no";

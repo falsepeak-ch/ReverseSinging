@@ -212,7 +212,7 @@ struct BoothReelMonitor: View {
 ///
 /// Its own `AVPlayer` rather than the scene's: the two are playing different footage at the
 /// same moment and the scene picture is driven by a scheduled anchor it does not share.
-private struct BoothPlaybackView: View {
+struct BoothPlaybackView: View {
 
     let url: URL
 

@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Välkommen till Dubloon";
-"onboarding.welcome.message" = "Två spel, en mikrofon. Sjung en låt baklänges eller lägg din röst i en filmscen. Ingetdera får dig att låta normal.";
+"onboarding.welcome.message" = "Tre spel, en mikrofon. Sjung en låt baklänges, lägg din röst i en filmscen eller härma ett ljud tills det sitter. Inget av dem får dig att låta normal.";
 "onboarding.howItWorks.title" = "Så funkar det";
 "onboarding.howItWorks.message" = "Spela in en låt, vänd på den och sjung med i rappakaljan. Vänd sedan på ditt eget försök och hör om du var nära eller just uppfann ett nytt språk.";
 "onboarding.dub.title" = "Dubba en filmscen";
 "onboarding.dub.message" = "Det andra spelet: starta en scen, överspela ordentligt och hör dig själv i filmen. Två scener följer med. Sedan tar du med dina egna filer.";
 "onboarding.microphone.title" = "En sista sak";
-"onboarding.microphone.message" = "Båda spelen måste höra dig: baklängessång eller dubbning. Mikrofonen vaknar bara medan du spelar in, allt stannar på den här enheten och ingenting laddas någonsin upp. Din sämsta tagning stannar mellan er två.";
+"onboarding.microphone.message" = "Alla tre spelen måste höra dig: baklängessång, dubbning av en scen eller härmning av ett ljud. Mikrofonen vaknar bara medan du spelar in, allt stannar på den här enheten och ingenting laddas någonsin upp. Din sämsta tagning stannar mellan er två.";
 "onboarding.button.openSettings" = "Öppna Inställningar";
 "onboarding.button.letsRecord" = "kör, vi spelar in!";
 "onboarding.button.continueLowercase" = "fortsätt";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Ingen hör dig";
-"main.emptyState.message" = "Just nu är Dubloon en inspelningsapp utan något att spela in med. Slå på mikrofonåtkomst i enhetens inställningar så vaknar båda spelen till liv igen.";
+"main.emptyState.message" = "Just nu är Dubloon en inspelningsapp utan något att spela in med. Slå på mikrofonåtkomst i enhetens inställningar så vaknar alla tre spelen till liv igen.";
 "main.emptyState.button" = "Öppna Inställningar";
 
 // MARK: - Main View - Processing & Success
@@ -426,3 +426,101 @@
 "dub.error.linesBadTimestamps" = "Starttiderna i paketet är inte skrivna som tider, så replikerna kan inte placeras.";
 "dub.error.linesNoAudio" = "Paketets repliker har inga inspelningar, så det finns inget att dubba.";
 "dub.error.linesUnplayableAudio" = "Ingen av inspelningarna i paketet kan spelas upp på den här enheten.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Ljudimitation";
+"main.mode.imitate.subtitle" = "Härma ett ljud, få en dom";
+"imitate.library.hint" = "Välj ett ljud, lyssna och gör din bästa imitation.";
+"imitate.library.best" = "Rekord";
+"imitate.library.untried" = "Ny";
+"imitate.challenge.listen" = "Lyssna";
+"imitate.challenge.record" = "Härma";
+"imitate.challenge.stop" = "Stopp";
+"imitate.challenge.instruction" = "Lyssna först, tryck sedan på Härma och gör ljudet.";
+"imitate.challenge.recordingHint" = "Kör! Gör ljudet.";
+"imitate.challenge.scoring" = "Bedömer…";
+"imitate.challenge.tryAgain" = "Försök igen";
+"imitate.challenge.playMine" = "Spela min";
+"imitate.challenge.makeVideo" = "Gör video";
+"imitate.challenge.rendering" = "Gör din video…";
+"imitate.challenge.newBest" = "Nytt rekord!";
+"imitate.challenge.exportFailed" = "Videon kunde inte skapas. Försök igen.";
+"imitate.challenge.difficulty" = "Svårighetsgrad";
+"imitate.category.animals" = "Djur";
+"imitate.category.vehicles" = "Tutor och larm";
+"imitate.category.cartoon" = "Tecknat och sci-fi";
+"imitate.category.human" = "Människoljud";
+"imitate.part.rhythm" = "Rytm";
+"imitate.part.pitch" = "Tonhöjd";
+"imitate.part.tone" = "Klang";
+"imitate.part.duration" = "Längd";
+"imitate.verdict.nailedIt" = "MITT I PRICK!";
+"imitate.verdict.legendary" = "LEGENDARISKT";
+"imitate.verdict.approved" = "GODKÄNT";
+"imitate.verdict.certified" = "CERTIFIERAT";
+"imitate.verdict.notBad" = "INTE ILLA";
+"imitate.verdict.almost" = "NÄSTAN…";
+"imitate.verdict.soClose" = "SÅ NÄRA";
+"imitate.verdict.failed" = "UNDERKÄNT";
+"imitate.verdict.whatWasThat" = "VAD VAR DET?";
+"imitate.reel.challenge" = "Ljudutmaning";
+"imitate.reel.canYouSoundLike" = "Kan du låta som…";
+"imitate.reel.original" = "Original";
+"imitate.reel.you" = "Du";
+"imitate.reel.score" = "Poäng";
+"imitate.reel.beatMyScore" = "Kan du slå mina poäng?";
+"imitate.sound.cat" = "Katt";
+"imitate.sound.dog" = "Hund";
+"imitate.sound.cow" = "Ko";
+"imitate.sound.sheep" = "Får";
+"imitate.sound.chicken" = "Höna";
+"imitate.sound.rooster" = "Tupp";
+"imitate.sound.duck" = "Anka";
+"imitate.sound.pig" = "Gris";
+"imitate.sound.wolf" = "Varg";
+"imitate.sound.owl" = "Uggla";
+"imitate.sound.horn" = "Biltuta";
+"imitate.sound.siren" = "Siren";
+"imitate.sound.train" = "Tågvissla";
+"imitate.sound.bell" = "Cykelringklocka";
+"imitate.sound.laser" = "Laser";
+"imitate.sound.boing" = "Boing";
+"imitate.sound.slide" = "Glidflöjt";
+"imitate.sound.zap" = "Stöt";
+"imitate.sound.burp" = "Rap";
+"imitate.sound.sneeze" = "Nysning";
+"imitate.sound.snore" = "Snarkning";
+"imitate.sound.laugh" = "Ondskefullt skratt";
+"imitate.sound.yawn" = "Gäspning";
+"imitate.sound.hiccup" = "Hicka";
+
+/* Mac */
+"mac.sidebar.games" = "Spel";
+"mac.sidebar.packs" = "Dubbpaket";
+"mac.sidebar.sessions" = "Sessioner";
+"mac.menu.importPack" = "Importera dubbpaket …";
+"mac.menu.export" = "Exportera video …";
+"mac.menu.playback" = "Uppspelning";
+"mac.menu.playPause" = "Spela upp/pausa";
+"mac.menu.record" = "Spela in";
+"mac.menu.listen" = "Spela originalet";
+"mac.menu.playTake" = "Spela tagningen";
+"mac.menu.previousLine" = "Föregående replik";
+"mac.menu.nextLine" = "Nästa replik";
+"mac.menu.showInspector" = "Visa inspektören";
+"mac.menu.hideInspector" = "Göm inspektören";
+"mac.panel.inspector" = "Inspektör";
+"mac.panel.viewer" = "Visare";
+"mac.panel.line" = "Replik";
+"mac.panel.scene" = "Scen";
+"mac.panel.takes" = "Tagningar";
+"mac.panel.character" = "Roll";
+"mac.panel.start" = "Start";
+"mac.panel.duration" = "Längd";
+"mac.panel.notDubbed" = "Inte dubbad än";
+"mac.panel.attempts" = "Försök";
+"mac.panel.emptyTitle" = "Välj något att jobba med";
+"mac.panel.emptyMessage" = "Välj ett spel eller ett dubbpaket i sidofältet.";
+"mac.settings.general" = "Allmänt";
+"mac.settings.recording" = "Inspelning";
+"mac.welcome.notNow" = "Inte nu";

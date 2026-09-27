@@ -118,6 +118,9 @@ final class AccessController: ObservableObject {
     /// Whether reverse singing stays open while `isLocked`. Dubbing never does.
     var isReverseGameFree: Bool { remoteConfig.isReverseGameFree }
 
+    /// Whether Sound Imitation stays open while `isLocked`. Paid unless the console says otherwise.
+    var isSoundImitationFree: Bool { remoteConfig.isSoundImitationFree }
+
     /// Whether being locked covers the app or only disables the games.
     var lockPresentation: LockPresentation {
         var isHardPaywallEnabled = remoteConfig.isHardPaywallEnabled

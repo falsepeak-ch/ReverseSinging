@@ -100,6 +100,7 @@ final class HomeViewModel: ObservableObject {
         switch mode {
         case .reverse: !access.isReverseGameFree
         case .dub: true
+        case .imitate: !access.isSoundImitationFree
         }
     }
 
@@ -136,6 +137,12 @@ final class HomeViewModel: ObservableObject {
     func openDub() {
         guard canEnter(.dub, orShowPaywallFrom: .lockedGame) else { return }
         path = [.dub]
+    }
+
+    /// For a shell that selects games rather than pushing them, the Mac's sidebar: the same
+    /// check, with the paywall opened in place of the game when it answers no.
+    func requestEntry(_ mode: GameMode) -> Bool {
+        canEnter(mode, orShowPaywallFrom: .lockedGame)
     }
 
     /// The one check every way into a game makes. While the trial is over it answers no for a

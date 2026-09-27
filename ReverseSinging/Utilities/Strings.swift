@@ -35,13 +35,15 @@ nonisolated enum Strings {
             static let session = NSLocalizedString("main.section.session", comment: "Session controls section label")
         }
 
-        /// The two games, offered side by side on the main screen.
+        /// The games, offered side by side on the main screen.
         enum Mode {
             static let section = NSLocalizedString("main.mode.section", comment: "Game mode section label")
             static let reverseTitle = NSLocalizedString("main.mode.reverse.title", comment: "Reverse singing game mode")
             static let reverseSubtitle = NSLocalizedString("main.mode.reverse.subtitle", comment: "Reverse singing game description")
             static let dubTitle = NSLocalizedString("main.mode.dub.title", comment: "Movie scene dub game mode")
             static let dubSubtitle = NSLocalizedString("main.mode.dub.subtitle", comment: "Movie scene dub game description")
+            static let imitateTitle = NSLocalizedString("main.mode.imitate.title", comment: "Sound imitation game mode")
+            static let imitateSubtitle = NSLocalizedString("main.mode.imitate.subtitle", comment: "Sound imitation game description")
             static let free = NSLocalizedString("main.mode.free", comment: "Short pill on a game that stays open without Dubloon Pro. One word")
         }
 
@@ -542,6 +544,71 @@ nonisolated enum Strings {
             static let subscribe = NSLocalizedString("pro.fallback.subscribe", comment: "Buy button for a subscription of any other length, %@ is the localized price")
             static let renews = NSLocalizedString("pro.fallback.renews", comment: "Under the buy button for a subscription: it renews until cancelled")
             static let terms = NSLocalizedString("pro.fallback.terms", comment: "Link to the Terms of Use (Apple's standard licence agreement)")
+        }
+    }
+
+    // MARK: - Sound Imitation
+    /// The game where you copy a sound (a cat, a siren, a laser) and get a verdict.
+    enum Imitate {
+        static let libraryHint = NSLocalizedString("imitate.library.hint", comment: "One line at the top of the sound library explaining the game")
+        static let best = NSLocalizedString("imitate.library.best", comment: "Short label before a sound's best score on its tile")
+        static let untried = NSLocalizedString("imitate.library.untried", comment: "Short tag on a sound tile never attempted. One word")
+
+        static let listen = NSLocalizedString("imitate.challenge.listen", comment: "Button that plays the sound to imitate")
+        static let record = NSLocalizedString("imitate.challenge.record", comment: "Button that starts recording your imitation. One word")
+        static let stop = NSLocalizedString("imitate.challenge.stop", comment: "Button that stops recording early")
+        static let instruction = NSLocalizedString("imitate.challenge.instruction", comment: "Instruction under the sound before the first attempt")
+        static let recordingHint = NSLocalizedString("imitate.challenge.recordingHint", comment: "Shown while recording the imitation")
+        static let scoring = NSLocalizedString("imitate.challenge.scoring", comment: "Shown while the attempt is being scored")
+        static let tryAgain = NSLocalizedString("imitate.challenge.tryAgain", comment: "Button to record another attempt")
+        static let playMine = NSLocalizedString("imitate.challenge.playMine", comment: "Button to hear your own attempt")
+        static let makeVideo = NSLocalizedString("imitate.challenge.makeVideo", comment: "Button that renders a shareable video of the attempt")
+        static let rendering = NSLocalizedString("imitate.challenge.rendering", comment: "Progress message while the video is rendered")
+        static let newBest = NSLocalizedString("imitate.challenge.newBest", comment: "Tag shown when an attempt beats the previous best score")
+        static let exportFailed = NSLocalizedString("imitate.challenge.exportFailed", comment: "Error when the video could not be made")
+        static let difficulty = NSLocalizedString("imitate.challenge.difficulty", comment: "Accessibility label for the difficulty dots, followed by a number 1-3")
+
+        enum Category {
+            static let animals = NSLocalizedString("imitate.category.animals", comment: "Sound library section: animal sounds")
+            static let vehicles = NSLocalizedString("imitate.category.vehicles", comment: "Sound library section: horns, sirens, bells")
+            static let cartoon = NSLocalizedString("imitate.category.cartoon", comment: "Sound library section: cartoon and sci-fi effects")
+            static let human = NSLocalizedString("imitate.category.human", comment: "Sound library section: burps, sneezes, laughs")
+        }
+
+        /// The parts an attempt is scored on.
+        enum Part {
+            static let rhythm = NSLocalizedString("imitate.part.rhythm", comment: "Score part: bursts and gaps in the right places")
+            static let pitch = NSLocalizedString("imitate.part.pitch", comment: "Score part: the note moving the right way")
+            static let tone = NSLocalizedString("imitate.part.tone", comment: "Score part: bright or dull, hissy or hummed")
+            static let duration = NSLocalizedString("imitate.part.duration", comment: "Score part: lasting about as long")
+        }
+
+        /// The rubber-stamp words. Short, shouty, uppercase.
+        enum Verdict {
+            static let nailedIt = NSLocalizedString("imitate.verdict.nailedIt", comment: "Stamp for a near-perfect imitation. Uppercase, very short")
+            static let legendary = NSLocalizedString("imitate.verdict.legendary", comment: "Stamp for a near-perfect imitation. Uppercase, very short")
+            static let approved = NSLocalizedString("imitate.verdict.approved", comment: "Stamp for a great imitation, like an official approval stamp. Uppercase")
+            static let certified = NSLocalizedString("imitate.verdict.certified", comment: "Stamp for a great imitation, like an official certification stamp. Uppercase")
+            static let notBad = NSLocalizedString("imitate.verdict.notBad", comment: "Stamp for a decent imitation. Uppercase")
+            static let almost = NSLocalizedString("imitate.verdict.almost", comment: "Stamp for a near miss. Uppercase")
+            static let soClose = NSLocalizedString("imitate.verdict.soClose", comment: "Stamp for a near miss. Uppercase")
+            static let failed = NSLocalizedString("imitate.verdict.failed", comment: "Stamp for a bad imitation, like an official rejection stamp. Uppercase")
+            static let whatWasThat = NSLocalizedString("imitate.verdict.whatWasThat", comment: "Stamp for a bad imitation, playful. Uppercase")
+        }
+
+        /// Words drawn into the exported video.
+        enum Reel {
+            static let challenge = NSLocalizedString("imitate.reel.challenge", comment: "Kicker at the top of the video's intro card")
+            static let canYouSoundLike = NSLocalizedString("imitate.reel.canYouSoundLike", comment: "Intro card line; the sound's name follows on the next line in big letters")
+            static let original = NSLocalizedString("imitate.reel.original", comment: "Label over the original sound in the video. One word")
+            static let you = NSLocalizedString("imitate.reel.you", comment: "Label over the user's attempt in the video. One word")
+            static let score = NSLocalizedString("imitate.reel.score", comment: "Label over the score number in the video")
+            static let beatMyScore = NSLocalizedString("imitate.reel.beatMyScore", comment: "Challenge to viewers at the end of the video")
+        }
+
+        /// A sound's name in the user's language, keyed by its id in the manifest.
+        static func soundName(_ id: String) -> String {
+            NSLocalizedString("imitate.sound.\(id)", comment: "Name of a sound in the imitation library")
         }
     }
 

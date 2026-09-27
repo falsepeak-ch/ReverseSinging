@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Dubloonへようこそ";
-"onboarding.welcome.message" = "ゲームは2つ、マイクは1本。曲を逆再生で歌うか、映画のシーンに自分の声をねじ込むか。どちらにしても、まともな声にはなりません。";
+"onboarding.welcome.message" = "ゲームは3つ、マイクは1本。曲を逆再生で歌うか、映画のシーンに自分の声をねじ込むか、そっくりになるまで音をまねるか。どれにしても、まともな声にはなりません。";
 "onboarding.howItWorks.title" = "遊びかた";
 "onboarding.howItWorks.message" = "曲を録音して、逆さまにして、その意味不明な音に合わせて歌う。歌ったテイクをもう一度ひっくり返せば、近づけたのか、新しい言語を発明しただけなのかが分かります。";
 "onboarding.dub.title" = "映画のシーンをアフレコ";
 "onboarding.dub.message" = "2つめのゲーム。シーンを流し、思いきり大げさに演じて、映画の中の自分を聴く。シーンは2本同梱。その先は自分のファイルを持ち込んでください。";
 "onboarding.microphone.title" = "最後にひとつ";
-"onboarding.microphone.message" = "どちらのゲームもあなたの声を聴く必要があります。マイクが起きるのは録音中だけ。すべてこの端末に残り、どこにもアップロードされません。いちばんひどいテイクは、あなたとこの端末だけの秘密です。";
+"onboarding.microphone.message" = "3つのゲームはどれもあなたの声を聴く必要があります。逆再生で歌うときも、シーンを吹き替えるときも、音をまねるときも。マイクが起きるのは録音中だけ。すべてこの端末に残り、どこにもアップロードされません。いちばんひどいテイクは、あなたとこの端末だけの秘密です。";
 "onboarding.button.openSettings" = "設定を開く";
 "onboarding.button.letsRecord" = "よし、録ろう！";
 "onboarding.button.continueLowercase" = "つづける";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "誰にも聞こえていません";
-"main.emptyState.message" = "いまのDubloonは、録るものが何もない録音アプリです。端末の設定でマイクを許可すれば、2つのゲームがまた動き出します。";
+"main.emptyState.message" = "いまのDubloonは、録るものが何もない録音アプリです。端末の設定でマイクを許可すれば、3つのゲームがまた動き出します。";
 "main.emptyState.button" = "設定を開く";
 
 // MARK: - Main View - Processing & Success
@@ -426,3 +426,101 @@
 "dub.error.linesBadTimestamps" = "このパックの開始時間は時間として書かれていないので、セリフを配置できません。";
 "dub.error.linesNoAudio" = "このパックのセリフには録音が付いていないので、吹き替えるものがありません。";
 "dub.error.linesUnplayableAudio" = "このパックの録音はどれもこのデバイスで再生できません。";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "サウンドモノマネ";
+"main.mode.imitate.subtitle" = "音をマネして、判定をもらおう";
+"imitate.library.hint" = "音を選んで聞いたら、全力でマネしよう。";
+"imitate.library.best" = "ベスト";
+"imitate.library.untried" = "未挑戦";
+"imitate.challenge.listen" = "聞く";
+"imitate.challenge.record" = "マネする";
+"imitate.challenge.stop" = "ストップ";
+"imitate.challenge.instruction" = "まず聞いて、「マネする」を押して音を出そう。";
+"imitate.challenge.recordingHint" = "スタート！音を出して。";
+"imitate.challenge.scoring" = "判定中…";
+"imitate.challenge.tryAgain" = "もう一回";
+"imitate.challenge.playMine" = "自分のを聞く";
+"imitate.challenge.makeVideo" = "動画を作る";
+"imitate.challenge.rendering" = "動画を作成中…";
+"imitate.challenge.newBest" = "自己ベスト！";
+"imitate.challenge.exportFailed" = "動画を作れませんでした。もう一度お試しください。";
+"imitate.challenge.difficulty" = "難易度";
+"imitate.category.animals" = "動物";
+"imitate.category.vehicles" = "クラクション＆アラーム";
+"imitate.category.cartoon" = "アニメ＆SF";
+"imitate.category.human" = "人の音";
+"imitate.part.rhythm" = "リズム";
+"imitate.part.pitch" = "音程";
+"imitate.part.tone" = "音色";
+"imitate.part.duration" = "長さ";
+"imitate.verdict.nailedIt" = "完璧！";
+"imitate.verdict.legendary" = "伝説級";
+"imitate.verdict.approved" = "合格";
+"imitate.verdict.certified" = "認定";
+"imitate.verdict.notBad" = "なかなか";
+"imitate.verdict.almost" = "おしい…";
+"imitate.verdict.soClose" = "あと少し";
+"imitate.verdict.failed" = "不合格";
+"imitate.verdict.whatWasThat" = "今のナニ？";
+"imitate.reel.challenge" = "サウンドチャレンジ";
+"imitate.reel.canYouSoundLike" = "マネできる？お題は…";
+"imitate.reel.original" = "オリジナル";
+"imitate.reel.you" = "あなた";
+"imitate.reel.score" = "スコア";
+"imitate.reel.beatMyScore" = "私のスコア、超えられる？";
+"imitate.sound.cat" = "ネコ";
+"imitate.sound.dog" = "イヌ";
+"imitate.sound.cow" = "ウシ";
+"imitate.sound.sheep" = "ヒツジ";
+"imitate.sound.chicken" = "ニワトリ";
+"imitate.sound.rooster" = "オンドリ";
+"imitate.sound.duck" = "アヒル";
+"imitate.sound.pig" = "ブタ";
+"imitate.sound.wolf" = "オオカミ";
+"imitate.sound.owl" = "フクロウ";
+"imitate.sound.horn" = "クラクション";
+"imitate.sound.siren" = "サイレン";
+"imitate.sound.train" = "汽笛";
+"imitate.sound.bell" = "自転車のベル";
+"imitate.sound.laser" = "レーザー";
+"imitate.sound.boing" = "ビヨーン";
+"imitate.sound.slide" = "スライドホイッスル";
+"imitate.sound.zap" = "ビリビリ";
+"imitate.sound.burp" = "ゲップ";
+"imitate.sound.sneeze" = "くしゃみ";
+"imitate.sound.snore" = "いびき";
+"imitate.sound.laugh" = "悪役の高笑い";
+"imitate.sound.yawn" = "あくび";
+"imitate.sound.hiccup" = "しゃっくり";
+
+/* Mac */
+"mac.sidebar.games" = "ゲーム";
+"mac.sidebar.packs" = "吹き替えパック";
+"mac.sidebar.sessions" = "セッション";
+"mac.menu.importPack" = "吹き替えパックを読み込む…";
+"mac.menu.export" = "ビデオを書き出す…";
+"mac.menu.playback" = "再生";
+"mac.menu.playPause" = "再生/一時停止";
+"mac.menu.record" = "録音";
+"mac.menu.listen" = "オリジナルを再生";
+"mac.menu.playTake" = "テイクを再生";
+"mac.menu.previousLine" = "前のセリフ";
+"mac.menu.nextLine" = "次のセリフ";
+"mac.menu.showInspector" = "インスペクタを表示";
+"mac.menu.hideInspector" = "インスペクタを隠す";
+"mac.panel.inspector" = "インスペクタ";
+"mac.panel.viewer" = "ビューア";
+"mac.panel.line" = "セリフ";
+"mac.panel.scene" = "シーン";
+"mac.panel.takes" = "テイク";
+"mac.panel.character" = "キャラクター";
+"mac.panel.start" = "開始";
+"mac.panel.duration" = "長さ";
+"mac.panel.notDubbed" = "まだ吹き替えていません";
+"mac.panel.attempts" = "挑戦回数";
+"mac.panel.emptyTitle" = "作業する項目を選んでください";
+"mac.panel.emptyMessage" = "サイドバーでゲームか吹き替えパックを選んでください。";
+"mac.settings.general" = "一般";
+"mac.settings.recording" = "録音";
+"mac.welcome.notNow" = "今はしない";

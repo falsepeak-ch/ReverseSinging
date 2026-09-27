@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Καλώς ήρθες στο Dubloon";
-"onboarding.welcome.message" = "Δύο παιχνίδια, ένα μικρόφωνο. Τραγούδα ένα κομμάτι ανάποδα ή βάλε τη φωνή σου μέσα σε μια σκηνή ταινίας. Σε καμία από τις δύο δεν θα ακουστείς φυσιολογικός.";
+"onboarding.welcome.message" = "Τρία παιχνίδια, ένα μικρόφωνο. Τραγούδα ένα κομμάτι ανάποδα, βάλε τη φωνή σου μέσα σε μια σκηνή ταινίας ή μιμήσου έναν ήχο μέχρι να τον πετύχεις. Σε κανένα δεν θα ακουστείς φυσιολογικός.";
 "onboarding.howItWorks.title" = "Πώς δουλεύει";
 "onboarding.howItWorks.message" = "Ηχογράφησε ένα τραγούδι, γύρισέ το ανάποδα και τραγούδα πάνω στα ακαταλαβίστικα. Μετά γύρνα τη δική σου λήψη και δες αν το πέτυχες ή αν μόλις εφηύρες νέα γλώσσα.";
 "onboarding.dub.title" = "Μεταγλώττισε μια σκηνή";
 "onboarding.dub.message" = "Το δεύτερο παιχνίδι: βάλε μια σκηνή, παίξε από πάνω με το παραπάνω και μετά άκου τον εαυτό σου μέσα στην ταινία. Δύο σκηνές έρχονται μαζί. Από κει και πέρα φέρνεις τα δικά σου αρχεία.";
 "onboarding.microphone.title" = "Ένα τελευταίο";
-"onboarding.microphone.message" = "Και τα δύο παιχνίδια πρέπει να σε ακούν: στο ανάποδο τραγούδι και στη μεταγλώττιση. Το μικρόφωνο ξυπνά μόνο όσο ηχογραφείς, όλα μένουν σε αυτή τη συσκευή και τίποτα δεν ανεβαίνει ποτέ πουθενά. Η χειρότερη λήψη σου μένει μεταξύ σας.";
+"onboarding.microphone.message" = "Και τα τρία παιχνίδια πρέπει να σε ακούν: στο ανάποδο τραγούδι, στη μεταγλώττιση μιας σκηνής και στη μίμηση ενός ήχου. Το μικρόφωνο ξυπνά μόνο όσο ηχογραφείς, όλα μένουν σε αυτή τη συσκευή και τίποτα δεν ανεβαίνει ποτέ πουθενά. Η χειρότερη λήψη σου μένει μεταξύ σας.";
 "onboarding.button.openSettings" = "Άνοιγμα Ρυθμίσεων";
 "onboarding.button.letsRecord" = "πάμε, ηχογραφούμε!";
 "onboarding.button.continueLowercase" = "συνέχεια";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Δεν σε ακούει κανείς";
-"main.emptyState.message" = "Αυτή τη στιγμή το Dubloon είναι μια εφαρμογή ηχογράφησης χωρίς τίποτα να ηχογραφήσει. Άνοιξε την πρόσβαση στο μικρόφωνο από τις ρυθμίσεις της συσκευής και τα δύο παιχνίδια ξαναζωντανεύουν.";
+"main.emptyState.message" = "Αυτή τη στιγμή το Dubloon είναι μια εφαρμογή ηχογράφησης χωρίς τίποτα να ηχογραφήσει. Άνοιξε την πρόσβαση στο μικρόφωνο από τις ρυθμίσεις της συσκευής και τα τρία παιχνίδια ξαναζωντανεύουν.";
 "main.emptyState.button" = "Άνοιγμα Ρυθμίσεων";
 
 // MARK: - Main View - Processing & Success
@@ -426,3 +426,101 @@
 "dub.error.linesBadTimestamps" = "Οι χρόνοι έναρξης στο πακέτο δεν είναι γραμμένοι ως χρόνοι, οπότε οι ατάκες δεν μπορούν να τοποθετηθούν.";
 "dub.error.linesNoAudio" = "Οι ατάκες του πακέτου δεν έχουν ηχογραφήσεις, οπότε δεν υπάρχει τίποτα να μεταγλωττίσεις.";
 "dub.error.linesUnplayableAudio" = "Καμία από τις ηχογραφήσεις του πακέτου δεν παίζει σε αυτή τη συσκευή.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Μίμηση ήχων";
+"main.mode.imitate.subtitle" = "Μιμήσου έναν ήχο, πάρε ετυμηγορία";
+"imitate.library.hint" = "Διάλεξε έναν ήχο, άκουσέ τον και κάνε την καλύτερη μίμησή σου.";
+"imitate.library.best" = "Ρεκόρ";
+"imitate.library.untried" = "Νέο";
+"imitate.challenge.listen" = "Άκου";
+"imitate.challenge.record" = "Μιμήσου";
+"imitate.challenge.stop" = "Σταμάτα";
+"imitate.challenge.instruction" = "Άκου πρώτα, μετά πάτα Μιμήσου και κάνε τον ήχο.";
+"imitate.challenge.recordingHint" = "Πάμε! Κάνε τον ήχο.";
+"imitate.challenge.scoring" = "Κρίνουμε…";
+"imitate.challenge.tryAgain" = "Ξανά";
+"imitate.challenge.playMine" = "Άκου το δικό μου";
+"imitate.challenge.makeVideo" = "Φτιάξε βίντεο";
+"imitate.challenge.rendering" = "Φτιάχνουμε το βίντεό σου…";
+"imitate.challenge.newBest" = "Νέο ρεκόρ!";
+"imitate.challenge.exportFailed" = "Δεν ήταν δυνατό να φτιαχτεί το βίντεο. Δοκίμασε ξανά.";
+"imitate.challenge.difficulty" = "Δυσκολία";
+"imitate.category.animals" = "Ζώα";
+"imitate.category.vehicles" = "Κόρνες και συναγερμοί";
+"imitate.category.cartoon" = "Καρτούν και sci-fi";
+"imitate.category.human" = "Ανθρώπινοι ήχοι";
+"imitate.part.rhythm" = "Ρυθμός";
+"imitate.part.pitch" = "Τονικό ύψος";
+"imitate.part.tone" = "Χροιά";
+"imitate.part.duration" = "Διάρκεια";
+"imitate.verdict.nailedIt" = "ΤΕΛΕΙΟ!";
+"imitate.verdict.legendary" = "ΘΡΥΛΙΚΟ";
+"imitate.verdict.approved" = "ΕΓΚΡΙΝΕΤΑΙ";
+"imitate.verdict.certified" = "ΠΙΣΤΟΠΟΙΗΜΕΝΟ";
+"imitate.verdict.notBad" = "ΟΧΙ ΑΣΧΗΜΑ";
+"imitate.verdict.almost" = "ΣΧΕΔΟΝ…";
+"imitate.verdict.soClose" = "ΠΑΡΑ ΛΙΓΟ";
+"imitate.verdict.failed" = "ΑΠΟΡΡΙΠΤΕΤΑΙ";
+"imitate.verdict.whatWasThat" = "ΤΙ ΗΤΑΝ ΑΥΤΟ;";
+"imitate.reel.challenge" = "Ηχητική πρόκληση";
+"imitate.reel.canYouSoundLike" = "Μπορείς να ακουστείς σαν…";
+"imitate.reel.original" = "Πρωτότυπο";
+"imitate.reel.you" = "Εσύ";
+"imitate.reel.score" = "Σκορ";
+"imitate.reel.beatMyScore" = "Μπορείς να νικήσεις το σκορ μου;";
+"imitate.sound.cat" = "Γάτα";
+"imitate.sound.dog" = "Σκύλος";
+"imitate.sound.cow" = "Αγελάδα";
+"imitate.sound.sheep" = "Πρόβατο";
+"imitate.sound.chicken" = "Κότα";
+"imitate.sound.rooster" = "Κόκορας";
+"imitate.sound.duck" = "Πάπια";
+"imitate.sound.pig" = "Γουρούνι";
+"imitate.sound.wolf" = "Λύκος";
+"imitate.sound.owl" = "Κουκουβάγια";
+"imitate.sound.horn" = "Κόρνα αυτοκινήτου";
+"imitate.sound.siren" = "Σειρήνα";
+"imitate.sound.train" = "Σφυρίχτρα τρένου";
+"imitate.sound.bell" = "Κουδούνι ποδηλάτου";
+"imitate.sound.laser" = "Λέιζερ";
+"imitate.sound.boing" = "Μπόινγκ";
+"imitate.sound.slide" = "Σφυρίχτρα με έμβολο";
+"imitate.sound.zap" = "Ηλεκτροσόκ";
+"imitate.sound.burp" = "Ρέψιμο";
+"imitate.sound.sneeze" = "Φτέρνισμα";
+"imitate.sound.snore" = "Ροχαλητό";
+"imitate.sound.laugh" = "Διαβολικό γέλιο";
+"imitate.sound.yawn" = "Χασμουρητό";
+"imitate.sound.hiccup" = "Λόξυγκας";
+
+/* Mac */
+"mac.sidebar.games" = "Παιχνίδια";
+"mac.sidebar.packs" = "Πακέτα μεταγλώττισης";
+"mac.sidebar.sessions" = "Συνεδρίες";
+"mac.menu.importPack" = "Εισαγωγή πακέτου μεταγλώττισης…";
+"mac.menu.export" = "Εξαγωγή βίντεο…";
+"mac.menu.playback" = "Αναπαραγωγή";
+"mac.menu.playPause" = "Αναπαραγωγή/Παύση";
+"mac.menu.record" = "Εγγραφή";
+"mac.menu.listen" = "Αναπαραγωγή πρωτοτύπου";
+"mac.menu.playTake" = "Αναπαραγωγή λήψης";
+"mac.menu.previousLine" = "Προηγούμενη ατάκα";
+"mac.menu.nextLine" = "Επόμενη ατάκα";
+"mac.menu.showInspector" = "Εμφάνιση επιθεωρητή";
+"mac.menu.hideInspector" = "Απόκρυψη επιθεωρητή";
+"mac.panel.inspector" = "Επιθεωρητής";
+"mac.panel.viewer" = "Προβολή";
+"mac.panel.line" = "Ατάκα";
+"mac.panel.scene" = "Σκηνή";
+"mac.panel.takes" = "Λήψεις";
+"mac.panel.character" = "Χαρακτήρας";
+"mac.panel.start" = "Έναρξη";
+"mac.panel.duration" = "Διάρκεια";
+"mac.panel.notDubbed" = "Δεν έχει μεταγλωττιστεί";
+"mac.panel.attempts" = "Προσπάθειες";
+"mac.panel.emptyTitle" = "Διάλεξε κάτι για να δουλέψεις";
+"mac.panel.emptyMessage" = "Διάλεξε ένα παιχνίδι ή ένα πακέτο μεταγλώττισης στην πλαϊνή στήλη.";
+"mac.settings.general" = "Γενικά";
+"mac.settings.recording" = "Εγγραφή";
+"mac.welcome.notNow" = "Όχι τώρα";

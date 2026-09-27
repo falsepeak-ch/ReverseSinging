@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Welkom bij Dubloon";
-"onboarding.welcome.message" = "Twee spellen, één microfoon. Zing een liedje achterstevoren of leg je stem over een filmscène. Bij geen van beide klink je normaal.";
+"onboarding.welcome.message" = "Drie spellen, één microfoon. Zing een liedje achterstevoren, leg je stem over een filmscène of doe een geluid na tot het klopt. Bij geen van alle klink je normaal.";
 "onboarding.howItWorks.title" = "Hoe het werkt";
 "onboarding.howItWorks.message" = "Neem een liedje op, draai het om en zing het gebrabbel na. Draai je eigen take daarna terug en hoor of je in de buurt kwam of net een nieuwe taal hebt uitgevonden.";
 "onboarding.dub.title" = "Nasynchroniseer een scène";
 "onboarding.dub.message" = "Het tweede spel: zet een scène aan, speel er stevig overheen en hoor jezelf in de film. Twee scènes zitten erbij. Daarna neem je je eigen bestanden mee.";
 "onboarding.microphone.title" = "Nog één ding";
-"onboarding.microphone.message" = "Beide spellen moeten je horen: achterstevoren zingen of een scène nasynchroniseren. De microfoon wordt alleen wakker tijdens het opnemen, alles blijft op dit apparaat en er wordt nooit iets geüpload. Je slechtste take blijft tussen jullie tweeën.";
+"onboarding.microphone.message" = "Alle drie de spellen moeten je horen: achterstevoren zingen, een scène nasynchroniseren of een geluid nadoen. De microfoon wordt alleen wakker tijdens het opnemen, alles blijft op dit apparaat en er wordt nooit iets geüpload. Je slechtste take blijft tussen jullie tweeën.";
 "onboarding.button.openSettings" = "Open Instellingen";
 "onboarding.button.letsRecord" = "kom op, opnemen!";
 "onboarding.button.continueLowercase" = "doorgaan";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Niemand hoort je";
-"main.emptyState.message" = "Op dit moment is Dubloon een opname-app zonder iets om mee op te nemen. Zet microfoontoegang aan in je apparaatinstellingen en beide spellen komen weer tot leven.";
+"main.emptyState.message" = "Op dit moment is Dubloon een opname-app zonder iets om mee op te nemen. Zet microfoontoegang aan in je apparaatinstellingen en alle drie de spellen komen weer tot leven.";
 "main.emptyState.button" = "Open Instellingen";
 
 // MARK: - Main View - Processing & Success
@@ -426,3 +426,101 @@
 "dub.error.linesBadTimestamps" = "De starttijden in deze pack zijn niet als tijden geschreven, dus de regels kunnen niet worden geplaatst.";
 "dub.error.linesNoAudio" = "Bij de regels van deze pack zitten geen opnamen, dus er valt niets na te synchroniseren.";
 "dub.error.linesUnplayableAudio" = "Geen van de opnamen in deze pack kan op dit apparaat worden afgespeeld.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Geluiden nadoen";
+"main.mode.imitate.subtitle" = "Doe een geluid na, krijg een oordeel";
+"imitate.library.hint" = "Kies een geluid, luister en doe je beste imitatie.";
+"imitate.library.best" = "Record";
+"imitate.library.untried" = "Nieuw";
+"imitate.challenge.listen" = "Luister";
+"imitate.challenge.record" = "Nadoen";
+"imitate.challenge.stop" = "Stop";
+"imitate.challenge.instruction" = "Luister eerst, tik dan op Nadoen en maak het geluid.";
+"imitate.challenge.recordingHint" = "Hup! Maak het geluid.";
+"imitate.challenge.scoring" = "Beoordelen…";
+"imitate.challenge.tryAgain" = "Opnieuw";
+"imitate.challenge.playMine" = "Speel de mijne";
+"imitate.challenge.makeVideo" = "Maak video";
+"imitate.challenge.rendering" = "Je video wordt gemaakt…";
+"imitate.challenge.newBest" = "Nieuw record!";
+"imitate.challenge.exportFailed" = "De video kon niet worden gemaakt. Probeer het opnieuw.";
+"imitate.challenge.difficulty" = "Moeilijkheid";
+"imitate.category.animals" = "Dieren";
+"imitate.category.vehicles" = "Toeters en alarmen";
+"imitate.category.cartoon" = "Tekenfilm en sci-fi";
+"imitate.category.human" = "Menselijke geluiden";
+"imitate.part.rhythm" = "Ritme";
+"imitate.part.pitch" = "Toonhoogte";
+"imitate.part.tone" = "Klank";
+"imitate.part.duration" = "Lengte";
+"imitate.verdict.nailedIt" = "RAAK!";
+"imitate.verdict.legendary" = "LEGENDARISCH";
+"imitate.verdict.approved" = "GOEDGEKEURD";
+"imitate.verdict.certified" = "GECERTIFICEERD";
+"imitate.verdict.notBad" = "NIET SLECHT";
+"imitate.verdict.almost" = "BIJNA…";
+"imitate.verdict.soClose" = "NET NIET";
+"imitate.verdict.failed" = "GEZAKT";
+"imitate.verdict.whatWasThat" = "WAT WAS DAT?";
+"imitate.reel.challenge" = "Geluidsuitdaging";
+"imitate.reel.canYouSoundLike" = "Kun jij klinken als…";
+"imitate.reel.original" = "Origineel";
+"imitate.reel.you" = "Jij";
+"imitate.reel.score" = "Score";
+"imitate.reel.beatMyScore" = "Versla jij mijn score?";
+"imitate.sound.cat" = "Kat";
+"imitate.sound.dog" = "Hond";
+"imitate.sound.cow" = "Koe";
+"imitate.sound.sheep" = "Schaap";
+"imitate.sound.chicken" = "Kip";
+"imitate.sound.rooster" = "Haan";
+"imitate.sound.duck" = "Eend";
+"imitate.sound.pig" = "Varken";
+"imitate.sound.wolf" = "Wolf";
+"imitate.sound.owl" = "Uil";
+"imitate.sound.horn" = "Autotoeter";
+"imitate.sound.siren" = "Sirene";
+"imitate.sound.train" = "Treinfluit";
+"imitate.sound.bell" = "Fietsbel";
+"imitate.sound.laser" = "Laser";
+"imitate.sound.boing" = "Boing";
+"imitate.sound.slide" = "Schuiffluit";
+"imitate.sound.zap" = "Schok";
+"imitate.sound.burp" = "Boer";
+"imitate.sound.sneeze" = "Nies";
+"imitate.sound.snore" = "Gesnurk";
+"imitate.sound.laugh" = "Duivelse lach";
+"imitate.sound.yawn" = "Geeuw";
+"imitate.sound.hiccup" = "Hik";
+
+/* Mac */
+"mac.sidebar.games" = "Games";
+"mac.sidebar.packs" = "Dubpacks";
+"mac.sidebar.sessions" = "Sessies";
+"mac.menu.importPack" = "Dubpack importeren…";
+"mac.menu.export" = "Video exporteren…";
+"mac.menu.playback" = "Afspelen";
+"mac.menu.playPause" = "Afspelen/pauzeren";
+"mac.menu.record" = "Opnemen";
+"mac.menu.listen" = "Origineel afspelen";
+"mac.menu.playTake" = "Take afspelen";
+"mac.menu.previousLine" = "Vorige zin";
+"mac.menu.nextLine" = "Volgende zin";
+"mac.menu.showInspector" = "Toon inspector";
+"mac.menu.hideInspector" = "Verberg inspector";
+"mac.panel.inspector" = "Inspector";
+"mac.panel.viewer" = "Viewer";
+"mac.panel.line" = "Zin";
+"mac.panel.scene" = "Scène";
+"mac.panel.takes" = "Takes";
+"mac.panel.character" = "Personage";
+"mac.panel.start" = "Begin";
+"mac.panel.duration" = "Duur";
+"mac.panel.notDubbed" = "Nog niet gedubd";
+"mac.panel.attempts" = "Pogingen";
+"mac.panel.emptyTitle" = "Kies iets om aan te werken";
+"mac.panel.emptyMessage" = "Kies een game of een dubpack in de navigatiekolom.";
+"mac.settings.general" = "Algemeen";
+"mac.settings.recording" = "Opnemen";
+"mac.welcome.notNow" = "Niet nu";

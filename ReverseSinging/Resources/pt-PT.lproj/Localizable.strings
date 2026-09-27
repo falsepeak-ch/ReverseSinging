@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Bem-vindo ao Dubloon";
-"onboarding.welcome.message" = "Dois jogos, um microfone. Canta uma música ao contrário ou mete a tua voz numa cena de filme. Com nenhum dos dois vais soar normal.";
+"onboarding.welcome.message" = "Três jogos, um microfone. Canta uma música ao contrário, mete a tua voz numa cena de filme ou imita um som até ficar perfeito. Com nenhum deles vais soar normal.";
 "onboarding.howItWorks.title" = "Como funciona";
 "onboarding.howItWorks.message" = "Grava uma música, vira-a do avesso e canta por cima da algaraviada. Depois vira a tua tentativa e descobre se chegaste perto ou inventaste uma língua nova.";
 "onboarding.dub.title" = "Dobra uma cena de filme";
 "onboarding.dub.message" = "O segundo jogo: põe uma cena a andar, representa por cima e depois ouve-te dentro do filme. Vêm duas cenas incluídas. Para as outras, trazes os teus ficheiros.";
 "onboarding.microphone.title" = "Uma última coisa";
-"onboarding.microphone.message" = "Os dois jogos precisam de te ouvir: a cantar ao contrário ou a dobrar uma cena. O microfone só acorda enquanto gravas, tudo fica neste dispositivo e nada é enviado para lado nenhum. A tua pior gravação fica entre vocês os dois.";
+"onboarding.microphone.message" = "Os três jogos precisam de te ouvir: a cantar ao contrário, a dobrar uma cena ou a imitar um som. O microfone só acorda enquanto gravas, tudo fica neste dispositivo e nada é enviado para lado nenhum. A tua pior gravação fica entre vocês os dois.";
 "onboarding.button.openSettings" = "Abrir Ajustes";
 "onboarding.button.letsRecord" = "boa, vamos gravar!";
 "onboarding.button.continueLowercase" = "continuar";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Ninguém te ouve";
-"main.emptyState.message" = "Neste momento o Dubloon é uma app de gravação sem nada com que gravar. Liga o microfone nos ajustes do dispositivo e os dois jogos voltam à vida.";
+"main.emptyState.message" = "Neste momento o Dubloon é uma app de gravação sem nada com que gravar. Liga o microfone nos ajustes do dispositivo e os três jogos voltam à vida.";
 "main.emptyState.button" = "Abrir Ajustes";
 
 // MARK: - Main View - Processing & Success
@@ -426,3 +426,101 @@
 "dub.error.linesBadTimestamps" = "Os tempos de início deste pack não estão escritos como tempos, por isso as falas não podem ser colocadas.";
 "dub.error.linesNoAudio" = "As falas deste pack não trazem gravações, por isso não há nada para dobrar.";
 "dub.error.linesUnplayableAudio" = "Nenhuma das gravações deste pack pode ser reproduzida neste dispositivo.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Imitação de sons";
+"main.mode.imitate.subtitle" = "Imita um som e recebe o veredicto";
+"imitate.library.hint" = "Escolhe um som, ouve e faz a tua melhor imitação.";
+"imitate.library.best" = "Recorde";
+"imitate.library.untried" = "Novo";
+"imitate.challenge.listen" = "Ouvir";
+"imitate.challenge.record" = "Imitar";
+"imitate.challenge.stop" = "Parar";
+"imitate.challenge.instruction" = "Ouve primeiro, depois carrega em Imitar e faz o som.";
+"imitate.challenge.recordingHint" = "Vai! Faz o som.";
+"imitate.challenge.scoring" = "A avaliar…";
+"imitate.challenge.tryAgain" = "Outra vez";
+"imitate.challenge.playMine" = "Ouvir o meu";
+"imitate.challenge.makeVideo" = "Criar vídeo";
+"imitate.challenge.rendering" = "A criar o teu vídeo…";
+"imitate.challenge.newBest" = "Novo recorde!";
+"imitate.challenge.exportFailed" = "Não foi possível criar o vídeo. Tenta novamente.";
+"imitate.challenge.difficulty" = "Dificuldade";
+"imitate.category.animals" = "Animais";
+"imitate.category.vehicles" = "Buzinas e alarmes";
+"imitate.category.cartoon" = "Desenhos animados e ficção científica";
+"imitate.category.human" = "Ruídos humanos";
+"imitate.part.rhythm" = "Ritmo";
+"imitate.part.pitch" = "Tom";
+"imitate.part.tone" = "Timbre";
+"imitate.part.duration" = "Duração";
+"imitate.verdict.nailedIt" = "EM CHEIO!";
+"imitate.verdict.legendary" = "LENDÁRIO";
+"imitate.verdict.approved" = "APROVADO";
+"imitate.verdict.certified" = "CERTIFICADO";
+"imitate.verdict.notBad" = "NADA MAU";
+"imitate.verdict.almost" = "QUASE…";
+"imitate.verdict.soClose" = "POR UM TRIZ";
+"imitate.verdict.failed" = "CHUMBADO";
+"imitate.verdict.whatWasThat" = "O QUE FOI ISTO?";
+"imitate.reel.challenge" = "Desafio de sons";
+"imitate.reel.canYouSoundLike" = "Consegues imitar…";
+"imitate.reel.original" = "Original";
+"imitate.reel.you" = "Tu";
+"imitate.reel.score" = "Pontuação";
+"imitate.reel.beatMyScore" = "Consegues bater a minha pontuação?";
+"imitate.sound.cat" = "Gato";
+"imitate.sound.dog" = "Cão";
+"imitate.sound.cow" = "Vaca";
+"imitate.sound.sheep" = "Ovelha";
+"imitate.sound.chicken" = "Galinha";
+"imitate.sound.rooster" = "Galo";
+"imitate.sound.duck" = "Pato";
+"imitate.sound.pig" = "Porco";
+"imitate.sound.wolf" = "Lobo";
+"imitate.sound.owl" = "Mocho";
+"imitate.sound.horn" = "Buzina";
+"imitate.sound.siren" = "Sirene";
+"imitate.sound.train" = "Apito do comboio";
+"imitate.sound.bell" = "Campainha de bicicleta";
+"imitate.sound.laser" = "Laser";
+"imitate.sound.boing" = "Boing";
+"imitate.sound.slide" = "Apito de êmbolo";
+"imitate.sound.zap" = "Choque";
+"imitate.sound.burp" = "Arroto";
+"imitate.sound.sneeze" = "Espirro";
+"imitate.sound.snore" = "Ressonar";
+"imitate.sound.laugh" = "Riso maléfico";
+"imitate.sound.yawn" = "Bocejo";
+"imitate.sound.hiccup" = "Soluço";
+
+/* Mac */
+"mac.sidebar.games" = "Jogos";
+"mac.sidebar.packs" = "Packs de dobragem";
+"mac.sidebar.sessions" = "Sessões";
+"mac.menu.importPack" = "Importar pack de dobragem…";
+"mac.menu.export" = "Exportar vídeo…";
+"mac.menu.playback" = "Reprodução";
+"mac.menu.playPause" = "Reproduzir/Pausa";
+"mac.menu.record" = "Gravar";
+"mac.menu.listen" = "Reproduzir original";
+"mac.menu.playTake" = "Reproduzir take";
+"mac.menu.previousLine" = "Fala anterior";
+"mac.menu.nextLine" = "Fala seguinte";
+"mac.menu.showInspector" = "Mostrar inspetor";
+"mac.menu.hideInspector" = "Ocultar inspetor";
+"mac.panel.inspector" = "Inspetor";
+"mac.panel.viewer" = "Visualizador";
+"mac.panel.line" = "Fala";
+"mac.panel.scene" = "Cena";
+"mac.panel.takes" = "Takes";
+"mac.panel.character" = "Personagem";
+"mac.panel.start" = "Início";
+"mac.panel.duration" = "Duração";
+"mac.panel.notDubbed" = "Ainda por dobrar";
+"mac.panel.attempts" = "Tentativas";
+"mac.panel.emptyTitle" = "Escolha algo para trabalhar";
+"mac.panel.emptyMessage" = "Escolha um jogo ou um pack de dobragem na barra lateral.";
+"mac.settings.general" = "Geral";
+"mac.settings.recording" = "Gravação";
+"mac.welcome.notNow" = "Agora não";

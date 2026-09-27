@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Vítej v Dubloonu";
-"onboarding.welcome.message" = "Dvě hry, jeden mikrofon. Zazpívej písničku pozpátku, nebo strč vlastní hlas do filmové scény. Normálně nebudeš znít ani v jednom případě.";
+"onboarding.welcome.message" = "Tři hry, jeden mikrofon. Zazpívej písničku pozpátku, strč vlastní hlas do filmové scény, nebo napodobuj zvuk, dokud nesedí. Normálně nebudeš znít ani v jednom případě.";
 "onboarding.howItWorks.title" = "Jak to funguje";
 "onboarding.howItWorks.message" = "Nahraj písničku, otoč ji a zpívej s tou hatmatilkou. Pak otoč vlastní pokus a zjisti, jestli ses trefil, nebo právě vynalezl nový jazyk.";
 "onboarding.dub.title" = "Nadabuj filmovou scénu";
 "onboarding.dub.message" = "Druhá hra: pusť scénu, přehrávej přes ni jako o život a pak se poslechni ve filmu. Dvě scény jsou v balení. Zbytek si přineseš sám.";
 "onboarding.microphone.title" = "Ještě jedna věc";
-"onboarding.microphone.message" = "Obě hry tě potřebují slyšet: při zpívání pozpátku i při dabování. Mikrofon se probouzí jen během nahrávání, všechno zůstává v tomhle zařízení a nikdy se nic nikam neposílá. Tvůj nejhorší pokus zůstane mezi vámi dvěma.";
+"onboarding.microphone.message" = "Všechny tři hry tě potřebují slyšet: při zpívání pozpátku, při dabování scény i při napodobování zvuků. Mikrofon se probouzí jen během nahrávání, všechno zůstává v tomhle zařízení a nikdy se nic nikam neposílá. Tvůj nejhorší pokus zůstane mezi vámi dvěma.";
 "onboarding.button.openSettings" = "Otevřít Nastavení";
 "onboarding.button.letsRecord" = "tak jo, nahráváme!";
 "onboarding.button.continueLowercase" = "pokračovat";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Nikdo tě neslyší";
-"main.emptyState.message" = "Právě teď je Dubloon nahrávací appka, která nemá čím nahrávat. Povol mikrofon v nastavení zařízení a obě hry se zase proberou k životu.";
+"main.emptyState.message" = "Právě teď je Dubloon nahrávací appka, která nemá čím nahrávat. Povol mikrofon v nastavení zařízení a všechny tři hry se zase proberou k životu.";
 "main.emptyState.button" = "Otevřít Nastavení";
 
 // MARK: - Main View - Processing & Success
@@ -426,3 +426,101 @@
 "dub.error.linesBadTimestamps" = "Časy začátku v balíčku nejsou zapsané jako časy, takže repliky nejde umístit.";
 "dub.error.linesNoAudio" = "Repliky v balíčku nemají nahrávky, takže není co dabovat.";
 "dub.error.linesUnplayableAudio" = "Žádnou z nahrávek v balíčku nejde na tomhle zařízení přehrát.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Napodobování zvuků";
+"main.mode.imitate.subtitle" = "Napodob zvuk a dostaň verdikt";
+"imitate.library.hint" = "Vyber zvuk, poslechni si ho a předveď svou nejlepší imitaci.";
+"imitate.library.best" = "Rekord";
+"imitate.library.untried" = "Nové";
+"imitate.challenge.listen" = "Poslechnout";
+"imitate.challenge.record" = "Napodobit";
+"imitate.challenge.stop" = "Stop";
+"imitate.challenge.instruction" = "Nejdřív poslouchej, pak stiskni Napodobit a vydej ten zvuk.";
+"imitate.challenge.recordingHint" = "Jedeš! Vydej ten zvuk.";
+"imitate.challenge.scoring" = "Hodnotím…";
+"imitate.challenge.tryAgain" = "Znovu";
+"imitate.challenge.playMine" = "Přehrát moje";
+"imitate.challenge.makeVideo" = "Vytvořit video";
+"imitate.challenge.rendering" = "Vytvářím tvoje video…";
+"imitate.challenge.newBest" = "Nový rekord!";
+"imitate.challenge.exportFailed" = "Video se nepodařilo vytvořit. Zkus to prosím znovu.";
+"imitate.challenge.difficulty" = "Obtížnost";
+"imitate.category.animals" = "Zvířata";
+"imitate.category.vehicles" = "Klaksony a sirény";
+"imitate.category.cartoon" = "Kreslené a sci-fi";
+"imitate.category.human" = "Lidské zvuky";
+"imitate.part.rhythm" = "Rytmus";
+"imitate.part.pitch" = "Výška";
+"imitate.part.tone" = "Barva";
+"imitate.part.duration" = "Délka";
+"imitate.verdict.nailedIt" = "TREFA!";
+"imitate.verdict.legendary" = "LEGENDÁRNÍ";
+"imitate.verdict.approved" = "SCHVÁLENO";
+"imitate.verdict.certified" = "CERTIFIKOVÁNO";
+"imitate.verdict.notBad" = "UJDE TO";
+"imitate.verdict.almost" = "SKORO…";
+"imitate.verdict.soClose" = "TĚSNĚ VEDLE";
+"imitate.verdict.failed" = "ZAMÍTNUTO";
+"imitate.verdict.whatWasThat" = "CO TO BYLO?";
+"imitate.reel.challenge" = "Zvuková výzva";
+"imitate.reel.canYouSoundLike" = "Dokážeš znít jako…";
+"imitate.reel.original" = "Originál";
+"imitate.reel.you" = "Ty";
+"imitate.reel.score" = "Skóre";
+"imitate.reel.beatMyScore" = "Překonáš moje skóre?";
+"imitate.sound.cat" = "Kočka";
+"imitate.sound.dog" = "Pes";
+"imitate.sound.cow" = "Kráva";
+"imitate.sound.sheep" = "Ovce";
+"imitate.sound.chicken" = "Slepice";
+"imitate.sound.rooster" = "Kohout";
+"imitate.sound.duck" = "Kachna";
+"imitate.sound.pig" = "Prase";
+"imitate.sound.wolf" = "Vlk";
+"imitate.sound.owl" = "Sova";
+"imitate.sound.horn" = "Klakson";
+"imitate.sound.siren" = "Siréna";
+"imitate.sound.train" = "Píšťala vlaku";
+"imitate.sound.bell" = "Zvonek na kolo";
+"imitate.sound.laser" = "Laser";
+"imitate.sound.boing" = "Boing";
+"imitate.sound.slide" = "Posuvná píšťalka";
+"imitate.sound.zap" = "Výboj";
+"imitate.sound.burp" = "Říhnutí";
+"imitate.sound.sneeze" = "Kýchnutí";
+"imitate.sound.snore" = "Chrápání";
+"imitate.sound.laugh" = "Zlověstný smích";
+"imitate.sound.yawn" = "Zívnutí";
+"imitate.sound.hiccup" = "Škytavka";
+
+/* Mac */
+"mac.sidebar.games" = "Hry";
+"mac.sidebar.packs" = "Dabingové balíčky";
+"mac.sidebar.sessions" = "Sessions";
+"mac.menu.importPack" = "Importovat dabingový balíček…";
+"mac.menu.export" = "Exportovat video…";
+"mac.menu.playback" = "Přehrávání";
+"mac.menu.playPause" = "Přehrát/Pozastavit";
+"mac.menu.record" = "Nahrát";
+"mac.menu.listen" = "Přehrát originál";
+"mac.menu.playTake" = "Přehrát záznam";
+"mac.menu.previousLine" = "Předchozí replika";
+"mac.menu.nextLine" = "Další replika";
+"mac.menu.showInspector" = "Zobrazit inspektor";
+"mac.menu.hideInspector" = "Skrýt inspektor";
+"mac.panel.inspector" = "Inspektor";
+"mac.panel.viewer" = "Prohlížeč";
+"mac.panel.line" = "Replika";
+"mac.panel.scene" = "Scéna";
+"mac.panel.takes" = "Záznamy";
+"mac.panel.character" = "Postava";
+"mac.panel.start" = "Začátek";
+"mac.panel.duration" = "Délka";
+"mac.panel.notDubbed" = "Zatím nenadabováno";
+"mac.panel.attempts" = "Pokusy";
+"mac.panel.emptyTitle" = "Vyberte, na čem chcete pracovat";
+"mac.panel.emptyMessage" = "V postranním panelu vyberte hru nebo dabingový balíček.";
+"mac.settings.general" = "Obecné";
+"mac.settings.recording" = "Nahrávání";
+"mac.welcome.notNow" = "Teď ne";

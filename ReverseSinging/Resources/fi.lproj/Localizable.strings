@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Tervetuloa Dubloonin pariin";
-"onboarding.welcome.message" = "Kaksi peliä, yksi mikrofoni. Laula biisi takaperin tai työnnä oma äänesi elokuvakohtaukseen. Kummassakaan et kuulosta normaalilta.";
+"onboarding.welcome.message" = "Kolme peliä, yksi mikrofoni. Laula biisi takaperin, työnnä oma äänesi elokuvakohtaukseen tai matki ääntä, kunnes se osuu kohdalleen. Missään niistä et kuulosta normaalilta.";
 "onboarding.howItWorks.title" = "Näin tämä toimii";
 "onboarding.howItWorks.message" = "Äänitä biisi, käännä se takaperin ja laula siansaksan mukana. Käännä sitten oma otoksesi ja kuule, osuitko lähelle vai keksitkö juuri uuden kielen.";
 "onboarding.dub.title" = "Dubbaa elokuvakohtaus";
 "onboarding.dub.message" = "Toinen peli: laita kohtaus pyörimään, ylinäyttele kunnolla ja kuule sitten itsesi elokuvassa. Kaksi kohtausta tulee mukana. Sen jälkeen tuot omat tiedostosi.";
 "onboarding.microphone.title" = "Vielä yksi juttu";
-"onboarding.microphone.message" = "Molempien pelien pitää kuulla sinut: takaperin laulaessa tai kohtausta dubatessa. Mikrofoni herää vain äänityksen ajaksi, kaikki pysyy tällä laitteella eikä mitään lähetetä koskaan minnekään. Surkein otoksesi jää teidän kahden väliseksi.";
+"onboarding.microphone.message" = "Kaikkien kolmen pelin pitää kuulla sinut: takaperin laulaessa, kohtausta dubatessa tai ääntä matkiessa. Mikrofoni herää vain äänityksen ajaksi, kaikki pysyy tällä laitteella eikä mitään lähetetä koskaan minnekään. Surkein otoksesi jää teidän kahden väliseksi.";
 "onboarding.button.openSettings" = "Avaa Asetukset";
 "onboarding.button.letsRecord" = "no niin, nauhoitetaan!";
 "onboarding.button.continueLowercase" = "jatka";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Kukaan ei kuule sinua";
-"main.emptyState.message" = "Juuri nyt Dubloon on äänityssovellus ilman mitään, millä äänittää. Salli mikrofoni laitteen asetuksissa, niin molemmat pelit heräävät taas henkiin.";
+"main.emptyState.message" = "Juuri nyt Dubloon on äänityssovellus ilman mitään, millä äänittää. Salli mikrofoni laitteen asetuksissa, niin kaikki kolme peliä heräävät taas henkiin.";
 "main.emptyState.button" = "Avaa Asetukset";
 
 // MARK: - Main View - Processing & Success
@@ -426,3 +426,101 @@
 "dub.error.linesBadTimestamps" = "Paketin alkamisaikoja ei ole kirjoitettu aikoina, joten repliikkejä ei voi sijoittaa.";
 "dub.error.linesNoAudio" = "Paketin repliikeillä ei ole äänitteitä, joten dubattavaa ei ole.";
 "dub.error.linesUnplayableAudio" = "Yhtäkään paketin äänitteistä ei voi toistaa tällä laitteella.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Äänten matkiminen";
+"main.mode.imitate.subtitle" = "Matki ääntä, saat tuomion";
+"imitate.library.hint" = "Valitse ääni, kuuntele ja tee paras imitaatiosi.";
+"imitate.library.best" = "Ennätys";
+"imitate.library.untried" = "Uusi";
+"imitate.challenge.listen" = "Kuuntele";
+"imitate.challenge.record" = "Matki";
+"imitate.challenge.stop" = "Lopeta";
+"imitate.challenge.instruction" = "Kuuntele ensin, paina sitten Matki ja päästä ääni.";
+"imitate.challenge.recordingHint" = "Nyt! Päästä ääni.";
+"imitate.challenge.scoring" = "Arvioidaan…";
+"imitate.challenge.tryAgain" = "Uudestaan";
+"imitate.challenge.playMine" = "Kuuntele omani";
+"imitate.challenge.makeVideo" = "Tee video";
+"imitate.challenge.rendering" = "Videota tehdään…";
+"imitate.challenge.newBest" = "Uusi ennätys!";
+"imitate.challenge.exportFailed" = "Videota ei voitu tehdä. Yritä uudelleen.";
+"imitate.challenge.difficulty" = "Vaikeus";
+"imitate.category.animals" = "Eläimet";
+"imitate.category.vehicles" = "Torvet ja hälyttimet";
+"imitate.category.cartoon" = "Piirretyt ja scifi";
+"imitate.category.human" = "Ihmisäänet";
+"imitate.part.rhythm" = "Rytmi";
+"imitate.part.pitch" = "Sävelkorkeus";
+"imitate.part.tone" = "Sointi";
+"imitate.part.duration" = "Kesto";
+"imitate.verdict.nailedIt" = "NAPPIIN!";
+"imitate.verdict.legendary" = "LEGENDAARINEN";
+"imitate.verdict.approved" = "HYVÄKSYTTY";
+"imitate.verdict.certified" = "SERTIFIOITU";
+"imitate.verdict.notBad" = "EI HULLUMPI";
+"imitate.verdict.almost" = "MELKEIN…";
+"imitate.verdict.soClose" = "LÄHELLÄ";
+"imitate.verdict.failed" = "HYLÄTTY";
+"imitate.verdict.whatWasThat" = "MIKÄ SE OLI?";
+"imitate.reel.challenge" = "Äänihaaste";
+"imitate.reel.canYouSoundLike" = "Osaatko matkia tätä…";
+"imitate.reel.original" = "Alkuperäinen";
+"imitate.reel.you" = "Sinä";
+"imitate.reel.score" = "Pisteet";
+"imitate.reel.beatMyScore" = "Päihitätkö pisteeni?";
+"imitate.sound.cat" = "Kissa";
+"imitate.sound.dog" = "Koira";
+"imitate.sound.cow" = "Lehmä";
+"imitate.sound.sheep" = "Lammas";
+"imitate.sound.chicken" = "Kana";
+"imitate.sound.rooster" = "Kukko";
+"imitate.sound.duck" = "Ankka";
+"imitate.sound.pig" = "Sika";
+"imitate.sound.wolf" = "Susi";
+"imitate.sound.owl" = "Pöllö";
+"imitate.sound.horn" = "Auton torvi";
+"imitate.sound.siren" = "Sireeni";
+"imitate.sound.train" = "Junan pilli";
+"imitate.sound.bell" = "Polkupyörän kello";
+"imitate.sound.laser" = "Laser";
+"imitate.sound.boing" = "Boing";
+"imitate.sound.slide" = "Liukupilli";
+"imitate.sound.zap" = "Sähköisku";
+"imitate.sound.burp" = "Röyhtäys";
+"imitate.sound.sneeze" = "Aivastus";
+"imitate.sound.snore" = "Kuorsaus";
+"imitate.sound.laugh" = "Pirullinen nauru";
+"imitate.sound.yawn" = "Haukotus";
+"imitate.sound.hiccup" = "Hikka";
+
+/* Mac */
+"mac.sidebar.games" = "Pelit";
+"mac.sidebar.packs" = "Dubbauspaketit";
+"mac.sidebar.sessions" = "Sessiot";
+"mac.menu.importPack" = "Tuo dubbauspaketti…";
+"mac.menu.export" = "Vie video…";
+"mac.menu.playback" = "Toisto";
+"mac.menu.playPause" = "Toista/Tauko";
+"mac.menu.record" = "Nauhoita";
+"mac.menu.listen" = "Toista alkuperäinen";
+"mac.menu.playTake" = "Toista otto";
+"mac.menu.previousLine" = "Edellinen repliikki";
+"mac.menu.nextLine" = "Seuraava repliikki";
+"mac.menu.showInspector" = "Näytä tarkastin";
+"mac.menu.hideInspector" = "Kätke tarkastin";
+"mac.panel.inspector" = "Tarkastin";
+"mac.panel.viewer" = "Katselin";
+"mac.panel.line" = "Repliikki";
+"mac.panel.scene" = "Kohtaus";
+"mac.panel.takes" = "Otot";
+"mac.panel.character" = "Hahmo";
+"mac.panel.start" = "Alku";
+"mac.panel.duration" = "Kesto";
+"mac.panel.notDubbed" = "Ei vielä dubattu";
+"mac.panel.attempts" = "Yritykset";
+"mac.panel.emptyTitle" = "Valitse jotain työstettävää";
+"mac.panel.emptyMessage" = "Valitse sivupalkista peli tai dubbauspaketti.";
+"mac.settings.general" = "Yleiset";
+"mac.settings.recording" = "Nauhoitus";
+"mac.welcome.notNow" = "Ei nyt";

@@ -370,6 +370,29 @@ final class AnalyticsManager {
         ])
     }
 
+    // MARK: - Sound Imitation
+
+    func trackImitateSoundOpened(soundID: String) {
+        log("imitate_sound_opened", parameters: ["sound_id": soundID])
+    }
+
+    func trackImitateAttemptScored(soundID: String, score: Double, grade: String, withBooth: Bool) {
+        log("imitate_attempt_scored", parameters: [
+            "sound_id": soundID,
+            "score": score,
+            "grade": grade,
+            "booth": withBooth
+        ])
+    }
+
+    func trackImitateVideoExported(soundID: String, score: Double, withBooth: Bool) {
+        log("imitate_video_exported", parameters: [
+            "sound_id": soundID,
+            "score": score,
+            "booth": withBooth
+        ])
+    }
+
     // MARK: - Purchases
 
     /// The paywall reached the screen. `source` says what put it there — the hard

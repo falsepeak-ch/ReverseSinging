@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// The root screen. It plays nothing itself. It lists the two games and owns the
+/// The root screen. It plays nothing itself. It lists the games and owns the
 /// navigation stack they are pushed onto, so each game is a level deeper rather
 /// than something hidden behind a toolbar glyph.
 struct HomeView: View {
@@ -80,6 +80,8 @@ struct HomeView: View {
             }
         case .dub:
             DubLibraryView(pendingImportURL: $app.pendingDubImportURL, isPushed: true)
+        case .imitate:
+            SoundLibraryView()
         }
     }
 

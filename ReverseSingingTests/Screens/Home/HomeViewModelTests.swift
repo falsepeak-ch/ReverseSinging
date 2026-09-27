@@ -68,6 +68,20 @@ struct HomeViewModelTests {
         }
     }
 
+    /// Sound Imitation is paid unless the console frees it, so it locks with dubbing.
+    @Test func soundImitationLocksByDefault() {
+        withAccess(.locked) {
+            let viewModel = HomeViewModel()
+
+            viewModel.open(.imitate)
+
+            #expect(viewModel.isLocked(.imitate))
+            #expect(!viewModel.isFree(.imitate))
+            #expect(viewModel.path.isEmpty)
+            #expect(viewModel.paywallSource == .lockedGame)
+        }
+    }
+
     /// "Free" only means something beside a padlock. With nothing locked, no game says it.
     @Test(arguments: GameMode.allCases)
     func nothingIsMarkedFreeWhileNothingIsLocked(mode: GameMode) {

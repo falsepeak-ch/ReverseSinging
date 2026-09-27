@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "أهلاً بك في Dubloon";
-"onboarding.welcome.message" = "لعبتان وميكروفون واحد. غنِّ أغنية بالمقلوب أو ضع صوتك داخل مشهد سينمائي. في الحالتين لن تبدو طبيعياً.";
+"onboarding.welcome.message" = "ثلاث ألعاب وميكروفون واحد. غنِّ أغنية بالمقلوب، أو ضع صوتك داخل مشهد سينمائي، أو قلّد صوتاً حتى تتقنه. في كل الحالات لن تبدو طبيعياً.";
 "onboarding.howItWorks.title" = "كيف تسير الحكاية";
 "onboarding.howItWorks.message" = "سجّل أغنية، اقلبها، ثم غنِّ فوق ذلك الكلام غير المفهوم. اقلب تسجيلك بعدها واكتشف إن كنت قد اقتربت أم اخترعت لغة جديدة.";
 "onboarding.dub.title" = "دبلج مشهداً سينمائياً";
 "onboarding.dub.message" = "اللعبة الثانية: شغّل المشهد، مثّل فوقه بمبالغة، ثم اسمع نفسك داخل الفيلم. مشهدان يأتيان مع التطبيق. وبعدهما تُحضر ملفاتك بنفسك.";
 "onboarding.microphone.title" = "أمر أخير";
-"onboarding.microphone.message" = "اللعبتان تحتاجان أن تسمعاك: في الغناء بالمقلوب وفي الدبلجة. الميكروفون يستيقظ أثناء التسجيل فقط، وكل شيء يبقى على هذا الجهاز ولا يُرفع أي شيء إلى أي مكان. أسوأ محاولاتك تبقى بينك وبين الجهاز.";
+"onboarding.microphone.message" = "الألعاب الثلاث تحتاج أن تسمعك: في الغناء بالمقلوب، وفي دبلجة مشهد، وفي تقليد صوت. الميكروفون يستيقظ أثناء التسجيل فقط، وكل شيء يبقى على هذا الجهاز ولا يُرفع أي شيء إلى أي مكان. أسوأ محاولاتك تبقى بينك وبين الجهاز.";
 "onboarding.button.openSettings" = "افتح الإعدادات";
 "onboarding.button.letsRecord" = "هيا، لنسجّل!";
 "onboarding.button.continueLowercase" = "متابعة";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "لا أحد يسمعك";
-"main.emptyState.message" = "Dubloon الآن تطبيق تسجيل بلا شيء يسجّل به. فعّل إذن الميكروفون من إعدادات الجهاز، فتعود اللعبتان إلى الحياة.";
+"main.emptyState.message" = "Dubloon الآن تطبيق تسجيل بلا شيء يسجّل به. فعّل إذن الميكروفون من إعدادات الجهاز، فتعود الألعاب الثلاث إلى الحياة.";
 "main.emptyState.button" = "افتح الإعدادات";
 
 // MARK: - Main View - Processing & Success
@@ -426,3 +426,101 @@
 "dub.error.linesBadTimestamps" = "أوقات البدء في هذه الحزمة ليست مكتوبة كأوقات، فلا يمكن وضع الجمل في مكانها.";
 "dub.error.linesNoAudio" = "جمل هذه الحزمة بلا تسجيلات، فلا يوجد ما يمكن دبلجته.";
 "dub.error.linesUnplayableAudio" = "لا يمكن تشغيل أي من تسجيلات هذه الحزمة على هذا الجهاز.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "تقليد الأصوات";
+"main.mode.imitate.subtitle" = "قلّد صوتًا واحصل على الحكم";
+"imitate.library.hint" = "اختر صوتًا، استمع إليه، ثم قدّم أفضل تقليد لديك.";
+"imitate.library.best" = "الأفضل";
+"imitate.library.untried" = "جديد";
+"imitate.challenge.listen" = "استمع";
+"imitate.challenge.record" = "قلّد";
+"imitate.challenge.stop" = "إيقاف";
+"imitate.challenge.instruction" = "استمع أولًا، ثم اضغط «قلّد» وأصدر الصوت.";
+"imitate.challenge.recordingHint" = "هيا! أصدر الصوت.";
+"imitate.challenge.scoring" = "جارٍ التحكيم…";
+"imitate.challenge.tryAgain" = "حاول مجددًا";
+"imitate.challenge.playMine" = "شغّل تسجيلي";
+"imitate.challenge.makeVideo" = "اصنع فيديو";
+"imitate.challenge.rendering" = "جارٍ صنع الفيديو…";
+"imitate.challenge.newBest" = "رقم قياسي جديد!";
+"imitate.challenge.exportFailed" = "تعذّر صنع الفيديو. حاول مرة أخرى.";
+"imitate.challenge.difficulty" = "الصعوبة";
+"imitate.category.animals" = "حيوانات";
+"imitate.category.vehicles" = "أبواق وإنذارات";
+"imitate.category.cartoon" = "كرتون وخيال علمي";
+"imitate.category.human" = "أصوات بشرية";
+"imitate.part.rhythm" = "الإيقاع";
+"imitate.part.pitch" = "طبقة الصوت";
+"imitate.part.tone" = "جرس الصوت";
+"imitate.part.duration" = "المدة";
+"imitate.verdict.nailedIt" = "في الصميم!";
+"imitate.verdict.legendary" = "أسطوري";
+"imitate.verdict.approved" = "مقبول";
+"imitate.verdict.certified" = "معتمد";
+"imitate.verdict.notBad" = "ليس سيئًا";
+"imitate.verdict.almost" = "تقريبًا…";
+"imitate.verdict.soClose" = "قريب جدًا";
+"imitate.verdict.failed" = "مرفوض";
+"imitate.verdict.whatWasThat" = "ما هذا؟!";
+"imitate.reel.challenge" = "تحدّي الأصوات";
+"imitate.reel.canYouSoundLike" = "هل تستطيع تقليد صوت…";
+"imitate.reel.original" = "الأصلي";
+"imitate.reel.you" = "أنت";
+"imitate.reel.score" = "النتيجة";
+"imitate.reel.beatMyScore" = "هل تتفوق على نتيجتي؟";
+"imitate.sound.cat" = "قطة";
+"imitate.sound.dog" = "كلب";
+"imitate.sound.cow" = "بقرة";
+"imitate.sound.sheep" = "خروف";
+"imitate.sound.chicken" = "دجاجة";
+"imitate.sound.rooster" = "ديك";
+"imitate.sound.duck" = "بطة";
+"imitate.sound.pig" = "خنزير";
+"imitate.sound.wolf" = "ذئب";
+"imitate.sound.owl" = "بومة";
+"imitate.sound.horn" = "بوق سيارة";
+"imitate.sound.siren" = "صفارة إنذار";
+"imitate.sound.train" = "صافرة قطار";
+"imitate.sound.bell" = "جرس دراجة";
+"imitate.sound.laser" = "ليزر";
+"imitate.sound.boing" = "بوينغ";
+"imitate.sound.slide" = "صفارة منزلقة";
+"imitate.sound.zap" = "صعقة كهربائية";
+"imitate.sound.burp" = "تجشؤ";
+"imitate.sound.sneeze" = "عطسة";
+"imitate.sound.snore" = "شخير";
+"imitate.sound.laugh" = "ضحكة شريرة";
+"imitate.sound.yawn" = "تثاؤب";
+"imitate.sound.hiccup" = "حازوقة";
+
+/* Mac */
+"mac.sidebar.games" = "الألعاب";
+"mac.sidebar.packs" = "حزم الدبلجة";
+"mac.sidebar.sessions" = "الجلسات";
+"mac.menu.importPack" = "استيراد حزمة دبلجة…";
+"mac.menu.export" = "تصدير الفيديو…";
+"mac.menu.playback" = "التشغيل";
+"mac.menu.playPause" = "تشغيل/إيقاف مؤقت";
+"mac.menu.record" = "تسجيل";
+"mac.menu.listen" = "تشغيل الأصل";
+"mac.menu.playTake" = "تشغيل تسجيلك";
+"mac.menu.previousLine" = "الجملة السابقة";
+"mac.menu.nextLine" = "الجملة التالية";
+"mac.menu.showInspector" = "إظهار المفتش";
+"mac.menu.hideInspector" = "إخفاء المفتش";
+"mac.panel.inspector" = "المفتش";
+"mac.panel.viewer" = "العارض";
+"mac.panel.line" = "جملة";
+"mac.panel.scene" = "المشهد";
+"mac.panel.takes" = "التسجيلات";
+"mac.panel.character" = "الشخصية";
+"mac.panel.start" = "البداية";
+"mac.panel.duration" = "المدة";
+"mac.panel.notDubbed" = "لم تُدبلج بعد";
+"mac.panel.attempts" = "المحاولات";
+"mac.panel.emptyTitle" = "اختر شيئًا لتعمل عليه";
+"mac.panel.emptyMessage" = "اختر لعبة أو حزمة دبلجة من الشريط الجانبي.";
+"mac.settings.general" = "عام";
+"mac.settings.recording" = "التسجيل";
+"mac.welcome.notNow" = "ليس الآن";

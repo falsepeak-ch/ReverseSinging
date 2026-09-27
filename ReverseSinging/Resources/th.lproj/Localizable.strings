@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "ยินดีต้อนรับสู่ Dubloon";
-"onboarding.welcome.message" = "สองเกม ไมค์ตัวเดียว ร้องเพลงกลับหลัง หรือยัดเสียงตัวเองเข้าไปในฉากหนัง ยังไงก็ไม่มีทางฟังดูปกติ";
+"onboarding.welcome.message" = "สามเกม ไมค์ตัวเดียว ร้องเพลงกลับหลัง ยัดเสียงตัวเองเข้าไปในฉากหนัง หรือเลียนเสียงจนกว่าจะเหมือน ยังไงก็ไม่มีทางฟังดูปกติ";
 "onboarding.howItWorks.title" = "มันทำงานยังไง";
 "onboarding.howItWorks.message" = "อัดเพลงไว้ กลับด้านมัน แล้วร้องตามเสียงมั่ว ๆ นั้น จากนั้นกลับเทคของตัวเองอีกที แล้วดูว่าใกล้เคียงหรือเพิ่งประดิษฐ์ภาษาใหม่ขึ้นมา";
 "onboarding.dub.title" = "พากย์ฉากหนัง";
 "onboarding.dub.message" = "เกมที่สอง เปิดฉาก เล่นทับให้สุด แล้วฟังตัวเองอยู่ในหนัง มีสองฉากแถมมาให้ นอกจากนั้นเอาไฟล์ของคุณเองมาเอง";
 "onboarding.microphone.title" = "อีกเรื่องสุดท้าย";
-"onboarding.microphone.message" = "ทั้งสองเกมต้องได้ยินคุณ ทั้งตอนร้องกลับหลังและตอนพากย์ ไมค์จะตื่นเฉพาะตอนอัด ทุกอย่างอยู่ในเครื่องนี้ และไม่มีอะไรถูกอัปโหลดไปไหน เทคที่แย่ที่สุดของคุณจะอยู่กันแค่สองคน";
+"onboarding.microphone.message" = "ทั้งสามเกมต้องได้ยินคุณ ทั้งตอนร้องกลับหลัง ตอนพากย์ฉาก และตอนเลียนเสียง ไมค์จะตื่นเฉพาะตอนอัด ทุกอย่างอยู่ในเครื่องนี้ และไม่มีอะไรถูกอัปโหลดไปไหน เทคที่แย่ที่สุดของคุณจะอยู่กันแค่สองคน";
 "onboarding.button.openSettings" = "เปิดการตั้งค่า";
 "onboarding.button.letsRecord" = "เอาละ อัดกันเลย!";
 "onboarding.button.continueLowercase" = "ต่อไป";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "ไม่มีใครได้ยินคุณ";
-"main.emptyState.message" = "ตอนนี้ Dubloon คือแอปอัดเสียงที่ไม่มีอะไรให้อัด เปิดสิทธิ์ไมโครโฟนในการตั้งค่าเครื่อง แล้วทั้งสองเกมจะกลับมามีชีวิตอีกครั้ง";
+"main.emptyState.message" = "ตอนนี้ Dubloon คือแอปอัดเสียงที่ไม่มีอะไรให้อัด เปิดสิทธิ์ไมโครโฟนในการตั้งค่าเครื่อง แล้วทั้งสามเกมจะกลับมามีชีวิตอีกครั้ง";
 "main.emptyState.button" = "เปิดการตั้งค่า";
 
 // MARK: - Main View - Processing & Success
@@ -426,3 +426,101 @@
 "dub.error.linesBadTimestamps" = "เวลาเริ่มในแพ็กนี้ไม่ได้เขียนเป็นเวลา จึงจัดวางบทพูดไม่ได้";
 "dub.error.linesNoAudio" = "บทพูดในแพ็กนี้ไม่มีไฟล์เสียงมาด้วย จึงไม่มีอะไรให้พากย์ทับ";
 "dub.error.linesUnplayableAudio" = "ไฟล์เสียงในแพ็กนี้เล่นบนอุปกรณ์นี้ไม่ได้เลย";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "เลียนเสียง";
+"main.mode.imitate.subtitle" = "เลียนเสียงแล้วรับคำตัดสิน";
+"imitate.library.hint" = "เลือกเสียง ฟัง แล้วเลียนให้เหมือนที่สุด";
+"imitate.library.best" = "ดีที่สุด";
+"imitate.library.untried" = "ใหม่";
+"imitate.challenge.listen" = "ฟัง";
+"imitate.challenge.record" = "เลียนเสียง";
+"imitate.challenge.stop" = "หยุด";
+"imitate.challenge.instruction" = "ฟังก่อน แล้วกด เลียนเสียง แล้วทำเสียงนั้นเลย";
+"imitate.challenge.recordingHint" = "ลุย! ทำเสียงเลย";
+"imitate.challenge.scoring" = "กำลังตัดสิน…";
+"imitate.challenge.tryAgain" = "อีกครั้ง";
+"imitate.challenge.playMine" = "ฟังของฉัน";
+"imitate.challenge.makeVideo" = "ทำวิดีโอ";
+"imitate.challenge.rendering" = "กำลังทำวิดีโอ…";
+"imitate.challenge.newBest" = "สถิติใหม่!";
+"imitate.challenge.exportFailed" = "ทำวิดีโอไม่สำเร็จ ลองอีกครั้งนะ";
+"imitate.challenge.difficulty" = "ความยาก";
+"imitate.category.animals" = "สัตว์";
+"imitate.category.vehicles" = "แตรและสัญญาณเตือน";
+"imitate.category.cartoon" = "การ์ตูนและไซไฟ";
+"imitate.category.human" = "เสียงคน";
+"imitate.part.rhythm" = "จังหวะ";
+"imitate.part.pitch" = "ระดับเสียง";
+"imitate.part.tone" = "โทนเสียง";
+"imitate.part.duration" = "ความยาว";
+"imitate.verdict.nailedIt" = "เป๊ะมาก!";
+"imitate.verdict.legendary" = "ระดับตำนาน";
+"imitate.verdict.approved" = "ผ่าน";
+"imitate.verdict.certified" = "รับรอง";
+"imitate.verdict.notBad" = "ไม่เลว";
+"imitate.verdict.almost" = "เกือบแล้ว…";
+"imitate.verdict.soClose" = "อีกนิดเดียว";
+"imitate.verdict.failed" = "ไม่ผ่าน";
+"imitate.verdict.whatWasThat" = "อะไรเนี่ย?";
+"imitate.reel.challenge" = "ชาเลนจ์เสียง";
+"imitate.reel.canYouSoundLike" = "ทำเสียงให้เหมือน…";
+"imitate.reel.original" = "ต้นฉบับ";
+"imitate.reel.you" = "คุณ";
+"imitate.reel.score" = "คะแนน";
+"imitate.reel.beatMyScore" = "ชนะคะแนนฉันได้ไหม?";
+"imitate.sound.cat" = "แมว";
+"imitate.sound.dog" = "หมา";
+"imitate.sound.cow" = "วัว";
+"imitate.sound.sheep" = "แกะ";
+"imitate.sound.chicken" = "ไก่";
+"imitate.sound.rooster" = "ไก่ตัวผู้";
+"imitate.sound.duck" = "เป็ด";
+"imitate.sound.pig" = "หมู";
+"imitate.sound.wolf" = "หมาป่า";
+"imitate.sound.owl" = "นกฮูก";
+"imitate.sound.horn" = "แตรรถ";
+"imitate.sound.siren" = "ไซเรน";
+"imitate.sound.train" = "หวูดรถไฟ";
+"imitate.sound.bell" = "กริ่งจักรยาน";
+"imitate.sound.laser" = "เลเซอร์";
+"imitate.sound.boing" = "ดึ๋ง";
+"imitate.sound.slide" = "นกหวีดสไลด์";
+"imitate.sound.zap" = "ไฟช็อต";
+"imitate.sound.burp" = "เรอ";
+"imitate.sound.sneeze" = "จาม";
+"imitate.sound.snore" = "กรน";
+"imitate.sound.laugh" = "หัวเราะแบบวายร้าย";
+"imitate.sound.yawn" = "หาว";
+"imitate.sound.hiccup" = "สะอึก";
+
+/* Mac */
+"mac.sidebar.games" = "เกม";
+"mac.sidebar.packs" = "แพ็กพากย์";
+"mac.sidebar.sessions" = "เซสชัน";
+"mac.menu.importPack" = "นำเข้าแพ็กพากย์…";
+"mac.menu.export" = "ส่งออกวิดีโอ…";
+"mac.menu.playback" = "การเล่น";
+"mac.menu.playPause" = "เล่น/หยุดชั่วคราว";
+"mac.menu.record" = "บันทึก";
+"mac.menu.listen" = "เล่นต้นฉบับ";
+"mac.menu.playTake" = "เล่นเทค";
+"mac.menu.previousLine" = "บทพูดก่อนหน้า";
+"mac.menu.nextLine" = "บทพูดถัดไป";
+"mac.menu.showInspector" = "แสดงตัวตรวจสอบ";
+"mac.menu.hideInspector" = "ซ่อนตัวตรวจสอบ";
+"mac.panel.inspector" = "ตัวตรวจสอบ";
+"mac.panel.viewer" = "ตัวแสดงภาพ";
+"mac.panel.line" = "บทพูด";
+"mac.panel.scene" = "ฉาก";
+"mac.panel.takes" = "เทค";
+"mac.panel.character" = "ตัวละคร";
+"mac.panel.start" = "เริ่ม";
+"mac.panel.duration" = "ความยาว";
+"mac.panel.notDubbed" = "ยังไม่ได้พากย์";
+"mac.panel.attempts" = "จำนวนครั้งที่ลอง";
+"mac.panel.emptyTitle" = "เลือกสิ่งที่จะทำ";
+"mac.panel.emptyMessage" = "เลือกเกมหรือแพ็กพากย์ในแถบด้านข้าง";
+"mac.settings.general" = "ทั่วไป";
+"mac.settings.recording" = "การบันทึก";
+"mac.welcome.notNow" = "ไม่ใช่ตอนนี้";

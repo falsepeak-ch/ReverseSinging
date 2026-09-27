@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Dubloon'a hoş geldin";
-"onboarding.welcome.message" = "İki oyun, tek mikrofon. Bir şarkıyı tersten söyle ya da sesini bir film sahnesinin içine sok. İkisinde de normal duyulmayacaksın.";
+"onboarding.welcome.message" = "Üç oyun, tek mikrofon. Bir şarkıyı tersten söyle, sesini bir film sahnesinin içine sok ya da bir sesi tutturana kadar taklit et. Hiçbirinde normal duyulmayacaksın.";
 "onboarding.howItWorks.title" = "Nasıl çalışıyor";
 "onboarding.howItWorks.message" = "Bir şarkı kaydet, tersine çevir ve o anlamsız sesin üstüne söyle. Sonra kendi çekimini ters çevir ve yaklaşmış mısın yoksa yeni bir dil mi icat etmişsin, öğren.";
 "onboarding.dub.title" = "Bir film sahnesini seslendir";
 "onboarding.dub.message" = "İkinci oyun: sahneyi başlat, üstüne abartarak oyna ve sonra kendini filmin içinde duy. İki sahne kutudan çıkıyor. Gerisi için kendi dosyalarını getiriyorsun.";
 "onboarding.microphone.title" = "Son bir şey";
-"onboarding.microphone.message" = "İki oyunun da seni duyması gerek: tersten söylerken de, seslendirirken de. Mikrofon sadece kayıt sırasında uyanır, her şey bu cihazda kalır ve hiçbir şey hiçbir yere yüklenmez. En kötü çekimin ikinizin arasında kalır.";
+"onboarding.microphone.message" = "Üç oyunun da seni duyması gerek: tersten söylerken, bir sahneyi seslendirirken ve bir sesi taklit ederken. Mikrofon sadece kayıt sırasında uyanır, her şey bu cihazda kalır ve hiçbir şey hiçbir yere yüklenmez. En kötü çekimin ikinizin arasında kalır.";
 "onboarding.button.openSettings" = "Ayarlar'ı aç";
 "onboarding.button.letsRecord" = "hadi, kaydediyoruz!";
 "onboarding.button.continueLowercase" = "devam";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Seni kimse duymuyor";
-"main.emptyState.message" = "Şu anda Dubloon, kaydedecek hiçbir şeyi olmayan bir kayıt uygulaması. Cihaz ayarlarından mikrofon iznini aç, iki oyun da yeniden canlansın.";
+"main.emptyState.message" = "Şu anda Dubloon, kaydedecek hiçbir şeyi olmayan bir kayıt uygulaması. Cihaz ayarlarından mikrofon iznini aç, üç oyun da yeniden canlansın.";
 "main.emptyState.button" = "Ayarlar'ı aç";
 
 // MARK: - Main View - Processing & Success
@@ -426,3 +426,101 @@
 "dub.error.linesBadTimestamps" = "Bu paketteki başlangıç zamanları zaman olarak yazılmamış, bu yüzden replikler yerleştirilemiyor.";
 "dub.error.linesNoAudio" = "Bu paketin repliklerinin yanında kayıt yok, o yüzden dublajlanacak bir şey yok.";
 "dub.error.linesUnplayableAudio" = "Bu paketteki kayıtların hiçbiri bu cihazda çalınamıyor.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Ses taklidi";
+"main.mode.imitate.subtitle" = "Bir sesi taklit et, hükmü öğren";
+"imitate.library.hint" = "Bir ses seç, dinle ve en iyi taklidini yap.";
+"imitate.library.best" = "Rekor";
+"imitate.library.untried" = "Yeni";
+"imitate.challenge.listen" = "Dinle";
+"imitate.challenge.record" = "Taklit et";
+"imitate.challenge.stop" = "Durdur";
+"imitate.challenge.instruction" = "Önce dinle, sonra Taklit et'e bas ve sesi çıkar.";
+"imitate.challenge.recordingHint" = "Hadi! Sesi çıkar.";
+"imitate.challenge.scoring" = "Değerlendiriliyor…";
+"imitate.challenge.tryAgain" = "Tekrar dene";
+"imitate.challenge.playMine" = "Benimkini çal";
+"imitate.challenge.makeVideo" = "Video yap";
+"imitate.challenge.rendering" = "Videon hazırlanıyor…";
+"imitate.challenge.newBest" = "Yeni rekor!";
+"imitate.challenge.exportFailed" = "Video oluşturulamadı. Lütfen tekrar dene.";
+"imitate.challenge.difficulty" = "Zorluk";
+"imitate.category.animals" = "Hayvanlar";
+"imitate.category.vehicles" = "Kornalar ve alarmlar";
+"imitate.category.cartoon" = "Çizgi film ve bilim kurgu";
+"imitate.category.human" = "İnsan sesleri";
+"imitate.part.rhythm" = "Ritim";
+"imitate.part.pitch" = "Perde";
+"imitate.part.tone" = "Tını";
+"imitate.part.duration" = "Süre";
+"imitate.verdict.nailedIt" = "TAM İSABET!";
+"imitate.verdict.legendary" = "EFSANE";
+"imitate.verdict.approved" = "ONAYLANDI";
+"imitate.verdict.certified" = "SERTİFİKALI";
+"imitate.verdict.notBad" = "FENA DEĞİL";
+"imitate.verdict.almost" = "NEREDEYSE…";
+"imitate.verdict.soClose" = "KIL PAYI";
+"imitate.verdict.failed" = "REDDEDİLDİ";
+"imitate.verdict.whatWasThat" = "O NEYDİ ÖYLE?";
+"imitate.reel.challenge" = "Ses meydan okuması";
+"imitate.reel.canYouSoundLike" = "Taklit edebilir misin…";
+"imitate.reel.original" = "Orijinal";
+"imitate.reel.you" = "Sen";
+"imitate.reel.score" = "Puan";
+"imitate.reel.beatMyScore" = "Puanımı geçebilir misin?";
+"imitate.sound.cat" = "Kedi";
+"imitate.sound.dog" = "Köpek";
+"imitate.sound.cow" = "İnek";
+"imitate.sound.sheep" = "Koyun";
+"imitate.sound.chicken" = "Tavuk";
+"imitate.sound.rooster" = "Horoz";
+"imitate.sound.duck" = "Ördek";
+"imitate.sound.pig" = "Domuz";
+"imitate.sound.wolf" = "Kurt";
+"imitate.sound.owl" = "Baykuş";
+"imitate.sound.horn" = "Araba kornası";
+"imitate.sound.siren" = "Siren";
+"imitate.sound.train" = "Tren düdüğü";
+"imitate.sound.bell" = "Bisiklet zili";
+"imitate.sound.laser" = "Lazer";
+"imitate.sound.boing" = "Boing";
+"imitate.sound.slide" = "Sürgülü düdük";
+"imitate.sound.zap" = "Elektrik çarpması";
+"imitate.sound.burp" = "Geğirme";
+"imitate.sound.sneeze" = "Hapşırma";
+"imitate.sound.snore" = "Horlama";
+"imitate.sound.laugh" = "Kötü kahkaha";
+"imitate.sound.yawn" = "Esneme";
+"imitate.sound.hiccup" = "Hıçkırık";
+
+/* Mac */
+"mac.sidebar.games" = "Oyunlar";
+"mac.sidebar.packs" = "Dublaj paketleri";
+"mac.sidebar.sessions" = "Oturumlar";
+"mac.menu.importPack" = "Dublaj paketi içe aktar…";
+"mac.menu.export" = "Videoyu dışa aktar…";
+"mac.menu.playback" = "Oynatma";
+"mac.menu.playPause" = "Oynat/Duraklat";
+"mac.menu.record" = "Kaydet";
+"mac.menu.listen" = "Orijinali oynat";
+"mac.menu.playTake" = "Çekimi oynat";
+"mac.menu.previousLine" = "Önceki replik";
+"mac.menu.nextLine" = "Sonraki replik";
+"mac.menu.showInspector" = "Denetçiyi göster";
+"mac.menu.hideInspector" = "Denetçiyi gizle";
+"mac.panel.inspector" = "Denetçi";
+"mac.panel.viewer" = "Görüntüleyici";
+"mac.panel.line" = "Replik";
+"mac.panel.scene" = "Sahne";
+"mac.panel.takes" = "Çekimler";
+"mac.panel.character" = "Karakter";
+"mac.panel.start" = "Başlangıç";
+"mac.panel.duration" = "Süre";
+"mac.panel.notDubbed" = "Henüz dublajlanmadı";
+"mac.panel.attempts" = "Denemeler";
+"mac.panel.emptyTitle" = "Üzerinde çalışacak bir şey seç";
+"mac.panel.emptyMessage" = "Kenar çubuğundan bir oyun ya da dublaj paketi seç.";
+"mac.settings.general" = "Genel";
+"mac.settings.recording" = "Kayıt";
+"mac.welcome.notNow" = "Şimdi değil";

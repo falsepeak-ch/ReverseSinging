@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Добро пожаловать в Dubloon";
-"onboarding.welcome.message" = "Две игры, один микрофон. Спой песню задом наперёд или вставь свой голос в сцену из фильма. Нормально не прозвучит ни то, ни другое.";
+"onboarding.welcome.message" = "Три игры, один микрофон. Спой песню задом наперёд, вставь свой голос в сцену из фильма или повторяй звук, пока не получится. Нормально не прозвучит ничего.";
 "onboarding.howItWorks.title" = "Как это работает";
 "onboarding.howItWorks.message" = "Запиши песню, переверни её и спой эту тарабарщину. Потом переверни свой дубль и узнай, попал ты близко или только что изобрёл новый язык.";
 "onboarding.dub.title" = "Озвучь сцену из фильма";
 "onboarding.dub.message" = "Вторая игра: включи сцену, переиграй как следует, а потом услышь себя в фильме. Две сцены уже внутри. Дальше приносишь свои файлы.";
 "onboarding.microphone.title" = "И последнее";
-"onboarding.microphone.message" = "Обеим играм нужно тебя слышать: и пению задом наперёд, и озвучке. Микрофон просыпается только на время записи, всё остаётся на этом устройстве и никуда не отправляется. Твой худший дубль останется между вами двумя.";
+"onboarding.microphone.message" = "Всем трём играм нужно тебя слышать: и пению задом наперёд, и озвучке сцены, и подражанию звукам. Микрофон просыпается только на время записи, всё остаётся на этом устройстве и никуда не отправляется. Твой худший дубль останется между вами двумя.";
 "onboarding.button.openSettings" = "Открыть Настройки";
 "onboarding.button.letsRecord" = "давай, записываем!";
 "onboarding.button.continueLowercase" = "продолжить";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Тебя никто не слышит";
-"main.emptyState.message" = "Сейчас Dubloon — приложение для записи, которому нечем записывать. Включи доступ к микрофону в настройках устройства, и обе игры оживут.";
+"main.emptyState.message" = "Сейчас Dubloon — приложение для записи, которому нечем записывать. Включи доступ к микрофону в настройках устройства, и все три игры оживут.";
 "main.emptyState.button" = "Открыть Настройки";
 
 // MARK: - Main View - Processing & Success
@@ -426,3 +426,101 @@
 "dub.error.linesBadTimestamps" = "Время начала в этом паке записано не как время, поэтому реплики нельзя расставить.";
 "dub.error.linesNoAudio" = "У реплик этого пака нет записей, так что озвучивать нечего.";
 "dub.error.linesUnplayableAudio" = "Ни одна запись из этого пака не воспроизводится на этом устройстве.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Имитация звуков";
+"main.mode.imitate.subtitle" = "Изобрази звук и получи вердикт";
+"imitate.library.hint" = "Выбери звук, послушай и изобрази его как можно лучше.";
+"imitate.library.best" = "Рекорд";
+"imitate.library.untried" = "Новый";
+"imitate.challenge.listen" = "Слушать";
+"imitate.challenge.record" = "Изобразить";
+"imitate.challenge.stop" = "Стоп";
+"imitate.challenge.instruction" = "Сначала послушай, потом нажми «Изобразить» и издай звук.";
+"imitate.challenge.recordingHint" = "Давай! Издай звук.";
+"imitate.challenge.scoring" = "Оцениваем…";
+"imitate.challenge.tryAgain" = "Ещё раз";
+"imitate.challenge.playMine" = "Послушать мою";
+"imitate.challenge.makeVideo" = "Сделать видео";
+"imitate.challenge.rendering" = "Делаем твоё видео…";
+"imitate.challenge.newBest" = "Новый рекорд!";
+"imitate.challenge.exportFailed" = "Не удалось сделать видео. Попробуй ещё раз.";
+"imitate.challenge.difficulty" = "Сложность";
+"imitate.category.animals" = "Животные";
+"imitate.category.vehicles" = "Гудки и сирены";
+"imitate.category.cartoon" = "Мультики и фантастика";
+"imitate.category.human" = "Человеческие звуки";
+"imitate.part.rhythm" = "Ритм";
+"imitate.part.pitch" = "Высота";
+"imitate.part.tone" = "Тембр";
+"imitate.part.duration" = "Длительность";
+"imitate.verdict.nailedIt" = "В ТОЧКУ!";
+"imitate.verdict.legendary" = "ЛЕГЕНДАРНО";
+"imitate.verdict.approved" = "ОДОБРЕНО";
+"imitate.verdict.certified" = "СЕРТИФИЦИРОВАНО";
+"imitate.verdict.notBad" = "НЕПЛОХО";
+"imitate.verdict.almost" = "ПОЧТИ…";
+"imitate.verdict.soClose" = "ЧУТЬ-ЧУТЬ";
+"imitate.verdict.failed" = "ПРОВАЛЕНО";
+"imitate.verdict.whatWasThat" = "ЭТО ЧТО БЫЛО?";
+"imitate.reel.challenge" = "Звуковой челлендж";
+"imitate.reel.canYouSoundLike" = "Сможешь звучать как…";
+"imitate.reel.original" = "Оригинал";
+"imitate.reel.you" = "Ты";
+"imitate.reel.score" = "Счёт";
+"imitate.reel.beatMyScore" = "Побьёшь мой счёт?";
+"imitate.sound.cat" = "Кошка";
+"imitate.sound.dog" = "Собака";
+"imitate.sound.cow" = "Корова";
+"imitate.sound.sheep" = "Овца";
+"imitate.sound.chicken" = "Курица";
+"imitate.sound.rooster" = "Петух";
+"imitate.sound.duck" = "Утка";
+"imitate.sound.pig" = "Свинья";
+"imitate.sound.wolf" = "Волк";
+"imitate.sound.owl" = "Сова";
+"imitate.sound.horn" = "Гудок машины";
+"imitate.sound.siren" = "Сирена";
+"imitate.sound.train" = "Гудок поезда";
+"imitate.sound.bell" = "Велозвонок";
+"imitate.sound.laser" = "Лазер";
+"imitate.sound.boing" = "Бойнг";
+"imitate.sound.slide" = "Свисток с поршнем";
+"imitate.sound.zap" = "Электроразряд";
+"imitate.sound.burp" = "Отрыжка";
+"imitate.sound.sneeze" = "Чих";
+"imitate.sound.snore" = "Храп";
+"imitate.sound.laugh" = "Злодейский смех";
+"imitate.sound.yawn" = "Зевок";
+"imitate.sound.hiccup" = "Икота";
+
+/* Mac */
+"mac.sidebar.games" = "Игры";
+"mac.sidebar.packs" = "Паки озвучки";
+"mac.sidebar.sessions" = "Сессии";
+"mac.menu.importPack" = "Импортировать пак озвучки…";
+"mac.menu.export" = "Экспортировать видео…";
+"mac.menu.playback" = "Воспроизведение";
+"mac.menu.playPause" = "Воспроизвести/Пауза";
+"mac.menu.record" = "Запись";
+"mac.menu.listen" = "Воспроизвести оригинал";
+"mac.menu.playTake" = "Воспроизвести дубль";
+"mac.menu.previousLine" = "Предыдущая реплика";
+"mac.menu.nextLine" = "Следующая реплика";
+"mac.menu.showInspector" = "Показать инспектор";
+"mac.menu.hideInspector" = "Скрыть инспектор";
+"mac.panel.inspector" = "Инспектор";
+"mac.panel.viewer" = "Просмотр";
+"mac.panel.line" = "Реплика";
+"mac.panel.scene" = "Сцена";
+"mac.panel.takes" = "Дубли";
+"mac.panel.character" = "Персонаж";
+"mac.panel.start" = "Начало";
+"mac.panel.duration" = "Длительность";
+"mac.panel.notDubbed" = "Ещё не озвучено";
+"mac.panel.attempts" = "Попытки";
+"mac.panel.emptyTitle" = "Выберите, над чем работать";
+"mac.panel.emptyMessage" = "Выберите игру или пак озвучки в боковой панели.";
+"mac.settings.general" = "Основные";
+"mac.settings.recording" = "Запись";
+"mac.welcome.notNow" = "Не сейчас";

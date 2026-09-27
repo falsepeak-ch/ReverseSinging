@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Witaj w Dubloon";
-"onboarding.welcome.message" = "Dwie gry, jeden mikrofon. Zaśpiewaj piosenkę od tyłu albo wstaw swój głos w scenę z filmu. W żadnej z nich nie zabrzmisz normalnie.";
+"onboarding.welcome.message" = "Trzy gry, jeden mikrofon. Zaśpiewaj piosenkę od tyłu, wstaw swój głos w scenę z filmu albo naśladuj dźwięk, aż wyjdzie idealnie. W żadnej z nich nie zabrzmisz normalnie.";
 "onboarding.howItWorks.title" = "Jak to działa";
 "onboarding.howItWorks.message" = "Nagraj piosenkę, odwróć ją i zaśpiewaj do tego bełkotu. Potem odwróć własne nagranie i sprawdź, czy było blisko, czy właśnie wymyśliłeś nowy język.";
 "onboarding.dub.title" = "Zdubbinguj scenę z filmu";
 "onboarding.dub.message" = "Druga gra: puść scenę, przeszarżuj na całego i usłysz siebie w filmie. Dwie sceny są w zestawie. Resztę przynosisz sam.";
 "onboarding.microphone.title" = "Jeszcze jedno";
-"onboarding.microphone.message" = "Obie gry muszą cię słyszeć: przy śpiewaniu od tyłu i przy dubbingu. Mikrofon budzi się tylko na czas nagrania, wszystko zostaje na tym urządzeniu i nic nigdy nigdzie nie wędruje. Twoje najgorsze podejście zostanie między wami.";
+"onboarding.microphone.message" = "Wszystkie trzy gry muszą cię słyszeć: przy śpiewaniu od tyłu, dubbingu sceny i naśladowaniu dźwięków. Mikrofon budzi się tylko na czas nagrania, wszystko zostaje na tym urządzeniu i nic nigdy nigdzie nie wędruje. Twoje najgorsze podejście zostanie między wami.";
 "onboarding.button.openSettings" = "Otwórz Ustawienia";
 "onboarding.button.letsRecord" = "no dobra, nagrywamy!";
 "onboarding.button.continueLowercase" = "dalej";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Nikt cię nie słyszy";
-"main.emptyState.message" = "W tej chwili Dubloon jest aplikacją do nagrywania bez czegokolwiek do nagrywania. Włącz dostęp do mikrofonu w ustawieniach urządzenia, a obie gry wrócą do życia.";
+"main.emptyState.message" = "W tej chwili Dubloon jest aplikacją do nagrywania bez czegokolwiek do nagrywania. Włącz dostęp do mikrofonu w ustawieniach urządzenia, a wszystkie trzy gry wrócą do życia.";
 "main.emptyState.button" = "Otwórz Ustawienia";
 
 // MARK: - Main View - Processing & Success
@@ -426,3 +426,101 @@
 "dub.error.linesBadTimestamps" = "Czasy rozpoczęcia w tej paczce nie są zapisane jako czasy, więc kwestii nie da się rozmieścić.";
 "dub.error.linesNoAudio" = "Kwestie w tej paczce nie mają nagrań, więc nie ma czego dubbingować.";
 "dub.error.linesUnplayableAudio" = "Żadnego nagrania z tej paczki nie da się odtworzyć na tym urządzeniu.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Naśladowanie dźwięków";
+"main.mode.imitate.subtitle" = "Naśladuj dźwięk i poznaj werdykt";
+"imitate.library.hint" = "Wybierz dźwięk, posłuchaj i daj z siebie wszystko.";
+"imitate.library.best" = "Rekord";
+"imitate.library.untried" = "Nowy";
+"imitate.challenge.listen" = "Posłuchaj";
+"imitate.challenge.record" = "Naśladuj";
+"imitate.challenge.stop" = "Stop";
+"imitate.challenge.instruction" = "Najpierw posłuchaj, potem naciśnij Naśladuj i wydaj ten dźwięk.";
+"imitate.challenge.recordingHint" = "Dawaj! Wydaj ten dźwięk.";
+"imitate.challenge.scoring" = "Oceniam…";
+"imitate.challenge.tryAgain" = "Jeszcze raz";
+"imitate.challenge.playMine" = "Odtwórz moje";
+"imitate.challenge.makeVideo" = "Zrób wideo";
+"imitate.challenge.rendering" = "Robię twoje wideo…";
+"imitate.challenge.newBest" = "Nowy rekord!";
+"imitate.challenge.exportFailed" = "Nie udało się zrobić wideo. Spróbuj ponownie.";
+"imitate.challenge.difficulty" = "Poziom trudności";
+"imitate.category.animals" = "Zwierzęta";
+"imitate.category.vehicles" = "Klaksony i alarmy";
+"imitate.category.cartoon" = "Kreskówki i sci-fi";
+"imitate.category.human" = "Ludzkie odgłosy";
+"imitate.part.rhythm" = "Rytm";
+"imitate.part.pitch" = "Wysokość";
+"imitate.part.tone" = "Barwa";
+"imitate.part.duration" = "Długość";
+"imitate.verdict.nailedIt" = "W PUNKT!";
+"imitate.verdict.legendary" = "LEGENDARNIE";
+"imitate.verdict.approved" = "ZATWIERDZONO";
+"imitate.verdict.certified" = "CERTYFIKOWANO";
+"imitate.verdict.notBad" = "NIEŹLE";
+"imitate.verdict.almost" = "PRAWIE…";
+"imitate.verdict.soClose" = "O WŁOS";
+"imitate.verdict.failed" = "ODRZUCONO";
+"imitate.verdict.whatWasThat" = "CO TO BYŁO?";
+"imitate.reel.challenge" = "Dźwiękowe wyzwanie";
+"imitate.reel.canYouSoundLike" = "Potrafisz brzmieć jak…";
+"imitate.reel.original" = "Oryginał";
+"imitate.reel.you" = "Ty";
+"imitate.reel.score" = "Wynik";
+"imitate.reel.beatMyScore" = "Pobijesz mój wynik?";
+"imitate.sound.cat" = "Kot";
+"imitate.sound.dog" = "Pies";
+"imitate.sound.cow" = "Krowa";
+"imitate.sound.sheep" = "Owca";
+"imitate.sound.chicken" = "Kura";
+"imitate.sound.rooster" = "Kogut";
+"imitate.sound.duck" = "Kaczka";
+"imitate.sound.pig" = "Świnia";
+"imitate.sound.wolf" = "Wilk";
+"imitate.sound.owl" = "Sowa";
+"imitate.sound.horn" = "Klakson";
+"imitate.sound.siren" = "Syrena";
+"imitate.sound.train" = "Gwizdek pociągu";
+"imitate.sound.bell" = "Dzwonek rowerowy";
+"imitate.sound.laser" = "Laser";
+"imitate.sound.boing" = "Boing";
+"imitate.sound.slide" = "Gwizdek suwakowy";
+"imitate.sound.zap" = "Porażenie prądem";
+"imitate.sound.burp" = "Beknięcie";
+"imitate.sound.sneeze" = "Kichnięcie";
+"imitate.sound.snore" = "Chrapanie";
+"imitate.sound.laugh" = "Złowieszczy śmiech";
+"imitate.sound.yawn" = "Ziewnięcie";
+"imitate.sound.hiccup" = "Czkawka";
+
+/* Mac */
+"mac.sidebar.games" = "Gry";
+"mac.sidebar.packs" = "Paczki dubbingowe";
+"mac.sidebar.sessions" = "Sesje";
+"mac.menu.importPack" = "Zaimportuj paczkę dubbingową…";
+"mac.menu.export" = "Eksportuj wideo…";
+"mac.menu.playback" = "Odtwarzanie";
+"mac.menu.playPause" = "Odtwórz/Wstrzymaj";
+"mac.menu.record" = "Nagrywaj";
+"mac.menu.listen" = "Odtwórz oryginał";
+"mac.menu.playTake" = "Odtwórz nagranie";
+"mac.menu.previousLine" = "Poprzednia kwestia";
+"mac.menu.nextLine" = "Następna kwestia";
+"mac.menu.showInspector" = "Pokaż inspektora";
+"mac.menu.hideInspector" = "Ukryj inspektora";
+"mac.panel.inspector" = "Inspektor";
+"mac.panel.viewer" = "Podgląd";
+"mac.panel.line" = "Kwestia";
+"mac.panel.scene" = "Scena";
+"mac.panel.takes" = "Nagrania";
+"mac.panel.character" = "Postać";
+"mac.panel.start" = "Początek";
+"mac.panel.duration" = "Czas trwania";
+"mac.panel.notDubbed" = "Jeszcze bez dubbingu";
+"mac.panel.attempts" = "Próby";
+"mac.panel.emptyTitle" = "Wybierz, nad czym chcesz pracować";
+"mac.panel.emptyMessage" = "Wybierz grę lub paczkę dubbingową na pasku bocznym.";
+"mac.settings.general" = "Ogólne";
+"mac.settings.recording" = "Nagrywanie";
+"mac.welcome.notNow" = "Nie teraz";

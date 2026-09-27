@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Velkommen til Dubloon";
-"onboarding.welcome.message" = "To spil, én mikrofon. Syng en sang baglæns, eller læg din stemme ind i en filmscene. Ingen af delene får dig til at lyde normal.";
+"onboarding.welcome.message" = "Tre spil, én mikrofon. Syng en sang baglæns, læg din stemme ind i en filmscene, eller efterlign en lyd, til den sidder. Ingen af delene får dig til at lyde normal.";
 "onboarding.howItWorks.title" = "Sådan virker det";
 "onboarding.howItWorks.message" = "Optag en sang, vend den om, og syng med på volapykken. Vend derefter din egen optagelse og hør, om du ramte plet eller lige har opfundet et nyt sprog.";
 "onboarding.dub.title" = "Dub en filmscene";
 "onboarding.dub.message" = "Det andet spil: sæt en scene i gang, overspil løs, og hør så dig selv i filmen. To scener følger med. Derefter tager du dine egne filer med.";
 "onboarding.microphone.title" = "En sidste ting";
-"onboarding.microphone.message" = "Begge spil skal kunne høre dig: baglænssang eller dubbing af en scene. Mikrofonen vågner kun, mens du optager, alt bliver på denne enhed, og intet bliver nogensinde uploadet. Din værste optagelse bliver mellem jer to.";
+"onboarding.microphone.message" = "Alle tre spil skal kunne høre dig: baglænssang, dubbing af en scene eller efterligning af en lyd. Mikrofonen vågner kun, mens du optager, alt bliver på denne enhed, og intet bliver nogensinde uploadet. Din værste optagelse bliver mellem jer to.";
 "onboarding.button.openSettings" = "Åbn Indstillinger";
 "onboarding.button.letsRecord" = "kom, lad os optage!";
 "onboarding.button.continueLowercase" = "fortsæt";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Ingen kan høre dig";
-"main.emptyState.message" = "Lige nu er Dubloon en optageapp uden noget at optage med. Tænd for mikrofonadgang i enhedens indstillinger, så vågner begge spil til live igen.";
+"main.emptyState.message" = "Lige nu er Dubloon en optageapp uden noget at optage med. Tænd for mikrofonadgang i enhedens indstillinger, så vågner alle tre spil til live igen.";
 "main.emptyState.button" = "Åbn Indstillinger";
 
 // MARK: - Main View - Processing & Success
@@ -426,3 +426,101 @@
 "dub.error.linesBadTimestamps" = "Starttiderne i pakken er ikke skrevet som tider, så replikkerne kan ikke placeres.";
 "dub.error.linesNoAudio" = "Pakkens replikker har ingen optagelser, så der er ikke noget at dubbe.";
 "dub.error.linesUnplayableAudio" = "Ingen af optagelserne i pakken kan afspilles på denne enhed.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Lydimitation";
+"main.mode.imitate.subtitle" = "Efterlign en lyd, få en dom";
+"imitate.library.hint" = "Vælg en lyd, lyt, og giv den din bedste efterligning.";
+"imitate.library.best" = "Rekord";
+"imitate.library.untried" = "Ny";
+"imitate.challenge.listen" = "Lyt";
+"imitate.challenge.record" = "Efterlign";
+"imitate.challenge.stop" = "Stop";
+"imitate.challenge.instruction" = "Lyt først, tryk så på Efterlign og lav lyden.";
+"imitate.challenge.recordingHint" = "Kør! Lav lyden.";
+"imitate.challenge.scoring" = "Bedømmer…";
+"imitate.challenge.tryAgain" = "Prøv igen";
+"imitate.challenge.playMine" = "Afspil min";
+"imitate.challenge.makeVideo" = "Lav video";
+"imitate.challenge.rendering" = "Laver din video…";
+"imitate.challenge.newBest" = "Ny rekord!";
+"imitate.challenge.exportFailed" = "Videoen kunne ikke laves. Prøv igen.";
+"imitate.challenge.difficulty" = "Sværhedsgrad";
+"imitate.category.animals" = "Dyr";
+"imitate.category.vehicles" = "Horn og alarmer";
+"imitate.category.cartoon" = "Tegnefilm og sci-fi";
+"imitate.category.human" = "Menneskelyde";
+"imitate.part.rhythm" = "Rytme";
+"imitate.part.pitch" = "Tonehøjde";
+"imitate.part.tone" = "Klang";
+"imitate.part.duration" = "Længde";
+"imitate.verdict.nailedIt" = "PLET!";
+"imitate.verdict.legendary" = "LEGENDARISK";
+"imitate.verdict.approved" = "GODKENDT";
+"imitate.verdict.certified" = "CERTIFICERET";
+"imitate.verdict.notBad" = "IKKE DÅRLIGT";
+"imitate.verdict.almost" = "NÆSTEN…";
+"imitate.verdict.soClose" = "TÆT PÅ";
+"imitate.verdict.failed" = "DUMPET";
+"imitate.verdict.whatWasThat" = "HVAD VAR DET?";
+"imitate.reel.challenge" = "Lydudfordring";
+"imitate.reel.canYouSoundLike" = "Kan du lyde som…";
+"imitate.reel.original" = "Original";
+"imitate.reel.you" = "Dig";
+"imitate.reel.score" = "Point";
+"imitate.reel.beatMyScore" = "Kan du slå min score?";
+"imitate.sound.cat" = "Kat";
+"imitate.sound.dog" = "Hund";
+"imitate.sound.cow" = "Ko";
+"imitate.sound.sheep" = "Får";
+"imitate.sound.chicken" = "Høne";
+"imitate.sound.rooster" = "Hane";
+"imitate.sound.duck" = "And";
+"imitate.sound.pig" = "Gris";
+"imitate.sound.wolf" = "Ulv";
+"imitate.sound.owl" = "Ugle";
+"imitate.sound.horn" = "Bilhorn";
+"imitate.sound.siren" = "Sirene";
+"imitate.sound.train" = "Togfløjte";
+"imitate.sound.bell" = "Cykelklokke";
+"imitate.sound.laser" = "Laser";
+"imitate.sound.boing" = "Boing";
+"imitate.sound.slide" = "Glidefløjte";
+"imitate.sound.zap" = "Stød";
+"imitate.sound.burp" = "Bøvs";
+"imitate.sound.sneeze" = "Nys";
+"imitate.sound.snore" = "Snorken";
+"imitate.sound.laugh" = "Ond latter";
+"imitate.sound.yawn" = "Gab";
+"imitate.sound.hiccup" = "Hikke";
+
+/* Mac */
+"mac.sidebar.games" = "Spil";
+"mac.sidebar.packs" = "Dubpakker";
+"mac.sidebar.sessions" = "Sessioner";
+"mac.menu.importPack" = "Importér dubpakke…";
+"mac.menu.export" = "Eksportér video…";
+"mac.menu.playback" = "Afspilning";
+"mac.menu.playPause" = "Afspil/Pause";
+"mac.menu.record" = "Optag";
+"mac.menu.listen" = "Afspil original";
+"mac.menu.playTake" = "Afspil optagelse";
+"mac.menu.previousLine" = "Forrige replik";
+"mac.menu.nextLine" = "Næste replik";
+"mac.menu.showInspector" = "Vis inspektør";
+"mac.menu.hideInspector" = "Skjul inspektør";
+"mac.panel.inspector" = "Inspektør";
+"mac.panel.viewer" = "Fremviser";
+"mac.panel.line" = "Replik";
+"mac.panel.scene" = "Scene";
+"mac.panel.takes" = "Optagelser";
+"mac.panel.character" = "Karakter";
+"mac.panel.start" = "Start";
+"mac.panel.duration" = "Varighed";
+"mac.panel.notDubbed" = "Ikke dubbet endnu";
+"mac.panel.attempts" = "Forsøg";
+"mac.panel.emptyTitle" = "Vælg noget at arbejde på";
+"mac.panel.emptyMessage" = "Vælg et spil eller en dubpakke i sidepanelet.";
+"mac.settings.general" = "Generelt";
+"mac.settings.recording" = "Optagelse";
+"mac.welcome.notNow" = "Ikke nu";

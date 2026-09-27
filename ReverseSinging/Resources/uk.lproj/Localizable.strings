@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Вітаємо в Dubloon";
-"onboarding.welcome.message" = "Дві гри, один мікрофон. Заспівай пісню задом наперед або встав свій голос у сцену з фільму. Нормально не звучатиме ні те, ні інше.";
+"onboarding.welcome.message" = "Три гри, один мікрофон. Заспівай пісню задом наперед, встав свій голос у сцену з фільму або повторюй звук, доки не вийде. Нормально не звучатиме ніщо.";
 "onboarding.howItWorks.title" = "Як це працює";
 "onboarding.howItWorks.message" = "Запиши пісню, переверни її і заспівай цю тарабарщину. Потім переверни свій дубль і дізнайся, чи ти влучив, чи щойно винайшов нову мову.";
 "onboarding.dub.title" = "Озвуч сцену з фільму";
 "onboarding.dub.message" = "Друга гра: увімкни сцену, переграй як слід, а потім почуй себе у фільмі. Дві сцени вже всередині. Далі приносиш власні файли.";
 "onboarding.microphone.title" = "Ще одне";
-"onboarding.microphone.message" = "Обидві гри мають тебе чути: і спів задом наперед, і озвучення. Мікрофон прокидається лише під час запису, усе лишається на цьому пристрої й нікуди не надсилається. Твій найгірший дубль лишиться між вами двома.";
+"onboarding.microphone.message" = "Усім трьом іграм треба тебе чути: і спів задом наперед, і озвучення сцени, і наслідування звуків. Мікрофон прокидається лише під час запису, усе лишається на цьому пристрої й нікуди не надсилається. Твій найгірший дубль лишиться між вами двома.";
 "onboarding.button.openSettings" = "Відкрити Налаштування";
 "onboarding.button.letsRecord" = "давай, записуємо!";
 "onboarding.button.continueLowercase" = "далі";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Тебе ніхто не чує";
-"main.emptyState.message" = "Зараз Dubloon — застосунок для запису, якому нема чим записувати. Увімкни доступ до мікрофона в налаштуваннях пристрою, і обидві гри знову оживуть.";
+"main.emptyState.message" = "Зараз Dubloon — застосунок для запису, якому нема чим записувати. Увімкни доступ до мікрофона в налаштуваннях пристрою, і всі три гри знову оживуть.";
 "main.emptyState.button" = "Відкрити Налаштування";
 
 // MARK: - Main View - Processing & Success
@@ -426,3 +426,101 @@
 "dub.error.linesBadTimestamps" = "Час початку в цьому паку записано не як час, тож репліки не можна розставити.";
 "dub.error.linesNoAudio" = "До реплік цього пака немає записів, тож озвучувати нічого.";
 "dub.error.linesUnplayableAudio" = "Жоден запис із цього пака не відтворюється на цьому пристрої.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Імітація звуків";
+"main.mode.imitate.subtitle" = "Зобрази звук і отримай вердикт";
+"imitate.library.hint" = "Обери звук, послухай і зобрази його якнайкраще.";
+"imitate.library.best" = "Рекорд";
+"imitate.library.untried" = "Новий";
+"imitate.challenge.listen" = "Слухати";
+"imitate.challenge.record" = "Зобразити";
+"imitate.challenge.stop" = "Стоп";
+"imitate.challenge.instruction" = "Спершу послухай, потім натисни «Зобразити» і видай звук.";
+"imitate.challenge.recordingHint" = "Давай! Видай звук.";
+"imitate.challenge.scoring" = "Оцінюємо…";
+"imitate.challenge.tryAgain" = "Ще раз";
+"imitate.challenge.playMine" = "Послухати мій";
+"imitate.challenge.makeVideo" = "Зробити відео";
+"imitate.challenge.rendering" = "Робимо твоє відео…";
+"imitate.challenge.newBest" = "Новий рекорд!";
+"imitate.challenge.exportFailed" = "Не вдалося зробити відео. Спробуй ще раз.";
+"imitate.challenge.difficulty" = "Складність";
+"imitate.category.animals" = "Тварини";
+"imitate.category.vehicles" = "Гудки й сирени";
+"imitate.category.cartoon" = "Мультики й фантастика";
+"imitate.category.human" = "Людські звуки";
+"imitate.part.rhythm" = "Ритм";
+"imitate.part.pitch" = "Висота";
+"imitate.part.tone" = "Тембр";
+"imitate.part.duration" = "Тривалість";
+"imitate.verdict.nailedIt" = "В ЯБЛУЧКО!";
+"imitate.verdict.legendary" = "ЛЕГЕНДАРНО";
+"imitate.verdict.approved" = "СХВАЛЕНО";
+"imitate.verdict.certified" = "СЕРТИФІКОВАНО";
+"imitate.verdict.notBad" = "НЕПОГАНО";
+"imitate.verdict.almost" = "МАЙЖЕ…";
+"imitate.verdict.soClose" = "ЩЕ ТРОШКИ";
+"imitate.verdict.failed" = "ПРОВАЛЕНО";
+"imitate.verdict.whatWasThat" = "ЩО ЦЕ БУЛО?";
+"imitate.reel.challenge" = "Звуковий челендж";
+"imitate.reel.canYouSoundLike" = "Зможеш звучати як…";
+"imitate.reel.original" = "Оригінал";
+"imitate.reel.you" = "Ти";
+"imitate.reel.score" = "Рахунок";
+"imitate.reel.beatMyScore" = "Поб'єш мій рахунок?";
+"imitate.sound.cat" = "Кішка";
+"imitate.sound.dog" = "Собака";
+"imitate.sound.cow" = "Корова";
+"imitate.sound.sheep" = "Вівця";
+"imitate.sound.chicken" = "Курка";
+"imitate.sound.rooster" = "Півень";
+"imitate.sound.duck" = "Качка";
+"imitate.sound.pig" = "Свиня";
+"imitate.sound.wolf" = "Вовк";
+"imitate.sound.owl" = "Сова";
+"imitate.sound.horn" = "Гудок авто";
+"imitate.sound.siren" = "Сирена";
+"imitate.sound.train" = "Гудок потяга";
+"imitate.sound.bell" = "Велодзвінок";
+"imitate.sound.laser" = "Лазер";
+"imitate.sound.boing" = "Бойнг";
+"imitate.sound.slide" = "Свисток з поршнем";
+"imitate.sound.zap" = "Електророзряд";
+"imitate.sound.burp" = "Відрижка";
+"imitate.sound.sneeze" = "Чхання";
+"imitate.sound.snore" = "Хропіння";
+"imitate.sound.laugh" = "Злодійський сміх";
+"imitate.sound.yawn" = "Позіхання";
+"imitate.sound.hiccup" = "Гикавка";
+
+/* Mac */
+"mac.sidebar.games" = "Ігри";
+"mac.sidebar.packs" = "Паки озвучення";
+"mac.sidebar.sessions" = "Сесії";
+"mac.menu.importPack" = "Імпортувати пак озвучення…";
+"mac.menu.export" = "Експортувати відео…";
+"mac.menu.playback" = "Відтворення";
+"mac.menu.playPause" = "Відтворити/Пауза";
+"mac.menu.record" = "Запис";
+"mac.menu.listen" = "Відтворити оригінал";
+"mac.menu.playTake" = "Відтворити дубль";
+"mac.menu.previousLine" = "Попередня репліка";
+"mac.menu.nextLine" = "Наступна репліка";
+"mac.menu.showInspector" = "Показати інспектор";
+"mac.menu.hideInspector" = "Сховати інспектор";
+"mac.panel.inspector" = "Інспектор";
+"mac.panel.viewer" = "Перегляд";
+"mac.panel.line" = "Репліка";
+"mac.panel.scene" = "Сцена";
+"mac.panel.takes" = "Дублі";
+"mac.panel.character" = "Персонаж";
+"mac.panel.start" = "Початок";
+"mac.panel.duration" = "Тривалість";
+"mac.panel.notDubbed" = "Ще не озвучено";
+"mac.panel.attempts" = "Спроби";
+"mac.panel.emptyTitle" = "Виберіть, над чим працювати";
+"mac.panel.emptyMessage" = "Виберіть гру або пак озвучення на бічній панелі.";
+"mac.settings.general" = "Загальні";
+"mac.settings.recording" = "Запис";
+"mac.welcome.notNow" = "Не зараз";
