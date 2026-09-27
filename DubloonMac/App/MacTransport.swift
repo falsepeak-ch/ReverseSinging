@@ -19,6 +19,17 @@ struct MacTransport {
     var previous: (@MainActor () -> Void)?
     var next: (@MainActor () -> Void)?
     var export: (@MainActor () -> Void)?
+    /// Moves the head five seconds, in whatever can be scrubbed.
+    var skipBack: (@MainActor () -> Void)?
+    var skipForward: (@MainActor () -> Void)?
+    var goToStart: (@MainActor () -> Void)?
+    /// The dub viewer's three modes, where there is a dub viewer.
+    var setViewerMode: (@MainActor (DubViewerMode) -> Void)?
+    var viewerMode: DubViewerMode?
+    var zoomIn: (@MainActor () -> Void)?
+    var zoomOut: (@MainActor () -> Void)?
+    var toggleBooth: (@MainActor () -> Void)?
+    var isBoothOn = false
     var isRecording = false
 }
 
@@ -27,10 +38,13 @@ extension MacTransport: Equatable {
     /// reference, so a transport with the same keys does the same thing.
     nonisolated static func == (lhs: MacTransport, rhs: MacTransport) -> Bool {
         lhs.availability == rhs.availability && lhs.isRecording == rhs.isRecording
+            && lhs.viewerMode == rhs.viewerMode
     }
 
     private nonisolated var availability: [Bool] {
-        [togglePlay, toggleRecord, listen, playTake, previous, next, export].map { $0 != nil }
+        [togglePlay, toggleRecord, listen, playTake, previous, next, export,
+         skipBack, skipForward, goToStart, zoomIn, zoomOut, toggleBooth].map { $0 != nil }
+            + [setViewerMode != nil, isBoothOn]
     }
 }
 

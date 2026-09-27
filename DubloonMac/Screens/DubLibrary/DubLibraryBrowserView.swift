@@ -107,8 +107,12 @@ struct DubLibraryBrowserView: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(ProPressStyle())
+        .proHoverLift()
         .contextMenu {
-            Button(Strings.Dub.delete, role: .destructive) { workspace.delete(pack) }
+            Button(MacStrings.Menu.open) { workspace.select(.pack(pack.id)) }
+            Button(MacStrings.Menu.showInFinder) { workspace.revealInFinder(pack) }
+            Divider()
+            Button(MacStrings.Menu.deleteEllipsis, role: .destructive) { workspace.pendingDeletion = .pack(pack) }
         }
         .help(pack.title)
     }
@@ -145,6 +149,7 @@ struct DubLibraryBrowserView: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(ProPressStyle())
+        .proHoverLift()
         .disabled(library.library.isImporting)
         .help(Strings.Dub.emptyMessage)
     }

@@ -194,15 +194,18 @@ struct ProTransportButton: View {
     var isActive = false
     var action: () -> Void
 
+    @Environment(\.isEnabled) private var isEnabled
+    @State private var isHovered = false
+
     var body: some View {
         Button(action: action) {
             Image(systemName: icon)
                 .font(.system(size: 13, weight: .semibold))
-                .foregroundColor(isActive ? .rsTextPrimary : .rsTextSecondary)
+                .foregroundColor(isActive || (isHovered && isEnabled) ? .rsTextPrimary : .rsTextSecondary)
                 .frame(width: 32, height: 26)
                 .background(
                     RoundedRectangle(cornerRadius: ProMetrics.radius, style: .continuous)
-                        .fill(isActive ? Color.rsSurface3 : Color.rsSurface2)
+                        .fill(isActive || (isHovered && isEnabled) ? Color.rsSurface3 : Color.rsSurface2)
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: ProMetrics.radius, style: .continuous)
@@ -211,6 +214,8 @@ struct ProTransportButton: View {
                 .contentShape(Rectangle())
         }
         .buttonStyle(ProPressStyle())
+        .onHover { isHovered = $0 }
+        .animation(.easeOut(duration: 0.12), value: isHovered)
         .help(label)
         .accessibilityLabel(label)
     }
@@ -218,6 +223,7 @@ struct ProTransportButton: View {
 
 /// The record key: the only round control, and the only red one.
 struct ProRecordButton: View {
+    @State private var isHovered = false
     let isRecording: Bool
     var isCountingIn = false
     var level: Float = 0
@@ -241,11 +247,13 @@ struct ProRecordButton: View {
                     )
             }
             .frame(width: size, height: size)
+            .brightness(isHovered ? 0.08 : 0)
             .contentShape(Circle())
             .animation(.easeOut(duration: 0.12), value: level)
             .animation(.rsQuick, value: isRecording)
         }
         .buttonStyle(ProPressStyle())
+        .onHover { isHovered = $0 }
         .help(label)
         .accessibilityLabel(label)
     }
@@ -461,5 +469,27 @@ private struct ProInspectorModifier<Inspector: View>: ViewModifier {
                 }
             }
         }
+    }
+}
+
+// MARK: - Hover
+
+extension View {
+    /// Lifts a tile a touch under the pointer, the way a clip in a browser answers the mouse.
+    func proHoverLift() -> some View {
+        modifier(ProHoverLift())
+    }
+}
+
+private struct ProHoverLift: ViewModifier {
+    @State private var isHovered = false
+
+    func body(content: Content) -> some View {
+        content
+            .brightness(isHovered ? 0.05 : 0)
+            .scaleEffect(isHovered ? 1.015 : 1)
+            .shadow(color: .black.opacity(isHovered ? 0.35 : 0), radius: 8, y: 4)
+            .animation(.easeOut(duration: 0.15), value: isHovered)
+            .onHover { isHovered = $0 }
     }
 }

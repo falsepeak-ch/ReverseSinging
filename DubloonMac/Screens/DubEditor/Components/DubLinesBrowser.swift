@@ -64,6 +64,11 @@ struct DubLinesBrowser: View {
                         viewModel.select(line)
                         viewModel.toggleRecord()
                     }
+                    Button(MacStrings.Menu.listen) {
+                        viewModel.setMode(.line)
+                        viewModel.select(line)
+                        viewModel.record.toggleReferencePreview()
+                    }
                     Button(Strings.Dub.playTake) {
                         viewModel.select(line)
                         viewModel.record.playCurrentTake()

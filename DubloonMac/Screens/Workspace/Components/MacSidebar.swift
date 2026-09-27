@@ -23,16 +23,18 @@ struct MacSidebar: View {
         // packs, folds out underneath it.
         List(selection: workspace.selectionBinding) {
             Section(MacStrings.Sidebar.games) {
-                if workspace.sessions.isEmpty {
+                if workspace.filteredSessions.isEmpty {
                     gameRow(.reverse).tag(MacDestination.reverse)
                 } else {
-                    DisclosureGroup(isExpanded: $isReverseExpanded) {
-                        ForEach(workspace.sessions) { session in
+                    DisclosureGroup(isExpanded: expanded($isReverseExpanded)) {
+                        ForEach(workspace.filteredSessions) { session in
                             sessionRow(session)
                                 .tag(MacDestination.session(session.id))
                                 .contextMenu {
-                                    Button(Strings.Dub.delete, role: .destructive) {
-                                        workspace.deleteSession(session)
+                                    Button(MacStrings.Menu.open) { workspace.select(.session(session.id)) }
+                                    Divider()
+                                    Button(MacStrings.Menu.deleteEllipsis, role: .destructive) {
+                                        workspace.pendingDeletion = .session(session)
                                     }
                                 }
                         }
@@ -42,13 +44,16 @@ struct MacSidebar: View {
                     .tag(MacDestination.reverse)
                 }
 
-                DisclosureGroup(isExpanded: $isDubExpanded) {
-                    ForEach(workspace.packs) { pack in
+                DisclosureGroup(isExpanded: expanded($isDubExpanded)) {
+                    ForEach(workspace.filteredPacks) { pack in
                         packRow(pack)
                             .tag(MacDestination.pack(pack.id))
                             .contextMenu {
-                                Button(Strings.Dub.delete, role: .destructive) {
-                                    workspace.delete(pack)
+                                Button(MacStrings.Menu.open) { workspace.select(.pack(pack.id)) }
+                                Button(MacStrings.Menu.showInFinder) { workspace.revealInFinder(pack) }
+                                Divider()
+                                Button(MacStrings.Menu.deleteEllipsis, role: .destructive) {
+                                    workspace.pendingDeletion = .pack(pack)
                                 }
                             }
                     }
@@ -57,6 +62,9 @@ struct MacSidebar: View {
                     gameRow(.dub)
                 }
                 .tag(MacDestination.dubLibrary)
+                .contextMenu {
+                    Button(MacStrings.Menu.importPack) { workspace.requestImport() }
+                }
                 .dropDestination(for: URL.self) { urls, _ in
                     guard let url = urls.first else { return false }
                     Task { await workspace.importPack(from: url) }
@@ -66,6 +74,10 @@ struct MacSidebar: View {
                 gameRow(.imitate).tag(MacDestination.imitate)
             }
         }
+        // ⌘F. Narrows the packs and sessions; the games themselves always stay.
+        .searchable(text: $workspace.searchText, placement: .sidebar, prompt: MacStrings.Search.prompt)
+        // The Delete key on a selected pack or session, which asks first.
+        .onDeleteCommand { workspace.requestDeleteSelection() }
         .listStyle(.sidebar)
         .overlay {
             if isDropTargeted {
@@ -78,6 +90,14 @@ struct MacSidebar: View {
         .safeAreaInset(edge: .bottom, spacing: 0) {
             footer
         }
+    }
+
+    /// While searching, every group is open so a match is never hidden in a folded one.
+    private func expanded(_ binding: Binding<Bool>) -> Binding<Bool> {
+        Binding(
+            get: { !workspace.searchText.isEmpty || binding.wrappedValue },
+            set: { binding.wrappedValue = $0 }
+        )
     }
 
     // MARK: - Rows

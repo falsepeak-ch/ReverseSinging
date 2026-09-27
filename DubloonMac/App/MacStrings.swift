@@ -27,6 +27,37 @@ enum MacStrings {
         static let nextLine = NSLocalizedString("mac.menu.nextLine", comment: "Playback menu: go to the next line")
         static let showInspector = NSLocalizedString("mac.menu.showInspector", comment: "View menu: show the inspector panel")
         static let hideInspector = NSLocalizedString("mac.menu.hideInspector", comment: "View menu: hide the inspector panel")
+        static let openRecent = NSLocalizedString("mac.menu.openRecent", comment: "File menu: submenu of recently opened dub packs")
+        static let clearRecent = NSLocalizedString("mac.menu.clearRecent", comment: "Last item of Open Recent: forget the list")
+        static let open = NSLocalizedString("mac.menu.open", comment: "Context menu: open the pack or session")
+        static let showInFinder = NSLocalizedString("mac.menu.showInFinder", comment: "Context menu: reveal the pack's folder in Finder")
+        static let viewer = NSLocalizedString("mac.menu.viewer", comment: "View menu: submenu choosing what the dub viewer shows")
+        static let zoomIn = NSLocalizedString("mac.menu.zoomIn", comment: "View menu: zoom the timeline in")
+        static let zoomOut = NSLocalizedString("mac.menu.zoomOut", comment: "View menu: zoom the timeline out")
+        static let skipBack = NSLocalizedString("mac.menu.skipBack", comment: "Playback menu: move the playhead back five seconds")
+        static let skipForward = NSLocalizedString("mac.menu.skipForward", comment: "Playback menu: move the playhead forward five seconds")
+        static let goToStart = NSLocalizedString("mac.menu.goToStart", comment: "Playback menu: move the playhead to the start of the scene")
+        static let shortcuts = NSLocalizedString("mac.menu.shortcuts", comment: "Help menu: open the list of keyboard shortcuts")
+        static let find = NSLocalizedString("mac.menu.find", comment: "Edit menu: put the cursor in the sidebar's search field")
+        static let deleteEllipsis = NSLocalizedString("mac.menu.delete", comment: "Context menu / Edit menu: delete the selected pack or session, asks first. Ends in an ellipsis")
+    }
+
+    enum Confirm {
+        static let deletePackTitle = NSLocalizedString("mac.confirm.deletePack.title", comment: "Confirmation title before deleting a dub pack; %@ is its name")
+        static let deletePackMessage = NSLocalizedString("mac.confirm.deletePack.message", comment: "Confirmation message before deleting a dub pack")
+        static let deleteSessionTitle = NSLocalizedString("mac.confirm.deleteSession.title", comment: "Confirmation title before deleting a saved reverse-singing session")
+        static let deleteSessionMessage = NSLocalizedString("mac.confirm.deleteSession.message", comment: "Confirmation message before deleting a saved session")
+    }
+
+    enum Shortcuts {
+        static let file = NSLocalizedString("mac.shortcuts.file", comment: "Keyboard shortcuts window section: file commands")
+        static let view = NSLocalizedString("mac.shortcuts.view", comment: "Keyboard shortcuts window section: view commands")
+        nonisolated static let tipTitle = NSLocalizedString("mac.tip.shortcuts.title", comment: "One-time tip title about keyboard shortcuts")
+        nonisolated static let tipMessage = NSLocalizedString("mac.tip.shortcuts.message", comment: "One-time tip about keyboard shortcuts")
+    }
+
+    enum Export {
+        static let dragHint = NSLocalizedString("mac.export.dragHint", comment: "Under the exported video's icon: it can be dragged out to save it")
     }
 
     enum Panel {
@@ -47,6 +78,10 @@ enum MacStrings {
     enum Settings {
         static let general = NSLocalizedString("mac.settings.general", comment: "Settings tab: general preferences")
         static let recording = NSLocalizedString("mac.settings.recording", comment: "Settings tab: recording and camera preferences")
+    }
+
+    enum Search {
+        static let prompt = NSLocalizedString("mac.search.prompt", comment: "Placeholder in the sidebar search field")
     }
 
     enum Welcome {

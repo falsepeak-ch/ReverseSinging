@@ -125,7 +125,7 @@ struct ImitateStudioView: View {
             .help(Strings.Imitate.makeVideo)
 
             Button {
-                workspace.showsInspector.toggle()
+                withAnimation(.easeInOut(duration: 0.2)) { workspace.showsInspector.toggle() }
             } label: {
                 Label(MacStrings.Panel.inspector, systemImage: "sidebar.trailing")
             }
@@ -178,12 +178,13 @@ private struct ImitateStagePane: View {
 
             transport
         }
-        .overlay {
-            if let progress = challenge.exportProgress {
-                ProcessingIndicator(message: Strings.Imitate.rendering, progress: progress)
-                    .transition(.opacity)
-            }
-        }
+        .macProgressSheet(
+            isPresented: challenge.exportProgress != nil,
+            image: "film-reel",
+            title: Strings.Imitate.makeVideo,
+            message: Strings.Imitate.rendering,
+            progress: challenge.exportProgress
+        )
         .animation(.rsSpring, value: challenge.phase)
         .animation(.rsSpring, value: challenge.exportProgress != nil)
         .boothCamPrimer(isPresented: $challenge.isBoothPrimerPresented) { challenge.boothPrimerDidEnable() }

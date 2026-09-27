@@ -92,13 +92,13 @@ struct DubEditorView: View {
                 onCancel: { detail.cancelExportOptions() }
             )
         }
-        .overlay {
-            if detail.isExporting {
-                ProcessingIndicator(message: detail.exportStage.message, progress: detail.exportProgress)
-                    .transition(.opacity)
-            }
-        }
-        .animation(.rsSpring, value: detail.isExporting)
+        .macProgressSheet(
+            isPresented: detail.isExporting,
+            image: "film-reel",
+            title: Strings.Dub.export,
+            message: "\(detail.exportStage.message) \(Int((detail.exportProgress * 100).rounded()))%",
+            progress: detail.exportProgress
+        )
         .dubShareNotice(isPresented: Binding(
             get: { detail.showShareNotice },
             set: { detail.showShareNotice = $0 }
@@ -139,6 +139,7 @@ struct DubEditorView: View {
     private var toolbar: some ToolbarContent {
         ToolbarItem(placement: .principal) {
             DubDashboard(viewModel: viewModel, player: session.scenePlayer)
+                .popoverTip(MacShortcutsTip(), arrowEdge: .top)
         }
 
         ToolbarItemGroup(placement: .primaryAction) {
@@ -164,7 +165,7 @@ struct DubEditorView: View {
             .help(Strings.Dub.export)
 
             Button {
-                workspace.showsInspector.toggle()
+                withAnimation(.easeInOut(duration: 0.2)) { workspace.showsInspector.toggle() }
             } label: {
                 Label(MacStrings.Panel.inspector, systemImage: "sidebar.trailing")
             }
@@ -191,6 +192,19 @@ struct DubEditorView: View {
             transport.next = { model.goToNext() }
         }
         if session.hasAnyTake { transport.export = { model.beginExport() } }
+        if !isRecording {
+            transport.setViewerMode = { model.setMode($0) }
+            transport.toggleBooth = { bay.toggleBooth() }
+        }
+        transport.viewerMode = model.mode
+        transport.isBoothOn = booth.isEnabled
+        transport.zoomIn = { model.zoomIn() }
+        transport.zoomOut = { model.zoomOut() }
+        if let playback = model.playback {
+            transport.skipBack = { playback.seek(by: -5) }
+            transport.skipForward = { playback.seek(by: 5) }
+            transport.goToStart = { playback.player.seek(to: 0) }
+        }
         return transport
     }
 }

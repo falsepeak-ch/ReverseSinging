@@ -53,12 +53,13 @@ struct MacWorkspaceView: View {
             }
             Task { await workspace.importPack(from: url) }
         }
-        .overlay {
-            if library.isImporting {
-                ProcessingIndicator(message: library.importMessage, progress: library.importProgress)
-                    .transition(.opacity)
-            }
-        }
+        .macProgressSheet(
+            isPresented: library.isImporting,
+            image: "download",
+            title: MacStrings.Menu.importPack.replacingOccurrences(of: "…", with: ""),
+            message: library.importMessage,
+            progress: library.importProgress > 0 ? library.importProgress : nil
+        )
         .alert(Strings.Main.Alert.errorTitle, isPresented: .init(
             get: { library.errorMessage != nil },
             set: { if !$0 { library.errorMessage = nil } }
@@ -97,8 +98,43 @@ struct MacWorkspaceView: View {
                 .frame(width: 480, height: 640)
                 .onDisappear { home.boothAnnouncementDidDisappear() }
         }
+        .sheet(isPresented: $workspace.showsShortcuts) {
+            MacShortcutsView()
+        }
+        // Delete asks first: a pack takes its takes and footage with it.
+        .confirmationDialog(
+            deletionTitle,
+            isPresented: Binding(
+                get: { workspace.pendingDeletion != nil },
+                set: { if !$0 { workspace.pendingDeletion = nil } }
+            ),
+            titleVisibility: .visible
+        ) {
+            Button(Strings.Dub.delete, role: .destructive) { workspace.confirmDeletion() }
+            Button(Strings.Main.Alert.cancel, role: .cancel) { workspace.pendingDeletion = nil }
+        } message: {
+            Text(deletionMessage)
+        }
         .onChange(of: home.shouldWelcomeEarlyAdopter, initial: true) { _, _ in
             home.presentEarlyAdopterWelcomeIfDue()
+        }
+    }
+
+    // MARK: - Deletion
+
+    private var deletionTitle: String {
+        switch workspace.pendingDeletion {
+        case .pack(let pack)?: String(format: MacStrings.Confirm.deletePackTitle, pack.title)
+        case .session?: MacStrings.Confirm.deleteSessionTitle
+        case nil: ""
+        }
+    }
+
+    private var deletionMessage: String {
+        switch workspace.pendingDeletion {
+        case .pack?: MacStrings.Confirm.deletePackMessage
+        case .session?: MacStrings.Confirm.deleteSessionMessage
+        case nil: ""
         }
     }
 

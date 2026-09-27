@@ -42,6 +42,31 @@ final class MacAppDelegate: NSObject, NSApplicationDelegate {
         BoothCamAnnouncement.shared.resolveAtLaunch()
     }
 
+    /// A pack from Finder's "Open With", a double-click, or a drop on the Dock icon arrives as an
+    /// "open documents" Apple event. Taken here rather than through `application(_:open:)`,
+    /// which a SwiftUI app with one `Window` is handed with the files already stripped out.
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        NSAppleEventManager.shared().setEventHandler(
+            self,
+            andSelector: #selector(handleOpenDocuments(_:withReplyEvent:)),
+            forEventClass: AEEventClass(kCoreEventClass),
+            andEventID: AEEventID(kAEOpenDocuments)
+        )
+    }
+
+    @objc private func handleOpenDocuments(_ event: NSAppleEventDescriptor, withReplyEvent reply: NSAppleEventDescriptor) {
+        guard let list = event.paramDescriptor(forKeyword: keyDirectObject) else { return }
+        var urls: [URL] = []
+        if list.numberOfItems == 0 {
+            if let url = list.fileURLValue { urls.append(url) }
+        } else {
+            for index in 1...list.numberOfItems {
+                if let url = list.atIndex(index)?.fileURLValue { urls.append(url) }
+            }
+        }
+        MainActor.assumeIsolated { MacFileInbox.shared.deliver(urls) }
+    }
+
     /// One window: closing it is quitting, as it is for any single-window Mac app.
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         true
@@ -100,7 +125,16 @@ struct MacRootView: View {
         
             }
             .appLifecycle(app: app)
-            .onAppear { MacKeyRouter.install(workspace: workspace) }
+            .onAppear {
+                MacKeyRouter.install(workspace: workspace)
+                // Tab walks every pane SwiftUI builds, not only the ones it knew at first.
+                for window in NSApp.windows { window.autorecalculatesKeyViewLoop = true }
+            }
+            .onReceive(MacFileInbox.shared.$pending) { url in
+                guard let url else { return }
+                MacFileInbox.shared.pending = nil
+                app.pendingDubImportURL = url
+            }
             #if DEBUG
             .task { await MacE2ERunner.runIfRequested(app: app, workspace: workspace) }
             .task { await MacShotPoser.runIfRequested(workspace: workspace) }

@@ -38,6 +38,7 @@ enum MacE2ERunner {
         await dub(workspace: workspace)
         await imitate(workspace: workspace)
         await menus(workspace: workspace)
+        await native(workspace: workspace)
         await settingsWindow()
         await windowSizes(workspace: workspace)
 
@@ -148,17 +149,22 @@ enum MacE2ERunner {
 
     private static func dub(workspace: MacWorkspaceViewModel) async {
         section("dub")
-        guard let pack = workspace.packs.first else {
+        // Stuck Up by name: the Finder test re-imports Camp Rules, which moves it to the top.
+        guard let pack = workspace.packs.first(where: { $0.title == "Stuck Up" }) ?? workspace.packs.first else {
             check("a dub pack is installed", false)
             return
         }
         // A known start: every run records a take, so earlier runs' takes are cleared and the
         // standard seven seeded again.
         let takes = AudioFileManager.shared.dubTakesDirectory(packID: pack.id)
-        for file in (try? FileManager.default.contentsOfDirectory(at: takes, includingPropertiesForKeys: nil)) ?? [] {
-            try? FileManager.default.removeItem(at: file)
+        let existing = (try? FileManager.default.contentsOfDirectory(at: takes, includingPropertiesForKeys: nil)) ?? []
+        var removed = 0
+        for file in existing {
+            do { try FileManager.default.removeItem(at: file); removed += 1 } catch { log("E2E|INFO|could not remove \(file.lastPathComponent): \(error)") }
         }
         ScreenshotMode.seedTakes(for: pack)
+        let after = (try? FileManager.default.contentsOfDirectory(at: takes, includingPropertiesForKeys: nil))?.count ?? -1
+        log("E2E|INFO|takes reset in \(pack.title): \(existing.count) found, \(removed) removed, \(after) after seeding")
         await workspace.dubLibrary.library.reloadNow()
 
         press(.key("2"), command: true)
@@ -176,7 +182,9 @@ enum MacE2ERunner {
 
         check("the lines browser has every line", !editor.pack.lines.isEmpty)
         check("seeded takes are counted", session.recordedCount >= min(7, editor.pack.lines.count), "\(session.recordedCount)")
-        check("editor opens on the first undubbed line", session.currentLine.map { !session.isRecorded($0) } ?? false)
+        let firstOpen = editor.pack.lines.firstIndex { !session.isRecorded($0) }
+        check("editor opens on the first undubbed line", session.currentLineIndex == firstOpen,
+              "at \(session.currentLineIndex), first undubbed \(firstOpen.map(String.init) ?? "none")")
         let waves = await waitUntil(3) { !editor.record.referenceSamples.isEmpty }
         check("the line's reference waveform loads", waves)
         await shot("07-dub-line")
@@ -387,6 +395,89 @@ enum MacE2ERunner {
         check("Help has Rate", menuItem(Strings.ReviewBanner.rate) != nil)
     }
 
+    // MARK: - Native
+
+    private static func native(workspace: MacWorkspaceViewModel) async {
+        section("native")
+        guard let pack = workspace.packs.first(where: { $0.title == "Stuck Up" }) ?? workspace.packs.first else { return }
+
+        // Remembering where the window was, and what was opened lately.
+        workspace.select(.pack(pack.id))
+        _ = await waitUntil(3) { MacE2EProbe.shared.dubEditor != nil }
+        await sleep(1)
+        check("the selection is remembered for the next launch",
+              UserDefaults.standard.string(forKey: "mac.lastSelection") == MacDestination.pack(pack.id).storageKey)
+        check("the pack is first in Open Recent", workspace.recentPackIDs.first == pack.id)
+        check("File has Open Recent", menuItem(MacStrings.Menu.openRecent) != nil)
+
+        // Viewer modes and the scene transport from the keyboard.
+        guard let editor = MacE2EProbe.shared.dubEditor else { return }
+        focus(.linesTable)
+        press(.key("2"), command: true, control: true)
+        let original = await waitUntil(2) { editor.mode == .original }
+        check("⌃⌘2 switches the viewer to Original", original)
+        _ = await waitUntil(8) { editor.playback?.player.isPlaying == true }
+        press(.space)
+        _ = await waitUntil(1) { editor.playback?.player.isPlaying == false }
+        editor.playback?.player.seek(to: 12)
+        await sleep(0.3)
+        press(.left)
+        let back = await waitUntil(1) { abs(editor.session.scenePlayer.currentTime - 7) < 0.4 }
+        check("← goes back five seconds", back, String(format: "%.2f", editor.session.scenePlayer.currentTime))
+        press(.right)
+        let forward = await waitUntil(1) { abs(editor.session.scenePlayer.currentTime - 12) < 0.4 }
+        check("→ goes forward five seconds", forward, String(format: "%.2f", editor.session.scenePlayer.currentTime))
+        press(.home)
+        let home = await waitUntil(1) { editor.session.scenePlayer.currentTime < 0.2 }
+        check("Home goes to the beginning", home)
+        press(.key("1"), command: true, control: true)
+        let line = await waitUntil(2) { editor.mode == .line }
+        check("⌃⌘1 goes back to the line", line)
+
+        // ⌘F searches the sidebar.
+        press(.key("f"), command: true)
+        await sleep(0.4)
+        check("⌘F puts the cursor in the sidebar's search field", mainWindow?.firstResponder is NSTextView)
+        workspace.searchText = "camp"
+        await sleep(0.3)
+        check("search narrows the packs", workspace.filteredPacks.count == 1 && workspace.filteredPacks.first?.title == "Camp Rules")
+        await shot("21-search")
+        workspace.searchText = ""
+        press(.escape)
+        mainWindow?.makeFirstResponder(nil)
+
+        // ⌘/ shows every shortcut.
+        press(.key("/"), command: true)
+        let shortcuts = await waitUntil(2) { mainWindow?.attachedSheet != nil }
+        check("⌘/ opens the keyboard shortcuts", shortcuts)
+        await shot("22-shortcuts")
+        press(.return)
+        _ = await waitUntil(2) { mainWindow?.attachedSheet == nil }
+
+        // ⌘⌫ asks before deleting, and Esc keeps the pack.
+        workspace.select(.pack(pack.id))
+        await sleep(0.6)
+        focus(.sidebar)
+        press(.delete, command: true)
+        let asked = await waitUntil(2) { workspace.pendingDeletion != nil }
+        check("⌘⌫ asks before deleting the pack", asked)
+        await shot("23-delete-confirm")
+        press(.escape)
+        let kept = await waitUntil(2) { workspace.pendingDeletion == nil }
+        check("Esc keeps the pack", kept && workspace.pack(id: pack.id) != nil)
+
+        // A pack opened from Finder or dropped on the Dock icon. The same pack again replaces
+        // the installed one; what shows is the window going to it.
+        workspace.select(.imitate)
+        await sleep(1)
+        log("E2E|OPENFILE|CampRules.zip")
+        let opened = await waitUntil(90) {
+            workspace.packs.first(where: { $0.title == "Camp Rules" }).map { workspace.selection == .pack($0.id) } ?? false
+        }
+        check("a pack opened from Finder is imported and opened", opened)
+        await shot("24-opened-from-finder")
+    }
+
     // MARK: - Settings
 
     private static func settingsWindow() async {
@@ -426,7 +517,7 @@ enum MacE2ERunner {
     // MARK: - Keys
 
     enum Key {
-        case space, `return`, escape, up, down
+        case space, `return`, escape, up, down, left, right, home, tab, delete
         case key(String)
 
         var code: UInt16 {
@@ -436,9 +527,14 @@ enum MacE2ERunner {
             case .escape: 53
             case .up: 126
             case .down: 125
+            case .left: 123
+            case .right: 124
+            case .home: 115
+            case .tab: 48
+            case .delete: 51
             case .key(let c):
                 ["a": 0, "e": 14, "i": 34, "l": 37, "n": 45, "o": 31, "p": 35, "r": 15,
-                 "1": 18, "2": 19, "3": 20, "=": 24, "-": 27, ",": 43][c] ?? 0
+                 "1": 18, "2": 19, "3": 20, "=": 24, "-": 27, ",": 43, "f": 3, "/": 44][c] ?? 0
             }
         }
 
@@ -449,21 +545,28 @@ enum MacE2ERunner {
             case .escape: "\u{1b}"
             case .up: String(UnicodeScalar(NSUpArrowFunctionKey)!)
             case .down: String(UnicodeScalar(NSDownArrowFunctionKey)!)
+            case .left: String(UnicodeScalar(NSLeftArrowFunctionKey)!)
+            case .right: String(UnicodeScalar(NSRightArrowFunctionKey)!)
+            case .home: String(UnicodeScalar(NSHomeFunctionKey)!)
+            case .tab: "\t"
+            case .delete: String(UnicodeScalar(NSBackspaceCharacter)!)
             case .key(let c): c
             }
         }
 
         var isArrow: Bool {
-            if case .up = self { return true }
-            if case .down = self { return true }
-            return false
+            switch self {
+            case .up, .down, .left, .right, .home: true
+            default: false
+            }
         }
     }
 
-    private static func press(_ key: Key, command: Bool = false, option: Bool = false) {
+    private static func press(_ key: Key, command: Bool = false, option: Bool = false, control: Bool = false) {
         var flags: NSEvent.ModifierFlags = []
         if command { flags.insert(.command) }
         if option { flags.insert(.option) }
+        if control { flags.insert(.control) }
         if key.isArrow { flags.formUnion([.numericPad, .function]) }
         let window = NSApp.keyWindow ?? mainWindow
         for type in [NSEvent.EventType.keyDown, .keyUp] {

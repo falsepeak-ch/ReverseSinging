@@ -28,12 +28,12 @@ struct DubTimelinePanel: View {
             ProPanelHeader(title: Strings.Dub.timeline, subtitle: duration.proTimecode) {
                 HStack(spacing: 6) {
                     Button(action: viewModel.zoomOut) { Image(systemName: "minus.magnifyingglass") }
-                        .keyboardShortcut("-", modifiers: .command)
+                        .help(MacStrings.Menu.zoomOut + " (⌘-)")
                     Slider(value: $viewModel.zoom, in: DubEditorViewModel.zoomRange)
                         .frame(width: 110)
                         .controlSize(.mini)
                     Button(action: viewModel.zoomIn) { Image(systemName: "plus.magnifyingglass") }
-                        .keyboardShortcut("=", modifiers: .command)
+                        .help(MacStrings.Menu.zoomIn + " (⌘=)")
                 }
                 .buttonStyle(.borderless)
                 .foregroundColor(.rsTextSecondary)
@@ -186,11 +186,13 @@ struct DubTimelinePanel: View {
         .clipped()
         .padding(.vertical, 4)
         .contentShape(Rectangle())
-        .onTapGesture { viewModel.select(line) }
         .onTapGesture(count: 2) {
             viewModel.setMode(.line)
             viewModel.select(line)
         }
+        .onTapGesture { viewModel.select(line) }
+        .proHoverLift()
+        .contextMenu { clipMenu(line) }
         .help("\(line.character): \(line.caption)")
     }
 
@@ -235,6 +237,32 @@ struct DubTimelinePanel: View {
         .padding(.vertical, 4)
         .contentShape(Rectangle())
         .onTapGesture { viewModel.select(line) }
+        .proHoverLift()
+        .contextMenu { clipMenu(line) }
+    }
+
+    /// What a right-click on a line or its take offers.
+    @ViewBuilder
+    private func clipMenu(_ line: DubLine) -> some View {
+        Button(Strings.Dub.recordTake) {
+            viewModel.setMode(.line)
+            viewModel.select(line)
+            viewModel.toggleRecord()
+        }
+        Button(MacStrings.Menu.listen) {
+            viewModel.setMode(.line)
+            viewModel.select(line)
+            viewModel.record.toggleReferencePreview()
+        }
+        Button(MacStrings.Menu.playTake) {
+            viewModel.setMode(.line)
+            viewModel.select(line)
+            viewModel.record.playCurrentTake()
+        }
+        .disabled(!viewModel.session.isRecorded(line))
+        Divider()
+        Button(Strings.Booth.shareLine) { viewModel.beginExport(line: line) }
+            .disabled(!viewModel.session.isRecorded(line))
     }
 
     /// The take being recorded, growing across its line.

@@ -7,7 +7,7 @@
 
 import AppKit
 
-/// Sends Space, R, L, P and the arrows to the workspace's transport before a focused list can
+/// Sends Space, R, L, P, Home and the arrows to the workspace's transport before a focused list can
 /// eat them.
 ///
 /// AppKit offers a key to the focused view before it looks for a menu item without modifiers.
@@ -56,7 +56,9 @@ enum MacKeyRouter {
         let responder = window.firstResponder
         if let text = responder as? NSTextView, text.isEditable { return false }
 
-        let isArrow = key == String(UnicodeScalar(NSUpArrowFunctionKey)!) || key == String(UnicodeScalar(NSDownArrowFunctionKey)!)
+        let arrows = [NSUpArrowFunctionKey, NSDownArrowFunctionKey, NSLeftArrowFunctionKey, NSRightArrowFunctionKey]
+            .map { String(UnicodeScalar($0)!) }
+        let isArrow = arrows.contains(key)
         // The sidebar is walked with the arrows; everywhere else they move between lines.
         if isArrow, let list = responder as? NSOutlineView, list.numberOfColumns == 1 { return false }
 
@@ -70,6 +72,9 @@ enum MacKeyRouter {
         case "p": action = .some(transport.playTake)
         case String(UnicodeScalar(NSUpArrowFunctionKey)!): action = .some(transport.previous)
         case String(UnicodeScalar(NSDownArrowFunctionKey)!): action = .some(transport.next)
+        case String(UnicodeScalar(NSLeftArrowFunctionKey)!): action = .some(transport.skipBack)
+        case String(UnicodeScalar(NSRightArrowFunctionKey)!): action = .some(transport.skipForward)
+        case String(UnicodeScalar(NSHomeFunctionKey)!): action = .some(transport.goToStart)
         default: action = nil
         }
 

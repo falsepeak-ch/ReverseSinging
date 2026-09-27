@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 struct ReverseStudioView: View {
     @StateObject private var viewModel: ReverseStudioViewModel
@@ -184,6 +185,7 @@ struct ReverseStudioView: View {
                 detail: viewModel.score.map { "\(ScoreCard.letterGrade(for: $0))  \(Int($0))%" },
                 level: viewModel.isRecording ? game.recordingLevel : nil
             )
+            .popoverTip(MacShortcutsTip(), arrowEdge: .top)
         }
 
         ToolbarItemGroup(placement: .primaryAction) {
@@ -198,7 +200,7 @@ struct ReverseStudioView: View {
             }
 
             Button {
-                workspace.showsInspector.toggle()
+                withAnimation(.easeInOut(duration: 0.2)) { workspace.showsInspector.toggle() }
             } label: {
                 Label(MacStrings.Panel.inspector, systemImage: "sidebar.trailing")
             }

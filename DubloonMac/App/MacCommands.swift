@@ -8,8 +8,9 @@
 import SwiftUI
 
 /// The full menu bar of an editing suite: File for packs, sessions and export, View for the
-/// workspaces and panels, a Playback menu for the transport, and Help. Every transport key is
-/// here as well as on the window, so it can be found, and so it works without a pointer.
+/// workspaces, the viewer, the timeline and the panels, a Playback menu for the transport, and
+/// Help with the list of shortcuts. Everything the window does has a place here and a key, so
+/// it can be found, and so it works without a pointer.
 struct MacCommands: Commands {
     @ObservedObject var app: AppViewModel
     @ObservedObject var workspace: MacWorkspaceViewModel
@@ -26,10 +27,22 @@ struct MacCommands: Commands {
 
             Button(MacStrings.Menu.importPack) { workspace.requestImport() }
                 .keyboardShortcut("o")
+
+            OpenRecentMenu(workspace: workspace)
         }
 
         CommandGroup(after: .importExport) {
             ExportMenuItem(workspace: workspace)
+        }
+
+        // Edit ▸ Delete… for the pack or session selected in the sidebar.
+        CommandGroup(after: .pasteboard) {
+            DeleteMenuItem(workspace: workspace)
+
+            Divider()
+
+            Button(MacStrings.Menu.find) { workspace.focusSearch() }
+                .keyboardShortcut("f")
         }
 
         CommandGroup(before: .sidebar) {
@@ -39,6 +52,11 @@ struct MacCommands: Commands {
                 .keyboardShortcut("2")
             Button(GameMode.imitate.title) { workspace.select(.imitate) }
                 .keyboardShortcut("3")
+
+            Divider()
+
+            ViewerMenu(workspace: workspace)
+            ZoomMenuItems(workspace: workspace)
 
             Divider()
 
@@ -52,6 +70,11 @@ struct MacCommands: Commands {
         }
 
         CommandGroup(replacing: .help) {
+            Button(MacStrings.Menu.shortcuts) { workspace.showsShortcuts = true }
+                .keyboardShortcut("/")
+
+            Divider()
+
             Button(Strings.ReviewBanner.rate) {
                 openURL(ReviewBanner.writeReviewURL)
             }
@@ -101,6 +124,95 @@ private struct PlaybackMenu: View {
         Button(MacStrings.Menu.nextLine) { transport.next?() }
             .keyboardShortcut(.downArrow, modifiers: [])
             .disabled(transport.next == nil)
+
+        Divider()
+
+        Button(MacStrings.Menu.skipBack) { transport.skipBack?() }
+            .keyboardShortcut(.leftArrow, modifiers: [])
+            .disabled(transport.skipBack == nil)
+
+        Button(MacStrings.Menu.skipForward) { transport.skipForward?() }
+            .keyboardShortcut(.rightArrow, modifiers: [])
+            .disabled(transport.skipForward == nil)
+
+        Button(MacStrings.Menu.goToStart) { transport.goToStart?() }
+            .keyboardShortcut(.home, modifiers: [])
+            .disabled(transport.goToStart == nil)
+
+        Divider()
+
+        Button(transport.isBoothOn ? Strings.Booth.turnOff : Strings.Booth.turnOn) { transport.toggleBooth?() }
+            .keyboardShortcut("c", modifiers: [.command, .shift])
+            .disabled(transport.toggleBooth == nil)
+    }
+}
+
+private struct ViewerMenu: View {
+    @ObservedObject var workspace: MacWorkspaceViewModel
+
+    var body: some View {
+        let transport = workspace.transport
+        Menu(MacStrings.Menu.viewer) {
+            ForEach(Array(DubViewerMode.allCases.enumerated()), id: \.element) { index, mode in
+                Toggle(isOn: Binding(
+                    get: { transport.viewerMode == mode },
+                    set: { _ in transport.setViewerMode?(mode) }
+                )) {
+                    Text(mode.title)
+                }
+                .keyboardShortcut(KeyEquivalent(Character("\(index + 1)")), modifiers: [.command, .control])
+            }
+        }
+        .disabled(transport.setViewerMode == nil)
+    }
+}
+
+private struct ZoomMenuItems: View {
+    @ObservedObject var workspace: MacWorkspaceViewModel
+
+    var body: some View {
+        let transport = workspace.transport
+        Button(MacStrings.Menu.zoomIn) { transport.zoomIn?() }
+            .keyboardShortcut("=")
+            .disabled(transport.zoomIn == nil)
+        Button(MacStrings.Menu.zoomOut) { transport.zoomOut?() }
+            .keyboardShortcut("-")
+            .disabled(transport.zoomOut == nil)
+    }
+}
+
+private struct OpenRecentMenu: View {
+    @ObservedObject var workspace: MacWorkspaceViewModel
+
+    var body: some View {
+        let recents = workspace.recentPacks
+        Menu(MacStrings.Menu.openRecent) {
+            ForEach(recents) { pack in
+                Button(pack.title) { workspace.select(.pack(pack.id)) }
+            }
+            if !recents.isEmpty {
+                Divider()
+                Button(MacStrings.Menu.clearRecent) { workspace.clearRecents() }
+            }
+        }
+        .disabled(recents.isEmpty)
+    }
+}
+
+private struct DeleteMenuItem: View {
+    @ObservedObject var workspace: MacWorkspaceViewModel
+
+    var body: some View {
+        Button(MacStrings.Menu.deleteEllipsis) { workspace.requestDeleteSelection() }
+            .keyboardShortcut(.delete, modifiers: [.command])
+            .disabled(!canDelete)
+    }
+
+    private var canDelete: Bool {
+        switch workspace.selection {
+        case .pack, .session: true
+        default: false
+        }
     }
 }
 
@@ -119,7 +231,7 @@ private struct InspectorMenuItem: View {
 
     var body: some View {
         Button(workspace.showsInspector ? MacStrings.Menu.hideInspector : MacStrings.Menu.showInspector) {
-            workspace.showsInspector.toggle()
+            withAnimation(.easeInOut(duration: 0.2)) { workspace.showsInspector.toggle() }
         }
         .keyboardShortcut("i", modifiers: [.command, .option])
     }
