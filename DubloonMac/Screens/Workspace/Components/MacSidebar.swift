@@ -103,19 +103,26 @@ struct MacSidebar: View {
 
     // MARK: - Rows
 
+    /// A locked game reads as disabled, as it does on the iPhone's menu, but stays clickable:
+    /// the click is how the paywall is reached.
     private func gameRow(_ mode: GameMode) -> some View {
-        HStack(spacing: 10) {
+        let isLocked = home.isLocked(mode)
+
+        return HStack(spacing: 10) {
             Image(mode.image)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 22, height: 22)
+                .saturation(isLocked ? 0 : 1)
+                .opacity(isLocked ? 0.45 : 1)
 
             Text(mode.title)
                 .lineLimit(1)
+                .foregroundStyle(isLocked ? .tertiary : .primary)
 
             Spacer(minLength: 4)
 
-            if home.isLocked(mode) {
+            if isLocked {
                 Image(systemName: "lock.fill")
                     .font(.system(size: 10))
                     .foregroundStyle(.secondary)
