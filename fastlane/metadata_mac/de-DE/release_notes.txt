@@ -1,0 +1,5 @@
+Korrekturen für den ersten Start auf dem Mac.
+
+BEHOBEN
+• Rückwärtssingen fragt beim ersten Aufnehmen nach dem Mikrofon, statt dich in die Systemeinstellungen zu schicken
+• Die zwei Filmszenen, die mit der App kommen, sind nach einer Neuinstallation wieder im Regal

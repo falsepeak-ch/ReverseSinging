@@ -1,0 +1,5 @@
+Correccions per a la primera obertura al Mac.
+
+CORRECCIONS
+• El cant invertit demana accés al micròfon la primera vegada que graves, en lloc d'enviar-te a Configuració del Sistema
+• Les dues escenes de pel·lícula que inclou l'app tornen a ser al prestatge després de reinstal·lar-la

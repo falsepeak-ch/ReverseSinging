@@ -1,0 +1,5 @@
+Fixes for the first launch on the Mac.
+
+FIXED
+• Reverse singing asks for your microphone the first time you record, instead of sending you to System Settings
+• The two movie scenes that come with the app are back on the shelf after a reinstall

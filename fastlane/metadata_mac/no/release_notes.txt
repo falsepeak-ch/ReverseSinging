@@ -1,0 +1,5 @@
+Rettelser for første oppstart på Mac.
+
+RETTET
+• Baklengssang ber om tilgang til mikrofonen første gang du tar opp, i stedet for å sende deg til Systeminnstillinger
+• De to filmscenene som følger med appen, er tilbake på hylla etter en reinstallasjon

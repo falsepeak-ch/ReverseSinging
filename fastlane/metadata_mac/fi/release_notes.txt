@@ -1,0 +1,5 @@
+Korjauksia ensimmäiseen käynnistykseen Macilla.
+
+KORJATTU
+• Takaperinlaulu pyytää mikrofonia, kun nauhoitat ensimmäisen kerran, eikä lähetä sinua Järjestelmäasetuksiin
+• Sovelluksen mukana tulevat kaksi elokuvakohtausta ovat taas hyllyssä uudelleenasennuksen jälkeen

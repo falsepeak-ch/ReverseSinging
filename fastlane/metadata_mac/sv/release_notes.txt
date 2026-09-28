@@ -1,0 +1,5 @@
+Rättningar för första starten på Mac.
+
+ÅTGÄRDAT
+• Baklängessång ber om mikrofonen första gången du spelar in, i stället för att skicka dig till Systeminställningar
+• De två filmscenerna som följer med appen är tillbaka på hyllan efter en ominstallation

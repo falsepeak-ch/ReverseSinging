@@ -1,0 +1,5 @@
+Rettelser til første start på Mac.
+
+RETTET
+• Baglænssang beder om adgang til mikrofonen, første gang du optager, i stedet for at sende dig til Systemindstillinger
+• De to filmscener, der følger med appen, er tilbage på hylden efter en geninstallation
