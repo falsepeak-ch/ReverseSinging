@@ -333,6 +333,8 @@ static Z7_NO_INLINE SRes ReadUi32s(CSzData *sd2, size_t numItems, CSzBitUi32s *c
   MY_ALLOC_ZE(UInt32, vals, numItems, alloc)
   crcs->Vals = vals;
   defs = crcs->Defs;
+  if (numItems != 0 && !defs) /* Dubloon: never true; ReadBitVector allocates for any items */
+    return SZ_ERROR_ARCHIVE;
   data = sd2->Data;
   size = sd2->Size;
   for (i = 0; i < numItems; i++)
@@ -1052,6 +1054,8 @@ static SRes ReadTime(CSzBitUi64s *p, size_t num, CSzData *sd2,
   MY_ALLOC_ZE(CNtfsFileTime, p->Vals, num, alloc)
   vals = p->Vals;
   defs = p->Defs;
+  if (num != 0 && !defs) /* Dubloon: as in ReadUi32s */
+    return SZ_ERROR_ARCHIVE;
   for (i = 0; i < num; i++)
     if (SzBitArray_Check(defs, i))
     {

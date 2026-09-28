@@ -545,8 +545,10 @@ __archive_mktempx(const char *tmpdir, char *template)
 	char *tp, *ep;
 
 	fd = -1;
+	/* Dubloon: initialised up front. With a caller's template it was never set, yet
+	 * `template == temp_name.s` below read it on every path. */
+	archive_string_init(&temp_name);
 	if (template == NULL) {
-		archive_string_init(&temp_name);
 		if (tmpdir == NULL) {
 			if (__archive_get_tempdir(&temp_name) != ARCHIVE_OK)
 				goto exit_tmpfile;

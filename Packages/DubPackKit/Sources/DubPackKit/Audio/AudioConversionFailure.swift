@@ -3,7 +3,7 @@
 //  DubPackKit
 //
 
-public import Foundation
+import Foundation
 
 /// Why an Ogg Vorbis recording could not be converted to AAC.
 public enum AudioConversionFailure: Error, Sendable, Hashable {

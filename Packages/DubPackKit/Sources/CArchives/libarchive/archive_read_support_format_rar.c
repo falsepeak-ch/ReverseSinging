@@ -1403,7 +1403,7 @@ read_header(struct archive_read *a, struct archive_entry *entry,
       "Invalid header size");
     return (ARCHIVE_FATAL);
   }
-  crc32_computed = crc32(0, (const unsigned char *)p + 2, 7 - 2);
+  crc32_computed = (uint32_t)crc32(0, (const unsigned char *)p + 2, 7 - 2);
   __archive_read_consume(a, 7);
 
   if (!(rar->file_flags & FHD_SOLID))
@@ -1441,7 +1441,7 @@ read_header(struct archive_read *a, struct archive_entry *entry,
   }
 
   /* File Header CRC check. */
-  crc32_computed = crc32(crc32_computed, h, (unsigned)(header_size - 7));
+  crc32_computed = (uint32_t)crc32(crc32_computed, h, (unsigned)(header_size - 7));
   crc32_read = archive_le16dec(rar_header.crc);
   if ((crc32_computed & 0xffff) != crc32_read) {
 #ifndef DONT_FAIL_ON_CRC_ERROR
@@ -2791,7 +2791,7 @@ add_value(struct archive_read *a, struct huffman_code *code, int value,
                             "Unable to allocate memory for node data");
           return (ARCHIVE_FATAL);
         }
-        code->tree[lastnode].branches[bit] = code->numentries++;
+        code->tree[lastnode].branches[bit] = (int)code->numentries++;
       }
 
       /* set to branch */
@@ -3310,8 +3310,12 @@ parse_filter(struct archive_read *a, const uint8_t *bytes, uint16_t length, uint
     num = filters->lastfilternum;
 
   prog = filters->progs;
-  for (i = 0; i < num; i++)
+  for (i = 0; i < num; i++) {
+    /* Dubloon: a remembered filter number can outlive the programs it counted. */
+    if (!prog)
+      return 0;
     prog = prog->next;
+  }
   if (prog)
     prog->usagecount++;
 

@@ -504,6 +504,11 @@ static PPMD7_CTX_PTR Ppmd7_CreateSuccessors(CPpmd7 *p)
   // All new RAW-Successors will point to next position in RAW text
   // after FoundState->Successor
 
+  /* Dubloon: a max-order context always has a suffix, so this never holds; if it did,
+   * ps[--numPs] would index ps[UINT_MAX]. NULL makes the caller restart the model. */
+  if (numPs == 0)
+    return NULL;
+
   newSym = *(const Byte *)Ppmd7_GetPtr(p, upBranch);
   upBranch++;
   

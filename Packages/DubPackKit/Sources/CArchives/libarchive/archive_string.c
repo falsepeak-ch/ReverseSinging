@@ -855,7 +855,7 @@ archive_string_append_from_wcs(struct archive_string *as,
 			end = as->s + as->buffer_length - MB_CUR_MAX -1;
 		}
 #if HAVE_WCRTOMB
-		n = wcrtomb(p, *w++, &shift_state);
+		n = (int)wcrtomb(p, *w++, &shift_state); /* (size_t)-1 becomes the -1 checked below */
 #else
 		n = wctomb(p, *w++);
 #endif
