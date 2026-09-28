@@ -29,114 +29,74 @@ struct BoothCamPrimerModal: View {
     }
 
     var body: some View {
-        ZStack {
-            backdrop
+        EditorModal(title: Strings.Booth.slug, onClose: viewModel.dismiss) {
+            illustration
 
-            panel
-                .padding(.horizontal, EditorMetrics.gutter)
-                .padding(.vertical, 24)
-                .transition(.opacity)
+            VStack(spacing: 10) {
+                Text(Strings.Booth.primerTitle)
+                    .font(.rsHeadingSmall)
+                    .foregroundColor(.rsTextPrimary)
+                    .multilineTextAlignment(.center)
+
+                Text(primerMessage)
+                    .font(.rsBodySmall)
+                    .foregroundColor(.rsTextSecondary)
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(5)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            facts
+
+            #if os(macOS)
+            Text(Strings.Booth.primerSystemPromptMac)
+                .font(.rsCaptionSmall)
+                .foregroundColor(.rsTextTertiary)
+                .multilineTextAlignment(.center)
+            #endif
+        } phoneActions: {
+            VStack(spacing: 12) {
+                BigButton(
+                    title: Strings.Booth.primerConfirm,
+                    icon: "video.fill",
+                    color: .rsTextPrimary,
+                    action: viewModel.enable,
+                    isEnabled: !viewModel.isRequesting,
+                    isLoading: viewModel.isRequesting,
+                    style: .primary,
+                    textFont: .rsButtonMedium
+                )
+
+                Text(Strings.Booth.primerSystemPrompt)
+                    .font(.rsCaptionSmall)
+                    .foregroundColor(.rsTextTertiary)
+                    .multilineTextAlignment(.center)
+
+                Button(action: viewModel.dismiss) {
+                    Text(Strings.Booth.primerDecline)
+                        .font(.rsButtonMedium)
+                        .foregroundColor(.rsTextSecondary)
+                }
+                .disabled(viewModel.isRequesting)
+            }
+        } macActions: {
+            if viewModel.isRequesting {
+                ProgressView().controlSize(.small)
+            }
+            Button(Strings.Booth.primerConfirm, action: viewModel.enable)
+                .keyboardShortcut(.defaultAction)
+                .platformProminentButton()
+                .disabled(viewModel.isRequesting)
         }
         .onAppear { viewModel.onAppear() }
     }
 
-    // MARK: - Backdrop
-
-    private var backdrop: some View {
-        Color.rsSurface0
-            .opacity(0.88)
-            .ignoresSafeArea()
-            .contentShape(Rectangle())
-            .onTapGesture { viewModel.dismiss() }
-            .accessibilityHidden(true)
-    }
-
-    // MARK: - Panel
-
-    private var panel: some View {
-        // Three facts and a paragraph is taller than the share notice, and it has to survive
-        // a small screen in a long language.
-        ViewThatFits(in: .vertical) {
-            panelContent
-            ScrollView { panelContent }
-                .scrollBounceBehavior(.basedOnSize)
-        }
-        .editorPanel(.rsSurface1, radius: EditorMetrics.radiusLarge)
-        .frame(maxWidth: 400)
-    }
-
-    private var panelContent: some View {
-        VStack(spacing: 0) {
-            titleBar
-
-            VStack(spacing: 20) {
-                illustration
-
-                VStack(spacing: 10) {
-                    Text(Strings.Booth.primerTitle)
-                        .font(.rsHeadingSmall)
-                        .foregroundColor(.rsTextPrimary)
-                        .multilineTextAlignment(.center)
-
-                    Text(Strings.Booth.primerMessage)
-                        .font(.rsBodySmall)
-                        .foregroundColor(.rsTextSecondary)
-                        .multilineTextAlignment(.center)
-                        .lineSpacing(5)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-
-                facts
-
-                VStack(spacing: 12) {
-                    BigButton(
-                        title: Strings.Booth.primerConfirm,
-                        icon: "video.fill",
-                        color: .rsTextPrimary,
-                        action: viewModel.enable,
-                        isEnabled: !viewModel.isRequesting,
-                        isLoading: viewModel.isRequesting,
-                        style: .primary,
-                        textFont: .rsButtonMedium
-                    )
-
-                    Text(Strings.Booth.primerSystemPrompt)
-                        .font(.rsCaptionSmall)
-                        .foregroundColor(.rsTextTertiary)
-                        .multilineTextAlignment(.center)
-
-                    Button(action: viewModel.dismiss) {
-                        Text(Strings.Booth.primerDecline)
-                            .font(.rsButtonMedium)
-                            .foregroundColor(.rsTextSecondary)
-                    }
-                    .disabled(viewModel.isRequesting)
-                }
-            }
-            .padding(EditorMetrics.gutter)
-        }
-    }
-
-    private var titleBar: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 10) {
-                Text(Strings.Booth.slug)
-                    .editorLabelStyle(.rsTextSecondary)
-                    .lineLimit(1)
-
-                Spacer(minLength: 8)
-
-                EditorToolbarButton(
-                    icon: "xmark",
-                    label: Strings.DubGate.close,
-                    action: viewModel.dismiss
-                )
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 10)
-
-            EditorRule()
-        }
+    private var primerMessage: String {
+        #if os(macOS)
+        Strings.Booth.primerMessageMac
+        #else
+        Strings.Booth.primerMessage
+        #endif
     }
 
     private var illustration: some View {
@@ -202,21 +162,17 @@ private struct BoothCamPrimerModifier: ViewModifier {
     let onEnabled: () -> Void
 
     func body(content: Content) -> some View {
-        content
-            .overlay {
-                if isPresented {
-                    BoothCamPrimerModal(
-                        onEnabled: {
-                            isPresented = false
-                            onEnabled()
-                        },
-                        onDismiss: {
-                            isPresented = false
-                        }
-                    )
+        content.editorModal(isPresented: $isPresented) {
+            BoothCamPrimerModal(
+                onEnabled: {
+                    isPresented = false
+                    onEnabled()
+                },
+                onDismiss: {
+                    isPresented = false
                 }
-            }
-            .animation(.rsSmooth, value: isPresented)
+            )
+        }
     }
 }
 

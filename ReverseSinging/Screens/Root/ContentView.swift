@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var viewModel = AppViewModel()
-    @Environment(\.scenePhase) private var scenePhase
+    @StateObject private var viewModel: AppViewModel
 
-    /// Nil until the first activation, so a cold launch counts as an open too.
-    @State private var previousScenePhase: ScenePhase?
-
+    /// - Parameter app: the app-wide state, when something outside this view shares it. The
+    ///   Mac's Settings window does; the iPhone's root owns its own.
+    init(app: AppViewModel? = nil) {
+        _viewModel = StateObject(wrappedValue: app ?? AppViewModel())
+    }
     var body: some View {
         Group {
             if viewModel.hasCompletedOnboarding {
@@ -26,22 +27,49 @@ struct ContentView: View {
             }
         }
         .preferredColorScheme(preferredColorScheme)
-        // Above onboarding as well as the games: the free window runs from first
-        // launch, so a user who installs, plays for eight days and only then
-        // finishes onboarding still meets the paywall.
-        .hardPaywall()
-        .onOpenURL { url in
-            // A dub pack arrived from Files, AirDrop or "Open with"
-            viewModel.pendingDubImportURL = url
-            viewModel.showDubLibrary = true
-        }
-        .onChange(of: scenePhase, initial: true) { _, phase in
-            handleScenePhase(phase)
-        }
-        #if DEBUG
-        // `-importPacksFrom <folder>`: bring in a folder of packs and print a verdict for each.
-        .task { await DebugImportRun.runIfRequested() }
-        #endif
+        .appLifecycle(app: viewModel)
+    }
+
+    /// The editor interface is dark-only: a light UI washes out the stills and
+    /// waveforms it exists to display, the same reason real editors ship dark.
+    private var preferredColorScheme: ColorScheme? { .dark }
+}
+
+// MARK: - Lifecycle
+
+extension View {
+    /// What the root does around whichever screen is showing: the paywall, a pack handed in
+    /// from outside, and counting opens. Shared by the iPhone's root and the Mac window.
+    func appLifecycle(app: AppViewModel) -> some View {
+        modifier(AppLifecycleModifier(app: app))
+    }
+}
+
+private struct AppLifecycleModifier: ViewModifier {
+    @ObservedObject var app: AppViewModel
+    @Environment(\.scenePhase) private var scenePhase
+
+    /// Nil until the first activation, so a cold launch counts as an open too.
+    @State private var previousScenePhase: ScenePhase?
+
+    func body(content: Content) -> some View {
+        content
+            // Above onboarding as well as the games: the free window runs from first
+            // launch, so a user who installs, plays for eight days and only then
+            // finishes onboarding still meets the paywall.
+            .hardPaywall()
+            .onOpenURL { url in
+                // A dub pack arrived from Files, AirDrop or "Open with"
+                app.pendingDubImportURL = url
+                app.showDubLibrary = true
+            }
+            .onChange(of: scenePhase, initial: true) { _, phase in
+                handleScenePhase(phase)
+            }
+            #if DEBUG
+            // `-importPacksFrom <folder>`: bring in a folder of packs and print a verdict for each.
+            .task { await DebugImportRun.runIfRequested() }
+            #endif
     }
 
     /// Counts an open on a launch or a return from the background — not on the flickers
@@ -65,16 +93,12 @@ struct ContentView: View {
 
         // Onboarding is the wrong moment to ask for anything, and the ask reads better
         // once the screen has settled rather than on top of the launch animation.
-        guard viewModel.hasCompletedOnboarding else { return }
+        guard app.hasCompletedOnboarding else { return }
         Task {
             try? await Task.sleep(for: .seconds(2))
             ReviewPrompt.shared.requestIfAppropriate(trigger: "app_open")
         }
     }
-
-    /// The editor interface is dark-only: a light UI washes out the stills and
-    /// waveforms it exists to display, the same reason real editors ship dark.
-    private var preferredColorScheme: ColorScheme? { .dark }
 }
 
 #Preview("Onboarding") {

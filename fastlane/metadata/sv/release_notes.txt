@@ -1,15 +1,6 @@
-Fler dubbpaket går att öppna, och mindre går fel.
+Ett tredje spel, och baklängessång är nu gratis.
 
-DUBBPAKET
-• Paket i .rar-format går nu att öppna, även när de har döpts om till .zip
-• Paket med röster och musik i .ogg spelas nu upp; tidigare föll de replikerna bort och scenen blev tyst. Paket du redan har installerat lagas också
-• Många fler sätt att skriva en repliks tider förstås, så paket som brukade förlora hälften av sina repliker importeras nu hela
-• Ett paket som fortfarande ligger i iCloud laddas ner först i stället för att misslyckas
-• När en fil inte går att importera säger appen vad den innehåller och varför det inte fungerar
-
-FIXAR
-• Åtgärdade krascher som uppstod när en annan app höll i ljudet, och när en scen började spelas upp
-• En videokonvertering som avbröts när du lämnade appen fortsätter senare i stället för att tappa bilden
-
-DESSUTOM
-• När gratisperioden tar slut förblir menyn öppen, och erbjudandet väntar tills du trycker på det i stället för att täcka hela appen
+NYTT
+• Ljudimitation: hör ett ljud, härma det och få en stämplad dom över din rytm, tonhöjd och klang. Gör sedan försöket till en video
+• Baklängessång är gratis för alla
+• Dubloon Pro låser nu upp Mac-appen också, med samma Apple-konto

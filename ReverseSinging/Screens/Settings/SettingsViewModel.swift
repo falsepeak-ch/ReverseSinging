@@ -153,6 +153,19 @@ final class SettingsViewModel: ObservableObject {
 
     var isRestoring: Bool { access.isRestoring }
 
+    /// A subscriber does not own the app, and what they come to manage is the subscription.
+    var ownedTitle: String {
+        access.isSubscriber ? Strings.Pro.subscribedTitle : Strings.Pro.ownedTitle
+    }
+
+    var manageTitle: String {
+        access.isSubscriber ? Strings.Pro.manageSubscriptionTitle : Strings.Pro.manageTitle
+    }
+
+    var manageSubtitle: String {
+        access.isSubscriber ? Strings.Pro.manageSubscriptionSubtitle : Strings.Pro.manageSubtitle
+    }
+
     /// The trial counter, restated as a sentence, or the plain offer once it is over.
     var unlockSubtitle: String {
         guard let days = access.trialDaysRemaining else { return Strings.Pro.unlockSubtitle }
@@ -167,7 +180,16 @@ final class SettingsViewModel: ObservableObject {
 
     func openCustomerCenter() {
         AnalyticsManager.shared.trackCustomerCenterOpened()
+        #if os(iOS)
         isCustomerCenterPresented = true
+        #else
+        // RevenueCat's Customer Center is iOS only. On the Mac the App Store's own page is where
+        // subscriptions are changed and purchases looked up.
+        if let url = access.customerInfo?.managementURL
+            ?? URL(string: "https://apps.apple.com/account/subscriptions") {
+            openExternally(url)
+        }
+        #endif
     }
 
     /// A restore that happened inside RevenueCat's Customer Center.
@@ -187,12 +209,44 @@ final class SettingsViewModel: ObservableObject {
         return String(format: Strings.Settings.version, version, build)
     }
 
+    /// "Member since 12 March 2026", or nil before any date is known.
+    var memberSinceText: String? {
+        guard let date = access.memberSince else { return nil }
+        return String(format: Strings.Settings.About.memberSince,
+                      date.formatted(date: .long, time: .omitted))
+    }
+
+    /// What this copy of the app is licensed as, in one line.
+    var licenseText: String {
+        switch access.state {
+        case .unlocked(.entitlement):
+            guard let expiry = access.entitlement?.expirationDate else {
+                return Strings.Settings.About.licenseLifetime
+            }
+            let date = expiry.formatted(date: .long, time: .omitted)
+            let format = access.entitlement?.willRenew == true
+                ? Strings.Settings.About.licenseRenews
+                : Strings.Settings.About.licenseEnds
+            return String(format: format, date)
+        case .unlocked(.earlyAdopter):
+            return Strings.Settings.About.licenseEarlyAdopter
+        case .trial(let days, _):
+            return days <= 1
+                ? Strings.Settings.About.licenseTrialLastDay
+                : String(format: Strings.Settings.About.licenseTrialDays, days)
+        case .locked:
+            return access.hasTrial ? Strings.Settings.About.licenseTrialOver : Strings.Settings.About.licenseFree
+        case .unlocked(.gatingDisabled), .unknown:
+            return Strings.Settings.About.licenseFree
+        }
+    }
+
     func openPrivacyPolicy() {
         HapticManager.shared.light()
         AnalyticsManager.shared.trackCustomEvent(name: "privacy_policy_opened", parameters: nil)
 
         if let url = URL(string: "https://falsepeak.ch/privacy") {
-            UIApplication.shared.open(url)
+            openExternally(url)
         }
     }
 }

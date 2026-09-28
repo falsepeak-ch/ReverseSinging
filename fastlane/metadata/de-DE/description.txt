@@ -1,4 +1,4 @@
-Dubloon sind zwei Stimmspiele in einer App, und keines davon braucht mehr als dein Mikrofon.
+Dubloon sind drei Stimmspiele in einer App, und keines davon braucht mehr als dein Mikrofon.
 
 FILMSZENE SYNCHRONISIEREN
 
@@ -32,12 +32,19 @@ Das ursprüngliche Spiel. Nimm ein Lied auf, und Dubloon dreht es um. Sing die R
 • Zwei Oberflächen: große einfache Knöpfe, oder die volle Wellenform mit Loop, Tempo und Tonhöhe
 • Speichere deine besten Takes und komm auf sie zurück
 
+GERÄUSCHE IMITIEREN
+
+Hör dir ein Geräusch an und mach es dann selbst. Ein bellender Hund, ein Hahn, eine Autohupe, ein Laser. Dubloon hört sich deinen Versuch an, vergleicht Rhythmus, Tonhöhe und Klangfarbe mit dem echten Geräusch und stempelt ein Urteil darauf. Schlag deinen Rekord und mach aus dem Versuch ein Video zum Teilen.
+
+• 24 Geräusche: Tiere, Hupen und Alarme, Cartoon-Effekte und menschliche Geräusche
+• Die Booth Cam filmt dein Gesicht mitten in der Imitation, wenn du willst
+
 VON GRUND AUF PRIVAT
 
 Alles passiert auf diesem Gerät. Deine Aufnahmen, deine Takes, dein Kabinenmaterial und deine exportierten Fassungen verlassen es nie. Kein Konto, keine Anmeldung, keine Werbung, nichts zum Hochladen. Die App erhebt anonyme Nutzungsstatistiken, um zu entscheiden, was als Nächstes gebaut wird, nie den Inhalt einer Aufnahme.
 
 WAS ES KOSTET
 
-Sieben Tage gratis, beide Spiele, nichts zurückgehalten. Danach schaltet eine einzige Zahlung die App dauerhaft frei. Kein Abo.
+Rückwärtssingen ist kostenlos. Dubloon Pro öffnet das Synchronisieren von Filmszenen, das Imitieren von Geräuschen, Booth Cam und Exporte, nichts zurückgehalten, als einmaliger Kauf oder als Abo.
 
 Gebaut in der Schweiz. In Zürich von Hand gemacht.

@@ -306,3 +306,89 @@ platform :ios do
     )
   end
 end
+
+# The native Mac app: the DubloonMac target, same bundle identifier and App Store record as the
+# iPhone app, so Dubloon Pro is one universal purchase. Its store text lives apart from the
+# iPhone's because it talks about the Mac's camera and Finder, not the front camera and Files.
+MAC_METADATA_PATH = File.expand_path("metadata_mac", __dir__)
+MAC_SCREENSHOTS_PATH = File.expand_path("screenshots_mac", __dir__)
+
+platform :mac do
+  before_all do
+    unless File.exist?(ASC_KEY_PATH)
+      UI.user_error!("Missing #{ASC_KEY_PATH}.")
+    end
+
+    @api_key = app_store_connect_api_key(
+      key_id: ASC_KEY_ID,
+      issuer_id: ASC_ISSUER_ID,
+      key_filepath: ASC_KEY_PATH
+    )
+  end
+
+  desc "Upload the Mac store text (fastlane/metadata_mac) into the editable macOS version"
+  desc "Create the macOS version in App Store Connect first; like the iOS lane, this passes no app_version."
+  lane :metadata do
+    deliver(
+      api_key: @api_key,
+      platform: "osx",
+      metadata_path: MAC_METADATA_PATH,
+      skip_binary_upload: true,
+      skip_screenshots: true,
+      skip_app_version_update: true,
+      force: true,
+      precheck_include_in_app_purchases: false
+    )
+  end
+
+  desc "Upload the Mac screenshots (fastlane/screenshots_mac, 2560x1600)"
+  lane :upload_screenshots do
+    ENV["DELIVER_NUMBER_OF_THREADS"] = "1"
+    deliver(
+      api_key: @api_key,
+      platform: "osx",
+      screenshots_path: MAC_SCREENSHOTS_PATH,
+      skip_binary_upload: true,
+      skip_metadata: true,
+      force: true,
+      overwrite_screenshots: true,
+      precheck_include_in_app_purchases: false
+    )
+  end
+
+  # build_mac_app leaves DSYM_OUTPUT_PATH unset, so the zip it writes beside the app is used.
+  def mac_dsym_path
+    lane_context[SharedValues::DSYM_OUTPUT_PATH] ||
+      File.expand_path("../build/mac/Dubloon.app.dSYM.zip", __dir__).tap do |path|
+        UI.user_error!("No dSYM at #{path}") unless File.exist?(path)
+      end
+  end
+
+  desc "Archive the Mac app and upload it to App Store Connect. Never submits for review."
+  lane :release do
+    build_mac_app(
+      project: "ReverseSinging.xcodeproj",
+      scheme: "DubloonMac",
+      configuration: "Release",
+      export_method: "app-store",
+      derived_data_path: "build/MacDerivedData",
+      output_directory: "build/mac",
+      xcargs: "-allowProvisioningUpdates"
+    )
+    # Same reason as the iOS lanes: without this, a Mac crash reaches Crashlytics as raw
+    # addresses. The Firebase checkout lives under this lane's own derived data path.
+    sh(
+      "../build/MacDerivedData/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols",
+      "-gsp", GSP_PATH, "-p", "mac", mac_dsym_path
+    )
+    upload_to_app_store(
+      api_key: @api_key,
+      platform: "osx",
+      skip_metadata: true,
+      skip_screenshots: true,
+      force: true,
+      precheck_include_in_app_purchases: false,
+      submit_for_review: false
+    )
+  end
+end

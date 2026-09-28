@@ -1,0 +1,5 @@
+Poprawki pierwszego uruchomienia na Macu.
+
+POPRAWIONO
+• Śpiewanie od tyłu prosi o dostęp do mikrofonu przy pierwszym nagraniu, zamiast odsyłać cię do Ustawień systemowych
+• Dwie sceny filmowe dołączone do aplikacji wracają na półkę po ponownej instalacji

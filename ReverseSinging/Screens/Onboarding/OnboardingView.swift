@@ -29,6 +29,7 @@ struct OnboardingView: View {
                 .frame(height: 44)
                 .padding(.top, 8)
 
+                #if os(iOS)
                 TabView(selection: $viewModel.currentPage) {
                     ForEach(Array(viewModel.pages.enumerated()), id: \.offset) { index, page in
                         OnboardingPageView(page: page)
@@ -36,6 +37,17 @@ struct OnboardingView: View {
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
+                #else
+                // The Mac has no swipeable pages: one page at a time, moved by the button below.
+                OnboardingPageView(page: viewModel.pages[viewModel.currentPage])
+                    .id(viewModel.currentPage)
+                    .transition(.asymmetric(
+                        insertion: .move(edge: .trailing).combined(with: .opacity),
+                        removal: .move(edge: .leading).combined(with: .opacity)
+                    ))
+                    .animation(.rsSmooth, value: viewModel.currentPage)
+                    .frame(maxHeight: .infinity)
+                #endif
 
                 // Page indicator
                 HStack(spacing: 8) {

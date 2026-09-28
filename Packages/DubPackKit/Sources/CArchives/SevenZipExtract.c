@@ -182,8 +182,12 @@ static int resolvePath(Extractor *ex, UInt32 fileIndex) {
         return -1;
     }
 
-    int resolved = ArchiveResolveEntryPath(ex->destination, ex->name8, ex->path, sizeof ex->path, relative, sizeof relative);
+    /* Into a local first: handing out a pointer into *ex lets the analyzer assume the
+     * whole struct was rewritten, and report ex->name8 as leaked. */
+    char path[ARCHIVE_MAX_PATH];
+    int resolved = ArchiveResolveEntryPath(ex->destination, ex->name8, path, sizeof path, relative, sizeof relative);
     if (resolved < 0) fail(ex, SevenZipStatusIO, "cannot create directory for %s", relative);
+    if (resolved > 0) memcpy(ex->path, path, sizeof path);
     return resolved;
 }
 

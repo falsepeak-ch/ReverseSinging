@@ -61,15 +61,49 @@ nonisolated enum DubStarterPacks {
 
     private static let installedKey = "dub.starterPacksInstalled"
 
+    /// The record's own file, inside the packs folder it describes. Hidden, so the library
+    /// never takes it for a pack.
+    private static var recordURL: URL {
+        AudioFileManager.shared.dubPacksDirectory().appendingPathComponent(".starter-packs.json")
+    }
+
     /// What has been installed on this device, as `name#revision`. A bare name is a record
     /// written before revisions existed, and reads as revision 1.
     ///
     /// Remembered so a user who deletes a starter pack keeps it deleted. Re-adding it on
     /// every launch would make the delete button look broken. A *rebuilt* pack does come
     /// back once, on purpose: what the user deleted was the old build.
+    ///
+    /// Kept next to the packs rather than in `UserDefaults`, so the two cannot outlive each
+    /// other. The packs folder is in Files on the iPhone, and deleting it there left the
+    /// defaults swearing both scenes were installed: an empty shelf for good. On the Mac,
+    /// `cfprefsd` writes its cached defaults back into a container deleted under it, with
+    /// the same result. Wipe the packs and the record goes with them.
+    ///
+    /// `UserDefaults` is still written, for `EarlyAdopter`, and read once to carry over a
+    /// record from before the file, but only when the folder still holds a pack. An empty
+    /// folder says the packs were wiped, and the old record with them.
     private static var installed: Set<String> {
-        get { Set(UserDefaults.standard.stringArray(forKey: installedKey) ?? []) }
-        set { UserDefaults.standard.set(Array(newValue).sorted(), forKey: installedKey) }
+        get {
+            if let data = try? Data(contentsOf: recordURL),
+               let names = try? JSONDecoder().decode([String].self, from: data) {
+                return Set(names)
+            }
+            let hasPacks = ((try? FileManager.default.contentsOfDirectory(
+                at: AudioFileManager.shared.dubPacksDirectory(),
+                includingPropertiesForKeys: nil,
+                options: [.skipsHiddenFiles]
+            )) ?? []).isEmpty == false
+            guard hasPacks else { return [] }
+            return Set(UserDefaults.standard.stringArray(forKey: installedKey) ?? [])
+        }
+        set {
+            let names = Array(newValue).sorted()
+            if let data = try? JSONEncoder().encode(names) {
+                try? data.write(to: recordURL, options: .atomic)
+            }
+            UserDefaults.standard.set(names, forKey: installedKey)
+        }
     }
 
     private static func record(for name: String) -> String {
@@ -154,6 +188,7 @@ nonisolated enum DubStarterPacks {
     /// Lets a test start from a clean device without touching `UserDefaults` by hand.
     static func forgetInstallsForTesting() {
         UserDefaults.standard.removeObject(forKey: installedKey)
+        try? FileManager.default.removeItem(at: recordURL)
     }
 
     /// Lets a test stand in for a device that installed an earlier build of a pack.

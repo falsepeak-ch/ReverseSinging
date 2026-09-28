@@ -1,0 +1,5 @@
+Verbeteringen voor de eerste keer opstarten op de Mac.
+
+OPGELOST
+• Achterstevoren zingen vraagt om je microfoon de eerste keer dat je opneemt, in plaats van je naar Systeeminstellingen te sturen
+• De twee filmscènes die bij de app horen, staan na een herinstallatie weer op de plank

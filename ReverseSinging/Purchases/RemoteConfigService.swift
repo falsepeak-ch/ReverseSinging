@@ -39,6 +39,13 @@ final class RemoteConfigService: ObservableObject {
         /// brings back the full-screen paywall that cannot be closed. See
         /// `LockPresentation`.
         static let hardPaywallEnabled = "hard_paywall_enabled"
+        /// Whether reverse singing stays open to everyone once the free window closes.
+        /// `true`, the default, keeps it free and puts only dubbing behind Dubloon Pro;
+        /// `false` locks both games, as the app did before.
+        static let reverseGameFree = "reverse_game_free"
+        /// Whether Sound Imitation stays open to everyone once the free window closes.
+        /// `false`, the default, keeps it behind Dubloon Pro like dubbing.
+        static let soundImitationFree = "sound_imitation_free"
     }
 
     // MARK: - Defaults
@@ -48,6 +55,8 @@ final class RemoteConfigService: ObservableObject {
         static let trialLengthInDays = 7
         static let paywallEnabled = true
         static let hardPaywallEnabled = false
+        static let reverseGameFree = true
+        static let soundImitationFree = false
     }
 
     /// A console typo should not hand out a decade of free use, nor zero days to
@@ -77,6 +86,10 @@ final class RemoteConfigService: ObservableObject {
     /// Whether an expired trial covers the whole app rather than disabling the games.
     @Published private(set) var isHardPaywallEnabled: Bool = Default.hardPaywallEnabled
 
+    /// Whether reverse singing is free for everyone, paid or not.
+    @Published private(set) var isReverseGameFree: Bool = Default.reverseGameFree
+    @Published private(set) var isSoundImitationFree: Bool = Default.soundImitationFree
+
     /// Whether a fetch has landed. Until it has, the values above are the shipped
     /// defaults rather than the console's.
     @Published private(set) var hasActivated = false
@@ -103,7 +116,9 @@ final class RemoteConfigService: ObservableObject {
         config.setDefaults([
             Key.trialLengthInDays: Default.trialLengthInDays as NSNumber,
             Key.paywallEnabled: Default.paywallEnabled as NSNumber,
-            Key.hardPaywallEnabled: Default.hardPaywallEnabled as NSNumber
+            Key.hardPaywallEnabled: Default.hardPaywallEnabled as NSNumber,
+            Key.reverseGameFree: Default.reverseGameFree as NSNumber,
+            Key.soundImitationFree: Default.soundImitationFree as NSNumber
         ])
 
         let settings = RemoteConfigSettings()
@@ -139,6 +154,8 @@ final class RemoteConfigService: ObservableObject {
         )
         isPaywallEnabled = config[Key.paywallEnabled].boolValue
         isHardPaywallEnabled = config[Key.hardPaywallEnabled].boolValue
+        isReverseGameFree = config[Key.reverseGameFree].boolValue
+        isSoundImitationFree = config[Key.soundImitationFree].boolValue
 
         // Only a date the console actually sent counts, which `source` says: a
         // cached fetch from an earlier launch is `.remote` too, so this is nil only

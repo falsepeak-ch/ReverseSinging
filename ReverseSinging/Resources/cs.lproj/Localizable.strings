@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Vítej v Dubloonu";
-"onboarding.welcome.message" = "Dvě hry, jeden mikrofon. Zazpívej písničku pozpátku, nebo strč vlastní hlas do filmové scény. Normálně nebudeš znít ani v jednom případě.";
+"onboarding.welcome.message" = "Tři hry, jeden mikrofon. Zazpívej písničku pozpátku, strč vlastní hlas do filmové scény, nebo napodobuj zvuk, dokud nesedí. Normálně nebudeš znít ani v jednom případě.";
 "onboarding.howItWorks.title" = "Jak to funguje";
 "onboarding.howItWorks.message" = "Nahraj písničku, otoč ji a zpívej s tou hatmatilkou. Pak otoč vlastní pokus a zjisti, jestli ses trefil, nebo právě vynalezl nový jazyk.";
 "onboarding.dub.title" = "Nadabuj filmovou scénu";
 "onboarding.dub.message" = "Druhá hra: pusť scénu, přehrávej přes ni jako o život a pak se poslechni ve filmu. Dvě scény jsou v balení. Zbytek si přineseš sám.";
 "onboarding.microphone.title" = "Ještě jedna věc";
-"onboarding.microphone.message" = "Obě hry tě potřebují slyšet: při zpívání pozpátku i při dabování. Mikrofon se probouzí jen během nahrávání, všechno zůstává v tomhle zařízení a nikdy se nic nikam neposílá. Tvůj nejhorší pokus zůstane mezi vámi dvěma.";
+"onboarding.microphone.message" = "Všechny tři hry tě potřebují slyšet: při zpívání pozpátku, při dabování scény i při napodobování zvuků. Mikrofon se probouzí jen během nahrávání, všechno zůstává v tomhle zařízení a nikdy se nic nikam neposílá. Tvůj nejhorší pokus zůstane mezi vámi dvěma.";
 "onboarding.button.openSettings" = "Otevřít Nastavení";
 "onboarding.button.letsRecord" = "tak jo, nahráváme!";
 "onboarding.button.continueLowercase" = "pokračovat";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Nikdo tě neslyší";
-"main.emptyState.message" = "Právě teď je Dubloon nahrávací appka, která nemá čím nahrávat. Povol mikrofon v nastavení zařízení a obě hry se zase proberou k životu.";
+"main.emptyState.message" = "Právě teď je Dubloon nahrávací appka, která nemá čím nahrávat. Povol mikrofon v nastavení zařízení a všechny tři hry se zase proberou k životu.";
 "main.emptyState.button" = "Otevřít Nastavení";
 
 // MARK: - Main View - Processing & Success
@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Knoflíky, měřáky a průběhy vln";
 "settings.preferences" = "Předvolby";
 "settings.about" = "O aplikaci";
+"settings.about.memberSince" = "Členem od %@";
+"settings.about.license.lifetime" = "Dubloon Pro, doživotně";
+"settings.about.license.renews" = "Dubloon Pro, obnoví se %@";
+"settings.about.license.ends" = "Dubloon Pro, končí %@";
+"settings.about.license.earlyAdopter" = "Průkopník, zdarma navždy";
+"settings.about.license.trialDays" = "Zkušební verze, zbývá dní: %d";
+"settings.about.license.trialLastDay" = "Zkušební verze, poslední den";
+"settings.about.license.trialOver" = "Zkušební verze skončila";
+"settings.about.license.free" = "Zdarma";
 
 // Theme descriptions
 
@@ -219,6 +228,7 @@
 "main.button.back" = "Zpět";
 "main.mode.reverse.subtitle" = "Nahraj, otoč a zazpívej tu hatmatilku";
 "main.mode.dub.subtitle" = "Vlož svůj hlas do cizích úst";
+"main.mode.free" = "Zdarma";
 "dub.speakerAccessibility" = "Říká %@";
 "dub.cast" = "Obsazení";
 "dub.referenceTrack" = "Předloha";
@@ -247,6 +257,8 @@
 "dubShare.unknownSource" = "Tuhle scénu sis přinesl sám, takže víš, odkud je a co s ní smíš dělat.";
 "dubShare.responsibility" = "Kam to poputuje, je na tobě, tak se drž autorských pravidel tam, kde žiješ.";
 "dubShare.confirm" = "Exportovat video";
+"dubShare.share" = "Sdílet…";
+"dubShare.save" = "Uložit…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Chystáme tvoje první scény…";
@@ -275,13 +287,17 @@
 "pro.trial.daysLeft" = "Zbývá %d dní";
 "pro.trial.oneDayLeft" = "Poslední den";
 "pro.trial.over" = "Tvoje zkušební doba skončila";
+"pro.locked.title" = "Pro dabování si pořiď Dubloon Pro";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Odemknout Dubloon";
-"pro.unlock.subtitle" = "Jedna platba, obě hry, tvoje napořád.";
+"pro.unlock.subtitle" = "Všechny scény, Booth Cam a exporty. Zpívání pozpátku zůstává zdarma.";
 "pro.owned.title" = "Dubloon je tvůj";
 "pro.owned.subtitle" = "Díky. Každá scéna, každý pokus, bez stropu.";
 "pro.manage.title" = "Spravovat nákup";
 "pro.manage.subtitle" = "Účtenky, vrácení peněz a pomoc s nákupem.";
+"pro.subscribed.title" = "Máš Dubloon Pro";
+"pro.manageSubscription.title" = "Spravovat předplatné";
+"pro.manageSubscription.subtitle" = "Změna tarifu, zrušení nebo pomoc.";
 "pro.restore.title" = "Obnovit nákup";
 "pro.restore.subtitle" = "Nový telefon nebo přeinstalace? Vrať si ho.";
 "pro.testStore.warning" = "Debug build: připojeno k testovacímu obchodu RevenueCat. Žádné skutečné peníze se nehýbou.";
@@ -293,30 +309,42 @@
 "pro.error.generic" = "Obchod neodpověděl. Zkus to za chvíli.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Odemknout Dubloon";
-"pro.fallback.message" = "Tvoje zkušební doba skončila. Jedna platba nechá obě hry otevřené napořád.";
-"pro.fallback.message.beforeExpiry" = "Jedna platba nechá obě hry otevřené napořád.";
+"pro.fallback.message" = "Tvoje zkušební doba skončila. Odemkni Dubloon a dabuj dál.";
+"pro.fallback.message.beforeExpiry" = "Odemkni Dubloon a dabuj dál.";
+"pro.fallback.message.noTrial" = "Odemkni Dubloon a nadabuj každou scénu.";
 "pro.fallback.buy" = "Odemknout za %@";
 "pro.fallback.buyUnpriced" = "Odemknout";
 "pro.fallback.loading" = "Ptáme se obchodu…";
 "pro.fallback.unavailable" = "Obchod teď neodpovídá. Zkontroluj připojení a zkus to znovu.";
 "pro.fallback.retry" = "Zkusit znovu";
-"pro.fallback.benefit.one" = "Zpívej pozpátku, dokud to sousedi vydrží";
+"pro.fallback.benefit.one" = "Nafilmuj se v kabině s Booth Cam";
 "pro.fallback.benefit.two" = "Nadabuj každou scénu a přines si vlastní";
 "pro.fallback.benefit.three" = "Exportuj své pokusy a poděl se o škody";
 "pro.fallback.oneTime" = "Jedna platba. Žádné předplatné.";
+"pro.fallback.subscribe.monthly" = "Předplatit za %@/měsíc";
+"pro.fallback.subscribe.yearly" = "Předplatit za %@/rok";
+"pro.fallback.subscribe" = "Předplatit za %@";
+"pro.fallback.renews" = "Obnovuje se automaticky, dokud ho nezrušíš. Zrušit ho můžeš kdykoli v nastavení účtu Apple.";
+"pro.fallback.terms" = "Podmínky použití";
+
+// MARK: - Review banner
+"review.banner.title" = "Díky za přechod na Pro";
+"review.banner.message" = "Dubloon dělá jeden člověk v Curychu a právě díky recenzím ho nacházejí noví hráči. Jestli tě baví, pár slov v App Store by hodně znamenalo.";
+"review.banner.rate" = "Napsat recenzi";
+"review.banner.later" = "Teď ne";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Vítej v klubu";
-"pro.earlyAdopter.message" = "Dubloon teď stojí peníze — jenom u tebe ne. Byl jsi tu dřív, než přišla cenovka, takže obě hry zůstávají tvoje, zdarma, dokud aplikace existuje. Díky za ty první dny.";
+"pro.earlyAdopter.message" = "Dubloon teď stojí peníze — jenom u tebe ne. Byl jsi tu dřív, než přišla cenovka, takže všechny tři hry zůstávají tvoje, zdarma, dokud aplikace existuje. Díky za ty první dny.";
 "pro.earlyAdopter.badge" = "Zdarma navždy";
 "pro.earlyAdopter.confirm" = "Paráda";
 "pro.earlyAdopter.settings.title" = "Zdarma navždy";
-"pro.earlyAdopter.settings.subtitle" = "Byl jsi tu brzy. Obě hry jsou tvoje a nic nám nedlužíš.";
+"pro.earlyAdopter.settings.subtitle" = "Byl jsi tu brzy. Všechny tři hry jsou tvoje a nic nám nedlužíš.";
 "pro.closePaywall" = "Zavřít";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Přístup";
-"pro.earlyAdopter.row.access.value" = "Obě hry";
+"pro.earlyAdopter.row.access.value" = "Všechny tři hry";
 "pro.earlyAdopter.row.cost" = "Cena";
 "pro.earlyAdopter.row.cost.value" = "Nic";
 "pro.earlyAdopter.row.expires" = "Vyprší";
@@ -407,3 +435,130 @@
 "dub.error.linesBadTimestamps" = "Časy začátku v balíčku nejsou zapsané jako časy, takže repliky nejde umístit.";
 "dub.error.linesNoAudio" = "Repliky v balíčku nemají nahrávky, takže není co dabovat.";
 "dub.error.linesUnplayableAudio" = "Žádnou z nahrávek v balíčku nejde na tomhle zařízení přehrát.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Napodobování zvuků";
+"main.mode.imitate.subtitle" = "Napodob zvuk a dostaň verdikt";
+"imitate.library.hint" = "Vyber zvuk, poslechni si ho a předveď svou nejlepší imitaci.";
+"imitate.library.best" = "Rekord";
+"imitate.library.untried" = "Nové";
+"imitate.challenge.listen" = "Poslechnout";
+"imitate.challenge.record" = "Napodobit";
+"imitate.challenge.stop" = "Stop";
+"imitate.challenge.instruction" = "Nejdřív poslouchej, pak stiskni Napodobit a vydej ten zvuk.";
+"imitate.challenge.recordingHint" = "Jedeš! Vydej ten zvuk.";
+"imitate.challenge.scoring" = "Hodnotím…";
+"imitate.challenge.tryAgain" = "Znovu";
+"imitate.challenge.playMine" = "Přehrát moje";
+"imitate.challenge.makeVideo" = "Vytvořit video";
+"imitate.challenge.rendering" = "Vytvářím tvoje video…";
+"imitate.challenge.newBest" = "Nový rekord!";
+"imitate.challenge.exportFailed" = "Video se nepodařilo vytvořit. Zkus to prosím znovu.";
+"imitate.challenge.difficulty" = "Obtížnost";
+"imitate.category.animals" = "Zvířata";
+"imitate.category.vehicles" = "Klaksony a sirény";
+"imitate.category.cartoon" = "Kreslené a sci-fi";
+"imitate.category.human" = "Lidské zvuky";
+"imitate.part.rhythm" = "Rytmus";
+"imitate.part.pitch" = "Výška";
+"imitate.part.tone" = "Barva";
+"imitate.part.duration" = "Délka";
+"imitate.verdict.nailedIt" = "TREFA!";
+"imitate.verdict.legendary" = "LEGENDÁRNÍ";
+"imitate.verdict.approved" = "SCHVÁLENO";
+"imitate.verdict.certified" = "CERTIFIKOVÁNO";
+"imitate.verdict.notBad" = "UJDE TO";
+"imitate.verdict.almost" = "SKORO…";
+"imitate.verdict.soClose" = "TĚSNĚ VEDLE";
+"imitate.verdict.failed" = "ZAMÍTNUTO";
+"imitate.verdict.whatWasThat" = "CO TO BYLO?";
+"imitate.reel.challenge" = "Zvuková výzva";
+"imitate.reel.canYouSoundLike" = "Dokážeš znít jako…";
+"imitate.reel.original" = "Originál";
+"imitate.reel.you" = "Ty";
+"imitate.reel.score" = "Skóre";
+"imitate.reel.beatMyScore" = "Překonáš moje skóre?";
+"imitate.sound.cat" = "Kočka";
+"imitate.sound.dog" = "Pes";
+"imitate.sound.cow" = "Kráva";
+"imitate.sound.sheep" = "Ovce";
+"imitate.sound.chicken" = "Slepice";
+"imitate.sound.rooster" = "Kohout";
+"imitate.sound.duck" = "Kachna";
+"imitate.sound.pig" = "Prase";
+"imitate.sound.wolf" = "Vlk";
+"imitate.sound.owl" = "Sova";
+"imitate.sound.horn" = "Klakson";
+"imitate.sound.siren" = "Siréna";
+"imitate.sound.train" = "Píšťala vlaku";
+"imitate.sound.bell" = "Zvonek na kolo";
+"imitate.sound.laser" = "Laser";
+"imitate.sound.boing" = "Boing";
+"imitate.sound.slide" = "Posuvná píšťalka";
+"imitate.sound.zap" = "Výboj";
+"imitate.sound.burp" = "Říhnutí";
+"imitate.sound.sneeze" = "Kýchnutí";
+"imitate.sound.snore" = "Chrápání";
+"imitate.sound.laugh" = "Zlověstný smích";
+"imitate.sound.yawn" = "Zívnutí";
+"imitate.sound.hiccup" = "Škytavka";
+
+/* Mac */
+"mac.sidebar.games" = "Hry";
+"mac.sidebar.packs" = "Dabingové balíčky";
+"mac.sidebar.sessions" = "Sessions";
+"mac.menu.importPack" = "Importovat dabingový balíček…";
+"mac.menu.export" = "Exportovat video…";
+"mac.menu.playback" = "Přehrávání";
+"mac.menu.playPause" = "Přehrát/Pozastavit";
+"mac.menu.record" = "Nahrát";
+"mac.menu.listen" = "Přehrát originál";
+"mac.menu.playTake" = "Přehrát záznam";
+"mac.menu.previousLine" = "Předchozí replika";
+"mac.menu.nextLine" = "Další replika";
+"mac.menu.showInspector" = "Zobrazit inspektor";
+"mac.menu.hideInspector" = "Skrýt inspektor";
+"mac.panel.inspector" = "Inspektor";
+"mac.panel.viewer" = "Prohlížeč";
+"mac.panel.line" = "Replika";
+"mac.panel.scene" = "Scéna";
+"mac.panel.takes" = "Záznamy";
+"mac.panel.character" = "Postava";
+"mac.panel.start" = "Začátek";
+"mac.panel.duration" = "Délka";
+"mac.panel.notDubbed" = "Zatím nenadabováno";
+"mac.panel.attempts" = "Pokusy";
+"mac.panel.emptyTitle" = "Vyberte, na čem chcete pracovat";
+"mac.panel.emptyMessage" = "V postranním panelu vyberte hru nebo dabingový balíček.";
+"mac.settings.general" = "Obecné";
+"mac.settings.recording" = "Nahrávání";
+"mac.welcome.notNow" = "Teď ne";
+"mac.booth.primer.message" = "Booth Cam nechá běžet kameru Macu, zatímco hraješ, takže scéna, replika i tvůj obličej se vejdou na jednu obrazovku. Později můžeš reakci sdílet spolu s dabingem.";
+"mac.booth.primer.systemPrompt" = "Za chvíli si macOS řekne o přístup ke kameře.";
+"mac.menu.openRecent" = "Otevřít nedávné";
+"mac.menu.clearRecent" = "Vymazat nabídku";
+"mac.menu.open" = "Otevřít";
+"mac.menu.showInFinder" = "Zobrazit ve Finderu";
+"mac.menu.viewer" = "Prohlížeč";
+"mac.menu.zoomIn" = "Zvětšit";
+"mac.menu.zoomOut" = "Zmenšit";
+"mac.menu.skipBack" = "O 5 sekund zpět";
+"mac.menu.skipForward" = "O 5 sekund vpřed";
+"mac.menu.goToStart" = "Přejít na začátek";
+"mac.menu.shortcuts" = "Klávesové zkratky";
+"mac.menu.delete" = "Smazat…";
+"mac.confirm.deletePack.title" = "Smazat „%@“?";
+"mac.confirm.deletePack.message" = "Tvoje záznamy a videa z kabiny k této scéně zmizí s ním. Tuto akci nelze vrátit.";
+"mac.confirm.deleteSession.title" = "Smazat tuto session?";
+"mac.confirm.deleteSession.message" = "Její nahrávky zmizí s ní. Tuto akci nelze vrátit.";
+"mac.shortcuts.file" = "Soubor";
+"mac.shortcuts.view" = "Zobrazení";
+"mac.tip.shortcuts.title" = "Klávesnice je tvůj ovládací pult";
+"mac.tip.shortcuts.message" = "R nahrává, mezerník přehrává a šipky přeskakují mezi replikami. Všechny zkratky najdeš v nabídce Nápověda ▸ Klávesové zkratky.";
+"mac.export.dragHint" = "Přetáhni video kamkoli a ulož si jeho kopii";
+"mac.search.prompt" = "Hledat";
+"mac.menu.find" = "Najít";
+"mac.menu.openInNewWindow" = "Otevřít v novém okně";
+"mac.panel.sound" = "Zvuk";
+"mac.panel.allSounds" = "Vše";
+"mac.panel.compare" = "Porovnání";

@@ -404,7 +404,7 @@ static int cdeque_init(struct cdeque* d, int max_capacity_power_of_2) {
 		return CDE_PARAM;
 
 	cdeque_clear(d);
-	d->arr = malloc(sizeof(void*) * max_capacity_power_of_2);
+	d->arr = malloc(sizeof(*d->arr) * max_capacity_power_of_2);
 
 	return d->arr ? CDE_OK : CDE_ALLOC;
 }
@@ -2632,7 +2632,7 @@ static void update_crc(struct rar5 *rar5, const uint8_t* p, size_t to_read) {
 		/* Don't update CRC32 if the file doesn't have the
 		 * `stored_crc32` info filled in. */
 		if(rar5->file.stored_crc32 > 0) {
-			rar5->file.calculated_crc32 =
+			rar5->file.calculated_crc32 = (uint32_t)
 				crc32(rar5->file.calculated_crc32, p,
 				    (unsigned int)to_read);
 		}

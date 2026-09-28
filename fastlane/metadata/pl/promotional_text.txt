@@ -1,1 +1,1 @@
-Nowość w 1.5.1: otwiera się i gra znacznie więcej paczek społeczności, także .rar i .ogg. Nagraj siebie podczas dubbingu z Booth Cam.
+Nowość w 1.7.0: Naśladowanie dźwięków, trzecia gra. Skopiuj dźwięk, dostań werdykt, udostępnij wideo. A śpiewanie od tyłu jest teraz za darmo dla wszystkich.

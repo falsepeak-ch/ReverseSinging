@@ -2,7 +2,7 @@
 //  GameMode.swift
 //  ReverseSinging
 //
-//  The two games the app ships.
+//  The games the app ships.
 //
 
 import Foundation
@@ -11,6 +11,7 @@ import Foundation
 enum GameMode: String, CaseIterable, Identifiable, Hashable {
     case reverse
     case dub
+    case imitate
 
     var id: String { rawValue }
 
@@ -21,6 +22,7 @@ enum GameMode: String, CaseIterable, Identifiable, Hashable {
         switch self {
         case .reverse: return "studio-mic-boom"
         case .dub: return "clapperboard"
+        case .imitate: return "megaphone"
         }
     }
 
@@ -28,6 +30,7 @@ enum GameMode: String, CaseIterable, Identifiable, Hashable {
         switch self {
         case .reverse: return Strings.Main.Mode.reverseTitle
         case .dub: return Strings.Main.Mode.dubTitle
+        case .imitate: return Strings.Main.Mode.imitateTitle
         }
     }
 
@@ -35,6 +38,7 @@ enum GameMode: String, CaseIterable, Identifiable, Hashable {
         switch self {
         case .reverse: return Strings.Main.Mode.reverseSubtitle
         case .dub: return Strings.Main.Mode.dubSubtitle
+        case .imitate: return Strings.Main.Mode.imitateSubtitle
         }
     }
 }

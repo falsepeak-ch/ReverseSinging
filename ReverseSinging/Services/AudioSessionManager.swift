@@ -31,6 +31,9 @@ enum AudioSessionError: LocalizedError {
 
     /// The `AVAudioSession.ErrorCode`s that mean "not now" rather than "never".
     static func classify(_ error: Error) -> AudioSessionError {
+        #if os(macOS)
+        return .activationFailed(error)
+        #else
         let code = AVAudioSession.ErrorCode(rawValue: (error as NSError).code)
         switch code {
         case .insufficientPriority, .cannotInterruptOthers, .isBusy, .siriIsRecording,
@@ -39,13 +42,20 @@ enum AudioSessionError: LocalizedError {
         default:
             return .activationFailed(error)
         }
+        #endif
     }
 }
 
+/// On the Mac there is no audio session to configure or activate: the engine talks to the
+/// default input and output devices directly. The same calls exist there and succeed, so the
+/// recorder and the player need no platform checks of their own; only the microphone
+/// permission is real on both.
 final class AudioSessionManager {
     static let shared = AudioSessionManager()
 
+    #if os(iOS)
     private let audioSession = AVAudioSession.sharedInstance()
+    #endif
     private var isConfigured = false
 
     private init() {}
@@ -56,6 +66,9 @@ final class AudioSessionManager {
     /// Uses .playAndRecord to support both recording and playback
     func configure() {
         guard !isConfigured else { return }
+        #if os(macOS)
+        isConfigured = true
+        #else
 
         do {
             // Use .playAndRecord category to support both recording and playback
@@ -75,6 +88,7 @@ final class AudioSessionManager {
             // thing worth knowing about when a user reports silence.
             CrashReporter.shared.record(error, context: "audio_session.configure")
         }
+        #endif
     }
 
     // MARK: - Activation
@@ -88,6 +102,7 @@ final class AudioSessionManager {
     func activate() throws(AudioSessionError) {
         configure() // Ensure configured before activating
 
+        #if os(iOS)
         do {
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
             print("✅ Audio session activated")
@@ -101,6 +116,7 @@ final class AudioSessionManager {
             }
             throw classified
         }
+        #endif
     }
 
     /// `activate()`, for callers with nowhere to put an error. False means do not touch the engine.
@@ -111,6 +127,7 @@ final class AudioSessionManager {
 
     /// Deactivate the audio session (call when done with audio)
     func deactivate() {
+        #if os(iOS)
         do {
             try audioSession.setActive(false, options: .notifyOthersOnDeactivation)
             print("✅ Audio session deactivated")
@@ -118,12 +135,17 @@ final class AudioSessionManager {
             // Not reported: another app holding the session is normal and self-corrects.
             print("⚠️ Failed to deactivate audio session: \(error)")
         }
+        #endif
     }
 
     /// True when the output has somewhere to go, which is what an `AVAudioEngine` graph needs
     /// before a single node can be connected to its mixer.
     var hasOutputRoute: Bool {
+        #if os(iOS)
         !audioSession.currentRoute.outputs.isEmpty && audioSession.sampleRate > 0
+        #else
+        true
+        #endif
     }
 
     // MARK: - Permission
@@ -141,5 +163,10 @@ final class AudioSessionManager {
     /// Helper to check if permission is granted
     var hasRecordPermission: Bool {
         return AVAudioApplication.shared.recordPermission == .granted
+    }
+
+    /// True only when the user said no. Never asked is not denied: the first recording asks.
+    var isRecordPermissionDenied: Bool {
+        return AVAudioApplication.shared.recordPermission == .denied
     }
 }

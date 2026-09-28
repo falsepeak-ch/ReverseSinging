@@ -29,18 +29,33 @@ struct ProPaywallView: View {
     ///   - source: what put this on screen, for analytics. Not shown.
     ///   - isDismissible: a hard paywall has no close button and cannot be swiped away.
     init(source: String, isDismissible: Bool = true) {
+        self.source = source
+        self.isDismissible = isDismissible
         _viewModel = StateObject(wrappedValue: ProPaywallViewModel(
             source: source,
             isDismissible: isDismissible
         ))
     }
 
+    private let source: String
+    private let isDismissible: Bool
+
     var body: some View {
+        #if os(macOS)
+        // The dashboard paywall is drawn for a phone. The Mac draws its own from the same
+        // offering; see `MacPaywallView`.
+        MacPaywallView(source: source, isDismissible: isDismissible)
+        #else
+        dashboardPaywall
+        #endif
+    }
+
+    private var dashboardPaywall: some View {
         Group {
             if let offering = viewModel.offering {
                 PaywallView(offering: offering, displayCloseButton: viewModel.isDismissible)
-                    .onPurchaseCompleted { customerInfo in
-                        viewModel.purchaseCompleted(customerInfo)
+                    .onPurchaseCompleted { transaction, customerInfo in
+                        viewModel.purchaseCompleted(transaction, customerInfo)
                     }
                     .onRestoreCompleted { customerInfo in
                         viewModel.restoreCompleted(customerInfo)

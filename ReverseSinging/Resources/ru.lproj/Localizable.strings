@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Добро пожаловать в Dubloon";
-"onboarding.welcome.message" = "Две игры, один микрофон. Спой песню задом наперёд или вставь свой голос в сцену из фильма. Нормально не прозвучит ни то, ни другое.";
+"onboarding.welcome.message" = "Три игры, один микрофон. Спой песню задом наперёд, вставь свой голос в сцену из фильма или повторяй звук, пока не получится. Нормально не прозвучит ничего.";
 "onboarding.howItWorks.title" = "Как это работает";
 "onboarding.howItWorks.message" = "Запиши песню, переверни её и спой эту тарабарщину. Потом переверни свой дубль и узнай, попал ты близко или только что изобрёл новый язык.";
 "onboarding.dub.title" = "Озвучь сцену из фильма";
 "onboarding.dub.message" = "Вторая игра: включи сцену, переиграй как следует, а потом услышь себя в фильме. Две сцены уже внутри. Дальше приносишь свои файлы.";
 "onboarding.microphone.title" = "И последнее";
-"onboarding.microphone.message" = "Обеим играм нужно тебя слышать: и пению задом наперёд, и озвучке. Микрофон просыпается только на время записи, всё остаётся на этом устройстве и никуда не отправляется. Твой худший дубль останется между вами двумя.";
+"onboarding.microphone.message" = "Всем трём играм нужно тебя слышать: и пению задом наперёд, и озвучке сцены, и подражанию звукам. Микрофон просыпается только на время записи, всё остаётся на этом устройстве и никуда не отправляется. Твой худший дубль останется между вами двумя.";
 "onboarding.button.openSettings" = "Открыть Настройки";
 "onboarding.button.letsRecord" = "давай, записываем!";
 "onboarding.button.continueLowercase" = "продолжить";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Тебя никто не слышит";
-"main.emptyState.message" = "Сейчас Dubloon — приложение для записи, которому нечем записывать. Включи доступ к микрофону в настройках устройства, и обе игры оживут.";
+"main.emptyState.message" = "Сейчас Dubloon — приложение для записи, которому нечем записывать. Включи доступ к микрофону в настройках устройства, и все три игры оживут.";
 "main.emptyState.button" = "Открыть Настройки";
 
 // MARK: - Main View - Processing & Success
@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Ручки, индикаторы и формы волны";
 "settings.preferences" = "Параметры";
 "settings.about" = "О программе";
+"settings.about.memberSince" = "Участник с %@";
+"settings.about.license.lifetime" = "Dubloon Pro, навсегда";
+"settings.about.license.renews" = "Dubloon Pro, продление %@";
+"settings.about.license.ends" = "Dubloon Pro, до %@";
+"settings.about.license.earlyAdopter" = "Первопроходец, бесплатно навсегда";
+"settings.about.license.trialDays" = "Пробный период, осталось дней: %d";
+"settings.about.license.trialLastDay" = "Пробный период, последний день";
+"settings.about.license.trialOver" = "Пробный период закончился";
+"settings.about.license.free" = "Бесплатно";
 
 // Theme descriptions
 
@@ -219,6 +228,7 @@
 "main.button.back" = "Назад";
 "main.mode.reverse.subtitle" = "Запиши, переверни и спой тарабарщину";
 "main.mode.dub.subtitle" = "Вложи свой голос в чужие уста";
+"main.mode.free" = "Бесплатно";
 "dub.speakerAccessibility" = "Говорит %@";
 "dub.cast" = "Актёры";
 "dub.referenceTrack" = "Образец";
@@ -247,6 +257,8 @@
 "dubShare.unknownSource" = "Эту сцену ты принёс сам, так что знаешь, откуда она и что с ней можно делать.";
 "dubShare.responsibility" = "Куда это отправится, решаешь ты, так что соблюдай авторские правила там, где живёшь.";
 "dubShare.confirm" = "Экспортировать видео";
+"dubShare.share" = "Поделиться…";
+"dubShare.save" = "Сохранить…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Готовим твои первые сцены…";
@@ -275,13 +287,17 @@
 "pro.trial.daysLeft" = "Осталось дней: %d";
 "pro.trial.oneDayLeft" = "Последний день";
 "pro.trial.over" = "Пробный период закончился";
+"pro.locked.title" = "Чтобы озвучивать, возьми Dubloon Pro";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Открыть Dubloon";
-"pro.unlock.subtitle" = "Один платёж, обе игры, твои навсегда.";
+"pro.unlock.subtitle" = "Все сцены, Booth Cam и экспорт. Пение задом наперёд остаётся бесплатным.";
 "pro.owned.title" = "Dubloon твой";
 "pro.owned.subtitle" = "Спасибо. Каждая сцена, каждый дубль, без потолка.";
 "pro.manage.title" = "Управление покупкой";
 "pro.manage.subtitle" = "Чеки, возвраты и помощь с покупкой.";
+"pro.subscribed.title" = "У тебя Dubloon Pro";
+"pro.manageSubscription.title" = "Управление подпиской";
+"pro.manageSubscription.subtitle" = "Сменить план, отменить или получить помощь.";
 "pro.restore.title" = "Восстановить покупку";
 "pro.restore.subtitle" = "Новый телефон или переустановка? Верни её.";
 "pro.testStore.warning" = "Отладочная сборка: подключена к тестовому магазину RevenueCat. Настоящие деньги не двигаются.";
@@ -293,30 +309,42 @@
 "pro.error.generic" = "Магазин не ответил. Попробуй через минуту.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Открыть Dubloon";
-"pro.fallback.message" = "Пробный период закончился. Один платёж оставляет обе игры открытыми навсегда.";
-"pro.fallback.message.beforeExpiry" = "Один платёж оставляет обе игры открытыми навсегда.";
+"pro.fallback.message" = "Пробный период закончился. Открой Dubloon, чтобы продолжать озвучивать.";
+"pro.fallback.message.beforeExpiry" = "Открой Dubloon, чтобы продолжать озвучивать.";
+"pro.fallback.message.noTrial" = "Открой Dubloon, чтобы озвучивать любые сцены.";
 "pro.fallback.buy" = "Открыть за %@";
 "pro.fallback.buyUnpriced" = "Открыть";
 "pro.fallback.loading" = "Спрашиваем магазин…";
 "pro.fallback.unavailable" = "Магазин сейчас не отвечает. Проверь соединение и попробуй снова.";
 "pro.fallback.retry" = "Ещё раз";
-"pro.fallback.benefit.one" = "Пой задом наперёд, пока соседи терпят";
+"pro.fallback.benefit.one" = "Снимай себя в кабине с Booth Cam";
 "pro.fallback.benefit.two" = "Озвучивай любые сцены и приноси свои";
 "pro.fallback.benefit.three" = "Экспортируй дубли и делись последствиями";
 "pro.fallback.oneTime" = "Один платёж. Это не подписка.";
+"pro.fallback.subscribe.monthly" = "Подписаться за %@/мес.";
+"pro.fallback.subscribe.yearly" = "Подписаться за %@/год";
+"pro.fallback.subscribe" = "Подписаться за %@";
+"pro.fallback.renews" = "Продлевается автоматически, пока ты её не отменишь. Отменить можно в любой момент в настройках аккаунта Apple.";
+"pro.fallback.terms" = "Условия использования";
+
+// MARK: - Review banner
+"review.banner.title" = "Спасибо за переход на Pro";
+"review.banner.message" = "Dubloon делает один человек в Цюрихе, и именно по отзывам его находят новые игроки. Если тебе нравится, пара слов в App Store значила бы очень много.";
+"review.banner.rate" = "Написать отзыв";
+"review.banner.later" = "Не сейчас";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Добро пожаловать в клуб";
-"pro.earlyAdopter.message" = "Теперь Dubloon стоит денег — но не для тебя. Ты был здесь до ценника, так что обе игры остаются твоими, бесплатно, пока существует приложение. Спасибо за первые дни.";
+"pro.earlyAdopter.message" = "Теперь Dubloon стоит денег — но не для тебя. Ты был здесь до ценника, так что все три игры остаются твоими, бесплатно, пока существует приложение. Спасибо за первые дни.";
 "pro.earlyAdopter.badge" = "Бесплатно навсегда";
 "pro.earlyAdopter.confirm" = "Отлично";
 "pro.earlyAdopter.settings.title" = "Бесплатно навсегда";
-"pro.earlyAdopter.settings.subtitle" = "Ты пришёл рано. Обе игры твои, и ты нам ничего не должен.";
+"pro.earlyAdopter.settings.subtitle" = "Ты пришёл рано. Все три игры твои, и ты нам ничего не должен.";
 "pro.closePaywall" = "Закрыть";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Доступ";
-"pro.earlyAdopter.row.access.value" = "Обе игры";
+"pro.earlyAdopter.row.access.value" = "Все три игры";
 "pro.earlyAdopter.row.cost" = "Цена";
 "pro.earlyAdopter.row.cost.value" = "Ноль";
 "pro.earlyAdopter.row.expires" = "Истекает";
@@ -407,3 +435,130 @@
 "dub.error.linesBadTimestamps" = "Время начала в этом паке записано не как время, поэтому реплики нельзя расставить.";
 "dub.error.linesNoAudio" = "У реплик этого пака нет записей, так что озвучивать нечего.";
 "dub.error.linesUnplayableAudio" = "Ни одна запись из этого пака не воспроизводится на этом устройстве.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Имитация звуков";
+"main.mode.imitate.subtitle" = "Изобрази звук и получи вердикт";
+"imitate.library.hint" = "Выбери звук, послушай и изобрази его как можно лучше.";
+"imitate.library.best" = "Рекорд";
+"imitate.library.untried" = "Новый";
+"imitate.challenge.listen" = "Слушать";
+"imitate.challenge.record" = "Изобразить";
+"imitate.challenge.stop" = "Стоп";
+"imitate.challenge.instruction" = "Сначала послушай, потом нажми «Изобразить» и издай звук.";
+"imitate.challenge.recordingHint" = "Давай! Издай звук.";
+"imitate.challenge.scoring" = "Оцениваем…";
+"imitate.challenge.tryAgain" = "Ещё раз";
+"imitate.challenge.playMine" = "Послушать мою";
+"imitate.challenge.makeVideo" = "Сделать видео";
+"imitate.challenge.rendering" = "Делаем твоё видео…";
+"imitate.challenge.newBest" = "Новый рекорд!";
+"imitate.challenge.exportFailed" = "Не удалось сделать видео. Попробуй ещё раз.";
+"imitate.challenge.difficulty" = "Сложность";
+"imitate.category.animals" = "Животные";
+"imitate.category.vehicles" = "Гудки и сирены";
+"imitate.category.cartoon" = "Мультики и фантастика";
+"imitate.category.human" = "Человеческие звуки";
+"imitate.part.rhythm" = "Ритм";
+"imitate.part.pitch" = "Высота";
+"imitate.part.tone" = "Тембр";
+"imitate.part.duration" = "Длительность";
+"imitate.verdict.nailedIt" = "В ТОЧКУ!";
+"imitate.verdict.legendary" = "ЛЕГЕНДАРНО";
+"imitate.verdict.approved" = "ОДОБРЕНО";
+"imitate.verdict.certified" = "СЕРТИФИЦИРОВАНО";
+"imitate.verdict.notBad" = "НЕПЛОХО";
+"imitate.verdict.almost" = "ПОЧТИ…";
+"imitate.verdict.soClose" = "ЧУТЬ-ЧУТЬ";
+"imitate.verdict.failed" = "ПРОВАЛЕНО";
+"imitate.verdict.whatWasThat" = "ЭТО ЧТО БЫЛО?";
+"imitate.reel.challenge" = "Звуковой челлендж";
+"imitate.reel.canYouSoundLike" = "Сможешь звучать как…";
+"imitate.reel.original" = "Оригинал";
+"imitate.reel.you" = "Ты";
+"imitate.reel.score" = "Счёт";
+"imitate.reel.beatMyScore" = "Побьёшь мой счёт?";
+"imitate.sound.cat" = "Кошка";
+"imitate.sound.dog" = "Собака";
+"imitate.sound.cow" = "Корова";
+"imitate.sound.sheep" = "Овца";
+"imitate.sound.chicken" = "Курица";
+"imitate.sound.rooster" = "Петух";
+"imitate.sound.duck" = "Утка";
+"imitate.sound.pig" = "Свинья";
+"imitate.sound.wolf" = "Волк";
+"imitate.sound.owl" = "Сова";
+"imitate.sound.horn" = "Гудок машины";
+"imitate.sound.siren" = "Сирена";
+"imitate.sound.train" = "Гудок поезда";
+"imitate.sound.bell" = "Велозвонок";
+"imitate.sound.laser" = "Лазер";
+"imitate.sound.boing" = "Бойнг";
+"imitate.sound.slide" = "Свисток с поршнем";
+"imitate.sound.zap" = "Электроразряд";
+"imitate.sound.burp" = "Отрыжка";
+"imitate.sound.sneeze" = "Чих";
+"imitate.sound.snore" = "Храп";
+"imitate.sound.laugh" = "Злодейский смех";
+"imitate.sound.yawn" = "Зевок";
+"imitate.sound.hiccup" = "Икота";
+
+/* Mac */
+"mac.sidebar.games" = "Игры";
+"mac.sidebar.packs" = "Паки озвучки";
+"mac.sidebar.sessions" = "Сессии";
+"mac.menu.importPack" = "Импортировать пак озвучки…";
+"mac.menu.export" = "Экспортировать видео…";
+"mac.menu.playback" = "Воспроизведение";
+"mac.menu.playPause" = "Воспроизвести/Пауза";
+"mac.menu.record" = "Запись";
+"mac.menu.listen" = "Воспроизвести оригинал";
+"mac.menu.playTake" = "Воспроизвести дубль";
+"mac.menu.previousLine" = "Предыдущая реплика";
+"mac.menu.nextLine" = "Следующая реплика";
+"mac.menu.showInspector" = "Показать инспектор";
+"mac.menu.hideInspector" = "Скрыть инспектор";
+"mac.panel.inspector" = "Инспектор";
+"mac.panel.viewer" = "Просмотр";
+"mac.panel.line" = "Реплика";
+"mac.panel.scene" = "Сцена";
+"mac.panel.takes" = "Дубли";
+"mac.panel.character" = "Персонаж";
+"mac.panel.start" = "Начало";
+"mac.panel.duration" = "Длительность";
+"mac.panel.notDubbed" = "Ещё не озвучено";
+"mac.panel.attempts" = "Попытки";
+"mac.panel.emptyTitle" = "Выберите, над чем работать";
+"mac.panel.emptyMessage" = "Выберите игру или пак озвучки в боковой панели.";
+"mac.settings.general" = "Основные";
+"mac.settings.recording" = "Запись";
+"mac.welcome.notNow" = "Не сейчас";
+"mac.booth.primer.message" = "Booth Cam держит камеру Mac включённой, пока ты играешь, так что сцена, реплика и твоё лицо помещаются на одном экране. Потом можно поделиться реакцией вместе с озвучкой.";
+"mac.booth.primer.systemPrompt" = "Сейчас macOS попросит доступ к камере.";
+"mac.menu.openRecent" = "Открыть недавние";
+"mac.menu.clearRecent" = "Очистить меню";
+"mac.menu.open" = "Открыть";
+"mac.menu.showInFinder" = "Показать в Finder";
+"mac.menu.viewer" = "Просмотр";
+"mac.menu.zoomIn" = "Увеличить";
+"mac.menu.zoomOut" = "Уменьшить";
+"mac.menu.skipBack" = "Назад на 5 секунд";
+"mac.menu.skipForward" = "Вперёд на 5 секунд";
+"mac.menu.goToStart" = "Перейти к началу";
+"mac.menu.shortcuts" = "Сочетания клавиш";
+"mac.menu.delete" = "Удалить…";
+"mac.confirm.deletePack.title" = "Удалить «%@»?";
+"mac.confirm.deletePack.message" = "Твои дубли и видео из будки для этой сцены удалятся вместе с ним. Это действие нельзя отменить.";
+"mac.confirm.deleteSession.title" = "Удалить эту сессию?";
+"mac.confirm.deleteSession.message" = "Её записи удалятся вместе с ней. Это действие нельзя отменить.";
+"mac.shortcuts.file" = "Файл";
+"mac.shortcuts.view" = "Вид";
+"mac.tip.shortcuts.title" = "Клавиатура — твой пульт";
+"mac.tip.shortcuts.message" = "R записывает, пробел воспроизводит, стрелки переключают реплики. Все сочетания клавиш — в меню «Справка» ▸ «Сочетания клавиш».";
+"mac.export.dragHint" = "Перетащи видео куда угодно, чтобы сохранить копию";
+"mac.search.prompt" = "Поиск";
+"mac.menu.find" = "Найти";
+"mac.menu.openInNewWindow" = "Открыть в новом окне";
+"mac.panel.sound" = "Звук";
+"mac.panel.allSounds" = "Все";
+"mac.panel.compare" = "Сравнение";

@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Вітаємо в Dubloon";
-"onboarding.welcome.message" = "Дві гри, один мікрофон. Заспівай пісню задом наперед або встав свій голос у сцену з фільму. Нормально не звучатиме ні те, ні інше.";
+"onboarding.welcome.message" = "Три гри, один мікрофон. Заспівай пісню задом наперед, встав свій голос у сцену з фільму або повторюй звук, доки не вийде. Нормально не звучатиме ніщо.";
 "onboarding.howItWorks.title" = "Як це працює";
 "onboarding.howItWorks.message" = "Запиши пісню, переверни її і заспівай цю тарабарщину. Потім переверни свій дубль і дізнайся, чи ти влучив, чи щойно винайшов нову мову.";
 "onboarding.dub.title" = "Озвуч сцену з фільму";
 "onboarding.dub.message" = "Друга гра: увімкни сцену, переграй як слід, а потім почуй себе у фільмі. Дві сцени вже всередині. Далі приносиш власні файли.";
 "onboarding.microphone.title" = "Ще одне";
-"onboarding.microphone.message" = "Обидві гри мають тебе чути: і спів задом наперед, і озвучення. Мікрофон прокидається лише під час запису, усе лишається на цьому пристрої й нікуди не надсилається. Твій найгірший дубль лишиться між вами двома.";
+"onboarding.microphone.message" = "Усім трьом іграм треба тебе чути: і спів задом наперед, і озвучення сцени, і наслідування звуків. Мікрофон прокидається лише під час запису, усе лишається на цьому пристрої й нікуди не надсилається. Твій найгірший дубль лишиться між вами двома.";
 "onboarding.button.openSettings" = "Відкрити Налаштування";
 "onboarding.button.letsRecord" = "давай, записуємо!";
 "onboarding.button.continueLowercase" = "далі";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Тебе ніхто не чує";
-"main.emptyState.message" = "Зараз Dubloon — застосунок для запису, якому нема чим записувати. Увімкни доступ до мікрофона в налаштуваннях пристрою, і обидві гри знову оживуть.";
+"main.emptyState.message" = "Зараз Dubloon — застосунок для запису, якому нема чим записувати. Увімкни доступ до мікрофона в налаштуваннях пристрою, і всі три гри знову оживуть.";
 "main.emptyState.button" = "Відкрити Налаштування";
 
 // MARK: - Main View - Processing & Success
@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Ручки, індикатори та форми хвилі";
 "settings.preferences" = "Параметри";
 "settings.about" = "Про застосунок";
+"settings.about.memberSince" = "Учасник з %@";
+"settings.about.license.lifetime" = "Dubloon Pro, назавжди";
+"settings.about.license.renews" = "Dubloon Pro, поновлення %@";
+"settings.about.license.ends" = "Dubloon Pro, до %@";
+"settings.about.license.earlyAdopter" = "Першопроходець, безкоштовно назавжди";
+"settings.about.license.trialDays" = "Пробний період, залишилося днів: %d";
+"settings.about.license.trialLastDay" = "Пробний період, останній день";
+"settings.about.license.trialOver" = "Пробний період закінчився";
+"settings.about.license.free" = "Безкоштовно";
 
 // Theme descriptions
 
@@ -219,6 +228,7 @@
 "main.button.back" = "Назад";
 "main.mode.reverse.subtitle" = "Запиши, переверни і заспівай тарабарщину";
 "main.mode.dub.subtitle" = "Вклади свій голос у чужі вуста";
+"main.mode.free" = "Безплатно";
 "dub.speakerAccessibility" = "Говорить %@";
 "dub.cast" = "Актори";
 "dub.referenceTrack" = "Зразок";
@@ -247,6 +257,8 @@
 "dubShare.unknownSource" = "Цю сцену ти приніс сам, тож знаєш, звідки вона і що з нею можна робити.";
 "dubShare.responsibility" = "Куди воно поїде далі — вирішуєш ти, тож дотримуйся авторських правил там, де живеш.";
 "dubShare.confirm" = "Експортувати відео";
+"dubShare.share" = "Поширити…";
+"dubShare.save" = "Зберегти…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Готуємо твої перші сцени…";
@@ -275,13 +287,17 @@
 "pro.trial.daysLeft" = "Лишилося днів: %d";
 "pro.trial.oneDayLeft" = "Останній день";
 "pro.trial.over" = "Пробний період завершився";
+"pro.locked.title" = "Щоб озвучувати, візьми Dubloon Pro";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Відкрити Dubloon";
-"pro.unlock.subtitle" = "Один платіж, обидві гри, твої назавжди.";
+"pro.unlock.subtitle" = "Усі сцени, Booth Cam та експорт. Спів задом наперед лишається безплатним.";
 "pro.owned.title" = "Dubloon твій";
 "pro.owned.subtitle" = "Дякуємо. Кожна сцена, кожен дубль, без стелі.";
 "pro.manage.title" = "Керування покупкою";
 "pro.manage.subtitle" = "Чеки, повернення і допомога з покупкою.";
+"pro.subscribed.title" = "У тебе Dubloon Pro";
+"pro.manageSubscription.title" = "Керування підпискою";
+"pro.manageSubscription.subtitle" = "Змінити план, скасувати або отримати допомогу.";
 "pro.restore.title" = "Відновити покупку";
 "pro.restore.subtitle" = "Новий телефон чи перевстановлення? Поверни її.";
 "pro.testStore.warning" = "Debug-збірка: під'єднано до тестового магазину RevenueCat. Справжні гроші не рухаються.";
@@ -293,30 +309,42 @@
 "pro.error.generic" = "Магазин не відповів. Спробуй за хвилину.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Відкрити Dubloon";
-"pro.fallback.message" = "Пробний період завершився. Один платіж лишає обидві гри відкритими назавжди.";
-"pro.fallback.message.beforeExpiry" = "Один платіж лишає обидві гри відкритими назавжди.";
+"pro.fallback.message" = "Пробний період завершився. Відкрий Dubloon, щоб і далі озвучувати.";
+"pro.fallback.message.beforeExpiry" = "Відкрий Dubloon, щоб і далі озвучувати.";
+"pro.fallback.message.noTrial" = "Відкрий Dubloon, щоб озвучувати будь-які сцени.";
 "pro.fallback.buy" = "Відкрити за %@";
 "pro.fallback.buyUnpriced" = "Відкрити";
 "pro.fallback.loading" = "Питаємо магазин…";
 "pro.fallback.unavailable" = "Магазин зараз не відповідає. Перевір з'єднання і спробуй ще раз.";
 "pro.fallback.retry" = "Ще раз";
-"pro.fallback.benefit.one" = "Співай задом наперед, доки сусіди терплять";
+"pro.fallback.benefit.one" = "Знімай себе в кабіні з Booth Cam";
 "pro.fallback.benefit.two" = "Озвучуй будь-які сцени і приноси власні";
 "pro.fallback.benefit.three" = "Експортуй дублі й ділися наслідками";
 "pro.fallback.oneTime" = "Один платіж. Це не підписка.";
+"pro.fallback.subscribe.monthly" = "Підписатися за %@/міс.";
+"pro.fallback.subscribe.yearly" = "Підписатися за %@/рік";
+"pro.fallback.subscribe" = "Підписатися за %@";
+"pro.fallback.renews" = "Поновлюється автоматично, доки ти її не скасуєш. Скасувати можна будь-коли в налаштуваннях облікового запису Apple.";
+"pro.fallback.terms" = "Умови використання";
+
+// MARK: - Review banner
+"review.banner.title" = "Дякуємо за перехід на Pro";
+"review.banner.message" = "Dubloon робить одна людина в Цюриху, і саме завдяки відгукам його знаходять нові гравці. Якщо тобі подобається, кілька слів в App Store важили б дуже багато.";
+"review.banner.rate" = "Написати відгук";
+"review.banner.later" = "Не зараз";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Вітаємо в клубі";
-"pro.earlyAdopter.message" = "Тепер Dubloon коштує грошей — але не для тебе. Ти був тут ще до цінника, тож обидві гри лишаються твоїми, безкоштовно, доки застосунок існує. Дякуємо за перші дні.";
+"pro.earlyAdopter.message" = "Тепер Dubloon коштує грошей — але не для тебе. Ти був тут ще до цінника, тож усі три гри лишаються твоїми, безкоштовно, доки застосунок існує. Дякуємо за перші дні.";
 "pro.earlyAdopter.badge" = "Безкоштовно назавжди";
 "pro.earlyAdopter.confirm" = "Чудово";
 "pro.earlyAdopter.settings.title" = "Безкоштовно назавжди";
-"pro.earlyAdopter.settings.subtitle" = "Ти прийшов рано. Обидві гри твої, і ти нам нічого не винен.";
+"pro.earlyAdopter.settings.subtitle" = "Ти прийшов рано. Усі три гри твої, і ти нам нічого не винен.";
 "pro.closePaywall" = "Закрити";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Доступ";
-"pro.earlyAdopter.row.access.value" = "Обидві гри";
+"pro.earlyAdopter.row.access.value" = "Усі три гри";
 "pro.earlyAdopter.row.cost" = "Ціна";
 "pro.earlyAdopter.row.cost.value" = "Нуль";
 "pro.earlyAdopter.row.expires" = "Спливає";
@@ -407,3 +435,130 @@
 "dub.error.linesBadTimestamps" = "Час початку в цьому паку записано не як час, тож репліки не можна розставити.";
 "dub.error.linesNoAudio" = "До реплік цього пака немає записів, тож озвучувати нічого.";
 "dub.error.linesUnplayableAudio" = "Жоден запис із цього пака не відтворюється на цьому пристрої.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Імітація звуків";
+"main.mode.imitate.subtitle" = "Зобрази звук і отримай вердикт";
+"imitate.library.hint" = "Обери звук, послухай і зобрази його якнайкраще.";
+"imitate.library.best" = "Рекорд";
+"imitate.library.untried" = "Новий";
+"imitate.challenge.listen" = "Слухати";
+"imitate.challenge.record" = "Зобразити";
+"imitate.challenge.stop" = "Стоп";
+"imitate.challenge.instruction" = "Спершу послухай, потім натисни «Зобразити» і видай звук.";
+"imitate.challenge.recordingHint" = "Давай! Видай звук.";
+"imitate.challenge.scoring" = "Оцінюємо…";
+"imitate.challenge.tryAgain" = "Ще раз";
+"imitate.challenge.playMine" = "Послухати мій";
+"imitate.challenge.makeVideo" = "Зробити відео";
+"imitate.challenge.rendering" = "Робимо твоє відео…";
+"imitate.challenge.newBest" = "Новий рекорд!";
+"imitate.challenge.exportFailed" = "Не вдалося зробити відео. Спробуй ще раз.";
+"imitate.challenge.difficulty" = "Складність";
+"imitate.category.animals" = "Тварини";
+"imitate.category.vehicles" = "Гудки й сирени";
+"imitate.category.cartoon" = "Мультики й фантастика";
+"imitate.category.human" = "Людські звуки";
+"imitate.part.rhythm" = "Ритм";
+"imitate.part.pitch" = "Висота";
+"imitate.part.tone" = "Тембр";
+"imitate.part.duration" = "Тривалість";
+"imitate.verdict.nailedIt" = "В ЯБЛУЧКО!";
+"imitate.verdict.legendary" = "ЛЕГЕНДАРНО";
+"imitate.verdict.approved" = "СХВАЛЕНО";
+"imitate.verdict.certified" = "СЕРТИФІКОВАНО";
+"imitate.verdict.notBad" = "НЕПОГАНО";
+"imitate.verdict.almost" = "МАЙЖЕ…";
+"imitate.verdict.soClose" = "ЩЕ ТРОШКИ";
+"imitate.verdict.failed" = "ПРОВАЛЕНО";
+"imitate.verdict.whatWasThat" = "ЩО ЦЕ БУЛО?";
+"imitate.reel.challenge" = "Звуковий челендж";
+"imitate.reel.canYouSoundLike" = "Зможеш звучати як…";
+"imitate.reel.original" = "Оригінал";
+"imitate.reel.you" = "Ти";
+"imitate.reel.score" = "Рахунок";
+"imitate.reel.beatMyScore" = "Поб'єш мій рахунок?";
+"imitate.sound.cat" = "Кішка";
+"imitate.sound.dog" = "Собака";
+"imitate.sound.cow" = "Корова";
+"imitate.sound.sheep" = "Вівця";
+"imitate.sound.chicken" = "Курка";
+"imitate.sound.rooster" = "Півень";
+"imitate.sound.duck" = "Качка";
+"imitate.sound.pig" = "Свиня";
+"imitate.sound.wolf" = "Вовк";
+"imitate.sound.owl" = "Сова";
+"imitate.sound.horn" = "Гудок авто";
+"imitate.sound.siren" = "Сирена";
+"imitate.sound.train" = "Гудок потяга";
+"imitate.sound.bell" = "Велодзвінок";
+"imitate.sound.laser" = "Лазер";
+"imitate.sound.boing" = "Бойнг";
+"imitate.sound.slide" = "Свисток з поршнем";
+"imitate.sound.zap" = "Електророзряд";
+"imitate.sound.burp" = "Відрижка";
+"imitate.sound.sneeze" = "Чхання";
+"imitate.sound.snore" = "Хропіння";
+"imitate.sound.laugh" = "Злодійський сміх";
+"imitate.sound.yawn" = "Позіхання";
+"imitate.sound.hiccup" = "Гикавка";
+
+/* Mac */
+"mac.sidebar.games" = "Ігри";
+"mac.sidebar.packs" = "Паки озвучення";
+"mac.sidebar.sessions" = "Сесії";
+"mac.menu.importPack" = "Імпортувати пак озвучення…";
+"mac.menu.export" = "Експортувати відео…";
+"mac.menu.playback" = "Відтворення";
+"mac.menu.playPause" = "Відтворити/Пауза";
+"mac.menu.record" = "Запис";
+"mac.menu.listen" = "Відтворити оригінал";
+"mac.menu.playTake" = "Відтворити дубль";
+"mac.menu.previousLine" = "Попередня репліка";
+"mac.menu.nextLine" = "Наступна репліка";
+"mac.menu.showInspector" = "Показати інспектор";
+"mac.menu.hideInspector" = "Сховати інспектор";
+"mac.panel.inspector" = "Інспектор";
+"mac.panel.viewer" = "Перегляд";
+"mac.panel.line" = "Репліка";
+"mac.panel.scene" = "Сцена";
+"mac.panel.takes" = "Дублі";
+"mac.panel.character" = "Персонаж";
+"mac.panel.start" = "Початок";
+"mac.panel.duration" = "Тривалість";
+"mac.panel.notDubbed" = "Ще не озвучено";
+"mac.panel.attempts" = "Спроби";
+"mac.panel.emptyTitle" = "Виберіть, над чим працювати";
+"mac.panel.emptyMessage" = "Виберіть гру або пак озвучення на бічній панелі.";
+"mac.settings.general" = "Загальні";
+"mac.settings.recording" = "Запис";
+"mac.welcome.notNow" = "Не зараз";
+"mac.booth.primer.message" = "Booth Cam тримає камеру Mac увімкненою, поки ти граєш, тож сцена, репліка і твоє обличчя вміщаються на одному екрані. Потім можна поділитися реакцією разом з озвученням.";
+"mac.booth.primer.systemPrompt" = "Зараз macOS попросить доступ до камери.";
+"mac.menu.openRecent" = "Відкрити недавні";
+"mac.menu.clearRecent" = "Очистити меню";
+"mac.menu.open" = "Відкрити";
+"mac.menu.showInFinder" = "Показати у Finder";
+"mac.menu.viewer" = "Перегляд";
+"mac.menu.zoomIn" = "Збільшити";
+"mac.menu.zoomOut" = "Зменшити";
+"mac.menu.skipBack" = "Назад на 5 секунд";
+"mac.menu.skipForward" = "Вперед на 5 секунд";
+"mac.menu.goToStart" = "Перейти на початок";
+"mac.menu.shortcuts" = "Клавіатурні скорочення";
+"mac.menu.delete" = "Видалити…";
+"mac.confirm.deletePack.title" = "Видалити «%@»?";
+"mac.confirm.deletePack.message" = "Твої дублі й відео з будки для цієї сцени зникнуть разом з ним. Цю дію не можна скасувати.";
+"mac.confirm.deleteSession.title" = "Видалити цю сесію?";
+"mac.confirm.deleteSession.message" = "Її записи зникнуть разом з нею. Цю дію не можна скасувати.";
+"mac.shortcuts.file" = "Файл";
+"mac.shortcuts.view" = "Перегляд";
+"mac.tip.shortcuts.title" = "Клавіатура — твій пульт";
+"mac.tip.shortcuts.message" = "R записує, пробіл відтворює, стрілки перемикають репліки. Усі скорочення — у меню «Довідка» ▸ «Клавіатурні скорочення».";
+"mac.export.dragHint" = "Перетягни відео куди завгодно, щоб зберегти копію";
+"mac.search.prompt" = "Пошук";
+"mac.menu.find" = "Знайти";
+"mac.menu.openInNewWindow" = "Відкрити в новому вікні";
+"mac.panel.sound" = "Звук";
+"mac.panel.allSounds" = "Усі";
+"mac.panel.compare" = "Порівняння";

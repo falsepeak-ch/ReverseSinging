@@ -1,4 +1,4 @@
-Dubloon són dos jocs de veu en una sola app, i cap dels dos necessita res més que el teu micròfon.
+Dubloon són tres jocs de veu en una sola app, i cap d'ells necessita res més que el teu micròfon.
 
 DOBLATGE D'ESCENA
 
@@ -32,12 +32,19 @@ El joc original. Grava una cançó i Dubloon la inverteix. Canta la versió del 
 • Dues interfícies: botons grossos i senzills, o l'ona completa amb bucle, velocitat i to
 • Desa les teves millors preses i torna-hi
 
+IMITACIÓ DE SONS
+
+Escolta un so i fes-lo tu. Un gos que borda, un gall, un clàxon, un làser. Dubloon escolta el teu intent, en jutja el ritme, el to i el timbre comparant-lo amb el so real, i hi estampa un veredicte. Supera el teu rècord i després converteix l'intent en un vídeo per compartir.
+
+• 24 sons: animals, clàxons i alarmes, efectes de dibuixos animats i sorolls humans
+• La càmera de cabina et grava la cara enmig de la imitació, si et ve de gust
+
 PRIVAT DE FÀBRICA
 
 Tot passa en aquest dispositiu. Les teves gravacions, les teves preses, el material de cabina i els doblatges exportats no en surten mai. Sense compte, sense registre, sense anuncis i sense res per pujar. L'app recull estadístiques d'ús anònimes per saber què construir després, mai el contingut d'una gravació.
 
 QUANT COSTA
 
-Set dies gratis, els dos jocs, sense retallades. Després, un sol pagament desbloqueja l'app per sempre. No és una subscripció.
+El cant invertit és gratuït. Dubloon Pro obre el doblatge d'escenes, la imitació de sons, la càmera de cabina i les exportacions, sense retallades, amb una compra única o amb una subscripció.
 
 Feta a Suïssa. Feta a mà a Zuric.

@@ -1,15 +1,6 @@
-Daha fazla dublaj paketi açılıyor, daha az şey ters gidiyor.
+Üçüncü bir oyun, ve tersten şarkı artık ücretsiz.
 
-DUBLAJ PAKETLERİ
-• .rar biçimindeki paketler artık açılıyor, adı .zip olarak değiştirilmiş olsa bile
-• Sesleri ve müziği .ogg olan paketler artık çalıyor; önceden bu replikler düşüyor ve sahne sessiz kalıyordu. Zaten yüklediğin paketler de onarılıyor
-• Bir repliğin zamanlamasını yazmanın çok daha fazla biçimi anlaşılıyor, böylece repliklerinin yarısını kaybeden paketler artık eksiksiz içe aktarılıyor
-• Hâlâ iCloud'da duran bir paket, hata vermek yerine önce indiriliyor
-• Bir dosya içe aktarılamadığında uygulama içinde ne olduğunu ve neden olmadığını söylüyor
-
-DÜZELTMELER
-• Sesi başka bir uygulama tuttuğunda ve bir sahne oynatılmaya başladığında yaşanan çökmeler giderildi
-• Uygulamadan çıkınca yarıda kalan video dönüştürme, görüntüyü kaybetmek yerine sonra devam ediyor
-
-AYRICA
-• Ücretsiz deneme bittiğinde menü açık kalıyor ve teklif, tüm uygulamayı kaplamak yerine sen dokunana kadar bekliyor
+YENİLER
+• Ses taklidi: bir sesi dinle, taklit et ve ritmin, perden ve tının hakkında damgalı bir hüküm al. Sonra denemeni videoya dönüştür
+• Tersten şarkı herkese ücretsiz
+• Dubloon Pro artık aynı Apple Hesabı ile Mac uygulamasının da kilidini açıyor

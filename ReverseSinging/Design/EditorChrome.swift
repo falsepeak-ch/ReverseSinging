@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import UIKit
+
 
 // MARK: - Metrics
 
@@ -271,6 +271,10 @@ struct EditorToolbarButton: View {
         }) {
             Image(systemName: icon).toolbarChrome()
         }
+        #if os(macOS)
+        // A Mac button draws its own bezel around the label; this one is all label.
+        .buttonStyle(.plain)
+        #endif
         .accessibilityLabel(label)
     }
 }
@@ -295,6 +299,13 @@ struct EditorToolbarMenu<Content: View>: View {
         } label: {
             Image(systemName: icon).toolbarChrome()
         }
+        #if os(macOS)
+        // As with the button: the label is the whole control, with no Mac bezel or arrow.
+        .menuStyle(.button)
+        .buttonStyle(.plain)
+        .menuIndicator(.hidden)
+        .fixedSize()
+        #endif
         .accessibilityLabel(label)
     }
 }
@@ -333,6 +344,7 @@ struct EditorHeaderBar<Content: View>: View {
             content
         }
         .padding(.horizontal, EditorMetrics.gutter)
+
         .frame(maxWidth: .infinity)
         .frame(height: EditorMetrics.headerBarHeight)
         .background(Color.rsSurface1.ignoresSafeArea(edges: .top))
@@ -349,16 +361,19 @@ struct EditorHeaderBar<Content: View>: View {
 /// game they are in.
 struct EditorScreenHeader<Trailing: View>: View {
     let title: String
-    let onBack: () -> Void
+    /// Nil on a screen with nowhere to go back to, such as the Mac's only game.
+    let onBack: (() -> Void)?
     @ViewBuilder var trailing: Trailing
 
     var body: some View {
         EditorHeaderBar {
-            EditorToolbarButton(
-                icon: "chevron.left",
-                label: Strings.Main.back,
-                action: onBack
-            )
+            if let onBack {
+                EditorToolbarButton(
+                    icon: "chevron.left",
+                    label: Strings.Main.back,
+                    action: onBack
+                )
+            }
 
             Text(title)
                 .font(.rsHeadingSmall)
@@ -374,7 +389,7 @@ struct EditorScreenHeader<Trailing: View>: View {
 }
 
 extension EditorScreenHeader where Trailing == EmptyView {
-    init(title: String, onBack: @escaping () -> Void) {
+    init(title: String, onBack: (() -> Void)?) {
         self.init(title: title, onBack: onBack) { EmptyView() }
     }
 }

@@ -5,6 +5,7 @@
 //  Haptic feedback manager
 //
 
+#if os(iOS)
 import UIKit
 
 final class HapticManager {
@@ -78,3 +79,25 @@ final class HapticManager {
         generator.selectionChanged()
     }
 }
+#else
+/// The Mac has no haptic engine worth driving from a game, so every call is accepted and does
+/// nothing. The same names as on iOS, so shared code calls it without a platform check.
+final class HapticManager {
+    static let shared = HapticManager()
+
+    enum FeedbackStyle { case light, medium, heavy, rigid, soft }
+
+    private init() {}
+
+    func impact(_ style: FeedbackStyle = .medium) {}
+    func light() {}
+    func medium() {}
+    func heavy() {}
+    func rigid() {}
+    func soft() {}
+    func success() {}
+    func warning() {}
+    func error() {}
+    func selection() {}
+}
+#endif

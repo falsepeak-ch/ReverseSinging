@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Καλώς ήρθες στο Dubloon";
-"onboarding.welcome.message" = "Δύο παιχνίδια, ένα μικρόφωνο. Τραγούδα ένα κομμάτι ανάποδα ή βάλε τη φωνή σου μέσα σε μια σκηνή ταινίας. Σε καμία από τις δύο δεν θα ακουστείς φυσιολογικός.";
+"onboarding.welcome.message" = "Τρία παιχνίδια, ένα μικρόφωνο. Τραγούδα ένα κομμάτι ανάποδα, βάλε τη φωνή σου μέσα σε μια σκηνή ταινίας ή μιμήσου έναν ήχο μέχρι να τον πετύχεις. Σε κανένα δεν θα ακουστείς φυσιολογικός.";
 "onboarding.howItWorks.title" = "Πώς δουλεύει";
 "onboarding.howItWorks.message" = "Ηχογράφησε ένα τραγούδι, γύρισέ το ανάποδα και τραγούδα πάνω στα ακαταλαβίστικα. Μετά γύρνα τη δική σου λήψη και δες αν το πέτυχες ή αν μόλις εφηύρες νέα γλώσσα.";
 "onboarding.dub.title" = "Μεταγλώττισε μια σκηνή";
 "onboarding.dub.message" = "Το δεύτερο παιχνίδι: βάλε μια σκηνή, παίξε από πάνω με το παραπάνω και μετά άκου τον εαυτό σου μέσα στην ταινία. Δύο σκηνές έρχονται μαζί. Από κει και πέρα φέρνεις τα δικά σου αρχεία.";
 "onboarding.microphone.title" = "Ένα τελευταίο";
-"onboarding.microphone.message" = "Και τα δύο παιχνίδια πρέπει να σε ακούν: στο ανάποδο τραγούδι και στη μεταγλώττιση. Το μικρόφωνο ξυπνά μόνο όσο ηχογραφείς, όλα μένουν σε αυτή τη συσκευή και τίποτα δεν ανεβαίνει ποτέ πουθενά. Η χειρότερη λήψη σου μένει μεταξύ σας.";
+"onboarding.microphone.message" = "Και τα τρία παιχνίδια πρέπει να σε ακούν: στο ανάποδο τραγούδι, στη μεταγλώττιση μιας σκηνής και στη μίμηση ενός ήχου. Το μικρόφωνο ξυπνά μόνο όσο ηχογραφείς, όλα μένουν σε αυτή τη συσκευή και τίποτα δεν ανεβαίνει ποτέ πουθενά. Η χειρότερη λήψη σου μένει μεταξύ σας.";
 "onboarding.button.openSettings" = "Άνοιγμα Ρυθμίσεων";
 "onboarding.button.letsRecord" = "πάμε, ηχογραφούμε!";
 "onboarding.button.continueLowercase" = "συνέχεια";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Δεν σε ακούει κανείς";
-"main.emptyState.message" = "Αυτή τη στιγμή το Dubloon είναι μια εφαρμογή ηχογράφησης χωρίς τίποτα να ηχογραφήσει. Άνοιξε την πρόσβαση στο μικρόφωνο από τις ρυθμίσεις της συσκευής και τα δύο παιχνίδια ξαναζωντανεύουν.";
+"main.emptyState.message" = "Αυτή τη στιγμή το Dubloon είναι μια εφαρμογή ηχογράφησης χωρίς τίποτα να ηχογραφήσει. Άνοιξε την πρόσβαση στο μικρόφωνο από τις ρυθμίσεις της συσκευής και τα τρία παιχνίδια ξαναζωντανεύουν.";
 "main.emptyState.button" = "Άνοιγμα Ρυθμίσεων";
 
 // MARK: - Main View - Processing & Success
@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Ποτενσιόμετρα, δείκτες και κυματομορφές";
 "settings.preferences" = "Προτιμήσεις";
 "settings.about" = "Σχετικά";
+"settings.about.memberSince" = "Μέλος από %@";
+"settings.about.license.lifetime" = "Dubloon Pro, εφ' όρου ζωής";
+"settings.about.license.renews" = "Dubloon Pro, ανανεώνεται στις %@";
+"settings.about.license.ends" = "Dubloon Pro, λήγει στις %@";
+"settings.about.license.earlyAdopter" = "Από τους πρώτους, δωρεάν για πάντα";
+"settings.about.license.trialDays" = "Δωρεάν δοκιμή, απομένουν %d ημέρες";
+"settings.about.license.trialLastDay" = "Δωρεάν δοκιμή, τελευταία ημέρα";
+"settings.about.license.trialOver" = "Η δωρεάν δοκιμή έληξε";
+"settings.about.license.free" = "Δωρεάν";
 
 // Theme descriptions
 
@@ -219,6 +228,7 @@
 "main.button.back" = "Πίσω";
 "main.mode.reverse.subtitle" = "Ηχογράφησε, γύρνα το και τραγούδα τα ακαταλαβίστικα";
 "main.mode.dub.subtitle" = "Βάλε τη φωνή σου σε ξένο στόμα";
+"main.mode.free" = "Δωρεάν";
 "dub.speakerAccessibility" = "Το λέει ο/η %@";
 "dub.cast" = "Διανομή";
 "dub.referenceTrack" = "Αναφορά";
@@ -247,6 +257,8 @@
 "dubShare.unknownSource" = "Αυτή τη σκηνή την έφερες εσύ, οπότε ξέρεις από πού προέρχεται και τι μπορείς να την κάνεις.";
 "dubShare.responsibility" = "Πού θα καταλήξει εξαρτάται από σένα, γι' αυτό τήρησε τους κανόνες πνευματικών δικαιωμάτων του τόπου σου.";
 "dubShare.confirm" = "Εξαγωγή βίντεο";
+"dubShare.share" = "Κοινή χρήση…";
+"dubShare.save" = "Αποθήκευση…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Στήνουμε τις πρώτες σου σκηνές…";
@@ -275,13 +287,17 @@
 "pro.trial.daysLeft" = "Απομένουν %d ημέρες";
 "pro.trial.oneDayLeft" = "Τελευταία μέρα";
 "pro.trial.over" = "Η δωρεάν δοκιμή σου τελείωσε";
+"pro.locked.title" = "Απόκτησε το Dubloon Pro για να μεταγλωττίσεις";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Ξεκλείδωσε το Dubloon";
-"pro.unlock.subtitle" = "Μία πληρωμή, και τα δύο παιχνίδια, δικά σου για πάντα.";
+"pro.unlock.subtitle" = "Κάθε σκηνή, Booth Cam και εξαγωγές. Το ανάποδο τραγούδι μένει δωρεάν.";
 "pro.owned.title" = "Το Dubloon είναι δικό σου";
 "pro.owned.subtitle" = "Ευχαριστούμε. Κάθε σκηνή, κάθε λήψη, χωρίς ταβάνι.";
 "pro.manage.title" = "Διαχείριση αγοράς";
 "pro.manage.subtitle" = "Αποδείξεις, επιστροφές και βοήθεια για την αγορά σου.";
+"pro.subscribed.title" = "Έχεις το Dubloon Pro";
+"pro.manageSubscription.title" = "Διαχείριση συνδρομής";
+"pro.manageSubscription.subtitle" = "Άλλαξε πρόγραμμα, ακύρωσε ή ζήτα βοήθεια.";
 "pro.restore.title" = "Επαναφορά αγοράς";
 "pro.restore.subtitle" = "Καινούργιο κινητό ή επανεγκατάσταση; Φέρ' την πίσω.";
 "pro.testStore.warning" = "Έκδοση debug: συνδεδεμένη στο δοκιμαστικό κατάστημα του RevenueCat. Δεν κινούνται πραγματικά χρήματα.";
@@ -293,30 +309,42 @@
 "pro.error.generic" = "Το κατάστημα δεν απάντησε. Δοκίμασε σε λίγο.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Ξεκλείδωσε το Dubloon";
-"pro.fallback.message" = "Η δωρεάν δοκιμή σου τελείωσε. Μία πληρωμή κρατά και τα δύο παιχνίδια ανοιχτά για πάντα.";
-"pro.fallback.message.beforeExpiry" = "Μία πληρωμή κρατά και τα δύο παιχνίδια ανοιχτά για πάντα.";
+"pro.fallback.message" = "Η δωρεάν δοκιμή σου τελείωσε. Ξεκλείδωσε το Dubloon για να συνεχίσεις να μεταγλωττίζεις.";
+"pro.fallback.message.beforeExpiry" = "Ξεκλείδωσε το Dubloon για να συνεχίσεις να μεταγλωττίζεις.";
+"pro.fallback.message.noTrial" = "Ξεκλείδωσε το Dubloon για να μεταγλωττίσεις κάθε σκηνή.";
 "pro.fallback.buy" = "Ξεκλείδωσε με %@";
 "pro.fallback.buyUnpriced" = "Ξεκλείδωμα";
 "pro.fallback.loading" = "Ρωτάμε το κατάστημα…";
 "pro.fallback.unavailable" = "Το κατάστημα δεν απαντά αυτή τη στιγμή. Έλεγξε τη σύνδεσή σου και δοκίμασε ξανά.";
 "pro.fallback.retry" = "Δοκίμασε ξανά";
-"pro.fallback.benefit.one" = "Τραγούδα ανάποδα όσο αντέχουν οι γείτονες";
+"pro.fallback.benefit.one" = "Βιντεοσκόπησε τον εαυτό σου στον θάλαμο με το Booth Cam";
 "pro.fallback.benefit.two" = "Μεταγλώττισε κάθε σκηνή και φέρε και δικές σου";
 "pro.fallback.benefit.three" = "Κάνε εξαγωγή τις λήψεις σου και μοίρασε τη ζημιά";
 "pro.fallback.oneTime" = "Μία πληρωμή. Όχι συνδρομή.";
+"pro.fallback.subscribe.monthly" = "Εγγραφή με %@/μήνα";
+"pro.fallback.subscribe.yearly" = "Εγγραφή με %@/έτος";
+"pro.fallback.subscribe" = "Εγγραφή με %@";
+"pro.fallback.renews" = "Ανανεώνεται αυτόματα μέχρι να την ακυρώσεις. Ακύρωσε όποτε θέλεις από τις ρυθμίσεις του λογαριασμού σου Apple.";
+"pro.fallback.terms" = "Όροι χρήσης";
+
+// MARK: - Review banner
+"review.banner.title" = "Ευχαριστούμε που πέρασες στο Pro";
+"review.banner.message" = "Το Dubloon το φτιάχνει ένας άνθρωπος στη Ζυρίχη, και οι κριτικές είναι ο τρόπος που το βρίσκουν νέοι παίκτες. Αν σου αρέσει, λίγα λόγια στο App Store θα σήμαιναν πολλά.";
+"review.banner.rate" = "Γράψε μια κριτική";
+"review.banner.later" = "Όχι τώρα";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Καλώς ήρθες στο κλαμπ";
-"pro.earlyAdopter.message" = "Το Dubloon πλέον κοστίζει — αλλά όχι για σένα. Ήσουν εδώ πριν μπει ταμπελάκι με τιμή, οπότε και τα δύο παιχνίδια μένουν δικά σου, δωρεάν, όσο υπάρχει η εφαρμογή. Ευχαριστούμε για τις πρώτες μέρες.";
+"pro.earlyAdopter.message" = "Το Dubloon πλέον κοστίζει — αλλά όχι για σένα. Ήσουν εδώ πριν μπει ταμπελάκι με τιμή, οπότε και τα τρία παιχνίδια μένουν δικά σου, δωρεάν, όσο υπάρχει η εφαρμογή. Ευχαριστούμε για τις πρώτες μέρες.";
 "pro.earlyAdopter.badge" = "Δωρεάν για πάντα";
 "pro.earlyAdopter.confirm" = "Τέλεια";
 "pro.earlyAdopter.settings.title" = "Δωρεάν για πάντα";
-"pro.earlyAdopter.settings.subtitle" = "Ήσουν εδώ από νωρίς. Και τα δύο παιχνίδια είναι δικά σου και δεν μας χρωστάς τίποτα.";
+"pro.earlyAdopter.settings.subtitle" = "Ήσουν εδώ από νωρίς. Και τα τρία παιχνίδια είναι δικά σου και δεν μας χρωστάς τίποτα.";
 "pro.closePaywall" = "Κλείσιμο";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Πρόσβαση";
-"pro.earlyAdopter.row.access.value" = "Και τα δύο παιχνίδια";
+"pro.earlyAdopter.row.access.value" = "Και τα τρία παιχνίδια";
 "pro.earlyAdopter.row.cost" = "Κόστος";
 "pro.earlyAdopter.row.cost.value" = "Τίποτα";
 "pro.earlyAdopter.row.expires" = "Λήγει";
@@ -407,3 +435,130 @@
 "dub.error.linesBadTimestamps" = "Οι χρόνοι έναρξης στο πακέτο δεν είναι γραμμένοι ως χρόνοι, οπότε οι ατάκες δεν μπορούν να τοποθετηθούν.";
 "dub.error.linesNoAudio" = "Οι ατάκες του πακέτου δεν έχουν ηχογραφήσεις, οπότε δεν υπάρχει τίποτα να μεταγλωττίσεις.";
 "dub.error.linesUnplayableAudio" = "Καμία από τις ηχογραφήσεις του πακέτου δεν παίζει σε αυτή τη συσκευή.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Μίμηση ήχων";
+"main.mode.imitate.subtitle" = "Μιμήσου έναν ήχο, πάρε ετυμηγορία";
+"imitate.library.hint" = "Διάλεξε έναν ήχο, άκουσέ τον και κάνε την καλύτερη μίμησή σου.";
+"imitate.library.best" = "Ρεκόρ";
+"imitate.library.untried" = "Νέο";
+"imitate.challenge.listen" = "Άκου";
+"imitate.challenge.record" = "Μιμήσου";
+"imitate.challenge.stop" = "Σταμάτα";
+"imitate.challenge.instruction" = "Άκου πρώτα, μετά πάτα Μιμήσου και κάνε τον ήχο.";
+"imitate.challenge.recordingHint" = "Πάμε! Κάνε τον ήχο.";
+"imitate.challenge.scoring" = "Κρίνουμε…";
+"imitate.challenge.tryAgain" = "Ξανά";
+"imitate.challenge.playMine" = "Άκου το δικό μου";
+"imitate.challenge.makeVideo" = "Φτιάξε βίντεο";
+"imitate.challenge.rendering" = "Φτιάχνουμε το βίντεό σου…";
+"imitate.challenge.newBest" = "Νέο ρεκόρ!";
+"imitate.challenge.exportFailed" = "Δεν ήταν δυνατό να φτιαχτεί το βίντεο. Δοκίμασε ξανά.";
+"imitate.challenge.difficulty" = "Δυσκολία";
+"imitate.category.animals" = "Ζώα";
+"imitate.category.vehicles" = "Κόρνες και συναγερμοί";
+"imitate.category.cartoon" = "Καρτούν και sci-fi";
+"imitate.category.human" = "Ανθρώπινοι ήχοι";
+"imitate.part.rhythm" = "Ρυθμός";
+"imitate.part.pitch" = "Τονικό ύψος";
+"imitate.part.tone" = "Χροιά";
+"imitate.part.duration" = "Διάρκεια";
+"imitate.verdict.nailedIt" = "ΤΕΛΕΙΟ!";
+"imitate.verdict.legendary" = "ΘΡΥΛΙΚΟ";
+"imitate.verdict.approved" = "ΕΓΚΡΙΝΕΤΑΙ";
+"imitate.verdict.certified" = "ΠΙΣΤΟΠΟΙΗΜΕΝΟ";
+"imitate.verdict.notBad" = "ΟΧΙ ΑΣΧΗΜΑ";
+"imitate.verdict.almost" = "ΣΧΕΔΟΝ…";
+"imitate.verdict.soClose" = "ΠΑΡΑ ΛΙΓΟ";
+"imitate.verdict.failed" = "ΑΠΟΡΡΙΠΤΕΤΑΙ";
+"imitate.verdict.whatWasThat" = "ΤΙ ΗΤΑΝ ΑΥΤΟ;";
+"imitate.reel.challenge" = "Ηχητική πρόκληση";
+"imitate.reel.canYouSoundLike" = "Μπορείς να ακουστείς σαν…";
+"imitate.reel.original" = "Πρωτότυπο";
+"imitate.reel.you" = "Εσύ";
+"imitate.reel.score" = "Σκορ";
+"imitate.reel.beatMyScore" = "Μπορείς να νικήσεις το σκορ μου;";
+"imitate.sound.cat" = "Γάτα";
+"imitate.sound.dog" = "Σκύλος";
+"imitate.sound.cow" = "Αγελάδα";
+"imitate.sound.sheep" = "Πρόβατο";
+"imitate.sound.chicken" = "Κότα";
+"imitate.sound.rooster" = "Κόκορας";
+"imitate.sound.duck" = "Πάπια";
+"imitate.sound.pig" = "Γουρούνι";
+"imitate.sound.wolf" = "Λύκος";
+"imitate.sound.owl" = "Κουκουβάγια";
+"imitate.sound.horn" = "Κόρνα αυτοκινήτου";
+"imitate.sound.siren" = "Σειρήνα";
+"imitate.sound.train" = "Σφυρίχτρα τρένου";
+"imitate.sound.bell" = "Κουδούνι ποδηλάτου";
+"imitate.sound.laser" = "Λέιζερ";
+"imitate.sound.boing" = "Μπόινγκ";
+"imitate.sound.slide" = "Σφυρίχτρα με έμβολο";
+"imitate.sound.zap" = "Ηλεκτροσόκ";
+"imitate.sound.burp" = "Ρέψιμο";
+"imitate.sound.sneeze" = "Φτέρνισμα";
+"imitate.sound.snore" = "Ροχαλητό";
+"imitate.sound.laugh" = "Διαβολικό γέλιο";
+"imitate.sound.yawn" = "Χασμουρητό";
+"imitate.sound.hiccup" = "Λόξυγκας";
+
+/* Mac */
+"mac.sidebar.games" = "Παιχνίδια";
+"mac.sidebar.packs" = "Πακέτα μεταγλώττισης";
+"mac.sidebar.sessions" = "Συνεδρίες";
+"mac.menu.importPack" = "Εισαγωγή πακέτου μεταγλώττισης…";
+"mac.menu.export" = "Εξαγωγή βίντεο…";
+"mac.menu.playback" = "Αναπαραγωγή";
+"mac.menu.playPause" = "Αναπαραγωγή/Παύση";
+"mac.menu.record" = "Εγγραφή";
+"mac.menu.listen" = "Αναπαραγωγή πρωτοτύπου";
+"mac.menu.playTake" = "Αναπαραγωγή λήψης";
+"mac.menu.previousLine" = "Προηγούμενη ατάκα";
+"mac.menu.nextLine" = "Επόμενη ατάκα";
+"mac.menu.showInspector" = "Εμφάνιση επιθεωρητή";
+"mac.menu.hideInspector" = "Απόκρυψη επιθεωρητή";
+"mac.panel.inspector" = "Επιθεωρητής";
+"mac.panel.viewer" = "Προβολή";
+"mac.panel.line" = "Ατάκα";
+"mac.panel.scene" = "Σκηνή";
+"mac.panel.takes" = "Λήψεις";
+"mac.panel.character" = "Χαρακτήρας";
+"mac.panel.start" = "Έναρξη";
+"mac.panel.duration" = "Διάρκεια";
+"mac.panel.notDubbed" = "Δεν έχει μεταγλωττιστεί";
+"mac.panel.attempts" = "Προσπάθειες";
+"mac.panel.emptyTitle" = "Διάλεξε κάτι για να δουλέψεις";
+"mac.panel.emptyMessage" = "Διάλεξε ένα παιχνίδι ή ένα πακέτο μεταγλώττισης στην πλαϊνή στήλη.";
+"mac.settings.general" = "Γενικά";
+"mac.settings.recording" = "Εγγραφή";
+"mac.welcome.notNow" = "Όχι τώρα";
+"mac.booth.primer.message" = "Το Booth Cam κρατά ανοιχτή την κάμερα του Mac όσο παίζεις, ώστε η σκηνή, η ατάκα και το πρόσωπό σου να χωράνε στην ίδια οθόνη. Μετά μπορείς να μοιραστείς την αντίδραση μαζί με τη μεταγλώττιση.";
+"mac.booth.primer.systemPrompt" = "Αμέσως μετά το macOS θα ζητήσει πρόσβαση στην κάμερα.";
+"mac.menu.openRecent" = "Άνοιγμα πρόσφατου";
+"mac.menu.clearRecent" = "Εκκαθάριση μενού";
+"mac.menu.open" = "Άνοιγμα";
+"mac.menu.showInFinder" = "Εμφάνιση στο Finder";
+"mac.menu.viewer" = "Προβολή";
+"mac.menu.zoomIn" = "Μεγέθυνση";
+"mac.menu.zoomOut" = "Σμίκρυνση";
+"mac.menu.skipBack" = "Πίσω 5 δευτερόλεπτα";
+"mac.menu.skipForward" = "Εμπρός 5 δευτερόλεπτα";
+"mac.menu.goToStart" = "Μετάβαση στην αρχή";
+"mac.menu.shortcuts" = "Συντομεύσεις πληκτρολογίου";
+"mac.menu.delete" = "Διαγραφή…";
+"mac.confirm.deletePack.title" = "Διαγραφή «%@»;";
+"mac.confirm.deletePack.message" = "Οι λήψεις σου και τα βίντεο του Booth Cam για αυτή τη σκηνή φεύγουν μαζί του. Αυτή η ενέργεια δεν αναιρείται.";
+"mac.confirm.deleteSession.title" = "Διαγραφή αυτής της συνεδρίας;";
+"mac.confirm.deleteSession.message" = "Οι ηχογραφήσεις της φεύγουν μαζί της. Αυτή η ενέργεια δεν αναιρείται.";
+"mac.shortcuts.file" = "Αρχείο";
+"mac.shortcuts.view" = "Προβολή";
+"mac.tip.shortcuts.title" = "Το πληκτρολόγιο είναι η κονσόλα σου";
+"mac.tip.shortcuts.message" = "Το R ηχογραφεί, το Διάστημα αναπαράγει και τα βέλη αλλάζουν ατάκα. Όλες τις συντομεύσεις θα τις βρεις στο μενού Βοήθεια ▸ Συντομεύσεις πληκτρολογίου.";
+"mac.export.dragHint" = "Σύρε το βίντεο οπουδήποτε για να αποθηκεύσεις ένα αντίγραφο";
+"mac.search.prompt" = "Αναζήτηση";
+"mac.menu.find" = "Εύρεση";
+"mac.menu.openInNewWindow" = "Άνοιγμα σε νέο παράθυρο";
+"mac.panel.sound" = "Ήχος";
+"mac.panel.allSounds" = "Όλα";
+"mac.panel.compare" = "Σύγκριση";

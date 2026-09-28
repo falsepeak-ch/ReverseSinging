@@ -4,7 +4,7 @@
 //
 
 internal import DubObjCSupport
-public import Foundation
+import Foundation
 
 /// Turns the Objective-C exceptions AVAudioEngine raises into thrown errors.
 ///

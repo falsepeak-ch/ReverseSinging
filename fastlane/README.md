@@ -99,6 +99,37 @@ Build and upload to App Store with metadata and screenshots (does not submit for
 
 ----
 
+
+## Mac
+
+### mac metadata
+
+```sh
+[bundle exec] fastlane mac metadata
+```
+
+Upload the Mac store text (fastlane/metadata_mac) into the editable macOS version
+
+Create the macOS version in App Store Connect first; like the iOS lane, this passes no app_version.
+
+### mac upload_screenshots
+
+```sh
+[bundle exec] fastlane mac upload_screenshots
+```
+
+Upload the Mac screenshots (fastlane/screenshots_mac, 2560x1600)
+
+### mac release
+
+```sh
+[bundle exec] fastlane mac release
+```
+
+Archive the Mac app and upload it to App Store Connect. Never submits for review.
+
+----
+
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
 
 More information about _fastlane_ can be found on [fastlane.tools](https://fastlane.tools).

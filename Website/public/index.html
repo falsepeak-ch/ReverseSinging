@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Dub a movie scene in your own voice, or sing a song backwards. Two voice games for iPhone. Reverse singing is free.">
+<meta property="og:title" content="Dubloon">
+<meta property="og:description" content="Dub a movie scene in your own voice, or sing a song backwards.">
+<meta property="og:image" content="img/01_dubRecord.jpg">
+<meta name="apple-itunes-app" content="app-id=6754534073">
+<link rel="icon" href="img/icon.png">
+<title>Dubloon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+  img { max-width: 100%; }
+  /* One look on purpose: the cream poster of the App Store frames, in any theme. */
+  :root {
+    color-scheme: light;
+    --paper: #F5F1E8;
+    --paper-deep: #ECE5D6;
+    --ink: #121212;
+    --ink-soft: #4A4640;
+    --navy: #25307F;
+    --red: #9A1F1F;
+    --coral: #F26B5B;
+    --teal: #1F5A5E;
+    --gold: #C79A3A;
+    --booth: #0E0F11;
+    --booth-text: #E8EAEC;
+    --booth-dim: #9AA0A6;
+    --rule: #D8CFBD;
+
+    --display: "Anton", "Impact", "Haettenschweiler", "Arial Narrow Bold", sans-serif;
+    --body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --gutter: clamp(16px, 5vw, 56px);
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font: 400 17px/1.55 var(--body);
+    padding-inline: var(--gutter);
+  }
+
+  .wrap { max-width: 1120px; margin-inline: auto; }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; border-radius: 6px; }
+
+  h1, h2 {
+    font-family: var(--display);
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+    margin: 0;
+  }
+  .navy { color: var(--navy); }
+  .red { color: var(--red); }
+
+  .slate {
+    font: 500 12px/1 var(--mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .slate .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); }
+
+  /* Top bar */
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-block: 22px;
+  }
+  .top img { height: 34px; width: auto; display: block; }
+  .top nav { display: flex; gap: 22px; font-weight: 500; font-size: 15px; }
+  .top nav a { text-decoration: none; }
+  .top nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+  /* Hero */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(28px, 5vw, 72px);
+    align-items: center;
+    padding-block: clamp(24px, 5vw, 64px) clamp(48px, 7vw, 96px);
+  }
+  .hero h1 { font-size: clamp(56px, 9.2vw, 124px); text-transform: none; }
+  .hero p.lede { font-size: clamp(18px, 1.6vw, 21px); max-width: 34ch; color: var(--ink-soft); margin: 26px 0 30px; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; }
+  .store {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    padding: 12px 22px 12px 18px;
+    border-radius: 12px;
+    transition: transform .15s ease;
+  }
+  .store:hover { transform: translateY(-2px); }
+  .store svg { width: 26px; height: 26px; fill: currentColor; flex: none; }
+  .store span { display: flex; flex-direction: column; line-height: 1.1; }
+  .store small { font-size: 11px; letter-spacing: .02em; }
+  .store b { font-size: 19px; font-weight: 700; }
+  .cta-note { font-size: 14px; color: var(--ink-soft); }
+
+  .hero-shot { position: relative; justify-self: center; width: min(100%, 380px); }
+  .hero-shot img { display: block; width: 100%; height: auto; border-radius: 26px; box-shadow: 0 30px 60px -30px rgba(18,18,18,.45); }
+  .bang {
+    position: absolute;
+    left: -34px; bottom: 16%;
+    background: var(--ink);
+    color: var(--paper);
+    font: 500 13px/1.3 var(--mono);
+    padding: 12px 14px;
+    border-radius: 10px;
+    transform: rotate(-4deg);
+    letter-spacing: .04em;
+  }
+  .bang em { font-style: normal; color: var(--coral); }
+
+  /* Two games */
+  .games { border-top: 2px solid var(--ink); padding-block: clamp(48px, 7vw, 88px); }
+  .games-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 12px 32px; margin-bottom: 40px; }
+  .games-head h2 { font-size: clamp(40px, 5.6vw, 72px); }
+  .games-head p { max-width: 38ch; color: var(--ink-soft); margin: 0; }
+
+  .game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .game {
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 14px;
+    padding: 28px;
+    border-radius: 18px;
+  }
+  .game.dub { background: var(--coral); }
+  .game.rev { background: var(--paper-deep); }
+  .game-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .game-top img { width: 84px; height: 84px; object-fit: contain; }
+  .tag {
+    font: 500 12px/1 var(--mono);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 8px 11px;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    white-space: nowrap;
+  }
+  .tag.free { background: var(--teal); border-color: var(--teal); color: var(--paper); }
+  .game h3 { font: 400 clamp(32px, 3.4vw, 44px)/1 var(--display); margin: 0; }
+  .game p { margin: 0; max-width: 46ch; }
+  .game ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .game li { display: grid; grid-template-columns: 70px 1fr; gap: 10px; font-size: 15px; }
+  .game li code { font: 500 12px/1.9 var(--mono); color: var(--ink-soft); }
+  .game.dub li code { color: #5A1D16; }
+
+  /* The booth: a dark strip, the one place the app's own chrome shows */
+  .booth {
+    background: var(--booth);
+    color: var(--booth-text);
+    border-radius: 22px;
+    padding: clamp(28px, 5vw, 56px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+  }
+  .booth .slate { color: var(--booth-dim); }
+  .booth h2 { font-size: clamp(40px, 5vw, 64px); margin: 18px 0 18px; }
+  .booth p { color: var(--booth-dim); max-width: 44ch; margin: 0 0 22px; }
+  .timeline {
+    font: 500 13px/1 var(--mono);
+    color: var(--booth-dim);
+    display: grid;
+    gap: 10px;
+  }
+  .timeline .row { display: grid; grid-template-columns: 92px 1fr; align-items: center; gap: 12px; }
+  .timeline .bar { height: 14px; border-radius: 3px; background: repeating-linear-gradient(90deg, #454B52 0 3px, transparent 3px 6px); }
+  .timeline .bar.you { background: repeating-linear-gradient(90deg, #E5484D 0 3px, transparent 3px 6px); width: 86%; }
+  .timeline .row b { color: var(--gold); font-weight: 500; }
+  .booth-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .booth-shots img { width: 100%; height: auto; display: block; border-radius: 16px; }
+  .booth-shots img:nth-child(2) { margin-top: 36px; }
+
+  /* Pricing */
+  .price { padding-block: clamp(56px, 8vw, 104px); display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
+  .price h2 { font-size: clamp(40px, 5.6vw, 72px); }
+  .price-table { border-top: 2px solid var(--ink); }
+  .price-row { display: grid; grid-template-columns: 1fr auto; gap: 8px 20px; padding-block: 20px; border-bottom: 1px solid var(--rule); }
+  .price-row h3 { margin: 0; font: 700 19px/1.3 var(--body); }
+  .price-row p { margin: 4px 0 0; color: var(--ink-soft); font-size: 15px; grid-column: 1; }
+  .price-row .amount { font: 400 30px/1 var(--display); grid-row: 1; grid-column: 2; align-self: start; }
+  .price-row .amount.teal { color: var(--teal); }
+
+  /* Private + maker */
+  .notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding-block: 8px clamp(56px, 8vw, 96px); }
+  .notes h3 { font: 700 17px/1.3 var(--body); margin: 12px 0 8px; }
+  .notes p { margin: 0; color: var(--ink-soft); font-size: 15px; }
+
+  .closing { text-align: left; border-top: 2px solid var(--ink); padding-block: clamp(48px, 7vw, 88px); display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 28px; }
+  .closing h2 { font-size: clamp(44px, 7vw, 96px); max-width: 12ch; }
+
+  footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; padding-block: 24px 40px; font-size: 14px; color: var(--ink-soft); border-top: 1px solid var(--rule); }
+  footer nav { display: flex; flex-wrap: wrap; gap: 18px; }
+
+  @media (max-width: 860px) {
+    .hero, .booth, .price { grid-template-columns: 1fr; }
+    .game-grid, .notes { grid-template-columns: 1fr; }
+    .hero-shot { width: min(100%, 320px); }
+    .bang { left: -8px; }
+    .top nav { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .store { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <img src="img/lettering.png" alt="Dubloon" width="900" height="210">
+    <nav aria-label="Sections">
+      <a href="#games">The games</a>
+      <a href="#booth">Booth Cam</a>
+      <a href="#price">Price</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="slate"><span class="dot"></span>Scene 1 · Take 1 · Rolling</div>
+      <h1 style="margin-top:18px">Dub a <span class="navy">movie scene</span>. Or sing a song <span class="red">backwards</span>.</h1>
+      <p class="lede">Two voice games for iPhone. All you need is your microphone and a friend who will laugh at you.</p>
+      <div class="cta-row">
+        <a class="store" href="https://apps.apple.com/app/id6754534073">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.75c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.62-1.7-3.19-1.72-1.36-.14-2.65.8-3.34.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.61 2.25 2.75 2.2 1.1-.04 1.52-.71 2.86-.71 1.33 0 1.71.71 2.88.69 1.19-.02 1.94-1.08 2.67-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.34-3.55ZM14.18 6.3c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23Z"/></svg>
+          <span><small>Download on the</small><b>App Store</b></span>
+        </a>
+        <span class="cta-note">Reverse singing is free. No account, no ads.</span>
+      </div>
+    </div>
+    <div class="hero-shot">
+      <img src="img/01_dubRecord.jpg" alt="Dubloon recording a line from a 1951 classroom film, with the original waveform under the player's take" width="620" height="1347">
+      <div class="bang" aria-hidden="true">MARCY · <em>00.00 / 02.54</em></div>
+    </div>
+  </section>
+
+  <section class="games" id="games">
+    <div class="games-head">
+      <h2>Two games,<br>one microphone.</h2>
+      <p>Pick one from the menu. Neither will make you sound normal.</p>
+    </div>
+    <div class="game-grid">
+      <article class="game dub">
+        <div class="game-top">
+          <img src="img/clapperboard.png" alt="" width="280" height="280">
+          <span class="tag">Dubloon Pro</span>
+        </div>
+        <h3>Movie Scene Dub</h3>
+        <p>Load a scene, hear the original line, then record your own. The original waveform sits under yours, so you see exactly where you came in early or ran long.</p>
+        <ul>
+          <li><code>LINE</code><span>Line by line, at your own pace, every character colour-coded</span></li>
+          <li><code>PACE</code><span>A pacing bar that turns amber the moment you run past the original</span></li>
+          <li><code>SCORE</code><span>Timing, pacing and delivery marked on every take, or switched off</span></li>
+          <li><code>EXPORT</code><span>The whole scene as a video, ready to send</span></li>
+        </ul>
+      </article>
+      <article class="game rev">
+        <div class="game-top">
+          <img src="img/mic-boom.png" alt="" width="280" height="280">
+          <span class="tag free">Free</span>
+        </div>
+        <h3>Reverse Singing</h3>
+        <p>Record a song and Dubloon flips it. Sing the backwards version you hear, and the app flips your attempt back. Get it right and you come out singing the real song.</p>
+        <ul>
+          <li><code>FLIP</code><span>Big simple buttons, or the full waveform with loop, speed and pitch</span></li>
+          <li><code>SCORE</code><span>A score for how close you got</span></li>
+          <li><code>KEEP</code><span>Save your best takes and come back to them</span></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="booth" id="booth">
+    <div>
+      <div class="slate"><span class="dot"></span>Booth Cam · Front camera</div>
+      <h2>Film yourself <span style="color:var(--coral)">in the booth.</span></h2>
+      <p>Switch on the front camera and Dubloon films you while you perform. Export the finished scene with your face in the corner, stacked for a story, or side by side. The camera stays off until you turn it on.</p>
+      <div class="timeline" aria-hidden="true">
+        <div class="row"><span>REFERENCE</span><span class="bar"></span></div>
+        <div class="row"><b>YOUR TAKE</b><span class="bar you"></span></div>
+      </div>
+    </div>
+    <div class="booth-shots">
+      <img src="img/03_boothCam.jpg" alt="Booth Cam filming the player next to the scene" width="620" height="1347">
+      <img src="img/04_dubExport.jpg" alt="Export options for a finished dub" width="620" height="1347">
+    </div>
+  </section>
+
+  <section class="price" id="price">
+    <div>
+      <div class="slate">What it costs</div>
+      <h2 style="margin-top:16px">Start singing for <span class="navy">nothing.</span></h2>
+    </div>
+    <div class="price-table">
+      <div class="price-row">
+        <h3>Reverse Singing</h3>
+        <span class="amount teal">Free</span>
+        <p>The whole game, as long as you like. No trial, no timer.</p>
+      </div>
+      <div class="price-row">
+        <h3>Dubloon Pro</h3>
+        <span class="amount">Pro</span>
+        <p>Movie Scene Dub with every scene, community dub packs, Booth Cam and exports. Buy it once or subscribe. See the App Store for the price in your country.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="notes" aria-label="About Dubloon">
+    <div>
+      <div class="slate">Private</div>
+      <h3>Nothing leaves your phone</h3>
+      <p>Your recordings, takes, booth footage and dubs stay on the device until you choose to share them. No account, no sign-up.</p>
+    </div>
+    <div>
+      <div class="slate">Scenes</div>
+      <h3>Two scenes to start, then yours</h3>
+      <p>Camp Rules comes from Sprite Fright (CC BY 4.0) and Stuck Up from The Outsider (1951, public domain). Import community packs from Files or AirDrop.</p>
+    </div>
+    <div>
+      <div class="slate">Made in Zürich</div>
+      <h3>One person, one app</h3>
+      <p>Dubloon is built by hand in Switzerland. If it makes you laugh, a review on the App Store helps more than you would think.</p>
+    </div>
+  </section>
+
+  <section class="closing">
+    <h2>Your line. <span class="red">Action.</span></h2>
+    <a class="store" href="https://apps.apple.com/app/id6754534073">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.75c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.62-1.7-3.19-1.72-1.36-.14-2.65.8-3.34.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.61 2.25 2.75 2.2 1.1-.04 1.52-.71 2.86-.71 1.33 0 1.71.71 2.88.69 1.19-.02 1.94-1.08 2.67-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.34-3.55ZM14.18 6.3c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23Z"/></svg>
+      <span><small>Download on the</small><b>App Store</b></span>
+    </a>
+  </section>
+
+  <footer>
+    <span>© 2026 Falsepeak · Zürich, Switzerland</span>
+    <nav aria-label="Legal">
+      <a href="https://falsepeak.ch/privacy">Privacy</a>
+      <a href="https://falsepeak.ch/contact">Contact</a>
+    </nav>
+  </footer>
+</div>
+</body>
+</html>

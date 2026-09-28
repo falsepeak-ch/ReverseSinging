@@ -7,11 +7,12 @@
 
 import SwiftUI
 
-/// The root screen. It plays nothing itself. It lists the two games and owns the
+/// The root screen. It plays nothing itself. It lists the games and owns the
 /// navigation stack they are pushed onto, so each game is a level deeper rather
 /// than something hidden behind a toolbar glyph.
 struct HomeView: View {
     @EnvironmentObject var app: AppViewModel
+    @Environment(\.openURL) private var openURL
     @StateObject private var viewModel = HomeViewModel()
 
     /// The reverse game's model. Held by the menu rather than by the game screen, so a
@@ -28,7 +29,7 @@ struct HomeView: View {
 
                 header
             }
-            .toolbar(.hidden, for: .navigationBar)
+            .hidesNavigationBar()
             .navigationDestination(for: GameMode.self) { mode in
                 destination(for: mode)
             }
@@ -79,6 +80,8 @@ struct HomeView: View {
             }
         case .dub:
             DubLibraryView(pendingImportURL: $app.pendingDubImportURL, isPushed: true)
+        case .imitate:
+            SoundLibraryView()
         }
     }
 
@@ -89,8 +92,18 @@ struct HomeView: View {
             Spacer().frame(height: EditorMetrics.headerBarHeight)
 
             VStack(alignment: .leading, spacing: 10) {
+                if viewModel.showsReviewBanner {
+                    ReviewBannerCard(
+                        onRate: { openURL(viewModel.reviewBannerWentToStore()) },
+                        onDismiss: { viewModel.dismissReviewBanner() }
+                    )
+                    .padding(.bottom, 10)
+                    .transition(.opacity)
+                    .onAppear { viewModel.reviewBannerDidAppear() }
+                }
+
                 if viewModel.areGamesLocked {
-                    TrialEndedCard { viewModel.showPaywall(from: .trialEndedCard) }
+                    TrialEndedCard(title: viewModel.lockedCardTitle) { viewModel.showPaywall(from: .trialEndedCard) }
                         .padding(.bottom, 10)
                         .transition(.opacity)
                 }
@@ -98,7 +111,11 @@ struct HomeView: View {
                 EditorSectionHeader(title: Strings.Main.Mode.section)
 
                 ForEach(GameMode.allCases) { mode in
-                    GameModeRow(mode: mode, isLocked: viewModel.areGamesLocked) {
+                    GameModeRow(
+                        mode: mode,
+                        isLocked: viewModel.isLocked(mode),
+                        isFree: viewModel.isFree(mode)
+                    ) {
                         viewModel.open(mode)
                     }
                 }
@@ -106,6 +123,7 @@ struct HomeView: View {
             .padding(.horizontal, EditorMetrics.gutter)
             .padding(.top, 20)
             .animation(.rsQuick, value: viewModel.areGamesLocked)
+            .animation(.rsQuick, value: viewModel.showsReviewBanner)
 
             Spacer()
         }

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import UIKit
 import Combine
 import DubScoring
 import DubCompositing
@@ -202,10 +201,8 @@ final class DubPackDetailViewModel: ObservableObject {
         // A render takes a while and people put the phone down. Without this the encoder
         // was taken away the moment the app left the foreground, and the whole export ended
         // in "Operation Interrupted"; with it the render gets the background time iOS allows.
-        let backgroundTask = UIApplication.shared.beginBackgroundTask(withName: "dub.export")
-        defer {
-            if backgroundTask != .invalid { UIApplication.shared.endBackgroundTask(backgroundTask) }
-        }
+        let work = LongRunningWork(name: "dub.export")
+        defer { work.end() }
 
         do {
             let url = try await DubMixer.shared.export(

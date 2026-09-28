@@ -41,7 +41,7 @@ private struct HardPaywallModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .fullScreenCover(isPresented: isCovering) {
+            .coversScreen(isPresented: isCovering) {
                 ProPaywallView(source: "trial_expired", isDismissible: false)
                     .preferredColorScheme(.dark)
             }

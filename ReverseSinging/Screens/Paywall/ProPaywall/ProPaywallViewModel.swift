@@ -64,7 +64,14 @@ final class ProPaywallViewModel: ObservableObject {
 
         do {
             let offerings = try await Purchases.shared.offerings()
-            guard let current = offerings.current else {
+            var current = offerings.current
+            #if DEBUG
+            // `-paywallOffering <id>` previews another arm of the experiment.
+            if let id = UserDefaults.standard.string(forKey: "paywallOffering") {
+                current = offerings.offering(identifier: id) ?? current
+            }
+            #endif
+            guard let current else {
                 // Configured, reachable, and nothing is on sale. A dashboard
                 // problem rather than a network one, and worth reporting.
                 CrashReporter.shared.recordFailure(
@@ -83,11 +90,14 @@ final class ProPaywallViewModel: ObservableObject {
 
     // MARK: - Paywall Events
 
-    func purchaseCompleted(_ customerInfo: CustomerInfo) {
+    /// The product comes from the transaction, not the offering: an offering can hold more than
+    /// one package (monthly and yearly), and guessing the first would misreport the experiment.
+    func purchaseCompleted(_ transaction: StoreTransaction?, _ customerInfo: CustomerInfo) {
         access.handleCompletion(customerInfo)
         AnalyticsManager.shared.trackPurchaseCompleted(
-            productID: offering?.availablePackages.first?
-                .storeProduct.productIdentifier ?? PurchaseConfiguration.lifetimeProductID,
+            productID: transaction?.productIdentifier
+                ?? offering?.availablePackages.first?.storeProduct.productIdentifier
+                ?? PurchaseConfiguration.lifetimeProductID,
             source: source
         )
         close()

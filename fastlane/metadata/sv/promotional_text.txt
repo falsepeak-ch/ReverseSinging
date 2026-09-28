@@ -1,1 +1,1 @@
-Nytt i 1.5.1: många fler communitypaket går att öppna och spela, även .rar och .ogg. Filma dig själv när du dubbar med Booth Cam. På 21 språk.
+Nytt i 1.7.0: Ljudimitation, ett tredje spel. Härma ett ljud, få en dom, dela videon. Och baklängessång är nu gratis för alla.

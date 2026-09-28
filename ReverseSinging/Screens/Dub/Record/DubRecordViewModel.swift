@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import UIKit
 import Combine
 import QuartzCore
 import AVFoundation
@@ -422,7 +421,7 @@ final class DubRecordViewModel: ObservableObject {
         guard recorder.canStartRecording(), let line = currentLine else { return }
         // The slate ran while the user switched apps: an inactive app cannot open the
         // microphone, and asking anyway was a "recorder won't start" for every one of them.
-        guard UIApplication.shared.applicationState == .active else { return }
+        guard AppActivity.canOpenMicrophone else { return }
 
         do {
             SoundManager.shared.setMicrophoneOpen(true)

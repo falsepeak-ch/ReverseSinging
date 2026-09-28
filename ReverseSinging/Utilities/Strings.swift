@@ -35,13 +35,16 @@ nonisolated enum Strings {
             static let session = NSLocalizedString("main.section.session", comment: "Session controls section label")
         }
 
-        /// The two games, offered side by side on the main screen.
+        /// The games, offered side by side on the main screen.
         enum Mode {
             static let section = NSLocalizedString("main.mode.section", comment: "Game mode section label")
             static let reverseTitle = NSLocalizedString("main.mode.reverse.title", comment: "Reverse singing game mode")
             static let reverseSubtitle = NSLocalizedString("main.mode.reverse.subtitle", comment: "Reverse singing game description")
             static let dubTitle = NSLocalizedString("main.mode.dub.title", comment: "Movie scene dub game mode")
             static let dubSubtitle = NSLocalizedString("main.mode.dub.subtitle", comment: "Movie scene dub game description")
+            static let imitateTitle = NSLocalizedString("main.mode.imitate.title", comment: "Sound imitation game mode")
+            static let imitateSubtitle = NSLocalizedString("main.mode.imitate.subtitle", comment: "Sound imitation game description")
+            static let free = NSLocalizedString("main.mode.free", comment: "Short pill on a game that stays open without Dubloon Pro. One word")
         }
 
         /// Transport state, shown uppercase in the monitor strip.
@@ -209,6 +212,20 @@ nonisolated enum Strings {
         static let preferences = NSLocalizedString("settings.preferences", comment: "Preferences section")
         static let about = NSLocalizedString("settings.about", comment: "About section")
 
+        /// The membership lines on the About screen: how long they have had the app, and
+        /// what their copy is licensed as.
+        enum About {
+            static let memberSince = NSLocalizedString("settings.about.memberSince", comment: "When this person first got the app, %@ is a long date")
+            static let licenseLifetime = NSLocalizedString("settings.about.license.lifetime", comment: "License status: bought Dubloon Pro outright")
+            static let licenseRenews = NSLocalizedString("settings.about.license.renews", comment: "License status: Dubloon Pro subscription that renews, %@ is a long date")
+            static let licenseEnds = NSLocalizedString("settings.about.license.ends", comment: "License status: Dubloon Pro subscription that will not renew, %@ is the long date it ends")
+            static let licenseEarlyAdopter = NSLocalizedString("settings.about.license.earlyAdopter", comment: "License status: was here before the app charged, so never pays")
+            static let licenseTrialDays = NSLocalizedString("settings.about.license.trialDays", comment: "License status: in the free trial, %d is the days left, always 2 or more")
+            static let licenseTrialLastDay = NSLocalizedString("settings.about.license.trialLastDay", comment: "License status: last day of the free trial")
+            static let licenseTrialOver = NSLocalizedString("settings.about.license.trialOver", comment: "License status: the free trial has ended and nothing was bought")
+            static let licenseFree = NSLocalizedString("settings.about.license.free", comment: "License status: free version, no purchase")
+        }
+
         // Theme descriptions
 
         // Haptic feedback
@@ -248,6 +265,9 @@ nonisolated enum Strings {
         static let primerConfirm = NSLocalizedString("booth.primer.confirm", comment: "Turn Booth Cam on")
         static let primerDecline = NSLocalizedString("booth.primer.decline", comment: "Carry on dubbing without the camera")
         static let primerSystemPrompt = NSLocalizedString("booth.primer.systemPrompt", comment: "Warns that the iOS camera prompt comes next")
+        /// The Mac's own wording: its camera is not a front camera, and macOS asks, not iOS.
+        static let primerMessageMac = NSLocalizedString("mac.booth.primer.message", comment: "Booth Cam explanation on the Mac, which films with the Mac's camera")
+        static let primerSystemPromptMac = NSLocalizedString("mac.booth.primer.systemPrompt", comment: "Tells the user macOS will ask for camera access next")
         static let factOnDevice = NSLocalizedString("booth.fact.onDevice", comment: "Where booth footage is kept")
         static let factNothingLeaves = NSLocalizedString("booth.fact.nothingLeaves", comment: "Nothing is shared until an export")
         static let factReversible = NSLocalizedString("booth.fact.reversible", comment: "The camera can be switched off at any time")
@@ -435,6 +455,8 @@ nonisolated enum Strings {
         static let unknownSource = NSLocalizedString("dubShare.unknownSource", comment: "Shown for a pack the user imported, whose origin the app does not know")
         static let responsibility = NSLocalizedString("dubShare.responsibility", comment: "Distributing the export is the user's own act and responsibility")
         static let confirm = NSLocalizedString("dubShare.confirm", comment: "Go ahead and export")
+        static let share = NSLocalizedString("dubShare.share", comment: "Mac: button that opens the system share menu for a finished dub")
+        static let save = NSLocalizedString("dubShare.save", comment: "Mac: button that saves a finished dub to a folder the user picks")
     }
 
     // MARK: - What's New
@@ -468,6 +490,7 @@ nonisolated enum Strings {
         }
 
         // Settings
+        static let lockedTitle = NSLocalizedString("pro.locked.title", comment: "Headline of the menu card over the locked games when there was no free trial, so it must not mention one")
         static let section = NSLocalizedString("pro.section", comment: "Settings section header for the purchase")
         static let unlockTitle = NSLocalizedString("pro.unlock.title", comment: "Settings row that opens the paywall")
         static let unlockSubtitle = NSLocalizedString("pro.unlock.subtitle", comment: "Explains what unlocking costs and gives")
@@ -475,6 +498,9 @@ nonisolated enum Strings {
         static let ownedSubtitle = NSLocalizedString("pro.owned.subtitle", comment: "Thank-you line under the owned row")
         static let manageTitle = NSLocalizedString("pro.manage.title", comment: "Opens the RevenueCat Customer Center")
         static let manageSubtitle = NSLocalizedString("pro.manage.subtitle", comment: "What the Customer Center is for")
+        static let subscribedTitle = NSLocalizedString("pro.subscribed.title", comment: "Settings row shown to someone with an active subscription, in place of the owned row")
+        static let manageSubscriptionTitle = NSLocalizedString("pro.manageSubscription.title", comment: "Opens the RevenueCat Customer Center for a subscriber")
+        static let manageSubscriptionSubtitle = NSLocalizedString("pro.manageSubscription.subtitle", comment: "What the Customer Center is for, to a subscriber")
         static let restoreTitle = NSLocalizedString("pro.restore.title", comment: "Restore a previous purchase")
         static let restoreSubtitle = NSLocalizedString("pro.restore.subtitle", comment: "Explains who the restore button is for")
         static let testStoreWarning = NSLocalizedString("pro.testStore.warning", comment: "Debug-only banner: this build talks to the RevenueCat test store")
@@ -520,6 +546,7 @@ nonisolated enum Strings {
             /// can see is untrue reads as a trick rather than an offer.
             static let messageAfterExpiry = NSLocalizedString("pro.fallback.message", comment: "Body of the built-in paywall when the free trial is over")
             static let messageBeforeExpiry = NSLocalizedString("pro.fallback.message.beforeExpiry", comment: "Body of the built-in paywall when the user still has trial time left, so it must not claim the trial has ended")
+            static let messageNoTrial = NSLocalizedString("pro.fallback.message.noTrial", comment: "Body of the built-in paywall when there was no free trial at all, so it must not mention one")
             static let buy = NSLocalizedString("pro.fallback.buy", comment: "Buy button with the price, %@ is the localized price")
             static let buyUnpriced = NSLocalizedString("pro.fallback.buyUnpriced", comment: "Buy button before the price is known")
             static let loading = NSLocalizedString("pro.fallback.loading", comment: "Shown while the store is being asked for the price")
@@ -528,7 +555,86 @@ nonisolated enum Strings {
             static let benefitOne = NSLocalizedString("pro.fallback.benefit.one", comment: "First selling point on the built-in paywall")
             static let benefitTwo = NSLocalizedString("pro.fallback.benefit.two", comment: "Second selling point on the built-in paywall")
             static let benefitThree = NSLocalizedString("pro.fallback.benefit.three", comment: "Third selling point on the built-in paywall")
-            static let oneTime = NSLocalizedString("pro.fallback.oneTime", comment: "Reassures that the price is paid once, not per month")
+            static let oneTime = NSLocalizedString("pro.fallback.oneTime", comment: "Under the buy button for the lifetime purchase only: the price is paid once, not per month")
+            static let subscribeMonthly = NSLocalizedString("pro.fallback.subscribe.monthly", comment: "Buy button for a monthly subscription, %@ is the localized price")
+            static let subscribeYearly = NSLocalizedString("pro.fallback.subscribe.yearly", comment: "Buy button for a yearly subscription, %@ is the localized price")
+            static let subscribe = NSLocalizedString("pro.fallback.subscribe", comment: "Buy button for a subscription of any other length, %@ is the localized price")
+            static let renews = NSLocalizedString("pro.fallback.renews", comment: "Under the buy button for a subscription: it renews until cancelled")
+            static let terms = NSLocalizedString("pro.fallback.terms", comment: "Link to the Terms of Use (Apple's standard licence agreement)")
         }
+    }
+
+    // MARK: - Sound Imitation
+    /// The game where you copy a sound (a cat, a siren, a laser) and get a verdict.
+    enum Imitate {
+        static let libraryHint = NSLocalizedString("imitate.library.hint", comment: "One line at the top of the sound library explaining the game")
+        static let best = NSLocalizedString("imitate.library.best", comment: "Short label before a sound's best score on its tile")
+        static let untried = NSLocalizedString("imitate.library.untried", comment: "Short tag on a sound tile never attempted. One word")
+
+        static let listen = NSLocalizedString("imitate.challenge.listen", comment: "Button that plays the sound to imitate")
+        static let record = NSLocalizedString("imitate.challenge.record", comment: "Button that starts recording your imitation. One word")
+        static let stop = NSLocalizedString("imitate.challenge.stop", comment: "Button that stops recording early")
+        static let instruction = NSLocalizedString("imitate.challenge.instruction", comment: "Instruction under the sound before the first attempt")
+        static let recordingHint = NSLocalizedString("imitate.challenge.recordingHint", comment: "Shown while recording the imitation")
+        static let scoring = NSLocalizedString("imitate.challenge.scoring", comment: "Shown while the attempt is being scored")
+        static let tryAgain = NSLocalizedString("imitate.challenge.tryAgain", comment: "Button to record another attempt")
+        static let playMine = NSLocalizedString("imitate.challenge.playMine", comment: "Button to hear your own attempt")
+        static let makeVideo = NSLocalizedString("imitate.challenge.makeVideo", comment: "Button that renders a shareable video of the attempt")
+        static let rendering = NSLocalizedString("imitate.challenge.rendering", comment: "Progress message while the video is rendered")
+        static let newBest = NSLocalizedString("imitate.challenge.newBest", comment: "Tag shown when an attempt beats the previous best score")
+        static let exportFailed = NSLocalizedString("imitate.challenge.exportFailed", comment: "Error when the video could not be made")
+        static let difficulty = NSLocalizedString("imitate.challenge.difficulty", comment: "Accessibility label for the difficulty dots, followed by a number 1-3")
+
+        enum Category {
+            static let animals = NSLocalizedString("imitate.category.animals", comment: "Sound library section: animal sounds")
+            static let vehicles = NSLocalizedString("imitate.category.vehicles", comment: "Sound library section: horns, sirens, bells")
+            static let cartoon = NSLocalizedString("imitate.category.cartoon", comment: "Sound library section: cartoon and sci-fi effects")
+            static let human = NSLocalizedString("imitate.category.human", comment: "Sound library section: burps, sneezes, laughs")
+        }
+
+        /// The parts an attempt is scored on.
+        enum Part {
+            static let rhythm = NSLocalizedString("imitate.part.rhythm", comment: "Score part: bursts and gaps in the right places")
+            static let pitch = NSLocalizedString("imitate.part.pitch", comment: "Score part: the note moving the right way")
+            static let tone = NSLocalizedString("imitate.part.tone", comment: "Score part: bright or dull, hissy or hummed")
+            static let duration = NSLocalizedString("imitate.part.duration", comment: "Score part: lasting about as long")
+        }
+
+        /// The rubber-stamp words. Short, shouty, uppercase.
+        enum Verdict {
+            static let nailedIt = NSLocalizedString("imitate.verdict.nailedIt", comment: "Stamp for a near-perfect imitation. Uppercase, very short")
+            static let legendary = NSLocalizedString("imitate.verdict.legendary", comment: "Stamp for a near-perfect imitation. Uppercase, very short")
+            static let approved = NSLocalizedString("imitate.verdict.approved", comment: "Stamp for a great imitation, like an official approval stamp. Uppercase")
+            static let certified = NSLocalizedString("imitate.verdict.certified", comment: "Stamp for a great imitation, like an official certification stamp. Uppercase")
+            static let notBad = NSLocalizedString("imitate.verdict.notBad", comment: "Stamp for a decent imitation. Uppercase")
+            static let almost = NSLocalizedString("imitate.verdict.almost", comment: "Stamp for a near miss. Uppercase")
+            static let soClose = NSLocalizedString("imitate.verdict.soClose", comment: "Stamp for a near miss. Uppercase")
+            static let failed = NSLocalizedString("imitate.verdict.failed", comment: "Stamp for a bad imitation, like an official rejection stamp. Uppercase")
+            static let whatWasThat = NSLocalizedString("imitate.verdict.whatWasThat", comment: "Stamp for a bad imitation, playful. Uppercase")
+        }
+
+        /// Words drawn into the exported video.
+        enum Reel {
+            static let challenge = NSLocalizedString("imitate.reel.challenge", comment: "Kicker at the top of the video's intro card")
+            static let canYouSoundLike = NSLocalizedString("imitate.reel.canYouSoundLike", comment: "Intro card line; the sound's name follows on the next line in big letters")
+            static let original = NSLocalizedString("imitate.reel.original", comment: "Label over the original sound in the video. One word")
+            static let you = NSLocalizedString("imitate.reel.you", comment: "Label over the user's attempt in the video. One word")
+            static let score = NSLocalizedString("imitate.reel.score", comment: "Label over the score number in the video")
+            static let beatMyScore = NSLocalizedString("imitate.reel.beatMyScore", comment: "Challenge to viewers at the end of the video")
+        }
+
+        /// A sound's name in the user's language, keyed by its id in the manifest.
+        static func soundName(_ id: String) -> String {
+            NSLocalizedString("imitate.sound.\(id)", comment: "Name of a sound in the imitation library")
+        }
+    }
+
+    // MARK: - Review banner
+    /// The menu note that thanks someone who bought Dubloon Pro and asks for a review.
+    enum ReviewBanner {
+        static let title = NSLocalizedString("review.banner.title", comment: "Headline of the menu note shown after buying Dubloon Pro")
+        static let message = NSLocalizedString("review.banner.message", comment: "Why a review matters to a one-person studio. Personal, not pushy")
+        static let rate = NSLocalizedString("review.banner.rate", comment: "Button that opens the App Store's write-a-review page")
+        static let later = NSLocalizedString("review.banner.later", comment: "Button that puts the review note away for now")
     }
 }

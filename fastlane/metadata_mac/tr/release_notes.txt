@@ -1,0 +1,5 @@
+Mac'te ilk açılış için düzeltmeler.
+
+DÜZELTİLDİ
+• Tersten şarkı, ilk kayıtta seni Sistem Ayarları'na göndermek yerine mikrofon izni istiyor
+• Uygulamayla gelen iki film sahnesi, yeniden yüklemeden sonra rafta yerini alıyor

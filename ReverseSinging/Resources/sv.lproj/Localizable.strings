@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Välkommen till Dubloon";
-"onboarding.welcome.message" = "Två spel, en mikrofon. Sjung en låt baklänges eller lägg din röst i en filmscen. Ingetdera får dig att låta normal.";
+"onboarding.welcome.message" = "Tre spel, en mikrofon. Sjung en låt baklänges, lägg din röst i en filmscen eller härma ett ljud tills det sitter. Inget av dem får dig att låta normal.";
 "onboarding.howItWorks.title" = "Så funkar det";
 "onboarding.howItWorks.message" = "Spela in en låt, vänd på den och sjung med i rappakaljan. Vänd sedan på ditt eget försök och hör om du var nära eller just uppfann ett nytt språk.";
 "onboarding.dub.title" = "Dubba en filmscen";
 "onboarding.dub.message" = "Det andra spelet: starta en scen, överspela ordentligt och hör dig själv i filmen. Två scener följer med. Sedan tar du med dina egna filer.";
 "onboarding.microphone.title" = "En sista sak";
-"onboarding.microphone.message" = "Båda spelen måste höra dig: baklängessång eller dubbning. Mikrofonen vaknar bara medan du spelar in, allt stannar på den här enheten och ingenting laddas någonsin upp. Din sämsta tagning stannar mellan er två.";
+"onboarding.microphone.message" = "Alla tre spelen måste höra dig: baklängessång, dubbning av en scen eller härmning av ett ljud. Mikrofonen vaknar bara medan du spelar in, allt stannar på den här enheten och ingenting laddas någonsin upp. Din sämsta tagning stannar mellan er två.";
 "onboarding.button.openSettings" = "Öppna Inställningar";
 "onboarding.button.letsRecord" = "kör, vi spelar in!";
 "onboarding.button.continueLowercase" = "fortsätt";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Ingen hör dig";
-"main.emptyState.message" = "Just nu är Dubloon en inspelningsapp utan något att spela in med. Slå på mikrofonåtkomst i enhetens inställningar så vaknar båda spelen till liv igen.";
+"main.emptyState.message" = "Just nu är Dubloon en inspelningsapp utan något att spela in med. Slå på mikrofonåtkomst i enhetens inställningar så vaknar alla tre spelen till liv igen.";
 "main.emptyState.button" = "Öppna Inställningar";
 
 // MARK: - Main View - Processing & Success
@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Rattar, mätare och vågformer";
 "settings.preferences" = "Inställningar";
 "settings.about" = "Om";
+"settings.about.memberSince" = "Medlem sedan %@";
+"settings.about.license.lifetime" = "Dubloon Pro, livstid";
+"settings.about.license.renews" = "Dubloon Pro, förnyas %@";
+"settings.about.license.ends" = "Dubloon Pro, upphör %@";
+"settings.about.license.earlyAdopter" = "Tidig användare, gratis för alltid";
+"settings.about.license.trialDays" = "Gratis provperiod, %d dagar kvar";
+"settings.about.license.trialLastDay" = "Gratis provperiod, sista dagen";
+"settings.about.license.trialOver" = "Gratis provperiod är slut";
+"settings.about.license.free" = "Gratis";
 
 // Theme descriptions
 
@@ -219,6 +228,7 @@
 "main.button.back" = "Tillbaka";
 "main.mode.reverse.subtitle" = "Spela in, vänd på det och sjung rappakaljan";
 "main.mode.dub.subtitle" = "Lägg din röst i någon annans mun";
+"main.mode.free" = "Gratis";
 "dub.speakerAccessibility" = "Sägs av %@";
 "dub.cast" = "Rollista";
 "dub.referenceTrack" = "Referens";
@@ -247,6 +257,8 @@
 "dubShare.unknownSource" = "Den här scenen tog du med själv, så du vet var den kommer ifrån och vad du får göra med den.";
 "dubShare.responsibility" = "Var den hamnar är upp till dig, så följ upphovsrättsreglerna där du bor.";
 "dubShare.confirm" = "Exportera video";
+"dubShare.share" = "Dela…";
+"dubShare.save" = "Spara…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Riggar dina första scener…";
@@ -275,13 +287,17 @@
 "pro.trial.daysLeft" = "%d dagar kvar";
 "pro.trial.oneDayLeft" = "Sista dagen";
 "pro.trial.over" = "Din gratisperiod är slut";
+"pro.locked.title" = "Skaffa Dubloon Pro för att dubba";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Lås upp Dubloon";
-"pro.unlock.subtitle" = "En betalning, båda spelen, dina för gott.";
+"pro.unlock.subtitle" = "Alla scener, Booth Cam och export. Baklängessång förblir gratis.";
 "pro.owned.title" = "Du äger Dubloon";
 "pro.owned.subtitle" = "Tack. Varje scen, varje tagning, utan tak.";
 "pro.manage.title" = "Hantera köpet";
 "pro.manage.subtitle" = "Kvitton, återbetalningar och hjälp med köpet.";
+"pro.subscribed.title" = "Du har Dubloon Pro";
+"pro.manageSubscription.title" = "Hantera prenumerationen";
+"pro.manageSubscription.subtitle" = "Byt plan, säg upp eller få hjälp.";
 "pro.restore.title" = "Återställ köpet";
 "pro.restore.subtitle" = "Ny telefon eller ominstallerat? Hämta tillbaka det.";
 "pro.testStore.warning" = "Debugbygge: kopplat till RevenueCats testbutik. Inga riktiga pengar rör sig.";
@@ -293,30 +309,42 @@
 "pro.error.generic" = "Butiken svarade inte. Försök igen om en stund.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Lås upp Dubloon";
-"pro.fallback.message" = "Din gratisperiod är slut. En enda betalning håller båda spelen öppna för gott.";
-"pro.fallback.message.beforeExpiry" = "En enda betalning håller båda spelen öppna för gott.";
+"pro.fallback.message" = "Din gratisperiod är slut. Lås upp Dubloon för att fortsätta dubba.";
+"pro.fallback.message.beforeExpiry" = "Lås upp Dubloon för att fortsätta dubba.";
+"pro.fallback.message.noTrial" = "Lås upp Dubloon för att dubba varje scen.";
 "pro.fallback.buy" = "Lås upp för %@";
 "pro.fallback.buyUnpriced" = "Lås upp";
 "pro.fallback.loading" = "Frågar butiken…";
 "pro.fallback.unavailable" = "Butiken svarar inte just nu. Kolla uppkopplingen och försök igen.";
 "pro.fallback.retry" = "Försök igen";
-"pro.fallback.benefit.one" = "Sjung baklänges så länge grannarna står ut";
+"pro.fallback.benefit.one" = "Filma dig själv i båset med Booth Cam";
 "pro.fallback.benefit.two" = "Dubba varje scen, och ta med dina egna";
 "pro.fallback.benefit.three" = "Exportera dina tagningar och dela skadan";
 "pro.fallback.oneTime" = "En betalning. Ingen prenumeration.";
+"pro.fallback.subscribe.monthly" = "Prenumerera för %@/mån";
+"pro.fallback.subscribe.yearly" = "Prenumerera för %@/år";
+"pro.fallback.subscribe" = "Prenumerera för %@";
+"pro.fallback.renews" = "Förnyas automatiskt tills du säger upp den. Säg upp när du vill i inställningarna för ditt Apple-konto.";
+"pro.fallback.terms" = "Användarvillkor";
+
+// MARK: - Review banner
+"review.banner.title" = "Tack för att du gick över till Pro";
+"review.banner.message" = "Dubloon görs av en enda person i Zürich, och det är genom recensioner som nya spelare hittar det. Om du gillar det skulle några ord på App Store betyda mycket.";
+"review.banner.rate" = "Skriv en recension";
+"review.banner.later" = "Inte nu";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Välkommen till klubben";
-"pro.earlyAdopter.message" = "Dubloon kostar pengar nu — fast inte för dig. Du var här före prislappen, så båda spelen förblir dina, gratis, så länge appen finns. Tack för de första dagarna.";
+"pro.earlyAdopter.message" = "Dubloon kostar pengar nu — fast inte för dig. Du var här före prislappen, så alla tre spelen förblir dina, gratis, så länge appen finns. Tack för de första dagarna.";
 "pro.earlyAdopter.badge" = "Gratis för alltid";
 "pro.earlyAdopter.confirm" = "Fint";
 "pro.earlyAdopter.settings.title" = "Gratis för alltid";
-"pro.earlyAdopter.settings.subtitle" = "Du var här tidigt. Båda spelen är dina och du är oss ingenting skyldig.";
+"pro.earlyAdopter.settings.subtitle" = "Du var här tidigt. Alla tre spelen är dina och du är oss ingenting skyldig.";
 "pro.closePaywall" = "Stäng";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Åtkomst";
-"pro.earlyAdopter.row.access.value" = "Båda spelen";
+"pro.earlyAdopter.row.access.value" = "Alla tre spelen";
 "pro.earlyAdopter.row.cost" = "Kostnad";
 "pro.earlyAdopter.row.cost.value" = "Ingenting";
 "pro.earlyAdopter.row.expires" = "Går ut";
@@ -407,3 +435,130 @@
 "dub.error.linesBadTimestamps" = "Starttiderna i paketet är inte skrivna som tider, så replikerna kan inte placeras.";
 "dub.error.linesNoAudio" = "Paketets repliker har inga inspelningar, så det finns inget att dubba.";
 "dub.error.linesUnplayableAudio" = "Ingen av inspelningarna i paketet kan spelas upp på den här enheten.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Ljudimitation";
+"main.mode.imitate.subtitle" = "Härma ett ljud, få en dom";
+"imitate.library.hint" = "Välj ett ljud, lyssna och gör din bästa imitation.";
+"imitate.library.best" = "Rekord";
+"imitate.library.untried" = "Ny";
+"imitate.challenge.listen" = "Lyssna";
+"imitate.challenge.record" = "Härma";
+"imitate.challenge.stop" = "Stopp";
+"imitate.challenge.instruction" = "Lyssna först, tryck sedan på Härma och gör ljudet.";
+"imitate.challenge.recordingHint" = "Kör! Gör ljudet.";
+"imitate.challenge.scoring" = "Bedömer…";
+"imitate.challenge.tryAgain" = "Försök igen";
+"imitate.challenge.playMine" = "Spela min";
+"imitate.challenge.makeVideo" = "Gör video";
+"imitate.challenge.rendering" = "Gör din video…";
+"imitate.challenge.newBest" = "Nytt rekord!";
+"imitate.challenge.exportFailed" = "Videon kunde inte skapas. Försök igen.";
+"imitate.challenge.difficulty" = "Svårighetsgrad";
+"imitate.category.animals" = "Djur";
+"imitate.category.vehicles" = "Tutor och larm";
+"imitate.category.cartoon" = "Tecknat och sci-fi";
+"imitate.category.human" = "Människoljud";
+"imitate.part.rhythm" = "Rytm";
+"imitate.part.pitch" = "Tonhöjd";
+"imitate.part.tone" = "Klang";
+"imitate.part.duration" = "Längd";
+"imitate.verdict.nailedIt" = "MITT I PRICK!";
+"imitate.verdict.legendary" = "LEGENDARISKT";
+"imitate.verdict.approved" = "GODKÄNT";
+"imitate.verdict.certified" = "CERTIFIERAT";
+"imitate.verdict.notBad" = "INTE ILLA";
+"imitate.verdict.almost" = "NÄSTAN…";
+"imitate.verdict.soClose" = "SÅ NÄRA";
+"imitate.verdict.failed" = "UNDERKÄNT";
+"imitate.verdict.whatWasThat" = "VAD VAR DET?";
+"imitate.reel.challenge" = "Ljudutmaning";
+"imitate.reel.canYouSoundLike" = "Kan du låta som…";
+"imitate.reel.original" = "Original";
+"imitate.reel.you" = "Du";
+"imitate.reel.score" = "Poäng";
+"imitate.reel.beatMyScore" = "Kan du slå mina poäng?";
+"imitate.sound.cat" = "Katt";
+"imitate.sound.dog" = "Hund";
+"imitate.sound.cow" = "Ko";
+"imitate.sound.sheep" = "Får";
+"imitate.sound.chicken" = "Höna";
+"imitate.sound.rooster" = "Tupp";
+"imitate.sound.duck" = "Anka";
+"imitate.sound.pig" = "Gris";
+"imitate.sound.wolf" = "Varg";
+"imitate.sound.owl" = "Uggla";
+"imitate.sound.horn" = "Biltuta";
+"imitate.sound.siren" = "Siren";
+"imitate.sound.train" = "Tågvissla";
+"imitate.sound.bell" = "Cykelringklocka";
+"imitate.sound.laser" = "Laser";
+"imitate.sound.boing" = "Boing";
+"imitate.sound.slide" = "Glidflöjt";
+"imitate.sound.zap" = "Stöt";
+"imitate.sound.burp" = "Rap";
+"imitate.sound.sneeze" = "Nysning";
+"imitate.sound.snore" = "Snarkning";
+"imitate.sound.laugh" = "Ondskefullt skratt";
+"imitate.sound.yawn" = "Gäspning";
+"imitate.sound.hiccup" = "Hicka";
+
+/* Mac */
+"mac.sidebar.games" = "Spel";
+"mac.sidebar.packs" = "Dubbpaket";
+"mac.sidebar.sessions" = "Sessioner";
+"mac.menu.importPack" = "Importera dubbpaket …";
+"mac.menu.export" = "Exportera video …";
+"mac.menu.playback" = "Uppspelning";
+"mac.menu.playPause" = "Spela upp/pausa";
+"mac.menu.record" = "Spela in";
+"mac.menu.listen" = "Spela originalet";
+"mac.menu.playTake" = "Spela tagningen";
+"mac.menu.previousLine" = "Föregående replik";
+"mac.menu.nextLine" = "Nästa replik";
+"mac.menu.showInspector" = "Visa inspektören";
+"mac.menu.hideInspector" = "Göm inspektören";
+"mac.panel.inspector" = "Inspektör";
+"mac.panel.viewer" = "Visare";
+"mac.panel.line" = "Replik";
+"mac.panel.scene" = "Scen";
+"mac.panel.takes" = "Tagningar";
+"mac.panel.character" = "Roll";
+"mac.panel.start" = "Start";
+"mac.panel.duration" = "Längd";
+"mac.panel.notDubbed" = "Inte dubbad än";
+"mac.panel.attempts" = "Försök";
+"mac.panel.emptyTitle" = "Välj något att jobba med";
+"mac.panel.emptyMessage" = "Välj ett spel eller ett dubbpaket i sidofältet.";
+"mac.settings.general" = "Allmänt";
+"mac.settings.recording" = "Inspelning";
+"mac.welcome.notNow" = "Inte nu";
+"mac.booth.primer.message" = "Booth Cam använder Macens kamera medan du spelar, så scenen, repliken och ditt ansikte får plats på samma skärm. Sedan kan du dela reaktionen tillsammans med dubbningen.";
+"mac.booth.primer.systemPrompt" = "Härnäst frågar macOS om åtkomst till kameran.";
+"mac.menu.openRecent" = "Öppna senaste";
+"mac.menu.clearRecent" = "Rensa menyn";
+"mac.menu.open" = "Öppna";
+"mac.menu.showInFinder" = "Visa i Finder";
+"mac.menu.viewer" = "Visare";
+"mac.menu.zoomIn" = "Zooma in";
+"mac.menu.zoomOut" = "Zooma ut";
+"mac.menu.skipBack" = "Bakåt 5 sekunder";
+"mac.menu.skipForward" = "Framåt 5 sekunder";
+"mac.menu.goToStart" = "Gå till början";
+"mac.menu.shortcuts" = "Kortkommandon";
+"mac.menu.delete" = "Radera …";
+"mac.confirm.deletePack.title" = "Vill du radera ”%@”?";
+"mac.confirm.deletePack.message" = "Dina tagningar och boothfilmer för den här scenen försvinner också. Det går inte att ångra.";
+"mac.confirm.deleteSession.title" = "Vill du radera den här sessionen?";
+"mac.confirm.deleteSession.message" = "Dess inspelningar försvinner också. Det går inte att ångra.";
+"mac.shortcuts.file" = "Arkiv";
+"mac.shortcuts.view" = "Innehåll";
+"mac.tip.shortcuts.title" = "Tangentbordet är ditt kontrollbord";
+"mac.tip.shortcuts.message" = "R spelar in, mellanslag spelar upp och piltangenterna flyttar mellan repliker. Alla kortkommandon finns under Hjälp ▸ Kortkommandon.";
+"mac.export.dragHint" = "Dra videon vart som helst för att spara en kopia";
+"mac.search.prompt" = "Sök";
+"mac.menu.find" = "Sök";
+"mac.menu.openInNewWindow" = "Öppna i nytt fönster";
+"mac.panel.sound" = "Ljud";
+"mac.panel.allSounds" = "Alla";
+"mac.panel.compare" = "Jämför";

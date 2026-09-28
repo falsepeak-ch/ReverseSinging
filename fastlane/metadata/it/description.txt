@@ -1,4 +1,4 @@
-Dubloon sono due giochi di voce in una sola app, e nessuno dei due ha bisogno di altro che del tuo microfono.
+Dubloon sono tre giochi di voce in una sola app, e nessuno dei tre ha bisogno di altro che del tuo microfono.
 
 DOPPIAGGIO DI SCENA
 
@@ -32,12 +32,19 @@ Il gioco originale. Registra una canzone e Dubloon la inverte. Canta la versione
 • Due interfacce: pulsanti grandi e semplici, oppure la forma d'onda completa con loop, velocità e tonalità
 • Salva le tue take migliori e torna ad ascoltarle
 
+IMITAZIONE DI SUONI
+
+Ascolta un suono, poi rifallo tu. Un cane che abbaia, un gallo, un clacson, un laser. Dubloon ascolta il tuo tentativo, ne giudica ritmo, tonalità e timbro rispetto a quello vero, e ci stampa sopra un verdetto. Batti il tuo record, poi trasforma il tentativo in un video da condividere.
+
+• 24 suoni: animali, clacson e allarmi, effetti da cartone animato e rumori umani
+• La camera della cabina riprende la tua faccia nel bel mezzo dell'imitazione, se ti va
+
 PRIVATO PER SCELTA
 
 Tutto avviene su questo dispositivo. Le tue registrazioni, le tue take, il girato della cabina e i doppiaggi esportati non escono mai da qui. Nessun account, nessuna registrazione, nessuna pubblicità, niente da caricare. L'app raccoglie statistiche d'uso anonime per capire cosa costruire dopo, mai il contenuto di una registrazione.
 
 QUANTO COSTA
 
-Sette giorni gratis, entrambi i giochi, senza nulla di trattenuto. Poi un solo pagamento sblocca l'app per sempre. Non è un abbonamento.
+Il canto invertito è gratis. Dubloon Pro apre il doppiaggio di scene, l'imitazione di suoni, la camera della cabina e le esportazioni, senza nulla di trattenuto, con un acquisto unico o con un abbonamento.
 
 Creato in Svizzera. Fatto a mano a Zurigo.

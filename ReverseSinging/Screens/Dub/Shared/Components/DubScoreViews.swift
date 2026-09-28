@@ -265,11 +265,31 @@ struct DubSceneScorePanel: View {
         }
     }
 
+    /// On one row where there is room; where there is not, such as a narrow inspector, the label
+    /// goes above rather than breaking mid-word.
     private func highlight(label: String, score: DubLineScore) -> some View {
-        HStack(spacing: 8) {
-            Text(label)
-                .editorLabelStyle(.rsTextTertiary)
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 8) {
+                highlightLabel(label)
+                highlightLine(score)
+            }
 
+            VStack(alignment: .leading, spacing: 4) {
+                highlightLabel(label)
+                highlightLine(score)
+            }
+        }
+    }
+
+    private func highlightLabel(_ label: String) -> some View {
+        Text(label)
+            .editorLabelStyle(.rsTextTertiary)
+            .lineLimit(1)
+            .fixedSize()
+    }
+
+    private func highlightLine(_ score: DubLineScore) -> some View {
+        HStack(spacing: 8) {
             Text(line(score.slug)?.caption ?? score.slug)
                 .font(.rsBodySmall)
                 .foregroundColor(.rsTextSecondary)

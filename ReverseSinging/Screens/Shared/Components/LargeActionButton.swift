@@ -135,3 +135,16 @@ struct LevelMeter: View {
         .animation(.easeOut(duration: 0.12), value: level)
     }
 }
+
+extension View {
+    /// A bare-key shortcut on the Mac, where the transport is played from the keyboard.
+    /// Nothing on iOS, which has no hardware keyboard to count on.
+    @ViewBuilder
+    func macKeyboardShortcut(_ key: KeyEquivalent) -> some View {
+        #if os(macOS)
+        keyboardShortcut(key, modifiers: [])
+        #else
+        self
+        #endif
+    }
+}

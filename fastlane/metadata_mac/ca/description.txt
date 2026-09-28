@@ -1,0 +1,54 @@
+Dubloon són tres jocs de veu en una sola app, i cap d'ells necessita res més que el teu micròfon.
+
+FETA PER AL MAC
+
+Una suite d'edició, no una app de mòbil en una pantalla gran. Els teus jocs i escenes viuen en una barra lateral. Una escena s'obre amb les línies en una llista, la imatge en un visor, cada línia i cada presa en una línia de temps, i els detalls en un inspector. I tot funciona amb el teclat: R per gravar, barra espaiadora per reproduir i les fletxes per moure't entre línies.
+
+DOBLATGE D'ESCENA
+
+Carrega una escena i dobla-la tu. Dubloon et reprodueix la línia original, t'ensenya la imatge i el text, i et marca exactament quant dura. Després graves la teva presa. L'ona de l'original queda sota la teva, així veus on has entrat abans d'hora, on has corregut i on has deixat un buit.
+
+• Línia a línia, al teu ritme: atura't i reprèn quan vulguis
+• La interpretació original als auriculars mentre graves, si et ve de gust
+• Cada personatge amb el seu color, per saber sempre qui parla
+• Una barra de ritme que es posa ambre així que passes de l'original
+• Els diàlegs superposats es mesclen en pistes separades, així dos personatges parlant alhora sonen com toca
+• Mira l'original, escolta el teu doblatge o exporta l'escena sencera en vídeo
+
+CÀMERA DE CABINA
+
+Encén la càmera del Mac i Dubloon et grava mentre actues. Exporta l'escena acabada amb la teva cara en un cantó, apilada a sobre per a una story, o al costat. O treu-ne una sola frase amb la reacció al costat. La càmera està apagada fins que tu l'encens, i el material es queda al teu Mac fins que decideixes exportar-lo.
+
+AMB NOTA, SI EN VOLS
+
+Cada presa es puntua per sincronia, ritme i interpretació, amb una nota per a l'escena, la teva millor frase i la que es mereix un altre intent. Apaga-ho i aquí no compta ningú.
+
+DUES ESCENES PER COMENÇAR
+
+Camp Rules està tallada de Sprite Fright, la pel·lícula oberta de Blender Studio, compartida sota Creative Commons Attribution 4.0. Stuck Up ve de The Outsider, un film escolar del 1951 que és de domini públic als Estats Units. Cada escena indica la pel·lícula, l'any i els termes a la seva pròpia pantalla.
+
+A partir d'aquí, la prestatgeria la omples tu. Més enllà d'aquestes dues, Dubloon no inclou ni allotja cap pel·lícula. Els packs de doblatge els fan i els comparteixen altres jugadors: descarregues els que vulguis i obres la carpeta o el .zip des del Finder o per AirDrop. Assegura't de tenir dret a fer servir el que dobles.
+
+CANT INVERTIT
+
+El joc original. Grava una cançó i Dubloon la inverteix. Canta la versió del revés que sents i l'app gira el teu intent: si l'has clavat, acabes cantant la cançó de debò. Et puntua com de a prop has estat.
+
+• La teva cançó, la versió invertida i les teves dues preses en quatre pistes, amb bucle, velocitat i to
+• Desa les teves millors preses i torna-hi
+
+IMITACIÓ DE SONS
+
+Escolta un so i fes-lo tu. Un gos que borda, un gall, un clàxon, un làser. Dubloon escolta el teu intent, en jutja el ritme, el to i el timbre comparant-lo amb el so real, i hi estampa un veredicte. Supera el teu rècord i després converteix l'intent en un vídeo per compartir.
+
+• 24 sons: animals, clàxons i alarmes, efectes de dibuixos animats i sorolls humans
+• La càmera de cabina et grava la cara enmig de la imitació, si et ve de gust
+
+PRIVAT DE FÀBRICA
+
+Tot passa en aquest Mac. Les teves gravacions, les teves preses, el material de cabina i els doblatges exportats no en surten mai. Sense compte, sense registre, sense anuncis i sense res per pujar. L'app recull estadístiques d'ús anònimes per saber què construir després, mai el contingut d'una gravació.
+
+QUANT COSTA
+
+El cant invertit és gratuït. Dubloon Pro obre el doblatge d'escenes, la imitació de sons, la càmera de cabina i les exportacions, sense retallades, amb una compra única o amb una subscripció. Ja el vas comprar a l'iPhone? Aquí també es desbloqueja, amb el mateix compte d'Apple.
+
+Feta a Suïssa. Feta a mà a Zuric.

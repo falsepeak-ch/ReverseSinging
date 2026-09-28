@@ -161,6 +161,32 @@ struct DubPackImporterTests {
         #expect(DubPackManifest.read(at: pack.directoryURL)?.hasMeasuredSpeech == true)
     }
 
+    // MARK: - Load failures
+
+    @Test("A folder the app never installed is not reported when it fails to load")
+    func handMadeFolderIsNotReported() {
+        #expect(DubPackLibrary.loadFailureAction(installedByApp: false, alreadyReported: false) == .logNotInstalled)
+        #expect(DubPackLibrary.loadFailureAction(installedByApp: false, alreadyReported: true) == .logNotInstalled)
+    }
+
+    @Test("An installed pack that stops loading is reported once")
+    func installedPackIsReportedOnce() {
+        #expect(DubPackLibrary.loadFailureAction(installedByApp: true, alreadyReported: false) == .report)
+        #expect(DubPackLibrary.loadFailureAction(installedByApp: true, alreadyReported: true) == .logStillFailing)
+    }
+
+    @Test("A hand-made folder in the packs folder does not load and has no manifest")
+    func handMadeFolderDoesNotLoad() async throws {
+        let folder = FileManager.default.temporaryDirectory
+            .appendingPathComponent("Neuer Ordner \(UUID().uuidString)", isDirectory: true)
+        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: folder) }
+        try Data("notes".utf8).write(to: folder.appendingPathComponent("readme.txt"))
+
+        #expect(DubPackManifest.read(at: folder) == nil)
+        #expect(await DubPackLibrary.load(from: folder) == nil)
+    }
+
     // MARK: - Staleness
 
     /// Manifests written before video support decode with `videoFile == nil`. The library

@@ -121,12 +121,14 @@ final class AudioPlayer: NSObject, ObservableObject {
             name: .AVAudioEngineConfigurationChange,
             object: engine
         )
+        #if os(iOS)
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(handleInterruption),
             name: AVAudioSession.interruptionNotification,
             object: AVAudioSession.sharedInstance()
         )
+        #endif
     }
 
     @objc nonisolated private func handleConfigurationChange(_ notification: Notification) {
@@ -138,6 +140,7 @@ final class AudioPlayer: NSObject, ObservableObject {
         }
     }
 
+    #if os(iOS)
     @objc nonisolated private func handleInterruption(_ notification: Notification) {
         guard let value = notification.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt,
               AVAudioSession.InterruptionType(rawValue: value) == .began else { return }
@@ -145,6 +148,7 @@ final class AudioPlayer: NSObject, ObservableObject {
             self?.stop()
         }
     }
+    #endif
 
     // MARK: - Playback Control
 

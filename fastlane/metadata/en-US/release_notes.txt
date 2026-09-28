@@ -1,15 +1,6 @@
-More dub packs open, and fewer things go wrong.
+A third game, and reverse singing is now free.
 
-DUB PACKS
-• Packs that come as .rar now open, even when they were renamed .zip
-• Packs with .ogg voices and music now play, where before the lines were dropped and the scene ran silent. Packs you already installed are repaired too
-• Many more ways of writing a line's timing are understood, so packs that used to lose half their lines import whole
-• A pack still sitting in iCloud is downloaded first instead of failing
-• When a file can't be imported, the app says what is in it and why that won't work
-
-FIXES
-• Fixed crashes when another app was holding the audio, and when a scene started playing
-• A video conversion interrupted by leaving the app picks up later instead of losing the picture
-
-ALSO
-• When the free trial ends the menu stays open, and the offer waits until you tap it instead of covering the app
+NEW
+• Sound Imitation: hear a sound, copy it, and get a stamped verdict on your rhythm, pitch and tone. Then turn the attempt into a video
+• Reverse singing is free for everyone
+• Dubloon Pro now unlocks the Mac app too, on the same Apple Account

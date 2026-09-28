@@ -1,0 +1,5 @@
+Correções para o primeiro arranque no Mac.
+
+CORREÇÕES
+• O canto invertido pede acesso ao microfone na primeira vez que gravas, em vez de te mandar para as Definições do Sistema
+• As duas cenas de filme incluídas na app voltam à prateleira depois de uma reinstalação

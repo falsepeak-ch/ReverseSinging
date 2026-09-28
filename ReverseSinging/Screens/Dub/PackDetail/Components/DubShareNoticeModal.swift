@@ -20,103 +20,44 @@ struct DubShareNoticeModal: View {
     @Environment(\.openURL) private var openURL
 
     var body: some View {
-        ZStack {
-            backdrop
+        EditorModal(title: pack.title, onClose: cancel) {
+            Image("megaphone")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 88, height: 88)
+                .accessibilityHidden(true)
 
-            panel
-                .padding(.horizontal, EditorMetrics.gutter)
-                .padding(.vertical, 24)
-                .transition(.opacity)
+            VStack(spacing: 10) {
+                Text(Strings.DubShare.title)
+                    .font(.rsHeadingSmall)
+                    .foregroundColor(.rsTextPrimary)
+                    .multilineTextAlignment(.center)
+
+                Text(Strings.DubShare.message)
+                    .font(.rsBodySmall)
+                    .foregroundColor(.rsTextSecondary)
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(5)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            credit
+        } phoneActions: {
+            BigButton(
+                title: Strings.DubShare.confirm,
+                icon: "square.and.arrow.up",
+                color: .rsHighlight,
+                action: confirm,
+                style: .primary,
+                textFont: .rsButtonMedium
+            )
+        } macActions: {
+            Button(Strings.DubShare.confirm, action: confirm)
+                .keyboardShortcut(.defaultAction)
+                .platformProminentButton()
         }
         .onAppear {
             AnalyticsManager.shared.trackDubShareNoticeShown(hasAttribution: pack.hasAttribution)
-        }
-    }
-
-    // MARK: - Backdrop
-
-    private var backdrop: some View {
-        Color.rsSurface0
-            .opacity(0.88)
-            .ignoresSafeArea()
-            .contentShape(Rectangle())
-            .onTapGesture { cancel() }
-            .accessibilityHidden(true)
-    }
-
-    // MARK: - Panel
-
-    private var panel: some View {
-        // The credit block makes this the taller of the two modals, and it has to survive a
-        // small screen in a long language.
-        ViewThatFits(in: .vertical) {
-            panelContent
-            ScrollView { panelContent }
-                .scrollBounceBehavior(.basedOnSize)
-        }
-        .editorPanel(.rsSurface1, radius: EditorMetrics.radiusLarge)
-        .frame(maxWidth: 400)
-    }
-
-    private var panelContent: some View {
-        VStack(spacing: 0) {
-            titleBar
-
-            VStack(spacing: 20) {
-                Image("megaphone")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 88, height: 88)
-                    .accessibilityHidden(true)
-
-                VStack(spacing: 10) {
-                    Text(Strings.DubShare.title)
-                        .font(.rsHeadingSmall)
-                        .foregroundColor(.rsTextPrimary)
-                        .multilineTextAlignment(.center)
-
-                    Text(Strings.DubShare.message)
-                        .font(.rsBodySmall)
-                        .foregroundColor(.rsTextSecondary)
-                        .multilineTextAlignment(.center)
-                        .lineSpacing(5)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-
-                credit
-
-                BigButton(
-                    title: Strings.DubShare.confirm,
-                    icon: "square.and.arrow.up",
-                    color: .rsHighlight,
-                    action: confirm,
-                    style: .primary,
-                    textFont: .rsButtonMedium
-                )
-            }
-            .padding(EditorMetrics.gutter)
-        }
-    }
-
-    private var titleBar: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 10) {
-                Text(pack.title)
-                    .editorLabelStyle(.rsTextSecondary)
-                    .lineLimit(1)
-
-                Spacer(minLength: 8)
-
-                EditorToolbarButton(
-                    icon: "xmark",
-                    label: Strings.DubGate.close,
-                    action: cancel
-                )
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 10)
-
-            EditorRule()
         }
     }
 
@@ -198,7 +139,6 @@ struct DubShareNoticeModal: View {
     }
 
     private func cancel() {
-        HapticManager.shared.light()
         onCancel()
     }
 }
@@ -211,22 +151,18 @@ private struct DubShareNoticeModifier: ViewModifier {
     let onConfirm: () -> Void
 
     func body(content: Content) -> some View {
-        content
-            .overlay {
-                if isPresented {
-                    DubShareNoticeModal(
-                        pack: pack,
-                        onConfirm: {
-                            isPresented = false
-                            onConfirm()
-                        },
-                        onCancel: {
-                            isPresented = false
-                        }
-                    )
+        content.editorModal(isPresented: $isPresented) {
+            DubShareNoticeModal(
+                pack: pack,
+                onConfirm: {
+                    isPresented = false
+                    onConfirm()
+                },
+                onCancel: {
+                    isPresented = false
                 }
-            }
-            .animation(.rsSmooth, value: isPresented)
+            )
+        }
     }
 }
 

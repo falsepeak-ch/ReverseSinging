@@ -1,0 +1,5 @@
+Opravy prvního spuštění na Macu.
+
+OPRAVY
+• Zpívání pozpátku si při prvním nahrávání řekne o mikrofon, místo aby vás poslalo do Nastavení systému
+• Dvě filmové scény, které jsou součástí aplikace, jsou po přeinstalování zase na poličce

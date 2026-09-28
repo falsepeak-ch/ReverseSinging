@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Bem-vindo ao Dubloon";
-"onboarding.welcome.message" = "Dois jogos, um microfone. Canta uma música ao contrário ou mete a tua voz numa cena de filme. Com nenhum dos dois vais soar normal.";
+"onboarding.welcome.message" = "Três jogos, um microfone. Canta uma música ao contrário, mete a tua voz numa cena de filme ou imita um som até ficar perfeito. Com nenhum deles vais soar normal.";
 "onboarding.howItWorks.title" = "Como funciona";
 "onboarding.howItWorks.message" = "Grava uma música, vira-a do avesso e canta por cima da algaraviada. Depois vira a tua tentativa e descobre se chegaste perto ou inventaste uma língua nova.";
 "onboarding.dub.title" = "Dobra uma cena de filme";
 "onboarding.dub.message" = "O segundo jogo: põe uma cena a andar, representa por cima e depois ouve-te dentro do filme. Vêm duas cenas incluídas. Para as outras, trazes os teus ficheiros.";
 "onboarding.microphone.title" = "Uma última coisa";
-"onboarding.microphone.message" = "Os dois jogos precisam de te ouvir: a cantar ao contrário ou a dobrar uma cena. O microfone só acorda enquanto gravas, tudo fica neste dispositivo e nada é enviado para lado nenhum. A tua pior gravação fica entre vocês os dois.";
+"onboarding.microphone.message" = "Os três jogos precisam de te ouvir: a cantar ao contrário, a dobrar uma cena ou a imitar um som. O microfone só acorda enquanto gravas, tudo fica neste dispositivo e nada é enviado para lado nenhum. A tua pior gravação fica entre vocês os dois.";
 "onboarding.button.openSettings" = "Abrir Ajustes";
 "onboarding.button.letsRecord" = "boa, vamos gravar!";
 "onboarding.button.continueLowercase" = "continuar";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Ninguém te ouve";
-"main.emptyState.message" = "Neste momento o Dubloon é uma app de gravação sem nada com que gravar. Liga o microfone nos ajustes do dispositivo e os dois jogos voltam à vida.";
+"main.emptyState.message" = "Neste momento o Dubloon é uma app de gravação sem nada com que gravar. Liga o microfone nos ajustes do dispositivo e os três jogos voltam à vida.";
 "main.emptyState.button" = "Abrir Ajustes";
 
 // MARK: - Main View - Processing & Success
@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Botões, medidores e formas de onda";
 "settings.preferences" = "Preferências";
 "settings.about" = "Acerca de";
+"settings.about.memberSince" = "Membro desde %@";
+"settings.about.license.lifetime" = "Dubloon Pro, vitalício";
+"settings.about.license.renews" = "Dubloon Pro, renova a %@";
+"settings.about.license.ends" = "Dubloon Pro, termina a %@";
+"settings.about.license.earlyAdopter" = "Pioneiro, grátis para sempre";
+"settings.about.license.trialDays" = "Teste gratuito, faltam %d dias";
+"settings.about.license.trialLastDay" = "Teste gratuito, último dia";
+"settings.about.license.trialOver" = "O teste gratuito terminou";
+"settings.about.license.free" = "Grátis";
 
 // Theme descriptions
 
@@ -219,6 +228,7 @@
 "main.button.back" = "Voltar";
 "main.mode.reverse.subtitle" = "Grava, vira do avesso e canta a algaraviada";
 "main.mode.dub.subtitle" = "Põe a tua voz na boca de outra pessoa";
+"main.mode.free" = "Grátis";
 "dub.speakerAccessibility" = "Dito por %@";
 "dub.cast" = "Elenco";
 "dub.referenceTrack" = "Referência";
@@ -247,6 +257,8 @@
 "dubShare.unknownSource" = "Esta cena foste tu que a trouxeste, por isso sabes de onde vem e o que podes fazer com ela.";
 "dubShare.responsibility" = "Onde vai parar é contigo, por isso cumpre as regras de direitos de autor do sítio onde vives.";
 "dubShare.confirm" = "Exportar vídeo";
+"dubShare.share" = "Partilhar…";
+"dubShare.save" = "Guardar…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "A preparar as tuas primeiras cenas…";
@@ -275,13 +287,17 @@
 "pro.trial.daysLeft" = "Faltam %d dias";
 "pro.trial.oneDayLeft" = "Último dia";
 "pro.trial.over" = "O teu período gratuito acabou";
+"pro.locked.title" = "Obtém o Dubloon Pro para dobrar";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Desbloquear o Dubloon";
-"pro.unlock.subtitle" = "Um pagamento, os dois jogos, teus para sempre.";
+"pro.unlock.subtitle" = "Todas as cenas, a câmara da cabine e as exportações. O canto invertido continua grátis.";
 "pro.owned.title" = "O Dubloon é teu";
 "pro.owned.subtitle" = "Obrigado. Todas as cenas, todas as gravações, sem tecto.";
 "pro.manage.title" = "Gerir a compra";
 "pro.manage.subtitle" = "Recibos, reembolsos e ajuda com a tua compra.";
+"pro.subscribed.title" = "Tens o Dubloon Pro";
+"pro.manageSubscription.title" = "Gerir a subscrição";
+"pro.manageSubscription.subtitle" = "Muda de plano, cancela ou pede ajuda.";
 "pro.restore.title" = "Restaurar a compra";
 "pro.restore.subtitle" = "Telemóvel novo ou app reinstalada? Traz isto de volta.";
 "pro.testStore.warning" = "Build de depuração: ligada à loja de testes da RevenueCat. Aqui não se mexe dinheiro a sério.";
@@ -293,30 +309,42 @@
 "pro.error.generic" = "A loja não respondeu. Tenta daqui a pouco.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Desbloquear o Dubloon";
-"pro.fallback.message" = "O teu período gratuito acabou. Um pagamento único deixa os dois jogos abertos para sempre.";
-"pro.fallback.message.beforeExpiry" = "Um pagamento único deixa os dois jogos abertos para sempre.";
+"pro.fallback.message" = "O teu período gratuito acabou. Desbloqueia o Dubloon para continuares a dobrar.";
+"pro.fallback.message.beforeExpiry" = "Desbloqueia o Dubloon para continuares a dobrar.";
+"pro.fallback.message.noTrial" = "Desbloqueia o Dubloon para dobrar todas as cenas.";
 "pro.fallback.buy" = "Desbloquear por %@";
 "pro.fallback.buyUnpriced" = "Desbloquear";
 "pro.fallback.loading" = "A perguntar à loja…";
 "pro.fallback.unavailable" = "A loja não está a responder neste momento. Vê a tua ligação e tenta outra vez.";
 "pro.fallback.retry" = "Tentar de novo";
-"pro.fallback.benefit.one" = "Canta ao contrário até os vizinhos se queixarem";
+"pro.fallback.benefit.one" = "Filma-te a dobrar com a câmara da cabine";
 "pro.fallback.benefit.two" = "Dobra todas as cenas e traz as tuas";
 "pro.fallback.benefit.three" = "Exporta as tuas gravações e partilha o estrago";
 "pro.fallback.oneTime" = "Um pagamento. Não é uma subscrição.";
+"pro.fallback.subscribe.monthly" = "Subscrever por %@/mês";
+"pro.fallback.subscribe.yearly" = "Subscrever por %@/ano";
+"pro.fallback.subscribe" = "Subscrever por %@";
+"pro.fallback.renews" = "Renova-se automaticamente até cancelares. Cancela quando quiseres nas definições da tua Conta Apple.";
+"pro.fallback.terms" = "Termos de utilização";
+
+// MARK: - Review banner
+"review.banner.title" = "Obrigado por passares para o Pro";
+"review.banner.message" = "O Dubloon é feito por uma só pessoa em Zurique, e é pelas avaliações que novos jogadores o encontram. Se estás a gostar, umas palavras na App Store significariam muito.";
+"review.banner.rate" = "Escrever uma avaliação";
+"review.banner.later" = "Agora não";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Bem-vindo ao clube";
-"pro.earlyAdopter.message" = "O Dubloon agora custa dinheiro, mas não para ti. Estavas cá antes de haver preço, por isso os dois jogos continuam a ser teus, de graça, enquanto a app existir. Obrigado pelos primeiros dias.";
+"pro.earlyAdopter.message" = "O Dubloon agora custa dinheiro, mas não para ti. Estavas cá antes de haver preço, por isso os três jogos continuam a ser teus, de graça, enquanto a app existir. Obrigado pelos primeiros dias.";
 "pro.earlyAdopter.badge" = "Grátis para sempre";
 "pro.earlyAdopter.confirm" = "Boa";
 "pro.earlyAdopter.settings.title" = "Grátis para sempre";
-"pro.earlyAdopter.settings.subtitle" = "Chegaste cedo. Os dois jogos são teus e não nos deves nada.";
+"pro.earlyAdopter.settings.subtitle" = "Chegaste cedo. Os três jogos são teus e não nos deves nada.";
 "pro.closePaywall" = "Fechar";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Acesso";
-"pro.earlyAdopter.row.access.value" = "Os dois jogos";
+"pro.earlyAdopter.row.access.value" = "Os três jogos";
 "pro.earlyAdopter.row.cost" = "Custo";
 "pro.earlyAdopter.row.cost.value" = "Nada";
 "pro.earlyAdopter.row.expires" = "Expira";
@@ -407,3 +435,130 @@
 "dub.error.linesBadTimestamps" = "Os tempos de início deste pack não estão escritos como tempos, por isso as falas não podem ser colocadas.";
 "dub.error.linesNoAudio" = "As falas deste pack não trazem gravações, por isso não há nada para dobrar.";
 "dub.error.linesUnplayableAudio" = "Nenhuma das gravações deste pack pode ser reproduzida neste dispositivo.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Imitação de sons";
+"main.mode.imitate.subtitle" = "Imita um som e recebe o veredicto";
+"imitate.library.hint" = "Escolhe um som, ouve e faz a tua melhor imitação.";
+"imitate.library.best" = "Recorde";
+"imitate.library.untried" = "Novo";
+"imitate.challenge.listen" = "Ouvir";
+"imitate.challenge.record" = "Imitar";
+"imitate.challenge.stop" = "Parar";
+"imitate.challenge.instruction" = "Ouve primeiro, depois carrega em Imitar e faz o som.";
+"imitate.challenge.recordingHint" = "Vai! Faz o som.";
+"imitate.challenge.scoring" = "A avaliar…";
+"imitate.challenge.tryAgain" = "Outra vez";
+"imitate.challenge.playMine" = "Ouvir o meu";
+"imitate.challenge.makeVideo" = "Criar vídeo";
+"imitate.challenge.rendering" = "A criar o teu vídeo…";
+"imitate.challenge.newBest" = "Novo recorde!";
+"imitate.challenge.exportFailed" = "Não foi possível criar o vídeo. Tenta novamente.";
+"imitate.challenge.difficulty" = "Dificuldade";
+"imitate.category.animals" = "Animais";
+"imitate.category.vehicles" = "Buzinas e alarmes";
+"imitate.category.cartoon" = "Desenhos animados e ficção científica";
+"imitate.category.human" = "Ruídos humanos";
+"imitate.part.rhythm" = "Ritmo";
+"imitate.part.pitch" = "Tom";
+"imitate.part.tone" = "Timbre";
+"imitate.part.duration" = "Duração";
+"imitate.verdict.nailedIt" = "EM CHEIO!";
+"imitate.verdict.legendary" = "LENDÁRIO";
+"imitate.verdict.approved" = "APROVADO";
+"imitate.verdict.certified" = "CERTIFICADO";
+"imitate.verdict.notBad" = "NADA MAU";
+"imitate.verdict.almost" = "QUASE…";
+"imitate.verdict.soClose" = "POR UM TRIZ";
+"imitate.verdict.failed" = "CHUMBADO";
+"imitate.verdict.whatWasThat" = "O QUE FOI ISTO?";
+"imitate.reel.challenge" = "Desafio de sons";
+"imitate.reel.canYouSoundLike" = "Consegues imitar…";
+"imitate.reel.original" = "Original";
+"imitate.reel.you" = "Tu";
+"imitate.reel.score" = "Pontuação";
+"imitate.reel.beatMyScore" = "Consegues bater a minha pontuação?";
+"imitate.sound.cat" = "Gato";
+"imitate.sound.dog" = "Cão";
+"imitate.sound.cow" = "Vaca";
+"imitate.sound.sheep" = "Ovelha";
+"imitate.sound.chicken" = "Galinha";
+"imitate.sound.rooster" = "Galo";
+"imitate.sound.duck" = "Pato";
+"imitate.sound.pig" = "Porco";
+"imitate.sound.wolf" = "Lobo";
+"imitate.sound.owl" = "Mocho";
+"imitate.sound.horn" = "Buzina";
+"imitate.sound.siren" = "Sirene";
+"imitate.sound.train" = "Apito do comboio";
+"imitate.sound.bell" = "Campainha de bicicleta";
+"imitate.sound.laser" = "Laser";
+"imitate.sound.boing" = "Boing";
+"imitate.sound.slide" = "Apito de êmbolo";
+"imitate.sound.zap" = "Choque";
+"imitate.sound.burp" = "Arroto";
+"imitate.sound.sneeze" = "Espirro";
+"imitate.sound.snore" = "Ressonar";
+"imitate.sound.laugh" = "Riso maléfico";
+"imitate.sound.yawn" = "Bocejo";
+"imitate.sound.hiccup" = "Soluço";
+
+/* Mac */
+"mac.sidebar.games" = "Jogos";
+"mac.sidebar.packs" = "Packs de dobragem";
+"mac.sidebar.sessions" = "Sessões";
+"mac.menu.importPack" = "Importar pack de dobragem…";
+"mac.menu.export" = "Exportar vídeo…";
+"mac.menu.playback" = "Reprodução";
+"mac.menu.playPause" = "Reproduzir/Pausa";
+"mac.menu.record" = "Gravar";
+"mac.menu.listen" = "Reproduzir original";
+"mac.menu.playTake" = "Reproduzir take";
+"mac.menu.previousLine" = "Fala anterior";
+"mac.menu.nextLine" = "Fala seguinte";
+"mac.menu.showInspector" = "Mostrar inspetor";
+"mac.menu.hideInspector" = "Ocultar inspetor";
+"mac.panel.inspector" = "Inspetor";
+"mac.panel.viewer" = "Visualizador";
+"mac.panel.line" = "Fala";
+"mac.panel.scene" = "Cena";
+"mac.panel.takes" = "Takes";
+"mac.panel.character" = "Personagem";
+"mac.panel.start" = "Início";
+"mac.panel.duration" = "Duração";
+"mac.panel.notDubbed" = "Ainda por dobrar";
+"mac.panel.attempts" = "Tentativas";
+"mac.panel.emptyTitle" = "Escolha algo para trabalhar";
+"mac.panel.emptyMessage" = "Escolha um jogo ou um pack de dobragem na barra lateral.";
+"mac.settings.general" = "Geral";
+"mac.settings.recording" = "Gravação";
+"mac.welcome.notNow" = "Agora não";
+"mac.booth.primer.message" = "A câmara da cabine usa a câmara do Mac enquanto representas, por isso a cena, a fala e a tua cara ficam todas no mesmo ecrã. Depois podes partilhar a reacção juntamente com a dobragem.";
+"mac.booth.primer.systemPrompt" = "A seguir o macOS vai pedir acesso à câmara.";
+"mac.menu.openRecent" = "Abrir recente";
+"mac.menu.clearRecent" = "Limpar menu";
+"mac.menu.open" = "Abrir";
+"mac.menu.showInFinder" = "Mostrar no Finder";
+"mac.menu.viewer" = "Visualizador";
+"mac.menu.zoomIn" = "Ampliar";
+"mac.menu.zoomOut" = "Reduzir";
+"mac.menu.skipBack" = "Recuar 5 segundos";
+"mac.menu.skipForward" = "Avançar 5 segundos";
+"mac.menu.goToStart" = "Ir para o início";
+"mac.menu.shortcuts" = "Atalhos de teclado";
+"mac.menu.delete" = "Apagar…";
+"mac.confirm.deletePack.title" = "Apagar “%@”?";
+"mac.confirm.deletePack.message" = "As tuas tomadas e os vídeos da cabine desta cena vão com ele. Esta ação não pode ser desfeita.";
+"mac.confirm.deleteSession.title" = "Apagar esta sessão?";
+"mac.confirm.deleteSession.message" = "As gravações vão com ela. Esta ação não pode ser desfeita.";
+"mac.shortcuts.file" = "Ficheiro";
+"mac.shortcuts.view" = "Visualização";
+"mac.tip.shortcuts.title" = "O teclado é a tua mesa de controlo";
+"mac.tip.shortcuts.message" = "R grava, Espaço reproduz e as setas saltam entre falas. Tens todos os atalhos em Ajuda ▸ Atalhos de teclado.";
+"mac.export.dragHint" = "Arrasta o vídeo para qualquer sítio para guardar uma cópia";
+"mac.search.prompt" = "Pesquisar";
+"mac.menu.find" = "Procurar";
+"mac.menu.openInNewWindow" = "Abrir numa nova janela";
+"mac.panel.sound" = "Som";
+"mac.panel.allSounds" = "Todos";
+"mac.panel.compare" = "Comparar";

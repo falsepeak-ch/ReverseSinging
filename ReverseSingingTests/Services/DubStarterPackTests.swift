@@ -204,6 +204,26 @@ struct DubStarterPackTests {
                 "an installed starter pack must not come back once it is gone")
     }
 
+    /// Wiping the packs folder wipes the record of them. Deleting `DubPacks` in Files, or a
+    /// Mac container whose defaults `cfprefsd` wrote back, used to leave the record saying
+    /// both scenes were installed over an empty folder: a shelf that stayed empty for good.
+    @MainActor
+    @Test func wipingThePacksFolderBringsTheStarterPacksBack() async throws {
+        DubStarterPacks.forgetInstallsForTesting()
+        defer { DubStarterPacks.forgetInstallsForTesting() }
+
+        let name = try #require(DubStarterPacks.bundled.first)
+        let pack = try #require(await DubStarterPacks.install(name))
+        try? AudioFileManager.shared.deleteDubPack(folderName: pack.folderName, packID: pack.id)
+        #expect(!DubStarterPacks.pending.contains(name))
+
+        let root = AudioFileManager.shared.dubPacksDirectory()
+        try FileManager.default.removeItem(at: root)
+
+        #expect(DubStarterPacks.pending.contains(name),
+                "the defaults still remember the install, but the folder it describes is gone")
+    }
+
     /// An install cut short says nothing about the zip, so it has to stay pending and go on at
     /// the next launch. Recording it is how a device lost both starter packs for good.
     @MainActor

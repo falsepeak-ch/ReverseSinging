@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Dubloon'a hoş geldin";
-"onboarding.welcome.message" = "İki oyun, tek mikrofon. Bir şarkıyı tersten söyle ya da sesini bir film sahnesinin içine sok. İkisinde de normal duyulmayacaksın.";
+"onboarding.welcome.message" = "Üç oyun, tek mikrofon. Bir şarkıyı tersten söyle, sesini bir film sahnesinin içine sok ya da bir sesi tutturana kadar taklit et. Hiçbirinde normal duyulmayacaksın.";
 "onboarding.howItWorks.title" = "Nasıl çalışıyor";
 "onboarding.howItWorks.message" = "Bir şarkı kaydet, tersine çevir ve o anlamsız sesin üstüne söyle. Sonra kendi çekimini ters çevir ve yaklaşmış mısın yoksa yeni bir dil mi icat etmişsin, öğren.";
 "onboarding.dub.title" = "Bir film sahnesini seslendir";
 "onboarding.dub.message" = "İkinci oyun: sahneyi başlat, üstüne abartarak oyna ve sonra kendini filmin içinde duy. İki sahne kutudan çıkıyor. Gerisi için kendi dosyalarını getiriyorsun.";
 "onboarding.microphone.title" = "Son bir şey";
-"onboarding.microphone.message" = "İki oyunun da seni duyması gerek: tersten söylerken de, seslendirirken de. Mikrofon sadece kayıt sırasında uyanır, her şey bu cihazda kalır ve hiçbir şey hiçbir yere yüklenmez. En kötü çekimin ikinizin arasında kalır.";
+"onboarding.microphone.message" = "Üç oyunun da seni duyması gerek: tersten söylerken, bir sahneyi seslendirirken ve bir sesi taklit ederken. Mikrofon sadece kayıt sırasında uyanır, her şey bu cihazda kalır ve hiçbir şey hiçbir yere yüklenmez. En kötü çekimin ikinizin arasında kalır.";
 "onboarding.button.openSettings" = "Ayarlar'ı aç";
 "onboarding.button.letsRecord" = "hadi, kaydediyoruz!";
 "onboarding.button.continueLowercase" = "devam";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Seni kimse duymuyor";
-"main.emptyState.message" = "Şu anda Dubloon, kaydedecek hiçbir şeyi olmayan bir kayıt uygulaması. Cihaz ayarlarından mikrofon iznini aç, iki oyun da yeniden canlansın.";
+"main.emptyState.message" = "Şu anda Dubloon, kaydedecek hiçbir şeyi olmayan bir kayıt uygulaması. Cihaz ayarlarından mikrofon iznini aç, üç oyun da yeniden canlansın.";
 "main.emptyState.button" = "Ayarlar'ı aç";
 
 // MARK: - Main View - Processing & Success
@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Düğmeler, göstergeler ve dalga formları";
 "settings.preferences" = "Tercihler";
 "settings.about" = "Hakkında";
+"settings.about.memberSince" = "%@ tarihinden beri üye";
+"settings.about.license.lifetime" = "Dubloon Pro, ömür boyu";
+"settings.about.license.renews" = "Dubloon Pro, %@ tarihinde yenilenir";
+"settings.about.license.ends" = "Dubloon Pro, %@ tarihinde sona erer";
+"settings.about.license.earlyAdopter" = "İlk kullanıcı, ömür boyu ücretsiz";
+"settings.about.license.trialDays" = "Ücretsiz deneme, %d gün kaldı";
+"settings.about.license.trialLastDay" = "Ücretsiz deneme, son gün";
+"settings.about.license.trialOver" = "Ücretsiz deneme sona erdi";
+"settings.about.license.free" = "Ücretsiz";
 
 // Theme descriptions
 
@@ -219,6 +228,7 @@
 "main.button.back" = "Geri";
 "main.mode.reverse.subtitle" = "Kaydet, ters çevir ve o anlamsız şeyi söyle";
 "main.mode.dub.subtitle" = "Sesini başkasının ağzına koy";
+"main.mode.free" = "Ücretsiz";
 "dub.speakerAccessibility" = "Söyleyen: %@";
 "dub.cast" = "Oyuncular";
 "dub.referenceTrack" = "Referans";
@@ -247,6 +257,8 @@
 "dubShare.unknownSource" = "Bu sahneyi kendin getirdin, yani nereden geldiğini ve neler yapabileceğini biliyorsun.";
 "dubShare.responsibility" = "Nereye gideceği sana kalmış, o yüzden yaşadığın yerin telif kurallarına uy.";
 "dubShare.confirm" = "Videoyu dışa aktar";
+"dubShare.share" = "Paylaş…";
+"dubShare.save" = "Kaydet…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "İlk sahnelerin hazırlanıyor…";
@@ -275,13 +287,17 @@
 "pro.trial.daysLeft" = "%d gün kaldı";
 "pro.trial.oneDayLeft" = "Son gün";
 "pro.trial.over" = "Ücretsiz deneme süren bitti";
+"pro.locked.title" = "Seslendirmek için Dubloon Pro'yu al";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Dubloon'un kilidini aç";
-"pro.unlock.subtitle" = "Tek ödeme, iki oyun, temelli senin.";
+"pro.unlock.subtitle" = "Tüm sahneler, Booth Cam ve dışa aktarma. Tersten şarkı ücretsiz kalıyor.";
 "pro.owned.title" = "Dubloon senin";
 "pro.owned.subtitle" = "Teşekkürler. Her sahne, her çekim, tavan yok.";
 "pro.manage.title" = "Satın almayı yönet";
 "pro.manage.subtitle" = "Makbuzlar, iadeler ve satın alma yardımı.";
+"pro.subscribed.title" = "Dubloon Pro'n var";
+"pro.manageSubscription.title" = "Aboneliği yönet";
+"pro.manageSubscription.subtitle" = "Planı değiştir, iptal et ya da yardım al.";
 "pro.restore.title" = "Satın almayı geri yükle";
 "pro.restore.subtitle" = "Yeni telefon mu, yeniden kurulum mu? Geri getir.";
 "pro.testStore.warning" = "Hata ayıklama derlemesi: RevenueCat test mağazasına bağlı. Gerçek para el değiştirmiyor.";
@@ -293,30 +309,42 @@
 "pro.error.generic" = "Mağaza cevap vermedi. Birazdan tekrar dene.";
 "pro.ok" = "Tamam";
 "pro.fallback.title" = "Dubloon'un kilidini aç";
-"pro.fallback.message" = "Ücretsiz deneme süren bitti. Tek bir ödeme iki oyunu da temelli açık tutuyor.";
-"pro.fallback.message.beforeExpiry" = "Tek bir ödeme iki oyunu da temelli açık tutuyor.";
+"pro.fallback.message" = "Ücretsiz deneme süren bitti. Seslendirmeye devam etmek için Dubloon'un kilidini aç.";
+"pro.fallback.message.beforeExpiry" = "Seslendirmeye devam etmek için Dubloon'un kilidini aç.";
+"pro.fallback.message.noTrial" = "Her sahneyi seslendirmek için Dubloon'un kilidini aç.";
 "pro.fallback.buy" = "%@ karşılığında aç";
 "pro.fallback.buyUnpriced" = "Kilidi aç";
 "pro.fallback.loading" = "Mağazaya soruyoruz…";
 "pro.fallback.unavailable" = "Mağaza şu anda cevap vermiyor. Bağlantını kontrol edip tekrar dene.";
 "pro.fallback.retry" = "Tekrar dene";
-"pro.fallback.benefit.one" = "Komşular dayandığı sürece tersten söyle";
+"pro.fallback.benefit.one" = "Booth Cam ile kabinde kendini çek";
 "pro.fallback.benefit.two" = "Her sahneyi seslendir, kendi sahnelerini de getir";
 "pro.fallback.benefit.three" = "Çekimlerini dışa aktar ve hasarı paylaş";
 "pro.fallback.oneTime" = "Tek ödeme. Abonelik değil.";
+"pro.fallback.subscribe.monthly" = "%@/ay karşılığında abone ol";
+"pro.fallback.subscribe.yearly" = "%@/yıl karşılığında abone ol";
+"pro.fallback.subscribe" = "%@ karşılığında abone ol";
+"pro.fallback.renews" = "İptal edene kadar otomatik olarak yenilenir. Apple Hesabı ayarlarından istediğin zaman iptal edebilirsin.";
+"pro.fallback.terms" = "Kullanım Koşulları";
+
+// MARK: - Review banner
+"review.banner.title" = "Pro'ya geçtiğin için teşekkürler";
+"review.banner.message" = "Dubloon'u Zürih'te tek bir kişi yapıyor ve yeni oyuncular onu yorumlar sayesinde buluyor. Keyif alıyorsan, App Store'da birkaç kelime çok şey ifade eder.";
+"review.banner.rate" = "Yorum yaz";
+"review.banner.later" = "Şimdi değil";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Kulübe hoş geldin";
-"pro.earlyAdopter.message" = "Dubloon artık para ediyor — ama senin için değil. Fiyat etiketi gelmeden önce buradaydın, o yüzden iki oyun da uygulama var olduğu sürece ücretsiz senin kalıyor. İlk günler için teşekkürler.";
+"pro.earlyAdopter.message" = "Dubloon artık para ediyor — ama senin için değil. Fiyat etiketi gelmeden önce buradaydın, o yüzden üç oyun da uygulama var olduğu sürece ücretsiz senin kalıyor. İlk günler için teşekkürler.";
 "pro.earlyAdopter.badge" = "Ömür boyu ücretsiz";
 "pro.earlyAdopter.confirm" = "Güzel";
 "pro.earlyAdopter.settings.title" = "Ömür boyu ücretsiz";
-"pro.earlyAdopter.settings.subtitle" = "Erken geldin. İki oyun da senin ve bize hiçbir borcun yok.";
+"pro.earlyAdopter.settings.subtitle" = "Erken geldin. Üç oyun da senin ve bize hiçbir borcun yok.";
 "pro.closePaywall" = "Kapat";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Erişim";
-"pro.earlyAdopter.row.access.value" = "İki oyun";
+"pro.earlyAdopter.row.access.value" = "Üç oyun";
 "pro.earlyAdopter.row.cost" = "Bedel";
 "pro.earlyAdopter.row.cost.value" = "Yok";
 "pro.earlyAdopter.row.expires" = "Bitiş";
@@ -407,3 +435,130 @@
 "dub.error.linesBadTimestamps" = "Bu paketteki başlangıç zamanları zaman olarak yazılmamış, bu yüzden replikler yerleştirilemiyor.";
 "dub.error.linesNoAudio" = "Bu paketin repliklerinin yanında kayıt yok, o yüzden dublajlanacak bir şey yok.";
 "dub.error.linesUnplayableAudio" = "Bu paketteki kayıtların hiçbiri bu cihazda çalınamıyor.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Ses taklidi";
+"main.mode.imitate.subtitle" = "Bir sesi taklit et, hükmü öğren";
+"imitate.library.hint" = "Bir ses seç, dinle ve en iyi taklidini yap.";
+"imitate.library.best" = "Rekor";
+"imitate.library.untried" = "Yeni";
+"imitate.challenge.listen" = "Dinle";
+"imitate.challenge.record" = "Taklit et";
+"imitate.challenge.stop" = "Durdur";
+"imitate.challenge.instruction" = "Önce dinle, sonra Taklit et'e bas ve sesi çıkar.";
+"imitate.challenge.recordingHint" = "Hadi! Sesi çıkar.";
+"imitate.challenge.scoring" = "Değerlendiriliyor…";
+"imitate.challenge.tryAgain" = "Tekrar dene";
+"imitate.challenge.playMine" = "Benimkini çal";
+"imitate.challenge.makeVideo" = "Video yap";
+"imitate.challenge.rendering" = "Videon hazırlanıyor…";
+"imitate.challenge.newBest" = "Yeni rekor!";
+"imitate.challenge.exportFailed" = "Video oluşturulamadı. Lütfen tekrar dene.";
+"imitate.challenge.difficulty" = "Zorluk";
+"imitate.category.animals" = "Hayvanlar";
+"imitate.category.vehicles" = "Kornalar ve alarmlar";
+"imitate.category.cartoon" = "Çizgi film ve bilim kurgu";
+"imitate.category.human" = "İnsan sesleri";
+"imitate.part.rhythm" = "Ritim";
+"imitate.part.pitch" = "Perde";
+"imitate.part.tone" = "Tını";
+"imitate.part.duration" = "Süre";
+"imitate.verdict.nailedIt" = "TAM İSABET!";
+"imitate.verdict.legendary" = "EFSANE";
+"imitate.verdict.approved" = "ONAYLANDI";
+"imitate.verdict.certified" = "SERTİFİKALI";
+"imitate.verdict.notBad" = "FENA DEĞİL";
+"imitate.verdict.almost" = "NEREDEYSE…";
+"imitate.verdict.soClose" = "KIL PAYI";
+"imitate.verdict.failed" = "REDDEDİLDİ";
+"imitate.verdict.whatWasThat" = "O NEYDİ ÖYLE?";
+"imitate.reel.challenge" = "Ses meydan okuması";
+"imitate.reel.canYouSoundLike" = "Taklit edebilir misin…";
+"imitate.reel.original" = "Orijinal";
+"imitate.reel.you" = "Sen";
+"imitate.reel.score" = "Puan";
+"imitate.reel.beatMyScore" = "Puanımı geçebilir misin?";
+"imitate.sound.cat" = "Kedi";
+"imitate.sound.dog" = "Köpek";
+"imitate.sound.cow" = "İnek";
+"imitate.sound.sheep" = "Koyun";
+"imitate.sound.chicken" = "Tavuk";
+"imitate.sound.rooster" = "Horoz";
+"imitate.sound.duck" = "Ördek";
+"imitate.sound.pig" = "Domuz";
+"imitate.sound.wolf" = "Kurt";
+"imitate.sound.owl" = "Baykuş";
+"imitate.sound.horn" = "Araba kornası";
+"imitate.sound.siren" = "Siren";
+"imitate.sound.train" = "Tren düdüğü";
+"imitate.sound.bell" = "Bisiklet zili";
+"imitate.sound.laser" = "Lazer";
+"imitate.sound.boing" = "Boing";
+"imitate.sound.slide" = "Sürgülü düdük";
+"imitate.sound.zap" = "Elektrik çarpması";
+"imitate.sound.burp" = "Geğirme";
+"imitate.sound.sneeze" = "Hapşırma";
+"imitate.sound.snore" = "Horlama";
+"imitate.sound.laugh" = "Kötü kahkaha";
+"imitate.sound.yawn" = "Esneme";
+"imitate.sound.hiccup" = "Hıçkırık";
+
+/* Mac */
+"mac.sidebar.games" = "Oyunlar";
+"mac.sidebar.packs" = "Dublaj paketleri";
+"mac.sidebar.sessions" = "Oturumlar";
+"mac.menu.importPack" = "Dublaj paketi içe aktar…";
+"mac.menu.export" = "Videoyu dışa aktar…";
+"mac.menu.playback" = "Oynatma";
+"mac.menu.playPause" = "Oynat/Duraklat";
+"mac.menu.record" = "Kaydet";
+"mac.menu.listen" = "Orijinali oynat";
+"mac.menu.playTake" = "Çekimi oynat";
+"mac.menu.previousLine" = "Önceki replik";
+"mac.menu.nextLine" = "Sonraki replik";
+"mac.menu.showInspector" = "Denetçiyi göster";
+"mac.menu.hideInspector" = "Denetçiyi gizle";
+"mac.panel.inspector" = "Denetçi";
+"mac.panel.viewer" = "Görüntüleyici";
+"mac.panel.line" = "Replik";
+"mac.panel.scene" = "Sahne";
+"mac.panel.takes" = "Çekimler";
+"mac.panel.character" = "Karakter";
+"mac.panel.start" = "Başlangıç";
+"mac.panel.duration" = "Süre";
+"mac.panel.notDubbed" = "Henüz dublajlanmadı";
+"mac.panel.attempts" = "Denemeler";
+"mac.panel.emptyTitle" = "Üzerinde çalışacak bir şey seç";
+"mac.panel.emptyMessage" = "Kenar çubuğundan bir oyun ya da dublaj paketi seç.";
+"mac.settings.general" = "Genel";
+"mac.settings.recording" = "Kayıt";
+"mac.welcome.notNow" = "Şimdi değil";
+"mac.booth.primer.message" = "Booth Cam sen oynarken Mac'in kamerasını çalıştırır; böylece sahne, replik ve yüzün aynı ekranda olur. Sonrasında tepkini seslendirmeyle birlikte paylaşabilirsin.";
+"mac.booth.primer.systemPrompt" = "Birazdan macOS kamera izni isteyecek.";
+"mac.menu.openRecent" = "Son kullanılanı aç";
+"mac.menu.clearRecent" = "Menüyü temizle";
+"mac.menu.open" = "Aç";
+"mac.menu.showInFinder" = "Finder'da göster";
+"mac.menu.viewer" = "Görüntüleyici";
+"mac.menu.zoomIn" = "Büyüt";
+"mac.menu.zoomOut" = "Küçült";
+"mac.menu.skipBack" = "5 saniye geri";
+"mac.menu.skipForward" = "5 saniye ileri";
+"mac.menu.goToStart" = "Başa git";
+"mac.menu.shortcuts" = "Klavye kestirmeleri";
+"mac.menu.delete" = "Sil…";
+"mac.confirm.deletePack.title" = "“%@” silinsin mi?";
+"mac.confirm.deletePack.message" = "Bu sahnedeki çekimlerin ve kabin videoların da onunla birlikte gider. Bu işlem geri alınamaz.";
+"mac.confirm.deleteSession.title" = "Bu oturum silinsin mi?";
+"mac.confirm.deleteSession.message" = "Kayıtları da onunla birlikte gider. Bu işlem geri alınamaz.";
+"mac.shortcuts.file" = "Dosya";
+"mac.shortcuts.view" = "Görüntü";
+"mac.tip.shortcuts.title" = "Klavyen senin kumandan";
+"mac.tip.shortcuts.message" = "R kaydeder, Boşluk çalar, ok tuşları replikler arasında geçer. Tüm kestirmeler Yardım ▸ Klavye Kestirmeleri'nde.";
+"mac.export.dragHint" = "Kopyasını kaydetmek için videoyu istediğin yere sürükle";
+"mac.search.prompt" = "Ara";
+"mac.menu.find" = "Bul";
+"mac.menu.openInNewWindow" = "Yeni pencerede aç";
+"mac.panel.sound" = "Ses";
+"mac.panel.allSounds" = "Tümü";
+"mac.panel.compare" = "Karşılaştır";

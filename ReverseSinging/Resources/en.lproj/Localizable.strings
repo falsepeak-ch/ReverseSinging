@@ -5,13 +5,13 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Welcome to Dubloon";
-"onboarding.welcome.message" = "Two games, one microphone. Sing a song backwards, or put your voice in a movie scene. Neither one will make you sound normal.";
+"onboarding.welcome.message" = "Three games, one microphone. Sing a song backwards, put your voice in a movie scene, or copy a sound until it sounds right. None of them will make you sound normal.";
 "onboarding.howItWorks.title" = "How it works";
 "onboarding.howItWorks.message" = "Record a song, flip it backwards, then sing along to the nonsense. Flip your take around and find out whether you got close or invented a new language.";
 "onboarding.dub.title" = "Dub a movie scene";
 "onboarding.dub.message" = "The second game: play a scene, act all over it, then hear yourself in the film. Two scenes come in the box. After that, bring your own.";
 "onboarding.microphone.title" = "One last thing";
-"onboarding.microphone.message" = "Both games need to hear you: singing backwards, or dubbing a scene. The mic wakes up only while you record, everything stays on this device, and nothing is ever uploaded. Your worst take stays between the two of you.";
+"onboarding.microphone.message" = "All three games need to hear you: singing backwards, dubbing a scene, or copying a sound. The mic wakes up only while you record, everything stays on this device, and nothing is ever uploaded. Your worst take stays between the two of you.";
 "onboarding.button.openSettings" = "Open Settings";
 "onboarding.button.letsRecord" = "yes, let's record!";
 "onboarding.button.continueLowercase" = "continue";
@@ -54,7 +54,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Nobody Can Hear You";
-"main.emptyState.message" = "Right now Dubloon is a recording app with nothing to record with. Turn on microphone access in your device settings and both games come back to life.";
+"main.emptyState.message" = "Right now Dubloon is a recording app with nothing to record with. Turn on microphone access in your device settings and all three games come back to life.";
 "main.emptyState.button" = "Open Settings";
 
 // MARK: - Main View - Processing & Success
@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Knobs, meters and waveforms";
 "settings.preferences" = "Preferences";
 "settings.about" = "About";
+"settings.about.memberSince" = "Member since %@";
+"settings.about.license.lifetime" = "Dubloon Pro, lifetime";
+"settings.about.license.renews" = "Dubloon Pro, renews %@";
+"settings.about.license.ends" = "Dubloon Pro, ends %@";
+"settings.about.license.earlyAdopter" = "Early adopter, free for life";
+"settings.about.license.trialDays" = "Free trial, %d days left";
+"settings.about.license.trialLastDay" = "Free trial, last day";
+"settings.about.license.trialOver" = "Free trial ended";
+"settings.about.license.free" = "Free";
 
 // Theme descriptions
 
@@ -219,6 +228,7 @@
 "main.button.back" = "Back";
 "main.mode.reverse.subtitle" = "Record a song, flip it, sing the nonsense";
 "main.mode.dub.subtitle" = "Put your voice in someone else's mouth";
+"main.mode.free" = "Free";
 "dub.speakerAccessibility" = "Spoken by %@";
 "dub.cast" = "Cast";
 "dub.referenceTrack" = "Reference";
@@ -247,6 +257,8 @@
 "dubShare.unknownSource" = "You brought this scene in yourself, so you know where it came from and what you can do with it.";
 "dubShare.responsibility" = "Where it goes next is up to you, so follow the copyright rules where you live.";
 "dubShare.confirm" = "Export Video";
+"dubShare.share" = "Share…";
+"dubShare.save" = "Save…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Setting up your first scenes…";
@@ -275,13 +287,17 @@
 "pro.trial.daysLeft" = "%d days left";
 "pro.trial.oneDayLeft" = "Last day";
 "pro.trial.over" = "Your free trial is done";
+"pro.locked.title" = "Get Dubloon Pro to dub";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Unlock Dubloon";
-"pro.unlock.subtitle" = "One payment, both games, yours for good.";
+"pro.unlock.subtitle" = "Every scene, Booth Cam and exports. Reverse singing stays free.";
 "pro.owned.title" = "You own Dubloon";
 "pro.owned.subtitle" = "Thank you. Every scene, every take, no ceiling.";
 "pro.manage.title" = "Manage purchase";
 "pro.manage.subtitle" = "Receipts, refunds and help with your purchase.";
+"pro.subscribed.title" = "You're on Dubloon Pro";
+"pro.manageSubscription.title" = "Manage subscription";
+"pro.manageSubscription.subtitle" = "Change plan, cancel, or get help.";
 "pro.restore.title" = "Restore purchase";
 "pro.restore.subtitle" = "New phone, or reinstalled? Bring it back.";
 "pro.testStore.warning" = "Debug build: connected to the RevenueCat test store. No real money moves.";
@@ -293,30 +309,42 @@
 "pro.error.generic" = "The store didn't answer. Try again in a moment.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Unlock Dubloon";
-"pro.fallback.message" = "Your free trial has ended. One payment keeps both games open for good.";
-"pro.fallback.message.beforeExpiry" = "One payment keeps both games open for good.";
+"pro.fallback.message" = "Your free trial has ended. Unlock Dubloon to keep dubbing.";
+"pro.fallback.message.beforeExpiry" = "Unlock Dubloon to keep dubbing.";
+"pro.fallback.message.noTrial" = "Unlock Dubloon to dub every scene.";
 "pro.fallback.buy" = "Unlock for %@";
 "pro.fallback.buyUnpriced" = "Unlock";
 "pro.fallback.loading" = "Asking the store…";
 "pro.fallback.unavailable" = "The store isn't answering right now. Check your connection and try again.";
 "pro.fallback.retry" = "Try again";
-"pro.fallback.benefit.one" = "Sing backwards as often as the neighbours can stand";
+"pro.fallback.benefit.one" = "Film yourself in the booth with Booth Cam";
 "pro.fallback.benefit.two" = "Dub every scene, and bring your own";
 "pro.fallback.benefit.three" = "Export your takes and share the damage";
 "pro.fallback.oneTime" = "One payment. Not a subscription.";
+"pro.fallback.subscribe.monthly" = "Subscribe for %@/month";
+"pro.fallback.subscribe.yearly" = "Subscribe for %@/year";
+"pro.fallback.subscribe" = "Subscribe for %@";
+"pro.fallback.renews" = "Renews automatically until cancelled. Cancel anytime in your Apple Account settings.";
+"pro.fallback.terms" = "Terms of Use";
+
+// MARK: - Review banner
+"review.banner.title" = "Thank you for going Pro";
+"review.banner.message" = "Dubloon is made by one person in Zürich, and reviews are how new players find it. If you're enjoying it, a few words on the App Store would mean a lot.";
+"review.banner.rate" = "Write a review";
+"review.banner.later" = "Not now";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Welcome to the club";
-"pro.earlyAdopter.message" = "Dubloon costs money now — but not for you. You were here before the price tag, so both games stay yours, free, for as long as the app exists. Thank you for the early days.";
+"pro.earlyAdopter.message" = "Dubloon costs money now — but not for you. You were here before the price tag, so all three games stay yours, free, for as long as the app exists. Thank you for the early days.";
 "pro.earlyAdopter.badge" = "Free for life";
 "pro.earlyAdopter.confirm" = "Nice";
 "pro.earlyAdopter.settings.title" = "Free for life";
-"pro.earlyAdopter.settings.subtitle" = "You were here early. Both games are yours, and you owe us nothing.";
+"pro.earlyAdopter.settings.subtitle" = "You were here early. All three games are yours, and you owe us nothing.";
 "pro.closePaywall" = "Close";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Access";
-"pro.earlyAdopter.row.access.value" = "Both games";
+"pro.earlyAdopter.row.access.value" = "All three games";
 "pro.earlyAdopter.row.cost" = "Cost";
 "pro.earlyAdopter.row.cost.value" = "Nothing";
 "pro.earlyAdopter.row.expires" = "Expires";
@@ -407,3 +435,130 @@
 "dub.error.linesBadTimestamps" = "The start times in this pack aren't written as times, so its lines can't be placed.";
 "dub.error.linesNoAudio" = "This pack's lines have no recordings with them, so there's nothing to dub over.";
 "dub.error.linesUnplayableAudio" = "None of this pack's recordings will play on this device.";
+
+/* Sound Imitation */
+"main.mode.imitate.title" = "Sound Imitation";
+"main.mode.imitate.subtitle" = "Copy a sound, get a verdict";
+"imitate.library.hint" = "Pick a sound, listen, then do your best impression.";
+"imitate.library.best" = "Best";
+"imitate.library.untried" = "New";
+"imitate.challenge.listen" = "Hear it";
+"imitate.challenge.record" = "Imitate";
+"imitate.challenge.stop" = "Stop";
+"imitate.challenge.instruction" = "Listen first, then press Imitate and make the sound.";
+"imitate.challenge.recordingHint" = "Go! Make the sound.";
+"imitate.challenge.scoring" = "Judging…";
+"imitate.challenge.tryAgain" = "Try again";
+"imitate.challenge.playMine" = "Play mine";
+"imitate.challenge.makeVideo" = "Make video";
+"imitate.challenge.rendering" = "Making your video…";
+"imitate.challenge.newBest" = "New best!";
+"imitate.challenge.exportFailed" = "The video couldn't be made. Please try again.";
+"imitate.challenge.difficulty" = "Difficulty";
+"imitate.category.animals" = "Animals";
+"imitate.category.vehicles" = "Horns & alarms";
+"imitate.category.cartoon" = "Cartoon & sci-fi";
+"imitate.category.human" = "Human noises";
+"imitate.part.rhythm" = "Rhythm";
+"imitate.part.pitch" = "Pitch";
+"imitate.part.tone" = "Tone";
+"imitate.part.duration" = "Length";
+"imitate.verdict.nailedIt" = "NAILED IT!";
+"imitate.verdict.legendary" = "LEGENDARY";
+"imitate.verdict.approved" = "APPROVED";
+"imitate.verdict.certified" = "CERTIFIED";
+"imitate.verdict.notBad" = "NOT BAD";
+"imitate.verdict.almost" = "ALMOST…";
+"imitate.verdict.soClose" = "SO CLOSE";
+"imitate.verdict.failed" = "FAILED";
+"imitate.verdict.whatWasThat" = "WHAT WAS THAT?";
+"imitate.reel.challenge" = "Sound challenge";
+"imitate.reel.canYouSoundLike" = "Can you sound like a…";
+"imitate.reel.original" = "Original";
+"imitate.reel.you" = "You";
+"imitate.reel.score" = "Score";
+"imitate.reel.beatMyScore" = "Can you beat my score?";
+"imitate.sound.cat" = "Cat";
+"imitate.sound.dog" = "Dog";
+"imitate.sound.cow" = "Cow";
+"imitate.sound.sheep" = "Sheep";
+"imitate.sound.chicken" = "Chicken";
+"imitate.sound.rooster" = "Rooster";
+"imitate.sound.duck" = "Duck";
+"imitate.sound.pig" = "Pig";
+"imitate.sound.wolf" = "Wolf";
+"imitate.sound.owl" = "Owl";
+"imitate.sound.horn" = "Car horn";
+"imitate.sound.siren" = "Siren";
+"imitate.sound.train" = "Train whistle";
+"imitate.sound.bell" = "Bike bell";
+"imitate.sound.laser" = "Laser";
+"imitate.sound.boing" = "Boing";
+"imitate.sound.slide" = "Slide whistle";
+"imitate.sound.zap" = "Zap";
+"imitate.sound.burp" = "Burp";
+"imitate.sound.sneeze" = "Sneeze";
+"imitate.sound.snore" = "Snore";
+"imitate.sound.laugh" = "Evil laugh";
+"imitate.sound.yawn" = "Yawn";
+"imitate.sound.hiccup" = "Hiccup";
+
+/* Mac */
+"mac.sidebar.games" = "Games";
+"mac.sidebar.packs" = "Dub Packs";
+"mac.sidebar.sessions" = "Sessions";
+"mac.menu.importPack" = "Import Dub Pack…";
+"mac.menu.export" = "Export Video…";
+"mac.menu.playback" = "Playback";
+"mac.menu.playPause" = "Play/Pause";
+"mac.menu.record" = "Record";
+"mac.menu.listen" = "Play Original";
+"mac.menu.playTake" = "Play Take";
+"mac.menu.previousLine" = "Previous Line";
+"mac.menu.nextLine" = "Next Line";
+"mac.menu.showInspector" = "Show Inspector";
+"mac.menu.hideInspector" = "Hide Inspector";
+"mac.panel.inspector" = "Inspector";
+"mac.panel.viewer" = "Viewer";
+"mac.panel.line" = "Line";
+"mac.panel.scene" = "Scene";
+"mac.panel.takes" = "Takes";
+"mac.panel.character" = "Character";
+"mac.panel.start" = "Start";
+"mac.panel.duration" = "Duration";
+"mac.panel.notDubbed" = "Not dubbed yet";
+"mac.panel.attempts" = "Attempts";
+"mac.panel.emptyTitle" = "Pick something to work on";
+"mac.panel.emptyMessage" = "Choose a game or a dub pack in the sidebar.";
+"mac.settings.general" = "General";
+"mac.settings.recording" = "Recording";
+"mac.welcome.notNow" = "Not Now";
+"mac.booth.primer.message" = "Booth Cam runs your Mac's camera while you perform, so the scene, the line and your face all share one screen. Later you can share the reaction along with the dub.";
+"mac.booth.primer.systemPrompt" = "macOS will ask for camera access next.";
+"mac.menu.openRecent" = "Open Recent";
+"mac.menu.clearRecent" = "Clear Menu";
+"mac.menu.open" = "Open";
+"mac.menu.showInFinder" = "Show in Finder";
+"mac.menu.viewer" = "Viewer";
+"mac.menu.zoomIn" = "Zoom In";
+"mac.menu.zoomOut" = "Zoom Out";
+"mac.menu.skipBack" = "Back 5 Seconds";
+"mac.menu.skipForward" = "Forward 5 Seconds";
+"mac.menu.goToStart" = "Go to Beginning";
+"mac.menu.shortcuts" = "Keyboard Shortcuts";
+"mac.menu.delete" = "Delete…";
+"mac.confirm.deletePack.title" = "Delete “%@”?";
+"mac.confirm.deletePack.message" = "Your takes and booth footage for this scene go with it. This can't be undone.";
+"mac.confirm.deleteSession.title" = "Delete this session?";
+"mac.confirm.deleteSession.message" = "Its recordings go with it. This can't be undone.";
+"mac.shortcuts.file" = "File";
+"mac.shortcuts.view" = "View";
+"mac.tip.shortcuts.title" = "Your keyboard is the transport";
+"mac.tip.shortcuts.message" = "R records, Space plays, the arrow keys move between lines. Every shortcut is in Help ▸ Keyboard Shortcuts.";
+"mac.export.dragHint" = "Drag the video anywhere to save a copy";
+"mac.search.prompt" = "Search";
+"mac.menu.find" = "Find";
+"mac.menu.openInNewWindow" = "Open in New Window";
+"mac.panel.sound" = "Sound";
+"mac.panel.allSounds" = "All";
+"mac.panel.compare" = "Compare";

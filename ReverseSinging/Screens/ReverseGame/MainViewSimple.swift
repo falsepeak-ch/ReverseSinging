@@ -23,7 +23,7 @@ struct MainViewSimple: View {
                 .ignoresSafeArea()
 
             // Show empty state if permission is denied
-            if !viewModel.hasRecordingPermission {
+            if viewModel.isMicrophoneDenied {
                 MicrophonePermissionEmptyState(onOpenSettings: AppSettings.open)
                     .transition(.opacity)
             } else {
@@ -173,6 +173,7 @@ struct MainViewSimple: View {
                 recordingLevel: viewModel.recordingLevel,
                 action: handleRecordToggle
             )
+            .macKeyboardShortcut(.space)
 
             // Button 2: Play Recorded (Green)
             LargeActionButton(
@@ -185,6 +186,7 @@ struct MainViewSimple: View {
                 recordingLevel: 0,
                 action: handlePlayOriginal
             )
+            .macKeyboardShortcut("p")
 
             // Button 3: Play Reverse (Blue)
             LargeActionButton(
@@ -197,6 +199,7 @@ struct MainViewSimple: View {
                 recordingLevel: 0,
                 action: handlePlayReversed
             )
+            .macKeyboardShortcut("b")
         }
     }
 
@@ -209,7 +212,7 @@ struct MainViewSimple: View {
                     .transition(.scale.combined(with: .opacity))
             }
 
-            if viewModel.hasRecordingPermission, let tip = currentTip, !tip.isEmpty {
+            if !viewModel.isMicrophoneDenied, let tip = currentTip, !tip.isEmpty {
                 VStack(spacing: 0) {
                     Spacer()
                     HintBar(text: tip)

@@ -103,11 +103,39 @@ final class AccessController: ObservableObject {
     /// They have paid.
     var isPro: Bool { state == .unlocked(.entitlement) }
 
+    /// They pay for it by subscription rather than having bought it outright. The lifetime
+    /// purchase grants an entitlement with no expiry date; every subscription has one.
+    var isSubscriber: Bool {
+        isPro && entitlement?.expirationDate != nil
+    }
+
+    /// The Pro entitlement as last reported, active or not.
+    var entitlement: EntitlementInfo? {
+        customerInfo?.entitlements[PurchaseConfiguration.entitlementID]
+    }
+
+    /// The earliest date this person is known to have had the app, for the About screen.
+    ///
+    /// Apple's download date follows the account across reinstalls, so it is usually the
+    /// oldest; RevenueCat's first sighting and the app's own first launch stand in when the
+    /// receipt has not reported one. For an early adopter recognised from local traces the
+    /// first launch is that of the build carrying the paywall, so this can be later than the
+    /// day they really arrived — never earlier.
+    var memberSince: Date? {
+        [storeDownloadDate, customerInfo?.firstSeen, firstLaunch.date].compactMap { $0 }.min()
+    }
+
     /// They were here before the paywall and are exempt from it for good.
     var isEarlyAdopter: Bool { state == .unlocked(.earlyAdopter) }
 
-    /// The games must not be playable until something is bought.
+    /// The paid games must not be playable until something is bought.
     var isLocked: Bool { state == .locked }
+
+    /// Whether reverse singing stays open while `isLocked`. Dubbing never does.
+    var isReverseGameFree: Bool { remoteConfig.isReverseGameFree }
+
+    /// Whether Sound Imitation stays open while `isLocked`. Paid unless the console says otherwise.
+    var isSoundImitationFree: Bool { remoteConfig.isSoundImitationFree }
 
     /// Whether being locked covers the app or only disables the games.
     var lockPresentation: LockPresentation {
@@ -123,6 +151,10 @@ final class AccessController: ObservableObject {
         if case .trial(let days, _) = state { return days }
         return nil
     }
+
+    /// Whether the console gives new users a free window at all. With a length of zero the
+    /// lock arrives on first launch, and nothing may say a trial has ended.
+    var hasTrial: Bool { remoteConfig.trialLengthInDays > 0 }
 
     /// Whether there is still something to sell this person. An early adopter
     /// already has everything, so there is not.
@@ -299,6 +331,12 @@ final class AccessController: ObservableObject {
         Task { await refresh() }
     }
 
+    /// Apple's download date, minus the sandbox's placeholder. See
+    /// `PaywallEligibility.plausibleDownloadDate`.
+    private var storeDownloadDate: Date? {
+        PaywallEligibility.plausibleDownloadDate(customerInfo?.originalPurchaseDate)
+    }
+
     private func apply(_ info: CustomerInfo) {
         customerInfo = info
         hasCustomerInfo = true
@@ -331,7 +369,7 @@ final class AccessController: ObservableObject {
         // separately and in either order — the customer info and the Remote Config
         // cutoff — and this runs when either of them lands.
         earlyAdopter.considerOriginalPurchaseDate(
-            customerInfo?.originalPurchaseDate, before: remoteConfig.paywallReleaseDate
+            storeDownloadDate, before: remoteConfig.paywallReleaseDate
         )
 
         // Ahead of the kill switch and the trial both, and not conditional on the
@@ -359,7 +397,7 @@ final class AccessController: ObservableObject {
         // after the console's date, and for nobody else. Apple's date decides it
         // when there is one. When the store has been asked and has none, the app's
         // own first-launch date stands in — see `PaywallEligibility` for how far.
-        let downloadedAt = customerInfo?.originalPurchaseDate
+        let downloadedAt = storeDownloadDate
         if downloadedAt == nil {
             syncReceiptForDownloadDate()
         } else {
@@ -433,7 +471,7 @@ final class AccessController: ObservableObject {
         Task { [weak self] in
             do {
                 let info = try await Purchases.shared.syncPurchases()
-                if info.originalPurchaseDate == nil {
+                if PaywallEligibility.plausibleDownloadDate(info.originalPurchaseDate) == nil {
                     // Reachable, and still no date, so the first-launch date is
                     // what decides from here.
                     self?.storeHadNoDownloadDate = true
@@ -490,20 +528,37 @@ final class AccessController: ObservableObject {
         }
     }
 
-    /// Buys a product directly. Only the fallback paywall uses this; the
-    /// dashboard paywall does its own buying.
+    /// Buys a product directly. The fallback paywall uses this when there is no offering to
+    /// buy from; the dashboard paywall does its own buying.
     func purchase(_ product: StoreProduct) async {
+        await runPurchase(productID: product.productIdentifier, source: "fallback_paywall") {
+            try await Purchases.shared.purchase(product: product)
+        }
+    }
+
+    /// Buys a package from an offering: the Mac's paywall. Buying the package rather than its
+    /// product tells RevenueCat which offering was on screen, which is what attributes the
+    /// purchase to the experiment arm that sold it.
+    func purchase(_ package: Package, source: String) async {
+        await runPurchase(productID: package.storeProduct.productIdentifier, source: source) {
+            try await Purchases.shared.purchase(package: package)
+        }
+    }
+
+    private func runPurchase(
+        productID: String,
+        source: String,
+        _ buy: () async throws -> PurchaseResultData
+    ) async {
         guard Purchases.isConfigured, !isPurchasing else { return }
         isPurchasing = true
         defer { isPurchasing = false }
 
         do {
-            let result = try await Purchases.shared.purchase(product: product)
+            let result = try await buy()
             guard !result.userCancelled else { return }
             apply(result.customerInfo)
-            AnalyticsManager.shared.trackPurchaseCompleted(
-                productID: product.productIdentifier, source: "fallback_paywall"
-            )
+            AnalyticsManager.shared.trackPurchaseCompleted(productID: productID, source: source)
         } catch {
             // A cancel is a decision, not a failure, and gets no alert.
             guard !Self.isCancellation(error) else { return }

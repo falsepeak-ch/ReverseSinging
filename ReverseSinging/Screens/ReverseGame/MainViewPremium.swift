@@ -25,7 +25,7 @@ struct MainViewPremium: View {
                 .ignoresSafeArea()
 
             // Show empty state if permission is denied
-            if !viewModel.hasRecordingPermission {
+            if viewModel.isMicrophoneDenied {
                 MicrophonePermissionEmptyState(onOpenSettings: AppSettings.open)
                     .transition(.opacity)
             } else {
@@ -133,7 +133,7 @@ struct MainViewPremium: View {
             }
 
             // Tip overlay at bottom (only shown when permission is granted)
-            if viewModel.hasRecordingPermission, let tip = currentTip, !tip.isEmpty {
+            if !viewModel.isMicrophoneDenied, let tip = currentTip, !tip.isEmpty {
                 VStack(spacing: 0) {
                     Spacer()
                     HintBar(text: tip)

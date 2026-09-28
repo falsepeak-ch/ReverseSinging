@@ -65,7 +65,12 @@ struct ScoreCard: View {
 
     // MARK: - Grade Calculation
 
-    private var letterGrade: String {
+    private var letterGrade: String { Self.letterGrade(for: score) }
+
+    private var gradeDescription: String { Self.gradeDescription(for: score) }
+
+    /// Shared with the Mac's score inspector, so a take grades the same everywhere.
+    static func letterGrade(for score: Double) -> String {
         switch score {
         case 90...100: return "A+"
         case 85..<90:  return "A"
@@ -78,7 +83,7 @@ struct ScoreCard: View {
         }
     }
 
-    private var gradeDescription: String {
+    static func gradeDescription(for score: Double) -> String {
         switch score {
         case 90...100: return Strings.ScoreCard.Grade.perfectMatch
         case 85..<90:  return Strings.ScoreCard.Grade.excellent

@@ -1,15 +1,6 @@
-Yhä useampi dubbauspaketti aukeaa, ja harvempi asia menee pieleen.
+Kolmas peli, ja takaperinlaulu on nyt ilmaista.
 
-DUBBAUSPAKETIT
-• .rar-muotoiset paketit aukeavat nyt, vaikka ne olisi nimetty uudelleen .zip-tiedostoiksi
-• Paketit, joiden äänet ja musiikki ovat .ogg-muodossa, toistuvat nyt; aiemmin nuo repliikit putosivat pois ja kohtaus jäi äänettömäksi. Myös jo asentamasi paketit korjataan
-• Repliikin ajoituksen kirjoitustapoja ymmärretään paljon enemmän, joten paketit, jotka menettivät puolet repliikeistään, tuodaan nyt kokonaisina
-• Vielä iCloudissa oleva paketti ladataan ensin sen sijaan, että tuonti epäonnistuisi
-• Kun tiedostoa ei voi tuoda, appi kertoo, mitä siinä on ja miksi se ei kelpaa
-
-KORJAUKSET
-• Korjattu kaatumiset, joita tapahtui, kun toinen appi piti ääntä varattuna ja kun kohtauksen toisto alkoi
-• Apista poistumisen keskeyttämä videomuunnos jatkuu myöhemmin sen sijaan, että kuva katoaisi
-
-MYÖS
-• Kun ilmainen kokeilu päättyy, valikko pysyy auki ja tarjous odottaa napautustasi sen sijaan, että se peittäisi koko apin
+UUTTA
+• Äänten matkiminen: kuuntele ääni, matki sitä ja saat leimatun tuomion rytmistäsi, sävelkorkeudestasi ja sointiväristäsi. Tee yrityksestä sitten video
+• Takaperinlaulu on ilmaista kaikille
+• Dubloon Pro avaa nyt myös Mac-sovelluksen samalla Apple-tilillä

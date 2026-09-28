@@ -1,0 +1,54 @@
+Dubloon son tres juegos de voz en una sola app, y ninguno necesita nada más que tu micrófono.
+
+HECHA PARA EL MAC
+
+Una suite de edición, no una app de móvil en una pantalla grande. Tus juegos y escenas están en una barra lateral. Una escena se abre con sus líneas en una lista, la imagen en un visor, cada línea y cada toma en una línea de tiempo, y los detalles en un inspector. Y todo se maneja también con el teclado: R para grabar, Espacio para reproducir, las flechas para pasar de una línea a otra.
+
+DOBLAJE DE ESCENA
+
+Carga una escena y dóblala tú. Dubloon te reproduce la línea original, te enseña la imagen y el texto, y te marca exactamente cuánto dura. Luego grabas tu toma. La onda de la original queda debajo de la tuya, así que ves dónde entraste antes de tiempo, dónde corriste y dónde dejaste un hueco.
+
+• Línea a línea, a tu ritmo: párate y retómalo cuando quieras
+• La interpretación original en tus auriculares mientras grabas, si te apetece
+• Cada personaje con su color, para saber siempre quién habla
+• Una barra de ritmo que se pone ámbar en cuanto te pasas de la original
+• Los diálogos superpuestos se mezclan en pistas separadas, así que dos personajes hablando a la vez suenan como tal
+• Mira la original, escucha tu doblaje o exporta la escena entera en vídeo
+
+CÁMARA DE CABINA
+
+Enciende la cámara del Mac y Dubloon te graba mientras actúas. Exporta la escena terminada con tu cara en una esquina, apilada encima para una story, o al lado. O saca una sola frase con la reacción justo al lado. La cámara está apagada hasta que tú la enciendes, y el material se queda en tu Mac hasta que decides exportarlo.
+
+CON NOTA, SI QUIERES
+
+Cada toma se puntúa por sincronía, ritmo e interpretación, con una nota para la escena, tu mejor frase y la que merece otro intento. Apágalo y aquí no cuenta nadie.
+
+DOS ESCENAS PARA EMPEZAR
+
+Camp Rules está sacada de Sprite Fright, la película abierta de Blender Studio, compartida bajo Creative Commons Attribution 4.0. Stuck Up viene de The Outsider, un film escolar de 1951 que es de dominio público en Estados Unidos. Cada escena indica la película, el año y los términos en su propia pantalla.
+
+A partir de ahí, la estantería la llenas tú. Más allá de esas dos, Dubloon no incluye ni aloja ninguna película. Los packs de doblaje los hacen y los comparten otros jugadores: descargas los que quieras e abres la carpeta o el .zip desde el Finder o por AirDrop. Asegúrate de tener derecho a usar lo que doblas.
+
+CANTO INVERTIDO
+
+El juego original. Graba una canción y Dubloon la invierte. Canta la versión al revés que oyes y la app le da la vuelta a tu intento: si lo has clavado, acabas cantando la canción de verdad. Te puntúa lo cerca que has estado.
+
+• Tu canción, su versión al revés y tus dos tomas repartidas en cuatro pistas, con bucle, velocidad y tono
+• Guarda tus mejores tomas y vuelve a ellas
+
+IMITACIÓN DE SONIDOS
+
+Escucha un sonido y luego hazlo tú. Un perro que ladra, un gallo, un claxon, un láser. Dubloon escucha tu intento, juzga su ritmo, su tono y su timbre frente al sonido real, y le estampa un veredicto. Supera tu récord y luego convierte el intento en un vídeo para compartir.
+
+• 24 sonidos: animales, bocinas y alarmas, efectos de dibujos animados y ruidos humanos
+• La cámara de cabina graba tu cara en plena imitación, si quieres
+
+PRIVADO DE FÁBRICA
+
+Todo ocurre en este Mac. Tus grabaciones, tus tomas, tu material de cabina y tus doblajes exportados no salen nunca de aquí. Sin cuenta, sin registro, sin anuncios y sin nada que subir. La app recoge estadísticas de uso anónimas para saber qué construir después, nunca el contenido de una grabación.
+
+CUÁNTO CUESTA
+
+El canto invertido es gratis. Dubloon Pro abre el doblaje de escenas, la imitación de sonidos, la cámara de cabina y las exportaciones, sin recortes, con una compra única o con una suscripción. ¿Ya lo has comprado en el iPhone? Aquí también se desbloquea, con la misma cuenta de Apple.
+
+Hecha en Suiza. Hecha a mano en Zúrich.

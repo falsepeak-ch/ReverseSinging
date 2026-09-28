@@ -1,0 +1,54 @@
+Dubloon to trzy głosowe gry w jednej aplikacji, a żadna z nich nie potrzebuje niczego poza twoim mikrofonem.
+
+STWORZONE DLA MACA
+
+Studio montażowe, a nie aplikacja z telefonu na dużym ekranie. Gry i sceny są na pasku bocznym. Scena otwiera się z kwestiami na liście, obrazem w podglądzie, każdą kwestią i podejściem na osi czasu i szczegółami w inspektorze. Wszystko działa też z klawiatury: R nagrywa, spacja odtwarza, strzałki przenoszą między kwestiami.
+
+DUBBING SCENY Z FILMU
+
+Wczytaj scenę i zdubbinguj ją sam. Dubloon odtwarza oryginalną kwestię, pokazuje obraz i tekst, i podaje dokładną długość, w którą masz trafić. Potem nagrywasz swoje podejście. Przebieg fali oryginału leży pod twoim, więc widzisz, gdzie wszedłeś za wcześnie, gdzie się spieszyłeś i gdzie zostawiłeś dziurę.
+
+• Kwestia po kwestii, we własnym tempie. Przerwij i wróć, kiedy chcesz
+• Oryginalna interpretacja w słuchawkach podczas nagrywania, jeśli chcesz
+• Każda postać ma swój kolor, więc zawsze wiesz, kto mówi
+• Pasek tempa, który robi się bursztynowy w chwili, gdy przekraczasz oryginał
+• Nakładające się dialogi miksowane są na osobnych ścieżkach, więc dwie osoby mówiące jednocześnie tak właśnie brzmią
+• Obejrzyj oryginał, odsłuchaj swój dubbing albo wyeksportuj całą scenę jako wideo
+
+BOOTH CAM
+
+Włącz kamerę w Macu, a Dubloon nagra cię podczas występu. Wyeksportuj gotową scenę z twarzą w rogu, ustawioną nad sceną na potrzeby relacji, albo obok. Albo wypuść pojedynczą kwestię z reakcją tuż obok. Kamera jest wyłączona, dopóki jej nie włączysz, a materiał zostaje na Macu, dopóki sam nie zdecydujesz się na eksport.
+
+Z OCENĄ, JEŚLI CHCESZ
+
+Każde podejście dostaje ocenę za synchronizację, tempo i grę, a do tego wynik sceny, twoją najlepszą kwestię i tę, która zasługuje na powtórkę. Wyłącz to, a nikt nie liczy punktów.
+
+DWIE SCENY NA POCZĄTEK
+
+Camp Rules pochodzi ze Sprite Fright, otwartego filmu Blender Studio, udostępnionego na licencji Creative Commons Attribution 4.0. Stuck Up pochodzi z The Outsider, szkolnego filmu z 1951 roku, który w Stanach Zjednoczonych jest w domenie publicznej. Każda scena podaje film, rok i warunki na własnym ekranie.
+
+Dalej półkę zapełniasz sam. Poza tymi dwiema Dubloon nie zawiera ani nie hostuje żadnych filmów. Paczki dubbingowe tworzą i udostępniają inni gracze: pobierasz te, które chcesz, i otwierasz folder albo plik .zip z Findera lub przez AirDrop. Upewnij się, że masz prawo używać tego, co dubbingujesz.
+
+ŚPIEWANIE OD TYŁU
+
+Pierwotna gra. Nagraj piosenkę, a Dubloon ją odwróci. Zaśpiewaj odwróconą wersję, którą słyszysz, a aplikacja odwróci twoje podejście z powrotem. Jeśli trafiłeś, wychodzisz śpiewając prawdziwą piosenkę. Dostajesz punkty za to, jak blisko byłeś.
+
+• Twoja piosenka, jej odwrócona wersja i oba twoje podejścia rozłożone na cztery ścieżki, z pętlą, tempem i wysokością dźwięku
+• Zapisuj najlepsze podejścia i wracaj do nich
+
+NAŚLADOWANIE DŹWIĘKÓW
+
+Usłysz dźwięk, a potem zrób go sam. Szczekający pies, kogut, klakson, laser. Dubloon słucha twojego podejścia, ocenia jego rytm, wysokość i barwę względem oryginału i przybija na nim pieczątkę z werdyktem. Pobij swój rekord, a potem zamień podejście w wideo do udostępnienia.
+
+• 24 dźwięki: zwierzęta, klaksony i alarmy, efekty z kreskówek i ludzkie odgłosy
+• Booth Cam nagrywa twoją twarz w trakcie naśladowania, jeśli chcesz
+
+PRYWATNE Z ZAŁOŻENIA
+
+Wszystko dzieje się na tym Macu. Twoje nagrania, twoje podejścia, materiał z kabiny i wyeksportowane dubbingi nigdy go nie opuszczają. Bez konta, bez rejestracji, bez reklam, bez niczego do wysłania. Aplikacja zbiera anonimowe statystyki użycia, żeby wiedzieć, co budować dalej — nigdy treść nagrania.
+
+ILE TO KOSZTUJE
+
+Śpiewanie od tyłu jest za darmo. Dubloon Pro otwiera dubbing scen z filmów, naśladowanie dźwięków, Booth Cam i eksport, nic nie jest przytrzymane, jako jednorazowy zakup albo subskrypcja. Kupiłeś go już na iPhonie? Tu też się odblokuje, na tym samym koncie Apple.
+
+Zbudowane w Szwajcarii. Ręcznie złożone w Zurychu.

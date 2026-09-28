@@ -1,4 +1,4 @@
-Dubloon is two voice games in one app, and neither of them needs anything but your microphone.
+Dubloon is three voice games in one app, and none of them needs anything but your microphone.
 
 MOVIE SCENE DUB
 
@@ -32,12 +32,19 @@ The original game. Record a song and Dubloon flips it. Sing the backwards versio
 • Two interfaces: big simple buttons, or the full waveform with loop, speed and pitch
 • Save your best takes and come back to them
 
+SOUND IMITATION
+
+Hear a sound, then make it yourself. A barking dog, a rooster, a car horn, a laser. Dubloon listens to your attempt, judges its rhythm, pitch and tone against the real thing, and stamps a verdict on it. Beat your best, then turn the attempt into a video to share.
+
+• 24 sounds: animals, horns and alarms, cartoon effects and human noises
+• Booth Cam films your face mid-impression, if you want it
+
 PRIVATE BY DESIGN
 
 Everything happens on this device. Your recordings, your takes, your booth footage and your exported dubs never leave it. No account, no sign-up, no ads, nothing to upload. The app collects anonymous usage statistics to guide what gets built next, never the contents of a recording.
 
 WHAT IT COSTS
 
-Seven days free, both games, nothing held back. After that, one payment unlocks the app for good. Not a subscription.
+Reverse singing is free. Dubloon Pro opens movie scene dubbing, sound imitation, Booth Cam and exports, nothing held back, as a one-time purchase or a subscription.
 
 Built in Switzerland. Made by hand in Zürich.

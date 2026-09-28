@@ -114,6 +114,30 @@ nonisolated final class AudioFileManager: @unchecked Sendable {
         return url
     }
 
+    // MARK: - Sound Imitation Directories
+
+    /// The latest attempt at each sound, named `<soundID>.caf`. One per sound: a new attempt
+    /// replaces the old one, as the score does.
+    nonisolated func imitateTakesDirectory() -> URL {
+        let url = documentsDirectory.appendingPathComponent("ImitateTakes", isDirectory: true)
+        createIfNeeded(url)
+        return url
+    }
+
+    /// Booth footage of the latest attempt at each sound, named `<soundID>.mov`.
+    nonisolated func imitateBoothDirectory() -> URL {
+        let url = documentsDirectory.appendingPathComponent("ImitateBooth", isDirectory: true)
+        createIfNeeded(url)
+        return url
+    }
+
+    /// Rendered imitation videos ready to share.
+    nonisolated func imitateExportsDirectory() -> URL {
+        let url = documentsDirectory.appendingPathComponent("ImitateExports", isDirectory: true)
+        createIfNeeded(url)
+        return url
+    }
+
     /// Removes a pack's assets along with every take recorded against it.
     nonisolated func deleteDubPack(folderName: String, packID: UUID) throws {
         let packURL = dubPacksDirectory().appendingPathComponent(folderName, isDirectory: true)

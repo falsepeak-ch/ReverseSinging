@@ -1,15 +1,6 @@
-Otwiera się więcej paczek dubbingowych i mniej rzeczy idzie nie tak.
+Trzecia gra, a śpiewanie od tyłu jest teraz za darmo.
 
-PACZKI DUBBINGOWE
-• Paczki w formacie .rar teraz się otwierają, nawet gdy zmieniono im nazwę na .zip
-• Paczki z głosami i muzyką w .ogg teraz grają; wcześniej te kwestie przepadały, a scena była niema. Naprawiane są też paczki, które masz już zainstalowane
-• Rozumianych jest znacznie więcej sposobów zapisu czasu kwestii, więc paczki, które traciły połowę kwestii, importują się teraz w całości
-• Paczka, która wciąż leży w iCloud, jest najpierw pobierana, zamiast kończyć się błędem
-• Gdy pliku nie da się zaimportować, aplikacja mówi, co w nim jest i dlaczego się nie nadaje
-
-POPRAWKI
-• Naprawiono awarie, które zdarzały się, gdy inna aplikacja zajmowała dźwięk, oraz przy rozpoczęciu odtwarzania sceny
-• Konwersja wideo przerwana wyjściem z aplikacji jest dokańczana później, zamiast tracić obraz
-
-PONADTO
-• Gdy kończy się darmowy okres próbny, menu zostaje otwarte, a oferta czeka, aż ją stukniesz, zamiast zasłaniać całą aplikację
+NOWOŚCI
+• Naśladowanie dźwięków: usłysz dźwięk, skopiuj go i dostań werdykt z pieczątką za rytm, wysokość i barwę. Potem zamień podejście w wideo
+• Śpiewanie od tyłu jest za darmo dla wszystkich
+• Dubloon Pro odblokowuje teraz także aplikację na Maca, na tym samym koncie Apple

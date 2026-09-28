@@ -1,0 +1,5 @@
+Des corrections pour le premier lancement sur Mac.
+
+CORRECTIONS
+• Le chant inversé demande l'accès au micro la première fois que vous enregistrez, au lieu de vous envoyer dans Réglages Système
+• Les deux scènes de film fournies avec l'app sont de retour sur l'étagère après une réinstallation

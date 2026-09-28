@@ -1,4 +1,4 @@
-Dubloon on kaksi ääntä käyttävää peliä yhdessä sovelluksessa, eikä kumpikaan tarvitse muuta kuin mikrofonisi.
+Dubloon on kolme ääntä käyttävää peliä yhdessä sovelluksessa, eikä mikään niistä tarvitse muuta kuin mikrofonisi.
 
 DUBBAA ELOKUVAKOHTAUS
 
@@ -32,12 +32,19 @@ Alkuperäinen peli. Äänitä kappale, ja Dubloon kääntää sen. Laula kuulema
 • Kaksi käyttöliittymää: isot yksinkertaiset napit tai koko aaltomuoto toistoineen, nopeuksineen ja sävelkorkeuksineen
 • Tallenna parhaat otoksesi ja palaa niihin
 
+ÄÄNTEN MATKIMINEN
+
+Kuuntele ääni ja tee se sitten itse. Haukkuva koira, kukko, auton torvi, laser. Dubloon kuuntelee yrityksesi, arvioi sen rytmin, sävelkorkeuden ja sointivärin oikeaa ääntä vasten ja leimaa sille tuomion. Päihitä paras tuloksesi ja tee yrityksestä sitten video jaettavaksi.
+
+• 24 ääntä: eläimiä, torvia ja hälyttimiä, piirrettyjen tehosteita ja ihmisten ääniä
+• Booth Cam kuvaa kasvosi kesken matkimisen, jos haluat
+
 YKSITYINEN JO RAKENTEELTAAN
 
 Kaikki tapahtuu tällä laitteella. Äänityksesi, otoksesi, koppimateriaalisi ja viemäsi dubbaukset eivät poistu siitä koskaan. Ei tiliä, ei rekisteröitymistä, ei mainoksia, ei mitään ladattavaa. Sovellus kerää nimettömiä käyttötilastoja päättääkseen, mitä rakennetaan seuraavaksi, ei koskaan äänityksen sisältöä.
 
 MITÄ SE MAKSAA
 
-Seitsemän päivää ilmaiseksi, molemmat pelit, mitään pidättämättä. Sen jälkeen yksi maksu avaa sovelluksen lopullisesti. Ei tilaus.
+Takaperinlaulu on ilmaista. Dubloon Pro avaa elokuvakohtausten dubbauksen, äänten matkimisen, Booth Camin ja viennit, mitään pidättämättä, kertaostona tai tilauksena.
 
 Rakennettu Sveitsissä. Käsityönä Zürichissä.

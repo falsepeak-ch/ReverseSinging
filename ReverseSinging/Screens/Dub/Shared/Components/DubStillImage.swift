@@ -12,7 +12,7 @@ struct DubStillImage: View {
     let url: URL
     var contentMode: ContentMode = .fill
 
-    @State private var image: UIImage?
+    @State private var image: PlatformImage?
 
     var body: some View {
         // The image goes in an overlay rather than a ZStack sibling: an aspect-fill image is
@@ -21,7 +21,7 @@ struct DubStillImage: View {
         Color.black
             .overlay {
                 if let image {
-                    Image(uiImage: image)
+                    Image(platformImage: image)
                         .resizable()
                         .aspectRatio(contentMode: contentMode)
                 }
@@ -31,7 +31,7 @@ struct DubStillImage: View {
                 guard image == nil else { return }
                 let path = url.path
                 image = await Task.detached(priority: .userInitiated) {
-                    UIImage(contentsOfFile: path)
+                    PlatformImage(contentsOfFile: path)
                 }.value
             }
     }
