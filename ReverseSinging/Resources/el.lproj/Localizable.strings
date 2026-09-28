@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Ποτενσιόμετρα, δείκτες και κυματομορφές";
 "settings.preferences" = "Προτιμήσεις";
 "settings.about" = "Σχετικά";
+"settings.about.memberSince" = "Μέλος από %@";
+"settings.about.license.lifetime" = "Dubloon Pro, εφ' όρου ζωής";
+"settings.about.license.renews" = "Dubloon Pro, ανανεώνεται στις %@";
+"settings.about.license.ends" = "Dubloon Pro, λήγει στις %@";
+"settings.about.license.earlyAdopter" = "Από τους πρώτους, δωρεάν για πάντα";
+"settings.about.license.trialDays" = "Δωρεάν δοκιμή, απομένουν %d ημέρες";
+"settings.about.license.trialLastDay" = "Δωρεάν δοκιμή, τελευταία ημέρα";
+"settings.about.license.trialOver" = "Η δωρεάν δοκιμή έληξε";
+"settings.about.license.free" = "Δωρεάν";
 
 // Theme descriptions
 

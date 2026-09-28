@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Regler, Pegel und Wellenformen";
 "settings.preferences" = "Einstellungen";
 "settings.about" = "Über";
+"settings.about.memberSince" = "Mitglied seit %@";
+"settings.about.license.lifetime" = "Dubloon Pro, lebenslang";
+"settings.about.license.renews" = "Dubloon Pro, verlängert sich am %@";
+"settings.about.license.ends" = "Dubloon Pro, endet am %@";
+"settings.about.license.earlyAdopter" = "Early Adopter, für immer gratis";
+"settings.about.license.trialDays" = "Gratis-Testphase, noch %d Tage";
+"settings.about.license.trialLastDay" = "Gratis-Testphase, letzter Tag";
+"settings.about.license.trialOver" = "Gratis-Testphase beendet";
+"settings.about.license.free" = "Gratis";
 
 // Theme descriptions
 

@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Pokrętła, wskaźniki i przebiegi fal";
 "settings.preferences" = "Preferencje";
 "settings.about" = "Informacje";
+"settings.about.memberSince" = "Członek od %@";
+"settings.about.license.lifetime" = "Dubloon Pro, dożywotnio";
+"settings.about.license.renews" = "Dubloon Pro, odnowienie %@";
+"settings.about.license.ends" = "Dubloon Pro, koniec %@";
+"settings.about.license.earlyAdopter" = "Pionier, za darmo na zawsze";
+"settings.about.license.trialDays" = "Darmowy okres próbny, pozostało dni: %d";
+"settings.about.license.trialLastDay" = "Darmowy okres próbny, ostatni dzień";
+"settings.about.license.trialOver" = "Darmowy okres próbny się skończył";
+"settings.about.license.free" = "Za darmo";
 
 // Theme descriptions
 

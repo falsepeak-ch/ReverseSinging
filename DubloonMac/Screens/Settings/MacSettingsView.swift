@@ -176,6 +176,20 @@ struct MacSettingsView: View {
                     .foregroundColor(.secondary)
             }
 
+            VStack(spacing: 2) {
+                let hasFullAccess = viewModel.isPro || viewModel.isEarlyAdopter
+                Label(viewModel.licenseText, systemImage: hasFullAccess ? "checkmark.seal.fill" : "person.crop.circle")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundColor(hasFullAccess ? .rsGood : .primary)
+
+                if let memberSince = viewModel.memberSinceText {
+                    Text(memberSince)
+                        .font(.system(size: 12))
+                        .foregroundColor(.secondary)
+                }
+            }
+            .padding(.vertical, 4)
+
             Text(Strings.Settings.builtInSwitzerlandDesc)
                 .font(.system(size: 12))
                 .foregroundColor(.secondary)

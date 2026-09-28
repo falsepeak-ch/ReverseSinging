@@ -209,6 +209,38 @@ final class SettingsViewModel: ObservableObject {
         return String(format: Strings.Settings.version, version, build)
     }
 
+    /// "Member since 12 March 2026", or nil before any date is known.
+    var memberSinceText: String? {
+        guard let date = access.memberSince else { return nil }
+        return String(format: Strings.Settings.About.memberSince,
+                      date.formatted(date: .long, time: .omitted))
+    }
+
+    /// What this copy of the app is licensed as, in one line.
+    var licenseText: String {
+        switch access.state {
+        case .unlocked(.entitlement):
+            guard let expiry = access.entitlement?.expirationDate else {
+                return Strings.Settings.About.licenseLifetime
+            }
+            let date = expiry.formatted(date: .long, time: .omitted)
+            let format = access.entitlement?.willRenew == true
+                ? Strings.Settings.About.licenseRenews
+                : Strings.Settings.About.licenseEnds
+            return String(format: format, date)
+        case .unlocked(.earlyAdopter):
+            return Strings.Settings.About.licenseEarlyAdopter
+        case .trial(let days, _):
+            return days <= 1
+                ? Strings.Settings.About.licenseTrialLastDay
+                : String(format: Strings.Settings.About.licenseTrialDays, days)
+        case .locked:
+            return access.hasTrial ? Strings.Settings.About.licenseTrialOver : Strings.Settings.About.licenseFree
+        case .unlocked(.gatingDisabled), .unknown:
+            return Strings.Settings.About.licenseFree
+        }
+    }
+
     func openPrivacyPolicy() {
         HapticManager.shared.light()
         AnalyticsManager.shared.trackCustomEvent(name: "privacy_policy_opened", parameters: nil)

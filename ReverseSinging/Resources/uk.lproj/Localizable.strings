@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Ручки, індикатори та форми хвилі";
 "settings.preferences" = "Параметри";
 "settings.about" = "Про застосунок";
+"settings.about.memberSince" = "Учасник з %@";
+"settings.about.license.lifetime" = "Dubloon Pro, назавжди";
+"settings.about.license.renews" = "Dubloon Pro, поновлення %@";
+"settings.about.license.ends" = "Dubloon Pro, до %@";
+"settings.about.license.earlyAdopter" = "Першопроходець, безкоштовно назавжди";
+"settings.about.license.trialDays" = "Пробний період, залишилося днів: %d";
+"settings.about.license.trialLastDay" = "Пробний період, останній день";
+"settings.about.license.trialOver" = "Пробний період закінчився";
+"settings.about.license.free" = "Безкоштовно";
 
 // Theme descriptions
 

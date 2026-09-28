@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Ratt, målere og bølgeformer";
 "settings.preferences" = "Preferanser";
 "settings.about" = "Om";
+"settings.about.memberSince" = "Medlem siden %@";
+"settings.about.license.lifetime" = "Dubloon Pro, livstid";
+"settings.about.license.renews" = "Dubloon Pro, fornyes %@";
+"settings.about.license.ends" = "Dubloon Pro, utløper %@";
+"settings.about.license.earlyAdopter" = "Tidlig bruker, gratis for alltid";
+"settings.about.license.trialDays" = "Gratis prøve, %d dager igjen";
+"settings.about.license.trialLastDay" = "Gratis prøve, siste dag";
+"settings.about.license.trialOver" = "Gratis prøve er over";
+"settings.about.license.free" = "Gratis";
 
 // Theme descriptions
 

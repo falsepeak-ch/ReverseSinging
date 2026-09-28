@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "مفاتيح ومؤشرات وموجات صوتية";
 "settings.preferences" = "التفضيلات";
 "settings.about" = "حول";
+"settings.about.memberSince" = "عضو منذ %@";
+"settings.about.license.lifetime" = "Dubloon Pro، مدى الحياة";
+"settings.about.license.renews" = "Dubloon Pro، يتجدد في %@";
+"settings.about.license.ends" = "Dubloon Pro، ينتهي في %@";
+"settings.about.license.earlyAdopter" = "مستخدم مبكر، مجاني مدى الحياة";
+"settings.about.license.trialDays" = "تجربة مجانية، متبقٍ %d يوم";
+"settings.about.license.trialLastDay" = "تجربة مجانية، اليوم الأخير";
+"settings.about.license.trialOver" = "انتهت التجربة المجانية";
+"settings.about.license.free" = "مجاني";
 
 // Theme descriptions
 

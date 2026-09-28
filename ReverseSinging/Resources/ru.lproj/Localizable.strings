@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Ручки, индикаторы и формы волны";
 "settings.preferences" = "Параметры";
 "settings.about" = "О программе";
+"settings.about.memberSince" = "Участник с %@";
+"settings.about.license.lifetime" = "Dubloon Pro, навсегда";
+"settings.about.license.renews" = "Dubloon Pro, продление %@";
+"settings.about.license.ends" = "Dubloon Pro, до %@";
+"settings.about.license.earlyAdopter" = "Первопроходец, бесплатно навсегда";
+"settings.about.license.trialDays" = "Пробный период, осталось дней: %d";
+"settings.about.license.trialLastDay" = "Пробный период, последний день";
+"settings.about.license.trialOver" = "Пробный период закончился";
+"settings.about.license.free" = "Бесплатно";
 
 // Theme descriptions
 

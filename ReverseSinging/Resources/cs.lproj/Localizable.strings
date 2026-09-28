@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Knoflíky, měřáky a průběhy vln";
 "settings.preferences" = "Předvolby";
 "settings.about" = "O aplikaci";
+"settings.about.memberSince" = "Členem od %@";
+"settings.about.license.lifetime" = "Dubloon Pro, doživotně";
+"settings.about.license.renews" = "Dubloon Pro, obnoví se %@";
+"settings.about.license.ends" = "Dubloon Pro, končí %@";
+"settings.about.license.earlyAdopter" = "Průkopník, zdarma navždy";
+"settings.about.license.trialDays" = "Zkušební verze, zbývá dní: %d";
+"settings.about.license.trialLastDay" = "Zkušební verze, poslední den";
+"settings.about.license.trialOver" = "Zkušební verze skončila";
+"settings.about.license.free" = "Zdarma";
 
 // Theme descriptions
 

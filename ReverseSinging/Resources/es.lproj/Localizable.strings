@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Ruedas, medidores y formas de onda";
 "settings.preferences" = "Preferencias";
 "settings.about" = "Acerca de";
+"settings.about.memberSince" = "Miembro desde el %@";
+"settings.about.license.lifetime" = "Dubloon Pro, para siempre";
+"settings.about.license.renews" = "Dubloon Pro, se renueva el %@";
+"settings.about.license.ends" = "Dubloon Pro, termina el %@";
+"settings.about.license.earlyAdopter" = "Pionero, gratis de por vida";
+"settings.about.license.trialDays" = "Prueba gratuita, quedan %d días";
+"settings.about.license.trialLastDay" = "Prueba gratuita, último día";
+"settings.about.license.trialOver" = "La prueba gratuita ha terminado";
+"settings.about.license.free" = "Gratis";
 
 // Theme descriptions
 

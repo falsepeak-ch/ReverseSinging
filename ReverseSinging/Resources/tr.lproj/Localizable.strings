@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Düğmeler, göstergeler ve dalga formları";
 "settings.preferences" = "Tercihler";
 "settings.about" = "Hakkında";
+"settings.about.memberSince" = "%@ tarihinden beri üye";
+"settings.about.license.lifetime" = "Dubloon Pro, ömür boyu";
+"settings.about.license.renews" = "Dubloon Pro, %@ tarihinde yenilenir";
+"settings.about.license.ends" = "Dubloon Pro, %@ tarihinde sona erer";
+"settings.about.license.earlyAdopter" = "İlk kullanıcı, ömür boyu ücretsiz";
+"settings.about.license.trialDays" = "Ücretsiz deneme, %d gün kaldı";
+"settings.about.license.trialLastDay" = "Ücretsiz deneme, son gün";
+"settings.about.license.trialOver" = "Ücretsiz deneme sona erdi";
+"settings.about.license.free" = "Ücretsiz";
 
 // Theme descriptions
 

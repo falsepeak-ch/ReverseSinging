@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Botões, medidores e formas de onda";
 "settings.preferences" = "Preferências";
 "settings.about" = "Acerca de";
+"settings.about.memberSince" = "Membro desde %@";
+"settings.about.license.lifetime" = "Dubloon Pro, vitalício";
+"settings.about.license.renews" = "Dubloon Pro, renova a %@";
+"settings.about.license.ends" = "Dubloon Pro, termina a %@";
+"settings.about.license.earlyAdopter" = "Pioneiro, grátis para sempre";
+"settings.about.license.trialDays" = "Teste gratuito, faltam %d dias";
+"settings.about.license.trialLastDay" = "Teste gratuito, último dia";
+"settings.about.license.trialOver" = "O teste gratuito terminou";
+"settings.about.license.free" = "Grátis";
 
 // Theme descriptions
 

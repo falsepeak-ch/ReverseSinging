@@ -212,6 +212,20 @@ nonisolated enum Strings {
         static let preferences = NSLocalizedString("settings.preferences", comment: "Preferences section")
         static let about = NSLocalizedString("settings.about", comment: "About section")
 
+        /// The membership lines on the About screen: how long they have had the app, and
+        /// what their copy is licensed as.
+        enum About {
+            static let memberSince = NSLocalizedString("settings.about.memberSince", comment: "When this person first got the app, %@ is a long date")
+            static let licenseLifetime = NSLocalizedString("settings.about.license.lifetime", comment: "License status: bought Dubloon Pro outright")
+            static let licenseRenews = NSLocalizedString("settings.about.license.renews", comment: "License status: Dubloon Pro subscription that renews, %@ is a long date")
+            static let licenseEnds = NSLocalizedString("settings.about.license.ends", comment: "License status: Dubloon Pro subscription that will not renew, %@ is the long date it ends")
+            static let licenseEarlyAdopter = NSLocalizedString("settings.about.license.earlyAdopter", comment: "License status: was here before the app charged, so never pays")
+            static let licenseTrialDays = NSLocalizedString("settings.about.license.trialDays", comment: "License status: in the free trial, %d is the days left, always 2 or more")
+            static let licenseTrialLastDay = NSLocalizedString("settings.about.license.trialLastDay", comment: "License status: last day of the free trial")
+            static let licenseTrialOver = NSLocalizedString("settings.about.license.trialOver", comment: "License status: the free trial has ended and nothing was bought")
+            static let licenseFree = NSLocalizedString("settings.about.license.free", comment: "License status: free version, no purchase")
+        }
+
         // Theme descriptions
 
         // Haptic feedback

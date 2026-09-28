@@ -523,6 +523,12 @@ struct SettingsView: View {
             )
 
             VStack(spacing: 8) {
+                statusCard(
+                    assetName: viewModel.isEarlyAdopter ? "settings-free-for-life"
+                        : viewModel.isPro ? "settings-owned" : "settings-unlock",
+                    title: viewModel.licenseText,
+                    subtitle: viewModel.memberSinceText ?? ""
+                )
                 privacyPolicyButton
                 switzerlandCard
             }

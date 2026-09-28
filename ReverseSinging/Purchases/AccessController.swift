@@ -106,7 +106,23 @@ final class AccessController: ObservableObject {
     /// They pay for it by subscription rather than having bought it outright. The lifetime
     /// purchase grants an entitlement with no expiry date; every subscription has one.
     var isSubscriber: Bool {
-        isPro && customerInfo?.entitlements[PurchaseConfiguration.entitlementID]?.expirationDate != nil
+        isPro && entitlement?.expirationDate != nil
+    }
+
+    /// The Pro entitlement as last reported, active or not.
+    var entitlement: EntitlementInfo? {
+        customerInfo?.entitlements[PurchaseConfiguration.entitlementID]
+    }
+
+    /// The earliest date this person is known to have had the app, for the About screen.
+    ///
+    /// Apple's download date follows the account across reinstalls, so it is usually the
+    /// oldest; RevenueCat's first sighting and the app's own first launch stand in when the
+    /// receipt has not reported one. For an early adopter recognised from local traces the
+    /// first launch is that of the build carrying the paywall, so this can be later than the
+    /// day they really arrived — never earlier.
+    var memberSince: Date? {
+        [storeDownloadDate, customerInfo?.firstSeen, firstLaunch.date].compactMap { $0 }.min()
     }
 
     /// They were here before the paywall and are exempt from it for good.

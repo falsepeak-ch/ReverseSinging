@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Nuppeja, mittareita ja aaltomuotoja";
 "settings.preferences" = "Asetukset";
 "settings.about" = "Tietoja";
+"settings.about.memberSince" = "Jäsen %@ alkaen";
+"settings.about.license.lifetime" = "Dubloon Pro, elinikäinen";
+"settings.about.license.renews" = "Dubloon Pro, uusiutuu %@";
+"settings.about.license.ends" = "Dubloon Pro, päättyy %@";
+"settings.about.license.earlyAdopter" = "Varhainen käyttäjä, ilmainen ikuisesti";
+"settings.about.license.trialDays" = "Ilmainen kokeilu, %d päivää jäljellä";
+"settings.about.license.trialLastDay" = "Ilmainen kokeilu, viimeinen päivä";
+"settings.about.license.trialOver" = "Ilmainen kokeilu päättyi";
+"settings.about.license.free" = "Ilmainen";
 
 // Theme descriptions
 

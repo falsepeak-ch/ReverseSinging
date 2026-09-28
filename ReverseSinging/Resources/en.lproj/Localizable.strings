@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Knobs, meters and waveforms";
 "settings.preferences" = "Preferences";
 "settings.about" = "About";
+"settings.about.memberSince" = "Member since %@";
+"settings.about.license.lifetime" = "Dubloon Pro, lifetime";
+"settings.about.license.renews" = "Dubloon Pro, renews %@";
+"settings.about.license.ends" = "Dubloon Pro, ends %@";
+"settings.about.license.earlyAdopter" = "Early adopter, free for life";
+"settings.about.license.trialDays" = "Free trial, %d days left";
+"settings.about.license.trialLastDay" = "Free trial, last day";
+"settings.about.license.trialOver" = "Free trial ended";
+"settings.about.license.free" = "Free";
 
 // Theme descriptions
 

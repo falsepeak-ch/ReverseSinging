@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "ลูกบิด มิเตอร์ และคลื่นเสียง";
 "settings.preferences" = "ค่ากำหนด";
 "settings.about" = "เกี่ยวกับ";
+"settings.about.memberSince" = "สมาชิกตั้งแต่ %@";
+"settings.about.license.lifetime" = "Dubloon Pro ตลอดชีพ";
+"settings.about.license.renews" = "Dubloon Pro ต่ออายุ %@";
+"settings.about.license.ends" = "Dubloon Pro สิ้นสุด %@";
+"settings.about.license.earlyAdopter" = "ผู้ใช้รุ่นแรก ฟรีตลอดชีพ";
+"settings.about.license.trialDays" = "ทดลองใช้ฟรี เหลือ %d วัน";
+"settings.about.license.trialLastDay" = "ทดลองใช้ฟรี วันสุดท้าย";
+"settings.about.license.trialOver" = "หมดช่วงทดลองใช้ฟรีแล้ว";
+"settings.about.license.free" = "ฟรี";
 
 // Theme descriptions
 

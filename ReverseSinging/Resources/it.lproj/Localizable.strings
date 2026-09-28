@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Manopole, misuratori e forme d'onda";
 "settings.preferences" = "Preferenze";
 "settings.about" = "Info";
+"settings.about.memberSince" = "Membro dal %@";
+"settings.about.license.lifetime" = "Dubloon Pro, a vita";
+"settings.about.license.renews" = "Dubloon Pro, si rinnova il %@";
+"settings.about.license.ends" = "Dubloon Pro, scade il %@";
+"settings.about.license.earlyAdopter" = "Pioniere, gratis per sempre";
+"settings.about.license.trialDays" = "Prova gratuita, %d giorni rimasti";
+"settings.about.license.trialLastDay" = "Prova gratuita, ultimo giorno";
+"settings.about.license.trialOver" = "Prova gratuita terminata";
+"settings.about.license.free" = "Gratis";
 
 // Theme descriptions
 

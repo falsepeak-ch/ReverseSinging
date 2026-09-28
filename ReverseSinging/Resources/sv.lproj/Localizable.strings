@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Rattar, mätare och vågformer";
 "settings.preferences" = "Inställningar";
 "settings.about" = "Om";
+"settings.about.memberSince" = "Medlem sedan %@";
+"settings.about.license.lifetime" = "Dubloon Pro, livstid";
+"settings.about.license.renews" = "Dubloon Pro, förnyas %@";
+"settings.about.license.ends" = "Dubloon Pro, upphör %@";
+"settings.about.license.earlyAdopter" = "Tidig användare, gratis för alltid";
+"settings.about.license.trialDays" = "Gratis provperiod, %d dagar kvar";
+"settings.about.license.trialLastDay" = "Gratis provperiod, sista dagen";
+"settings.about.license.trialOver" = "Gratis provperiod är slut";
+"settings.about.license.free" = "Gratis";
 
 // Theme descriptions
 

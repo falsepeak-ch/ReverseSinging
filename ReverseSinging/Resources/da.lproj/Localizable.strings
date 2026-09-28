@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Drejeknapper, målere og bølgeformer";
 "settings.preferences" = "Præferencer";
 "settings.about" = "Om";
+"settings.about.memberSince" = "Medlem siden %@";
+"settings.about.license.lifetime" = "Dubloon Pro, livstid";
+"settings.about.license.renews" = "Dubloon Pro, fornyes %@";
+"settings.about.license.ends" = "Dubloon Pro, udløber %@";
+"settings.about.license.earlyAdopter" = "Tidlig bruger, gratis for livet";
+"settings.about.license.trialDays" = "Gratis prøve, %d dage tilbage";
+"settings.about.license.trialLastDay" = "Gratis prøve, sidste dag";
+"settings.about.license.trialOver" = "Gratis prøve er slut";
+"settings.about.license.free" = "Gratis";
 
 // Theme descriptions
 

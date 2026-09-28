@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Rodes, mesuradors i formes d'ona";
 "settings.preferences" = "Preferències";
 "settings.about" = "Quant a";
+"settings.about.memberSince" = "Membre des del %@";
+"settings.about.license.lifetime" = "Dubloon Pro, per sempre";
+"settings.about.license.renews" = "Dubloon Pro, es renova el %@";
+"settings.about.license.ends" = "Dubloon Pro, acaba el %@";
+"settings.about.license.earlyAdopter" = "Pioner, gratis per sempre";
+"settings.about.license.trialDays" = "Prova gratuïta, queden %d dies";
+"settings.about.license.trialLastDay" = "Prova gratuïta, últim dia";
+"settings.about.license.trialOver" = "La prova gratuïta ha acabat";
+"settings.about.license.free" = "Gratuït";
 
 // Theme descriptions
 

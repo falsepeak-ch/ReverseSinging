@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Draaiknoppen, meters en golfvormen";
 "settings.preferences" = "Voorkeuren";
 "settings.about" = "Over";
+"settings.about.memberSince" = "Lid sinds %@";
+"settings.about.license.lifetime" = "Dubloon Pro, levenslang";
+"settings.about.license.renews" = "Dubloon Pro, verlengt op %@";
+"settings.about.license.ends" = "Dubloon Pro, eindigt op %@";
+"settings.about.license.earlyAdopter" = "Early adopter, voor altijd gratis";
+"settings.about.license.trialDays" = "Gratis proef, nog %d dagen";
+"settings.about.license.trialLastDay" = "Gratis proef, laatste dag";
+"settings.about.license.trialOver" = "Gratis proef afgelopen";
+"settings.about.license.free" = "Gratis";
 
 // Theme descriptions
 

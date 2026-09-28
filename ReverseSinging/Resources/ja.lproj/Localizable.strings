@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "つまみ、メーター、波形";
 "settings.preferences" = "環境設定";
 "settings.about" = "このアプリについて";
+"settings.about.memberSince" = "%@からのメンバー";
+"settings.about.license.lifetime" = "Dubloon Pro(買い切り)";
+"settings.about.license.renews" = "Dubloon Pro(%@に更新)";
+"settings.about.license.ends" = "Dubloon Pro(%@に終了)";
+"settings.about.license.earlyAdopter" = "初期ユーザー・ずっと無料";
+"settings.about.license.trialDays" = "無料トライアル(残り%d日)";
+"settings.about.license.trialLastDay" = "無料トライアル(最終日)";
+"settings.about.license.trialOver" = "無料トライアル終了";
+"settings.about.license.free" = "無料";
 
 // Theme descriptions
 

@@ -135,6 +135,15 @@
 "uiMode.complex.description" = "Potards, vumètres et formes d'onde";
 "settings.preferences" = "Préférences";
 "settings.about" = "À propos";
+"settings.about.memberSince" = "Membre depuis le %@";
+"settings.about.license.lifetime" = "Dubloon Pro, à vie";
+"settings.about.license.renews" = "Dubloon Pro, renouvelé le %@";
+"settings.about.license.ends" = "Dubloon Pro, se termine le %@";
+"settings.about.license.earlyAdopter" = "Pionnier, gratuit à vie";
+"settings.about.license.trialDays" = "Essai gratuit, %d jours restants";
+"settings.about.license.trialLastDay" = "Essai gratuit, dernier jour";
+"settings.about.license.trialOver" = "Essai gratuit terminé";
+"settings.about.license.free" = "Gratuit";
 
 // Theme descriptions
 
