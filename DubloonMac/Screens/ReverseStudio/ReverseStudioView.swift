@@ -25,7 +25,7 @@ struct ReverseStudioView: View {
 
     var body: some View {
         Group {
-            if !game.hasRecordingPermission && !viewModel.isArchived {
+            if game.isMicrophoneDenied && !viewModel.isArchived {
                 MicrophonePermissionEmptyState(onOpenSettings: AppSettings.open)
             } else {
                 VStack(spacing: 0) {

@@ -16,6 +16,11 @@ final class ReverseGameViewModel: ObservableObject {
 
     @Published var appState = AppState()
     @Published var hasRecordingPermission = false
+    /// What hides the transport behind "Nobody Can Hear You". Not `!hasRecordingPermission`:
+    /// a microphone never asked for is asked for by the record button, which has to be there.
+    /// On the Mac that is every Not Now in the welcome window, and every App Store install
+    /// whose system record belongs to a differently signed build of the same app.
+    @Published private(set) var isMicrophoneDenied = false
     @Published var showPermissionAlert = false
     @Published var errorMessage: String?
 
@@ -128,15 +133,18 @@ final class ReverseGameViewModel: ObservableObject {
         // and a machine that was never asked must not photograph the "nobody can hear you" screen.
         if ScreenshotMode.isActive {
             hasRecordingPermission = true
+            isMicrophoneDenied = false
             return
         }
         #endif
         hasRecordingPermission = AudioSessionManager.shared.hasRecordPermission
+        isMicrophoneDenied = AudioSessionManager.shared.isRecordPermissionDenied
     }
 
     private func requestPermissionIfNeeded(completion: @escaping (Bool) -> Void) {
         recorder.requestPermission { [weak self] granted in
             self?.hasRecordingPermission = granted
+            self?.isMicrophoneDenied = !granted
             completion(granted)
         }
     }

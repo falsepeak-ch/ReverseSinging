@@ -164,4 +164,9 @@ final class AudioSessionManager {
     var hasRecordPermission: Bool {
         return AVAudioApplication.shared.recordPermission == .granted
     }
+
+    /// True only when the user said no. Never asked is not denied: the first recording asks.
+    var isRecordPermissionDenied: Bool {
+        return AVAudioApplication.shared.recordPermission == .denied
+    }
 }
