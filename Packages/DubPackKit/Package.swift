@@ -16,16 +16,13 @@ let package = Package(
     products: [
         .library(name: "DubPackKit", targets: ["DubPackKit"]),
     ],
-    dependencies: [
-        .package(url: "https://github.com/weichsel/ZIPFoundation", from: "0.9.19"),
-    ],
     targets: [
         .target(
             name: "DubPackKit",
             dependencies: [
                 "CArchives",
                 "XiphCodecs",
-                .product(name: "ZIPFoundation", package: "ZIPFoundation"),
+                "ZIPFoundation",
             ],
             swiftSettings: swiftSettings
         ),
@@ -48,6 +45,15 @@ let package = Package(
                 .linkedLibrary("bz2"),
             ]
         ),
+        // ZIPFoundation 0.9.20 (MIT), vendored so its manifest's watchOS and tvOS platforms,
+        // and the deprecation warning they raise, stay out of a package that ships on iOS and
+        // macOS only. Its own Swift 5 mode, as upstream builds it.
+        .target(
+            name: "ZIPFoundation",
+            exclude: ["LICENSE"],
+            resources: [.copy("Resources/PrivacyInfo.xcprivacy")],
+            swiftSettings: [.swiftLanguageMode(.v5)]
+        ),
         // libogg, libvorbis and libtheora's decoder, prebuilt by Vendor/build-xiph.sh.
         .binaryTarget(name: "XiphCodecs", path: "Vendor/XiphCodecs.xcframework"),
         .testTarget(
@@ -55,7 +61,7 @@ let package = Package(
             dependencies: [
                 "DubPackKit",
                 // Only to build zip fixtures in tests.
-                .product(name: "ZIPFoundation", package: "ZIPFoundation"),
+                "ZIPFoundation",
             ],
             resources: [.copy("Fixtures")],
             swiftSettings: swiftSettings
