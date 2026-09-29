@@ -248,6 +248,19 @@
 "dubGate.download.back" = "戻る";
 "dubGate.disclaimer.notAffiliated" = "%@ はよそのサイトです。私たちとは無関係で、ファイルの保管も配布もいっさいしていません。";
 "dubGate.disclaimer.responsibility" = "ダウンロードしたものを使う権利があるか確かめて、お住まいの地域の著作権ルールに従ってください。";
+"dubGuide.row" = "パックをもっと手に入れる方法を知りたい";
+"dubGuide.title" = "パックをもっと手に入れる";
+"dubGuide.intro" = "吹き替えパックは1つのシーンです。映像、サウンドトラック、そして各セリフの録音が入っています。Dubloonに追加する手順はこちら。";
+"dubGuide.1.title" = "シーンを探す";
+"dubGuide.1.detail" = "下のボタンでGameBananaを開き、映画の吹き替えパックを探します。気に入ったものを選んでページを開きます。";
+"dubGuide.2.title" = "ダウンロードする";
+"dubGuide.2.detail" = "Downloadをタップしてファイル(.zip、.7z、.rar)を選びます。Safariは「ファイル」アプリの「ダウンロード」に保存します。";
+"dubGuide.3.title" = "完了を待つ";
+"dubGuide.3.detail" = "ダウンロードが終わるまで待ちます。ファイルがiCloud Driveにある場合は、「ファイル」で一度開いて、このデバイスに実際に保存されるようにします。";
+"dubGuide.4.title" = "読み込む";
+"dubGuide.4.detail" = "ここに戻って+をタップし、ファイルがデバイスにあることを確認して「ダウンロード」から選びます。「ファイル」やAirDropからDubloonに共有することもできます。";
+"dubGuide.5.title" = "読み込めないときは";
+"dubGuide.5.detail" = "Dubloonが原因を教えてくれます。アーカイブを.zipで保存し直す、作者にパスワードなしのコピーを頼む、各セリフのテキストファイルと録音が入っているか確かめる、を試してください。";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "共有する前に";

@@ -248,6 +248,19 @@
 "dubGate.download.back" = "Takaisin";
 "dubGate.disclaimer.notAffiliated" = "%@ on jonkun muun sivusto. Meillä ei ole sen kanssa mitään tekemistä emmekä säilytä tai jaa ainuttakaan tiedostoa.";
 "dubGate.disclaimer.responsibility" = "Varmista, että sinulla on oikeus käyttää lataamaasi, ja noudata oman maasi tekijänoikeussääntöjä.";
+"dubGuide.row" = "Tarvitsen apua lisäpakettien hankkimiseen";
+"dubGuide.title" = "Lisää paketteja";
+"dubGuide.intro" = "Dubbauspaketti on yksi kohtaus: video, sen ääniraita ja tallenne jokaisesta repliikistä. Näin saat sellaisen Dubloonin.";
+"dubGuide.1.title" = "Etsi kohtaus";
+"dubGuide.1.detail" = "Avaa GameBanana alta ja selaa elokuvien dubbauspaketteja. Valitse mieleisesi ja avaa sen sivu.";
+"dubGuide.2.title" = "Lataa se";
+"dubGuide.2.detail" = "Napauta Download ja valitse tiedosto: .zip, .7z tai .rar. Safari tallentaa sen Tiedostot-appiin, Lataukset-kansioon.";
+"dubGuide.3.title" = "Anna latautua";
+"dubGuide.3.detail" = "Odota, että lataus valmistuu. Jos tiedosto on iCloud Drivessa, avaa se kerran Tiedostoissa, jotta se on varmasti tällä laitteella.";
+"dubGuide.4.title" = "Tuo se";
+"dubGuide.4.detail" = "Palaa tänne, napauta +, vahvista että tiedosto on laitteellasi ja valitse se Latauksista. Voit myös jakaa sen Dubloonille Tiedostoista tai AirDropilla.";
+"dubGuide.5.title" = "Jos tuonti ei onnistu";
+"dubGuide.5.detail" = "Dubloon kertoo, mikä meni vikaan. Tallenna arkisto uudelleen .zip-muodossa, pyydä tekijältä kopio ilman salasanaa ja tarkista, että siinä on tekstitiedosto ja tallenne jokaiselle repliikille.";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "Ennen kuin jaat";

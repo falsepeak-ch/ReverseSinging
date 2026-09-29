@@ -248,6 +248,19 @@
 "dubGate.download.back" = "Geri";
 "dubGate.disclaimer.notAffiliated" = "%@ başkasının sitesi. Onunla hiçbir bağımız yok, tek bir dosya bile barındırmıyor ya da paylaşmıyoruz.";
 "dubGate.disclaimer.responsibility" = "İndirdiğin şeyi kullanma hakkın olduğundan emin ol ve yaşadığın yerin telif kurallarına uy.";
+"dubGuide.row" = "Daha fazla paket bulmak için yardıma ihtiyacım var";
+"dubGuide.title" = "Daha fazla paket edinme";
+"dubGuide.intro" = "Bir dublaj paketi tek bir sahnedir: video, müziği ve her repliğin kaydı. Dubloon'a nasıl ekleyeceğiniz aşağıda.";
+"dubGuide.1.title" = "Bir sahne bulun";
+"dubGuide.1.detail" = "Aşağıdan GameBanana'yı açın ve film dublaj paketlerine göz atın. Beğendiğinizi seçip sayfasını açın.";
+"dubGuide.2.title" = "İndirin";
+"dubGuide.2.detail" = "Download'a dokunun ve dosyayı seçin: .zip, .7z veya .rar. Safari onu Dosyalar uygulamasında İndirilenler'e kaydeder.";
+"dubGuide.3.title" = "Bitmesini bekleyin";
+"dubGuide.3.detail" = "İndirme tamamlanana kadar bekleyin. Dosya iCloud Drive'daysa, gerçekten bu aygıtta olması için Dosyalar'da bir kez açın.";
+"dubGuide.4.title" = "İçe aktarın";
+"dubGuide.4.detail" = "Buraya dönün, +'ya dokunun, dosyanın aygıtınızda olduğunu onaylayın ve İndirilenler'den seçin. Dosyalar'dan veya AirDrop ile Dubloon'a da paylaşabilirsiniz.";
+"dubGuide.5.title" = "İçe aktarılmazsa";
+"dubGuide.5.detail" = "Dubloon neyin ters gittiğini söyler. Arşivi .zip olarak yeniden kaydedin, yapımcısından parolasız bir kopya isteyin ve her replik için bir metin dosyası ve bir kayıt içerdiğini kontrol edin.";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "Paylaşmadan önce";

@@ -248,6 +248,19 @@
 "dubGate.download.back" = "Voltar";
 "dubGate.disclaimer.notAffiliated" = "%@ é o site de outra gente. Não temos qualquer ligação com ele e não alojamos nem partilhamos um único ficheiro.";
 "dubGate.disclaimer.responsibility" = "Certifica-te de que tens o direito de usar o que descarregas e cumpre as regras de direitos de autor do sítio onde vives.";
+"dubGuide.row" = "Preciso de ajuda para obter mais packs";
+"dubGuide.title" = "Obter mais packs";
+"dubGuide.intro" = "Um pack de dobragem é uma cena: o vídeo, a banda sonora e uma gravação de cada fala. Eis como adicionar um ao Dubloon.";
+"dubGuide.1.title" = "Encontre uma cena";
+"dubGuide.1.detail" = "Abra o GameBanana abaixo e explore os packs de dobragem de filmes. Escolha um e abra a sua página.";
+"dubGuide.2.title" = "Descarregue-o";
+"dubGuide.2.detail" = "Toque em Download e escolha o ficheiro: um .zip, .7z ou .rar. O Safari guarda-o na app Ficheiros, em Descargas.";
+"dubGuide.3.title" = "Deixe terminar";
+"dubGuide.3.detail" = "Aguarde que a descarga termine. Se o ficheiro estiver no iCloud Drive, abra-o uma vez em Ficheiros para que fique mesmo neste dispositivo.";
+"dubGuide.4.title" = "Importe-o";
+"dubGuide.4.detail" = "Volte aqui, toque em +, confirme que o ficheiro está no dispositivo e escolha-o em Descargas. Também pode partilhá-lo com o Dubloon a partir de Ficheiros ou AirDrop.";
+"dubGuide.5.title" = "Se não importar";
+"dubGuide.5.detail" = "O Dubloon diz-lhe o que correu mal. Volte a guardar o arquivo como .zip, peça ao autor uma cópia sem palavra-passe e confirme que tem um ficheiro de texto e uma gravação para cada fala.";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "Antes de partilhares";

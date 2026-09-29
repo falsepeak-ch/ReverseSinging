@@ -248,6 +248,19 @@
 "dubGate.download.back" = "Tillbaka";
 "dubGate.disclaimer.notAffiliated" = "%@ är någon annans sajt. Vi har inget med den att göra och vi lagrar eller delar inte en enda fil.";
 "dubGate.disclaimer.responsibility" = "Se till att du har rätt att använda det du laddar ner, och följ upphovsrättsreglerna där du bor.";
+"dubGuide.row" = "Jag behöver hjälp att få fler paket";
+"dubGuide.title" = "Skaffa fler paket";
+"dubGuide.intro" = "Ett dubbningspaket är en scen: videon, dess ljudspår och en inspelning av varje replik. Så här lägger du till ett i Dubloon.";
+"dubGuide.1.title" = "Hitta en scen";
+"dubGuide.1.detail" = "Öppna GameBanana nedan och bläddra bland filmernas dubbningspaket. Välj ett och öppna dess sida.";
+"dubGuide.2.title" = "Ladda ner det";
+"dubGuide.2.detail" = "Tryck på Download och välj filen: en .zip, .7z eller .rar. Safari sparar den i appen Filer, under Hämtade filer.";
+"dubGuide.3.title" = "Låt den bli klar";
+"dubGuide.3.detail" = "Vänta tills hämtningen är klar. Om filen ligger i iCloud Drive, öppna den en gång i Filer så att den verkligen finns på enheten.";
+"dubGuide.4.title" = "Importera det";
+"dubGuide.4.detail" = "Kom tillbaka hit, tryck på +, bekräfta att filen finns på enheten och välj den i Hämtade filer. Du kan också dela den till Dubloon från Filer eller AirDrop.";
+"dubGuide.5.title" = "Om importen misslyckas";
+"dubGuide.5.detail" = "Dubloon berättar vad som gick fel. Spara om arkivet som .zip, be skaparen om en kopia utan lösenord och kontrollera att det har en textfil och en inspelning för varje replik.";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "Innan du delar";

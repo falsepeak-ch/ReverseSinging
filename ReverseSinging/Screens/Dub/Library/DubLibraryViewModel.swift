@@ -20,6 +20,7 @@ final class DubLibraryViewModel: ObservableObject {
 
     @Published var showFileImporter = false
     @Published var showContentGate = false
+    @Published var showPackGuide = false
     @Published var selectedPack: DubPack?
 
     private var cancellables = Set<AnyCancellable>()
@@ -61,6 +62,13 @@ final class DubLibraryViewModel: ObservableObject {
     /// a yes hid all three from everyone who had already answered.
     func requestImport() {
         showContentGate = true
+    }
+
+    /// The guide's own Import button. It goes through the gate like every other import, so
+    /// the rights disclaimer and the ownership question stay in front of the picker.
+    func packGuideDidRequestImport() {
+        showPackGuide = false
+        requestImport()
     }
 
     /// Beyond the starter scenes the app hosts nothing, so the picker only opens once the

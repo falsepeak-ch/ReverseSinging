@@ -186,6 +186,10 @@ final class AnalyticsManager {
         log("dub_gate_download_help_opened", parameters: nil)
     }
 
+    func trackDubPackGuideOpened() {
+        log("dub_pack_guide_opened", parameters: nil)
+    }
+
     func trackDubGateExternalSourceOpened(source: String) {
         log("dub_gate_external_source_opened", parameters: [
             "source": source

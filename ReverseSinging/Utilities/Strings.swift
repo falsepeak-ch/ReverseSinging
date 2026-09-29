@@ -460,6 +460,23 @@ nonisolated enum Strings {
         static let disclaimerResponsibility = NSLocalizedString("dubGate.disclaimer.responsibility", comment: "Copyright responsibility disclaimer")
     }
 
+    // MARK: - Dub Pack Guide
+    /// How to find, download and import a pack, opened from the foot of the dub library.
+    enum DubGuide {
+        static let row = NSLocalizedString("dubGuide.row", comment: "Row pinned to the bottom of the dub library that opens the pack guide")
+        static let title = NSLocalizedString("dubGuide.title", comment: "Title of the guide to getting more dub packs")
+        static let intro = NSLocalizedString("dubGuide.intro", comment: "What a dub pack is, above the guide's steps")
+
+        /// Step `number` (1...stepCount) of the guide: a short title and its instructions.
+        static let stepCount = 5
+        static func stepTitle(_ number: Int) -> String {
+            NSLocalizedString("dubGuide.\(number).title", comment: "")
+        }
+        static func stepDetail(_ number: Int) -> String {
+            NSLocalizedString("dubGuide.\(number).detail", comment: "")
+        }
+    }
+
     // MARK: - Dub Share Notice
     enum DubShare {
         static let title = NSLocalizedString("dubShare.title", comment: "Title of the notice shown before exporting a dub")

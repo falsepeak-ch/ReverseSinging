@@ -65,6 +65,13 @@ struct DubLibraryView: View {
                 } else {
                     packList
                 }
+
+                // Pinned under the list rather than scrolled with it, so the way to more
+                // scenes is on screen however many are already in.
+                DubPackGuideRow { viewModel.showPackGuide = true }
+                    .padding(.horizontal, EditorMetrics.gutter)
+                    .padding(.top, 8)
+                    .padding(.bottom, 12)
             }
 
             if library.isImporting {
@@ -76,6 +83,13 @@ struct DubLibraryView: View {
             }
         }
         .hidesNavigationBar()
+        .editorModal(isPresented: $viewModel.showPackGuide) {
+            DubPackGuideModal(
+                source: .example,
+                onImport: viewModel.packGuideDidRequestImport,
+                onClose: { viewModel.showPackGuide = false }
+            )
+        }
         .dubContentGate(isPresented: $viewModel.showContentGate) { viewModel.contentGateDidConfirm() }
         // Every archive kind is pickable, not only the ones the importer can open: a file
         // the picker greys out tells the user nothing, whereas picking a .rar gets them the

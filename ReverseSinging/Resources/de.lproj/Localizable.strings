@@ -248,6 +248,19 @@
 "dubGate.download.back" = "Zurück";
 "dubGate.disclaimer.notAffiliated" = "%@ ist die Seite von jemand anderem. Wir haben nichts damit zu tun und hosten oder teilen keine einzige Datei.";
 "dubGate.disclaimer.responsibility" = "Stell sicher, dass du das Recht hast, das Heruntergeladene zu verwenden, und halt dich ans Urheberrecht bei dir.";
+"dubGuide.row" = "Ich brauche Hilfe, um mehr Packs zu bekommen";
+"dubGuide.title" = "Mehr Packs bekommen";
+"dubGuide.intro" = "Ein Dub-Pack ist eine Szene: das Video, sein Soundtrack und eine Aufnahme jeder Zeile. So bringst du eins in Dubloon.";
+"dubGuide.1.title" = "Szene finden";
+"dubGuide.1.detail" = "Öffne unten GameBanana und stöbere in den Film-Dub-Packs. Such dir eins aus und öffne seine Seite.";
+"dubGuide.2.title" = "Herunterladen";
+"dubGuide.2.detail" = "Tippe auf Download und wähle die Datei: eine .zip, .7z oder .rar. Safari speichert sie in der Dateien-App unter Downloads.";
+"dubGuide.3.title" = "Fertig laden lassen";
+"dubGuide.3.detail" = "Warte, bis der Download abgeschlossen ist. Liegt die Datei in iCloud Drive, öffne sie einmal in Dateien, damit sie wirklich auf diesem Gerät ist.";
+"dubGuide.4.title" = "Importieren";
+"dubGuide.4.detail" = "Komm hierher zurück, tippe auf +, bestätige, dass die Datei auf deinem Gerät ist, und wähle sie unter Downloads. Du kannst sie auch aus Dateien oder per AirDrop an Dubloon teilen.";
+"dubGuide.5.title" = "Wenn der Import scheitert";
+"dubGuide.5.detail" = "Dubloon sagt dir, was schiefging. Speichere das Archiv neu als .zip, bitte die Person, die es erstellt hat, um eine Kopie ohne Passwort, und prüfe, ob es für jede Zeile eine Textdatei und eine Aufnahme enthält.";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "Bevor du das teilst";

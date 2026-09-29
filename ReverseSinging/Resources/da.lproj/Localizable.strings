@@ -248,6 +248,19 @@
 "dubGate.download.back" = "Tilbage";
 "dubGate.disclaimer.notAffiliated" = "%@ er en andens side. Vi har intet med den at gøre, og vi hoster eller deler ikke en eneste fil.";
 "dubGate.disclaimer.responsibility" = "Sørg for, at du har ret til at bruge det, du henter, og følg ophavsretsreglerne der, hvor du bor.";
+"dubGuide.row" = "Jeg har brug for hjælp til at få flere pakker";
+"dubGuide.title" = "Få flere pakker";
+"dubGuide.intro" = "En dubbingpakke er én scene: videoen, dens lydspor og en optagelse af hver replik. Sådan får du en ind i Dubloon.";
+"dubGuide.1.title" = "Find en scene";
+"dubGuide.1.detail" = "Åbn GameBanana nedenfor, og gennemse filmdubbingpakkerne. Vælg en, og åbn dens side.";
+"dubGuide.2.title" = "Download den";
+"dubGuide.2.detail" = "Tryk på Download, og vælg filen: en .zip, .7z eller .rar. Safari gemmer den i appen Filer under Overførsler.";
+"dubGuide.3.title" = "Lad den blive færdig";
+"dubGuide.3.detail" = "Vent, til overførslen er færdig. Hvis filen ligger i iCloud Drive, så åbn den én gang i Filer, så den virkelig er på enheden.";
+"dubGuide.4.title" = "Importér den";
+"dubGuide.4.detail" = "Kom tilbage hertil, tryk på +, bekræft at filen er på din enhed, og vælg den under Overførsler. Du kan også dele den til Dubloon fra Filer eller AirDrop.";
+"dubGuide.5.title" = "Hvis importen fejler";
+"dubGuide.5.detail" = "Dubloon fortæller, hvad der gik galt. Gem arkivet igen som .zip, bed skaberen om en kopi uden adgangskode, og tjek at den har en tekstfil og en optagelse for hver replik.";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "Før du deler";

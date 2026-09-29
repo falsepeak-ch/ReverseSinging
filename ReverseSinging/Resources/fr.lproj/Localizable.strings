@@ -248,6 +248,19 @@
 "dubGate.download.back" = "Retour";
 "dubGate.disclaimer.notAffiliated" = "%@ est le site de quelqu'un d'autre. On n'a aucun lien avec lui et on n'héberge ni ne partage le moindre fichier.";
 "dubGate.disclaimer.responsibility" = "Assure-toi d'avoir le droit d'utiliser ce que tu télécharges et respecte les règles de droit d'auteur de chez toi.";
+"dubGuide.row" = "J'ai besoin d'aide pour trouver d'autres packs";
+"dubGuide.title" = "Trouver d'autres packs";
+"dubGuide.intro" = "Un pack de doublage, c'est une scène : la vidéo, sa bande-son et un enregistrement de chaque réplique. Voici comment en ajouter un à Dubloon.";
+"dubGuide.1.title" = "Trouvez une scène";
+"dubGuide.1.detail" = "Ouvrez GameBanana ci-dessous et parcourez ses packs de doublage de films. Choisissez-en un et ouvrez sa page.";
+"dubGuide.2.title" = "Téléchargez-le";
+"dubGuide.2.detail" = "Touchez Download et choisissez le fichier : un .zip, .7z ou .rar. Safari l'enregistre dans l'app Fichiers, dans Téléchargements.";
+"dubGuide.3.title" = "Attendez la fin";
+"dubGuide.3.detail" = "Attendez que le téléchargement soit terminé. Si le fichier est dans iCloud Drive, ouvrez-le une fois dans Fichiers pour qu'il soit vraiment sur cet appareil.";
+"dubGuide.4.title" = "Importez-le";
+"dubGuide.4.detail" = "Revenez ici, touchez +, confirmez que le fichier est sur votre appareil et choisissez-le dans Téléchargements. Vous pouvez aussi le partager vers Dubloon depuis Fichiers ou AirDrop.";
+"dubGuide.5.title" = "S'il ne s'importe pas";
+"dubGuide.5.detail" = "Dubloon vous dit ce qui n'a pas marché. Réenregistrez l'archive en .zip, demandez à son auteur une copie sans mot de passe et vérifiez qu'elle contient un fichier texte et un enregistrement pour chaque réplique.";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "Avant de partager";

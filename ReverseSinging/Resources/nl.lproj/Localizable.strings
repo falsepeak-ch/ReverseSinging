@@ -248,6 +248,19 @@
 "dubGate.download.back" = "Terug";
 "dubGate.disclaimer.notAffiliated" = "%@ is de site van iemand anders. Wij hebben er niets mee te maken en hosten of delen geen enkel bestand.";
 "dubGate.disclaimer.responsibility" = "Zorg dat je het recht hebt om te gebruiken wat je downloadt, en volg de auteursrechtregels waar jij woont.";
+"dubGuide.row" = "Ik heb hulp nodig om meer packs te krijgen";
+"dubGuide.title" = "Meer packs krijgen";
+"dubGuide.intro" = "Een dub-pack is één scène: de video, de soundtrack en een opname van elke zin. Zo zet je er een in Dubloon.";
+"dubGuide.1.title" = "Zoek een scène";
+"dubGuide.1.detail" = "Open GameBanana hieronder en blader door de film-dub-packs. Kies er een en open de pagina.";
+"dubGuide.2.title" = "Download het";
+"dubGuide.2.detail" = "Tik op Download en kies het bestand: een .zip, .7z of .rar. Safari bewaart het in de Bestanden-app, bij Downloads.";
+"dubGuide.3.title" = "Laat het afronden";
+"dubGuide.3.detail" = "Wacht tot de download klaar is. Staat het bestand in iCloud Drive, open het dan één keer in Bestanden zodat het echt op dit apparaat staat.";
+"dubGuide.4.title" = "Importeer het";
+"dubGuide.4.detail" = "Kom hier terug, tik op +, bevestig dat het bestand op je apparaat staat en kies het bij Downloads. Je kunt het ook vanuit Bestanden of via AirDrop met Dubloon delen.";
+"dubGuide.5.title" = "Als importeren mislukt";
+"dubGuide.5.detail" = "Dubloon vertelt je wat er misging. Sla het archief opnieuw op als .zip, vraag de maker om een kopie zonder wachtwoord en controleer of er voor elke zin een tekstbestand en een opname in zit.";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "Voordat je deelt";

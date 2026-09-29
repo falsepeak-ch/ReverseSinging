@@ -248,6 +248,19 @@
 "dubGate.download.back" = "Atrás";
 "dubGate.disclaimer.notAffiliated" = "%@ es la web de otra gente. No tenemos ninguna relación con ella y no alojamos ni compartimos ni un solo archivo.";
 "dubGate.disclaimer.responsibility" = "Asegúrate de tener derecho a usar lo que descargues y respeta las normas de copyright de donde vivas.";
+"dubGuide.row" = "Necesito ayuda para conseguir más packs";
+"dubGuide.title" = "Cómo conseguir más packs";
+"dubGuide.intro" = "Un pack de doblaje es una escena: el vídeo, su banda sonora y una grabación de cada frase. Así se añade uno a Dubloon.";
+"dubGuide.1.title" = "Busca una escena";
+"dubGuide.1.detail" = "Abre GameBanana abajo y explora sus packs de doblaje de películas. Elige uno que te guste y abre su página.";
+"dubGuide.2.title" = "Descárgalo";
+"dubGuide.2.detail" = "Toca Download y elige el archivo: un .zip, .7z o .rar. Safari lo guarda en la app Archivos, en Descargas.";
+"dubGuide.3.title" = "Espera a que termine";
+"dubGuide.3.detail" = "Espera a que se complete la descarga. Si el archivo está en iCloud Drive, ábrelo una vez en Archivos para que esté de verdad en este dispositivo.";
+"dubGuide.4.title" = "Impórtalo";
+"dubGuide.4.detail" = "Vuelve aquí, toca +, confirma que el archivo está en tu dispositivo y elígelo en Descargas. También puedes compartirlo con Dubloon desde Archivos o AirDrop.";
+"dubGuide.5.title" = "Si no se importa";
+"dubGuide.5.detail" = "Dubloon te dice qué ha fallado. Vuelve a guardar el archivo como .zip, pide al autor una copia sin contraseña y comprueba que tenga un archivo de texto y una grabación para cada frase.";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "Antes de compartirlo";

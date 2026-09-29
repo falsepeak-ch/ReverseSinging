@@ -248,6 +248,19 @@
 "dubGate.download.back" = "Enrere";
 "dubGate.disclaimer.notAffiliated" = "%@ és el web d'una altra gent. No hi tenim cap relació i no allotgem ni compartim ni un sol fitxer.";
 "dubGate.disclaimer.responsibility" = "Assegura't de tenir dret a fer servir el que descarreguis i respecta les normes de copyright d'on visquis.";
+"dubGuide.row" = "Necessito ajuda per aconseguir més paquets";
+"dubGuide.title" = "Com aconseguir més paquets";
+"dubGuide.intro" = "Un paquet de doblatge és una escena: el vídeo, la banda sonora i una gravació de cada frase. Així n'afegeixes un a Dubloon.";
+"dubGuide.1.title" = "Busca una escena";
+"dubGuide.1.detail" = "Obre GameBanana a sota i explora els paquets de doblatge de pel·lícules. Tria'n un que t'agradi i obre'n la pàgina.";
+"dubGuide.2.title" = "Descarrega'l";
+"dubGuide.2.detail" = "Toca Download i tria el fitxer: un .zip, .7z o .rar. Safari el desa a l'app Fitxers, a Descàrregues.";
+"dubGuide.3.title" = "Espera que acabi";
+"dubGuide.3.detail" = "Espera que la descàrrega s'acabi. Si el fitxer és a l'iCloud Drive, obre'l un cop a Fitxers perquè sigui de veritat en aquest dispositiu.";
+"dubGuide.4.title" = "Importa'l";
+"dubGuide.4.detail" = "Torna aquí, toca +, confirma que el fitxer és al dispositiu i tria'l a Descàrregues. També el pots compartir amb Dubloon des de Fitxers o AirDrop.";
+"dubGuide.5.title" = "Si no s'importa";
+"dubGuide.5.detail" = "Dubloon et diu què ha fallat. Torna a desar l'arxiu com a .zip, demana a l'autor una còpia sense contrasenya i comprova que tingui un fitxer de text i una gravació per a cada frase.";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "Abans de compartir-ho";

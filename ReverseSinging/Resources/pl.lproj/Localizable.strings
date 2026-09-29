@@ -248,6 +248,19 @@
 "dubGate.download.back" = "Wstecz";
 "dubGate.disclaimer.notAffiliated" = "%@ to cudza strona. Nie mamy z nią nic wspólnego i nie hostujemy ani nie udostępniamy żadnego pliku.";
 "dubGate.disclaimer.responsibility" = "Upewnij się, że masz prawo korzystać z tego, co pobierasz, i trzymaj się przepisów o prawie autorskim tam, gdzie mieszkasz.";
+"dubGuide.row" = "Potrzebuję pomocy w zdobyciu kolejnych paczek";
+"dubGuide.title" = "Jak zdobyć więcej paczek";
+"dubGuide.intro" = "Paczka dubbingowa to jedna scena: wideo, jego ścieżka dźwiękowa i nagranie każdej kwestii. Oto jak dodać ją do Dubloon.";
+"dubGuide.1.title" = "Znajdź scenę";
+"dubGuide.1.detail" = "Otwórz poniżej GameBanana i przejrzyj filmowe paczki dubbingowe. Wybierz jedną i otwórz jej stronę.";
+"dubGuide.2.title" = "Pobierz ją";
+"dubGuide.2.detail" = "Stuknij Download i wybierz plik: .zip, .7z lub .rar. Safari zapisze go w aplikacji Pliki, w folderze Pobrane.";
+"dubGuide.3.title" = "Poczekaj do końca";
+"dubGuide.3.detail" = "Zaczekaj, aż pobieranie się zakończy. Jeśli plik jest na iCloud Drive, otwórz go raz w Plikach, żeby naprawdę był na tym urządzeniu.";
+"dubGuide.4.title" = "Zaimportuj ją";
+"dubGuide.4.detail" = "Wróć tutaj, stuknij +, potwierdź, że plik jest na urządzeniu, i wybierz go z Pobranych. Możesz też udostępnić go Dubloon z Plików lub przez AirDrop.";
+"dubGuide.5.title" = "Jeśli import się nie uda";
+"dubGuide.5.detail" = "Dubloon powie, co poszło nie tak. Zapisz archiwum ponownie jako .zip, poproś autora o kopię bez hasła i sprawdź, czy zawiera plik tekstowy i nagranie dla każdej kwestii.";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "Zanim to udostępnisz";

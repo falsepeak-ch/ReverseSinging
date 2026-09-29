@@ -248,6 +248,19 @@
 "dubGate.download.back" = "Zpět";
 "dubGate.disclaimer.notAffiliated" = "%@ je cizí web. Nemáme s ním nic společného a nehostujeme ani nesdílíme jediný soubor.";
 "dubGate.disclaimer.responsibility" = "Ujisti se, že máš právo použít to, co stahuješ, a řiď se autorskými pravidly tam, kde žiješ.";
+"dubGuide.row" = "Potřebuji pomoc se získáním dalších balíčků";
+"dubGuide.title" = "Jak získat další balíčky";
+"dubGuide.intro" = "Dabingový balíček je jedna scéna: video, jeho zvuková stopa a nahrávka každé repliky. Takhle ho dostanete do Dubloonu.";
+"dubGuide.1.title" = "Najděte scénu";
+"dubGuide.1.detail" = "Otevřete níže GameBanana a projděte filmové dabingové balíčky. Vyberte si jeden a otevřete jeho stránku.";
+"dubGuide.2.title" = "Stáhněte ho";
+"dubGuide.2.detail" = "Klepněte na Download a vyberte soubor: .zip, .7z nebo .rar. Safari ho uloží do aplikace Soubory, do složky Stažené.";
+"dubGuide.3.title" = "Nechte ho dokončit";
+"dubGuide.3.detail" = "Počkejte, až se stahování dokončí. Pokud je soubor na iCloud Drive, otevřete ho jednou v Souborech, aby byl opravdu v tomto zařízení.";
+"dubGuide.4.title" = "Importujte ho";
+"dubGuide.4.detail" = "Vraťte se sem, klepněte na +, potvrďte, že soubor je v zařízení, a vyberte ho ve Stažených. Můžete ho také sdílet do Dubloonu ze Souborů nebo přes AirDrop.";
+"dubGuide.5.title" = "Když import selže";
+"dubGuide.5.detail" = "Dubloon řekne, co se pokazilo. Uložte archiv znovu jako .zip, požádejte autora o kopii bez hesla a zkontrolujte, že obsahuje textový soubor a nahrávku pro každou repliku.";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "Než to budeš sdílet";

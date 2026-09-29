@@ -248,6 +248,19 @@
 "dubGate.download.back" = "Back";
 "dubGate.disclaimer.notAffiliated" = "%@ is someone else's site. We're not connected to it, and we don't host or share a single file.";
 "dubGate.disclaimer.responsibility" = "Make sure you have the right to use whatever you download, and follow the copyright rules where you live.";
+"dubGuide.row" = "I need help getting more packs";
+"dubGuide.title" = "Getting more packs";
+"dubGuide.intro" = "A dub pack is one scene: the video, its soundtrack and a recording of every line. Here's how to get one into Dubloon.";
+"dubGuide.1.title" = "Find a scene";
+"dubGuide.1.detail" = "Open GameBanana below and browse its movie dub packs. Pick one you like and open its page.";
+"dubGuide.2.title" = "Download it";
+"dubGuide.2.detail" = "Tap Download and choose the file: a .zip, .7z or .rar. Safari saves it to the Files app, in Downloads.";
+"dubGuide.3.title" = "Let it finish";
+"dubGuide.3.detail" = "Wait for the download to complete. If the file is in iCloud Drive, open it once in Files so it's really on this device.";
+"dubGuide.4.title" = "Import it";
+"dubGuide.4.detail" = "Come back here, tap +, confirm the file is on your device and pick it from Downloads. You can also share it to Dubloon from Files or AirDrop.";
+"dubGuide.5.title" = "If it won't import";
+"dubGuide.5.detail" = "Dubloon tells you what went wrong. Re-save a stubborn archive as a .zip, ask the maker for a copy without a password, and check it has a text file and a recording for every line.";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "Before you share";
