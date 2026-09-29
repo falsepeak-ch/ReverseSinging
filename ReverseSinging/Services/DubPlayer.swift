@@ -353,8 +353,15 @@ final class DubPlayer: ObservableObject {
             }
         } catch {
             print("❌ DubPlayer failed to start engine: \(error)")
-            CrashReporter.shared.record(error, context: "dub_player.engine_start")
-            playbackErrorMessage = Strings.Error.playbackUnavailable
+            // `!pri`: a call or another app outranks this one for the hardware. The session
+            // activated a moment ago, but the engine is the one told no.
+            if AudioSessionError.classify(error).isEnvironmental {
+                CrashReporter.shared.log("dub_player.engine_start refused: \((error as NSError).code)")
+                playbackErrorMessage = Strings.Error.audioInUse
+            } else {
+                CrashReporter.shared.record(error, context: "dub_player.engine_start")
+                playbackErrorMessage = Strings.Error.playbackUnavailable
+            }
             return false
         }
 

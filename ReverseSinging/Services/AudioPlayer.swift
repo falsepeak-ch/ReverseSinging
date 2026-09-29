@@ -204,7 +204,22 @@ final class AudioPlayer: NSObject, ObservableObject {
             }
         }
 
-        try connect(player, through: timePitch, in: engine, format: format)
+        do {
+            try connect(player, through: timePitch, in: engine, format: format)
+        } catch {
+            // Imported packs bring reference lines in whatever format they were cut in, and the
+            // time-pitch unit refuses some of them outright (-10868, format not supported) —
+            // on every preview of that line. Mono at 44.1 kHz is what every take is recorded
+            // in, so a line converted to it wires wherever a take does.
+            guard let buffer = audioBuffer,
+                  let converted = try? DubAudioLoader.convert(buffer, to: DubAudioLoader.canonicalFormat) else {
+                throw error
+            }
+            CrashReporter.shared.log("audio_player.connect refused \(format), playing as canonical")
+            audioBuffer = converted
+            duration = Double(converted.frameLength) / converted.format.sampleRate
+            try connect(player, through: timePitch, in: engine, format: converted.format)
+        }
 
         // Warm the engine now rather than on the first press. Loading happens while the user
         // is still reaching for the transport, so this is free time; doing it inside `play()`
@@ -258,8 +273,8 @@ final class AudioPlayer: NSObject, ObservableObject {
               let player = playerNode,
               let buffer = audioBuffer else { return }
 
-        if needsReconnect, let file = audioFile, let timePitch = timePitchNode {
-            guard (try? connect(player, through: timePitch, in: engine, format: file.processingFormat)) != nil else {
+        if needsReconnect, let timePitch = timePitchNode {
+            guard (try? connect(player, through: timePitch, in: engine, format: buffer.format)) != nil else {
                 isPlaying = false
                 return
             }
@@ -338,7 +353,6 @@ final class AudioPlayer: NSObject, ObservableObject {
     func seek(to time: TimeInterval) {
         guard let player = playerNode,
               let engine = audioEngine,
-              let file = audioFile,
               let buffer = audioBuffer else { return }
 
         let wasPlaying = isPlaying
@@ -346,16 +360,18 @@ final class AudioPlayer: NSObject, ObservableObject {
         // Stop current playback
         player.stop()
 
-        // Calculate frame position
-        let sampleRate = file.processingFormat.sampleRate
+        // Calculate frame position. The buffer, not the file: a line that would not play in
+        // its own format was converted, and has a different rate and length from the file.
+        let sampleRate = buffer.format.sampleRate
         let startFrame = AVAudioFramePosition(time * sampleRate)
 
         // Create buffer from seek position
-        guard startFrame < file.length else { return }
+        let length = AVAudioFramePosition(buffer.frameLength)
+        guard startFrame < length else { return }
 
-        let frameCount = file.length - startFrame
+        let frameCount = length - startFrame
         let seekBuffer = AVAudioPCMBuffer(
-            pcmFormat: file.processingFormat,
+            pcmFormat: buffer.format,
             frameCapacity: AVAudioFrameCount(frameCount)
         )
 
@@ -363,7 +379,7 @@ final class AudioPlayer: NSObject, ObservableObject {
            let originalData = buffer.floatChannelData {
             // Copy audio data from seek position
             let seekData = seekBuffer.floatChannelData
-            let channelCount = Int(file.processingFormat.channelCount)
+            let channelCount = Int(buffer.format.channelCount)
 
             for channel in 0..<channelCount {
                 let source = originalData[channel].advanced(by: Int(startFrame))
@@ -465,9 +481,9 @@ final class AudioPlayer: NSObject, ObservableObject {
         guard let player = playerNode,
               let lastRenderTime = player.lastRenderTime,
               let playerTime = player.playerTime(forNodeTime: lastRenderTime),
-              let file = audioFile else { return }
+              let buffer = audioBuffer else { return }
 
-        let sampleRate = file.processingFormat.sampleRate
+        let sampleRate = buffer.format.sampleRate
         let elapsedTime = Double(playerTime.sampleTime) / sampleRate
 
         // Adjust for playback rate

@@ -115,7 +115,7 @@ final class ProPaywallViewModel: ObservableObject {
     }
 
     func purchaseFailed(_ error: Error) {
-        CrashReporter.shared.record(error, context: "paywall_purchase")
+        AccessController.reportPurchaseFailure(error, context: "paywall_purchase")
     }
 
     func close() {

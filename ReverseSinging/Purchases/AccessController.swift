@@ -563,8 +563,7 @@ final class AccessController: ObservableObject {
             // A cancel is a decision, not a failure, and gets no alert.
             guard !Self.isCancellation(error) else { return }
             errorMessage = Self.message(for: error)
-            CrashReporter.shared.record(error, context: "purchase")
-            AnalyticsManager.shared.trackPurchaseFailed(reason: Self.reason(for: error))
+            Self.reportPurchaseFailure(error, context: "purchase")
         }
     }
 
@@ -595,6 +594,31 @@ final class AccessController: ObservableObject {
         let error = error as NSError
         return error.domain == RevenueCat.ErrorCode.errorDomain
             && error.code == RevenueCat.ErrorCode.purchaseCancelledError.rawValue
+    }
+
+    /// Records a failed purchase, in analytics always and in Crashlytics only when the app
+    /// might be to blame.
+    ///
+    /// A payment waiting on a parent or a bank, a device whose Screen Time forbids buying, and
+    /// an App Store that is down were three of the paywall's top non-fatals, and not one of
+    /// them is anything this app can fix.
+    static func reportPurchaseFailure(_ error: Error, context: String) {
+        AnalyticsManager.shared.trackPurchaseFailed(reason: reason(for: error))
+        if isStoreOutcome(error) {
+            CrashReporter.shared.log("\(context): \(reason(for: error))")
+        } else {
+            CrashReporter.shared.record(error, context: context)
+        }
+    }
+
+    private static func isStoreOutcome(_ error: Error) -> Bool {
+        let error = error as NSError
+        guard error.domain == RevenueCat.ErrorCode.errorDomain else { return false }
+        return [
+            RevenueCat.ErrorCode.paymentPendingError,
+            .purchaseNotAllowedError,
+            .storeProblemError
+        ].map(\.rawValue).contains(error.code)
     }
 
     /// A short, stable string for analytics — never the localized message, which

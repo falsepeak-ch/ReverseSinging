@@ -62,13 +62,21 @@ final class AudioSessionManager {
 
     // MARK: - Configuration
 
-    /// Configure the audio session once for the entire app
+    /// Configure the audio session for the entire app
     /// Uses .playAndRecord to support both recording and playback
+    ///
+    /// Checked against the live session rather than only a flag. A media services reset puts
+    /// the session back on its default `.soloAmbient` behind the app's back, and from then on
+    /// every recorder was refused — "Failed to start recording", with the diagnostics showing
+    /// that category and no input — until the app was killed.
     func configure() {
-        guard !isConfigured else { return }
         #if os(macOS)
         isConfigured = true
         #else
+        guard !isConfigured || !isPlayAndRecord else { return }
+        if isConfigured {
+            CrashReporter.shared.log("audio_session.category_lost: \(audioSession.category.rawValue), reconfiguring")
+        }
 
         do {
             // Use .playAndRecord category to support both recording and playback
@@ -90,6 +98,14 @@ final class AudioSessionManager {
         }
         #endif
     }
+
+    #if os(iOS)
+    /// The category, and the speaker option: `.playAndRecord` without `.defaultToSpeaker` is what
+    /// something else leaves behind, and it routes a take's playback to the earpiece.
+    private var isPlayAndRecord: Bool {
+        audioSession.category == .playAndRecord && audioSession.categoryOptions.contains(.defaultToSpeaker)
+    }
+    #endif
 
     // MARK: - Activation
 
