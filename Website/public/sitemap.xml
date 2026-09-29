@@ -8,4 +8,12 @@
     <image:image><image:loc>https://reverso-87e1a.web.app/img/ios-reverse.webp</image:loc></image:image>
     <image:image><image:loc>https://reverso-87e1a.web.app/img/mac-imitate.webp</image:loc></image:image>
   </url>
+  <url>
+    <loc>https://reverso-87e1a.web.app/privacy</loc>
+    <lastmod>2026-09-29</lastmod>
+  </url>
+  <url>
+    <loc>https://reverso-87e1a.web.app/terms</loc>
+    <lastmod>2026-09-29</lastmod>
+  </url>
 </urlset>

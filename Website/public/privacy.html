@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacy Policy · Dubloon</title>
+<meta name="description" content="How Dubloon handles your data. Recordings, takes and booth footage stay on your iPhone or Mac. No account, no ads, no tracking. Anonymous analytics you can turn off.">
+<link rel="canonical" href="https://reverso-87e1a.web.app/privacy">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#F5F1E8">
+<meta name="apple-itunes-app" content="app-id=6754534073">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Dubloon">
+<meta property="og:url" content="https://reverso-87e1a.web.app/privacy">
+<meta property="og:title" content="Dubloon Privacy Policy">
+<meta property="og:description" content="Your recordings stay on your device. No account, no ads, no tracking. Here is exactly what Dubloon collects and why.">
+<meta property="og:image" content="https://reverso-87e1a.web.app/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dubloon Privacy Policy">
+<meta name="twitter:description" content="Your recordings stay on your device. No account, no ads, no tracking.">
+<meta name="twitter:image" content="https://reverso-87e1a.web.app/img/og-image.jpg">
+
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; }
+  img { max-width: 100%; height: auto; display: block; }
+
+  :root {
+    color-scheme: light;
+    --paper: #F5F1E8;
+    --paper-deep: #ECE5D6;
+    --ink: #121212;
+    --ink-soft: #4A4640;
+    --navy: #25307F;
+    --red: #9A1F1F;
+    --coral: #F26B5B;
+    --rule: #D8CFBD;
+    --display: "Anton", "Impact", "Haettenschweiler", "Arial Narrow Bold", sans-serif;
+    --body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --gutter: clamp(16px, 5vw, 56px);
+  }
+
+  body { background: var(--paper); color: var(--ink); font: 400 17px/1.7 var(--body); overflow-x: hidden; }
+  .wrap { max-width: 1180px; margin-inline: auto; padding-inline: var(--gutter); }
+  a { color: inherit; text-underline-offset: 3px; }
+  :focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; border-radius: 6px; }
+
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px; }
+  .top .logo img { height: 34px; width: auto; }
+  .top nav { display: flex; align-items: center; gap: 24px; font-weight: 500; font-size: 15px; }
+  .top nav a { text-decoration: none; }
+  .top nav a:not(.pill):hover { text-decoration: underline; text-underline-offset: 4px; }
+  .pill { background: var(--ink); color: var(--paper); padding: 9px 16px; border-radius: 999px; white-space: nowrap; }
+
+  .slate { font: 500 12px/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .slate .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); flex: none; }
+
+  /* ---------- Document ---------- */
+  .doc-head { border-top: 2px solid var(--ink); padding-block: clamp(40px, 7vw, 88px) clamp(28px, 4vw, 48px); }
+  h1 { font-family: var(--display); font-weight: 400; line-height: 0.96; letter-spacing: -0.005em; margin: 0; font-size: clamp(52px, 9vw, 120px); text-wrap: balance; }
+  .meta { margin: 20px 0 0; font: 500 13px/1.5 var(--mono); letter-spacing: 0.04em; color: var(--ink-soft); }
+
+  .doc { display: grid; grid-template-columns: 240px minmax(0, 720px); gap: clamp(32px, 6vw, 88px); padding-bottom: clamp(56px, 8vw, 104px); }
+  .toc { position: sticky; top: 24px; align-self: start; max-height: calc(100vh - 48px); overflow-y: auto; font-size: 14px; line-height: 1.4; }
+  .toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; border-top: 2px solid var(--ink); }
+  .toc li { counter-increment: toc; border-bottom: 1px solid var(--rule); }
+  .toc a { display: flex; gap: 10px; padding: 9px 0; text-decoration: none; color: var(--ink-soft); }
+  .toc a::before { content: counter(toc, decimal-leading-zero); font: 500 11px/1.7 var(--mono); color: var(--red); flex: none; }
+  .toc a:hover { color: var(--ink); text-decoration: underline; }
+
+  .summary { background: var(--ink); color: var(--paper); border-radius: 22px; padding: clamp(24px, 4vw, 40px); margin-bottom: clamp(40px, 6vw, 64px); }
+  .summary .slate { color: #C9C2B3; }
+  .summary h2 { font-family: var(--display); font-weight: 400; font-size: clamp(32px, 4.5vw, 48px); line-height: 1; margin: 0 0 16px; border: 0; padding: 0; }
+  .summary ul { margin: 0; padding-left: 1.1em; }
+  .summary li { margin: 6px 0; }
+  .summary li::marker { color: var(--coral); }
+  .summary a { color: var(--paper); }
+
+  .text h2 { font-family: var(--display); font-weight: 400; font-size: clamp(30px, 4vw, 44px); line-height: 1.02; margin: clamp(48px, 6vw, 72px) 0 16px; padding-top: 16px; border-top: 2px solid var(--ink); scroll-margin-top: 24px; text-wrap: balance; }
+  .text h2 .n { font: 500 13px/1 var(--mono); color: var(--red); letter-spacing: .08em; display: block; margin-bottom: 10px; }
+  .text section:first-child h2 { margin-top: 0; }
+  .text h3 { font: 700 19px/1.35 var(--body); margin: 32px 0 8px; scroll-margin-top: 24px; }
+  .text p, .text ul, .text ol { margin: 0 0 16px; }
+  .text ul, .text ol { padding-left: 1.2em; }
+  .text li { margin: 6px 0; }
+  .text li::marker { color: var(--red); }
+  .text strong { font-weight: 700; }
+  .text .caps { text-transform: uppercase; font-size: 15px; letter-spacing: .01em; }
+  .note { background: var(--paper-deep); border-left: 4px solid var(--navy); border-radius: 0 12px 12px 0; padding: 16px 20px; margin: 0 0 20px; }
+  .note p:last-child { margin-bottom: 0; }
+  .table-scroll { overflow-x: auto; margin: 0 0 20px; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--rule); }
+  th { font: 500 11px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); border-bottom: 2px solid var(--ink); }
+
+  footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; padding-block: 24px 40px; font-size: 14px; color: var(--ink-soft); border-top: 1px solid var(--rule); }
+  footer nav { display: flex; flex-wrap: wrap; gap: 18px; }
+  footer a[aria-current="page"] { color: var(--ink); font-weight: 700; text-decoration: none; }
+
+  @media (max-width: 900px) {
+    .doc { grid-template-columns: minmax(0, 1fr); }
+    .toc { position: static; max-height: none; overflow: visible; }
+    .toc ol { columns: 2; column-gap: 24px; }
+    .toc li { break-inside: avoid; }
+    .top nav a:not(.pill) { display: none; }
+  }
+  @media (max-width: 520px) {
+    .toc ol { columns: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  @media print {
+    .top nav, .toc { display: none; }
+    .doc { display: block; }
+    .summary { background: none; color: var(--ink); border: 2px solid var(--ink); }
+    .summary .slate, .summary a { color: var(--ink); }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="/" aria-label="Dubloon home"><img src="/img/lettering.png" alt="Dubloon" width="900" height="210"></a>
+    <nav aria-label="Site">
+      <a href="/">Home</a>
+      <a href="/terms">Terms</a>
+      <a class="pill" href="https://apps.apple.com/app/id6754534073">Get the app</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="doc-head">
+      <div class="slate"><span class="dot"></span>Legal · Privacy</div>
+      <h1>Privacy Policy</h1>
+      <p class="meta">Last updated: 29 September 2026 · Applies to Dubloon for iPhone and Mac</p>
+    </div>
+
+    <div class="doc">
+      <nav class="toc" aria-label="Contents">
+        <ol>
+          <li><a href="#who">Who we are</a></li>
+          <li><a href="#on-device">What stays on your device</a></li>
+          <li><a href="#permissions">Microphone, camera and Photos</a></li>
+          <li><a href="#collected">What we collect</a></li>
+          <li><a href="#services">Services we use</a></li>
+          <li><a href="#opt-out">Turning off usage data</a></li>
+          <li><a href="#not-done">What we never do</a></li>
+          <li><a href="#legal-bases">Why we are allowed to</a></li>
+          <li><a href="#retention">How long we keep it</a></li>
+          <li><a href="#transfers">International transfers</a></li>
+          <li><a href="#rights">Your rights</a></li>
+          <li><a href="#links">Links and dub packs</a></li>
+          <li><a href="#children">Children</a></li>
+          <li><a href="#security">Security</a></li>
+          <li><a href="#changes">Changes to this policy</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ol>
+      </nav>
+
+      <article class="text">
+        <aside class="summary" aria-labelledby="short-title">
+          <div class="slate">Read this first</div>
+          <h2 id="short-title">The short version</h2>
+          <ul>
+            <li>Your recordings, takes, Booth Cam footage and exported videos stay on your iPhone or Mac. The app never uploads them.</li>
+            <li>There is no account, no sign-up, no ads and no tracking across apps.</li>
+            <li>Scoring runs on your device. No speech recognition, no voiceprints.</li>
+            <li>We use Google Firebase for anonymous usage statistics and crash reports, and RevenueCat to manage Dubloon Pro purchases.</li>
+            <li>You can turn usage statistics and crash reports off in Settings → Privacy → Share usage data.</li>
+            <li>We never sell your data. Questions: <a href="mailto:contact@falsepeak.ch">contact@falsepeak.ch</a>.</li>
+          </ul>
+        </aside>
+
+        <section>
+          <h2 id="who"><span class="n">01</span>Who we are</h2>
+          <p>Dubloon (listed on the App Store as “Dubloon by Cluso”) is a voice games app for iPhone and Mac. It is made by False Peak in Zürich, Switzerland. In this policy, “we”, “us” and “our” mean False Peak. “You” means the person using Dubloon.</p>
+          <p>False Peak is the controller of the personal data described here. That means we decide why and how it is processed. You can reach us at <a href="mailto:contact@falsepeak.ch">contact@falsepeak.ch</a>.</p>
+          <p>This policy covers the Dubloon app. It also covers this website, a set of static pages hosted on Google Firebase Hosting. The website sets no cookies and runs no analytics or tracking scripts. Like any web host, Firebase Hosting processes your IP address to deliver the pages, and the fonts are loaded from Google Fonts, which also sees your IP address. The reverse-singing booth on the home page records and plays back in your browser only; the recording is never uploaded.</p>
+        </section>
+
+        <section>
+          <h2 id="on-device"><span class="n">02</span>What stays on your device</h2>
+          <p>Dubloon is built to work without a server of its own. The following is stored only on your device, in the app’s own Documents folder:</p>
+          <ul>
+            <li>Reverse-singing recordings.</li>
+            <li>Dub voice takes.</li>
+            <li>Sound-imitation attempts.</li>
+            <li>Booth Cam footage from the front camera. This is video only; Booth Cam does not record its own audio track.</li>
+            <li>Exported videos.</li>
+            <li>Dub packs you import.</li>
+            <li>Saved sessions and scores.</li>
+          </ul>
+          <p><strong>The app never uploads any of this.</strong> We do not receive it, and we could not see it if we wanted to.</p>
+
+          <h3>Backups and the Files app</h3>
+          <p>Because this content lives in the app’s Documents folder, it is included in your normal iCloud or computer backups of your device. Apple handles those backups under <a href="https://www.apple.com/legal/privacy/">Apple’s privacy policy</a>, not ours. On iPhone and iPad, the app’s Documents folder is also visible in the Files app, so you can see and manage these files yourself.</p>
+
+          <h3>On-device scoring</h3>
+          <p>Every score is calculated on your device: dub timing, pacing and delivery; reverse-singing similarity; and sound-imitation rhythm, pitch, tone and length. Dubloon does not use speech recognition, does not send your voice to any machine-learning service, does not create voiceprints and does not process biometric data.</p>
+
+          <h3>Preferences</h3>
+          <p>Dubloon also stores a few small settings on your device, in the system’s standard preferences storage. These are: whether you finished onboarding, interface mode, haptics and sounds, headphone monitoring, whether scoring is on, Booth Cam settings, best scores, counters used to decide when to ask for an App Store review (number of app opens, shares and great scores), the date your free trial started, the date of first launch, and early-adopter flags. Tips shown in the app are managed by Apple’s TipKit and are also stored locally.</p>
+
+          <h3>Deleting it</h3>
+          <ul>
+            <li>Delete individual dub packs and sessions inside the app.</li>
+            <li>Use <strong>Settings → Delete all booth takes</strong> to remove all Booth Cam footage.</li>
+            <li>Delete the app to remove everything it stored on the device. Copies may remain in backups you made before, until those backups are replaced or deleted.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="permissions"><span class="n">03</span>Microphone, camera and Photos</h2>
+          <p>Dubloon asks for system permissions only when a feature needs them. You can change each one at any time in your device’s Settings (iPhone, iPad) or System Settings → Privacy &amp; Security (Mac).</p>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th scope="col">Permission</th><th scope="col">When it is used</th></tr></thead>
+              <tbody>
+                <tr><td>Microphone</td><td>Only while you are recording a take, a reverse-singing attempt or a sound imitation.</td></tr>
+                <tr><td>Camera</td><td>Only when you turn Booth Cam on. Booth Cam is off by default.</td></tr>
+                <tr><td>Add to Photos</td><td>Only when you choose Save Video in the share sheet. Dubloon can add a video to your library but never reads your photo library.</td></tr>
+                <tr><td>Files (Mac)</td><td>Only the files and folders you pick yourself in an Open or Save panel.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>When you share an export, you choose where it goes. Whatever app or service you send it to handles it under its own terms.</p>
+        </section>
+
+        <section>
+          <h2 id="collected"><span class="n">04</span>What we collect</h2>
+          <p>Dubloon does collect a limited amount of data through the services described in the next section. None of it includes your name, email address, recordings or video.</p>
+
+          <h3>Usage events</h3>
+          <p>Anonymous events about how the app is used. For example: which screens are opened, when a game starts, recording duration, scores and grades, changes to playback speed or pitch, when the paywall is shown or dismissed, whether a purchase completed or failed, and the export settings you chose.</p>
+
+          <h3>Device and app information</h3>
+          <p>Firebase Analytics also collects standard information automatically: a random app instance ID, device model, operating system version, app version, language and locale, country (derived from your IP address) and session information.</p>
+
+          <h3>Crash and error reports</h3>
+          <p>When the app crashes or hits an error, a report is sent with a stack trace, device model, operating system, app version, locale, which game or screen was open, and line counts of the dub pack in use.</p>
+
+          <h3>Information about imported dub packs</h3>
+          <div class="note">
+            <p>We want to be clear about this one. When you import a dub pack, usage events and crash or error reports may include text taken from the pack file: its title, author names, file or folder name, the source work and source URL it declares, its number of lines, and the names of files inside a pack that failed to import. We use this to find and fix import problems. <strong>The audio and video inside the pack are never sent.</strong></p>
+          </div>
+
+          <h3>Purchase information</h3>
+          <p>If you buy Dubloon Pro, or when the app checks whether you qualify for it, purchase information is processed as described under <a href="#revenuecat">RevenueCat</a>.</p>
+
+          <p>We do not set a user ID in analytics and we do not attach user properties. The app instance ID is random and is not linked to your name, email or Apple Account.</p>
+        </section>
+
+        <section>
+          <h2 id="services"><span class="n">05</span>Services we use</h2>
+          <p>These providers process data on our behalf, under their own data processing terms with us.</p>
+
+          <h3 id="firebase-analytics">Google Firebase Analytics</h3>
+          <p>Provided by Google LLC and, for users in the EEA and Switzerland, Google Ireland Limited. It receives the usage events and device information described above. We use it to understand which parts of the app people use and where they get stuck. See <a href="https://firebase.google.com/support/privacy">Firebase privacy information</a>.</p>
+
+          <h3 id="crashlytics">Firebase Crashlytics</h3>
+          <p>Also provided by Google. It receives crash reports and non-fatal error reports, including, for import errors, the pack title or folder name and file names described above. We use it to fix bugs.</p>
+
+          <h3 id="remote-config">Firebase Remote Config</h3>
+          <p>Also provided by Google. The app fetches configuration values from Google, for example the length of the free trial or which games are free. This request involves an app instance identifier.</p>
+
+          <h3 id="revenuecat">RevenueCat</h3>
+          <p>Provided by RevenueCat, Inc. in the USA. RevenueCat manages in-app purchases and subscriptions for Dubloon Pro. It receives:</p>
+          <ul>
+            <li>An anonymous RevenueCat app user ID generated on your device.</li>
+            <li>Your App Store receipt and transaction information: products purchased, purchase dates, subscription status, the original download date, and country and currency.</li>
+          </ul>
+          <p>We use this to unlock Dubloon Pro, to restore purchases, and to check early-adopter status (people who downloaded Dubloon before it started charging get Pro free). The app does not send your name or email to RevenueCat. See <a href="https://www.revenuecat.com/privacy/">RevenueCat’s privacy policy</a>.</p>
+
+          <h3 id="apple">Apple</h3>
+          <p>Payments are processed by Apple through the App Store. We never see your payment details. The request to rate the app uses Apple’s StoreKit, and Apple decides whether the prompt appears. Apple’s own handling of your data is covered by <a href="https://www.apple.com/legal/privacy/">Apple’s privacy policy</a>.</p>
+        </section>
+
+        <section>
+          <h2 id="opt-out"><span class="n">06</span>Turning off usage data</h2>
+          <p>Open <strong>Settings → Privacy → Share usage data</strong> in Dubloon, on iPhone or Mac. It is on by default. The switch arrives with the next update of Dubloon; until you have it, write to <a href="mailto:contact@falsepeak.ch">contact@falsepeak.ch</a> and we will help.</p>
+          <p>When you turn it off, Firebase Analytics collection and Crashlytics crash reporting stop from that device from then on. Data already sent before you switched it off is kept for the periods described under <a href="#retention">retention</a>.</p>
+          <p>Turning it off does not affect purchases. RevenueCat and Remote Config are still needed so that Dubloon Pro and the free trial work.</p>
+        </section>
+
+        <section>
+          <h2 id="not-done"><span class="n">07</span>What we never do</h2>
+          <ul>
+            <li>We do not sell your personal data.</li>
+            <li>We do not use your data for advertising, and there are no ads in Dubloon.</li>
+            <li>We do not use the advertising identifier (IDFA), do not show the App Tracking Transparency prompt, and do not track you across other companies’ apps or websites.</li>
+            <li>We do not ask you to create an account.</li>
+            <li>We do not upload your recordings, takes, footage or exports.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="legal-bases"><span class="n">08</span>Why we are allowed to</h2>
+          <p>If you are in the EU, the EEA, the UK or Switzerland, data protection law requires a legal basis for each use of personal data. Ours are:</p>
+          <ul>
+            <li><strong>Performance of a contract.</strong> To provide the app, the free trial and your purchases (Remote Config, RevenueCat, Apple).</li>
+            <li><strong>Legitimate interests.</strong> To collect anonymous usage statistics and crash reports so we can fix bugs and improve the app (Firebase Analytics, Crashlytics). We keep this data minimal and not linked to your identity, and you can switch it off at any time.</li>
+            <li><strong>Legal obligations.</strong> Tax and accounting records for purchases, which Apple and RevenueCat keep as required by law.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="retention"><span class="n">09</span>How long we keep it</h2>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th scope="col">Data</th><th scope="col">Kept for</th></tr></thead>
+              <tbody>
+                <tr><td>Recordings, takes, footage, exports, packs, sessions, preferences</td><td>On your device until you delete them or the app.</td></tr>
+                <tr><td>Analytics event data (Firebase Analytics)</td><td>No longer than 14 months.</td></tr>
+                <tr><td>Crash reports (Crashlytics)</td><td>90 days, as documented by Google.</td></tr>
+                <tr><td>Purchase records (RevenueCat, Apple)</td><td>As long as needed to provide your purchase and to meet legal obligations such as tax and accounting rules.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h2 id="transfers"><span class="n">10</span>International transfers</h2>
+          <p>We are based in Switzerland. Google and RevenueCat may process data in the USA and other countries whose laws may not offer the same level of protection. When that happens, we rely on the safeguards these providers offer, such as the EU Standard Contractual Clauses and, where applicable, the EU-US and Swiss-US Data Privacy Framework.</p>
+        </section>
+
+        <section>
+          <h2 id="rights"><span class="n">11</span>Your rights</h2>
+
+          <h3>EU, EEA and UK (GDPR, UK GDPR)</h3>
+          <p>You have the right to access your personal data, to correct it, to delete it, to restrict or object to its processing, and to data portability. Where we rely on legitimate interests, you can object at any time; the simplest way is the Share usage data switch. You can also complain to the data protection authority in the country where you live or work.</p>
+
+          <h3>Switzerland (revised FADP)</h3>
+          <p>You have the right to information about your data, to correction and deletion, to object to processing, and to receive your data. The Swiss supervisory authority is the Federal Data Protection and Information Commissioner (FDPIC), which you can contact at <a href="https://www.edoeb.admin.ch/">edoeb.admin.ch</a>.</p>
+
+          <h3>California (CCPA/CPRA)</h3>
+          <p>You have the right to know what personal information we collect, to request its deletion and correction, and not to be discriminated against for using these rights. We do not sell personal information and do not share it for cross-context behavioural advertising, so there is nothing to opt out of in that sense. We do not use sensitive personal information.</p>
+
+          <h3>How to use your rights without an account</h3>
+          <p>Because Dubloon has no accounts, we usually cannot link analytics or crash data to you. The app instance ID is random. In practice:</p>
+          <ul>
+            <li>Turn off <strong>Share usage data</strong> to stop further collection.</li>
+            <li>Delete the app to remove all local data and its identifiers. A reinstall starts with a new, unrelated app instance ID.</li>
+            <li>For purchase data held by RevenueCat, email us with details of your purchase (for example the order ID from your App Store receipt). We can then look up and delete the anonymous customer record in RevenueCat, as far as we are not required to keep it by law.</li>
+            <li>For anything else, email <a href="mailto:contact@falsepeak.ch">contact@falsepeak.ch</a>. We will answer within the time limits set by law, usually within 30 days.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 id="links"><span class="n">12</span>Links and dub packs</h2>
+          <p>Dub packs are files you pick yourself, from Files, AirDrop, Finder or iCloud Drive. The app itself does not download packs.</p>
+          <p>The app may show links to other people’s websites: GameBanana, where people share dub packs; Blender Studio’s Sprite Fright page, for attribution; and, on the Mac, the Freesound page of each bundled sound. The 24 sounds used in Sound Imitation are CC0 clips from Freesound that ship inside the app, so playing them uses no network. When you open a link, that site handles your data under its own privacy policy.</p>
+        </section>
+
+        <section>
+          <h2 id="children"><span class="n">13</span>Children</h2>
+          <p>Dubloon is rated 13+ on the App Store and is not directed at children under 13. We do not knowingly collect personal data from children under 13. The app has no social features and no way for users to message each other. If you believe a child has provided personal data to us, contact us and we will delete it.</p>
+        </section>
+
+        <section>
+          <h2 id="security"><span class="n">14</span>Security</h2>
+          <p>Content stays on your device, where it is protected by iOS, iPadOS or macOS data protection and your device passcode or login password. Data sent to our service providers travels over encrypted connections (HTTPS). No system is perfectly secure, but keeping your recordings off our servers is the strongest protection we can offer.</p>
+        </section>
+
+        <section>
+          <h2 id="changes"><span class="n">15</span>Changes to this policy</h2>
+          <p>If we change this policy, we will post the new version on this page and update the date at the top. If a change is material, we will also mention it in the app’s release notes.</p>
+        </section>
+
+        <section>
+          <h2 id="contact"><span class="n">16</span>Contact</h2>
+          <p>False Peak<br>Zürich, Switzerland<br><a href="mailto:contact@falsepeak.ch">contact@falsepeak.ch</a></p>
+          <p>See also our <a href="/terms">Terms of Use</a>.</p>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <span>© 2026 False Peak · Zürich, Switzerland</span>
+    <nav aria-label="Legal">
+      <a href="/">Home</a>
+      <a href="/privacy" aria-current="page">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="mailto:contact@falsepeak.ch">Contact</a>
+    </nav>
+  </footer>
+</div>
+
+</body>
+</html>
