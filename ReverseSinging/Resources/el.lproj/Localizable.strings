@@ -441,6 +441,38 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "Μίμηση ήχων";
 "main.mode.imitate.subtitle" = "Μιμήσου έναν ήχο, πάρε ετυμηγορία";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "Μεταγλώττιση δικών σου βίντεο";
+"main.mode.homeVideo.subtitle" = "Βάλε τη φωνή σου σε όποιο βίντεο έχεις τραβήξει";
+"homeVideo.intro.title" = "Το βίντεό σου, η φωνή σου";
+"homeVideo.intro.body" = "Διάλεξε ένα βίντεο από το κινητό και μίλα, τραγούδα ή αφηγήσου πάνω του όσο παίζει. Η φωνή σου αντικαθιστά τον ήχο του, έτοιμο για κοινοποίηση.";
+"homeVideo.step.pick" = "Διάλεξε ένα βίντεο από τη βιβλιοθήκη σου";
+"homeVideo.step.record" = "Πάτα εγγραφή και μίλα πάνω του όσο παίζει";
+"homeVideo.step.share" = "Δες το αποτέλεσμα και μοιράσου το";
+"homeVideo.compare.title" = "Δύο τρόποι μεταγλώττισης";
+"homeVideo.compare.home" = "Το δικό σου βίντεο. Χωρίς σενάριο, χωρίς βαθμό: πες ό,τι θέλεις σε όλο το κλιπ.";
+"homeVideo.compare.dub" = "Διάσημες σκηνές ταινιών, ατάκα προς ατάκα, με το σενάριο στην οθόνη και βαθμό για κάθε ατάκα.";
+"homeVideo.choose" = "Διάλεξε βίντεο";
+"homeVideo.change" = "Άλλαξε βίντεο";
+"homeVideo.limit" = "Έως ένα λεπτό. Το βίντεό σου μένει στο κινητό σου.";
+"homeVideo.trimmed" = "Χρησιμοποιείται μόνο το πρώτο λεπτό.";
+"homeVideo.importing" = "Άνοιγμα βίντεο…";
+"homeVideo.mixing" = "Προσθήκη της φωνής σου…";
+"homeVideo.keepOriginal" = "Κράτα τον αρχικό ήχο";
+"homeVideo.keepOriginal.detail" = "Παίζει χαμηλά κάτω από τη φωνή σου";
+"homeVideo.keepOriginal.none" = "Αυτό το βίντεο δεν έχει ήχο";
+"homeVideo.hint.ready" = "Πάτα εγγραφή. Το βίντεο ξεκινά από την αρχή και η φωνή σου μπαίνει από πάνω.";
+"homeVideo.hint.recording" = "Εγγραφή. Το βίντεο παίζει χωρίς ήχο για να ακούει το μικρόφωνο μόνο εσένα.";
+"homeVideo.hint.review" = "Αυτή είναι η δική σου εκδοχή. Μοιράσου τη ή ηχογράφησε ξανά.";
+"homeVideo.record" = "Εγγραφή";
+"homeVideo.stop" = "Διακοπή";
+"homeVideo.retake" = "Ξανά εγγραφή";
+"homeVideo.share" = "Κοινοποίηση";
+"homeVideo.play" = "Αναπαραγωγή";
+"homeVideo.pause" = "Παύση";
+"homeVideo.error.load" = "Δεν ήταν δυνατό να ανοίξει αυτό το βίντεο. Δοκίμασε άλλο.";
+"homeVideo.error.mix" = "Δεν ήταν δυνατό να προστεθεί η φωνή σου στο βίντεο. Ηχογράφησε ξανά.";
 "imitate.library.hint" = "Διάλεξε έναν ήχο, άκουσέ τον και κάνε την καλύτερη μίμησή σου.";
 "imitate.library.best" = "Ρεκόρ";
 "imitate.library.untried" = "Νέο";
@@ -504,6 +536,16 @@
 "imitate.sound.laugh" = "Διαβολικό γέλιο";
 "imitate.sound.yawn" = "Χασμουρητό";
 "imitate.sound.hiccup" = "Λόξυγκας";
+"imitate.sound.frog" = "Βάτραχος";
+"imitate.sound.horse" = "Άλογο";
+"imitate.sound.goat" = "Κατσίκα";
+"imitate.sound.monkey" = "Μαϊμού";
+"imitate.sound.lion" = "Λιοντάρι";
+"imitate.sound.squeak" = "Παιχνίδι που τσιρίζει";
+"imitate.sound.fart" = "Πορδή";
+"imitate.sound.ghost" = "Φάντασμα";
+"imitate.sound.zombie" = "Ζόμπι";
+"imitate.sound.whistle" = "Σφύριγμα";
 
 /* Mac */
 "mac.sidebar.games" = "Παιχνίδια";

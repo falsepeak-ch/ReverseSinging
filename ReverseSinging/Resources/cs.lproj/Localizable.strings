@@ -441,6 +441,38 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "Napodobování zvuků";
 "main.mode.imitate.subtitle" = "Napodob zvuk a dostaň verdikt";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "Dabing vlastních videí";
+"main.mode.homeVideo.subtitle" = "Nahraj svůj hlas na jakékoli video, které jsi natočil";
+"homeVideo.intro.title" = "Tvoje video, tvůj hlas";
+"homeVideo.intro.body" = "Vyber video z telefonu a mluv, zpívej nebo komentuj, zatímco hraje. Tvůj hlas nahradí jeho zvuk, připravené ke sdílení.";
+"homeVideo.step.pick" = "Vyber video ze své knihovny";
+"homeVideo.step.record" = "Klepni na nahrávání a mluv přes video, zatímco hraje";
+"homeVideo.step.share" = "Podívej se na výsledek a sdílej ho";
+"homeVideo.compare.title" = "Dva způsoby dabingu";
+"homeVideo.compare.home" = "Tvoje vlastní video. Žádný scénář, žádné body: říkej, co chceš, přes celý klip.";
+"homeVideo.compare.dub" = "Slavné filmové scény replika po replice, se scénářem na obrazovce a body za každou repliku.";
+"homeVideo.choose" = "Vybrat video";
+"homeVideo.change" = "Změnit video";
+"homeVideo.limit" = "Až jedna minuta. Tvoje video zůstane v telefonu.";
+"homeVideo.trimmed" = "Použije se jen první minuta.";
+"homeVideo.importing" = "Otevírám video…";
+"homeVideo.mixing" = "Přidávám tvůj hlas…";
+"homeVideo.keepOriginal" = "Ponechat původní zvuk";
+"homeVideo.keepOriginal.detail" = "Hraje potichu pod tvým hlasem";
+"homeVideo.keepOriginal.none" = "Toto video nemá zvuk";
+"homeVideo.hint.ready" = "Klepni na nahrávání. Video začne od začátku a tvůj hlas půjde navrch.";
+"homeVideo.hint.recording" = "Nahrávám. Video hraje bez zvuku, aby mikrofon slyšel jen tebe.";
+"homeVideo.hint.review" = "Tady je tvoje verze. Sdílej ji, nebo nahraj znovu.";
+"homeVideo.record" = "Nahrát";
+"homeVideo.stop" = "Stop";
+"homeVideo.retake" = "Nahrát znovu";
+"homeVideo.share" = "Sdílet";
+"homeVideo.play" = "Přehrát";
+"homeVideo.pause" = "Pauza";
+"homeVideo.error.load" = "Toto video se nepodařilo otevřít. Zkus jiné.";
+"homeVideo.error.mix" = "Tvůj hlas se nepodařilo přidat do videa. Nahraj znovu.";
 "imitate.library.hint" = "Vyber zvuk, poslechni si ho a předveď svou nejlepší imitaci.";
 "imitate.library.best" = "Rekord";
 "imitate.library.untried" = "Nové";
@@ -504,6 +536,16 @@
 "imitate.sound.laugh" = "Zlověstný smích";
 "imitate.sound.yawn" = "Zívnutí";
 "imitate.sound.hiccup" = "Škytavka";
+"imitate.sound.frog" = "Žába";
+"imitate.sound.horse" = "Kůň";
+"imitate.sound.goat" = "Koza";
+"imitate.sound.monkey" = "Opice";
+"imitate.sound.lion" = "Lev";
+"imitate.sound.squeak" = "Pískací hračka";
+"imitate.sound.fart" = "Prd";
+"imitate.sound.ghost" = "Duch";
+"imitate.sound.zombie" = "Zombie";
+"imitate.sound.whistle" = "Hvízdání";
 
 /* Mac */
 "mac.sidebar.games" = "Hry";

@@ -441,6 +441,38 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "Ljudimitation";
 "main.mode.imitate.subtitle" = "Härma ett ljud, få en dom";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "Dubba dina egna videor";
+"main.mode.homeVideo.subtitle" = "Lägg din röst på vilken video du har filmat";
+"homeVideo.intro.title" = "Din video, din röst";
+"homeVideo.intro.body" = "Välj en video från mobilen och prata, sjung eller berätta över den medan den spelas. Din röst ersätter ljudet, redo att dela.";
+"homeVideo.step.pick" = "Välj en video från ditt bibliotek";
+"homeVideo.step.record" = "Tryck på spela in och prata över den medan den spelas";
+"homeVideo.step.share" = "Titta på resultatet och dela det";
+"homeVideo.compare.title" = "Två sätt att dubba";
+"homeVideo.compare.home" = "Din egen video. Inget manus, inga poäng: säg vad du vill genom hela klippet.";
+"homeVideo.compare.dub" = "Kända filmscener, replik för replik, med manuset på skärmen och poäng för varje replik.";
+"homeVideo.choose" = "Välj en video";
+"homeVideo.change" = "Byt video";
+"homeVideo.limit" = "Upp till en minut. Din video stannar på mobilen.";
+"homeVideo.trimmed" = "Bara den första minuten används.";
+"homeVideo.importing" = "Öppnar din video…";
+"homeVideo.mixing" = "Lägger på din röst…";
+"homeVideo.keepOriginal" = "Behåll originalljudet";
+"homeVideo.keepOriginal.detail" = "Spelas tyst under din röst";
+"homeVideo.keepOriginal.none" = "Den här videon har inget ljud";
+"homeVideo.hint.ready" = "Tryck på spela in. Videon börjar från början och din röst läggs ovanpå.";
+"homeVideo.hint.recording" = "Spelar in. Videon spelas utan ljud så att mikrofonen bara hör dig.";
+"homeVideo.hint.review" = "Här är din version. Dela den eller spela in igen.";
+"homeVideo.record" = "Spela in";
+"homeVideo.stop" = "Stopp";
+"homeVideo.retake" = "Spela in igen";
+"homeVideo.share" = "Dela";
+"homeVideo.play" = "Spela";
+"homeVideo.pause" = "Paus";
+"homeVideo.error.load" = "Den videon gick inte att öppna. Prova en annan.";
+"homeVideo.error.mix" = "Din röst kunde inte läggas på videon. Spela in igen.";
 "imitate.library.hint" = "Välj ett ljud, lyssna och gör din bästa imitation.";
 "imitate.library.best" = "Rekord";
 "imitate.library.untried" = "Ny";
@@ -504,6 +536,16 @@
 "imitate.sound.laugh" = "Ondskefullt skratt";
 "imitate.sound.yawn" = "Gäspning";
 "imitate.sound.hiccup" = "Hicka";
+"imitate.sound.frog" = "Groda";
+"imitate.sound.horse" = "Häst";
+"imitate.sound.goat" = "Get";
+"imitate.sound.monkey" = "Apa";
+"imitate.sound.lion" = "Lejon";
+"imitate.sound.squeak" = "Pipleksak";
+"imitate.sound.fart" = "Fis";
+"imitate.sound.ghost" = "Spöke";
+"imitate.sound.zombie" = "Zombie";
+"imitate.sound.whistle" = "Vissling";
 
 /* Mac */
 "mac.sidebar.games" = "Spel";

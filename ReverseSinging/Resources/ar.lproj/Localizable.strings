@@ -441,6 +441,38 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "تقليد الأصوات";
 "main.mode.imitate.subtitle" = "قلّد صوتًا واحصل على الحكم";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "دبلجة فيديوهاتك";
+"main.mode.homeVideo.subtitle" = "ضع صوتك على أي فيديو صوّرته";
+"homeVideo.intro.title" = "فيديوك، صوتك";
+"homeVideo.intro.body" = "اختر أي فيديو من هاتفك وتحدّث أو غنِّ أو اروِ فوقه أثناء تشغيله. يحلّ صوتك محلّ صوته، جاهزًا للمشاركة.";
+"homeVideo.step.pick" = "اختر فيديو من مكتبتك";
+"homeVideo.step.record" = "اضغط تسجيل وتحدّث فوقه أثناء تشغيله";
+"homeVideo.step.share" = "شاهد النتيجة وشاركها";
+"homeVideo.compare.title" = "طريقتان للدبلجة";
+"homeVideo.compare.home" = "فيديوك الخاص. بلا نص ولا نقاط: قل ما تشاء طوال المقطع.";
+"homeVideo.compare.dub" = "مشاهد أفلام شهيرة، جملة بجملة، مع النص على الشاشة ونقاط لكل جملة.";
+"homeVideo.choose" = "اختر فيديو";
+"homeVideo.change" = "غيّر الفيديو";
+"homeVideo.limit" = "حتى دقيقة واحدة. يبقى الفيديو على هاتفك.";
+"homeVideo.trimmed" = "تُستخدم الدقيقة الأولى فقط.";
+"homeVideo.importing" = "جارٍ فتح الفيديو…";
+"homeVideo.mixing" = "جارٍ إضافة صوتك…";
+"homeVideo.keepOriginal" = "احتفظ بالصوت الأصلي";
+"homeVideo.keepOriginal.detail" = "يُسمع بهدوء تحت صوتك";
+"homeVideo.keepOriginal.none" = "لا يحتوي هذا الفيديو على صوت";
+"homeVideo.hint.ready" = "اضغط تسجيل. يبدأ الفيديو من البداية ويُضاف صوتك فوقه.";
+"homeVideo.hint.recording" = "جارٍ التسجيل. يعمل الفيديو بلا صوت ليسمعك الميكروفون وحدك.";
+"homeVideo.hint.review" = "هذه نسختك. شاركها أو سجّل من جديد.";
+"homeVideo.record" = "سجّل";
+"homeVideo.stop" = "إيقاف";
+"homeVideo.retake" = "سجّل من جديد";
+"homeVideo.share" = "مشاركة";
+"homeVideo.play" = "تشغيل";
+"homeVideo.pause" = "إيقاف مؤقت";
+"homeVideo.error.load" = "تعذّر فتح هذا الفيديو. جرّب فيديو آخر.";
+"homeVideo.error.mix" = "تعذّرت إضافة صوتك إلى الفيديو. سجّل من جديد.";
 "imitate.library.hint" = "اختر صوتًا، استمع إليه، ثم قدّم أفضل تقليد لديك.";
 "imitate.library.best" = "الأفضل";
 "imitate.library.untried" = "جديد";
@@ -504,6 +536,16 @@
 "imitate.sound.laugh" = "ضحكة شريرة";
 "imitate.sound.yawn" = "تثاؤب";
 "imitate.sound.hiccup" = "حازوقة";
+"imitate.sound.frog" = "ضفدع";
+"imitate.sound.horse" = "حصان";
+"imitate.sound.goat" = "ماعز";
+"imitate.sound.monkey" = "قرد";
+"imitate.sound.lion" = "أسد";
+"imitate.sound.squeak" = "لعبة مصفّرة";
+"imitate.sound.fart" = "ضرطة";
+"imitate.sound.ghost" = "شبح";
+"imitate.sound.zombie" = "زومبي";
+"imitate.sound.whistle" = "صفير";
 
 /* Mac */
 "mac.sidebar.games" = "الألعاب";

@@ -441,6 +441,38 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "Lydimitation";
 "main.mode.imitate.subtitle" = "Efterlign en lyd, få en dom";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "Dub dine egne videoer";
+"main.mode.homeVideo.subtitle" = "Læg din stemme på enhver video, du har filmet";
+"homeVideo.intro.title" = "Din video, din stemme";
+"homeVideo.intro.body" = "Vælg en video fra telefonen, og tal, syng eller fortæl hen over den, mens den spiller. Din stemme erstatter lyden, klar til at dele.";
+"homeVideo.step.pick" = "Vælg en video fra dit bibliotek";
+"homeVideo.step.record" = "Tryk på optag, og tal hen over den, mens den spiller";
+"homeVideo.step.share" = "Se resultatet, og del det";
+"homeVideo.compare.title" = "To måder at dubbe på";
+"homeVideo.compare.home" = "Din egen video. Intet manus, ingen point: sig, hvad du vil, gennem hele klippet.";
+"homeVideo.compare.dub" = "Kendte filmscener, replik for replik, med manuskriptet på skærmen og point for hver replik.";
+"homeVideo.choose" = "Vælg en video";
+"homeVideo.change" = "Skift video";
+"homeVideo.limit" = "Op til ét minut. Din video bliver på din telefon.";
+"homeVideo.trimmed" = "Kun det første minut bruges.";
+"homeVideo.importing" = "Åbner din video…";
+"homeVideo.mixing" = "Lægger din stemme på…";
+"homeVideo.keepOriginal" = "Behold den originale lyd";
+"homeVideo.keepOriginal.detail" = "Spiller svagt under din stemme";
+"homeVideo.keepOriginal.none" = "Denne video har ingen lyd";
+"homeVideo.hint.ready" = "Tryk på optag. Videoen starter forfra, og din stemme lægges ovenpå.";
+"homeVideo.hint.recording" = "Optager. Videoen spiller uden lyd, så mikrofonen kun hører dig.";
+"homeVideo.hint.review" = "Her er din version. Del den, eller optag igen.";
+"homeVideo.record" = "Optag";
+"homeVideo.stop" = "Stop";
+"homeVideo.retake" = "Optag igen";
+"homeVideo.share" = "Del";
+"homeVideo.play" = "Afspil";
+"homeVideo.pause" = "Pause";
+"homeVideo.error.load" = "Den video kunne ikke åbnes. Prøv en anden.";
+"homeVideo.error.mix" = "Din stemme kunne ikke lægges på videoen. Optag igen.";
 "imitate.library.hint" = "Vælg en lyd, lyt, og giv den din bedste efterligning.";
 "imitate.library.best" = "Rekord";
 "imitate.library.untried" = "Ny";
@@ -504,6 +536,16 @@
 "imitate.sound.laugh" = "Ond latter";
 "imitate.sound.yawn" = "Gab";
 "imitate.sound.hiccup" = "Hikke";
+"imitate.sound.frog" = "Frø";
+"imitate.sound.horse" = "Hest";
+"imitate.sound.goat" = "Ged";
+"imitate.sound.monkey" = "Abe";
+"imitate.sound.lion" = "Løve";
+"imitate.sound.squeak" = "Pibelegetøj";
+"imitate.sound.fart" = "Prut";
+"imitate.sound.ghost" = "Spøgelse";
+"imitate.sound.zombie" = "Zombie";
+"imitate.sound.whistle" = "Fløjt";
 
 /* Mac */
 "mac.sidebar.games" = "Spil";

@@ -441,6 +441,38 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "เลียนเสียง";
 "main.mode.imitate.subtitle" = "เลียนเสียงแล้วรับคำตัดสิน";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "พากย์วิดีโอของคุณเอง";
+"main.mode.homeVideo.subtitle" = "ใส่เสียงของคุณลงในวิดีโอที่คุณถ่ายไว้";
+"homeVideo.intro.title" = "วิดีโอของคุณ เสียงของคุณ";
+"homeVideo.intro.body" = "เลือกวิดีโอจากโทรศัพท์ แล้วพูด ร้องเพลง หรือบรรยายทับขณะที่วิดีโอเล่น เสียงของคุณจะแทนที่เสียงเดิม พร้อมแชร์ได้ทันที";
+"homeVideo.step.pick" = "เลือกวิดีโอจากคลังของคุณ";
+"homeVideo.step.record" = "กดบันทึกแล้วพูดทับขณะวิดีโอเล่น";
+"homeVideo.step.share" = "ดูผลลัพธ์แล้วแชร์";
+"homeVideo.compare.title" = "การพากย์สองแบบ";
+"homeVideo.compare.home" = "วิดีโอของคุณเอง ไม่มีบท ไม่มีคะแนน พูดอะไรก็ได้ตลอดทั้งคลิป";
+"homeVideo.compare.dub" = "ฉากจากหนังดัง ทีละประโยค มีบทบนจอและคะแนนทุกประโยค";
+"homeVideo.choose" = "เลือกวิดีโอ";
+"homeVideo.change" = "เปลี่ยนวิดีโอ";
+"homeVideo.limit" = "ยาวได้ถึงหนึ่งนาที วิดีโอของคุณอยู่ในโทรศัพท์เท่านั้น";
+"homeVideo.trimmed" = "ใช้เฉพาะนาทีแรก";
+"homeVideo.importing" = "กำลังเปิดวิดีโอ…";
+"homeVideo.mixing" = "กำลังใส่เสียงของคุณ…";
+"homeVideo.keepOriginal" = "เก็บเสียงต้นฉบับไว้";
+"homeVideo.keepOriginal.detail" = "เล่นเบาๆ ใต้เสียงของคุณ";
+"homeVideo.keepOriginal.none" = "วิดีโอนี้ไม่มีเสียง";
+"homeVideo.hint.ready" = "กดบันทึก วิดีโอจะเริ่มจากต้นและเสียงของคุณจะอยู่ด้านบน";
+"homeVideo.hint.recording" = "กำลังบันทึก วิดีโอเล่นแบบไม่มีเสียงเพื่อให้ไมค์ได้ยินแค่คุณ";
+"homeVideo.hint.review" = "นี่คือเวอร์ชันของคุณ แชร์ได้เลย หรือบันทึกใหม่";
+"homeVideo.record" = "บันทึก";
+"homeVideo.stop" = "หยุด";
+"homeVideo.retake" = "บันทึกใหม่";
+"homeVideo.share" = "แชร์";
+"homeVideo.play" = "เล่น";
+"homeVideo.pause" = "หยุดชั่วคราว";
+"homeVideo.error.load" = "เปิดวิดีโอนี้ไม่ได้ ลองวิดีโออื่น";
+"homeVideo.error.mix" = "ใส่เสียงของคุณลงในวิดีโอไม่ได้ ลองบันทึกใหม่";
 "imitate.library.hint" = "เลือกเสียง ฟัง แล้วเลียนให้เหมือนที่สุด";
 "imitate.library.best" = "ดีที่สุด";
 "imitate.library.untried" = "ใหม่";
@@ -504,6 +536,16 @@
 "imitate.sound.laugh" = "หัวเราะแบบวายร้าย";
 "imitate.sound.yawn" = "หาว";
 "imitate.sound.hiccup" = "สะอึก";
+"imitate.sound.frog" = "กบ";
+"imitate.sound.horse" = "ม้า";
+"imitate.sound.goat" = "แพะ";
+"imitate.sound.monkey" = "ลิง";
+"imitate.sound.lion" = "สิงโต";
+"imitate.sound.squeak" = "ของเล่นบีบดัง";
+"imitate.sound.fart" = "ตด";
+"imitate.sound.ghost" = "ผี";
+"imitate.sound.zombie" = "ซอมบี้";
+"imitate.sound.whistle" = "ผิวปาก";
 
 /* Mac */
 "mac.sidebar.games" = "เกม";

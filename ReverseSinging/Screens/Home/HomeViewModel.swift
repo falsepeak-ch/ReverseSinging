@@ -102,6 +102,8 @@ final class HomeViewModel: ObservableObject {
         switch mode {
         case .reverse: !access.isReverseGameFree
         case .dub: true
+        // Free for everyone: the user brings the video, so there is no content to pay for.
+        case .homeVideo: false
         case .imitate: !access.isSoundImitationFree
         }
     }

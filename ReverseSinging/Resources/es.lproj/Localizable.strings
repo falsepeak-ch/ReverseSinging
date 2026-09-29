@@ -441,6 +441,38 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "Imitación de sonidos";
 "main.mode.imitate.subtitle" = "Copia un sonido y recibe tu veredicto";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "Doblaje de tus vídeos";
+"main.mode.homeVideo.subtitle" = "Pon tu voz en cualquier vídeo que hayas grabado";
+"homeVideo.intro.title" = "Tu vídeo, tu voz";
+"homeVideo.intro.body" = "Elige cualquier vídeo del móvil y habla, canta o narra mientras se reproduce. Tu voz sustituye su sonido, listo para compartir.";
+"homeVideo.step.pick" = "Elige un vídeo de tu galería";
+"homeVideo.step.record" = "Pulsa grabar y habla encima mientras se reproduce";
+"homeVideo.step.share" = "Mira el resultado y compártelo";
+"homeVideo.compare.title" = "Dos formas de doblar";
+"homeVideo.compare.home" = "Tu propio vídeo. Sin guion ni puntuación: di lo que quieras durante todo el clip.";
+"homeVideo.compare.dub" = "Escenas de películas famosas, frase a frase, con el guion en pantalla y una puntuación por frase.";
+"homeVideo.choose" = "Elegir un vídeo";
+"homeVideo.change" = "Cambiar de vídeo";
+"homeVideo.limit" = "Hasta un minuto. Tu vídeo no sale de tu móvil.";
+"homeVideo.trimmed" = "Solo se usa el primer minuto.";
+"homeVideo.importing" = "Abriendo tu vídeo…";
+"homeVideo.mixing" = "Añadiendo tu voz…";
+"homeVideo.keepOriginal" = "Mantener el sonido original";
+"homeVideo.keepOriginal.detail" = "Suena bajito debajo de tu voz";
+"homeVideo.keepOriginal.none" = "Este vídeo no tiene sonido";
+"homeVideo.hint.ready" = "Pulsa grabar. El vídeo empieza desde el principio y tu voz va encima.";
+"homeVideo.hint.recording" = "Grabando. El vídeo suena en silencio para que el micrófono solo te oiga a ti.";
+"homeVideo.hint.review" = "Aquí tienes tu versión. Compártela o vuelve a grabar.";
+"homeVideo.record" = "Grabar";
+"homeVideo.stop" = "Parar";
+"homeVideo.retake" = "Grabar otra vez";
+"homeVideo.share" = "Compartir";
+"homeVideo.play" = "Reproducir";
+"homeVideo.pause" = "Pausa";
+"homeVideo.error.load" = "No se ha podido abrir ese vídeo. Prueba con otro.";
+"homeVideo.error.mix" = "No se ha podido añadir tu voz al vídeo. Vuelve a grabar.";
 "imitate.library.hint" = "Elige un sonido, escúchalo y haz tu mejor imitación.";
 "imitate.library.best" = "Récord";
 "imitate.library.untried" = "Nuevo";
@@ -504,6 +536,16 @@
 "imitate.sound.laugh" = "Risa malvada";
 "imitate.sound.yawn" = "Bostezo";
 "imitate.sound.hiccup" = "Hipo";
+"imitate.sound.frog" = "Rana";
+"imitate.sound.horse" = "Caballo";
+"imitate.sound.goat" = "Cabra";
+"imitate.sound.monkey" = "Mono";
+"imitate.sound.lion" = "León";
+"imitate.sound.squeak" = "Juguete chillón";
+"imitate.sound.fart" = "Pedo";
+"imitate.sound.ghost" = "Fantasma";
+"imitate.sound.zombie" = "Zombi";
+"imitate.sound.whistle" = "Silbido";
 
 /* Mac */
 "mac.sidebar.games" = "Juegos";

@@ -441,6 +441,38 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "Ses taklidi";
 "main.mode.imitate.subtitle" = "Bir sesi taklit et, hükmü öğren";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "Kendi videolarını seslendir";
+"main.mode.homeVideo.subtitle" = "Çektiğin herhangi bir videoya kendi sesini koy";
+"homeVideo.intro.title" = "Senin videon, senin sesin";
+"homeVideo.intro.body" = "Telefonundan bir video seç ve oynarken üzerine konuş, şarkı söyle ya da anlat. Sesin videonun sesinin yerini alır, paylaşmaya hazır.";
+"homeVideo.step.pick" = "Kitaplığından bir video seç";
+"homeVideo.step.record" = "Kayda bas ve video oynarken üzerine konuş";
+"homeVideo.step.share" = "Sonucu izle ve paylaş";
+"homeVideo.compare.title" = "Seslendirmenin iki yolu";
+"homeVideo.compare.home" = "Kendi videon. Senaryo yok, puan yok: tüm klip boyunca ne istersen söyle.";
+"homeVideo.compare.dub" = "Ünlü film sahneleri, replik replik, senaryo ekranda ve her replik için bir puanla.";
+"homeVideo.choose" = "Video seç";
+"homeVideo.change" = "Videoyu değiştir";
+"homeVideo.limit" = "En fazla bir dakika. Videon telefonunda kalır.";
+"homeVideo.trimmed" = "Yalnızca ilk dakika kullanılır.";
+"homeVideo.importing" = "Videon açılıyor…";
+"homeVideo.mixing" = "Sesin ekleniyor…";
+"homeVideo.keepOriginal" = "Orijinal sesi koru";
+"homeVideo.keepOriginal.detail" = "Sesinin altında kısık çalar";
+"homeVideo.keepOriginal.none" = "Bu videoda ses yok";
+"homeVideo.hint.ready" = "Kayda bas. Video baştan başlar ve sesin üstüne eklenir.";
+"homeVideo.hint.recording" = "Kaydediliyor. Mikrofon yalnızca seni duysun diye video sessiz oynuyor.";
+"homeVideo.hint.review" = "İşte senin versiyonun. Paylaş ya da yeniden kaydet.";
+"homeVideo.record" = "Kaydet";
+"homeVideo.stop" = "Durdur";
+"homeVideo.retake" = "Yeniden kaydet";
+"homeVideo.share" = "Paylaş";
+"homeVideo.play" = "Oynat";
+"homeVideo.pause" = "Duraklat";
+"homeVideo.error.load" = "Bu video açılamadı. Başka bir tane dene.";
+"homeVideo.error.mix" = "Sesin videoya eklenemedi. Yeniden kaydet.";
 "imitate.library.hint" = "Bir ses seç, dinle ve en iyi taklidini yap.";
 "imitate.library.best" = "Rekor";
 "imitate.library.untried" = "Yeni";
@@ -504,6 +536,16 @@
 "imitate.sound.laugh" = "Kötü kahkaha";
 "imitate.sound.yawn" = "Esneme";
 "imitate.sound.hiccup" = "Hıçkırık";
+"imitate.sound.frog" = "Kurbağa";
+"imitate.sound.horse" = "At";
+"imitate.sound.goat" = "Keçi";
+"imitate.sound.monkey" = "Maymun";
+"imitate.sound.lion" = "Aslan";
+"imitate.sound.squeak" = "Cırlak oyuncak";
+"imitate.sound.fart" = "Osuruk";
+"imitate.sound.ghost" = "Hayalet";
+"imitate.sound.zombie" = "Zombi";
+"imitate.sound.whistle" = "Islık";
 
 /* Mac */
 "mac.sidebar.games" = "Oyunlar";

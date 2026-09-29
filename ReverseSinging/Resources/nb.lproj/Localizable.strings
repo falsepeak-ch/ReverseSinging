@@ -441,6 +441,38 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "Lydimitasjon";
 "main.mode.imitate.subtitle" = "Etterlign en lyd, få en dom";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "Dubb dine egne videoer";
+"main.mode.homeVideo.subtitle" = "Legg stemmen din på hvilken som helst video du har filmet";
+"homeVideo.intro.title" = "Din video, din stemme";
+"homeVideo.intro.body" = "Velg en video fra telefonen og snakk, syng eller fortell over den mens den spilles. Stemmen din erstatter lyden, klar til å deles.";
+"homeVideo.step.pick" = "Velg en video fra biblioteket ditt";
+"homeVideo.step.record" = "Trykk på ta opp og snakk over den mens den spilles";
+"homeVideo.step.share" = "Se resultatet og del det";
+"homeVideo.compare.title" = "To måter å dubbe på";
+"homeVideo.compare.home" = "Din egen video. Ikke noe manus, ingen poeng: si hva du vil gjennom hele klippet.";
+"homeVideo.compare.dub" = "Kjente filmscener, replikk for replikk, med manuset på skjermen og poeng for hver replikk.";
+"homeVideo.choose" = "Velg en video";
+"homeVideo.change" = "Bytt video";
+"homeVideo.limit" = "Opptil ett minutt. Videoen din blir på telefonen.";
+"homeVideo.trimmed" = "Bare det første minuttet brukes.";
+"homeVideo.importing" = "Åpner videoen din…";
+"homeVideo.mixing" = "Legger på stemmen din…";
+"homeVideo.keepOriginal" = "Behold originallyden";
+"homeVideo.keepOriginal.detail" = "Spilles lavt under stemmen din";
+"homeVideo.keepOriginal.none" = "Denne videoen har ingen lyd";
+"homeVideo.hint.ready" = "Trykk på ta opp. Videoen starter fra begynnelsen og stemmen din legges oppå.";
+"homeVideo.hint.recording" = "Tar opp. Videoen spilles uten lyd så mikrofonen bare hører deg.";
+"homeVideo.hint.review" = "Her er din versjon. Del den eller ta opp på nytt.";
+"homeVideo.record" = "Ta opp";
+"homeVideo.stop" = "Stopp";
+"homeVideo.retake" = "Ta opp på nytt";
+"homeVideo.share" = "Del";
+"homeVideo.play" = "Spill av";
+"homeVideo.pause" = "Pause";
+"homeVideo.error.load" = "Den videoen kunne ikke åpnes. Prøv en annen.";
+"homeVideo.error.mix" = "Stemmen din kunne ikke legges på videoen. Ta opp på nytt.";
 "imitate.library.hint" = "Velg en lyd, lytt, og gi den din beste etterligning.";
 "imitate.library.best" = "Rekord";
 "imitate.library.untried" = "Ny";
@@ -504,6 +536,16 @@
 "imitate.sound.laugh" = "Ond latter";
 "imitate.sound.yawn" = "Gjesp";
 "imitate.sound.hiccup" = "Hikke";
+"imitate.sound.frog" = "Frosk";
+"imitate.sound.horse" = "Hest";
+"imitate.sound.goat" = "Geit";
+"imitate.sound.monkey" = "Ape";
+"imitate.sound.lion" = "Løve";
+"imitate.sound.squeak" = "Pipeleke";
+"imitate.sound.fart" = "Fis";
+"imitate.sound.ghost" = "Spøkelse";
+"imitate.sound.zombie" = "Zombie";
+"imitate.sound.whistle" = "Plystring";
 
 /* Mac */
 "mac.sidebar.games" = "Spill";

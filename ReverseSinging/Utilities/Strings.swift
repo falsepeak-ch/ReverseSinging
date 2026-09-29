@@ -44,6 +44,8 @@ nonisolated enum Strings {
             static let dubSubtitle = NSLocalizedString("main.mode.dub.subtitle", comment: "Movie scene dub game description")
             static let imitateTitle = NSLocalizedString("main.mode.imitate.title", comment: "Sound imitation game mode")
             static let imitateSubtitle = NSLocalizedString("main.mode.imitate.subtitle", comment: "Sound imitation game description")
+            static let homeVideoTitle = NSLocalizedString("main.mode.homeVideo.title", comment: "Game mode: put your own voice over a video from your photo library")
+            static let homeVideoSubtitle = NSLocalizedString("main.mode.homeVideo.subtitle", comment: "Home video dub game description")
             static let free = NSLocalizedString("main.mode.free", comment: "Short pill on a game that stays open without Dubloon Pro. One word")
         }
 
@@ -578,6 +580,38 @@ nonisolated enum Strings {
 
     // MARK: - Sound Imitation
     /// The game where you copy a sound (a cat, a siren, a laser) and get a verdict.
+    /// Home Video Dub: a video from the user's own library, with their voice over it.
+    enum HomeVideo {
+        static let introTitle = NSLocalizedString("homeVideo.intro.title", comment: "Headline before a video is picked")
+        static let introBody = NSLocalizedString("homeVideo.intro.body", comment: "One or two sentences explaining the game before a video is picked")
+        static let stepPick = NSLocalizedString("homeVideo.step.pick", comment: "Step 1 of the game")
+        static let stepRecord = NSLocalizedString("homeVideo.step.record", comment: "Step 2 of the game")
+        static let stepShare = NSLocalizedString("homeVideo.step.share", comment: "Step 3 of the game")
+        static let compareTitle = NSLocalizedString("homeVideo.compare.title", comment: "Section header comparing this game with the movie scene dub game")
+        static let compareHome = NSLocalizedString("homeVideo.compare.home", comment: "What this game is, next to its name")
+        static let compareDub = NSLocalizedString("homeVideo.compare.dub", comment: "What the movie scene dub game is, next to its name")
+        static let choose = NSLocalizedString("homeVideo.choose", comment: "Button that opens the photo library to pick a video")
+        static let change = NSLocalizedString("homeVideo.change", comment: "Accessibility label: pick a different video")
+        static let limit = NSLocalizedString("homeVideo.limit", comment: "Small print under the pick button")
+        static let trimmed = NSLocalizedString("homeVideo.trimmed", comment: "Shown when the picked video is longer than one minute")
+        static let importing = NSLocalizedString("homeVideo.importing", comment: "Progress while the picked video is opened")
+        static let mixing = NSLocalizedString("homeVideo.mixing", comment: "Progress while the voice is laid onto the video")
+        static let keepOriginal = NSLocalizedString("homeVideo.keepOriginal", comment: "Switch: keep the video's own sound under your voice")
+        static let keepOriginalDetail = NSLocalizedString("homeVideo.keepOriginal.detail", comment: "Detail under the keep-original-sound switch")
+        static let noOriginalSound = NSLocalizedString("homeVideo.keepOriginal.none", comment: "Detail under the switch when the video has no sound")
+        static let readyHint = NSLocalizedString("homeVideo.hint.ready", comment: "Hint before recording")
+        static let recordingHint = NSLocalizedString("homeVideo.hint.recording", comment: "Hint while recording")
+        static let reviewHint = NSLocalizedString("homeVideo.hint.review", comment: "Hint once the finished video is playing")
+        static let record = NSLocalizedString("homeVideo.record", comment: "Record button label. One word")
+        static let stop = NSLocalizedString("homeVideo.stop", comment: "Stop recording button label. One word")
+        static let retake = NSLocalizedString("homeVideo.retake", comment: "Button label: record the voice again")
+        static let share = NSLocalizedString("homeVideo.share", comment: "Button label: share the finished video. One word")
+        static let play = NSLocalizedString("homeVideo.play", comment: "Accessibility label: play the video")
+        static let pause = NSLocalizedString("homeVideo.pause", comment: "Accessibility label: pause the video")
+        static let loadFailed = NSLocalizedString("homeVideo.error.load", comment: "Error when the picked video can't be opened")
+        static let mixFailed = NSLocalizedString("homeVideo.error.mix", comment: "Error when the voice couldn't be added to the video")
+    }
+
     enum Imitate {
         static let libraryHint = NSLocalizedString("imitate.library.hint", comment: "One line at the top of the sound library explaining the game")
         static let best = NSLocalizedString("imitate.library.best", comment: "Short label before a sound's best score on its tile")

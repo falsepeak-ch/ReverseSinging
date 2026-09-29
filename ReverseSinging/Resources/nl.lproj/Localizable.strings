@@ -441,6 +441,38 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "Geluiden nadoen";
 "main.mode.imitate.subtitle" = "Doe een geluid na, krijg een oordeel";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "Je eigen video's dubben";
+"main.mode.homeVideo.subtitle" = "Zet je stem op elke video die je hebt gefilmd";
+"homeVideo.intro.title" = "Jouw video, jouw stem";
+"homeVideo.intro.body" = "Kies een video van je telefoon en praat, zing of vertel eroverheen terwijl hij speelt. Je stem vervangt het geluid, klaar om te delen.";
+"homeVideo.step.pick" = "Kies een video uit je bibliotheek";
+"homeVideo.step.record" = "Tik op opnemen en praat eroverheen terwijl hij speelt";
+"homeVideo.step.share" = "Bekijk het resultaat en deel het";
+"homeVideo.compare.title" = "Twee manieren om te dubben";
+"homeVideo.compare.home" = "Je eigen video. Geen script, geen score: zeg wat je wilt over de hele clip.";
+"homeVideo.compare.dub" = "Beroemde filmscènes, zin voor zin, met het script in beeld en een score per zin.";
+"homeVideo.choose" = "Kies een video";
+"homeVideo.change" = "Andere video";
+"homeVideo.limit" = "Tot een minuut. Je video blijft op je telefoon.";
+"homeVideo.trimmed" = "Alleen de eerste minuut wordt gebruikt.";
+"homeVideo.importing" = "Video openen…";
+"homeVideo.mixing" = "Je stem toevoegen…";
+"homeVideo.keepOriginal" = "Origineel geluid behouden";
+"homeVideo.keepOriginal.detail" = "Speelt zacht onder je stem";
+"homeVideo.keepOriginal.none" = "Deze video heeft geen geluid";
+"homeVideo.hint.ready" = "Tik op opnemen. De video begint vooraan en je stem gaat erbovenop.";
+"homeVideo.hint.recording" = "Opnemen. De video speelt zonder geluid, zodat de microfoon alleen jou hoort.";
+"homeVideo.hint.review" = "Dit is jouw versie. Deel hem of neem opnieuw op.";
+"homeVideo.record" = "Opnemen";
+"homeVideo.stop" = "Stop";
+"homeVideo.retake" = "Opnieuw opnemen";
+"homeVideo.share" = "Delen";
+"homeVideo.play" = "Afspelen";
+"homeVideo.pause" = "Pauze";
+"homeVideo.error.load" = "Die video kon niet worden geopend. Probeer een andere.";
+"homeVideo.error.mix" = "Je stem kon niet aan de video worden toegevoegd. Neem opnieuw op.";
 "imitate.library.hint" = "Kies een geluid, luister en doe je beste imitatie.";
 "imitate.library.best" = "Record";
 "imitate.library.untried" = "Nieuw";
@@ -504,6 +536,16 @@
 "imitate.sound.laugh" = "Duivelse lach";
 "imitate.sound.yawn" = "Geeuw";
 "imitate.sound.hiccup" = "Hik";
+"imitate.sound.frog" = "Kikker";
+"imitate.sound.horse" = "Paard";
+"imitate.sound.goat" = "Geit";
+"imitate.sound.monkey" = "Aap";
+"imitate.sound.lion" = "Leeuw";
+"imitate.sound.squeak" = "Piepspeeltje";
+"imitate.sound.fart" = "Scheet";
+"imitate.sound.ghost" = "Spook";
+"imitate.sound.zombie" = "Zombie";
+"imitate.sound.whistle" = "Fluiten";
 
 /* Mac */
 "mac.sidebar.games" = "Games";

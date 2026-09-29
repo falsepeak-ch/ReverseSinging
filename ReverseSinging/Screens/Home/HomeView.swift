@@ -80,6 +80,8 @@ struct HomeView: View {
             }
         case .dub:
             DubLibraryView(pendingImportURL: $app.pendingDubImportURL, isPushed: true)
+        case .homeVideo:
+            HomeVideoDubView()
         case .imitate:
             SoundLibraryView()
         }

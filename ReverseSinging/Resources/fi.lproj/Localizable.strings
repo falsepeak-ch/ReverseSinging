@@ -441,6 +441,38 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "Äänten matkiminen";
 "main.mode.imitate.subtitle" = "Matki ääntä, saat tuomion";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "Omien videoiden dubbaus";
+"main.mode.homeVideo.subtitle" = "Laita äänesi mihin tahansa kuvaamaasi videoon";
+"homeVideo.intro.title" = "Sinun videosi, sinun äänesi";
+"homeVideo.intro.body" = "Valitse video puhelimesta ja puhu, laula tai kerro sen päälle, kun se pyörii. Äänesi korvaa sen äänen, valmiina jaettavaksi.";
+"homeVideo.step.pick" = "Valitse video kirjastostasi";
+"homeVideo.step.record" = "Paina tallenna ja puhu videon päälle sen pyöriessä";
+"homeVideo.step.share" = "Katso tulos ja jaa se";
+"homeVideo.compare.title" = "Kaksi tapaa dubata";
+"homeVideo.compare.home" = "Oma videosi. Ei käsikirjoitusta, ei pisteitä: sano mitä haluat koko klipin ajan.";
+"homeVideo.compare.dub" = "Kuuluisia elokuvakohtauksia repliikki kerrallaan, käsikirjoitus ruudulla ja pisteet jokaisesta repliikistä.";
+"homeVideo.choose" = "Valitse video";
+"homeVideo.change" = "Vaihda video";
+"homeVideo.limit" = "Enintään minuutti. Videosi pysyy puhelimessasi.";
+"homeVideo.trimmed" = "Vain ensimmäinen minuutti käytetään.";
+"homeVideo.importing" = "Avataan videota…";
+"homeVideo.mixing" = "Lisätään ääntäsi…";
+"homeVideo.keepOriginal" = "Säilytä alkuperäinen ääni";
+"homeVideo.keepOriginal.detail" = "Soi hiljaa äänesi alla";
+"homeVideo.keepOriginal.none" = "Tässä videossa ei ole ääntä";
+"homeVideo.hint.ready" = "Paina tallenna. Video alkaa alusta ja äänesi tulee päälle.";
+"homeVideo.hint.recording" = "Tallennetaan. Video pyörii äänettömänä, jotta mikrofoni kuulee vain sinut.";
+"homeVideo.hint.review" = "Tässä on sinun versiosi. Jaa se tai tallenna uudelleen.";
+"homeVideo.record" = "Tallenna";
+"homeVideo.stop" = "Lopeta";
+"homeVideo.retake" = "Tallenna uudelleen";
+"homeVideo.share" = "Jaa";
+"homeVideo.play" = "Toista";
+"homeVideo.pause" = "Tauko";
+"homeVideo.error.load" = "Videota ei voitu avata. Kokeile toista.";
+"homeVideo.error.mix" = "Ääntäsi ei voitu lisätä videoon. Tallenna uudelleen.";
 "imitate.library.hint" = "Valitse ääni, kuuntele ja tee paras imitaatiosi.";
 "imitate.library.best" = "Ennätys";
 "imitate.library.untried" = "Uusi";
@@ -504,6 +536,16 @@
 "imitate.sound.laugh" = "Pirullinen nauru";
 "imitate.sound.yawn" = "Haukotus";
 "imitate.sound.hiccup" = "Hikka";
+"imitate.sound.frog" = "Sammakko";
+"imitate.sound.horse" = "Hevonen";
+"imitate.sound.goat" = "Vuohi";
+"imitate.sound.monkey" = "Apina";
+"imitate.sound.lion" = "Leijona";
+"imitate.sound.squeak" = "Vinkulelu";
+"imitate.sound.fart" = "Pieru";
+"imitate.sound.ghost" = "Kummitus";
+"imitate.sound.zombie" = "Zombi";
+"imitate.sound.whistle" = "Vihellys";
 
 /* Mac */
 "mac.sidebar.games" = "Pelit";
