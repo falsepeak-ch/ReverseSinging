@@ -43,7 +43,7 @@ private struct HardPaywallModifier: ViewModifier {
         content
             .coversScreen(isPresented: isCovering) {
                 ProPaywallView(source: "trial_expired", isDismissible: false)
-                    .preferredColorScheme(.dark)
+                    .paywallAppearance()
             }
     }
 

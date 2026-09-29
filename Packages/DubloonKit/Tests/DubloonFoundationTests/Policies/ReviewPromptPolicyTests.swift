@@ -77,6 +77,43 @@ struct ReviewPromptPolicyTests {
         #expect(policy.isEligible)
     }
 
+    /// Free players never share a dub, so good scores have to be enough on their own.
+    @Test func twoWinsQualifyWithoutAShare() {
+        let (policy, _) = makePolicy()
+        for _ in 0..<3 { policy.registerAppOpen() }
+        policy.registerWin()
+        #expect(policy.isEligible == false)
+
+        policy.registerWin()
+        #expect(policy.isEligible)
+    }
+
+    @Test func winsBeforeTheThirdOpenWait() {
+        let (policy, _) = makePolicy()
+        policy.registerAppOpen()
+        for _ in 0..<5 { policy.registerWin() }
+
+        #expect(policy.isEligible == false)
+    }
+
+    @Test func aFanKeepsComingBackAndKeepsWinning() {
+        let (policy, _) = makePolicy()
+        for _ in 0..<3 { policy.registerAppOpen() }
+        for _ in 0..<3 { policy.registerWin() }
+        #expect(policy.isFan == false)
+
+        policy.registerAppOpen()
+        #expect(policy.isFan)
+    }
+
+    @Test func aSharerIsAFanToo() {
+        let (policy, _) = makePolicy()
+        for _ in 0..<4 { policy.registerAppOpen() }
+        policy.registerShare()
+
+        #expect(policy.isFan)
+    }
+
     /// The open count doubles as the early-adopter check's evidence of earlier use, so moving it
     /// would quietly charge people who were here first.
     @Test func theCountersLiveUnderTheKeysTheAppHasAlwaysUsed() {
@@ -86,6 +123,13 @@ struct ReviewPromptPolicyTests {
 
         #expect(defaults.integer(forKey: "review.appOpenCount") == 1)
         #expect(defaults.integer(forKey: "review.sharedVideoCount") == 1)
+    }
+
+    @Test func winsLiveUnderTheirOwnKey() {
+        let (policy, defaults) = makePolicy()
+        policy.registerWin()
+
+        #expect(defaults.integer(forKey: "review.winCount") == 1)
     }
 
     @Test func theThresholdsCanBeTuned() {
@@ -98,6 +142,7 @@ struct ReviewPromptPolicyTests {
     @Test func resetForgetsEveryCounter() {
         let (policy, _) = makePolicy()
         policy.registerShare()
+        policy.registerWin()
         for _ in 0..<3 { policy.registerAppOpen() }
         policy.recordAsked()
 
@@ -105,6 +150,7 @@ struct ReviewPromptPolicyTests {
 
         #expect(policy.openCount == 0)
         #expect(policy.shareCount == 0)
+        #expect(policy.winCount == 0)
         #expect(policy.isEligible == false)
     }
 }

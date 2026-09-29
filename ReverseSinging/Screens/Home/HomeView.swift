@@ -33,22 +33,22 @@ struct HomeView: View {
             .navigationDestination(for: GameMode.self) { mode in
                 destination(for: mode)
             }
+            // Backing out of a game rewinds it: see `RewindTransition`.
+            .rewindNavigationTransition()
         }
         .sheet(isPresented: $app.showSettings) {
             SettingsView(app: app)
         }
         .sheet(item: $viewModel.paywallSource) { source in
             ProPaywallView(source: source.rawValue)
-                .preferredColorScheme(.dark)
+                .paywallAppearance()
         }
         .sheet(isPresented: $viewModel.isEarlyAdopterWelcomePresented) {
             EarlyAdopterWelcomeView()
-                .preferredColorScheme(.dark)
                 .onDisappear { viewModel.earlyAdopterWelcomeDidDisappear() }
         }
         .sheet(isPresented: $viewModel.isBoothAnnouncementPresented) {
             BoothCamAnnouncementView(onTryIt: { viewModel.openDub() })
-                .preferredColorScheme(.dark)
                 .onDisappear { viewModel.boothAnnouncementDidDisappear() }
         }
         // Watched rather than checked once on appear: the exemption can be granted
@@ -94,6 +94,7 @@ struct HomeView: View {
             VStack(alignment: .leading, spacing: 10) {
                 if viewModel.showsReviewBanner {
                     ReviewBannerCard(
+                        thanksForPro: viewModel.reviewBannerThanksForPro,
                         onRate: { openURL(viewModel.reviewBannerWentToStore()) },
                         onDismiss: { viewModel.dismissReviewBanner() }
                     )
@@ -147,6 +148,8 @@ struct HomeView: View {
                     }
                     .transition(.scale.combined(with: .opacity))
                 }
+
+                HelpButton(topic: .gettingStarted)
 
                 EditorToolbarButton(
                     icon: "slider.horizontal.3",

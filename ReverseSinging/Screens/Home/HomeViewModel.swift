@@ -63,11 +63,13 @@ final class HomeViewModel: ObservableObject {
     private var opensDubOnceUnlocked = false
 
     private let reviewBanner: ReviewBanner
+    private let reviewPrompt: ReviewPrompt
     private var hasReportedReviewBannerShown = false
 
-    init(reviewBanner: ReviewBanner = .shared) {
+    init(reviewBanner: ReviewBanner = .shared, reviewPrompt: ReviewPrompt = .shared) {
         access = AccessController.shared
         self.reviewBanner = reviewBanner
+        self.reviewPrompt = reviewPrompt
         isReviewBannerDue = reviewBanner.isDue()
 
         access.objectWillChange
@@ -112,9 +114,13 @@ final class HomeViewModel: ObservableObject {
 
     var shouldWelcomeEarlyAdopter: Bool { access.shouldWelcomeEarlyAdopter }
 
-    /// The thank-you note that asks for a review. Only for people who paid: an early adopter
-    /// got the app for nothing, and asking someone mid-trial is asking before they have decided.
-    var showsReviewBanner: Bool { access.isPro && isReviewBannerDue }
+    /// The note that asks for a review. For people who paid, and for fans: free players who
+    /// keep coming back and keep scoring well are the ones most likely to say something kind,
+    /// and asking only buyers left most of the people enjoying the app unasked.
+    var showsReviewBanner: Bool { (access.isPro || reviewPrompt.isFan) && isReviewBannerDue }
+
+    /// Buyers get thanked for going Pro; everyone else is asked whether they are having fun.
+    var reviewBannerThanksForPro: Bool { access.isPro }
 
     // MARK: - Screen
 

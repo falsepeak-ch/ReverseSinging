@@ -32,6 +32,7 @@ final class MacAppDelegate: NSObject, NSApplicationDelegate {
         #endif
 
         FirebaseApp.configure()
+        UsageDataConsent.apply()
 
         Crashlytics.crashlytics().setCustomValue(Locale.current.identifier, forKey: "locale")
         Crashlytics.crashlytics().setCustomValue("macos", forKey: "platform")

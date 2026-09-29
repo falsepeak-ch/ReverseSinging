@@ -16,14 +16,15 @@ enum DubCharacterStyle {
 
     /// Muted and close in luminance, so no character shouts louder than another and none of
     /// them competes with the record red. Deliberately not the app's semantic colours: amber
-    /// already means "you have run long" on the record screen.
+    /// already means "you have run long" on the record screen. By day each is taken deeper,
+    /// so a name still reads on a white panel.
     static let palette: [Color] = [
-        Color(red: 0.431, green: 0.608, blue: 0.769),   // #6E9BC4 sky
-        Color(red: 0.788, green: 0.643, blue: 0.361),   // #C9A45C amber
-        Color(red: 0.498, green: 0.659, blue: 0.478),   // #7FA87A sage
-        Color(red: 0.576, green: 0.522, blue: 0.745),   // #9385BE violet
-        Color(red: 0.788, green: 0.498, blue: 0.557),   // #C97F8E rose
-        Color(red: 0.373, green: 0.639, blue: 0.627)    // #5FA3A0 teal
+        .rsDynamic(light: 0x3E6E98, dark: 0x6E9BC4),   // sky
+        .rsDynamic(light: 0x8C6A1E, dark: 0xC9A45C),   // amber
+        .rsDynamic(light: 0x4B7846, dark: 0x7FA87A),   // sage
+        .rsDynamic(light: 0x62559A, dark: 0x9385BE),   // violet
+        .rsDynamic(light: 0x9E4B5C, dark: 0xC97F8E),   // rose
+        .rsDynamic(light: 0x2E726F, dark: 0x5FA3A0)    // teal
     ]
 
     /// The colour for `character` within a scene's cast.

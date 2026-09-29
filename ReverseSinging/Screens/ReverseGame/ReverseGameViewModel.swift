@@ -436,6 +436,7 @@ final class ReverseGameViewModel: ObservableObject {
                             // Celebrate if score is good
                             if score > 70 {
                                 HapticManager.shared.success()
+                                ReviewPrompt.shared.celebrate(trigger: "reverse_great_score")
                             } else {
                                 HapticManager.shared.medium()
                             }
@@ -524,8 +525,8 @@ final class ReverseGameViewModel: ObservableObject {
             AnalyticsManager.shared.trackSessionCompleted(score: score)
         }
 
-        // Same gate as the app-open ask, so the two triggers share one throttle
-        // rather than competing for Apple's three prompts a year.
+        // Saving a session is a keeper, as good a moment as any to ask. The same throttle as
+        // every other trigger, so they never compete for Apple's three prompts a year.
         ReviewPrompt.shared.requestIfAppropriate(trigger: "session_saved")
     }
 

@@ -246,6 +246,18 @@ nonisolated enum Strings {
         static let privacyPolicyDesc = NSLocalizedString("settings.privacyPolicy.desc", comment: "Privacy policy description")
         static let builtInSwitzerland = NSLocalizedString("settings.builtInSwitzerland", comment: "Built in Switzerland label")
         static let builtInSwitzerlandDesc = NSLocalizedString("settings.builtInSwitzerland.desc", comment: "Built in Switzerland description")
+
+        // Help, privacy and appearance
+        static let help = NSLocalizedString("settings.help", comment: "Settings row that opens Help")
+        static let helpDesc = NSLocalizedString("settings.help.desc", comment: "Subtitle of the Help row")
+        static let termsDesc = NSLocalizedString("settings.terms.desc", comment: "Subtitle of the Terms of Use row")
+        static let privacySection = NSLocalizedString("settings.privacy.section", comment: "Settings section about privacy")
+        static let shareUsage = NSLocalizedString("settings.shareUsage", comment: "Toggle: send anonymous usage statistics and crash reports")
+        static let shareUsageDesc = NSLocalizedString("settings.shareUsage.desc", comment: "What the usage-data toggle sends, and what it never sends")
+        static let appearance = NSLocalizedString("settings.appearance", comment: "Settings section: light or dark look")
+        static let appearanceSystem = NSLocalizedString("settings.appearance.system", comment: "Appearance option: follow the device's light or dark setting")
+        static let appearanceLight = NSLocalizedString("settings.appearance.light", comment: "Appearance option: always light")
+        static let appearanceDark = NSLocalizedString("settings.appearance.dark", comment: "Appearance option: always dark")
     }
 
     // MARK: - Dub Mode
@@ -629,12 +641,52 @@ nonisolated enum Strings {
         }
     }
 
+    // MARK: - Help
+    /// The Help screen: its chrome, the reverse-singing diagram and the way to write to us.
+    /// The questions and answers themselves are keyed `help.<topic>.<n>.q` / `.a`, see `HelpTopic`.
+    enum Help {
+        static let title = NSLocalizedString("help.title", comment: "Help screen title, and the label of the question-mark button that opens it")
+        static let close = NSLocalizedString("help.close", comment: "Closes the Help screen")
+        static let searchPrompt = NSLocalizedString("help.search.prompt", comment: "Placeholder of the Help search field")
+        static let clearSearch = NSLocalizedString("help.search.clear", comment: "Accessibility label: clears the Help search")
+        static let searchEmpty = NSLocalizedString("help.search.empty", comment: "Shown when a Help search finds nothing")
+        static let expanded = NSLocalizedString("help.row.expanded", comment: "Accessibility value of an open Help question")
+        static let collapsed = NSLocalizedString("help.row.collapsed", comment: "Accessibility value of a closed Help question")
+        static let expandHint = NSLocalizedString("help.row.expandHint", comment: "Accessibility hint: tapping shows the answer")
+        static let contactTitle = NSLocalizedString("help.contact.title", comment: "Heading of the card at the end of Help that offers email support")
+        static let contactMessage = NSLocalizedString("help.contact.message", comment: "Why to write: a real person, the maker, answers")
+        static let contactButton = NSLocalizedString("help.contact.button", comment: "Button that starts an email to support")
+        static let mailSubject = NSLocalizedString("help.mail.subject", comment: "Subject line of the support email")
+
+        enum Section {
+            static let gettingStarted = NSLocalizedString("help.section.gettingStarted", comment: "Help chapter: the basics")
+            static let booth = NSLocalizedString("help.section.booth", comment: "Help chapter: the front camera and video exports")
+            static let packs = NSLocalizedString("help.section.packs", comment: "Help chapter: importing dub packs")
+            static let pro = NSLocalizedString("help.section.pro", comment: "Help chapter: Dubloon Pro, purchases and subscriptions")
+            static let privacy = NSLocalizedString("help.section.privacy", comment: "Help chapter: privacy")
+            static let troubleshooting = NSLocalizedString("help.section.troubleshooting", comment: "Help chapter: when something doesn't work")
+        }
+
+        /// The four-step diagram of how reverse singing works.
+        enum Flow {
+            static let title = NSLocalizedString("help.flow.title", comment: "Label above the reverse-singing diagram")
+            static let sing = NSLocalizedString("help.flow.sing", comment: "Diagram step 1, one short word: you sing a line")
+            static let flip = NSLocalizedString("help.flow.flip", comment: "Diagram step 2, one short word: the app plays it backwards")
+            static let copy = NSLocalizedString("help.flow.copy", comment: "Diagram step 3, one short word: you imitate the backwards sound")
+            static let flipBack = NSLocalizedString("help.flow.flipBack", comment: "Diagram step 4, one or two short words: your imitation is reversed again")
+            static let caption = NSLocalizedString("help.flow.caption", comment: "Explains the diagram in one or two sentences")
+        }
+    }
+
     // MARK: - Review banner
-    /// The menu note that thanks someone who bought Dubloon Pro and asks for a review.
+    /// The menu note that asks for a review: a thank-you to someone who bought Dubloon Pro, or a
+    /// friendly word to a free player who is clearly enjoying it.
     enum ReviewBanner {
         static let title = NSLocalizedString("review.banner.title", comment: "Headline of the menu note shown after buying Dubloon Pro")
         static let message = NSLocalizedString("review.banner.message", comment: "Why a review matters to a one-person studio. Personal, not pushy")
         static let rate = NSLocalizedString("review.banner.rate", comment: "Button that opens the App Store's write-a-review page")
         static let later = NSLocalizedString("review.banner.later", comment: "Button that puts the review note away for now")
+        static let fanTitle = NSLocalizedString("review.banner.fan.title", comment: "Headline of the menu note shown to a free player who keeps coming back and scoring well")
+        static let fanMessage = NSLocalizedString("review.banner.fan.message", comment: "Asks a player who is enjoying the app for a review. Personal, not pushy, mentions the one-person studio")
     }
 }

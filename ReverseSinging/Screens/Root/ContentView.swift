@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var viewModel: AppViewModel
+    @ObservedObject private var appearance = AppearancePreference.shared
 
     /// - Parameter app: the app-wide state, when something outside this view shares it. The
     ///   Mac's Settings window does; the iPhone's root owns its own.
@@ -27,12 +28,20 @@ struct ContentView: View {
             }
         }
         .preferredColorScheme(preferredColorScheme)
+        .onAppear { appearance.applyToWindows() }
         .appLifecycle(app: viewModel)
     }
 
-    /// The editor interface is dark-only: a light UI washes out the stills and
-    /// waveforms it exists to display, the same reason real editors ship dark.
-    private var preferredColorScheme: ColorScheme? { .dark }
+    /// Light, dark or the device's choice, from Settings. The screens that show a film hold
+    /// themselves dark whichever it is; see `AppearancePreference`.
+    private var preferredColorScheme: ColorScheme? {
+        #if os(iOS)
+        appearance.mode.colorScheme
+        #else
+        // The Mac is an editing suite, dark by design.
+        .dark
+        #endif
+    }
 }
 
 // MARK: - Lifecycle
@@ -89,15 +98,10 @@ private struct AppLifecycleModifier: ViewModifier {
         // is noticed here rather than on the next cold launch.
         AccessController.shared.refreshOnForeground()
 
+        // Only counted. The ask itself waits for a high point: a great score, an approved
+        // impression, a dub sent out. Landing on top of a launch, it interrupted people on
+        // their way into a game.
         ReviewPrompt.shared.registerAppOpen()
-
-        // Onboarding is the wrong moment to ask for anything, and the ask reads better
-        // once the screen has settled rather than on top of the launch animation.
-        guard app.hasCompletedOnboarding else { return }
-        Task {
-            try? await Task.sleep(for: .seconds(2))
-            ReviewPrompt.shared.requestIfAppropriate(trigger: "app_open")
-        }
     }
 }
 

@@ -39,6 +39,10 @@ final class DubSessionViewModel: ObservableObject {
     /// when the user moves on, so it marks *this* take rather than the last one to finish.
     @Published var latestScore: DubLineScore?
 
+    /// Lines dubbed dead on or nailed since the recorder last opened. The review ask waits for
+    /// the recorder to close rather than landing mid-take.
+    var winsThisVisit = 0
+
     /// Whether takes are being marked at all. Off unless the user asked for it, see
     /// `DubScoringPreference`.
     var isScoringEnabled: Bool { DubScoringPreference.shared.isEnabled }
@@ -328,6 +332,11 @@ final class DubSessionViewModel: ObservableObject {
 
         lineScores[line.slug] = measured
         latestScore = measured
+        // Counted, not asked about: this lands mid-take. The ask waits for the recorder to close.
+        if measured.grade == .perfect || measured.grade == .great {
+            ReviewPrompt.shared.registerWin()
+            winsThisVisit += 1
+        }
 
         AnalyticsManager.shared.trackDubLineScored(
             lineIndex: line.index,

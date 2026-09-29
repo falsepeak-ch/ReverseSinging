@@ -41,10 +41,10 @@ nonisolated final class CrashReporter: Sendable {
     /// in that mode, so this is belt and braces, but it keeps the rule in one readable place.
     private var isEnabled: Bool {
         #if DEBUG
-        return !ScreenshotMode.isActive
-        #else
-        return true
+        if ScreenshotMode.isActive { return false }
         #endif
+        // Share Usage Data off: Firebase stops collecting on its own, and nothing is handed to it.
+        return UsageDataConsent.isGranted
     }
 
     // MARK: - Context

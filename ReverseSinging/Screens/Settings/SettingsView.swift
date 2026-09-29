@@ -22,6 +22,9 @@ struct SettingsView: View {
     /// here and the key in the record HUD are the same switch.
     @ObservedObject private var booth = BoothCamPreference.shared
 
+    /// Light, dark or the device's choice. App-wide, so observed rather than owned.
+    @ObservedObject private var appearance = AppearancePreference.shared
+
     /// The interface is dark-only; kept as a constant so the many call sites below
     /// don't each need rewriting.
     private var effectiveColorScheme: ColorScheme { .dark }
@@ -49,6 +52,11 @@ struct SettingsView: View {
                                 .slideIn(delay: 0.15)
                         }
 
+                        #if os(iOS)
+                        appearanceSection
+                            .slideIn(delay: 0.15)
+                        #endif
+
                         // Haptic Feedback
                         hapticsSection
                             .slideIn(delay: 0.2)
@@ -58,6 +66,9 @@ struct SettingsView: View {
                         // sound, and it is the only thing in here that writes video.
                         boothSection
                             .slideIn(delay: 0.25)
+
+                        privacySection
+                            .slideIn(delay: 0.28)
 
                         // About Section
                         aboutSection
@@ -90,9 +101,13 @@ struct SettingsView: View {
             .onAppear { viewModel.onAppear() }
         }
         .purchaseAlerts()
+        .sheet(isPresented: $viewModel.isHelpPresented) {
+            HelpView()
+                .presentationDragIndicator(.visible)
+        }
         .sheet(isPresented: $viewModel.isPaywallPresented) {
             ProPaywallView(source: "settings")
-                .preferredColorScheme(.dark)
+                .paywallAppearance()
         }
         // RevenueCat's own screen: receipts, the App Store subscription page,
         // refund requests and the feedback survey. All of it is configured in the
@@ -107,10 +122,7 @@ struct SettingsView: View {
             onDismiss: { viewModel.isCustomerCenterPresented = false }
         )
         #endif
-        .preferredColorScheme(preferredColorScheme)
     }
-
-    private var preferredColorScheme: ColorScheme? { .dark }
 
     // MARK: - UI Mode Section
 
@@ -250,6 +262,85 @@ struct SettingsView: View {
             .saturation(isActive ? 1 : 0)
             .opacity(isActive ? 1 : 0.45)
             .accessibilityHidden(true)
+    }
+
+    /// A tile the size of the illustrated icons, for a row that has no illustration.
+    private func symbolIcon(_ systemName: String) -> some View {
+        Image(systemName: systemName)
+            .font(.system(size: 19, weight: .semibold))
+            .foregroundStyle(Color.rsHighlight)
+            .frame(width: 44, height: 44)
+            .background(
+                RoundedRectangle(cornerRadius: EditorMetrics.radiusLarge, style: .continuous)
+                    .fill(Color.rsSurface2)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: EditorMetrics.radiusLarge, style: .continuous)
+                    .strokeBorder(Color.rsStroke, lineWidth: EditorMetrics.hairline)
+            )
+            .accessibilityHidden(true)
+    }
+
+    // MARK: - Appearance Section
+
+    private var appearanceSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            sectionHeader(title: Strings.Settings.appearance, icon: "circle.lefthalf.filled")
+
+            HStack(spacing: 8) {
+                ForEach(AppearanceMode.allCases) { mode in
+                    let isSelected = appearance.mode == mode
+                    Button {
+                        HapticManager.shared.selection()
+                        withAnimation(.rsQuick) { appearance.set(mode) }
+                    } label: {
+                        VStack(spacing: 8) {
+                            Image(systemName: mode.symbol)
+                                .font(.system(size: 20, weight: .semibold))
+                                .foregroundStyle(isSelected ? Color.rsTextPrimary : Color.rsTextTertiary)
+                            Text(mode.title)
+                                .font(.rsCaption)
+                                .foregroundColor(isSelected ? .rsTextPrimary : .rsTextSecondary)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.8)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(
+                            RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
+                                .fill(isSelected ? Color.rsSurface3 : Color.clear)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
+                                .strokeBorder(isSelected ? Color.rsStrokeStrong : Color.clear, lineWidth: 1)
+                        )
+                    }
+                    .buttonStyle(ScaleButtonStyle())
+                    .accessibilityAddTraits(isSelected ? .isSelected : [])
+                }
+            }
+            .padding(8)
+            .editorPanel()
+        }
+    }
+
+    // MARK: - Privacy Section
+
+    private var privacySection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            sectionHeader(title: Strings.Settings.privacySection, icon: "hand.raised.fill")
+
+            SettingsToggleRow(
+                title: Strings.Settings.shareUsage,
+                subtitle: Strings.Settings.shareUsageDesc,
+                isOn: Binding(
+                    get: { viewModel.sharesUsageData },
+                    set: { viewModel.setSharesUsageData($0) }
+                )
+            ) {
+                symbolIcon("chart.bar.xaxis")
+            }
+        }
     }
 
     // MARK: - Booth Cam Section
@@ -432,12 +523,27 @@ struct SettingsView: View {
         isBusy: Bool = false,
         action: @escaping () -> Void
     ) -> some View {
+        settingsRow(title: title, subtitle: subtitle, isProminent: isProminent, isBusy: isBusy, action: action) {
+            settingsIcon(assetName)
+        }
+    }
+
+    /// The same row with any icon, for the rows the illustrated set has no picture for.
+    private func settingsRow<Icon: View>(
+        title: String,
+        subtitle: String,
+        isProminent: Bool = false,
+        isBusy: Bool = false,
+        opensExternally: Bool = false,
+        action: @escaping () -> Void,
+        @ViewBuilder icon: () -> Icon
+    ) -> some View {
         Button {
             HapticManager.shared.light()
             action()
         } label: {
             HStack(spacing: 14) {
-                settingsIcon(assetName)
+                icon()
 
                 VStack(alignment: .leading, spacing: 3) {
                     Text(title)
@@ -455,6 +561,11 @@ struct SettingsView: View {
 
                 if isBusy {
                     ProgressView().tint(Color.rsTextSecondary)
+                } else if opensExternally {
+                    // The same mark as the Privacy Policy row: this one leaves the app too.
+                    Image(systemName: "arrow.up.right.circle.fill")
+                        .font(.system(size: 22))
+                        .foregroundStyle(Color.rsTurquoise)
                 } else {
                     Image(systemName: "chevron.right")
                         .font(.system(size: 14, weight: .semibold))
@@ -529,7 +640,18 @@ struct SettingsView: View {
                     title: viewModel.licenseText,
                     subtitle: viewModel.memberSinceText ?? ""
                 )
+                settingsRow(title: Strings.Settings.help, subtitle: Strings.Settings.helpDesc, action: viewModel.openHelp) {
+                    symbolIcon("questionmark.bubble")
+                }
                 privacyPolicyButton
+                settingsRow(
+                    title: Strings.Pro.Fallback.terms,
+                    subtitle: Strings.Settings.termsDesc,
+                    opensExternally: true,
+                    action: viewModel.openTerms
+                ) {
+                    symbolIcon("doc.text")
+                }
                 switzerlandCard
             }
         }

@@ -73,6 +73,15 @@ struct MacSettingsView: View {
             } header: {
                 Text(GameMode.dub.title)
             }
+
+            Section {
+                Toggle(isOn: Binding(get: { viewModel.sharesUsageData }, set: { viewModel.setSharesUsageData($0) })) {
+                    Text(Strings.Settings.shareUsage)
+                    Text(Strings.Settings.shareUsageDesc)
+                }
+            } header: {
+                Text(Strings.Settings.privacySection)
+            }
         }
         .formStyle(.grouped)
         .platformSwitch()
@@ -196,6 +205,7 @@ struct MacSettingsView: View {
 
             HStack(spacing: 12) {
                 Button(Strings.Settings.privacyPolicy) { viewModel.openPrivacyPolicy() }
+                Button(Strings.Pro.Fallback.terms) { viewModel.openTerms() }
                 Button(Strings.ReviewBanner.rate) { openExternally(ReviewBanner.writeReviewURL) }
             }
             .padding(.top, 6)

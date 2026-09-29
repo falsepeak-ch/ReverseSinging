@@ -73,6 +73,8 @@ struct ReverseGameHeader: View {
     var body: some View {
         VStack(spacing: 0) {
             EditorScreenHeader(title: GameMode.reverse.title, onBack: onBack) {
+                HelpButton(topic: .reverse)
+
                 EditorToolbarButton(icon: "archivebox", label: Strings.Session.archiveTitle) {
                     viewModel.showSessionList = true
                 }

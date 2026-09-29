@@ -82,7 +82,11 @@ struct MacCommands: Commands {
             }
 
             Button(Strings.Settings.privacyPolicy) {
-                openURL(URL(string: "https://falsepeak.ch/privacy")!)
+                openURL(AppLinks.privacyPolicy)
+            }
+
+            Button(Strings.Pro.Fallback.terms) {
+                openURL(AppLinks.termsOfUse)
             }
         }
     }

@@ -109,17 +109,13 @@ final class PaywallFallbackViewModel: ObservableObject {
         Task { await access.restore() }
     }
 
-    /// Apple's standard licence agreement, which is the one the app ships under. Required on any
-    /// screen that sells an auto-renewable subscription.
+    /// Dubloon's own Terms of Use, which include everything Apple's standard licence requires.
+    /// Required on any screen that sells an auto-renewable subscription.
     func openTermsOfUse() {
-        if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
-            openExternally(url)
-        }
+        openExternally(AppLinks.termsOfUse)
     }
 
     func openPrivacyPolicy() {
-        if let url = URL(string: "https://falsepeak.ch/privacy") {
-            openExternally(url)
-        }
+        openExternally(AppLinks.privacyPolicy)
     }
 }

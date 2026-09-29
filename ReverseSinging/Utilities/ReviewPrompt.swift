@@ -34,9 +34,37 @@ final class ReviewPrompt {
         policy.registerAppOpen()
     }
 
-    /// A dub that left the app — the share sheet reported the user actually sent it.
+    /// A dub that left the app — the share sheet reported the user actually sent it. The
+    /// moment after is a proud one, so it is also a moment to ask.
     func registerVideoShared() {
         policy.registerShare()
+        requestSoon(trigger: "video_shared")
+    }
+
+    /// A result the player can be proud of: a great reverse-singing score, an approved
+    /// impression, a dead-on dub line. Counts for free players and paid ones alike.
+    func registerWin() {
+        policy.registerWin()
+    }
+
+    /// A win, and the moment to ask about it once the celebration has landed. For results that
+    /// fill the screen, not for a line in the middle of a take.
+    func celebrate(trigger: String) {
+        policy.registerWin()
+        requestSoon(trigger: trigger)
+    }
+
+    /// Someone who keeps coming back and doing well, whether or not they have paid. Our own
+    /// review note on the menu is for them as much as for Pro buyers.
+    var isFan: Bool { policy.isFan }
+
+    /// Asks once the screen has had a moment: a score or verdict stays in view before anything
+    /// covers it, and a cover closing has finished closing.
+    func requestSoon(trigger: String) {
+        Task {
+            try? await Task.sleep(for: .seconds(1.6))
+            requestIfAppropriate(trigger: trigger)
+        }
     }
 
     // MARK: - Asking
@@ -58,7 +86,8 @@ final class ReviewPrompt {
         AnalyticsManager.shared.trackReviewPromptRequested(
             trigger: trigger,
             openCount: policy.openCount,
-            sharedVideoCount: policy.shareCount
+            sharedVideoCount: policy.shareCount,
+            winCount: policy.winCount
         )
     }
 

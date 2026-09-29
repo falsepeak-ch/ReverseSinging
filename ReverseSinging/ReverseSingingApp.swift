@@ -28,6 +28,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         #endif
 
         FirebaseApp.configure()
+        // Before anything is logged: someone who switched Share Usage Data off sends nothing.
+        UsageDataConsent.apply()
 
         // Crashlytics is on from here. It catches the crashes by itself; the non-fatals it
         // cannot see are reported through `CrashReporter` from the paths that swallow them.

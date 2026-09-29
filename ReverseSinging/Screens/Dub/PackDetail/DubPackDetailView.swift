@@ -42,7 +42,9 @@ struct DubPackDetailView: View {
             // The same header the library and the games use, so a push never
             // swaps one kind of chrome for another.
             VStack(spacing: 0) {
-                EditorScreenHeader(title: pack.title, onBack: { dismiss() })
+                EditorScreenHeader(title: pack.title, onBack: { dismiss() }) {
+                    HelpButton(topic: .dub)
+                }
 
                 ScrollView {
                     VStack(spacing: 24) {
@@ -74,10 +76,12 @@ struct DubPackDetailView: View {
         .hidesNavigationBar()
         .coversScreen(isPresented: $viewModel.showRecorder, onDismiss: { viewModel.recorderDidDismiss() }) {
             DubRecordView(session: session)
+                .cinemaAppearance()
                 .onAppear { viewModel.recorderDidAppear() }
         }
         .coversScreen(item: $viewModel.playbackMode) { mode in
             DubPlaybackView(session: session, mode: mode)
+                .cinemaAppearance()
         }
         .dubShareNotice(isPresented: $viewModel.showShareNotice, pack: pack) {
             viewModel.confirmExport()

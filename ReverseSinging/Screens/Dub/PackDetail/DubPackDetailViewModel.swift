@@ -130,6 +130,11 @@ final class DubPackDetailViewModel: ObservableObject {
     /// presented. See `DubTips.isRecorderOpen`.
     func recorderDidDismiss() {
         DubTips.isRecorderOpen = false
+        // Back from a take that went well: the scene is on screen and they are pleased.
+        if session.winsThisVisit > 0 {
+            session.winsThisVisit = 0
+            ReviewPrompt.shared.requestSoon(trigger: "dub_great_takes")
+        }
     }
 
     // MARK: - Playback

@@ -20,6 +20,7 @@ final class AnalyticsManager {
         #if DEBUG
         if ScreenshotMode.isActive { return }
         #endif
+        guard UsageDataConsent.isGranted else { return }
         Analytics.logEvent(name, parameters: parameters)
     }
 
@@ -31,11 +32,12 @@ final class AnalyticsManager {
 
     /// Fired when we hand the review prompt to StoreKit. Apple decides whether it is
     /// actually shown, so this measures our asking, not their seeing.
-    func trackReviewPromptRequested(trigger: String, openCount: Int, sharedVideoCount: Int) {
+    func trackReviewPromptRequested(trigger: String, openCount: Int, sharedVideoCount: Int, winCount: Int) {
         log("review_prompt_requested", parameters: [
             "trigger": trigger,
             "open_count": openCount,
-            "shared_video_count": sharedVideoCount
+            "shared_video_count": sharedVideoCount,
+            "win_count": winCount
         ])
     }
 

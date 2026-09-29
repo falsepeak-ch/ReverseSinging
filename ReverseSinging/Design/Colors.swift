@@ -2,60 +2,113 @@
 //  Colors.swift
 //  ReverseSinging
 //
-//  Cinema-editor design system: a near-monochrome dark palette where colour
-//  only ever means state, and the retro icon set supplies the personality.
+//  Cinema-editor design system: a near-monochrome palette where colour only ever
+//  means state, and the retro icon set supplies the personality. Every token has a
+//  dark value (the edit suite at night) and a light one (the same desk by day).
 //
 
 import SwiftUI
+#if os(iOS)
+import UIKit
+#else
+import AppKit
+#endif
+
+extension Color {
+    /// A token with a value for each appearance, resolved by whatever SwiftUI is drawing it in,
+    /// so a screen held dark stays dark in a light app.
+    ///
+    /// Nonisolated, provider included: SwiftUI resolves colours on its render thread when the
+    /// appearance changes, and a provider left on the main actor traps there.
+    nonisolated static func rsDynamic(light: UInt32, dark: UInt32) -> Color {
+        #if os(iOS)
+        Color(UIColor { @Sendable traits in
+            UIColor(rsHex: traits.userInterfaceStyle == .light ? light : dark)
+        })
+        #else
+        Color(NSColor(name: nil) { @Sendable appearance in
+            NSColor(rsHex: appearance.bestMatch(from: [.aqua, .darkAqua]) == .aqua ? light : dark)
+        })
+        #endif
+    }
+}
+
+#if os(iOS)
+private extension UIColor {
+    nonisolated convenience init(rsHex hex: UInt32) {
+        self.init(
+            red: CGFloat((hex >> 16) & 0xFF) / 255,
+            green: CGFloat((hex >> 8) & 0xFF) / 255,
+            blue: CGFloat(hex & 0xFF) / 255,
+            alpha: 1
+        )
+    }
+}
+#else
+private extension NSColor {
+    nonisolated convenience init(rsHex hex: UInt32) {
+        self.init(
+            srgbRed: CGFloat((hex >> 16) & 0xFF) / 255,
+            green: CGFloat((hex >> 8) & 0xFF) / 255,
+            blue: CGFloat(hex & 0xFF) / 255,
+            alpha: 1
+        )
+    }
+}
+#endif
 
 extension Color {
 
     // MARK: - Surfaces
     //
     // A five-step neutral ramp, cool rather than pure grey. Panels are separated by
-    // hairline strokes instead of drop shadows. That is what reads as a pro tool.
+    // hairline strokes instead of drop shadows. That is what reads as a pro tool. In the
+    // dark the canvas is the darkest step and panels lift towards the light; by day the
+    // canvas is a soft grey and panels are paper, still told apart by the stroke.
 
     /// The app canvas. Nearly black so stills and waveforms carry the eye.
-    static let rsSurface0 = Color(red: 0.055, green: 0.059, blue: 0.067)   // #0E0F11
+    static let rsSurface0 = rsDynamic(light: 0xECEEF1, dark: 0x0E0F11)
 
     /// Panels, cards, list rows.
-    static let rsSurface1 = Color(red: 0.086, green: 0.094, blue: 0.106)   // #16181B
+    static let rsSurface1 = rsDynamic(light: 0xF8F9FA, dark: 0x16181B)
 
     /// Raised panels, popovers, the active row.
-    static let rsSurface2 = Color(red: 0.118, green: 0.129, blue: 0.145)   // #1E2125
+    static let rsSurface2 = rsDynamic(light: 0xFFFFFF, dark: 0x1E2125)
 
     /// Controls sitting on a panel, track fills, inactive segments.
-    static let rsSurface3 = Color(red: 0.157, green: 0.173, blue: 0.192)   // #282C31
+    static let rsSurface3 = rsDynamic(light: 0xDFE2E7, dark: 0x282C31)
 
     /// Hairline borders. The single most important token in this design.
-    static let rsStroke = Color(red: 0.180, green: 0.196, blue: 0.216)     // #2E3237
+    static let rsStroke = rsDynamic(light: 0xD3D7DD, dark: 0x2E3237)
 
     /// Border for focused or selected elements.
-    static let rsStrokeStrong = Color(red: 0.271, green: 0.294, blue: 0.322)  // #454B52
+    static let rsStrokeStrong = rsDynamic(light: 0xA9B0B8, dark: 0x454B52)
 
     // MARK: - Text
 
-    static let rsTextPrimary = Color(red: 0.910, green: 0.918, blue: 0.925)   // #E8EAEC
-    static let rsTextSecondary = Color(red: 0.604, green: 0.627, blue: 0.651) // #9AA0A6
-    static let rsTextTertiary = Color(red: 0.420, green: 0.447, blue: 0.471)  // #6B7278
+    static let rsTextPrimary = rsDynamic(light: 0x15181B, dark: 0xE8EAEC)
+    static let rsTextSecondary = rsDynamic(light: 0x525961, dark: 0x9AA0A6)
+    static let rsTextTertiary = rsDynamic(light: 0x7E858D, dark: 0x6B7278)
 
     // MARK: - State
     //
     // The only saturated colours in the interface. If something is coloured, it is
     // telling you what the app is doing.
 
+    // By day each is a shade deeper, so it holds its contrast on a light panel.
+
     /// Armed / recording. Never used for decoration.
-    static let rsRecord = Color(red: 0.898, green: 0.282, blue: 0.302)     // #E5484D
+    static let rsRecord = rsDynamic(light: 0xD5383E, dark: 0xE5484D)
 
     /// A take is captured, a step is complete.
-    static let rsGood = Color(red: 0.239, green: 0.639, blue: 0.365)       // #3DA35D
+    static let rsGood = rsDynamic(light: 0x2B8A4B, dark: 0x3DA35D)
 
     /// Over length, needs attention.
-    static let rsCaution = Color(red: 0.780, green: 0.604, blue: 0.227)    // #C79A3A
+    static let rsCaution = rsDynamic(light: 0xA7791D, dark: 0xC79A3A)
 
     /// Reserved highlight, playheads, active scrub, selected tab underline.
     /// Deliberately desaturated so it never competes with the state colours.
-    static let rsHighlight = Color(red: 0.478, green: 0.573, blue: 0.616)  // #7A929D
+    static let rsHighlight = rsDynamic(light: 0x4C6A78, dark: 0x7A929D)
 
     // MARK: - Aliases
     //
@@ -71,9 +124,9 @@ extension Color {
 
     // MARK: - Backgrounds
     //
-    // The interface is dark-only, so the "adaptive" helpers ignore the colour scheme.
-    // They are kept so every existing call site resolves to the editor palette without
-    // being rewritten.
+    // The tokens adapt by themselves, so the "adaptive" helpers ignore the colour scheme
+    // they are handed. They are kept so every existing call site resolves to the editor
+    // palette without being rewritten.
 
     static let rsBackground = rsSurface0
 
@@ -93,7 +146,8 @@ extension Color {
 
     static let rsSecondaryText = rsTextSecondary
 
-    static let rsTextOnTurquoise = rsTextPrimary
+    /// On a highlight fill: near-white in the dark, pure white by day, where the fill is deeper.
+    static let rsTextOnTurquoise = rsDynamic(light: 0xFFFFFF, dark: 0xE8EAEC)
     static let rsTextOnRed = Color.white
 
     // MARK: - Semantic

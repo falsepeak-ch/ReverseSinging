@@ -21,7 +21,9 @@ struct SoundLibraryView: View {
                 .filmGrain()
 
             VStack(spacing: 0) {
-                EditorScreenHeader(title: GameMode.imitate.title, onBack: { dismiss() })
+                EditorScreenHeader(title: GameMode.imitate.title, onBack: { dismiss() }) {
+                    HelpButton(topic: .imitate)
+                }
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 22) {

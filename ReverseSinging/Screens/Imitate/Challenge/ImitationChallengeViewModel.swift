@@ -337,6 +337,7 @@ final class ImitationChallengeViewModel: ObservableObject {
 
         if verdict?.celebrates == true {
             HapticManager.shared.success()
+            ReviewPrompt.shared.celebrate(trigger: "imitate_approved")
         } else {
             HapticManager.shared.error()
         }

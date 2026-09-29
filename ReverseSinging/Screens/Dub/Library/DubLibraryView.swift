@@ -49,6 +49,8 @@ struct DubLibraryView: View {
             VStack(spacing: 0) {
                 EditorScreenHeader(title: GameMode.dub.title, onBack: { dismiss() }) {
                     HStack(spacing: 10) {
+                        HelpButton(topic: .dub)
+
                         optionsMenu
 
                         EditorToolbarButton(icon: "plus", label: Strings.Dub.importPack) {

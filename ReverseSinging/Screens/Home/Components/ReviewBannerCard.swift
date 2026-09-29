@@ -14,6 +14,9 @@ import SwiftUI
 /// `ReviewBanner` decides when it comes back.
 struct ReviewBannerCard: View {
 
+    /// Whether this is the thank-you for buying Pro, or the note for a free player who is
+    /// clearly having a good time.
+    var thanksForPro = true
     let onRate: () -> Void
     let onDismiss: () -> Void
 
@@ -27,12 +30,12 @@ struct ReviewBannerCard: View {
                     .accessibilityHidden(true)
 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(Strings.ReviewBanner.title)
+                    Text(thanksForPro ? Strings.ReviewBanner.title : Strings.ReviewBanner.fanTitle)
                         .font(.rsButtonMedium)
                         .foregroundColor(.rsTextPrimary)
                         .fixedSize(horizontal: false, vertical: true)
 
-                    Text(Strings.ReviewBanner.message)
+                    Text(thanksForPro ? Strings.ReviewBanner.message : Strings.ReviewBanner.fanMessage)
                         .font(.rsMeta)
                         .foregroundColor(.rsTextSecondary)
                         .multilineTextAlignment(.leading)

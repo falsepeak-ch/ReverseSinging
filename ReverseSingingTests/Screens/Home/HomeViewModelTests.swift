@@ -168,13 +168,29 @@ struct HomeViewModelTests {
         return ReviewBanner(defaults: defaults)
     }
 
+    /// A prompt with its own counters: a newcomer, or with `opens` and `wins` behind them.
+    private func makePrompt(opens: Int = 0, wins: Int = 0) -> ReviewPrompt {
+        let name = "HomeViewModelTests.prompt.\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: name)!
+        defaults.removePersistentDomain(forName: name)
+        let prompt = ReviewPrompt(defaults: defaults)
+        for _ in 0..<opens { prompt.registerAppOpen() }
+        for _ in 0..<wins { prompt.registerWin() }
+        return prompt
+    }
+
+    private func makeViewModel(banner: ReviewBanner? = nil, prompt: ReviewPrompt? = nil) -> HomeViewModel {
+        HomeViewModel(reviewBanner: banner ?? makeBanner(), reviewPrompt: prompt ?? makePrompt())
+    }
+
     @Test func aBuyerIsAskedForAReview() {
         withAccess(.unlocked(.entitlement)) {
-            #expect(HomeViewModel(reviewBanner: makeBanner()).showsReviewBanner)
+            #expect(makeViewModel().showsReviewBanner)
         }
     }
 
-    /// Nobody who has not paid is asked: not mid-trial, not locked, not an early adopter.
+    /// Someone who has not paid and is not yet enjoying it is left alone: not mid-trial, not
+    /// locked, not an early adopter.
     @Test(arguments: [
         AccessState.trial(daysRemaining: 3, endsAt: .distantFuture),
         .locked,
@@ -182,21 +198,32 @@ struct HomeViewModelTests {
         .unlocked(.gatingDisabled),
         .unknown
     ])
-    func onlyBuyersAreAskedForAReview(state: AccessState) {
+    func aNewcomerWhoHasNotPaidIsNotAsked(state: AccessState) {
         withAccess(state) {
-            #expect(!HomeViewModel(reviewBanner: makeBanner()).showsReviewBanner)
+            #expect(!makeViewModel().showsReviewBanner)
+        }
+    }
+
+    /// Free players who keep coming back and keep scoring well are asked too, and not thanked
+    /// for a purchase they never made.
+    @Test(arguments: [AccessState.locked, .unlocked(.earlyAdopter)])
+    func aFanIsAskedWithoutPaying(state: AccessState) {
+        withAccess(state) {
+            let viewModel = makeViewModel(prompt: makePrompt(opens: 4, wins: 3))
+            #expect(viewModel.showsReviewBanner)
+            #expect(!viewModel.reviewBannerThanksForPro)
         }
     }
 
     @Test func answeringTheBannerPutsItAway() {
         withAccess(.unlocked(.entitlement)) {
             let banner = makeBanner()
-            let rated = HomeViewModel(reviewBanner: banner)
+            let rated = makeViewModel(banner: banner)
             #expect(rated.reviewBannerWentToStore() == ReviewBanner.writeReviewURL)
             #expect(!rated.showsReviewBanner)
-            #expect(!HomeViewModel(reviewBanner: banner).showsReviewBanner)
+            #expect(!makeViewModel(banner: banner).showsReviewBanner)
 
-            let dismissed = HomeViewModel(reviewBanner: makeBanner())
+            let dismissed = makeViewModel()
             dismissed.dismissReviewBanner()
             #expect(!dismissed.showsReviewBanner)
         }

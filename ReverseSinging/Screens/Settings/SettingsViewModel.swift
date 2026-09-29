@@ -33,6 +33,8 @@ final class SettingsViewModel: ObservableObject {
     @Published private(set) var soundsEnabled: Bool
 
     @Published var isPaywallPresented = false
+    @Published var isHelpPresented = false
+    @Published private(set) var sharesUsageData = UsageDataConsent.isGranted
     @Published var isCustomerCenterPresented = false
 
     @Published var isConfirmingBoothDelete = false
@@ -245,8 +247,31 @@ final class SettingsViewModel: ObservableObject {
         HapticManager.shared.light()
         AnalyticsManager.shared.trackCustomEvent(name: "privacy_policy_opened", parameters: nil)
 
-        if let url = URL(string: "https://falsepeak.ch/privacy") {
-            openExternally(url)
+        openExternally(AppLinks.privacyPolicy)
+    }
+
+    func openTerms() {
+        AnalyticsManager.shared.trackCustomEvent(name: "terms_opened", parameters: nil)
+        openExternally(AppLinks.termsOfUse)
+    }
+
+    func openHelp() {
+        isHelpPresented = true
+    }
+
+    // MARK: - Privacy
+
+    func setSharesUsageData(_ shares: Bool) {
+        // Said before the switch goes off, the last thing sent; said after it comes back on,
+        // the first. Either way nothing is sent while it is off.
+        if !shares {
+            AnalyticsManager.shared.trackCustomEvent(name: "usage_data_disabled", parameters: nil)
         }
+        UsageDataConsent.set(shares)
+        sharesUsageData = shares
+        if shares {
+            AnalyticsManager.shared.trackCustomEvent(name: "usage_data_enabled", parameters: nil)
+        }
+        HapticManager.shared.light()
     }
 }
