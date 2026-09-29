@@ -1,6 +1,12 @@
-Trzecia gra, a śpiewanie od tyłu jest teraz za darmo.
+Czwarta gra, i to za darmo: dubbinguj własne filmy.
 
 NOWOŚCI
-• Naśladowanie dźwięków: usłysz dźwięk, skopiuj go i dostań werdykt z pieczątką za rytm, wysokość i barwę. Potem zamień podejście w wideo
-• Śpiewanie od tyłu jest za darmo dla wszystkich
-• Dubloon Pro odblokowuje teraz także aplikację na Maca, na tym samym koncie Apple
+• Dubbing własnych filmów: wybierz nagrany przez siebie film i podłóż pod niego swój głos. Za darmo dla wszystkich
+• Dziesięć nowych dźwięków do naśladowania w Naśladowaniu dźwięków
+• Tryb jasny: wybierz System, Jasny lub Ciemny w Ustawieniach
+• Pomoc w aplikacji, z przewodnikiem krok po kroku, jak zdobyć więcej scen filmowych
+
+ULEPSZENIA
+• Przesunięcie wstecz przewija ekran jak kasetę VHS
+• Stabilniejsze nagrywanie i odtwarzanie po rozmowie lub gdy inna aplikacja używała dźwięku
+• Dubloon prosi o mikrofon, gdy go potrzebujesz, zamiast odsyłać cię do Ustawień

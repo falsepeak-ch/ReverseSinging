@@ -1,1 +1,1 @@
-Uutta versiossa 1.7.0: Äänten matkiminen, kolmas peli. Matki ääntä, saat tuomion, jaa video. Ja takaperinlaulu on nyt ilmaista kaikille.
+Uutta 1.8.0:ssa: Omien videoiden dubbaus, ilmainen neljäs peli. Laita äänesi mille tahansa kuvaamallesi videolle. Lisäksi kymmenen uutta ääntä ja vaalea tila.

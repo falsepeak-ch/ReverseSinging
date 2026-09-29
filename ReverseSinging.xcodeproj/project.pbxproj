@@ -538,7 +538,7 @@
 					"@executable_path/Frameworks",
 				);
 				LM_SKIP_METADATA_EXTRACTION = YES;
-				MARKETING_VERSION = 1.7.0;
+				MARKETING_VERSION = 1.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.falsepeak.reverse-singing-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -583,7 +583,7 @@
 					"@executable_path/Frameworks",
 				);
 				LM_SKIP_METADATA_EXTRACTION = YES;
-				MARKETING_VERSION = 1.7.0;
+				MARKETING_VERSION = 1.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.falsepeak.reverse-singing-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;

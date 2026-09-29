@@ -1,1 +1,1 @@
-Novinky v 1.7.0: Napodobování zvuků, třetí hra. Napodob zvuk, dostaň verdikt, sdílej video. A zpívání pozpátku je teď zdarma pro všechny.
+Novinka ve verzi 1.8.0: Dabing vlastních videí, čtvrtá hra zdarma. Namluvte jakékoli video, které jste natočili. A k tomu deset nových zvuků a světlý režim.

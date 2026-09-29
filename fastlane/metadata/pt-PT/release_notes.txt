@@ -1,6 +1,12 @@
-Um terceiro jogo, e o canto invertido agora é grátis.
+Um quarto jogo, e é gratuito: dobre os seus próprios vídeos.
 
 NOVIDADES
-• Imitação de sons: ouve um som, imita-o e recebe um veredicto carimbado sobre o teu ritmo, tom e timbre. Depois transforma a tentativa num vídeo
-• O canto invertido é grátis para todos
-• O Dubloon Pro agora também desbloqueia a app para Mac, com a mesma Conta Apple
+• Dobragem dos teus vídeos: escolha um vídeo que tenha filmado e ponha-lhe a sua voz. Gratuito para todos
+• Dez sons novos para imitar em Imitação de sons
+• Modo claro: escolha Sistema, Claro ou Escuro nas Definições
+• Ajuda dentro da app, com um guia passo a passo para obter mais cenas de filmes
+
+MELHORIAS
+• Ao deslizar para trás, o ecrã rebobina como uma cassete VHS
+• Gravação e reprodução mais estáveis depois de uma chamada ou de outra app usar o áudio
+• O Dubloon pede o microfone quando precisa dele, em vez de o mandar para as Definições

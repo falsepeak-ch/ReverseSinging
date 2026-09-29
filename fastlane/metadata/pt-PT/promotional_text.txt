@@ -1,1 +1,1 @@
-Novo na 1.7.0: Imitação de sons, um terceiro jogo. Imita um som, recebe um veredicto, partilha o vídeo. E o canto invertido agora é grátis para todos.
+Novo na 1.8.0: Dobragem dos teus vídeos, um quarto jogo gratuito. Ponha a sua voz em qualquer vídeo que tenha filmado. E dez sons novos e modo claro.

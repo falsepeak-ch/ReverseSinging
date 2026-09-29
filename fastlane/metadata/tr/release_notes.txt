@@ -1,6 +1,12 @@
-Üçüncü bir oyun, ve tersten şarkı artık ücretsiz.
+Dördüncü bir oyun, üstelik ücretsiz: kendi videolarını seslendir.
 
-YENİLER
-• Ses taklidi: bir sesi dinle, taklit et ve ritmin, perden ve tının hakkında damgalı bir hüküm al. Sonra denemeni videoya dönüştür
-• Tersten şarkı herkese ücretsiz
-• Dubloon Pro artık aynı Apple Hesabı ile Mac uygulamasının da kilidini açıyor
+YENİ
+• Kendi videolarını seslendir: çektiğin herhangi bir videoyu seç ve üzerine kendi sesini koy. Herkese ücretsiz
+• Ses taklidi'nde taklit edilecek on yeni ses
+• Açık mod: Ayarlar'dan Sistem, Açık veya Koyu'yu seç
+• Uygulama içinde Yardım ve daha fazla film sahnesi edinmek için adım adım rehber
+
+İYİLEŞTİRMELER
+• Geri kaydırınca ekran bir VHS kaseti gibi geri sarılıyor
+• Bir aramadan sonra ya da başka bir uygulama sesi kullandığında daha kararlı kayıt ve oynatma
+• Dubloon, seni Ayarlar'a göndermek yerine mikrofona ihtiyaç duyduğunda izin istiyor

@@ -1,6 +1,12 @@
-A third game, and reverse singing is now free.
+A fourth game, and it's free: dub your own videos.
 
 NEW
-• Sound Imitation: hear a sound, copy it, and get a stamped verdict on your rhythm, pitch and tone. Then turn the attempt into a video
-• Reverse singing is free for everyone
-• Dubloon Pro now unlocks the Mac app too, on the same Apple Account
+• Home Video Dub: pick any video you've filmed and put your own voice over it. Free for everyone
+• Ten new sounds to copy in Sound Imitation
+• Light mode: choose System, Light or Dark in Settings
+• Help inside the app, with a step-by-step guide to getting more movie scenes
+
+IMPROVED
+• Swiping back rewinds to the previous screen, VHS style
+• Steadier recording and playback after a call or another app has used the audio
+• Dubloon asks for the microphone when you need it instead of sending you to Settings

@@ -1,6 +1,12 @@
-Een derde spel, en achterstevoren zingen is nu gratis.
+Een vierde spel, en het is gratis: dub je eigen video's.
 
 NIEUW
-• Geluiden nadoen: hoor een geluid, doe het na en krijg een gestempeld oordeel over je ritme, toonhoogte en klank. Maak er daarna een video van
-• Achterstevoren zingen is gratis voor iedereen
-• Dubloon Pro ontgrendelt nu ook de Mac-app, met hetzelfde Apple Account
+• Je eigen video's dubben: kies een video die je hebt gefilmd en zet je eigen stem erover. Gratis voor iedereen
+• Tien nieuwe geluiden om na te doen in Geluiden nadoen
+• Lichte modus: kies Systeem, Licht of Donker in Instellingen
+• Hulp in de app, met een stapsgewijze uitleg om meer filmscènes te krijgen
+
+VERBETERD
+• Terugvegen spoelt het scherm terug, als een VHS-band
+• Stabielere opname en weergave na een gesprek of als een andere app het geluid gebruikte
+• Dubloon vraagt om de microfoon wanneer je hem nodig hebt, in plaats van je naar Instellingen te sturen
