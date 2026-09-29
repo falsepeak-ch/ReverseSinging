@@ -458,14 +458,6 @@
 // Home Video Dub
 "main.mode.homeVideo.title" = "Home Video Dub";
 "main.mode.homeVideo.subtitle" = "Put your voice on any video you've filmed";
-"homeVideo.intro.title" = "Your video, your voice";
-"homeVideo.intro.body" = "Pick any video from your phone and talk, sing or narrate over it while it plays. Your voice replaces its sound, ready to share.";
-"homeVideo.step.pick" = "Pick a video from your library";
-"homeVideo.step.record" = "Press record and talk over it as it plays";
-"homeVideo.step.share" = "Watch the result and share it";
-"homeVideo.compare.title" = "Two ways to dub";
-"homeVideo.compare.home" = "Your own video. No script, no score: say whatever you like over the whole clip.";
-"homeVideo.compare.dub" = "Famous film scenes, line by line, with the script on screen and a score for every line.";
 "homeVideo.choose" = "Choose a video";
 "homeVideo.change" = "Change video";
 "homeVideo.limit" = "Up to one minute. Your video stays on your phone.";
@@ -475,7 +467,9 @@
 "homeVideo.keepOriginal" = "Keep the original sound";
 "homeVideo.keepOriginal.detail" = "Plays quietly under your voice";
 "homeVideo.keepOriginal.none" = "This video has no sound";
-"homeVideo.hint.ready" = "Press record. The video plays from the start and your voice goes on top.";
+"homeVideo.hint.ready" = "Press record and the video plays from the start. Follow the wave to land your sounds on time.";
+"homeVideo.hint.empty" = "Choose a video from your library to put your voice on it.";
+"homeVideo.hint.recordingHeadphones" = "Recording. You hear the video in your headphones; the mic only hears you.";
 "homeVideo.hint.recording" = "Recording. The video plays silently so the mic only hears you.";
 "homeVideo.hint.review" = "Here's your version. Share it, or record again.";
 "homeVideo.record" = "Record";
@@ -645,9 +639,9 @@
 "help.flow.flipBack" = "Flip back";
 "help.flow.caption" = "Sing a line and hear it backwards. Copy that nonsense as closely as you can, then flip your copy around. Nail it, and out comes the song.";
 "help.gettingStarted.1.q" = "What is Dubloon?";
-"help.gettingStarted.1.a" = "Three voice games that need nothing but your microphone. Reverse Singing: sing a song backwards. Movie Scene Dub: put your voice into a film scene, line by line. Sound Imitation: copy a sound and get a verdict. Pick one from the menu.";
+"help.gettingStarted.1.a" = "Four voice games that need nothing but your microphone. Reverse Singing: sing a song backwards. Movie Scene Dub: put your voice into a film scene, line by line. Home Video Dub: put your voice on a video you've filmed. Sound Imitation: copy a sound and get a verdict. Pick one from the menu.";
 "help.gettingStarted.2.q" = "Which games are free?";
-"help.gettingStarted.2.a" = "Reverse Singing is free, for as long as you like. Movie Scene Dub and Sound Imitation come with Dubloon Pro, along with Booth Cam and video exports. New players get a free trial of everything first; the menu shows how many days are left.";
+"help.gettingStarted.2.a" = "Reverse Singing and Home Video Dub are free, for as long as you like. Movie Scene Dub and Sound Imitation come with Dubloon Pro, along with Booth Cam.";
 "help.gettingStarted.3.q" = "Do I need headphones?";
 "help.gettingStarted.3.a" = "No, but they help when you dub. With headphones on, you can hear the original line while you record (switch on Original in Headphones in Settings). Through the speaker it would end up in your take, so Dubloon only plays it in headphones. Wired headphones keep the timing tightest: Bluetooth adds a small delay.";
 "help.reverse.1.q" = "How does reverse singing work?";
@@ -668,6 +662,12 @@
 "help.dub.3.a" = "Each take is marked on timing (did you start and stop with the original), pacing (did you keep its rhythm) and delivery (did your loud and quiet parts follow it). The scene gets a score too, with your best line and the one worth another go. Don't want to be judged? Turn off Score my takes in the dub options.";
 "help.dub.4.q" = "How do I hear myself in the film?";
 "help.dub.4.a" = "Tap Play My Dub on the scene. Your takes drop into the film in place of the original lines; anything you haven't dubbed yet plays as it was. Watch Original plays the scene untouched.";
+"help.homeVideo.1.q" = "How do I dub my own video?";
+"help.homeVideo.1.a" = "Tap the empty picture and choose a video from your library, up to a minute long. Press record: after the count-in the video plays from the start and your voice goes on top. When it ends your version plays, ready to share or record again.";
+"help.homeVideo.2.q" = "How do I time my sounds?";
+"help.homeVideo.2.a" = "The wave under the picture is the video's own sound, and the line moving across it is where the video is. Watch it to land a bark or a laugh at the right moment. After a take, your voice is drawn over it in red.";
+"help.homeVideo.3.q" = "Can I hear the video while I record?";
+"help.homeVideo.3.a" = "Yes, with headphones on. Through the speaker the video plays silently, so its sound doesn't end up in your take. Keep the original sound puts it back, quietly, under your voice in the finished video.";
 "help.booth.1.q" = "What is Booth Cam?";
 "help.booth.1.a" = "Booth Cam films your face with the front camera while you perform, so the reaction can go into the video with the dub. It's off until you turn it on with the camera key on the recording screen or in Settings. The footage stays on your device.";
 "help.booth.2.q" = "How do I export a video?";

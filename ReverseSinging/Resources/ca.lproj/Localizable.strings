@@ -458,14 +458,6 @@
 // Home Video Dub
 "main.mode.homeVideo.title" = "Doblatge dels teus vídeos";
 "main.mode.homeVideo.subtitle" = "Posa la teva veu a qualsevol vídeo que hagis gravat";
-"homeVideo.intro.title" = "El teu vídeo, la teva veu";
-"homeVideo.intro.body" = "Tria qualsevol vídeo del mòbil i parla, canta o narra mentre es reprodueix. La teva veu en substitueix el so, a punt per compartir.";
-"homeVideo.step.pick" = "Tria un vídeo de la teva galeria";
-"homeVideo.step.record" = "Prem gravar i parla per sobre mentre es reprodueix";
-"homeVideo.step.share" = "Mira el resultat i comparteix-lo";
-"homeVideo.compare.title" = "Dues maneres de doblar";
-"homeVideo.compare.home" = "El teu propi vídeo. Sense guió ni puntuació: digues el que vulguis durant tot el clip.";
-"homeVideo.compare.dub" = "Escenes de pel·lícules famoses, frase a frase, amb el guió a la pantalla i una puntuació per a cada frase.";
 "homeVideo.choose" = "Tria un vídeo";
 "homeVideo.change" = "Canvia de vídeo";
 "homeVideo.limit" = "Fins a un minut. El teu vídeo no surt del mòbil.";
@@ -475,7 +467,9 @@
 "homeVideo.keepOriginal" = "Mantén el so original";
 "homeVideo.keepOriginal.detail" = "Sona fluix per sota de la teva veu";
 "homeVideo.keepOriginal.none" = "Aquest vídeo no té so";
-"homeVideo.hint.ready" = "Prem gravar. El vídeo comença des del principi i la teva veu hi va a sobre.";
+"homeVideo.hint.ready" = "Prem gravar i el vídeo comença des del principi. Segueix l'ona perquè els teus sons arribin a temps.";
+"homeVideo.hint.empty" = "Tria un vídeo de la teva fototeca per posar-hi la teva veu.";
+"homeVideo.hint.recordingHeadphones" = "Gravant. Sents el vídeo als auriculars; el micròfon només et sent a tu.";
 "homeVideo.hint.recording" = "Gravant. El vídeo es reprodueix en silenci perquè el micròfon només et senti a tu.";
 "homeVideo.hint.review" = "Aquí tens la teva versió. Comparteix-la o torna a gravar.";
 "homeVideo.record" = "Grava";
@@ -646,9 +640,9 @@
 "help.flow.flipBack" = "Redreça";
 "help.flow.caption" = "Canta una frase i escolta-la del revés. Copia aquell embolic tan bé com puguis i després gira la teva còpia. Si l'encertes, en surt la cançó.";
 "help.gettingStarted.1.q" = "Què és Dubloon?";
-"help.gettingStarted.1.a" = "Tres jocs de veu que només necessiten el teu micròfon. Cant invertit: canta una cançó del revés. Doblatge d'escenes: posa la teva veu en una escena de pel·lícula, frase per frase. Imitació de sons: copia un so i rep un veredicte. Tria'n un al menú.";
+"help.gettingStarted.1.a" = "Quatre jocs de veu que només necessiten el micròfon. Cant invertit: canta una cançó al revés. Doblatge d'escenes: posa la teva veu en una escena de pel·lícula, frase a frase. Doblatge dels teus vídeos: posa la teva veu en un vídeo que hagis gravat. Imitació de sons: imita un so i rep un veredicte. Tria'n un al menú.";
 "help.gettingStarted.2.q" = "Quins jocs són gratuïts?";
-"help.gettingStarted.2.a" = "El Cant invertit és gratuït, tant de temps com vulguis. El Doblatge d'escenes i la Imitació de sons venen amb Dubloon Pro, juntament amb la càmera de cabina i les exportacions de vídeo. Els jugadors nous tenen primer una prova gratuïta de tot; el menú mostra quants dies queden.";
+"help.gettingStarted.2.a" = "Cant invertit i Doblatge dels teus vídeos són gratuïts, sense límit. Doblatge d'escenes i Imitació de sons vénen amb Dubloon Pro, juntament amb la càmera de cabina.";
 "help.gettingStarted.3.q" = "Necessito auriculars?";
 "help.gettingStarted.3.a" = "No, però ajuden quan dobles. Amb auriculars pots sentir la frase original mentre graves (activa Original als auriculars als Ajustos). Per l'altaveu acabaria colant-se a la teva presa, així que Dubloon només la fa sonar pels auriculars. Els auriculars amb cable mantenen la sincronia més ajustada: el Bluetooth hi afegeix un petit retard.";
 "help.reverse.1.q" = "Com funciona el cant invertit?";
@@ -669,6 +663,12 @@
 "help.dub.3.a" = "Cada presa es valora per la sincronia (has començat i acabat amb l'original), el ritme (n'has mantingut la cadència) i la interpretació (les teves parts fortes i fluixes l'han seguit). L'escena també rep una puntuació, amb la teva millor frase i la que val la pena tornar a provar. No vols que et jutgin? Desactiva Puntuar les meves preses a les opcions de doblatge.";
 "help.dub.4.q" = "Com em sento a la pel·lícula?";
 "help.dub.4.a" = "Toca Veure el meu doblatge a l'escena. Les teves preses entren a la pel·lícula en lloc de les frases originals; el que encara no hagis doblat sona tal com era. Veure l'original reprodueix l'escena intacta.";
+"help.homeVideo.1.q" = "Com doblo el meu propi vídeo?";
+"help.homeVideo.1.a" = "Toca la imatge buida i tria un vídeo de la teva fototeca, de fins a un minut. Prem gravar: després del compte enrere, el vídeo comença des del principi i la teva veu va a sobre. En acabar es reprodueix la teva versió, a punt per compartir o tornar a gravar.";
+"help.homeVideo.2.q" = "Com sincronitzo els meus sons?";
+"help.homeVideo.2.a" = "L'ona sota la imatge és el so del mateix vídeo, i la línia que hi avança marca per on va. Mira-la perquè un lladruc o una rialla arribin al moment just. Després de gravar, la teva veu s'hi dibuixa a sobre en vermell.";
+"help.homeVideo.3.q" = "Puc sentir el vídeo mentre gravo?";
+"help.homeVideo.3.a" = "Sí, amb auriculars. Per l'altaveu el vídeo sona en silenci perquè el seu so no acabi a la teva presa. Amb Mantenir el so original torna a sonar, fluix, sota la teva veu al vídeo final.";
 "help.booth.1.q" = "Què és la càmera de cabina?";
 "help.booth.1.a" = "La càmera de cabina et grava la cara amb la càmera frontal mentre actues, perquè la reacció pugui anar al vídeo amb el doblatge. Està apagada fins que l'encens amb la tecla de càmera de la pantalla de gravació o als Ajustos. Les imatges es queden al teu dispositiu.";
 "help.booth.2.q" = "Com exporto un vídeo?";

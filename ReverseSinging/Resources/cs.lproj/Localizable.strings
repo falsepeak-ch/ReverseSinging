@@ -458,14 +458,6 @@
 // Home Video Dub
 "main.mode.homeVideo.title" = "Dabing vlastních videí";
 "main.mode.homeVideo.subtitle" = "Nahraj svůj hlas na jakékoli video, které jsi natočil";
-"homeVideo.intro.title" = "Tvoje video, tvůj hlas";
-"homeVideo.intro.body" = "Vyber video z telefonu a mluv, zpívej nebo komentuj, zatímco hraje. Tvůj hlas nahradí jeho zvuk, připravené ke sdílení.";
-"homeVideo.step.pick" = "Vyber video ze své knihovny";
-"homeVideo.step.record" = "Klepni na nahrávání a mluv přes video, zatímco hraje";
-"homeVideo.step.share" = "Podívej se na výsledek a sdílej ho";
-"homeVideo.compare.title" = "Dva způsoby dabingu";
-"homeVideo.compare.home" = "Tvoje vlastní video. Žádný scénář, žádné body: říkej, co chceš, přes celý klip.";
-"homeVideo.compare.dub" = "Slavné filmové scény replika po replice, se scénářem na obrazovce a body za každou repliku.";
 "homeVideo.choose" = "Vybrat video";
 "homeVideo.change" = "Změnit video";
 "homeVideo.limit" = "Až jedna minuta. Tvoje video zůstane v telefonu.";
@@ -475,7 +467,9 @@
 "homeVideo.keepOriginal" = "Ponechat původní zvuk";
 "homeVideo.keepOriginal.detail" = "Hraje potichu pod tvým hlasem";
 "homeVideo.keepOriginal.none" = "Toto video nemá zvuk";
-"homeVideo.hint.ready" = "Klepni na nahrávání. Video začne od začátku a tvůj hlas půjde navrch.";
+"homeVideo.hint.ready" = "Klepněte na nahrávání a video se spustí od začátku. Sledujte vlnu, aby vaše zvuky padly do správné chvíle.";
+"homeVideo.hint.empty" = "Vyberte video z knihovny a namluvte ho vlastním hlasem.";
+"homeVideo.hint.recordingHeadphones" = "Nahrává se. Video slyšíte ve sluchátkách; mikrofon slyší jen vás.";
 "homeVideo.hint.recording" = "Nahrávám. Video hraje bez zvuku, aby mikrofon slyšel jen tebe.";
 "homeVideo.hint.review" = "Tady je tvoje verze. Sdílej ji, nebo nahraj znovu.";
 "homeVideo.record" = "Nahrát";
@@ -646,9 +640,9 @@
 "help.flow.flipBack" = "Otoč zpět";
 "help.flow.caption" = "Zazpívej řádek a poslechni si ho pozpátku. Napodob tu hatmatilku co nejpřesněji a pak svou kopii otoč. Když se trefíš, vyleze z toho písnička.";
 "help.gettingStarted.1.q" = "Co je Dubloon?";
-"help.gettingStarted.1.a" = "Tři hlasové hry, ke kterým stačí mikrofon. Zpívání pozpátku: zazpívej písničku pozpátku. Dabing filmové scény: vlož svůj hlas do filmové scény, repliku po replice. Napodobování zvuků: napodob zvuk a dostaň verdikt. Vyber si jednu v menu.";
+"help.gettingStarted.1.a" = "Čtyři hlasové hry, ke kterým stačí mikrofon. Zpívání pozpátku: zazpívejte píseň pozpátku. Dabing filmové scény: namluvte filmovou scénu repliku po replice. Dabing vlastních videí: namluvte video, které jste natočili. Napodobování zvuků: napodobte zvuk a dostanete verdikt. Vyberte si jednu v menu.";
 "help.gettingStarted.2.q" = "Které hry jsou zdarma?";
-"help.gettingStarted.2.a" = "Zpívání pozpátku je zdarma, jak dlouho chceš. Dabing filmové scény a Napodobování zvuků patří k Dubloon Pro, stejně jako Booth Cam a exporty videa. Noví hráči si nejdřív všechno vyzkouší zdarma; v menu uvidíš, kolik dní zbývá.";
+"help.gettingStarted.2.a" = "Zpívání pozpátku a Dabing vlastních videí jsou zdarma, bez omezení. Dabing filmové scény a Napodobování zvuků jsou součástí Dubloon Pro, spolu s Booth Cam.";
 "help.gettingStarted.3.q" = "Potřebuju sluchátka?";
 "help.gettingStarted.3.a" = "Ne, ale při dabování pomůžou. Se sluchátky slyšíš původní repliku, zatímco nahráváš (zapni Originál ve sluchátkách v Nastavení). Z reproduktoru by ti vlezla do nahrávky, takže ji Dubloon pouští jen do sluchátek. S kabelovými sluchátky sedí načasování nejlíp: Bluetooth přidává malé zpoždění.";
 "help.reverse.1.q" = "Jak funguje zpívání pozpátku?";
@@ -669,6 +663,12 @@
 "help.dub.3.a" = "Každý pokus se hodnotí podle načasování (začal a skončil jsi spolu s originálem), tempa (udržel jsi jeho rytmus) a výkonu (sledovala tvoje hlasitá a tichá místa originál). Skóre dostane i scéna, s tvou nejlepší replikou a tou, která stojí za další pokus. Nechceš být souzen? Vypni Hodnotit moje pokusy v možnostech dabingu.";
 "help.dub.4.q" = "Jak se uslyším ve filmu?";
 "help.dub.4.a" = "Klepni ve scéně na Pustit můj dabing. Tvoje nahrávky vstoupí do filmu místo původních replik; co jsi ještě nenadaboval, hraje tak, jak bylo. Pustit originál přehraje scénu beze změn.";
+"help.homeVideo.1.q" = "Jak nadabuji vlastní video?";
+"help.homeVideo.1.a" = "Klepněte na prázdný obraz a vyberte video z knihovny, dlouhé až minutu. Klepněte na nahrávání: po odpočtu se video spustí od začátku a váš hlas jde navrch. Na konci se přehraje vaše verze, připravená ke sdílení nebo novému nahrání.";
+"help.homeVideo.2.q" = "Jak trefit zvuky do správné chvíle?";
+"help.homeVideo.2.a" = "Vlna pod obrazem je zvuk samotného videa a čára, která se po ní pohybuje, ukazuje, kde video je. Sledujte ji, abyste štěkot nebo smích trefili přesně. Po nahrání se přes ni červeně vykreslí váš hlas.";
+"help.homeVideo.3.q" = "Slyším video, když nahrávám?";
+"help.homeVideo.3.a" = "Ano, ve sluchátkách. Z reproduktoru hraje video potichu, aby se jeho zvuk nedostal do nahrávky. Zachovat původní zvuk ho ve výsledném videu vrátí, potichu pod váš hlas.";
 "help.booth.1.q" = "Co je Booth Cam?";
 "help.booth.1.a" = "Booth Cam natáčí tvůj obličej přední kamerou, zatímco hraješ, aby se reakce mohla dostat do videa spolu s dabingem. Je vypnutá, dokud ji nezapneš klávesou kamery na obrazovce nahrávání nebo v Nastavení. Záběry zůstávají v tvém zařízení.";
 "help.booth.2.q" = "Jak vyexportuju video?";

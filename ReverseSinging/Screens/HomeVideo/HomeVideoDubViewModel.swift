@@ -8,6 +8,7 @@
 import AVFoundation
 import Combine
 import CoreTransferable
+import DubAudio
 import PhotosUI
 import SwiftUI
 import UniformTypeIdentifiers
@@ -16,7 +17,7 @@ import UniformTypeIdentifiers
 final class HomeVideoDubViewModel: ObservableObject {
 
     enum Phase: Equatable {
-        /// Nothing picked yet: the explainer and the picker.
+        /// Nothing picked yet: the studio, with the picker where the picture goes.
         case empty
         /// The picked video is being copied out of the library.
         case importing
@@ -37,8 +38,15 @@ final class HomeVideoDubViewModel: ObservableObject {
     @Published private(set) var countdown: Int?
     @Published private(set) var isPlaying = false
     @Published private(set) var playhead: Double = 0
+    /// The clip's own sound, drawn under the picture so a voice can be timed against it.
+    @Published private(set) var originalSamples: [Float] = []
+    /// The last take, on the same time axis as `originalSamples`.
+    @Published private(set) var takeSamples: [Float] = []
+    /// True when the clip is heard in headphones during the take rather than muted.
+    @Published private(set) var isMonitoring = false
 
-    /// Whether the clip's own sound stays, quietly, under the voice. Remembered between visits.
+    /// Whether the clip's own sound stays, quietly, under the voice. Remembered between visits,
+    /// and on until someone turns it off: a home video's own sound is usually half the joke.
     @Published var keepsOriginalSound: Bool {
         didSet {
             UserDefaults.standard.set(keepsOriginalSound, forKey: Self.keepOriginalKey)
@@ -77,8 +85,11 @@ final class HomeVideoDubViewModel: ObservableObject {
     /// the picture can be told the exact instant too.
     private static let recordingStartLeadIn: TimeInterval = 0.15
 
+    /// Bars across the waveform. Enough to see where a laugh or a bark lands in a minute of clip.
+    private static let waveformBuckets = 120
+
     init() {
-        keepsOriginalSound = UserDefaults.standard.bool(forKey: Self.keepOriginalKey)
+        keepsOriginalSound = UserDefaults.standard.object(forKey: Self.keepOriginalKey) as? Bool ?? true
 
         recorder.objectWillChange
             .sink { [weak self] _ in self?.objectWillChange.send() }
@@ -151,11 +162,14 @@ final class HomeVideoDubViewModel: ObservableObject {
                 source = measured
                 resultURL = nil
                 hasTake = false
+                takeSamples = []
+                originalSamples = []
                 show(measured.url, muted: false)
                 phase = .ready
                 AnalyticsManager.shared.trackHomeVideoPicked(
                     duration: measured.duration, trimmed: measured.wasTrimmed, hasSound: measured.hasSound
                 )
+                await loadOriginalWaveform(of: measured)
             } catch {
                 phase = source == nil ? .empty : (resultURL == nil ? .ready : .review)
                 errorMessage = Strings.HomeVideo.loadFailed
@@ -163,6 +177,27 @@ final class HomeVideoDubViewModel: ObservableObject {
             }
             pickerItem = nil
         }
+    }
+
+    // MARK: - Waveforms
+
+    /// A silent clip, or one whose sound can't be decoded, just draws an empty rail.
+    private func loadOriginalWaveform(of source: HomeVideoMixer.Source) async {
+        guard let url = try? await HomeVideoMixer.extractOriginalSound(of: source) else { return }
+        await WaveformSampler.shared.invalidate(url)
+        let samples = await WaveformSampler.shared.samples(from: url, buckets: Self.waveformBuckets)
+        guard self.source == source else { return }
+        originalSamples = samples
+    }
+
+    /// The take at the clip's seconds-per-bar, so a take stopped early draws short.
+    private func loadTakeWaveform() async {
+        let url = HomeVideoMixer.voiceURL
+        guard let source, source.duration > 0,
+              let duration = await AudioFileManager.shared.getAudioDurationAsync(from: url) else { return }
+        await WaveformSampler.shared.invalidate(url)
+        let buckets = max(1, Int((Double(Self.waveformBuckets) * duration / source.duration).rounded()))
+        takeSamples = await WaveformSampler.shared.samples(from: url, buckets: min(buckets, Self.waveformBuckets))
     }
 
     // MARK: - Watching
@@ -235,8 +270,12 @@ final class HomeVideoDubViewModel: ObservableObject {
             }
             guard self.recorder.canStartRecording() else { return }
 
-            // The clip itself, silent, parked on its first frame while the slate runs.
-            self.show(source.url, muted: true)
+            // The clip itself, parked on its first frame while the slate runs. Silent through
+            // the speaker, where it would land in the take; heard in headphones, where it can't,
+            // so a sound can be answered as it happens.
+            HeadphoneMonitor.shared.refresh()
+            self.isMonitoring = source.hasSound && HeadphoneMonitor.shared.shouldPlayOriginalWhileRecording
+            self.show(source.url, muted: !self.isMonitoring)
             self.phase = .countingIn
             self.slate.run(
                 onBeat: { [weak self] beat in self?.countdown = beat },
@@ -291,6 +330,7 @@ final class HomeVideoDubViewModel: ObservableObject {
 
     private func stopRecording() {
         cancelAutoStop()
+        isMonitoring = false
         SoundManager.shared.setMicrophoneOpen(false)
         player.pause()
         isPlaying = false
@@ -308,6 +348,7 @@ final class HomeVideoDubViewModel: ObservableObject {
             try? FileManager.default.removeItem(at: HomeVideoMixer.voiceURL)
             try FileManager.default.moveItem(at: temporaryURL, to: HomeVideoMixer.voiceURL)
             hasTake = true
+            Task { await loadTakeWaveform() }
         } catch {
             phase = .ready
             errorMessage = Strings.HomeVideo.mixFailed

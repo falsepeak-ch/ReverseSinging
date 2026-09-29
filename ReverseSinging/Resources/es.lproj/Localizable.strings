@@ -458,14 +458,6 @@
 // Home Video Dub
 "main.mode.homeVideo.title" = "Doblaje de tus vídeos";
 "main.mode.homeVideo.subtitle" = "Pon tu voz en cualquier vídeo que hayas grabado";
-"homeVideo.intro.title" = "Tu vídeo, tu voz";
-"homeVideo.intro.body" = "Elige cualquier vídeo del móvil y habla, canta o narra mientras se reproduce. Tu voz sustituye su sonido, listo para compartir.";
-"homeVideo.step.pick" = "Elige un vídeo de tu galería";
-"homeVideo.step.record" = "Pulsa grabar y habla encima mientras se reproduce";
-"homeVideo.step.share" = "Mira el resultado y compártelo";
-"homeVideo.compare.title" = "Dos formas de doblar";
-"homeVideo.compare.home" = "Tu propio vídeo. Sin guion ni puntuación: di lo que quieras durante todo el clip.";
-"homeVideo.compare.dub" = "Escenas de películas famosas, frase a frase, con el guion en pantalla y una puntuación por frase.";
 "homeVideo.choose" = "Elegir un vídeo";
 "homeVideo.change" = "Cambiar de vídeo";
 "homeVideo.limit" = "Hasta un minuto. Tu vídeo no sale de tu móvil.";
@@ -475,7 +467,9 @@
 "homeVideo.keepOriginal" = "Mantener el sonido original";
 "homeVideo.keepOriginal.detail" = "Suena bajito debajo de tu voz";
 "homeVideo.keepOriginal.none" = "Este vídeo no tiene sonido";
-"homeVideo.hint.ready" = "Pulsa grabar. El vídeo empieza desde el principio y tu voz va encima.";
+"homeVideo.hint.ready" = "Pulsa grabar y el vídeo empieza desde el principio. Sigue la onda para que tus sonidos caigan a tiempo.";
+"homeVideo.hint.empty" = "Elige un vídeo de tu fototeca para ponerle tu voz.";
+"homeVideo.hint.recordingHeadphones" = "Grabando. Oyes el vídeo en los auriculares; el micrófono solo te oye a ti.";
 "homeVideo.hint.recording" = "Grabando. El vídeo suena en silencio para que el micrófono solo te oiga a ti.";
 "homeVideo.hint.review" = "Aquí tienes tu versión. Compártela o vuelve a grabar.";
 "homeVideo.record" = "Grabar";
@@ -646,9 +640,9 @@
 "help.flow.flipBack" = "Otra vuelta";
 "help.flow.caption" = "Canta una frase y escúchala al revés. Copia ese galimatías lo mejor que puedas y luego dale la vuelta a tu copia. Si lo clavas, sale la canción.";
 "help.gettingStarted.1.q" = "¿Qué es Dubloon?";
-"help.gettingStarted.1.a" = "Tres juegos de voz que solo necesitan tu micrófono. Canto invertido: canta una canción al revés. Doblaje de escenas: mete tu voz en una escena de película, frase a frase. Imitación de sonidos: copia un sonido y recibe un veredicto. Elige uno en el menú.";
+"help.gettingStarted.1.a" = "Cuatro juegos de voz que solo necesitan tu micrófono. Canto invertido: canta una canción al revés. Doblaje de escenas: pon tu voz en una escena de película, frase a frase. Doblaje de tus vídeos: pon tu voz en un vídeo que hayas grabado. Imitación de sonidos: imita un sonido y recibe un veredicto. Elige uno en el menú.";
 "help.gettingStarted.2.q" = "¿Qué juegos son gratis?";
-"help.gettingStarted.2.a" = "Canto invertido es gratis, todo el tiempo que quieras. Doblaje de escenas e Imitación de sonidos vienen con Dubloon Pro, junto con la cámara de cabina y la exportación de vídeos. Los jugadores nuevos prueban todo gratis primero; el menú muestra cuántos días quedan.";
+"help.gettingStarted.2.a" = "Canto invertido y Doblaje de tus vídeos son gratis, sin límite. Doblaje de escenas e Imitación de sonidos vienen con Dubloon Pro, junto con la cámara de cabina.";
 "help.gettingStarted.3.q" = "¿Necesito auriculares?";
 "help.gettingStarted.3.a" = "No, pero ayudan al doblar. Con auriculares oyes la frase original mientras grabas (activa Original en los auriculares en Ajustes). Por el altavoz acabaría en tu toma, así que Dubloon solo la reproduce por los auriculares. Los de cable clavan mejor la sincronía: el Bluetooth añade un pequeño retraso.";
 "help.reverse.1.q" = "¿Cómo funciona el canto invertido?";
@@ -669,6 +663,12 @@
 "help.dub.3.a" = "Cada toma se juzga por la sincronía (¿empezaste y acabaste con el original?), el ritmo (¿mantuviste su cadencia?) y la interpretación (¿tus partes fuertes y suaves lo siguieron?). La escena también recibe nota, con tu mejor frase y la que merece otro intento. ¿No quieres que te juzguen? Desactiva Puntuar mis tomas en las opciones de doblaje.";
 "help.dub.4.q" = "¿Cómo me oigo dentro de la película?";
 "help.dub.4.a" = "Toca Ver mi doblaje en la escena. Tus tomas entran en la película en lugar de las frases originales; lo que aún no hayas doblado suena tal como era. Ver el original reproduce la escena sin tocar.";
+"help.homeVideo.1.q" = "¿Cómo doblo mi propio vídeo?";
+"help.homeVideo.1.a" = "Toca la imagen vacía y elige un vídeo de tu fototeca, de hasta un minuto. Pulsa grabar: tras la cuenta atrás, el vídeo empieza desde el principio y tu voz va encima. Al terminar se reproduce tu versión, lista para compartir o volver a grabar.";
+"help.homeVideo.2.q" = "¿Cómo sincronizo mis sonidos?";
+"help.homeVideo.2.a" = "La onda bajo la imagen es el sonido del propio vídeo, y la línea que avanza por ella marca por dónde va. Mírala para que un ladrido o una risa caigan en el momento justo. Después de grabar, tu voz se dibuja encima en rojo.";
+"help.homeVideo.3.q" = "¿Puedo oír el vídeo mientras grabo?";
+"help.homeVideo.3.a" = "Sí, con auriculares. Por el altavoz el vídeo suena en silencio para que su sonido no acabe en tu toma. Con Mantener el sonido original vuelve a sonar, bajito, bajo tu voz en el vídeo final.";
 "help.booth.1.q" = "¿Qué es la cámara de cabina?";
 "help.booth.1.a" = "La cámara de cabina graba tu cara con la cámara frontal mientras actúas, para que la reacción pueda ir en el vídeo junto con el doblaje. Está apagada hasta que la enciendes con la tecla de cámara en la pantalla de grabación o en Ajustes. El vídeo se queda en tu dispositivo.";
 "help.booth.2.q" = "¿Cómo exporto un vídeo?";

@@ -458,14 +458,6 @@
 // Home Video Dub
 "main.mode.homeVideo.title" = "Omien videoiden dubbaus";
 "main.mode.homeVideo.subtitle" = "Laita äänesi mihin tahansa kuvaamaasi videoon";
-"homeVideo.intro.title" = "Sinun videosi, sinun äänesi";
-"homeVideo.intro.body" = "Valitse video puhelimesta ja puhu, laula tai kerro sen päälle, kun se pyörii. Äänesi korvaa sen äänen, valmiina jaettavaksi.";
-"homeVideo.step.pick" = "Valitse video kirjastostasi";
-"homeVideo.step.record" = "Paina tallenna ja puhu videon päälle sen pyöriessä";
-"homeVideo.step.share" = "Katso tulos ja jaa se";
-"homeVideo.compare.title" = "Kaksi tapaa dubata";
-"homeVideo.compare.home" = "Oma videosi. Ei käsikirjoitusta, ei pisteitä: sano mitä haluat koko klipin ajan.";
-"homeVideo.compare.dub" = "Kuuluisia elokuvakohtauksia repliikki kerrallaan, käsikirjoitus ruudulla ja pisteet jokaisesta repliikistä.";
 "homeVideo.choose" = "Valitse video";
 "homeVideo.change" = "Vaihda video";
 "homeVideo.limit" = "Enintään minuutti. Videosi pysyy puhelimessasi.";
@@ -475,7 +467,9 @@
 "homeVideo.keepOriginal" = "Säilytä alkuperäinen ääni";
 "homeVideo.keepOriginal.detail" = "Soi hiljaa äänesi alla";
 "homeVideo.keepOriginal.none" = "Tässä videossa ei ole ääntä";
-"homeVideo.hint.ready" = "Paina tallenna. Video alkaa alusta ja äänesi tulee päälle.";
+"homeVideo.hint.ready" = "Paina tallenna, niin video alkaa alusta. Seuraa aaltoa, jotta äänesi osuvat oikeaan hetkeen.";
+"homeVideo.hint.empty" = "Valitse video kirjastostasi ja laita oma äänesi sen päälle.";
+"homeVideo.hint.recordingHeadphones" = "Tallennetaan. Kuulet videon kuulokkeista; mikrofoni kuulee vain sinut.";
 "homeVideo.hint.recording" = "Tallennetaan. Video pyörii äänettömänä, jotta mikrofoni kuulee vain sinut.";
 "homeVideo.hint.review" = "Tässä on sinun versiosi. Jaa se tai tallenna uudelleen.";
 "homeVideo.record" = "Tallenna";
@@ -646,9 +640,9 @@
 "help.flow.flipBack" = "Käännä takaisin";
 "help.flow.caption" = "Laula rivi ja kuule se takaperin. Matki sitä siansaksaa niin tarkasti kuin osaat ja käännä sitten matkimisesi ympäri. Jos osut, sieltä tulee biisi.";
 "help.gettingStarted.1.q" = "Mikä Dubloon on?";
-"help.gettingStarted.1.a" = "Kolme äänipeliä, joihin tarvitset vain mikrofonin. Takaperinlaulu: laula biisi takaperin. Kohtauksen dubbaus: laita äänesi elokuvakohtaukseen repliikki kerrallaan. Äänten matkiminen: matki ääntä ja saat tuomion. Valitse yksi valikosta.";
+"help.gettingStarted.1.a" = "Neljä äänipeliä, joihin tarvitset vain mikrofonin. Takaperinlaulu: laula laulu takaperin. Kohtauksen dubbaus: laita äänesi elokuvakohtaukseen repliikki kerrallaan. Omien videoiden dubbaus: laita äänesi kuvaamallesi videolle. Äänten matkiminen: matki ääntä ja saa tuomio. Valitse yksi valikosta.";
 "help.gettingStarted.2.q" = "Mitkä pelit ovat ilmaisia?";
-"help.gettingStarted.2.a" = "Takaperinlaulu on ilmainen niin pitkään kuin haluat. Kohtauksen dubbaus ja Äänten matkiminen kuuluvat Dubloon Prohon, samoin Booth Cam ja videoviennit. Uudet pelaajat saavat ensin ilmaisen kokeilun kaikesta; valikko näyttää, montako päivää on jäljellä.";
+"help.gettingStarted.2.a" = "Takaperinlaulu ja Omien videoiden dubbaus ovat ilmaisia, niin kauan kuin haluat. Kohtauksen dubbaus ja Äänten matkiminen kuuluvat Dubloon Prohon, samoin Booth Cam.";
 "help.gettingStarted.3.q" = "Tarvitsenko kuulokkeet?";
 "help.gettingStarted.3.a" = "Et, mutta ne auttavat dubatessa. Kuulokkeilla kuulet alkuperäisen repliikin äänittäessäsi (laita Alkuperäinen kuulokkeisiin päälle Asetuksissa). Kaiuttimesta se päätyisi otokseesi, joten Dubloon soittaa sen vain kuulokkeisiin. Johdolliset kuulokkeet pitävät ajoituksen tarkimpana: Bluetooth lisää pienen viiveen.";
 "help.reverse.1.q" = "Miten takaperinlaulu toimii?";
@@ -669,6 +663,12 @@
 "help.dub.3.a" = "Jokainen otos arvioidaan ajoituksesta (aloititko ja lopetitko alkuperäisen kanssa), rytmistä (pysyitkö sen tahdissa) ja tulkinnasta (seurasivatko kovat ja hiljaiset kohtasi sitä). Kohtauskin saa pisteet, ja näet parhaan repliikkisi sekä sen, joka kannattaa ottaa uusiksi. Etkö halua tulla arvostelluksi? Laita Pisteytä otokseni pois päältä dubbausvalinnoista.";
 "help.dub.4.q" = "Miten kuulen itseni elokuvassa?";
 "help.dub.4.a" = "Napauta kohtauksessa Katso oma dubbaukseni. Otoksesi menevät elokuvaan alkuperäisten repliikkien tilalle; se, mitä et ole vielä dubannut, soi entisellään. Katso alkuperäinen toistaa kohtauksen koskemattomana.";
+"help.homeVideo.1.q" = "Miten dubbaan oman videoni?";
+"help.homeVideo.1.a" = "Napauta tyhjää kuvaa ja valitse kirjastostasi enintään minuutin mittainen video. Paina tallenna: lähtölaskennan jälkeen video alkaa alusta ja äänesi tulee päälle. Lopuksi oma versiosi toistetaan, valmiina jaettavaksi tai uudelleen tallennettavaksi.";
+"help.homeVideo.2.q" = "Miten osun ajoitukseen?";
+"help.homeVideo.2.a" = "Kuvan alla oleva aalto on videon oma ääni, ja sen yli liikkuva viiva näyttää, missä kohtaa video on. Seuraa sitä, niin haukku tai nauru osuu oikeaan hetkeen. Oton jälkeen äänesi piirretään sen päälle punaisella.";
+"help.homeVideo.3.q" = "Kuulenko videon tallentaessani?";
+"help.homeVideo.3.a" = "Kyllä, kuulokkeilla. Kaiuttimen kautta video toistuu äänettömänä, jottei sen ääni päädy ottoosi. Säilytä alkuperäinen ääni palauttaa sen hiljaa äänesi alle valmiissa videossa.";
 "help.booth.1.q" = "Mikä on Booth Cam?";
 "help.booth.1.a" = "Booth Cam kuvaa kasvosi etukameralla esityksesi aikana, jotta reaktio voi päätyä videoon dubbauksen kanssa. Se on pois päältä, kunnes laitat sen päälle äänitysnäytön kamerapainikkeesta tai Asetuksista. Kuvamateriaali pysyy laitteellasi.";
 "help.booth.2.q" = "Miten vien videon?";

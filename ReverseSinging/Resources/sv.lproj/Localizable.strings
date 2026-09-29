@@ -458,14 +458,6 @@
 // Home Video Dub
 "main.mode.homeVideo.title" = "Dubba dina egna videor";
 "main.mode.homeVideo.subtitle" = "Lägg din röst på vilken video du har filmat";
-"homeVideo.intro.title" = "Din video, din röst";
-"homeVideo.intro.body" = "Välj en video från mobilen och prata, sjung eller berätta över den medan den spelas. Din röst ersätter ljudet, redo att dela.";
-"homeVideo.step.pick" = "Välj en video från ditt bibliotek";
-"homeVideo.step.record" = "Tryck på spela in och prata över den medan den spelas";
-"homeVideo.step.share" = "Titta på resultatet och dela det";
-"homeVideo.compare.title" = "Två sätt att dubba";
-"homeVideo.compare.home" = "Din egen video. Inget manus, inga poäng: säg vad du vill genom hela klippet.";
-"homeVideo.compare.dub" = "Kända filmscener, replik för replik, med manuset på skärmen och poäng för varje replik.";
 "homeVideo.choose" = "Välj en video";
 "homeVideo.change" = "Byt video";
 "homeVideo.limit" = "Upp till en minut. Din video stannar på mobilen.";
@@ -475,7 +467,9 @@
 "homeVideo.keepOriginal" = "Behåll originalljudet";
 "homeVideo.keepOriginal.detail" = "Spelas tyst under din röst";
 "homeVideo.keepOriginal.none" = "Den här videon har inget ljud";
-"homeVideo.hint.ready" = "Tryck på spela in. Videon börjar från början och din röst läggs ovanpå.";
+"homeVideo.hint.ready" = "Tryck på spela in så börjar videon från början. Följ vågen så att dina ljud kommer i rätt ögonblick.";
+"homeVideo.hint.empty" = "Välj en video från ditt bibliotek för att lägga din röst på den.";
+"homeVideo.hint.recordingHeadphones" = "Spelar in. Du hör videon i hörlurarna; mikrofonen hör bara dig.";
 "homeVideo.hint.recording" = "Spelar in. Videon spelas utan ljud så att mikrofonen bara hör dig.";
 "homeVideo.hint.review" = "Här är din version. Dela den eller spela in igen.";
 "homeVideo.record" = "Spela in";
@@ -646,9 +640,9 @@
 "help.flow.flipBack" = "Vänd tillbaka";
 "help.flow.caption" = "Sjung en rad och hör den baklänges. Härma det nonsenset så nära du kan och vänd sedan på din kopia. Sitter den, kommer låten ut.";
 "help.gettingStarted.1.q" = "Vad är Dubloon?";
-"help.gettingStarted.1.a" = "Tre röstspel som bara behöver din mikrofon. Baklängessång: sjung en låt baklänges. Dubba filmscen: lägg din röst i en filmscen, replik för replik. Ljudimitation: härma ett ljud och få en dom. Välj ett i menyn.";
+"help.gettingStarted.1.a" = "Fyra röstspel som bara behöver din mikrofon. Baklängessång: sjung en låt baklänges. Dubba filmscen: lägg din röst i en filmscen, replik för replik. Dubba dina egna videor: lägg din röst på en video du har filmat. Ljudimitation: härma ett ljud och få ett omdöme. Välj ett i menyn.";
 "help.gettingStarted.2.q" = "Vilka spel är gratis?";
-"help.gettingStarted.2.a" = "Baklängessång är gratis, så länge du vill. Dubba filmscen och Ljudimitation ingår i Dubloon Pro, tillsammans med Booth Cam och videoexport. Nya spelare får först prova allt gratis; menyn visar hur många dagar som är kvar.";
+"help.gettingStarted.2.a" = "Baklängessång och Dubba dina egna videor är gratis, så länge du vill. Dubba filmscen och Ljudimitation ingår i Dubloon Pro, tillsammans med Booth Cam.";
 "help.gettingStarted.3.q" = "Behöver jag hörlurar?";
 "help.gettingStarted.3.a" = "Nej, men de hjälper när du dubbar. Med hörlurar kan du höra originalrepliken medan du spelar in (slå på Originalet i hörlurarna i Inställningar). Via högtalaren skulle den hamna i din tagning, så Dubloon spelar den bara i hörlurar. Sladdhörlurar ger tightast timing: Bluetooth lägger till en liten fördröjning.";
 "help.reverse.1.q" = "Hur funkar baklängessång?";
@@ -669,6 +663,12 @@
 "help.dub.3.a" = "Varje tagning bedöms på timing (började och slutade du med originalet), tempo (höll du dess rytm) och spel (följde dina starka och svaga partier originalet). Scenen får också ett betyg, med din bästa replik och den som är värd ett försök till. Vill du inte bli bedömd? Stäng av Betygsätt mina tagningar under Dubbningsval.";
 "help.dub.4.q" = "Hur hör jag mig själv i filmen?";
 "help.dub.4.a" = "Tryck på Se min dubbning i scenen. Dina tagningar läggs in i filmen i stället för originalreplikerna; det du inte dubbat än spelas som det var. Se originalet spelar scenen orörd.";
+"help.homeVideo.1.q" = "Hur dubbar jag min egen video?";
+"help.homeVideo.1.a" = "Tryck på den tomma bilden och välj en video från ditt bibliotek, upp till en minut lång. Tryck på spela in: efter nedräkningen spelas videon från början och din röst läggs ovanpå. När den är slut spelas din version, redo att delas eller spelas in igen.";
+"help.homeVideo.2.q" = "Hur tajmar jag mina ljud?";
+"help.homeVideo.2.a" = "Vågen under bilden är videons eget ljud, och linjen som rör sig över den visar var videon är. Titta på den för att få ett skall eller ett skratt i rätt ögonblick. Efter en tagning ritas din röst ovanpå i rött.";
+"help.homeVideo.3.q" = "Kan jag höra videon medan jag spelar in?";
+"help.homeVideo.3.a" = "Ja, med hörlurar. Genom högtalaren spelas videon tyst så att ljudet inte hamnar i din tagning. Behåll originalljudet lägger tillbaka det, lågt, under din röst i den färdiga videon.";
 "help.booth.1.q" = "Vad är Booth Cam?";
 "help.booth.1.a" = "Booth Cam filmar ditt ansikte med frontkameran medan du spelar, så att reaktionen kan följa med dubbningen i videon. Den är av tills du slår på den med kameraknappen på inspelningsskärmen eller i Inställningar. Materialet stannar på din enhet.";
 "help.booth.2.q" = "Hur exporterar jag en video?";

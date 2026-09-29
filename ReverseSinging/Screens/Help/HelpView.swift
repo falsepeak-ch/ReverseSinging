@@ -44,7 +44,9 @@ struct HelpView: View {
                         if viewModel.isSearching {
                             searchResults
                         } else {
-                            if viewModel.initialTopic == .gettingStarted || viewModel.initialTopic == .reverse {
+                            // Only inside Reverse Singing: from the menu, Help is about the whole
+                            // app, and one game's picture at the top read as the answer to it.
+                            if viewModel.initialTopic == .reverse {
                                 HelpReverseFlowCard()
                             }
 

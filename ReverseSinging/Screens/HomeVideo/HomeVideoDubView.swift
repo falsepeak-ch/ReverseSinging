@@ -21,24 +21,19 @@ struct HomeVideoDubView: View {
 
             VStack(spacing: 0) {
                 EditorScreenHeader(title: GameMode.homeVideo.title, onBack: { dismiss() }) {
-                    if viewModel.hasVideo {
-                        EditorToolbarButton(icon: "photo.on.rectangle", label: Strings.HomeVideo.change) {
-                            viewModel.isPickerPresented = true
+                    HStack(spacing: 10) {
+                        HelpButton(topic: .homeVideo)
+
+                        if viewModel.hasVideo {
+                            EditorToolbarButton(icon: "photo.on.rectangle", label: Strings.HomeVideo.change) {
+                                viewModel.isPickerPresented = true
+                            }
+                            .disabled(viewModel.isBusy)
                         }
-                        .disabled(viewModel.isBusy)
                     }
                 }
 
-                if viewModel.hasVideo {
-                    studio
-                } else {
-                    ScrollView {
-                        HomeVideoIntro(pickerItem: $viewModel.pickerItem, isImporting: viewModel.phase == .importing)
-                            .padding(.horizontal, EditorMetrics.gutter)
-                            .padding(.top, 16)
-                            .padding(.bottom, 32)
-                    }
-                }
+                studio
             }
 
             CountdownOverlay(value: viewModel.countdown)
@@ -83,15 +78,23 @@ struct HomeVideoDubView: View {
 
     // MARK: - Studio
 
+    /// The same screen before and after a video is picked, so the game opens on the thing it
+    /// is rather than on an explanation of it. Until then the picture's slot is the picker.
     private var studio: some View {
         VStack(spacing: 14) {
-            picture
+            if viewModel.hasVideo {
+                picture
+            } else {
+                emptyPicture
+            }
 
             if let source = viewModel.source, source.wasTrimmed {
                 Text(Strings.HomeVideo.trimmed)
                     .font(.rsCaption)
                     .foregroundColor(.rsTextTertiary)
             }
+
+            waveform
 
             originalSoundToggle
 
@@ -151,6 +154,56 @@ struct HomeVideoDubView: View {
         .accessibilityLabel(viewModel.isPlaying ? Strings.HomeVideo.pause : Strings.HomeVideo.play)
     }
 
+    private var emptyPicture: some View {
+        // Read here: the picker's label is built outside the main actor.
+        let isImporting = viewModel.phase == .importing
+        return PhotosPicker(selection: $viewModel.pickerItem, matching: .videos, preferredItemEncoding: .current) {
+            VStack(spacing: 14) {
+                if isImporting {
+                    ProgressView().tint(.rsTextPrimary)
+                } else {
+                    Image(systemName: "photo.on.rectangle.angled")
+                        .font(.system(size: 34, weight: .semibold))
+                        .foregroundColor(.rsTextPrimary)
+                }
+                Text(isImporting ? Strings.HomeVideo.importing : Strings.HomeVideo.choose)
+                    .font(.rsButtonMedium)
+                    .foregroundColor(.rsTextPrimary)
+                Text(Strings.HomeVideo.limit)
+                    .font(.rsCaption)
+                    .foregroundColor(.rsTextTertiary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 24)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.rsSurface1)
+            .clipShape(RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
+                    .strokeBorder(Color.rsStroke, style: StrokeStyle(lineWidth: 1.5, dash: [6, 5]))
+            )
+        }
+        .buttonStyle(ScaleButtonStyle())
+        .disabled(isImporting)
+        .frame(maxHeight: .infinity)
+    }
+
+    /// The clip's own sound under the picture, with the take laid over it once there is one:
+    /// where the bark or the laugh is, so the voice can land on it.
+    private var waveform: some View {
+        DubWaveformView(
+            samples: viewModel.originalSamples.isEmpty ? Array(repeating: 0, count: 120) : viewModel.originalSamples,
+            overlay: viewModel.takeSamples.isEmpty ? nil : viewModel.takeSamples,
+            progress: viewModel.hasVideo ? viewModel.playhead : nil,
+            height: 44
+        )
+        .padding(.horizontal, 10)
+        .padding(.vertical, 8)
+        .editorPanel(.rsSurface1)
+        .opacity(viewModel.hasVideo ? 1 : 0.5)
+        .accessibilityHidden(true)
+    }
+
     private var recordingTag: some View {
         HStack(spacing: 6) {
             Circle().fill(Color.rsRecord).frame(width: 8, height: 8)
@@ -179,7 +232,7 @@ struct HomeVideoDubView: View {
         .padding(.horizontal, 12)
         .padding(.vertical, 10)
         .editorPanel(.rsSurface1)
-        .disabled(viewModel.isBusy || viewModel.source?.hasSound == false)
+        .disabled(viewModel.isBusy || !viewModel.hasVideo || viewModel.source?.hasSound == false)
     }
 
     // MARK: - Controls
@@ -196,7 +249,7 @@ struct HomeVideoDubView: View {
                     isCountingIn: viewModel.phase == .countingIn,
                     elapsed: viewModel.recordingProgress,
                     level: viewModel.level,
-                    isEnabled: viewModel.phase != .mixing && viewModel.phase != .importing
+                    isEnabled: viewModel.hasVideo && viewModel.phase != .mixing && viewModel.phase != .importing
                 ) {
                     viewModel.toggleRecording()
                 }
@@ -232,8 +285,10 @@ struct HomeVideoDubView: View {
 
     private var hint: String {
         switch viewModel.phase {
-        case .recording: return Strings.HomeVideo.recordingHint
+        case .recording:
+            return viewModel.isMonitoring ? Strings.HomeVideo.recordingHintHeadphones : Strings.HomeVideo.recordingHint
         case .review: return Strings.HomeVideo.reviewHint
+        case .empty, .importing: return Strings.HomeVideo.emptyHint
         default: return Strings.HomeVideo.readyHint
         }
     }

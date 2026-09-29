@@ -599,14 +599,6 @@ nonisolated enum Strings {
     /// The game where you copy a sound (a cat, a siren, a laser) and get a verdict.
     /// Home Video Dub: a video from the user's own library, with their voice over it.
     enum HomeVideo {
-        static let introTitle = NSLocalizedString("homeVideo.intro.title", comment: "Headline before a video is picked")
-        static let introBody = NSLocalizedString("homeVideo.intro.body", comment: "One or two sentences explaining the game before a video is picked")
-        static let stepPick = NSLocalizedString("homeVideo.step.pick", comment: "Step 1 of the game")
-        static let stepRecord = NSLocalizedString("homeVideo.step.record", comment: "Step 2 of the game")
-        static let stepShare = NSLocalizedString("homeVideo.step.share", comment: "Step 3 of the game")
-        static let compareTitle = NSLocalizedString("homeVideo.compare.title", comment: "Section header comparing this game with the movie scene dub game")
-        static let compareHome = NSLocalizedString("homeVideo.compare.home", comment: "What this game is, next to its name")
-        static let compareDub = NSLocalizedString("homeVideo.compare.dub", comment: "What the movie scene dub game is, next to its name")
         static let choose = NSLocalizedString("homeVideo.choose", comment: "Button that opens the photo library to pick a video")
         static let change = NSLocalizedString("homeVideo.change", comment: "Accessibility label: pick a different video")
         static let limit = NSLocalizedString("homeVideo.limit", comment: "Small print under the pick button")
@@ -618,6 +610,8 @@ nonisolated enum Strings {
         static let noOriginalSound = NSLocalizedString("homeVideo.keepOriginal.none", comment: "Detail under the switch when the video has no sound")
         static let readyHint = NSLocalizedString("homeVideo.hint.ready", comment: "Hint before recording")
         static let recordingHint = NSLocalizedString("homeVideo.hint.recording", comment: "Hint while recording")
+        static let recordingHintHeadphones = NSLocalizedString("homeVideo.hint.recordingHeadphones", comment: "Hint while recording with the video playing in headphones")
+        static let emptyHint = NSLocalizedString("homeVideo.hint.empty", comment: "Hint before a video is picked")
         static let reviewHint = NSLocalizedString("homeVideo.hint.review", comment: "Hint once the finished video is playing")
         static let record = NSLocalizedString("homeVideo.record", comment: "Record button label. One word")
         static let stop = NSLocalizedString("homeVideo.stop", comment: "Stop recording button label. One word")

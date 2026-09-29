@@ -458,14 +458,6 @@
 // Home Video Dub
 "main.mode.homeVideo.title" = "Dubbing własnych filmów";
 "main.mode.homeVideo.subtitle" = "Nagraj swój głos na dowolny nakręcony film";
-"homeVideo.intro.title" = "Twój film, twój głos";
-"homeVideo.intro.body" = "Wybierz film z telefonu i mów, śpiewaj lub komentuj, gdy się odtwarza. Twój głos zastąpi jego dźwięk, gotowe do udostępnienia.";
-"homeVideo.step.pick" = "Wybierz film ze swojej biblioteki";
-"homeVideo.step.record" = "Naciśnij nagrywanie i mów, gdy film się odtwarza";
-"homeVideo.step.share" = "Obejrzyj efekt i udostępnij go";
-"homeVideo.compare.title" = "Dwa sposoby na dubbing";
-"homeVideo.compare.home" = "Twój własny film. Bez scenariusza i punktów: mów, co chcesz, przez cały klip.";
-"homeVideo.compare.dub" = "Słynne sceny filmowe, kwestia po kwestii, ze scenariuszem na ekranie i punktami za każdą kwestię.";
 "homeVideo.choose" = "Wybierz film";
 "homeVideo.change" = "Zmień film";
 "homeVideo.limit" = "Do jednej minuty. Twój film zostaje w telefonie.";
@@ -475,7 +467,9 @@
 "homeVideo.keepOriginal" = "Zachowaj oryginalny dźwięk";
 "homeVideo.keepOriginal.detail" = "Gra cicho pod twoim głosem";
 "homeVideo.keepOriginal.none" = "Ten film nie ma dźwięku";
-"homeVideo.hint.ready" = "Naciśnij nagrywanie. Film zacznie się od początku, a twój głos pójdzie na wierzch.";
+"homeVideo.hint.ready" = "Stuknij nagrywanie, a film ruszy od początku. Patrz na falę, żeby twoje dźwięki trafiały w odpowiedni moment.";
+"homeVideo.hint.empty" = "Wybierz film z biblioteki, aby podłożyć pod niego swój głos.";
+"homeVideo.hint.recordingHeadphones" = "Nagrywanie. Słyszysz film w słuchawkach; mikrofon słyszy tylko ciebie.";
 "homeVideo.hint.recording" = "Nagrywanie. Film odtwarza się bez dźwięku, żeby mikrofon słyszał tylko ciebie.";
 "homeVideo.hint.review" = "Oto twoja wersja. Udostępnij ją albo nagraj jeszcze raz.";
 "homeVideo.record" = "Nagraj";
@@ -646,9 +640,9 @@
 "help.flow.flipBack" = "Odwróć znów";
 "help.flow.caption" = "Zaśpiewaj linijkę i posłuchaj jej od tyłu. Naśladuj ten bełkot najwierniej, jak potrafisz, a potem odwróć swoją wersję. Jeśli trafisz, wyjdzie z tego piosenka.";
 "help.gettingStarted.1.q" = "Czym jest Dubloon?";
-"help.gettingStarted.1.a" = "Trzy gry głosowe, do których wystarczy ci mikrofon. Śpiewanie od tyłu: zaśpiewaj piosenkę od tyłu. Dubbing sceny: wstaw swój głos w scenę z filmu, kwestia po kwestii. Naśladowanie dźwięków: naśladuj dźwięk i poznaj werdykt. Wybierz grę w menu.";
+"help.gettingStarted.1.a" = "Cztery gry głosowe, do których wystarczy mikrofon. Śpiewanie od tyłu: zaśpiewaj piosenkę od tyłu. Dubbing sceny: podłóż swój głos pod scenę z filmu, kwestia po kwestii. Dubbing własnych filmów: podłóż głos pod nagrany przez siebie film. Naśladowanie dźwięków: naśladuj dźwięk i poznaj werdykt. Wybierz jedną w menu.";
 "help.gettingStarted.2.q" = "Które gry są darmowe?";
-"help.gettingStarted.2.a" = "Śpiewanie od tyłu jest za darmo, jak długo chcesz. Dubbing sceny i Naśladowanie dźwięków są w Dubloon Pro, razem z Booth Cam i eksportem wideo. Nowi gracze najpierw dostają darmowy okres próbny wszystkiego; menu pokazuje, ile dni zostało.";
+"help.gettingStarted.2.a" = "Śpiewanie od tyłu i Dubbing własnych filmów są darmowe, bez limitu. Dubbing sceny i Naśladowanie dźwięków są w Dubloon Pro, razem z Booth Cam.";
 "help.gettingStarted.3.q" = "Czy potrzebuję słuchawek?";
 "help.gettingStarted.3.a" = "Nie, ale pomagają przy dubbingu. W słuchawkach słyszysz oryginalną kwestię podczas nagrywania (włącz Oryginał w słuchawkach w Ustawieniach). Z głośnika trafiłaby do twojego nagrania, więc Dubloon odtwarza ją tylko w słuchawkach. Słuchawki przewodowe dają najlepszą synchronizację: Bluetooth dodaje małe opóźnienie.";
 "help.reverse.1.q" = "Jak działa śpiewanie od tyłu?";
@@ -669,6 +663,12 @@
 "help.dub.3.a" = "Każde podejście jest oceniane za synchronizację (czy zacząłeś i skończyłeś razem z oryginałem), tempo (czy utrzymałeś jego rytm) i grę (czy głośne i ciche fragmenty szły za oryginałem). Scena też dostaje ocenę, z twoją najlepszą kwestią i tą wartą powtórki. Nie chcesz być oceniany? Wyłącz Oceniaj moje podejścia w opcjach dubbingu.";
 "help.dub.4.q" = "Jak usłyszeć siebie w filmie?";
 "help.dub.4.a" = "Stuknij Obejrzyj mój dubbing przy scenie. Twoje podejścia wchodzą do filmu w miejsce oryginalnych kwestii; to, czego jeszcze nie zdubbingowałeś, gra tak jak było. Obejrzyj oryginał odtwarza scenę nietkniętą.";
+"help.homeVideo.1.q" = "Jak zdubbingować własny film?";
+"help.homeVideo.1.a" = "Stuknij pusty obraz i wybierz film z biblioteki, do minuty długości. Stuknij nagrywanie: po odliczaniu film rusza od początku, a twój głos idzie na wierzch. Na końcu odtwarza się twoja wersja, gotowa do udostępnienia lub ponownego nagrania.";
+"help.homeVideo.2.q" = "Jak trafić z dźwiękami w czas?";
+"help.homeVideo.2.a" = "Fala pod obrazem to dźwięk samego filmu, a przesuwająca się po niej linia pokazuje, gdzie jest film. Patrz na nią, żeby szczeknięcie czy śmiech trafiły w odpowiedni moment. Po nagraniu twój głos rysuje się na niej na czerwono.";
+"help.homeVideo.3.q" = "Czy słyszę film podczas nagrywania?";
+"help.homeVideo.3.a" = "Tak, w słuchawkach. Przez głośnik film gra bez dźwięku, żeby nie trafił do nagrania. Zachowaj oryginalny dźwięk przywraca go, cicho, pod twoim głosem w gotowym filmie.";
 "help.booth.1.q" = "Czym jest Booth Cam?";
 "help.booth.1.a" = "Booth Cam nagrywa twoją twarz przednim aparatem, kiedy grasz, żeby reakcja mogła trafić do wideo razem z dubbingiem. Jest wyłączony, dopóki nie włączysz go klawiszem kamery na ekranie nagrywania albo w Ustawieniach. Materiał zostaje na twoim urządzeniu.";
 "help.booth.2.q" = "Jak wyeksportować wideo?";

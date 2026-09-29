@@ -458,14 +458,6 @@
 // Home Video Dub
 "main.mode.homeVideo.title" = "Dub dine egne videoer";
 "main.mode.homeVideo.subtitle" = "Læg din stemme på enhver video, du har filmet";
-"homeVideo.intro.title" = "Din video, din stemme";
-"homeVideo.intro.body" = "Vælg en video fra telefonen, og tal, syng eller fortæl hen over den, mens den spiller. Din stemme erstatter lyden, klar til at dele.";
-"homeVideo.step.pick" = "Vælg en video fra dit bibliotek";
-"homeVideo.step.record" = "Tryk på optag, og tal hen over den, mens den spiller";
-"homeVideo.step.share" = "Se resultatet, og del det";
-"homeVideo.compare.title" = "To måder at dubbe på";
-"homeVideo.compare.home" = "Din egen video. Intet manus, ingen point: sig, hvad du vil, gennem hele klippet.";
-"homeVideo.compare.dub" = "Kendte filmscener, replik for replik, med manuskriptet på skærmen og point for hver replik.";
 "homeVideo.choose" = "Vælg en video";
 "homeVideo.change" = "Skift video";
 "homeVideo.limit" = "Op til ét minut. Din video bliver på din telefon.";
@@ -475,7 +467,9 @@
 "homeVideo.keepOriginal" = "Behold den originale lyd";
 "homeVideo.keepOriginal.detail" = "Spiller svagt under din stemme";
 "homeVideo.keepOriginal.none" = "Denne video har ingen lyd";
-"homeVideo.hint.ready" = "Tryk på optag. Videoen starter forfra, og din stemme lægges ovenpå.";
+"homeVideo.hint.ready" = "Tryk på optag, så starter videoen fra begyndelsen. Følg bølgen, så dine lyde rammer det rigtige øjeblik.";
+"homeVideo.hint.empty" = "Vælg en video fra dit bibliotek for at lægge din stemme på den.";
+"homeVideo.hint.recordingHeadphones" = "Optager. Du hører videoen i dine hovedtelefoner; mikrofonen hører kun dig.";
 "homeVideo.hint.recording" = "Optager. Videoen spiller uden lyd, så mikrofonen kun hører dig.";
 "homeVideo.hint.review" = "Her er din version. Del den, eller optag igen.";
 "homeVideo.record" = "Optag";
@@ -646,9 +640,9 @@
 "help.flow.flipBack" = "Vend tilbage";
 "help.flow.caption" = "Syng en linje, og hør den baglæns. Efterlign volapykken så præcist du kan, og vend så din kopi om. Rammer du plet, kommer sangen ud.";
 "help.gettingStarted.1.q" = "Hvad er Dubloon?";
-"help.gettingStarted.1.a" = "Tre stemmespil, der ikke kræver andet end din mikrofon. Baglænssang: syng en sang baglæns. Dub en filmscene: læg din stemme ind i en filmscene, replik for replik. Lydimitation: efterlign en lyd, og få en dom. Vælg et i menuen.";
+"help.gettingStarted.1.a" = "Fire stemmespil, der kun kræver din mikrofon. Baglænssang: syng en sang baglæns. Dub en filmscene: læg din stemme i en filmscene, replik for replik. Dub dine egne videoer: læg din stemme på en video, du har filmet. Lydimitation: efterlign en lyd og få en dom. Vælg et i menuen.";
 "help.gettingStarted.2.q" = "Hvilke spil er gratis?";
-"help.gettingStarted.2.a" = "Baglænssang er gratis, så længe du vil. Dub en filmscene og Lydimitation følger med Dubloon Pro, sammen med Booth Cam og videoeksport. Nye spillere får først en gratis prøveperiode på det hele; menuen viser, hvor mange dage der er tilbage.";
+"help.gettingStarted.2.a" = "Baglænssang og Dub dine egne videoer er gratis, så længe du vil. Dub en filmscene og Lydimitation følger med Dubloon Pro sammen med Booth Cam.";
 "help.gettingStarted.3.q" = "Skal jeg bruge høretelefoner?";
 "help.gettingStarted.3.a" = "Nej, men de hjælper, når du dubber. Med høretelefoner på kan du høre den originale replik, mens du optager (slå Originalen i høretelefonerne til i Indstillinger). Gennem højttaleren ville den ende i din optagelse, så Dubloon afspiller den kun i høretelefoner. Høretelefoner med ledning giver den skarpeste timing: Bluetooth lægger en lille forsinkelse til.";
 "help.reverse.1.q" = "Hvordan virker baglænssang?";
@@ -669,6 +663,12 @@
 "help.dub.3.a" = "Hver optagelse bedømmes på timing (startede og stoppede du sammen med originalen), tempo (holdt du dens rytme) og spil (fulgte dine høje og stille steder med). Scenen får også en score, med din bedste replik og den, der er værd at tage om. Vil du ikke bedømmes? Slå Bedøm mine optagelser fra i dubindstillingerne.";
 "help.dub.4.q" = "Hvordan hører jeg mig selv i filmen?";
 "help.dub.4.a" = "Tryk på Se min dub i scenen. Dine optagelser lægges ind i filmen i stedet for de originale replikker; det, du ikke har dubbet endnu, afspilles som det var. Se originalen afspiller scenen uberørt.";
+"help.homeVideo.1.q" = "Hvordan dubber jeg min egen video?";
+"help.homeVideo.1.a" = "Tryk på det tomme billede, og vælg en video fra dit bibliotek, op til et minut lang. Tryk på optag: efter nedtællingen afspilles videoen fra begyndelsen, og din stemme lægges ovenpå. Til sidst afspilles din version, klar til at dele eller optage igen.";
+"help.homeVideo.2.q" = "Hvordan rammer jeg timingen?";
+"help.homeVideo.2.a" = "Bølgen under billedet er videoens egen lyd, og linjen, der bevæger sig hen over den, viser, hvor videoen er. Hold øje med den for at få et gø eller et grin til at ramme det rigtige øjeblik. Efter en optagelse tegnes din stemme ovenpå med rødt.";
+"help.homeVideo.3.q" = "Kan jeg høre videoen, mens jeg optager?";
+"help.homeVideo.3.a" = "Ja, med hovedtelefoner. Gennem højttaleren afspilles videoen uden lyd, så den ikke ender i din optagelse. Behold den originale lyd lægger den tilbage, lavt, under din stemme i den færdige video.";
 "help.booth.1.q" = "Hvad er Booth Cam?";
 "help.booth.1.a" = "Booth Cam filmer dit ansigt med frontkameraet, mens du optræder, så reaktionen kan komme med i videoen sammen med dubben. Det er slået fra, indtil du slår det til med kameraknappen på optageskærmen eller i Indstillinger. Optagelserne bliver på din enhed.";
 "help.booth.2.q" = "Hvordan eksporterer jeg en video?";

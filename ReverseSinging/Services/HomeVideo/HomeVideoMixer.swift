@@ -74,6 +74,8 @@ nonisolated enum HomeVideoMixer {
 
     static var voiceURL: URL { workingDirectory.appendingPathComponent("voice.caf") }
     static var soundtrackURL: URL { workingDirectory.appendingPathComponent("soundtrack.m4a") }
+    /// The clip's own sound, decoded once when it is picked, for drawing its waveform.
+    static var originalSoundURL: URL { workingDirectory.appendingPathComponent("original.caf") }
 
     /// Clears out earlier clips and takes, so a library of big videos doesn't pile up in Caches.
     static func removeWorkingFiles(except keep: URL? = nil) {
@@ -123,7 +125,7 @@ nonisolated enum HomeVideoMixer {
         out.update(repeating: 0, count: Int(frames))
 
         if keepOriginal, source.hasSound {
-            try await addOriginal(of: source, into: out, frames: Int(frames))
+            try await addOriginal(of: source, into: out, frames: Int(frames), gain: originalGain)
         }
 
         let take = try levelledVoice(from: voice)
@@ -144,6 +146,26 @@ nonisolated enum HomeVideoMixer {
         return try await remux(source: source, soundtrack: soundtrackURL, to: outputURL)
     }
 
+    /// Writes the clip's own sound, at full level and on the picture's clock, to
+    /// `originalSoundURL`, so the studio can draw it under the picture. Nil for a silent clip.
+    @concurrent
+    static func extractOriginalSound(of source: Source) async throws -> URL? {
+        guard source.hasSound else { return nil }
+        let frames = AVAudioFrameCount(source.duration * sampleRate)
+        let format = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 1)!
+        guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frames),
+              let out = buffer.floatChannelData?[0] else { throw MixError.bufferFailed }
+        buffer.frameLength = frames
+        out.update(repeating: 0, count: Int(frames))
+        try await addOriginal(of: source, into: out, frames: Int(frames), gain: 1)
+
+        let url = originalSoundURL
+        try? FileManager.default.removeItem(at: url)
+        let file = try AVAudioFile(forWriting: url, settings: format.settings)
+        try file.write(from: buffer)
+        return url
+    }
+
     /// The take, cleaned between words and brought to a dialogue level, within the same limits
     /// the dub mode allows a take to be moved.
     private static func levelledVoice(from url: URL) throws -> AVAudioPCMBuffer {
@@ -156,9 +178,14 @@ nonisolated enum HomeVideoMixer {
         return buffer
     }
 
-    /// Decodes the clip's own sound to mono and adds it at `originalGain`, placed by each
+    /// Decodes the clip's own sound to mono and adds it at `gain`, placed by each
     /// buffer's timestamp so an audio track that starts late still lines up with the picture.
-    private static func addOriginal(of source: Source, into out: UnsafeMutablePointer<Float>, frames: Int) async throws {
+    private static func addOriginal(
+        of source: Source,
+        into out: UnsafeMutablePointer<Float>,
+        frames: Int,
+        gain: Float
+    ) async throws {
         let asset = AVURLAsset(url: source.url)
         guard let track = try await asset.loadTracks(withMediaType: .audio).first else { return }
 
@@ -193,7 +220,7 @@ nonisolated enum HomeVideoMixer {
                 for index in 0..<count {
                     let target = start + index
                     guard target >= 0, target < frames else { continue }
-                    out[target] += samples[index] * originalGain
+                    out[target] += samples[index] * gain
                 }
             }
         }

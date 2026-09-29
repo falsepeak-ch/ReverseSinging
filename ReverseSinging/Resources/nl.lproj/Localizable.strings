@@ -458,14 +458,6 @@
 // Home Video Dub
 "main.mode.homeVideo.title" = "Je eigen video's dubben";
 "main.mode.homeVideo.subtitle" = "Zet je stem op elke video die je hebt gefilmd";
-"homeVideo.intro.title" = "Jouw video, jouw stem";
-"homeVideo.intro.body" = "Kies een video van je telefoon en praat, zing of vertel eroverheen terwijl hij speelt. Je stem vervangt het geluid, klaar om te delen.";
-"homeVideo.step.pick" = "Kies een video uit je bibliotheek";
-"homeVideo.step.record" = "Tik op opnemen en praat eroverheen terwijl hij speelt";
-"homeVideo.step.share" = "Bekijk het resultaat en deel het";
-"homeVideo.compare.title" = "Twee manieren om te dubben";
-"homeVideo.compare.home" = "Je eigen video. Geen script, geen score: zeg wat je wilt over de hele clip.";
-"homeVideo.compare.dub" = "Beroemde filmscènes, zin voor zin, met het script in beeld en een score per zin.";
 "homeVideo.choose" = "Kies een video";
 "homeVideo.change" = "Andere video";
 "homeVideo.limit" = "Tot een minuut. Je video blijft op je telefoon.";
@@ -475,7 +467,9 @@
 "homeVideo.keepOriginal" = "Origineel geluid behouden";
 "homeVideo.keepOriginal.detail" = "Speelt zacht onder je stem";
 "homeVideo.keepOriginal.none" = "Deze video heeft geen geluid";
-"homeVideo.hint.ready" = "Tik op opnemen. De video begint vooraan en je stem gaat erbovenop.";
+"homeVideo.hint.ready" = "Tik op opnemen en de video begint vanaf het begin. Volg de golf om je geluiden precies op tijd te laten komen.";
+"homeVideo.hint.empty" = "Kies een video uit je bibliotheek om je stem erover te zetten.";
+"homeVideo.hint.recordingHeadphones" = "Opnemen. Je hoort de video in je koptelefoon; de microfoon hoort alleen jou.";
 "homeVideo.hint.recording" = "Opnemen. De video speelt zonder geluid, zodat de microfoon alleen jou hoort.";
 "homeVideo.hint.review" = "Dit is jouw versie. Deel hem of neem opnieuw op.";
 "homeVideo.record" = "Opnemen";
@@ -646,9 +640,9 @@
 "help.flow.flipBack" = "Terugdraaien";
 "help.flow.caption" = "Zing een zin en hoor hem achterstevoren. Doe dat gebrabbel zo goed mogelijk na en draai je versie dan weer om. Zit het goed, dan komt het liedje eruit.";
 "help.gettingStarted.1.q" = "Wat is Dubloon?";
-"help.gettingStarted.1.a" = "Drie stemspellen waarvoor je alleen je microfoon nodig hebt. Achterstevoren zingen: zing een liedje achterstevoren. Filmscène dubben: leg je stem over een filmscène, zin voor zin. Geluiden nadoen: doe een geluid na en krijg een oordeel. Kies er een in het menu.";
+"help.gettingStarted.1.a" = "Vier stemspellen waarvoor je alleen je microfoon nodig hebt. Achterstevoren zingen: zing een liedje achterstevoren. Filmscène dubben: zet je stem in een filmscène, zin voor zin. Je eigen video's dubben: zet je stem op een video die je hebt gefilmd. Geluiden nadoen: doe een geluid na en krijg een oordeel. Kies er een in het menu.";
 "help.gettingStarted.2.q" = "Welke spellen zijn gratis?";
-"help.gettingStarted.2.a" = "Achterstevoren zingen is gratis, zo lang je wilt. Filmscène dubben en Geluiden nadoen horen bij Dubloon Pro, samen met Booth Cam en video-exports. Nieuwe spelers krijgen eerst een gratis proefperiode van alles; in het menu zie je hoeveel dagen er nog over zijn.";
+"help.gettingStarted.2.a" = "Achterstevoren zingen en Je eigen video's dubben zijn gratis, zo lang je wilt. Filmscène dubben en Geluiden nadoen horen bij Dubloon Pro, samen met Booth Cam.";
 "help.gettingStarted.3.q" = "Heb ik een koptelefoon nodig?";
 "help.gettingStarted.3.a" = "Nee, maar bij het dubben helpt het wel. Met een koptelefoon op hoor je de originele zin terwijl je opneemt (zet Origineel in de koptelefoon aan in Instellingen). Via de speaker zou hij in je take belanden, dus Dubloon speelt hem alleen af via een koptelefoon. Met een bedrade koptelefoon zit de timing het strakst: bluetooth voegt een kleine vertraging toe.";
 "help.reverse.1.q" = "Hoe werkt achterstevoren zingen?";
@@ -669,6 +663,12 @@
 "help.dub.3.a" = "Elke take wordt beoordeeld op timing (begon en stopte je samen met het origineel), tempo (hield je het ritme vast) en spel (volgden je harde en zachte stukken het origineel). De scène krijgt ook een score, met je beste zin en de zin die nog een poging waard is. Geen zin in een oordeel? Zet Mijn takes beoordelen uit in de dubopties.";
 "help.dub.4.q" = "Hoe hoor ik mezelf in de film?";
 "help.dub.4.a" = "Tik bij de scène op Mijn versie bekijken. Je takes komen in de film in plaats van de originele zinnen; wat je nog niet hebt gedubd, speelt zoals het was. Origineel bekijken speelt de scène onaangeroerd af.";
+"help.homeVideo.1.q" = "Hoe dub ik mijn eigen video?";
+"help.homeVideo.1.a" = "Tik op het lege beeld en kies een video uit je bibliotheek, tot een minuut lang. Tik op opnemen: na het aftellen begint de video vooraan en komt je stem erbovenop. Aan het eind speelt jouw versie, klaar om te delen of opnieuw op te nemen.";
+"help.homeVideo.2.q" = "Hoe time ik mijn geluiden?";
+"help.homeVideo.2.a" = "De golf onder het beeld is het geluid van de video zelf, en de lijn die erover beweegt laat zien waar de video is. Kijk ernaar om een blaf of een lach op het juiste moment te laten vallen. Na een opname wordt je stem er in rood overheen getekend.";
+"help.homeVideo.3.q" = "Kan ik de video horen terwijl ik opneem?";
+"help.homeVideo.3.a" = "Ja, met een koptelefoon. Via de speaker speelt de video zonder geluid, zodat het niet in je opname belandt. Origineel geluid behouden zet het in de uiteindelijke video weer terug, zachtjes onder je stem.";
 "help.booth.1.q" = "Wat is Booth Cam?";
 "help.booth.1.a" = "Booth Cam filmt je gezicht met de camera aan de voorkant terwijl je speelt, zodat je reactie samen met de dub in de video kan. Hij staat uit tot je hem aanzet met de cameratoets op het opnamescherm of in Instellingen. De beelden blijven op je apparaat.";
 "help.booth.2.q" = "Hoe exporteer ik een video?";

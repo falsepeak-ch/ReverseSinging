@@ -458,14 +458,6 @@
 // Home Video Dub
 "main.mode.homeVideo.title" = "Doppiaggio dei tuoi video";
 "main.mode.homeVideo.subtitle" = "Metti la tua voce su qualsiasi video che hai girato";
-"homeVideo.intro.title" = "Il tuo video, la tua voce";
-"homeVideo.intro.body" = "Scegli un video dal telefono e parla, canta o racconta mentre scorre. La tua voce sostituisce il suo audio, pronto da condividere.";
-"homeVideo.step.pick" = "Scegli un video dalla tua libreria";
-"homeVideo.step.record" = "Premi registra e parlaci sopra mentre scorre";
-"homeVideo.step.share" = "Guarda il risultato e condividilo";
-"homeVideo.compare.title" = "Due modi di doppiare";
-"homeVideo.compare.home" = "Il tuo video. Niente copione, niente punteggio: di' quello che vuoi per tutta la clip.";
-"homeVideo.compare.dub" = "Scene di film famosi, battuta per battuta, con il copione sullo schermo e un punteggio per ogni battuta.";
 "homeVideo.choose" = "Scegli un video";
 "homeVideo.change" = "Cambia video";
 "homeVideo.limit" = "Fino a un minuto. Il tuo video resta sul telefono.";
@@ -475,7 +467,9 @@
 "homeVideo.keepOriginal" = "Mantieni l'audio originale";
 "homeVideo.keepOriginal.detail" = "Suona piano sotto la tua voce";
 "homeVideo.keepOriginal.none" = "Questo video non ha audio";
-"homeVideo.hint.ready" = "Premi registra. Il video riparte dall'inizio e la tua voce va sopra.";
+"homeVideo.hint.ready" = "Tocca registra e il video parte dall'inizio. Segui l'onda per far cadere i tuoi suoni al momento giusto.";
+"homeVideo.hint.empty" = "Scegli un video dalla tua libreria per metterci sopra la tua voce.";
+"homeVideo.hint.recordingHeadphones" = "Registrazione. Senti il video nelle cuffie; il microfono sente solo te.";
 "homeVideo.hint.recording" = "Registrazione. Il video scorre senza audio così il microfono sente solo te.";
 "homeVideo.hint.review" = "Ecco la tua versione. Condividila o registra di nuovo.";
 "homeVideo.record" = "Registra";
@@ -646,9 +640,9 @@
 "help.flow.flipBack" = "Rigira";
 "help.flow.caption" = "Canta una frase e ascoltala al contrario. Copia quel guazzabuglio il meglio che puoi, poi gira la tua copia. Se la azzecchi, ne esce la canzone.";
 "help.gettingStarted.1.q" = "Cos'è Dubloon?";
-"help.gettingStarted.1.a" = "Tre giochi di voce che non chiedono altro che il tuo microfono. Canto invertito: canta una canzone al contrario. Doppiaggio di scene: metti la tua voce in una scena di film, battuta dopo battuta. Imitazione di suoni: copia un suono e ricevi un verdetto. Scegline uno dal menu.";
+"help.gettingStarted.1.a" = "Quattro giochi vocali che richiedono solo il microfono. Canto invertito: canta una canzone al contrario. Doppiaggio di scene: metti la tua voce in una scena di film, battuta per battuta. Doppiaggio dei tuoi video: metti la tua voce su un video che hai girato. Imitazione di suoni: imita un suono e ricevi un verdetto. Scegline uno dal menu.";
 "help.gettingStarted.2.q" = "Quali giochi sono gratis?";
-"help.gettingStarted.2.a" = "Canto invertito è gratis, per tutto il tempo che vuoi. Doppiaggio di scene e Imitazione di suoni sono inclusi in Dubloon Pro, insieme alla camera della cabina e alle esportazioni video. I nuovi giocatori prima provano tutto gratis; il menu mostra quanti giorni restano.";
+"help.gettingStarted.2.a" = "Canto invertito e Doppiaggio dei tuoi video sono gratis, senza limiti. Doppiaggio di scene e Imitazione di suoni sono inclusi in Dubloon Pro, insieme alla camera della cabina.";
 "help.gettingStarted.3.q" = "Mi servono le cuffie?";
 "help.gettingStarted.3.a" = "No, ma aiutano quando doppi. Con le cuffie senti la battuta originale mentre registri (attiva Originale in cuffia nelle Impostazioni). Dall'altoparlante finirebbe nella tua presa, quindi Dubloon la fa sentire solo in cuffia. Le cuffie con il filo tengono i tempi più precisi: il Bluetooth aggiunge un piccolo ritardo.";
 "help.reverse.1.q" = "Come funziona il canto invertito?";
@@ -669,6 +663,12 @@
 "help.dub.3.a" = "Ogni presa riceve un voto su tempi (hai iniziato e finito con l'originale?), ritmo (hai tenuto la sua cadenza?) e interpretazione (le tue parti forti e piano lo hanno seguito?). Anche la scena riceve un voto, con la tua battuta migliore e quella che merita un altro giro. Non vuoi essere giudicato? Disattiva Dai un voto alle mie prese nelle opzioni doppiaggio.";
 "help.dub.4.q" = "Come mi sento dentro il film?";
 "help.dub.4.a" = "Tocca Guarda il mio doppiaggio nella scena. Le tue prese entrano nel film al posto delle battute originali; quello che non hai ancora doppiato resta com'era. Guarda l'originale riproduce la scena intatta.";
+"help.homeVideo.1.q" = "Come doppio un mio video?";
+"help.homeVideo.1.a" = "Tocca l'immagine vuota e scegli un video dalla tua libreria, lungo fino a un minuto. Tocca registra: dopo il conto alla rovescia il video parte dall'inizio e la tua voce va sopra. Alla fine parte la tua versione, pronta da condividere o da rifare.";
+"help.homeVideo.2.q" = "Come vado a tempo con i suoni?";
+"help.homeVideo.2.a" = "L'onda sotto l'immagine è il suono del video, e la linea che la attraversa indica dove si trova il video. Seguila per far cadere un abbaio o una risata al momento giusto. Dopo una registrazione, la tua voce ci viene disegnata sopra in rosso.";
+"help.homeVideo.3.q" = "Posso sentire il video mentre registro?";
+"help.homeVideo.3.a" = "Sì, con le cuffie. Dall'altoparlante il video è muto, così il suo suono non finisce nella registrazione. Mantieni il suono originale lo rimette, piano, sotto la tua voce nel video finale.";
 "help.booth.1.q" = "Cos'è la camera della cabina?";
 "help.booth.1.a" = "La camera della cabina riprende la tua faccia con la fotocamera frontale mentre reciti, così la reazione può finire nel video insieme al doppiaggio. È spenta finché non la accendi con il tasto fotocamera nella schermata di registrazione o nelle Impostazioni. Il girato resta sul tuo dispositivo.";
 "help.booth.2.q" = "Come esporto un video?";

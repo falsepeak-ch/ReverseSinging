@@ -458,14 +458,6 @@
 // Home Video Dub
 "main.mode.homeVideo.title" = "Kendi videolarını seslendir";
 "main.mode.homeVideo.subtitle" = "Çektiğin herhangi bir videoya kendi sesini koy";
-"homeVideo.intro.title" = "Senin videon, senin sesin";
-"homeVideo.intro.body" = "Telefonundan bir video seç ve oynarken üzerine konuş, şarkı söyle ya da anlat. Sesin videonun sesinin yerini alır, paylaşmaya hazır.";
-"homeVideo.step.pick" = "Kitaplığından bir video seç";
-"homeVideo.step.record" = "Kayda bas ve video oynarken üzerine konuş";
-"homeVideo.step.share" = "Sonucu izle ve paylaş";
-"homeVideo.compare.title" = "Seslendirmenin iki yolu";
-"homeVideo.compare.home" = "Kendi videon. Senaryo yok, puan yok: tüm klip boyunca ne istersen söyle.";
-"homeVideo.compare.dub" = "Ünlü film sahneleri, replik replik, senaryo ekranda ve her replik için bir puanla.";
 "homeVideo.choose" = "Video seç";
 "homeVideo.change" = "Videoyu değiştir";
 "homeVideo.limit" = "En fazla bir dakika. Videon telefonunda kalır.";
@@ -475,7 +467,9 @@
 "homeVideo.keepOriginal" = "Orijinal sesi koru";
 "homeVideo.keepOriginal.detail" = "Sesinin altında kısık çalar";
 "homeVideo.keepOriginal.none" = "Bu videoda ses yok";
-"homeVideo.hint.ready" = "Kayda bas. Video baştan başlar ve sesin üstüne eklenir.";
+"homeVideo.hint.ready" = "Kayda bas, video baştan başlasın. Seslerini tam zamanında yapmak için dalgayı takip et.";
+"homeVideo.hint.empty" = "Sesini üzerine koymak için arşivinden bir video seç.";
+"homeVideo.hint.recordingHeadphones" = "Kaydediliyor. Videoyu kulaklığında duyuyorsun; mikrofon sadece seni duyuyor.";
 "homeVideo.hint.recording" = "Kaydediliyor. Mikrofon yalnızca seni duysun diye video sessiz oynuyor.";
 "homeVideo.hint.review" = "İşte senin versiyonun. Paylaş ya da yeniden kaydet.";
 "homeVideo.record" = "Kaydet";
@@ -646,9 +640,9 @@
 "help.flow.flipBack" = "Geri çevir";
 "help.flow.caption" = "Bir satır söyle ve onu tersten dinle. O anlamsız sesi olabildiğince yakından taklit et, sonra kendi kopyanı ters çevir. Tutturursan şarkı ortaya çıkar.";
 "help.gettingStarted.1.q" = "Dubloon nedir?";
-"help.gettingStarted.1.a" = "Mikrofonundan başka bir şeye ihtiyaç duymayan üç ses oyunu. Tersten şarkı: bir şarkıyı tersten söyle. Sahne seslendirme: sesini bir film sahnesine, replik replik yerleştir. Ses taklidi: bir sesi taklit et ve hükmü öğren. Menüden birini seç.";
+"help.gettingStarted.1.a" = "Sadece mikrofonuna ihtiyaç duyan dört ses oyunu. Tersten şarkı: bir şarkıyı tersten söyle. Sahne seslendirme: bir film sahnesine replik replik sesini koy. Kendi videolarını seslendir: çektiğin bir videoya sesini koy. Ses taklidi: bir sesi taklit et ve kararını al. Menüden birini seç.";
 "help.gettingStarted.2.q" = "Hangi oyunlar ücretsiz?";
-"help.gettingStarted.2.a" = "Tersten şarkı ücretsiz, istediğin kadar. Sahne seslendirme ve Ses taklidi, Booth Cam ve video dışa aktarmayla birlikte Dubloon Pro'ya dahil. Yeni oyuncular önce her şeyi ücretsiz deneyebilir; menü kaç gün kaldığını gösterir.";
+"help.gettingStarted.2.a" = "Tersten şarkı ve Kendi videolarını seslendir sınırsız ücretsiz. Sahne seslendirme ve Ses taklidi, Booth Cam ile birlikte Dubloon Pro'ya dahil.";
 "help.gettingStarted.3.q" = "Kulaklık gerekli mi?";
 "help.gettingStarted.3.a" = "Hayır, ama seslendirirken işe yarar. Kulaklık takılıyken, kaydederken orijinal repliği duyabilirsin (Ayarlar'da Kulaklıkta orijinal'i aç). Hoparlörden çalsa senin çekimine karışırdı, bu yüzden Dubloon onu yalnızca kulaklıkta çalar. Zamanlamayı en sıkı kablolu kulaklık tutar: Bluetooth küçük bir gecikme ekler.";
 "help.reverse.1.q" = "Tersten şarkı nasıl işler?";
@@ -669,6 +663,12 @@
 "help.dub.3.a" = "Her çekim zamanlama (orijinalle birlikte başlayıp bitirdin mi), tempo (ritmini korudun mu) ve oyunculuk (yüksek ve alçak yerlerin onu izledi mi) üzerinden değerlendirilir. Sahne de en iyi repliğin ve bir daha denemeye değer olanla birlikte bir puan alır. Yargılanmak istemiyor musun? Seslendirme seçenekleri'nde Çekimlerimi puanla'yı kapat.";
 "help.dub.4.q" = "Kendimi filmde nasıl duyarım?";
 "help.dub.4.a" = "Sahnede Kendi seslendirmemi izle'ye dokun. Çekimlerin filmde orijinal repliklerin yerine geçer; henüz seslendirmediğin her şey olduğu gibi çalar. Orijinali izle, sahneyi dokunulmamış hâliyle oynatır.";
+"help.homeVideo.1.q" = "Kendi videomu nasıl seslendiririm?";
+"help.homeVideo.1.a" = "Boş görsele dokun ve arşivinden en fazla bir dakikalık bir video seç. Kayda bas: geri sayımdan sonra video baştan oynar ve sesin üstüne eklenir. Sonunda senin versiyonun oynar; paylaşabilir ya da yeniden kaydedebilirsin.";
+"help.homeVideo.2.q" = "Seslerimi nasıl zamanlarım?";
+"help.homeVideo.2.a" = "Görselin altındaki dalga videonun kendi sesidir, üzerinde ilerleyen çizgi de videonun nerede olduğunu gösterir. Bir havlamayı ya da kahkahayı tam zamanında yapmak için onu takip et. Bir çekimden sonra sesin üzerine kırmızıyla çizilir.";
+"help.homeVideo.3.q" = "Kayıt yaparken videoyu duyabilir miyim?";
+"help.homeVideo.3.a" = "Evet, kulaklıkla. Hoparlörde video sessiz oynar, böylece sesi kaydına karışmaz. Orijinal sesi koru, bitmiş videoda onu sesinin altına, kısık olarak geri koyar.";
 "help.booth.1.q" = "Booth Cam nedir?";
 "help.booth.1.a" = "Booth Cam sen oynarken yüzünü ön kamerayla çeker, böylece tepkin seslendirmeyle birlikte videoya girebilir. Kayıt ekranındaki kamera tuşuyla ya da Ayarlar'dan açana kadar kapalıdır. Görüntüler cihazında kalır.";
 "help.booth.2.q" = "Video nasıl dışa aktarılır?";

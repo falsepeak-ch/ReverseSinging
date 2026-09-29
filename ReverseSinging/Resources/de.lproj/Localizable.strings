@@ -458,14 +458,6 @@
 // Home Video Dub
 "main.mode.homeVideo.title" = "Eigene Videos synchronisieren";
 "main.mode.homeVideo.subtitle" = "Leg deine Stimme auf jedes Video, das du gefilmt hast";
-"homeVideo.intro.title" = "Dein Video, deine Stimme";
-"homeVideo.intro.body" = "Wähl ein Video vom Handy und sprich, sing oder erzähl darüber, während es läuft. Deine Stimme ersetzt den Ton, fertig zum Teilen.";
-"homeVideo.step.pick" = "Wähl ein Video aus deiner Mediathek";
-"homeVideo.step.record" = "Tippe auf Aufnehmen und sprich darüber, während es läuft";
-"homeVideo.step.share" = "Schau dir das Ergebnis an und teile es";
-"homeVideo.compare.title" = "Zwei Arten zu synchronisieren";
-"homeVideo.compare.home" = "Dein eigenes Video. Kein Skript, keine Punkte: Sag, was du willst, über den ganzen Clip.";
-"homeVideo.compare.dub" = "Berühmte Filmszenen, Satz für Satz, mit dem Skript auf dem Bildschirm und Punkten für jeden Satz.";
 "homeVideo.choose" = "Video auswählen";
 "homeVideo.change" = "Anderes Video";
 "homeVideo.limit" = "Bis zu einer Minute. Dein Video bleibt auf deinem Handy.";
@@ -475,7 +467,9 @@
 "homeVideo.keepOriginal" = "Originalton behalten";
 "homeVideo.keepOriginal.detail" = "Läuft leise unter deiner Stimme";
 "homeVideo.keepOriginal.none" = "Dieses Video hat keinen Ton";
-"homeVideo.hint.ready" = "Tippe auf Aufnehmen. Das Video startet von vorn und deine Stimme kommt obendrauf.";
+"homeVideo.hint.ready" = "Tippe auf Aufnahme und das Video startet von vorn. Folge der Welle, damit deine Geräusche genau im richtigen Moment kommen.";
+"homeVideo.hint.empty" = "Wähle ein Video aus deiner Mediathek, um deine Stimme darüberzulegen.";
+"homeVideo.hint.recordingHeadphones" = "Aufnahme läuft. Du hörst das Video in deinen Kopfhörern; das Mikrofon hört nur dich.";
 "homeVideo.hint.recording" = "Aufnahme läuft. Das Video läuft stumm, damit das Mikro nur dich hört.";
 "homeVideo.hint.review" = "Das ist deine Version. Teile sie oder nimm noch mal auf.";
 "homeVideo.record" = "Aufnehmen";
@@ -646,9 +640,9 @@
 "help.flow.flipBack" = "Zurückdrehen";
 "help.flow.caption" = "Sing eine Zeile und hör sie rückwärts. Sing das Kauderwelsch so genau wie möglich nach und dreh deine Version dann um. Triffst du es, kommt das Lied heraus.";
 "help.gettingStarted.1.q" = "Was ist Dubloon?";
-"help.gettingStarted.1.a" = "Drei Stimmspiele, für die du nur dein Mikrofon brauchst. Rückwärtssingen: Sing ein Lied rückwärts. Filmszene synchronisieren: Leg deine Stimme Zeile für Zeile in eine Filmszene. Geräusche imitieren: Mach ein Geräusch nach und hol dir ein Urteil. Such dir eins im Menü aus.";
+"help.gettingStarted.1.a" = "Vier Stimmspiele, für die du nur dein Mikrofon brauchst. Rückwärtssingen: Sing ein Lied rückwärts. Filmszene synchronisieren: Leg deine Stimme Zeile für Zeile in eine Filmszene. Eigene Videos synchronisieren: Leg deine Stimme über ein Video, das du gefilmt hast. Geräusche imitieren: Mach ein Geräusch nach und hol dir ein Urteil. Wähl eins im Menü.";
 "help.gettingStarted.2.q" = "Welche Spiele sind kostenlos?";
-"help.gettingStarted.2.a" = "Rückwärtssingen ist kostenlos, so lange du willst. Filmszene synchronisieren und Geräusche imitieren gehören zu Dubloon Pro, genau wie Booth Cam und Videoexporte. Neue Spieler testen zuerst alles gratis; im Menü steht, wie viele Tage noch übrig sind.";
+"help.gettingStarted.2.a" = "Rückwärtssingen und Eigene Videos synchronisieren sind kostenlos, so lange du willst. Filmszene synchronisieren und Geräusche imitieren gehören zu Dubloon Pro, zusammen mit Booth Cam.";
 "help.gettingStarted.3.q" = "Brauche ich Kopfhörer?";
 "help.gettingStarted.3.a" = "Nein, aber beim Synchronisieren helfen sie. Mit Kopfhörern hörst du die Originalzeile, während du aufnimmst (schalt dafür Original im Kopfhörer in den Einstellungen ein). Über den Lautsprecher würde sie in deinem Take landen, deshalb spielt Dubloon sie nur im Kopfhörer ab. Mit Kabelkopfhörern sitzt das Timing am genauesten: Bluetooth bringt eine kleine Verzögerung mit.";
 "help.reverse.1.q" = "Wie funktioniert Rückwärtssingen?";
@@ -669,6 +663,12 @@
 "help.dub.3.a" = "Jeder Take wird nach Timing (hast du mit dem Original angefangen und aufgehört), Tempo (hast du seinen Rhythmus gehalten) und Spiel (sind deine lauten und leisen Stellen ihm gefolgt) bewertet. Auch die Szene bekommt eine Punktzahl, mit deiner besten Zeile und der, die noch einen Versuch wert ist. Keine Lust auf Bewertung? Schalt Meine Takes bewerten in den Dub-Optionen aus.";
 "help.dub.4.q" = "Wie höre ich mich im Film?";
 "help.dub.4.a" = "Tippe in der Szene auf Meine Fassung ansehen. Deine Takes ersetzen im Film die Originalzeilen; was du noch nicht vertont hast, läuft wie gehabt. Original ansehen spielt die Szene unverändert ab.";
+"help.homeVideo.1.q" = "Wie synchronisiere ich mein eigenes Video?";
+"help.homeVideo.1.a" = "Tippe auf das leere Bild und wähle ein Video aus deiner Mediathek, bis zu einer Minute lang. Tippe auf Aufnahme: Nach dem Countdown läuft das Video von vorn, und deine Stimme kommt obendrauf. Am Ende läuft deine Version, bereit zum Teilen oder für eine neue Aufnahme.";
+"help.homeVideo.2.q" = "Wie treffe ich das Timing?";
+"help.homeVideo.2.a" = "Die Welle unter dem Bild ist der Ton des Videos, und die Linie darauf zeigt, wo das Video gerade ist. Achte darauf, um ein Bellen oder Lachen genau im richtigen Moment zu setzen. Nach einer Aufnahme wird deine Stimme rot darübergezeichnet.";
+"help.homeVideo.3.q" = "Kann ich das Video beim Aufnehmen hören?";
+"help.homeVideo.3.a" = "Ja, mit Kopfhörern. Über den Lautsprecher läuft das Video stumm, damit sein Ton nicht in deiner Aufnahme landet. Mit Originalton behalten ist er im fertigen Video wieder da, leise unter deiner Stimme.";
 "help.booth.1.q" = "Was ist Booth Cam?";
 "help.booth.1.a" = "Booth Cam filmt dein Gesicht mit der Frontkamera, während du spielst, damit die Reaktion zusammen mit der Fassung ins Video kann. Sie ist aus, bis du sie mit der Kamerataste im Aufnahmebildschirm oder in den Einstellungen einschaltest. Die Aufnahmen bleiben auf deinem Gerät.";
 "help.booth.2.q" = "Wie exportiere ich ein Video?";

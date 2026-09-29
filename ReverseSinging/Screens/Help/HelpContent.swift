@@ -13,6 +13,7 @@ nonisolated enum HelpTopic: String, CaseIterable, Identifiable, Sendable {
     case gettingStarted
     case reverse
     case dub
+    case homeVideo
     case booth
     case packs
     case imitate
@@ -27,6 +28,7 @@ nonisolated enum HelpTopic: String, CaseIterable, Identifiable, Sendable {
         case .gettingStarted: Strings.Help.Section.gettingStarted
         case .reverse: Strings.Main.Mode.reverseTitle
         case .dub: Strings.Main.Mode.dubTitle
+        case .homeVideo: Strings.Main.Mode.homeVideoTitle
         case .booth: Strings.Help.Section.booth
         case .packs: Strings.Help.Section.packs
         case .imitate: Strings.Main.Mode.imitateTitle
@@ -41,6 +43,7 @@ nonisolated enum HelpTopic: String, CaseIterable, Identifiable, Sendable {
         case .gettingStarted: "sparkles"
         case .reverse: "arrow.uturn.backward"
         case .dub: "film"
+        case .homeVideo: "play.rectangle"
         case .booth: "video"
         case .packs: "shippingbox"
         case .imitate: "megaphone"
@@ -56,6 +59,7 @@ nonisolated enum HelpTopic: String, CaseIterable, Identifiable, Sendable {
         case .gettingStarted: 3
         case .reverse: 5
         case .dub: 4
+        case .homeVideo: 3
         case .booth: 3
         case .packs: 3
         case .imitate: 3

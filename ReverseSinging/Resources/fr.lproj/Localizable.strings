@@ -458,14 +458,6 @@
 // Home Video Dub
 "main.mode.homeVideo.title" = "Doublage de tes vidéos";
 "main.mode.homeVideo.subtitle" = "Mets ta voix sur n'importe quelle vidéo que tu as filmée";
-"homeVideo.intro.title" = "Ta vidéo, ta voix";
-"homeVideo.intro.body" = "Choisis une vidéo de ton téléphone et parle, chante ou raconte pendant qu'elle défile. Ta voix remplace son son, prête à partager.";
-"homeVideo.step.pick" = "Choisis une vidéo dans ta galerie";
-"homeVideo.step.record" = "Appuie sur enregistrer et parle pendant la lecture";
-"homeVideo.step.share" = "Regarde le résultat et partage-le";
-"homeVideo.compare.title" = "Deux façons de doubler";
-"homeVideo.compare.home" = "Ta propre vidéo. Pas de texte, pas de score : dis ce que tu veux sur tout le clip.";
-"homeVideo.compare.dub" = "Des scènes de films célèbres, réplique par réplique, avec le texte à l'écran et un score pour chaque réplique.";
 "homeVideo.choose" = "Choisir une vidéo";
 "homeVideo.change" = "Changer de vidéo";
 "homeVideo.limit" = "Jusqu'à une minute. Ta vidéo reste sur ton téléphone.";
@@ -475,7 +467,9 @@
 "homeVideo.keepOriginal" = "Garder le son d'origine";
 "homeVideo.keepOriginal.detail" = "Joué doucement sous ta voix";
 "homeVideo.keepOriginal.none" = "Cette vidéo n'a pas de son";
-"homeVideo.hint.ready" = "Appuie sur enregistrer. La vidéo repart du début et ta voix passe par-dessus.";
+"homeVideo.hint.ready" = "Touchez enregistrer et la vidéo démarre au début. Suivez l'onde pour placer vos sons au bon moment.";
+"homeVideo.hint.empty" = "Choisissez une vidéo de votre photothèque pour y mettre votre voix.";
+"homeVideo.hint.recordingHeadphones" = "Enregistrement. Vous entendez la vidéo dans vos écouteurs ; le micro n'entend que vous.";
 "homeVideo.hint.recording" = "Enregistrement. La vidéo défile sans le son pour que le micro n'entende que toi.";
 "homeVideo.hint.review" = "Voici ta version. Partage-la ou enregistre à nouveau.";
 "homeVideo.record" = "Enregistrer";
@@ -646,9 +640,9 @@
 "help.flow.flipBack" = "À l'endroit";
 "help.flow.caption" = "Chante une phrase et écoute-la à l'envers. Copie ce charabia du mieux que tu peux, puis retourne ta copie. Si tu vises juste, la chanson ressort.";
 "help.gettingStarted.1.q" = "C'est quoi, Dubloon ?";
-"help.gettingStarted.1.a" = "Trois jeux de voix qui n'ont besoin que de ton micro. Chant inversé : chante une chanson à l'envers. Doublage de scène : mets ta voix dans une scène de film, réplique par réplique. Imitation de sons : copie un son et reçois un verdict. Choisis-en un dans le menu.";
+"help.gettingStarted.1.a" = "Quatre jeux de voix qui ne demandent que votre micro. Chant inversé : chantez une chanson à l'envers. Doublage de scène : mettez votre voix dans une scène de film, réplique par réplique. Doublage de tes vidéos : mettez votre voix sur une vidéo que vous avez filmée. Imitation de sons : imitez un son et recevez un verdict. Choisissez-en un dans le menu.";
 "help.gettingStarted.2.q" = "Quels jeux sont gratuits ?";
-"help.gettingStarted.2.a" = "Le Chant inversé est gratuit, aussi longtemps que tu veux. Le Doublage de scène et l'Imitation de sons viennent avec Dubloon Pro, tout comme la caméra de cabine et les exports vidéo. Les nouveaux joueurs ont d'abord droit à un essai gratuit de tout ; le menu indique combien de jours il reste.";
+"help.gettingStarted.2.a" = "Chant inversé et Doublage de tes vidéos sont gratuits, sans limite. Doublage de scène et Imitation de sons sont inclus dans Dubloon Pro, avec la caméra de cabine.";
 "help.gettingStarted.3.q" = "J'ai besoin d'un casque ?";
 "help.gettingStarted.3.a" = "Non, mais ça aide pour doubler. Avec un casque, tu entends la réplique originale pendant l'enregistrement (active Original dans le casque dans les Réglages). Par le haut-parleur, elle finirait dans ta prise, alors Dubloon ne la joue que dans le casque. Un casque filaire garde la synchro la plus serrée : le Bluetooth ajoute un petit décalage.";
 "help.reverse.1.q" = "Comment marche le chant inversé ?";
@@ -669,6 +663,12 @@
 "help.dub.3.a" = "Chaque prise est notée sur la synchro (as-tu commencé et fini avec l'original ?), le rythme (as-tu gardé sa cadence ?) et le jeu (tes passages forts et doux l'ont-ils suivi ?). La scène a aussi une note, avec ta meilleure réplique et celle qui mérite une autre prise. Pas envie d'être jugé ? Désactive Noter mes prises dans les options de doublage.";
 "help.dub.4.q" = "Comment m'entendre dans le film ?";
 "help.dub.4.a" = "Appuie sur Voir mon doublage dans la scène. Tes prises remplacent les répliques originales dans le film ; ce que tu n'as pas encore doublé reste tel quel. Voir l'original lit la scène intacte.";
+"help.homeVideo.1.q" = "Comment doubler ma propre vidéo ?";
+"help.homeVideo.1.a" = "Touchez l'image vide et choisissez une vidéo de votre photothèque, d'une minute maximum. Touchez enregistrer : après le décompte, la vidéo démarre au début et votre voix passe par-dessus. À la fin, votre version se lance, prête à être partagée ou refaite.";
+"help.homeVideo.2.q" = "Comment caler mes sons ?";
+"help.homeVideo.2.a" = "L'onde sous l'image, c'est le son de la vidéo, et la ligne qui la parcourt indique où en est la vidéo. Suivez-la pour placer un aboiement ou un rire au bon moment. Après une prise, votre voix s'y dessine en rouge.";
+"help.homeVideo.3.q" = "Puis-je entendre la vidéo pendant l'enregistrement ?";
+"help.homeVideo.3.a" = "Oui, avec des écouteurs. Sur le haut-parleur, la vidéo est muette pour que son son ne se retrouve pas dans votre prise. Garder le son original le remet, doucement, sous votre voix dans la vidéo finale.";
 "help.booth.1.q" = "C'est quoi, la caméra de cabine ?";
 "help.booth.1.a" = "La caméra de cabine filme ton visage avec la caméra avant pendant que tu joues, pour que la réaction puisse aller dans la vidéo avec le doublage. Elle reste coupée jusqu'à ce que tu l'actives avec la touche caméra sur l'écran d'enregistrement ou dans les Réglages. Les images restent sur ton appareil.";
 "help.booth.2.q" = "Comment exporter une vidéo ?";
