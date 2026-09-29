@@ -439,6 +439,38 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "Imitació de sons";
 "main.mode.imitate.subtitle" = "Copia un so i rep el veredicte";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "Doblatge dels teus vídeos";
+"main.mode.homeVideo.subtitle" = "Posa la teva veu a qualsevol vídeo que hagis gravat";
+"homeVideo.intro.title" = "El teu vídeo, la teva veu";
+"homeVideo.intro.body" = "Tria qualsevol vídeo del mòbil i parla, canta o narra mentre es reprodueix. La teva veu en substitueix el so, a punt per compartir.";
+"homeVideo.step.pick" = "Tria un vídeo de la teva galeria";
+"homeVideo.step.record" = "Prem gravar i parla per sobre mentre es reprodueix";
+"homeVideo.step.share" = "Mira el resultat i comparteix-lo";
+"homeVideo.compare.title" = "Dues maneres de doblar";
+"homeVideo.compare.home" = "El teu propi vídeo. Sense guió ni puntuació: digues el que vulguis durant tot el clip.";
+"homeVideo.compare.dub" = "Escenes de pel·lícules famoses, frase a frase, amb el guió a la pantalla i una puntuació per a cada frase.";
+"homeVideo.choose" = "Tria un vídeo";
+"homeVideo.change" = "Canvia de vídeo";
+"homeVideo.limit" = "Fins a un minut. El teu vídeo no surt del mòbil.";
+"homeVideo.trimmed" = "Només es fa servir el primer minut.";
+"homeVideo.importing" = "Obrint el vídeo…";
+"homeVideo.mixing" = "Afegint la teva veu…";
+"homeVideo.keepOriginal" = "Mantén el so original";
+"homeVideo.keepOriginal.detail" = "Sona fluix per sota de la teva veu";
+"homeVideo.keepOriginal.none" = "Aquest vídeo no té so";
+"homeVideo.hint.ready" = "Prem gravar. El vídeo comença des del principi i la teva veu hi va a sobre.";
+"homeVideo.hint.recording" = "Gravant. El vídeo es reprodueix en silenci perquè el micròfon només et senti a tu.";
+"homeVideo.hint.review" = "Aquí tens la teva versió. Comparteix-la o torna a gravar.";
+"homeVideo.record" = "Grava";
+"homeVideo.stop" = "Atura";
+"homeVideo.retake" = "Torna a gravar";
+"homeVideo.share" = "Comparteix";
+"homeVideo.play" = "Reprodueix";
+"homeVideo.pause" = "Pausa";
+"homeVideo.error.load" = "No s'ha pogut obrir aquest vídeo. Prova'n un altre.";
+"homeVideo.error.mix" = "No s'ha pogut afegir la teva veu al vídeo. Torna a gravar.";
 "imitate.library.hint" = "Tria un so, escolta'l i fes la teva millor imitació.";
 "imitate.library.best" = "Rècord";
 "imitate.library.untried" = "Nou";
@@ -502,6 +534,16 @@
 "imitate.sound.laugh" = "Riure malvat";
 "imitate.sound.yawn" = "Badall";
 "imitate.sound.hiccup" = "Singlot";
+"imitate.sound.frog" = "Granota";
+"imitate.sound.horse" = "Cavall";
+"imitate.sound.goat" = "Cabra";
+"imitate.sound.monkey" = "Mico";
+"imitate.sound.lion" = "Lleó";
+"imitate.sound.squeak" = "Joguina que grinyola";
+"imitate.sound.fart" = "Pet";
+"imitate.sound.ghost" = "Fantasma";
+"imitate.sound.zombie" = "Zombi";
+"imitate.sound.whistle" = "Xiulet";
 
 /* Mac */
 "mac.sidebar.games" = "Jocs";

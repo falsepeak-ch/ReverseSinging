@@ -68,6 +68,20 @@ struct HomeViewModelTests {
         }
     }
 
+    /// Home Video Dub is always free: the user brings the video, so it opens with the trial over.
+    @Test func homeVideoDubStaysOpenWhenLocked() {
+        withAccess(.locked) {
+            let viewModel = HomeViewModel()
+
+            viewModel.open(.homeVideo)
+
+            #expect(!viewModel.isLocked(.homeVideo))
+            #expect(viewModel.isFree(.homeVideo))
+            #expect(viewModel.path == [.homeVideo])
+            #expect(viewModel.paywallSource == nil)
+        }
+    }
+
     /// Sound Imitation is paid unless the console frees it, so it locks with dubbing.
     @Test func soundImitationLocksByDefault() {
         withAccess(.locked) {

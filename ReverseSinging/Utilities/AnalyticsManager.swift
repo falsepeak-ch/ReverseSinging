@@ -393,6 +393,27 @@ final class AnalyticsManager {
         ])
     }
 
+    // MARK: - Home Video Dub
+
+    func trackHomeVideoPicked(duration: Double, trimmed: Bool, hasSound: Bool) {
+        log("home_video_picked", parameters: [
+            "duration": duration,
+            "trimmed": trimmed,
+            "has_sound": hasSound
+        ])
+    }
+
+    func trackHomeVideoMixed(duration: Double, keptOriginal: Bool) {
+        log("home_video_mixed", parameters: [
+            "duration": duration,
+            "kept_original": keptOriginal
+        ])
+    }
+
+    func trackHomeVideoShared() {
+        log("home_video_shared", parameters: [:])
+    }
+
     // MARK: - Purchases
 
     /// The paywall reached the screen. `source` says what put it there — the hard

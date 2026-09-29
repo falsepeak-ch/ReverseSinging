@@ -439,6 +439,38 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "Naśladowanie dźwięków";
 "main.mode.imitate.subtitle" = "Naśladuj dźwięk i poznaj werdykt";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "Dubbing własnych filmów";
+"main.mode.homeVideo.subtitle" = "Nagraj swój głos na dowolny nakręcony film";
+"homeVideo.intro.title" = "Twój film, twój głos";
+"homeVideo.intro.body" = "Wybierz film z telefonu i mów, śpiewaj lub komentuj, gdy się odtwarza. Twój głos zastąpi jego dźwięk, gotowe do udostępnienia.";
+"homeVideo.step.pick" = "Wybierz film ze swojej biblioteki";
+"homeVideo.step.record" = "Naciśnij nagrywanie i mów, gdy film się odtwarza";
+"homeVideo.step.share" = "Obejrzyj efekt i udostępnij go";
+"homeVideo.compare.title" = "Dwa sposoby na dubbing";
+"homeVideo.compare.home" = "Twój własny film. Bez scenariusza i punktów: mów, co chcesz, przez cały klip.";
+"homeVideo.compare.dub" = "Słynne sceny filmowe, kwestia po kwestii, ze scenariuszem na ekranie i punktami za każdą kwestię.";
+"homeVideo.choose" = "Wybierz film";
+"homeVideo.change" = "Zmień film";
+"homeVideo.limit" = "Do jednej minuty. Twój film zostaje w telefonie.";
+"homeVideo.trimmed" = "Używana jest tylko pierwsza minuta.";
+"homeVideo.importing" = "Otwieranie filmu…";
+"homeVideo.mixing" = "Dodawanie twojego głosu…";
+"homeVideo.keepOriginal" = "Zachowaj oryginalny dźwięk";
+"homeVideo.keepOriginal.detail" = "Gra cicho pod twoim głosem";
+"homeVideo.keepOriginal.none" = "Ten film nie ma dźwięku";
+"homeVideo.hint.ready" = "Naciśnij nagrywanie. Film zacznie się od początku, a twój głos pójdzie na wierzch.";
+"homeVideo.hint.recording" = "Nagrywanie. Film odtwarza się bez dźwięku, żeby mikrofon słyszał tylko ciebie.";
+"homeVideo.hint.review" = "Oto twoja wersja. Udostępnij ją albo nagraj jeszcze raz.";
+"homeVideo.record" = "Nagraj";
+"homeVideo.stop" = "Stop";
+"homeVideo.retake" = "Nagraj ponownie";
+"homeVideo.share" = "Udostępnij";
+"homeVideo.play" = "Odtwórz";
+"homeVideo.pause" = "Pauza";
+"homeVideo.error.load" = "Nie udało się otworzyć tego filmu. Spróbuj innego.";
+"homeVideo.error.mix" = "Nie udało się dodać głosu do filmu. Nagraj jeszcze raz.";
 "imitate.library.hint" = "Wybierz dźwięk, posłuchaj i daj z siebie wszystko.";
 "imitate.library.best" = "Rekord";
 "imitate.library.untried" = "Nowy";
@@ -502,6 +534,16 @@
 "imitate.sound.laugh" = "Złowieszczy śmiech";
 "imitate.sound.yawn" = "Ziewnięcie";
 "imitate.sound.hiccup" = "Czkawka";
+"imitate.sound.frog" = "Żaba";
+"imitate.sound.horse" = "Koń";
+"imitate.sound.goat" = "Koza";
+"imitate.sound.monkey" = "Małpa";
+"imitate.sound.lion" = "Lew";
+"imitate.sound.squeak" = "Piszcząca zabawka";
+"imitate.sound.fart" = "Bąk";
+"imitate.sound.ghost" = "Duch";
+"imitate.sound.zombie" = "Zombie";
+"imitate.sound.whistle" = "Gwizd";
 
 /* Mac */
 "mac.sidebar.games" = "Gry";

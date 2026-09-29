@@ -439,6 +439,38 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "Имитация звуков";
 "main.mode.imitate.subtitle" = "Изобрази звук и получи вердикт";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "Озвучка своих видео";
+"main.mode.homeVideo.subtitle" = "Наложи свой голос на любое снятое тобой видео";
+"homeVideo.intro.title" = "Твоё видео, твой голос";
+"homeVideo.intro.body" = "Выбери любое видео на телефоне и говори, пой или комментируй, пока оно идёт. Твой голос заменит его звук — можно сразу делиться.";
+"homeVideo.step.pick" = "Выбери видео из медиатеки";
+"homeVideo.step.record" = "Нажми запись и говори поверх видео, пока оно идёт";
+"homeVideo.step.share" = "Посмотри результат и поделись им";
+"homeVideo.compare.title" = "Два способа озвучки";
+"homeVideo.compare.home" = "Твоё собственное видео. Без сценария и очков: говори что хочешь на протяжении всего ролика.";
+"homeVideo.compare.dub" = "Знаменитые сцены из фильмов, реплика за репликой, со сценарием на экране и очками за каждую реплику.";
+"homeVideo.choose" = "Выбрать видео";
+"homeVideo.change" = "Сменить видео";
+"homeVideo.limit" = "До одной минуты. Видео остаётся на твоём телефоне.";
+"homeVideo.trimmed" = "Используется только первая минута.";
+"homeVideo.importing" = "Открываем видео…";
+"homeVideo.mixing" = "Добавляем твой голос…";
+"homeVideo.keepOriginal" = "Оставить исходный звук";
+"homeVideo.keepOriginal.detail" = "Тихо звучит под твоим голосом";
+"homeVideo.keepOriginal.none" = "В этом видео нет звука";
+"homeVideo.hint.ready" = "Нажми запись. Видео начнётся сначала, а твой голос ляжет сверху.";
+"homeVideo.hint.recording" = "Идёт запись. Видео идёт без звука, чтобы микрофон слышал только тебя.";
+"homeVideo.hint.review" = "Вот твоя версия. Поделись ею или запиши заново.";
+"homeVideo.record" = "Запись";
+"homeVideo.stop" = "Стоп";
+"homeVideo.retake" = "Записать заново";
+"homeVideo.share" = "Поделиться";
+"homeVideo.play" = "Воспроизвести";
+"homeVideo.pause" = "Пауза";
+"homeVideo.error.load" = "Не удалось открыть это видео. Попробуй другое.";
+"homeVideo.error.mix" = "Не удалось добавить голос в видео. Запиши заново.";
 "imitate.library.hint" = "Выбери звук, послушай и изобрази его как можно лучше.";
 "imitate.library.best" = "Рекорд";
 "imitate.library.untried" = "Новый";
@@ -502,6 +534,16 @@
 "imitate.sound.laugh" = "Злодейский смех";
 "imitate.sound.yawn" = "Зевок";
 "imitate.sound.hiccup" = "Икота";
+"imitate.sound.frog" = "Лягушка";
+"imitate.sound.horse" = "Лошадь";
+"imitate.sound.goat" = "Коза";
+"imitate.sound.monkey" = "Обезьяна";
+"imitate.sound.lion" = "Лев";
+"imitate.sound.squeak" = "Пищалка";
+"imitate.sound.fart" = "Пук";
+"imitate.sound.ghost" = "Привидение";
+"imitate.sound.zombie" = "Зомби";
+"imitate.sound.whistle" = "Свист";
 
 /* Mac */
 "mac.sidebar.games" = "Игры";

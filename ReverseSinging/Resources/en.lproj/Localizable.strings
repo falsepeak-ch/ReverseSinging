@@ -439,6 +439,38 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "Sound Imitation";
 "main.mode.imitate.subtitle" = "Copy a sound, get a verdict";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "Home Video Dub";
+"main.mode.homeVideo.subtitle" = "Put your voice on any video you've filmed";
+"homeVideo.intro.title" = "Your video, your voice";
+"homeVideo.intro.body" = "Pick any video from your phone and talk, sing or narrate over it while it plays. Your voice replaces its sound, ready to share.";
+"homeVideo.step.pick" = "Pick a video from your library";
+"homeVideo.step.record" = "Press record and talk over it as it plays";
+"homeVideo.step.share" = "Watch the result and share it";
+"homeVideo.compare.title" = "Two ways to dub";
+"homeVideo.compare.home" = "Your own video. No script, no score: say whatever you like over the whole clip.";
+"homeVideo.compare.dub" = "Famous film scenes, line by line, with the script on screen and a score for every line.";
+"homeVideo.choose" = "Choose a video";
+"homeVideo.change" = "Change video";
+"homeVideo.limit" = "Up to one minute. Your video stays on your phone.";
+"homeVideo.trimmed" = "Only the first minute is used.";
+"homeVideo.importing" = "Opening your video…";
+"homeVideo.mixing" = "Adding your voice…";
+"homeVideo.keepOriginal" = "Keep the original sound";
+"homeVideo.keepOriginal.detail" = "Plays quietly under your voice";
+"homeVideo.keepOriginal.none" = "This video has no sound";
+"homeVideo.hint.ready" = "Press record. The video plays from the start and your voice goes on top.";
+"homeVideo.hint.recording" = "Recording. The video plays silently so the mic only hears you.";
+"homeVideo.hint.review" = "Here's your version. Share it, or record again.";
+"homeVideo.record" = "Record";
+"homeVideo.stop" = "Stop";
+"homeVideo.retake" = "Record again";
+"homeVideo.share" = "Share";
+"homeVideo.play" = "Play";
+"homeVideo.pause" = "Pause";
+"homeVideo.error.load" = "That video couldn't be opened. Try another one.";
+"homeVideo.error.mix" = "Your voice couldn't be added to the video. Try recording again.";
 "imitate.library.hint" = "Pick a sound, listen, then do your best impression.";
 "imitate.library.best" = "Best";
 "imitate.library.untried" = "New";
@@ -502,6 +534,16 @@
 "imitate.sound.laugh" = "Evil laugh";
 "imitate.sound.yawn" = "Yawn";
 "imitate.sound.hiccup" = "Hiccup";
+"imitate.sound.frog" = "Frog";
+"imitate.sound.horse" = "Horse";
+"imitate.sound.goat" = "Goat";
+"imitate.sound.monkey" = "Monkey";
+"imitate.sound.lion" = "Lion";
+"imitate.sound.squeak" = "Squeaky toy";
+"imitate.sound.fart" = "Fart";
+"imitate.sound.ghost" = "Ghost";
+"imitate.sound.zombie" = "Zombie";
+"imitate.sound.whistle" = "Whistle";
 
 /* Mac */
 "mac.sidebar.games" = "Games";

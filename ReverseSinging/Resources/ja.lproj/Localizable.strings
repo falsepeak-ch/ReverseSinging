@@ -439,6 +439,38 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "サウンドモノマネ";
 "main.mode.imitate.subtitle" = "音をマネして、判定をもらおう";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "自分の動画アフレコ";
+"main.mode.homeVideo.subtitle" = "撮った動画に自分の声をのせよう";
+"homeVideo.intro.title" = "あなたの動画、あなたの声";
+"homeVideo.intro.body" = "スマホの動画を選んで、再生中にしゃべったり歌ったりナレーションしたり。動画の音があなたの声に入れ替わり、そのままシェアできます。";
+"homeVideo.step.pick" = "ライブラリから動画を選ぶ";
+"homeVideo.step.record" = "録音を押して、再生中の動画にかぶせてしゃべる";
+"homeVideo.step.share" = "仕上がりを見てシェアする";
+"homeVideo.compare.title" = "2つのアフレコ";
+"homeVideo.compare.home" = "あなたの動画。台本もスコアもなし。クリップ全体で好きなことを言えます。";
+"homeVideo.compare.dub" = "有名な映画のシーンをセリフごとに。台本が画面に出て、セリフごとにスコアがつきます。";
+"homeVideo.choose" = "動画を選ぶ";
+"homeVideo.change" = "動画を変更";
+"homeVideo.limit" = "最長1分。動画はスマホの外に出ません。";
+"homeVideo.trimmed" = "最初の1分だけを使います。";
+"homeVideo.importing" = "動画を開いています…";
+"homeVideo.mixing" = "声を重ねています…";
+"homeVideo.keepOriginal" = "元の音を残す";
+"homeVideo.keepOriginal.detail" = "あなたの声の下で小さく流れます";
+"homeVideo.keepOriginal.none" = "この動画には音がありません";
+"homeVideo.hint.ready" = "録音を押すと、動画が最初から再生され、あなたの声が上に重なります。";
+"homeVideo.hint.recording" = "録音中。マイクがあなたの声だけを拾うよう、動画は無音で再生されます。";
+"homeVideo.hint.review" = "あなたのバージョンです。シェアするか、もう一度録音しましょう。";
+"homeVideo.record" = "録音";
+"homeVideo.stop" = "停止";
+"homeVideo.retake" = "もう一度録音";
+"homeVideo.share" = "シェア";
+"homeVideo.play" = "再生";
+"homeVideo.pause" = "一時停止";
+"homeVideo.error.load" = "その動画を開けませんでした。別の動画を試してください。";
+"homeVideo.error.mix" = "声を動画に追加できませんでした。もう一度録音してください。";
 "imitate.library.hint" = "音を選んで聞いたら、全力でマネしよう。";
 "imitate.library.best" = "ベスト";
 "imitate.library.untried" = "未挑戦";
@@ -502,6 +534,16 @@
 "imitate.sound.laugh" = "悪役の高笑い";
 "imitate.sound.yawn" = "あくび";
 "imitate.sound.hiccup" = "しゃっくり";
+"imitate.sound.frog" = "カエル";
+"imitate.sound.horse" = "ウマ";
+"imitate.sound.goat" = "ヤギ";
+"imitate.sound.monkey" = "サル";
+"imitate.sound.lion" = "ライオン";
+"imitate.sound.squeak" = "ピコピコおもちゃ";
+"imitate.sound.fart" = "おなら";
+"imitate.sound.ghost" = "おばけ";
+"imitate.sound.zombie" = "ゾンビ";
+"imitate.sound.whistle" = "口笛";
 
 /* Mac */
 "mac.sidebar.games" = "ゲーム";

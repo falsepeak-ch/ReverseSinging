@@ -439,6 +439,38 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "Imitation de sons";
 "main.mode.imitate.subtitle" = "Imite un son, reçois le verdict";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "Doublage de tes vidéos";
+"main.mode.homeVideo.subtitle" = "Mets ta voix sur n'importe quelle vidéo que tu as filmée";
+"homeVideo.intro.title" = "Ta vidéo, ta voix";
+"homeVideo.intro.body" = "Choisis une vidéo de ton téléphone et parle, chante ou raconte pendant qu'elle défile. Ta voix remplace son son, prête à partager.";
+"homeVideo.step.pick" = "Choisis une vidéo dans ta galerie";
+"homeVideo.step.record" = "Appuie sur enregistrer et parle pendant la lecture";
+"homeVideo.step.share" = "Regarde le résultat et partage-le";
+"homeVideo.compare.title" = "Deux façons de doubler";
+"homeVideo.compare.home" = "Ta propre vidéo. Pas de texte, pas de score : dis ce que tu veux sur tout le clip.";
+"homeVideo.compare.dub" = "Des scènes de films célèbres, réplique par réplique, avec le texte à l'écran et un score pour chaque réplique.";
+"homeVideo.choose" = "Choisir une vidéo";
+"homeVideo.change" = "Changer de vidéo";
+"homeVideo.limit" = "Jusqu'à une minute. Ta vidéo reste sur ton téléphone.";
+"homeVideo.trimmed" = "Seule la première minute est utilisée.";
+"homeVideo.importing" = "Ouverture de ta vidéo…";
+"homeVideo.mixing" = "Ajout de ta voix…";
+"homeVideo.keepOriginal" = "Garder le son d'origine";
+"homeVideo.keepOriginal.detail" = "Joué doucement sous ta voix";
+"homeVideo.keepOriginal.none" = "Cette vidéo n'a pas de son";
+"homeVideo.hint.ready" = "Appuie sur enregistrer. La vidéo repart du début et ta voix passe par-dessus.";
+"homeVideo.hint.recording" = "Enregistrement. La vidéo défile sans le son pour que le micro n'entende que toi.";
+"homeVideo.hint.review" = "Voici ta version. Partage-la ou enregistre à nouveau.";
+"homeVideo.record" = "Enregistrer";
+"homeVideo.stop" = "Stop";
+"homeVideo.retake" = "Recommencer";
+"homeVideo.share" = "Partager";
+"homeVideo.play" = "Lire";
+"homeVideo.pause" = "Pause";
+"homeVideo.error.load" = "Impossible d'ouvrir cette vidéo. Essaie-en une autre.";
+"homeVideo.error.mix" = "Impossible d'ajouter ta voix à la vidéo. Réessaie l'enregistrement.";
 "imitate.library.hint" = "Choisis un son, écoute-le, puis fais ta meilleure imitation.";
 "imitate.library.best" = "Record";
 "imitate.library.untried" = "Nouveau";
@@ -502,6 +534,16 @@
 "imitate.sound.laugh" = "Rire maléfique";
 "imitate.sound.yawn" = "Bâillement";
 "imitate.sound.hiccup" = "Hoquet";
+"imitate.sound.frog" = "Grenouille";
+"imitate.sound.horse" = "Cheval";
+"imitate.sound.goat" = "Chèvre";
+"imitate.sound.monkey" = "Singe";
+"imitate.sound.lion" = "Lion";
+"imitate.sound.squeak" = "Jouet qui couine";
+"imitate.sound.fart" = "Pet";
+"imitate.sound.ghost" = "Fantôme";
+"imitate.sound.zombie" = "Zombie";
+"imitate.sound.whistle" = "Sifflement";
 
 /* Mac */
 "mac.sidebar.games" = "Jeux";
