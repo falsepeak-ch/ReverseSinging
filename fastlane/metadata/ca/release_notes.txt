@@ -1,6 +1,12 @@
-Un tercer joc, i el cant invertit ara és gratuït.
+Un quart joc, i és gratuït: dobla els teus propis vídeos.
 
 NOVETATS
-• Imitació de sons: escolta un so, copia'l i rep un veredicte estampat sobre el ritme, el to i el timbre. Després converteix l'intent en un vídeo
-• El cant invertit és gratuït per a tothom
-• Dubloon Pro ara també desbloqueja l'app de Mac, amb el mateix compte d'Apple
+• Doblatge dels teus vídeos: tria qualsevol vídeo que hagis gravat i posa-hi la teva veu. Gratuït per a tothom
+• Deu sons nous per imitar a Imitació de sons
+• Mode clar: tria Sistema, Clar o Fosc a Configuració
+• Ajuda dins l'app, amb una guia pas a pas per aconseguir més escenes de pel·lícules
+
+MILLORES
+• En lliscar enrere, la pantalla es rebobina com una cinta VHS
+• Gravació i reproducció més estables després d'una trucada o que una altra app faci servir l'àudio
+• Dubloon et demana el micròfon quan el necessites en lloc d'enviar-te a Configuració

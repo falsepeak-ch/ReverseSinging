@@ -1,1 +1,1 @@
-1.7.0'da yeni: üçüncü oyun Ses taklidi. Bir sesi taklit et, hükmü öğren, videoyu paylaş. Ve tersten şarkı artık herkese ücretsiz.
+1.8.0'da yeni: Kendi videolarını seslendir, ücretsiz dördüncü oyun. Çektiğin her videoya kendi sesini koy. Ayrıca on yeni ses ve açık mod.

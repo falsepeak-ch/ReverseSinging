@@ -1,1 +1,1 @@
-Neu in 1.7.0: Geräusche imitieren, ein drittes Spiel. Mach ein Geräusch nach, hol dir ein Urteil, teil das Video. Und Rückwärtssingen ist jetzt für alle kostenlos.
+Neu in 1.8.0: Eigene Videos synchronisieren, ein kostenloses viertes Spiel. Leg deine Stimme über deine eigenen Videos. Dazu zehn neue Geräusche und ein heller Modus.

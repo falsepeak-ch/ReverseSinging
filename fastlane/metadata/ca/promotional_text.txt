@@ -1,1 +1,1 @@
-Nou a la 1.7.0: Imitació de sons, un tercer joc. Copia un so, rep el veredicte i comparteix el vídeo. I el cant invertit ara és gratuït per a tothom.
+Novetat a la 1.8.0: Doblatge dels teus vídeos, un quart joc gratuït. Posa la teva veu a qualsevol vídeo que hagis gravat. I deu sons nous per imitar i mode clar.

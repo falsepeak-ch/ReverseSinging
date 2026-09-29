@@ -1,6 +1,12 @@
-Et tredje spil, og baglænssang er nu gratis.
+Et fjerde spil, og det er gratis: dub dine egne videoer.
 
 NYT
-• Lydimitation: hør en lyd, efterlign den, og få en stemplet dom over din rytme, dit toneleje og din klang. Lav derefter forsøget om til en video
-• Baglænssang er gratis for alle
-• Dubloon Pro låser nu også Mac-appen op, med den samme Apple-konto
+• Dub dine egne videoer: vælg en video, du har filmet, og læg din egen stemme over den. Gratis for alle
+• Ti nye lyde at efterligne i Lydimitation
+• Lyst tema: vælg System, Lys eller Mørk i Indstillinger
+• Hjælp direkte i appen med en trin-for-trin-guide til flere filmscener
+
+FORBEDRET
+• Når du swiper tilbage, spoler skærmen tilbage som et VHS-bånd
+• Mere stabil optagelse og afspilning efter et opkald, eller når en anden app har brugt lyden
+• Dubloon beder om mikrofonen, når du har brug for den, i stedet for at sende dig til Indstillinger

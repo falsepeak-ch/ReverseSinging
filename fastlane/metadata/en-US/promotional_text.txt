@@ -1,1 +1,1 @@
-New in 1.7.0: Sound Imitation, a third game. Copy a sound, get a verdict, share the video. And reverse singing is now free for everyone.
+New in 1.8.0: Home Video Dub, a free fourth game. Put your voice on any video you've filmed. Plus ten new sounds to imitate and a light mode.
