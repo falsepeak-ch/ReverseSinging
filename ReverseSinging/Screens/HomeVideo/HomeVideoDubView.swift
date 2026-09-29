@@ -154,19 +154,22 @@ struct HomeVideoDubView: View {
         .accessibilityLabel(viewModel.isPlaying ? Strings.HomeVideo.pause : Strings.HomeVideo.play)
     }
 
+    /// A plain button rather than a `PhotosPicker` with a label: the picker builds its label
+    /// outside the main actor, and every colour and font in it was a concurrency warning. The
+    /// screen's `.photosPicker` modifier is the one that opens.
     private var emptyPicture: some View {
-        // Read here: the picker's label is built outside the main actor.
-        let isImporting = viewModel.phase == .importing
-        return PhotosPicker(selection: $viewModel.pickerItem, matching: .videos, preferredItemEncoding: .current) {
+        Button {
+            viewModel.isPickerPresented = true
+        } label: {
             VStack(spacing: 14) {
-                if isImporting {
+                if viewModel.phase == .importing {
                     ProgressView().tint(.rsTextPrimary)
                 } else {
                     Image(systemName: "photo.on.rectangle.angled")
                         .font(.system(size: 34, weight: .semibold))
                         .foregroundColor(.rsTextPrimary)
                 }
-                Text(isImporting ? Strings.HomeVideo.importing : Strings.HomeVideo.choose)
+                Text(viewModel.phase == .importing ? Strings.HomeVideo.importing : Strings.HomeVideo.choose)
                     .font(.rsButtonMedium)
                     .foregroundColor(.rsTextPrimary)
                 Text(Strings.HomeVideo.limit)
@@ -184,7 +187,7 @@ struct HomeVideoDubView: View {
             )
         }
         .buttonStyle(ScaleButtonStyle())
-        .disabled(isImporting)
+        .disabled(viewModel.phase == .importing)
         .frame(maxHeight: .infinity)
     }
 
