@@ -5,18 +5,17 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Välkommen till Dubloon";
-"onboarding.welcome.message" = "Tre spel, en mikrofon. Sjung en låt baklänges, lägg din röst i en filmscen eller härma ett ljud tills det sitter. Inget av dem får dig att låta normal.";
+"onboarding.welcome.message" = "Fyra spel, en mikrofon. Sjung en låt baklänges, lägg din röst i en filmscen eller en egen video, eller härma ett ljud tills det sitter. Inget av dem får dig att låta normal.";
 "onboarding.howItWorks.title" = "Så funkar det";
 "onboarding.howItWorks.message" = "Spela in en låt, vänd på den och sjung med i rappakaljan. Vänd sedan på ditt eget försök och hör om du var nära eller just uppfann ett nytt språk.";
 "onboarding.dub.title" = "Dubba en filmscen";
 "onboarding.dub.message" = "Det andra spelet: starta en scen, överspela ordentligt och hör dig själv i filmen. Två scener följer med. Sedan tar du med dina egna filer.";
+"onboarding.pro.title" = "Därför finns Dubloon Pro";
+"onboarding.pro.message" = "Dubloon har ingen reklam, inget konto och ingen spårning, och görs av en enda person i Zürich. Dubloon Pro är det som betalar för det: alla scener, Booth Cam och export. Baklängessång förblir gratis.";
 "onboarding.microphone.title" = "En sista sak";
-"onboarding.microphone.message" = "Alla tre spelen måste höra dig: baklängessång, dubbning av en scen eller härmning av ett ljud. Mikrofonen vaknar bara medan du spelar in, allt stannar på den här enheten och ingenting laddas någonsin upp. Din sämsta tagning stannar mellan er två.";
-"onboarding.button.openSettings" = "Öppna Inställningar";
-"onboarding.button.letsRecord" = "kör, vi spelar in!";
+"onboarding.microphone.message" = "Alla spelen måste höra dig: baklängessång, dubbning av en scen eller härmning av ett ljud. Mikrofonen vaknar bara medan du spelar in, allt stannar på den här enheten och ingenting laddas någonsin upp. Din sämsta tagning stannar mellan er två.";
 "onboarding.button.continueLowercase" = "fortsätt";
 "onboarding.button.microphoneContinue" = "Fortsätt";
-"onboarding.button.continueWithout" = "fortsätt utan";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Stoppa inspelningen";
@@ -54,7 +53,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Ingen hör dig";
-"main.emptyState.message" = "Just nu är Dubloon en inspelningsapp utan något att spela in med. Slå på mikrofonåtkomst i enhetens inställningar så vaknar alla tre spelen till liv igen.";
+"main.emptyState.message" = "Just nu är Dubloon en inspelningsapp utan något att spela in med. Slå på mikrofonåtkomst i enhetens inställningar så vaknar alla fyra spelen till liv igen.";
 "main.emptyState.button" = "Öppna Inställningar";
 
 // MARK: - Main View - Processing & Success
@@ -347,19 +346,27 @@
 "review.banner.later" = "Inte nu";
 "review.banner.fan.title" = "Har du kul?";
 "review.banner.fan.message" = "Du är på gång. Dubloon görs av en enda person i Zürich, och det är genom recensioner som nya spelare hittar det. Om det har fått dig att skratta skulle några ord på App Store betyda mycket.";
+"review.banner.prompt" = "Hur många stjärnor ger du Dubloon?";
+"review.banner.star" = "%d av 5 stjärnor";
+"review.banner.store.title" = "Kul att du gillar det!";
+"review.feedback.slug" = "Feedback";
+"review.feedback.title" = "Vad gick fel?";
+"review.feedback.message" = "Berätta vad som gjorde dig besviken. Ditt meddelande går direkt till personen som gör Dubloon, och det blir läst.";
+"review.feedback.placeholder" = "Vad borde bli bättre?";
+"review.feedback.send" = "Skicka";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Välkommen till klubben";
-"pro.earlyAdopter.message" = "Dubloon kostar pengar nu — fast inte för dig. Du var här före prislappen, så alla tre spelen förblir dina, gratis, så länge appen finns. Tack för de första dagarna.";
+"pro.earlyAdopter.message" = "Dubloon kostar pengar nu — fast inte för dig. Du var här före prislappen, så alla fyra spelen förblir dina, gratis, så länge appen finns. Tack för de första dagarna.";
 "pro.earlyAdopter.badge" = "Gratis för alltid";
 "pro.earlyAdopter.confirm" = "Fint";
 "pro.earlyAdopter.settings.title" = "Gratis för alltid";
-"pro.earlyAdopter.settings.subtitle" = "Du var här tidigt. Alla tre spelen är dina och du är oss ingenting skyldig.";
+"pro.earlyAdopter.settings.subtitle" = "Du var här tidigt. Alla fyra spelen är dina och du är oss ingenting skyldig.";
 "pro.closePaywall" = "Stäng";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Åtkomst";
-"pro.earlyAdopter.row.access.value" = "Alla tre spelen";
+"pro.earlyAdopter.row.access.value" = "Alla fyra spelen";
 "pro.earlyAdopter.row.cost" = "Kostnad";
 "pro.earlyAdopter.row.cost.value" = "Ingenting";
 "pro.earlyAdopter.row.expires" = "Går ut";
@@ -583,7 +590,6 @@
 "mac.panel.emptyMessage" = "Välj ett spel eller ett dubbpaket i sidofältet.";
 "mac.settings.general" = "Allmänt";
 "mac.settings.recording" = "Inspelning";
-"mac.welcome.notNow" = "Inte nu";
 "mac.booth.primer.message" = "Booth Cam använder Macens kamera medan du spelar, så scenen, repliken och ditt ansikte får plats på samma skärm. Sedan kan du dela reaktionen tillsammans med dubbningen.";
 "mac.booth.primer.systemPrompt" = "Härnäst frågar macOS om åtkomst till kameran.";
 "mac.menu.openRecent" = "Öppna senaste";

@@ -5,18 +5,17 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Dubloon'a hoş geldin";
-"onboarding.welcome.message" = "Üç oyun, tek mikrofon. Bir şarkıyı tersten söyle, sesini bir film sahnesinin içine sok ya da bir sesi tutturana kadar taklit et. Hiçbirinde normal duyulmayacaksın.";
+"onboarding.welcome.message" = "Dört oyun, tek mikrofon. Bir şarkıyı tersten söyle, sesini bir film sahnesinin ya da kendi videonun içine sok ya da bir sesi tutturana kadar taklit et. Hiçbirinde normal duyulmayacaksın.";
 "onboarding.howItWorks.title" = "Nasıl çalışıyor";
 "onboarding.howItWorks.message" = "Bir şarkı kaydet, tersine çevir ve o anlamsız sesin üstüne söyle. Sonra kendi çekimini ters çevir ve yaklaşmış mısın yoksa yeni bir dil mi icat etmişsin, öğren.";
 "onboarding.dub.title" = "Bir film sahnesini seslendir";
 "onboarding.dub.message" = "İkinci oyun: sahneyi başlat, üstüne abartarak oyna ve sonra kendini filmin içinde duy. İki sahne kutudan çıkıyor. Gerisi için kendi dosyalarını getiriyorsun.";
+"onboarding.pro.title" = "Dubloon Pro neden var";
+"onboarding.pro.message" = "Dubloon'da reklam, hesap ve takip yok; onu Zürih'te tek bir kişi yapıyor. Bunun bedelini Dubloon Pro karşılıyor: tüm sahneler, Booth Cam ve dışa aktarma. Tersten şarkı ücretsiz kalıyor.";
 "onboarding.microphone.title" = "Son bir şey";
-"onboarding.microphone.message" = "Üç oyunun da seni duyması gerek: tersten söylerken, bir sahneyi seslendirirken ve bir sesi taklit ederken. Mikrofon sadece kayıt sırasında uyanır, her şey bu cihazda kalır ve hiçbir şey hiçbir yere yüklenmez. En kötü çekimin ikinizin arasında kalır.";
-"onboarding.button.openSettings" = "Ayarlar'ı aç";
-"onboarding.button.letsRecord" = "hadi, kaydediyoruz!";
+"onboarding.microphone.message" = "Bütün oyunların seni duyması gerek: tersten söylerken, bir sahneyi seslendirirken ve bir sesi taklit ederken. Mikrofon sadece kayıt sırasında uyanır, her şey bu cihazda kalır ve hiçbir şey hiçbir yere yüklenmez. En kötü çekimin ikinizin arasında kalır.";
 "onboarding.button.continueLowercase" = "devam";
 "onboarding.button.microphoneContinue" = "Devam";
-"onboarding.button.continueWithout" = "onsuz devam et";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Kaydı durdur";
@@ -54,7 +53,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Seni kimse duymuyor";
-"main.emptyState.message" = "Şu anda Dubloon, kaydedecek hiçbir şeyi olmayan bir kayıt uygulaması. Cihaz ayarlarından mikrofon iznini aç, üç oyun da yeniden canlansın.";
+"main.emptyState.message" = "Şu anda Dubloon, kaydedecek hiçbir şeyi olmayan bir kayıt uygulaması. Cihaz ayarlarından mikrofon iznini aç, dört oyun da yeniden canlansın.";
 "main.emptyState.button" = "Ayarlar'ı aç";
 
 // MARK: - Main View - Processing & Success
@@ -347,19 +346,27 @@
 "review.banner.later" = "Şimdi değil";
 "review.banner.fan.title" = "Eğleniyor musun?";
 "review.banner.fan.message" = "Harika gidiyorsun. Dubloon'u Zürih'te tek bir kişi yapıyor ve yeni oyuncular onu yorumlar sayesinde buluyor. Seni güldürdüyse, App Store'da birkaç kelime çok şey ifade eder.";
+"review.banner.prompt" = "Dubloon'a kaç yıldız verirsin?";
+"review.banner.star" = "5 üzerinden %d yıldız";
+"review.banner.store.title" = "Beğendiğine sevindik!";
+"review.feedback.slug" = "Geri bildirim";
+"review.feedback.title" = "Ne ters gitti?";
+"review.feedback.message" = "Seni neyin hayal kırıklığına uğrattığını anlat. Mesajın doğrudan Dubloon'u yapan kişiye gider ve okunur.";
+"review.feedback.placeholder" = "Ne daha iyi olmalı?";
+"review.feedback.send" = "Gönder";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Kulübe hoş geldin";
-"pro.earlyAdopter.message" = "Dubloon artık para ediyor — ama senin için değil. Fiyat etiketi gelmeden önce buradaydın, o yüzden üç oyun da uygulama var olduğu sürece ücretsiz senin kalıyor. İlk günler için teşekkürler.";
+"pro.earlyAdopter.message" = "Dubloon artık para ediyor — ama senin için değil. Fiyat etiketi gelmeden önce buradaydın, o yüzden dört oyun da uygulama var olduğu sürece ücretsiz senin kalıyor. İlk günler için teşekkürler.";
 "pro.earlyAdopter.badge" = "Ömür boyu ücretsiz";
 "pro.earlyAdopter.confirm" = "Güzel";
 "pro.earlyAdopter.settings.title" = "Ömür boyu ücretsiz";
-"pro.earlyAdopter.settings.subtitle" = "Erken geldin. Üç oyun da senin ve bize hiçbir borcun yok.";
+"pro.earlyAdopter.settings.subtitle" = "Erken geldin. Dört oyun da senin ve bize hiçbir borcun yok.";
 "pro.closePaywall" = "Kapat";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Erişim";
-"pro.earlyAdopter.row.access.value" = "Üç oyun";
+"pro.earlyAdopter.row.access.value" = "Dört oyun";
 "pro.earlyAdopter.row.cost" = "Bedel";
 "pro.earlyAdopter.row.cost.value" = "Yok";
 "pro.earlyAdopter.row.expires" = "Bitiş";
@@ -583,7 +590,6 @@
 "mac.panel.emptyMessage" = "Kenar çubuğundan bir oyun ya da dublaj paketi seç.";
 "mac.settings.general" = "Genel";
 "mac.settings.recording" = "Kayıt";
-"mac.welcome.notNow" = "Şimdi değil";
 "mac.booth.primer.message" = "Booth Cam sen oynarken Mac'in kamerasını çalıştırır; böylece sahne, replik ve yüzün aynı ekranda olur. Sonrasında tepkini seslendirmeyle birlikte paylaşabilirsin.";
 "mac.booth.primer.systemPrompt" = "Birazdan macOS kamera izni isteyecek.";
 "mac.menu.openRecent" = "Son kullanılanı aç";

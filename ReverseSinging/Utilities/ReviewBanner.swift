@@ -2,22 +2,22 @@
 //  ReviewBanner.swift
 //  ReverseSinging
 //
-//  The note on the menu that asks someone who bought Dubloon Pro for a review
+//  The note on the menu that asks how Dubloon is going, in stars, and what to do with the answer
 //
 
 import Foundation
 
-/// Decides when the menu's review banner is up, for people who have paid.
+/// Decides when the menu's review banner is up, and where a star rating given on it leads.
 ///
 /// Separate from `ReviewPrompt`, which spends Apple's rationed star-rating sheet on whoever has
-/// come back and shared something. This one is ours: it links straight to the App Store's
-/// write-a-review page, so it works every time it is tapped, and it is only ever shown to
-/// someone who owns Dubloon Pro, who has already said with money that the app is worth
-/// something.
+/// come back and shared something. This one is ours. It asks for a rating out of five first:
+/// someone happy is offered the App Store's write-a-review page, and someone who is not is
+/// asked what went wrong, in a note that comes to us and can be acted on. Who is asked at all is
+/// `ReviewPromptPolicy.isBannerAudience`: people who imported a pack and came back for days.
 ///
 /// It stays out of the way: "Not now" puts it away for `snoozeInterval`, a second "Not now"
 /// puts it away for good, and so does tapping through to the store — whether or not a review
-/// was actually written, which the app cannot know.
+/// was actually written, which the app cannot know — or sending a note.
 @MainActor
 final class ReviewBanner {
 
@@ -32,8 +32,30 @@ final class ReviewBanner {
     /// "Not now" this many times and it never comes back.
     static let dismissalsBeforeGivingUp = 2
 
+    static let maximumStars = 5
+
+    /// This many stars or more and the person is offered the App Store; fewer, and they are
+    /// asked what went wrong instead.
+    static let starsThatLeadToStore = 4
+
+    /// A note is a few sentences. The cap keeps it inside what one Crashlytics value holds.
+    static let feedbackCharacterLimit = 500
+
+    /// What a rating on the banner leads to.
+    enum Destination: Equatable {
+        /// Offer the App Store's review form.
+        case store
+        /// Ask what went wrong.
+        case feedback
+    }
+
+    static func destination(forStars stars: Int) -> Destination {
+        stars >= starsThatLeadToStore ? .store : .feedback
+    }
+
     private enum Key {
         static let wentToStore = "reviewBanner.wentToStore"
+        static let sentFeedback = "reviewBanner.sentFeedback"
         static let dismissCount = "reviewBanner.dismissCount"
         static let snoozedUntil = "reviewBanner.snoozedUntil"
     }
@@ -46,10 +68,11 @@ final class ReviewBanner {
 
     // MARK: - Deciding
 
-    /// Whether the banner may be on screen now. Whether the person has paid is the caller's to
+    /// Whether the banner may be on screen now. Who it is for is the caller's to
     /// ask: this only knows what they did with the banner.
     func isDue(now: Date = .now) -> Bool {
         guard !defaults.bool(forKey: Key.wentToStore),
+              !defaults.bool(forKey: Key.sentFeedback),
               dismissCount < Self.dismissalsBeforeGivingUp else { return false }
         guard let snoozedUntil = defaults.object(forKey: Key.snoozedUntil) as? Date else { return true }
         return now >= snoozedUntil
@@ -58,6 +81,25 @@ final class ReviewBanner {
     private var dismissCount: Int { defaults.integer(forKey: Key.dismissCount) }
 
     // MARK: - Answers
+
+    /// They tapped a star. Not an answer yet: the dialog it opens can still be cancelled.
+    func recordRated(stars: Int) {
+        AnalyticsManager.shared.trackCustomEvent(name: "review_banner_rated", parameters: ["stars": stars])
+    }
+
+    /// They told us what went wrong. Returns false, and sends nothing, for an empty note.
+    @discardableResult
+    func recordFeedback(stars: Int, message: String) -> Bool {
+        let note = String(message.trimmingCharacters(in: .whitespacesAndNewlines).prefix(Self.feedbackCharacterLimit))
+        guard !note.isEmpty else { return false }
+
+        defaults.set(true, forKey: Key.sentFeedback)
+        AnalyticsManager.shared.trackCustomEvent(
+            name: "review_feedback_sent", parameters: ["stars": stars, "length": note.count]
+        )
+        CrashReporter.shared.recordFeedback(note, stars: stars)
+        return true
+    }
 
     /// They tapped through to the store.
     func recordWentToStore() {

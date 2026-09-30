@@ -32,7 +32,8 @@ enum HomePaywallSource: String, Identifiable {
 /// trial is over. Reverse singing is free unless the console says otherwise, so only dubbing
 /// is ever locked by default.
 ///
-/// And once someone has bought Dubloon Pro, it is where they are asked for a review.
+/// And it is where someone who has bought Dubloon Pro, or keeps coming back, is asked how it
+/// is going: a rating out of five, which leads to the App Store or to a note for us.
 @MainActor
 final class HomeViewModel: ObservableObject {
 
@@ -51,6 +52,14 @@ final class HomeViewModel: ObservableObject {
 
     /// Mirrors `ReviewBanner.isDue`, which is not observable, so answering it hides the banner.
     @Published private var isReviewBannerDue: Bool
+
+    /// The rating last tapped on the review banner, lit on it while its dialog is up. Zero
+    /// when nothing is being answered.
+    @Published private(set) var reviewStars = 0
+    /// A high rating: the offer to write a review on the App Store.
+    @Published var isReviewStoreAskPresented = false
+    /// A low rating: the dialog that asks what went wrong.
+    @Published var isReviewFeedbackPresented = false
 
     /// The trial counter lives on the menu because this is the screen every session starts on,
     /// and it is the only place in the app that mentions the trial unprompted. Its changes are
@@ -116,10 +125,10 @@ final class HomeViewModel: ObservableObject {
 
     var shouldWelcomeEarlyAdopter: Bool { access.shouldWelcomeEarlyAdopter }
 
-    /// The note that asks for a review. For people who paid, and for fans: free players who
-    /// keep coming back and keep scoring well are the ones most likely to say something kind,
-    /// and asking only buyers left most of the people enjoying the app unasked.
-    var showsReviewBanner: Bool { (access.isPro || reviewPrompt.isFan) && isReviewBannerDue }
+    /// The note that asks for a rating. Only for someone who has imported a dub pack and used
+    /// the app on at least three different days, whether or not they have paid: by then they
+    /// know the app well enough for the rating to mean something.
+    var showsReviewBanner: Bool { reviewPrompt.isBannerAudience && isReviewBannerDue }
 
     /// Buyers get thanked for going Pro; everyone else is asked whether they are having fun.
     var reviewBannerThanksForPro: Bool { access.isPro }
@@ -243,16 +252,52 @@ final class HomeViewModel: ObservableObject {
         reviewBanner.recordShown()
     }
 
+    /// A star was tapped. Four or five offer the App Store; fewer ask what went wrong.
+    func rateFromReviewBanner(stars: Int) {
+        reviewStars = stars
+        reviewBanner.recordRated(stars: stars)
+        switch ReviewBanner.destination(forStars: stars) {
+        case .store: isReviewStoreAskPresented = true
+        case .feedback: isReviewFeedbackPresented = true
+        }
+    }
+
+    /// Either dialog was closed without an answer. The banner stays, with its stars cleared,
+    /// so the rating can be given again or the note put away with "Not now".
+    func reviewDialogDidCancel() {
+        isReviewFeedbackPresented = false
+        reviewStars = 0
+    }
+
     /// Where "Write a review" goes. The view opens it, so the tap stays a plain link.
     func reviewBannerWentToStore() -> URL {
         reviewBanner.recordWentToStore()
         isReviewBannerDue = false
+        reviewStars = 0
         return ReviewBanner.writeReviewURL
+    }
+
+    /// Sends the note from the feedback dialog, and the banner is done.
+    ///
+    /// Returns an email to open instead when the note cannot travel the usual way: with Share
+    /// Usage Data off nothing goes to Firebase, and a note someone took the time to write
+    /// should not vanish because of a switch that was about statistics.
+    func sendReviewFeedback(_ message: String) -> URL? {
+        let stars = reviewStars
+        isReviewFeedbackPresented = false
+        reviewStars = 0
+        guard reviewBanner.recordFeedback(stars: stars, message: message) else { return nil }
+        isReviewBannerDue = false
+
+        guard !UsageDataConsent.isGranted else { return nil }
+        let note = message.trimmingCharacters(in: .whitespacesAndNewlines)
+        return AppLinks.supportMail(subject: Strings.Help.mailSubject, details: "\(stars)/\(ReviewBanner.maximumStars)\n\(note)")
     }
 
     func dismissReviewBanner() {
         reviewBanner.recordDismissed()
         isReviewBannerDue = false
+        reviewStars = 0
     }
 
     // MARK: - Screenshots

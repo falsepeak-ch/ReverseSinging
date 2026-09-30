@@ -63,6 +63,7 @@ struct ImitationChallengeView: View {
         } message: {
             Text(viewModel.errorMessage ?? "")
         }
+        .microphonePrimer()
         .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: $viewModel.showPermissionAlert) {
             Button(Strings.Main.Alert.settings, action: AppSettings.open)
             Button(Strings.Main.Alert.cancel, role: .cancel) {}

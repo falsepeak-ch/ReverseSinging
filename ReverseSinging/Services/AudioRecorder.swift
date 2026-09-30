@@ -234,7 +234,7 @@ final class AudioRecorder: NSObject, ObservableObject {
 
     // MARK: - Permission
 
-    func requestPermission(completion: @escaping (Bool) -> Void) {
+    func requestPermission(completion: @escaping (RecordPermissionAnswer) -> Void) {
         AudioSessionManager.shared.requestRecordPermission(completion: completion)
     }
 

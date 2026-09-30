@@ -391,12 +391,13 @@ final class DubRecordViewModel: ObservableObject {
         monitorPlayer.stop()
         session.stopPlayback()
 
-        recorder.requestPermission { [weak self] granted in
+        recorder.requestPermission { [weak self] answer in
             guard let self else { return }
-            self.hasRecordingPermission = granted
+            self.hasRecordingPermission = answer == .granted
 
-            guard granted else {
-                self.showPermissionAlert = true
+            guard answer == .granted else {
+                // A no given to the prompt just now is an answer, and nothing follows it.
+                self.showPermissionAlert = answer == .refusedEarlier
                 AnalyticsManager.shared.trackPermissionDenied()
                 return
             }

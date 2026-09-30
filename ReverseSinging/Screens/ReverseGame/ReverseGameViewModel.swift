@@ -141,11 +141,14 @@ final class ReverseGameViewModel: ObservableObject {
         isMicrophoneDenied = AudioSessionManager.shared.isRecordPermissionDenied
     }
 
-    private func requestPermissionIfNeeded(completion: @escaping (Bool) -> Void) {
-        recorder.requestPermission { [weak self] granted in
-            self?.hasRecordingPermission = granted
-            self?.isMicrophoneDenied = !granted
-            completion(granted)
+    private func requestPermissionIfNeeded(completion: @escaping (RecordPermissionAnswer) -> Void) {
+        recorder.requestPermission { [weak self] answer in
+            self?.hasRecordingPermission = answer == .granted
+            // A no given to the prompt a moment ago leaves the screen as it was. Swapping in
+            // the "open Settings" state right behind it would be arguing with the answer; it
+            // is there the next time the game opens, see `checkPermissionStatus`.
+            self?.isMicrophoneDenied = answer == .refusedEarlier
+            completion(answer)
         }
     }
 
@@ -162,14 +165,18 @@ final class ReverseGameViewModel: ObservableObject {
         }
 
         // Request permission if we haven't asked yet or need to re-check
-        requestPermissionIfNeeded { [weak self] granted in
+        requestPermissionIfNeeded { [weak self] answer in
             guard let self = self else { return }
 
-            guard granted else {
+            guard answer == .granted else {
                 print("⚠️ Microphone permission denied")
-                self.errorMessage = Strings.Error.microphonePermissionRequired
-                self.showPermissionAlert = true
                 AnalyticsManager.shared.trackPermissionDenied()
+                // Only a refusal from before gets the alert with its way to Settings. One
+                // given to the prompt just now is an answer, and nothing follows it.
+                if answer == .refusedEarlier {
+                    self.errorMessage = Strings.Error.microphonePermissionRequired
+                    self.showPermissionAlert = true
+                }
                 return
             }
 

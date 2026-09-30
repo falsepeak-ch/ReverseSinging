@@ -9,8 +9,7 @@ import SwiftUI
 @testable import ReverseSinging
 
 /// Every test gets a `UserDefaults` suite of its own, so nothing here depends on, or leaves
-/// behind, what the simulator has already seen. The microphone prompt itself is the system's
-/// and is not driven from here.
+/// behind, what the simulator has already seen.
 @Suite("Onboarding View Model") @MainActor
 struct OnboardingViewModelTests {
 
@@ -21,18 +20,15 @@ struct OnboardingViewModelTests {
         return AppViewModel(defaults: defaults)
     }
 
-    @Test func startsOnTheFirstPageWithTheMicrophoneNotYetAsked() {
+    @Test func startsOnTheFirstPage() {
         let viewModel = OnboardingViewModel(app: makeApp())
 
         #expect(viewModel.currentPage == 0)
-        #expect(!viewModel.isOnPermissionPage)
-        #expect(viewModel.permissionStep == .undetermined)
-        #expect(viewModel.buttonTitle == Strings.Onboarding.buttonMicrophoneContinue)
-        #expect(viewModel.buttonIcon == "mic.fill")
+        #expect(!viewModel.isOnLastPage)
     }
 
-    /// The microphone ask is the last page, and continuing never runs past it.
-    @Test func continuingStopsOnTheMicrophoneAsk() {
+    /// Going on never runs past the last page.
+    @Test func nextPageStopsOnTheLastPage() {
         let viewModel = OnboardingViewModel(app: makeApp())
 
         for _ in 0..<(viewModel.pages.count + 2) {
@@ -40,7 +36,7 @@ struct OnboardingViewModelTests {
         }
 
         #expect(viewModel.currentPage == viewModel.pages.count - 1)
-        #expect(viewModel.isOnPermissionPage)
+        #expect(viewModel.isOnLastPage)
     }
 
     /// The reverse game opens in its simple skin, whatever was picked before.
@@ -55,13 +51,24 @@ struct OnboardingViewModelTests {
         #expect(app.uiMode == .simple)
     }
 
-    /// Coming back to the app re-checks the microphone only after a denial. Before the ask
-    /// there is nothing to move the button on from.
-    @Test func returningBeforeTheAskChangesNothing() {
-        let viewModel = OnboardingViewModel(app: makeApp())
+    /// Dubloon Pro is explained last, once the games it pays for have been shown. Nothing on
+    /// any page asks for the microphone: the games do that when record is first pressed.
+    @Test func proIsExplainedLast() {
+        let pages = OnboardingViewModel(app: makeApp()).pages
 
-        viewModel.scenePhaseDidChange(.active)
+        #expect(pages.last?.title == Strings.Onboarding.proTitle)
+    }
 
-        #expect(viewModel.permissionStep == .undetermined)
+    /// The button moves on until the last page, where it opens the app.
+    @Test func continuingFromTheLastPageFinishesOnboarding() {
+        let app = makeApp()
+        let viewModel = OnboardingViewModel(app: app)
+
+        for _ in 0..<(viewModel.pages.count - 1) { viewModel.continueTapped() }
+        #expect(viewModel.isOnLastPage)
+        #expect(!app.hasCompletedOnboarding)
+
+        viewModel.continueTapped()
+        #expect(app.hasCompletedOnboarding)
     }
 }

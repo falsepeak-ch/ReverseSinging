@@ -116,6 +116,7 @@ struct DubEditorView: View {
         )) {
             record.boothPrimerDidEnable()
         }
+        .microphonePrimer()
         .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: Binding(
             get: { record.showPermissionAlert },
             set: { record.showPermissionAlert = $0 }

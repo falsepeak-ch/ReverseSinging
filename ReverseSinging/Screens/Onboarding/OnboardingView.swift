@@ -10,7 +10,6 @@ import SwiftUI
 struct OnboardingView: View {
     @StateObject private var viewModel: OnboardingViewModel
     @Environment(\.colorScheme) var colorScheme
-    @Environment(\.scenePhase) private var scenePhase
 
     init(app: AppViewModel) {
         _viewModel = StateObject(wrappedValue: OnboardingViewModel(app: app))
@@ -61,50 +60,19 @@ struct OnboardingView: View {
                 .padding(.bottom, 20)
 
                 // Buttons
-                VStack(spacing: 16) {
-                    if viewModel.isOnPermissionPage {
-                        // Last page: the microphone ask, as a single dynamic button
-                        BigButton(
-                            title: viewModel.buttonTitle,
-                            icon: viewModel.buttonIcon,
-                            color: viewModel.buttonColor,
-                            action: viewModel.permissionButtonTapped,
-                            style: .primary
-                        )
-
-                        // A denial shouldn't trap anyone on the last page, the
-                        // games ask again themselves when a recording is due.
-                        if viewModel.isPermissionDenied {
-                            Button(action: viewModel.finishOnboarding) {
-                                Text(Strings.Onboarding.buttonContinueWithout)
-                                    .font(.rsButtonMedium)
-                                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
-                            }
-                        }
-                    } else {
-                        // Every other page: just continue
-                        BigButton(
-                            title: Strings.Onboarding.buttonContinueLowercase,
-                            icon: "arrow.right",
-                            color: .rsTurquoise,
-                            action: viewModel.nextPage,
-                            style: .primary
-                        )
-                        .transition(.asymmetric(
-                            insertion: .scale.combined(with: .opacity),
-                            removal: .scale.combined(with: .opacity)
-                        ))
-                    }
-                }
+                BigButton(
+                    title: Strings.Onboarding.buttonContinueLowercase,
+                    icon: "arrow.right",
+                    color: .rsTurquoise,
+                    action: viewModel.continueTapped,
+                    style: .primary
+                )
                 .padding(.horizontal, 24)
                 .padding(.bottom, 32)
                 .animation(.rsSpring, value: viewModel.currentPage)
             }
         }
         .onAppear { viewModel.onAppear() }
-        .onChange(of: scenePhase) { _, phase in
-            viewModel.scenePhaseDidChange(phase)
-        }
     }
 }
 

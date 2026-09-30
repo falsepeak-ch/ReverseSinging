@@ -2,22 +2,24 @@
 //  ReviewBannerCard.swift
 //  ReverseSinging
 //
-//  The note on the menu that thanks a Pro buyer and asks for a review.
+//  The note on the menu that asks how Dubloon is going, in stars.
 //
 
 import SwiftUI
 
-/// A thank-you and an ask, above the games, for people who bought Dubloon Pro.
+/// A thank-you and a question, above the games: how many stars?
 ///
 /// It sits in the menu like `TrialEndedCard` rather than over it, so nothing is thrown in front
-/// of someone who opened the app to play. The two buttons are the only ways to answer it, and
-/// `ReviewBanner` decides when it comes back.
+/// of someone who opened the app to play. A star or "Not now" are the only ways to answer it.
+/// What a rating leads to, and when the note comes back, are `ReviewBanner`'s to decide.
 struct ReviewBannerCard: View {
 
     /// Whether this is the thank-you for buying Pro, or the note for a free player who is
     /// clearly having a good time.
     var thanksForPro = true
-    let onRate: () -> Void
+    /// The rating last tapped, which stays lit while its dialog is up. Zero for none.
+    var stars = 0
+    let onRate: (Int) -> Void
     let onDismiss: () -> Void
 
     var body: some View {
@@ -35,7 +37,7 @@ struct ReviewBannerCard: View {
                         .foregroundColor(.rsTextPrimary)
                         .fixedSize(horizontal: false, vertical: true)
 
-                    Text(thanksForPro ? Strings.ReviewBanner.message : Strings.ReviewBanner.fanMessage)
+                    Text(Strings.ReviewBanner.prompt)
                         .font(.rsMeta)
                         .foregroundColor(.rsTextSecondary)
                         .multilineTextAlignment(.leading)
@@ -45,47 +47,35 @@ struct ReviewBannerCard: View {
                 Spacer(minLength: 0)
             }
 
-            HStack(spacing: 8) {
-                Button {
-                    HapticManager.shared.light()
-                    onDismiss()
-                } label: {
-                    Text(Strings.ReviewBanner.later)
-                        .font(.rsButtonSmall)
-                        .foregroundStyle(Color.rsTextSecondary)
-                        .padding(.horizontal, 14)
-                        .padding(.vertical, 9)
-                        .frame(maxWidth: .infinity)
-                        .background(
-                            RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
-                                .strokeBorder(Color.rsStroke, lineWidth: EditorMetrics.hairline)
-                        )
-                }
-                .buttonStyle(ScaleButtonStyle())
-
-                Button {
-                    HapticManager.shared.light()
-                    onRate()
-                } label: {
-                    HStack(spacing: 6) {
-                        Text(Strings.ReviewBanner.rate)
-                            .font(.rsButtonSmall)
-
-                        Image(systemName: "arrow.up.right")
-                            .font(.system(size: 11, weight: .bold))
-                            .accessibilityHidden(true)
+            HStack(spacing: 0) {
+                ForEach(1...ReviewBanner.maximumStars, id: \.self) { star in
+                    Button {
+                        HapticManager.shared.light()
+                        onRate(star)
+                    } label: {
+                        Image(systemName: star <= stars ? "star.fill" : "star")
+                            .font(.system(size: 26, weight: .medium))
+                            .foregroundStyle(star <= stars ? Color.rsTurquoise : Color.rsTextTertiary)
+                            .frame(maxWidth: .infinity, minHeight: 44)
+                            .contentShape(Rectangle())
                     }
-                    .foregroundStyle(Color.rsTextOnTurquoise)
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 9)
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
-                            .fill(Color.rsTurquoise)
-                    )
+                    .buttonStyle(ScaleButtonStyle())
+                    .accessibilityLabel(String(format: Strings.ReviewBanner.starLabel, star))
                 }
-                .buttonStyle(ScaleButtonStyle())
             }
+            .animation(.rsQuick, value: stars)
+
+            Button {
+                HapticManager.shared.light()
+                onDismiss()
+            } label: {
+                Text(Strings.ReviewBanner.later)
+                    .font(.rsButtonSmall)
+                    .foregroundStyle(Color.rsTextSecondary)
+                    .frame(maxWidth: .infinity, minHeight: 32)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(ScaleButtonStyle())
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -97,7 +87,7 @@ struct ReviewBannerCard: View {
 #Preview {
     ZStack {
         Color.rsSurface0.ignoresSafeArea()
-        ReviewBannerCard(onRate: {}, onDismiss: {})
+        ReviewBannerCard(stars: 4, onRate: { _ in }, onDismiss: {})
             .padding(EditorMetrics.gutter)
     }
     .preferredColorScheme(.dark)

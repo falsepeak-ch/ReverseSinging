@@ -149,6 +149,7 @@ extension View {
             )) {
                 SettingsView(app: app, scope: .reverseSinging)
             }
+            .microphonePrimer()
             .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: Binding(
                 get: { viewModel.showPermissionAlert },
                 set: { viewModel.showPermissionAlert = $0 }

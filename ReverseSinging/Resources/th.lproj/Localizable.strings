@@ -5,18 +5,17 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "ยินดีต้อนรับสู่ Dubloon";
-"onboarding.welcome.message" = "สามเกม ไมค์ตัวเดียว ร้องเพลงกลับหลัง ยัดเสียงตัวเองเข้าไปในฉากหนัง หรือเลียนเสียงจนกว่าจะเหมือน ยังไงก็ไม่มีทางฟังดูปกติ";
+"onboarding.welcome.message" = "สี่เกม ไมค์ตัวเดียว ร้องเพลงกลับหลัง ยัดเสียงตัวเองเข้าไปในฉากหนังหรือวิดีโอของคุณเอง หรือเลียนเสียงจนกว่าจะเหมือน ยังไงก็ไม่มีทางฟังดูปกติ";
 "onboarding.howItWorks.title" = "มันทำงานยังไง";
 "onboarding.howItWorks.message" = "อัดเพลงไว้ กลับด้านมัน แล้วร้องตามเสียงมั่ว ๆ นั้น จากนั้นกลับเทคของตัวเองอีกที แล้วดูว่าใกล้เคียงหรือเพิ่งประดิษฐ์ภาษาใหม่ขึ้นมา";
 "onboarding.dub.title" = "พากย์ฉากหนัง";
 "onboarding.dub.message" = "เกมที่สอง เปิดฉาก เล่นทับให้สุด แล้วฟังตัวเองอยู่ในหนัง มีสองฉากแถมมาให้ นอกจากนั้นเอาไฟล์ของคุณเองมาเอง";
+"onboarding.pro.title" = "ทำไมถึงมี Dubloon Pro";
+"onboarding.pro.message" = "Dubloon ไม่มีโฆษณา ไม่ต้องสมัครบัญชี ไม่มีการติดตาม และทำโดยคนคนเดียวในซูริก Dubloon Pro คือสิ่งที่ช่วยให้แอปอยู่ได้ โดยปลดล็อกทุกฉาก กล้องบูธ และการส่งออก ส่วนร้องกลับหลังยังเล่นฟรีเหมือนเดิม";
 "onboarding.microphone.title" = "อีกเรื่องสุดท้าย";
-"onboarding.microphone.message" = "ทั้งสามเกมต้องได้ยินคุณ ทั้งตอนร้องกลับหลัง ตอนพากย์ฉาก และตอนเลียนเสียง ไมค์จะตื่นเฉพาะตอนอัด ทุกอย่างอยู่ในเครื่องนี้ และไม่มีอะไรถูกอัปโหลดไปไหน เทคที่แย่ที่สุดของคุณจะอยู่กันแค่สองคน";
-"onboarding.button.openSettings" = "เปิดการตั้งค่า";
-"onboarding.button.letsRecord" = "เอาละ อัดกันเลย!";
+"onboarding.microphone.message" = "ทุกเกมต้องได้ยินคุณ ทั้งตอนร้องกลับหลัง ตอนพากย์ฉาก และตอนเลียนเสียง ไมค์จะตื่นเฉพาะตอนอัด ทุกอย่างอยู่ในเครื่องนี้ และไม่มีอะไรถูกอัปโหลดไปไหน เทคที่แย่ที่สุดของคุณจะอยู่กันแค่สองคน";
 "onboarding.button.continueLowercase" = "ต่อไป";
 "onboarding.button.microphoneContinue" = "ต่อไป";
-"onboarding.button.continueWithout" = "ไปต่อโดยไม่ใช้ไมค์";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "หยุดอัด";
@@ -54,7 +53,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "ไม่มีใครได้ยินคุณ";
-"main.emptyState.message" = "ตอนนี้ Dubloon คือแอปอัดเสียงที่ไม่มีอะไรให้อัด เปิดสิทธิ์ไมโครโฟนในการตั้งค่าเครื่อง แล้วทั้งสามเกมจะกลับมามีชีวิตอีกครั้ง";
+"main.emptyState.message" = "ตอนนี้ Dubloon คือแอปอัดเสียงที่ไม่มีอะไรให้อัด เปิดสิทธิ์ไมโครโฟนในการตั้งค่าเครื่อง แล้วทั้งสี่เกมจะกลับมามีชีวิตอีกครั้ง";
 "main.emptyState.button" = "เปิดการตั้งค่า";
 
 // MARK: - Main View - Processing & Success
@@ -347,19 +346,27 @@
 "review.banner.later" = "ไว้ทีหลัง";
 "review.banner.fan.title" = "สนุกอยู่ใช่ไหม";
 "review.banner.fan.message" = "คุณกำลังมาแรงเลย Dubloon สร้างโดยคนคนเดียวที่ซูริก และรีวิวคือทางที่ผู้เล่นใหม่ได้เจอแอปนี้ ถ้ามันเคยทำให้คุณหัวเราะได้ การเขียนสักไม่กี่คำใน App Store จะมีความหมายมาก";
+"review.banner.prompt" = "คุณจะให้ Dubloon กี่ดาว";
+"review.banner.star" = "%d จาก 5 ดาว";
+"review.banner.store.title" = "ดีใจที่คุณชอบ!";
+"review.feedback.slug" = "ความคิดเห็น";
+"review.feedback.title" = "มีอะไรไม่ถูกใจ";
+"review.feedback.message" = "บอกเราว่าอะไรทำให้ผิดหวัง ข้อความของคุณจะส่งตรงถึงคนที่ทำ Dubloon และจะถูกอ่านแน่นอน";
+"review.feedback.placeholder" = "อะไรควรดีขึ้นกว่านี้";
+"review.feedback.send" = "ส่ง";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "ยินดีต้อนรับสู่สโมสร";
-"pro.earlyAdopter.message" = "ตอนนี้ Dubloon มีค่าใช้จ่ายแล้ว แต่ไม่ใช่สำหรับคุณ คุณอยู่ตรงนี้ตั้งแต่ก่อนจะมีป้ายราคา ทั้งสามเกมจึงยังเป็นของคุณ ฟรี ตราบเท่าที่แอปนี้ยังอยู่ ขอบคุณสำหรับวันแรก ๆ";
+"pro.earlyAdopter.message" = "ตอนนี้ Dubloon มีค่าใช้จ่ายแล้ว แต่ไม่ใช่สำหรับคุณ คุณอยู่ตรงนี้ตั้งแต่ก่อนจะมีป้ายราคา ทั้งสี่เกมจึงยังเป็นของคุณ ฟรี ตราบเท่าที่แอปนี้ยังอยู่ ขอบคุณสำหรับวันแรก ๆ";
 "pro.earlyAdopter.badge" = "ฟรีตลอดชีพ";
 "pro.earlyAdopter.confirm" = "ดีเลย";
 "pro.earlyAdopter.settings.title" = "ฟรีตลอดชีพ";
-"pro.earlyAdopter.settings.subtitle" = "คุณมาตั้งแต่แรก ทั้งสามเกมเป็นของคุณ และไม่ต้องจ่ายอะไรเลย";
+"pro.earlyAdopter.settings.subtitle" = "คุณมาตั้งแต่แรก ทั้งสี่เกมเป็นของคุณ และไม่ต้องจ่ายอะไรเลย";
 "pro.closePaywall" = "ปิด";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "สิทธิ์เข้าถึง";
-"pro.earlyAdopter.row.access.value" = "ทั้งสามเกม";
+"pro.earlyAdopter.row.access.value" = "ทั้งสี่เกม";
 "pro.earlyAdopter.row.cost" = "ค่าใช้จ่าย";
 "pro.earlyAdopter.row.cost.value" = "ไม่มี";
 "pro.earlyAdopter.row.expires" = "หมดอายุ";
@@ -583,7 +590,6 @@
 "mac.panel.emptyMessage" = "เลือกเกมหรือแพ็กพากย์ในแถบด้านข้าง";
 "mac.settings.general" = "ทั่วไป";
 "mac.settings.recording" = "การบันทึก";
-"mac.welcome.notNow" = "ไม่ใช่ตอนนี้";
 "mac.booth.primer.message" = "กล้องบูธจะเปิดกล้องของ Macไว้ขณะคุณแสดง ทั้งฉาก บทพูด และหน้าคุณจึงอยู่บนจอเดียวกัน หลังจากนั้นจะแชร์ปฏิกิริยาไปพร้อมกับเสียงพากย์ก็ได้";
 "mac.booth.primer.systemPrompt" = "เดี๋ยว macOS จะขอสิทธิ์เข้าถึงกล้อง";
 "mac.menu.openRecent" = "เปิดล่าสุด";

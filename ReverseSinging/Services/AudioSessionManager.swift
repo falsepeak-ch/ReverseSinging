@@ -166,13 +166,29 @@ final class AudioSessionManager {
 
     // MARK: - Permission
 
-    func requestRecordPermission(completion: @escaping (Bool) -> Void) {
+    func requestRecordPermission(completion: @escaping (RecordPermissionAnswer) -> Void) {
+        // Read before asking: afterwards a no given a second ago and one given last week
+        // look the same.
+        let refusedEarlier = isRecordPermissionDenied
+
+        // Never asked: the app's own explanation goes first, and its one button leads here.
+        // Once there is an answer the system shows no prompt, so there is nothing to explain.
+        guard AVAudioApplication.shared.recordPermission != .undetermined else {
+            MicrophonePrimer.shared.present { [weak self] in
+                self?.requestFromSystem(refusedEarlier: false, completion: completion)
+            }
+            return
+        }
+        requestFromSystem(refusedEarlier: refusedEarlier, completion: completion)
+    }
+
+    private func requestFromSystem(refusedEarlier: Bool, completion: @escaping (RecordPermissionAnswer) -> Void) {
         // The async form rather than the handler one: that handler is called on an arbitrary
         // thread and is not marked Sendable, so entering this main-actor code from it traps.
         Task {
             let granted = await AVAudioApplication.requestRecordPermission()
             print(granted ? "✅ Microphone permission granted" : "❌ Microphone permission denied")
-            completion(granted)
+            completion(granted ? .granted : refusedEarlier ? .refusedEarlier : .refusedJustNow)
         }
     }
 
@@ -185,4 +201,19 @@ final class AudioSessionManager {
     var isRecordPermissionDenied: Bool {
         return AVAudioApplication.shared.recordPermission == .denied
     }
+}
+
+/// What asking for the microphone came back with.
+///
+/// The two refusals are kept apart because App Review guideline 5.1.1(iv) treats them
+/// differently. A no given to the system prompt a moment ago is the user's decision, and
+/// nothing may follow it: no alert, no pointer to Settings. A no from some earlier time, met
+/// again because the user has just pressed record, is a feature that cannot work, and saying
+/// so with a link to Settings is what Apple asks for.
+enum RecordPermissionAnswer {
+    case granted
+    /// Refused in the system prompt this request put up.
+    case refusedJustNow
+    /// Refused before this request, so no prompt was shown.
+    case refusedEarlier
 }

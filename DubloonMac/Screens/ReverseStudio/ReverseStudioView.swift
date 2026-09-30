@@ -67,6 +67,7 @@ struct ReverseStudioView: View {
         } message: {
             Text(Strings.Main.Alert.startNewSessionMessage)
         }
+        .microphonePrimer()
         .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: $game.showPermissionAlert) {
             Button(Strings.Main.Alert.settings, action: AppSettings.open)
             Button(Strings.Main.Alert.cancel, role: .cancel) {}

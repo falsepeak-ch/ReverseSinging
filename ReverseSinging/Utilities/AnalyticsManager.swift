@@ -51,12 +51,6 @@ final class AnalyticsManager {
 
     // MARK: - Permission Events
 
-    func trackPermissionRequested() {
-        log("permission_requested", parameters: [
-            "permission_type": "microphone"
-        ])
-    }
-
     func trackPermissionGranted() {
         log("permission_granted", parameters: [
             "permission_type": "microphone"

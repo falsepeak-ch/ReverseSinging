@@ -5,18 +5,17 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Вітаємо в Dubloon";
-"onboarding.welcome.message" = "Три гри, один мікрофон. Заспівай пісню задом наперед, встав свій голос у сцену з фільму або повторюй звук, доки не вийде. Нормально не звучатиме ніщо.";
+"onboarding.welcome.message" = "Чотири гри, один мікрофон. Заспівай пісню задом наперед, встав свій голос у сцену з фільму або у власне відео, або повторюй звук, доки не вийде. Нормально не звучатиме ніщо.";
 "onboarding.howItWorks.title" = "Як це працює";
 "onboarding.howItWorks.message" = "Запиши пісню, переверни її і заспівай цю тарабарщину. Потім переверни свій дубль і дізнайся, чи ти влучив, чи щойно винайшов нову мову.";
 "onboarding.dub.title" = "Озвуч сцену з фільму";
 "onboarding.dub.message" = "Друга гра: увімкни сцену, переграй як слід, а потім почуй себе у фільмі. Дві сцени вже всередині. Далі приносиш власні файли.";
+"onboarding.pro.title" = "Навіщо потрібен Dubloon Pro";
+"onboarding.pro.message" = "У Dubloon немає реклами, акаунтів і стеження, а робить його одна людина в Цюриху. Dubloon Pro — це те, що все це оплачує: усі сцени, Booth Cam та експорт. Спів задом наперед лишається безплатним.";
 "onboarding.microphone.title" = "Ще одне";
-"onboarding.microphone.message" = "Усім трьом іграм треба тебе чути: і спів задом наперед, і озвучення сцени, і наслідування звуків. Мікрофон прокидається лише під час запису, усе лишається на цьому пристрої й нікуди не надсилається. Твій найгірший дубль лишиться між вами двома.";
-"onboarding.button.openSettings" = "Відкрити Налаштування";
-"onboarding.button.letsRecord" = "давай, записуємо!";
+"onboarding.microphone.message" = "Усім іграм треба тебе чути: і спів задом наперед, і озвучення сцени, і наслідування звуків. Мікрофон прокидається лише під час запису, усе лишається на цьому пристрої й нікуди не надсилається. Твій найгірший дубль лишиться між вами двома.";
 "onboarding.button.continueLowercase" = "далі";
 "onboarding.button.microphoneContinue" = "Далі";
-"onboarding.button.continueWithout" = "далі без нього";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Зупинити запис";
@@ -54,7 +53,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Тебе ніхто не чує";
-"main.emptyState.message" = "Зараз Dubloon — застосунок для запису, якому нема чим записувати. Увімкни доступ до мікрофона в налаштуваннях пристрою, і всі три гри знову оживуть.";
+"main.emptyState.message" = "Зараз Dubloon — застосунок для запису, якому нема чим записувати. Увімкни доступ до мікрофона в налаштуваннях пристрою, і всі чотири гри знову оживуть.";
 "main.emptyState.button" = "Відкрити Налаштування";
 
 // MARK: - Main View - Processing & Success
@@ -347,19 +346,27 @@
 "review.banner.later" = "Не зараз";
 "review.banner.fan.title" = "Подобається?";
 "review.banner.fan.message" = "Ти в ударі. Dubloon робить одна людина в Цюриху, і саме завдяки відгукам його знаходять нові гравці. Якщо він тебе розсмішив, кілька слів в App Store важили б дуже багато.";
+"review.banner.prompt" = "Скільки зірок ти поставиш Dubloon?";
+"review.banner.star" = "%d із 5 зірок";
+"review.banner.store.title" = "Раді, що тобі подобається!";
+"review.feedback.slug" = "Відгук";
+"review.feedback.title" = "Що пішло не так?";
+"review.feedback.message" = "Розкажи, що тебе розчарувало. Повідомлення потрапить прямо до людини, яка робить Dubloon, і його прочитають.";
+"review.feedback.placeholder" = "Що варто покращити?";
+"review.feedback.send" = "Надіслати";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Вітаємо в клубі";
-"pro.earlyAdopter.message" = "Тепер Dubloon коштує грошей — але не для тебе. Ти був тут ще до цінника, тож усі три гри лишаються твоїми, безкоштовно, доки застосунок існує. Дякуємо за перші дні.";
+"pro.earlyAdopter.message" = "Тепер Dubloon коштує грошей — але не для тебе. Ти був тут ще до цінника, тож усі чотири гри лишаються твоїми, безкоштовно, доки застосунок існує. Дякуємо за перші дні.";
 "pro.earlyAdopter.badge" = "Безкоштовно назавжди";
 "pro.earlyAdopter.confirm" = "Чудово";
 "pro.earlyAdopter.settings.title" = "Безкоштовно назавжди";
-"pro.earlyAdopter.settings.subtitle" = "Ти прийшов рано. Усі три гри твої, і ти нам нічого не винен.";
+"pro.earlyAdopter.settings.subtitle" = "Ти прийшов рано. Усі чотири гри твої, і ти нам нічого не винен.";
 "pro.closePaywall" = "Закрити";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Доступ";
-"pro.earlyAdopter.row.access.value" = "Усі три гри";
+"pro.earlyAdopter.row.access.value" = "Усі чотири гри";
 "pro.earlyAdopter.row.cost" = "Ціна";
 "pro.earlyAdopter.row.cost.value" = "Нуль";
 "pro.earlyAdopter.row.expires" = "Спливає";
@@ -583,7 +590,6 @@
 "mac.panel.emptyMessage" = "Виберіть гру або пак озвучення на бічній панелі.";
 "mac.settings.general" = "Загальні";
 "mac.settings.recording" = "Запис";
-"mac.welcome.notNow" = "Не зараз";
 "mac.booth.primer.message" = "Booth Cam тримає камеру Mac увімкненою, поки ти граєш, тож сцена, репліка і твоє обличчя вміщаються на одному екрані. Потім можна поділитися реакцією разом з озвученням.";
 "mac.booth.primer.systemPrompt" = "Зараз macOS попросить доступ до камери.";
 "mac.menu.openRecent" = "Відкрити недавні";

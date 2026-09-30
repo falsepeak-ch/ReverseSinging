@@ -62,13 +62,8 @@ enum MacE2ERunner {
         await shot("01-welcome", window: "welcome")
 
         press(.return)
-        let reachedMic = await waitUntil(2) { MacE2EProbe.shared.welcome?.step == .microphone }
-        check("Return moves to the microphone step", reachedMic)
-        await shot("02-welcome-microphone", window: "welcome")
-
-        press(.escape)
         let finished = await waitUntil(3) { app.hasCompletedOnboarding && window(MacWindowID.welcome) == nil }
-        check("Escape (Not Now) finishes onboarding and closes the welcome window", finished)
+        check("Return (Continue) finishes onboarding and closes the welcome window", finished)
         pressTarget = nil
         mainWindow?.makeKeyAndOrderFront(nil)
         check("a workspace is selected after onboarding", workspace.selection != nil)

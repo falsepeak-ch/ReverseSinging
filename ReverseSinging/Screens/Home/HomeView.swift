@@ -51,6 +51,21 @@ struct HomeView: View {
             BoothCamAnnouncementView(onTryIt: { viewModel.openDub() })
                 .onDisappear { viewModel.boothAnnouncementDidDisappear() }
         }
+        .alert(Strings.ReviewBanner.storeTitle, isPresented: $viewModel.isReviewStoreAskPresented) {
+            Button(Strings.ReviewBanner.rate) { openURL(viewModel.reviewBannerWentToStore()) }
+            Button(Strings.Main.Alert.cancel, role: .cancel) { viewModel.reviewDialogDidCancel() }
+        } message: {
+            Text(viewModel.reviewBannerThanksForPro ? Strings.ReviewBanner.message : Strings.ReviewBanner.fanMessage)
+        }
+        .editorModal(isPresented: $viewModel.isReviewFeedbackPresented) {
+            ReviewFeedbackModal(
+                stars: viewModel.reviewStars,
+                onSend: { note in
+                    if let mail = viewModel.sendReviewFeedback(note) { openURL(mail) }
+                },
+                onCancel: { viewModel.reviewDialogDidCancel() }
+            )
+        }
         // Watched rather than checked once on appear: the exemption can be granted
         // a beat after launch, when the receipt lands, and this is the menu the
         // user is already looking at when it does.
@@ -97,7 +112,8 @@ struct HomeView: View {
                 if viewModel.showsReviewBanner {
                     ReviewBannerCard(
                         thanksForPro: viewModel.reviewBannerThanksForPro,
-                        onRate: { openURL(viewModel.reviewBannerWentToStore()) },
+                        stars: viewModel.reviewStars,
+                        onRate: { viewModel.rateFromReviewBanner(stars: $0) },
                         onDismiss: { viewModel.dismissReviewBanner() }
                     )
                     .padding(.bottom, 10)

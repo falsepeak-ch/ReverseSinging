@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Dubloon: Reverse Singing &amp; Movie Dubbing for iPhone and Mac</title>
-<meta name="description" content="Sing songs backwards, dub movie scenes in your own voice and imitate sounds. Dubloon is a voice game app for iPhone and Mac. Reverse singing is free.">
+<meta name="description" content="Sing songs backwards, dub movie scenes and your own videos in your own voice, and imitate sounds. Dubloon is a voice game app for iPhone and Mac. Reverse singing is free.">
 <link rel="canonical" href="https://reverso-87e1a.web.app/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#F5F1E8">
@@ -325,6 +325,8 @@
   .game.dub { background: var(--coral); }
   .game.rev { background: var(--paper-deep); }
   .game.imi { background: var(--navy); color: var(--paper); }
+  .game.hv { background: var(--gold); }
+  .game.hv .hv-art { width: min(70%, 320px); justify-self: center; }
   .game-head { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
   .game-head img { width: 64px; height: 64px; object-fit: contain; }
   .tag { font: 500 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; padding: 8px 11px; border-radius: 999px; border: 1.5px solid currentColor; white-space: nowrap; }
@@ -430,7 +432,7 @@
         <span class="red">Sing <span class="flip" id="flip" title="Play it again">backwards</span>.</span>
         <span class="navy">Copy any sound.</span>
       </h1>
-      <p class="lede">Dubloon is three voice games for iPhone and Mac. Dub a film scene in your own voice, sing a song in reverse, or imitate a rooster. All you need is a microphone.</p>
+      <p class="lede">Dubloon is four voice games for iPhone, three of them on Mac too. Dub a film scene or a video of your own, sing a song in reverse, or imitate a rooster. All you need is a microphone.</p>
       <div class="stores">
         <a class="store" href="https://apps.apple.com/app/id6754534073">
           <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#apple"/></svg>
@@ -509,7 +511,7 @@
 
   <section class="games" id="games" aria-labelledby="games-title">
     <div class="games-head">
-      <h2 id="games-title">Three games,<br>one microphone.</h2>
+      <h2 id="games-title">Four games,<br>one microphone.</h2>
       <p>Pick one from the menu. None of them will make you sound normal.</p>
     </div>
 
@@ -546,6 +548,20 @@
         <img src="/img/ios-reverse.webp" alt="Reverse Singing on iPhone with four playback buttons and a B+ score" width="600" height="1304" loading="lazy">
         <img src="/img/ios-home.webp" alt="The Dubloon home screen with its games" width="600" height="1304" loading="lazy">
       </div>
+    </article>
+
+    <article class="game hv reveal">
+      <div>
+        <div class="game-head"><span class="tag free">Free · iPhone</span></div>
+        <h3>Home Video Dub</h3>
+        <p>Pick any video you have filmed and put your own voice on it. The dog, the baby, the holiday footage nobody narrated. The video plays while you record, and you share the result.</p>
+        <ul>
+          <li><code>PICK</code><span>Any clip from your library, up to a minute</span></li>
+          <li><code>MIX</code><span>Keep the original sound quietly under your voice, or drop it</span></li>
+          <li><code>STAYS</code><span>Your video never leaves your phone unless you share it</span></li>
+        </ul>
+      </div>
+      <img class="hv-art" src="/img/home-video.png" alt="" width="640" height="640" loading="lazy">
     </article>
 
     <article class="game imi reveal">

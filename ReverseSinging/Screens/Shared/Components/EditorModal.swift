@@ -21,7 +21,10 @@ struct EditorModal<Content: View, PhoneActions: View, MacActions: View>: View {
     var width: CGFloat = 460
     /// Where a modal has steps, the way back to the first.
     var onBack: (() -> Void)?
-    let onClose: () -> Void
+    /// Nil for a modal with no way out but its own button: no close key, no tap outside, no
+    /// Cancel. The microphone explanation is one, because App Review requires that it
+    /// always leads to the system prompt.
+    let onClose: (() -> Void)?
     @ViewBuilder var content: () -> Content
     @ViewBuilder var phoneActions: () -> PhoneActions
     @ViewBuilder var macActions: () -> MacActions
@@ -56,10 +59,12 @@ struct EditorModal<Content: View, PhoneActions: View, MacActions: View>: View {
 
                 Spacer(minLength: 8)
 
-                Button(Strings.Main.Alert.cancel, action: onClose)
-                    .keyboardShortcut(.cancelAction)
-                    .platformGlassButton()
-                    .controlSize(.large)
+                if let onClose {
+                    Button(Strings.Main.Alert.cancel, action: onClose)
+                        .keyboardShortcut(.cancelAction)
+                        .platformGlassButton()
+                        .controlSize(.large)
+                }
 
                 macActions()
                     .controlSize(.large)
@@ -82,7 +87,7 @@ struct EditorModal<Content: View, PhoneActions: View, MacActions: View>: View {
                 .opacity(0.88)
                 .ignoresSafeArea()
                 .contentShape(Rectangle())
-                .onTapGesture { onClose() }
+                .onTapGesture { onClose?() }
                 .accessibilityHidden(true)
 
             ViewThatFits(in: .vertical) {
@@ -112,9 +117,11 @@ struct EditorModal<Content: View, PhoneActions: View, MacActions: View>: View {
 
                     Spacer(minLength: 8)
 
-                    EditorToolbarButton(icon: "xmark", label: Strings.DubGate.close) {
-                        HapticManager.shared.light()
-                        onClose()
+                    if let onClose {
+                        EditorToolbarButton(icon: "xmark", label: Strings.DubGate.close) {
+                            HapticManager.shared.light()
+                            onClose()
+                        }
                     }
                 }
                 .padding(.horizontal, 12)

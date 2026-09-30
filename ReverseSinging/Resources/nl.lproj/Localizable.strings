@@ -5,18 +5,17 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Welkom bij Dubloon";
-"onboarding.welcome.message" = "Drie spellen, één microfoon. Zing een liedje achterstevoren, leg je stem over een filmscène of doe een geluid na tot het klopt. Bij geen van alle klink je normaal.";
+"onboarding.welcome.message" = "Vier spellen, één microfoon. Zing een liedje achterstevoren, leg je stem over een filmscène of een eigen video, of doe een geluid na tot het klopt. Bij geen van alle klink je normaal.";
 "onboarding.howItWorks.title" = "Hoe het werkt";
 "onboarding.howItWorks.message" = "Neem een liedje op, draai het om en zing het gebrabbel na. Draai je eigen take daarna terug en hoor of je in de buurt kwam of net een nieuwe taal hebt uitgevonden.";
 "onboarding.dub.title" = "Nasynchroniseer een scène";
 "onboarding.dub.message" = "Het tweede spel: zet een scène aan, speel er stevig overheen en hoor jezelf in de film. Twee scènes zitten erbij. Daarna neem je je eigen bestanden mee.";
+"onboarding.pro.title" = "Waarom Dubloon Pro bestaat";
+"onboarding.pro.message" = "Dubloon heeft geen advertenties, geen account en geen tracking, en wordt gemaakt door één persoon in Zürich. Dubloon Pro betaalt dat: elke scène, Booth Cam en exports. Achterstevoren zingen blijft gratis.";
 "onboarding.microphone.title" = "Nog één ding";
-"onboarding.microphone.message" = "Alle drie de spellen moeten je horen: achterstevoren zingen, een scène nasynchroniseren of een geluid nadoen. De microfoon wordt alleen wakker tijdens het opnemen, alles blijft op dit apparaat en er wordt nooit iets geüpload. Je slechtste take blijft tussen jullie tweeën.";
-"onboarding.button.openSettings" = "Open Instellingen";
-"onboarding.button.letsRecord" = "kom op, opnemen!";
+"onboarding.microphone.message" = "Alle spellen moeten je horen: achterstevoren zingen, een scène nasynchroniseren of een geluid nadoen. De microfoon wordt alleen wakker tijdens het opnemen, alles blijft op dit apparaat en er wordt nooit iets geüpload. Je slechtste take blijft tussen jullie tweeën.";
 "onboarding.button.continueLowercase" = "doorgaan";
 "onboarding.button.microphoneContinue" = "Doorgaan";
-"onboarding.button.continueWithout" = "ga verder zonder";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Opname stoppen";
@@ -54,7 +53,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Niemand hoort je";
-"main.emptyState.message" = "Op dit moment is Dubloon een opname-app zonder iets om mee op te nemen. Zet microfoontoegang aan in je apparaatinstellingen en alle drie de spellen komen weer tot leven.";
+"main.emptyState.message" = "Op dit moment is Dubloon een opname-app zonder iets om mee op te nemen. Zet microfoontoegang aan in je apparaatinstellingen en alle vier de spellen komen weer tot leven.";
 "main.emptyState.button" = "Open Instellingen";
 
 // MARK: - Main View - Processing & Success
@@ -347,19 +346,27 @@
 "review.banner.later" = "Niet nu";
 "review.banner.fan.title" = "Heb je plezier?";
 "review.banner.fan.message" = "Je bent lekker bezig. Dubloon wordt gemaakt door één persoon in Zürich, en via reviews vinden nieuwe spelers het. Heb je erom moeten lachen, dan zouden een paar woorden in de App Store veel betekenen.";
+"review.banner.prompt" = "Hoeveel sterren geef je Dubloon?";
+"review.banner.star" = "%d van de 5 sterren";
+"review.banner.store.title" = "Fijn dat je het leuk vindt!";
+"review.feedback.slug" = "Feedback";
+"review.feedback.title" = "Wat ging er mis?";
+"review.feedback.message" = "Vertel ons wat tegenviel. Je bericht gaat rechtstreeks naar de persoon die Dubloon maakt, en het wordt gelezen.";
+"review.feedback.placeholder" = "Wat moet er beter?";
+"review.feedback.send" = "Verstuur";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Welkom bij de club";
-"pro.earlyAdopter.message" = "Dubloon kost nu geld — alleen bij jou niet. Jij was er voordat er een prijskaartje hing, dus alle drie de spellen blijven van jou, gratis, zolang de app bestaat. Bedankt voor de begindagen.";
+"pro.earlyAdopter.message" = "Dubloon kost nu geld — alleen bij jou niet. Jij was er voordat er een prijskaartje hing, dus alle vier de spellen blijven van jou, gratis, zolang de app bestaat. Bedankt voor de begindagen.";
 "pro.earlyAdopter.badge" = "Levenslang gratis";
 "pro.earlyAdopter.confirm" = "Mooi";
 "pro.earlyAdopter.settings.title" = "Levenslang gratis";
-"pro.earlyAdopter.settings.subtitle" = "Jij was er vroeg bij. Alle drie de spellen zijn van jou en je bent ons niets schuldig.";
+"pro.earlyAdopter.settings.subtitle" = "Jij was er vroeg bij. Alle vier de spellen zijn van jou en je bent ons niets schuldig.";
 "pro.closePaywall" = "Sluit";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Toegang";
-"pro.earlyAdopter.row.access.value" = "Alle drie de spellen";
+"pro.earlyAdopter.row.access.value" = "Alle vier de spellen";
 "pro.earlyAdopter.row.cost" = "Kosten";
 "pro.earlyAdopter.row.cost.value" = "Niets";
 "pro.earlyAdopter.row.expires" = "Verloopt";
@@ -583,7 +590,6 @@
 "mac.panel.emptyMessage" = "Kies een game of een dubpack in de navigatiekolom.";
 "mac.settings.general" = "Algemeen";
 "mac.settings.recording" = "Opnemen";
-"mac.welcome.notNow" = "Niet nu";
 "mac.booth.primer.message" = "Booth Cam gebruikt de camera van je Mac terwijl je speelt, zodat de scène, de zin en jouw gezicht op één scherm passen. Later kun je de reactie samen met de dub delen.";
 "mac.booth.primer.systemPrompt" = "macOS vraagt zo om toegang tot de camera.";
 "mac.menu.openRecent" = "Open recent";

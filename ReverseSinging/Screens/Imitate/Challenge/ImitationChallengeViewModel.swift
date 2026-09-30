@@ -218,10 +218,11 @@ final class ImitationChallengeViewModel: ObservableObject {
         player.stop()
         playingClip = nil
 
-        recorder.requestPermission { [weak self] granted in
+        recorder.requestPermission { [weak self] answer in
             guard let self else { return }
-            guard granted else {
-                self.showPermissionAlert = true
+            guard answer == .granted else {
+                // A no given to the prompt just now is an answer, and nothing follows it.
+                self.showPermissionAlert = answer == .refusedEarlier
                 AnalyticsManager.shared.trackPermissionDenied()
                 return
             }

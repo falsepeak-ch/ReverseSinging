@@ -5,18 +5,17 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Velkommen til Dubloon";
-"onboarding.welcome.message" = "Tre spil, én mikrofon. Syng en sang baglæns, læg din stemme ind i en filmscene, eller efterlign en lyd, til den sidder. Ingen af delene får dig til at lyde normal.";
+"onboarding.welcome.message" = "Fire spil, én mikrofon. Syng en sang baglæns, læg din stemme ind i en filmscene eller en af dine egne videoer, eller efterlign en lyd, til den sidder. Ingen af delene får dig til at lyde normal.";
 "onboarding.howItWorks.title" = "Sådan virker det";
 "onboarding.howItWorks.message" = "Optag en sang, vend den om, og syng med på volapykken. Vend derefter din egen optagelse og hør, om du ramte plet eller lige har opfundet et nyt sprog.";
 "onboarding.dub.title" = "Dub en filmscene";
 "onboarding.dub.message" = "Det andet spil: sæt en scene i gang, overspil løs, og hør så dig selv i filmen. To scener følger med. Derefter tager du dine egne filer med.";
+"onboarding.pro.title" = "Derfor findes Dubloon Pro";
+"onboarding.pro.message" = "Dubloon har ingen reklamer, ingen konto og ingen sporing, og det laves af én person i Zürich. Dubloon Pro er det, der betaler for det: alle scener, Booth Cam og eksport. Baglænssang forbliver gratis.";
 "onboarding.microphone.title" = "En sidste ting";
-"onboarding.microphone.message" = "Alle tre spil skal kunne høre dig: baglænssang, dubbing af en scene eller efterligning af en lyd. Mikrofonen vågner kun, mens du optager, alt bliver på denne enhed, og intet bliver nogensinde uploadet. Din værste optagelse bliver mellem jer to.";
-"onboarding.button.openSettings" = "Åbn Indstillinger";
-"onboarding.button.letsRecord" = "kom, lad os optage!";
+"onboarding.microphone.message" = "Alle spil skal kunne høre dig: baglænssang, dubbing af en scene eller efterligning af en lyd. Mikrofonen vågner kun, mens du optager, alt bliver på denne enhed, og intet bliver nogensinde uploadet. Din værste optagelse bliver mellem jer to.";
 "onboarding.button.continueLowercase" = "fortsæt";
 "onboarding.button.microphoneContinue" = "Fortsæt";
-"onboarding.button.continueWithout" = "fortsæt uden";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Stop optagelsen";
@@ -54,7 +53,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Ingen kan høre dig";
-"main.emptyState.message" = "Lige nu er Dubloon en optageapp uden noget at optage med. Tænd for mikrofonadgang i enhedens indstillinger, så vågner alle tre spil til live igen.";
+"main.emptyState.message" = "Lige nu er Dubloon en optageapp uden noget at optage med. Tænd for mikrofonadgang i enhedens indstillinger, så vågner alle fire spil til live igen.";
 "main.emptyState.button" = "Åbn Indstillinger";
 
 // MARK: - Main View - Processing & Success
@@ -347,19 +346,27 @@
 "review.banner.later" = "Ikke nu";
 "review.banner.fan.title" = "Har du det sjovt?";
 "review.banner.fan.message" = "Du er godt kørende. Dubloon er lavet af én person i Zürich, og anmeldelser er dér, nye spillere finder det. Hvis det har fået dig til at grine, ville et par ord i App Store betyde meget.";
+"review.banner.prompt" = "Hvor mange stjerner vil du give Dubloon?";
+"review.banner.star" = "%d ud af 5 stjerner";
+"review.banner.store.title" = "Dejligt, at du kan lide det!";
+"review.feedback.slug" = "Feedback";
+"review.feedback.title" = "Hvad gik galt?";
+"review.feedback.message" = "Fortæl os, hvad der skuffede dig. Din besked går direkte til den person, der laver Dubloon, og den bliver læst.";
+"review.feedback.placeholder" = "Hvad skal være bedre?";
+"review.feedback.send" = "Send";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Velkommen i klubben";
-"pro.earlyAdopter.message" = "Dubloon koster penge nu — bare ikke for dig. Du var her, før der kom en prismærkat på, så alle tre spil bliver ved med at være dine, gratis, så længe appen findes. Tak for de første dage.";
+"pro.earlyAdopter.message" = "Dubloon koster penge nu — bare ikke for dig. Du var her, før der kom en prismærkat på, så alle fire spil bliver ved med at være dine, gratis, så længe appen findes. Tak for de første dage.";
 "pro.earlyAdopter.badge" = "Gratis for livet";
 "pro.earlyAdopter.confirm" = "Fedt";
 "pro.earlyAdopter.settings.title" = "Gratis for livet";
-"pro.earlyAdopter.settings.subtitle" = "Du var her tidligt. Alle tre spil er dine, og du skylder os ingenting.";
+"pro.earlyAdopter.settings.subtitle" = "Du var her tidligt. Alle fire spil er dine, og du skylder os ingenting.";
 "pro.closePaywall" = "Luk";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Adgang";
-"pro.earlyAdopter.row.access.value" = "Alle tre spil";
+"pro.earlyAdopter.row.access.value" = "Alle fire spil";
 "pro.earlyAdopter.row.cost" = "Pris";
 "pro.earlyAdopter.row.cost.value" = "Ingenting";
 "pro.earlyAdopter.row.expires" = "Udløber";
@@ -583,7 +590,6 @@
 "mac.panel.emptyMessage" = "Vælg et spil eller en dubpakke i sidepanelet.";
 "mac.settings.general" = "Generelt";
 "mac.settings.recording" = "Optagelse";
-"mac.welcome.notNow" = "Ikke nu";
 "mac.booth.primer.message" = "Booth Cam kører Mac'ens kamera, mens du spiller, så scenen, replikken og dit ansigt deler den samme skærm. Bagefter kan du dele reaktionen sammen med dubben.";
 "mac.booth.primer.systemPrompt" = "Om lidt spørger macOS om adgang til kameraet.";
 "mac.menu.openRecent" = "Åbn seneste";

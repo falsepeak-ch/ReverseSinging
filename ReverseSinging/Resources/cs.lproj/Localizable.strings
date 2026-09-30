@@ -5,18 +5,17 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Vítej v Dubloonu";
-"onboarding.welcome.message" = "Tři hry, jeden mikrofon. Zazpívej písničku pozpátku, strč vlastní hlas do filmové scény, nebo napodobuj zvuk, dokud nesedí. Normálně nebudeš znít ani v jednom případě.";
+"onboarding.welcome.message" = "Čtyři hry, jeden mikrofon. Zazpívej písničku pozpátku, strč vlastní hlas do filmové scény nebo do vlastního videa, nebo napodobuj zvuk, dokud nesedí. Normálně nebudeš znít ani v jednom případě.";
 "onboarding.howItWorks.title" = "Jak to funguje";
 "onboarding.howItWorks.message" = "Nahraj písničku, otoč ji a zpívej s tou hatmatilkou. Pak otoč vlastní pokus a zjisti, jestli ses trefil, nebo právě vynalezl nový jazyk.";
 "onboarding.dub.title" = "Nadabuj filmovou scénu";
 "onboarding.dub.message" = "Druhá hra: pusť scénu, přehrávej přes ni jako o život a pak se poslechni ve filmu. Dvě scény jsou v balení. Zbytek si přineseš sám.";
+"onboarding.pro.title" = "Proč existuje Dubloon Pro";
+"onboarding.pro.message" = "Dubloon nemá reklamy, účet ani sledování a dělá ho jeden člověk v Curychu. Dubloon Pro je to, co to platí: všechny scény, Booth Cam a exporty. Zpívání pozpátku zůstává zdarma.";
 "onboarding.microphone.title" = "Ještě jedna věc";
-"onboarding.microphone.message" = "Všechny tři hry tě potřebují slyšet: při zpívání pozpátku, při dabování scény i při napodobování zvuků. Mikrofon se probouzí jen během nahrávání, všechno zůstává v tomhle zařízení a nikdy se nic nikam neposílá. Tvůj nejhorší pokus zůstane mezi vámi dvěma.";
-"onboarding.button.openSettings" = "Otevřít Nastavení";
-"onboarding.button.letsRecord" = "tak jo, nahráváme!";
+"onboarding.microphone.message" = "Všechny hry tě potřebují slyšet: při zpívání pozpátku, při dabování scény i při napodobování zvuků. Mikrofon se probouzí jen během nahrávání, všechno zůstává v tomhle zařízení a nikdy se nic nikam neposílá. Tvůj nejhorší pokus zůstane mezi vámi dvěma.";
 "onboarding.button.continueLowercase" = "pokračovat";
 "onboarding.button.microphoneContinue" = "Pokračovat";
-"onboarding.button.continueWithout" = "pokračovat bez něj";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Zastavit nahrávání";
@@ -54,7 +53,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Nikdo tě neslyší";
-"main.emptyState.message" = "Právě teď je Dubloon nahrávací appka, která nemá čím nahrávat. Povol mikrofon v nastavení zařízení a všechny tři hry se zase proberou k životu.";
+"main.emptyState.message" = "Právě teď je Dubloon nahrávací appka, která nemá čím nahrávat. Povol mikrofon v nastavení zařízení a všechny čtyři hry se zase proberou k životu.";
 "main.emptyState.button" = "Otevřít Nastavení";
 
 // MARK: - Main View - Processing & Success
@@ -347,19 +346,27 @@
 "review.banner.later" = "Teď ne";
 "review.banner.fan.title" = "Baví tě to?";
 "review.banner.fan.message" = "Poslední dobou to máš rozjeté. Dubloon dělá jeden člověk v Curychu a právě díky recenzím ho nacházejí noví hráči. Jestli tě rozesmál, pár slov v App Store by hodně znamenalo.";
+"review.banner.prompt" = "Kolik hvězdiček si Dubloon zaslouží?";
+"review.banner.star" = "%d z 5 hvězdiček";
+"review.banner.store.title" = "To nás těší!";
+"review.feedback.slug" = "Zpětná vazba";
+"review.feedback.title" = "Co se nepovedlo?";
+"review.feedback.message" = "Napiš nám, co tě zklamalo. Tvoje zpráva jde přímo člověku, který Dubloon dělá, a přečte si ji.";
+"review.feedback.placeholder" = "Co by mělo být lepší?";
+"review.feedback.send" = "Odeslat";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Vítej v klubu";
-"pro.earlyAdopter.message" = "Dubloon teď stojí peníze — jenom u tebe ne. Byl jsi tu dřív, než přišla cenovka, takže všechny tři hry zůstávají tvoje, zdarma, dokud aplikace existuje. Díky za ty první dny.";
+"pro.earlyAdopter.message" = "Dubloon teď stojí peníze — jenom u tebe ne. Byl jsi tu dřív, než přišla cenovka, takže všechny čtyři hry zůstávají tvoje, zdarma, dokud aplikace existuje. Díky za ty první dny.";
 "pro.earlyAdopter.badge" = "Zdarma navždy";
 "pro.earlyAdopter.confirm" = "Paráda";
 "pro.earlyAdopter.settings.title" = "Zdarma navždy";
-"pro.earlyAdopter.settings.subtitle" = "Byl jsi tu brzy. Všechny tři hry jsou tvoje a nic nám nedlužíš.";
+"pro.earlyAdopter.settings.subtitle" = "Byl jsi tu brzy. Všechny čtyři hry jsou tvoje a nic nám nedlužíš.";
 "pro.closePaywall" = "Zavřít";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Přístup";
-"pro.earlyAdopter.row.access.value" = "Všechny tři hry";
+"pro.earlyAdopter.row.access.value" = "Všechny čtyři hry";
 "pro.earlyAdopter.row.cost" = "Cena";
 "pro.earlyAdopter.row.cost.value" = "Nic";
 "pro.earlyAdopter.row.expires" = "Vyprší";
@@ -583,7 +590,6 @@
 "mac.panel.emptyMessage" = "V postranním panelu vyberte hru nebo dabingový balíček.";
 "mac.settings.general" = "Obecné";
 "mac.settings.recording" = "Nahrávání";
-"mac.welcome.notNow" = "Teď ne";
 "mac.booth.primer.message" = "Booth Cam nechá běžet kameru Macu, zatímco hraješ, takže scéna, replika i tvůj obličej se vejdou na jednu obrazovku. Později můžeš reakci sdílet spolu s dabingem.";
 "mac.booth.primer.systemPrompt" = "Za chvíli si macOS řekne o přístup ke kameře.";
 "mac.menu.openRecent" = "Otevřít nedávné";

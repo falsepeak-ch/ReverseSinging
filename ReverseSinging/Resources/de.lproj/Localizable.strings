@@ -5,18 +5,17 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Willkommen bei Dubloon";
-"onboarding.welcome.message" = "Drei Spiele, ein Mikrofon. Sing ein Lied rückwärts, leg deine Stimme in eine Filmszene oder mach ein Geräusch nach, bis es sitzt. Normal klingst du bei keinem davon.";
+"onboarding.welcome.message" = "Vier Spiele, ein Mikrofon. Sing ein Lied rückwärts, leg deine Stimme in eine Filmszene oder ein eigenes Video, oder mach ein Geräusch nach, bis es sitzt. Normal klingst du bei keinem davon.";
 "onboarding.howItWorks.title" = "So läuft das";
 "onboarding.howItWorks.message" = "Nimm ein Lied auf, dreh es um und sing das Kauderwelsch nach. Dann dreh deine Aufnahme zurück und hör, ob du nah dran warst oder gerade eine neue Sprache erfunden hast.";
 "onboarding.dub.title" = "Eine Filmszene synchronisieren";
 "onboarding.dub.message" = "Das zweite Spiel: Szene starten, kräftig drüberspielen und dich anschließend im Film hören. Zwei Szenen sind dabei. Danach bringst du deine eigenen mit.";
+"onboarding.pro.title" = "Warum es Dubloon Pro gibt";
+"onboarding.pro.message" = "Dubloon hat keine Werbung, kein Konto und kein Tracking, und es wird von einer einzigen Person in Zürich gemacht. Dubloon Pro bezahlt das: jede Szene, Booth Cam und Exporte. Rückwärtssingen bleibt kostenlos.";
 "onboarding.microphone.title" = "Noch eine Sache";
-"onboarding.microphone.message" = "Alle drei Spiele müssen dich hören: rückwärts singen, eine Szene synchronisieren oder ein Geräusch nachmachen. Das Mikro wacht nur während der Aufnahme auf, alles bleibt auf diesem Gerät und nichts wird jemals hochgeladen. Deine schlimmste Aufnahme bleibt unter euch beiden.";
-"onboarding.button.openSettings" = "Einstellungen öffnen";
-"onboarding.button.letsRecord" = "los, Aufnahme!";
+"onboarding.microphone.message" = "Alle Spiele müssen dich hören: rückwärts singen, eine Szene synchronisieren oder ein Geräusch nachmachen. Das Mikro wacht nur während der Aufnahme auf, alles bleibt auf diesem Gerät und nichts wird jemals hochgeladen. Deine schlimmste Aufnahme bleibt unter euch beiden.";
 "onboarding.button.continueLowercase" = "weiter";
 "onboarding.button.microphoneContinue" = "Weiter";
-"onboarding.button.continueWithout" = "ohne Mikro weiter";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Aufnahme stoppen";
@@ -54,7 +53,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Dich hört gerade niemand";
-"main.emptyState.message" = "Im Moment ist Dubloon eine Aufnahme-App ohne alles, womit sie aufnehmen könnte. Schalt den Mikrofonzugriff in den Geräteeinstellungen ein, dann erwachen alle drei Spiele wieder.";
+"main.emptyState.message" = "Im Moment ist Dubloon eine Aufnahme-App ohne alles, womit sie aufnehmen könnte. Schalt den Mikrofonzugriff in den Geräteeinstellungen ein, dann erwachen alle vier Spiele wieder.";
 "main.emptyState.button" = "Einstellungen öffnen";
 
 // MARK: - Main View - Processing & Success
@@ -347,19 +346,27 @@
 "review.banner.later" = "Jetzt nicht";
 "review.banner.fan.title" = "Spaß dabei?";
 "review.banner.fan.message" = "Du bist gerade richtig in Fahrt. Dubloon wird von einer einzigen Person in Zürich gemacht, und über Bewertungen finden neue Spieler es. Wenn es dich zum Lachen gebracht hat, würden ein paar Worte im App Store viel bedeuten.";
+"review.banner.prompt" = "Wie viele Sterne gibst du Dubloon?";
+"review.banner.star" = "%d von 5 Sternen";
+"review.banner.store.title" = "Schön, dass es dir gefällt!";
+"review.feedback.slug" = "Feedback";
+"review.feedback.title" = "Was lief schief?";
+"review.feedback.message" = "Sag uns, was dich enttäuscht hat. Deine Nachricht geht direkt an die Person, die Dubloon macht, und sie wird gelesen.";
+"review.feedback.placeholder" = "Was sollte besser sein?";
+"review.feedback.send" = "Senden";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Willkommen im Club";
-"pro.earlyAdopter.message" = "Dubloon kostet jetzt Geld — nur bei dir nicht. Du warst vor dem Preisschild da, also bleiben alle drei Spiele deins, gratis, so lange es die App gibt. Danke für die frühen Tage.";
+"pro.earlyAdopter.message" = "Dubloon kostet jetzt Geld — nur bei dir nicht. Du warst vor dem Preisschild da, also bleiben alle vier Spiele deins, gratis, so lange es die App gibt. Danke für die frühen Tage.";
 "pro.earlyAdopter.badge" = "Lebenslang gratis";
 "pro.earlyAdopter.confirm" = "Schön";
 "pro.earlyAdopter.settings.title" = "Lebenslang gratis";
-"pro.earlyAdopter.settings.subtitle" = "Du warst früh dabei. Alle drei Spiele gehören dir, und du schuldest uns nichts.";
+"pro.earlyAdopter.settings.subtitle" = "Du warst früh dabei. Alle vier Spiele gehören dir, und du schuldest uns nichts.";
 "pro.closePaywall" = "Schließen";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Zugang";
-"pro.earlyAdopter.row.access.value" = "Alle drei Spiele";
+"pro.earlyAdopter.row.access.value" = "Alle vier Spiele";
 "pro.earlyAdopter.row.cost" = "Kosten";
 "pro.earlyAdopter.row.cost.value" = "Keine";
 "pro.earlyAdopter.row.expires" = "Läuft ab";
@@ -583,7 +590,6 @@
 "mac.panel.emptyMessage" = "Wähle in der Seitenleiste ein Spiel oder ein Dub-Pack.";
 "mac.settings.general" = "Allgemein";
 "mac.settings.recording" = "Aufnahme";
-"mac.welcome.notNow" = "Nicht jetzt";
 "mac.booth.primer.message" = "Die Booth Cam läuft über die Kamera deines Mac, während du spielst: Szene, Zeile und dein Gesicht teilen sich einen Bildschirm. Später kannst du die Reaktion zusammen mit der Fassung teilen.";
 "mac.booth.primer.systemPrompt" = "Gleich fragt macOS nach dem Kamerazugriff.";
 "mac.menu.openRecent" = "Benutzte Dokumente öffnen";

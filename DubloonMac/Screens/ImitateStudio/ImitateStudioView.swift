@@ -179,6 +179,7 @@ private struct ImitateStagePane: View {
         } message: {
             Text(challenge.errorMessage ?? "")
         }
+        .microphonePrimer()
         .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: $challenge.showPermissionAlert) {
             Button(Strings.Main.Alert.settings, action: AppSettings.open)
             Button(Strings.Main.Alert.cancel, role: .cancel) {}

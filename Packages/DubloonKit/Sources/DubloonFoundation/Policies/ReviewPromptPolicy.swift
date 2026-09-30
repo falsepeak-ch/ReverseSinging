@@ -27,12 +27,26 @@ public struct ReviewPromptPolicy {
         public var shareCount: String
         public var winCount: String
         public var lastAskedAtOpenCount: String
+        public var activeDayCount: String
+        public var lastActiveDay: String
+        public var hasImportedPack: String
 
-        public init(openCount: String, shareCount: String, winCount: String, lastAskedAtOpenCount: String) {
+        public init(
+            openCount: String,
+            shareCount: String,
+            winCount: String,
+            lastAskedAtOpenCount: String,
+            activeDayCount: String = "review.activeDayCount",
+            lastActiveDay: String = "review.lastActiveDay",
+            hasImportedPack: String = "review.hasImportedPack"
+        ) {
             self.openCount = openCount
             self.shareCount = shareCount
             self.winCount = winCount
             self.lastAskedAtOpenCount = lastAskedAtOpenCount
+            self.activeDayCount = activeDayCount
+            self.lastActiveDay = lastActiveDay
+            self.hasImportedPack = hasImportedPack
         }
 
         /// The keys Dubloon has always used. Leave them as they are: the open count doubles as
@@ -56,11 +70,11 @@ public struct ReviewPromptPolicy {
     /// means they have got the hang of it and are having a good time.
     public let winsBeforeAsking: Int
 
-    /// Wins, from opens that count too, that make someone a fan worth showing our own review note.
-    public let winsForFan: Int
-
     /// Opens that have to pass after one ask before the next.
     public let opensBetweenAsks: Int
+
+    /// Different days the app has to have been opened on before our own review note is shown.
+    public let activeDaysForBanner: Int
 
     private let defaults: UserDefaults
     private let keys: Keys
@@ -71,23 +85,35 @@ public struct ReviewPromptPolicy {
         opensBeforeAsking: Int = 3,
         sharesBeforeAsking: Int = 1,
         winsBeforeAsking: Int = 2,
-        winsForFan: Int = 3,
-        opensBetweenAsks: Int = 10
+        opensBetweenAsks: Int = 10,
+        activeDaysForBanner: Int = 3
     ) {
         self.defaults = defaults
         self.keys = keys
         self.opensBeforeAsking = opensBeforeAsking
         self.sharesBeforeAsking = sharesBeforeAsking
         self.winsBeforeAsking = winsBeforeAsking
-        self.winsForFan = winsForFan
         self.opensBetweenAsks = opensBetweenAsks
+        self.activeDaysForBanner = activeDaysForBanner
     }
 
     // MARK: - Signals
 
-    /// A launch, or a return from the background.
-    public func registerAppOpen() {
+    /// A launch, or a return from the background. The first one on a given day also counts
+    /// that day as one the app was used on.
+    public func registerAppOpen(now: Date = .now, calendar: Calendar = .current) {
         defaults.set(openCount + 1, forKey: keys.openCount)
+
+        let day = calendar.startOfDay(for: now)
+        if let lastDay = defaults.object(forKey: keys.lastActiveDay) as? Date, lastDay >= day { return }
+        defaults.set(day, forKey: keys.lastActiveDay)
+        defaults.set(activeDayCount + 1, forKey: keys.activeDayCount)
+    }
+
+    /// The user brought a dub pack of their own into the app, now or at some earlier time.
+    public func registerImportedPack() {
+        guard !hasImportedPack else { return }
+        defaults.set(true, forKey: keys.hasImportedPack)
     }
 
     /// Something the user made actually left the app.
@@ -118,16 +144,25 @@ public struct ReviewPromptPolicy {
     public var openCount: Int { defaults.integer(forKey: keys.openCount) }
     public var shareCount: Int { defaults.integer(forKey: keys.shareCount) }
     public var winCount: Int { defaults.integer(forKey: keys.winCount) }
+    /// Different days the app has been opened on. Counted from the version that added it, so
+    /// an install from before starts at zero.
+    public var activeDayCount: Int { defaults.integer(forKey: keys.activeDayCount) }
+    public var hasImportedPack: Bool { defaults.bool(forKey: keys.hasImportedPack) }
 
-    /// Someone who keeps coming back and keeps doing well, paid or not. Past the first-run
-    /// opens, with a few wins or a share behind them.
-    public var isFan: Bool {
-        openCount > opensBeforeAsking && (winCount >= winsForFan || shareCount >= sharesBeforeAsking)
+    /// Who our own review note on the menu is for: someone who has brought in a dub pack of
+    /// their own and has used the app on enough different days. Importing a pack is the
+    /// deepest thing the app asks of anyone, and coming back for days says it was worth it,
+    /// so their rating is a considered one.
+    public var isBannerAudience: Bool {
+        hasImportedPack && activeDayCount >= activeDaysForBanner
     }
 
     /// Clears every counter, as on a fresh install.
     public func reset() {
-        for key in [keys.openCount, keys.shareCount, keys.winCount, keys.lastAskedAtOpenCount] {
+        for key in [
+            keys.openCount, keys.shareCount, keys.winCount, keys.lastAskedAtOpenCount,
+            keys.activeDayCount, keys.lastActiveDay, keys.hasImportedPack
+        ] {
             defaults.removeObject(forKey: key)
         }
     }

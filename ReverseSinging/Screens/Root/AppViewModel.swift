@@ -23,7 +23,6 @@ final class AppViewModel: ObservableObject {
     @Published private(set) var hasCompletedOnboarding: Bool
     @Published private(set) var uiMode: UIMode
     @Published private(set) var hapticsEnabled: Bool
-    @Published private(set) var hasRecordingPermission = false
 
     /// The menu's settings sheet. A game presents its own.
     @Published var showSettings = false
@@ -56,19 +55,6 @@ final class AppViewModel: ObservableObject {
     func completeOnboarding() {
         hasCompletedOnboarding = true
         defaults.set(true, forKey: Key.hasCompletedOnboarding)
-    }
-
-    // MARK: - Permissions
-
-    func checkPermissionStatus() {
-        hasRecordingPermission = AudioSessionManager.shared.hasRecordPermission
-    }
-
-    func requestPermission(completion: ((Bool) -> Void)? = nil) {
-        AudioSessionManager.shared.requestRecordPermission { [weak self] granted in
-            self?.hasRecordingPermission = granted
-            completion?(granted)
-        }
     }
 
     // MARK: - Settings

@@ -5,18 +5,17 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Bienvenido a Dubloon";
-"onboarding.welcome.message" = "Tres juegos, un micrófono. Canta una canción al revés, mete tu voz en una escena de película o imita un sonido hasta clavarlo. Con ninguno vas a sonar normal.";
+"onboarding.welcome.message" = "Cuatro juegos, un micrófono. Canta una canción al revés, mete tu voz en una escena de película o en un vídeo tuyo, o imita un sonido hasta clavarlo. Con ninguno vas a sonar normal.";
 "onboarding.howItWorks.title" = "Cómo funciona";
 "onboarding.howItWorks.message" = "Graba una canción, dale la vuelta y canta encima de ese galimatías. Luego invierte tu intento y descubre si te acercaste o inventaste un idioma nuevo.";
 "onboarding.dub.title" = "Dobla una escena";
 "onboarding.dub.message" = "El segundo juego: pon una escena, sobreactúa encima y escúchate dentro de la película. Vienen dos escenas de regalo. A partir de ahí, pon las tuyas.";
+"onboarding.pro.title" = "Por qué existe Dubloon Pro";
+"onboarding.pro.message" = "Dubloon no tiene anuncios, ni cuenta, ni rastreo, y lo hace una sola persona en Zúrich. Dubloon Pro es lo que lo paga: todas las escenas, la cámara de cabina y las exportaciones. El canto invertido sigue siendo gratis.";
 "onboarding.microphone.title" = "Una última cosa";
-"onboarding.microphone.message" = "Los tres juegos necesitan oírte: cantando al revés, doblando una escena o imitando un sonido. El micro solo se despierta mientras grabas, todo se queda en este dispositivo y nunca se sube nada. Tu peor toma se queda entre vosotros dos.";
-"onboarding.button.openSettings" = "Abrir Ajustes";
-"onboarding.button.letsRecord" = "¡venga, a grabar!";
+"onboarding.microphone.message" = "Todos los juegos necesitan oírte: cantando al revés, doblando una escena o imitando un sonido. El micro solo se despierta mientras grabas, todo se queda en este dispositivo y nunca se sube nada. Tu peor toma se queda entre vosotros dos.";
 "onboarding.button.continueLowercase" = "continuar";
 "onboarding.button.microphoneContinue" = "Continuar";
-"onboarding.button.continueWithout" = "seguir sin él";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Parar grabación";
@@ -54,7 +53,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Nadie te oye";
-"main.emptyState.message" = "Ahora mismo Dubloon es una app de grabar sin nada con lo que grabar. Activa el micrófono en los ajustes del dispositivo y los tres juegos vuelven a la vida.";
+"main.emptyState.message" = "Ahora mismo Dubloon es una app de grabar sin nada con lo que grabar. Activa el micrófono en los ajustes del dispositivo y los cuatro juegos vuelven a la vida.";
 "main.emptyState.button" = "Abrir Ajustes";
 
 // MARK: - Main View - Processing & Success
@@ -347,19 +346,27 @@
 "review.banner.later" = "Ahora no";
 "review.banner.fan.title" = "¿Te lo estás pasando bien?";
 "review.banner.fan.message" = "Llevas una buena racha. Dubloon lo hace una sola persona en Zúrich, y las reseñas son la forma en que lo encuentran nuevos jugadores. Si te ha hecho reír, unas palabras en el App Store significarían mucho.";
+"review.banner.prompt" = "¿Cuántas estrellas le darías a Dubloon?";
+"review.banner.star" = "%d de 5 estrellas";
+"review.banner.store.title" = "¡Nos alegra que te guste!";
+"review.feedback.slug" = "Comentarios";
+"review.feedback.title" = "¿Qué ha fallado?";
+"review.feedback.message" = "Cuéntanos qué te ha decepcionado. Tu nota llega directamente a la persona que hace Dubloon, y la leerá.";
+"review.feedback.placeholder" = "¿Qué debería mejorar?";
+"review.feedback.send" = "Enviar";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Bienvenido al club";
-"pro.earlyAdopter.message" = "Dubloon ahora cuesta dinero, pero no para ti. Estabas aquí antes de que hubiera precio, así que los tres juegos siguen siendo tuyos, gratis, mientras la app exista. Gracias por los primeros días.";
+"pro.earlyAdopter.message" = "Dubloon ahora cuesta dinero, pero no para ti. Estabas aquí antes de que hubiera precio, así que los cuatro juegos siguen siendo tuyos, gratis, mientras la app exista. Gracias por los primeros días.";
 "pro.earlyAdopter.badge" = "Gratis de por vida";
 "pro.earlyAdopter.confirm" = "Genial";
 "pro.earlyAdopter.settings.title" = "Gratis de por vida";
-"pro.earlyAdopter.settings.subtitle" = "Llegaste pronto. Los tres juegos son tuyos y no nos debes nada.";
+"pro.earlyAdopter.settings.subtitle" = "Llegaste pronto. Los cuatro juegos son tuyos y no nos debes nada.";
 "pro.closePaywall" = "Cerrar";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Acceso";
-"pro.earlyAdopter.row.access.value" = "Los tres juegos";
+"pro.earlyAdopter.row.access.value" = "Los cuatro juegos";
 "pro.earlyAdopter.row.cost" = "Coste";
 "pro.earlyAdopter.row.cost.value" = "Nada";
 "pro.earlyAdopter.row.expires" = "Caduca";
@@ -583,7 +590,6 @@
 "mac.panel.emptyMessage" = "Elige un juego o un pack de doblaje en la barra lateral.";
 "mac.settings.general" = "General";
 "mac.settings.recording" = "Grabación";
-"mac.welcome.notNow" = "Ahora no";
 "mac.booth.primer.message" = "La cámara de cabina usa la cámara del Mac mientras actúas, así que la escena, la frase y tu cara caben en la misma pantalla. Luego puedes compartir la reacción junto con el doblaje.";
 "mac.booth.primer.systemPrompt" = "Lo siguiente que verás es macOS pidiéndote acceso a la cámara.";
 "mac.menu.openRecent" = "Abrir recientes";

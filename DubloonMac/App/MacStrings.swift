@@ -87,8 +87,4 @@ enum MacStrings {
     enum Search {
         static let prompt = NSLocalizedString("mac.search.prompt", comment: "Placeholder in the sidebar search field")
     }
-
-    enum Welcome {
-        static let notNow = NSLocalizedString("mac.welcome.notNow", comment: "Skip the microphone step of the welcome window")
-    }
 }

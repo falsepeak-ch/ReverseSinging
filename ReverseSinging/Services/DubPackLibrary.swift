@@ -83,6 +83,11 @@ final class DubPackLibrary: ObservableObject {
     /// The same refresh, awaited, used where the next step depends on the result.
     func reloadNow() async {
         packs = await Self.loadAll()
+        // Anything beyond the two scenes in the box was brought in by the user. Noted here
+        // as well as on import, so a pack from before this was counted still counts.
+        if packs.contains(where: { !DubStarterPacks.bundled.contains($0.folderName) }) {
+            ReviewPrompt.shared.registerImportedPack()
+        }
     }
 
     /// Off the main actor: a re-read measures every reference recording in the pack, which is
@@ -316,6 +321,7 @@ final class DubPackLibrary: ObservableObject {
 
             await reloadNow()
             HapticManager.shared.success()
+            ReviewPrompt.shared.registerImportedPack()
             AnalyticsManager.shared.trackDubPackImported(
                 title: pack.title,
                 authors: pack.authors,

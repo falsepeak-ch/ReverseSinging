@@ -5,18 +5,17 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "أهلاً بك في Dubloon";
-"onboarding.welcome.message" = "ثلاث ألعاب وميكروفون واحد. غنِّ أغنية بالمقلوب، أو ضع صوتك داخل مشهد سينمائي، أو قلّد صوتاً حتى تتقنه. في كل الحالات لن تبدو طبيعياً.";
+"onboarding.welcome.message" = "أربع ألعاب وميكروفون واحد. غنِّ أغنية بالمقلوب، أو ضع صوتك داخل مشهد سينمائي أو فيديو صوّرته، أو قلّد صوتاً حتى تتقنه. في كل الحالات لن تبدو طبيعياً.";
 "onboarding.howItWorks.title" = "كيف تسير الحكاية";
 "onboarding.howItWorks.message" = "سجّل أغنية، اقلبها، ثم غنِّ فوق ذلك الكلام غير المفهوم. اقلب تسجيلك بعدها واكتشف إن كنت قد اقتربت أم اخترعت لغة جديدة.";
 "onboarding.dub.title" = "دبلج مشهداً سينمائياً";
 "onboarding.dub.message" = "اللعبة الثانية: شغّل المشهد، مثّل فوقه بمبالغة، ثم اسمع نفسك داخل الفيلم. مشهدان يأتيان مع التطبيق. وبعدهما تُحضر ملفاتك بنفسك.";
+"onboarding.pro.title" = "لماذا يوجد Dubloon Pro";
+"onboarding.pro.message" = "لا إعلانات في Dubloon ولا حساب ولا تتبّع، ويصنعه شخص واحد في زيورخ. Dubloon Pro هو ما يموّل ذلك: كل المشاهد، وكاميرا الكابينة، والتصدير. الغناء بالمقلوب يبقى مجانياً.";
 "onboarding.microphone.title" = "أمر أخير";
-"onboarding.microphone.message" = "الألعاب الثلاث تحتاج أن تسمعك: في الغناء بالمقلوب، وفي دبلجة مشهد، وفي تقليد صوت. الميكروفون يستيقظ أثناء التسجيل فقط، وكل شيء يبقى على هذا الجهاز ولا يُرفع أي شيء إلى أي مكان. أسوأ محاولاتك تبقى بينك وبين الجهاز.";
-"onboarding.button.openSettings" = "افتح الإعدادات";
-"onboarding.button.letsRecord" = "هيا، لنسجّل!";
+"onboarding.microphone.message" = "كل الألعاب تحتاج أن تسمعك: في الغناء بالمقلوب، وفي دبلجة مشهد، وفي تقليد صوت. الميكروفون يستيقظ أثناء التسجيل فقط، وكل شيء يبقى على هذا الجهاز ولا يُرفع أي شيء إلى أي مكان. أسوأ محاولاتك تبقى بينك وبين الجهاز.";
 "onboarding.button.continueLowercase" = "متابعة";
 "onboarding.button.microphoneContinue" = "متابعة";
-"onboarding.button.continueWithout" = "المتابعة بدونه";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "إيقاف التسجيل";
@@ -54,7 +53,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "لا أحد يسمعك";
-"main.emptyState.message" = "Dubloon الآن تطبيق تسجيل بلا شيء يسجّل به. فعّل إذن الميكروفون من إعدادات الجهاز، فتعود الألعاب الثلاث إلى الحياة.";
+"main.emptyState.message" = "Dubloon الآن تطبيق تسجيل بلا شيء يسجّل به. فعّل إذن الميكروفون من إعدادات الجهاز، فتعود الألعاب الأربع إلى الحياة.";
 "main.emptyState.button" = "افتح الإعدادات";
 
 // MARK: - Main View - Processing & Success
@@ -347,19 +346,27 @@
 "review.banner.later" = "ليس الآن";
 "review.banner.fan.title" = "هل تستمتع؟";
 "review.banner.fan.message" = "يبدو أنك في أفضل حالاتك. يصنع Dubloon شخص واحد في زيوريخ، والمراجعات هي الطريقة التي يجده بها لاعبون جدد. إن كان قد أضحكك، فبضع كلمات على App Store ستعني الكثير.";
+"review.banner.prompt" = "كم نجمة تعطي Dubloon؟";
+"review.banner.star" = "%d من 5 نجوم";
+"review.banner.store.title" = "يسعدنا أنه أعجبك!";
+"review.feedback.slug" = "ملاحظات";
+"review.feedback.title" = "ما الذي لم يعجبك؟";
+"review.feedback.message" = "أخبرنا بما خيّب ظنك. رسالتك تصل مباشرة إلى الشخص الذي يصنع Dubloon، وسيقرؤها.";
+"review.feedback.placeholder" = "ما الذي يجب أن يتحسّن؟";
+"review.feedback.send" = "إرسال";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "أهلاً بك في النادي";
-"pro.earlyAdopter.message" = "صار Dubloon بمقابل الآن — إلا بالنسبة لك. كنت هنا قبل أن يظهر السعر، لذا تبقى الألعاب الثلاث لك، مجاناً، ما دام التطبيق موجوداً. شكراً على الأيام الأولى.";
+"pro.earlyAdopter.message" = "صار Dubloon بمقابل الآن — إلا بالنسبة لك. كنت هنا قبل أن يظهر السعر، لذا تبقى الألعاب الأربع لك، مجاناً، ما دام التطبيق موجوداً. شكراً على الأيام الأولى.";
 "pro.earlyAdopter.badge" = "مجاني مدى الحياة";
 "pro.earlyAdopter.confirm" = "جميل";
 "pro.earlyAdopter.settings.title" = "مجاني مدى الحياة";
-"pro.earlyAdopter.settings.subtitle" = "كنت هنا مبكراً. الألعاب الثلاث لك، ولا تدين لنا بشيء.";
+"pro.earlyAdopter.settings.subtitle" = "كنت هنا مبكراً. الألعاب الأربع لك، ولا تدين لنا بشيء.";
 "pro.closePaywall" = "إغلاق";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "الوصول";
-"pro.earlyAdopter.row.access.value" = "الألعاب الثلاث";
+"pro.earlyAdopter.row.access.value" = "الألعاب الأربع";
 "pro.earlyAdopter.row.cost" = "التكلفة";
 "pro.earlyAdopter.row.cost.value" = "لا شيء";
 "pro.earlyAdopter.row.expires" = "ينتهي";
@@ -583,7 +590,6 @@
 "mac.panel.emptyMessage" = "اختر لعبة أو حزمة دبلجة من الشريط الجانبي.";
 "mac.settings.general" = "عام";
 "mac.settings.recording" = "التسجيل";
-"mac.welcome.notNow" = "ليس الآن";
 "mac.booth.primer.message" = "كاميرا الكابينة تعمل بكاميرا جهاز Mac أثناء أدائك، فيجتمع المشهد والجملة ووجهك على شاشة واحدة. ويمكنك لاحقاً مشاركة ردة فعلك مع الدبلجة.";
 "mac.booth.primer.systemPrompt" = "سيطلب macOS بعد قليل إذن الوصول إلى الكاميرا.";
 "mac.menu.openRecent" = "فتح الأحدث";

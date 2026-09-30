@@ -5,18 +5,17 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Dubloonへようこそ";
-"onboarding.welcome.message" = "ゲームは3つ、マイクは1本。曲を逆再生で歌うか、映画のシーンに自分の声をねじ込むか、そっくりになるまで音をまねるか。どれにしても、まともな声にはなりません。";
+"onboarding.welcome.message" = "ゲームは4つ、マイクは1本。曲を逆再生で歌うか、映画のシーンや自分で撮った動画に自分の声をねじ込むか、そっくりになるまで音をまねるか。どれにしても、まともな声にはなりません。";
 "onboarding.howItWorks.title" = "遊びかた";
 "onboarding.howItWorks.message" = "曲を録音して、逆さまにして、その意味不明な音に合わせて歌う。歌ったテイクをもう一度ひっくり返せば、近づけたのか、新しい言語を発明しただけなのかが分かります。";
 "onboarding.dub.title" = "映画のシーンをアフレコ";
 "onboarding.dub.message" = "2つめのゲーム。シーンを流し、思いきり大げさに演じて、映画の中の自分を聴く。シーンは2本同梱。その先は自分のファイルを持ち込んでください。";
+"onboarding.pro.title" = "Dubloon Proがある理由";
+"onboarding.pro.message" = "Dubloonには広告もアカウントもトラッキングもありません。チューリッヒでひとりの開発者が作っています。それを支えているのがDubloon Proです。すべてのシーン、ブースカメラ、書き出しが使えるようになります。逆さ歌はずっと無料です。";
 "onboarding.microphone.title" = "最後にひとつ";
-"onboarding.microphone.message" = "3つのゲームはどれもあなたの声を聴く必要があります。逆再生で歌うときも、シーンを吹き替えるときも、音をまねるときも。マイクが起きるのは録音中だけ。すべてこの端末に残り、どこにもアップロードされません。いちばんひどいテイクは、あなたとこの端末だけの秘密です。";
-"onboarding.button.openSettings" = "設定を開く";
-"onboarding.button.letsRecord" = "よし、録ろう！";
+"onboarding.microphone.message" = "どのゲームもあなたの声を聴く必要があります。逆再生で歌うときも、シーンを吹き替えるときも、音をまねるときも。マイクが起きるのは録音中だけ。すべてこの端末に残り、どこにもアップロードされません。いちばんひどいテイクは、あなたとこの端末だけの秘密です。";
 "onboarding.button.continueLowercase" = "つづける";
 "onboarding.button.microphoneContinue" = "続ける";
-"onboarding.button.continueWithout" = "マイクなしで進む";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "録音を止める";
@@ -54,7 +53,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "誰にも聞こえていません";
-"main.emptyState.message" = "いまのDubloonは、録るものが何もない録音アプリです。端末の設定でマイクを許可すれば、3つのゲームがまた動き出します。";
+"main.emptyState.message" = "いまのDubloonは、録るものが何もない録音アプリです。端末の設定でマイクを許可すれば、4つのゲームがまた動き出します。";
 "main.emptyState.button" = "設定を開く";
 
 // MARK: - Main View - Processing & Success
@@ -347,19 +346,27 @@
 "review.banner.later" = "今はしない";
 "review.banner.fan.title" = "楽しんでますか？";
 "review.banner.fan.message" = "いい調子ですね。Dubloonはチューリッヒでひとりで作っています。新しいプレイヤーはレビューを見てDubloonを見つけてくれます。笑ってもらえたなら、App Storeにひとこと書いていただけるととても励みになります。";
+"review.banner.prompt" = "Dubloonに星をいくつ付けますか？";
+"review.banner.star" = "5つ星のうち%d";
+"review.banner.store.title" = "気に入ってもらえてうれしいです！";
+"review.feedback.slug" = "フィードバック";
+"review.feedback.title" = "何がよくなかったですか？";
+"review.feedback.message" = "がっかりした点を教えてください。メッセージはDubloonを作っている本人に直接届き、必ず読みます。";
+"review.feedback.placeholder" = "どこを良くすべきですか？";
+"review.feedback.send" = "送信";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "ようこそクラブへ";
-"pro.earlyAdopter.message" = "Dubloonは有料になりました。ただし、あなたは別です。値札が付く前からいてくれたので、3つのゲームはすべて、このアプリが続くかぎり無料であなたのものです。初期のころをありがとう。";
+"pro.earlyAdopter.message" = "Dubloonは有料になりました。ただし、あなたは別です。値札が付く前からいてくれたので、4つのゲームはすべて、このアプリが続くかぎり無料であなたのものです。初期のころをありがとう。";
 "pro.earlyAdopter.badge" = "生涯無料";
 "pro.earlyAdopter.confirm" = "いいね";
 "pro.earlyAdopter.settings.title" = "生涯無料";
-"pro.earlyAdopter.settings.subtitle" = "早くから来てくれた人へ。3つのゲームはすべてあなたのもの、支払いは不要です。";
+"pro.earlyAdopter.settings.subtitle" = "早くから来てくれた人へ。4つのゲームはすべてあなたのもの、支払いは不要です。";
 "pro.closePaywall" = "閉じる";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "アクセス";
-"pro.earlyAdopter.row.access.value" = "3つのゲームすべて";
+"pro.earlyAdopter.row.access.value" = "4つのゲームすべて";
 "pro.earlyAdopter.row.cost" = "料金";
 "pro.earlyAdopter.row.cost.value" = "なし";
 "pro.earlyAdopter.row.expires" = "期限";
@@ -583,7 +590,6 @@
 "mac.panel.emptyMessage" = "サイドバーでゲームか吹き替えパックを選んでください。";
 "mac.settings.general" = "一般";
 "mac.settings.recording" = "録音";
-"mac.welcome.notNow" = "今はしない";
 "mac.booth.primer.message" = "ブースカメラは演技中にMacのカメラを回します。シーンとセリフとあなたの顔がひとつの画面に収まり、あとからリアクションごとアフレコを共有できます。";
 "mac.booth.primer.systemPrompt" = "このあとmacOSがカメラの許可を尋ねます。";
 "mac.menu.openRecent" = "最近使った項目を開く";

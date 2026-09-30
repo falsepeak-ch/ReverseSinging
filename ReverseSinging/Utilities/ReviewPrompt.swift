@@ -30,8 +30,8 @@ final class ReviewPrompt {
     // MARK: - Signals
 
     /// A launch, or a return from the background. Called once per activation.
-    func registerAppOpen() {
-        policy.registerAppOpen()
+    func registerAppOpen(now: Date = .now) {
+        policy.registerAppOpen(now: now)
     }
 
     /// A dub that left the app — the share sheet reported the user actually sent it. The
@@ -54,9 +54,15 @@ final class ReviewPrompt {
         requestSoon(trigger: trigger)
     }
 
-    /// Someone who keeps coming back and doing well, whether or not they have paid. Our own
-    /// review note on the menu is for them as much as for Pro buyers.
-    var isFan: Bool { policy.isFan }
+    /// A dub pack of the user's own is in the library: one just imported, or one found there
+    /// from before this was counted.
+    func registerImportedPack() {
+        policy.registerImportedPack()
+    }
+
+    /// Whether our own review note on the menu is for this person: they have imported a dub
+    /// pack and used the app on at least three different days.
+    var isBannerAudience: Bool { policy.isBannerAudience }
 
     /// Asks once the screen has had a moment: a score or verdict stays in view before anything
     /// covers it, and a cover closing has finished closing.

@@ -2,7 +2,7 @@
 //  MacWelcomeViewModel.swift
 //  DubloonMac
 //
-//  The first-run window: what the app does, then the microphone
+//  The first-run window: what the app does
 //
 
 import SwiftUI
@@ -11,18 +11,10 @@ import Combine
 /// Drives the Mac's welcome window.
 ///
 /// The iPhone's onboarding is four swiped pages. A Mac app says hello the way the system's own
-/// apps do: one window listing what is inside, then the one permission it needs. The asking,
-/// the answer and finishing are `OnboardingViewModel`'s, so both platforms count and record
-/// onboarding the same way.
+/// apps do: one window listing what is inside. Finishing is `OnboardingViewModel`'s, so both
+/// platforms count and record onboarding the same way.
 @MainActor
 final class MacWelcomeViewModel: ObservableObject {
-
-    enum Step {
-        case welcome
-        case microphone
-    }
-
-    @Published private(set) var step: Step = .welcome
 
     let onboarding: OnboardingViewModel
     private let app: AppViewModel
@@ -45,33 +37,17 @@ final class MacWelcomeViewModel: ObservableObject {
 
     // MARK: - Buttons
 
-    var primaryTitle: String {
-        step == .welcome ? Strings.Onboarding.buttonMicrophoneContinue : onboarding.buttonTitle.localizedCapitalized
-    }
+    /// Continue closes the window. Nothing is asked for here: every game asks for the
+    /// microphone itself, the first time it records.
+    var primaryTitle: String { Strings.Onboarding.buttonMicrophoneContinue }
 
     func primaryAction() {
-        switch step {
-        case .welcome:
-            withAnimation(.rsSmooth) { step = .microphone }
-        case .microphone:
-            onboarding.permissionButtonTapped()
-        }
-    }
-
-    /// Leaves the microphone for later: every game asks again when it first records.
-    func skip() {
         onboarding.finishOnboarding()
     }
 
-    /// The window closed with its close button: the same as Not Now, so it is not back at the
-    /// next launch asking again.
+    /// The window closed with its close button: onboarding is over, so it is not back at the
+    /// next launch. Every game asks for the microphone itself when it first records.
     func windowDidClose() {
-        if !app.hasCompletedOnboarding { skip() }
-    }
-
-    var isDenied: Bool { onboarding.isPermissionDenied }
-
-    func scenePhaseDidChange(_ phase: ScenePhase) {
-        onboarding.scenePhaseDidChange(phase)
+        if !app.hasCompletedOnboarding { onboarding.finishOnboarding() }
     }
 }

@@ -17,13 +17,12 @@ nonisolated enum Strings {
         static let howItWorksMessage = NSLocalizedString("onboarding.howItWorks.message", comment: "How it works message")
         static let dubTitle = NSLocalizedString("onboarding.dub.title", comment: "Movie scene dub game title")
         static let dubMessage = NSLocalizedString("onboarding.dub.message", comment: "Movie scene dub game message")
-        static let microphoneTitle = NSLocalizedString("onboarding.microphone.title", comment: "Microphone permission title")
-        static let microphoneMessage = NSLocalizedString("onboarding.microphone.message", comment: "Microphone permission message")
-        static let buttonOpenSettings = NSLocalizedString("onboarding.button.openSettings", comment: "Open settings button")
-        static let buttonLetsRecord = NSLocalizedString("onboarding.button.letsRecord", comment: "Let's record button")
+        static let proTitle = NSLocalizedString("onboarding.pro.title", comment: "Title of the onboarding page about Dubloon Pro")
+        static let proMessage = NSLocalizedString("onboarding.pro.message", comment: "Why the app has a paid tier: no ads, no account, no tracking, one developer. Then what Pro unlocks and what stays free")
+        static let microphoneTitle = NSLocalizedString("onboarding.microphone.title", comment: "Title of the dialog that explains the microphone before the system asks for it")
+        static let microphoneMessage = NSLocalizedString("onboarding.microphone.message", comment: "Why the games need the microphone, and that recordings stay on the device")
         static let buttonContinueLowercase = NSLocalizedString("onboarding.button.continueLowercase", comment: "Continue button lowercase")
-        static let buttonMicrophoneContinue = NSLocalizedString("onboarding.button.microphoneContinue", comment: "Primary button on the microphone step. The ask itself is the system prompt it leads to")
-        static let buttonContinueWithout = NSLocalizedString("onboarding.button.continueWithout", comment: "Finish onboarding without microphone access")
+        static let buttonMicrophoneContinue = NSLocalizedString("onboarding.button.microphoneContinue", comment: "Continue: the Mac welcome window's button, and the one button of the microphone explanation, which leads to the system prompt")
     }
 
     // MARK: - Main View
@@ -733,5 +732,18 @@ nonisolated enum Strings {
         static let later = NSLocalizedString("review.banner.later", comment: "Button that puts the review note away for now")
         static let fanTitle = NSLocalizedString("review.banner.fan.title", comment: "Headline of the menu note shown to a free player who keeps coming back and scoring well")
         static let fanMessage = NSLocalizedString("review.banner.fan.message", comment: "Asks a player who is enjoying the app for a review. Personal, not pushy, mentions the one-person studio")
+        static let prompt = NSLocalizedString("review.banner.prompt", comment: "Under the headline of the menu note, above five tappable stars. Asks for a rating out of five")
+        static let starLabel = NSLocalizedString("review.banner.star", comment: "VoiceOver label of one of the five stars. %d is the number of stars, 1 to 5")
+        static let storeTitle = NSLocalizedString("review.banner.store.title", comment: "Title of the dialog shown after a high rating, offering to write an App Store review")
+    }
+
+    // MARK: - Review feedback
+    /// The dialog a low rating on the menu note opens: what went wrong, sent to the developer.
+    enum ReviewFeedback {
+        static let slug = NSLocalizedString("review.feedback.slug", comment: "One-word label on the title strip of the feedback dialog")
+        static let title = NSLocalizedString("review.feedback.title", comment: "Headline of the dialog shown after a low rating")
+        static let message = NSLocalizedString("review.feedback.message", comment: "Explains that the note goes to the developer, who is one person, and will be read")
+        static let placeholder = NSLocalizedString("review.feedback.placeholder", comment: "Placeholder in the empty feedback text box")
+        static let send = NSLocalizedString("review.feedback.send", comment: "Button that sends the feedback note")
     }
 }

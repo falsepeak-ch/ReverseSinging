@@ -96,22 +96,39 @@ struct ReviewPromptPolicyTests {
         #expect(policy.isEligible == false)
     }
 
-    @Test func aFanKeepsComingBackAndKeepsWinning() {
-        let (policy, _) = makePolicy()
-        for _ in 0..<3 { policy.registerAppOpen() }
-        for _ in 0..<3 { policy.registerWin() }
-        #expect(policy.isFan == false)
-
-        policy.registerAppOpen()
-        #expect(policy.isFan)
+    private func day(_ offset: Int) -> Date {
+        Date(timeIntervalSince1970: 1_800_000_000 + Double(offset) * 86_400)
     }
 
-    @Test func aSharerIsAFanToo() {
+    /// Opens on the same day are one day of use, however many there are.
+    @Test func aDayOfUseIsCountedOnce() {
         let (policy, _) = makePolicy()
-        for _ in 0..<4 { policy.registerAppOpen() }
-        policy.registerShare()
+        for _ in 0..<4 { policy.registerAppOpen(now: day(0)) }
+        #expect(policy.activeDayCount == 1)
 
-        #expect(policy.isFan)
+        policy.registerAppOpen(now: day(1))
+        #expect(policy.activeDayCount == 2)
+    }
+
+    /// Our own review note is for someone who imported a pack and came back on three days.
+    @Test func theBannerIsForImportersOnTheirThirdDay() {
+        let (policy, _) = makePolicy()
+        policy.registerImportedPack()
+        policy.registerAppOpen(now: day(0))
+        policy.registerAppOpen(now: day(1))
+        #expect(policy.isBannerAudience == false)
+
+        policy.registerAppOpen(now: day(5))
+        #expect(policy.isBannerAudience)
+    }
+
+    /// Days alone are not enough: without a pack of their own, nobody is asked.
+    @Test func threeDaysWithoutAnImportIsNotEnough() {
+        let (policy, _) = makePolicy()
+        for offset in 0..<4 { policy.registerAppOpen(now: day(offset)) }
+        for _ in 0..<5 { policy.registerWin() }
+
+        #expect(policy.isBannerAudience == false)
     }
 
     /// The open count doubles as the early-adopter check's evidence of earlier use, so moving it

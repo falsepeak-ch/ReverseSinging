@@ -153,6 +153,28 @@ nonisolated final class CrashReporter: Sendable {
         return false
     }
 
+    // MARK: - Feedback
+
+    /// A note the player typed and sent from the menu's review banner.
+    ///
+    /// Not an error, but this is the one channel to Firebase that carries free text and that
+    /// we already read every day: each note arrives as an event under one issue per star
+    /// count, with the note as its description. It is the only thing here a user writes
+    /// themselves, and it is sent because they pressed Send.
+    ///
+    /// Like everything else, it goes nowhere with Share Usage Data off.
+    func recordFeedback(_ message: String, stars: Int) {
+        guard isEnabled else { return }
+
+        Crashlytics.crashlytics().record(
+            error: NSError(domain: "com.falsepeak.dubloon.feedback", code: stars, userInfo: [
+                "context": "review.banner",
+                "stars": stars,
+                NSLocalizedDescriptionKey: message
+            ])
+        )
+    }
+
     /// A failure with no `Error` behind it. Guard statements that fall through, and the
     /// `else` branches that used to be a lone `print`, have nothing to throw.
     func recordFailure(_ context: String, reason: String, keys: [String: Any] = [:]) {

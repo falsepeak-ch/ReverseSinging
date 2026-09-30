@@ -5,18 +5,17 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Tervetuloa Dubloonin pariin";
-"onboarding.welcome.message" = "Kolme peliä, yksi mikrofoni. Laula biisi takaperin, työnnä oma äänesi elokuvakohtaukseen tai matki ääntä, kunnes se osuu kohdalleen. Missään niistä et kuulosta normaalilta.";
+"onboarding.welcome.message" = "Neljä peliä, yksi mikrofoni. Laula biisi takaperin, työnnä oma äänesi elokuvakohtaukseen tai omaan videoosi, tai matki ääntä, kunnes se osuu kohdalleen. Missään niistä et kuulosta normaalilta.";
 "onboarding.howItWorks.title" = "Näin tämä toimii";
 "onboarding.howItWorks.message" = "Äänitä biisi, käännä se takaperin ja laula siansaksan mukana. Käännä sitten oma otoksesi ja kuule, osuitko lähelle vai keksitkö juuri uuden kielen.";
 "onboarding.dub.title" = "Dubbaa elokuvakohtaus";
 "onboarding.dub.message" = "Toinen peli: laita kohtaus pyörimään, ylinäyttele kunnolla ja kuule sitten itsesi elokuvassa. Kaksi kohtausta tulee mukana. Sen jälkeen tuot omat tiedostosi.";
+"onboarding.pro.title" = "Miksi Dubloon Pro on olemassa";
+"onboarding.pro.message" = "Dubloonissa ei ole mainoksia, tiliä eikä seurantaa, ja sitä tekee yksi ihminen Zürichissä. Dubloon Pro maksaa tämän kaiken: kaikki kohtaukset, Booth Cam ja viennit. Takaperinlaulu pysyy ilmaisena.";
 "onboarding.microphone.title" = "Vielä yksi juttu";
-"onboarding.microphone.message" = "Kaikkien kolmen pelin pitää kuulla sinut: takaperin laulaessa, kohtausta dubatessa tai ääntä matkiessa. Mikrofoni herää vain äänityksen ajaksi, kaikki pysyy tällä laitteella eikä mitään lähetetä koskaan minnekään. Surkein otoksesi jää teidän kahden väliseksi.";
-"onboarding.button.openSettings" = "Avaa Asetukset";
-"onboarding.button.letsRecord" = "no niin, nauhoitetaan!";
+"onboarding.microphone.message" = "Kaikkien pelien pitää kuulla sinut: takaperin laulaessa, kohtausta dubatessa tai ääntä matkiessa. Mikrofoni herää vain äänityksen ajaksi, kaikki pysyy tällä laitteella eikä mitään lähetetä koskaan minnekään. Surkein otoksesi jää teidän kahden väliseksi.";
 "onboarding.button.continueLowercase" = "jatka";
 "onboarding.button.microphoneContinue" = "Jatka";
-"onboarding.button.continueWithout" = "jatka ilman sitä";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Lopeta äänitys";
@@ -54,7 +53,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Kukaan ei kuule sinua";
-"main.emptyState.message" = "Juuri nyt Dubloon on äänityssovellus ilman mitään, millä äänittää. Salli mikrofoni laitteen asetuksissa, niin kaikki kolme peliä heräävät taas henkiin.";
+"main.emptyState.message" = "Juuri nyt Dubloon on äänityssovellus ilman mitään, millä äänittää. Salli mikrofoni laitteen asetuksissa, niin kaikki neljä peliä heräävät taas henkiin.";
 "main.emptyState.button" = "Avaa Asetukset";
 
 // MARK: - Main View - Processing & Success
@@ -347,19 +346,27 @@
 "review.banner.later" = "Ei nyt";
 "review.banner.fan.title" = "Onko hauskaa?";
 "review.banner.fan.message" = "Sinulla on hyvä vire päällä. Dubloonia tekee yksi ihminen Zürichissä, ja arvostelujen kautta uudet pelaajat löytävät sen. Jos se on saanut sinut nauramaan, muutama sana App Storessa merkitsisi paljon.";
+"review.banner.prompt" = "Montako tähteä antaisit Dubloonille?";
+"review.banner.star" = "%d/5 tähteä";
+"review.banner.store.title" = "Kiva, että pidät!";
+"review.feedback.slug" = "Palaute";
+"review.feedback.title" = "Mikä meni pieleen?";
+"review.feedback.message" = "Kerro, mikä tuotti pettymyksen. Viestisi menee suoraan Dubloonin tekijälle, ja se luetaan.";
+"review.feedback.placeholder" = "Minkä pitäisi olla paremmin?";
+"review.feedback.send" = "Lähetä";
 
 // MARK: - Pro / Early adopters
 "pro.earlyAdopter.title" = "Tervetuloa kerhoon";
-"pro.earlyAdopter.message" = "Dubloon maksaa nyt rahaa — paitsi sinulle. Olit täällä ennen hintalappua, joten kaikki kolme peliä pysyvät sinun, ilmaiseksi, niin kauan kuin sovellus on olemassa. Kiitos alkuajoista.";
+"pro.earlyAdopter.message" = "Dubloon maksaa nyt rahaa — paitsi sinulle. Olit täällä ennen hintalappua, joten kaikki neljä peliä pysyvät sinun, ilmaiseksi, niin kauan kuin sovellus on olemassa. Kiitos alkuajoista.";
 "pro.earlyAdopter.badge" = "Ilmainen ikuisesti";
 "pro.earlyAdopter.confirm" = "Hienoa";
 "pro.earlyAdopter.settings.title" = "Ilmainen ikuisesti";
-"pro.earlyAdopter.settings.subtitle" = "Olit mukana aikaisin. Kaikki kolme peliä ovat sinun, etkä ole meille mitään velkaa.";
+"pro.earlyAdopter.settings.subtitle" = "Olit mukana aikaisin. Kaikki neljä peliä ovat sinun, etkä ole meille mitään velkaa.";
 "pro.closePaywall" = "Sulje";
 
 // Early adopter slate rows
 "pro.earlyAdopter.row.access" = "Käyttöoikeus";
-"pro.earlyAdopter.row.access.value" = "Kaikki kolme peliä";
+"pro.earlyAdopter.row.access.value" = "Kaikki neljä peliä";
 "pro.earlyAdopter.row.cost" = "Hinta";
 "pro.earlyAdopter.row.cost.value" = "Ei mitään";
 "pro.earlyAdopter.row.expires" = "Päättyy";
@@ -583,7 +590,6 @@
 "mac.panel.emptyMessage" = "Valitse sivupalkista peli tai dubbauspaketti.";
 "mac.settings.general" = "Yleiset";
 "mac.settings.recording" = "Nauhoitus";
-"mac.welcome.notNow" = "Ei nyt";
 "mac.booth.primer.message" = "Booth Cam pitää Macin kameran käynnissä esityksesi ajan, joten kohtaus, repliikki ja naamasi mahtuvat samalle ruudulle. Myöhemmin voit jakaa reaktion dubbauksen mukana.";
 "mac.booth.primer.systemPrompt" = "Seuraavaksi macOS kysyy oikeutta kameraan.";
 "mac.menu.openRecent" = "Avaa viimeaikainen";

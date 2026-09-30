@@ -182,50 +182,75 @@ struct HomeViewModelTests {
         return ReviewBanner(defaults: defaults)
     }
 
-    /// A prompt with its own counters: a newcomer, or with `opens` and `wins` behind them.
-    private func makePrompt(opens: Int = 0, wins: Int = 0) -> ReviewPrompt {
+    /// A prompt with its own counters: a newcomer, or someone with days of use and a pack of
+    /// their own behind them.
+    private func makePrompt(days: Int = 0, importedPack: Bool = false) -> ReviewPrompt {
         let name = "HomeViewModelTests.prompt.\(UUID().uuidString)"
         let defaults = UserDefaults(suiteName: name)!
         defaults.removePersistentDomain(forName: name)
         let prompt = ReviewPrompt(defaults: defaults)
-        for _ in 0..<opens { prompt.registerAppOpen() }
-        for _ in 0..<wins { prompt.registerWin() }
+        for day in 0..<days {
+            prompt.registerAppOpen(now: Date(timeIntervalSince1970: 1_800_000_000 + Double(day) * 86_400))
+        }
+        if importedPack { prompt.registerImportedPack() }
         return prompt
     }
 
     private func makeViewModel(banner: ReviewBanner? = nil, prompt: ReviewPrompt? = nil) -> HomeViewModel {
-        HomeViewModel(reviewBanner: banner ?? makeBanner(), reviewPrompt: prompt ?? makePrompt())
+        HomeViewModel(
+            reviewBanner: banner ?? makeBanner(),
+            reviewPrompt: prompt ?? makePrompt(days: 3, importedPack: true)
+        )
     }
 
-    @Test func aBuyerIsAskedForAReview() {
-        withAccess(.unlocked(.entitlement)) {
-            #expect(makeViewModel().showsReviewBanner)
-        }
-    }
-
-    /// Someone who has not paid and is not yet enjoying it is left alone: not mid-trial, not
-    /// locked, not an early adopter.
-    @Test(arguments: [
-        AccessState.trial(daysRemaining: 3, endsAt: .distantFuture),
-        .locked,
-        .unlocked(.earlyAdopter),
-        .unlocked(.gatingDisabled),
-        .unknown
-    ])
-    func aNewcomerWhoHasNotPaidIsNotAsked(state: AccessState) {
+    /// Whoever imported a pack and used the app on three days is asked, paid or not, and only
+    /// a buyer is thanked for buying.
+    @Test(arguments: [AccessState.unlocked(.entitlement), .locked, .unlocked(.earlyAdopter)])
+    func anImporterOnTheirThirdDayIsAsked(state: AccessState) {
         withAccess(state) {
-            #expect(!makeViewModel().showsReviewBanner)
-        }
-    }
-
-    /// Free players who keep coming back and keep scoring well are asked too, and not thanked
-    /// for a purchase they never made.
-    @Test(arguments: [AccessState.locked, .unlocked(.earlyAdopter)])
-    func aFanIsAskedWithoutPaying(state: AccessState) {
-        withAccess(state) {
-            let viewModel = makeViewModel(prompt: makePrompt(opens: 4, wins: 3))
+            let viewModel = makeViewModel()
             #expect(viewModel.showsReviewBanner)
-            #expect(!viewModel.reviewBannerThanksForPro)
+            #expect(viewModel.reviewBannerThanksForPro == (state == .unlocked(.entitlement)))
+        }
+    }
+
+    /// Paying is not enough on its own, and neither is one of the two conditions without the
+    /// other.
+    @Test func withoutAnImportAndThreeDaysNobodyIsAsked() {
+        withAccess(.unlocked(.entitlement)) {
+            #expect(!makeViewModel(prompt: makePrompt()).showsReviewBanner)
+            #expect(!makeViewModel(prompt: makePrompt(days: 3)).showsReviewBanner)
+            #expect(!makeViewModel(prompt: makePrompt(days: 2, importedPack: true)).showsReviewBanner)
+        }
+    }
+
+    /// A star leads to the App Store offer or to the feedback dialog, and backing out of
+    /// either leaves the banner up with its stars cleared.
+    @Test func aRatingOpensTheRightDialog() {
+        withAccess(.locked) {
+            let viewModel = makeViewModel()
+
+            viewModel.rateFromReviewBanner(stars: 5)
+            #expect(viewModel.isReviewStoreAskPresented && !viewModel.isReviewFeedbackPresented)
+            viewModel.isReviewStoreAskPresented = false
+            viewModel.reviewDialogDidCancel()
+
+            viewModel.rateFromReviewBanner(stars: 2)
+            #expect(viewModel.isReviewFeedbackPresented && viewModel.reviewStars == 2)
+            viewModel.reviewDialogDidCancel()
+            #expect(!viewModel.isReviewFeedbackPresented && viewModel.reviewStars == 0)
+            #expect(viewModel.showsReviewBanner)
+        }
+    }
+
+    @Test func sendingFeedbackPutsTheBannerAway() {
+        withAccess(.locked) {
+            let viewModel = makeViewModel()
+            viewModel.rateFromReviewBanner(stars: 1)
+            _ = viewModel.sendReviewFeedback("Exports take too long")
+
+            #expect(!viewModel.isReviewFeedbackPresented)
+            #expect(!viewModel.showsReviewBanner)
         }
     }
 
