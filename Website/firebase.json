@@ -4,6 +4,14 @@
     "ignore": ["firebase.json", "**/.*"],
     "cleanUrls": true,
     "trailingSlash": false,
+    "redirects": [
+      { "source": "/dubpacks", "destination": "/dub-packs", "type": 301 },
+      { "source": "/dub-pack", "destination": "/dub-packs", "type": 301 },
+      { "source": "/packs", "destination": "/dub-packs", "type": 301 },
+      { "source": "/choicer-voicer", "destination": "/dub-packs", "type": 301 },
+      { "source": "/voicer-choicer", "destination": "/dub-packs", "type": 301 },
+      { "source": "/reverse-singing", "destination": "/#reverse", "type": 301 }
+    ],
     "headers": [
       {
         "source": "**",
@@ -15,6 +23,10 @@
       },
       {
         "source": "img/**",
+        "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000" }]
+      },
+      {
+        "source": "media/**",
         "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000" }]
       },
       {
