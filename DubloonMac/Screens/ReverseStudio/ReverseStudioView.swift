@@ -189,6 +189,10 @@ struct ReverseStudioView: View {
             .popoverTip(MacShortcutsTip(), arrowEdge: .top)
         }
 
+        ToolbarItem(placement: .primaryAction) {
+            MacHelpButton(topic: .reverse)
+        }
+
         ToolbarItemGroup(placement: .primaryAction) {
             if !viewModel.isArchived {
                 Button {

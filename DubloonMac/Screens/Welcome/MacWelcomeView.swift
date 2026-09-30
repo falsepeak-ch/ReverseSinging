@@ -22,7 +22,7 @@ struct MacWelcomeView: View {
 
             buttons
         }
-        .frame(width: 620, height: 580)
+        .frame(width: 620, height: 720)
         .background(Color.rsSurface1)
         .onAppear {
             viewModel.onAppear()
@@ -31,6 +31,12 @@ struct MacWelcomeView: View {
             #endif
         }
         .onDisappear { viewModel.windowDidClose() }
+        .sheet(isPresented: Binding(
+            get: { viewModel.onboarding.isPaywallPresented },
+            set: { viewModel.onboarding.isPaywallPresented = $0 }
+        )) {
+            ProPaywallView(source: "onboarding")
+        }
     }
 
     // MARK: - Welcome
@@ -56,6 +62,10 @@ struct MacWelcomeView: View {
             .frame(maxWidth: 440, alignment: .leading)
             .padding(.top, 34)
 
+            proNote
+                .frame(maxWidth: 440, alignment: .leading)
+                .padding(.top, 26)
+
             Spacer(minLength: 0)
         }
         .padding(.horizontal, 40)
@@ -80,11 +90,40 @@ struct MacWelcomeView: View {
         }
     }
 
+    /// What Pro is for and what stays free, said before anyone meets a lock, as the iPhone's
+    /// last onboarding page says it.
+    private var proNote: some View {
+        HStack(alignment: .top, spacing: 16) {
+            Image("settings-unlock")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 46, height: 46)
+
+            VStack(alignment: .leading, spacing: 3) {
+                Text(Strings.Onboarding.proTitle)
+                    .font(.system(size: 15, weight: .semibold))
+                    .foregroundColor(.rsTextPrimary)
+                Text(Strings.Onboarding.proMessage)
+                    .font(.system(size: 12))
+                    .foregroundColor(.rsTextSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .padding(14)
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color.rsSurface2))
+    }
+
     // MARK: - Buttons
 
     private var buttons: some View {
         HStack(spacing: 12) {
             Spacer()
+
+            if viewModel.offersPro {
+                Button(Strings.Onboarding.proSkip) { viewModel.skip() }
+                    .controlSize(.large)
+                    .keyboardShortcut(.cancelAction)
+            }
 
             Button(viewModel.primaryTitle) { viewModel.primaryAction() }
                 .controlSize(.large)

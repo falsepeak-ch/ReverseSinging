@@ -33,6 +33,16 @@ struct MacWorkspaceView: View {
         }
         .navigationTitle(workspace.title)
         .onAppear { workspace.onAppear(app: app) }
+        .editorModal(isPresented: Binding(
+            get: { workspace.dubLibrary.showPackGuide },
+            set: { workspace.dubLibrary.showPackGuide = $0 }
+        )) {
+            DubPackGuideModal(
+                source: .example,
+                onImport: { workspace.packGuideDidRequestImport() },
+                onClose: { workspace.dubLibrary.showPackGuide = false }
+            )
+        }
         // Import: the gate says its piece every time, then the picker.
         .dubContentGate(isPresented: Binding(
             get: { workspace.dubLibrary.showContentGate },
@@ -99,6 +109,31 @@ struct MacWorkspaceView: View {
                 .frame(width: 480, height: 640)
                 .onDisappear { home.boothAnnouncementDidDisappear() }
         }
+        // The review note's two answers: the store for a happy rating, a word to the maker for
+        // an unhappy one.
+        .alert(Strings.ReviewBanner.storeTitle, isPresented: Binding(
+            get: { home.isReviewStoreAskPresented },
+            set: { home.isReviewStoreAskPresented = $0 }
+        )) {
+            Button(Strings.ReviewBanner.rate) { openURL(home.reviewBannerWentToStore()) }
+            Button(Strings.Main.Alert.cancel, role: .cancel) { home.reviewDialogDidCancel() }
+        } message: {
+            Text(home.reviewBannerThanksForPro ? Strings.ReviewBanner.message : Strings.ReviewBanner.fanMessage)
+        }
+        .editorModal(isPresented: Binding(
+            get: { home.isReviewFeedbackPresented },
+            set: { if !$0 { home.reviewDialogDidCancel() } }
+        )) {
+            ReviewFeedbackModal(
+                stars: home.reviewStars,
+                onSend: { note in
+                    if let mail = home.sendReviewFeedback(note) {
+                        openURL(mail) { opened in home.reviewFeedbackMailDidOpen(opened) }
+                    }
+                },
+                onCancel: { home.reviewDialogDidCancel() }
+            )
+        }
         // Delete asks first: a pack takes its takes and footage with it.
         .confirmationDialog(
             deletionTitle,
@@ -153,6 +188,8 @@ struct MacWorkspaceView: View {
             }
         case .imitate:
             ImitateStudioView(workspace: workspace)
+        case .homeVideo:
+            HomeVideoStudioView(workspace: workspace)
         case .dubLibrary:
             DubLibraryBrowserView(workspace: workspace)
         case .pack(let id):

@@ -716,3 +716,43 @@
 "settings.appearance.system" = "System";
 "settings.appearance.light" = "Light";
 "settings.appearance.dark" = "Dark";
+
+/* Mac: Home Video Dub */
+"mac.homeVideo.fromPhotos" = "Choose from Photos…";
+"mac.homeVideo.fromFile" = "Choose a File…";
+"mac.homeVideo.dropHint" = "Or drop a video file here.";
+"mac.panel.clip" = "Clip";
+"mac.panel.mix" = "Mix";
+"mac.menu.help" = "Dubloon Help";
+"mac.homeVideo.limit" = "Up to one minute. Your video stays on this Mac.";
+"mac.homeVideo.hint.empty" = "Choose a video from Photos or Finder to put your voice on it.";
+
+/* Mac: Help answers worded for the Mac (fall back to the iPhone's where missing) */
+"help.gettingStarted.1.a.mac" = "Four voice games that need nothing but your microphone. Reverse Singing: sing a song backwards. Movie Scene Dub: put your voice into a film scene, line by line. Home Video Dub: put your voice on a video you've filmed. Sound Imitation: copy a sound and get a verdict. Pick one in the sidebar, or press ⌘1 to ⌘4.";
+"help.gettingStarted.3.a.mac" = "No, but they help when you dub. With headphones on, you can hear the original line while you record (switch on Original in Headphones in Dubloon ▸ Settings ▸ Recording). Through the speakers it would end up in your take, so Dubloon only plays it in headphones. Wired headphones keep the timing tightest: Bluetooth adds a small delay.";
+"help.reverse.1.a.mac" = "Click Record Audio (or press R) and sing a line of a song. Play the Reversed track to hear it backwards. Then click Sing It Back and copy that backwards sound as closely as you can. Dubloon flips your copy around, and if you got it right you hear the song again, in your voice.";
+"help.reverse.4.q.mac" = "Can I slow the reversed line down?";
+"help.reverse.4.a.mac" = "Yes. The inspector on the right (⌥⌘I) has Audio Controls: loop, speed and pitch. Slowing the reversed line down is the best way to learn it.";
+"help.reverse.5.a.mac" = "Under Reverse Singing in the sidebar. Starting a new session (⌘N) puts the current one there, so nothing is thrown away. Select a session and press ⌘⌫, or Control-click it, to delete it.";
+"help.dub.1.a.mac" = "Pick a scene under Movie Scene Dub in the sidebar. Select a line, press L to hear the original, then R to record: you get three beats of count-in, and the mic closes by itself when the line ends. Move between lines with ↑ and ↓, and come back to any line whenever you like.";
+"help.dub.3.a.mac" = "Each take is marked on timing (did you start and stop with the original), pacing (did you keep its rhythm) and delivery (did your loud and quiet parts follow it). The scene gets a score too, with your best line and the one worth another go. Don't want to be judged? Turn off Score my takes in the toolbar, the inspector or Settings.";
+"help.dub.4.a.mac" = "Switch the viewer to My Dub (⌃⌘3) and press Space. Your takes drop into the film in place of the original lines; anything you haven't dubbed yet plays as it was. Original (⌃⌘2) plays the scene untouched.";
+"help.homeVideo.1.a.mac" = "Choose a video from Photos or from a file, or drop one on the viewer, up to a minute long. Press R: after the count-in the video plays from the start and your voice goes on top. When it ends your version plays, ready to share (⌘E) or record again.";
+"help.homeVideo.3.a.mac" = "Yes, with headphones on. Through the speakers the video plays silently, so its sound doesn't end up in your take. Keep the original sound, in the inspector, puts it back, quietly, under your voice in the finished video.";
+"help.booth.1.a.mac" = "Booth Cam films your face with your Mac's camera while you perform, so the reaction can go into the video with the dub. It's off until you turn it on with the camera button in the toolbar (⇧⌘C) or in Settings. The footage stays on your Mac.";
+"help.booth.2.a.mac" = "Choose File ▸ Export (⌘E) on a scene. Choose the cut (the full scene, or a session reel of just the lines you dubbed) and where your booth footage goes: in the corner, stacked for a story, as a reaction, or side by side. Before it renders, Dubloon shows whose scene it is, so you can keep the credit when you share.";
+"help.booth.3.a.mac" = "Dubloon ▸ Settings ▸ Recording shows how much space booth footage uses, with a button to delete all booth takes. Your voice takes and your dubs stay. Deleting a scene also deletes its takes and footage.";
+"help.packs.1.a.mac" = "Scenes come as dub packs: a folder, or a .zip, .7z or .rar archive. Choose File ▸ Import Dub Pack (⌘O), drop the file on Movie Scene Dub in the sidebar, or open it with Dubloon from Finder. Dubloon unpacks it and the scene appears in the list.";
+"help.packs.3.a.mac" = "Dubloon says what went wrong. The usual fixes: if the file is in iCloud Drive, download it in Finder first. If the archive has a password, ask its maker for one without. If it won't unpack, re-save it as a .zip. And if Dubloon says it isn't a dub pack, it needs a text file and a recording for every line.";
+"help.imitate.1.a.mac" = "Pick a sound in the browser, press L to hear it, then R to imitate it. Dubloon compares your attempt with the real thing and stamps a verdict on it. Your best score for each sound is kept, so you can come back and beat it.";
+"help.imitate.3.a.mac" = "Yes. After a verdict, click Make video (⌘E): the sound, your attempt and your score, ready to send. With Booth Cam on, your face is in it too.";
+"help.pro.2.a.mac" = "Open Dubloon ▸ Settings ▸ Dubloon Pro and click Restore purchase. Make sure you're signed in to the App Store with the Apple Account you bought it with. On a new Mac or after reinstalling, restoring brings it back at no cost.";
+"help.pro.3.a.mac" = "In Dubloon ▸ Settings ▸ Dubloon Pro, click Manage subscription. You can also do it in the App Store: click your name, then Account Settings, then Subscriptions. Cancel at least 24 hours before it renews and you keep Pro until the end of the period you paid for. Refunds are handled by Apple.";
+"help.privacy.1.a.mac" = "No. Your recordings, takes, booth footage and videos stay on your Mac until you choose to share them. Scoring happens on your Mac too. There is no account and nothing to sign up for.";
+"help.privacy.2.a.mac" = "Anonymous usage statistics and crash reports, which help find bugs and decide what to build next: things like which game was opened and what score came out, never the sound of a recording. Turn it off in Dubloon ▸ Settings ▸ General with Share Usage Data. The Privacy Policy has every detail.";
+"help.troubleshooting.1.a.mac" = "Check that Dubloon may use the microphone: in System Settings ▸ Privacy & Security ▸ Microphone, switch on Dubloon. Also check the input in System Settings ▸ Sound, and that no other app, such as a call, is holding the microphone.";
+"help.troubleshooting.2.a.mac" = "Turn the volume up, and check the output in System Settings ▸ Sound: Bluetooth headphones or a speaker may have connected. The original line during recording only plays in headphones, on purpose, so it stays out of your take.";
+"help.troubleshooting.4.a.mac" = "Dubloon needs the camera for it. In System Settings ▸ Privacy & Security ▸ Camera, switch on Dubloon. Booth Cam is part of Dubloon Pro.";
+"dubGuide.2.detail.mac" = "Click Download and choose the file: a .zip, .7z or .rar. Your browser saves it to the Downloads folder.";
+"dubGuide.3.detail.mac" = "Wait for the download to complete. If the file is in iCloud Drive, download it in Finder first so it's really on this Mac.";
+"dubGuide.4.detail.mac" = "Come back here, click Import a Dub Pack and pick it from Downloads. You can also drop the file on Movie Scene Dub in the sidebar, or open it with Dubloon from Finder.";

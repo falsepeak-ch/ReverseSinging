@@ -12,21 +12,21 @@ Each states its provenance (film, year, producer, terms, links) on the scene scr
 
 THE PURCHASE
 
-The Mac app shares the iPhone app's record and in-app purchases (universal purchase). Free to download, with no trial. Reverse Singing is free for everyone. Movie Scene Dub and Sound Imitation stay locked until a purchase, which a sandbox account can make. A review device meets the locked games on first launch.
+The Mac app shares the iPhone app's record and in-app purchases (universal purchase). Free to download, with no trial. Reverse Singing and Home Video Dub are free for everyone. Movie Scene Dub and Sound Imitation stay locked until a purchase, which a sandbox account can make. A review device meets the locked games on first launch.
 
-Any of three products unlocks the same content: the existing non-consumable "com.falsepeak.reverse_singing_ios.lifetime", or one of the two auto-renewable subscriptions submitted with this version, "com.falsepeak.reverse_singing_ios.monthly" and "com.falsepeak.reverse_singing_ios.yearly" (the yearly one with a 7-day introductory free trial). The purchase screen shows either the lifetime product alone or the two subscriptions, chosen per install by a remotely configured test, so a review device may see either layout. Users who installed before the paywall existed keep the paid games free for life.
+Any of three products unlocks the same content: the non-consumable "com.falsepeak.reverse_singing_ios.lifetime", or the auto-renewable subscriptions "com.falsepeak.reverse_singing_ios.monthly" and "com.falsepeak.reverse_singing_ios.yearly" (7-day free trial on the yearly). The purchase screen shows either the lifetime product alone or the two subscriptions, chosen per install by a remote test. Users who installed before the paywall existed keep the paid games free for life.
 
 To reach the purchase screen: pick a locked game in the sidebar, or the button at the foot of the sidebar, or Dubloon > Settings > Dubloon Pro.
 
 BOOTH CAM
 
-Booth Cam films the performer with the Mac's camera while they dub. Off by default, it never starts on its own: the camera button shows the app's own explanation first, then the system prompt, and declining costs nothing. Clips stay in the app's container, are never uploaded, and appear only in a video the user explicitly exports.
+Booth Cam films the performer with the Mac's camera while they dub. Off by default, it never starts on its own: the camera button shows the app's own explanation first, then the system prompt, and declining costs nothing. Clips never leave the device and appear only in a video the user exports.
 
 TWO NOTICES, SHOWN EVERY TIME
 
 Before any import, the app asks whether the user already has the movie files. If not, a panel states, before any link, that the destination is an unaffiliated third-party site, that we host no files, and that the user is responsible for the rights to what they download.
 
-Before any export, the app states that the video is the user's voice over the original scene and so contains someone else's work; names that work and its terms; asks that the credit stay with the video; and says that sharing it is the user's responsibility, within local law. For a scene the user imported, it says instead that the app cannot know its origin or terms.
+Before any export, the app states that the video contains someone else's work; names that work and its terms; asks that the credit stay with the video; and says that sharing it is the user's responsibility, within local law. For a scene the user imported, it says instead that the app cannot know its origin or terms.
 
 HOW TO TEST
 
@@ -34,8 +34,12 @@ In the sidebar, open "Movie Scene Dub" and pick a bundled scene. Press R (or the
 
 SOUND IMITATION
 
-The third game plays one of 24 bundled sound effects, all CC0 from Freesound (credited per sound), records the user's imitation and scores it on the device. A video is made only when the user taps "Make video".
+Plays one of the bundled sound effects, all CC0 from Freesound (credited per sound), and scores the user's imitation on the device. A video is made only when the user asks for one.
+
+HOME VIDEO DUB
+
+The user picks their own video from the system Photos picker or from Finder (Open panel or drag and drop), records a voice over it and may export it. Nothing is uploaded. To test, open "Home Video Dub" in the sidebar.
 
 MICROPHONE
 
-All three games record the user's voice. The first press of Record shows the app's explanation with one button, which always opens the system prompt. Nothing follows a refusal. Recordings never leave the device.
+All four games record the user's voice. The first press of Record shows the app's explanation with one button, which always opens the system prompt. Nothing follows a refusal. Recordings never leave the device.

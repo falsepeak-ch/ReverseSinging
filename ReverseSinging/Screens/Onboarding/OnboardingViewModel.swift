@@ -83,7 +83,7 @@ final class OnboardingViewModel: ObservableObject {
 
     /// Mirrors `AccessController.isLocked`, so the buttons follow a purchase or a restore
     /// that lands while the page is up.
-    @Published private var isLocked = false
+    @Published private(set) var isLocked = false
 
     /// The main button under the pages.
     func primaryTapped() {

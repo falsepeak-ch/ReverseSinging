@@ -38,6 +38,7 @@ enum MacStrings {
         static let skipBack = NSLocalizedString("mac.menu.skipBack", comment: "Playback menu: move the playhead back five seconds")
         static let skipForward = NSLocalizedString("mac.menu.skipForward", comment: "Playback menu: move the playhead forward five seconds")
         static let goToStart = NSLocalizedString("mac.menu.goToStart", comment: "Playback menu: move the playhead to the start of the scene")
+        static let help = NSLocalizedString("mac.menu.help", comment: "Help menu: open the app's help window")
         static let shortcuts = NSLocalizedString("mac.menu.shortcuts", comment: "Help menu: open the list of keyboard shortcuts")
         static let find = NSLocalizedString("mac.menu.find", comment: "Edit menu: put the cursor in the sidebar's search field")
         static let deleteEllipsis = NSLocalizedString("mac.menu.delete", comment: "Context menu / Edit menu: delete the selected pack or session, asks first. Ends in an ellipsis")
@@ -77,6 +78,16 @@ enum MacStrings {
         static let compare = NSLocalizedString("mac.panel.compare", comment: "Title of the panel that draws the original sound above the user's imitation of it")
         static let emptyTitle = NSLocalizedString("mac.panel.emptyTitle", comment: "Shown when nothing is selected in the sidebar")
         static let emptyMessage = NSLocalizedString("mac.panel.emptyMessage", comment: "Shown when nothing is selected in the sidebar")
+        static let clip = NSLocalizedString("mac.panel.clip", comment: "Inspector section about the video clip the user loaded")
+        static let mix = NSLocalizedString("mac.panel.mix", comment: "Inspector section about how the voice and the video's own sound are mixed")
+    }
+
+    enum HomeVideo {
+        static let fromPhotos = NSLocalizedString("mac.homeVideo.fromPhotos", comment: "Button / menu item: pick the video from the Photos library. Ends in an ellipsis")
+        static let fromFile = NSLocalizedString("mac.homeVideo.fromFile", comment: "Button / menu item: pick a video file with the Open panel. Ends in an ellipsis")
+        static let limit = NSLocalizedString("mac.homeVideo.limit", comment: "Small print in the empty viewer: clips up to a minute, and the video never leaves the Mac")
+        static let emptyHint = NSLocalizedString("mac.homeVideo.hint.empty", comment: "Hint under the viewer before a video is chosen")
+        static let dropHint = NSLocalizedString("mac.homeVideo.dropHint", comment: "Small print in the empty viewer: a video file can be dropped there")
     }
 
     enum Settings {

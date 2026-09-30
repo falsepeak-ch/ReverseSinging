@@ -1,4 +1,4 @@
-Dubloon er tre stemmespil i én app, og ingen af dem behøver andet end din mikrofon.
+Dubloon er fire stemmespil i én app, og ingen af dem behøver andet end din mikrofon.
 
 LAVET TIL MAC
 
@@ -12,16 +12,11 @@ Hent en scene ind og dub den selv. Dubloon spiller den originale replik for dig,
 • Den originale indlevering i høretelefonerne, mens du optager, hvis du vil have den
 • Hver figur har sin egen farve, så du altid ved, hvem der taler
 • En tempobjælke, der bliver ravgul i det øjeblik du løber forbi originalen
-• Overlappende dialog mikses på hvert sit spor, så to der taler i munden på hinanden også lyder sådan
 • Se originalen, hør din egen dub, eller eksportér hele scenen som video
 
 BOOTH CAM
 
 Tænd din Macs kamera, så filmer Dubloon dig, mens du spiller. Eksportér den færdige scene med dit ansigt i hjørnet, stablet ovenover til en story, eller side om side. Eller send en enkelt replik ud med reaktionen ved siden af. Kameraet er slukket, indtil du tænder det, og optagelserne bliver på din Mac, indtil du selv vælger at eksportere.
-
-MED KARAKTER, HVIS DU VIL
-
-Hver optagelse bedømmes på timing, tempo og spil, med en karakter for scenen, din bedste replik og den, der er værd at tage om. Slå det fra, og så tæller ingen med.
 
 FIRE SCENER AT STARTE MED
 
@@ -43,12 +38,16 @@ Hør en lyd, og lav den så selv. En gøende hund, en hane, et bilhorn, en laser
 • 24 lyde: dyr, horn og alarmer, tegnefilmseffekter og menneskelyde
 • Booth Cam filmer dit ansigt midt i efterligningen, hvis du vil
 
+DUB DINE EGNE VIDEOER
+
+Dine videoer, din stemme. Vælg et klip fra Fotos eller Finder, og fortæl over det, syng over det eller giv det nye lydeffekter. Behold den originale lyd svagt nedenunder eller slå den fra, og del resultatet.
+
 PRIVAT FRA BUNDEN
 
 Alt sker på denne Mac. Dine optagelser, dine takes, dine boksoptagelser og dine eksporterede dubs forlader den aldrig. Ingen konto, ingen tilmelding, ingen reklamer, intet at uploade. Appen indsamler anonym brugsstatistik for at afgøre, hvad der bygges næste gang, aldrig indholdet af en optagelse.
 
 HVAD DET KOSTER
 
-Baglænssang er gratis. Dubloon Pro åbner dub af filmscener, lydimitation, Booth Cam og eksport, uden noget holdt tilbage, som et engangskøb eller et abonnement. Har du allerede købt det på din iPhone? Så låses det også op her, med den samme Apple-konto.
+Baglænssang og »Dub dine egne videoer« er gratis. Dubloon Pro åbner dub af filmscener, lydimitation, Booth Cam og eksport, uden noget holdt tilbage, som et engangskøb eller et abonnement. Har du allerede købt det på din iPhone? Så låses det også op her, med den samme Apple-konto.
 
 Bygget i Schweiz. Håndlavet i Zürich.

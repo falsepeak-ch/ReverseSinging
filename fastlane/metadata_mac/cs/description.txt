@@ -1,4 +1,4 @@
-Dubloon jsou tři hlasové hry v jedné aplikaci a žádná z nich nepotřebuje nic víc než tvůj mikrofon.
+Dubloon jsou čtyři hlasové hry v jedné aplikaci a žádná z nich nepotřebuje nic víc než tvůj mikrofon.
 
 STVOŘENO PRO MAC
 
@@ -12,7 +12,6 @@ Načti scénu a nadabuj si ji sám. Dubloon ti přehraje původní repliku, uká
 • Původní přednes ve sluchátkách, zatímco nahráváš, pokud o něj stojíš
 • Každá postava má svou barvu, takže vždycky víš, kdo mluví
 • Pruh tempa, který zežloutne ve chvíli, kdy přetáhneš originál
-• Překrývající se dialogy se mixují na oddělené stopy, takže dva lidé mluvící přes sebe tak i znějí
 • Pusť si originál, poslechni si svůj dabing nebo exportuj celou scénu jako video
 
 BOOTH CAM
@@ -43,12 +42,16 @@ Poslechni si zvuk a pak ho udělej sám. Štěkající pes, kohout, klakson, las
 • 24 zvuků: zvířata, klaksony a alarmy, kreslené efekty a lidské zvuky
 • Booth Cam natočí tvůj obličej uprostřed napodobování, pokud chceš
 
+DABING VLASTNÍCH VIDEÍ
+
+Tvoje videa, tvůj hlas. Vyber klip z Fotek nebo z Finderu a namluv k němu komentář, zazpívej přes něj nebo mu dej nové zvukové efekty. Původní zvuk si nech potichu pod svým hlasem, nebo ho ztlum, a výsledek sdílej.
+
 SOUKROMÉ OD ZÁKLADU
 
 Všechno se děje na tomhle Macu. Tvoje nahrávky, tvoje pokusy, záběry z kabiny i exportované dabingy ho nikdy neopustí. Žádný účet, žádná registrace, žádné reklamy, nic k nahrání. Aplikace sbírá anonymní statistiky používání, aby věděla, co postavit dál — nikdy obsah nahrávky.
 
 CO TO STOJÍ
 
-Zpívání pozpátku je zdarma. Dubloon Pro otevře dabing filmových scén, napodobování zvuků, Booth Cam a exporty, nic není zadržené, jednorázovým nákupem nebo předplatným. Už sis ho koupil na iPhonu? Odemkne se i tady, se stejným účtem Apple.
+Zpívání pozpátku a dabing vlastních videí jsou zdarma. Dubloon Pro otevře dabing filmových scén, napodobování zvuků, Booth Cam a exporty, nic není zadržené, jednorázovým nákupem nebo předplatným. Už sis ho koupil na iPhonu? Odemkne se i tady, se stejným účtem Apple.
 
 Postaveno ve Švýcarsku. Ručně vyrobeno v Curychu.

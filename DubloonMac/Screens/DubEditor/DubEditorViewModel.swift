@@ -85,6 +85,10 @@ final class DubEditorViewModel: ObservableObject {
     func onAppear() {
         detail.onAppear()
         detail.recorderDidAppear()
+        // The Mac records and plays back in one window, with no cover sliding away between
+        // them, so the Play My Dub tip has nothing to wait for.
+        DubTips.isRecorderOpen = false
+        DubTips.noteBooth(isOn: BoothCamPreference.shared.isEnabled)
         record.onAppear()
         session.jumpToFirstUnrecordedLine()
         record.lineDidChange()

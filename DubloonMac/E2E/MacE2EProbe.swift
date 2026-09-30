@@ -19,6 +19,7 @@ final class MacE2EProbe {
     weak var reverse: ReverseStudioViewModel?
     weak var dubEditor: DubEditorViewModel?
     weak var imitate: ImitateStudioViewModel?
+    weak var homeVideo: HomeVideoStudioViewModel?
 
     /// True for a run started with `-macE2E YES`.
     nonisolated static var isActive: Bool {

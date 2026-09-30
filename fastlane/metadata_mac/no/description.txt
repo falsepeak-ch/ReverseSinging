@@ -1,4 +1,4 @@
-Dubloon er tre stemmespill i én app, og ingen av dem trenger noe annet enn mikrofonen din.
+Dubloon er fire stemmespill i én app, og ingen av dem trenger noe annet enn mikrofonen din.
 
 LAGET FOR MAC
 
@@ -12,16 +12,11 @@ Hent inn en scene og dubb den selv. Dubloon spiller av originalreplikken, viser 
 • Originalens tolkning i hodetelefonene mens du tar opp, hvis du vil ha den
 • Hver rollefigur har sin farge, så du vet alltid hvem som snakker
 • En tempolinje som blir ravgul i det øyeblikket du løper forbi originalen
-• Overlappende dialog mikses på hvert sitt spor, så to som snakker i munnen på hverandre høres slik ut
 • Se originalen, hør din egen dubb, eller eksporter hele scenen som video
 
 BOOTH CAM
 
 Slå på kameraet på Macen, så filmer Dubloon deg mens du spiller. Eksporter den ferdige scenen med ansiktet ditt i hjørnet, stablet over for en story, eller side ved side. Eller send ut én enkelt replikk med reaksjonen ved siden av. Kameraet er av til du slår det på, og opptakene blir på Macen til du selv velger å eksportere.
-
-MED POENG, HVIS DU VIL
-
-Hvert opptak vurderes på timing, tempo og spill, med poeng for scenen, din beste replikk og den som er verdt et forsøk til. Slå det av, og ingen teller lenger.
 
 FIRE SCENER Å BEGYNNE MED
 
@@ -43,12 +38,16 @@ Hør en lyd, og lag den så selv. En bjeffende hund, en hane, et bilhorn, en las
 • 24 lyder: dyr, horn og alarmer, tegnefilmeffekter og menneskelyder
 • Booth Cam filmer ansiktet ditt midt i imitasjonen, hvis du vil
 
+DUBB DINE EGNE VIDEOER
+
+Dine videoer, din stemme. Velg et klipp fra Bilder eller Finder, og fortell over det, syng over det eller gi det nye lydeffekter. Behold originallyden svakt under eller skru den av, og del resultatet.
+
 PRIVAT FRA BUNNEN AV
 
 Alt skjer på denne Macen. Opptakene dine, forsøkene dine, boksmaterialet ditt og de eksporterte dubbene forlater den aldri. Ingen konto, ingen registrering, ingen annonser, ingenting som lastes opp. Appen samler anonym bruksstatistikk for å avgjøre hva som bygges videre, aldri innholdet i et opptak.
 
 HVA DET KOSTER
 
-Baklengssang er gratis. Dubloon Pro åpner dubbing av filmscener, lydimitasjon, Booth Cam og eksport, uten noe holdt tilbake, som engangskjøp eller abonnement. Allerede kjøpt på iPhonen? Da låses det opp her også, med den samme Apple-kontoen.
+Baklengssang og «Dubb dine egne videoer» er gratis. Dubloon Pro åpner dubbing av filmscener, lydimitasjon, Booth Cam og eksport, uten noe holdt tilbake, som engangskjøp eller abonnement. Allerede kjøpt på iPhonen? Da låses det opp her også, med den samme Apple-kontoen.
 
 Bygget i Sveits. Håndlaget i Zürich.

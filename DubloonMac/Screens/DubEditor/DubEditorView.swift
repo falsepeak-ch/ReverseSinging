@@ -15,6 +15,7 @@ struct DubEditorView: View {
     @Binding private var showsInspector: Bool
     @ObservedObject private var scoring = DubScoringPreference.shared
     @ObservedObject private var booth = BoothCamPreference.shared
+    private let boothTip = DubBoothTip()
 
     @AppStorage("mac.dub.browserWidth") private var browserWidth: Double = 360
     @AppStorage("mac.dub.timelineHeight") private var timelineHeight: Double = 220
@@ -75,6 +76,11 @@ struct DubEditorView: View {
             #endif
         }
         .onDisappear { viewModel.onDisappear() }
+        // The iPhone's three tips in its order: record, the booth, then hearing the dub.
+        .dubTipStyle()
+        .advancesDubTips(past: 0, when: DubRecordTip())
+        .advancesDubTips(past: 1, when: boothTip)
+        .advancesDubTips(past: 2, when: DubPlayDubTip())
         .task { await record.startBoothIfEnabled() }
         .task { await detail.checkVideo() }
         .task(id: scoring.isEnabled) { await detail.scoringDidChange() }
@@ -145,14 +151,20 @@ struct DubEditorView: View {
                 .popoverTip(MacShortcutsTip(), arrowEdge: .top)
         }
 
+        ToolbarItem(placement: .primaryAction) {
+            MacHelpButton(topic: .dub)
+        }
+
         ToolbarItemGroup(placement: .primaryAction) {
             Button {
+                boothTip.invalidate(reason: .actionPerformed)
                 record.toggleBooth()
             } label: {
                 Label(Strings.Booth.settingsTitle, systemImage: booth.isEnabled ? "video.fill" : "video.slash")
             }
             .disabled(record.isRecording || viewModel.mode != .line)
             .help(booth.isEnabled ? Strings.Booth.turnOff : Strings.Booth.turnOn)
+            .popoverTip(boothTip, arrowEdge: .top)
 
             Toggle(isOn: $scoring.isEnabled) {
                 Label(Strings.Dub.Score.settingTitle, systemImage: "chart.bar.fill")

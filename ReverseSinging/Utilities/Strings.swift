@@ -475,8 +475,16 @@ nonisolated enum Strings {
         static func stepTitle(_ number: Int) -> String {
             NSLocalizedString("dubGuide.\(number).title", comment: "")
         }
+        /// The Mac's own wording where it has one (`dubGuide.<n>.detail.mac`: Finder and the
+        /// browser's downloads rather than Safari and the Files app).
         static func stepDetail(_ number: Int) -> String {
-            NSLocalizedString("dubGuide.\(number).detail", comment: "")
+            let key = "dubGuide.\(number).detail"
+            #if os(macOS)
+            let missing = "\u{0}"
+            let mac = Bundle.main.localizedString(forKey: key + ".mac", value: missing, table: nil)
+            if mac != missing { return mac }
+            #endif
+            return NSLocalizedString(key, comment: "")
         }
     }
 

@@ -53,8 +53,10 @@ struct MacCommands: Commands {
                 .keyboardShortcut("1")
             Button(GameMode.dub.title) { workspace.select(.dubLibrary) }
                 .keyboardShortcut("2")
-            Button(GameMode.imitate.title) { workspace.select(.imitate) }
+            Button(GameMode.homeVideo.title) { workspace.select(.homeVideo) }
                 .keyboardShortcut("3")
+            Button(GameMode.imitate.title) { workspace.select(.imitate) }
+                .keyboardShortcut("4")
 
             Divider()
 
@@ -73,6 +75,10 @@ struct MacCommands: Commands {
         }
 
         CommandGroup(replacing: .help) {
+            HelpMenuItems(workspace: workspace)
+
+            Divider()
+
             ShortcutsMenuItem()
 
             Divider()
@@ -255,6 +261,30 @@ private struct OpenInNewWindowMenuItem: View {
         }
         .keyboardShortcut("o", modifiers: [.command, .option])
         .disabled(workspace.selectedPackID == nil)
+    }
+}
+
+/// Dubloon Help (⌘?) opens on the chapter for the workspace in front; below it, the way to
+/// more scenes and a note to the maker.
+private struct HelpMenuItems: View {
+    @ObservedObject var workspace: MacWorkspaceViewModel
+    @Environment(\.openWindow) private var openWindow
+    @Environment(\.openURL) private var openURL
+
+    var body: some View {
+        Button(MacStrings.Menu.help) {
+            MacHelpViewModel.shared.open(workspace.helpTopic, with: openWindow)
+        }
+        .keyboardShortcut("?", modifiers: [.command, .shift])
+
+        Button(Strings.DubGuide.row) { workspace.showPackGuide() }
+
+        if let url = MacHelpViewModel.shared.help.contactURL {
+            Button(Strings.Help.contactButton) {
+                MacHelpViewModel.shared.help.contactTapped()
+                openURL(url)
+            }
+        }
     }
 }
 

@@ -72,6 +72,8 @@ struct MacSidebar: View {
                     return true
                 } isTargeted: { isDropTargeted = $0 }
 
+                gameRow(.homeVideo).tag(MacDestination.homeVideo)
+
                 gameRow(.imitate).tag(MacDestination.imitate)
             }
         }
@@ -209,29 +211,15 @@ struct MacSidebar: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
+    /// The iPhone's note, stars and all: four or five offer the App Store, fewer ask what went
+    /// wrong (see `MacWorkspaceView` for the two dialogs).
     private var reviewNote: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(Strings.ReviewBanner.title)
-                .font(.rsCaption)
-                .foregroundColor(.rsTextPrimary)
-
-            HStack(spacing: 8) {
-                Button(Strings.ReviewBanner.rate) {
-                    openURL(home.reviewBannerWentToStore())
-                }
-                .platformProminentButton()
-                .controlSize(.small)
-
-                Button(Strings.ReviewBanner.later) {
-                    home.dismissReviewBanner()
-                }
-                .buttonStyle(.borderless)
-                .controlSize(.small)
-            }
-        }
-        .padding(10)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(RoundedRectangle(cornerRadius: 8).fill(Color.white.opacity(0.05)))
+        ReviewBannerCard(
+            thanksForPro: home.reviewBannerThanksForPro,
+            stars: home.reviewStars,
+            onRate: { home.rateFromReviewBanner(stars: $0) },
+            onDismiss: { home.dismissReviewBanner() }
+        )
         .onAppear { home.reviewBannerDidAppear() }
     }
 }

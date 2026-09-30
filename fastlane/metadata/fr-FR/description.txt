@@ -1,4 +1,4 @@
-Dubloon, c'est trois jeux de voix dans une seule app, et aucun d'eux n'a besoin d'autre chose que de ton micro.
+Dubloon, c'est quatre jeux de voix dans une seule app, et aucun d'eux n'a besoin d'autre chose que de ton micro.
 
 DOUBLAGE DE SCÈNE
 
@@ -39,12 +39,16 @@ IMITATION DE SONS
 • 24 sons : animaux, klaxons et alarmes, effets de dessin animé et bruits humains
 • La caméra de cabine filme ton visage en pleine imitation, si tu le veux
 
+DOUBLAGE DE TES VIDÉOS
+
+Tes vidéos, ta voix. Choisis un clip dans Photos, puis commente-le, chante par-dessus ou donne-lui de nouveaux bruitages. Garde le son d'origine, discret sous ta voix, ou coupe-le, puis partage le résultat.
+
 PRIVÉ DÈS LE DÉPART
 
 Tout se passe sur cet appareil. Tes enregistrements, tes prises, tes images de cabine et tes doublages exportés n'en sortent jamais. Pas de compte, pas d'inscription, pas de publicité, rien à téléverser. L'app collecte des statistiques d'usage anonymes pour décider quoi construire ensuite, jamais le contenu d'un enregistrement.
 
 CE QUE ÇA COÛTE
 
-Le chant inversé est gratuit. Dubloon Pro ouvre le doublage de scènes, l'imitation de sons, la caméra de cabine et les exports, rien de bridé, en achat unique ou en abonnement.
+Le chant inversé et le doublage de tes vidéos sont gratuits. Dubloon Pro ouvre le doublage de scènes, l'imitation de sons, la caméra de cabine et les exports, rien de bridé, en achat unique ou en abonnement.
 
 Fait en Suisse. Fait à la main à Zurich.

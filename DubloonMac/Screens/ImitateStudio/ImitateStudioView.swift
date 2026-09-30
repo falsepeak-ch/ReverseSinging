@@ -65,6 +65,10 @@ struct ImitateStudioView: View {
             )
         }
 
+        ToolbarItem(placement: .primaryAction) {
+            MacHelpButton(topic: .imitate)
+        }
+
         ToolbarItemGroup(placement: .primaryAction) {
             Button {
                 viewModel.challenge?.toggleBooth()

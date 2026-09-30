@@ -81,12 +81,19 @@ nonisolated struct HelpArticle: Identifiable, Hashable, Sendable {
 
     var id: String { "\(topic.rawValue).\(number)" }
 
-    var question: String {
-        Bundle.main.localizedString(forKey: "help.\(id).q", value: nil, table: nil)
-    }
+    var question: String { Self.text("help.\(id).q") }
 
-    var answer: String {
-        Bundle.main.localizedString(forKey: "help.\(id).a", value: nil, table: nil)
+    var answer: String { Self.text("help.\(id).a") }
+
+    /// The Mac's wording where it has one (`….mac`: clicks, menus and System Settings rather
+    /// than taps and the Settings app), and the shared text everywhere else.
+    private static func text(_ key: String) -> String {
+        #if os(macOS)
+        let missing = "\u{0}"
+        let mac = Bundle.main.localizedString(forKey: key + ".mac", value: missing, table: nil)
+        if mac != missing { return mac }
+        #endif
+        return Bundle.main.localizedString(forKey: key, value: nil, table: nil)
     }
 
     /// Whether a search finds this, matching the question or the answer, ignoring case and accents.

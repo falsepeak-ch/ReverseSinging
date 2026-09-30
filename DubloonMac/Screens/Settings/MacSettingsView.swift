@@ -13,6 +13,7 @@ struct MacSettingsView: View {
     @ObservedObject private var headphones = HeadphoneMonitor.shared
     @ObservedObject private var booth = BoothCamPreference.shared
     @ObservedObject private var scoring = DubScoringPreference.shared
+    @Environment(\.openWindow) private var openWindow
 
     init(app: AppViewModel) {
         _viewModel = StateObject(wrappedValue: SettingsViewModel(app: app, scope: .app))
@@ -204,6 +205,7 @@ struct MacSettingsView: View {
                 .foregroundColor(.secondary)
 
             HStack(spacing: 12) {
+                Button(Strings.Help.title) { MacHelpViewModel.shared.open(.gettingStarted, with: openWindow) }
                 Button(Strings.Settings.privacyPolicy) { viewModel.openPrivacyPolicy() }
                 Button(Strings.Pro.Fallback.terms) { viewModel.openTerms() }
                 Button(Strings.ReviewBanner.rate) { openExternally(ReviewBanner.writeReviewURL) }

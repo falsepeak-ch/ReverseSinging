@@ -1,4 +1,4 @@
-Dubloon är tre röstspel i en app, och inget av dem behöver något annat än din mikrofon.
+Dubloon är fyra röstspel i en app, och inget av dem behöver något annat än din mikrofon.
 
 DUBBA EN FILMSCEN
 
@@ -39,12 +39,16 @@ Hör ett ljud och gör det sedan själv. En skällande hund, en tupp, ett bilhor
 • 24 ljud: djur, signalhorn och larm, effekter från tecknat och mänskliga läten
 • Booth Cam filmar ditt ansikte mitt i imitationen, om du vill
 
+DUBBA DINA EGNA VIDEOR
+
+Dina videor, din röst. Välj ett klipp från Bilder och berätta över det, sjung över det eller ge det nya ljudeffekter. Behåll originalljudet svagt under eller stäng av det, och dela resultatet.
+
 PRIVAT FRÅN GRUNDEN
 
 Allt sker på den här enheten. Dina inspelningar, dina tagningar, ditt båsmaterial och dina exporterade dubbningar lämnar den aldrig. Inget konto, ingen registrering, inga annonser, ingenting att ladda upp. Appen samlar anonym användningsstatistik för att avgöra vad som byggs härnäst, aldrig innehållet i en inspelning.
 
 VAD DET KOSTAR
 
-Baklängessång är gratis. Dubloon Pro öppnar dubbning av filmscener, ljudimitation, Booth Cam och export, ingenting undanhållet, som engångsköp eller prenumeration.
+Baklängessång och ”Dubba dina egna videor” är gratis. Dubloon Pro öppnar dubbning av filmscener, ljudimitation, Booth Cam och export, ingenting undanhållet, som engångsköp eller prenumeration.
 
 Byggd i Schweiz. Handgjord i Zürich.

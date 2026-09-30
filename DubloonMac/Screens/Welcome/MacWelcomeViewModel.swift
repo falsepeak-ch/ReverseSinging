@@ -28,8 +28,8 @@ final class MacWelcomeViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    /// The three games, in the order the sidebar lists them.
-    let features: [GameMode] = [.reverse, .dub, .imitate]
+    /// The four games, in the order the sidebar lists them.
+    let features: [GameMode] = [.reverse, .dub, .homeVideo, .imitate]
 
     func onAppear() {
         onboarding.onAppear()
@@ -39,9 +39,18 @@ final class MacWelcomeViewModel: ObservableObject {
 
     /// Continue closes the window. Nothing is asked for here: every game asks for the
     /// microphone itself, the first time it records.
-    var primaryTitle: String { Strings.Onboarding.buttonContinue }
+    /// Someone who could buy Pro gets the iPhone's last page as two buttons, buy and skip;
+    /// an owner or an early adopter has nothing to be sold and just continues.
+    var offersPro: Bool { onboarding.isLocked }
+
+    var primaryTitle: String { offersPro ? Strings.Onboarding.proBuy : Strings.Onboarding.buttonContinue }
 
     func primaryAction() {
+        offersPro ? onboarding.showPaywall() : onboarding.finishOnboarding()
+    }
+
+    /// "Skip for now", beside the buy button.
+    func skip() {
         onboarding.finishOnboarding()
     }
 

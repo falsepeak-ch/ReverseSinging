@@ -147,6 +147,32 @@ final class HomeVideoDubViewModel: ObservableObject {
     // MARK: - Picking
 
     private func load(_ item: PhotosPickerItem) {
+        importVideo {
+            guard let picked = try await item.loadTransferable(type: HomeVideoPick.self) else {
+                throw HomeVideoMixer.MixError.noPicture
+            }
+            return picked.url
+        }
+        pickerItem = nil
+    }
+
+    /// A video file handed over directly rather than through Photos: the Mac's Open panel, or a
+    /// file dropped on the picture. Copied into the working folder like a picked one, so the
+    /// original is never touched and never has to stay reachable.
+    func load(fileAt url: URL) {
+        importVideo {
+            let destination = HomeVideoMixer.workingDirectory
+                .appendingPathComponent("source-\(UUID().uuidString).\(url.pathExtension.isEmpty ? "mov" : url.pathExtension)")
+            try await Task.detached {
+                let isScoped = url.startAccessingSecurityScopedResource()
+                defer { if isScoped { url.stopAccessingSecurityScopedResource() } }
+                try FileManager.default.copyItem(at: url, to: destination)
+            }.value
+            return destination
+        }
+    }
+
+    private func importVideo(_ copy: @escaping @MainActor () async throws -> URL) {
         guard !isBusy || phase == .importing else { return }
         player.pause()
         isPlaying = false
@@ -154,11 +180,9 @@ final class HomeVideoDubViewModel: ObservableObject {
 
         Task {
             do {
-                guard let picked = try await item.loadTransferable(type: HomeVideoPick.self) else {
-                    throw HomeVideoMixer.MixError.noPicture
-                }
-                let measured = try await HomeVideoMixer.inspect(picked.url)
-                HomeVideoMixer.removeWorkingFiles(except: picked.url)
+                let url = try await copy()
+                let measured = try await HomeVideoMixer.inspect(url)
+                HomeVideoMixer.removeWorkingFiles(except: url)
                 source = measured
                 resultURL = nil
                 hasTake = false
@@ -175,7 +199,6 @@ final class HomeVideoDubViewModel: ObservableObject {
                 errorMessage = Strings.HomeVideo.loadFailed
                 CrashReporter.shared.record(error, context: "home_video.load")
             }
-            pickerItem = nil
         }
     }
 

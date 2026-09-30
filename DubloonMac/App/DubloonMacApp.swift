@@ -123,6 +123,13 @@ struct DubloonMacApp: App {
         .defaultPosition(.center)
         .commandsRemoved()
 
+        Window(Strings.Help.title, id: MacWindowID.help) {
+            MacHelpView()
+        }
+        .defaultSize(width: 920, height: 640)
+        .defaultPosition(.center)
+        .commandsRemoved()
+
         Window(Strings.Onboarding.welcomeTitle, id: MacWindowID.welcome) {
             MacWelcomeWindow(app: app)
         }

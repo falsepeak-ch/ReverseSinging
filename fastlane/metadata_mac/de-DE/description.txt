@@ -1,4 +1,4 @@
-Dubloon sind drei Stimmspiele in einer App, und keines davon braucht mehr als dein Mikrofon.
+Dubloon sind vier Stimmspiele in einer App, und keines davon braucht mehr als dein Mikrofon.
 
 GEMACHT FÜR DEN MAC
 
@@ -12,16 +12,11 @@ Lade eine Szene und sprich sie selbst. Dubloon spielt dir die Originalzeile vor,
 • Die Originalstimme im Kopfhörer, während du aufnimmst, wenn du magst
 • Jede Figur hat ihre Farbe, du weißt immer, wer gerade spricht
 • Ein Tempobalken, der bernsteinfarben wird, sobald du über das Original hinausläufst
-• Überlappende Dialoge auf getrennten Spuren gemischt, damit zwei Leute, die gleichzeitig reden, auch so klingen
 • Sieh dir das Original an, hör deine Fassung, oder exportiere die ganze Szene als Video
 
 BOOTH CAM
 
 Schalte die Kamera deines Mac ein und Dubloon filmt dich beim Spielen. Exportiere die fertige Szene mit deinem Gesicht in der Ecke, darüber gestapelt für eine Story, oder nebeneinander. Oder schick eine einzelne Zeile samt Reaktion raus. Die Kamera bleibt aus, bis du sie einschaltest, und das Material bleibt auf deinem Mac, bis du exportierst.
-
-MIT WERTUNG, WENN DU WILLST
-
-Jeder Take wird auf Timing, Tempo und Spiel bewertet, dazu eine Wertung für die Szene, deine beste Zeile und die, die einen zweiten Versuch verdient. Schalt es ab, und niemand zählt mehr mit.
 
 VIER SZENEN ZUM ANFANGEN
 
@@ -43,12 +38,16 @@ Hör dir ein Geräusch an und mach es selbst: ein bellender Hund, ein Hahn, eine
 • 24 Geräusche: Tiere, Hupen und Alarme, Cartoon-Effekte, menschliche Laute
 • Die Booth Cam filmt dein Gesicht dabei, wenn du willst
 
+EIGENE VIDEOS SYNCHRONISIEREN
+
+Deine Videos, deine Stimme. Wähle einen Clip aus Fotos oder dem Finder und sprich ihn ein, sing darüber oder gib ihm neue Geräusche. Behalte den Originalton leise darunter oder schalte ihn stumm, und teile das Ergebnis.
+
 VON GRUND AUF PRIVAT
 
 Alles passiert auf diesem Mac. Deine Aufnahmen, deine Takes, dein Kabinenmaterial und deine exportierten Fassungen verlassen ihn nie. Kein Konto, keine Werbung, nichts zum Hochladen. Die App erhebt anonyme Nutzungsstatistiken, um zu entscheiden, was als Nächstes gebaut wird, nie den Inhalt einer Aufnahme.
 
 WAS ES KOSTET
 
-Rückwärtssingen ist kostenlos. Dubloon Pro öffnet das Synchronisieren von Filmszenen, das Imitieren von Geräuschen, Booth Cam und Exporte, als einmaliger Kauf oder als Abo. Schon auf dem iPhone gekauft? Dann ist es hier auch freigeschaltet, mit demselben Apple Account.
+Rückwärtssingen und „Eigene Videos synchronisieren“ sind kostenlos. Dubloon Pro öffnet das Synchronisieren von Filmszenen, das Imitieren von Geräuschen, Booth Cam und Exporte, als einmaliger Kauf oder als Abo. Schon auf dem iPhone gekauft? Dann ist es hier auch freigeschaltet, mit demselben Apple Account.
 
 Gebaut in der Schweiz. In Zürich von Hand gemacht.
