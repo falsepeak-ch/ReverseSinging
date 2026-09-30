@@ -264,23 +264,6 @@ struct SettingsView: View {
             .accessibilityHidden(true)
     }
 
-    /// A tile the size of the illustrated icons, for a row that has no illustration.
-    private func symbolIcon(_ systemName: String) -> some View {
-        Image(systemName: systemName)
-            .font(.system(size: 19, weight: .semibold))
-            .foregroundStyle(Color.rsHighlight)
-            .frame(width: 44, height: 44)
-            .background(
-                RoundedRectangle(cornerRadius: EditorMetrics.radiusLarge, style: .continuous)
-                    .fill(Color.rsSurface2)
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: EditorMetrics.radiusLarge, style: .continuous)
-                    .strokeBorder(Color.rsStroke, lineWidth: EditorMetrics.hairline)
-            )
-            .accessibilityHidden(true)
-    }
-
     // MARK: - Appearance Section
 
     private var appearanceSection: some View {
@@ -295,9 +278,11 @@ struct SettingsView: View {
                         withAnimation(.rsQuick) { appearance.set(mode) }
                     } label: {
                         VStack(spacing: 8) {
-                            Image(systemName: mode.symbol)
-                                .font(.system(size: 20, weight: .semibold))
-                                .foregroundStyle(isSelected ? Color.rsTextPrimary : Color.rsTextTertiary)
+                            Image("settings-appearance-\(mode.rawValue)")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 32, height: 32)
+                                .accessibilityHidden(true)
                             Text(mode.title)
                                 .font(.rsCaption)
                                 .foregroundColor(isSelected ? .rsTextPrimary : .rsTextSecondary)
@@ -338,7 +323,7 @@ struct SettingsView: View {
                     set: { viewModel.setSharesUsageData($0) }
                 )
             ) {
-                symbolIcon("chart.bar.xaxis")
+                settingsIcon("settings-usage-data", isActive: viewModel.sharesUsageData)
             }
         }
     }
@@ -641,7 +626,7 @@ struct SettingsView: View {
                     subtitle: viewModel.memberSinceText ?? ""
                 )
                 settingsRow(title: Strings.Settings.help, subtitle: Strings.Settings.helpDesc, action: viewModel.openHelp) {
-                    symbolIcon("questionmark.bubble")
+                    settingsIcon("settings-help")
                 }
                 privacyPolicyButton
                 settingsRow(
@@ -650,7 +635,7 @@ struct SettingsView: View {
                     opensExternally: true,
                     action: viewModel.openTerms
                 ) {
-                    symbolIcon("doc.text")
+                    settingsIcon("settings-terms")
                 }
                 switzerlandCard
             }
