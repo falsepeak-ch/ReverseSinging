@@ -2,28 +2,12 @@
 //  PaywallPresentation.swift
 //  ReverseSinging
 //
-//  The two modifiers that put the paywall, and its outcomes, on screen.
+//  The modifier that puts a purchase's or a restore's outcome on screen.
 //
 
 import SwiftUI
 
 extension View {
-
-    /// Covers the whole app once the free window has closed, when the console asks
-    /// for that.
-    ///
-    /// By default it does nothing: a closed window disables the games on the menu
-    /// instead, and the paywall is opened from there (see `HomeViewModel`). Remote
-    /// Config's `hard_paywall_enabled` is what turns this one on.
-    ///
-    /// Attached at the root, above onboarding, so there is no screen it can be
-    /// escaped onto. It is driven by `AccessController.state` rather than by a
-    /// `@State` flag: nothing in the view layer can dismiss it, and a purchase
-    /// arriving on the customer-info stream — from this device or another one —
-    /// takes it away by itself.
-    func hardPaywall() -> some View {
-        modifier(HardPaywallModifier())
-    }
 
     /// Reports what a purchase or a restore did.
     ///
@@ -33,25 +17,6 @@ extension View {
     /// as the button having thrown the user out.
     func purchaseAlerts() -> some View {
         modifier(PurchaseAlertsModifier())
-    }
-}
-
-private struct HardPaywallModifier: ViewModifier {
-    @ObservedObject private var access = AccessController.shared
-
-    func body(content: Content) -> some View {
-        content
-            .coversScreen(isPresented: isCovering) {
-                ProPaywallView(source: "trial_expired", isDismissible: false)
-                    .paywallAppearance()
-            }
-    }
-
-    /// Read-only in practice. The setter is required by `fullScreenCover` and is
-    /// deliberately inert: the cover goes away when the entitlement arrives, and
-    /// there is no gesture or button that should be able to do it instead.
-    private var isCovering: Binding<Bool> {
-        Binding(get: { access.lockPresentation == .hard }, set: { _ in })
     }
 }
 

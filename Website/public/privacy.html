@@ -210,7 +210,7 @@
           <p>Every score is calculated on your device: dub timing, pacing and delivery; reverse-singing similarity; and sound-imitation rhythm, pitch, tone and length. Dubloon does not use speech recognition, does not send your voice to any machine-learning service, does not create voiceprints and does not process biometric data.</p>
 
           <h3>Preferences</h3>
-          <p>Dubloon also stores a few small settings on your device, in the system’s standard preferences storage. These are: whether you finished onboarding, interface mode, haptics and sounds, headphone monitoring, whether scoring is on, Booth Cam settings, best scores, counters used to decide when to ask for an App Store review (number of app opens, shares and great scores), the date your free trial started, the date of first launch, and early-adopter flags. Tips shown in the app are managed by Apple’s TipKit and are also stored locally.</p>
+          <p>Dubloon also stores a few small settings on your device, in the system’s standard preferences storage. These are: whether you finished onboarding, interface mode, haptics and sounds, headphone monitoring, whether scoring is on, Booth Cam settings, best scores, counters used to decide when to ask for an App Store review (number of app opens, days of use, shares and great scores, and whether you have imported a dub pack), the date of first launch, and early-adopter flags. Tips shown in the app are managed by Apple’s TipKit and are also stored locally.</p>
 
           <h3>Deleting it</h3>
           <ul>
@@ -274,16 +274,13 @@
           <h3 id="crashlytics">Firebase Crashlytics</h3>
           <p>Also provided by Google. It receives crash reports and non-fatal error reports, including, for import errors, the pack title or folder name and file names described above, and any feedback note you choose to send. We use it to fix bugs.</p>
 
-          <h3 id="remote-config">Firebase Remote Config</h3>
-          <p>Also provided by Google. The app fetches configuration values from Google, for example the length of the free trial or which games are free. This request involves an app instance identifier.</p>
-
           <h3 id="revenuecat">RevenueCat</h3>
           <p>Provided by RevenueCat, Inc. in the USA. RevenueCat manages in-app purchases and subscriptions for Dubloon Pro. It receives:</p>
           <ul>
             <li>An anonymous RevenueCat app user ID generated on your device.</li>
             <li>Your App Store receipt and transaction information: products purchased, purchase dates, subscription status, the original download date, and country and currency.</li>
           </ul>
-          <p>We use this to unlock Dubloon Pro, to restore purchases, and to check early-adopter status (people who downloaded Dubloon before it started charging get Pro free). The app does not send your name or email to RevenueCat. See <a href="https://www.revenuecat.com/privacy/">RevenueCat’s privacy policy</a>.</p>
+          <p>We use this to unlock Dubloon Pro and to restore purchases. The app does not send your name or email to RevenueCat. See <a href="https://www.revenuecat.com/privacy/">RevenueCat’s privacy policy</a>.</p>
 
           <h3 id="apple">Apple</h3>
           <p>Payments are processed by Apple through the App Store. We never see your payment details. The request to rate the app uses Apple’s StoreKit, and Apple decides whether the prompt appears. Apple’s own handling of your data is covered by <a href="https://www.apple.com/legal/privacy/">Apple’s privacy policy</a>.</p>
@@ -293,7 +290,7 @@
           <h2 id="opt-out"><span class="n">06</span>Turning off usage data</h2>
           <p>Open <strong>Settings → Privacy → Share usage data</strong> in Dubloon, on iPhone or Mac. It is on by default. The switch arrives with the next update of Dubloon; until you have it, write to <a href="mailto:contact@falsepeak.ch">contact@falsepeak.ch</a> and we will help.</p>
           <p>When you turn it off, Firebase Analytics collection and Crashlytics crash reporting stop from that device from then on. Data already sent before you switched it off is kept for the periods described under <a href="#retention">retention</a>.</p>
-          <p>Turning it off does not affect purchases. RevenueCat and Remote Config are still needed so that Dubloon Pro and the free trial work.</p>
+          <p>Turning it off does not affect purchases. RevenueCat is still needed so that Dubloon Pro works.</p>
         </section>
 
         <section>
@@ -311,7 +308,7 @@
           <h2 id="legal-bases"><span class="n">08</span>Why we are allowed to</h2>
           <p>If you are in the EU, the EEA, the UK or Switzerland, data protection law requires a legal basis for each use of personal data. Ours are:</p>
           <ul>
-            <li><strong>Performance of a contract.</strong> To provide the app, the free trial and your purchases (Remote Config, RevenueCat, Apple).</li>
+            <li><strong>Performance of a contract.</strong> To provide the app and your purchases (RevenueCat, Apple).</li>
             <li><strong>Legitimate interests.</strong> To collect anonymous usage statistics and crash reports so we can fix bugs and improve the app (Firebase Analytics, Crashlytics). We keep this data minimal and not linked to your identity, and you can switch it off at any time.</li>
             <li><strong>Legal obligations.</strong> Tax and accounting records for purchases, which Apple and RevenueCat keep as required by law.</li>
           </ul>

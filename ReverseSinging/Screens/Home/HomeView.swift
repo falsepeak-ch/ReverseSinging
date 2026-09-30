@@ -61,7 +61,9 @@ struct HomeView: View {
             ReviewFeedbackModal(
                 stars: viewModel.reviewStars,
                 onSend: { note in
-                    if let mail = viewModel.sendReviewFeedback(note) { openURL(mail) }
+                    if let mail = viewModel.sendReviewFeedback(note) {
+                        openURL(mail) { opened in viewModel.reviewFeedbackMailDidOpen(opened) }
+                    }
                 },
                 onCancel: { viewModel.reviewDialogDidCancel() }
             )
@@ -104,10 +106,11 @@ struct HomeView: View {
 
     // MARK: - Menu
 
+    /// Scrolls, under the header. The four games alone fit any iPhone; with the Pro note or
+    /// the review note above them they do not fit a small one, and a menu that cannot be
+    /// scrolled pushes its last game, and its own header, off the screen.
     private var menu: some View {
-        VStack(spacing: 0) {
-            Spacer().frame(height: EditorMetrics.headerBarHeight)
-
+        ScrollView {
             VStack(alignment: .leading, spacing: 10) {
                 if viewModel.showsReviewBanner {
                     ReviewBannerCard(
@@ -122,7 +125,7 @@ struct HomeView: View {
                 }
 
                 if viewModel.areGamesLocked {
-                    TrialEndedCard(title: viewModel.lockedCardTitle) { viewModel.showPaywall(from: .trialEndedCard) }
+                    UnlockProCard { viewModel.showPaywall(from: .unlockCard) }
                         .padding(.bottom, 10)
                         .transition(.opacity)
                 }
@@ -141,11 +144,12 @@ struct HomeView: View {
             }
             .padding(.horizontal, EditorMetrics.gutter)
             .padding(.top, 20)
+            .padding(.bottom, 24)
             .animation(.rsQuick, value: viewModel.areGamesLocked)
             .animation(.rsQuick, value: viewModel.showsReviewBanner)
-
-            Spacer()
         }
+        .scrollBounceBehavior(.basedOnSize)
+        .padding(.top, EditorMetrics.headerBarHeight)
     }
 
     // MARK: - Header
@@ -159,13 +163,6 @@ struct HomeView: View {
                     .frame(height: 40)
 
                 Spacer()
-
-                if let daysRemaining = viewModel.trialDaysRemaining {
-                    TrialBadge(daysRemaining: daysRemaining) {
-                        viewModel.showPaywall(from: .trialBadge)
-                    }
-                    .transition(.scale.combined(with: .opacity))
-                }
 
                 HelpButton(topic: .gettingStarted)
 

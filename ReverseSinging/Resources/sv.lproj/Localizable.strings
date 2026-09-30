@@ -9,13 +9,18 @@
 "onboarding.howItWorks.title" = "Så funkar det";
 "onboarding.howItWorks.message" = "Spela in en låt, vänd på den och sjung med i rappakaljan. Vänd sedan på ditt eget försök och hör om du var nära eller just uppfann ett nytt språk.";
 "onboarding.dub.title" = "Dubba en filmscen";
-"onboarding.dub.message" = "Det andra spelet: starta en scen, överspela ordentligt och hör dig själv i filmen. Två scener följer med. Sedan tar du med dina egna filer.";
+"onboarding.dub.message" = "Det andra spelet: starta en scen, överspela ordentligt och hör dig själv i filmen. Fyra scener följer med. Sedan tar du med dina egna filer.";
 "onboarding.pro.title" = "Därför finns Dubloon Pro";
-"onboarding.pro.message" = "Dubloon har ingen reklam, inget konto och ingen spårning, och görs av en enda person i Zürich. Dubloon Pro är det som betalar för det: alla scener, Booth Cam och export. Baklängessång förblir gratis.";
-"onboarding.microphone.title" = "En sista sak";
-"onboarding.microphone.message" = "Alla spelen måste höra dig: baklängessång, dubbning av en scen eller härmning av ett ljud. Mikrofonen vaknar bara medan du spelar in, allt stannar på den här enheten och ingenting laddas någonsin upp. Din sämsta tagning stannar mellan er två.";
+"onboarding.pro.message" = "Dubloon har ingen reklam, inget konto och ingen spårning, och görs av en enda person i Zürich. Dubloon Pro är det som betalar för det: alla scener, ljudimitation, Booth Cam och export. Baklängessång och dubbning av dina egna videor förblir gratis.";
+"onboarding.pro.buy" = "Skaffa Dubloon Pro";
+"onboarding.pro.skip" = "Hoppa över så länge";
 "onboarding.button.continueLowercase" = "fortsätt";
-"onboarding.button.microphoneContinue" = "Fortsätt";
+"onboarding.button.continue" = "Fortsätt";
+
+// MARK: - Microphone explanation
+"microphonePrimer.title" = "Mikrofon";
+"microphonePrimer.message" = "Alla spelen måste höra dig: baklängessång, dubbning av en scen eller härmning av ett ljud. Mikrofonen vaknar bara medan du spelar in, allt stannar på den här enheten och ingenting laddas någonsin upp. Din sämsta tagning stannar mellan er två.";
+"microphonePrimer.continue" = "Fortsätt";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Stoppa inspelningen";
@@ -139,9 +144,6 @@
 "settings.about.license.renews" = "Dubloon Pro, förnyas %@";
 "settings.about.license.ends" = "Dubloon Pro, upphör %@";
 "settings.about.license.earlyAdopter" = "Tidig användare, gratis för alltid";
-"settings.about.license.trialDays" = "Gratis provperiod, %d dagar kvar";
-"settings.about.license.trialLastDay" = "Gratis provperiod, sista dagen";
-"settings.about.license.trialOver" = "Gratis provperiod är slut";
 "settings.about.license.free" = "Gratis";
 
 // Theme descriptions
@@ -238,7 +240,7 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "Stäng";
 "dubGate.ask.title" = "Har du dina filmer redan?";
-"dubGate.ask.message" = "Utöver de två exempelscenerna levererar och lagrar vi inte en enda film. För att dubba något annat måste filmfilen redan finnas på den här enheten.";
+"dubGate.ask.message" = "Utöver de fyra exempelscenerna levererar och lagrar vi inte en enda film. För att dubba något annat måste filmfilen redan finnas på den här enheten.";
 "dubGate.ask.confirm" = "Ja, de finns här";
 "dubGate.ask.needDownload" = "Nej, jag måste hämta dem";
 "dubGate.download.title" = "Var du hittar dem";
@@ -249,9 +251,9 @@
 "dubGate.disclaimer.responsibility" = "Se till att du har rätt att använda det du laddar ner, och följ upphovsrättsreglerna där du bor.";
 "dubGuide.row" = "Jag behöver hjälp att få fler paket";
 "dubGuide.title" = "Skaffa fler paket";
-"dubGuide.intro" = "Ett dubbningspaket är en scen: videon, dess ljudspår och en inspelning av varje replik. Så här lägger du till ett i Dubloon.";
+"dubGuide.intro" = "Ett dubbpaket är en scen: videon, dess ljudspår och en inspelning av varje replik. Så här lägger du till ett i Dubloon.";
 "dubGuide.1.title" = "Hitta en scen";
-"dubGuide.1.detail" = "Öppna GameBanana nedan och bläddra bland filmernas dubbningspaket. Välj ett och öppna dess sida.";
+"dubGuide.1.detail" = "Öppna GameBanana nedan och bläddra bland dubbpaketen för film. Välj ett och öppna dess sida.";
 "dubGuide.2.title" = "Ladda ner det";
 "dubGuide.2.detail" = "Tryck på Download och välj filen: en .zip, .7z eller .rar. Safari sparar den i appen Filer, under Hämtade filer.";
 "dubGuide.3.title" = "Låt den bli klar";
@@ -296,13 +298,10 @@
 "dub.videoNeedsReimport" = "Scenens video konverterades av en äldre version och ligger nu före rösterna. Importera paketet igen så rättar det till sig.";
 
 // MARK: - Pro / Paywall
-"pro.trial.daysLeft" = "%d dagar kvar";
-"pro.trial.oneDayLeft" = "Sista dagen";
-"pro.trial.over" = "Din gratisperiod är slut";
 "pro.locked.title" = "Skaffa Dubloon Pro för att dubba";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Lås upp Dubloon";
-"pro.unlock.subtitle" = "Alla scener, Booth Cam och export. Baklängessång förblir gratis.";
+"pro.unlock.subtitle" = "Alla scener, ljudimitation, Booth Cam och export. Baklängessång och dubbning av dina egna videor förblir gratis.";
 "pro.owned.title" = "Du äger Dubloon";
 "pro.owned.subtitle" = "Tack. Varje scen, varje tagning, utan tak.";
 "pro.manage.title" = "Hantera köpet";
@@ -313,17 +312,13 @@
 "pro.restore.title" = "Återställ köpet";
 "pro.restore.subtitle" = "Ny telefon eller ominstallerat? Hämta tillbaka det.";
 "pro.testStore.warning" = "Debugbygge: kopplat till RevenueCats testbutik. Inga riktiga pengar rör sig.";
-"pro.restored.title" = "Återställt";
-"pro.restored.message" = "Ditt köp finns på den här enheten igen.";
 "pro.nothingToRestore.title" = "Inget att återställa";
 "pro.nothingToRestore.message" = "Inget köp hittades på det här Apple-kontot. Om du köpte Dubloon med ett annat, logga in med det och försök igen.";
 "pro.error.title" = "Något gick snett";
 "pro.error.generic" = "Butiken svarade inte. Försök igen om en stund.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Lås upp Dubloon";
-"pro.fallback.message" = "Din gratisperiod är slut. Lås upp Dubloon för att fortsätta dubba.";
-"pro.fallback.message.beforeExpiry" = "Lås upp Dubloon för att fortsätta dubba.";
-"pro.fallback.message.noTrial" = "Lås upp Dubloon för att dubba varje scen.";
+"pro.fallback.message" = "Lås upp Dubloon för att dubba varje scen.";
 "pro.fallback.buy" = "Lås upp för %@";
 "pro.fallback.buyUnpriced" = "Lås upp";
 "pro.fallback.loading" = "Frågar butiken…";
@@ -345,7 +340,7 @@
 "review.banner.rate" = "Skriv en recension";
 "review.banner.later" = "Inte nu";
 "review.banner.fan.title" = "Har du kul?";
-"review.banner.fan.message" = "Du är på gång. Dubloon görs av en enda person i Zürich, och det är genom recensioner som nya spelare hittar det. Om det har fått dig att skratta skulle några ord på App Store betyda mycket.";
+"review.banner.fan.message" = "Du har flyt. Dubloon görs av en enda person i Zürich, och det är genom recensioner som nya spelare hittar det. Om det har fått dig att skratta skulle några ord på App Store betyda mycket.";
 "review.banner.prompt" = "Hur många stjärnor ger du Dubloon?";
 "review.banner.star" = "%d av 5 stjärnor";
 "review.banner.store.title" = "Kul att du gillar det!";
@@ -464,7 +459,7 @@
 
 // Home Video Dub
 "main.mode.homeVideo.title" = "Dubba dina egna videor";
-"main.mode.homeVideo.subtitle" = "Lägg din röst på vilken video du har filmat";
+"main.mode.homeVideo.subtitle" = "Lägg din röst på valfri video du har filmat";
 "homeVideo.choose" = "Välj en video";
 "homeVideo.change" = "Byt video";
 "homeVideo.limit" = "Upp till en minut. Din video stannar på mobilen.";
@@ -472,7 +467,7 @@
 "homeVideo.importing" = "Öppnar din video…";
 "homeVideo.mixing" = "Lägger på din röst…";
 "homeVideo.keepOriginal" = "Behåll originalljudet";
-"homeVideo.keepOriginal.detail" = "Spelas tyst under din röst";
+"homeVideo.keepOriginal.detail" = "Spelas lågt under din röst";
 "homeVideo.keepOriginal.none" = "Den här videon har inget ljud";
 "homeVideo.hint.ready" = "Tryck på spela in så börjar videon från början. Följ vågen så att dina ljud kommer i rätt ögonblick.";
 "homeVideo.hint.empty" = "Välj en video från ditt bibliotek för att lägga din röst på den.";
@@ -678,13 +673,13 @@
 "help.booth.1.q" = "Vad är Booth Cam?";
 "help.booth.1.a" = "Booth Cam filmar ditt ansikte med frontkameran medan du spelar, så att reaktionen kan följa med dubbningen i videon. Den är av tills du slår på den med kameraknappen på inspelningsskärmen eller i Inställningar. Materialet stannar på din enhet.";
 "help.booth.2.q" = "Hur exporterar jag en video?";
-"help.booth.2.a" = "Tryck på Exportera video i en scen. Välj klipp (hela scenen, eller en sessionsrulle med bara replikerna du dubbat) och var båsmaterialet ska hamna: i hörnet, ovanpå varandra för en story, som reaktion eller sida vid sida. Innan videon renderas visar Dubloon vems scenen är, så att du kan behålla krediten när du delar.";
+"help.booth.2.a" = "Tryck på Exportera video i en scen. Välj klipp (hela scenen, eller en sessionsrulle med bara replikerna du dubbat) och var båsmaterialet ska hamna: i hörnet, ovanpå varandra för en story, som reaktion eller sida vid sida. Innan videon renderas visar Dubloon vems scenen är, så att du kan ge cred när du delar.";
 "help.booth.3.q" = "Hur raderar jag båsmaterial?";
 "help.booth.3.a" = "Inställningar visar hur mycket plats båsmaterialet tar, med en knapp för att radera alla båstagningar. Dina rösttagningar och dubbningar finns kvar. Raderar du en scen försvinner också dess tagningar och material.";
 "help.packs.1.q" = "Hur lägger jag till fler scener?";
 "help.packs.1.a" = "Scener kommer som dubbpaket: en mapp, eller ett .zip-, .7z- eller .rar-arkiv. Tryck på + i Dubba filmscen och välj ett från Filer, eller skicka det till Dubloon via AirDrop eller valfritt delningsblad. Dubloon packar upp det och scenen dyker upp i listan.";
 "help.packs.2.q" = "Var kommer dubbpaketen ifrån?";
-"help.packs.2.a" = "Två scener följer med appen. Alla andra paket görs och delas av andra spelare; Dubloon inkluderar, lagrar eller säljer inga filmer. Dubba bara det du har rätt att använda, och följ upphovsrättsreglerna där du bor.";
+"help.packs.2.a" = "Fyra scener följer med appen. Alla andra paket görs och delas av andra spelare; Dubloon inkluderar, lagrar eller säljer inga filmer. Dubba bara det du har rätt att använda, och följ upphovsrättsreglerna där du bor.";
 "help.packs.3.q" = "Ett paket går inte att importera. Vad nu?";
 "help.packs.3.a" = "Dubloon säger vad som gick fel. De vanliga lösningarna: ligger filen i iCloud, öppna den i Filer först så att den laddas ned. Har arkivet ett lösenord, be skaparen om ett utan. Går det inte att packa upp, spara det igen som .zip. Och säger Dubloon att det inte är ett dubbpaket behövs en textfil och en inspelning för varje replik.";
 "help.imitate.1.q" = "Hur funkar Ljudimitation?";
@@ -694,7 +689,7 @@
 "help.imitate.3.q" = "Kan jag dela ett försök?";
 "help.imitate.3.a" = "Ja. Efter en dom trycker du på Gör video: ljudet, ditt försök och ditt resultat, redo att skicka. Med Booth Cam på är ditt ansikte med också.";
 "help.pro.1.q" = "Vad låser Dubloon Pro upp?";
-"help.pro.1.a" = "Dubba filmscen med alla scener och communitypaket, Ljudimitation, Booth Cam och videoexport. Baklängessång är gratis oavsett. Pro är ett engångsköp eller en prenumeration, och det låses upp på din iPhone och din Mac med samma Apple-konto.";
+"help.pro.1.a" = "Dubba filmscen med alla scener och communitypaket, Ljudimitation, Booth Cam och videoexport. Baklängessång och Dubba dina egna videor är gratis oavsett. Pro är ett engångsköp eller en prenumeration, och det låses upp på din iPhone och din Mac med samma Apple-konto.";
 "help.pro.2.q" = "Jag har köpt Pro, men det är låst.";
 "help.pro.2.a" = "Öppna Inställningar och tryck på Återställ köpet. Se till att du är inloggad på App Store med Apple-kontot du köpte det med. På en ny telefon eller efter en ominstallation får du tillbaka det utan kostnad genom att återställa.";
 "help.pro.3.q" = "Hur säger jag upp eller ändrar min prenumeration?";

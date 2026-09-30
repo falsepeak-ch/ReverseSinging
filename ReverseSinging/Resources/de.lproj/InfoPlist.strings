@@ -3,6 +3,6 @@
    ReverseSinging
 */
 
-"NSMicrophoneUsageDescription" = "Dubloon braucht Zugriff auf das Mikrofon, um deine Stimme aufzunehmen – damit du Lieder rückwärts singen und Filmszenen synchronisieren kannst.";
+"NSMicrophoneUsageDescription" = "Dubloon braucht das Mikrofon, um deine Stimme beim Spielen aufzunehmen: rückwärts singen, Szenen und Videos synchronisieren und Geräusche nachmachen.";
 
 "NSCameraUsageDescription" = "Dubloon filmt dich mit der Frontkamera, während du synchronisierst, damit du deine Reaktion zusammen mit der Aufnahme teilen kannst. Die Kamera bleibt aus, bis du sie einschaltest.";

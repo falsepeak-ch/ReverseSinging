@@ -9,13 +9,18 @@
 "onboarding.howItWorks.title" = "Hoe het werkt";
 "onboarding.howItWorks.message" = "Neem een liedje op, draai het om en zing het gebrabbel na. Draai je eigen take daarna terug en hoor of je in de buurt kwam of net een nieuwe taal hebt uitgevonden.";
 "onboarding.dub.title" = "Nasynchroniseer een scène";
-"onboarding.dub.message" = "Het tweede spel: zet een scène aan, speel er stevig overheen en hoor jezelf in de film. Twee scènes zitten erbij. Daarna neem je je eigen bestanden mee.";
+"onboarding.dub.message" = "Het tweede spel: zet een scène aan, speel er stevig overheen en hoor jezelf in de film. Vier scènes zitten erbij. Daarna neem je je eigen bestanden mee.";
 "onboarding.pro.title" = "Waarom Dubloon Pro bestaat";
-"onboarding.pro.message" = "Dubloon heeft geen advertenties, geen account en geen tracking, en wordt gemaakt door één persoon in Zürich. Dubloon Pro betaalt dat: elke scène, Booth Cam en exports. Achterstevoren zingen blijft gratis.";
-"onboarding.microphone.title" = "Nog één ding";
-"onboarding.microphone.message" = "Alle spellen moeten je horen: achterstevoren zingen, een scène nasynchroniseren of een geluid nadoen. De microfoon wordt alleen wakker tijdens het opnemen, alles blijft op dit apparaat en er wordt nooit iets geüpload. Je slechtste take blijft tussen jullie tweeën.";
+"onboarding.pro.message" = "Dubloon heeft geen advertenties, geen account en geen tracking, en wordt gemaakt door één persoon in Zürich. Dubloon Pro betaalt dat: elke scène, geluiden nadoen, Booth Cam en exports. Achterstevoren zingen en je eigen video's dubben blijven gratis.";
+"onboarding.pro.buy" = "Neem Dubloon Pro";
+"onboarding.pro.skip" = "Voorlopig overslaan";
 "onboarding.button.continueLowercase" = "doorgaan";
-"onboarding.button.microphoneContinue" = "Doorgaan";
+"onboarding.button.continue" = "Doorgaan";
+
+// MARK: - Microphone explanation
+"microphonePrimer.title" = "Microfoon";
+"microphonePrimer.message" = "Alle spellen moeten je horen: achterstevoren zingen, een scène nasynchroniseren of een geluid nadoen. De microfoon wordt alleen wakker tijdens het opnemen, alles blijft op dit apparaat en er wordt nooit iets geüpload. Je slechtste take blijft tussen jullie tweeën.";
+"microphonePrimer.continue" = "Doorgaan";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Opname stoppen";
@@ -139,9 +144,6 @@
 "settings.about.license.renews" = "Dubloon Pro, verlengt op %@";
 "settings.about.license.ends" = "Dubloon Pro, eindigt op %@";
 "settings.about.license.earlyAdopter" = "Early adopter, voor altijd gratis";
-"settings.about.license.trialDays" = "Gratis proef, nog %d dagen";
-"settings.about.license.trialLastDay" = "Gratis proef, laatste dag";
-"settings.about.license.trialOver" = "Gratis proef afgelopen";
 "settings.about.license.free" = "Gratis";
 
 // Theme descriptions
@@ -238,7 +240,7 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "Sluit";
 "dubGate.ask.title" = "Heb je je films al?";
-"dubGate.ask.message" = "Buiten de twee voorbeeldscènes leveren en hosten wij geen enkele film. Om iets anders te dubben moet het filmbestand al op dit apparaat staan.";
+"dubGate.ask.message" = "Buiten de vier voorbeeldscènes leveren en hosten wij geen enkele film. Om iets anders te dubben moet het filmbestand al op dit apparaat staan.";
 "dubGate.ask.confirm" = "Ja, die heb ik al";
 "dubGate.ask.needDownload" = "Nee, ik moet ze nog halen";
 "dubGate.download.title" = "Waar je ze vindt";
@@ -249,9 +251,9 @@
 "dubGate.disclaimer.responsibility" = "Zorg dat je het recht hebt om te gebruiken wat je downloadt, en volg de auteursrechtregels waar jij woont.";
 "dubGuide.row" = "Ik heb hulp nodig om meer packs te krijgen";
 "dubGuide.title" = "Meer packs krijgen";
-"dubGuide.intro" = "Een dub-pack is één scène: de video, de soundtrack en een opname van elke zin. Zo zet je er een in Dubloon.";
+"dubGuide.intro" = "Een dubpack is één scène: de video, de soundtrack en een opname van elke zin. Zo zet je er een in Dubloon.";
 "dubGuide.1.title" = "Zoek een scène";
-"dubGuide.1.detail" = "Open GameBanana hieronder en blader door de film-dub-packs. Kies er een en open de pagina.";
+"dubGuide.1.detail" = "Open GameBanana hieronder en blader door de dubpacks voor films. Kies er een en open de pagina.";
 "dubGuide.2.title" = "Download het";
 "dubGuide.2.detail" = "Tik op Download en kies het bestand: een .zip, .7z of .rar. Safari bewaart het in de Bestanden-app, bij Downloads.";
 "dubGuide.3.title" = "Laat het afronden";
@@ -296,13 +298,10 @@
 "dub.videoNeedsReimport" = "De video van deze scène is door een oudere versie omgezet en loopt nu voor op de stemmen. Importeer het pack opnieuw om dat recht te zetten.";
 
 // MARK: - Pro / Paywall
-"pro.trial.daysLeft" = "Nog %d dagen";
-"pro.trial.oneDayLeft" = "Laatste dag";
-"pro.trial.over" = "Je gratis proefperiode is voorbij";
 "pro.locked.title" = "Neem Dubloon Pro om te dubben";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Dubloon ontgrendelen";
-"pro.unlock.subtitle" = "Elke scène, Booth Cam en exports. Achterstevoren zingen blijft gratis.";
+"pro.unlock.subtitle" = "Elke scène, geluiden nadoen, Booth Cam en exports. Achterstevoren zingen en je eigen video's dubben blijven gratis.";
 "pro.owned.title" = "Dubloon is van jou";
 "pro.owned.subtitle" = "Dank je. Elke scène, elke take, geen plafond.";
 "pro.manage.title" = "Aankoop beheren";
@@ -313,17 +312,13 @@
 "pro.restore.title" = "Aankoop herstellen";
 "pro.restore.subtitle" = "Nieuwe telefoon of opnieuw geïnstalleerd? Haal hem terug.";
 "pro.testStore.warning" = "Debug-build: verbonden met de RevenueCat-teststore. Hier gaat geen echt geld heen en weer.";
-"pro.restored.title" = "Hersteld";
-"pro.restored.message" = "Je aankoop staat weer op dit apparaat.";
 "pro.nothingToRestore.title" = "Niets te herstellen";
 "pro.nothingToRestore.message" = "Op dit Apple-account is geen aankoop gevonden. Als je Dubloon met een ander account hebt gekocht, log daarmee in en probeer het opnieuw.";
 "pro.error.title" = "Er ging iets mis";
 "pro.error.generic" = "De store gaf geen antwoord. Probeer het zo nog eens.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Dubloon ontgrendelen";
-"pro.fallback.message" = "Je gratis proefperiode is voorbij. Ontgrendel Dubloon om te blijven dubben.";
-"pro.fallback.message.beforeExpiry" = "Ontgrendel Dubloon om te blijven dubben.";
-"pro.fallback.message.noTrial" = "Ontgrendel Dubloon om elke scène te dubben.";
+"pro.fallback.message" = "Ontgrendel Dubloon om elke scène te dubben.";
 "pro.fallback.buy" = "Ontgrendel voor %@";
 "pro.fallback.buyUnpriced" = "Ontgrendelen";
 "pro.fallback.loading" = "We vragen het de store…";
@@ -664,13 +659,13 @@
 "help.dub.1.q" = "Hoe dub ik een scène?";
 "help.dub.1.a" = "Open Filmscène dubben, kies een scène en tik op Beginnen met dubben. Luister bij elke zin naar het origineel en druk dan op opnemen: je krijgt drie tellen aftellen, en de microfoon sluit vanzelf als de zin afgelopen is. Ga verder met Volgende, en kom terug naar welke zin je maar wilt.";
 "help.dub.2.q" = "Wat betekent de tempobalk?";
-"help.dub.2.a" = "Die laat zien hoe lang de originele zin duurt. Zodra je eroverheen gaat, wordt hij oranje, zodat je weet dat je moet opschieten. Onder je take laat de golfvorm van het origineel zien waar je te vroeg inviel, haastte of een gat liet vallen.";
+"help.dub.2.a" = "Die laat zien hoe lang de originele zin duurt. Zodra je eroverheen gaat, wordt hij oranje, zodat je weet dat je moet opschieten. Onder je take laat de golfvorm van het origineel zien waar je te vroeg inviel, te snel ging of een gat liet vallen.";
 "help.dub.3.q" = "Hoe worden dubs beoordeeld?";
 "help.dub.3.a" = "Elke take wordt beoordeeld op timing (begon en stopte je samen met het origineel), tempo (hield je het ritme vast) en spel (volgden je harde en zachte stukken het origineel). De scène krijgt ook een score, met je beste zin en de zin die nog een poging waard is. Geen zin in een oordeel? Zet Mijn takes beoordelen uit in de dubopties.";
 "help.dub.4.q" = "Hoe hoor ik mezelf in de film?";
 "help.dub.4.a" = "Tik bij de scène op Mijn versie bekijken. Je takes komen in de film in plaats van de originele zinnen; wat je nog niet hebt gedubd, speelt zoals het was. Origineel bekijken speelt de scène onaangeroerd af.";
 "help.homeVideo.1.q" = "Hoe dub ik mijn eigen video?";
-"help.homeVideo.1.a" = "Tik op het lege beeld en kies een video uit je bibliotheek, tot een minuut lang. Tik op opnemen: na het aftellen begint de video vooraan en komt je stem erbovenop. Aan het eind speelt jouw versie, klaar om te delen of opnieuw op te nemen.";
+"help.homeVideo.1.a" = "Tik op het lege beeld en kies een video uit je bibliotheek, tot een minuut lang. Tik op opnemen: na het aftellen begint de video vanaf het begin en komt je stem erbovenop. Aan het eind speelt jouw versie, klaar om te delen of opnieuw op te nemen.";
 "help.homeVideo.2.q" = "Hoe time ik mijn geluiden?";
 "help.homeVideo.2.a" = "De golf onder het beeld is het geluid van de video zelf, en de lijn die erover beweegt laat zien waar de video is. Kijk ernaar om een blaf of een lach op het juiste moment te laten vallen. Na een opname wordt je stem er in rood overheen getekend.";
 "help.homeVideo.3.q" = "Kan ik de video horen terwijl ik opneem?";
@@ -682,9 +677,9 @@
 "help.booth.3.q" = "Hoe verwijder ik cabinebeelden?";
 "help.booth.3.a" = "In Instellingen zie je hoeveel ruimte cabinebeelden innemen, met een knop om alle cabinetakes te verwijderen. Je stemtakes en je dubs blijven staan. Als je een scène verwijdert, gaan de takes en beelden ervan ook weg.";
 "help.packs.1.q" = "Hoe voeg ik meer scènes toe?";
-"help.packs.1.a" = "Scènes komen als dubpacks: een map, of een .zip-, .7z- of .rar-archief. Tik op + in Filmscène dubben en kies er een uit Bestanden, of stuur hem naar Dubloon via AirDrop of vanuit elk deelmenu. Dubloon pakt hem uit en de scène verschijnt in de lijst.";
+"help.packs.1.a" = "Scènes komen als dubpacks: een map, of een .zip-, .7z- of .rar-archief. Tik op + in Filmscène dubben en kies er een uit Bestanden, of stuur het naar Dubloon via AirDrop of vanuit elk deelmenu. Dubloon pakt het uit en de scène verschijnt in de lijst.";
 "help.packs.2.q" = "Waar komen dubpacks vandaan?";
-"help.packs.2.a" = "Er zitten twee scènes bij de app. Elk ander pack is gemaakt en gedeeld door andere spelers; Dubloon levert, host of verkoopt geen films. Dub alleen wat je mag gebruiken, en volg de auteursrechtregels waar jij woont.";
+"help.packs.2.a" = "Er zitten vier scènes bij de app. Elk ander pack is gemaakt en gedeeld door andere spelers; Dubloon levert, host of verkoopt geen films. Dub alleen wat je mag gebruiken, en volg de auteursrechtregels waar jij woont.";
 "help.packs.3.q" = "Een pack wil niet importeren. Wat nu?";
 "help.packs.3.a" = "Dubloon vertelt wat er misging. De gebruikelijke oplossingen: staat het bestand in iCloud, open het dan eerst in Bestanden zodat het wordt gedownload. Zit er een wachtwoord op het archief, vraag de maker dan om een versie zonder. Wil het niet uitpakken, sla het dan opnieuw op als .zip. En zegt Dubloon dat het geen dubpack is, dan is er voor elke zin een tekstbestand en een opname nodig.";
 "help.imitate.1.q" = "Hoe werkt Geluiden nadoen?";
@@ -694,7 +689,7 @@
 "help.imitate.3.q" = "Kan ik een poging delen?";
 "help.imitate.3.a" = "Ja. Tik na een oordeel op Maak video: het geluid, je poging en je score, klaar om te versturen. Met Booth Cam aan staat je gezicht er ook in.";
 "help.pro.1.q" = "Wat ontgrendelt Dubloon Pro?";
-"help.pro.1.a" = "Filmscène dubben met elke scène en elk communitypack, Geluiden nadoen, Booth Cam en video-exports. Achterstevoren zingen is hoe dan ook gratis. Pro is een eenmalige aankoop of een abonnement, en het wordt ontgrendeld op je iPhone en je Mac met hetzelfde Apple Account.";
+"help.pro.1.a" = "Filmscène dubben met elke scène en elk communitypack, Geluiden nadoen, Booth Cam en video-exports. Achterstevoren zingen en Je eigen video's dubben zijn hoe dan ook gratis. Pro is een eenmalige aankoop of een abonnement, en het wordt ontgrendeld op je iPhone en je Mac met hetzelfde Apple Account.";
 "help.pro.2.q" = "Ik heb Pro gekocht, maar het zit op slot.";
 "help.pro.2.a" = "Open Instellingen en tik op Aankoop herstellen. Zorg dat je in de App Store bent ingelogd met het Apple Account waarmee je het hebt gekocht. Op een nieuwe telefoon of na opnieuw installeren haal je het zo kosteloos terug.";
 "help.pro.3.q" = "Hoe zeg ik mijn abonnement op of wijzig ik het?";

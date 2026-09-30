@@ -3,6 +3,6 @@
    ReverseSinging
 */
 
-"NSMicrophoneUsageDescription" = "Dubloon tarvitsee pääsyn mikrofoniin nauhoittaakseen äänesi, jotta voit laulaa biisejä takaperin ja dubata elokuvakohtauksia.";
+"NSMicrophoneUsageDescription" = "Dubloon tarvitsee mikrofonia äänittääkseen ääntäsi, kun pelaat: takaperin laulamista, kohtausten ja videoiden dubbaamista ja äänten matkimista.";
 
 "NSCameraUsageDescription" = "Dubloon kuvaa sinua etukameralla dubatessasi, jotta voit jakaa reaktiosi oton ohella. Kuvaus on pois päältä, kunnes otat sen käyttöön.";

@@ -9,13 +9,18 @@
 "onboarding.howItWorks.title" = "Cómo funciona";
 "onboarding.howItWorks.message" = "Graba una canción, dale la vuelta y canta encima de ese galimatías. Luego invierte tu intento y descubre si te acercaste o inventaste un idioma nuevo.";
 "onboarding.dub.title" = "Dobla una escena";
-"onboarding.dub.message" = "El segundo juego: pon una escena, sobreactúa encima y escúchate dentro de la película. Vienen dos escenas de regalo. A partir de ahí, pon las tuyas.";
+"onboarding.dub.message" = "El segundo juego: pon una escena, sobreactúa encima y escúchate dentro de la película. Vienen cuatro escenas de regalo. A partir de ahí, pon las tuyas.";
 "onboarding.pro.title" = "Por qué existe Dubloon Pro";
-"onboarding.pro.message" = "Dubloon no tiene anuncios, ni cuenta, ni rastreo, y lo hace una sola persona en Zúrich. Dubloon Pro es lo que lo paga: todas las escenas, la cámara de cabina y las exportaciones. El canto invertido sigue siendo gratis.";
-"onboarding.microphone.title" = "Una última cosa";
-"onboarding.microphone.message" = "Todos los juegos necesitan oírte: cantando al revés, doblando una escena o imitando un sonido. El micro solo se despierta mientras grabas, todo se queda en este dispositivo y nunca se sube nada. Tu peor toma se queda entre vosotros dos.";
+"onboarding.pro.message" = "Dubloon no tiene anuncios, ni cuenta, ni rastreo, y lo hace una sola persona en Zúrich. Dubloon Pro es lo que lo paga: todas las escenas, la imitación de sonidos, la cámara de cabina y las exportaciones. El canto invertido y el doblaje de tus vídeos siguen siendo gratis.";
+"onboarding.pro.buy" = "Consigue Dubloon Pro";
+"onboarding.pro.skip" = "Saltar por ahora";
 "onboarding.button.continueLowercase" = "continuar";
-"onboarding.button.microphoneContinue" = "Continuar";
+"onboarding.button.continue" = "Continuar";
+
+// MARK: - Microphone explanation
+"microphonePrimer.title" = "Micrófono";
+"microphonePrimer.message" = "Todos los juegos necesitan oírte: cantando al revés, doblando una escena o imitando un sonido. El micro solo se despierta mientras grabas, todo se queda en este dispositivo y nunca se sube nada. Tu peor toma se queda entre vosotros dos.";
+"microphonePrimer.continue" = "Continuar";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Parar grabación";
@@ -139,9 +144,6 @@
 "settings.about.license.renews" = "Dubloon Pro, se renueva el %@";
 "settings.about.license.ends" = "Dubloon Pro, termina el %@";
 "settings.about.license.earlyAdopter" = "Pionero, gratis de por vida";
-"settings.about.license.trialDays" = "Prueba gratuita, quedan %d días";
-"settings.about.license.trialLastDay" = "Prueba gratuita, último día";
-"settings.about.license.trialOver" = "La prueba gratuita ha terminado";
 "settings.about.license.free" = "Gratis";
 
 // Theme descriptions
@@ -238,7 +240,7 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "Cerrar";
 "dubGate.ask.title" = "¿Ya tienes tus películas?";
-"dubGate.ask.message" = "Más allá de las dos escenas de ejemplo, no incluimos ni alojamos ninguna película. Para doblar cualquier otra cosa, el archivo tiene que estar ya en este dispositivo.";
+"dubGate.ask.message" = "Más allá de las cuatro escenas de ejemplo, no incluimos ni alojamos ninguna película. Para doblar cualquier otra cosa, el archivo tiene que estar ya en este dispositivo.";
 "dubGate.ask.confirm" = "Sí, ya las tengo aquí";
 "dubGate.ask.needDownload" = "No, tengo que buscarlas";
 "dubGate.download.title" = "Dónde encontrarlas";
@@ -296,13 +298,10 @@
 "dub.videoNeedsReimport" = "El vídeo de esta escena lo convirtió una versión antigua y ahora va por delante de las voces. Vuelve a importar el pack para arreglarlo.";
 
 // MARK: - Pro / Paywall
-"pro.trial.daysLeft" = "Quedan %d días";
-"pro.trial.oneDayLeft" = "Último día";
-"pro.trial.over" = "Tu prueba gratuita se ha acabado";
 "pro.locked.title" = "Consigue Dubloon Pro para doblar";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Desbloquear Dubloon";
-"pro.unlock.subtitle" = "Todas las escenas, la cámara de cabina y las exportaciones. El canto invertido sigue siendo gratis.";
+"pro.unlock.subtitle" = "Todas las escenas, la imitación de sonidos, la cámara de cabina y las exportaciones. El canto invertido y el doblaje de tus vídeos siguen siendo gratis.";
 "pro.owned.title" = "Dubloon es tuyo";
 "pro.owned.subtitle" = "Gracias. Todas las escenas, todas las tomas, sin techo.";
 "pro.manage.title" = "Gestionar la compra";
@@ -313,17 +312,13 @@
 "pro.restore.title" = "Restaurar la compra";
 "pro.restore.subtitle" = "¿Móvil nuevo o app reinstalada? Recupérala.";
 "pro.testStore.warning" = "Compilación de depuración: conectada a la tienda de pruebas de RevenueCat. Aquí no se mueve dinero real.";
-"pro.restored.title" = "Restaurada";
-"pro.restored.message" = "Tu compra ha vuelto a este dispositivo.";
 "pro.nothingToRestore.title" = "Nada que restaurar";
 "pro.nothingToRestore.message" = "No hay ninguna compra en esta cuenta de Apple. Si compraste Dubloon con otra, inicia sesión con ella y prueba de nuevo.";
 "pro.error.title" = "Algo ha salido mal";
 "pro.error.generic" = "La tienda no ha contestado. Inténtalo dentro de un momento.";
 "pro.ok" = "Vale";
 "pro.fallback.title" = "Desbloquear Dubloon";
-"pro.fallback.message" = "Tu prueba gratuita se ha acabado. Desbloquea Dubloon para seguir doblando.";
-"pro.fallback.message.beforeExpiry" = "Desbloquea Dubloon para seguir doblando.";
-"pro.fallback.message.noTrial" = "Desbloquea Dubloon para doblar todas las escenas.";
+"pro.fallback.message" = "Desbloquea Dubloon para doblar todas las escenas.";
 "pro.fallback.buy" = "Desbloquear por %@";
 "pro.fallback.buyUnpriced" = "Desbloquear";
 "pro.fallback.loading" = "Preguntando a la tienda…";
@@ -477,7 +472,7 @@
 "homeVideo.hint.ready" = "Pulsa grabar y el vídeo empieza desde el principio. Sigue la onda para que tus sonidos caigan a tiempo.";
 "homeVideo.hint.empty" = "Elige un vídeo de tu fototeca para ponerle tu voz.";
 "homeVideo.hint.recordingHeadphones" = "Grabando. Oyes el vídeo en los auriculares; el micrófono solo te oye a ti.";
-"homeVideo.hint.recording" = "Grabando. El vídeo suena en silencio para que el micrófono solo te oiga a ti.";
+"homeVideo.hint.recording" = "Grabando. El vídeo se reproduce en silencio para que el micrófono solo te oiga a ti.";
 "homeVideo.hint.review" = "Aquí tienes tu versión. Compártela o vuelve a grabar.";
 "homeVideo.record" = "Grabar";
 "homeVideo.stop" = "Parar";
@@ -674,7 +669,7 @@
 "help.homeVideo.2.q" = "¿Cómo sincronizo mis sonidos?";
 "help.homeVideo.2.a" = "La onda bajo la imagen es el sonido del propio vídeo, y la línea que avanza por ella marca por dónde va. Mírala para que un ladrido o una risa caigan en el momento justo. Después de grabar, tu voz se dibuja encima en rojo.";
 "help.homeVideo.3.q" = "¿Puedo oír el vídeo mientras grabo?";
-"help.homeVideo.3.a" = "Sí, con auriculares. Por el altavoz el vídeo suena en silencio para que su sonido no acabe en tu toma. Con Mantener el sonido original vuelve a sonar, bajito, bajo tu voz en el vídeo final.";
+"help.homeVideo.3.a" = "Sí, con auriculares. Por el altavoz el vídeo se reproduce en silencio para que su sonido no acabe en tu toma. Con Mantener el sonido original vuelve a sonar, bajito, bajo tu voz en el vídeo final.";
 "help.booth.1.q" = "¿Qué es la cámara de cabina?";
 "help.booth.1.a" = "La cámara de cabina graba tu cara con la cámara frontal mientras actúas, para que la reacción pueda ir en el vídeo junto con el doblaje. Está apagada hasta que la enciendes con la tecla de cámara en la pantalla de grabación o en Ajustes. El vídeo se queda en tu dispositivo.";
 "help.booth.2.q" = "¿Cómo exporto un vídeo?";
@@ -684,17 +679,17 @@
 "help.packs.1.q" = "¿Cómo añado más escenas?";
 "help.packs.1.a" = "Las escenas vienen en packs de doblaje: una carpeta o un archivo .zip, .7z o .rar. Toca + en Doblaje de escenas y elige uno desde Archivos, o envíaselo a Dubloon por AirDrop o desde cualquier menú de compartir. Dubloon lo descomprime y la escena aparece en la lista.";
 "help.packs.2.q" = "¿De dónde salen los packs de doblaje?";
-"help.packs.2.a" = "Con la app vienen dos escenas. Todos los demás packs los hacen y comparten otros jugadores; Dubloon no incluye, aloja ni vende ninguna película. Dobla solo lo que tengas derecho a usar y respeta las normas de copyright de donde vivas.";
+"help.packs.2.a" = "Con la app vienen cuatro escenas. Todos los demás packs los hacen y comparten otros jugadores; Dubloon no incluye, aloja ni vende ninguna película. Dobla solo lo que tengas derecho a usar y respeta las normas de copyright de donde vivas.";
 "help.packs.3.q" = "Un pack no se importa. ¿Y ahora qué?";
 "help.packs.3.a" = "Dubloon te dice qué ha fallado. Los arreglos de siempre: si el archivo está en iCloud, ábrelo primero en Archivos para que se descargue. Si el archivo comprimido tiene contraseña, pídele a su creador uno sin ella. Si no se descomprime, vuelve a guardarlo como .zip. Y si Dubloon dice que no es un pack de doblaje, le falta un archivo de texto y una grabación por cada frase.";
 "help.imitate.1.q" = "¿Cómo funciona Imitación de sonidos?";
-"help.imitate.1.a" = "Elige un sonido, toca Escuchar, luego toca Imitar y haz tú el sonido. Dubloon compara tu intento con el de verdad y le planta un veredicto. Tu mejor puntuación de cada sonido se guarda, así que puedes volver a superarla.";
+"help.imitate.1.a" = "Elige un sonido, toca Escuchar, luego toca Imitar y haz tú el sonido. Dubloon compara tu intento con el de verdad y le planta un veredicto. Tu mejor puntuación de cada sonido se guarda, así que puedes volver y superarla.";
 "help.imitate.2.q" = "¿Qué se juzga?";
 "help.imitate.2.a" = "Cuatro cosas: ritmo (cómo sube y baja el sonido con el tiempo), tono, timbre (brillante o apagado) y duración. Escucha un par de veces primero, iguala la duración y luego preocúpate del tono.";
 "help.imitate.3.q" = "¿Puedo compartir un intento?";
 "help.imitate.3.a" = "Sí. Después de un veredicto, toca Crear vídeo: el sonido, tu intento y tu puntuación, listos para enviar. Con la cámara de cabina encendida, también sale tu cara.";
 "help.pro.1.q" = "¿Qué desbloquea Dubloon Pro?";
-"help.pro.1.a" = "Doblaje de escenas con todas las escenas y los packs de la comunidad, Imitación de sonidos, la cámara de cabina y la exportación de vídeos. Canto invertido es gratis de todas formas. Pro es un pago único o una suscripción, y se desbloquea en tu iPhone y tu Mac con la misma cuenta de Apple.";
+"help.pro.1.a" = "Doblaje de escenas con todas las escenas y los packs de la comunidad, Imitación de sonidos, la cámara de cabina y la exportación de vídeos. Canto invertido y Doblaje de tus vídeos son gratis de todas formas. Pro es un pago único o una suscripción, y se desbloquea en tu iPhone y tu Mac con la misma cuenta de Apple.";
 "help.pro.2.q" = "Compré Pro, pero está bloqueado.";
 "help.pro.2.a" = "Abre Ajustes y toca Restaurar la compra. Asegúrate de haber iniciado sesión en el App Store con la cuenta de Apple con la que lo compraste. En un móvil nuevo o tras reinstalar, restaurar lo recupera sin coste.";
 "help.pro.3.q" = "¿Cómo cancelo o cambio mi suscripción?";

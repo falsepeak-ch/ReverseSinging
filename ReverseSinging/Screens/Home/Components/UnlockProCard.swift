@@ -1,24 +1,22 @@
 //
-//  TrialEndedCard.swift
+//  UnlockProCard.swift
 //  ReverseSinging
 //
-//  The note on the menu that says the free trial is over.
+//  The note on the menu that says which games need Dubloon Pro, and offers it.
 //
 
 import SwiftUI
 
-/// Why the games under it are disabled, and the way to open them again.
+/// Why some of the games under it are padlocked, and the way to open them.
 ///
-/// It takes the trial counter's place once there is nothing left to count. It sits in the
-/// menu rather than over it: the point of showing it here is that nothing is thrown in front
-/// of someone who only opened the app, and the paywall waits until they ask for it, by
-/// tapping this or a game.
+/// It sits in the menu rather than over it: the point of showing it here is that nothing is
+/// thrown in front of someone who only opened the app, and the paywall waits until they ask
+/// for it, by tapping this or a locked game.
 ///
 /// The whole card is the button. The pill at the bottom is only there to say so.
-struct TrialEndedCard: View {
+struct UnlockProCard: View {
 
-    /// "Your free trial is done", or, when there never was one, a plain offer.
-    let title: String
+    var title = Strings.Pro.lockedTitle
     let action: () -> Void
 
     var body: some View {
@@ -28,7 +26,7 @@ struct TrialEndedCard: View {
         } label: {
             VStack(alignment: .leading, spacing: 12) {
                 HStack(alignment: .top, spacing: 12) {
-                    Image(systemName: "clock.badge.exclamationmark")
+                    Image(systemName: "lock.fill")
                         .font(.system(size: 17, weight: .semibold))
                         .foregroundStyle(Color.rsCaution)
                         .frame(width: 24, height: 22)
@@ -80,7 +78,7 @@ struct TrialEndedCard: View {
 #Preview {
     ZStack {
         Color.rsSurface0.ignoresSafeArea()
-        TrialEndedCard(title: Strings.Pro.Trial.over) {}
+        UnlockProCard {}
             .padding(EditorMetrics.gutter)
     }
     .preferredColorScheme(.dark)

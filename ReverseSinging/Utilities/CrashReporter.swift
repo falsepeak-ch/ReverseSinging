@@ -39,9 +39,15 @@ nonisolated final class CrashReporter: Sendable {
     /// A screenshot run drives the app through seven locales from a cold launch and trips
     /// error paths on purpose. `ReverseSingingApp` already skips `FirebaseApp.configure()`
     /// in that mode, so this is belt and braces, but it keeps the rule in one readable place.
+    #if DEBUG
+    /// A test run is not a user. Its errors are provoked on purpose, and the feedback notes it
+    /// "sends" would land among the real ones, which a person reads.
+    private static let isRunningTests = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+    #endif
+
     private var isEnabled: Bool {
         #if DEBUG
-        if ScreenshotMode.isActive { return false }
+        if ScreenshotMode.isActive || Self.isRunningTests { return false }
         #endif
         // Share Usage Data off: Firebase stops collecting on its own, and nothing is handed to it.
         return UsageDataConsent.isGranted
@@ -114,7 +120,7 @@ nonisolated final class CrashReporter: Sendable {
     /// True for a failure of the moment or the device that no change to the app would prevent.
     ///
     /// Judged by domain and code, never by message, which arrives in the user's language.
-    /// Underlying errors are followed, since RevenueCat and Remote Config both wrap the URL
+    /// Underlying errors are followed, since RevenueCat wraps the URL
     /// error that actually happened.
     static func isEnvironmental(_ error: Error) -> Bool {
         if let sessionError = error as? AudioSessionError { return sessionError.isEnvironmental }
@@ -137,10 +143,6 @@ nonisolated final class CrashReporter: Sendable {
         case "RevenueCat.ErrorCode":
             // networkError, offlineConnectionError.
             return [10, 35].contains(nsError.code)
-        case "com.google.remoteconfig.ErrorDomain":
-            // "Failed to get installations token": Firebase Installations could not reach
-            // its backend, which is the network again.
-            return nsError.code == 8003
         case "com.firebase.installations":
             return true
         default:

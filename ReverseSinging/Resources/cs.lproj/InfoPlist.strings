@@ -3,6 +3,6 @@
    ReverseSinging
 */
 
-"NSMicrophoneUsageDescription" = "Dubloon potřebuje přístup k mikrofonu, aby mohl nahrát tvůj hlas – díky tomu můžeš zpívat písničky pozpátku a dabovat filmové scény.";
+"NSMicrophoneUsageDescription" = "Dubloon potřebuje mikrofon, aby mohl nahrávat tvůj hlas, když hraješ: zpívání pozpátku, dabování scén a videí a napodobování zvuků.";
 
 "NSCameraUsageDescription" = "Dubloon tě při dabování natáčí přední kamerou, ať můžeš svou reakci sdílet spolu s nahrávkou. Kamera zůstává vypnutá, dokud ji nezapneš.";

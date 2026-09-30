@@ -3,6 +3,6 @@
    ReverseSinging
 */
 
-"NSMicrophoneUsageDescription" = "Dubloon heeft toegang tot de microfoon nodig om je stem op te nemen, zodat je liedjes achterstevoren kunt zingen en filmscènes kunt dubben.";
+"NSMicrophoneUsageDescription" = "Dubloon heeft de microfoon nodig om je stem op te nemen terwijl je speelt: achterstevoren zingen, scènes en video's dubben en geluiden nadoen.";
 
 "NSCameraUsageDescription" = "Dubloon filmt je met de camera aan de voorkant terwijl je dubt, zodat je je reactie naast je take kunt delen. De camera blijft uit totdat je hem aanzet.";

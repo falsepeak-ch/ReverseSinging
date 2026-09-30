@@ -19,10 +19,17 @@ nonisolated enum Strings {
         static let dubMessage = NSLocalizedString("onboarding.dub.message", comment: "Movie scene dub game message")
         static let proTitle = NSLocalizedString("onboarding.pro.title", comment: "Title of the onboarding page about Dubloon Pro")
         static let proMessage = NSLocalizedString("onboarding.pro.message", comment: "Why the app has a paid tier: no ads, no account, no tracking, one developer. Then what Pro unlocks and what stays free")
-        static let microphoneTitle = NSLocalizedString("onboarding.microphone.title", comment: "Title of the dialog that explains the microphone before the system asks for it")
-        static let microphoneMessage = NSLocalizedString("onboarding.microphone.message", comment: "Why the games need the microphone, and that recordings stay on the device")
+        static let proBuy = NSLocalizedString("onboarding.pro.buy", comment: "Main button of the onboarding page about Dubloon Pro: opens the purchase screen")
+        static let proSkip = NSLocalizedString("onboarding.pro.skip", comment: "Second button of the onboarding page about Dubloon Pro: carry on into the app without buying")
         static let buttonContinueLowercase = NSLocalizedString("onboarding.button.continueLowercase", comment: "Continue button lowercase")
-        static let buttonMicrophoneContinue = NSLocalizedString("onboarding.button.microphoneContinue", comment: "Continue: the Mac welcome window's button, and the one button of the microphone explanation, which leads to the system prompt")
+        static let buttonContinue = NSLocalizedString("onboarding.button.continue", comment: "Continue: the Mac welcome window's button")
+    }
+
+    // MARK: - Microphone explanation
+    enum MicrophonePrimer {
+        static let title = NSLocalizedString("microphonePrimer.title", comment: "Title strip of the dialog that explains the microphone before the system asks for it")
+        static let message = NSLocalizedString("microphonePrimer.message", comment: "Why the games need the microphone, and that recordings stay on the device")
+        static let confirm = NSLocalizedString("microphonePrimer.continue", comment: "The one button of the microphone explanation, which leads to the system prompt")
     }
 
     // MARK: - Main View
@@ -221,9 +228,6 @@ nonisolated enum Strings {
             static let licenseRenews = NSLocalizedString("settings.about.license.renews", comment: "License status: Dubloon Pro subscription that renews, %@ is a long date")
             static let licenseEnds = NSLocalizedString("settings.about.license.ends", comment: "License status: Dubloon Pro subscription that will not renew, %@ is the long date it ends")
             static let licenseEarlyAdopter = NSLocalizedString("settings.about.license.earlyAdopter", comment: "License status: was here before the app charged, so never pays")
-            static let licenseTrialDays = NSLocalizedString("settings.about.license.trialDays", comment: "License status: in the free trial, %d is the days left, always 2 or more")
-            static let licenseTrialLastDay = NSLocalizedString("settings.about.license.trialLastDay", comment: "License status: last day of the free trial")
-            static let licenseTrialOver = NSLocalizedString("settings.about.license.trialOver", comment: "License status: the free trial has ended and nothing was bought")
             static let licenseFree = NSLocalizedString("settings.about.license.free", comment: "License status: free version, no purchase")
         }
 
@@ -510,17 +514,8 @@ nonisolated enum Strings {
 
     // MARK: - Pro / Paywall
     enum Pro {
-        /// The counter in the header. Three keys rather than one with `%d`,
-        /// because "1 days left" is wrong in English and worse in the languages
-        /// with real plural rules.
-        enum Trial {
-            static let daysLeft = NSLocalizedString("pro.trial.daysLeft", comment: "Days remaining in the free trial, %d is the count, always 2 or more")
-            static let oneDayLeft = NSLocalizedString("pro.trial.oneDayLeft", comment: "Exactly one day of free trial left")
-            static let over = NSLocalizedString("pro.trial.over", comment: "The free trial has finished")
-        }
-
         // Settings
-        static let lockedTitle = NSLocalizedString("pro.locked.title", comment: "Headline of the menu card over the locked games when there was no free trial, so it must not mention one")
+        static let lockedTitle = NSLocalizedString("pro.locked.title", comment: "Headline of the menu card over the locked games")
         static let section = NSLocalizedString("pro.section", comment: "Settings section header for the purchase")
         static let unlockTitle = NSLocalizedString("pro.unlock.title", comment: "Settings row that opens the paywall")
         static let unlockSubtitle = NSLocalizedString("pro.unlock.subtitle", comment: "Explains what unlocking costs and gives")
@@ -536,8 +531,6 @@ nonisolated enum Strings {
         static let testStoreWarning = NSLocalizedString("pro.testStore.warning", comment: "Debug-only banner: this build talks to the RevenueCat test store")
 
         // Results
-        static let restoredTitle = NSLocalizedString("pro.restored.title", comment: "Title of the alert after a successful restore")
-        static let restoredMessage = NSLocalizedString("pro.restored.message", comment: "Body of the alert after a successful restore")
         static let nothingToRestoreTitle = NSLocalizedString("pro.nothingToRestore.title", comment: "Title when a restore found no purchase")
         static let nothingToRestoreMessage = NSLocalizedString("pro.nothingToRestore.message", comment: "Body when a restore found no purchase")
         static let errorTitle = NSLocalizedString("pro.error.title", comment: "Title of the alert after a purchase or restore failed")
@@ -559,7 +552,7 @@ nonisolated enum Strings {
             /// a wrapped monospace value breaks the row's rhythm.
             enum Row {
                 static let access = NSLocalizedString("pro.earlyAdopter.row.access", comment: "Slate row label: what the early adopter can use")
-                static let accessValue = NSLocalizedString("pro.earlyAdopter.row.access.value", comment: "Slate row value: both games")
+                static let accessValue = NSLocalizedString("pro.earlyAdopter.row.access.value", comment: "Slate row value: all four games")
                 static let cost = NSLocalizedString("pro.earlyAdopter.row.cost", comment: "Slate row label: what it costs them")
                 static let costValue = NSLocalizedString("pro.earlyAdopter.row.cost.value", comment: "Slate row value: nothing")
                 static let expires = NSLocalizedString("pro.earlyAdopter.row.expires", comment: "Slate row label: when the access runs out")
@@ -570,13 +563,7 @@ nonisolated enum Strings {
         /// The paywall the app draws itself when the dashboard's cannot be reached.
         enum Fallback {
             static let title = NSLocalizedString("pro.fallback.title", comment: "Title of the built-in paywall")
-            /// Two bodies, because this screen serves two situations. Saying "your
-            /// trial has ended" to someone who tapped the counter on day three is
-            /// false on its face, and a paywall that opens with something the user
-            /// can see is untrue reads as a trick rather than an offer.
-            static let messageAfterExpiry = NSLocalizedString("pro.fallback.message", comment: "Body of the built-in paywall when the free trial is over")
-            static let messageBeforeExpiry = NSLocalizedString("pro.fallback.message.beforeExpiry", comment: "Body of the built-in paywall when the user still has trial time left, so it must not claim the trial has ended")
-            static let messageNoTrial = NSLocalizedString("pro.fallback.message.noTrial", comment: "Body of the built-in paywall when there was no free trial at all, so it must not mention one")
+            static let message = NSLocalizedString("pro.fallback.message", comment: "Body of the built-in paywall")
             static let buy = NSLocalizedString("pro.fallback.buy", comment: "Buy button with the price, %@ is the localized price")
             static let buyUnpriced = NSLocalizedString("pro.fallback.buyUnpriced", comment: "Buy button before the price is known")
             static let loading = NSLocalizedString("pro.fallback.loading", comment: "Shown while the store is being asked for the price")

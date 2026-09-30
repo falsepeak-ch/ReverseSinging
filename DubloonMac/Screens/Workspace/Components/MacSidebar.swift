@@ -195,16 +195,14 @@ struct MacSidebar: View {
 
             if home.areGamesLocked {
                 Button {
-                    home.showPaywall(from: .trialEndedCard)
+                    home.showPaywall(from: .unlockCard)
                 } label: {
-                    Label(home.lockedCardTitle, systemImage: "sparkles")
+                    Label(Strings.Pro.lockedTitle, systemImage: "sparkles")
                         .font(.rsCaption)
                         .frame(maxWidth: .infinity)
                 }
                 .controlSize(.large)
                 .platformProminentButton()
-            } else if let days = home.trialDaysRemaining {
-                TrialBadge(daysRemaining: days) { home.showPaywall(from: .trialBadge) }
             }
         }
         .padding(12)

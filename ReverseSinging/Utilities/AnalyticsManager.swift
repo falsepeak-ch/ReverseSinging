@@ -416,15 +416,11 @@ final class AnalyticsManager {
 
     // MARK: - Purchases
 
-    /// The paywall reached the screen. `source` says what put it there — the hard
-    /// paywall (`trial_expired`), the settings row, or one of the menu's
-    /// `HomePaywallSource`s: the counter, the trial-ended card, a locked game, a
-    /// pack opened while locked — which is the only way to tell a hard paywall's
-    /// numbers apart from an offer someone chose to look at.
-    func trackPaywallShown(source: String, isHardPaywall: Bool) {
+    /// The paywall reached the screen. `source` says what put it there: onboarding,
+    /// the settings row, or one of the menu's `HomePaywallSource`s.
+    func trackPaywallShown(source: String) {
         log("paywall_shown", parameters: [
-            "source": source,
-            "is_hard_paywall": isHardPaywall
+            "source": source
         ])
     }
 
@@ -459,20 +455,10 @@ final class AnalyticsManager {
         ])
     }
 
-    /// Fired once, on the launch that finds the free window closed.
-    func trackTrialExpired(trialLengthInDays: Int) {
-        log("trial_expired", parameters: [
-            "trial_length_days": trialLengthInDays
-        ])
-    }
-
-    /// Fired once per install, when the grandfather clause is applied. `source`
-    /// says which signal found them — the traces on the device, or the receipt
-    /// after a reinstall — which is the only way to tell whether the receipt
-    /// fallback is earning its keep.
-    func trackEarlyAdopterGranted(source: String) {
+    /// Fired once per install, when the grandfather clause is applied.
+    func trackEarlyAdopterGranted() {
         log("early_adopter_granted", parameters: [
-            "source": source
+            "source": "local_usage"
         ])
     }
 

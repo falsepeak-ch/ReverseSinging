@@ -153,7 +153,7 @@ struct MacSettingsView: View {
                         Button(Strings.Pro.unlockTitle) { viewModel.showPaywall() }
                             .platformProminentButton()
                     }
-                    Text(viewModel.unlockSubtitle).foregroundColor(.secondary)
+                    Text(Strings.Pro.unlockSubtitle).foregroundColor(.secondary)
                 }
             }
 

@@ -6,6 +6,6 @@
    the build settings, which is the fallback. Keep the two in step.
 */
 
-"NSMicrophoneUsageDescription" = "Dubloon needs microphone access to record your voice, so you can sing songs backwards and dub movie scenes.";
+"NSMicrophoneUsageDescription" = "Dubloon needs the microphone to record your voice while you play: singing backwards, dubbing scenes and videos, and imitating sounds.";
 
 "NSCameraUsageDescription" = "Dubloon uses the front camera to film you while you dub, so you can share your reaction alongside the take. Filming stays off until you turn it on.";

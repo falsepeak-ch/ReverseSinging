@@ -63,10 +63,6 @@ private struct AppLifecycleModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            // Above onboarding as well as the games: the free window runs from first
-            // launch, so a user who installs, plays for eight days and only then
-            // finishes onboarding still meets the paywall.
-            .hardPaywall()
             .onOpenURL { url in
                 // A dub pack arrived from Files, AirDrop or "Open with"
                 app.pendingDubImportURL = url
@@ -94,7 +90,7 @@ private struct AppLifecycleModifier: ViewModifier {
         #endif
         guard previousScenePhase == nil || previousScenePhase == .background else { return }
 
-        // A trial that ran out overnight, or a purchase made on another device,
+        // A subscription that lapsed overnight, or a purchase made on another device,
         // is noticed here rather than on the next cold launch.
         AccessController.shared.refreshOnForeground()
 

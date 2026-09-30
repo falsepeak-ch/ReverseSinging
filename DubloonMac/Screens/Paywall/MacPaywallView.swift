@@ -15,8 +15,8 @@ struct MacPaywallView: View {
     @StateObject private var viewModel: MacPaywallViewModel
     @Environment(\.dismiss) private var dismiss
 
-    init(source: String, isDismissible: Bool) {
-        _viewModel = StateObject(wrappedValue: MacPaywallViewModel(source: source, isDismissible: isDismissible))
+    init(source: String) {
+        _viewModel = StateObject(wrappedValue: MacPaywallViewModel(source: source))
     }
 
     var body: some View {
@@ -36,7 +36,6 @@ struct MacPaywallView: View {
         .frame(width: 600)
         .fixedSize(horizontal: false, vertical: true)
         .background(Color.rsSurface1)
-        .interactiveDismissDisabled(!viewModel.paywall.isDismissible)
         .task { await viewModel.load() }
         .onAppear { viewModel.onAppear() }
         .onChange(of: viewModel.paywall.isPro) { _, isPro in viewModel.paywall.isProDidChange(isPro) }
@@ -57,7 +56,7 @@ struct MacPaywallView: View {
                 .font(.system(size: 26, weight: .bold))
                 .foregroundColor(.rsTextPrimary)
 
-            Text(Strings.Pro.Fallback.messageNoTrial)
+            Text(Strings.Pro.Fallback.message)
                 .font(.system(size: 13))
                 .foregroundColor(.rsTextSecondary)
                 .multilineTextAlignment(.center)
@@ -186,13 +185,11 @@ struct MacPaywallView: View {
                     ProgressView().controlSize(.small)
                 }
 
-                if viewModel.paywall.isDismissible {
-                    Button(Strings.Main.Alert.cancel) { viewModel.close() }
-                        .keyboardShortcut(.cancelAction)
-                        .platformGlassButton()
-                        .controlSize(.large)
-                        .fixedSize()
-                }
+                Button(Strings.Main.Alert.cancel) { viewModel.close() }
+                    .keyboardShortcut(.cancelAction)
+                    .platformGlassButton()
+                    .controlSize(.large)
+                    .fixedSize()
 
                 Button(viewModel.buyTitle) { viewModel.buy() }
                     .keyboardShortcut(.defaultAction)

@@ -12,8 +12,8 @@ import FirebaseCrashlytics
 /// Whether this device sends Firebase Analytics events and Crashlytics reports. On unless the
 /// person turns it off in Settings; the Privacy Policy points them there.
 ///
-/// Remote Config and the purchase check keep running either way: the app needs them to know
-/// what is unlocked, and neither reports on what anyone does.
+/// The purchase check keeps running either way: the app needs it to know what is unlocked,
+/// and it does not report on what anyone does.
 nonisolated enum UsageDataConsent {
 
     static let key = "privacy.shareUsageData"

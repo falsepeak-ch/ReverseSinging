@@ -29,15 +29,35 @@ struct DubStarterPackTests {
         }
     }
 
-    /// One animated, one classic. And exactly one of each.
+    /// Four scenes, and no two of a kind.
     ///
-    /// The pair is the point, not the number: the two play differently enough that a new
+    /// The spread is the point, not the number: they play differently enough that a new
     /// player finds out which kind they like on the first open. Two helpings of the same kind
     /// would tell them nothing and cost another megabyte of download.
     @Test func oneOfEachKindShips() {
-        #expect(DubStarterPacks.bundled.count == 2)
-        #expect(DubStarterPacks.bundled.contains("CampRules"), "the animated one")
+        #expect(DubStarterPacks.bundled.count == 4)
+        #expect(Set(DubStarterPacks.bundled).count == 4, "a pack is listed twice")
+        #expect(DubStarterPacks.bundled.contains("CampRules"), "the animated comedy")
         #expect(DubStarterPacks.bundled.contains("StuckUp"), "the classic one")
+        #expect(DubStarterPacks.bundled.contains("AwesomeInSpace"), "the live-action one")
+        #expect(DubStarterPacks.bundled.contains("KindredSpirit"), "the quiet one")
+        #expect(DubStarterPacks.bundled.last == "CampRules", "the last one installed is the one on top")
+    }
+
+    /// The scenes install within a second of each other, so their dates tie. The tie is
+    /// broken so the shelf always reads the same way, with *Camp Rules* on top.
+    @Test func starterScenesKeepTheirShelfOrderWhenTheirDatesTie() {
+        let shelf = DubStarterPacks.bundled.sorted {
+            DubStarterPacks.displayRank(folderName: $0) < DubStarterPacks.displayRank(folderName: $1)
+        }
+
+        #expect(shelf == ["CampRules", "AwesomeInSpace", "KindredSpirit", "StuckUp"])
+        #expect(DubStarterPacks.displayRank(folderName: "My Own Pack") == Int.max)
+    }
+
+    /// A pack the user brought in is not a starter, whatever it is called.
+    @Test func anImportedPackIsNotAStarter() {
+        #expect(!DubStarterPacks.isStarter(folderName: "My Own Pack"))
     }
 
     /// Every shipped scene is cut from someone else's film, so every shipped scene has to say
@@ -55,6 +75,13 @@ struct DubStarterPackTests {
                 try? AudioFileManager.shared.deleteDubPack(folderName: pack.folderName, packID: pack.id)
                 DubStarterPacks.forgetInstallsForTesting()
             }
+
+            // The review banner is for people who brought in a pack of their own. A scene from
+            // the box must never pass for one, or every player would qualify.
+            #expect(
+                DubStarterPacks.isStarter(folderName: pack.folderName),
+                "\(pack.title) installs into \(pack.folderName), which reads as a pack the user imported"
+            )
 
             #expect(pack.hasAttribution, "\(pack.title) claims no provenance")
             #expect(pack.source?.isEmpty == false, "\(pack.title) names no source work")
@@ -183,7 +210,9 @@ struct DubStarterPackTests {
             let handovers = zip(pack.lines, pack.lines.dropFirst())
                 .count { $0.character != $1.character }
 
-            #expect(handovers >= 5, "\(pack.title) changes speaker only \(handovers) times")
+            // Four, not more: *Awesome in Space* is an argument in which one side does most
+            // of the talking, and it changes hands exactly that often.
+            #expect(handovers >= 4, "\(pack.title) changes speaker only \(handovers) times")
         }
     }
 

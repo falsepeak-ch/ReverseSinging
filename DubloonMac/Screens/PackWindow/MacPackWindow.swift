@@ -38,7 +38,7 @@ struct MacPackWindow: View {
         .onDisappear {
             if let packID { workspace.packWindowDidClose(packID) }
         }
-        // A pack deleted from the library, or a trial that runs out, takes its window with it.
+        // A pack deleted from the library, or a subscription that runs out, takes its window with it.
         .onChange(of: pack == nil) { _, isGone in if isGone { dismiss() } }
         .onChange(of: workspace.home.isLocked(.dub)) { _, isLocked in if isLocked { dismiss() } }
     }

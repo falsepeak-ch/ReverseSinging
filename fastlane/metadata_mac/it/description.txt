@@ -15,7 +15,7 @@ Carica una scena e doppiala tu. Dubloon ti riproduce la battuta originale, ti mo
 • I dialoghi sovrapposti vengono mixati su piste separate, così due personaggi che parlano insieme suonano davvero così
 • Guarda l'originale, riascolta il tuo doppiaggio o esporta l'intera scena in video
 
-CAMERA DELLA CABINA
+BOOTH CAM
 
 Accendi la fotocamera del Mac e Dubloon ti riprende mentre reciti. Esporta la scena finita con la tua faccia in un angolo, impilata sopra per una storia, o affiancata. Oppure fai uscire una singola battuta con la reazione lì accanto. La fotocamera resta spenta finché non la accendi, e il girato resta sul Mac finché non decidi di esportare.
 
@@ -23,11 +23,11 @@ CON UN VOTO, SE LO VUOI
 
 Ogni take viene valutata su tempi, ritmo e interpretazione, con un voto per la scena, la tua battuta migliore e quella che merita un altro giro. Spegnilo e non tiene il conto nessuno.
 
-DUE SCENE PER INIZIARE
+QUATTRO SCENE PER INIZIARE
 
-Camp Rules è tratta da Sprite Fright, il film aperto di Blender Studio, condiviso con licenza Creative Commons Attribution 4.0. Stuck Up viene da The Outsider, un film scolastico del 1951 di pubblico dominio negli Stati Uniti. Ogni scena indica il film, l'anno e i termini sulla propria schermata.
+Camp Rules (Sprite Fright, CC BY 4.0), Awesome in Space (Tears of Steel, CC BY 3.0) e A Kindred Spirit (Sintel, CC BY 3.0) vengono dai film aperti di Blender. Stuck Up viene da The Outsider, un film scolastico del 1951 di pubblico dominio negli USA. Ogni scena indica film, anno e termini sulla sua schermata.
 
-Da lì in poi lo scaffale lo riempi tu. Oltre a queste due, Dubloon non include e non ospita alcun film. I pack di doppiaggio sono creati e condivisi dagli altri giocatori: scarichi quelli che vuoi e apri la cartella o lo .zip dal Finder o con AirDrop. Assicurati di avere il diritto di usare ciò che doppi.
+Da lì in poi lo scaffale lo riempi tu. Oltre a queste quattro, Dubloon non include e non ospita alcun film. I pack di doppiaggio sono creati e condivisi dagli altri giocatori: scarichi quelli che vuoi e apri la cartella o lo .zip dal Finder o con AirDrop. Assicurati di avere il diritto di usare ciò che doppi.
 
 CANTO INVERTITO
 
@@ -41,7 +41,7 @@ IMITAZIONE DI SUONI
 Ascolta un suono, poi rifallo tu: un cane che abbaia, un gallo, un clacson, un laser. Dubloon confronta ritmo, tonalità e timbro del tuo tentativo con quello vero e ci stampa sopra un verdetto. Batti il tuo record, poi condividilo in video.
 
 • 24 suoni: animali, clacson e allarmi, effetti da cartone animato, rumori umani
-• La camera della cabina riprende la tua faccia mentre imiti, se ti va
+• Booth Cam riprende la tua faccia mentre imiti, se ti va
 
 PRIVATO PER SCELTA
 
@@ -49,6 +49,6 @@ Tutto avviene su questo Mac. Le tue registrazioni, le tue take, il girato della 
 
 QUANTO COSTA
 
-Il canto invertito è gratis. Dubloon Pro apre il doppiaggio di scene, l'imitazione di suoni, la camera della cabina e le esportazioni, con un acquisto unico o con un abbonamento. L'hai già acquistato su iPhone? Si sblocca anche qui, con lo stesso Account Apple.
+Il canto invertito è gratis. Dubloon Pro apre il doppiaggio di scene, l'imitazione di suoni, Booth Cam e le esportazioni, con un acquisto unico o con un abbonamento. L'hai già acquistato su iPhone? Si sblocca anche qui, con lo stesso Account Apple.
 
 Creato in Svizzera. Fatto a mano a Zurigo.

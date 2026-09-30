@@ -101,6 +101,11 @@ final class ReviewBanner {
         return true
     }
 
+    /// They told us by email instead, which is where the note goes with Share Usage Data off.
+    func recordFeedbackSentByMail() {
+        defaults.set(true, forKey: Key.sentFeedback)
+    }
+
     /// They tapped through to the store.
     func recordWentToStore() {
         defaults.set(true, forKey: Key.wentToStore)

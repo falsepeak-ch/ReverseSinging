@@ -70,7 +70,7 @@ enum MacDeletion: Identifiable {
 /// The Mac has no menu to push games from: the games, the packs and the archive sit side by
 /// side in a sidebar, and picking one swaps the workspace. So this owns what the iPhone's menu
 /// owns, the reverse game (a session survives switching away), the pack library, and the menu's
-/// own model for the trial, the paywall and the one-off notes, and adds the selection and the
+/// own model for the locked games, the paywall and the one-off notes, and adds the selection and the
 /// inspector.
 @MainActor
 final class MacWorkspaceViewModel: ObservableObject {
@@ -119,7 +119,7 @@ final class MacWorkspaceViewModel: ObservableObject {
     let game = ReverseGameViewModel()
     /// The installed packs, their import, and the content gate in front of it.
     let dubLibrary = DubLibraryViewModel()
-    /// The iPhone menu's model: the trial, the paywall, the review banner and the notes.
+    /// The iPhone menu's model: the locked games, the paywall, the review banner and the notes.
     let home = HomeViewModel()
 
     private var cancellables = Set<AnyCancellable>()
@@ -134,7 +134,7 @@ final class MacWorkspaceViewModel: ObservableObject {
                 .store(in: &cancellables)
         }
 
-        // A trial that runs out with a paid game open closes it, as it does on the iPhone.
+        // A subscription that runs out with a paid game open closes it, as it does on the iPhone.
         AccessController.shared.$state
             .removeDuplicates()
             .sink { [weak self] state in

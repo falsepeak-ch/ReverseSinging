@@ -9,7 +9,7 @@ import SwiftUI
 
 /// A thank-you and a question, above the games: how many stars?
 ///
-/// It sits in the menu like `TrialEndedCard` rather than over it, so nothing is thrown in front
+/// It sits in the menu like `UnlockProCard` rather than over it, so nothing is thrown in front
 /// of someone who opened the app to play. A star or "Not now" are the only ways to answer it.
 /// What a rating leads to, and when the note comes back, are `ReviewBanner`'s to decide.
 struct ReviewBannerCard: View {

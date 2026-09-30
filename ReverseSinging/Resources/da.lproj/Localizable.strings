@@ -9,13 +9,18 @@
 "onboarding.howItWorks.title" = "Sådan virker det";
 "onboarding.howItWorks.message" = "Optag en sang, vend den om, og syng med på volapykken. Vend derefter din egen optagelse og hør, om du ramte plet eller lige har opfundet et nyt sprog.";
 "onboarding.dub.title" = "Dub en filmscene";
-"onboarding.dub.message" = "Det andet spil: sæt en scene i gang, overspil løs, og hør så dig selv i filmen. To scener følger med. Derefter tager du dine egne filer med.";
+"onboarding.dub.message" = "Det andet spil: sæt en scene i gang, overspil løs, og hør så dig selv i filmen. Fire scener følger med. Derefter tager du dine egne filer med.";
 "onboarding.pro.title" = "Derfor findes Dubloon Pro";
-"onboarding.pro.message" = "Dubloon har ingen reklamer, ingen konto og ingen sporing, og det laves af én person i Zürich. Dubloon Pro er det, der betaler for det: alle scener, Booth Cam og eksport. Baglænssang forbliver gratis.";
-"onboarding.microphone.title" = "En sidste ting";
-"onboarding.microphone.message" = "Alle spil skal kunne høre dig: baglænssang, dubbing af en scene eller efterligning af en lyd. Mikrofonen vågner kun, mens du optager, alt bliver på denne enhed, og intet bliver nogensinde uploadet. Din værste optagelse bliver mellem jer to.";
+"onboarding.pro.message" = "Dubloon har ingen reklamer, ingen konto og ingen sporing, og det laves af én person i Zürich. Dubloon Pro er det, der betaler for det: alle scener, lydimitation, Booth Cam og eksport. Baglænssang og dubbing af dine egne videoer forbliver gratis.";
+"onboarding.pro.buy" = "Få Dubloon Pro";
+"onboarding.pro.skip" = "Spring over for nu";
 "onboarding.button.continueLowercase" = "fortsæt";
-"onboarding.button.microphoneContinue" = "Fortsæt";
+"onboarding.button.continue" = "Fortsæt";
+
+// MARK: - Microphone explanation
+"microphonePrimer.title" = "Mikrofon";
+"microphonePrimer.message" = "Alle spil skal kunne høre dig: baglænssang, dubbing af en scene eller efterligning af en lyd. Mikrofonen vågner kun, mens du optager, alt bliver på denne enhed, og intet bliver nogensinde uploadet. Din værste optagelse bliver mellem jer to.";
+"microphonePrimer.continue" = "Fortsæt";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Stop optagelsen";
@@ -53,7 +58,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Ingen kan høre dig";
-"main.emptyState.message" = "Lige nu er Dubloon en optageapp uden noget at optage med. Tænd for mikrofonadgang i enhedens indstillinger, så vågner alle fire spil til live igen.";
+"main.emptyState.message" = "Lige nu er Dubloon en optageapp uden noget at optage med. Slå mikrofonadgang til i enhedens indstillinger, så vågner alle fire spil til live igen.";
 "main.emptyState.button" = "Åbn Indstillinger";
 
 // MARK: - Main View - Processing & Success
@@ -139,9 +144,6 @@
 "settings.about.license.renews" = "Dubloon Pro, fornyes %@";
 "settings.about.license.ends" = "Dubloon Pro, udløber %@";
 "settings.about.license.earlyAdopter" = "Tidlig bruger, gratis for livet";
-"settings.about.license.trialDays" = "Gratis prøve, %d dage tilbage";
-"settings.about.license.trialLastDay" = "Gratis prøve, sidste dag";
-"settings.about.license.trialOver" = "Gratis prøve er slut";
 "settings.about.license.free" = "Gratis";
 
 // Theme descriptions
@@ -238,7 +240,7 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "Luk";
 "dubGate.ask.title" = "Har du allerede dine film?";
-"dubGate.ask.message" = "Ud over de to eksempelscener leverer og hoster vi ikke en eneste film. For at dubbe noget andet skal filmfilen allerede ligge på denne enhed.";
+"dubGate.ask.message" = "Ud over de fire eksempelscener leverer og hoster vi ikke en eneste film. For at dubbe noget andet skal filmfilen allerede ligge på denne enhed.";
 "dubGate.ask.confirm" = "Ja, jeg har dem her";
 "dubGate.ask.needDownload" = "Nej, jeg skal hente dem";
 "dubGate.download.title" = "Hvor du finder dem";
@@ -249,15 +251,15 @@
 "dubGate.disclaimer.responsibility" = "Sørg for, at du har ret til at bruge det, du henter, og følg ophavsretsreglerne der, hvor du bor.";
 "dubGuide.row" = "Jeg har brug for hjælp til at få flere pakker";
 "dubGuide.title" = "Få flere pakker";
-"dubGuide.intro" = "En dubbingpakke er én scene: videoen, dens lydspor og en optagelse af hver replik. Sådan får du en ind i Dubloon.";
+"dubGuide.intro" = "En dubpakke er én scene: videoen, dens lydspor og en optagelse af hver replik. Sådan får du en ind i Dubloon.";
 "dubGuide.1.title" = "Find en scene";
-"dubGuide.1.detail" = "Åbn GameBanana nedenfor, og gennemse filmdubbingpakkerne. Vælg en, og åbn dens side.";
+"dubGuide.1.detail" = "Åbn GameBanana nedenfor, og gennemse dubpakkerne til film. Vælg en, og åbn dens side.";
 "dubGuide.2.title" = "Download den";
-"dubGuide.2.detail" = "Tryk på Download, og vælg filen: en .zip, .7z eller .rar. Safari gemmer den i appen Filer under Overførsler.";
+"dubGuide.2.detail" = "Tryk på Download, og vælg filen: en .zip, .7z eller .rar. Safari gemmer den i appen Arkiver under Overførsler.";
 "dubGuide.3.title" = "Lad den blive færdig";
-"dubGuide.3.detail" = "Vent, til overførslen er færdig. Hvis filen ligger i iCloud Drive, så åbn den én gang i Filer, så den virkelig er på enheden.";
+"dubGuide.3.detail" = "Vent, til overførslen er færdig. Hvis filen ligger i iCloud Drive, så åbn den én gang i Arkiver, så den virkelig er på enheden.";
 "dubGuide.4.title" = "Importér den";
-"dubGuide.4.detail" = "Kom tilbage hertil, tryk på +, bekræft at filen er på din enhed, og vælg den under Overførsler. Du kan også dele den til Dubloon fra Filer eller AirDrop.";
+"dubGuide.4.detail" = "Kom tilbage hertil, tryk på +, bekræft at filen er på din enhed, og vælg den under Overførsler. Du kan også dele den til Dubloon fra Arkiver eller AirDrop.";
 "dubGuide.5.title" = "Hvis importen fejler";
 "dubGuide.5.detail" = "Dubloon fortæller, hvad der gik galt. Gem arkivet igen som .zip, bed skaberen om en kopi uden adgangskode, og tjek at den har en tekstfil og en optagelse for hver replik.";
 
@@ -296,13 +298,10 @@
 "dub.videoNeedsReimport" = "Scenens video blev konverteret af en ældre version og løber nu foran stemmerne. Importér pakken igen, så sidder det.";
 
 // MARK: - Pro / Paywall
-"pro.trial.daysLeft" = "%d dage tilbage";
-"pro.trial.oneDayLeft" = "Sidste dag";
-"pro.trial.over" = "Din gratis prøveperiode er slut";
 "pro.locked.title" = "Få Dubloon Pro for at dubbe";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Lås Dubloon op";
-"pro.unlock.subtitle" = "Alle scener, Booth Cam og eksport. Baglænssang forbliver gratis.";
+"pro.unlock.subtitle" = "Alle scener, lydimitation, Booth Cam og eksport. Baglænssang og dubbing af dine egne videoer forbliver gratis.";
 "pro.owned.title" = "Du ejer Dubloon";
 "pro.owned.subtitle" = "Tak. Hver scene, hver optagelse, uden loft.";
 "pro.manage.title" = "Administrér købet";
@@ -313,17 +312,13 @@
 "pro.restore.title" = "Gendan købet";
 "pro.restore.subtitle" = "Ny telefon eller geninstalleret? Hent det tilbage.";
 "pro.testStore.warning" = "Debug-build: forbundet til RevenueCats testbutik. Der flytter sig ingen rigtige penge.";
-"pro.restored.title" = "Gendannet";
-"pro.restored.message" = "Dit køb er tilbage på denne enhed.";
 "pro.nothingToRestore.title" = "Intet at gendanne";
 "pro.nothingToRestore.message" = "Der blev ikke fundet noget køb på denne Apple-konto. Hvis du købte Dubloon med en anden, så log ind med den og prøv igen.";
 "pro.error.title" = "Noget gik galt";
 "pro.error.generic" = "Butikken svarede ikke. Prøv igen om et øjeblik.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Lås Dubloon op";
-"pro.fallback.message" = "Din gratis prøveperiode er slut. Lås Dubloon op for at blive ved med at dubbe.";
-"pro.fallback.message.beforeExpiry" = "Lås Dubloon op for at blive ved med at dubbe.";
-"pro.fallback.message.noTrial" = "Lås Dubloon op for at dubbe hver eneste scene.";
+"pro.fallback.message" = "Lås Dubloon op for at dubbe hver eneste scene.";
 "pro.fallback.buy" = "Lås op for %@";
 "pro.fallback.buyUnpriced" = "Lås op";
 "pro.fallback.loading" = "Spørger butikken…";
@@ -345,7 +340,7 @@
 "review.banner.rate" = "Skriv en anmeldelse";
 "review.banner.later" = "Ikke nu";
 "review.banner.fan.title" = "Har du det sjovt?";
-"review.banner.fan.message" = "Du er godt kørende. Dubloon er lavet af én person i Zürich, og anmeldelser er dér, nye spillere finder det. Hvis det har fået dig til at grine, ville et par ord i App Store betyde meget.";
+"review.banner.fan.message" = "Du er godt kørende. Dubloon er lavet af én person i Zürich, og det er gennem anmeldelser, nye spillere finder det. Hvis det har fået dig til at grine, ville et par ord i App Store betyde meget.";
 "review.banner.prompt" = "Hvor mange stjerner vil du give Dubloon?";
 "review.banner.star" = "%d ud af 5 stjerner";
 "review.banner.store.title" = "Dejligt, at du kan lide det!";
@@ -625,7 +620,7 @@
 "help.close" = "Luk";
 "help.search.prompt" = "Søg i hjælpen";
 "help.search.clear" = "Ryd søgning";
-"help.search.empty" = "Intet passer på det. Prøv et andet ord, eller skriv til os nedenfor.";
+"help.search.empty" = "Intet matcher det. Prøv et andet ord, eller skriv til os nedenfor.";
 "help.row.expanded" = "Udvidet";
 "help.row.collapsed" = "Skjult";
 "help.row.expandHint" = "Viser svaret";
@@ -684,9 +679,9 @@
 "help.packs.1.q" = "Hvordan får jeg flere scener?";
 "help.packs.1.a" = "Scener kommer som dubpakker: en mappe eller et .zip-, .7z- eller .rar-arkiv. Tryk på + i Dub en filmscene, og vælg en fra Arkiver, eller send den til Dubloon med AirDrop eller fra et hvilket som helst delingsark. Dubloon pakker den ud, og scenen dukker op på listen.";
 "help.packs.2.q" = "Hvor kommer dubpakker fra?";
-"help.packs.2.a" = "To scener følger med appen. Alle andre pakker er lavet og delt af andre spillere; Dubloon indeholder, hoster eller sælger ingen film. Dub kun det, du har ret til at bruge, og følg reglerne for ophavsret dér, hvor du bor.";
+"help.packs.2.a" = "Fire scener følger med appen. Alle andre pakker er lavet og delt af andre spillere; Dubloon indeholder, hoster eller sælger ingen film. Dub kun det, du har ret til at bruge, og følg reglerne for ophavsret dér, hvor du bor.";
 "help.packs.3.q" = "En pakke vil ikke importeres. Hvad nu?";
-"help.packs.3.a" = "Dubloon fortæller, hvad der gik galt. De sædvanlige løsninger: Ligger filen i iCloud, så åbn den i Arkiver først, så den bliver hentet. Har arkivet en adgangskode, så bed skaberen om en uden. Vil det ikke pakkes ud, så gem det igen som .zip. Og siger Dubloon, at det ikke er en dubpakke, skal den have en tekstfil og en optagelse for hver replik.";
+"help.packs.3.a" = "Dubloon fortæller, hvad der gik galt. De sædvanlige løsninger: Ligger filen i iCloud, så åbn den i Arkiver først, så den bliver hentet. Har arkivet en adgangskode, så bed skaberen om et uden. Vil det ikke pakkes ud, så gem det igen som .zip. Og siger Dubloon, at det ikke er en dubpakke, skal den have en tekstfil og en optagelse for hver replik.";
 "help.imitate.1.q" = "Hvordan virker Lydimitation?";
 "help.imitate.1.a" = "Vælg en lyd, tryk på Lyt, tryk så på Efterlign, og lav lyden selv. Dubloon sammenligner dit forsøg med den ægte vare og stempler en dom på det. Din bedste score for hver lyd bliver gemt, så du kan komme tilbage og slå den.";
 "help.imitate.2.q" = "Hvad bliver bedømt?";
@@ -694,7 +689,7 @@
 "help.imitate.3.q" = "Kan jeg dele et forsøg?";
 "help.imitate.3.a" = "Ja. Tryk på Lav video efter en dom: lyden, dit forsøg og din score, klar til at sende. Med Booth Cam slået til er dit ansigt også med.";
 "help.pro.1.q" = "Hvad låser Dubloon Pro op for?";
-"help.pro.1.a" = "Dub en filmscene med alle scener og fællesskabspakker, Lydimitation, Booth Cam og videoeksport. Baglænssang er gratis uanset hvad. Pro er et engangskøb eller et abonnement, og det låses op på din iPhone og din Mac med samme Apple-konto.";
+"help.pro.1.a" = "Dub en filmscene med alle scener og fællesskabspakker, Lydimitation, Booth Cam og videoeksport. Baglænssang og Dub dine egne videoer er gratis uanset hvad. Pro er et engangskøb eller et abonnement, og det låses op på din iPhone og din Mac med samme Apple-konto.";
 "help.pro.2.q" = "Jeg har købt Pro, men det er låst.";
 "help.pro.2.a" = "Åbn Indstillinger, og tryk på Gendan købet. Sørg for, at du er logget ind i App Store med den Apple-konto, du købte det med. På en ny telefon eller efter en geninstallation henter gendannelsen det tilbage uden beregning.";
 "help.pro.3.q" = "Hvordan opsiger eller ændrer jeg mit abonnement?";

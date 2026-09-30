@@ -2,21 +2,21 @@ No account is needed. Everything runs on device; nothing is uploaded. Firebase p
 
 MOVIE SCENE DUB
 
-The app ships with two short example scenes and does not host, provide or distribute any other film, clip or dialogue: no catalogue, no search, no download. Every further scene is a file the user already has and imports.
+The app ships with four short example scenes and does not host, provide or distribute any other film, clip or dialogue: no catalogue, no search, no download. Every further scene is a file the user already has and imports.
 
-1. "Camp Rules" (23s), from "Sprite Fright" (Blender Studio, 2021), released by its rights holder under Creative Commons Attribution 4.0, which permits adaptation and redistribution on the single condition of credit.
+1. Three are from Blender's open movies under Creative Commons Attribution, which permits adaptation and redistribution with credit: "Camp Rules" (23s, "Sprite Fright", CC BY 4.0), "Awesome in Space" (23s, "Tears of Steel", CC BY 3.0) and "A Kindred Spirit" (29s, "Sintel", CC BY 3.0).
 
-2. "Stuck Up" (35s), from "The Outsider" (Centron Productions, 1951), a US classroom film whose copyright was never renewed in its 28th year and is therefore US public domain. The Copyright Office's post-1977 records show no renewal.
+2. "Stuck Up" (35s), from "The Outsider" (Centron Productions, 1951), a US classroom film never renewed in its 28th year, so US public domain.
 
-Both scenes state their provenance (film, year, producer, terms, with links) on the scene screen and before every export.
+Each states its provenance (film, year, producer, terms, links) on the scene screen and before every export.
 
 THE PURCHASE
 
-Free to download, with no trial. Reverse Singing and Home Video Dub are free for everyone. Movie Scene Dub and Sound Imitation stay locked until a purchase, which a sandbox account can make. Sandbox download dates are ignored, so a review device meets the paywall.
+Free to download, with no trial. Reverse Singing and Home Video Dub are free for everyone. Movie Scene Dub and Sound Imitation stay locked until a purchase, which a sandbox account can make. A review device meets the locked games on first launch.
 
-Any of three products unlocks the same content: the non-consumable "com.falsepeak.reverse_singing_ios.lifetime", or the auto-renewable subscriptions "com.falsepeak.reverse_singing_ios.monthly" and "com.falsepeak.reverse_singing_ios.yearly" (7-day free trial on the yearly). The purchase screen shows either the lifetime product alone or the two subscriptions, chosen per install by a remote test; both are the real, complete offer. Users who installed before the paywall existed keep the paid games free for life.
+Any of three products unlocks the same content: the non-consumable "com.falsepeak.reverse_singing_ios.lifetime", or the auto-renewable subscriptions "com.falsepeak.reverse_singing_ios.monthly" and "com.falsepeak.reverse_singing_ios.yearly" (7-day free trial on the yearly). The purchase screen shows either the lifetime product alone or the two subscriptions, chosen per install by a remote test. Users who installed before the paywall existed keep the paid games free for life.
 
-To reach the purchase screen: tap a locked game, or the "Get Dubloon Pro to play" card on the main menu, or the sliders icon at the top right, then "Unlock Dubloon".
+To reach the purchase screen: tap "Get Dubloon Pro" on the last onboarding page (skippable), a locked game, the "Get Dubloon Pro to dub" card on the main menu, or the sliders icon, then "Unlock Dubloon".
 
 BOOTH CAM
 
@@ -30,9 +30,9 @@ Before any export, the app states that the video contains someone else's work; n
 
 HOW TO TEST
 
-Tap "Movie Scene Dub". The two bundled scenes install on first open: pick one, tap "Start Dubbing", record a line, then "Play My Dub" or "Export Video". The source and licence panel sits at the bottom of a scene's screen. For the ownership gate, tap "+" in the library; it appears every time. For Booth Cam, tap the camera key at the top right of the record screen; the simulator has no front camera.
+Tap "Movie Scene Dub". The four bundled scenes install on first open: pick one, tap "Start Dubbing", record a line, then "Play My Dub" or "Export Video". The source and licence panel sits at the bottom of a scene's screen. For the ownership gate, tap "+" in the library; it appears every time. For Booth Cam, tap the camera key at the top right of the record screen; the simulator has no front camera.
 
-New in 1.8.0: the library's "I need help getting more packs" row explains importing and repeats both disclaimers.
+The library's "I need help getting more packs" row explains importing and repeats both disclaimers.
 
 SOUND IMITATION
 
@@ -40,8 +40,8 @@ Plays one of the bundled sound effects, all CC0 from Freesound (credited per sou
 
 HOME VIDEO DUB (NEW IN 1.8.0)
 
-The user picks their own video with the system Photos picker (no library permission), records a voice over it and may export it. Nothing is uploaded.
+The user picks their own video with the system Photos picker, records a voice over it and may export it. Nothing is uploaded.
 
 MICROPHONE
 
-All four games record the user's voice; the app explains this on its own onboarding screen before the system prompt. Recordings never leave the device.
+All four games record the user's voice. Onboarding asks for nothing. The first press of Record shows the app's explanation with one button, which always opens the system prompt. Nothing follows a refusal. Recordings never leave the device.

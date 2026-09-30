@@ -28,8 +28,8 @@ struct HomeViewModelTests {
     }
 
     @Test(arguments: GameMode.allCases)
-    func aGameOpensDuringTheTrial(mode: GameMode) {
-        withAccess(.trial(daysRemaining: 3, endsAt: .distantFuture)) {
+    func everyGameOpensWithDubloonPro(mode: GameMode) {
+        withAccess(.unlocked(.entitlement)) {
             let viewModel = HomeViewModel()
 
             viewModel.open(mode)
@@ -39,7 +39,7 @@ struct HomeViewModelTests {
         }
     }
 
-    /// Once the trial is over dubbing answers a tap with the paywall, and is not pushed.
+    /// Without Dubloon Pro dubbing answers a tap with the paywall, and is not pushed.
     @Test func aLockedGameOpensThePaywallInstead() {
         withAccess(.locked) {
             let viewModel = HomeViewModel()
@@ -53,7 +53,7 @@ struct HomeViewModelTests {
         }
     }
 
-    /// Reverse singing is free: it opens with the trial over, and the menu says it is free.
+    /// Reverse singing is free: it opens without Dubloon Pro, and the menu says it is free.
     @Test func theReverseGameStaysOpenWhenLocked() {
         withAccess(.locked) {
             let viewModel = HomeViewModel()
@@ -68,7 +68,7 @@ struct HomeViewModelTests {
         }
     }
 
-    /// Home Video Dub is always free: the user brings the video, so it opens with the trial over.
+    /// Home Video Dub is always free: the user brings the video, so it opens without Dubloon Pro.
     @Test func homeVideoDubStaysOpenWhenLocked() {
         withAccess(.locked) {
             let viewModel = HomeViewModel()
@@ -82,8 +82,8 @@ struct HomeViewModelTests {
         }
     }
 
-    /// Sound Imitation is paid unless the console frees it, so it locks with dubbing.
-    @Test func soundImitationLocksByDefault() {
+    /// Sound Imitation is paid, so it locks with dubbing.
+    @Test func soundImitationLocksWithDubbing() {
         withAccess(.locked) {
             let viewModel = HomeViewModel()
 
@@ -99,7 +99,7 @@ struct HomeViewModelTests {
     /// "Free" only means something beside a padlock. With nothing locked, no game says it.
     @Test(arguments: GameMode.allCases)
     func nothingIsMarkedFreeWhileNothingIsLocked(mode: GameMode) {
-        withAccess(.trial(daysRemaining: 3, endsAt: .distantFuture)) {
+        withAccess(.unlocked(.entitlement)) {
             #expect(!HomeViewModel().isFree(mode))
         }
     }
@@ -149,9 +149,9 @@ struct HomeViewModelTests {
         }
     }
 
-    /// A trial that runs out overnight with dubbing open closes it.
+    /// A subscription that runs out overnight with dubbing open closes it.
     @Test func expiringInsideAPaidGameReturnsToTheMenu() {
-        withAccess(.trial(daysRemaining: 1, endsAt: .distantFuture)) {
+        withAccess(.unlocked(.entitlement)) {
             let viewModel = HomeViewModel()
             viewModel.open(.dub)
 
@@ -163,7 +163,7 @@ struct HomeViewModelTests {
 
     /// The same moment inside reverse singing changes nothing: it was never paid for.
     @Test func expiringInsideTheFreeGameKeepsItOpen() {
-        withAccess(.trial(daysRemaining: 1, endsAt: .distantFuture)) {
+        withAccess(.unlocked(.entitlement)) {
             let viewModel = HomeViewModel()
             viewModel.open(.reverse)
 
@@ -249,6 +249,23 @@ struct HomeViewModelTests {
             viewModel.rateFromReviewBanner(stars: 1)
             _ = viewModel.sendReviewFeedback("Exports take too long")
 
+            #expect(!viewModel.isReviewFeedbackPresented)
+            #expect(!viewModel.showsReviewBanner)
+        }
+    }
+
+    /// With Share Usage Data off the note goes by email, and the banner is only done once Mail
+    /// has taken it: a phone with no mail account keeps the dialog, the note and the banner.
+    @Test func feedbackByMailOnlyCountsOnceMailOpens() {
+        withAccess(.locked) {
+            let viewModel = makeViewModel()
+            viewModel.rateFromReviewBanner(stars: 2)
+
+            viewModel.reviewFeedbackMailDidOpen(false)
+            #expect(viewModel.isReviewFeedbackPresented)
+            #expect(viewModel.showsReviewBanner)
+
+            viewModel.reviewFeedbackMailDidOpen(true)
             #expect(!viewModel.isReviewFeedbackPresented)
             #expect(!viewModel.showsReviewBanner)
         }

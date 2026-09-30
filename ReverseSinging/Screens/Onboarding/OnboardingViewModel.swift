@@ -10,6 +10,10 @@ import Combine
 
 /// Drives onboarding: which page is up, and handing the user over to the app once it is done.
 ///
+/// The last page says what Dubloon Pro is for, and to someone who does not have it, it offers
+/// the two honest answers side by side: buy it now, or skip it for now. Skipping costs
+/// nothing: the free games play, and the menu keeps the offer where it can be found.
+///
 /// There is no microphone page. Someone who has not seen the app yet should be free to decide
 /// later, so nothing is asked here: each game asks the first time record is pressed, behind
 /// `MicrophonePrimer`'s explanation, when it is obvious what the microphone is for.
@@ -18,7 +22,12 @@ final class OnboardingViewModel: ObservableObject {
 
     @Published var currentPage = 0
 
+    /// The paywall, opened from the last page.
+    @Published var isPaywallPresented = false
+
     private let app: AppViewModel
+    private let access: AccessController
+    private var cancellables = Set<AnyCancellable>()
 
     let pages: [OnboardingPage] = [
         OnboardingPage(
@@ -54,16 +63,52 @@ final class OnboardingViewModel: ObservableObject {
         )
     ]
 
-    init(app: AppViewModel) {
+    init(app: AppViewModel, access: AccessController = .shared) {
         self.app = app
+        self.access = access
+
+        access.$state
+            .removeDuplicates()
+            .sink { [weak self] state in self?.accessStateDidChange(state) }
+            .store(in: &cancellables)
     }
 
     /// The page whose button ends onboarding.
     var isOnLastPage: Bool { currentPage == pages.count - 1 }
 
-    /// The one button under the pages: on, or into the app from the last of them.
+    /// Whether the page on screen is the Pro page in front of someone who could buy it. It
+    /// then carries two buttons, buy and skip, in place of Continue. An owner or an early
+    /// adopter has nothing to be sold and just continues.
+    var offersPro: Bool { isOnLastPage && isLocked }
+
+    /// Mirrors `AccessController.isLocked`, so the buttons follow a purchase or a restore
+    /// that lands while the page is up.
+    @Published private var isLocked = false
+
+    /// The main button under the pages.
+    func primaryTapped() {
+        offersPro ? showPaywall() : continueTapped()
+    }
+
+    /// On, or into the app from the last page.
     func continueTapped() {
         isOnLastPage ? finishOnboarding() : nextPage()
+    }
+
+    func showPaywall() {
+        HapticManager.shared.light()
+        isPaywallPresented = true
+    }
+
+    /// Fed the new value rather than reading `access.isLocked`, which has not changed yet
+    /// when a `@Published` sink fires.
+    private func accessStateDidChange(_ state: AccessState) {
+        isLocked = state == .locked
+        // Bought from the paywall this page opened: there is nothing left to explain.
+        if isPaywallPresented, state == .unlocked(.entitlement) {
+            isPaywallPresented = false
+            finishOnboarding()
+        }
     }
 
     // MARK: - Screen

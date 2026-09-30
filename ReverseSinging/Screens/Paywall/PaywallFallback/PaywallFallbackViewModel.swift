@@ -32,17 +32,6 @@ final class PaywallFallbackViewModel: ObservableObject {
 
     var isPurchasing: Bool { access.isPurchasing }
 
-    /// Keyed off the access state rather than off how the paywall was presented: the
-    /// presentation is a good proxy for "the trial is over" but not the fact itself, and this
-    /// is the one line on the screen that must not be able to say something the user can see
-    /// is untrue.
-    var headerMessage: String {
-        guard access.isLocked else { return Strings.Pro.Fallback.messageBeforeExpiry }
-        return access.hasTrial
-            ? Strings.Pro.Fallback.messageAfterExpiry
-            : Strings.Pro.Fallback.messageNoTrial
-    }
-
     // MARK: - Loading
 
     func loadProduct(force: Bool = false) async {

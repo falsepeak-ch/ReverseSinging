@@ -41,9 +41,8 @@ struct SettingsView: View {
 
                 ScrollView {
                     VStack(spacing: 24) {
-                        // First: it is the only section that can be in a state the
-                        // user needs to act on, and a trial counting down is not
-                        // something to make them scroll for.
+                        // First: it is the only section with something the user may
+                        // want to act on, and that is not something to scroll for.
                         purchaseSection
                             .slideIn(delay: 0.1)
 
@@ -468,7 +467,7 @@ struct SettingsView: View {
                     settingsRow(
                         assetName: "settings-unlock",
                         title: Strings.Pro.unlockTitle,
-                        subtitle: viewModel.unlockSubtitle,
+                        subtitle: Strings.Pro.unlockSubtitle,
                         isProminent: true
                     ) {
                         viewModel.showPaywall()

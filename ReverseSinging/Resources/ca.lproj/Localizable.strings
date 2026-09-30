@@ -9,13 +9,18 @@
 "onboarding.howItWorks.title" = "Com funciona";
 "onboarding.howItWorks.message" = "Grava una cançó, gira-la i canta damunt d'aquell embolic. Després gira el teu intent i descobreix si t'hi has acostat o has inventat un idioma nou.";
 "onboarding.dub.title" = "Dobla una escena";
-"onboarding.dub.message" = "El segon joc: posa una escena, sobreactua-hi al damunt i escolta't dins de la pel·lícula. En vénen dues de regal. A partir d'aquí, posa-hi les teves.";
+"onboarding.dub.message" = "El segon joc: posa una escena, sobreactua-hi al damunt i escolta't dins de la pel·lícula. En venen quatre de regal. A partir d'aquí, posa-hi les teves.";
 "onboarding.pro.title" = "Per què existeix Dubloon Pro";
-"onboarding.pro.message" = "Dubloon no té anuncis, ni compte, ni seguiment, i el fa una sola persona a Zúric. Dubloon Pro és el que ho paga: totes les escenes, la càmera de cabina i les exportacions. El cant invertit continua sent gratuït.";
-"onboarding.microphone.title" = "Una última cosa";
-"onboarding.microphone.message" = "Tots els jocs necessiten sentir-te: cantant del revés, doblant una escena o imitant un so. El micro només es desperta mentre graves, tot es queda en aquest dispositiu i no es puja mai res. La teva pitjor presa es queda entre vosaltres dos.";
+"onboarding.pro.message" = "Dubloon no té anuncis, ni compte, ni seguiment, i el fa una sola persona a Zuric. Dubloon Pro és el que ho paga: totes les escenes, la imitació de sons, la càmera de cabina i les exportacions. El cant invertit i el doblatge dels teus vídeos continuen sent gratuïts.";
+"onboarding.pro.buy" = "Aconsegueix Dubloon Pro";
+"onboarding.pro.skip" = "Salta-ho per ara";
 "onboarding.button.continueLowercase" = "continuar";
-"onboarding.button.microphoneContinue" = "Continuar";
+"onboarding.button.continue" = "Continuar";
+
+// MARK: - Microphone explanation
+"microphonePrimer.title" = "Micròfon";
+"microphonePrimer.message" = "Tots els jocs necessiten sentir-te: cantant del revés, doblant una escena o imitant un so. El micro només es desperta mentre graves, tot es queda en aquest dispositiu i no es puja mai res. La teva pitjor presa es queda entre vosaltres dos.";
+"microphonePrimer.continue" = "Continuar";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Aturar la gravació";
@@ -42,8 +47,8 @@
 
 // MARK: - Main View - Alerts
 "main.alert.microphoneRequired.title" = "El micro està apagat";
-"main.alert.microphoneRequired.message" = "Sense accés al micròfon, Dubloon no sent absolutament res. Activa'l als Ajustos i continuem.";
-"main.alert.settings" = "Ajustos";
+"main.alert.microphoneRequired.message" = "Sense accés al micròfon, Dubloon no sent absolutament res. Activa'l a Configuració i continuem.";
+"main.alert.settings" = "Configuració";
 "main.alert.cancel" = "Cancel·lar";
 "main.alert.error.title" = "Això no ha anat bé";
 "main.alert.ok" = "D'acord";
@@ -53,8 +58,8 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Ningú no et sent";
-"main.emptyState.message" = "Ara mateix Dubloon és una app de gravar sense res amb què gravar. Activa el micròfon als ajustos del dispositiu i els quatre jocs tornaran a la vida.";
-"main.emptyState.button" = "Obrir Ajustos";
+"main.emptyState.message" = "Ara mateix Dubloon és una app de gravar sense res amb què gravar. Activa el micròfon a la configuració del dispositiu i els quatre jocs tornaran a la vida.";
+"main.emptyState.button" = "Obrir Configuració";
 
 // MARK: - Main View - Processing & Success
 "main.processing.reversingAudio" = "Girant-ho tot…";
@@ -119,7 +124,7 @@
 "session.defaultName" = "Sessió";
 
 // MARK: - Error Messages
-"error.microphonePermissionRequired" = "Dubloon necessita el micròfon per a això. Activa'l als Ajustos.";
+"error.microphonePermissionRequired" = "Dubloon necessita el micròfon per a això. Activa'l a Configuració.";
 "error.cannotStartRecording" = "La gravadora no arrenca ara mateix. Torna-ho a provar.";
 "error.noRecordingInProgress" = "Ara mateix no s'està gravant res.";
 "error.failedToStopRecording" = "La gravadora no s'ha aturat net. Torna-ho a provar.";
@@ -139,9 +144,6 @@
 "settings.about.license.renews" = "Dubloon Pro, es renova el %@";
 "settings.about.license.ends" = "Dubloon Pro, acaba el %@";
 "settings.about.license.earlyAdopter" = "Pioner, gratis per sempre";
-"settings.about.license.trialDays" = "Prova gratuïta, queden %d dies";
-"settings.about.license.trialLastDay" = "Prova gratuïta, últim dia";
-"settings.about.license.trialOver" = "La prova gratuïta ha acabat";
 "settings.about.license.free" = "Gratuït";
 
 // Theme descriptions
@@ -238,7 +240,7 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "Tancar";
 "dubGate.ask.title" = "Ja tens les teves pel·lícules?";
-"dubGate.ask.message" = "Més enllà de les dues escenes d'exemple, no incloem ni allotgem cap pel·lícula. Per doblar qualsevol altra cosa, el fitxer ha de ser ja en aquest dispositiu.";
+"dubGate.ask.message" = "Més enllà de les quatre escenes d'exemple, no incloem ni allotgem cap pel·lícula. Per doblar qualsevol altra cosa, el fitxer ha de ser ja en aquest dispositiu.";
 "dubGate.ask.confirm" = "Sí, ja les tinc aquí";
 "dubGate.ask.needDownload" = "No, les he de buscar";
 "dubGate.download.title" = "On trobar-les";
@@ -247,17 +249,17 @@
 "dubGate.download.back" = "Enrere";
 "dubGate.disclaimer.notAffiliated" = "%@ és el web d'una altra gent. No hi tenim cap relació i no allotgem ni compartim ni un sol fitxer.";
 "dubGate.disclaimer.responsibility" = "Assegura't de tenir dret a fer servir el que descarreguis i respecta les normes de copyright d'on visquis.";
-"dubGuide.row" = "Necessito ajuda per aconseguir més paquets";
-"dubGuide.title" = "Com aconseguir més paquets";
-"dubGuide.intro" = "Un paquet de doblatge és una escena: el vídeo, la banda sonora i una gravació de cada frase. Així n'afegeixes un a Dubloon.";
+"dubGuide.row" = "Necessito ajuda per aconseguir més packs";
+"dubGuide.title" = "Com aconseguir més packs";
+"dubGuide.intro" = "Un pack de doblatge és una escena: el vídeo, la banda sonora i una gravació de cada frase. Així n'afegeixes un a Dubloon.";
 "dubGuide.1.title" = "Busca una escena";
-"dubGuide.1.detail" = "Obre GameBanana a sota i explora els paquets de doblatge de pel·lícules. Tria'n un que t'agradi i obre'n la pàgina.";
+"dubGuide.1.detail" = "Obre GameBanana a sota i explora els packs de doblatge de pel·lícules. Tria'n un que t'agradi i obre'n la pàgina.";
 "dubGuide.2.title" = "Descarrega'l";
-"dubGuide.2.detail" = "Toca Download i tria el fitxer: un .zip, .7z o .rar. Safari el desa a l'app Fitxers, a Descàrregues.";
+"dubGuide.2.detail" = "Toca Download i tria el fitxer: un .zip, .7z o .rar. Safari el desa a l'app Arxius, a Descàrregues.";
 "dubGuide.3.title" = "Espera que acabi";
-"dubGuide.3.detail" = "Espera que la descàrrega s'acabi. Si el fitxer és a l'iCloud Drive, obre'l un cop a Fitxers perquè sigui de veritat en aquest dispositiu.";
+"dubGuide.3.detail" = "Espera que la descàrrega s'acabi. Si el fitxer és a l'iCloud Drive, obre'l un cop a Arxius perquè sigui de veritat en aquest dispositiu.";
 "dubGuide.4.title" = "Importa'l";
-"dubGuide.4.detail" = "Torna aquí, toca +, confirma que el fitxer és al dispositiu i tria'l a Descàrregues. També el pots compartir amb Dubloon des de Fitxers o AirDrop.";
+"dubGuide.4.detail" = "Torna aquí, toca +, confirma que el fitxer és al dispositiu i tria'l a Descàrregues. També el pots compartir amb Dubloon des d'Arxius o AirDrop.";
 "dubGuide.5.title" = "Si no s'importa";
 "dubGuide.5.detail" = "Dubloon et diu què ha fallat. Torna a desar l'arxiu com a .zip, demana a l'autor una còpia sense contrasenya i comprova que tingui un fitxer de text i una gravació per a cada frase.";
 
@@ -296,13 +298,10 @@
 "dub.videoNeedsReimport" = "El vídeo d'aquesta escena el va convertir una versió antiga i ara va per davant de les veus. Torna a importar el pack per arreglar-ho.";
 
 // MARK: - Pro / Paywall
-"pro.trial.daysLeft" = "Queden %d dies";
-"pro.trial.oneDayLeft" = "Últim dia";
-"pro.trial.over" = "La teva prova gratuïta s'ha acabat";
 "pro.locked.title" = "Aconsegueix Dubloon Pro per doblar";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Desbloquejar Dubloon";
-"pro.unlock.subtitle" = "Totes les escenes, la càmera de cabina i les exportacions. El cant invertit continua sent gratuït.";
+"pro.unlock.subtitle" = "Totes les escenes, la imitació de sons, la càmera de cabina i les exportacions. El cant invertit i el doblatge dels teus vídeos continuen sent gratuïts.";
 "pro.owned.title" = "Dubloon és teu";
 "pro.owned.subtitle" = "Gràcies. Totes les escenes, totes les preses, sense sostre.";
 "pro.manage.title" = "Gestionar la compra";
@@ -313,17 +312,13 @@
 "pro.restore.title" = "Restaurar la compra";
 "pro.restore.subtitle" = "Mòbil nou o app reinstal·lada? Recupera-la.";
 "pro.testStore.warning" = "Compilació de depuració: connectada a la botiga de proves de RevenueCat. Aquí no es mou diner real.";
-"pro.restored.title" = "Restaurada";
-"pro.restored.message" = "La teva compra ha tornat a aquest dispositiu.";
 "pro.nothingToRestore.title" = "Res per restaurar";
 "pro.nothingToRestore.message" = "No hi ha cap compra en aquest compte d'Apple. Si vas comprar Dubloon amb un altre, inicia sessió amb aquell i torna-ho a provar.";
 "pro.error.title" = "Alguna cosa ha anat malament";
 "pro.error.generic" = "La botiga no ha contestat. Torna-ho a provar d'aquí a un moment.";
 "pro.ok" = "D'acord";
 "pro.fallback.title" = "Desbloquejar Dubloon";
-"pro.fallback.message" = "La teva prova gratuïta s'ha acabat. Desbloqueja Dubloon per continuar doblant.";
-"pro.fallback.message.beforeExpiry" = "Desbloqueja Dubloon per continuar doblant.";
-"pro.fallback.message.noTrial" = "Desbloqueja Dubloon per doblar totes les escenes.";
+"pro.fallback.message" = "Desbloqueja Dubloon per doblar totes les escenes.";
 "pro.fallback.buy" = "Desbloquejar per %@";
 "pro.fallback.buyUnpriced" = "Desbloquejar";
 "pro.fallback.loading" = "Preguntant a la botiga…";
@@ -388,7 +383,7 @@
 "booth.settings.section" = "Càmera de cabina";
 "booth.settings.title" = "Càmera de cabina";
 "booth.settings.desc" = "Et grava amb la càmera frontal mentre dobles, perquè la reacció viatgi amb la presa.";
-"booth.settings.denied" = "L'accés a la càmera està desactivat. Activa'l per a Dubloon a l'app Ajustos.";
+"booth.settings.denied" = "L'accés a la càmera està desactivat. Activa'l per a Dubloon a l'app Configuració.";
 "booth.mirror.title" = "Veure'm com en un mirall";
 "booth.mirror.desc" = "Inverteix el monitor mentre actues. El fitxer gravat no s'inverteix mai.";
 "booth.footage" = "Material de cabina";
@@ -648,7 +643,7 @@
 "help.gettingStarted.1.q" = "Què és Dubloon?";
 "help.gettingStarted.1.a" = "Quatre jocs de veu que només necessiten el micròfon. Cant invertit: canta una cançó al revés. Doblatge d'escenes: posa la teva veu en una escena de pel·lícula, frase a frase. Doblatge dels teus vídeos: posa la teva veu en un vídeo que hagis gravat. Imitació de sons: imita un so i rep un veredicte. Tria'n un al menú.";
 "help.gettingStarted.2.q" = "Quins jocs són gratuïts?";
-"help.gettingStarted.2.a" = "Cant invertit i Doblatge dels teus vídeos són gratuïts, sense límit. Doblatge d'escenes i Imitació de sons vénen amb Dubloon Pro, juntament amb la càmera de cabina.";
+"help.gettingStarted.2.a" = "Cant invertit i Doblatge dels teus vídeos són gratuïts, sense límit. Doblatge d'escenes i Imitació de sons venen amb Dubloon Pro, juntament amb la càmera de cabina.";
 "help.gettingStarted.3.q" = "Necessito auriculars?";
 "help.gettingStarted.3.a" = "No, però ajuden quan dobles. Amb auriculars pots sentir la frase original mentre graves (activa Original als auriculars als Ajustos). Per l'altaveu acabaria colant-se a la teva presa, així que Dubloon només la fa sonar pels auriculars. Els auriculars amb cable mantenen la sincronia més ajustada: el Bluetooth hi afegeix un petit retard.";
 "help.reverse.1.q" = "Com funciona el cant invertit?";
@@ -674,7 +669,7 @@
 "help.homeVideo.2.q" = "Com sincronitzo els meus sons?";
 "help.homeVideo.2.a" = "L'ona sota la imatge és el so del mateix vídeo, i la línia que hi avança marca per on va. Mira-la perquè un lladruc o una rialla arribin al moment just. Després de gravar, la teva veu s'hi dibuixa a sobre en vermell.";
 "help.homeVideo.3.q" = "Puc sentir el vídeo mentre gravo?";
-"help.homeVideo.3.a" = "Sí, amb auriculars. Per l'altaveu el vídeo sona en silenci perquè el seu so no acabi a la teva presa. Amb Mantenir el so original torna a sonar, fluix, sota la teva veu al vídeo final.";
+"help.homeVideo.3.a" = "Sí, amb auriculars. Per l'altaveu el vídeo es reprodueix en silenci perquè el seu so no acabi a la teva presa. Amb Mantén el so original torna a sonar, fluix, sota la teva veu al vídeo final.";
 "help.booth.1.q" = "Què és la càmera de cabina?";
 "help.booth.1.a" = "La càmera de cabina et grava la cara amb la càmera frontal mentre actues, perquè la reacció pugui anar al vídeo amb el doblatge. Està apagada fins que l'encens amb la tecla de càmera de la pantalla de gravació o als Ajustos. Les imatges es queden al teu dispositiu.";
 "help.booth.2.q" = "Com exporto un vídeo?";
@@ -682,11 +677,11 @@
 "help.booth.3.q" = "Com esborro el material de cabina?";
 "help.booth.3.a" = "Als Ajustos veus quant espai ocupa el material de cabina, amb un botó per esborrar totes les preses de cabina. Les teves preses de veu i els teus doblatges es queden. Si esborres una escena, també s'esborren les seves preses i imatges.";
 "help.packs.1.q" = "Com afegeixo més escenes?";
-"help.packs.1.a" = "Les escenes arriben com a packs de doblatge: una carpeta o un fitxer .zip, .7z o .rar. Toca + a Doblatge d'escenes i tria'n un de Fitxers, o envia'l a Dubloon per AirDrop o des de qualsevol full de compartir. Dubloon el desempaqueta i l'escena apareix a la llista.";
+"help.packs.1.a" = "Les escenes arriben com a packs de doblatge: una carpeta o un fitxer .zip, .7z o .rar. Toca + a Doblatge d'escenes i tria'n un a Arxius, o envia'l a Dubloon per AirDrop o des de qualsevol full de compartir. Dubloon el desempaqueta i l'escena apareix a la llista.";
 "help.packs.2.q" = "D'on surten els packs de doblatge?";
-"help.packs.2.a" = "L'app porta dues escenes. Tots els altres packs els fan i els comparteixen altres jugadors; Dubloon no inclou, no allotja ni ven cap pel·lícula. Dobla només allò que tinguis dret a fer servir i segueix les normes de drets d'autor d'on visquis.";
+"help.packs.2.a" = "L'app porta quatre escenes. Tots els altres packs els fan i els comparteixen altres jugadors; Dubloon no inclou, no allotja ni ven cap pel·lícula. Dobla només allò que tinguis dret a fer servir i segueix les normes de drets d'autor d'on visquis.";
 "help.packs.3.q" = "Un pack no s'importa. I ara què?";
-"help.packs.3.a" = "Dubloon et diu què ha fallat. Les solucions habituals: si el fitxer és a l'iCloud, obre'l primer a Fitxers perquè es baixi. Si l'arxiu té contrasenya, demana al creador una còpia sense. Si no es desempaqueta, torna'l a desar com a .zip. I si Dubloon diu que no és un pack de doblatge, li cal un fitxer de text i una gravació per a cada frase.";
+"help.packs.3.a" = "Dubloon et diu què ha fallat. Les solucions habituals: si el fitxer és a l'iCloud, obre'l primer a Arxius perquè es baixi. Si l'arxiu té contrasenya, demana al creador una còpia sense. Si no es desempaqueta, torna'l a desar com a .zip. I si Dubloon diu que no és un pack de doblatge, li cal un fitxer de text i una gravació per a cada frase.";
 "help.imitate.1.q" = "Com funciona la Imitació de sons?";
 "help.imitate.1.a" = "Tria un so, toca Escoltar, després toca Imitar i fes el so amb la teva veu. Dubloon compara el teu intent amb l'original i hi estampa un veredicte. Es guarda la teva millor puntuació de cada so, així que pots tornar i superar-la.";
 "help.imitate.2.q" = "Què es jutja?";
@@ -694,23 +689,23 @@
 "help.imitate.3.q" = "Puc compartir un intent?";
 "help.imitate.3.a" = "Sí. Després d'un veredicte, toca Crear vídeo: el so, el teu intent i la teva puntuació, a punt per enviar. Amb la càmera de cabina encesa, també hi surt la teva cara.";
 "help.pro.1.q" = "Què desbloqueja Dubloon Pro?";
-"help.pro.1.a" = "El Doblatge d'escenes amb totes les escenes i els packs de la comunitat, la Imitació de sons, la càmera de cabina i les exportacions de vídeo. El Cant invertit és gratuït igualment. Pro és una compra única o una subscripció, i es desbloqueja al teu iPhone i al teu Mac amb el mateix compte d'Apple.";
+"help.pro.1.a" = "El Doblatge d'escenes amb totes les escenes i els packs de la comunitat, la Imitació de sons, la càmera de cabina i les exportacions de vídeo. El Cant invertit i el Doblatge dels teus vídeos són gratuïts igualment. Pro és una compra única o una subscripció, i es desbloqueja al teu iPhone i al teu Mac amb el mateix compte d'Apple.";
 "help.pro.2.q" = "He comprat Pro, però està bloquejat.";
 "help.pro.2.a" = "Obre els Ajustos i toca Restaurar la compra. Assegura't que has iniciat sessió a l'App Store amb el compte d'Apple amb què el vas comprar. En un telèfon nou o després de reinstal·lar l'app, restaurar-lo te'l torna sense cap cost.";
 "help.pro.3.q" = "Com cancel·lo o canvio la subscripció?";
-"help.pro.3.a" = "Als Ajustos, toca Gestionar la subscripció. També ho pots fer a l'app Ajustos: toca el teu nom i després Subscripcions. Cancel·la almenys 24 hores abans que es renovi i conserves Pro fins al final del període que has pagat. Els reemborsaments els gestiona Apple.";
+"help.pro.3.a" = "Als Ajustos, toca Gestionar la subscripció. També ho pots fer a l'app Configuració: toca el teu nom i després Subscripcions. Cancel·la almenys 24 hores abans que es renovi i conserves Pro fins al final del període que has pagat. Els reemborsaments els gestiona Apple.";
 "help.privacy.1.q" = "Es pugen les meves gravacions a algun lloc?";
 "help.privacy.1.a" = "No. Les teves gravacions, preses, imatges de cabina i vídeos es queden al teu dispositiu fins que decideixes compartir-los. La puntuació també es fa al teu dispositiu. No hi ha cap compte ni enlloc on registrar-se.";
 "help.privacy.2.q" = "Què recull Dubloon?";
 "help.privacy.2.a" = "Estadístiques d'ús anònimes i informes d'errors, que ajuden a trobar fallades i a decidir què fer després: coses com quin joc s'ha obert i quina puntuació n'ha sortit, mai el so d'una gravació. Desactiva-ho als Ajustos amb Compartir dades d'ús. La Política de privacitat en té tots els detalls.";
 "help.troubleshooting.1.q" = "Dubloon no em sent.";
-"help.troubleshooting.1.a" = "Comprova que Dubloon pot fer servir el micròfon: a l'app Ajustos, obre Dubloon i activa Micròfon. Si una altra app està fent servir l'àudio, com ara una trucada, acaba-la i torna-ho a provar.";
+"help.troubleshooting.1.a" = "Comprova que Dubloon pot fer servir el micròfon: a l'app Configuració, obre Dubloon i activa Micròfon. Si una altra app està fent servir l'àudio, com ara una trucada, acaba-la i torna-ho a provar.";
 "help.troubleshooting.2.q" = "No sento res.";
 "help.troubleshooting.2.a" = "Apuja el volum i comprova si uns auriculars o un altaveu Bluetooth s'han connectat a un altre lloc. Durant la gravació, la frase original només sona pels auriculars, a propòsit, perquè no es coli a la teva presa.";
 "help.troubleshooting.3.q" = "El meu doblatge no va sincronitzat amb la imatge.";
 "help.troubleshooting.3.a" = "Els auriculars Bluetooth afegeixen un retard, així que sents l'original una mica tard i entres tard. Amb auriculars amb cable, o sense auriculars, es resol. Si Dubloon diu que el vídeo d'una escena va per davant de les veus, torna a importar aquell pack.";
 "help.troubleshooting.4.q" = "La càmera de cabina no s'encén.";
-"help.troubleshooting.4.a" = "Dubloon necessita la càmera per a això. A l'app Ajustos, obre Dubloon i activa Càmera. La càmera de cabina forma part de Dubloon Pro.";
+"help.troubleshooting.4.a" = "Dubloon necessita la càmera per a això. A l'app Configuració, obre Dubloon i activa Càmera. La càmera de cabina forma part de Dubloon Pro.";
 /* Help, privacy and appearance in Settings */
 "settings.help" = "Ajuda i assistència";
 "settings.help.desc" = "Com funciona tot, i una manera de parlar amb nosaltres";

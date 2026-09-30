@@ -9,13 +9,18 @@
 "onboarding.howItWorks.title" = "Jak to funguje";
 "onboarding.howItWorks.message" = "Nahraj písničku, otoč ji a zpívej s tou hatmatilkou. Pak otoč vlastní pokus a zjisti, jestli ses trefil, nebo právě vynalezl nový jazyk.";
 "onboarding.dub.title" = "Nadabuj filmovou scénu";
-"onboarding.dub.message" = "Druhá hra: pusť scénu, přehrávej přes ni jako o život a pak se poslechni ve filmu. Dvě scény jsou v balení. Zbytek si přineseš sám.";
+"onboarding.dub.message" = "Druhá hra: pusť scénu, přehrávej přes ni jako o život a pak se poslechni ve filmu. Čtyři scény jsou v balení. Zbytek si přineseš sám.";
 "onboarding.pro.title" = "Proč existuje Dubloon Pro";
-"onboarding.pro.message" = "Dubloon nemá reklamy, účet ani sledování a dělá ho jeden člověk v Curychu. Dubloon Pro je to, co to platí: všechny scény, Booth Cam a exporty. Zpívání pozpátku zůstává zdarma.";
-"onboarding.microphone.title" = "Ještě jedna věc";
-"onboarding.microphone.message" = "Všechny hry tě potřebují slyšet: při zpívání pozpátku, při dabování scény i při napodobování zvuků. Mikrofon se probouzí jen během nahrávání, všechno zůstává v tomhle zařízení a nikdy se nic nikam neposílá. Tvůj nejhorší pokus zůstane mezi vámi dvěma.";
+"onboarding.pro.message" = "Dubloon nemá reklamy, účet ani sledování a dělá ho jeden člověk v Curychu. Dubloon Pro je to, co to platí: všechny scény, napodobování zvuků, Booth Cam a exporty. Zpívání pozpátku a dabing vlastních videí zůstávají zdarma.";
+"onboarding.pro.buy" = "Pořídit Dubloon Pro";
+"onboarding.pro.skip" = "Zatím přeskočit";
 "onboarding.button.continueLowercase" = "pokračovat";
-"onboarding.button.microphoneContinue" = "Pokračovat";
+"onboarding.button.continue" = "Pokračovat";
+
+// MARK: - Microphone explanation
+"microphonePrimer.title" = "Mikrofon";
+"microphonePrimer.message" = "Všechny hry tě potřebují slyšet: při zpívání pozpátku, při dabování scény i při napodobování zvuků. Mikrofon se probouzí jen během nahrávání, všechno zůstává v tomhle zařízení a nikdy se nic nikam neposílá. Tvůj nejhorší pokus zůstane mezi vámi dvěma.";
+"microphonePrimer.continue" = "Pokračovat";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Zastavit nahrávání";
@@ -139,9 +144,6 @@
 "settings.about.license.renews" = "Dubloon Pro, obnoví se %@";
 "settings.about.license.ends" = "Dubloon Pro, končí %@";
 "settings.about.license.earlyAdopter" = "Průkopník, zdarma navždy";
-"settings.about.license.trialDays" = "Zkušební verze, zbývá dní: %d";
-"settings.about.license.trialLastDay" = "Zkušební verze, poslední den";
-"settings.about.license.trialOver" = "Zkušební verze skončila";
 "settings.about.license.free" = "Zdarma";
 
 // Theme descriptions
@@ -238,7 +240,7 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "Zavřít";
 "dubGate.ask.title" = "Máš už své filmy?";
-"dubGate.ask.message" = "Kromě dvou ukázkových scén nepřikládáme ani nehostujeme jediný film. Abys mohl dabovat cokoliv dalšího, musí být soubor už v tomhle zařízení.";
+"dubGate.ask.message" = "Kromě čtyř ukázkových scén nepřikládáme ani nehostujeme jediný film. Abys mohl dabovat cokoliv dalšího, musí být soubor už v tomhle zařízení.";
 "dubGate.ask.confirm" = "Ano, mám je tady";
 "dubGate.ask.needDownload" = "Ne, musím je sehnat";
 "dubGate.download.title" = "Kde je najdeš";
@@ -249,17 +251,17 @@
 "dubGate.disclaimer.responsibility" = "Ujisti se, že máš právo použít to, co stahuješ, a řiď se autorskými pravidly tam, kde žiješ.";
 "dubGuide.row" = "Potřebuji pomoc se získáním dalších balíčků";
 "dubGuide.title" = "Jak získat další balíčky";
-"dubGuide.intro" = "Dabingový balíček je jedna scéna: video, jeho zvuková stopa a nahrávka každé repliky. Takhle ho dostanete do Dubloonu.";
-"dubGuide.1.title" = "Najděte scénu";
-"dubGuide.1.detail" = "Otevřete níže GameBanana a projděte filmové dabingové balíčky. Vyberte si jeden a otevřete jeho stránku.";
-"dubGuide.2.title" = "Stáhněte ho";
-"dubGuide.2.detail" = "Klepněte na Download a vyberte soubor: .zip, .7z nebo .rar. Safari ho uloží do aplikace Soubory, do složky Stažené.";
-"dubGuide.3.title" = "Nechte ho dokončit";
-"dubGuide.3.detail" = "Počkejte, až se stahování dokončí. Pokud je soubor na iCloud Drive, otevřete ho jednou v Souborech, aby byl opravdu v tomto zařízení.";
-"dubGuide.4.title" = "Importujte ho";
-"dubGuide.4.detail" = "Vraťte se sem, klepněte na +, potvrďte, že soubor je v zařízení, a vyberte ho ve Stažených. Můžete ho také sdílet do Dubloonu ze Souborů nebo přes AirDrop.";
+"dubGuide.intro" = "Dabingový balíček je jedna scéna: video, jeho zvuková stopa a nahrávka každé repliky. Takhle ho dostaneš do Dubloonu.";
+"dubGuide.1.title" = "Najdi scénu";
+"dubGuide.1.detail" = "Otevři níže GameBanana a projdi filmové dabingové balíčky. Vyber si jeden a otevři jeho stránku.";
+"dubGuide.2.title" = "Stáhni ho";
+"dubGuide.2.detail" = "Klepni na Download a vyber soubor: .zip, .7z nebo .rar. Safari ho uloží do aplikace Soubory, do složky Stažené.";
+"dubGuide.3.title" = "Nech to doběhnout";
+"dubGuide.3.detail" = "Počkej, až se stahování dokončí. Pokud je soubor na iCloud Drive, otevři ho jednou v Souborech, aby byl opravdu v tomhle zařízení.";
+"dubGuide.4.title" = "Importuj ho";
+"dubGuide.4.detail" = "Vrať se sem, klepni na +, potvrď, že soubor je v zařízení, a vyber ho ve Stažených. Můžeš ho také sdílet do Dubloonu ze Souborů nebo přes AirDrop.";
 "dubGuide.5.title" = "Když import selže";
-"dubGuide.5.detail" = "Dubloon řekne, co se pokazilo. Uložte archiv znovu jako .zip, požádejte autora o kopii bez hesla a zkontrolujte, že obsahuje textový soubor a nahrávku pro každou repliku.";
+"dubGuide.5.detail" = "Dubloon ti řekne, co se pokazilo. Ulož archiv znovu jako .zip, požádej autora o kopii bez hesla a zkontroluj, že obsahuje textový soubor a nahrávku pro každou repliku.";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "Než to budeš sdílet";
@@ -296,13 +298,10 @@
 "dub.videoNeedsReimport" = "Video téhle scény převedla starší verze a teď běží napřed před hlasy. Naimportuj balíček znovu a spraví se to.";
 
 // MARK: - Pro / Paywall
-"pro.trial.daysLeft" = "Zbývá %d dní";
-"pro.trial.oneDayLeft" = "Poslední den";
-"pro.trial.over" = "Tvoje zkušební doba skončila";
 "pro.locked.title" = "Pro dabování si pořiď Dubloon Pro";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Odemknout Dubloon";
-"pro.unlock.subtitle" = "Všechny scény, Booth Cam a exporty. Zpívání pozpátku zůstává zdarma.";
+"pro.unlock.subtitle" = "Všechny scény, napodobování zvuků, Booth Cam a exporty. Zpívání pozpátku a dabing vlastních videí zůstávají zdarma.";
 "pro.owned.title" = "Dubloon je tvůj";
 "pro.owned.subtitle" = "Díky. Každá scéna, každý pokus, bez stropu.";
 "pro.manage.title" = "Spravovat nákup";
@@ -313,17 +312,13 @@
 "pro.restore.title" = "Obnovit nákup";
 "pro.restore.subtitle" = "Nový telefon nebo přeinstalace? Vrať si ho.";
 "pro.testStore.warning" = "Debug build: připojeno k testovacímu obchodu RevenueCat. Žádné skutečné peníze se nehýbou.";
-"pro.restored.title" = "Obnoveno";
-"pro.restored.message" = "Tvůj nákup je zpátky na tomhle zařízení.";
 "pro.nothingToRestore.title" = "Není co obnovit";
 "pro.nothingToRestore.message" = "Na tomhle účtu Apple se nenašel žádný nákup. Jestli sis Dubloon koupil pod jiným, přihlas se jím a zkus to znovu.";
 "pro.error.title" = "Něco se pokazilo";
 "pro.error.generic" = "Obchod neodpověděl. Zkus to za chvíli.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Odemknout Dubloon";
-"pro.fallback.message" = "Tvoje zkušební doba skončila. Odemkni Dubloon a dabuj dál.";
-"pro.fallback.message.beforeExpiry" = "Odemkni Dubloon a dabuj dál.";
-"pro.fallback.message.noTrial" = "Odemkni Dubloon a nadabuj každou scénu.";
+"pro.fallback.message" = "Odemkni Dubloon a nadabuj každou scénu.";
 "pro.fallback.buy" = "Odemknout za %@";
 "pro.fallback.buyUnpriced" = "Odemknout";
 "pro.fallback.loading" = "Ptáme se obchodu…";
@@ -467,16 +462,16 @@
 "main.mode.homeVideo.subtitle" = "Nahraj svůj hlas na jakékoli video, které jsi natočil";
 "homeVideo.choose" = "Vybrat video";
 "homeVideo.change" = "Změnit video";
-"homeVideo.limit" = "Až jedna minuta. Tvoje video zůstane v telefonu.";
+"homeVideo.limit" = "Nejvýš jedna minuta. Tvoje video zůstane v telefonu.";
 "homeVideo.trimmed" = "Použije se jen první minuta.";
 "homeVideo.importing" = "Otevírám video…";
 "homeVideo.mixing" = "Přidávám tvůj hlas…";
 "homeVideo.keepOriginal" = "Ponechat původní zvuk";
 "homeVideo.keepOriginal.detail" = "Hraje potichu pod tvým hlasem";
 "homeVideo.keepOriginal.none" = "Toto video nemá zvuk";
-"homeVideo.hint.ready" = "Klepněte na nahrávání a video se spustí od začátku. Sledujte vlnu, aby vaše zvuky padly do správné chvíle.";
-"homeVideo.hint.empty" = "Vyberte video z knihovny a namluvte ho vlastním hlasem.";
-"homeVideo.hint.recordingHeadphones" = "Nahrává se. Video slyšíte ve sluchátkách; mikrofon slyší jen vás.";
+"homeVideo.hint.ready" = "Stiskni nahrát a video se spustí od začátku. Sleduj vlnu, aby tvoje zvuky padly do správné chvíle.";
+"homeVideo.hint.empty" = "Vyber video z knihovny a namluv ho vlastním hlasem.";
+"homeVideo.hint.recordingHeadphones" = "Nahrávám. Video slyšíš ve sluchátkách; mikrofon slyší jen tebe.";
 "homeVideo.hint.recording" = "Nahrávám. Video hraje bez zvuku, aby mikrofon slyšel jen tebe.";
 "homeVideo.hint.review" = "Tady je tvoje verze. Sdílej ji, nebo nahraj znovu.";
 "homeVideo.record" = "Nahrát";
@@ -646,13 +641,13 @@
 "help.flow.flipBack" = "Otoč zpět";
 "help.flow.caption" = "Zazpívej řádek a poslechni si ho pozpátku. Napodob tu hatmatilku co nejpřesněji a pak svou kopii otoč. Když se trefíš, vyleze z toho písnička.";
 "help.gettingStarted.1.q" = "Co je Dubloon?";
-"help.gettingStarted.1.a" = "Čtyři hlasové hry, ke kterým stačí mikrofon. Zpívání pozpátku: zazpívejte píseň pozpátku. Dabing filmové scény: namluvte filmovou scénu repliku po replice. Dabing vlastních videí: namluvte video, které jste natočili. Napodobování zvuků: napodobte zvuk a dostanete verdikt. Vyberte si jednu v menu.";
+"help.gettingStarted.1.a" = "Čtyři hlasové hry, ke kterým stačí mikrofon. Zpívání pozpátku: zazpívej píseň pozpátku. Dabing filmové scény: namluv filmovou scénu repliku po replice. Dabing vlastních videí: namluv video, které jsi natočil. Napodobování zvuků: napodob zvuk a dostaneš verdikt. Vyber si jednu v menu.";
 "help.gettingStarted.2.q" = "Které hry jsou zdarma?";
 "help.gettingStarted.2.a" = "Zpívání pozpátku a Dabing vlastních videí jsou zdarma, bez omezení. Dabing filmové scény a Napodobování zvuků jsou součástí Dubloon Pro, spolu s Booth Cam.";
 "help.gettingStarted.3.q" = "Potřebuju sluchátka?";
 "help.gettingStarted.3.a" = "Ne, ale při dabování pomůžou. Se sluchátky slyšíš původní repliku, zatímco nahráváš (zapni Originál ve sluchátkách v Nastavení). Z reproduktoru by ti vlezla do nahrávky, takže ji Dubloon pouští jen do sluchátek. S kabelovými sluchátky sedí načasování nejlíp: Bluetooth přidává malé zpoždění.";
 "help.reverse.1.q" = "Jak funguje zpívání pozpátku?";
-"help.reverse.1.a" = "Klepni na Nahrát zvuk a zazpívej řádek z písničky. Přes Přehrát pozpátku ho uslyšíš obráceně. Pak klepni na Zazpívej to zpátky a napodob ten obrácený zvuk co nejpřesněji. Dubloon tvou kopii otočí, a jestli ses trefil, uslyšíš písničku znovu, tvým hlasem.";
+"help.reverse.1.a" = "Klepni na Nahrát zvuk a zazpívej řádek z písničky. Přes Přehrát pozpátku ho uslyšíš obráceně. Pak klepni na Zazpívej to zpátky a napodob ten obrácený zvuk co nejpřesněji. Dubloon tvou kopii otočí, a jestli ses trefil, uslyšíš písničku znovu, svým hlasem.";
 "help.reverse.2.q" = "Co dělají čtyři tlačítka přehrávání?";
 "help.reverse.2.a" = "Originál je řádek, který jsi zazpíval. Pozpátku je ten řádek obráceně, tedy zvuk k napodobení. Tvůj pokus je tvoje kopie, jak jsi ji zazpíval. Tvůj pokus, pozpátku je tvoje kopie otočená zpátky: ta, která by měla znít jako písnička.";
 "help.reverse.3.q" = "Jak se počítá moje skóre?";
@@ -670,31 +665,31 @@
 "help.dub.4.q" = "Jak se uslyším ve filmu?";
 "help.dub.4.a" = "Klepni ve scéně na Pustit můj dabing. Tvoje nahrávky vstoupí do filmu místo původních replik; co jsi ještě nenadaboval, hraje tak, jak bylo. Pustit originál přehraje scénu beze změn.";
 "help.homeVideo.1.q" = "Jak nadabuji vlastní video?";
-"help.homeVideo.1.a" = "Klepněte na prázdný obraz a vyberte video z knihovny, dlouhé až minutu. Klepněte na nahrávání: po odpočtu se video spustí od začátku a váš hlas jde navrch. Na konci se přehraje vaše verze, připravená ke sdílení nebo novému nahrání.";
+"help.homeVideo.1.a" = "Klepni na prázdný obraz a vyber video z knihovny, dlouhé nejvýš minutu. Stiskni nahrát: po odpočtu se video spustí od začátku a tvůj hlas jde navrch. Na konci se přehraje tvoje verze, připravená ke sdílení nebo novému nahrání.";
 "help.homeVideo.2.q" = "Jak trefit zvuky do správné chvíle?";
-"help.homeVideo.2.a" = "Vlna pod obrazem je zvuk samotného videa a čára, která se po ní pohybuje, ukazuje, kde video je. Sledujte ji, abyste štěkot nebo smích trefili přesně. Po nahrání se přes ni červeně vykreslí váš hlas.";
+"help.homeVideo.2.a" = "Vlna pod obrazem je zvuk samotného videa a čára, která se po ní pohybuje, ukazuje, kde video je. Sleduj ji, abys štěkot nebo smích trefil přesně. Po nahrání se přes ni červeně vykreslí tvůj hlas.";
 "help.homeVideo.3.q" = "Slyším video, když nahrávám?";
-"help.homeVideo.3.a" = "Ano, ve sluchátkách. Z reproduktoru hraje video potichu, aby se jeho zvuk nedostal do nahrávky. Zachovat původní zvuk ho ve výsledném videu vrátí, potichu pod váš hlas.";
+"help.homeVideo.3.a" = "Ano, ve sluchátkách. Z reproduktoru hraje video bez zvuku, aby se jeho zvuk nedostal do nahrávky. Ponechat původní zvuk ho ve výsledném videu vrátí, potichu pod tvůj hlas.";
 "help.booth.1.q" = "Co je Booth Cam?";
 "help.booth.1.a" = "Booth Cam natáčí tvůj obličej přední kamerou, zatímco hraješ, aby se reakce mohla dostat do videa spolu s dabingem. Je vypnutá, dokud ji nezapneš klávesou kamery na obrazovce nahrávání nebo v Nastavení. Záběry zůstávají v tvém zařízení.";
 "help.booth.2.q" = "Jak vyexportuju video?";
-"help.booth.2.a" = "Klepni ve scéně na Exportovat video. Vyber střih (celou scénu, nebo cívku ze session jen s replikami, které jsi nadaboval) a kam půjdou záběry z kabiny: v rohu, nad sebou pro story, jako reakce, nebo vedle sebe. Před renderováním ti Dubloon ukáže, čí scéna to je, abys při sdílení mohl uvést autora.";
+"help.booth.2.a" = "Klepni ve scéně na Exportovat video. Vyber střih (celou scénu, nebo cívku ze session jen s replikami, které jsi nadaboval) a kam půjdou záběry z kabiny: do rohu, nad sebe pro story, jako reakce, nebo vedle sebe. Před renderováním ti Dubloon ukáže, čí scéna to je, abys při sdílení mohl uvést autora.";
 "help.booth.3.q" = "Jak smažu záběry z kabiny?";
 "help.booth.3.a" = "V Nastavení vidíš, kolik místa záběry z kabiny zabírají, a je tam tlačítko pro smazání všech záběrů z kabiny. Tvoje hlasové nahrávky a dabingy zůstanou. Smazáním scény se smažou i její nahrávky a záběry.";
 "help.packs.1.q" = "Jak přidám další scény?";
 "help.packs.1.a" = "Scény přicházejí jako dabingové balíčky: složka nebo archiv .zip, .7z nebo .rar. V Dabingu filmové scény klepni na + a vyber jeden ze Souborů, nebo ho pošli do Dubloonu přes AirDrop či z libovolné nabídky sdílení. Dubloon ho rozbalí a scéna se objeví v seznamu.";
 "help.packs.2.q" = "Odkud se berou dabingové balíčky?";
-"help.packs.2.a" = "Dvě scény jsou součástí aplikace. Všechny ostatní balíčky vytvářejí a sdílejí jiní hráči; Dubloon žádné filmy neobsahuje, nehostuje ani neprodává. Dabuj jen to, k čemu máš práva, a dodržuj autorská práva tam, kde žiješ.";
+"help.packs.2.a" = "Čtyři scény jsou součástí aplikace. Všechny ostatní balíčky vytvářejí a sdílejí jiní hráči; Dubloon žádné filmy neobsahuje, nehostuje ani neprodává. Dabuj jen to, k čemu máš práva, a dodržuj autorská práva tam, kde žiješ.";
 "help.packs.3.q" = "Balíček se nechce importovat. Co teď?";
 "help.packs.3.a" = "Dubloon ti řekne, co se pokazilo. Obvyklá řešení: když je soubor na iCloudu, otevři ho nejdřív v Souborech, ať se stáhne. Když má archiv heslo, požádej autora o verzi bez něj. Když se nechce rozbalit, ulož ho znovu jako .zip. A když Dubloon hlásí, že to není dabingový balíček, potřebuje textový soubor a nahrávku ke každé replice.";
 "help.imitate.1.q" = "Jak funguje Napodobování zvuků?";
 "help.imitate.1.a" = "Vyber zvuk, klepni na Poslechnout, pak na Napodobit a vydej ten zvuk sám. Dubloon porovná tvůj pokus s originálem a vtiskne mu verdikt. Tvoje nejlepší skóre u každého zvuku se ukládá, takže se můžeš vrátit a překonat ho.";
 "help.imitate.2.q" = "Co se hodnotí?";
-"help.imitate.2.a" = "Čtyři věci: rytmus (jak zvuk v čase stoupá a klesá), výška, barva (jasná, nebo tlumená) a délka. Nejdřív si ho párkrát poslechni, traf délku a pak řeš výšku.";
+"help.imitate.2.a" = "Čtyři věci: rytmus (jak zvuk v čase stoupá a klesá), výška, barva (jasná, nebo tlumená) a délka. Nejdřív si ho párkrát poslechni, tref délku a pak řeš výšku.";
 "help.imitate.3.q" = "Můžu pokus sdílet?";
 "help.imitate.3.a" = "Ano. Po verdiktu klepni na Vytvořit video: zvuk, tvůj pokus a tvoje skóre, připravené k odeslání. Se zapnutou Booth Cam je v něm i tvůj obličej.";
 "help.pro.1.q" = "Co odemyká Dubloon Pro?";
-"help.pro.1.a" = "Dabing filmové scény se všemi scénami a komunitními balíčky, Napodobování zvuků, Booth Cam a exporty videa. Zpívání pozpátku je zdarma tak jako tak. Pro je jednorázový nákup nebo předplatné a odemkne se na tvém iPhonu i Macu se stejným účtem Apple.";
+"help.pro.1.a" = "Dabing filmové scény se všemi scénami a komunitními balíčky, Napodobování zvuků, Booth Cam a exporty videa. Zpívání pozpátku a Dabing vlastních videí jsou zdarma tak jako tak. Pro je jednorázový nákup nebo předplatné a odemkne se na tvém iPhonu i Macu se stejným účtem Apple.";
 "help.pro.2.q" = "Koupil jsem Pro, ale je zamčené.";
 "help.pro.2.a" = "Otevři Nastavení a klepni na Obnovit nákup. Ujisti se, že jsi v App Store přihlášený přes účet Apple, kterým jsi nakupoval. Na novém telefonu nebo po přeinstalování ti ho obnovení vrátí zdarma.";
 "help.pro.3.q" = "Jak zruším nebo změním předplatné?";

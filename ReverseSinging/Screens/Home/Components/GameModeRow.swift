@@ -10,7 +10,7 @@ import SwiftUI
 /// A menu row for one game. The chevron and the full-width shape are what say
 /// "this goes somewhere". The home screen picks a game. It does not play one.
 ///
-/// Locked, once the trial is over, it is dimmed and the chevron becomes a padlock. It stays a
+/// Locked, for someone without Dubloon Pro, it is dimmed and the chevron becomes a padlock. It stays a
 /// button: a disabled row that swallowed the tap would leave the user guessing why, so the tap
 /// goes to the caller, which answers with the paywall.
 ///
@@ -82,7 +82,7 @@ struct GameModeRow: View {
         }
         .buttonStyle(.plain)
         .accessibilityLabel(mode.title)
-        .accessibilityValue(isLocked ? Strings.Pro.Trial.over : isFree ? Strings.Main.Mode.free : "")
+        .accessibilityValue(isLocked ? Strings.Pro.lockedTitle : isFree ? Strings.Main.Mode.free : "")
         .accessibilityHint(isLocked ? Strings.Pro.unlockTitle : mode.subtitle)
     }
 }

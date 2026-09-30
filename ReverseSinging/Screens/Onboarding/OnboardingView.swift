@@ -2,7 +2,7 @@
 //  OnboardingView.swift
 //  ReverseSinging
 //
-//  Voxxa-inspired onboarding with gradient icons
+//  The first-run pages, and the buttons under them
 //
 
 import SwiftUI
@@ -20,14 +20,7 @@ struct OnboardingView: View {
             // Adaptive background (dark/light mode)
             Color.rsBackgroundAdaptive(for: colorScheme).ignoresSafeArea()
 
-            VStack(spacing: 32) {
-                // Back button placeholder (like Voxxa has in header)
-                HStack {
-                    Spacer()
-                }
-                .frame(height: 44)
-                .padding(.top, 8)
-
+            VStack(spacing: 24) {
                 #if os(iOS)
                 TabView(selection: $viewModel.currentPage) {
                     ForEach(Array(viewModel.pages.enumerated()), id: \.offset) { index, page in
@@ -57,20 +50,40 @@ struct OnboardingView: View {
                             .animation(.rsSpring, value: viewModel.currentPage)
                     }
                 }
-                .padding(.bottom, 20)
 
                 // Buttons
-                BigButton(
-                    title: Strings.Onboarding.buttonContinueLowercase,
-                    icon: "arrow.right",
-                    color: .rsTurquoise,
-                    action: viewModel.continueTapped,
-                    style: .primary
-                )
+                VStack(spacing: 8) {
+                    BigButton(
+                        title: viewModel.offersPro ? Strings.Onboarding.proBuy : Strings.Onboarding.buttonContinueLowercase,
+                        icon: viewModel.offersPro ? "lock.open.fill" : "arrow.right",
+                        color: .rsTurquoise,
+                        action: viewModel.primaryTapped,
+                        style: .primary
+                    )
+
+                    // Always laid out, so the pages above do not jump when it arrives on the
+                    // last one.
+                    Button(action: viewModel.finishOnboarding) {
+                        Text(Strings.Onboarding.proSkip)
+                            .font(.rsButtonMedium)
+                            .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                            .frame(maxWidth: .infinity, minHeight: 44)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.8)
+                            .contentShape(Rectangle())
+                    }
+                    .opacity(viewModel.offersPro ? 1 : 0)
+                    .allowsHitTesting(viewModel.offersPro)
+                    .accessibilityHidden(!viewModel.offersPro)
+                }
                 .padding(.horizontal, 24)
-                .padding(.bottom, 32)
-                .animation(.rsSpring, value: viewModel.currentPage)
+                .padding(.bottom, 8)
+                .animation(.rsSpring, value: viewModel.offersPro)
             }
+        }
+        .sheet(isPresented: $viewModel.isPaywallPresented) {
+            ProPaywallView(source: "onboarding")
+                .paywallAppearance()
         }
         .onAppear { viewModel.onAppear() }
     }

@@ -17,9 +17,6 @@ final class ProPaywallViewModel: ObservableObject {
     /// What put this on screen, for analytics. Not shown.
     let source: String
 
-    /// A hard paywall has no close button and cannot be swiped away.
-    let isDismissible: Bool
-
     @Published private(set) var offering: Offering?
     @Published private(set) var loadFailed = false
     /// Set when the paywall has done its job and should go.
@@ -28,9 +25,8 @@ final class ProPaywallViewModel: ObservableObject {
     private let access: AccessController
     private var cancellables = Set<AnyCancellable>()
 
-    init(source: String, isDismissible: Bool) {
+    init(source: String) {
         self.source = source
-        self.isDismissible = isDismissible
         access = AccessController.shared
 
         access.objectWillChange
@@ -43,9 +39,7 @@ final class ProPaywallViewModel: ObservableObject {
     // MARK: - Screen
 
     func onAppear() {
-        AnalyticsManager.shared.trackPaywallShown(
-            source: source, isHardPaywall: !isDismissible
-        )
+        AnalyticsManager.shared.trackPaywallShown(source: source)
     }
 
     /// A purchase that lands while this is open — through the paywall, a restore, or a Family
@@ -108,9 +102,8 @@ final class ProPaywallViewModel: ObservableObject {
         AnalyticsManager.shared.trackRestoreCompleted(
             foundEntitlement: access.isPro
         )
-        // Only leave if the restore actually bought them back in.
-        // Closing a hard paywall on a restore that found nothing
-        // would drop them into an app they still cannot use.
+        // Only leave if the restore actually bought them back in. After one that
+        // found nothing, the offer they came for is still what they need to see.
         if access.isPro { close() }
     }
 

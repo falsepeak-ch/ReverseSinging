@@ -150,10 +150,16 @@ enum MacE2ERunner {
 
     // MARK: - Dub
 
+    /// The pack the run dubs, and so the one with takes in it: what Export Video needs.
+    /// Stuck Up by name rather than whichever is first: the shelf's order changes as packs
+    /// are added, and the Finder test re-imports Camp Rules, which moves it to the top.
+    private static func seededPack(in workspace: MacWorkspaceViewModel) -> DubPack? {
+        workspace.packs.first(where: { $0.title == "Stuck Up" }) ?? workspace.packs.first
+    }
+
     private static func dub(workspace: MacWorkspaceViewModel) async {
         section("dub")
-        // Stuck Up by name: the Finder test re-imports Camp Rules, which moves it to the top.
-        guard let pack = workspace.packs.first(where: { $0.title == "Stuck Up" }) ?? workspace.packs.first else {
+        guard let pack = seededPack(in: workspace) else {
             check("a dub pack is installed", false)
             return
         }
@@ -383,7 +389,7 @@ enum MacE2ERunner {
         section("menus")
         let expectations: [(MacDestination?, [String: Bool])] = [
             (.reverse, [MacStrings.Menu.playPause: true, MacStrings.Menu.nextLine: false, MacStrings.Menu.export: false]),
-            (workspace.packs.first.map { .pack($0.id) }, [MacStrings.Menu.playPause: true, MacStrings.Menu.nextLine: true, MacStrings.Menu.listen: true, MacStrings.Menu.export: true]),
+            (seededPack(in: workspace).map { .pack($0.id) }, [MacStrings.Menu.playPause: true, MacStrings.Menu.nextLine: true, MacStrings.Menu.listen: true, MacStrings.Menu.export: true]),
             (.imitate, [MacStrings.Menu.playPause: true, MacStrings.Menu.nextLine: true, MacStrings.Menu.listen: true])
         ]
         for (destination, expected) in expectations {
@@ -400,7 +406,7 @@ enum MacE2ERunner {
                 check("\(title) is \(enabled ? "on" : "off") in \(destination)", item.isEnabled == enabled)
             }
         }
-        if let pack = workspace.packs.first {
+        if let pack = seededPack(in: workspace) {
             workspace.select(.pack(pack.id))
             await sleep(1.2)
             if let editor = MacE2EProbe.shared.dubEditor, let item = menuItem(MacStrings.Menu.nextLine),
@@ -426,7 +432,7 @@ enum MacE2ERunner {
 
     private static func native(workspace: MacWorkspaceViewModel) async {
         section("native")
-        guard let pack = workspace.packs.first(where: { $0.title == "Stuck Up" }) ?? workspace.packs.first else { return }
+        guard let pack = seededPack(in: workspace) else { return }
 
         // Remembering where the window was, and what was opened lately.
         workspace.select(.pack(pack.id))
@@ -514,7 +520,7 @@ enum MacE2ERunner {
 
     private static func packWindows(workspace: MacWorkspaceViewModel) async {
         section("windows")
-        guard let pack = workspace.packs.first(where: { $0.title == "Stuck Up" }) ?? workspace.packs.first else { return }
+        guard let pack = seededPack(in: workspace) else { return }
         workspace.select(.pack(pack.id))
         _ = await waitUntil(3) { MacE2EProbe.shared.dubEditor?.pack.id == pack.id }
         await sleep(0.6)
@@ -595,7 +601,7 @@ enum MacE2ERunner {
     private static func windowSizes(workspace: MacWorkspaceViewModel) async {
         section("window")
         guard let window = mainWindow else { return }
-        let destinations: [MacDestination] = [.reverse, .imitate] + (workspace.packs.first.map { [.pack($0.id)] } ?? [])
+        let destinations: [MacDestination] = [.reverse, .imitate] + (seededPack(in: workspace).map { [.pack($0.id)] } ?? [])
         for (label, size) in [("min", NSSize(width: 1180, height: 700)), ("large", NSSize(width: 1680, height: 1000))] {
             window.setContentSize(size)
             for destination in destinations {

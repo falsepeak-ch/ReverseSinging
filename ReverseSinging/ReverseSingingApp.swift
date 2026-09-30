@@ -42,9 +42,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         AnalyticsManager.shared.trackAppLaunch()
 
         // Configures RevenueCat and starts the entitlement stream. Here rather
-        // than in `App.init()`, which SwiftUI runs *before* this method: the
-        // trial length comes from Remote Config, and Remote Config needs the
-        // `FirebaseApp` configured above.
+        // than in `App.init()`, which SwiftUI runs *before* this method: a store
+        // that will not start is reported through the `FirebaseApp` configured above.
         AccessController.shared.start()
 
         // Whether this launch is an update. Decided here for the same reason the

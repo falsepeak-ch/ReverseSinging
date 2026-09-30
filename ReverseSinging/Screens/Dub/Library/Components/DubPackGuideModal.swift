@@ -4,7 +4,7 @@
 //
 //  Step-by-step instructions for getting another dub pack onto the device and into the
 //  library: where to find one, downloading it, and importing it. Opened from the row at
-//  the foot of the dub library, for the player who has the two starter scenes and no idea
+//  the foot of the dub library, for the player who has the starter scenes and no idea
 //  where the rest come from.
 //
 

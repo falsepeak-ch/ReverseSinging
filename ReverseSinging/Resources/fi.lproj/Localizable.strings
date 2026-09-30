@@ -9,13 +9,18 @@
 "onboarding.howItWorks.title" = "Näin tämä toimii";
 "onboarding.howItWorks.message" = "Äänitä biisi, käännä se takaperin ja laula siansaksan mukana. Käännä sitten oma otoksesi ja kuule, osuitko lähelle vai keksitkö juuri uuden kielen.";
 "onboarding.dub.title" = "Dubbaa elokuvakohtaus";
-"onboarding.dub.message" = "Toinen peli: laita kohtaus pyörimään, ylinäyttele kunnolla ja kuule sitten itsesi elokuvassa. Kaksi kohtausta tulee mukana. Sen jälkeen tuot omat tiedostosi.";
+"onboarding.dub.message" = "Toinen peli: laita kohtaus pyörimään, ylinäyttele kunnolla ja kuule sitten itsesi elokuvassa. Neljä kohtausta tulee mukana. Sen jälkeen tuot omat tiedostosi.";
 "onboarding.pro.title" = "Miksi Dubloon Pro on olemassa";
-"onboarding.pro.message" = "Dubloonissa ei ole mainoksia, tiliä eikä seurantaa, ja sitä tekee yksi ihminen Zürichissä. Dubloon Pro maksaa tämän kaiken: kaikki kohtaukset, Booth Cam ja viennit. Takaperinlaulu pysyy ilmaisena.";
-"onboarding.microphone.title" = "Vielä yksi juttu";
-"onboarding.microphone.message" = "Kaikkien pelien pitää kuulla sinut: takaperin laulaessa, kohtausta dubatessa tai ääntä matkiessa. Mikrofoni herää vain äänityksen ajaksi, kaikki pysyy tällä laitteella eikä mitään lähetetä koskaan minnekään. Surkein otoksesi jää teidän kahden väliseksi.";
+"onboarding.pro.message" = "Dubloonissa ei ole mainoksia, tiliä eikä seurantaa, ja sitä tekee yksi ihminen Zürichissä. Dubloon Pro maksaa tämän kaiken: kaikki kohtaukset, äänten matkiminen, Booth Cam ja viennit. Takaperinlaulu ja omien videoiden dubbaus pysyvät ilmaisina.";
+"onboarding.pro.buy" = "Hanki Dubloon Pro";
+"onboarding.pro.skip" = "Ohita toistaiseksi";
 "onboarding.button.continueLowercase" = "jatka";
-"onboarding.button.microphoneContinue" = "Jatka";
+"onboarding.button.continue" = "Jatka";
+
+// MARK: - Microphone explanation
+"microphonePrimer.title" = "Mikrofoni";
+"microphonePrimer.message" = "Kaikkien pelien pitää kuulla sinut: takaperin laulaessa, kohtausta dubatessa tai ääntä matkiessa. Mikrofoni herää vain äänityksen ajaksi, kaikki pysyy tällä laitteella eikä mitään lähetetä koskaan minnekään. Surkein otoksesi jää teidän kahden väliseksi.";
+"microphonePrimer.continue" = "Jatka";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Lopeta äänitys";
@@ -139,9 +144,6 @@
 "settings.about.license.renews" = "Dubloon Pro, uusiutuu %@";
 "settings.about.license.ends" = "Dubloon Pro, päättyy %@";
 "settings.about.license.earlyAdopter" = "Varhainen käyttäjä, ilmainen ikuisesti";
-"settings.about.license.trialDays" = "Ilmainen kokeilu, %d päivää jäljellä";
-"settings.about.license.trialLastDay" = "Ilmainen kokeilu, viimeinen päivä";
-"settings.about.license.trialOver" = "Ilmainen kokeilu päättyi";
 "settings.about.license.free" = "Ilmainen";
 
 // Theme descriptions
@@ -238,7 +240,7 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "Sulje";
 "dubGate.ask.title" = "Onko elokuvasi jo tallessa?";
-"dubGate.ask.message" = "Kahden esimerkkikohtauksen lisäksi emme toimita emmekä säilytä yhtäkään elokuvaa. Muun dubbaamiseen elokuvatiedoston pitää olla jo tällä laitteella.";
+"dubGate.ask.message" = "Neljän esimerkkikohtauksen lisäksi emme toimita emmekä säilytä yhtäkään elokuvaa. Muun dubbaamiseen elokuvatiedoston pitää olla jo tällä laitteella.";
 "dubGate.ask.confirm" = "Kyllä, ne ovat täällä";
 "dubGate.ask.needDownload" = "Ei, minun täytyy hakea ne";
 "dubGate.download.title" = "Mistä ne löytyvät";
@@ -249,7 +251,7 @@
 "dubGate.disclaimer.responsibility" = "Varmista, että sinulla on oikeus käyttää lataamaasi, ja noudata oman maasi tekijänoikeussääntöjä.";
 "dubGuide.row" = "Tarvitsen apua lisäpakettien hankkimiseen";
 "dubGuide.title" = "Lisää paketteja";
-"dubGuide.intro" = "Dubbauspaketti on yksi kohtaus: video, sen ääniraita ja tallenne jokaisesta repliikistä. Näin saat sellaisen Dubloonin.";
+"dubGuide.intro" = "Dubbauspaketti on yksi kohtaus: video, sen ääniraita ja tallenne jokaisesta repliikistä. Näin saat sellaisen Dublooniin.";
 "dubGuide.1.title" = "Etsi kohtaus";
 "dubGuide.1.detail" = "Avaa GameBanana alta ja selaa elokuvien dubbauspaketteja. Valitse mieleisesi ja avaa sen sivu.";
 "dubGuide.2.title" = "Lataa se";
@@ -296,13 +298,10 @@
 "dub.videoNeedsReimport" = "Tämän kohtauksen videon muunsi vanhempi versio, ja nyt se kulkee äänten edellä. Tuo paketti uudelleen, niin homma korjaantuu.";
 
 // MARK: - Pro / Paywall
-"pro.trial.daysLeft" = "%d päivää jäljellä";
-"pro.trial.oneDayLeft" = "Viimeinen päivä";
-"pro.trial.over" = "Ilmainen kokeilusi on ohi";
 "pro.locked.title" = "Hanki Dubloon Pro dubataksesi";
 "pro.section" = "Dubloon Pro";
-"pro.unlock.title" = "Avaa Dubloon";
-"pro.unlock.subtitle" = "Kaikki kohtaukset, Booth Cam ja viennit. Takaperinlaulu pysyy ilmaisena.";
+"pro.unlock.title" = "Avaa Dubloonin lukitus";
+"pro.unlock.subtitle" = "Kaikki kohtaukset, äänten matkiminen, Booth Cam ja viennit. Takaperinlaulu ja omien videoiden dubbaus pysyvät ilmaisina.";
 "pro.owned.title" = "Dubloon on sinun";
 "pro.owned.subtitle" = "Kiitos. Joka kohtaus, joka otos, ilman kattoa.";
 "pro.manage.title" = "Hallitse ostosta";
@@ -313,17 +312,13 @@
 "pro.restore.title" = "Palauta osto";
 "pro.restore.subtitle" = "Uusi puhelin tai uudelleenasennus? Hae se takaisin.";
 "pro.testStore.warning" = "Debug-käännös: yhteydessä RevenueCatin testikauppaan. Oikeaa rahaa ei liiku.";
-"pro.restored.title" = "Palautettu";
-"pro.restored.message" = "Ostosi on taas tällä laitteella.";
 "pro.nothingToRestore.title" = "Ei mitään palautettavaa";
 "pro.nothingToRestore.message" = "Tältä Apple-tililtä ei löytynyt ostoa. Jos ostit Dubloonin toisella tilillä, kirjaudu sillä sisään ja yritä uudelleen.";
 "pro.error.title" = "Jokin meni pieleen";
 "pro.error.generic" = "Kauppa ei vastannut. Yritä hetken päästä uudelleen.";
 "pro.ok" = "OK";
-"pro.fallback.title" = "Avaa Dubloon";
-"pro.fallback.message" = "Ilmainen kokeilusi on ohi. Avaa Dubloon, niin voit jatkaa dubbaamista.";
-"pro.fallback.message.beforeExpiry" = "Avaa Dubloon, niin voit jatkaa dubbaamista.";
-"pro.fallback.message.noTrial" = "Avaa Dubloon, niin voit dubata jokaisen kohtauksen.";
+"pro.fallback.title" = "Avaa Dubloonin lukitus";
+"pro.fallback.message" = "Avaa Dubloonin lukitus, niin voit dubata jokaisen kohtauksen.";
 "pro.fallback.buy" = "Avaa hintaan %@";
 "pro.fallback.buyUnpriced" = "Avaa";
 "pro.fallback.loading" = "Kysytään kaupalta…";
@@ -474,19 +469,19 @@
 "homeVideo.keepOriginal" = "Säilytä alkuperäinen ääni";
 "homeVideo.keepOriginal.detail" = "Soi hiljaa äänesi alla";
 "homeVideo.keepOriginal.none" = "Tässä videossa ei ole ääntä";
-"homeVideo.hint.ready" = "Paina tallenna, niin video alkaa alusta. Seuraa aaltoa, jotta äänesi osuvat oikeaan hetkeen.";
+"homeVideo.hint.ready" = "Paina äänitä, niin video alkaa alusta. Seuraa aaltoa, jotta äänesi osuvat oikeaan hetkeen.";
 "homeVideo.hint.empty" = "Valitse video kirjastostasi ja laita oma äänesi sen päälle.";
-"homeVideo.hint.recordingHeadphones" = "Tallennetaan. Kuulet videon kuulokkeista; mikrofoni kuulee vain sinut.";
-"homeVideo.hint.recording" = "Tallennetaan. Video pyörii äänettömänä, jotta mikrofoni kuulee vain sinut.";
-"homeVideo.hint.review" = "Tässä on sinun versiosi. Jaa se tai tallenna uudelleen.";
-"homeVideo.record" = "Tallenna";
+"homeVideo.hint.recordingHeadphones" = "Äänitetään. Kuulet videon kuulokkeista; mikrofoni kuulee vain sinut.";
+"homeVideo.hint.recording" = "Äänitetään. Video pyörii äänettömänä, jotta mikrofoni kuulee vain sinut.";
+"homeVideo.hint.review" = "Tässä on sinun versiosi. Jaa se tai äänitä uudelleen.";
+"homeVideo.record" = "Äänitä";
 "homeVideo.stop" = "Lopeta";
-"homeVideo.retake" = "Tallenna uudelleen";
+"homeVideo.retake" = "Äänitä uudelleen";
 "homeVideo.share" = "Jaa";
 "homeVideo.play" = "Toista";
 "homeVideo.pause" = "Tauko";
 "homeVideo.error.load" = "Videota ei voitu avata. Kokeile toista.";
-"homeVideo.error.mix" = "Ääntäsi ei voitu lisätä videoon. Tallenna uudelleen.";
+"homeVideo.error.mix" = "Ääntäsi ei voitu lisätä videoon. Äänitä uudelleen.";
 "imitate.library.hint" = "Valitse ääni, kuuntele ja tee paras imitaatiosi.";
 "imitate.library.best" = "Ennätys";
 "imitate.library.untried" = "Uusi";
@@ -625,7 +620,7 @@
 "help.close" = "Sulje";
 "help.search.prompt" = "Hae ohjeista";
 "help.search.clear" = "Tyhjennä haku";
-"help.search.empty" = "Mikään ei osu. Kokeile toista sanaa tai kirjoita meille alla.";
+"help.search.empty" = "Ei osumia. Kokeile toista sanaa tai kirjoita meille alla.";
 "help.row.expanded" = "Laajennettu";
 "help.row.collapsed" = "Supistettu";
 "help.row.expandHint" = "Näyttää vastauksen";
@@ -664,16 +659,16 @@
 "help.dub.1.q" = "Miten dubbaan kohtauksen?";
 "help.dub.1.a" = "Avaa Kohtauksen dubbaus, valitse kohtaus ja napauta Aloita dubbaus. Kuuntele jokaisen repliikin alkuperäinen ja paina sitten äänitä: saat kolmen iskun lähtölaskennan, ja mikki sulkeutuu itsestään, kun repliikki päättyy. Siirry eteenpäin napilla Seuraava ja palaa mihin tahansa repliikkiin milloin haluat.";
 "help.dub.2.q" = "Mitä tahtipalkki tarkoittaa?";
-"help.dub.2.a" = "Se näyttää, kuinka pitkä alkuperäinen repliikki on. Se muuttuu meripihkan väriseksi heti, kun menet yli, joten tiedät kiristää tahtia. Otoksesi alla alkuperäisen aaltomuoto näyttää, missä tulit liian aikaisin, kiirehdit tai jätit aukon.";
+"help.dub.2.a" = "Se näyttää, kuinka pitkä alkuperäinen repliikki on. Se muuttuu meripihkanväriseksi heti, kun menet yli, joten tiedät kiristää tahtia. Otoksesi alla alkuperäisen aaltomuoto näyttää, missä tulit liian aikaisin, kiirehdit tai jätit aukon.";
 "help.dub.3.q" = "Miten dubbaukset pisteytetään?";
 "help.dub.3.a" = "Jokainen otos arvioidaan ajoituksesta (aloititko ja lopetitko alkuperäisen kanssa), rytmistä (pysyitkö sen tahdissa) ja tulkinnasta (seurasivatko kovat ja hiljaiset kohtasi sitä). Kohtauskin saa pisteet, ja näet parhaan repliikkisi sekä sen, joka kannattaa ottaa uusiksi. Etkö halua tulla arvostelluksi? Laita Pisteytä otokseni pois päältä dubbausvalinnoista.";
 "help.dub.4.q" = "Miten kuulen itseni elokuvassa?";
 "help.dub.4.a" = "Napauta kohtauksessa Katso oma dubbaukseni. Otoksesi menevät elokuvaan alkuperäisten repliikkien tilalle; se, mitä et ole vielä dubannut, soi entisellään. Katso alkuperäinen toistaa kohtauksen koskemattomana.";
 "help.homeVideo.1.q" = "Miten dubbaan oman videoni?";
-"help.homeVideo.1.a" = "Napauta tyhjää kuvaa ja valitse kirjastostasi enintään minuutin mittainen video. Paina tallenna: lähtölaskennan jälkeen video alkaa alusta ja äänesi tulee päälle. Lopuksi oma versiosi toistetaan, valmiina jaettavaksi tai uudelleen tallennettavaksi.";
+"help.homeVideo.1.a" = "Napauta tyhjää kuvaa ja valitse kirjastostasi enintään minuutin mittainen video. Paina äänitä: lähtölaskennan jälkeen video alkaa alusta ja äänesi tulee päälle. Lopuksi oma versiosi toistetaan, valmiina jaettavaksi tai uudelleen äänitettäväksi.";
 "help.homeVideo.2.q" = "Miten osun ajoitukseen?";
 "help.homeVideo.2.a" = "Kuvan alla oleva aalto on videon oma ääni, ja sen yli liikkuva viiva näyttää, missä kohtaa video on. Seuraa sitä, niin haukku tai nauru osuu oikeaan hetkeen. Oton jälkeen äänesi piirretään sen päälle punaisella.";
-"help.homeVideo.3.q" = "Kuulenko videon tallentaessani?";
+"help.homeVideo.3.q" = "Kuulenko videon äänittäessäni?";
 "help.homeVideo.3.a" = "Kyllä, kuulokkeilla. Kaiuttimen kautta video toistuu äänettömänä, jottei sen ääni päädy ottoosi. Säilytä alkuperäinen ääni palauttaa sen hiljaa äänesi alle valmiissa videossa.";
 "help.booth.1.q" = "Mikä on Booth Cam?";
 "help.booth.1.a" = "Booth Cam kuvaa kasvosi etukameralla esityksesi aikana, jotta reaktio voi päätyä videoon dubbauksen kanssa. Se on pois päältä, kunnes laitat sen päälle äänitysnäytön kamerapainikkeesta tai Asetuksista. Kuvamateriaali pysyy laitteellasi.";
@@ -684,7 +679,7 @@
 "help.packs.1.q" = "Miten lisään kohtauksia?";
 "help.packs.1.a" = "Kohtaukset tulevat dubbauspaketteina: kansiona tai .zip-, .7z- tai .rar-arkistona. Napauta + Kohtauksen dubbaus -näkymässä ja valitse paketti Tiedostoista, tai lähetä se Dubloonille AirDropilla tai mistä tahansa jakovalikosta. Dubloon purkaa sen, ja kohtaus ilmestyy listaan.";
 "help.packs.2.q" = "Mistä dubbauspaketit tulevat?";
-"help.packs.2.a" = "Sovelluksen mukana tulee kaksi kohtausta. Kaikki muut paketit ovat muiden pelaajien tekemiä ja jakamia; Dubloon ei sisällä, säilytä eikä myy yhtäkään elokuvaa. Dubbaa vain sitä, mihin sinulla on oikeus, ja noudata oman maasi tekijänoikeussääntöjä.";
+"help.packs.2.a" = "Sovelluksen mukana tulee neljä kohtausta. Kaikki muut paketit ovat muiden pelaajien tekemiä ja jakamia; Dubloon ei sisällä, säilytä eikä myy yhtäkään elokuvaa. Dubbaa vain sitä, mihin sinulla on oikeus, ja noudata oman maasi tekijänoikeussääntöjä.";
 "help.packs.3.q" = "Paketti ei suostu tuontiin. Mitä nyt?";
 "help.packs.3.a" = "Dubloon kertoo, mikä meni vikaan. Tavalliset korjaukset: jos tiedosto on iCloudissa, avaa se ensin Tiedostot-sovelluksessa, jotta se latautuu. Jos arkistossa on salasana, pyydä tekijältä versio ilman. Jos se ei purkaudu, tallenna se uudelleen .zip-muodossa. Ja jos Dubloon sanoo, ettei se ole dubbauspaketti, siinä pitää olla jokaiselle repliikille tekstitiedosto ja äänite.";
 "help.imitate.1.q" = "Miten Äänten matkiminen toimii?";
@@ -694,7 +689,7 @@
 "help.imitate.3.q" = "Voinko jakaa yrityksen?";
 "help.imitate.3.a" = "Voit. Tuomion jälkeen napauta Tee video: ääni, yrityksesi ja pisteesi, valmiina lähetettäväksi. Kun Booth Cam on päällä, mukana ovat myös kasvosi.";
 "help.pro.1.q" = "Mitä Dubloon Pro avaa?";
-"help.pro.1.a" = "Kohtauksen dubbauksen kaikkine kohtauksineen ja yhteisön paketteineen, Äänten matkimisen, Booth Camin ja videoviennit. Takaperinlaulu on ilmainen joka tapauksessa. Pro on kertaosto tai tilaus, ja se avautuu iPhonessasi ja Macissasi samalla Apple-tilillä.";
+"help.pro.1.a" = "Kohtauksen dubbauksen kaikkine kohtauksineen ja yhteisön paketteineen, Äänten matkimisen, Booth Camin ja videoviennit. Takaperinlaulu ja Omien videoiden dubbaus ovat ilmaisia joka tapauksessa. Pro on kertaosto tai tilaus, ja se avautuu iPhonessasi ja Macissasi samalla Apple-tilillä.";
 "help.pro.2.q" = "Ostin Pron, mutta se on lukittu.";
 "help.pro.2.a" = "Avaa Asetukset ja napauta Palauta osto. Varmista, että olet kirjautunut App Storeen sillä Apple-tilillä, jolla ostit sen. Uudessa puhelimessa tai uudelleenasennuksen jälkeen palautus tuo sen takaisin maksutta.";
 "help.pro.3.q" = "Miten peruutan tai vaihdan tilaukseni?";
@@ -706,7 +701,7 @@
 "help.troubleshooting.1.q" = "Dubloon ei kuule minua.";
 "help.troubleshooting.1.a" = "Tarkista, että Dubloon saa käyttää mikrofonia: avaa Asetukset-sovelluksessa Dubloon ja laita Mikrofoni päälle. Jos jokin muu sovellus käyttää ääntä, esimerkiksi puhelu, lopeta se ja yritä uudelleen.";
 "help.troubleshooting.2.q" = "En kuule mitään.";
-"help.troubleshooting.2.a" = "Nosta äänenvoimakkuutta ja tarkista, ovatko Bluetooth-kuulokkeet tai kaiutin yhdistäneet johonkin muualle. Alkuperäinen repliikki soi äänityksen aikana vain kuulokkeissa, tarkoituksella, jotta se pysyy poissa otoksestasi.";
+"help.troubleshooting.2.a" = "Nosta äänenvoimakkuutta ja tarkista, ovatko Bluetooth-kuulokkeet tai kaiutin yhdistyneet johonkin muuhun laitteeseen. Alkuperäinen repliikki soi äänityksen aikana vain kuulokkeissa, tarkoituksella, jotta se pysyy poissa otoksestasi.";
 "help.troubleshooting.3.q" = "Dubbaukseni ei ole tahdissa kuvan kanssa.";
 "help.troubleshooting.3.a" = "Bluetooth-kuulokkeet lisäävät viivettä, joten kuulet alkuperäisen vähän myöhässä ja aloitat myöhässä. Johdolliset kuulokkeet, tai ei kuulokkeita lainkaan, korjaavat asian. Jos Dubloon sanoo, että kohtauksen video kulkee äänten edellä, tuo se paketti uudelleen.";
 "help.troubleshooting.4.q" = "Booth Cam ei käynnisty.";

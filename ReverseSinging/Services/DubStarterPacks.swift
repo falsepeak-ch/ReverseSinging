@@ -2,7 +2,7 @@
 //  DubStarterPacks.swift
 //  ReverseSinging
 //
-//  The two scenes that ship with the app: one animated, one classic
+//  The four scenes that ship with the app
 //
 
 import DubPackKit
@@ -11,11 +11,12 @@ import Foundation
 /// Installs the scenes bundled with the app, once.
 ///
 /// The dub mode is worth nothing on an empty shelf: a new player opens it, finds a screen
-/// telling them to go and find a pack somewhere, and leaves. Two are there so the mode always
-/// opens onto something to perform. Deliberately one of each kind, because the two kinds
-/// play completely differently. *Camp Rules* is a modern CG comedy with big performances to
-/// copy; *Stuck Up* is black-and-white 1951 dialogue where the fun is the flat period delivery.
-/// A third would have been a second helping of one of them.
+/// telling them to go and find a pack somewhere, and leaves. Four are there so the mode always
+/// opens onto something to perform, and no two of them play alike. *Camp Rules* is a modern CG
+/// comedy with big performances to copy; *Stuck Up* is black-and-white 1951 dialogue where the
+/// fun is the flat period delivery; *Awesome in Space* is two live actors breaking up on a
+/// bridge, with real mouths to hit; *A Kindred Spirit* is a quiet two-hander by a fire, where
+/// the work is holding a line back rather than throwing it.
 ///
 /// They rest on **two different kinds of claim**, and the difference matters more than the
 /// scenes do:
@@ -23,6 +24,10 @@ import Foundation
 /// - *Camp Rules* is cut from **Sprite Fright** (Blender Studio, 2021) under **CC BY 4.0**,
 ///   an affirmative licence from the rights holder, which holds in every territory the app
 ///   ships to. The condition is credit.
+/// - *Awesome in Space* is cut from **Tears of Steel** (Blender Foundation, 2012) and
+///   *A Kindred Spirit* from **Sintel** (Blender Foundation, 2010), both under **CC BY 3.0**:
+///   the same kind of claim, one version earlier. The licence is on the films, not on their
+///   separately released music, so both beds are separated from the film's own mix.
 /// - *Stuck Up* is cut from **The Outsider** (Centron Productions, 1951), whose US copyright
 ///   was never renewed in its 28th year. That is an *absence* rather than a permission, and it
 ///   is a **US finding only**. The position elsewhere is unresolved. What was checked, and how
@@ -43,8 +48,20 @@ nonisolated enum DubStarterPacks {
 
     /// Bundled zips, by resource name. Order is install order, which is reverse display
     /// order. The library sorts newest first, so the last one installed is the one on top.
-    /// *Camp Rules* stays on top: it is the shorter of the two and the easier to finish.
-    static let bundled = ["StuckUp", "CampRules"]
+    /// *Camp Rules* stays on top: it is short, loud and the easiest to finish.
+    static let bundled = ["StuckUp", "KindredSpirit", "AwesomeInSpace", "CampRules"]
+
+    /// Whether a pack in the library is one of the scenes in the box rather than one the user
+    /// brought in. A starter pack is unpacked into a folder named after its zip.
+    static func isStarter(folderName: String) -> Bool {
+        bundled.contains(folderName)
+    }
+
+    /// Where a starter scene sits among packs imported in the same second: the last one
+    /// installed first, as the install order intends. Anything else sorts after them.
+    static func displayRank(folderName: String) -> Int {
+        bundled.reversed().firstIndex(of: folderName) ?? Int.max
+    }
 
     /// Which build of each pack this app carries. Bump a pack's number when its zip is
     /// rebuilt and the rebuild is worth putting on devices that already have the old one.
@@ -57,7 +74,9 @@ nonisolated enum DubStarterPacks {
     ///
     /// - `CampRules` 2: the bed is a separated music-and-effects track rather than a loop of
     ///   the scene's longest silence, and the reference chunks are 22 kHz rather than 11.
-    static let revisions: [String: Int] = ["StuckUp": 1, "CampRules": 2]
+    static let revisions: [String: Int] = [
+        "StuckUp": 1, "KindredSpirit": 1, "AwesomeInSpace": 1, "CampRules": 2,
+    ]
 
     private static let installedKey = "dub.starterPacksInstalled"
 
@@ -76,7 +95,7 @@ nonisolated enum DubStarterPacks {
     ///
     /// Kept next to the packs rather than in `UserDefaults`, so the two cannot outlive each
     /// other. The packs folder is in Files on the iPhone, and deleting it there left the
-    /// defaults swearing both scenes were installed: an empty shelf for good. On the Mac,
+    /// defaults swearing the scenes were installed: an empty shelf for good. On the Mac,
     /// `cfprefsd` writes its cached defaults back into a container deleted under it, with
     /// the same result. Wipe the packs and the record goes with them.
     ///

@@ -39,7 +39,7 @@ final class MacAppDelegate: NSObject, NSApplicationDelegate {
         CrashReporter.shared.log("launch")
         AnalyticsManager.shared.trackAppLaunch()
 
-        // After Firebase: the trial length and the paywall switches come from Remote Config.
+        // After Firebase: a store that will not start is reported through it.
         AccessController.shared.start()
 
         BoothCamAnnouncement.shared.resolveAtLaunch()

@@ -10,9 +10,9 @@ import RevenueCat
 
 /// A plain, local paywall for the case where `PaywallView` has nothing to render.
 ///
-/// It exists because the hard paywall covers the whole app: if the offering fails
-/// to load there is no screen behind it to go back to, and a user who has already
-/// paid would be locked out of something they own by a bad connection. So this
+/// It exists because the paywall is the only way to the paid games: if the offering
+/// fails to load, someone who wants to buy has nothing to buy, and someone who has
+/// already paid has no Restore in front of them, all because of a bad connection. So this
 /// asks the store for one known product identifier — the only place in the app
 /// that hardcodes one — and, more importantly, always offers Restore.
 ///
@@ -21,7 +21,6 @@ import RevenueCat
 struct PaywallFallbackView: View {
 
     let source: String
-    var isDismissible: Bool = true
 
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = PaywallFallbackViewModel()
@@ -31,9 +30,7 @@ struct PaywallFallbackView: View {
             Color.rsSurface0.ignoresSafeArea()
 
             VStack(spacing: 0) {
-                if isDismissible {
-                    closeBar
-                }
+                closeBar
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 24) {
@@ -69,7 +66,7 @@ struct PaywallFallbackView: View {
                 .font(.rsDisplayMedium)
                 .foregroundStyle(Color.rsTextPrimary)
 
-            Text(viewModel.headerMessage)
+            Text(Strings.Pro.Fallback.message)
                 .font(.rsBodyMedium)
                 .foregroundStyle(Color.rsTextSecondary)
                 .fixedSize(horizontal: false, vertical: true)

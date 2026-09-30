@@ -136,7 +136,7 @@ enum MacShotPoser {
         } catch {
             log("error=\(error)")
         }
-        workspace.home.showPaywall(from: .trialBadge)
+        workspace.home.showPaywall(from: .unlockCard)
         await sleep(6)
     }
 

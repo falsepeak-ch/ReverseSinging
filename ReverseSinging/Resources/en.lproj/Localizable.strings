@@ -9,13 +9,18 @@
 "onboarding.howItWorks.title" = "How it works";
 "onboarding.howItWorks.message" = "Record a song, flip it backwards, then sing along to the nonsense. Flip your take around and find out whether you got close or invented a new language.";
 "onboarding.dub.title" = "Dub a movie scene";
-"onboarding.dub.message" = "The second game: play a scene, act all over it, then hear yourself in the film. Two scenes come in the box. After that, bring your own.";
+"onboarding.dub.message" = "The second game: play a scene, act all over it, then hear yourself in the film. Four scenes come in the box. After that, bring your own.";
 "onboarding.pro.title" = "Why Dubloon Pro exists";
-"onboarding.pro.message" = "Dubloon has no ads, no account and no tracking, and one person in Zürich makes it. Dubloon Pro is what pays for that: every scene, Booth Cam and exports. Reverse singing stays free.";
-"onboarding.microphone.title" = "One last thing";
-"onboarding.microphone.message" = "Every game needs to hear you: singing backwards, dubbing a scene, or copying a sound. The mic wakes up only while you record, everything stays on this device, and nothing is ever uploaded. Your worst take stays between the two of you.";
+"onboarding.pro.message" = "Dubloon has no ads, no account and no tracking, and one person in Zürich makes it. Dubloon Pro is what pays for that: every scene, Sound Imitation, Booth Cam and exports. Reverse Singing and Home Video Dub stay free.";
+"onboarding.pro.buy" = "Get Dubloon Pro";
+"onboarding.pro.skip" = "Skip for now";
 "onboarding.button.continueLowercase" = "continue";
-"onboarding.button.microphoneContinue" = "Continue";
+"onboarding.button.continue" = "Continue";
+
+// MARK: - Microphone explanation
+"microphonePrimer.title" = "Microphone";
+"microphonePrimer.message" = "Every game needs to hear you: singing backwards, dubbing a scene, or copying a sound. The mic wakes up only while you record, everything stays on this device, and nothing is ever uploaded. Your worst take stays between the two of you.";
+"microphonePrimer.continue" = "Continue";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Stop Recording";
@@ -139,9 +144,6 @@
 "settings.about.license.renews" = "Dubloon Pro, renews %@";
 "settings.about.license.ends" = "Dubloon Pro, ends %@";
 "settings.about.license.earlyAdopter" = "Early adopter, free for life";
-"settings.about.license.trialDays" = "Free trial, %d days left";
-"settings.about.license.trialLastDay" = "Free trial, last day";
-"settings.about.license.trialOver" = "Free trial ended";
 "settings.about.license.free" = "Free";
 
 // Theme descriptions
@@ -238,7 +240,7 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "Close";
 "dubGate.ask.title" = "Do you already have your movies?";
-"dubGate.ask.message" = "Past the two example scenes, we don't include or host a single film. To dub anything else, the movie file has to be on this device already.";
+"dubGate.ask.message" = "Past the four example scenes, we don't include or host a single film. To dub anything else, the movie file has to be on this device already.";
 "dubGate.ask.confirm" = "Yes, they're on here";
 "dubGate.ask.needDownload" = "No, I need to find them";
 "dubGate.download.title" = "Where to get them";
@@ -296,13 +298,10 @@
 "dub.videoNeedsReimport" = "An older version converted this scene's video, and now it runs ahead of the voices. Import the pack again to put it right.";
 
 // MARK: - Pro / Paywall
-"pro.trial.daysLeft" = "%d days left";
-"pro.trial.oneDayLeft" = "Last day";
-"pro.trial.over" = "Your free trial is done";
 "pro.locked.title" = "Get Dubloon Pro to dub";
 "pro.section" = "Dubloon Pro";
 "pro.unlock.title" = "Unlock Dubloon";
-"pro.unlock.subtitle" = "Every scene, Booth Cam and exports. Reverse singing stays free.";
+"pro.unlock.subtitle" = "Every scene, Sound Imitation, Booth Cam and exports. Reverse Singing and Home Video Dub stay free.";
 "pro.owned.title" = "You own Dubloon";
 "pro.owned.subtitle" = "Thank you. Every scene, every take, no ceiling.";
 "pro.manage.title" = "Manage purchase";
@@ -313,17 +312,13 @@
 "pro.restore.title" = "Restore purchase";
 "pro.restore.subtitle" = "New phone, or reinstalled? Bring it back.";
 "pro.testStore.warning" = "Debug build: connected to the RevenueCat test store. No real money moves.";
-"pro.restored.title" = "Restored";
-"pro.restored.message" = "Your purchase is back on this device.";
 "pro.nothingToRestore.title" = "Nothing to restore";
 "pro.nothingToRestore.message" = "No purchase was found on this Apple Account. If you bought Dubloon with a different one, sign in with that and try again.";
 "pro.error.title" = "Something went wrong";
 "pro.error.generic" = "The store didn't answer. Try again in a moment.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Unlock Dubloon";
-"pro.fallback.message" = "Your free trial has ended. Unlock Dubloon to keep dubbing.";
-"pro.fallback.message.beforeExpiry" = "Unlock Dubloon to keep dubbing.";
-"pro.fallback.message.noTrial" = "Unlock Dubloon to dub every scene.";
+"pro.fallback.message" = "Unlock Dubloon to dub every scene.";
 "pro.fallback.buy" = "Unlock for %@";
 "pro.fallback.buyUnpriced" = "Unlock";
 "pro.fallback.loading" = "Asking the store…";
@@ -683,7 +678,7 @@
 "help.packs.1.q" = "How do I add more scenes?";
 "help.packs.1.a" = "Scenes come as dub packs: a folder, or a .zip, .7z or .rar archive. Tap + in Movie Scene Dub and pick one from Files, or send it to Dubloon from AirDrop or any share sheet. Dubloon unpacks it and the scene appears in the list.";
 "help.packs.2.q" = "Where do dub packs come from?";
-"help.packs.2.a" = "Two scenes come with the app. Every other pack is made and shared by other players; Dubloon doesn't include, host or sell any films. Only dub what you have the right to use, and follow the copyright rules where you live.";
+"help.packs.2.a" = "Four scenes come with the app. Every other pack is made and shared by other players; Dubloon doesn't include, host or sell any films. Only dub what you have the right to use, and follow the copyright rules where you live.";
 "help.packs.3.q" = "A pack won't import. What now?";
 "help.packs.3.a" = "Dubloon says what went wrong. The usual fixes: if the file is in iCloud, open it in Files first so it downloads. If the archive has a password, ask its maker for one without. If it won't unpack, re-save it as a .zip. And if Dubloon says it isn't a dub pack, it needs a text file and a recording for every line.";
 "help.imitate.1.q" = "How does Sound Imitation work?";
@@ -693,7 +688,7 @@
 "help.imitate.3.q" = "Can I share an attempt?";
 "help.imitate.3.a" = "Yes. After a verdict, tap Make video: the sound, your attempt and your score, ready to send. With Booth Cam on, your face is in it too.";
 "help.pro.1.q" = "What does Dubloon Pro unlock?";
-"help.pro.1.a" = "Movie Scene Dub with every scene and community pack, Sound Imitation, Booth Cam and video exports. Reverse Singing is free either way. Pro is a one-time purchase or a subscription, and it unlocks on your iPhone and your Mac with the same Apple Account.";
+"help.pro.1.a" = "Movie Scene Dub with every scene and community pack, Sound Imitation, Booth Cam and video exports. Reverse Singing and Home Video Dub are free either way. Pro is a one-time purchase or a subscription, and it unlocks on your iPhone and your Mac with the same Apple Account.";
 "help.pro.2.q" = "I bought Pro, but it's locked.";
 "help.pro.2.a" = "Open Settings and tap Restore purchase. Make sure you're signed in to the App Store with the Apple Account you bought it with. On a new phone or after reinstalling, restoring brings it back at no cost.";
 "help.pro.3.q" = "How do I cancel or change my subscription?";

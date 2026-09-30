@@ -12,8 +12,12 @@ import SwiftUI
 /// **Shown once, and only when the user reaches for the feature.** iOS gives one chance at the
 /// camera prompt: a "no" there is permanent until someone finds the right row in Settings. So
 /// the app states where the footage lives, that nothing leaves until an export, and that it
-/// can be switched off mid-take — and only then asks. Someone who backs out here has answered
-/// nothing, and the system prompt is never spent.
+/// can be switched off mid-take — and only then asks.
+///
+/// While the camera has never been asked for, the dialog has one button and no way round it:
+/// App Review requires that an explanation like this always leads to the system prompt, where
+/// the user gives their answer. Once there is an answer, the dialog can be closed like any
+/// other; see `BoothCamPrimerViewModel`.
 struct BoothCamPrimerModal: View {
 
     @StateObject private var viewModel: BoothCamPrimerViewModel
@@ -29,7 +33,7 @@ struct BoothCamPrimerModal: View {
     }
 
     var body: some View {
-        EditorModal(title: Strings.Booth.slug, onClose: viewModel.dismiss) {
+        EditorModal(title: Strings.Booth.slug, onClose: closeAction) {
             illustration
 
             VStack(spacing: 10) {
@@ -49,16 +53,13 @@ struct BoothCamPrimerModal: View {
             facts
 
             #if os(macOS)
-            Text(Strings.Booth.primerSystemPromptMac)
-                .font(.rsCaptionSmall)
-                .foregroundColor(.rsTextTertiary)
-                .multilineTextAlignment(.center)
+            noteText
             #endif
         } phoneActions: {
             VStack(spacing: 12) {
                 BigButton(
-                    title: Strings.Booth.primerConfirm,
-                    icon: "video.fill",
+                    title: confirmTitle,
+                    icon: viewModel.isRefused ? "gearshape.fill" : "video.fill",
                     color: .rsTextPrimary,
                     action: viewModel.enable,
                     isEnabled: !viewModel.isRequesting,
@@ -67,28 +68,60 @@ struct BoothCamPrimerModal: View {
                     textFont: .rsButtonMedium
                 )
 
-                Text(Strings.Booth.primerSystemPrompt)
-                    .font(.rsCaptionSmall)
-                    .foregroundColor(.rsTextTertiary)
-                    .multilineTextAlignment(.center)
+                noteText
 
-                Button(action: viewModel.dismiss) {
-                    Text(Strings.Booth.primerDecline)
-                        .font(.rsButtonMedium)
-                        .foregroundColor(.rsTextSecondary)
+                if !viewModel.leadsToSystemPrompt {
+                    Button(action: viewModel.dismiss) {
+                        Text(Strings.Booth.primerDecline)
+                            .font(.rsButtonMedium)
+                            .foregroundColor(.rsTextSecondary)
+                    }
+                    .disabled(viewModel.isRequesting)
                 }
-                .disabled(viewModel.isRequesting)
             }
         } macActions: {
             if viewModel.isRequesting {
                 ProgressView().controlSize(.small)
             }
-            Button(Strings.Booth.primerConfirm, action: viewModel.enable)
+            Button(confirmTitle, action: viewModel.enable)
                 .keyboardShortcut(.defaultAction)
                 .platformProminentButton()
                 .disabled(viewModel.isRequesting)
         }
+        .interactiveDismissDisabled(viewModel.leadsToSystemPrompt)
         .onAppear { viewModel.onAppear() }
+    }
+
+    /// Nil while the dialog is the explanation in front of the system prompt.
+    private var closeAction: (() -> Void)? {
+        viewModel.leadsToSystemPrompt ? nil : { viewModel.dismiss() }
+    }
+
+    private var confirmTitle: String {
+        viewModel.isRefused ? Strings.Main.EmptyState.button : Strings.Booth.primerConfirm
+    }
+
+    /// The line under the button: that the system asks next, or, after an earlier refusal,
+    /// that the camera is off and Settings is where to change it.
+    private var note: String? {
+        if viewModel.isRefused { return Strings.Booth.settingsDenied }
+        guard viewModel.leadsToSystemPrompt else { return nil }
+        #if os(macOS)
+        return Strings.Booth.primerSystemPromptMac
+        #else
+        return Strings.Booth.primerSystemPrompt
+        #endif
+    }
+
+    @ViewBuilder
+    private var noteText: some View {
+        if let note {
+            Text(note)
+                .font(.rsCaptionSmall)
+                .foregroundColor(.rsTextTertiary)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+        }
     }
 
     private var primerMessage: String {

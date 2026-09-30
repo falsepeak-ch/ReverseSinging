@@ -118,7 +118,9 @@ final class SettingsViewModel: ObservableObject {
                 let granted = await BoothRecorder.requestAccess()
                 BoothCamPreference.shared.markPrimerSeen()
                 booth.isEnabled = granted
-                isBoothDenied = !granted
+                // A no given to the prompt just now is an answer, and nothing follows it: the
+                // row only says the camera is off, with its pointer to Settings, the next
+                // time this screen is opened.
             }
         case .refused:
             isBoothDenied = true
@@ -166,14 +168,6 @@ final class SettingsViewModel: ObservableObject {
 
     var manageSubtitle: String {
         access.isSubscriber ? Strings.Pro.manageSubscriptionSubtitle : Strings.Pro.manageSubtitle
-    }
-
-    /// The trial counter, restated as a sentence, or the plain offer once it is over.
-    var unlockSubtitle: String {
-        guard let days = access.trialDaysRemaining else { return Strings.Pro.unlockSubtitle }
-        return days <= 1
-            ? Strings.Pro.Trial.oneDayLeft
-            : String(format: Strings.Pro.Trial.daysLeft, days)
     }
 
     func showPaywall() {
@@ -232,13 +226,7 @@ final class SettingsViewModel: ObservableObject {
             return String(format: format, date)
         case .unlocked(.earlyAdopter):
             return Strings.Settings.About.licenseEarlyAdopter
-        case .trial(let days, _):
-            return days <= 1
-                ? Strings.Settings.About.licenseTrialLastDay
-                : String(format: Strings.Settings.About.licenseTrialDays, days)
-        case .locked:
-            return access.hasTrial ? Strings.Settings.About.licenseTrialOver : Strings.Settings.About.licenseFree
-        case .unlocked(.gatingDisabled), .unknown:
+        case .locked, .unlocked(.gatingDisabled):
             return Strings.Settings.About.licenseFree
         }
     }

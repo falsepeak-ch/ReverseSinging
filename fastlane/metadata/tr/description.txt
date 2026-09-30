@@ -19,11 +19,11 @@ PUANLI, İSTERSEN
 
 Her çekim zamanlama, tempo ve oyunculuk üzerinden değerlendirilir; sahnenin puanı, en iyi repliğin ve bir daha denemeye değen replik gösterilir. Kapat, kimse puan tutmasın.
 
-BAŞLANGIÇ İÇİN İKİ SAHNE
+BAŞLANGIÇ İÇİN DÖRT SAHNE
 
-Camp Rules, Blender Studio'nun açık filmi Sprite Fright'tan kesildi ve Creative Commons Attribution 4.0 ile paylaşılıyor. Stuck Up, 1951 tarihli okul filmi The Outsider'dan kesildi; film ABD'de kamu malı. Her sahne, filmi, yılı ve koşulları kendi ekranında yazar.
+Camp Rules (Sprite Fright, CC BY 4.0), Awesome in Space (Tears of Steel, CC BY 3.0) ve A Kindred Spirit (Sintel, CC BY 3.0), Blender'ın açık filmlerinden kesildi. Stuck Up, 1951 tarihli okul filmi The Outsider'dan kesildi; film ABD'de kamu malı. Her sahne, filmi, yılı ve koşulları kendi ekranında yazar.
 
-Ondan sonrasında rafı sen doldurursun. Bu ikisinin dışında Dubloon hiçbir filmi içermez ve barındırmaz. Seslendirme paketlerini başka oyuncular yapar ve paylaşır: istediklerini indirir, klasörü ya da .zip dosyasını Dosyalar'dan, AirDrop'tan veya herhangi bir paylaşma menüsünden içe aktarırsın. Seslendirdiğin şeyi kullanma hakkın olduğundan emin ol.
+Ondan sonrasında rafı sen doldurursun. Bu dördünün dışında Dubloon hiçbir filmi içermez ve barındırmaz. Seslendirme paketlerini başka oyuncular yapar ve paylaşır: istediklerini indirir, klasörü ya da .zip dosyasını Dosyalar'dan, AirDrop'tan veya herhangi bir paylaşma menüsünden içe aktarırsın. Seslendirdiğin şeyi kullanma hakkın olduğundan emin ol.
 
 TERSTEN ŞARKI
 

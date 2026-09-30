@@ -10,13 +10,11 @@ import Combine
 
 /// What opened the menu's paywall, for analytics. Not shown.
 enum HomePaywallSource: String, Identifiable {
-    /// The days-left counter in the header.
-    case trialBadge = "trial_badge"
-    /// The note that says the trial is over.
-    case trialEndedCard = "trial_ended_card"
-    /// A paid game that is disabled because the trial is over.
+    /// The note over the games that offers Dubloon Pro.
+    case unlockCard = "unlock_card"
+    /// A paid game, tapped while it is padlocked.
     case lockedGame = "locked_game"
-    /// A dub pack opened from Files or AirDrop while the games are disabled.
+    /// A dub pack opened from Files or AirDrop while dubbing is padlocked.
     case lockedImport = "locked_import"
 
     var id: String { rawValue }
@@ -27,10 +25,9 @@ enum HomePaywallSource: String, Identifiable {
 /// Owns the navigation path the games are pushed onto, and decides which of the one-off notes,
 /// the early-adopter welcome and the Booth Cam announcement, is on screen. Never both at once.
 ///
-/// It is also where a closed free window is enforced when the hard paywall is off: every way
-/// into a game asks `canEnter(_:orShowPaywallFrom:)`, which opens the paywall instead once the
-/// trial is over. Reverse singing is free unless the console says otherwise, so only dubbing
-/// is ever locked by default.
+/// It is also where Dubloon Pro is enforced: every way into a game asks
+/// `canEnter(_:orShowPaywallFrom:)`, which opens the paywall instead of a paid game for someone
+/// who has not bought it. Which games are paid is `requiresPro(_:)`, below, and nowhere else.
 ///
 /// And it is where someone who has bought Dubloon Pro, or keeps coming back, is asked how it
 /// is going: a rating out of five, which leads to the App Store or to a note for us.
@@ -61,9 +58,7 @@ final class HomeViewModel: ObservableObject {
     /// A low rating: the dialog that asks what went wrong.
     @Published var isReviewFeedbackPresented = false
 
-    /// The trial counter lives on the menu because this is the screen every session starts on,
-    /// and it is the only place in the app that mentions the trial unprompted. Its changes are
-    /// passed on as this model's own.
+    /// Whether anything is locked. Its changes are passed on as this model's own.
     private let access: AccessController
     private var cancellables = Set<AnyCancellable>()
 
@@ -91,10 +86,8 @@ final class HomeViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    var trialDaysRemaining: Int? { access.trialDaysRemaining }
-
-    /// The trial is over and nothing was bought: the menu says so, and its paid games open the
-    /// paywall rather than themselves.
+    /// Nothing was bought: the menu says so, and its paid games open the paywall rather than
+    /// themselves.
     var areGamesLocked: Bool { access.isLocked }
 
     /// Whether this game is disabled right now.
@@ -107,20 +100,14 @@ final class HomeViewModel: ObservableObject {
         areGamesLocked && !requiresPro(mode)
     }
 
+    /// Which games Dubloon Pro pays for. Reverse singing is how most people meet the app, and
+    /// Home Video Dub is played on the user's own video, so there is no content in it to pay
+    /// for: both are free for everyone. Dubbing and Sound Imitation are the paid ones.
     private func requiresPro(_ mode: GameMode) -> Bool {
         switch mode {
-        case .reverse: !access.isReverseGameFree
-        case .dub: true
-        // Free for everyone: the user brings the video, so there is no content to pay for.
-        case .homeVideo: false
-        case .imitate: !access.isSoundImitationFree
+        case .reverse, .homeVideo: false
+        case .dub, .imitate: true
         }
-    }
-
-    /// The locked card's headline. Saying a trial ended is only true if there was one: with
-    /// the console's trial length at zero, the lock is there from the first launch.
-    var lockedCardTitle: String {
-        access.hasTrial ? Strings.Pro.Trial.over : Strings.Pro.lockedTitle
     }
 
     var shouldWelcomeEarlyAdopter: Bool { access.shouldWelcomeEarlyAdopter }
@@ -162,7 +149,7 @@ final class HomeViewModel: ObservableObject {
         canEnter(mode, orShowPaywallFrom: .lockedGame)
     }
 
-    /// The one check every way into a game makes. While the trial is over it answers no for a
+    /// The one check every way into a game makes. Without Dubloon Pro it answers no for a
     /// paid game and opens the paywall, so a disabled game still does something when tapped.
     private func canEnter(_ mode: GameMode, orShowPaywallFrom source: HomePaywallSource) -> Bool {
         guard isLocked(mode) else { return true }
@@ -190,8 +177,8 @@ final class HomeViewModel: ObservableObject {
         path = [.dub]
     }
 
-    /// A trial that runs out with a paid game open closes the game; the menu is where the offer
-    /// is. A free game carries on. Fed the new value rather than reading `access.isLocked`,
+    /// A subscription that runs out with a paid game open closes the game; the menu is where
+    /// the offer is. A free game carries on. Fed the new value rather than reading `access.isLocked`,
     /// which has not changed yet when a `@Published` sink fires.
     private func accessStateDidChange(_ state: AccessState) {
         if state == .locked {
@@ -281,17 +268,32 @@ final class HomeViewModel: ObservableObject {
     ///
     /// Returns an email to open instead when the note cannot travel the usual way: with Share
     /// Usage Data off nothing goes to Firebase, and a note someone took the time to write
-    /// should not vanish because of a switch that was about statistics.
+    /// should not vanish because of a switch that was about statistics. The dialog then stays
+    /// up, with the note in it, until `reviewFeedbackMailDidOpen` says Mail took it: a phone
+    /// with no mail account would otherwise lose the note and the banner both.
     func sendReviewFeedback(_ message: String) -> URL? {
         let stars = reviewStars
+        guard UsageDataConsent.isGranted else {
+            let note = message.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !note.isEmpty else { return nil }
+            return AppLinks.supportMail(subject: Strings.Help.mailSubject, details: "\(stars)/\(ReviewBanner.maximumStars)\n\(note)")
+        }
+
         isReviewFeedbackPresented = false
         reviewStars = 0
-        guard reviewBanner.recordFeedback(stars: stars, message: message) else { return nil }
-        isReviewBannerDue = false
+        if reviewBanner.recordFeedback(stars: stars, message: message) {
+            isReviewBannerDue = false
+        }
+        return nil
+    }
 
-        guard !UsageDataConsent.isGranted else { return nil }
-        let note = message.trimmingCharacters(in: .whitespacesAndNewlines)
-        return AppLinks.supportMail(subject: Strings.Help.mailSubject, details: "\(stars)/\(ReviewBanner.maximumStars)\n\(note)")
+    /// Whether Mail opened with the note. If it did, the banner has had its answer.
+    func reviewFeedbackMailDidOpen(_ opened: Bool) {
+        guard opened else { return }
+        reviewBanner.recordFeedbackSentByMail()
+        isReviewFeedbackPresented = false
+        reviewStars = 0
+        isReviewBannerDue = false
     }
 
     func dismissReviewBanner() {

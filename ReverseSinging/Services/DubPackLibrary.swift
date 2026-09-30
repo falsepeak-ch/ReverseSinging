@@ -83,9 +83,9 @@ final class DubPackLibrary: ObservableObject {
     /// The same refresh, awaited, used where the next step depends on the result.
     func reloadNow() async {
         packs = await Self.loadAll()
-        // Anything beyond the two scenes in the box was brought in by the user. Noted here
+        // Anything beyond the scenes in the box was brought in by the user. Noted here
         // as well as on import, so a pack from before this was counted still counts.
-        if packs.contains(where: { !DubStarterPacks.bundled.contains($0.folderName) }) {
+        if packs.contains(where: { !DubStarterPacks.isStarter(folderName: $0.folderName) }) {
             ReviewPrompt.shared.registerImportedPack()
         }
     }
@@ -109,7 +109,15 @@ final class DubPackLibrary: ObservableObject {
                 packs.append(pack)
             }
         }
-        return packs.sorted { $0.importedAt > $1.importedAt }
+        // Newest first. Dates are kept to the second and the starter scenes all install
+        // within one or two, so a tie falls back to the order they are meant to be shown in
+        // rather than to whatever order the folder was read in.
+        return packs.sorted { first, second in
+            if first.importedAt != second.importedAt { return first.importedAt > second.importedAt }
+            let ranks = (DubStarterPacks.displayRank(folderName: first.folderName),
+                         DubStarterPacks.displayRank(folderName: second.folderName))
+            return ranks.0 != ranks.1 ? ranks.0 < ranks.1 : first.title < second.title
+        }
     }
 
     /// Folders whose failure to load has already been reported, so a pack that will not read

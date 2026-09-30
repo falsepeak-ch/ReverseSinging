@@ -265,6 +265,9 @@ final class RewindNavigationCoordinator: NSObject, UINavigationControllerDelegat
               navigationController.transitionCoordinator == nil,
               let view = pan.view else { return false }
 
+        // A modal with no close key has one way out, its own button.
+        guard !EditorModalHold.isActive else { return false }
+
         // Rightwards and mostly sideways: a scroll down a list is left alone.
         let velocity = pan.velocity(in: view)
         guard velocity.x > 0, velocity.x > abs(velocity.y) * 1.2 else { return false }

@@ -13,7 +13,7 @@ import RevenueCat
 ///
 /// The iPhone shows the paywall designed in the RevenueCat dashboard, which is drawn for a
 /// phone. The Mac draws its own, from the same offering: what is on sale, and which experiment
-/// arm this install sees, still come from the dashboard. The analytics, closing and hard-paywall
+/// arm this install sees, still come from the dashboard. The analytics and closing
 /// rules are `ProPaywallViewModel`'s, and buying and restoring are `PaywallFallbackViewModel`'s,
 /// so all three paywalls behave the same.
 @MainActor
@@ -28,8 +28,8 @@ final class MacPaywallViewModel: ObservableObject {
     private let access: AccessController
     private var cancellables = Set<AnyCancellable>()
 
-    init(source: String, isDismissible: Bool) {
-        paywall = ProPaywallViewModel(source: source, isDismissible: isDismissible)
+    init(source: String) {
+        paywall = ProPaywallViewModel(source: source)
         store = PaywallFallbackViewModel()
         access = AccessController.shared
 

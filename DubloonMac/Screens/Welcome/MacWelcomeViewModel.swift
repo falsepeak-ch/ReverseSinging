@@ -39,7 +39,7 @@ final class MacWelcomeViewModel: ObservableObject {
 
     /// Continue closes the window. Nothing is asked for here: every game asks for the
     /// microphone itself, the first time it records.
-    var primaryTitle: String { Strings.Onboarding.buttonMicrophoneContinue }
+    var primaryTitle: String { Strings.Onboarding.buttonContinue }
 
     func primaryAction() {
         onboarding.finishOnboarding()
