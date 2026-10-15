@@ -13,6 +13,7 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var app: AppViewModel
     @Environment(\.openURL) private var openURL
+    @Environment(\.horizontalSizeClass) private var sizeClass
     @StateObject private var viewModel = HomeViewModel()
 
     /// The reverse game's model. Held by the menu rather than by the game screen, so a
@@ -138,13 +139,17 @@ struct HomeView: View {
 
                 EditorSectionHeader(title: Strings.Main.Mode.section)
 
-                ForEach(GameMode.allCases) { mode in
-                    GameModeRow(
-                        mode: mode,
-                        isLocked: viewModel.isLocked(mode),
-                        isFree: viewModel.isFree(mode)
-                    ) {
-                        viewModel.open(mode)
+                // One column on an iPhone; two on a regular width (iPhone Duo open), so the
+                // four games sit two by two with none on the fold.
+                LazyVGrid(columns: ReadableColumns.columns(for: sizeClass, spacing: 10), spacing: 10) {
+                    ForEach(GameMode.allCases) { mode in
+                        GameModeRow(
+                            mode: mode,
+                            isLocked: viewModel.isLocked(mode),
+                            isFree: viewModel.isFree(mode)
+                        ) {
+                            viewModel.open(mode)
+                        }
                     }
                 }
             }

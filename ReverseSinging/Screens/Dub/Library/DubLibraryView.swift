@@ -21,6 +21,7 @@ struct DubLibraryView: View {
     @ObservedObject private var booth = BoothCamPreference.shared
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.horizontalSizeClass) private var sizeClass
 
     /// The packs, their import and its errors. Its changes reach this screen through
     /// `viewModel`, which passes them on.
@@ -174,20 +175,22 @@ struct DubLibraryView: View {
                 )
                 .padding(.bottom, 2)
 
-                ForEach(library.packs) { pack in
-                    DubPackCard(
-                        pack: pack,
-                        recordedCount: viewModel.recordedCount(for: pack),
-                        onOpen: {
-                            HapticManager.shared.impact(.light)
-                            viewModel.open(pack)
-                        }
-                    )
-                    .contextMenu {
-                        Button(role: .destructive) {
-                            viewModel.delete(pack)
-                        } label: {
-                            Label(Strings.Dub.delete, systemImage: "trash")
+                LazyVGrid(columns: ReadableColumns.columns(for: sizeClass, spacing: 8), spacing: 8) {
+                    ForEach(library.packs) { pack in
+                        DubPackCard(
+                            pack: pack,
+                            recordedCount: viewModel.recordedCount(for: pack),
+                            onOpen: {
+                                HapticManager.shared.impact(.light)
+                                viewModel.open(pack)
+                            }
+                        )
+                        .contextMenu {
+                            Button(role: .destructive) {
+                                viewModel.delete(pack)
+                            } label: {
+                                Label(Strings.Dub.delete, systemImage: "trash")
+                            }
                         }
                     }
                 }
