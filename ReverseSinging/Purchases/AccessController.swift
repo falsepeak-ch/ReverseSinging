@@ -188,6 +188,8 @@ final class AccessController: ObservableObject {
         // the right identity. A purchase still restores across devices through the
         // Apple Account, which is what `restore()` asks for.
         Purchases.configure(with: Configuration.Builder(withAPIKey: apiKey).build())
+        // Apple Search Ads attribution, so RevenueCat can tie a purchase to the campaign.
+        Purchases.shared.attribution.enableAdServicesAttributionTokenCollection()
 
         // What the SDK remembers from the last launch, read before the first frame:
         // someone who has paid opens onto an unlocked menu, with or without a network.
