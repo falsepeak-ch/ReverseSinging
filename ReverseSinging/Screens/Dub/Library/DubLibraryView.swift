@@ -22,6 +22,7 @@ struct DubLibraryView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.horizontalSizeClass) private var sizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
 
     /// The packs, their import and its errors. Its changes reach this screen through
     /// `viewModel`, which passes them on.
@@ -183,7 +184,8 @@ struct DubLibraryView: View {
                             onOpen: {
                                 HapticManager.shared.impact(.light)
                                 viewModel.open(pack)
-                            }
+                            },
+                            prominent: sizeClass == .regular && verticalSizeClass == .regular
                         )
                         .contextMenu {
                             Button(role: .destructive) {

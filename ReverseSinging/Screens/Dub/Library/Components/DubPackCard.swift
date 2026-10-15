@@ -12,6 +12,11 @@ struct DubPackCard: View {
     let recordedCount: Int
     /// Tapping anywhere on the card opens the pack.
     let onOpen: () -> Void
+    /// Larger card for a regular-width, regular-height window (iPhone Duo open),
+    /// so a handful of packs uses the screen instead of a strip along its top.
+    var prominent = false
+
+    private var cardHeight: CGFloat { prominent ? 150 : 74 }
 
     var body: some View {
         Button(action: onOpen) {
@@ -21,7 +26,7 @@ struct DubPackCard: View {
             }
         }
         .buttonStyle(.plain)
-        .frame(height: 74)
+        .frame(height: cardHeight)
         .clipShape(RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous))
         .editorPanel()
     }
@@ -29,7 +34,7 @@ struct DubPackCard: View {
     /// 16:9 thumbnail, like a clip in a bin.
     private var thumbnail: some View {
         DubStillImage(url: pack.iconURL)
-            .frame(width: 112, height: 74)
+            .frame(width: cardHeight * 16 / 9, height: cardHeight)
             .overlay(alignment: .trailing) {
                 Rectangle()
                     .fill(Color.rsStroke)
@@ -63,7 +68,7 @@ struct DubPackCard: View {
             DubProgressBar(recorded: recordedCount, total: pack.lines.count)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 12)
+        .padding(.horizontal, prominent ? 18 : 12)
         .padding(.vertical, 10)
         .frame(maxHeight: .infinity)
         .contentShape(Rectangle())
