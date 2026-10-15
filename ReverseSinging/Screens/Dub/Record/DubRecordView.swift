@@ -15,6 +15,7 @@ struct DubRecordView: View {
     @ObservedObject private var scoring = DubScoringPreference.shared
     @ObservedObject private var booth = BoothCamPreference.shared
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     /// The first-run coaching, one at a time. See `DubTips`.
     private let recordTip = DubRecordTip()
@@ -30,19 +31,7 @@ struct DubRecordView: View {
             Color.rsSurface0.ignoresSafeArea()
 
             if let line = session.currentLine {
-                VStack(spacing: 0) {
-                    hud(for: line)
-
-                    picture(for: line)
-
-                    waveformBay(for: line)
-
-                    subtitlePlate(for: line)
-
-                    scoreBay
-
-                    transportBar(for: line)
-                }
+                bay(for: line)
             }
 
             CountdownOverlay(value: viewModel.countdown)
@@ -84,6 +73,53 @@ struct DubRecordView: View {
         }
         .onChange(of: viewModel.isRecording) { _, isRecording in
             viewModel.recordingDidChange(isRecording: isRecording)
+        }
+    }
+
+    // MARK: - Bay
+
+    /// Picture on top, controls underneath. On iPhone Duo open, a vertical split
+    /// arrangement holds the same two halves, so in a table-top fold the picture
+    /// sits above the fold and the transport below it, with nothing on the crease.
+    /// Vertical only, so the open layout keeps its single column in either orientation.
+    @ViewBuilder
+    private func bay(for line: DubLine) -> some View {
+        #if os(iOS)
+        if #available(iOS 27.1, *), horizontalSizeClass == .regular {
+            ArrangementView {
+                screen(for: line)
+            } secondary: {
+                controls(for: line)
+            }
+            .arrangementViewStyle(.split.axes(.vertical))
+        } else {
+            stackedBay(for: line)
+        }
+        #else
+        stackedBay(for: line)
+        #endif
+    }
+
+    private func stackedBay(for line: DubLine) -> some View {
+        VStack(spacing: 0) {
+            screen(for: line)
+            controls(for: line)
+        }
+    }
+
+    private func screen(for line: DubLine) -> some View {
+        VStack(spacing: 0) {
+            hud(for: line)
+            picture(for: line)
+        }
+    }
+
+    private func controls(for line: DubLine) -> some View {
+        VStack(spacing: 0) {
+            waveformBay(for: line)
+            subtitlePlate(for: line)
+            scoreBay
+            transportBar(for: line)
         }
     }
 
