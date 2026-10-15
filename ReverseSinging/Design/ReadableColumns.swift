@@ -4,8 +4,14 @@ import SwiftUI
 /// outer display), two on a regular width (iPhone Duo open, a Mac window), so cards keep a
 /// phone-like width and the even count leaves the fold between them.
 enum ReadableColumns {
-    static func columns(for sizeClass: UserInterfaceSizeClass?, spacing: CGFloat) -> [GridItem] {
-        let count = sizeClass == .regular ? 2 : 1
+    /// Accessibility text sizes get one column at any width: two columns of very large
+    /// text wrap a word to a line.
+    static func columns(
+        for sizeClass: UserInterfaceSizeClass?,
+        spacing: CGFloat,
+        dynamicTypeSize: DynamicTypeSize = .large
+    ) -> [GridItem] {
+        let count = sizeClass == .regular && !dynamicTypeSize.isAccessibilitySize ? 2 : 1
         return Array(repeating: GridItem(.flexible(), spacing: spacing, alignment: .top), count: count)
     }
 }

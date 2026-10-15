@@ -15,6 +15,7 @@ struct HomeView: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.horizontalSizeClass) private var sizeClass
     @Environment(\.verticalSizeClass) private var verticalSizeClass
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @StateObject private var viewModel = HomeViewModel()
 
     /// The reverse game's model. Held by the menu rather than by the game screen, so a
@@ -165,13 +166,15 @@ struct HomeView: View {
 
                 // One column on an iPhone; two on a regular width (iPhone Duo open), so the
                 // four games sit two by two with none on the fold.
-                LazyVGrid(columns: ReadableColumns.columns(for: sizeClass, spacing: 10), spacing: 10) {
+                LazyVGrid(columns: ReadableColumns.columns(for: sizeClass, spacing: 10, dynamicTypeSize: dynamicTypeSize), spacing: 10) {
                     ForEach(GameMode.allCases) { mode in
                         GameModeRow(
                             mode: mode,
                             isLocked: viewModel.isLocked(mode),
                             isFree: viewModel.isFree(mode),
-                            prominent: isRegular
+                            // Large rows only where two of them fit side by side with room
+                            // for their text, not in a narrow window that is still regular.
+                            prominent: isRegular && proxy.size.width >= 900
                         ) {
                             viewModel.open(mode)
                         }
