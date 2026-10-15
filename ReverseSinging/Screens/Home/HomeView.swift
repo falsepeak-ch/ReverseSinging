@@ -127,7 +127,16 @@ struct HomeView: View {
 
     private var menu: some View {
         GeometryReader { proxy in
+        let fold = horizontalFold(in: proxy)
         ScrollView {
+            VStack(spacing: 0) {
+            // Half folded as a table: a stage of props on the upper half, the games on the
+            // half that rests on the table, so none of them sits on the fold.
+            if let fold {
+                foldStage
+                    .frame(height: max(0, fold.minY))
+                    .padding(.bottom, fold.height)
+            }
             VStack(alignment: .leading, spacing: 10) {
                 if viewModel.showsReviewBanner {
                     ReviewBannerCard(
@@ -189,11 +198,37 @@ struct HomeView: View {
             .animation(.rsQuick, value: viewModel.showsReviewBanner)
             // On a regular size the games sit in the middle of the screen rather than
             // in a strip along its top; on an iPhone they stay top-aligned.
-            .frame(minHeight: isRegular ? proxy.size.height : nil, alignment: .center)
+            .frame(minHeight: fold.map { proxy.size.height - $0.maxY } ?? (isRegular ? proxy.size.height : nil), alignment: .center)
+            }
         }
         .scrollBounceBehavior(.basedOnSize)
         }
         .padding(.top, EditorMetrics.headerBarHeight)
+    }
+
+    // MARK: - Fold
+
+    /// The fold, in the menu's space, while it runs across the screen (iPhone Duo half
+    /// folded as a table) with room on both sides; nil otherwise.
+    private func horizontalFold(in proxy: GeometryProxy) -> CGRect? {
+        guard !dynamicTypeSize.isAccessibilitySize, let fold = proxy.horizontalFold,
+              fold.minY > 160, fold.maxY < proxy.size.height - 160
+        else { return nil }
+        return fold
+    }
+
+    /// The studio's props, lined up like a shelf: decoration only.
+    private var foldStage: some View {
+        HStack(alignment: .bottom, spacing: 20) {
+            Image("headphones").resizable().scaledToFit().frame(width: 92)
+            Image("film-reel").resizable().scaledToFit().frame(width: 104)
+            Image("microphone").resizable().scaledToFit().frame(width: 150)
+            Image("clapperboard").resizable().scaledToFit().frame(width: 104)
+            Image("radio").resizable().scaledToFit().frame(width: 92)
+        }
+        .padding(.horizontal, EditorMetrics.gutter)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .accessibilityHidden(true)
     }
 
     // MARK: - Header
