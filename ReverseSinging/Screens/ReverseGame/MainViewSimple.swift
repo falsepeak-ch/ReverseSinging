@@ -57,22 +57,45 @@ struct MainViewSimple: View {
     private var mainContentView: some View {
         GeometryReader { proxy in
             ScrollView {
-                transportStack
+                transportStack(fold: foldForSplit(in: proxy))
                     .frame(minHeight: proxy.size.height)
             }
         }
     }
 
-    private var transportStack: some View {
+    /// Half folded as a table, with room for the monitor above the fold: the monitor on the
+    /// upper half, the transport on the half resting on the table.
+    private func foldForSplit(in proxy: GeometryProxy) -> CGRect? {
+        guard let fold = proxy.horizontalFold,
+              fold.minY > EditorMetrics.headerBarHeight + 220,
+              fold.maxY < proxy.size.height - 300
+        else { return nil }
+        return fold
+    }
+
+    private func transportStack(fold: CGRect?) -> some View {
         VStack(spacing: 0) {
-            // Clears the fixed header bar
-            Spacer().frame(height: EditorMetrics.headerBarHeight)
+            if let fold {
+                VStack(spacing: 0) {
+                    Spacer().frame(height: EditorMetrics.headerBarHeight)
+                    Spacer(minLength: 16)
+                    monitorPanel
+                        .padding(.horizontal, EditorMetrics.gutter)
+                    Spacer(minLength: 16)
+                }
+                .frame(height: fold.minY)
 
-            monitorPanel
-                .padding(.horizontal, EditorMetrics.gutter)
-                .padding(.top, 20)
+                Spacer().frame(height: fold.height + 16)
+            } else {
+                // Clears the fixed header bar
+                Spacer().frame(height: EditorMetrics.headerBarHeight)
 
-            Spacer(minLength: 16)
+                monitorPanel
+                    .padding(.horizontal, EditorMetrics.gutter)
+                    .padding(.top, 20)
+
+                Spacer(minLength: 16)
+            }
 
             VStack(alignment: .leading, spacing: 10) {
                 EditorSectionHeader(title: Strings.Main.Section.transport)
