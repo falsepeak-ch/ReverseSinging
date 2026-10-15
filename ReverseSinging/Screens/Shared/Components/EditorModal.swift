@@ -31,6 +31,9 @@ struct EditorModal<Content: View, PhoneActions: View, MacActions: View>: View {
 
     /// How tall the iPhone card's content is when nothing squeezes it.
     @State private var contentHeight: CGFloat = 0
+    /// The fold while it runs across the screen (iPhone Duo half folded as a table): the card
+    /// then sits on the lower half, in reach, and scrolls its content to fit there.
+    @State private var horizontalFold: CGRect?
 
     var body: some View {
         #if os(macOS)
@@ -98,8 +101,11 @@ struct EditorModal<Content: View, PhoneActions: View, MacActions: View>: View {
                 .frame(maxWidth: 400)
                 .padding(.horizontal, EditorMetrics.gutter)
                 .padding(.vertical, 24)
+                .frame(maxHeight: horizontalFold == nil ? nil : .infinity)
+                .padding(.top, horizontalFold.map { max(0, $0.maxY - 8) } ?? 0)
                 .transition(.opacity)
         }
+        .onGeometryChange(for: CGRect?.self) { $0.horizontalFold } action: { horizontalFold = $0 }
         // A card with no way out but its own button also holds the screen under it in place.
         .onAppear { if onClose == nil { EditorModalHold.begin() } }
         .onDisappear { if onClose == nil { EditorModalHold.end() } }
