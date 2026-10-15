@@ -26,8 +26,13 @@ struct DubPackDetailView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.verticalSizeClass) private var verticalSizeClass
 
-    init(pack: DubPack, library: DubPackLibrary) {
+    /// False when the detail is the second pane of the library's split, where there is
+    /// nothing to go back to: the list is already beside it.
+    private let showsBack: Bool
+
+    init(pack: DubPack, library: DubPackLibrary, showsBack: Bool = true) {
         self.pack = pack
+        self.showsBack = showsBack
         _viewModel = StateObject(wrappedValue: DubPackDetailViewModel(pack: pack, library: library))
     }
 
@@ -44,7 +49,7 @@ struct DubPackDetailView: View {
             // The same header the library and the games use, so a push never
             // swaps one kind of chrome for another.
             VStack(spacing: 0) {
-                EditorScreenHeader(title: pack.title, onBack: { dismiss() }) {
+                EditorScreenHeader(title: pack.title, onBack: showsBack ? { dismiss() } : nil) {
                     HelpButton(topic: .dub)
                 }
 

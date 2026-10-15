@@ -23,6 +23,12 @@ struct DubLibraryView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.horizontalSizeClass) private var sizeClass
     @Environment(\.verticalSizeClass) private var verticalSizeClass
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    /// Width of the library's area, measured, so the split only appears when each pane
+    /// gets a usable width (not in a narrow Stage Manager window that is still regular).
+    @State private var availableWidth: CGFloat = 0
 
     /// The packs, their import and its errors. Its changes reach this screen through
     /// `viewModel`, which passes them on.
@@ -64,17 +70,15 @@ struct DubLibraryView: View {
 
                 if library.packs.isEmpty {
                     emptyState
+                    guideRow
+                } else if isSplit, let pack = splitSelection {
+                    splitBody(detail: pack)
                 } else {
                     packList
+                    guideRow
                 }
-
-                // Pinned under the list rather than scrolled with it, so the way to more
-                // scenes is on screen however many are already in.
-                DubPackGuideRow { viewModel.showPackGuide = true }
-                    .padding(.horizontal, EditorMetrics.gutter)
-                    .padding(.top, 8)
-                    .padding(.bottom, 12)
             }
+            .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { availableWidth = $0 }
 
             if library.isImporting {
                 ProcessingIndicator(
@@ -103,7 +107,13 @@ struct DubLibraryView: View {
         ) { result in
             viewModel.handleImport(result)
         }
-        .navigationDestination(item: $viewModel.selectedPack) { pack in
+        // In the split the selection drives the second pane, not a push. The setter is
+        // ignored there too, so opening the device (compact to regular) never clears the
+        // selection by popping the pushed detail: the same pack moves into the pane.
+        .navigationDestination(item: Binding(
+            get: { isSplit ? nil : viewModel.selectedPack },
+            set: { if !isSplit { viewModel.selectedPack = $0 } }
+        )) { pack in
             DubPackDetailView(pack: pack, library: library)
         }
         .alert(Strings.Main.Alert.errorTitle, isPresented: .init(
@@ -128,6 +138,81 @@ struct DubLibraryView: View {
             pendingImportURL = nil
         }
         .animation(.rsSpring, value: library.isImporting)
+        .animation(reduceMotion ? nil : .rsSmooth, value: isSplit)
+        .animation(reduceMotion ? nil : .rsSmooth, value: splitSelection?.id)
+    }
+
+    // MARK: - Split (regular size)
+
+    /// List and detail side by side: iPhone Duo open, iPad full screen, a wide window.
+    private var isSplit: Bool {
+        sizeClass == .regular && verticalSizeClass == .regular && availableWidth >= 700
+    }
+
+    /// The pack in the second pane: the one last opened, else the first. Looked up by id so
+    /// a deleted pack falls back rather than lingering.
+    private var splitSelection: DubPack? {
+        if let id = viewModel.selectedPack?.id, let pack = library.packs.first(where: { $0.id == id }) {
+            return pack
+        }
+        return library.packs.first
+    }
+
+    @ViewBuilder
+    private func splitBody(detail pack: DubPack) -> some View {
+        #if os(iOS)
+        if #available(iOS 27.1, *) {
+            // Side by side in either orientation, with equal panes, so the fold of a
+            // book pose falls between the list and the detail rather than through either.
+            ArrangementView {
+                splitList
+                    .splitArrangementLayoutRatio(0.5)
+            } secondary: {
+                splitDetail(pack)
+            }
+            .arrangementViewStyle(.split.axes(.horizontal))
+        } else {
+            splitStack(detail: pack)
+        }
+        #else
+        splitStack(detail: pack)
+        #endif
+    }
+
+    /// Before iOS 27.1 (iPad): the same two equal panes.
+    private func splitStack(detail pack: DubPack) -> some View {
+        HStack(spacing: 0) {
+            splitList
+                .frame(maxWidth: .infinity)
+            Rectangle()
+                .fill(Color.rsStroke)
+                .frame(width: EditorMetrics.hairline)
+            splitDetail(pack)
+                .frame(maxWidth: .infinity)
+        }
+    }
+
+    private var splitList: some View {
+        VStack(spacing: 0) {
+            packScroll(columns: [GridItem(.flexible(), spacing: 8)], selected: splitSelection?.id)
+            guideRow
+        }
+    }
+
+    private func splitDetail(_ pack: DubPack) -> some View {
+        DubPackDetailView(pack: pack, library: library, showsBack: false)
+            // A new model per pack: the detail's state belongs to the pack it shows.
+            .id(pack.id)
+            .transition(reduceMotion ? .opacity : .opacity.combined(with: .move(edge: .trailing)))
+    }
+
+    /// Pinned under the list rather than scrolled with it, so the way to more
+    /// scenes is on screen however many are already in.
+    private var guideRow: some View {
+        DubPackGuideRow { viewModel.showPackGuide = true }
+            .padding(.horizontal, EditorMetrics.gutter)
+            .padding(.top, 8)
+            .padding(.bottom, 12)
     }
 
     // MARK: - Options
@@ -168,6 +253,10 @@ struct DubLibraryView: View {
     // MARK: - Pack List
 
     private var packList: some View {
+        packScroll(columns: ReadableColumns.columns(for: sizeClass, spacing: 8, dynamicTypeSize: dynamicTypeSize), selected: nil)
+    }
+
+    private func packScroll(columns: [GridItem], selected: DubPack.ID?) -> some View {
         ScrollView {
             LazyVStack(spacing: 8) {
                 EditorSectionHeader(
@@ -176,7 +265,7 @@ struct DubLibraryView: View {
                 )
                 .padding(.bottom, 2)
 
-                LazyVGrid(columns: ReadableColumns.columns(for: sizeClass, spacing: 8), spacing: 8) {
+                LazyVGrid(columns: columns, spacing: 8) {
                     ForEach(library.packs) { pack in
                         DubPackCard(
                             pack: pack,
@@ -185,7 +274,8 @@ struct DubLibraryView: View {
                                 HapticManager.shared.impact(.light)
                                 viewModel.open(pack)
                             },
-                            prominent: sizeClass == .regular && verticalSizeClass == .regular
+                            prominent: selected == nil && sizeClass == .regular && verticalSizeClass == .regular,
+                            isSelected: pack.id == selected
                         )
                         .contextMenu {
                             Button(role: .destructive) {
@@ -246,6 +336,18 @@ struct DubLibraryView: View {
     }
 }
 
-#Preview {
+#Preview("iPhone") {
     DubLibraryView(pendingImportURL: .constant(nil))
+}
+
+#Preview("Duo open, portrait (book)", traits: .fixedLayout(width: 1003, height: 1427)) {
+    DubLibraryView(pendingImportURL: .constant(nil))
+        .environment(\.horizontalSizeClass, .regular)
+        .environment(\.verticalSizeClass, .regular)
+}
+
+#Preview("Duo open, landscape", traits: .fixedLayout(width: 1427, height: 1003)) {
+    DubLibraryView(pendingImportURL: .constant(nil))
+        .environment(\.horizontalSizeClass, .regular)
+        .environment(\.verticalSizeClass, .regular)
 }
