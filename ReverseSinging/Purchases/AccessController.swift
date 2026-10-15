@@ -382,6 +382,16 @@ final class AccessController: ObservableObject {
         }
     }
 
+    /// Buys a subscription with an App Store win-back offer applied: the menu's offer banner,
+    /// for someone whose subscription lapsed.
+    @available(iOS 18.0, macOS 15.0, *)
+    func purchase(_ product: StoreProduct, winBackOffer: WinBackOffer, source: String) async {
+        await runPurchase(productID: product.productIdentifier, source: source) {
+            let params = PurchaseParams.Builder(product: product).with(winBackOffer: winBackOffer).build()
+            return try await Purchases.shared.purchase(params)
+        }
+    }
+
     private func runPurchase(
         productID: String,
         source: String,
