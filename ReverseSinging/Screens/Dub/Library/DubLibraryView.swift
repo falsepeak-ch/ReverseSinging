@@ -30,6 +30,10 @@ struct DubLibraryView: View {
     /// gets a usable width (not in a narrow Stage Manager window that is still regular).
     @State private var availableWidth: CGFloat = 0
 
+    /// A fold runs across the screen (iPhone Duo half folded as a table): the split stacks
+    /// the list over the detail, one pane on each side of the fold.
+    @State private var hasHorizontalFold = false
+
     /// The packs, their import and its errors. Its changes reach this screen through
     /// `viewModel`, which passes them on.
     private var library: DubPackLibrary { viewModel.library }
@@ -79,6 +83,7 @@ struct DubLibraryView: View {
                 }
             }
             .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { availableWidth = $0 }
+            .onGeometryChange(for: Bool.self) { $0.horizontalFold != nil } action: { hasHorizontalFold = $0 }
 
             if library.isImporting {
                 ProcessingIndicator(
@@ -146,7 +151,8 @@ struct DubLibraryView: View {
 
     /// List and detail side by side: iPhone Duo open, iPad full screen, a wide window.
     private var isSplit: Bool {
-        sizeClass == .regular && verticalSizeClass == .regular && availableWidth >= 700
+        sizeClass == .regular && verticalSizeClass == .regular
+            && (availableWidth >= 700 || (hasHorizontalFold && !dynamicTypeSize.isAccessibilitySize))
     }
 
     /// The pack in the second pane: the one last opened, else the first. Looked up by id so
@@ -164,13 +170,14 @@ struct DubLibraryView: View {
         if #available(iOS 27.1, *) {
             // Side by side in either orientation, with equal panes, so the fold of a
             // book pose falls between the list and the detail rather than through either.
+            // Half folded as a table, the list above the fold and the detail below it.
             ArrangementView {
                 splitList
                     .splitArrangementLayoutRatio(0.5)
             } secondary: {
                 splitDetail(pack)
             }
-            .arrangementViewStyle(.split.axes(.horizontal))
+            .arrangementViewStyle(.split.axes(hasHorizontalFold ? .vertical : .horizontal))
         } else {
             splitStack(detail: pack)
         }

@@ -21,6 +21,10 @@ struct DubPackDetailView: View {
 
     @State private var reelIsBreathing = false
 
+    /// The screen's height, measured, so the hero leaves room for the transport in a short
+    /// pane (the lower half of iPhone Duo half folded as a table).
+    @State private var availableHeight: CGFloat = 0
+
     /// The last of the first-run tips: there is a dub to hear now. See `DubTips`.
     private let playDubTip = DubPlayDubTip()
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -45,6 +49,7 @@ struct DubPackDetailView: View {
             Color.rsSurface0
                 .ignoresSafeArea()
                 .filmGrain()
+                .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { availableHeight = $0 }
 
             // The same header the library and the games use, so a push never
             // swaps one kind of chrome for another.
@@ -170,7 +175,13 @@ struct DubPackDetailView: View {
         horizontalSizeClass == .regular && verticalSizeClass == .regular
     }
 
-    private var heroHeight: CGFloat { isRegular ? 380 : 200 }
+    /// 380 on a full regular screen; in a short pane two fifths of it, so the slate and
+    /// the first transport row are on screen without scrolling.
+    private var heroHeight: CGFloat {
+        guard isRegular else { return 200 }
+        guard availableHeight > 0 else { return 380 }
+        return min(380, max(150, (availableHeight * 0.4).rounded()))
+    }
 
     private var hero: some View {
         VStack(spacing: 0) {
