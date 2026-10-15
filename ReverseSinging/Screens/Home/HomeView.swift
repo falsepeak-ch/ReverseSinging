@@ -14,6 +14,7 @@ struct HomeView: View {
     @EnvironmentObject var app: AppViewModel
     @Environment(\.openURL) private var openURL
     @Environment(\.horizontalSizeClass) private var sizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
     @StateObject private var viewModel = HomeViewModel()
 
     /// The reverse game's model. Held by the menu rather than by the game screen, so a
@@ -118,7 +119,13 @@ struct HomeView: View {
     /// Scrolls, under the header. The four games alone fit any iPhone; with the Pro note or
     /// the review note above them they do not fit a small one, and a menu that cannot be
     /// scrolled pushes its last game, and its own header, off the screen.
+    /// iPhone Duo open: both size classes regular, so the menu has room to breathe.
+    private var isRegular: Bool {
+        sizeClass == .regular && verticalSizeClass == .regular
+    }
+
     private var menu: some View {
+        GeometryReader { proxy in
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
                 if viewModel.showsReviewBanner {
@@ -163,7 +170,8 @@ struct HomeView: View {
                         GameModeRow(
                             mode: mode,
                             isLocked: viewModel.isLocked(mode),
-                            isFree: viewModel.isFree(mode)
+                            isFree: viewModel.isFree(mode),
+                            prominent: isRegular
                         ) {
                             viewModel.open(mode)
                         }
@@ -176,8 +184,12 @@ struct HomeView: View {
             .animation(.rsQuick, value: viewModel.areGamesLocked)
             .animation(.rsQuick, value: viewModel.visibleOffer)
             .animation(.rsQuick, value: viewModel.showsReviewBanner)
+            // On a regular size the games sit in the middle of the screen rather than
+            // in a strip along its top; on an iPhone they stay top-aligned.
+            .frame(minHeight: isRegular ? proxy.size.height : nil, alignment: .center)
         }
         .scrollBounceBehavior(.basedOnSize)
+        }
         .padding(.top, EditorMetrics.headerBarHeight)
     }
 

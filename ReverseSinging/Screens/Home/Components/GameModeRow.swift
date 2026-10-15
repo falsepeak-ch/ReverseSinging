@@ -20,6 +20,8 @@ struct GameModeRow: View {
     let mode: GameMode
     var isLocked = false
     var isFree = false
+    /// Larger row for a regular-width, regular-height window (iPhone Duo open).
+    var prominent = false
     let action: () -> Void
 
     var body: some View {
@@ -27,13 +29,13 @@ struct GameModeRow: View {
             HapticManager.shared.impact(.light)
             action()
         }) {
-            HStack(spacing: 16) {
+            HStack(spacing: prominent ? 22 : 16) {
                 Image(mode.image)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 52, height: 52)
+                    .frame(width: prominent ? 88 : 52, height: prominent ? 88 : 52)
                     .saturation(isLocked ? 0 : 1)
-                    .frame(width: 68, height: 68)
+                    .frame(width: prominent ? 112 : 68, height: prominent ? 112 : 68)
                     .background(
                         RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                             .fill(Color.rsSurface2)
@@ -75,7 +77,7 @@ struct GameModeRow: View {
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundColor(.rsTextTertiary)
             }
-            .padding(14)
+            .padding(prominent ? 24 : 14)
             .frame(maxWidth: .infinity, alignment: .leading)
             .opacity(isLocked ? 0.5 : 1)
             .editorPanel()
