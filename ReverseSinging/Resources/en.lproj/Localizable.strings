@@ -765,3 +765,9 @@
 "offer.then" = "Then %@. Cancel anytime.";
 "offer.cta" = "Claim offer";
 "offer.dismiss" = "Not now";
+
+/* Spooky Voice Week */
+"halloween.title" = "Spooky Voice Week";
+"halloween.home.message" = "Moan like a ghost, groan like a zombie, howl like a wolf. Then dub Camp Rules, the horror-comedy movie scene.";
+"halloween.home.action" = "Play the spooky sounds";
+"halloween.imitate.message" = "Happy Halloween! Warm up with the ghost, zombie, wolf and owl.";

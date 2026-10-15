@@ -764,3 +764,9 @@
 "offer.then" = "จากนั้น %@ ยกเลิกได้ทุกเมื่อ";
 "offer.cta" = "รับข้อเสนอ";
 "offer.dismiss" = "ไว้ทีหลัง";
+
+/* Spooky Voice Week */
+"halloween.title" = "สัปดาห์เสียงสยองขวัญ";
+"halloween.home.message" = "ครางแบบผี คำรามแบบซอมบี้ หอนแบบหมาป่า แล้วไปพากย์ Camp Rules ฉากจากหนังตลกสยองขวัญ";
+"halloween.home.action" = "เล่นเสียงสยองขวัญ";
+"halloween.imitate.message" = "สุขสันต์วันฮาโลวีน! วอร์มเสียงกับผี ซอมบี้ หมาป่า และนกฮูก";

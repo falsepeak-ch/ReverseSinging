@@ -764,3 +764,9 @@
 "offer.then" = "بعد ذلك %@. يمكنك الإلغاء في أي وقت.";
 "offer.cta" = "احصل على العرض";
 "offer.dismiss" = "ليس الآن";
+
+/* Spooky Voice Week */
+"halloween.title" = "أسبوع الأصوات المخيفة";
+"halloween.home.message" = "قلّد أنين الشبح وزمجرة الزومبي وعواء الذئب. ثم دبلج Camp Rules، مشهد الكوميديا المرعبة.";
+"halloween.home.action" = "العب بالأصوات المخيفة";
+"halloween.imitate.message" = "هالوين سعيد! سخّن صوتك مع الشبح والزومبي والذئب والبومة.";

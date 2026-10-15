@@ -764,3 +764,9 @@
 "offer.then" = "Poté %@. Zrušit můžete kdykoli.";
 "offer.cta" = "Využít nabídku";
 "offer.dismiss" = "Teď ne";
+
+/* Spooky Voice Week */
+"halloween.title" = "Strašidelný týden hlasů";
+"halloween.home.message" = "Kvílej jako duch, chrchli jako zombie, vyj jako vlk. Pak nadabuj Camp Rules, scénu z hororové komedie.";
+"halloween.home.action" = "Zahraj si strašidelné zvuky";
+"halloween.imitate.message" = "Veselý Halloween! Rozehřej hlas: duch, zombie, vlk a sova už čekají.";

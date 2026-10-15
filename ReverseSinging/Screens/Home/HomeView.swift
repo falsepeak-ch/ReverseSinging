@@ -133,6 +133,13 @@ struct HomeView: View {
                     .onAppear { viewModel.reviewBannerDidAppear() }
                 }
 
+                if viewModel.showsSpookyVoiceWeek {
+                    SpookyVoiceWeekCard(isLocked: viewModel.isSpookyVoiceWeekLocked) {
+                        viewModel.openSpookyVoiceWeek()
+                    }
+                    .padding(.bottom, 10)
+                }
+
                 if let offer = viewModel.visibleOffer {
                     OfferBannerCard(
                         offer: offer,

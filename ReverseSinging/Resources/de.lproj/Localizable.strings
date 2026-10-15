@@ -764,3 +764,9 @@
 "offer.then" = "Danach %@. Jederzeit kündbar.";
 "offer.cta" = "Angebot sichern";
 "offer.dismiss" = "Nicht jetzt";
+
+/* Spooky Voice Week */
+"halloween.title" = "Gruselstimmen-Woche";
+"halloween.home.message" = "Stöhn wie ein Geist, knurr wie ein Zombie, heul wie ein Wolf. Danach synchronisierst du Camp Rules, die Szene aus einer Horrorkomödie.";
+"halloween.home.action" = "Gruselgeräusche spielen";
+"halloween.imitate.message" = "Happy Halloween! Wärm deine Stimme mit Geist, Zombie, Wolf und Eule auf.";

@@ -764,3 +764,9 @@
 "offer.then" = "Potem %@. Anuluj w dowolnej chwili.";
 "offer.cta" = "Skorzystaj z oferty";
 "offer.dismiss" = "Nie teraz";
+
+/* Spooky Voice Week */
+"halloween.title" = "Tydzień strasznych głosów";
+"halloween.home.message" = "Jęcz jak duch, charcz jak zombie, wyj jak wilk. Potem zdubbinguj Camp Rules, scenę z komedii grozy.";
+"halloween.home.action" = "Zagraj w straszne dźwięki";
+"halloween.imitate.message" = "Wesołego Halloween! Rozgrzej głos: duch, zombie, wilk i sowa już czekają.";

@@ -764,3 +764,9 @@
 "offer.then" = "Sonra %@. İstediğiniz zaman iptal edin.";
 "offer.cta" = "Teklifi al";
 "offer.dismiss" = "Şimdi değil";
+
+/* Spooky Voice Week */
+"halloween.title" = "Ürkütücü Sesler Haftası";
+"halloween.home.message" = "Hayalet gibi inle, zombi gibi hırla, kurt gibi ulu. Sonra korku komedisi sahnesi Camp Rules'u seslendir.";
+"halloween.home.action" = "Ürkütücü sesleri oyna";
+"halloween.imitate.message" = "Cadılar Bayramın kutlu olsun! Sesini ısıt: hayalet, zombi, kurt ve baykuş seni bekliyor.";

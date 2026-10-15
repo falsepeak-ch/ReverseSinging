@@ -764,3 +764,9 @@
 "offer.then" = "Sen jälkeen %@. Peru milloin tahansa.";
 "offer.cta" = "Lunasta tarjous";
 "offer.dismiss" = "Ei nyt";
+
+/* Spooky Voice Week */
+"halloween.title" = "Kauhuäänten viikko";
+"halloween.home.message" = "Valita kuin kummitus, murise kuin zombi, ulvo kuin susi. Dubbaa sitten Camp Rules, kauhukomedian kohtaus.";
+"halloween.home.action" = "Pelaa kauhuäänillä";
+"halloween.imitate.message" = "Hyvää halloweenia! Lämmittele ääntäsi kummituksen, zombin, suden ja pöllön kanssa.";

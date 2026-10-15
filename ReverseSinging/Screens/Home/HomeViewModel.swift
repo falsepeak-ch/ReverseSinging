@@ -19,6 +19,9 @@ enum HomePaywallSource: String, Identifiable {
     /// The subscription offer banner, for an introductory offer.
     case offerBanner = "offer_banner"
 
+    /// The Spooky Voice Week card, tapped while Sound Imitation is padlocked.
+    case spookyCard = "spooky_card"
+
     var id: String { rawValue }
 }
 
@@ -162,6 +165,14 @@ final class HomeViewModel: ObservableObject {
         offerBanner.dismiss()
     }
 
+    /// The Halloween card. Read once per menu: a menu left open past midnight on the 1st of
+    /// November keeps it until the next launch, which is better than a card vanishing under a
+    /// finger.
+    let showsSpookyVoiceWeek = SpookyVoiceWeek.isActiveNow
+
+    /// Whether the card's tap leads to the paywall rather than to the sounds.
+    var isSpookyVoiceWeekLocked: Bool { isLocked(SpookyVoiceWeek.destination) }
+
     /// The note that asks for a rating. Only for someone who has imported a dub pack and used
     /// the app on at least three different days, whether or not they have paid: by then they
     /// know the app well enough for the rating to mean something.
@@ -191,6 +202,14 @@ final class HomeViewModel: ObservableObject {
     func openDub() {
         guard canEnter(.dub, orShowPaywallFrom: .lockedGame) else { return }
         path = [.dub]
+    }
+
+    /// The Spooky Voice Week card: the same place `dubloon://event/spooky` goes.
+    func openSpookyVoiceWeek() {
+        AnalyticsManager.shared.trackCustomEvent(name: "spooky_card_tapped", parameters: ["locked": isSpookyVoiceWeekLocked])
+        let mode = SpookyVoiceWeek.destination
+        guard canEnter(mode, orShowPaywallFrom: .spookyCard) else { return }
+        path = [mode]
     }
 
     /// A `dubloon://` link: the game it names, on its own rather than on top of whatever was

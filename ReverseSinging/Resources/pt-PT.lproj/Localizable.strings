@@ -764,3 +764,9 @@
 "offer.then" = "Depois, %@. Cancele quando quiser.";
 "offer.cta" = "Aproveitar a oferta";
 "offer.dismiss" = "Agora não";
+
+/* Spooky Voice Week */
+"halloween.title" = "Semana das Vozes Assustadoras";
+"halloween.home.message" = "Geme como um fantasma, rosna como um zombie, uiva como um lobo. Depois dobra Camp Rules, a cena de comédia de terror.";
+"halloween.home.action" = "Jogar com os sons assustadores";
+"halloween.imitate.message" = "Feliz Halloween! Aquece a voz com o fantasma, o zombie, o lobo e o mocho.";

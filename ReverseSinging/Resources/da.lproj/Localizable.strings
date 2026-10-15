@@ -764,3 +764,9 @@
 "offer.then" = "Derefter %@. Opsig når som helst.";
 "offer.cta" = "Få tilbuddet";
 "offer.dismiss" = "Ikke nu";
+
+/* Spooky Voice Week */
+"halloween.title" = "Uhyggelig stemmeuge";
+"halloween.home.message" = "Jamr som et spøgelse, knur som en zombie, hyl som en ulv. Dub derefter Camp Rules, scenen fra en gyserkomedie.";
+"halloween.home.action" = "Spil de uhyggelige lyde";
+"halloween.imitate.message" = "Glædelig halloween! Varm stemmen op med spøgelset, zombien, ulven og uglen.";

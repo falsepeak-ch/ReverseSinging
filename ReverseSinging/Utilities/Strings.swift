@@ -752,4 +752,13 @@ nonisolated enum Strings {
         static let placeholder = NSLocalizedString("review.feedback.placeholder", comment: "Placeholder in the empty feedback text box")
         static let send = NSLocalizedString("review.feedback.send", comment: "Button that sends the feedback note")
     }
+
+    // MARK: - Spooky Voice Week
+    /// The Halloween card on the menu and the header over the sound library, see `SpookyVoiceWeek`.
+    enum Halloween {
+        static let title = NSLocalizedString("halloween.title", comment: "Name of the Halloween event, shown as the headline of the menu card and of the header in Sound Imitation")
+        static let homeMessage = NSLocalizedString("halloween.home.message", comment: "Body of the Halloween card on the menu. Names the spooky sounds already in Sound Imitation (ghost, zombie, wolf) and Camp Rules, a horror-comedy movie scene already in the dub library. Keep 'Camp Rules' untranslated")
+        static let homeAction = NSLocalizedString("halloween.home.action", comment: "Button on the Halloween menu card that opens Sound Imitation")
+        static let imitateMessage = NSLocalizedString("halloween.imitate.message", comment: "One line under the event name at the top of Sound Imitation during Halloween. Names the ghost, zombie, wolf and owl sounds")
+    }
 }

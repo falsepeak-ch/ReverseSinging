@@ -764,3 +764,9 @@
 "offer.then" = "その後は%@。いつでもキャンセル可能。";
 "offer.cta" = "オファーを受け取る";
 "offer.dismiss" = "今はしない";
+
+/* Spooky Voice Week */
+"halloween.title" = "こわい声ウィーク";
+"halloween.home.message" = "おばけみたいにうめいて、ゾンビみたいにうなって、オオカミみたいに遠吠えしよう。そのあとはホラーコメディのシーン「Camp Rules」をアフレコ。";
+"halloween.home.action" = "こわい音で遊ぶ";
+"halloween.imitate.message" = "ハッピーハロウィン！おばけ、ゾンビ、オオカミ、フクロウで声をあたためよう。";

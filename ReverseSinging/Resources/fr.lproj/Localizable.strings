@@ -764,3 +764,9 @@
 "offer.then" = "Ensuite %@. Résiliable à tout moment.";
 "offer.cta" = "Profiter de l'offre";
 "offer.dismiss" = "Plus tard";
+
+/* Spooky Voice Week */
+"halloween.title" = "Semaine des voix qui font peur";
+"halloween.home.message" = "Gémis comme un fantôme, grogne comme un zombie, hurle comme un loup. Puis double Camp Rules, la scène de comédie horrifique.";
+"halloween.home.action" = "Jouer les sons qui font peur";
+"halloween.imitate.message" = "Joyeux Halloween ! Échauffe ta voix avec le fantôme, le zombie, le loup et le hibou.";
