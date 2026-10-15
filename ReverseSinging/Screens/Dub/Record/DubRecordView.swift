@@ -16,6 +16,8 @@ struct DubRecordView: View {
     @ObservedObject private var booth = BoothCamPreference.shared
     @Environment(\.dismiss) private var dismiss
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Namespace private var bayNamespace
 
     /// The first-run coaching, one at a time. See `DubTips`.
     private let recordTip = DubRecordTip()
@@ -37,6 +39,9 @@ struct DubRecordView: View {
             CountdownOverlay(value: viewModel.countdown)
         }
         .hidesStatusBar()
+        // Opening or closing the device swaps the layout; the take, line and recording
+        // state live in the view models, so only the geometry changes.
+        .animation(reduceMotion ? nil : .rsSmooth, value: horizontalSizeClass)
         .animation(.easeInOut(duration: 0.2), value: session.currentLineIndex)
         .animation(.easeInOut(duration: 0.2), value: viewModel.isRecording)
         .animation(.rsSpring, value: session.latestScore)
@@ -78,20 +83,26 @@ struct DubRecordView: View {
 
     // MARK: - Bay
 
-    /// Picture on top, controls underneath. On iPhone Duo open, a vertical split
-    /// arrangement holds the same two halves, so in a table-top fold the picture
-    /// sits above the fold and the transport below it, with nothing on the crease.
-    /// Vertical only, so the open layout keeps its single column in either orientation.
+    /// The booth as two panes: the scene (HUD and picture) and the desk (waveform, line,
+    /// score, transport). On a regular width with iOS 27.1 a split arrangement holds them:
+    /// - fully open and wider than tall, a studio: the picture large, the desk beside it;
+    /// - taller than wide, or half folded as a table, the picture above and the desk below,
+    ///   with equal halves so the fold falls between the panes, never through the picture.
+    /// The system places the panes around the fold. Compact widths, older systems and the
+    /// Mac keep the single column.
     @ViewBuilder
     private func bay(for line: DubLine) -> some View {
         #if os(iOS)
         if #available(iOS 27.1, *), horizontalSizeClass == .regular {
             ArrangementView {
                 screen(for: line)
+                    .splitArrangementLayoutRatio(idealHorizontal: 0.62, idealVertical: 0.5)
             } secondary: {
-                controls(for: line)
+                SplitAxisReader { axis in
+                    controls(for: line, isBeside: axis == .horizontal)
+                }
             }
-            .arrangementViewStyle(.split.axes(.vertical))
+            .arrangementViewStyle(.split)
         } else {
             stackedBay(for: line)
         }
@@ -103,7 +114,7 @@ struct DubRecordView: View {
     private func stackedBay(for line: DubLine) -> some View {
         VStack(spacing: 0) {
             screen(for: line)
-            controls(for: line)
+            controls(for: line, isBeside: false)
         }
     }
 
@@ -111,15 +122,34 @@ struct DubRecordView: View {
         VStack(spacing: 0) {
             hud(for: line)
             picture(for: line)
+                // The same picture in every layout, so a pose change moves and resizes it
+                // rather than cutting to a new one.
+                .matchedGeometryEffect(id: "picture", in: bayNamespace)
         }
     }
 
-    private func controls(for line: DubLine) -> some View {
+    /// Beside the picture the desk is a full-height column: the waveform at the top, the
+    /// line to read in the middle at eye level, the transport at the bottom in reach.
+    private func controls(for line: DubLine, isBeside: Bool) -> some View {
         VStack(spacing: 0) {
             waveformBay(for: line)
+            if isBeside {
+                Spacer(minLength: 0)
+            }
             subtitlePlate(for: line)
+            if isBeside {
+                Spacer(minLength: 0)
+            }
             scoreBay
             transportBar(for: line)
+        }
+        .background(isBeside ? Color.rsSurface1 : Color.clear)
+        .overlay(alignment: .leading) {
+            if isBeside {
+                Rectangle()
+                    .fill(Color.rsStroke)
+                    .frame(width: EditorMetrics.hairline)
+            }
         }
     }
 
@@ -235,6 +265,8 @@ struct DubRecordView: View {
             .id(viewModel.scenePicture.player == nil ? line.slug : "video")
             .cinemaVignette()
             .filmGrain(opacity: 0.06)
+            // The vignette ignores safe areas; keep it inside the picture's own pane.
+            .clipped()
             .overlay(alignment: .topLeading) {
                 DubCharacterPlate(character: line.character, color: characterColor(for: line))
                     .padding(.horizontal, 9)
@@ -499,4 +531,35 @@ struct DubRecordView: View {
         .opacity(isEnabled ? 1 : 0.3)
         .accessibilityLabel(label)
     }
+}
+
+#if os(iOS)
+/// Hands its content the axis the enclosing split arrangement chose, so a pane can lay
+/// itself out for beside or below.
+@available(iOS 27.1, *)
+private struct SplitAxisReader<Content: View>: View {
+    @Environment(\.splitArrangementAxis) private var axis
+    @ViewBuilder let content: (Axis?) -> Content
+
+    var body: some View { content(axis) }
+}
+#endif
+
+#Preview("iPhone") {
+    DubRecordView(session: DubSessionViewModel(pack: .previewLicensed))
+        .cinemaAppearance()
+}
+
+#Preview("Duo open, landscape (studio)", traits: .fixedLayout(width: 1427, height: 1003)) {
+    DubRecordView(session: DubSessionViewModel(pack: .previewLicensed))
+        .cinemaAppearance()
+        .environment(\.horizontalSizeClass, .regular)
+        .environment(\.verticalSizeClass, .regular)
+}
+
+#Preview("Duo open, portrait", traits: .fixedLayout(width: 1003, height: 1427)) {
+    DubRecordView(session: DubSessionViewModel(pack: .previewLicensed))
+        .cinemaAppearance()
+        .environment(\.horizontalSizeClass, .regular)
+        .environment(\.verticalSizeClass, .regular)
 }
