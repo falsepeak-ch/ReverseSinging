@@ -520,6 +520,17 @@ nonisolated enum Strings {
         }
     }
 
+    // MARK: - Subscription offer banner
+    enum Offer {
+        static let introFree = NSLocalizedString("offer.intro.free", comment: "Menu banner: free trial for a new subscriber. %@ is a duration such as '1 week'")
+        static let introPaid = NSLocalizedString("offer.intro.paid", comment: "Menu banner: discounted first period. %1$@ is the price, %2$@ a duration such as '1 year'")
+        static let winBackFree = NSLocalizedString("offer.winback.free", comment: "Menu banner for a lapsed subscriber: free period. %@ is a duration such as '1 month'")
+        static let winBackPaid = NSLocalizedString("offer.winback.paid", comment: "Menu banner for a lapsed subscriber: discounted period. %1$@ is the price, %2$@ a duration")
+        static let then = NSLocalizedString("offer.then", comment: "Under the offer: the regular price afterwards, such as '$2.99 / 1 month'")
+        static let cta = NSLocalizedString("offer.cta", comment: "Button on the offer banner that opens the offer")
+        static let dismiss = NSLocalizedString("offer.dismiss", comment: "Button that hides the offer banner for a while")
+    }
+
     // MARK: - Pro / Paywall
     enum Pro {
         // Settings

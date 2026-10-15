@@ -755,3 +755,12 @@
 "dubGuide.2.detail.mac" = "Fes clic a Download i tria el fitxer: un .zip, .7z o .rar. El navegador el desa a la carpeta Baixades.";
 "dubGuide.3.detail.mac" = "Espera que la descàrrega s'acabi. Si el fitxer és a l'iCloud Drive, baixa'l primer al Finder perquè sigui de veritat en aquest Mac.";
 "dubGuide.4.detail.mac" = "Torna aquí, fes clic a Importar un pack i tria'l a Baixades. També pots deixar anar el fitxer a Doblatge d'escenes a la barra lateral, o obrir-lo amb Dubloon des del Finder.";
+
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Prova Dubloon Pro gratis durant %@";
+"offer.intro.paid" = "El teu primer període de %2$@ de Dubloon Pro per %1$@";
+"offer.winback.free" = "Torna: %@ de Dubloon Pro gratis";
+"offer.winback.paid" = "Torna: %2$@ de Dubloon Pro per %1$@";
+"offer.then" = "Després, %@. Cancel·la quan vulguis.";
+"offer.cta" = "Aprofitar l'oferta";
+"offer.dismiss" = "Ara no";

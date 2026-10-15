@@ -755,3 +755,12 @@
 "dubGuide.2.detail.mac" = "Klicka på Download och välj filen: en .zip, .7z eller .rar. Webbläsaren sparar den i mappen Hämtade filer.";
 "dubGuide.3.detail.mac" = "Vänta tills hämtningen är klar. Om filen ligger i iCloud Drive, hämta den först i Finder så att den verkligen finns på den här datorn.";
 "dubGuide.4.detail.mac" = "Kom tillbaka hit, klicka på Importera ett dubbpaket och välj den i Hämtade filer. Du kan också släppa filen på Dubba filmscen i sidofältet, eller öppna den med Dubloon från Finder.";
+
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Prova Dubloon Pro gratis i %@";
+"offer.intro.paid" = "Dina första %2$@ med Dubloon Pro för %1$@";
+"offer.winback.free" = "Kom tillbaka: %@ Dubloon Pro gratis";
+"offer.winback.paid" = "Kom tillbaka: %2$@ Dubloon Pro för %1$@";
+"offer.then" = "Sedan %@. Avsluta när du vill.";
+"offer.cta" = "Ta erbjudandet";
+"offer.dismiss" = "Inte nu";

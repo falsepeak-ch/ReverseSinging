@@ -755,3 +755,12 @@
 "dubGuide.2.detail.mac" = "انقر Download واختر الملف: ‎.zip أو ‎.7z أو ‎.rar. يحفظه متصفحك في مجلد التنزيلات.";
 "dubGuide.3.detail.mac" = "انتظر حتى يكتمل التنزيل. إذا كان الملف في iCloud Drive، فنزّله أولًا في Finder حتى يصبح فعلًا على هذا الـ Mac.";
 "dubGuide.4.detail.mac" = "عد إلى هنا، وانقر «استيراد حزمة دبلجة»، ثم اختره من التنزيلات. يمكنك أيضًا إفلات الملف على «دبلجة مشهد» في الشريط الجانبي، أو فتحه باستخدام Dubloon من Finder.";
+
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "جرّب Dubloon Pro مجانًا لمدة %@";
+"offer.intro.paid" = "أول %2$@ من Dubloon Pro مقابل %1$@";
+"offer.winback.free" = "عُد إلينا: %@ من Dubloon Pro مجانًا";
+"offer.winback.paid" = "عُد إلينا: %2$@ من Dubloon Pro مقابل %1$@";
+"offer.then" = "بعد ذلك %@. يمكنك الإلغاء في أي وقت.";
+"offer.cta" = "احصل على العرض";
+"offer.dismiss" = "ليس الآن";

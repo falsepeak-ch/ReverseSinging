@@ -755,3 +755,12 @@
 "dubGuide.2.detail.mac" = "Натисни Download і обери файл: .zip, .7z або .rar. Браузер збереже його в папку «Завантаження».";
 "dubGuide.3.detail.mac" = "Зачекай, доки завантаження завершиться. Якщо файл в iCloud Drive, спершу завантаж його у Finder, щоб він справді був на цьому Mac.";
 "dubGuide.4.detail.mac" = "Повернися сюди, натисни «Імпортувати пак» і обери його в «Завантаженнях». Також можна перетягнути файл на «Озвучення сцени» на бічній панелі або відкрити його в Dubloon із Finder.";
+
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Спробуйте Dubloon Pro безкоштовно: %@";
+"offer.intro.paid" = "Перші %2$@ Dubloon Pro за %1$@";
+"offer.winback.free" = "Повертайтеся: %@ Dubloon Pro безкоштовно";
+"offer.winback.paid" = "Повертайтеся: %2$@ Dubloon Pro за %1$@";
+"offer.then" = "Потім %@. Скасування будь-коли.";
+"offer.cta" = "Отримати пропозицію";
+"offer.dismiss" = "Не зараз";

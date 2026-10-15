@@ -755,3 +755,12 @@
 "dubGuide.2.detail.mac" = "Klikkaa Download ja valitse tiedosto: .zip, .7z tai .rar. Selain tallentaa sen Lataukset-kansioon.";
 "dubGuide.3.detail.mac" = "Odota, että lataus valmistuu. Jos tiedosto on iCloud Drivessa, lataa se ensin Finderissa, jotta se on varmasti tällä Macilla.";
 "dubGuide.4.detail.mac" = "Palaa tänne, klikkaa Tuo dubbauspaketti ja valitse se Latauksista. Voit myös pudottaa tiedoston sivupalkin Kohtauksen dubbaus -kohtaan tai avata sen Dubloonilla Finderista.";
+
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Dubloon Pro: kokeile ilmaiseksi %@";
+"offer.intro.paid" = "Ensimmäiset %2$@ Dubloon Pro hintaan %1$@";
+"offer.winback.free" = "Tule takaisin: %@ Dubloon Pro ilmaiseksi";
+"offer.winback.paid" = "Tule takaisin: %2$@ Dubloon Pro hintaan %1$@";
+"offer.then" = "Sen jälkeen %@. Peru milloin tahansa.";
+"offer.cta" = "Lunasta tarjous";
+"offer.dismiss" = "Ei nyt";

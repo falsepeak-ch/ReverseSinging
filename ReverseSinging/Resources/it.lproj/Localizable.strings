@@ -755,3 +755,12 @@
 "dubGuide.2.detail.mac" = "Fai clic su Download e scegli il file: un .zip, .7z o .rar. Il browser lo salva nella cartella Download.";
 "dubGuide.3.detail.mac" = "Attendi che il download sia completo. Se il file è su iCloud Drive, scaricalo prima nel Finder così è davvero su questo Mac.";
 "dubGuide.4.detail.mac" = "Torna qui, fai clic su Importa un pack e sceglilo in Download. Puoi anche trascinare il file su Doppiaggio di scene nella barra laterale, o aprirlo con Dubloon dal Finder.";
+
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Prova Dubloon Pro gratis per %@";
+"offer.intro.paid" = "I primi %2$@ di Dubloon Pro a %1$@";
+"offer.winback.free" = "Torna: %@ di Dubloon Pro gratis";
+"offer.winback.paid" = "Torna: %2$@ di Dubloon Pro a %1$@";
+"offer.then" = "Poi %@. Disdici quando vuoi.";
+"offer.cta" = "Approfitta dell'offerta";
+"offer.dismiss" = "Non ora";

@@ -76,6 +76,8 @@ struct HomeView: View {
             viewModel.presentEarlyAdopterWelcomeIfDue()
         }
         .onAppear { viewModel.onAppear(game: game, app: app) }
+        // Again whenever access changes: a subscription that lapses can open a win-back offer.
+        .task(id: viewModel.areGamesLocked) { await viewModel.refreshOffer() }
         .onChange(of: app.showDubLibrary) { _, wantsLibrary in
             viewModel.dubLibraryRequestDidChange(wantsLibrary, app: app)
         }
@@ -131,7 +133,15 @@ struct HomeView: View {
                     .onAppear { viewModel.reviewBannerDidAppear() }
                 }
 
-                if viewModel.areGamesLocked {
+                if let offer = viewModel.visibleOffer {
+                    OfferBannerCard(
+                        offer: offer,
+                        onTap: { viewModel.offerBannerTapped() },
+                        onDismiss: { viewModel.dismissOfferBanner() }
+                    )
+                    .padding(.bottom, 10)
+                    .transition(.opacity)
+                } else if viewModel.areGamesLocked {
                     UnlockProCard { viewModel.showPaywall(from: .unlockCard) }
                         .padding(.bottom, 10)
                         .transition(.opacity)
@@ -157,6 +167,7 @@ struct HomeView: View {
             .padding(.top, 20)
             .padding(.bottom, 24)
             .animation(.rsQuick, value: viewModel.areGamesLocked)
+            .animation(.rsQuick, value: viewModel.visibleOffer)
             .animation(.rsQuick, value: viewModel.showsReviewBanner)
         }
         .scrollBounceBehavior(.basedOnSize)
