@@ -755,3 +755,12 @@
 "dubGuide.2.detail.mac" = "Download'a tıkla ve dosyayı seç: .zip, .7z veya .rar. Tarayıcın onu İndirilenler klasörüne kaydeder.";
 "dubGuide.3.detail.mac" = "İndirme tamamlanana kadar bekle. Dosya iCloud Drive'daysa, gerçekten bu Mac'te olması için önce Finder'da indir.";
 "dubGuide.4.detail.mac" = "Buraya dön, Paket içe aktar'a tıkla ve İndirilenler'den seç. Dosyayı kenar çubuğundaki Sahne seslendirme'nin üzerine bırakabilir ya da Finder'dan Dubloon ile açabilirsin.";
+
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Dubloon Pro: %@ ücretsiz deneyin";
+"offer.intro.paid" = "Dubloon Pro: ilk %2$@ %1$@";
+"offer.winback.free" = "Geri dönün: %@ Dubloon Pro ücretsiz";
+"offer.winback.paid" = "Geri dönün: %2$@ Dubloon Pro %1$@";
+"offer.then" = "Sonra %@. İstediğiniz zaman iptal edin.";
+"offer.cta" = "Teklifi al";
+"offer.dismiss" = "Şimdi değil";

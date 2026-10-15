@@ -755,3 +755,12 @@
 "dubGuide.2.detail.mac" = "Klik på Download, og vælg filen: en .zip, .7z eller .rar. Din browser gemmer den i mappen Overførsler.";
 "dubGuide.3.detail.mac" = "Vent, til overførslen er færdig. Hvis filen ligger i iCloud Drive, så hent den først i Finder, så den virkelig er på denne Mac.";
 "dubGuide.4.detail.mac" = "Kom tilbage hertil, klik på Importér en dubpakke, og vælg den under Overførsler. Du kan også slippe filen på Dub en filmscene i indholdsoversigten eller åbne den med Dubloon fra Finder.";
+
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Prøv Dubloon Pro gratis i %@";
+"offer.intro.paid" = "Dine første %2$@ med Dubloon Pro for %1$@";
+"offer.winback.free" = "Kom tilbage: %@ Dubloon Pro gratis";
+"offer.winback.paid" = "Kom tilbage: %2$@ Dubloon Pro for %1$@";
+"offer.then" = "Derefter %@. Opsig når som helst.";
+"offer.cta" = "Få tilbuddet";
+"offer.dismiss" = "Ikke nu";

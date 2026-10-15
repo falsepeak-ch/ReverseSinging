@@ -755,3 +755,12 @@
 "dubGuide.2.detail.mac" = "Klik op Download en kies het bestand: een .zip, .7z of .rar. Je browser bewaart het in de map Downloads.";
 "dubGuide.3.detail.mac" = "Wacht tot de download klaar is. Staat het bestand in iCloud Drive, download het dan eerst in de Finder zodat het echt op deze Mac staat.";
 "dubGuide.4.detail.mac" = "Kom hier terug, klik op Dubpack importeren en kies het bij Downloads. Je kunt het bestand ook op Filmscène dubben in de navigatiekolom slepen, of het vanuit de Finder openen met Dubloon.";
+
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Probeer Dubloon Pro %@ gratis";
+"offer.intro.paid" = "Je eerste %2$@ Dubloon Pro voor %1$@";
+"offer.winback.free" = "Kom terug: %@ Dubloon Pro gratis";
+"offer.winback.paid" = "Kom terug: %2$@ Dubloon Pro voor %1$@";
+"offer.then" = "Daarna %@. Altijd opzegbaar.";
+"offer.cta" = "Aanbod claimen";
+"offer.dismiss" = "Niet nu";

@@ -756,3 +756,12 @@
 "dubGuide.2.detail.mac" = "Click Download and choose the file: a .zip, .7z or .rar. Your browser saves it to the Downloads folder.";
 "dubGuide.3.detail.mac" = "Wait for the download to complete. If the file is in iCloud Drive, download it in Finder first so it's really on this Mac.";
 "dubGuide.4.detail.mac" = "Come back here, click Import a Dub Pack and pick it from Downloads. You can also drop the file on Movie Scene Dub in the sidebar, or open it with Dubloon from Finder.";
+
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Try Dubloon Pro free for %@";
+"offer.intro.paid" = "Your first %2$@ of Dubloon Pro for %1$@";
+"offer.winback.free" = "Come back: %@ of Dubloon Pro free";
+"offer.winback.paid" = "Come back: %2$@ of Dubloon Pro for %1$@";
+"offer.then" = "Then %@. Cancel anytime.";
+"offer.cta" = "Claim offer";
+"offer.dismiss" = "Not now";

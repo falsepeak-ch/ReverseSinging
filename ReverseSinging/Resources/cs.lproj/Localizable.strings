@@ -755,3 +755,12 @@
 "dubGuide.2.detail.mac" = "Klikni na Download a vyber soubor: .zip, .7z nebo .rar. Prohlížeč ho uloží do složky Stažené soubory.";
 "dubGuide.3.detail.mac" = "Počkej, až se stahování dokončí. Pokud je soubor na iCloud Drive, nejdřív ho stáhni ve Finderu, aby byl opravdu v tomhle Macu.";
 "dubGuide.4.detail.mac" = "Vrať se sem, klikni na Importovat balíček a vyber ho ve Stažených souborech. Soubor můžeš také přetáhnout na Dabing filmové scény v postranním panelu, nebo ho otevřít v Dubloonu z Finderu.";
+
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Vyzkoušejte Dubloon Pro zdarma na %@";
+"offer.intro.paid" = "Prvních %2$@ Dubloon Pro za %1$@";
+"offer.winback.free" = "Vraťte se: %@ Dubloon Pro zdarma";
+"offer.winback.paid" = "Vraťte se: %2$@ Dubloon Pro za %1$@";
+"offer.then" = "Poté %@. Zrušit můžete kdykoli.";
+"offer.cta" = "Využít nabídku";
+"offer.dismiss" = "Teď ne";
