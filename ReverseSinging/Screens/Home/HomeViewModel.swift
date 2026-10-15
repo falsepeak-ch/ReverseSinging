@@ -143,6 +143,14 @@ final class HomeViewModel: ObservableObject {
         path = [.dub]
     }
 
+    /// A `dubloon://` link: the game it names, on its own rather than on top of whatever was
+    /// open. A paid game without Dubloon Pro opens the paywall, as a tap on it would.
+    func open(_ link: DeepLink) {
+        let mode = link.gameMode
+        guard canEnter(mode, orShowPaywallFrom: .lockedGame) else { return }
+        path = [mode]
+    }
+
     /// For a shell that selects games rather than pushing them, the Mac's sidebar: the same
     /// check, with the paywall opened in place of the game when it answers no.
     func requestEntry(_ mode: GameMode) -> Bool {

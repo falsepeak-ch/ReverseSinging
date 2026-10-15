@@ -32,6 +32,10 @@ final class AppViewModel: ObservableObject {
     /// picks it up and imports it.
     @Published var pendingDubImportURL: URL?
 
+    /// Set when a `dubloon://` link opens the app; the menu pushes the game it names. Kept
+    /// until the menu is on screen, so a link that arrives during onboarding still lands.
+    @Published var pendingDeepLink: DeepLink?
+
     private enum Key {
         static let hasCompletedOnboarding = "hasCompletedOnboarding"
         static let uiMode = "uiMode"

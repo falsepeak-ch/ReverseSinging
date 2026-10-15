@@ -78,6 +78,12 @@ struct HomeView: View {
         .onChange(of: app.showDubLibrary) { _, wantsLibrary in
             viewModel.dubLibraryRequestDidChange(wantsLibrary, app: app)
         }
+        // Initial too: a link that opened the app cold is waiting before the menu appears.
+        .onChange(of: app.pendingDeepLink, initial: true) { _, link in
+            guard let link else { return }
+            app.pendingDeepLink = nil
+            viewModel.open(link)
+        }
     }
 
     // MARK: - Destinations
