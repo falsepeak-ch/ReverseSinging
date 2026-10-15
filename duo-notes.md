@@ -18,10 +18,15 @@ Stage: 5  Next: inner display run in Device Hub; Booth Cam on a device (camera)
 ## Done / verified
 - 2-up reflow + fixed timer label width — iOS and DubloonMac build (run); outer display 5 screens (run); iPhone 17 library unchanged (run); inner not run
 
-## Pose design (2026-10-15)
-- Closed / outer: unchanged iPhone layouts (one column, compact). Nothing moves.
-- Open portrait: Home and Library use larger rows/cards (2-up, even columns, fold clear), Home menu centred vertically; pack detail hero 380 pt, top-anchored so faces stay in frame.
-- Open landscape: same as portrait; hero clipped to the safe area so the vignette no longer bleeds into the trailing status strip.
-- Half-folded tabletop: Record booth sits in a vertical split `ArrangementView` (iOS 27.1). Scene picture + HUD are the primary (above the fold, viewable at a distance); waveform, subtitle line, score and transport are the secondary (below the fold, in reach). System handles the fold, no hard-coded positions.
-- Half-folded book: booth split is limited to the vertical axis, so it stays one column and the system keeps the fold clear; no side-by-side jump.
-- Not done yet: list + detail split for the library (needs a NavigationSplitView restructure), pose-transition animation polish, per-pose previews.
+## Pose design (2026-10-15, v2)
+Containers: ArrangementView (iOS 27.1) for the library split and booth panes, size classes plus a measured width for "wide enough", no device checks. State lives in view models, so a pose change only moves geometry.
+- Closed / outer (compact): unchanged. Library pushes the detail; booth is one column.
+- Open portrait (book): Library = packs list | selected pack detail with hero, equal panes so the fold falls between them. Booth = picture above, desk (waveform, line, transport) below, at an even 0.5 split.
+- Open landscape: Library = same list | detail split. Booth = studio: picture about 62% wide, desk as a full-height column beside it (waveform top, line at eye level, transport at the bottom).
+- Half-folded tabletop: booth picture above the fold for viewing at a distance, desk below in reach (system split, 0.5 vertical ratio). Library keeps its panes; scrolling content does not displace.
+- Half-folded book: library list and detail on either side of the fold.
+- Selection carries across: opening the device moves a pushed pack into the detail pane; closing pushes the selected pack again. Reduce Motion turns off the layout and selection animations; the booth picture uses matchedGeometry between layouts.
+- Accessibility sizes: home and library drop to one column; pack cards stack the still above the text instead of clipping it.
+- Narrow regular windows (iPad Stage Manager, under 700 pt): no split, plain list; large home rows only from 900 pt.
+- Hero: 380 pt top-anchored on regular, clipped so the vignette does not bleed into the status strip.
+- Not verified on device: which axis the system picks in each fold pose, and the exact ratio semantics of `splitArrangementLayoutRatio`.
