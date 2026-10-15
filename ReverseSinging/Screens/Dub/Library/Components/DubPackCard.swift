@@ -21,6 +21,8 @@ struct DubPackCard: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private var cardHeight: CGFloat { prominent ? 150 : 74 }
+    /// 16:9 on the large card; the phone keeps its 112 pt still so the credit line fits.
+    private var thumbnailWidth: CGFloat { prominent ? cardHeight * 16 / 9 : 112 }
 
     var body: some View {
         Button(action: onOpen) {
@@ -56,7 +58,7 @@ struct DubPackCard: View {
     /// 16:9 thumbnail, like a clip in a bin.
     private var thumbnail: some View {
         DubStillImage(url: pack.iconURL)
-            .frame(width: cardHeight * 16 / 9, height: cardHeight)
+            .frame(width: thumbnailWidth, height: cardHeight)
             .overlay(alignment: .trailing) {
                 Rectangle()
                     .fill(Color.rsStroke)
