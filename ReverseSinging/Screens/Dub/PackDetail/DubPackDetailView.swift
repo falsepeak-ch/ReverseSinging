@@ -23,6 +23,8 @@ struct DubPackDetailView: View {
 
     /// The last of the first-run tips: there is a dub to hear now. See `DubTips`.
     private let playDubTip = DubPlayDubTip()
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
 
     init(pack: DubPack, library: DubPackLibrary) {
         self.pack = pack
@@ -159,11 +161,19 @@ struct DubPackDetailView: View {
 
     // MARK: - Hero
 
+    private var isRegular: Bool {
+        horizontalSizeClass == .regular && verticalSizeClass == .regular
+    }
+
+    private var heroHeight: CGFloat { isRegular ? 380 : 200 }
+
     private var hero: some View {
         VStack(spacing: 0) {
             ZStack(alignment: .bottomLeading) {
-                DubStillImage(url: pack.iconURL)
-                    .frame(height: 200)
+                // Taller on a regular size (iPhone Duo open) so a wide still keeps its
+                // characters' heads; anchored to the top for the same reason.
+                DubStillImage(url: pack.iconURL, alignment: isRegular ? .top : .center)
+                    .frame(height: heroHeight)
                     .frame(maxWidth: .infinity)
                     .clipped()
                     .cinemaVignette(strength: 0.45)
@@ -173,9 +183,12 @@ struct DubPackDetailView: View {
                     startPoint: .center,
                     endPoint: .bottom
                 )
-                .frame(height: 200)
+                .frame(height: heroHeight)
                 .allowsHitTesting(false)
             }
+            // The vignette ignores safe areas; clip so it cannot bleed into the
+            // trailing status strip of a landscape inner display.
+            .clipped()
 
             // Slate: the facts about this scene, set like a camera report
             HStack(spacing: 0) {
