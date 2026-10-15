@@ -55,6 +55,67 @@ struct MainViewPremium: View {
     // MARK: - Main Content
 
     private var mainContentView: some View {
+        GeometryReader { proxy in
+            if let fold = proxy.horizontalFold, fold.minY > EditorMetrics.headerBarHeight + 200,
+               fold.maxY < proxy.size.height - 200 {
+                tabletopContent(fold: fold)
+            } else {
+                stackedContent
+            }
+        }
+    }
+
+    /// Half folded as a table: the readout (waveform, timer and its players) on the upper half,
+    /// the actions and the score on the half resting on the table. Each half scrolls on its
+    /// own, so nothing sits on the fold whatever the session holds.
+    private func tabletopContent(fold: CGRect) -> some View {
+        VStack(spacing: 0) {
+            ScrollView {
+                VStack(spacing: 0) {
+                    Color.clear
+                        .frame(height: EditorMetrics.headerBarHeight + 12)
+                    readout
+                }
+            }
+            .scrollBounceBehavior(.basedOnSize)
+            .frame(height: fold.minY)
+
+            Color.clear
+                .frame(height: fold.height)
+
+            ScrollView {
+                actionButtonsSection
+                    .padding(.horizontal, 24)
+                    .padding(.top, 16)
+                    .padding(.bottom, 100)
+                    .animation(.rsSpring, value: viewModel.appState.recordingState)
+            }
+            .scrollBounceBehavior(.basedOnSize)
+        }
+    }
+
+    @ViewBuilder
+    private var readout: some View {
+        if shouldShowWaveform {
+            waveformCard
+                .padding(.horizontal, 24)
+                .padding(.bottom, 24)
+                .animatedCard(delay: 0.1)
+                .transition(.opacity.combined(with: .scale))
+        }
+
+        if shouldShowTimer {
+            timerCard
+                .padding(.horizontal, 24)
+                .padding(.bottom, 24)
+                .transition(.asymmetric(
+                    insertion: .scale.combined(with: .opacity),
+                    removal: .scale.combined(with: .opacity)
+                ))
+        }
+    }
+
+    private var stackedContent: some View {
         ScrollView {
             VStack(spacing: 0) {
                 // Top spacer for fixed header
