@@ -755,3 +755,9 @@
 "dubGuide.2.detail.mac" = "Klik op Download en kies het bestand: een .zip, .7z of .rar. Je browser bewaart het in de map Downloads.";
 "dubGuide.3.detail.mac" = "Wacht tot de download klaar is. Staat het bestand in iCloud Drive, download het dan eerst in de Finder zodat het echt op deze Mac staat.";
 "dubGuide.4.detail.mac" = "Kom hier terug, klik op Dubpack importeren en kies het bij Downloads. Je kunt het bestand ook op Filmscène dubben in de navigatiekolom slepen, of het vanuit de Finder openen met Dubloon.";
+
+/* Spooky Voice Week */
+"halloween.title" = "Griezelstemmenweek";
+"halloween.home.message" = "Kreun als een spook, grom als een zombie, huil als een wolf. Dub daarna Camp Rules, de scène uit een horrorkomedie.";
+"halloween.home.action" = "Speel de griezelgeluiden";
+"halloween.imitate.message" = "Fijne Halloween! Warm je stem op met het spook, de zombie, de wolf en de uil.";

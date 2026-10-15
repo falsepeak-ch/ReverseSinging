@@ -755,3 +755,9 @@
 "dubGuide.2.detail.mac" = "Fes clic a Download i tria el fitxer: un .zip, .7z o .rar. El navegador el desa a la carpeta Baixades.";
 "dubGuide.3.detail.mac" = "Espera que la descàrrega s'acabi. Si el fitxer és a l'iCloud Drive, baixa'l primer al Finder perquè sigui de veritat en aquest Mac.";
 "dubGuide.4.detail.mac" = "Torna aquí, fes clic a Importar un pack i tria'l a Baixades. També pots deixar anar el fitxer a Doblatge d'escenes a la barra lateral, o obrir-lo amb Dubloon des del Finder.";
+
+/* Spooky Voice Week */
+"halloween.title" = "Setmana de Veus de Por";
+"halloween.home.message" = "Gemega com un fantasma, grunyeix com un zombi, udola com un llop. I després dobla Camp Rules, l'escena de comèdia de terror.";
+"halloween.home.action" = "Juga amb els sons de por";
+"halloween.imitate.message" = "Bon Halloween! Escalfa la veu amb el fantasma, el zombi, el llop i el mussol.";

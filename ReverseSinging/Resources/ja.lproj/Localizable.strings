@@ -755,3 +755,9 @@
 "dubGuide.2.detail.mac" = "Downloadをクリックしてファイル(.zip、.7z、.rar)を選びます。ブラウザは「ダウンロード」フォルダに保存します。";
 "dubGuide.3.detail.mac" = "ダウンロードが終わるまで待ちます。ファイルがiCloud Driveにある場合は、先にFinderでダウンロードして、このMacに実際に保存されるようにします。";
 "dubGuide.4.detail.mac" = "ここに戻って「パックを読み込む」をクリックし、「ダウンロード」から選びます。サイドバーの「映画アフレコ」にファイルをドロップするか、FinderからDubloonで開くこともできます。";
+
+/* Spooky Voice Week */
+"halloween.title" = "こわい声ウィーク";
+"halloween.home.message" = "おばけみたいにうめいて、ゾンビみたいにうなって、オオカミみたいに遠吠えしよう。そのあとはホラーコメディのシーン「Camp Rules」をアフレコ。";
+"halloween.home.action" = "こわい音で遊ぶ";
+"halloween.imitate.message" = "ハッピーハロウィン！おばけ、ゾンビ、オオカミ、フクロウで声をあたためよう。";

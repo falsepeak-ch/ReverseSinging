@@ -21,7 +21,7 @@ enum DeepLink: Equatable {
 
     /// The event slugs, and the game each one opens.
     private static let events: [String: GameMode] = [
-        "spooky": .imitate,
+        "spooky": SpookyVoiceWeek.destination,
     ]
 
     /// The game slugs the store pages use, which are not `GameMode`'s raw values.

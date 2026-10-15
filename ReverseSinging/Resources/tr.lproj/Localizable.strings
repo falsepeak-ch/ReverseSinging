@@ -755,3 +755,9 @@
 "dubGuide.2.detail.mac" = "Download'a tıkla ve dosyayı seç: .zip, .7z veya .rar. Tarayıcın onu İndirilenler klasörüne kaydeder.";
 "dubGuide.3.detail.mac" = "İndirme tamamlanana kadar bekle. Dosya iCloud Drive'daysa, gerçekten bu Mac'te olması için önce Finder'da indir.";
 "dubGuide.4.detail.mac" = "Buraya dön, Paket içe aktar'a tıkla ve İndirilenler'den seç. Dosyayı kenar çubuğundaki Sahne seslendirme'nin üzerine bırakabilir ya da Finder'dan Dubloon ile açabilirsin.";
+
+/* Spooky Voice Week */
+"halloween.title" = "Ürkütücü Sesler Haftası";
+"halloween.home.message" = "Hayalet gibi inle, zombi gibi hırla, kurt gibi ulu. Sonra korku komedisi sahnesi Camp Rules'u seslendir.";
+"halloween.home.action" = "Ürkütücü sesleri oyna";
+"halloween.imitate.message" = "Cadılar Bayramın kutlu olsun! Sesini ısıt: hayalet, zombi, kurt ve baykuş seni bekliyor.";

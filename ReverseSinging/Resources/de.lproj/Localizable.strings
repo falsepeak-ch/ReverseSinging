@@ -755,3 +755,9 @@
 "dubGuide.2.detail.mac" = "Klicke auf Download und wähle die Datei: eine .zip, .7z oder .rar. Dein Browser speichert sie im Ordner Downloads.";
 "dubGuide.3.detail.mac" = "Warte, bis der Download abgeschlossen ist. Liegt die Datei in iCloud Drive, lade sie zuerst im Finder herunter, damit sie wirklich auf diesem Mac ist.";
 "dubGuide.4.detail.mac" = "Komm hierher zurück, klicke auf Dub-Pack importieren und wähle sie unter Downloads. Du kannst die Datei auch in der Seitenleiste auf Filmszene synchronisieren ziehen oder sie im Finder mit Dubloon öffnen.";
+
+/* Spooky Voice Week */
+"halloween.title" = "Gruselstimmen-Woche";
+"halloween.home.message" = "Stöhn wie ein Geist, knurr wie ein Zombie, heul wie ein Wolf. Danach synchronisierst du Camp Rules, die Szene aus einer Horrorkomödie.";
+"halloween.home.action" = "Gruselgeräusche spielen";
+"halloween.imitate.message" = "Happy Halloween! Wärm deine Stimme mit Geist, Zombie, Wolf und Eule auf.";

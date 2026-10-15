@@ -755,3 +755,9 @@
 "dubGuide.2.detail.mac" = "Klikkaa Download ja valitse tiedosto: .zip, .7z tai .rar. Selain tallentaa sen Lataukset-kansioon.";
 "dubGuide.3.detail.mac" = "Odota, että lataus valmistuu. Jos tiedosto on iCloud Drivessa, lataa se ensin Finderissa, jotta se on varmasti tällä Macilla.";
 "dubGuide.4.detail.mac" = "Palaa tänne, klikkaa Tuo dubbauspaketti ja valitse se Latauksista. Voit myös pudottaa tiedoston sivupalkin Kohtauksen dubbaus -kohtaan tai avata sen Dubloonilla Finderista.";
+
+/* Spooky Voice Week */
+"halloween.title" = "Kauhuäänten viikko";
+"halloween.home.message" = "Valita kuin kummitus, murise kuin zombi, ulvo kuin susi. Dubbaa sitten Camp Rules, kauhukomedian kohtaus.";
+"halloween.home.action" = "Pelaa kauhuäänillä";
+"halloween.imitate.message" = "Hyvää halloweenia! Lämmittele ääntäsi kummituksen, zombin, suden ja pöllön kanssa.";

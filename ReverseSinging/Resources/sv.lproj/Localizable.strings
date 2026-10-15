@@ -755,3 +755,9 @@
 "dubGuide.2.detail.mac" = "Klicka på Download och välj filen: en .zip, .7z eller .rar. Webbläsaren sparar den i mappen Hämtade filer.";
 "dubGuide.3.detail.mac" = "Vänta tills hämtningen är klar. Om filen ligger i iCloud Drive, hämta den först i Finder så att den verkligen finns på den här datorn.";
 "dubGuide.4.detail.mac" = "Kom tillbaka hit, klicka på Importera ett dubbpaket och välj den i Hämtade filer. Du kan också släppa filen på Dubba filmscen i sidofältet, eller öppna den med Dubloon från Finder.";
+
+/* Spooky Voice Week */
+"halloween.title" = "Läskiga röstveckan";
+"halloween.home.message" = "Jämra dig som ett spöke, morra som en zombie, yla som en varg. Dubba sedan Camp Rules, scenen ur en skräckkomedi.";
+"halloween.home.action" = "Spela de läskiga ljuden";
+"halloween.imitate.message" = "Glad halloween! Värm upp rösten med spöket, zombien, vargen och ugglan.";

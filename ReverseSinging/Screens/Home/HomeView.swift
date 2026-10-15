@@ -130,6 +130,13 @@ struct HomeView: View {
                     .onAppear { viewModel.reviewBannerDidAppear() }
                 }
 
+                if viewModel.showsSpookyVoiceWeek {
+                    SpookyVoiceWeekCard(isLocked: viewModel.isSpookyVoiceWeekLocked) {
+                        viewModel.openSpookyVoiceWeek()
+                    }
+                    .padding(.bottom, 10)
+                }
+
                 if viewModel.areGamesLocked {
                     UnlockProCard { viewModel.showPaywall(from: .unlockCard) }
                         .padding(.bottom, 10)

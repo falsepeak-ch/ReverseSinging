@@ -755,3 +755,9 @@
 "dubGuide.2.detail.mac" = "Clique sur Download et choisis le fichier : un .zip, .7z ou .rar. Ton navigateur l'enregistre dans le dossier Téléchargements.";
 "dubGuide.3.detail.mac" = "Attends que le téléchargement soit terminé. Si le fichier est dans iCloud Drive, télécharge-le d'abord dans le Finder pour qu'il soit vraiment sur ce Mac.";
 "dubGuide.4.detail.mac" = "Reviens ici, clique sur Importer un pack et choisis-le dans Téléchargements. Tu peux aussi déposer le fichier sur Doublage de scène dans la barre latérale, ou l'ouvrir avec Dubloon depuis le Finder.";
+
+/* Spooky Voice Week */
+"halloween.title" = "Semaine des voix qui font peur";
+"halloween.home.message" = "Gémis comme un fantôme, grogne comme un zombie, hurle comme un loup. Puis double Camp Rules, la scène de comédie horrifique.";
+"halloween.home.action" = "Jouer les sons qui font peur";
+"halloween.imitate.message" = "Joyeux Halloween ! Échauffe ta voix avec le fantôme, le zombie, le loup et le hibou.";

@@ -755,3 +755,9 @@
 "dubGuide.2.detail.mac" = "Klikni na Download a vyber soubor: .zip, .7z nebo .rar. Prohlížeč ho uloží do složky Stažené soubory.";
 "dubGuide.3.detail.mac" = "Počkej, až se stahování dokončí. Pokud je soubor na iCloud Drive, nejdřív ho stáhni ve Finderu, aby byl opravdu v tomhle Macu.";
 "dubGuide.4.detail.mac" = "Vrať se sem, klikni na Importovat balíček a vyber ho ve Stažených souborech. Soubor můžeš také přetáhnout na Dabing filmové scény v postranním panelu, nebo ho otevřít v Dubloonu z Finderu.";
+
+/* Spooky Voice Week */
+"halloween.title" = "Strašidelný týden hlasů";
+"halloween.home.message" = "Kvílej jako duch, chrchli jako zombie, vyj jako vlk. Pak nadabuj Camp Rules, scénu z hororové komedie.";
+"halloween.home.action" = "Zahraj si strašidelné zvuky";
+"halloween.imitate.message" = "Veselý Halloween! Rozehřej hlas: duch, zombie, vlk a sova už čekají.";
