@@ -21,7 +21,7 @@ Add a custom domain under Firebase console → Hosting → Add custom domain.
 
 ## App Store links
 
-Every App Store link carries a campaign token, `?ct=web-<page>&mt=8` (`mt=12` with `platform=mac`), so App Store Connect's App Analytics shows which page sent the download. Use the page's slug: `home`, `dub-packs`, `privacy`, `terms`, `support`. Each page also has the Smart App Banner, `<meta name="apple-itunes-app" content="app-id=6754534073">`.
+Every App Store link carries a campaign token, `?pt=127841352&ct=web-<page>&mt=8` (`mt=12` with `platform=mac`), so App Store Connect's App Analytics shows which page sent the download. Use the page's slug: `home`, `dub-packs`, `privacy`, `terms`, `support`. Each page also has the Smart App Banner, `<meta name="apple-itunes-app" content="app-id=6754534073">`.
 
 ## The dub demo
 
