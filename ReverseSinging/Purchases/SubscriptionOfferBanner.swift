@@ -60,6 +60,10 @@ final class SubscriptionOfferBanner: ObservableObject {
 
     /// Asks the store what this person is eligible for. Cheap enough for every menu appearance.
     func refresh(access: AccessController) async {
+        #if DEBUG
+        // App Store screenshots never show the offer, nor ask RevenueCat for one.
+        if ScreenshotMode.isActive { clear(); return }
+        #endif
         guard Purchases.isConfigured, access.isLocked, !isLoading else {
             if !access.isLocked { clear() }
             return
