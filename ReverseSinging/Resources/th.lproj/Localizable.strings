@@ -143,7 +143,6 @@
 "settings.about.license.lifetime" = "Dubloon Pro ตลอดชีพ";
 "settings.about.license.renews" = "Dubloon Pro ต่ออายุ %@";
 "settings.about.license.ends" = "Dubloon Pro สิ้นสุด %@";
-"settings.about.license.earlyAdopter" = "ผู้ใช้รุ่นแรก ฟรีตลอดชีพ";
 "settings.about.license.free" = "ฟรี";
 
 // Theme descriptions
@@ -350,22 +349,8 @@
 "review.feedback.placeholder" = "อะไรควรดีขึ้นกว่านี้";
 "review.feedback.send" = "ส่ง";
 
-// MARK: - Pro / Early adopters
-"pro.earlyAdopter.title" = "ยินดีต้อนรับสู่สโมสร";
-"pro.earlyAdopter.message" = "ตอนนี้ Dubloon มีค่าใช้จ่ายแล้ว แต่ไม่ใช่สำหรับคุณ คุณอยู่ตรงนี้ตั้งแต่ก่อนจะมีป้ายราคา ทั้งสี่เกมจึงยังเป็นของคุณ ฟรี ตราบเท่าที่แอปนี้ยังอยู่ ขอบคุณสำหรับวันแรก ๆ";
-"pro.earlyAdopter.badge" = "ฟรีตลอดชีพ";
-"pro.earlyAdopter.confirm" = "ดีเลย";
-"pro.earlyAdopter.settings.title" = "ฟรีตลอดชีพ";
-"pro.earlyAdopter.settings.subtitle" = "คุณมาตั้งแต่แรก ทั้งสี่เกมเป็นของคุณ และไม่ต้องจ่ายอะไรเลย";
+// MARK: - Pro
 "pro.closePaywall" = "ปิด";
-
-// Early adopter slate rows
-"pro.earlyAdopter.row.access" = "สิทธิ์เข้าถึง";
-"pro.earlyAdopter.row.access.value" = "ทั้งสี่เกม";
-"pro.earlyAdopter.row.cost" = "ค่าใช้จ่าย";
-"pro.earlyAdopter.row.cost.value" = "ไม่มี";
-"pro.earlyAdopter.row.expires" = "หมดอายุ";
-"pro.earlyAdopter.row.expires.value" = "ไม่มีวันหมด";
 
 /* MARK: - Booth Cam */
 "booth.slug" = "บูธ";

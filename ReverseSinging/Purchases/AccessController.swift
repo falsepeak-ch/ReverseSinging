@@ -15,9 +15,6 @@ import DubloonFoundation
 nonisolated enum UnlockReason: Equatable {
     /// They own the entitlement.
     case entitlement
-    /// They were using the app before it started charging, so they never will.
-    /// See `EarlyAdopter`.
-    case earlyAdopter
     /// Gating is off for this build or this run: no API key, or a screenshot run.
     /// Access is full, but there is still something to sell, so the upgrade offer
     /// stays visible.
@@ -39,7 +36,7 @@ nonisolated enum AccessState: Equatable {
 /// that gets refunds requested.
 ///
 /// **The rule is fixed, and it is short.** Someone who owns Dubloon Pro has
-/// everything. So does an early adopter. Everyone else is `locked` from the first
+/// everything. Everyone else is `locked` from the first
 /// launch: there is no free window, and nothing outside the binary can change that.
 /// What `locked` costs them is decided on the menu (`HomeViewModel`), where reverse
 /// singing and Home Video Dub stay free.
@@ -93,37 +90,20 @@ final class AccessController: ObservableObject {
     ///
     /// Apple's download date follows the account across reinstalls, so it is usually the
     /// oldest; RevenueCat's first sighting and the app's own first launch stand in when the
-    /// receipt has not reported one. For an early adopter recognised from local traces the
-    /// first launch is that of the build carrying the paywall, so this can be later than the
-    /// day they really arrived — never earlier.
+    /// receipt has not reported one.
     var memberSince: Date? {
         [storeDownloadDate, customerInfo?.firstSeen, firstLaunch.date].compactMap { $0 }.min()
     }
 
-    /// They were here before the paywall and are exempt from it for good.
-    var isEarlyAdopter: Bool { state == .unlocked(.earlyAdopter) }
-
     /// The paid games must not be playable until something is bought.
     var isLocked: Bool { state == .locked }
 
-    /// Whether there is still something to sell this person. An early adopter
-    /// already has everything, so there is not.
-    var canUpgrade: Bool { !isPro && !isEarlyAdopter }
-
-    /// Whether to show the "welcome to the club" note. Shown once.
-    var shouldWelcomeEarlyAdopter: Bool {
-        isEarlyAdopter && !earlyAdopter.hasSeenWelcome
-    }
-
-    func markEarlyAdopterWelcomed() {
-        earlyAdopter.markWelcomeSeen()
-        objectWillChange.send()
-    }
+    /// Whether there is still something to sell this person.
+    var canUpgrade: Bool { !isPro }
 
     // MARK: - Private
 
     private let firstLaunch = FirstLaunchDate()
-    private let earlyAdopter: EarlyAdopter
     private var streamTask: Task<Void, Never>?
     private var isConfigured = false
 
@@ -136,9 +116,7 @@ final class AccessController: ObservableObject {
     /// One silent receipt sync per foreground. See `syncReceiptIfNeverPosted()`.
     private var hasRequestedReceiptSync = false
 
-    private init(earlyAdopter: EarlyAdopter = .shared) {
-        self.earlyAdopter = earlyAdopter
-    }
+    private init() {}
 
     // MARK: - Start
 
@@ -159,11 +137,6 @@ final class AccessController: ObservableObject {
         #endif
 
         firstLaunch.record()
-
-        // Before anything else this launch writes: the traces it reads are the
-        // ones the app left in earlier versions, and the first screen overwrites
-        // some of them.
-        earlyAdopter.resolveFromLocalUsage()
 
         guard let apiKey = PurchaseConfiguration.apiKey else {
             // A release build with no key. Nothing can be sold, so nothing is
@@ -285,13 +258,6 @@ final class AccessController: ObservableObject {
 
         if hasEntitlement {
             set(.unlocked(.entitlement))
-            return
-        }
-
-        // Decided from traces on the device, so it needs no network: an early
-        // adopter never sees a padlock, even offline.
-        if earlyAdopter.isEarlyAdopter {
-            set(.unlocked(.earlyAdopter))
             return
         }
 

@@ -18,8 +18,8 @@ import Foundation
 /// A fresh install gets nothing: onboarding and the record screen's own tips cover it, and a
 /// "what's new" on a first launch announces a change to someone with nothing to compare it to.
 ///
-/// Told apart the way `EarlyAdopter` tells its users apart: by what was on the device at the
-/// first launch of this build, decided once and written down. Five minutes later a new user
+/// Told apart by what was on the device at the first launch of this build, decided once and
+/// written down. Five minutes later a new user
 /// has completed onboarding too, and the two are indistinguishable.
 struct BoothCamAnnouncement {
 

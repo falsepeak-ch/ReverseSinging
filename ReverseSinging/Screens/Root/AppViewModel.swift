@@ -14,9 +14,8 @@ import Combine
 /// outside belong to the app rather than to reverse singing, so they live here and
 /// `ReverseGameViewModel` keeps only the game.
 ///
-/// The `UserDefaults` keys are the ones installs already have. `EarlyAdopter` and
-/// `BoothCamAnnouncement` read `hasCompletedOnboarding` and `uiMode` as evidence of earlier
-/// use, so none of them may be renamed.
+/// The `UserDefaults` keys are the ones installs already have. `BoothCamAnnouncement` reads
+/// `hasCompletedOnboarding` as evidence of earlier use, so none of them may be renamed.
 @MainActor
 final class AppViewModel: ObservableObject {
 

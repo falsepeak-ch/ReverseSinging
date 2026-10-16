@@ -143,7 +143,6 @@
 "settings.about.license.lifetime" = "Dubloon Pro، مدى الحياة";
 "settings.about.license.renews" = "Dubloon Pro، يتجدد في %@";
 "settings.about.license.ends" = "Dubloon Pro، ينتهي في %@";
-"settings.about.license.earlyAdopter" = "مستخدم مبكر، مجاني مدى الحياة";
 "settings.about.license.free" = "مجاني";
 
 // Theme descriptions
@@ -350,22 +349,8 @@
 "review.feedback.placeholder" = "ما الذي يجب أن يتحسّن؟";
 "review.feedback.send" = "إرسال";
 
-// MARK: - Pro / Early adopters
-"pro.earlyAdopter.title" = "أهلاً بك في النادي";
-"pro.earlyAdopter.message" = "صار Dubloon بمقابل الآن — إلا بالنسبة لك. كنت هنا قبل أن يظهر السعر، لذا تبقى الألعاب الأربع لك، مجاناً، ما دام التطبيق موجوداً. شكراً على الأيام الأولى.";
-"pro.earlyAdopter.badge" = "مجاني مدى الحياة";
-"pro.earlyAdopter.confirm" = "جميل";
-"pro.earlyAdopter.settings.title" = "مجاني مدى الحياة";
-"pro.earlyAdopter.settings.subtitle" = "كنت هنا مبكراً. الألعاب الأربع لك، ولا تدين لنا بشيء.";
+// MARK: - Pro
 "pro.closePaywall" = "إغلاق";
-
-// Early adopter slate rows
-"pro.earlyAdopter.row.access" = "الوصول";
-"pro.earlyAdopter.row.access.value" = "الألعاب الأربع";
-"pro.earlyAdopter.row.cost" = "التكلفة";
-"pro.earlyAdopter.row.cost.value" = "لا شيء";
-"pro.earlyAdopter.row.expires" = "ينتهي";
-"pro.earlyAdopter.row.expires.value" = "أبداً";
 
 /* MARK: - Booth Cam */
 "booth.slug" = "الكابينة";

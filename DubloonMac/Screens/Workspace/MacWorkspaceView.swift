@@ -94,14 +94,6 @@ struct MacWorkspaceView: View {
             ProPaywallView(source: source.rawValue)
         }
         .sheet(isPresented: Binding(
-            get: { home.isEarlyAdopterWelcomePresented },
-            set: { home.isEarlyAdopterWelcomePresented = $0 }
-        )) {
-            EarlyAdopterWelcomeView()
-                .frame(width: 480, height: 600)
-                .onDisappear { home.earlyAdopterWelcomeDidDisappear() }
-        }
-        .sheet(isPresented: Binding(
             get: { home.isBoothAnnouncementPresented },
             set: { home.isBoothAnnouncementPresented = $0 }
         )) {
@@ -147,9 +139,6 @@ struct MacWorkspaceView: View {
             Button(Strings.Main.Alert.cancel, role: .cancel) { workspace.pendingDeletion = nil }
         } message: {
             Text(deletionMessage)
-        }
-        .onChange(of: home.shouldWelcomeEarlyAdopter, initial: true) { _, _ in
-            home.presentEarlyAdopterWelcomeIfDue()
         }
     }
 

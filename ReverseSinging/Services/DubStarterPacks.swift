@@ -99,9 +99,9 @@ nonisolated enum DubStarterPacks {
     /// `cfprefsd` writes its cached defaults back into a container deleted under it, with
     /// the same result. Wipe the packs and the record goes with them.
     ///
-    /// `UserDefaults` is still written, for `EarlyAdopter`, and read once to carry over a
-    /// record from before the file, but only when the folder still holds a pack. An empty
-    /// folder says the packs were wiped, and the old record with them.
+    /// `UserDefaults` is read once to carry over a record from before the file, but only when
+    /// the folder still holds a pack. An empty folder says the packs were wiped, and the old
+    /// record with them.
     private static var installed: Set<String> {
         get {
             if let data = try? Data(contentsOf: recordURL),
@@ -121,7 +121,6 @@ nonisolated enum DubStarterPacks {
             if let data = try? JSONEncoder().encode(names) {
                 try? data.write(to: recordURL, options: .atomic)
             }
-            UserDefaults.standard.set(names, forKey: installedKey)
         }
     }
 

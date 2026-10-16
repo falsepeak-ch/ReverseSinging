@@ -455,17 +455,6 @@ final class AnalyticsManager {
         ])
     }
 
-    /// Fired once per install, when the grandfather clause is applied.
-    func trackEarlyAdopterGranted() {
-        log("early_adopter_granted", parameters: [
-            "source": "local_usage"
-        ])
-    }
-
-    func trackEarlyAdopterWelcomeShown() {
-        log("early_adopter_welcome_shown", parameters: nil)
-    }
-
     func trackCustomerCenterOpened() {
         log("customer_center_opened", parameters: nil)
     }

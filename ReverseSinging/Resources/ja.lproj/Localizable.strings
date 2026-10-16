@@ -143,7 +143,6 @@
 "settings.about.license.lifetime" = "Dubloon Pro(買い切り)";
 "settings.about.license.renews" = "Dubloon Pro(%@に更新)";
 "settings.about.license.ends" = "Dubloon Pro(%@に終了)";
-"settings.about.license.earlyAdopter" = "初期ユーザー・ずっと無料";
 "settings.about.license.free" = "無料";
 
 // Theme descriptions
@@ -350,22 +349,8 @@
 "review.feedback.placeholder" = "どこを良くすべきですか？";
 "review.feedback.send" = "送信";
 
-// MARK: - Pro / Early adopters
-"pro.earlyAdopter.title" = "ようこそクラブへ";
-"pro.earlyAdopter.message" = "Dubloonは有料になりました。ただし、あなたは別です。値札が付く前からいてくれたので、4つのゲームはすべて、このアプリが続くかぎり無料であなたのものです。初期のころをありがとう。";
-"pro.earlyAdopter.badge" = "生涯無料";
-"pro.earlyAdopter.confirm" = "いいね";
-"pro.earlyAdopter.settings.title" = "生涯無料";
-"pro.earlyAdopter.settings.subtitle" = "早くから来てくれた人へ。4つのゲームはすべてあなたのもの、支払いは不要です。";
+// MARK: - Pro
 "pro.closePaywall" = "閉じる";
-
-// Early adopter slate rows
-"pro.earlyAdopter.row.access" = "アクセス";
-"pro.earlyAdopter.row.access.value" = "4つのゲームすべて";
-"pro.earlyAdopter.row.cost" = "料金";
-"pro.earlyAdopter.row.cost.value" = "なし";
-"pro.earlyAdopter.row.expires" = "期限";
-"pro.earlyAdopter.row.expires.value" = "なし";
 
 /* MARK: - Booth Cam */
 "booth.slug" = "ブース";

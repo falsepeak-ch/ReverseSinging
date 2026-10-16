@@ -205,7 +205,7 @@ struct HomeViewModelTests {
 
     /// Whoever imported a pack and used the app on three days is asked, paid or not, and only
     /// a buyer is thanked for buying.
-    @Test(arguments: [AccessState.unlocked(.entitlement), .locked, .unlocked(.earlyAdopter)])
+    @Test(arguments: [AccessState.unlocked(.entitlement), .locked])
     func anImporterOnTheirThirdDayIsAsked(state: AccessState) {
         withAccess(state) {
             let viewModel = makeViewModel()

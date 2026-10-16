@@ -22,8 +22,8 @@ enum HomePaywallSource: String, Identifiable {
 
 /// Drives the menu.
 ///
-/// Owns the navigation path the games are pushed onto, and decides which of the one-off notes,
-/// the early-adopter welcome and the Booth Cam announcement, is on screen. Never both at once.
+/// Owns the navigation path the games are pushed onto, and decides when the one-off Booth Cam
+/// announcement is on screen.
 ///
 /// It is also where Dubloon Pro is enforced: every way into a game asks
 /// `canEnter(_:orShowPaywallFrom:)`, which opens the paywall instead of a paid game for someone
@@ -43,7 +43,6 @@ final class HomeViewModel: ObservableObject {
             if paywallSource == nil { opensDubOnceUnlocked = false }
         }
     }
-    @Published var isEarlyAdopterWelcomePresented = false
     /// The Booth Cam note for people who updated, see `BoothCamAnnouncement`.
     @Published var isBoothAnnouncementPresented = false
 
@@ -109,8 +108,6 @@ final class HomeViewModel: ObservableObject {
         case .dub, .imitate: true
         }
     }
-
-    var shouldWelcomeEarlyAdopter: Bool { access.shouldWelcomeEarlyAdopter }
 
     /// The note that asks for a rating. Only for someone who has imported a dub pack and used
     /// the app on at least three different days, whether or not they have paid: by then they
@@ -191,24 +188,12 @@ final class HomeViewModel: ObservableObject {
 
     // MARK: - Notes
 
-    func presentEarlyAdopterWelcomeIfDue() {
-        guard access.shouldWelcomeEarlyAdopter,
-              !isEarlyAdopterWelcomePresented,
-              !isBoothAnnouncementPresented else { return }
-        #if DEBUG
-        if ScreenshotMode.isActive { return }
-        #endif
-        isEarlyAdopterWelcomePresented = true
-    }
-
     func presentBoothAnnouncementIfDue() {
         // Not while the games are disabled: a note whose button leads to a paywall is an ad.
         // It is not marked shown either, so it is still due once they are back in.
         guard BoothCamAnnouncement.shared.isDue,
               !areGamesLocked,
-              !isBoothAnnouncementPresented,
-              !isEarlyAdopterWelcomePresented,
-              !access.shouldWelcomeEarlyAdopter else { return }
+              !isBoothAnnouncementPresented else { return }
         #if DEBUG
         if ScreenshotMode.isActive { return }
         #endif
@@ -218,16 +203,8 @@ final class HomeViewModel: ObservableObject {
 
     /// Marked on the way out rather than on the way in, so a user who kills the app
     /// mid-animation still gets told.
-    func earlyAdopterWelcomeDidDisappear() {
-        access.markEarlyAdopterWelcomed()
-        // Two notes on one launch happen to whoever skipped 1.4. The gift first, then the
-        // feature, never both at once.
-        presentBoothAnnouncementIfDue()
-    }
-
     func boothAnnouncementDidDisappear() {
         BoothCamAnnouncement.shared.markShown()
-        presentEarlyAdopterWelcomeIfDue()
     }
 
     // MARK: - Review banner

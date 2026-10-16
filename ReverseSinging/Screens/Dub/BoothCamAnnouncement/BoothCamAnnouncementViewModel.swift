@@ -9,8 +9,8 @@ import Combine
 
 /// Behind the Booth Cam note.
 ///
-/// Whether the note is due, and marking it shown, stay with `HomeView`, which also decides the
-/// order it comes in beside the early-adopter note. This is only what the note itself does.
+/// Whether the note is due, and marking it shown, stay with `HomeView`. This is only what the
+/// note itself does.
 @MainActor
 final class BoothCamAnnouncementViewModel: ObservableObject {
 

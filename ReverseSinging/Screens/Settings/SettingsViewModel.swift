@@ -151,8 +151,6 @@ final class SettingsViewModel: ObservableObject {
 
     // MARK: - Purchase
 
-    var isEarlyAdopter: Bool { access.isEarlyAdopter }
-
     var isPro: Bool { access.isPro }
 
     var isRestoring: Bool { access.isRestoring }
@@ -224,8 +222,6 @@ final class SettingsViewModel: ObservableObject {
                 ? Strings.Settings.About.licenseRenews
                 : Strings.Settings.About.licenseEnds
             return String(format: format, date)
-        case .unlocked(.earlyAdopter):
-            return Strings.Settings.About.licenseEarlyAdopter
         case .locked, .unlocked(.gatingDisabled):
             return Strings.Settings.About.licenseFree
         }

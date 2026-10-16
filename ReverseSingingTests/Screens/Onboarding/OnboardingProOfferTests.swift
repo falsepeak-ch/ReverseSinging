@@ -70,10 +70,9 @@ extension HomeViewModelTests {
         }
     }
 
-    /// An owner or an early adopter has nothing to be sold: the button just continues.
-    @Test(arguments: [AccessState.unlocked(.entitlement), .unlocked(.earlyAdopter)])
-    func someoneWithEverythingJustContinues(state: AccessState) {
-        onLastPage(access: state) { viewModel, app in
+    /// An owner has nothing to be sold: the button just continues.
+    @Test func someoneWithEverythingJustContinues() {
+        onLastPage(access: .unlocked(.entitlement)) { viewModel, app in
             #expect(!viewModel.offersPro)
 
             viewModel.primaryTapped()

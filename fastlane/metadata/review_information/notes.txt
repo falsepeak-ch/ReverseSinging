@@ -14,7 +14,7 @@ THE PURCHASE
 
 Free to download, with no trial. Reverse Singing and Home Video Dub are free for everyone. Movie Scene Dub and Sound Imitation stay locked until a purchase, which a sandbox account can make. A review device meets the locked games on first launch.
 
-Any of three products unlocks the same content: the non-consumable "com.falsepeak.reverse_singing_ios.lifetime", or the auto-renewable subscriptions "com.falsepeak.reverse_singing_ios.monthly" and "com.falsepeak.reverse_singing_ios.yearly" (7-day free trial on the yearly). The purchase screen shows either the lifetime product alone or the two subscriptions, chosen per install by a remote test. Users who installed before the paywall existed keep the paid games free for life.
+Any of three products unlocks the same content: the non-consumable "com.falsepeak.reverse_singing_ios.lifetime", or the auto-renewable subscriptions "com.falsepeak.reverse_singing_ios.monthly" and "com.falsepeak.reverse_singing_ios.yearly" (7-day free trial on the yearly). The purchase screen shows either the lifetime product alone or the two subscriptions, chosen per install by a remote test.
 
 To reach the purchase screen: tap "Get Dubloon Pro" on the last onboarding page (skippable), a locked game, the "Get Dubloon Pro to dub" card on the main menu, or the sliders icon, then "Unlock Dubloon".
 

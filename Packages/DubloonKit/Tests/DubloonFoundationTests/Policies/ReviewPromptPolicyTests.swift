@@ -131,8 +131,7 @@ struct ReviewPromptPolicyTests {
         #expect(policy.isBannerAudience == false)
     }
 
-    /// The open count doubles as the early-adopter check's evidence of earlier use, so moving it
-    /// would quietly charge people who were here first.
+    /// Installs already carry these counters, so moving them would reset everyone's history.
     @Test func theCountersLiveUnderTheKeysTheAppHasAlwaysUsed() {
         let (policy, defaults) = makePolicy()
         policy.registerAppOpen()

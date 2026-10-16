@@ -40,7 +40,7 @@ final class MacWelcomeViewModel: ObservableObject {
     /// Continue closes the window. Nothing is asked for here: every game asks for the
     /// microphone itself, the first time it records.
     /// Someone who could buy Pro gets the iPhone's last page as two buttons, buy and skip;
-    /// an owner or an early adopter has nothing to be sold and just continues.
+    /// an owner has nothing to be sold and just continues.
     var offersPro: Bool { onboarding.isLocked }
 
     var primaryTitle: String { offersPro ? Strings.Onboarding.proBuy : Strings.Onboarding.buttonContinue }
