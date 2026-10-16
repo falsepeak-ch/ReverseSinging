@@ -51,4 +51,10 @@ if [ ! -f "$GSP_PATH" ]; then
 fi
 
 echo "Uploading dSYMs from $DSYM_PATH to Crashlytics."
-"$UPLOAD_SYMBOLS" -gsp "$GSP_PATH" -p ios "$DSYM_PATH"
+# The Release workflow also archives DubloonMac. Same plist as the Fastfile mac lane, mac platform.
+if [ "$CI_PRODUCT_PLATFORM" = "macOS" ]; then
+    CRASHLYTICS_PLATFORM=mac
+else
+    CRASHLYTICS_PLATFORM=ios
+fi
+"$UPLOAD_SYMBOLS" -gsp "$GSP_PATH" -p "$CRASHLYTICS_PLATFORM" "$DSYM_PATH"
