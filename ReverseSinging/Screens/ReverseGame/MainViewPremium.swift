@@ -82,6 +82,7 @@ struct MainViewPremium: View {
     /// runs across the middle of the open display. Each pane scrolls on its own.
     @ViewBuilder
     private var besideContent: some View {
+        #if os(iOS)
         if #available(iOS 27.1, *) {
             ArrangementView {
                 readoutPane
@@ -92,10 +93,17 @@ struct MainViewPremium: View {
             .arrangementViewStyle(.split.axes(.horizontal))
             .readWindowMiddleRatio(into: $seamRatio)
         } else {
-            HStack(spacing: 0) {
-                readoutPane
-                actionsPane
-            }
+            besideStack
+        }
+        #else
+        besideStack
+        #endif
+    }
+
+    private var besideStack: some View {
+        HStack(spacing: 0) {
+            readoutPane
+            actionsPane
         }
     }
 

@@ -81,6 +81,7 @@ struct MainViewSimple: View {
     /// seam, rather than one stretched column running across the middle of the open display.
     @ViewBuilder
     private var besideContent: some View {
+        #if os(iOS)
         if #available(iOS 27.1, *) {
             ArrangementView {
                 monitorPane
@@ -91,10 +92,17 @@ struct MainViewSimple: View {
             .arrangementViewStyle(.split.axes(.horizontal))
             .readWindowMiddleRatio(into: $seamRatio)
         } else {
-            HStack(spacing: 0) {
-                monitorPane
-                transportPane
-            }
+            besideStack
+        }
+        #else
+        besideStack
+        #endif
+    }
+
+    private var besideStack: some View {
+        HStack(spacing: 0) {
+            monitorPane
+            transportPane
         }
     }
 
