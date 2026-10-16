@@ -156,6 +156,26 @@ extension View {
         #endif
     }
 
+    /// A sheet's content: on a display with room beside it (iPhone Duo open) the sheet
+    /// stands as a panel in the leading half, clear of the display's middle, instead of
+    /// centred across it, with its own bar and Close. (At the trailing side it ran under the
+    /// system's strip, which hid its Close.) No change on a phone or the Mac.
+    @ViewBuilder
+    func sheetBesideTheSeam() -> some View {
+        #if os(iOS)
+        if #available(iOS 27.0, *) {
+            // A side panel's width, so it stays in its half.
+            frame(idealWidth: 400)
+                .presentationSizing(.form.fitted(horizontal: true, vertical: false))
+                .presentationPlacement(.leading)
+        } else {
+            self
+        }
+        #else
+        self
+        #endif
+    }
+
     /// `fullScreenCover` on iOS; a large sheet on the Mac.
     func coversScreen<Content: View>(
         isPresented: Binding<Bool>,

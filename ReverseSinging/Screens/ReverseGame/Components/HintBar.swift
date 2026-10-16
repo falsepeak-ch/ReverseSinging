@@ -18,8 +18,6 @@ struct HintBar: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            EditorRule()
-
             HStack(alignment: .firstTextBaseline, spacing: 10) {
                 Text(Strings.Main.Section.hint)
                     .editorLabelStyle(.rsHighlight)
@@ -36,7 +34,14 @@ struct HintBar: View {
             .padding(.horizontal, EditorMetrics.gutter)
             .padding(.vertical, 12)
         }
-        .background(Color.rsSurface1.ignoresSafeArea(edges: .bottom))
+        // The band and its rule run the full width, under iPhone Duo's side strip too.
+        .background {
+            VStack(spacing: 0) {
+                EditorRule()
+                Color.rsSurface1
+            }
+            .ignoresSafeArea(edges: [.bottom, .horizontal])
+        }
         .accessibilityElement(children: .combine)
     }
 }

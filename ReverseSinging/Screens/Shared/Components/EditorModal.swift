@@ -34,6 +34,19 @@ struct EditorModal<Content: View, PhoneActions: View, MacActions: View>: View {
     /// The fold while it runs across the screen (iPhone Duo half folded as a table): the card
     /// then sits on the lower half, in reach, and scrolls its content to fit there.
     @State private var horizontalFold: CGRect?
+    @State private var containerSize: CGSize = .zero
+    @State private var seamRatio: CGFloat = 0.5
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+
+    /// The trailing half's width where the screen is a wide regular one (iPhone Duo open
+    /// on its side, flat or as a book), nil elsewhere.
+    private var sidePaneWidth: CGFloat? {
+        guard horizontalSizeClass == .regular, verticalSizeClass == .regular,
+              horizontalFold == nil, containerSize.width > containerSize.height,
+              containerSize.width > 0 else { return nil }
+        return containerSize.width * (1 - seamRatio)
+    }
 
     var body: some View {
         #if os(macOS)
@@ -100,12 +113,18 @@ struct EditorModal<Content: View, PhoneActions: View, MacActions: View>: View {
                 .editorPanel(.rsSurface1, radius: EditorMetrics.radiusLarge)
                 .frame(maxWidth: 400)
                 .padding(.horizontal, EditorMetrics.gutter)
+                // iPhone Duo open on its side: in the trailing half, clear of the
+                // display's middle, rather than centred across it.
+                .frame(width: sidePaneWidth)
+                .frame(maxWidth: .infinity, alignment: sidePaneWidth == nil ? .center : .trailing)
                 .padding(.vertical, 24)
                 .frame(maxHeight: horizontalFold == nil ? nil : .infinity)
                 .padding(.top, horizontalFold.map { max(0, $0.maxY - 8) } ?? 0)
                 .transition(.opacity)
         }
         .onGeometryChange(for: CGRect?.self) { $0.horizontalFold } action: { horizontalFold = $0 }
+        .onGeometryChange(for: CGSize.self) { $0.size } action: { containerSize = $0 }
+        .readWindowMiddleRatio(into: $seamRatio)
         // A card with no way out but its own button also holds the screen under it in place.
         .onAppear { if onClose == nil { EditorModalHold.begin() } }
         .onDisappear { if onClose == nil { EditorModalHold.end() } }

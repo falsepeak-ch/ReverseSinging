@@ -30,7 +30,44 @@ struct DubRecordView: View {
         _viewModel = StateObject(wrappedValue: DubRecordViewModel(session: session))
     }
 
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+
+    /// iPhone Duo open: the booth keeps the system's strip (status and a standard Close),
+    /// its content inside the safe area beside it. Elsewhere the booth is the whole screen
+    /// with its own close key, as it always was.
+    private var usesSystemBar: Bool {
+        EditorBars.useSystemBar(horizontalSizeClass, verticalSizeClass)
+    }
+
+    private func close() {
+        viewModel.stop()
+        dismiss()
+    }
+
     var body: some View {
+        #if os(iOS)
+        if usesSystemBar {
+            NavigationStack {
+                bayScreen
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button(action: close) {
+                                Label(Strings.Help.close, systemImage: "xmark")
+                            }
+                        }
+                    }
+                    .toolbarBackground(.hidden, for: .navigationBar)
+                    .navigationBarTitleDisplayMode(.inline)
+            }
+        } else {
+            bayScreen.hidesStatusBar()
+        }
+        #else
+        bayScreen.hidesStatusBar()
+        #endif
+    }
+
+    private var bayScreen: some View {
         ZStack {
             Color.rsSurface0.ignoresSafeArea()
 
@@ -40,7 +77,6 @@ struct DubRecordView: View {
 
             CountdownOverlay(value: viewModel.countdown)
         }
-        .hidesStatusBar()
         // Opening or closing the device swaps the layout; the take, line and recording
         // state live in the view models, so only the geometry changes.
         .animation(reduceMotion ? nil : .rsSmooth, value: horizontalSizeClass)
@@ -171,9 +207,10 @@ struct DubRecordView: View {
     private func hud(for line: DubLine) -> some View {
         VStack(spacing: 0) {
             HStack(spacing: 12) {
+                // The system bar's Close where there is one (`usesSystemBar`).
+                if !usesSystemBar {
                 Button {
-                    viewModel.stop()
-                    dismiss()
+                    close()
                 } label: {
                     Image(systemName: "xmark")
                         .font(.system(size: 13, weight: .semibold))
@@ -187,6 +224,7 @@ struct DubRecordView: View {
                             RoundedRectangle(cornerRadius: 5, style: .continuous)
                                 .strokeBorder(Color.rsStroke, lineWidth: EditorMetrics.hairline)
                         )
+                }
                 }
 
                 HStack(spacing: 7) {

@@ -44,18 +44,22 @@ struct HomeView: View {
         }
         .sheet(isPresented: $app.showSettings) {
             SettingsView(app: app)
+                .sheetBesideTheSeam()
         }
         .sheet(item: $viewModel.paywallSource) { source in
             ProPaywallView(source: source.rawValue)
                 .paywallAppearance()
+                .sheetBesideTheSeam()
         }
         .sheet(isPresented: $viewModel.isEarlyAdopterWelcomePresented) {
             EarlyAdopterWelcomeView()
                 .onDisappear { viewModel.earlyAdopterWelcomeDidDisappear() }
+                .sheetBesideTheSeam()
         }
         .sheet(isPresented: $viewModel.isBoothAnnouncementPresented) {
             BoothCamAnnouncementView(onTryIt: { viewModel.openDub() })
                 .onDisappear { viewModel.boothAnnouncementDidDisappear() }
+                .sheetBesideTheSeam()
         }
         .alert(Strings.ReviewBanner.storeTitle, isPresented: $viewModel.isReviewStoreAskPresented) {
             Button(Strings.ReviewBanner.rate) { openURL(viewModel.reviewBannerWentToStore()) }
@@ -276,6 +280,7 @@ struct HomeView: View {
         }
         .sheet(isPresented: $isHelpPresented) {
             HelpView(topic: .gettingStarted)
+                .sheetBesideTheSeam()
                 .presentationDragIndicator(.visible)
         }
         #endif

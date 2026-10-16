@@ -347,8 +347,15 @@ struct EditorHeaderBar<Content: View>: View {
 
         .frame(maxWidth: .infinity)
         .frame(height: EditorMetrics.headerBarHeight)
-        .background(Color.rsSurface1.ignoresSafeArea(edges: .top))
-        .overlay(alignment: .bottom) { EditorRule() }
+        // Full width, under the system's side strip too (iPhone Duo open on its side):
+        // a band that stopped at the safe area left the strip on the bare background.
+        .background {
+            VStack(spacing: 0) {
+                Color.rsSurface1
+                EditorRule()
+            }
+            .ignoresSafeArea(edges: [.top, .horizontal])
+        }
     }
 }
 
@@ -480,6 +487,7 @@ struct EditorScreenHeader<Trailing: View>: View {
         .sheet(isPresented: $isHelpPresented) {
             if let help {
                 HelpView(topic: help)
+                    .sheetBesideTheSeam()
                     .presentationDragIndicator(.visible)
             }
         }
