@@ -111,8 +111,8 @@ private struct EditorNavigationBar: ViewModifier {
         content
             .toolbar(usesSystemBar ? .visible : .hidden, for: .navigationBar)
             .toolbarBackground(.hidden, for: .navigationBar)
-            // Back as a chevron alone: the menu it returns to has no title to show.
-            .toolbarRole(.editor)
+            // Back is the header's own square button, placed in the bar (`EditorScreenHeader`).
+            .navigationBarBackButtonHidden(true)
         #else
         content.navigationBarBackButtonHidden(true)
         #endif
@@ -132,8 +132,8 @@ extension View {
     /// On the Mac only the back button a pushed view would add to the title bar; hiding the
     /// whole window toolbar takes the close and minimise buttons with it.
     ///
-    /// iPhone Duo open is the exception: there the header's actions and Back are system bar
-    /// items (`EditorBars`), so the bar shows, without a background of its own.
+    /// iPhone Duo open is the exception: there the header's Back and actions are bar items
+    /// (`EditorBars`), so the bar shows, without a background of its own.
     func hidesNavigationBar() -> some View {
         modifier(EditorNavigationBar())
     }

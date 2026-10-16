@@ -236,8 +236,8 @@ struct HomeView: View {
 
     // MARK: - Header
 
-    /// iPhone Duo open: Help and Settings are system bar items, so they sit in the bar the
-    /// inner display draws (the trailing strip in landscape) rather than in the content.
+    /// iPhone Duo open: Help and Settings are bar items, the same square buttons, so they sit
+    /// in the bar the inner display draws (the trailing strip in landscape), not the content.
     private var usesSystemBar: Bool {
         EditorBars.useSystemBar(sizeClass, verticalSizeClass)
     }
@@ -265,16 +265,13 @@ struct HomeView: View {
         .toolbar {
             if usesSystemBar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
-                    Button {
-                        HapticManager.shared.light()
+                    EditorToolbarButton(icon: "questionmark", label: Strings.Help.title) {
                         isHelpPresented = true
-                    } label: {
-                        Label(Strings.Help.title, systemImage: "questionmark")
                     }
 
                     settingsButton
-                        .environment(\.editorControlsInSystemBar, true)
                 }
+                .editorChromeItems()
             }
         }
         .sheet(isPresented: $isHelpPresented) {

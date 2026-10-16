@@ -6,7 +6,7 @@ Stage: 5  Next: inner display run in Device Hub; Booth Cam on a device (camera)
 ## Findings
 - Home / Library: Change — one stretched column at any width [T466]; now two-up on regular width (even count, fold clear) [HIG]
 - TimerCard: Change — `UIScreen.main` width [T461]
-- Custom header bars (?, settings, +): Changed 2026-10-16 — on regular width (Duo open) Back, Help and the header actions are system bar items (`EditorBars`, title + symbol), so landscape puts them in the trailing strip; the header keeps only the title. Compact (iPhone, outer) unchanged [HIG, T462]
+- Custom header bars (?, settings, +): Changed 2026-10-16 — on regular width (Duo open) Back, Help and the header actions are bar items (`EditorBars`), the same square header buttons with system glass hidden, so landscape puts them in the trailing strip; the header keeps only the title. Compact (iPhone, outer) unchanged [HIG, T462]
 - Pack detail hero video: Ready (mixed) — full-width media, controls inset [HIG]
 - Booth Cam (front camera): Decision — Virtual Front Camera / rotation coordinator per T465; needs a physical iPhone Duo, not done
 - Orientation: portrait only; inner display ignores it [T461]

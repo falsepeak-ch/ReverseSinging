@@ -264,24 +264,7 @@ struct EditorToolbarButton: View {
     let label: String
     let action: () -> Void
 
-    @Environment(\.editorControlsInSystemBar) private var inSystemBar
-
     var body: some View {
-        if inSystemBar {
-            // In the system's bar: a title and a symbol, so the system picks how to draw it
-            // and names it in the overflow menu.
-            Button {
-                HapticManager.shared.light()
-                action()
-            } label: {
-                Label(label, systemImage: icon)
-            }
-        } else {
-            headerButton
-        }
-    }
-
-    private var headerButton: some View {
         Button(action: {
             HapticManager.shared.light()
             action()
@@ -310,21 +293,7 @@ struct EditorToolbarMenu<Content: View>: View {
     let label: String
     @ViewBuilder var content: () -> Content
 
-    @Environment(\.editorControlsInSystemBar) private var inSystemBar
-
     var body: some View {
-        if inSystemBar {
-            Menu {
-                content()
-            } label: {
-                Label(label, systemImage: icon)
-            }
-        } else {
-            headerMenu
-        }
-    }
-
-    private var headerMenu: some View {
         Menu {
             content()
         } label: {
@@ -404,18 +373,20 @@ enum EditorBars {
     }
 }
 
-private struct EditorControlsInSystemBarKey: EnvironmentKey {
-    static let defaultValue = false
-}
-
-extension EnvironmentValues {
-    /// Set on controls placed in the system's bar: `EditorToolbarButton` and
-    /// `EditorToolbarMenu` then draw as a plain title and symbol instead of the header chrome.
-    var editorControlsInSystemBar: Bool {
-        get { self[EditorControlsInSystemBarKey.self] }
-        set { self[EditorControlsInSystemBarKey.self] = newValue }
+#if os(iOS)
+extension ToolbarContent {
+    /// The header's own square buttons, placed as bar items: no system glass around them,
+    /// so they look exactly as they do in the header.
+    @ToolbarContentBuilder
+    func editorChromeItems() -> some ToolbarContent {
+        if #available(iOS 26.0, *) {
+            sharedBackgroundVisibility(.hidden)
+        } else {
+            self
+        }
     }
 }
+#endif
 
 // MARK: - Screen Header
 
@@ -425,8 +396,8 @@ extension EnvironmentValues {
 /// belongs to the menu the user came from, and a title is what tells them which
 /// game they are in.
 ///
-/// On iPhone Duo open the title stays here and the actions move into the system's bar
-/// (`EditorBars`), with the system's Back.
+/// On iPhone Duo open the title stays here and Back and the actions move into the system's
+/// bar (`EditorBars`), as the same square buttons.
 struct EditorScreenHeader<Trailing: View>: View {
     let title: String
     /// Nil on a screen with nowhere to go back to, such as the Mac's only game.
@@ -483,18 +454,25 @@ struct EditorScreenHeader<Trailing: View>: View {
         #if os(iOS)
         .toolbar {
             if usesSystemBar {
+                if let onBack {
+                    ToolbarItem(placement: .topBarLeading) {
+                        EditorToolbarButton(
+                            icon: "chevron.left",
+                            label: Strings.Main.back,
+                            action: onBack
+                        )
+                    }
+                    .editorChromeItems()
+                }
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     if help != nil {
-                        Button {
-                            HapticManager.shared.light()
+                        EditorToolbarButton(icon: "questionmark", label: Strings.Help.title) {
                             isHelpPresented = true
-                        } label: {
-                            Label(Strings.Help.title, systemImage: "questionmark")
                         }
                     }
-                    Group { trailing }
-                        .environment(\.editorControlsInSystemBar, true)
+                    trailing
                 }
+                .editorChromeItems()
             }
         }
         .sheet(isPresented: $isHelpPresented) {
