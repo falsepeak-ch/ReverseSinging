@@ -455,7 +455,9 @@ struct EditorScreenHeader<Trailing: View>: View {
         .toolbar {
             if usesSystemBar {
                 if let onBack {
-                    ToolbarItem(placement: .topBarLeading) {
+                    // Back first: the top of the trailing strip in landscape, top leading in
+                    // portrait (HIG, Designing for iPhone Duo).
+                    ToolbarItem(placement: .cancellationAction) {
                         EditorToolbarButton(
                             icon: "chevron.left",
                             label: Strings.Main.back,
