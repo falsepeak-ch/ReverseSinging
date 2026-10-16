@@ -503,6 +503,9 @@ nonisolated enum Strings {
         static let responsibility = NSLocalizedString("dubShare.responsibility", comment: "Distributing the export is the user's own act and responsibility")
         static let confirm = NSLocalizedString("dubShare.confirm", comment: "Go ahead and export")
         static let share = NSLocalizedString("dubShare.share", comment: "Mac: button that opens the system share menu for a finished dub")
+        /// The caption that travels with a shared video. The hashtag and the link are added
+        /// in code, untranslated; see `DubShareCaption`.
+        static let caption = NSLocalizedString("dubShare.caption", comment: "One short, playful line posted with a shared dub video, in the first person. The #dubloon hashtag and the App Store link are appended automatically; do not add them")
         static let save = NSLocalizedString("dubShare.save", comment: "Mac: button that saves a finished dub to a folder the user picks")
     }
 

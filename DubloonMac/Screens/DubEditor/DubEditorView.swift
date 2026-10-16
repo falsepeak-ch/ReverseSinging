@@ -114,7 +114,7 @@ struct DubEditorView: View {
             detail.confirmExport()
         }
         .sheet(item: Binding(get: { detail.exportedURL }, set: { detail.exportedURL = $0 })) { url in
-            DubShareSheet(url: url)
+            DubShareSheet(url: url, caption: DubShareCaption.text())
         }
         .boothCamPrimer(isPresented: Binding(
             get: { record.isBoothPrimerPresented },

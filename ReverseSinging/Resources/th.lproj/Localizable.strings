@@ -271,6 +271,7 @@
 "dubShare.unknownSource" = "ฉากนี้คุณเอามาเอง คุณจึงรู้ว่ามันมาจากไหนและทำอะไรกับมันได้บ้าง";
 "dubShare.responsibility" = "จะไปลงที่ไหนขึ้นอยู่กับคุณ ทำตามกฎลิขสิทธิ์ของที่ที่คุณอยู่ด้วย";
 "dubShare.confirm" = "ส่งออกวิดีโอ";
+"dubShare.caption" = "ฉันพากย์ฉากนี้ด้วย Dubloon 🎙️";
 "dubShare.share" = "แชร์…";
 "dubShare.save" = "บันทึก…";
 

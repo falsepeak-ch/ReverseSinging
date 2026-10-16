@@ -271,6 +271,7 @@
 "dubShare.unknownSource" = "このシーンはあなたが持ち込んだものなので、出どころも、何をしてよいかも分かっているはずです。";
 "dubShare.responsibility" = "どこに出すかはあなた次第です。お住まいの地域の著作権ルールに従ってください。";
 "dubShare.confirm" = "動画を書き出す";
+"dubShare.caption" = "Dubloonでこのシーンを吹き替えたよ 🎙️";
 "dubShare.share" = "共有…";
 "dubShare.save" = "保存…";
 

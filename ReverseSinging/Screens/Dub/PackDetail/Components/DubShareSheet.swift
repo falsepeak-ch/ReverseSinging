@@ -6,13 +6,94 @@
 //
 
 import SwiftUI
+#if os(iOS)
+import LinkPresentation
+#endif
+
+// MARK: - Caption
+
+/// The words that travel with a shared video: one line in the app's voice, the hashtag, and
+/// where to get the app.
+///
+/// The hashtag is never translated (it is how posts find each other across languages), and
+/// the link is the plain App Store one: the app has no campaign token or share URL of its own
+/// to reuse.
+nonisolated enum DubShareCaption {
+    static let hashtag = "#dubloon"
+    static let appStoreURL = URL(string: "https://apps.apple.com/app/id6754534073")!
+
+    static func text(line: String = Strings.DubShare.caption) -> String {
+        "\(line) \(hashtag) \(appStoreURL.absoluteString)"
+    }
+}
 
 #if os(iOS)
-struct DubShareSheet: UIViewControllerRepresentable {
+/// The caption as a share-sheet item that knows where it is not wanted.
+///
+/// Messages, Mail, WhatsApp, X and the like take the text beside the video. Saving to Photos,
+/// AirDrop and printing would turn it into a second, separate thing (a note file, a printed
+/// page), so they get nothing. Apps that ignore text altogether (TikTok, Instagram) simply
+/// drop it and still get the video.
+final class DubShareCaptionItem: NSObject, UIActivityItemSource {
+    let caption: String
+
+    init(caption: String) {
+        self.caption = caption
+    }
+
+    func activityViewControllerPlaceholderItem(_ controller: UIActivityViewController) -> Any {
+        caption
+    }
+
+    func activityViewController(_ controller: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        switch activityType {
+        case .saveToCameraRoll?, .airDrop?, .print?, .assignToContact?, .addToReadingList?, .openInIBooks?:
+            return nil
+        default:
+            return caption
+        }
+    }
+
+    func activityViewController(_ controller: UIActivityViewController, subjectForActivityType activityType: UIActivity.ActivityType?) -> String {
+        "Dubloon"
+    }
+}
+
+/// The video as a share-sheet item, so the sheet's header shows the clip and the app's name
+/// rather than a bare file name, and the caption is not repeated as the preview's title.
+final class DubShareVideoItem: NSObject, UIActivityItemSource {
     let url: URL
 
+    init(url: URL) {
+        self.url = url
+    }
+
+    func activityViewControllerPlaceholderItem(_ controller: UIActivityViewController) -> Any {
+        url
+    }
+
+    func activityViewController(_ controller: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        url
+    }
+
+    func activityViewControllerLinkMetadata(_ controller: UIActivityViewController) -> LPLinkMetadata? {
+        let metadata = LPLinkMetadata()
+        metadata.title = "Dubloon"
+        metadata.originalURL = url
+        metadata.url = url
+        return metadata
+    }
+}
+
+struct DubShareSheet: UIViewControllerRepresentable {
+    let url: URL
+    /// Text shared beside the video. Nil shares the file alone.
+    var caption: String? = nil
+
     func makeUIViewController(context: Context) -> UIActivityViewController {
-        let controller = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        var items: [Any] = [DubShareVideoItem(url: url)]
+        if let caption { items.append(DubShareCaptionItem(caption: caption)) }
+        let controller = UIActivityViewController(activityItems: items, applicationActivities: nil)
         // Only a dub that actually left the app counts. Opening the sheet and backing out
         // is not the finished thing we would be asking someone to rate.
         controller.completionWithItemsHandler = { _, completed, _, _ in
@@ -30,6 +111,8 @@ struct DubShareSheet: UIViewControllerRepresentable {
 /// save panel beside it.
 struct DubShareSheet: View {
     let url: URL
+    /// Text shared beside the video. Nil shares the file alone.
+    var caption: String? = nil
 
     @Environment(\.dismiss) private var dismiss
     @State private var isSaving = false
@@ -65,8 +148,16 @@ struct DubShareSheet: View {
             .padding(22)
 
             HStack(spacing: 10) {
-                ShareLink(item: url) {
-                    Label(Strings.DubShare.share, systemImage: "square.and.arrow.up")
+                Group {
+                    if let caption {
+                        ShareLink(item: url, subject: Text("Dubloon"), message: Text(caption)) {
+                            Label(Strings.DubShare.share, systemImage: "square.and.arrow.up")
+                        }
+                    } else {
+                        ShareLink(item: url) {
+                            Label(Strings.DubShare.share, systemImage: "square.and.arrow.up")
+                        }
+                    }
                 }
                 .simultaneousGesture(TapGesture().onEnded {
                     ReviewPrompt.shared.registerVideoShared()

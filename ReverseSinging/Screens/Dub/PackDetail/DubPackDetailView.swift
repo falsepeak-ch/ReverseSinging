@@ -118,7 +118,7 @@ struct DubPackDetailView: View {
         }
         .animation(.rsSmooth, value: viewModel.showExportOptions)
         .sheet(item: $viewModel.exportedURL) { url in
-            DubShareSheet(url: url)
+            DubShareSheet(url: url, caption: DubShareCaption.text())
         }
         .alert(Strings.Main.Alert.errorTitle, isPresented: .init(
             get: { session.errorMessage != nil },

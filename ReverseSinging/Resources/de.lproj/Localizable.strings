@@ -271,6 +271,7 @@
 "dubShare.unknownSource" = "Diese Szene hast du selbst mitgebracht, also weißt du, woher sie kommt und was du damit darfst.";
 "dubShare.responsibility" = "Wo es landet, entscheidest du, also halt dich ans Urheberrecht bei dir.";
 "dubShare.confirm" = "Video exportieren";
+"dubShare.caption" = "Ich habe diese Szene mit Dubloon synchronisiert 🎙️";
 "dubShare.share" = "Teilen …";
 "dubShare.save" = "Sichern …";
 

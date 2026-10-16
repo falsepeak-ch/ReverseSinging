@@ -51,7 +51,7 @@ struct HomeVideoDubView: View {
             preferredItemEncoding: .current
         )
         .sheet(item: $viewModel.sharedURL) { url in
-            DubShareSheet(url: url)
+            DubShareSheet(url: url, caption: DubShareCaption.text())
         }
         .alert(Strings.Main.Alert.errorTitle, isPresented: .init(
             get: { viewModel.errorMessage != nil },
