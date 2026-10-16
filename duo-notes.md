@@ -8,7 +8,7 @@ Stage: 5  Next: inner display run in Device Hub; Booth Cam on a device (camera)
 - TimerCard: Change — `UIScreen.main` width [T461]
 - Custom header bars (?, settings, +): Changed 2026-10-16 — on regular width (Duo open) Back, Help and the header actions are bar items (`EditorBars`), the same square header buttons with system glass hidden, so landscape puts them in the trailing strip; the header keeps only the title. Compact (iPhone, outer) unchanged [HIG, T462]
 - Pack detail hero video: Ready (mixed) — full-width media, controls inset [HIG]
-- Booth Cam (front camera): Decision — Virtual Front Camera / rotation coordinator per T465; needs a physical iPhone Duo, not done
+- Booth Cam (front camera): Changed 2026-10-16 — preview follows `AVCaptureDevice.RotationCoordinator`; each take locks the capture angle at its start (pose changes apply from the next take, never mid-take). Virtual Front Camera not adopted; needs a physical iPhone Duo to verify [T465]
 - Orientation: portrait only; inner display ignores it [T461]
 
 ## Decisions

@@ -39,11 +39,8 @@ struct BoothPreviewView: UIViewRepresentable {
     }
 
     private func apply(to view: PreviewView) {
+        view.followRotation()
         guard let connection = view.previewLayer.connection else { return }
-        // The app is portrait-locked, so the preview is too.
-        if connection.isVideoRotationAngleSupported(90) {
-            connection.videoRotationAngle = 90
-        }
         if connection.isVideoMirroringSupported {
             connection.automaticallyAdjustsVideoMirroring = false
             connection.isVideoMirrored = isMirrored
@@ -53,6 +50,38 @@ struct BoothPreviewView: UIViewRepresentable {
     final class PreviewView: UIView {
         override class var layerClass: AnyClass { AVCaptureVideoPreviewLayer.self }
         var previewLayer: AVCaptureVideoPreviewLayer { layer as! AVCaptureVideoPreviewLayer }
+
+        /// Keeps the picture upright however the device is held or posed.
+        ///
+        /// On an iPhone that is always portrait. On an iPhone Duo the booth also runs open in
+        /// landscape (the studio), and half-folded on a table, and the interface turns with
+        /// it; a preview pinned to portrait came out on its side there. The coordinator knows
+        /// both the device's gravity and this layer's own orientation, and its answer is
+        /// applied every time it changes. The recording is turned separately, per take, in
+        /// `BoothCapture`.
+        private var coordinator: AVCaptureDevice.RotationCoordinator?
+        private var observation: NSKeyValueObservation?
+
+        func followRotation() {
+            guard coordinator == nil,
+                  let device = (previewLayer.session?.inputs.first as? AVCaptureDeviceInput)?.device else {
+                applyAngle(coordinator?.videoRotationAngleForHorizonLevelPreview ?? 90)
+                return
+            }
+            let coordinator = AVCaptureDevice.RotationCoordinator(device: device, previewLayer: previewLayer)
+            self.coordinator = coordinator
+            observation = coordinator.observe(\.videoRotationAngleForHorizonLevelPreview, options: [.initial, .new]) { [weak self] coordinator, _ in
+                let angle = coordinator.videoRotationAngleForHorizonLevelPreview
+                Task { @MainActor in self?.applyAngle(angle) }
+            }
+        }
+
+        private func applyAngle(_ angle: CGFloat) {
+            guard let connection = previewLayer.connection,
+                  connection.videoRotationAngle != angle,
+                  connection.isVideoRotationAngleSupported(angle) else { return }
+            connection.videoRotationAngle = angle
+        }
     }
 }
 #else
