@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "Üst üste";
 "booth.frame.reaction" = "Tepki";
 "booth.frame.split" = "Yan yana";
+"booth.frame.vertical" = "Dikey";
+"booth.export.pipCorner" = "Kabin köşesi";
+"booth.export.pip.bottomRight" = "Sağ alt";
+"booth.export.pip.bottomLeft" = "Sol alt";
+"booth.export.pip.topRight" = "Sağ üst";
 "booth.export.stackedNote" = "Üst üste ve Tepki 9:16 çıkar, altta bir dalga formu olur: sahnenin repliği üstte, seninki altta.";
 "booth.export.noFootage" = "Bu sahnede henüz kabin görüntüsü yok. Booth Cam'i aç ve bir repliği seslendir.";
 "booth.export.includeBooth" = "Kabin görüntüsünü ekle";

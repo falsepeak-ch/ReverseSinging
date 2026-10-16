@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "Päällekkäin";
 "booth.frame.reaction" = "Reaktio";
 "booth.frame.split" = "Vierekkäin";
+"booth.frame.vertical" = "Pysty";
+"booth.export.pipCorner" = "Kopin kulma";
+"booth.export.pip.bottomRight" = "Oikealla alhaalla";
+"booth.export.pip.bottomLeft" = "Vasemmalla alhaalla";
+"booth.export.pip.topRight" = "Oikealla ylhäällä";
 "booth.export.stackedNote" = "Päällekkäin ja Reaktio renderöityvät 9:16 ja alareunaan tulee aaltomuoto: kohtauksen repliikki ylhäällä, sinun alhaalla.";
 "booth.export.noFootage" = "Tässä kohtauksessa ei ole vielä koppimateriaalia. Laita Booth Cam päälle ja dubbaa repliikki.";
 "booth.export.includeBooth" = "Ota koppimateriaali mukaan";

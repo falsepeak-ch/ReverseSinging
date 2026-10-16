@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "Oppå hverandre";
 "booth.frame.reaction" = "Reaksjon";
 "booth.frame.split" = "Side ved side";
+"booth.frame.vertical" = "Stående";
+"booth.export.pipCorner" = "Bås-hjørne";
+"booth.export.pip.bottomRight" = "Nede til høyre";
+"booth.export.pip.bottomLeft" = "Nede til venstre";
+"booth.export.pip.topRight" = "Oppe til høyre";
 "booth.export.stackedNote" = "Oppå hverandre og Reaksjon rendres i 9:16 med en bølgeform nederst: scenens replikk øverst, din under.";
 "booth.export.noFootage" = "Ingen boksopptak i denne scenen ennå. Slå på Booth Cam og dubb en replikk.";
 "booth.export.includeBooth" = "Ta med boksopptaket";

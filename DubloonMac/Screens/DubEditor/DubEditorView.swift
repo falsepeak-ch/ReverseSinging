@@ -94,8 +94,8 @@ struct DubEditorView: View {
                 line: detail.exportOptionsLine,
                 hasBoothFootage: session.hasAnyBoothTake,
                 runtime: { detail.runtime(of: $0) },
-                onExport: { cut, frame, includesBooth in
-                    detail.configureExport(cut: cut, frame: frame, includesBooth: includesBooth)
+                onExport: { cut, frame, includesBooth, pipCorner in
+                    detail.configureExport(cut: cut, frame: frame, includesBooth: includesBooth, pipCorner: pipCorner)
                 },
                 onCancel: { detail.cancelExportOptions() }
             )

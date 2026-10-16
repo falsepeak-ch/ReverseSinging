@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "L'un sur l'autre";
 "booth.frame.reaction" = "Réaction";
 "booth.frame.split" = "Côte à côte";
+"booth.frame.vertical" = "Vertical";
+"booth.export.pipCorner" = "Coin de la cabine";
+"booth.export.pip.bottomRight" = "En bas à droite";
+"booth.export.pip.bottomLeft" = "En bas à gauche";
+"booth.export.pip.topRight" = "En haut à droite";
 "booth.export.stackedNote" = "Empilé et Réaction sont rendus en 9:16 avec une forme d'onde en bas : la réplique de la scène au-dessus, la tienne en dessous.";
 "booth.export.noFootage" = "Pas encore d'images de cabine dans cette scène. Active la caméra et double une réplique.";
 "booth.export.includeBooth" = "Inclure les images de cabine";

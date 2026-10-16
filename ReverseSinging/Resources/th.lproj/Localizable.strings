@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "ซ้อนบนล่าง";
 "booth.frame.reaction" = "รีแอ็กชัน";
 "booth.frame.split" = "วางคู่กัน";
+"booth.frame.vertical" = "แนวตั้ง";
+"booth.export.pipCorner" = "มุมของบูธ";
+"booth.export.pip.bottomRight" = "ขวาล่าง";
+"booth.export.pip.bottomLeft" = "ซ้ายล่าง";
+"booth.export.pip.topRight" = "ขวาบน";
 "booth.export.stackedNote" = "แบบซ้อนบนล่างและรีแอ็กชันจะเรนเดอร์เป็น 9:16 พร้อมคลื่นเสียงด้านล่าง บทของฉากอยู่บน เสียงคุณอยู่ล่าง";
 "booth.export.noFootage" = "ฉากนี้ยังไม่มีฟุตเทจจากบูธ เปิดกล้องบูธแล้วพากย์สักบท";
 "booth.export.includeBooth" = "ใส่ฟุตเทจจากบูธ";

@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "Друг над другом";
 "booth.frame.reaction" = "Реакция";
 "booth.frame.split" = "Рядом";
+"booth.frame.vertical" = "Вертикаль";
+"booth.export.pipCorner" = "Угол кабины";
+"booth.export.pip.bottomRight" = "Справа внизу";
+"booth.export.pip.bottomLeft" = "Слева внизу";
+"booth.export.pip.topRight" = "Справа вверху";
 "booth.export.stackedNote" = "«Друг над другом» и «Реакция» рендерятся в 9:16 с осциллограммой внизу: реплика сцены сверху, твоя снизу.";
 "booth.export.noFootage" = "В этой сцене пока нет материала из кабины. Включи Booth Cam и озвучь реплику.";
 "booth.export.includeBooth" = "Включить материал из кабины";

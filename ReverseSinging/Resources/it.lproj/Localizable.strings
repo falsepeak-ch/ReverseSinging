@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "Una sopra l'altra";
 "booth.frame.reaction" = "Reazione";
 "booth.frame.split" = "Fianco a fianco";
+"booth.frame.vertical" = "Verticale";
+"booth.export.pipCorner" = "Angolo della cabina";
+"booth.export.pip.bottomRight" = "In basso a destra";
+"booth.export.pip.bottomLeft" = "In basso a sinistra";
+"booth.export.pip.topRight" = "In alto a destra";
 "booth.export.stackedNote" = "Una sopra l'altra e Reazione escono in 9:16 con una forma d'onda in basso: la battuta della scena sopra, la tua sotto.";
 "booth.export.noFootage" = "In questa scena non c'è ancora girato di cabina. Accendi Booth Cam e doppia una battuta.";
 "booth.export.includeBooth" = "Includi il girato di cabina";

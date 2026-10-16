@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "Boven elkaar";
 "booth.frame.reaction" = "Reactie";
 "booth.frame.split" = "Naast elkaar";
+"booth.frame.vertical" = "Verticaal";
+"booth.export.pipCorner" = "Hoek van de cabine";
+"booth.export.pip.bottomRight" = "Rechtsonder";
+"booth.export.pip.bottomLeft" = "Linksonder";
+"booth.export.pip.topRight" = "Rechtsboven";
 "booth.export.stackedNote" = "Boven elkaar en Reactie renderen in 9:16 met een golfvorm onderaan: de zin van de scène boven, die van jou eronder.";
 "booth.export.noFootage" = "Nog geen cabinebeelden in deze scène. Zet Booth Cam aan en dub een zin.";
 "booth.export.includeBooth" = "Cabinebeelden meenemen";

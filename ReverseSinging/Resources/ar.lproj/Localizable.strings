@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "فوق بعضهما";
 "booth.frame.reaction" = "ردّة فعل";
 "booth.frame.split" = "جنباً إلى جنب";
+"booth.frame.vertical" = "عمودي";
+"booth.export.pipCorner" = "زاوية الكابينة";
+"booth.export.pip.bottomRight" = "أسفل اليمين";
+"booth.export.pip.bottomLeft" = "أسفل اليسار";
+"booth.export.pip.topRight" = "أعلى اليمين";
 "booth.export.stackedNote" = "«فوق بعضهما» و«ردّة فعل» يخرجان بنسبة 9:16 مع موجة صوتية في الأسفل: جملة المشهد فوق، وجملتك تحت.";
 "booth.export.noFootage" = "لا توجد لقطات كابينة في هذا المشهد بعد. شغّل كاميرا الكابينة ودبلج جملة.";
 "booth.export.includeBooth" = "تضمين لقطات الكابينة";

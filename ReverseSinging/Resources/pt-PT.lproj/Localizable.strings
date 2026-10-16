@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "Uma por cima da outra";
 "booth.frame.reaction" = "Reação";
 "booth.frame.split" = "Lado a lado";
+"booth.frame.vertical" = "Vertical";
+"booth.export.pipCorner" = "Canto da cabine";
+"booth.export.pip.bottomRight" = "Em baixo à direita";
+"booth.export.pip.bottomLeft" = "Em baixo à esquerda";
+"booth.export.pip.topRight" = "Em cima à direita";
 "booth.export.stackedNote" = "Uma por cima da outra e Reação saem em 9:16 com uma onda no rodapé: a fala da cena em cima, a tua em baixo.";
 "booth.export.noFootage" = "Ainda não há imagens de cabine nesta cena. Liga a câmara e dobra uma fala.";
 "booth.export.includeBooth" = "Incluir as imagens de cabine";

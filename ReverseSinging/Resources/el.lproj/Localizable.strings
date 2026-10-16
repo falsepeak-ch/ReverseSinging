@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "Το ένα πάνω στο άλλο";
 "booth.frame.reaction" = "Αντίδραση";
 "booth.frame.split" = "Δίπλα δίπλα";
+"booth.frame.vertical" = "Κάθετο";
+"booth.export.pipCorner" = "Γωνία καμπίνας";
+"booth.export.pip.bottomRight" = "Κάτω δεξιά";
+"booth.export.pip.bottomLeft" = "Κάτω αριστερά";
+"booth.export.pip.topRight" = "Πάνω δεξιά";
 "booth.export.stackedNote" = "Το ένα πάνω στο άλλο και Αντίδραση βγαίνουν σε 9:16 με κυματομορφή στο κάτω μέρος: η ατάκα της σκηνής πάνω, η δική σου κάτω.";
 "booth.export.noFootage" = "Δεν υπάρχει ακόμα υλικό θαλάμου σε αυτή τη σκηνή. Άνοιξε το Booth Cam και μεταγλώττισε μία ατάκα.";
 "booth.export.includeBooth" = "Να μπει το υλικό θαλάμου";

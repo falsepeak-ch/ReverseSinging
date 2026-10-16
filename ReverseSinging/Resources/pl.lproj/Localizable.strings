@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "Jeden nad drugim";
 "booth.frame.reaction" = "Reakcja";
 "booth.frame.split" = "Obok siebie";
+"booth.frame.vertical" = "Pionowy";
+"booth.export.pipCorner" = "Róg kabiny";
+"booth.export.pip.bottomRight" = "Prawy dolny";
+"booth.export.pip.bottomLeft" = "Lewy dolny";
+"booth.export.pip.topRight" = "Prawy górny";
 "booth.export.stackedNote" = "Jeden nad drugim i Reakcja renderują się w 9:16 z falą na dole: kwestia sceny u góry, twoja pod nią.";
 "booth.export.noFootage" = "W tej scenie nie ma jeszcze materiału z kabiny. Włącz Booth Cam i zdubbinguj kwestię.";
 "booth.export.includeBooth" = "Dołącz materiał z kabiny";

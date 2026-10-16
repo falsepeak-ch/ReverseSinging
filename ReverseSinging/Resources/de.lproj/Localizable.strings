@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "Übereinander";
 "booth.frame.reaction" = "Reaktion";
 "booth.frame.split" = "Nebeneinander";
+"booth.frame.vertical" = "Hochformat";
+"booth.export.pipCorner" = "Ecke der Kabine";
+"booth.export.pip.bottomRight" = "Unten rechts";
+"booth.export.pip.bottomLeft" = "Unten links";
+"booth.export.pip.topRight" = "Oben rechts";
 "booth.export.stackedNote" = "Übereinander und Reaktion rendern in 9:16, mit einer Wellenform am Fuß: die Zeile der Szene oben, deine darunter.";
 "booth.export.noFootage" = "In dieser Szene gibt es noch kein Kabinenmaterial. Schalt die Booth Cam ein und vertone eine Zeile.";
 "booth.export.includeBooth" = "Kabinenmaterial einbeziehen";

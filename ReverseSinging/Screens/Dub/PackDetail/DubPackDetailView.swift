@@ -109,8 +109,8 @@ struct DubPackDetailView: View {
                     line: viewModel.exportOptionsLine,
                     hasBoothFootage: session.hasAnyBoothTake,
                     runtime: { viewModel.runtime(of: $0) },
-                    onExport: { cut, frame, includesBooth in
-                        viewModel.configureExport(cut: cut, frame: frame, includesBooth: includesBooth)
+                    onExport: { cut, frame, includesBooth, pipCorner in
+                        viewModel.configureExport(cut: cut, frame: frame, includesBooth: includesBooth, pipCorner: pipCorner)
                     },
                     onCancel: { viewModel.cancelExportOptions() }
                 )

@@ -29,6 +29,12 @@ final class DubExportOptionsViewModel: ObservableObject {
     /// Whether the performer's own footage goes into the file. Only the vertical frames can
     /// be rendered without it, so only they show the switch.
     @Published var includesBooth: Bool
+    /// Where the booth sits in the `vertical` frame. Remembered, because someone who moved it
+    /// once to clear their platform's buttons will want it there next time too.
+    @Published var pipCorner: DubPipCorner {
+        didSet { UserDefaults.standard.set(pipCorner.rawValue, forKey: Self.pipCornerKey) }
+    }
+    private static let pipCornerKey = "dub.export.pipCorner"
     /// The scene picture's shape, read from the pack's own video. Nil until it has loaded, and
     /// for packs that have no video and are exported as a slideshow.
     @Published private(set) var sceneSize: CGSize?
@@ -52,6 +58,8 @@ final class DubExportOptionsViewModel: ObservableObject {
         // is not, so it keeps the shape it has always exported in.
         frame = hasBoothFootage ? (line == nil ? .corner : .stacked) : .off
         includesBooth = hasBoothFootage
+        pipCorner = UserDefaults.standard.string(forKey: Self.pipCornerKey)
+            .flatMap(DubPipCorner.init(rawValue:)) ?? .bottomRight
     }
 
     // MARK: - Screen
@@ -92,6 +100,21 @@ final class DubExportOptionsViewModel: ObservableObject {
     /// clip `BoothRecorder` writes is portrait; the exact numbers only move the inset by a
     /// hair, and the render reads the real ones.
     static let boothDisplaySize = CGSize(width: 720, height: 1280)
+
+    /// The layout the preview and the slate describe: the same arithmetic the render uses.
+    func layout(for option: DubBoothFrame) -> DubBoothLayout {
+        DubBoothLayout.make(
+            frame: option,
+            sceneDisplaySize: sceneDisplaySize,
+            boothDisplaySize: Self.boothDisplaySize,
+            pipCorner: pipCorner
+        )
+    }
+
+    /// Whether the corner picker has anything to move: the vertical frame, with a booth in it.
+    var showsCornerPicker: Bool {
+        frame == .vertical && showsBooth
+    }
 
     /// The shape the export is laid out around: the pack's own video, or the 16:9 slideshow
     /// that stands in for a pack that has none.
@@ -137,11 +160,7 @@ final class DubExportOptionsViewModel: ObservableObject {
     /// own shape, which is whatever the pack ships — a 4:3 short from 1951 as readily as a
     /// 16:9 one — so this reads it rather than assuming.
     var shapeLabel: String {
-        DubBoothLayout.make(
-            frame: frame,
-            sceneDisplaySize: sceneDisplaySize,
-            boothDisplaySize: Self.boothDisplaySize
-        ).renderSize.rsAspectLabel
+        layout(for: frame).renderSize.rsAspectLabel
     }
 
     /// Whether the booth goes into the render. Never without footage, whatever the switch says.

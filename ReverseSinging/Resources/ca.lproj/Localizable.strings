@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "Una sobre l'altra";
 "booth.frame.reaction" = "Reacció";
 "booth.frame.split" = "Costat a costat";
+"booth.frame.vertical" = "Vertical";
+"booth.export.pipCorner" = "Cantonada de la cabina";
+"booth.export.pip.bottomRight" = "A baix a la dreta";
+"booth.export.pip.bottomLeft" = "A baix a l'esquerra";
+"booth.export.pip.topRight" = "A dalt a la dreta";
 "booth.export.stackedNote" = "Una sobre l'altra i Reacció es renderitzen en 9:16 amb una ona al peu: la frase de l'escena a dalt, la teva a baix.";
 "booth.export.noFootage" = "Encara no hi ha material de cabina en aquesta escena. Encén la càmera i dobla una frase.";
 "booth.export.includeBooth" = "Inclou el material de cabina";

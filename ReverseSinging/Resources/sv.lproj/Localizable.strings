@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "Ovanpå varandra";
 "booth.frame.reaction" = "Reaktion";
 "booth.frame.split" = "Sida vid sida";
+"booth.frame.vertical" = "Stående";
+"booth.export.pipCorner" = "Bås-hörn";
+"booth.export.pip.bottomRight" = "Nere till höger";
+"booth.export.pip.bottomLeft" = "Nere till vänster";
+"booth.export.pip.topRight" = "Uppe till höger";
 "booth.export.stackedNote" = "Ovanpå varandra och Reaktion renderas i 9:16 med en vågform längst ner: scenens replik överst, din under.";
 "booth.export.noFootage" = "Inget båsmaterial i den här scenen än. Slå på Booth Cam och dubba en replik.";
 "booth.export.includeBooth" = "Ta med båsmaterialet";

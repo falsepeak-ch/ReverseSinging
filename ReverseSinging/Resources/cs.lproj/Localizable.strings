@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "Nad sebou";
 "booth.frame.reaction" = "Reakce";
 "booth.frame.split" = "Vedle sebe";
+"booth.frame.vertical" = "Na výšku";
+"booth.export.pipCorner" = "Roh kabiny";
+"booth.export.pip.bottomRight" = "Vpravo dole";
+"booth.export.pip.bottomLeft" = "Vlevo dole";
+"booth.export.pip.topRight" = "Vpravo nahoře";
 "booth.export.stackedNote" = "Nad sebou a Reakce se renderují v 9:16 s křivkou dole: replika scény nahoře, tvoje pod ní.";
 "booth.export.noFootage" = "V téhle scéně zatím nejsou žádné záběry z kabiny. Zapni Booth Cam a nadabuj repliku.";
 "booth.export.includeBooth" = "Zahrnout záběry z kabiny";

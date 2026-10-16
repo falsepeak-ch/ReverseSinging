@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "Stacked";
 "booth.frame.reaction" = "Reaction";
 "booth.frame.split" = "Split";
+"booth.frame.vertical" = "Vertical";
+"booth.export.pipCorner" = "Booth corner";
+"booth.export.pip.bottomRight" = "Bottom right";
+"booth.export.pip.bottomLeft" = "Bottom left";
+"booth.export.pip.topRight" = "Top right";
 "booth.export.stackedNote" = "Stacked and Reaction render 9:16 with a waveform along the foot: the scene's line above, yours below.";
 "booth.export.noFootage" = "No booth footage in this scene yet. Turn Booth Cam on and dub a line.";
 "booth.export.includeBooth" = "Include booth footage";

@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "Одне над одним";
 "booth.frame.reaction" = "Реакція";
 "booth.frame.split" = "Поруч";
+"booth.frame.vertical" = "Вертикаль";
+"booth.export.pipCorner" = "Кут кабіни";
+"booth.export.pip.bottomRight" = "Праворуч унизу";
+"booth.export.pip.bottomLeft" = "Ліворуч унизу";
+"booth.export.pip.topRight" = "Праворуч угорі";
 "booth.export.stackedNote" = "«Одне над одним» і «Реакція» рендеряться в 9:16 з осцилограмою внизу: репліка сцени зверху, твоя знизу.";
 "booth.export.noFootage" = "У цій сцені ще немає матеріалу з кабіни. Увімкни Booth Cam і озвуч репліку.";
 "booth.export.includeBooth" = "Додати матеріал з кабіни";

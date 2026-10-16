@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "上下に並べる";
 "booth.frame.reaction" = "リアクション";
 "booth.frame.split" = "左右に並べる";
+"booth.frame.vertical" = "縦型";
+"booth.export.pipCorner" = "ブースの位置";
+"booth.export.pip.bottomRight" = "右下";
+"booth.export.pip.bottomLeft" = "左下";
+"booth.export.pip.topRight" = "右上";
 "booth.export.stackedNote" = "「上下に並べる」と「リアクション」は9:16で書き出され、下部に波形が入ります。上がシーンのセリフ、下があなたの声です。";
 "booth.export.noFootage" = "このシーンにはまだブースの映像がありません。ブースカメラをオンにして1本アフレコしてください。";
 "booth.export.includeBooth" = "ブースの映像を入れる";

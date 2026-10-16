@@ -405,6 +405,11 @@
 "booth.frame.stacked" = "Oven på hinanden";
 "booth.frame.reaction" = "Reaktion";
 "booth.frame.split" = "Side om side";
+"booth.frame.vertical" = "Lodret";
+"booth.export.pipCorner" = "Kabinens hjørne";
+"booth.export.pip.bottomRight" = "Nederst til højre";
+"booth.export.pip.bottomLeft" = "Nederst til venstre";
+"booth.export.pip.topRight" = "Øverst til højre";
 "booth.export.stackedNote" = "Oven på hinanden og Reaktion renderes i 9:16 med en kurve i bunden: scenens replik øverst, din nederst.";
 "booth.export.noFootage" = "Der er ingen boksoptagelser i denne scene endnu. Tænd Booth Cam og dub en replik.";
 "booth.export.includeBooth" = "Tag boksoptagelserne med";
