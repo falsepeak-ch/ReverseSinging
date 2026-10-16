@@ -97,6 +97,28 @@ extension Image {
     }
 }
 
+// MARK: - Navigation Bar
+
+/// See `hidesNavigationBar()`. One chain of modifiers whose values change, never two
+/// branches, so opening or closing the device keeps the screen and its state.
+private struct EditorNavigationBar: ViewModifier {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+
+    func body(content: Content) -> some View {
+        #if os(iOS)
+        let usesSystemBar = EditorBars.useSystemBar(horizontalSizeClass, verticalSizeClass)
+        content
+            .toolbar(usesSystemBar ? .visible : .hidden, for: .navigationBar)
+            .toolbarBackground(.hidden, for: .navigationBar)
+            // Back as a chevron alone: the menu it returns to has no title to show.
+            .toolbarRole(.editor)
+        #else
+        content.navigationBarBackButtonHidden(true)
+        #endif
+    }
+}
+
 // MARK: - Presentation
 
 /// How big a cover is on the Mac, where there is no screen to cover: a sheet that fills most
@@ -109,12 +131,11 @@ extension View {
     /// The screens draw their own header, so the system bar goes: the navigation bar on iOS.
     /// On the Mac only the back button a pushed view would add to the title bar; hiding the
     /// whole window toolbar takes the close and minimise buttons with it.
+    ///
+    /// iPhone Duo open is the exception: there the header's actions and Back are system bar
+    /// items (`EditorBars`), so the bar shows, without a background of its own.
     func hidesNavigationBar() -> some View {
-        #if os(iOS)
-        toolbar(.hidden, for: .navigationBar)
-        #else
-        navigationBarBackButtonHidden(true)
-        #endif
+        modifier(EditorNavigationBar())
     }
 
     /// iOS only; a Mac window has no status bar.

@@ -61,17 +61,13 @@ struct DubLibraryView: View {
             // Same header as the reverse-singing screen: back, the mode's own
             // title, its actions. Both games are pushed, so both name themselves.
             VStack(spacing: 0) {
-                EditorScreenHeader(title: GameMode.dub.title, onBack: { dismiss() }) {
-                    HStack(spacing: 10) {
-                        HelpButton(topic: .dub)
+                EditorScreenHeader(title: GameMode.dub.title, onBack: { dismiss() }, help: .dub) {
+                    optionsMenu
 
-                        optionsMenu
-
-                        EditorToolbarButton(icon: "plus", label: Strings.Dub.importPack) {
-                            viewModel.requestImport()
-                        }
-                        .disabled(library.isImporting)
+                    EditorToolbarButton(icon: "plus", label: Strings.Dub.importPack) {
+                        viewModel.requestImport()
                     }
+                    .disabled(library.isImporting)
                 }
 
                 if library.packs.isEmpty {

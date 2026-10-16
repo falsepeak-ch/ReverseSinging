@@ -20,16 +20,12 @@ struct HomeVideoDubView: View {
                 .filmGrain()
 
             VStack(spacing: 0) {
-                EditorScreenHeader(title: GameMode.homeVideo.title, onBack: { dismiss() }) {
-                    HStack(spacing: 10) {
-                        HelpButton(topic: .homeVideo)
-
-                        if viewModel.hasVideo {
-                            EditorToolbarButton(icon: "photo.on.rectangle", label: Strings.HomeVideo.change) {
-                                viewModel.isPickerPresented = true
-                            }
-                            .disabled(viewModel.isBusy)
+                EditorScreenHeader(title: GameMode.homeVideo.title, onBack: { dismiss() }, help: .homeVideo) {
+                    if viewModel.hasVideo {
+                        EditorToolbarButton(icon: "photo.on.rectangle", label: Strings.HomeVideo.change) {
+                            viewModel.isPickerPresented = true
                         }
+                        .disabled(viewModel.isBusy)
                     }
                 }
 

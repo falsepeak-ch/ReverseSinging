@@ -54,9 +54,13 @@ struct DubPackDetailView: View {
             // The same header the library and the games use, so a push never
             // swaps one kind of chrome for another.
             VStack(spacing: 0) {
-                EditorScreenHeader(title: pack.title, onBack: showsBack ? { dismiss() } : nil) {
-                    HelpButton(topic: .dub)
-                }
+                // Beside the library (no Back), the library's header already offers this
+                // chapter of Help: one question mark per screen.
+                EditorScreenHeader(
+                    title: pack.title,
+                    onBack: showsBack ? { dismiss() } : nil,
+                    help: showsBack ? .dub : nil
+                )
 
                 ScrollView {
                     VStack(spacing: 24) {

@@ -17,6 +17,7 @@ struct HomeView: View {
     @Environment(\.verticalSizeClass) private var verticalSizeClass
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @StateObject private var viewModel = HomeViewModel()
+    @State private var isHelpPresented = false
 
     /// The reverse game's model. Held by the menu rather than by the game screen, so a
     /// session in progress survives going back to the menu and in again.
@@ -235,6 +236,12 @@ struct HomeView: View {
 
     // MARK: - Header
 
+    /// iPhone Duo open: Help and Settings are system bar items, so they sit in the bar the
+    /// inner display draws (the trailing strip in landscape) rather than in the content.
+    private var usesSystemBar: Bool {
+        EditorBars.useSystemBar(sizeClass, verticalSizeClass)
+    }
+
     private var header: some View {
         VStack(spacing: 0) {
             EditorHeaderBar {
@@ -245,17 +252,44 @@ struct HomeView: View {
 
                 Spacer()
 
-                HelpButton(topic: .gettingStarted)
+                if !usesSystemBar {
+                    HelpButton(topic: .gettingStarted)
 
-                EditorToolbarButton(
-                    icon: "slider.horizontal.3",
-                    label: Strings.Settings.title
-                ) {
-                    app.showSettings = true
+                    settingsButton
                 }
             }
 
             Spacer()
+        }
+        #if os(iOS)
+        .toolbar {
+            if usesSystemBar {
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    Button {
+                        HapticManager.shared.light()
+                        isHelpPresented = true
+                    } label: {
+                        Label(Strings.Help.title, systemImage: "questionmark")
+                    }
+
+                    settingsButton
+                        .environment(\.editorControlsInSystemBar, true)
+                }
+            }
+        }
+        .sheet(isPresented: $isHelpPresented) {
+            HelpView(topic: .gettingStarted)
+                .presentationDragIndicator(.visible)
+        }
+        #endif
+    }
+
+    private var settingsButton: some View {
+        EditorToolbarButton(
+            icon: "slider.horizontal.3",
+            label: Strings.Settings.title
+        ) {
+            app.showSettings = true
         }
     }
 }

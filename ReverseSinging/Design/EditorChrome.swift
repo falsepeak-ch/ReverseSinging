@@ -264,7 +264,24 @@ struct EditorToolbarButton: View {
     let label: String
     let action: () -> Void
 
+    @Environment(\.editorControlsInSystemBar) private var inSystemBar
+
     var body: some View {
+        if inSystemBar {
+            // In the system's bar: a title and a symbol, so the system picks how to draw it
+            // and names it in the overflow menu.
+            Button {
+                HapticManager.shared.light()
+                action()
+            } label: {
+                Label(label, systemImage: icon)
+            }
+        } else {
+            headerButton
+        }
+    }
+
+    private var headerButton: some View {
         Button(action: {
             HapticManager.shared.light()
             action()
@@ -293,7 +310,21 @@ struct EditorToolbarMenu<Content: View>: View {
     let label: String
     @ViewBuilder var content: () -> Content
 
+    @Environment(\.editorControlsInSystemBar) private var inSystemBar
+
     var body: some View {
+        if inSystemBar {
+            Menu {
+                content()
+            } label: {
+                Label(label, systemImage: icon)
+            }
+        } else {
+            headerMenu
+        }
+    }
+
+    private var headerMenu: some View {
         Menu {
             content()
         } label: {
@@ -352,6 +383,40 @@ struct EditorHeaderBar<Content: View>: View {
     }
 }
 
+// MARK: - System Bars
+
+/// Whether a screen's header controls go in the system's bars.
+///
+/// iPhone Duo open (regular in both directions): yes. The inner display puts top-bar items in
+/// the trailing strip in landscape and in a bar across the top in portrait, and only system
+/// bars go there; an app-drawn row of buttons stays in the content (HIG, Designing for iPhone
+/// Duo). Every other iPhone, the outer display and the Mac keep the app-drawn header.
+enum EditorBars {
+    static func useSystemBar(
+        _ horizontal: UserInterfaceSizeClass?,
+        _ vertical: UserInterfaceSizeClass?
+    ) -> Bool {
+        #if os(iOS)
+        horizontal == .regular && vertical == .regular
+        #else
+        false
+        #endif
+    }
+}
+
+private struct EditorControlsInSystemBarKey: EnvironmentKey {
+    static let defaultValue = false
+}
+
+extension EnvironmentValues {
+    /// Set on controls placed in the system's bar: `EditorToolbarButton` and
+    /// `EditorToolbarMenu` then draw as a plain title and symbol instead of the header chrome.
+    var editorControlsInSystemBar: Bool {
+        get { self[EditorControlsInSystemBarKey.self] }
+        set { self[EditorControlsInSystemBarKey.self] = newValue }
+    }
+}
+
 // MARK: - Screen Header
 
 /// The bar at the top of a pushed screen: back, the screen's own title, its actions.
@@ -359,15 +424,40 @@ struct EditorHeaderBar<Content: View>: View {
 /// Pushed screens name themselves rather than repeat the app logo, the branding
 /// belongs to the menu the user came from, and a title is what tells them which
 /// game they are in.
+///
+/// On iPhone Duo open the title stays here and the actions move into the system's bar
+/// (`EditorBars`), with the system's Back.
 struct EditorScreenHeader<Trailing: View>: View {
     let title: String
     /// Nil on a screen with nowhere to go back to, such as the Mac's only game.
     let onBack: (() -> Void)?
-    @ViewBuilder var trailing: Trailing
+    /// The Help chapter for this screen, first among the actions.
+    let help: HelpTopic?
+    let trailing: Trailing
+
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+    @State private var isHelpPresented = false
+
+    init(
+        title: String,
+        onBack: (() -> Void)?,
+        help: HelpTopic? = nil,
+        @ViewBuilder trailing: () -> Trailing
+    ) {
+        self.title = title
+        self.onBack = onBack
+        self.help = help
+        self.trailing = trailing()
+    }
+
+    private var usesSystemBar: Bool {
+        EditorBars.useSystemBar(horizontalSizeClass, verticalSizeClass)
+    }
 
     var body: some View {
         EditorHeaderBar {
-            if let onBack {
+            if let onBack, !usesSystemBar {
                 EditorToolbarButton(
                     icon: "chevron.left",
                     label: Strings.Main.back,
@@ -383,13 +473,42 @@ struct EditorScreenHeader<Trailing: View>: View {
 
             Spacer(minLength: 8)
 
-            trailing
+            if !usesSystemBar {
+                if let help {
+                    HelpButton(topic: help)
+                }
+                trailing
+            }
         }
+        #if os(iOS)
+        .toolbar {
+            if usesSystemBar {
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    if help != nil {
+                        Button {
+                            HapticManager.shared.light()
+                            isHelpPresented = true
+                        } label: {
+                            Label(Strings.Help.title, systemImage: "questionmark")
+                        }
+                    }
+                    Group { trailing }
+                        .environment(\.editorControlsInSystemBar, true)
+                }
+            }
+        }
+        .sheet(isPresented: $isHelpPresented) {
+            if let help {
+                HelpView(topic: help)
+                    .presentationDragIndicator(.visible)
+            }
+        }
+        #endif
     }
 }
 
 extension EditorScreenHeader where Trailing == EmptyView {
-    init(title: String, onBack: (() -> Void)?) {
-        self.init(title: title, onBack: onBack) { EmptyView() }
+    init(title: String, onBack: (() -> Void)?, help: HelpTopic? = nil) {
+        self.init(title: title, onBack: onBack, help: help) { EmptyView() }
     }
 }
