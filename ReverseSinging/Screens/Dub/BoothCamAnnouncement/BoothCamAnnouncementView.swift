@@ -9,9 +9,8 @@ import SwiftUI
 
 /// Shown once, to people who were dubbing before Booth Cam arrived. See `BoothCamAnnouncement`.
 ///
-/// Set like `EarlyAdopterWelcomeView`: the clapper band, a tracked label, a leading-aligned
-/// illustration and a slate of labelled rows, because it is the same kind of screen, a fact
-/// about this app told plainly and once. Not a primer and not a permission ask: the camera is
+/// The clapper band, a tracked label, a leading-aligned illustration and a slate of labelled
+/// rows: a fact about this app told plainly and once. Not a primer and not a permission ask: the camera is
 /// not requested here and nothing is switched on. The primer does that, when the user reaches
 /// for the key, and the slate says where the key is.
 struct BoothCamAnnouncementView: View {
@@ -33,8 +32,7 @@ struct BoothCamAnnouncementView: View {
             VStack(spacing: 0) {
                 ClapperBand()
 
-                // Scrolled rather than fixed, for the same reason the early-adopter note is:
-                // the message runs to seven lines in some languages, and a screen announcing
+                // Scrolled rather than fixed: the message runs to seven lines in some languages, and a screen announcing
                 // a feature must not clip its own last line.
                 GeometryReader { proxy in
                     ScrollView {

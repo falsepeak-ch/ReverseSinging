@@ -51,11 +51,6 @@ struct HomeView: View {
                 .paywallAppearance()
                 .sheetBesideTheSeam()
         }
-        .sheet(isPresented: $viewModel.isEarlyAdopterWelcomePresented) {
-            EarlyAdopterWelcomeView()
-                .onDisappear { viewModel.earlyAdopterWelcomeDidDisappear() }
-                .sheetBesideTheSeam()
-        }
         .sheet(isPresented: $viewModel.isBoothAnnouncementPresented) {
             BoothCamAnnouncementView(onTryIt: { viewModel.openDub() })
                 .onDisappear { viewModel.boothAnnouncementDidDisappear() }
@@ -77,12 +72,6 @@ struct HomeView: View {
                 },
                 onCancel: { viewModel.reviewDialogDidCancel() }
             )
-        }
-        // Watched rather than checked once on appear: the exemption can be granted
-        // a beat after launch, when the receipt lands, and this is the menu the
-        // user is already looking at when it does.
-        .onChange(of: viewModel.shouldWelcomeEarlyAdopter, initial: true) { _, _ in
-            viewModel.presentEarlyAdopterWelcomeIfDue()
         }
         .onAppear { viewModel.onAppear(game: game, app: app) }
         // Again whenever access changes: a subscription that lapses can open a win-back offer.

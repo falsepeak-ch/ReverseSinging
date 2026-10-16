@@ -143,7 +143,6 @@
 "settings.about.license.lifetime" = "Dubloon Pro, doživotně";
 "settings.about.license.renews" = "Dubloon Pro, obnoví se %@";
 "settings.about.license.ends" = "Dubloon Pro, končí %@";
-"settings.about.license.earlyAdopter" = "Průkopník, zdarma navždy";
 "settings.about.license.free" = "Zdarma";
 
 // Theme descriptions
@@ -351,22 +350,8 @@
 "review.feedback.placeholder" = "Co by mělo být lepší?";
 "review.feedback.send" = "Odeslat";
 
-// MARK: - Pro / Early adopters
-"pro.earlyAdopter.title" = "Vítej v klubu";
-"pro.earlyAdopter.message" = "Dubloon teď stojí peníze — jenom u tebe ne. Byl jsi tu dřív, než přišla cenovka, takže všechny čtyři hry zůstávají tvoje, zdarma, dokud aplikace existuje. Díky za ty první dny.";
-"pro.earlyAdopter.badge" = "Zdarma navždy";
-"pro.earlyAdopter.confirm" = "Paráda";
-"pro.earlyAdopter.settings.title" = "Zdarma navždy";
-"pro.earlyAdopter.settings.subtitle" = "Byl jsi tu brzy. Všechny čtyři hry jsou tvoje a nic nám nedlužíš.";
+// MARK: - Pro
 "pro.closePaywall" = "Zavřít";
-
-// Early adopter slate rows
-"pro.earlyAdopter.row.access" = "Přístup";
-"pro.earlyAdopter.row.access.value" = "Všechny čtyři hry";
-"pro.earlyAdopter.row.cost" = "Cena";
-"pro.earlyAdopter.row.cost.value" = "Nic";
-"pro.earlyAdopter.row.expires" = "Vyprší";
-"pro.earlyAdopter.row.expires.value" = "Nikdy";
 
 /* MARK: - Booth Cam */
 "booth.slug" = "Kabina";

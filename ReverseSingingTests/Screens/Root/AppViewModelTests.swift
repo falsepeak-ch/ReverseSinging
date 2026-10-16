@@ -57,8 +57,8 @@ struct AppViewModelTests {
         #expect(!relaunched.hapticsEnabled)
     }
 
-    /// `EarlyAdopter` and `BoothCamAnnouncement` read these keys from installs that predate
-    /// this view model, and `HapticManager` reads the haptics one, so they must not change.
+    /// Installs that predate this view model already have these keys, `BoothCamAnnouncement`
+    /// reads the onboarding one and `HapticManager` the haptics one, so they must not change.
     @Test func writesTheKeysInstallsAlreadyHave() {
         let defaults = makeDefaults()
         let viewModel = AppViewModel(defaults: defaults)

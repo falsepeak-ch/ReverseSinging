@@ -143,7 +143,6 @@
 "settings.about.license.lifetime" = "Dubloon Pro, ömür boyu";
 "settings.about.license.renews" = "Dubloon Pro, %@ tarihinde yenilenir";
 "settings.about.license.ends" = "Dubloon Pro, %@ tarihinde sona erer";
-"settings.about.license.earlyAdopter" = "İlk kullanıcı, ömür boyu ücretsiz";
 "settings.about.license.free" = "Ücretsiz";
 
 // Theme descriptions
@@ -351,22 +350,8 @@
 "review.feedback.placeholder" = "Ne daha iyi olmalı?";
 "review.feedback.send" = "Gönder";
 
-// MARK: - Pro / Early adopters
-"pro.earlyAdopter.title" = "Kulübe hoş geldin";
-"pro.earlyAdopter.message" = "Dubloon artık ücretli — ama senin için değil. Fiyat etiketi gelmeden önce buradaydın, o yüzden dört oyun da uygulama var olduğu sürece ücretsiz senin kalıyor. İlk günler için teşekkürler.";
-"pro.earlyAdopter.badge" = "Ömür boyu ücretsiz";
-"pro.earlyAdopter.confirm" = "Güzel";
-"pro.earlyAdopter.settings.title" = "Ömür boyu ücretsiz";
-"pro.earlyAdopter.settings.subtitle" = "Erken geldin. Dört oyun da senin ve bize hiçbir borcun yok.";
+// MARK: - Pro
 "pro.closePaywall" = "Kapat";
-
-// Early adopter slate rows
-"pro.earlyAdopter.row.access" = "Erişim";
-"pro.earlyAdopter.row.access.value" = "Dört oyun";
-"pro.earlyAdopter.row.cost" = "Bedel";
-"pro.earlyAdopter.row.cost.value" = "Yok";
-"pro.earlyAdopter.row.expires" = "Bitiş";
-"pro.earlyAdopter.row.expires.value" = "Asla";
 
 /* MARK: - Booth Cam */
 "booth.slug" = "Kabin";

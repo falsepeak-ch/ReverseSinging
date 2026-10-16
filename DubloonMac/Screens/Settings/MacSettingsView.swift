@@ -139,12 +139,7 @@ struct MacSettingsView: View {
     private var account: some View {
         Form {
             Section {
-                if viewModel.isEarlyAdopter {
-                    LabeledContent(Strings.Pro.EarlyAdopter.settingsTitle) {
-                        Image(systemName: "checkmark.seal.fill").foregroundColor(.rsGood)
-                    }
-                    Text(Strings.Pro.EarlyAdopter.settingsSubtitle).foregroundColor(.secondary)
-                } else if viewModel.isPro {
+                if viewModel.isPro {
                     LabeledContent(viewModel.ownedTitle) {
                         Image(systemName: "checkmark.seal.fill").foregroundColor(.rsGood)
                     }
@@ -158,12 +153,10 @@ struct MacSettingsView: View {
                 }
             }
 
-            if !viewModel.isEarlyAdopter {
-                Section {
-                    LabeledContent(Strings.Pro.restoreSubtitle) {
-                        Button(Strings.Pro.restoreTitle) { viewModel.restore() }
-                            .disabled(viewModel.isRestoring)
-                    }
+            Section {
+                LabeledContent(Strings.Pro.restoreSubtitle) {
+                    Button(Strings.Pro.restoreTitle) { viewModel.restore() }
+                        .disabled(viewModel.isRestoring)
                 }
             }
         }
@@ -187,10 +180,9 @@ struct MacSettingsView: View {
             }
 
             VStack(spacing: 2) {
-                let hasFullAccess = viewModel.isPro || viewModel.isEarlyAdopter
-                Label(viewModel.licenseText, systemImage: hasFullAccess ? "checkmark.seal.fill" : "person.crop.circle")
+                Label(viewModel.licenseText, systemImage: viewModel.isPro ? "checkmark.seal.fill" : "person.crop.circle")
                     .font(.system(size: 13, weight: .semibold))
-                    .foregroundColor(hasFullAccess ? .rsGood : .primary)
+                    .foregroundColor(viewModel.isPro ? .rsGood : .primary)
 
                 if let memberSince = viewModel.memberSinceText {
                     Text(memberSince)

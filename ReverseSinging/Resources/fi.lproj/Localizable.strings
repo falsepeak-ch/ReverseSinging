@@ -143,7 +143,6 @@
 "settings.about.license.lifetime" = "Dubloon Pro, elinikäinen";
 "settings.about.license.renews" = "Dubloon Pro, uusiutuu %@";
 "settings.about.license.ends" = "Dubloon Pro, päättyy %@";
-"settings.about.license.earlyAdopter" = "Varhainen käyttäjä, ilmainen ikuisesti";
 "settings.about.license.free" = "Ilmainen";
 
 // Theme descriptions
@@ -351,22 +350,8 @@
 "review.feedback.placeholder" = "Minkä pitäisi olla paremmin?";
 "review.feedback.send" = "Lähetä";
 
-// MARK: - Pro / Early adopters
-"pro.earlyAdopter.title" = "Tervetuloa kerhoon";
-"pro.earlyAdopter.message" = "Dubloon maksaa nyt rahaa — paitsi sinulle. Olit täällä ennen hintalappua, joten kaikki neljä peliä pysyvät sinun, ilmaiseksi, niin kauan kuin sovellus on olemassa. Kiitos alkuajoista.";
-"pro.earlyAdopter.badge" = "Ilmainen ikuisesti";
-"pro.earlyAdopter.confirm" = "Hienoa";
-"pro.earlyAdopter.settings.title" = "Ilmainen ikuisesti";
-"pro.earlyAdopter.settings.subtitle" = "Olit mukana aikaisin. Kaikki neljä peliä ovat sinun, etkä ole meille mitään velkaa.";
+// MARK: - Pro
 "pro.closePaywall" = "Sulje";
-
-// Early adopter slate rows
-"pro.earlyAdopter.row.access" = "Käyttöoikeus";
-"pro.earlyAdopter.row.access.value" = "Kaikki neljä peliä";
-"pro.earlyAdopter.row.cost" = "Hinta";
-"pro.earlyAdopter.row.cost.value" = "Ei mitään";
-"pro.earlyAdopter.row.expires" = "Päättyy";
-"pro.earlyAdopter.row.expires.value" = "Ei koskaan";
 
 /* MARK: - Booth Cam */
 "booth.slug" = "Koppi";

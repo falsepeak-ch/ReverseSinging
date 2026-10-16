@@ -46,8 +46,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         // that will not start is reported through the `FirebaseApp` configured above.
         AccessController.shared.start()
 
-        // Whether this launch is an update. Decided here for the same reason the
-        // early-adopter check is: the first screen writes the very marker it reads.
+        // Whether this launch is an update. Decided here, ahead of the first screen,
+        // because the first screen writes the very marker it reads.
         BoothCamAnnouncement.shared.resolveAtLaunch()
 
         return true

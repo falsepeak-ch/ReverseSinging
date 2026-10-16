@@ -143,7 +143,6 @@
 "settings.about.license.lifetime" = "Dubloon Pro, livstid";
 "settings.about.license.renews" = "Dubloon Pro, fornyes %@";
 "settings.about.license.ends" = "Dubloon Pro, udløber %@";
-"settings.about.license.earlyAdopter" = "Tidlig bruger, gratis for livet";
 "settings.about.license.free" = "Gratis";
 
 // Theme descriptions
@@ -351,22 +350,8 @@
 "review.feedback.placeholder" = "Hvad skal være bedre?";
 "review.feedback.send" = "Send";
 
-// MARK: - Pro / Early adopters
-"pro.earlyAdopter.title" = "Velkommen i klubben";
-"pro.earlyAdopter.message" = "Dubloon koster penge nu — bare ikke for dig. Du var her, før der kom en prismærkat på, så alle fire spil bliver ved med at være dine, gratis, så længe appen findes. Tak for de første dage.";
-"pro.earlyAdopter.badge" = "Gratis for livet";
-"pro.earlyAdopter.confirm" = "Fedt";
-"pro.earlyAdopter.settings.title" = "Gratis for livet";
-"pro.earlyAdopter.settings.subtitle" = "Du var her tidligt. Alle fire spil er dine, og du skylder os ingenting.";
+// MARK: - Pro
 "pro.closePaywall" = "Luk";
-
-// Early adopter slate rows
-"pro.earlyAdopter.row.access" = "Adgang";
-"pro.earlyAdopter.row.access.value" = "Alle fire spil";
-"pro.earlyAdopter.row.cost" = "Pris";
-"pro.earlyAdopter.row.cost.value" = "Ingenting";
-"pro.earlyAdopter.row.expires" = "Udløber";
-"pro.earlyAdopter.row.expires.value" = "Aldrig";
 
 /* MARK: - Booth Cam */
 "booth.slug" = "Boks";

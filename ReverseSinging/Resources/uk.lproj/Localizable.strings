@@ -143,7 +143,6 @@
 "settings.about.license.lifetime" = "Dubloon Pro, назавжди";
 "settings.about.license.renews" = "Dubloon Pro, поновлення %@";
 "settings.about.license.ends" = "Dubloon Pro, до %@";
-"settings.about.license.earlyAdopter" = "Першопроходець, безкоштовно назавжди";
 "settings.about.license.free" = "Безкоштовно";
 
 // Theme descriptions
@@ -351,22 +350,8 @@
 "review.feedback.placeholder" = "Що варто покращити?";
 "review.feedback.send" = "Надіслати";
 
-// MARK: - Pro / Early adopters
-"pro.earlyAdopter.title" = "Вітаємо в клубі";
-"pro.earlyAdopter.message" = "Тепер Dubloon коштує грошей — але не для тебе. Ти був тут ще до цінника, тож усі чотири гри лишаються твоїми, безкоштовно, доки застосунок існує. Дякуємо за перші дні.";
-"pro.earlyAdopter.badge" = "Безкоштовно назавжди";
-"pro.earlyAdopter.confirm" = "Чудово";
-"pro.earlyAdopter.settings.title" = "Безкоштовно назавжди";
-"pro.earlyAdopter.settings.subtitle" = "Ти прийшов рано. Усі чотири гри твої, і ти нам нічого не винен.";
+// MARK: - Pro
 "pro.closePaywall" = "Закрити";
-
-// Early adopter slate rows
-"pro.earlyAdopter.row.access" = "Доступ";
-"pro.earlyAdopter.row.access.value" = "Усі чотири гри";
-"pro.earlyAdopter.row.cost" = "Ціна";
-"pro.earlyAdopter.row.cost.value" = "Нуль";
-"pro.earlyAdopter.row.expires" = "Спливає";
-"pro.earlyAdopter.row.expires.value" = "Ніколи";
 
 /* MARK: - Booth Cam */
 "booth.slug" = "Кабіна";

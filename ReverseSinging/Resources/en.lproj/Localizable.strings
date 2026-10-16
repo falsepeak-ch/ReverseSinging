@@ -143,7 +143,6 @@
 "settings.about.license.lifetime" = "Dubloon Pro, lifetime";
 "settings.about.license.renews" = "Dubloon Pro, renews %@";
 "settings.about.license.ends" = "Dubloon Pro, ends %@";
-"settings.about.license.earlyAdopter" = "Early adopter, free for life";
 "settings.about.license.free" = "Free";
 
 // Theme descriptions
@@ -351,22 +350,8 @@
 "review.feedback.placeholder" = "What should be better?";
 "review.feedback.send" = "Send";
 
-// MARK: - Pro / Early adopters
-"pro.earlyAdopter.title" = "Welcome to the club";
-"pro.earlyAdopter.message" = "Dubloon costs money now — but not for you. You were here before the price tag, so all four games stay yours, free, for as long as the app exists. Thank you for the early days.";
-"pro.earlyAdopter.badge" = "Free for life";
-"pro.earlyAdopter.confirm" = "Nice";
-"pro.earlyAdopter.settings.title" = "Free for life";
-"pro.earlyAdopter.settings.subtitle" = "You were here early. All four games are yours, and you owe us nothing.";
+// MARK: - Pro
 "pro.closePaywall" = "Close";
-
-// Early adopter slate rows
-"pro.earlyAdopter.row.access" = "Access";
-"pro.earlyAdopter.row.access.value" = "All four games";
-"pro.earlyAdopter.row.cost" = "Cost";
-"pro.earlyAdopter.row.cost.value" = "Nothing";
-"pro.earlyAdopter.row.expires" = "Expires";
-"pro.earlyAdopter.row.expires.value" = "Never";
 
 /* MARK: - Booth Cam */
 "booth.slug" = "Booth";

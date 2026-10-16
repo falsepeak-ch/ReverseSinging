@@ -444,15 +444,7 @@ struct SettingsView: View {
             sectionHeader(title: Strings.Pro.section, icon: "sparkles")
 
             VStack(spacing: 8) {
-                if viewModel.isEarlyAdopter {
-                    // Nothing to sell them and nothing to manage: there is no
-                    // transaction behind this, so no Customer Center either.
-                    statusCard(
-                        assetName: "settings-free-for-life",
-                        title: Strings.Pro.EarlyAdopter.settingsTitle,
-                        subtitle: Strings.Pro.EarlyAdopter.settingsSubtitle
-                    )
-                } else if viewModel.isPro {
+                if viewModel.isPro {
                     statusCard(
                         assetName: "settings-owned",
                         title: viewModel.ownedTitle,
@@ -477,15 +469,13 @@ struct SettingsView: View {
                     }
                 }
 
-                if !viewModel.isEarlyAdopter {
-                    settingsRow(
-                        assetName: "settings-restore-purchase",
-                        title: Strings.Pro.restoreTitle,
-                        subtitle: Strings.Pro.restoreSubtitle,
-                        isBusy: viewModel.isRestoring
-                    ) {
-                        viewModel.restore()
-                    }
+                settingsRow(
+                    assetName: "settings-restore-purchase",
+                    title: Strings.Pro.restoreTitle,
+                    subtitle: Strings.Pro.restoreSubtitle,
+                    isBusy: viewModel.isRestoring
+                ) {
+                    viewModel.restore()
                 }
 
                 #if DEBUG
@@ -622,8 +612,7 @@ struct SettingsView: View {
 
             VStack(spacing: 8) {
                 statusCard(
-                    assetName: viewModel.isEarlyAdopter ? "settings-free-for-life"
-                        : viewModel.isPro ? "settings-owned" : "settings-unlock",
+                    assetName: viewModel.isPro ? "settings-owned" : "settings-unlock",
                     title: viewModel.licenseText,
                     subtitle: viewModel.memberSinceText ?? ""
                 )

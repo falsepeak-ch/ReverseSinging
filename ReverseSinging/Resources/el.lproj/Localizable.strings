@@ -143,7 +143,6 @@
 "settings.about.license.lifetime" = "Dubloon Pro, εφ' όρου ζωής";
 "settings.about.license.renews" = "Dubloon Pro, ανανεώνεται στις %@";
 "settings.about.license.ends" = "Dubloon Pro, λήγει στις %@";
-"settings.about.license.earlyAdopter" = "Από τους πρώτους, δωρεάν για πάντα";
 "settings.about.license.free" = "Δωρεάν";
 
 // Theme descriptions
@@ -351,22 +350,8 @@
 "review.feedback.placeholder" = "Τι θα έπρεπε να είναι καλύτερο;";
 "review.feedback.send" = "Αποστολή";
 
-// MARK: - Pro / Early adopters
-"pro.earlyAdopter.title" = "Καλώς ήρθες στο κλαμπ";
-"pro.earlyAdopter.message" = "Το Dubloon πλέον κοστίζει — αλλά όχι για σένα. Ήσουν εδώ πριν μπει ταμπελάκι με τιμή, οπότε και τα τέσσερα παιχνίδια μένουν δικά σου, δωρεάν, όσο υπάρχει η εφαρμογή. Ευχαριστούμε για τις πρώτες μέρες.";
-"pro.earlyAdopter.badge" = "Δωρεάν για πάντα";
-"pro.earlyAdopter.confirm" = "Τέλεια";
-"pro.earlyAdopter.settings.title" = "Δωρεάν για πάντα";
-"pro.earlyAdopter.settings.subtitle" = "Ήσουν εδώ από νωρίς. Και τα τέσσερα παιχνίδια είναι δικά σου και δεν μας χρωστάς τίποτα.";
+// MARK: - Pro
 "pro.closePaywall" = "Κλείσιμο";
-
-// Early adopter slate rows
-"pro.earlyAdopter.row.access" = "Πρόσβαση";
-"pro.earlyAdopter.row.access.value" = "Και τα τέσσερα παιχνίδια";
-"pro.earlyAdopter.row.cost" = "Κόστος";
-"pro.earlyAdopter.row.cost.value" = "Τίποτα";
-"pro.earlyAdopter.row.expires" = "Λήγει";
-"pro.earlyAdopter.row.expires.value" = "Ποτέ";
 
 /* MARK: - Booth Cam */
 "booth.slug" = "Θάλαμος";

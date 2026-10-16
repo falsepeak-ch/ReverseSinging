@@ -227,7 +227,6 @@ nonisolated enum Strings {
             static let licenseLifetime = NSLocalizedString("settings.about.license.lifetime", comment: "License status: bought Dubloon Pro outright")
             static let licenseRenews = NSLocalizedString("settings.about.license.renews", comment: "License status: Dubloon Pro subscription that renews, %@ is a long date")
             static let licenseEnds = NSLocalizedString("settings.about.license.ends", comment: "License status: Dubloon Pro subscription that will not renew, %@ is the long date it ends")
-            static let licenseEarlyAdopter = NSLocalizedString("settings.about.license.earlyAdopter", comment: "License status: was here before the app charged, so never pays")
             static let licenseFree = NSLocalizedString("settings.about.license.free", comment: "License status: free version, no purchase")
         }
 
@@ -564,28 +563,6 @@ nonisolated enum Strings {
         static let errorGeneric = NSLocalizedString("pro.error.generic", comment: "Fallback message when the store gave no readable reason")
         static let ok = NSLocalizedString("pro.ok", comment: "Dismisses an alert")
         static let closePaywall = NSLocalizedString("pro.closePaywall", comment: "VoiceOver label for the button that closes a dismissible paywall")
-
-        /// The note shown once to people who had the app before it charged.
-        enum EarlyAdopter {
-            static let title = NSLocalizedString("pro.earlyAdopter.title", comment: "Title of the one-time note telling a pre-paywall user they keep the app free")
-            static let message = NSLocalizedString("pro.earlyAdopter.message", comment: "Explains that the app is now paid but stays free for them, for life")
-            static let badge = NSLocalizedString("pro.earlyAdopter.badge", comment: "Short badge naming what they have, e.g. 'Free for life'")
-            static let confirm = NSLocalizedString("pro.earlyAdopter.confirm", comment: "Dismisses the note")
-            static let settingsTitle = NSLocalizedString("pro.earlyAdopter.settings.title", comment: "Settings row shown to an early adopter")
-            static let settingsSubtitle = NSLocalizedString("pro.earlyAdopter.settings.subtitle", comment: "Settings subtitle shown to an early adopter")
-
-            /// The three facts, read off like a slate: label on the left, value on
-            /// the right. Values are set in the timecode face, so keep them short —
-            /// a wrapped monospace value breaks the row's rhythm.
-            enum Row {
-                static let access = NSLocalizedString("pro.earlyAdopter.row.access", comment: "Slate row label: what the early adopter can use")
-                static let accessValue = NSLocalizedString("pro.earlyAdopter.row.access.value", comment: "Slate row value: all four games")
-                static let cost = NSLocalizedString("pro.earlyAdopter.row.cost", comment: "Slate row label: what it costs them")
-                static let costValue = NSLocalizedString("pro.earlyAdopter.row.cost.value", comment: "Slate row value: nothing")
-                static let expires = NSLocalizedString("pro.earlyAdopter.row.expires", comment: "Slate row label: when the access runs out")
-                static let expiresValue = NSLocalizedString("pro.earlyAdopter.row.expires.value", comment: "Slate row value: never")
-            }
-        }
 
         /// The paywall the app draws itself when the dashboard's cannot be reached.
         enum Fallback {

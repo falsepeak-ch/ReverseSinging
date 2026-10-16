@@ -49,8 +49,7 @@ public struct ReviewPromptPolicy {
             self.hasImportedPack = hasImportedPack
         }
 
-        /// The keys Dubloon has always used. Leave them as they are: the open count doubles as
-        /// evidence that an install was in use before the paywall.
+        /// The keys Dubloon has always used. Leave them as they are: installs already carry them.
         public static let standard = Keys(
             openCount: "review.appOpenCount",
             shareCount: "review.sharedVideoCount",
