@@ -21,12 +21,14 @@ import AVFoundation
 #if os(iOS)
 struct DubPlayerLayerView: UIViewRepresentable {
     let player: AVPlayer
+    /// Fill the frame (cropping the edges) rather than letterbox it.
+    var fills = false
 
     func makeUIView(context: Context) -> PlayerLayerBackedView {
         let view = PlayerLayerBackedView()
         view.playerLayer.player = player
-        // The whole frame, letterboxed, never cropped to fill.
-        view.playerLayer.videoGravity = .resizeAspect
+        // The whole frame, letterboxed, unless the pane asks to be filled.
+        view.playerLayer.videoGravity = fills ? .resizeAspectFill : .resizeAspect
         view.backgroundColor = .black
         return view
     }
@@ -35,6 +37,7 @@ struct DubPlayerLayerView: UIViewRepresentable {
         if view.playerLayer.player !== player {
             view.playerLayer.player = player
         }
+        view.playerLayer.videoGravity = fills ? .resizeAspectFill : .resizeAspect
     }
 
     /// A view whose backing layer *is* the player layer, so it resizes with the view instead
@@ -47,6 +50,7 @@ struct DubPlayerLayerView: UIViewRepresentable {
 #else
 struct DubPlayerLayerView: NSViewRepresentable {
     let player: AVPlayer
+    var fills = false
 
     func makeNSView(context: Context) -> PlayerLayerBackedView {
         let view = PlayerLayerBackedView()
@@ -82,17 +86,20 @@ struct DubPlayerLayerView: NSViewRepresentable {
 struct DubPicture: View {
     let player: AVPlayer?
     let stillURL: URL?
+    /// Fill the pane, cropping the edges, rather than letterbox: for a pane shaped by the
+    /// display rather than by the scene (the booth on iPhone Duo open).
+    var fills = false
 
     var body: some View {
         ZStack {
             Color.black
 
             if let player {
-                DubPlayerLayerView(player: player)
+                DubPlayerLayerView(player: player, fills: fills)
             } else if let stillURL {
-                // Fit, not fill: the still stands in for the video and should be framed
-                // the same way rather than cropped.
-                DubStillImage(url: stillURL, contentMode: .fit)
+                // Framed as the video is: fit where the video is letterboxed, fill where
+                // it fills.
+                DubStillImage(url: stillURL, contentMode: fills ? .fill : .fit)
             }
         }
     }

@@ -53,6 +53,19 @@ extension View {
             .tracking(EditorMetrics.tracking)
             .foregroundColor(color)
             .textCase(.uppercase)
+            // A label is one line. A long word ("ΜΕΤΑΓΛΩΤΤΙΣΜΕΝΕΣ") shrinks to fit rather
+            // than breaking in the middle onto a second line.
+            .lineLimit(1)
+            .minimumScaleFactor(0.6)
+    }
+
+    /// For a title that may be a single long word in some languages (German
+    /// "Rückwärtssingen"): a one-word title stays on one line and shrinks to fit, so it never
+    /// breaks mid-word; a title of several words wraps between them as before.
+    func keepsWordsWhole(_ text: String) -> some View {
+        self
+            .lineLimit(text.contains(where: \.isWhitespace) ? nil : 1)
+            .minimumScaleFactor(0.6)
     }
 
     /// Overlays fine film grain. Subtle by design: visible as texture, never as noise.

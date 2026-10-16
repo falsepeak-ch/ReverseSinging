@@ -39,6 +39,7 @@ struct GameModeRow: View {
                     Text(mode.title)
                         .font(.rsButtonMedium)
                         .foregroundColor(.rsTextPrimary)
+                        .keepsWordsWhole(mode.title)
                         .fixedSize(horizontal: false, vertical: true)
 
                     Text(mode.subtitle)

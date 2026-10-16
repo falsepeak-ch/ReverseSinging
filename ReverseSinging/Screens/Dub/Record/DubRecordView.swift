@@ -18,6 +18,8 @@ struct DubRecordView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     /// Where the window's middle falls across the bay (see `readWindowMiddleRatio`).
     @State private var seamRatio: CGFloat = 0.5
+    /// The bay is wider than tall: the desk stands beside the picture, full height.
+    @State private var bayIsWide = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Namespace private var bayNamespace
 
@@ -138,11 +140,12 @@ struct DubRecordView: View {
                     .splitArrangementLayoutRatio(idealHorizontal: pictureRatio, idealVertical: 0.5)
             } secondary: {
                 SplitAxisReader { axis in
-                    controls(for: line, isBeside: axis == .horizontal)
+                    controls(for: line, isBeside: axis == .horizontal || bayIsWide)
                 }
             }
             .arrangementViewStyle(.split)
             .readWindowMiddleRatio(into: $seamRatio)
+            .onGeometryChange(for: Bool.self) { $0.size.width > $0.size.height } action: { bayIsWide = $0 }
         } else {
             stackedBay(for: line)
         }
@@ -182,15 +185,14 @@ struct DubRecordView: View {
     private func controls(for line: DubLine, isBeside: Bool) -> some View {
         VStack(spacing: 0) {
             waveformBay(for: line)
-            if isBeside {
-                Spacer(minLength: 0)
-            }
             subtitlePlate(for: line)
-            if isBeside {
-                Spacer(minLength: 0)
-            }
             scoreBay
             transportBar(for: line)
+            // Beside the picture the desk has the display's height: the scene's script
+            // below the transport, every line in it, rather than a bare foot of the pane.
+            if isBeside {
+                scriptList
+            }
         }
         .background(isBeside ? Color.rsSurface1 : Color.clear)
         .overlay(alignment: .leading) {
@@ -200,6 +202,69 @@ struct DubRecordView: View {
                     .frame(width: EditorMetrics.hairline)
             }
         }
+    }
+
+    // MARK: - Script
+
+    /// The scene's lines, the one at the desk lit, each with whether it has a take. A tap
+    /// moves the desk to that line, as the transport's arrows do.
+    private var scriptList: some View {
+        ScrollViewReader { reader in
+            ScrollView {
+                LazyVStack(spacing: 0) {
+                    ForEach(session.pack.lines) { line in
+                        scriptRow(line)
+                            .id(line.id)
+                        EditorRule()
+                    }
+                }
+            }
+            .scrollBounceBehavior(.basedOnSize)
+            .frame(maxHeight: .infinity)
+            .overlay(alignment: .top) { EditorRule() }
+            .onChange(of: session.currentLineIndex, initial: true) { _, _ in
+                guard let id = session.currentLine?.id else { return }
+                withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.25)) {
+                    reader.scrollTo(id, anchor: .center)
+                }
+            }
+        }
+    }
+
+    private func scriptRow(_ line: DubLine) -> some View {
+        let isCurrent = line.id == session.currentLine?.id
+        return Button {
+            session.select(line)
+        } label: {
+            HStack(alignment: .firstTextBaseline, spacing: 10) {
+                Text(String(format: "%03d", line.index))
+                    .font(.rsTimecodeSmall)
+                    .foregroundColor(.rsTextTertiary)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(line.character.uppercased())
+                        .font(.rsCaptionSmall)
+                        .foregroundColor(characterColor(for: line))
+                    Text(line.caption)
+                        .font(.rsMeta)
+                        .foregroundColor(isCurrent ? .rsTextPrimary : .rsTextSecondary)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Spacer(minLength: 8)
+                Image(systemName: session.isRecorded(line) ? "checkmark.circle.fill" : "circle")
+                    .font(.system(size: 13))
+                    .foregroundColor(session.isRecorded(line) ? .rsHighlight : .rsTextTertiary)
+                    .accessibilityHidden(true)
+            }
+            .padding(.horizontal, EditorMetrics.gutter)
+            .padding(.vertical, 9)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(isCurrent ? Color.rsSurface2 : Color.clear)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .disabled(viewModel.isRecording)
+        .accessibilityAddTraits(isCurrent ? .isSelected : [])
     }
 
     // MARK: - HUD
@@ -309,7 +374,10 @@ struct DubRecordView: View {
     private func picture(for line: DubLine) -> some View {
         DubPicture(
             player: viewModel.scenePicture.player,
-            stillURL: session.pack.imageURL(for: line)
+            stillURL: session.pack.imageURL(for: line),
+            // Beside the desk on iPhone Duo open the pane is taller than a scene: filled,
+            // not a strip of film between two black bands.
+            fills: usesSystemBar
         )
             .frame(maxWidth: .infinity)
             .frame(maxHeight: .infinity)
