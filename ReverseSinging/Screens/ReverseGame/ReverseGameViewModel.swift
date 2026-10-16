@@ -38,6 +38,8 @@ final class ReverseGameViewModel: ObservableObject {
     @Published var showSessionList = false
     /// The game's own settings sheet; the menu presents settings through `AppViewModel`.
     @Published var showSettings = false
+    /// The paywall, once the free takes are used up. See `FreeTakes`.
+    @Published var isTakePaywallPresented = false
 
     // MARK: - Services
 
@@ -161,6 +163,14 @@ final class ReverseGameViewModel: ObservableObject {
         // recorded yet, so cancel the count rather than arming a second one behind it.
         if slate.isRunning {
             cancelCountdown()
+            return
+        }
+
+        // A new song needs a free take or Dubloon Pro. The attempt at one already reversed
+        // does not: that take was counted when the song was reversed.
+        let startsNewSong = appState.currentSession?.reversedRecording == nil
+        guard !startsNewSong || AccessController.shared.canStartTake else {
+            isTakePaywallPresented = true
             return
         }
 
@@ -367,6 +377,10 @@ final class ReverseGameViewModel: ObservableObject {
                             SoundManager.shared.play(.projectorChime)
                             HapticManager.shared.success()
                             self.appState.recordingState = .idle
+
+                            if AccessController.shared.recordTake(.reverse) {
+                                self.isTakePaywallPresented = true
+                            }
                         }
                     } catch {
                         await MainActor.run {

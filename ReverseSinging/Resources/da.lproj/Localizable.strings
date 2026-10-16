@@ -11,7 +11,7 @@
 "onboarding.dub.title" = "Dub en filmscene";
 "onboarding.dub.message" = "Det andet spil: sæt en scene i gang, overspil løs, og hør så dig selv i filmen. Fire scener følger med. Derefter tager du dine egne filer med.";
 "onboarding.pro.title" = "Derfor findes Dubloon Pro";
-"onboarding.pro.message" = "Dubloon har ingen reklamer, ingen konto og ingen sporing, og det laves af én person i Zürich. Dubloon Pro er det, der betaler for det: alle scener, lydimitation, Booth Cam og eksport. Baglænssang og dubbing af dine egne videoer forbliver gratis.";
+"onboarding.pro.message" = "Dubloon har ingen reklamer, ingen konto og ingen sporing, og det laves af én person i Zürich. Dubloon Pro er det, der betaler for det. Du kan prøve alle spil: Dine første %d optagelser er gratis, og Pro gør dem ubegrænsede.";
 "onboarding.pro.buy" = "Få Dubloon Pro";
 "onboarding.pro.skip" = "Spring over for nu";
 "onboarding.button.continueLowercase" = "fortsæt";
@@ -228,7 +228,6 @@
 "main.button.back" = "Tilbage";
 "main.mode.reverse.subtitle" = "Optag, vend om og syng volapykken";
 "main.mode.dub.subtitle" = "Læg din stemme i en andens mund";
-"main.mode.free" = "Gratis";
 "dub.speakerAccessibility" = "Siges af %@";
 "dub.cast" = "Medvirkende";
 "dub.referenceTrack" = "Reference";
@@ -298,10 +297,11 @@
 "dub.videoNeedsReimport" = "Scenens video blev konverteret af en ældre version og løber nu foran stemmerne. Importér pakken igen, så sidder det.";
 
 // MARK: - Pro / Paywall
-"pro.locked.title" = "Få Dubloon Pro for at dubbe";
 "pro.section" = "Dubloon Pro";
+"pro.freeTakes.left" = "%1$d af %2$d gratis optagelser tilbage";
+"pro.freeTakes.usedUp" = "Dine gratis optagelser er brugt op";
 "pro.unlock.title" = "Lås Dubloon op";
-"pro.unlock.subtitle" = "Alle scener, lydimitation, Booth Cam og eksport. Baglænssang og dubbing af dine egne videoer forbliver gratis.";
+"pro.unlock.subtitle" = "Dine første %d optagelser er gratis, i alle spil. Dubloon Pro gør alle spil ubegrænsede, med Booth Cam og eksport.";
 "pro.owned.title" = "Du ejer Dubloon";
 "pro.owned.subtitle" = "Tak. Hver scene, hver optagelse, uden loft.";
 "pro.manage.title" = "Administrér købet";
@@ -318,7 +318,7 @@
 "pro.error.generic" = "Butikken svarede ikke. Prøv igen om et øjeblik.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Lås Dubloon op";
-"pro.fallback.message" = "Lås Dubloon op for at dubbe hver eneste scene.";
+"pro.fallback.message" = "Lås Dubloon op for at blive ved med at optage i alle spil.";
 "pro.fallback.buy" = "Lås op for %@";
 "pro.fallback.buyUnpriced" = "Lås op";
 "pro.fallback.loading" = "Spørger butikken…";
@@ -633,8 +633,8 @@
 "help.flow.caption" = "Syng en linje, og hør den baglæns. Efterlign volapykken så præcist du kan, og vend så din kopi om. Rammer du plet, kommer sangen ud.";
 "help.gettingStarted.1.q" = "Hvad er Dubloon?";
 "help.gettingStarted.1.a" = "Fire stemmespil, der kun kræver din mikrofon. Baglænssang: syng en sang baglæns. Dub en filmscene: læg din stemme i en filmscene, replik for replik. Dub dine egne videoer: læg din stemme på en video, du har filmet. Lydimitation: efterlign en lyd og få en dom. Vælg et i menuen.";
-"help.gettingStarted.2.q" = "Hvilke spil er gratis?";
-"help.gettingStarted.2.a" = "Baglænssang og Dub dine egne videoer er gratis, så længe du vil. Dub en filmscene og Lydimitation følger med Dubloon Pro sammen med Booth Cam.";
+"help.gettingStarted.2.q" = "Er Dubloon gratis?";
+"help.gettingStarted.2.a" = "Du kan prøve alle spil gratis. Dine første 3 optagelser er gratis, talt på tværs af alle fire spil: Dub to filmreplikker og vend én sang baglæns, så er de brugt. Derefter kan spillene stadig åbnes, og med Dubloon Pro kan du blive ved med at optage.";
 "help.gettingStarted.3.q" = "Skal jeg bruge høretelefoner?";
 "help.gettingStarted.3.a" = "Nej, men de hjælper, når du dubber. Med høretelefoner på kan du høre den originale replik, mens du optager (slå Originalen i høretelefonerne til i Indstillinger). Gennem højttaleren ville den ende i din optagelse, så Dubloon afspiller den kun i høretelefoner. Høretelefoner med ledning giver den skarpeste timing: Bluetooth lægger en lille forsinkelse til.";
 "help.reverse.1.q" = "Hvordan virker baglænssang?";
@@ -680,7 +680,7 @@
 "help.imitate.3.q" = "Kan jeg dele et forsøg?";
 "help.imitate.3.a" = "Ja. Tryk på Lav video efter en dom: lyden, dit forsøg og din score, klar til at sende. Med Booth Cam slået til er dit ansigt også med.";
 "help.pro.1.q" = "Hvad låser Dubloon Pro op for?";
-"help.pro.1.a" = "Dub en filmscene med alle scener og fællesskabspakker, Lydimitation, Booth Cam og videoeksport. Baglænssang og Dub dine egne videoer er gratis uanset hvad. Pro er et engangskøb eller et abonnement, og det låses op på din iPhone og din Mac med samme Apple-konto.";
+"help.pro.1.a" = "Ubegrænsede optagelser i alle spil: Dub en filmscene med alle scener og fællesskabspakker, Lydimitation, Baglænssang og Dub dine egne videoer, plus Booth Cam og videoeksport. Uden Pro er dine første 3 optagelser gratis. Pro er et engangskøb eller et abonnement, og det låses op på din iPhone og din Mac med samme Apple-konto.";
 "help.pro.2.q" = "Jeg har købt Pro, men det er låst.";
 "help.pro.2.a" = "Åbn Indstillinger, og tryk på Gendan købet. Sørg for, at du er logget ind i App Store med den Apple-konto, du købte det med. På en ny telefon eller efter en geninstallation henter gendannelsen det tilbage uden beregning.";
 "help.pro.3.q" = "Hvordan opsiger eller ændrer jeg mit abonnement?";

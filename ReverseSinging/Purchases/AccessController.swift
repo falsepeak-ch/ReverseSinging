@@ -24,8 +24,8 @@ nonisolated enum UnlockReason: Equatable {
 /// What the app is allowed to do right now.
 nonisolated enum AccessState: Equatable {
     case unlocked(UnlockReason)
-    /// Nothing was bought. The paid games are padlocked on the menu and open the
-    /// paywall instead of themselves; the free ones play as they always do.
+    /// Nothing was bought. Every game still opens, but only `FreeTakes.limit` takes
+    /// are free, across all of them; after that a new take opens the paywall.
     case locked
 }
 
@@ -36,10 +36,10 @@ nonisolated enum AccessState: Equatable {
 /// that gets refunds requested.
 ///
 /// **The rule is fixed, and it is short.** Someone who owns Dubloon Pro has
-/// everything. Everyone else is `locked` from the first
-/// launch: there is no free window, and nothing outside the binary can change that.
-/// What `locked` costs them is decided on the menu (`HomeViewModel`), where reverse
-/// singing and Home Video Dub stay free.
+/// everything. Everyone else is `locked` from the first launch, and nothing outside the
+/// binary can change that. What `locked` costs them is a count, not a game: every game
+/// opens, and the first three takes are free across all of them (`FreeTakes`). The games
+/// ask `canStartTake` before a take and report each finished one to `recordTake(_:)`.
 ///
 /// Nothing waits on the network to say so. A purchase is remembered on the device,
 /// so someone who has paid is never shown a padlock on the way in, online or off;
@@ -101,9 +101,31 @@ final class AccessController: ObservableObject {
     /// Whether there is still something to sell this person.
     var canUpgrade: Bool { !isPro }
 
+    // MARK: - Free takes
+
+    /// Free takes used so far. Published so the menu can say how many are left.
+    @Published private(set) var freeTakesUsed: Int
+
+    var freeTakesLeft: Int { max(0, FreeTakes.limit - freeTakesUsed) }
+
+    /// Whether a game may start a take now: always with Dubloon Pro, otherwise while a free
+    /// take is left.
+    var canStartTake: Bool { !isLocked || freeTakesLeft > 0 }
+
+    /// Counts a finished take. Returns true when that was the last free one, so the game can
+    /// show the paywall now rather than at the next tap. Takes made with Pro are not counted.
+    @discardableResult
+    func recordTake(_ kind: FreeTakeKind) -> Bool {
+        guard isLocked else { return false }
+        freeTakesUsed = freeTakes.recordUse()
+        AnalyticsManager.shared.trackFreeTakeUsed(kind: kind.rawValue, used: freeTakesUsed)
+        return freeTakesLeft == 0
+    }
+
     // MARK: - Private
 
     private let firstLaunch = FirstLaunchDate()
+    private let freeTakes: FreeTakes
     private var streamTask: Task<Void, Never>?
     private var isConfigured = false
 
@@ -116,7 +138,10 @@ final class AccessController: ObservableObject {
     /// One silent receipt sync per foreground. See `syncReceiptIfNeverPosted()`.
     private var hasRequestedReceiptSync = false
 
-    private init() {}
+    private init(freeTakes: FreeTakes = .shared) {
+        self.freeTakes = freeTakes
+        freeTakesUsed = freeTakes.used
+    }
 
     // MARK: - Start
 
@@ -450,6 +475,11 @@ final class AccessController: ObservableObject {
     /// looked at, or tested, without a store.
     func overrideStateForTesting(_ newState: AccessState) {
         state = newState
+    }
+
+    /// Sets the free-take count without touching the stored one.
+    func overrideFreeTakesUsedForTesting(_ used: Int) {
+        freeTakesUsed = used
     }
     #endif
 }

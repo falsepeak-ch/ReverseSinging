@@ -2,7 +2,7 @@
 //  PaywallPresentation.swift
 //  ReverseSinging
 //
-//  The modifier that puts a purchase's or a restore's outcome on screen.
+//  The modifiers that put the paywall, and a purchase's or a restore's outcome, on screen.
 //
 
 import SwiftUI
@@ -17,6 +17,18 @@ extension View {
     /// as the button having thrown the user out.
     func purchaseAlerts() -> some View {
         modifier(PurchaseAlertsModifier())
+    }
+
+    /// The paywall a game opens over itself once the free takes are used up: right after the
+    /// last one, and again whenever another take is asked for.
+    ///
+    /// Presented by the game rather than by the menu, because several games are themselves
+    /// covers, and a sheet asked of the menu underneath one never appears.
+    func takePaywall(isPresented: Binding<Bool>, kind: FreeTakeKind) -> some View {
+        sheet(isPresented: isPresented) {
+            ProPaywallView(source: "free_takes_\(kind.rawValue)")
+                .paywallAppearance()
+        }
     }
 }
 

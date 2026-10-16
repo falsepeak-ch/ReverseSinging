@@ -11,7 +11,7 @@
 "onboarding.dub.title" = "Dobla una escena";
 "onboarding.dub.message" = "El segon joc: posa una escena, sobreactua-hi al damunt i escolta't dins de la pel·lícula. En venen quatre de regal. A partir d'aquí, posa-hi les teves.";
 "onboarding.pro.title" = "Per què existeix Dubloon Pro";
-"onboarding.pro.message" = "Dubloon no té anuncis, ni compte, ni seguiment, i el fa una sola persona a Zuric. Dubloon Pro és el que ho paga: totes les escenes, la imitació de sons, la càmera de cabina i les exportacions. El cant invertit i el doblatge dels teus vídeos continuen sent gratuïts.";
+"onboarding.pro.message" = "Dubloon no té anuncis, ni compte, ni seguiment, i el fa una sola persona a Zuric. Dubloon Pro és el que ho paga. Pots provar tots els jocs: les teves primeres %d preses són gratuïtes, i amb Pro són il·limitades.";
 "onboarding.pro.buy" = "Aconsegueix Dubloon Pro";
 "onboarding.pro.skip" = "Salta-ho per ara";
 "onboarding.button.continueLowercase" = "continuar";
@@ -228,7 +228,6 @@
 "main.button.back" = "Enrere";
 "main.mode.reverse.subtitle" = "Grava una cançó, gira-la i canta l'embolic";
 "main.mode.dub.subtitle" = "Posa la teva veu a la boca d'un altre";
-"main.mode.free" = "Gratis";
 "dub.speakerAccessibility" = "Ho diu %@";
 "dub.cast" = "Repartiment";
 "dub.referenceTrack" = "Referència";
@@ -298,10 +297,11 @@
 "dub.videoNeedsReimport" = "El vídeo d'aquesta escena el va convertir una versió antiga i ara va per davant de les veus. Torna a importar el pack per arreglar-ho.";
 
 // MARK: - Pro / Paywall
-"pro.locked.title" = "Aconsegueix Dubloon Pro per doblar";
 "pro.section" = "Dubloon Pro";
+"pro.freeTakes.left" = "Et queden %1$d de %2$d preses gratuïtes";
+"pro.freeTakes.usedUp" = "Ja has fet servir les preses gratuïtes";
 "pro.unlock.title" = "Desbloquejar Dubloon";
-"pro.unlock.subtitle" = "Totes les escenes, la imitació de sons, la càmera de cabina i les exportacions. El cant invertit i el doblatge dels teus vídeos continuen sent gratuïts.";
+"pro.unlock.subtitle" = "Les teves primeres %d preses són gratuïtes, en qualsevol joc. Dubloon Pro fa il·limitats tots els jocs, amb la càmera de cabina i les exportacions.";
 "pro.owned.title" = "Dubloon és teu";
 "pro.owned.subtitle" = "Gràcies. Totes les escenes, totes les preses, sense sostre.";
 "pro.manage.title" = "Gestionar la compra";
@@ -318,7 +318,7 @@
 "pro.error.generic" = "La botiga no ha contestat. Torna-ho a provar d'aquí a un moment.";
 "pro.ok" = "D'acord";
 "pro.fallback.title" = "Desbloquejar Dubloon";
-"pro.fallback.message" = "Desbloqueja Dubloon per doblar totes les escenes.";
+"pro.fallback.message" = "Desbloqueja Dubloon per continuar gravant en tots els jocs.";
 "pro.fallback.buy" = "Desbloquejar per %@";
 "pro.fallback.buyUnpriced" = "Desbloquejar";
 "pro.fallback.loading" = "Preguntant a la botiga…";
@@ -633,8 +633,8 @@
 "help.flow.caption" = "Canta una frase i escolta-la del revés. Copia aquell embolic tan bé com puguis i després gira la teva còpia. Si l'encertes, en surt la cançó.";
 "help.gettingStarted.1.q" = "Què és Dubloon?";
 "help.gettingStarted.1.a" = "Quatre jocs de veu que només necessiten el micròfon. Cant invertit: canta una cançó al revés. Doblatge d'escenes: posa la teva veu en una escena de pel·lícula, frase a frase. Doblatge dels teus vídeos: posa la teva veu en un vídeo que hagis gravat. Imitació de sons: imita un so i rep un veredicte. Tria'n un al menú.";
-"help.gettingStarted.2.q" = "Quins jocs són gratuïts?";
-"help.gettingStarted.2.a" = "Cant invertit i Doblatge dels teus vídeos són gratuïts, sense límit. Doblatge d'escenes i Imitació de sons venen amb Dubloon Pro, juntament amb la càmera de cabina.";
+"help.gettingStarted.2.q" = "Dubloon és gratuït?";
+"help.gettingStarted.2.a" = "Pots provar tots els jocs gratis. Les teves primeres 3 preses són gratuïtes, comptant els quatre jocs: doblar dues frases de pel·lícula i invertir una cançó les esgota. Després els jocs es continuen obrint, i amb Dubloon Pro pots continuar gravant.";
 "help.gettingStarted.3.q" = "Necessito auriculars?";
 "help.gettingStarted.3.a" = "No, però ajuden quan dobles. Amb auriculars pots sentir la frase original mentre graves (activa Original als auriculars als Ajustos). Per l'altaveu acabaria colant-se a la teva presa, així que Dubloon només la fa sonar pels auriculars. Els auriculars amb cable mantenen la sincronia més ajustada: el Bluetooth hi afegeix un petit retard.";
 "help.reverse.1.q" = "Com funciona el cant invertit?";
@@ -680,7 +680,7 @@
 "help.imitate.3.q" = "Puc compartir un intent?";
 "help.imitate.3.a" = "Sí. Després d'un veredicte, toca Crear vídeo: el so, el teu intent i la teva puntuació, a punt per enviar. Amb la càmera de cabina encesa, també hi surt la teva cara.";
 "help.pro.1.q" = "Què desbloqueja Dubloon Pro?";
-"help.pro.1.a" = "El Doblatge d'escenes amb totes les escenes i els packs de la comunitat, la Imitació de sons, la càmera de cabina i les exportacions de vídeo. El Cant invertit i el Doblatge dels teus vídeos són gratuïts igualment. Pro és una compra única o una subscripció, i es desbloqueja al teu iPhone i al teu Mac amb el mateix compte d'Apple.";
+"help.pro.1.a" = "Preses il·limitades en tots els jocs: el Doblatge d'escenes amb totes les escenes i els packs de la comunitat, la Imitació de sons, el Cant invertit i el Doblatge dels teus vídeos, a més de la càmera de cabina i les exportacions de vídeo. Sense Pro, les teves primeres 3 preses són gratuïtes. Pro és una compra única o una subscripció, i es desbloqueja al teu iPhone i al teu Mac amb el mateix compte d'Apple.";
 "help.pro.2.q" = "He comprat Pro, però està bloquejat.";
 "help.pro.2.a" = "Obre els Ajustos i toca Restaurar la compra. Assegura't que has iniciat sessió a l'App Store amb el compte d'Apple amb què el vas comprar. En un telèfon nou o després de reinstal·lar l'app, restaurar-lo te'l torna sense cap cost.";
 "help.pro.3.q" = "Com cancel·lo o canvio la subscripció?";

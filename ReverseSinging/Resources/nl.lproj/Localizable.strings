@@ -11,7 +11,7 @@
 "onboarding.dub.title" = "Nasynchroniseer een scène";
 "onboarding.dub.message" = "Het tweede spel: zet een scène aan, speel er stevig overheen en hoor jezelf in de film. Vier scènes zitten erbij. Daarna neem je je eigen bestanden mee.";
 "onboarding.pro.title" = "Waarom Dubloon Pro bestaat";
-"onboarding.pro.message" = "Dubloon heeft geen advertenties, geen account en geen tracking, en wordt gemaakt door één persoon in Zürich. Dubloon Pro betaalt dat: elke scène, geluiden nadoen, Booth Cam en exports. Achterstevoren zingen en je eigen video's dubben blijven gratis.";
+"onboarding.pro.message" = "Dubloon heeft geen advertenties, geen account en geen tracking, en wordt gemaakt door één persoon in Zürich. Dubloon Pro betaalt dat. Je kunt elk spel proberen: je eerste %d takes zijn gratis, en met Pro zijn ze onbeperkt.";
 "onboarding.pro.buy" = "Neem Dubloon Pro";
 "onboarding.pro.skip" = "Voorlopig overslaan";
 "onboarding.button.continueLowercase" = "doorgaan";
@@ -228,7 +228,6 @@
 "main.button.back" = "Terug";
 "main.mode.reverse.subtitle" = "Neem op, draai om en zing het gebrabbel";
 "main.mode.dub.subtitle" = "Leg je stem in andermans mond";
-"main.mode.free" = "Gratis";
 "dub.speakerAccessibility" = "Gezegd door %@";
 "dub.cast" = "Cast";
 "dub.referenceTrack" = "Referentie";
@@ -298,10 +297,11 @@
 "dub.videoNeedsReimport" = "De video van deze scène is door een oudere versie omgezet en loopt nu voor op de stemmen. Importeer het pack opnieuw om dat recht te zetten.";
 
 // MARK: - Pro / Paywall
-"pro.locked.title" = "Neem Dubloon Pro om te dubben";
 "pro.section" = "Dubloon Pro";
+"pro.freeTakes.left" = "Nog %1$d van %2$d gratis takes";
+"pro.freeTakes.usedUp" = "Je gratis takes zijn op";
 "pro.unlock.title" = "Dubloon ontgrendelen";
-"pro.unlock.subtitle" = "Elke scène, geluiden nadoen, Booth Cam en exports. Achterstevoren zingen en je eigen video's dubben blijven gratis.";
+"pro.unlock.subtitle" = "Je eerste %d takes zijn gratis, in elk spel. Dubloon Pro maakt elk spel onbeperkt, met Booth Cam en exports.";
 "pro.owned.title" = "Dubloon is van jou";
 "pro.owned.subtitle" = "Dank je. Elke scène, elke take, geen plafond.";
 "pro.manage.title" = "Aankoop beheren";
@@ -318,7 +318,7 @@
 "pro.error.generic" = "De store gaf geen antwoord. Probeer het zo nog eens.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Dubloon ontgrendelen";
-"pro.fallback.message" = "Ontgrendel Dubloon om elke scène te dubben.";
+"pro.fallback.message" = "Ontgrendel Dubloon om in elk spel te blijven opnemen.";
 "pro.fallback.buy" = "Ontgrendel voor %@";
 "pro.fallback.buyUnpriced" = "Ontgrendelen";
 "pro.fallback.loading" = "We vragen het de store…";
@@ -633,8 +633,8 @@
 "help.flow.caption" = "Zing een zin en hoor hem achterstevoren. Doe dat gebrabbel zo goed mogelijk na en draai je versie dan weer om. Zit het goed, dan komt het liedje eruit.";
 "help.gettingStarted.1.q" = "Wat is Dubloon?";
 "help.gettingStarted.1.a" = "Vier stemspellen waarvoor je alleen je microfoon nodig hebt. Achterstevoren zingen: zing een liedje achterstevoren. Filmscène dubben: zet je stem in een filmscène, zin voor zin. Je eigen video's dubben: zet je stem op een video die je hebt gefilmd. Geluiden nadoen: doe een geluid na en krijg een oordeel. Kies er een in het menu.";
-"help.gettingStarted.2.q" = "Welke spellen zijn gratis?";
-"help.gettingStarted.2.a" = "Achterstevoren zingen en Je eigen video's dubben zijn gratis, zo lang je wilt. Filmscène dubben en Geluiden nadoen horen bij Dubloon Pro, samen met Booth Cam.";
+"help.gettingStarted.2.q" = "Is Dubloon gratis?";
+"help.gettingStarted.2.a" = "Je kunt elk spel gratis proberen. Je eerste 3 takes zijn gratis, opgeteld over alle vier de spellen: twee filmzinnen dubben en één liedje omdraaien, en ze zijn op. Daarna openen de spellen nog steeds, en met Dubloon Pro blijf je opnemen.";
 "help.gettingStarted.3.q" = "Heb ik een koptelefoon nodig?";
 "help.gettingStarted.3.a" = "Nee, maar bij het dubben helpt het wel. Met een koptelefoon op hoor je de originele zin terwijl je opneemt (zet Origineel in de koptelefoon aan in Instellingen). Via de speaker zou hij in je take belanden, dus Dubloon speelt hem alleen af via een koptelefoon. Met een bedrade koptelefoon zit de timing het strakst: bluetooth voegt een kleine vertraging toe.";
 "help.reverse.1.q" = "Hoe werkt achterstevoren zingen?";
@@ -680,7 +680,7 @@
 "help.imitate.3.q" = "Kan ik een poging delen?";
 "help.imitate.3.a" = "Ja. Tik na een oordeel op Maak video: het geluid, je poging en je score, klaar om te versturen. Met Booth Cam aan staat je gezicht er ook in.";
 "help.pro.1.q" = "Wat ontgrendelt Dubloon Pro?";
-"help.pro.1.a" = "Filmscène dubben met elke scène en elk communitypack, Geluiden nadoen, Booth Cam en video-exports. Achterstevoren zingen en Je eigen video's dubben zijn hoe dan ook gratis. Pro is een eenmalige aankoop of een abonnement, en het wordt ontgrendeld op je iPhone en je Mac met hetzelfde Apple Account.";
+"help.pro.1.a" = "Onbeperkt takes in elk spel: Filmscène dubben met elke scène en elk communitypack, Geluiden nadoen, Achterstevoren zingen en Je eigen video's dubben, plus Booth Cam en video-exports. Zonder Pro zijn je eerste 3 takes gratis. Pro is een eenmalige aankoop of een abonnement, en het wordt ontgrendeld op je iPhone en je Mac met hetzelfde Apple Account.";
 "help.pro.2.q" = "Ik heb Pro gekocht, maar het zit op slot.";
 "help.pro.2.a" = "Open Instellingen en tik op Aankoop herstellen. Zorg dat je in de App Store bent ingelogd met het Apple Account waarmee je het hebt gekocht. Op een nieuwe telefoon of na opnieuw installeren haal je het zo kosteloos terug.";
 "help.pro.3.q" = "Hoe zeg ik mijn abonnement op of wijzig ik het?";

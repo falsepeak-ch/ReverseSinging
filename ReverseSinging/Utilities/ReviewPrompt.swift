@@ -61,7 +61,7 @@ final class ReviewPrompt {
     }
 
     /// Whether our own review note on the menu is for this person: they have imported a dub
-    /// pack and used the app on at least three different days.
+    /// pack or had a few wins, and used the app on at least two different days.
     var isBannerAudience: Bool { policy.isBannerAudience }
 
     /// Asks once the screen has had a moment: a score or verdict stays in view before anything

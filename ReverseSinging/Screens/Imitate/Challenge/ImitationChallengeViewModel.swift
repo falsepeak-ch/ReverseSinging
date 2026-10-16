@@ -48,6 +48,8 @@ final class ImitationChallengeViewModel: ObservableObject {
     @Published private(set) var confettiStart: Date?
 
     @Published var isBoothPrimerPresented = false
+    /// The paywall, once the free takes are used up. See `FreeTakes`.
+    @Published var isTakePaywallPresented = false
     @Published var showPermissionAlert = false
     @Published var errorMessage: String?
 
@@ -215,6 +217,10 @@ final class ImitationChallengeViewModel: ObservableObject {
 
     private func startRecording() {
         guard exportProgress == nil else { return }
+        guard AccessController.shared.canStartTake else {
+            isTakePaywallPresented = true
+            return
+        }
         player.stop()
         playingClip = nil
 
@@ -308,6 +314,8 @@ final class ImitationChallengeViewModel: ObservableObject {
                 try await Self.move(temporaryURL, to: destination)
                 await WaveformSampler.shared.invalidate(destination)
                 await judge(take: destination)
+                // Counted once the verdict is up, so the last free take is seen before the offer.
+                if AccessController.shared.recordTake(.imitate) { isTakePaywallPresented = true }
             } catch {
                 phase = score == nil ? .ready : .result
                 errorMessage = error.localizedDescription

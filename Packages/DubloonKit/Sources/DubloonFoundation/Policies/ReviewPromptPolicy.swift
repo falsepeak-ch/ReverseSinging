@@ -12,11 +12,12 @@ public import Foundation
 ///
 /// Apple caps the prompt at three appearances a year and silently drops the rest, so the only
 /// thing worth spending is *which* moments get it. By default it asks people who have come back
-/// and are enjoying themselves: from the third open, once they have shipped something (a share)
-/// or have had a couple of results they were proud of (a win: a great score, an approved
-/// impression). Wins count for everyone, so a player who only ever sings backwards for free is
-/// asked as readily as one who paid. After an ask it waits a number of opens before it will ask
-/// again, so the year's quota is not burned in a week.
+/// and are enjoying themselves: from the second open, at a result they were proud of (a win: a
+/// great score, an approved impression) or once they have shipped something (a share). Wins
+/// count for everyone, so a player who only ever sings backwards for free is asked as readily as
+/// one who paid. After an ask it waits a few opens before it will ask again. Apple may have
+/// swallowed that ask without showing anything, and the app cannot tell, so the wait is kept
+/// short rather than spending weeks on a prompt nobody saw.
 ///
 /// Showing the prompt is the caller's job. This only decides, so it runs anywhere, tests included.
 public struct ReviewPromptPolicy {
@@ -65,8 +66,9 @@ public struct ReviewPromptPolicy {
     /// made something and sent it out.
     public let sharesBeforeAsking: Int
 
-    /// Wins that on their own make someone worth asking. One great score can be luck; a second
-    /// means they have got the hang of it and are having a good time.
+    /// Wins that on their own make someone worth asking. A great score on a return visit is the
+    /// happiest moment the app has; waiting for a second one lost most of the players who would
+    /// have rated it.
     public let winsBeforeAsking: Int
 
     /// Opens that have to pass after one ask before the next.
@@ -75,17 +77,22 @@ public struct ReviewPromptPolicy {
     /// Different days the app has to have been opened on before our own review note is shown.
     public let activeDaysForBanner: Int
 
+    /// Wins that, like importing a pack, show someone has got into the app far enough for our
+    /// own review note.
+    public let winsForBanner: Int
+
     private let defaults: UserDefaults
     private let keys: Keys
 
     public init(
         defaults: UserDefaults = .standard,
         keys: Keys = .standard,
-        opensBeforeAsking: Int = 3,
+        opensBeforeAsking: Int = 2,
         sharesBeforeAsking: Int = 1,
-        winsBeforeAsking: Int = 2,
-        opensBetweenAsks: Int = 10,
-        activeDaysForBanner: Int = 3
+        winsBeforeAsking: Int = 1,
+        opensBetweenAsks: Int = 5,
+        activeDaysForBanner: Int = 2,
+        winsForBanner: Int = 3
     ) {
         self.defaults = defaults
         self.keys = keys
@@ -94,6 +101,7 @@ public struct ReviewPromptPolicy {
         self.winsBeforeAsking = winsBeforeAsking
         self.opensBetweenAsks = opensBetweenAsks
         self.activeDaysForBanner = activeDaysForBanner
+        self.winsForBanner = winsForBanner
     }
 
     // MARK: - Signals
@@ -148,12 +156,12 @@ public struct ReviewPromptPolicy {
     public var activeDayCount: Int { defaults.integer(forKey: keys.activeDayCount) }
     public var hasImportedPack: Bool { defaults.bool(forKey: keys.hasImportedPack) }
 
-    /// Who our own review note on the menu is for: someone who has brought in a dub pack of
-    /// their own and has used the app on enough different days. Importing a pack is the
-    /// deepest thing the app asks of anyone, and coming back for days says it was worth it,
-    /// so their rating is a considered one.
+    /// Who our own review note on the menu is for: someone who has got into the app, by
+    /// bringing in a dub pack of their own or by a few wins, and has used it on more than one
+    /// day, so their rating is a considered one. Wins count so a free player who only sings
+    /// backwards can be asked too.
     public var isBannerAudience: Bool {
-        hasImportedPack && activeDayCount >= activeDaysForBanner
+        (hasImportedPack || winCount >= winsForBanner) && activeDayCount >= activeDaysForBanner
     }
 
     /// Clears every counter, as on a fresh install.

@@ -90,7 +90,7 @@ struct MacWelcomeView: View {
         }
     }
 
-    /// What Pro is for and what stays free, said before anyone meets a lock, as the iPhone's
+    /// What Pro is for and how many takes are free, said before anyone meets the paywall, as the iPhone's
     /// last onboarding page says it.
     private var proNote: some View {
         HStack(alignment: .top, spacing: 16) {

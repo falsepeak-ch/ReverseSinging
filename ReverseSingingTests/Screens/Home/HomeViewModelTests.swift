@@ -36,76 +36,43 @@ struct HomeViewModelTests {
 
             #expect(viewModel.path == [mode])
             #expect(viewModel.paywallSource == nil)
+            #expect(!viewModel.offersPro)
         }
     }
 
-    /// Without Dubloon Pro dubbing answers a tap with the paywall, and is not pushed.
-    @Test func aLockedGameOpensThePaywallInstead() {
+    /// Without Dubloon Pro every game still opens: the free takes are spent inside them.
+    @Test(arguments: GameMode.allCases)
+    func everyGameOpensWithoutDubloonPro(mode: GameMode) {
         withAccess(.locked) {
+            let viewModel = HomeViewModel()
+
+            viewModel.open(mode)
+
+            #expect(viewModel.offersPro)
+            #expect(viewModel.path == [mode])
+            #expect(viewModel.paywallSource == nil)
+        }
+    }
+
+    /// Even with every free take used, the menu opens games rather than the paywall.
+    @Test func gamesOpenOnceTheFreeTakesAreUsedUp() {
+        withAccess(.locked) {
+            let access = AccessController.shared
+            let previous = access.freeTakesUsed
+            access.overrideFreeTakesUsedForTesting(FreeTakes.limit)
+            defer { access.overrideFreeTakesUsedForTesting(previous) }
             let viewModel = HomeViewModel()
 
             viewModel.open(.dub)
 
-            #expect(viewModel.areGamesLocked)
-            #expect(viewModel.isLocked(.dub))
-            #expect(viewModel.path.isEmpty)
-            #expect(viewModel.paywallSource == .lockedGame)
-        }
-    }
-
-    /// Reverse singing is free: it opens without Dubloon Pro, and the menu says it is free.
-    @Test func theReverseGameStaysOpenWhenLocked() {
-        withAccess(.locked) {
-            let viewModel = HomeViewModel()
-
-            viewModel.open(.reverse)
-
-            #expect(!viewModel.isLocked(.reverse))
-            #expect(viewModel.isFree(.reverse))
-            #expect(!viewModel.isFree(.dub))
-            #expect(viewModel.path == [.reverse])
+            #expect(viewModel.freeTakesLeft == 0)
+            #expect(viewModel.path == [.dub])
             #expect(viewModel.paywallSource == nil)
         }
     }
 
-    /// Home Video Dub is always free: the user brings the video, so it opens without Dubloon Pro.
-    @Test func homeVideoDubStaysOpenWhenLocked() {
-        withAccess(.locked) {
-            let viewModel = HomeViewModel()
-
-            viewModel.open(.homeVideo)
-
-            #expect(!viewModel.isLocked(.homeVideo))
-            #expect(viewModel.isFree(.homeVideo))
-            #expect(viewModel.path == [.homeVideo])
-            #expect(viewModel.paywallSource == nil)
-        }
-    }
-
-    /// Sound Imitation is paid, so it locks with dubbing.
-    @Test func soundImitationLocksWithDubbing() {
-        withAccess(.locked) {
-            let viewModel = HomeViewModel()
-
-            viewModel.open(.imitate)
-
-            #expect(viewModel.isLocked(.imitate))
-            #expect(!viewModel.isFree(.imitate))
-            #expect(viewModel.path.isEmpty)
-            #expect(viewModel.paywallSource == .lockedGame)
-        }
-    }
-
-    /// "Free" only means something beside a padlock. With nothing locked, no game says it.
-    @Test(arguments: GameMode.allCases)
-    func nothingIsMarkedFreeWhileNothingIsLocked(mode: GameMode) {
-        withAccess(.unlocked(.entitlement)) {
-            #expect(!HomeViewModel().isFree(mode))
-        }
-    }
-
-    /// A pack opened from Files must not be a way round the lock.
-    @Test func anImportWhileLockedOpensThePaywallAndKeepsThePack() {
+    /// A pack opened from Files goes to the library whether or not Pro is owned.
+    @Test func anImportWithoutProOpensTheLibrary() {
         withAccess(.locked) {
             let viewModel = HomeViewModel()
             let app = makeApp()
@@ -115,61 +82,22 @@ struct HomeViewModelTests {
 
             viewModel.dubLibraryRequestDidChange(true, app: app)
 
-            #expect(viewModel.path.isEmpty)
-            #expect(viewModel.paywallSource == .lockedImport)
+            #expect(viewModel.path == [.dub])
+            #expect(viewModel.paywallSource == nil)
             #expect(!app.showDubLibrary)
             #expect(app.pendingDubImportURL == pack)
         }
     }
 
-    /// Buying from the paywall a pack led to carries on to the library, where the pack is
-    /// taken in.
-    @Test func buyingAfterALockedImportOpensTheLibrary() {
-        withAccess(.locked) {
-            let viewModel = HomeViewModel()
-            viewModel.dubLibraryRequestDidChange(true, app: makeApp())
-
-            AccessController.shared.overrideStateForTesting(.unlocked(.entitlement))
-
-            #expect(viewModel.path == [.dub])
-        }
-    }
-
-    /// Closing that paywall without buying drops the intent: a purchase made later, from
-    /// settings, should not push a screen nobody asked for.
-    @Test func closingThePaywallForgetsTheLockedImport() {
-        withAccess(.locked) {
-            let viewModel = HomeViewModel()
-            viewModel.dubLibraryRequestDidChange(true, app: makeApp())
-            viewModel.paywallSource = nil
-
-            AccessController.shared.overrideStateForTesting(.unlocked(.entitlement))
-
-            #expect(viewModel.path.isEmpty)
-        }
-    }
-
-    /// A subscription that runs out overnight with dubbing open closes it.
-    @Test func expiringInsideAPaidGameReturnsToTheMenu() {
+    /// A subscription that runs out overnight leaves the open game where it is.
+    @Test func expiringInsideAGameKeepsItOpen() {
         withAccess(.unlocked(.entitlement)) {
             let viewModel = HomeViewModel()
             viewModel.open(.dub)
 
             AccessController.shared.overrideStateForTesting(.locked)
 
-            #expect(viewModel.path.isEmpty)
-        }
-    }
-
-    /// The same moment inside reverse singing changes nothing: it was never paid for.
-    @Test func expiringInsideTheFreeGameKeepsItOpen() {
-        withAccess(.unlocked(.entitlement)) {
-            let viewModel = HomeViewModel()
-            viewModel.open(.reverse)
-
-            AccessController.shared.overrideStateForTesting(.locked)
-
-            #expect(viewModel.path == [.reverse])
+            #expect(viewModel.path == [.dub])
         }
     }
 
@@ -183,8 +111,8 @@ struct HomeViewModelTests {
     }
 
     /// A prompt with its own counters: a newcomer, or someone with days of use and a pack of
-    /// their own behind them.
-    private func makePrompt(days: Int = 0, importedPack: Bool = false) -> ReviewPrompt {
+    /// their own or some wins behind them.
+    private func makePrompt(days: Int = 0, importedPack: Bool = false, wins: Int = 0) -> ReviewPrompt {
         let name = "HomeViewModelTests.prompt.\(UUID().uuidString)"
         let defaults = UserDefaults(suiteName: name)!
         defaults.removePersistentDomain(forName: name)
@@ -193,20 +121,21 @@ struct HomeViewModelTests {
             prompt.registerAppOpen(now: Date(timeIntervalSince1970: 1_800_000_000 + Double(day) * 86_400))
         }
         if importedPack { prompt.registerImportedPack() }
+        for _ in 0..<wins { prompt.registerWin() }
         return prompt
     }
 
     private func makeViewModel(banner: ReviewBanner? = nil, prompt: ReviewPrompt? = nil) -> HomeViewModel {
         HomeViewModel(
             reviewBanner: banner ?? makeBanner(),
-            reviewPrompt: prompt ?? makePrompt(days: 3, importedPack: true)
+            reviewPrompt: prompt ?? makePrompt(days: 2, importedPack: true)
         )
     }
 
-    /// Whoever imported a pack and used the app on three days is asked, paid or not, and only
+    /// Whoever imported a pack and used the app on two days is asked, paid or not, and only
     /// a buyer is thanked for buying.
     @Test(arguments: [AccessState.unlocked(.entitlement), .locked])
-    func anImporterOnTheirThirdDayIsAsked(state: AccessState) {
+    func anImporterOnTheirSecondDayIsAsked(state: AccessState) {
         withAccess(state) {
             let viewModel = makeViewModel()
             #expect(viewModel.showsReviewBanner)
@@ -214,13 +143,22 @@ struct HomeViewModelTests {
         }
     }
 
-    /// Paying is not enough on its own, and neither is one of the two conditions without the
-    /// other.
-    @Test func withoutAnImportAndThreeDaysNobodyIsAsked() {
+    /// A free player who keeps scoring well is asked without importing anything.
+    @Test func aWinnerOnTheirSecondDayIsAsked() {
+        withAccess(.locked) {
+            #expect(makeViewModel(prompt: makePrompt(days: 2, wins: 3)).showsReviewBanner)
+        }
+    }
+
+    /// Paying is not enough on its own, and neither is days of use without an import or wins,
+    /// nor an import or wins on a single day.
+    @Test func withoutAnImportOrWinsAndTwoDaysNobodyIsAsked() {
         withAccess(.unlocked(.entitlement)) {
             #expect(!makeViewModel(prompt: makePrompt()).showsReviewBanner)
             #expect(!makeViewModel(prompt: makePrompt(days: 3)).showsReviewBanner)
-            #expect(!makeViewModel(prompt: makePrompt(days: 2, importedPack: true)).showsReviewBanner)
+            #expect(!makeViewModel(prompt: makePrompt(days: 3, wins: 2)).showsReviewBanner)
+            #expect(!makeViewModel(prompt: makePrompt(days: 1, importedPack: true)).showsReviewBanner)
+            #expect(!makeViewModel(prompt: makePrompt(days: 1, wins: 5)).showsReviewBanner)
         }
     }
 

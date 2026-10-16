@@ -62,6 +62,8 @@ final class HomeVideoDubViewModel: ObservableObject {
     /// The header's change-video button, once a video is loaded.
     @Published var isPickerPresented = false
     @Published var showPermissionAlert = false
+    /// The paywall, once the free takes are used up. See `FreeTakes`.
+    @Published var isTakePaywallPresented = false
     @Published var errorMessage: String?
     /// Opens the share sheet.
     @Published var sharedURL: URL?
@@ -72,6 +74,8 @@ final class HomeVideoDubViewModel: ObservableObject {
     private let slate = RecordSlate()
     private var resultURL: URL?
     private var hasTake = false
+    /// A new take whose mix has not landed yet, so it has not been counted as a free take.
+    private var isTakeUncounted = false
     private var autoStopTask: Task<Void, Never>?
     private var timeObserver: Any?
     private var endObserver: NSObjectProtocol?
@@ -281,6 +285,10 @@ final class HomeVideoDubViewModel: ObservableObject {
 
     private func startRecording() {
         guard let source else { return }
+        guard AccessController.shared.canStartTake else {
+            isTakePaywallPresented = true
+            return
+        }
         player.pause()
         isPlaying = false
 
@@ -372,6 +380,7 @@ final class HomeVideoDubViewModel: ObservableObject {
             try? FileManager.default.removeItem(at: HomeVideoMixer.voiceURL)
             try FileManager.default.moveItem(at: temporaryURL, to: HomeVideoMixer.voiceURL)
             hasTake = true
+            isTakeUncounted = true
             Task { await loadTakeWaveform() }
         } catch {
             phase = .ready
@@ -408,6 +417,12 @@ final class HomeVideoDubViewModel: ObservableObject {
                 phase = .review
                 player.play()
                 isPlaying = true
+                // Counted once the dubbed video plays, so the last free take is seen before
+                // the offer. Not on a remix of the same take, when the original sound is toggled.
+                if isTakeUncounted {
+                    isTakeUncounted = false
+                    if AccessController.shared.recordTake(.homeVideo) { isTakePaywallPresented = true }
+                }
                 AnalyticsManager.shared.trackHomeVideoMixed(duration: source.duration, keptOriginal: keepOriginal)
             } catch {
                 phase = .ready

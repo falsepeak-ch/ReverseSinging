@@ -75,7 +75,7 @@ struct HomeView: View {
         }
         .onAppear { viewModel.onAppear(game: game, app: app) }
         // Again whenever access changes: a subscription that lapses can open a win-back offer.
-        .task(id: viewModel.areGamesLocked) { await viewModel.refreshOffer() }
+        .task(id: viewModel.offersPro) { await viewModel.refreshOffer() }
         .onChange(of: app.showDubLibrary) { _, wantsLibrary in
             viewModel.dubLibraryRequestDidChange(wantsLibrary, app: app)
         }
@@ -147,7 +147,7 @@ struct HomeView: View {
                 }
 
                 if viewModel.showsSpookyVoiceWeek {
-                    SpookyVoiceWeekCard(isLocked: viewModel.isSpookyVoiceWeekLocked) {
+                    SpookyVoiceWeekCard(isLocked: false) {
                         viewModel.openSpookyVoiceWeek()
                     }
                     .padding(.bottom, 10)
@@ -161,10 +161,12 @@ struct HomeView: View {
                     )
                     .padding(.bottom, 10)
                     .transition(.opacity)
-                } else if viewModel.areGamesLocked {
-                    UnlockProCard { viewModel.showPaywall(from: .unlockCard) }
-                        .padding(.bottom, 10)
-                        .transition(.opacity)
+                } else if viewModel.offersPro {
+                    UnlockProCard(freeTakesLeft: viewModel.freeTakesLeft) {
+                        viewModel.showPaywall(from: .unlockCard)
+                    }
+                    .padding(.bottom, 10)
+                    .transition(.opacity)
                 }
 
                 EditorSectionHeader(title: Strings.Main.Mode.section)
@@ -175,8 +177,6 @@ struct HomeView: View {
                     ForEach(GameMode.allCases) { mode in
                         GameModeRow(
                             mode: mode,
-                            isLocked: viewModel.isLocked(mode),
-                            isFree: viewModel.isFree(mode),
                             // Large rows only where two of them fit side by side with room
                             // for their text, not in a narrow window that is still regular.
                             prominent: isRegular && proxy.size.width >= 740
@@ -189,7 +189,7 @@ struct HomeView: View {
             .padding(.horizontal, EditorMetrics.gutter)
             .padding(.top, 20)
             .padding(.bottom, 24)
-            .animation(.rsQuick, value: viewModel.areGamesLocked)
+            .animation(.rsQuick, value: viewModel.offersPro)
             .animation(.rsQuick, value: viewModel.visibleOffer)
             .animation(.rsQuick, value: viewModel.showsReviewBanner)
             // On a regular size the games sit in the middle of the screen rather than

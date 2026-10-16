@@ -13,7 +13,8 @@ import Foundation
 /// come back and shared something. This one is ours. It asks for a rating out of five first:
 /// someone happy is offered the App Store's write-a-review page, and someone who is not is
 /// asked what went wrong, in a note that comes to us and can be acted on. Who is asked at all is
-/// `ReviewPromptPolicy.isBannerAudience`: people who imported a pack and came back for days.
+/// `ReviewPromptPolicy.isBannerAudience`: people who imported a pack or kept doing well, and
+/// came back on another day.
 ///
 /// It stays out of the way: "Not now" puts it away for `snoozeInterval`, a second "Not now"
 /// puts it away for good, and so does tapping through to the store — whether or not a review

@@ -11,7 +11,7 @@
 "onboarding.dub.title" = "Zdubbinguj scenę z filmu";
 "onboarding.dub.message" = "Druga gra: puść scenę, przeszarżuj na całego i usłysz siebie w filmie. Cztery sceny są w zestawie. Resztę przynosisz sam.";
 "onboarding.pro.title" = "Po co jest Dubloon Pro";
-"onboarding.pro.message" = "Dubloon nie ma reklam, konta ani śledzenia, a tworzy go jedna osoba w Zurychu. Dubloon Pro to coś, co za to płaci: każda scena, naśladowanie dźwięków, Booth Cam i eksport. Śpiewanie od tyłu i dubbing własnych filmów zostają za darmo.";
+"onboarding.pro.message" = "Dubloon nie ma reklam, konta ani śledzenia, a tworzy go jedna osoba w Zurychu. Dubloon Pro to coś, co za to płaci. Możesz wypróbować każdą grę: pierwsze podejścia są darmowe (%d), a z Pro nie ma limitu.";
 "onboarding.pro.buy" = "Weź Dubloon Pro";
 "onboarding.pro.skip" = "Na razie pomiń";
 "onboarding.button.continueLowercase" = "dalej";
@@ -228,7 +228,6 @@
 "main.button.back" = "Wstecz";
 "main.mode.reverse.subtitle" = "Nagraj, odwróć i zaśpiewaj bełkot";
 "main.mode.dub.subtitle" = "Włóż swój głos w cudze usta";
-"main.mode.free" = "Gratis";
 "dub.speakerAccessibility" = "Mówi %@";
 "dub.cast" = "Obsada";
 "dub.referenceTrack" = "Wzorzec";
@@ -298,10 +297,11 @@
 "dub.videoNeedsReimport" = "Wideo tej sceny przekonwertowała starsza wersja i teraz biegnie przed głosami. Zaimportuj paczkę jeszcze raz, żeby to naprawić.";
 
 // MARK: - Pro / Paywall
-"pro.locked.title" = "Weź Dubloon Pro, żeby dubbingować";
 "pro.section" = "Dubloon Pro";
+"pro.freeTakes.left" = "Darmowe podejścia: zostało %1$d z %2$d";
+"pro.freeTakes.usedUp" = "Darmowe podejścia się skończyły";
 "pro.unlock.title" = "Odblokuj Dubloon";
-"pro.unlock.subtitle" = "Każda scena, naśladowanie dźwięków, Booth Cam i eksport. Śpiewanie od tyłu i dubbing własnych filmów zostają za darmo.";
+"pro.unlock.subtitle" = "Pierwsze podejścia są darmowe (%d), w każdej grze. Dubloon Pro znosi limit we wszystkich grach i dodaje Booth Cam oraz eksport.";
 "pro.owned.title" = "Dubloon jest twój";
 "pro.owned.subtitle" = "Dzięki. Każda scena, każde podejście, bez limitów.";
 "pro.manage.title" = "Zarządzaj zakupem";
@@ -318,7 +318,7 @@
 "pro.error.generic" = "Sklep nie odpowiedział. Spróbuj za chwilę.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Odblokuj Dubloon";
-"pro.fallback.message" = "Odblokuj Dubloon, żeby zdubbingować każdą scenę.";
+"pro.fallback.message" = "Odblokuj Dubloon, żeby dalej nagrywać w każdej grze.";
 "pro.fallback.buy" = "Odblokuj za %@";
 "pro.fallback.buyUnpriced" = "Odblokuj";
 "pro.fallback.loading" = "Pytamy sklep…";
@@ -633,8 +633,8 @@
 "help.flow.caption" = "Zaśpiewaj linijkę i posłuchaj jej od tyłu. Naśladuj ten bełkot najwierniej, jak potrafisz, a potem odwróć swoją wersję. Jeśli trafisz, wyjdzie z tego piosenka.";
 "help.gettingStarted.1.q" = "Czym jest Dubloon?";
 "help.gettingStarted.1.a" = "Cztery gry głosowe, do których wystarczy mikrofon. Śpiewanie od tyłu: zaśpiewaj piosenkę od tyłu. Dubbing sceny: podłóż swój głos pod scenę z filmu, kwestia po kwestii. Dubbing własnych filmów: podłóż głos pod nagrany przez siebie film. Naśladowanie dźwięków: naśladuj dźwięk i poznaj werdykt. Wybierz jedną w menu.";
-"help.gettingStarted.2.q" = "Które gry są darmowe?";
-"help.gettingStarted.2.a" = "Śpiewanie od tyłu i Dubbing własnych filmów są darmowe, bez limitu. Dubbing sceny i Naśladowanie dźwięków są w Dubloon Pro, razem z Booth Cam.";
+"help.gettingStarted.2.q" = "Czy Dubloon jest darmowy?";
+"help.gettingStarted.2.a" = "Każdą grę możesz wypróbować za darmo. Pierwsze 3 podejścia są darmowe i liczą się łącznie we wszystkich czterech grach: zdubbingujesz dwie kwestie z filmu, odwrócisz jedną piosenkę i już ich nie ma. Potem gry nadal się otwierają, a z Dubloon Pro nagrywasz dalej.";
 "help.gettingStarted.3.q" = "Czy potrzebuję słuchawek?";
 "help.gettingStarted.3.a" = "Nie, ale pomagają przy dubbingu. W słuchawkach słyszysz oryginalną kwestię podczas nagrywania (włącz Oryginał w słuchawkach w Ustawieniach). Z głośnika trafiłaby do twojego nagrania, więc Dubloon odtwarza ją tylko w słuchawkach. Słuchawki przewodowe dają najlepszą synchronizację: Bluetooth dodaje małe opóźnienie.";
 "help.reverse.1.q" = "Jak działa śpiewanie od tyłu?";
@@ -680,7 +680,7 @@
 "help.imitate.3.q" = "Mogę udostępnić próbę?";
 "help.imitate.3.a" = "Tak. Po werdykcie stuknij Zrób wideo: dźwięk, twoja próba i wynik, gotowe do wysłania. Z włączonym Booth Cam jest w nim też twoja twarz.";
 "help.pro.1.q" = "Co odblokowuje Dubloon Pro?";
-"help.pro.1.a" = "Dubbing sceny z każdą sceną i paczką od społeczności, Naśladowanie dźwięków, Booth Cam i eksport wideo. Śpiewanie od tyłu i Dubbing własnych filmów są darmowe tak czy inaczej. Pro to jednorazowy zakup albo subskrypcja i odblokowuje się na iPhonie i Macu z tym samym kontem Apple.";
+"help.pro.1.a" = "Nielimitowane podejścia w każdej grze: Dubbing sceny z każdą sceną i paczką od społeczności, Naśladowanie dźwięków, Śpiewanie od tyłu i Dubbing własnych filmów, a do tego Booth Cam i eksport wideo. Bez Pro pierwsze 3 podejścia są darmowe. Pro to jednorazowy zakup albo subskrypcja i odblokowuje się na iPhonie i Macu z tym samym kontem Apple.";
 "help.pro.2.q" = "Kupiłem Pro, a wciąż jest zablokowane.";
 "help.pro.2.a" = "Otwórz Ustawienia i stuknij Przywróć zakup. Upewnij się, że w App Store jesteś zalogowany na konto Apple, na którym kupiłeś Pro. Na nowym telefonie albo po ponownej instalacji przywrócenie odda ci je bez żadnych kosztów.";
 "help.pro.3.q" = "Jak anulować lub zmienić subskrypcję?";

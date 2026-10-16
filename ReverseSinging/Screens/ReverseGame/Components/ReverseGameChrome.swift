@@ -147,6 +147,10 @@ extension View {
             )) {
                 SettingsView(app: app, scope: .reverseSinging)
             }
+            .takePaywall(isPresented: Binding(
+                get: { viewModel.isTakePaywallPresented },
+                set: { viewModel.isTakePaywallPresented = $0 }
+            ), kind: .reverse)
             .microphonePrimer()
             .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: Binding(
                 get: { viewModel.showPermissionAlert },

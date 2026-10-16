@@ -11,7 +11,7 @@
 "onboarding.dub.title" = "Dub a movie scene";
 "onboarding.dub.message" = "The second game: play a scene, act all over it, then hear yourself in the film. Four scenes come in the box. After that, bring your own.";
 "onboarding.pro.title" = "Why Dubloon Pro exists";
-"onboarding.pro.message" = "Dubloon has no ads, no account and no tracking, and one person in Zürich makes it. Dubloon Pro is what pays for that: every scene, Sound Imitation, Booth Cam and exports. Reverse Singing and Home Video Dub stay free.";
+"onboarding.pro.message" = "Dubloon has no ads, no account and no tracking, and one person in Zürich makes it. Dubloon Pro is what pays for that. Every game is yours to try: your first %d takes are free, and Pro makes them unlimited.";
 "onboarding.pro.buy" = "Get Dubloon Pro";
 "onboarding.pro.skip" = "Skip for now";
 "onboarding.button.continueLowercase" = "continue";
@@ -228,7 +228,6 @@
 "main.button.back" = "Back";
 "main.mode.reverse.subtitle" = "Record a song, flip it, sing the nonsense";
 "main.mode.dub.subtitle" = "Put your voice in someone else's mouth";
-"main.mode.free" = "Free";
 "dub.speakerAccessibility" = "Spoken by %@";
 "dub.cast" = "Cast";
 "dub.referenceTrack" = "Reference";
@@ -298,10 +297,11 @@
 "dub.videoNeedsReimport" = "An older version converted this scene's video, and now it runs ahead of the voices. Import the pack again to put it right.";
 
 // MARK: - Pro / Paywall
-"pro.locked.title" = "Get Dubloon Pro to dub";
 "pro.section" = "Dubloon Pro";
+"pro.freeTakes.left" = "%1$d of %2$d free takes left";
+"pro.freeTakes.usedUp" = "Your free takes are used up";
 "pro.unlock.title" = "Unlock Dubloon";
-"pro.unlock.subtitle" = "Every scene, Sound Imitation, Booth Cam and exports. Reverse Singing and Home Video Dub stay free.";
+"pro.unlock.subtitle" = "Your first %d takes are free, in any game. Dubloon Pro makes every game unlimited, with Booth Cam and exports.";
 "pro.owned.title" = "You own Dubloon";
 "pro.owned.subtitle" = "Thank you. Every scene, every take, no ceiling.";
 "pro.manage.title" = "Manage purchase";
@@ -318,7 +318,7 @@
 "pro.error.generic" = "The store didn't answer. Try again in a moment.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Unlock Dubloon";
-"pro.fallback.message" = "Unlock Dubloon to dub every scene.";
+"pro.fallback.message" = "Unlock Dubloon to keep recording in every game.";
 "pro.fallback.buy" = "Unlock for %@";
 "pro.fallback.buyUnpriced" = "Unlock";
 "pro.fallback.loading" = "Asking the store…";
@@ -632,8 +632,8 @@
 "help.flow.caption" = "Sing a line and hear it backwards. Copy that nonsense as closely as you can, then flip your copy around. Nail it, and out comes the song.";
 "help.gettingStarted.1.q" = "What is Dubloon?";
 "help.gettingStarted.1.a" = "Four voice games that need nothing but your microphone. Reverse Singing: sing a song backwards. Movie Scene Dub: put your voice into a film scene, line by line. Home Video Dub: put your voice on a video you've filmed. Sound Imitation: copy a sound and get a verdict. Pick one from the menu.";
-"help.gettingStarted.2.q" = "Which games are free?";
-"help.gettingStarted.2.a" = "Reverse Singing and Home Video Dub are free, for as long as you like. Movie Scene Dub and Sound Imitation come with Dubloon Pro, along with Booth Cam.";
+"help.gettingStarted.2.q" = "Is Dubloon free?";
+"help.gettingStarted.2.a" = "Every game is free to try. Your first 3 takes are free, counted across all four games: dubbing two movie lines and reversing one song uses them up. After that the games still open, and Dubloon Pro lets you keep recording.";
 "help.gettingStarted.3.q" = "Do I need headphones?";
 "help.gettingStarted.3.a" = "No, but they help when you dub. With headphones on, you can hear the original line while you record (switch on Original in Headphones in Settings). Through the speaker it would end up in your take, so Dubloon only plays it in headphones. Wired headphones keep the timing tightest: Bluetooth adds a small delay.";
 "help.reverse.1.q" = "How does reverse singing work?";
@@ -679,7 +679,7 @@
 "help.imitate.3.q" = "Can I share an attempt?";
 "help.imitate.3.a" = "Yes. After a verdict, tap Make video: the sound, your attempt and your score, ready to send. With Booth Cam on, your face is in it too.";
 "help.pro.1.q" = "What does Dubloon Pro unlock?";
-"help.pro.1.a" = "Movie Scene Dub with every scene and community pack, Sound Imitation, Booth Cam and video exports. Reverse Singing and Home Video Dub are free either way. Pro is a one-time purchase or a subscription, and it unlocks on your iPhone and your Mac with the same Apple Account.";
+"help.pro.1.a" = "Unlimited takes in every game: Movie Scene Dub with every scene and community pack, Sound Imitation, Reverse Singing and Home Video Dub, plus Booth Cam and video exports. Without it, your first 3 takes are free. Pro is a one-time purchase or a subscription, and it unlocks on your iPhone and your Mac with the same Apple Account.";
 "help.pro.2.q" = "I bought Pro, but it's locked.";
 "help.pro.2.a" = "Open Settings and tap Restore purchase. Make sure you're signed in to the App Store with the Apple Account you bought it with. On a new phone or after reinstalling, restoring brings it back at no cost.";
 "help.pro.3.q" = "How do I cancel or change my subscription?";
