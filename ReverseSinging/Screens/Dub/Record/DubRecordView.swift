@@ -16,6 +16,8 @@ struct DubRecordView: View {
     @ObservedObject private var booth = BoothCamPreference.shared
     @Environment(\.dismiss) private var dismiss
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    /// Where the window's middle falls across the bay (see `readWindowMiddleRatio`).
+    @State private var seamRatio: CGFloat = 0.5
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Namespace private var bayNamespace
 
@@ -96,19 +98,29 @@ struct DubRecordView: View {
         if #available(iOS 27.1, *), horizontalSizeClass == .regular {
             ArrangementView {
                 screen(for: line)
-                    .splitArrangementLayoutRatio(idealHorizontal: 0.62, idealVertical: 0.5)
+                    .splitArrangementLayoutRatio(idealHorizontal: pictureRatio, idealVertical: 0.5)
             } secondary: {
                 SplitAxisReader { axis in
                     controls(for: line, isBeside: axis == .horizontal)
                 }
             }
             .arrangementViewStyle(.split)
+            .readWindowMiddleRatio(into: $seamRatio)
         } else {
             stackedBay(for: line)
         }
         #else
         stackedBay(for: line)
         #endif
+    }
+
+    /// The picture's share beside the desk: most of an iPad, but on iPhone Duo open flat
+    /// exactly up to the seam, so the picture never runs across the middle of the display.
+    private var pictureRatio: CGFloat {
+        #if os(iOS)
+        if UIDevice.current.userInterfaceIdiom == .phone { return seamRatio }
+        #endif
+        return 0.62
     }
 
     private func stackedBay(for line: DubLine) -> some View {

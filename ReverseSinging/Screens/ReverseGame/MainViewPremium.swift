@@ -16,6 +16,10 @@ struct MainViewPremium: View {
     @State private var isScoreVisible = true
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+    /// Where the window's middle falls across the content (see `readWindowMiddleRatio`).
+    @State private var seamRatio: CGFloat = 0.5
 
     var body: some View {
 
@@ -59,10 +63,67 @@ struct MainViewPremium: View {
             if let fold = proxy.horizontalFold, fold.minY > EditorMetrics.headerBarHeight + 200,
                fold.maxY < proxy.size.height - 200 {
                 tabletopContent(fold: fold)
+            } else if isWide(proxy.size) {
+                besideContent
             } else {
                 stackedContent
             }
         }
+    }
+
+    /// iPhone Duo open flat in landscape, iPad landscape: room for two panes side by side.
+    private func isWide(_ size: CGSize) -> Bool {
+        horizontalSizeClass == .regular && verticalSizeClass == .regular
+            && size.width > size.height && size.width >= 800
+    }
+
+    /// The readout (waveform, timer and its players) in the leading pane, the actions and
+    /// the score in the trailing one, divided on the seam, so a stretched phone column never
+    /// runs across the middle of the open display. Each pane scrolls on its own.
+    @ViewBuilder
+    private var besideContent: some View {
+        if #available(iOS 27.1, *) {
+            ArrangementView {
+                readoutPane
+                    .splitArrangementLayoutRatio(seamRatio)
+            } secondary: {
+                actionsPane
+            }
+            .arrangementViewStyle(.split.axes(.horizontal))
+            .readWindowMiddleRatio(into: $seamRatio)
+        } else {
+            HStack(spacing: 0) {
+                readoutPane
+                actionsPane
+            }
+        }
+    }
+
+    private var readoutPane: some View {
+        ScrollView {
+            VStack(spacing: 0) {
+                Color.clear
+                    .frame(height: EditorMetrics.headerBarHeight + 20)
+                readout
+            }
+        }
+        .scrollBounceBehavior(.basedOnSize)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    private var actionsPane: some View {
+        ScrollView {
+            VStack(spacing: 0) {
+                Color.clear
+                    .frame(height: EditorMetrics.headerBarHeight + 20)
+                actionButtonsSection
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 100)
+                    .animation(.rsSpring, value: viewModel.appState.recordingState)
+            }
+        }
+        .scrollBounceBehavior(.basedOnSize)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     /// Half folded as a table: the readout (waveform, timer and its players) on the upper half,

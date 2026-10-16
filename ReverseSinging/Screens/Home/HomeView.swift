@@ -29,6 +29,8 @@ struct HomeView: View {
                     .ignoresSafeArea()
 
                 menu
+                    // Centred on the seam, so the two columns of games keep their gutter on it.
+                    .centredOnWindowMiddle(isRegular)
 
                 header
             }
@@ -183,7 +185,7 @@ struct HomeView: View {
                             isFree: viewModel.isFree(mode),
                             // Large rows only where two of them fit side by side with room
                             // for their text, not in a narrow window that is still regular.
-                            prominent: isRegular && proxy.size.width >= 900
+                            prominent: isRegular && proxy.size.width >= 740
                         ) {
                             viewModel.open(mode)
                         }

@@ -33,6 +33,8 @@ struct DubLibraryView: View {
     /// A fold runs across the screen (iPhone Duo half folded as a table): the split stacks
     /// the list over the detail, one pane on each side of the fold.
     @State private var hasHorizontalFold = false
+    /// The list's share of the split: half the window (see `readWindowMiddleRatio`).
+    @State private var splitRatio: CGFloat = 0.5
 
     /// The packs, their import and its errors. Its changes reach this screen through
     /// `viewModel`, which passes them on.
@@ -173,11 +175,14 @@ struct DubLibraryView: View {
             // Half folded as a table, the list above the fold and the detail below it.
             ArrangementView {
                 splitList
-                    .splitArrangementLayoutRatio(0.5)
+                    .splitArrangementLayoutRatio(splitRatio)
             } secondary: {
                 splitDetail(pack)
             }
             .arrangementViewStyle(.split.axes(hasHorizontalFold ? .vertical : .horizontal))
+            // Open flat, the status strip narrows the trailing side: halves of the window,
+            // not of the safe area, so the divide is on the seam.
+            .readWindowMiddleRatio(into: $splitRatio)
         } else {
             splitStack(detail: pack)
         }
