@@ -123,7 +123,7 @@ struct HelpView: View {
     private func topicStrip(proxy: ScrollViewProxy) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                ForEach(HelpTopic.allCases) { topic in
+                ForEach(HelpTopic.available) { topic in
                     Button {
                         HapticManager.shared.selection()
                         withAnimation(.rsQuick) { proxy.scrollTo(topic, anchor: .top) }

@@ -1,0 +1,31 @@
+/* Dubloon the Game: the home stage. */
+
+/* What the game-show host says on the home stage, in a speech panel above the two games */
+"game.host.greeting" = "Καλώς ήρθες στο σόου! Διάλεξε παιχνίδι και ακούσου.";
+
+/* What the host says on the home stage once the free takes are used up */
+"game.host.outOfTakes" = "Τελείωσαν οι δωρεάν λήψεις! Πάρε το Pro και η σκηνή είναι δική σου.";
+
+/* Under the app name on the home stage: 'Dubloon' / 'The Game' */
+"game.subtitle" = "Το Παιχνίδι";
+
+/* Big caption on the stage before the first attempt at a sound */
+"game.imitate.prompt" = "Ζέστανε τις φωνητικές χορδές και κάνε την καλύτερη μίμηση!";
+
+/* Which line of the scene is up, e.g. 'Line 2 of 6' */
+"game.dub.lineOf" = "Ατάκα %1$d από %2$d";
+
+/* Title of the screen where the player picks a sound to imitate */
+"game.pickSound" = "Διάλεξε ήχο!";
+
+/* Title of the screen where the player picks a movie scene to dub */
+"game.pickScene" = "Διάλεξε σκηνή!";
+
+/* Button after a result: go on to the next sound */
+"game.nextSound" = "Επόμενος";
+
+/* Why the games need the microphone, and that recordings stay on the device. Shown once, before the system asks */
+"game.microphonePrimer.message" = "Και τα δύο παιχνίδια πρέπει να σε ακούν: στη μεταγλώττιση μιας σκηνής και στη μίμηση ενός ήχου. Το μικρόφωνο ξυπνά μόνο όσο ηχογραφείς, όλα μένουν σε αυτή τη συσκευή και τίποτα δεν ανεβαίνει ποτέ πουθενά. Η χειρότερη λήψη σου μένει μεταξύ σας.";
+
+/* Big caption on the stage during the 3-2-1 count before recording */
+"game.getReady" = "Ετοιμάσου…";

@@ -28,9 +28,14 @@ final class DubScoringPreference: ObservableObject {
     }
 
     private init() {
+        #if DUBLOON_GAME
+        // Dubloon the Game is played for the score: on unless the player turned it off.
+        isEnabled = UserDefaults.standard.object(forKey: Self.enabledKey) as? Bool ?? true
+        #else
         // `bool(forKey:)` is false for a key that was never written, which is the default
         // we want. No migration and no first-run special case.
         isEnabled = UserDefaults.standard.bool(forKey: Self.enabledKey)
+        #endif
     }
 
     #if DEBUG

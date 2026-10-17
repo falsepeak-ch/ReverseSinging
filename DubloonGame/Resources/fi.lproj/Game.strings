@@ -1,0 +1,31 @@
+/* Dubloon the Game: the home stage. */
+
+/* What the game-show host says on the home stage, in a speech panel above the two games */
+"game.host.greeting" = "Tervetuloa showhun! Valitse peli ja anna äänesi kuulua.";
+
+/* What the host says on the home stage once the free takes are used up */
+"game.host.outOfTakes" = "Ilmaiset otot loppuivat! Hanki Pro, niin lava on sinun.";
+
+/* Under the app name on the home stage: 'Dubloon' / 'The Game' */
+"game.subtitle" = "Peli";
+
+/* Big caption on the stage before the first attempt at a sound */
+"game.imitate.prompt" = "Lämmittele äänihuulet ja tee paras imitaatiosi!";
+
+/* Which line of the scene is up, e.g. 'Line 2 of 6' */
+"game.dub.lineOf" = "Repliikki %1$d/%2$d";
+
+/* Title of the screen where the player picks a sound to imitate */
+"game.pickSound" = "Valitse ääni!";
+
+/* Title of the screen where the player picks a movie scene to dub */
+"game.pickScene" = "Valitse kohtaus!";
+
+/* Button after a result: go on to the next sound */
+"game.nextSound" = "Seuraava";
+
+/* Why the games need the microphone, and that recordings stay on the device. Shown once, before the system asks */
+"game.microphonePrimer.message" = "Molempien pelien pitää kuulla sinut: kohtausta dubatessa tai ääntä matkiessa. Mikrofoni herää vain äänityksen ajaksi, kaikki pysyy tällä laitteella eikä mitään lähetetä koskaan minnekään. Surkein otoksesi jää teidän kahden väliseksi.";
+
+/* Big caption on the stage during the 3-2-1 count before recording */
+"game.getReady" = "Valmistaudu…";

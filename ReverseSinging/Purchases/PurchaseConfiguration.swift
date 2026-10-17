@@ -49,7 +49,13 @@ nonisolated enum PurchaseConfiguration {
     /// Empty until the App Store products are live. While it is empty a release
     /// build runs **without any gating at all** rather than locking everyone out
     /// behind a store it cannot reach — see `AccessController`.
+    #if DUBLOON_GAME
+    /// Dubloon the Game is its own App Store app, so its own RevenueCat app and key. Empty until
+    /// that app exists; a release build of the game runs ungated until then.
+    private static let appStoreAPIKey = ""
+    #else
     private static let appStoreAPIKey = "appl_aqLqWCwoFekxeQscZrNPuSGmpZp"
+    #endif
 
     /// The key for this build, or `nil` when none is configured.
     static var apiKey: String? {

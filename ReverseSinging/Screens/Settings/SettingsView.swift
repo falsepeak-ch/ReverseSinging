@@ -63,8 +63,11 @@ struct SettingsView: View {
                         // The camera gets its own section rather than a fourth row above:
                         // turning one on is not a decision of the same weight as a click
                         // sound, and it is the only thing in here that writes video.
+                        #if !DUBLOON_GAME
+                        // Dubloon the Game has no camera monitor, so no Booth Cam.
                         boothSection
                             .slideIn(delay: 0.25)
+                        #endif
 
                         privacySection
                             .slideIn(delay: 0.28)

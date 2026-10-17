@@ -1,0 +1,216 @@
+{
+  "name": "Voxhop",
+  "status": "prototype",
+  "asset_count": 13,
+  "estimated_rgba_bytes": 81777900,
+  "assets": [
+    {
+      "file": "Brand/voxhop-logo.png",
+      "width": 2172,
+      "height": 724,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bounds_top_left": [
+        33,
+        23,
+        2171,
+        704
+      ],
+      "rgba_bytes": 6290112
+    },
+    {
+      "file": "Games.atlas/game_home_video.png",
+      "width": 1254,
+      "height": 1254,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bounds_top_left": [
+        33,
+        166,
+        1179,
+        1035
+      ],
+      "rgba_bytes": 6290064
+    },
+    {
+      "file": "Games.atlas/game_imitate.png",
+      "width": 1254,
+      "height": 1254,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bounds_top_left": [
+        65,
+        79,
+        1156,
+        1172
+      ],
+      "rgba_bytes": 6290064
+    },
+    {
+      "file": "Games.atlas/game_reverse.png",
+      "width": 1254,
+      "height": 1254,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bounds_top_left": [
+        0,
+        35,
+        1148,
+        1250
+      ],
+      "rgba_bytes": 6290064
+    },
+    {
+      "file": "Games.atlas/game_scene.png",
+      "width": 1254,
+      "height": 1254,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bounds_top_left": [
+        27,
+        35,
+        1140,
+        1228
+      ],
+      "rgba_bytes": 6290064
+    },
+    {
+      "file": "Host.atlas/host_blink.png",
+      "width": 1024,
+      "height": 1536,
+      "alpha_range": [
+        0,
+        254
+      ],
+      "alpha_bounds_top_left": [
+        76,
+        0,
+        990,
+        1536
+      ],
+      "rgba_bytes": 6291456
+    },
+    {
+      "file": "Host.atlas/host_delight.png",
+      "width": 1024,
+      "height": 1536,
+      "alpha_range": [
+        0,
+        254
+      ],
+      "alpha_bounds_top_left": [
+        76,
+        1,
+        990,
+        1536
+      ],
+      "rgba_bytes": 6291456
+    },
+    {
+      "file": "Host.atlas/host_idle.png",
+      "width": 1024,
+      "height": 1536,
+      "alpha_range": [
+        0,
+        254
+      ],
+      "alpha_bounds_top_left": [
+        76,
+        1,
+        990,
+        1536
+      ],
+      "rgba_bytes": 6291456
+    },
+    {
+      "file": "Host.atlas/host_talk.png",
+      "width": 1024,
+      "height": 1536,
+      "alpha_range": [
+        0,
+        254
+      ],
+      "alpha_bounds_top_left": [
+        76,
+        0,
+        989,
+        1536
+      ],
+      "rgba_bytes": 6291456
+    },
+    {
+      "file": "Stage/stage_background.png",
+      "width": 1024,
+      "height": 1536,
+      "alpha_range": [
+        255,
+        255
+      ],
+      "alpha_bounds_top_left": [
+        0,
+        0,
+        1024,
+        1536
+      ],
+      "rgba_bytes": 6291456
+    },
+    {
+      "file": "UI.atlas/button_primary.png",
+      "width": 1983,
+      "height": 793,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bounds_top_left": [
+        78,
+        108,
+        1957,
+        769
+      ],
+      "rgba_bytes": 6290076
+    },
+    {
+      "file": "UI.atlas/fx_star.png",
+      "width": 1254,
+      "height": 1254,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bounds_top_left": [
+        130,
+        184,
+        1144,
+        982
+      ],
+      "rgba_bytes": 6290064
+    },
+    {
+      "file": "UI.atlas/panel_dialogue.png",
+      "width": 2172,
+      "height": 724,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bounds_top_left": [
+        57,
+        160,
+        2117,
+        566
+      ],
+      "rgba_bytes": 6290112
+    }
+  ]
+}

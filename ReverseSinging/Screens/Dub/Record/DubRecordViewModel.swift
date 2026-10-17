@@ -280,12 +280,20 @@ final class DubRecordViewModel: ObservableObject {
         }
 
         let buckets = Self.referenceBuckets
-        referenceSamples = await WaveformSampler.shared.samples(
+        let reference = await WaveformSampler.shared.samples(
             from: pack.referenceAudioURL(for: line),
             buckets: buckets
         )
+        // Loads for two lines can overlap (a jump right after the screen opens), and the
+        // slower one must not paint its line's shapes over the line now on screen.
+        guard isCurrent(line) else { return }
+        referenceSamples = reference
 
         await loadTakeWaveform(for: line)
+    }
+
+    private func isCurrent(_ line: DubLine) -> Bool {
+        currentLine?.slug == line.slug
     }
 
     /// The take is sampled at the reference's seconds-per-bar rather than into the same bar
@@ -296,7 +304,7 @@ final class DubRecordViewModel: ObservableObject {
         guard session.isRecorded(line),
               let takeDuration = await AudioFileManager.shared.getAudioDurationAsync(from: takeURL),
               takeDuration > 0 else {
-            takeSamples = []
+            if isCurrent(line) { takeSamples = [] }
             return
         }
 
@@ -306,7 +314,9 @@ final class DubRecordViewModel: ObservableObject {
             referenceBuckets: Self.referenceBuckets
         )
 
-        takeSamples = await WaveformSampler.shared.samples(from: takeURL, buckets: buckets)
+        let samples = await WaveformSampler.shared.samples(from: takeURL, buckets: buckets)
+        guard isCurrent(line) else { return }
+        takeSamples = samples
     }
 
     /// Fire-and-forget refresh, so callers stay synchronous.

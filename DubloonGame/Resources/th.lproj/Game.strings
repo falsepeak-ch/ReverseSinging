@@ -1,0 +1,31 @@
+/* Dubloon the Game: the home stage. */
+
+/* What the game-show host says on the home stage, in a speech panel above the two games */
+"game.host.greeting" = "ยินดีต้อนรับสู่โชว์! เลือกเกมแล้วปล่อยเสียงมาเลย";
+
+/* What the host says on the home stage once the free takes are used up */
+"game.host.outOfTakes" = "เทคฟรีหมดแล้ว! อัปเกรดเป็น Pro แล้วเวทีเป็นของคุณ";
+
+/* Under the app name on the home stage: 'Dubloon' / 'The Game' */
+"game.subtitle" = "เดอะเกม";
+
+/* Big caption on the stage before the first attempt at a sound */
+"game.imitate.prompt" = "วอร์มเส้นเสียงแล้วเลียนเสียงให้เป๊ะที่สุด!";
+
+/* Which line of the scene is up, e.g. 'Line 2 of 6' */
+"game.dub.lineOf" = "ประโยค %1$d จาก %2$d";
+
+/* Title of the screen where the player picks a sound to imitate */
+"game.pickSound" = "เลือกเสียง!";
+
+/* Title of the screen where the player picks a movie scene to dub */
+"game.pickScene" = "เลือกฉาก!";
+
+/* Button after a result: go on to the next sound */
+"game.nextSound" = "เสียงถัดไป";
+
+/* Why the games need the microphone, and that recordings stay on the device. Shown once, before the system asks */
+"game.microphonePrimer.message" = "ทั้งสองเกมต้องได้ยินคุณ ทั้งตอนพากย์ฉากและตอนเลียนเสียง ไมค์จะตื่นเฉพาะตอนอัด ทุกอย่างอยู่ในเครื่องนี้ และไม่มีอะไรถูกอัปโหลดไปไหน เทคที่แย่ที่สุดของคุณจะรู้กันแค่สองคน";
+
+/* Big caption on the stage during the 3-2-1 count before recording */
+"game.getReady" = "เตรียมตัว…";

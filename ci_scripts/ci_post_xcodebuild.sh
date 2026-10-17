@@ -15,7 +15,11 @@ if [ "$CI_XCODEBUILD_ACTION" != "archive" ]; then
     exit 0
 fi
 
-GSP_PATH="$CI_PRIMARY_REPOSITORY_PATH/ReverseSinging/GoogleService-Info.plist"
+# Dubloon the Game is its own Firebase app, so its symbols go to its own Crashlytics.
+case "$CI_XCODE_SCHEME" in
+    DubloonGame) GSP_PATH="$CI_PRIMARY_REPOSITORY_PATH/DubloonGame/GoogleService-Info.plist" ;;
+    *) GSP_PATH="$CI_PRIMARY_REPOSITORY_PATH/ReverseSinging/GoogleService-Info.plist" ;;
+esac
 DSYM_PATH="$CI_ARCHIVE_PATH/dSYMs"
 
 # Firebase comes in through SPM, not CocoaPods, so upload-symbols ships inside the

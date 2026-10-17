@@ -1,0 +1,31 @@
+/* Dubloon the Game: the home stage. */
+
+/* What the game-show host says on the home stage, in a speech panel above the two games */
+"game.host.greeting" = "أهلًا بك في العرض! اختر لعبة ودعنا نسمع صوتك.";
+
+/* What the host says on the home stage once the free takes are used up */
+"game.host.outOfTakes" = "انتهت تسجيلاتك المجانية! اشترك في Pro والمسرح لك.";
+
+/* Under the app name on the home stage: 'Dubloon' / 'The Game' */
+"game.subtitle" = "اللعبة";
+
+/* Big caption on the stage before the first attempt at a sound */
+"game.imitate.prompt" = "سخّن أحبالك الصوتية وقدّم أفضل تقليد لديك!";
+
+/* Which line of the scene is up, e.g. 'Line 2 of 6' */
+"game.dub.lineOf" = "الجملة %1$d من %2$d";
+
+/* Title of the screen where the player picks a sound to imitate */
+"game.pickSound" = "اختر صوتًا!";
+
+/* Title of the screen where the player picks a movie scene to dub */
+"game.pickScene" = "اختر مشهدًا!";
+
+/* Button after a result: go on to the next sound */
+"game.nextSound" = "التالي";
+
+/* Why the games need the microphone, and that recordings stay on the device. Shown once, before the system asks */
+"game.microphonePrimer.message" = "اللعبتان تحتاجان أن تسمعاك: في دبلجة مشهد، وفي تقليد صوت. الميكروفون يستيقظ أثناء التسجيل فقط، وكل شيء يبقى على هذا الجهاز ولا يُرفع أي شيء إلى أي مكان. أسوأ محاولاتك تبقى بينك وبين الجهاز.";
+
+/* Big caption on the stage during the 3-2-1 count before recording */
+"game.getReady" = "استعد…";

@@ -47,7 +47,12 @@ final class BoothCamPreference: ObservableObject {
         let defaults = UserDefaults.standard
         // `bool(forKey:)` is false for a key that was never written, which is the default we
         // want for both the feature and the primer. No migration, no first-run special case.
+        #if DUBLOON_GAME
+        // Dubloon the Game draws no camera monitor, so the camera never rolls there.
+        isEnabled = false
+        #else
         isEnabled = defaults.bool(forKey: Self.enabledKey)
+        #endif
         hasSeenPrimer = defaults.bool(forKey: Self.seenPrimerKey)
         // The one setting whose default is on: a selfie preview that is not mirrored reads as
         // broken to anyone who has ever used a front camera.

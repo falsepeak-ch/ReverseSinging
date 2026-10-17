@@ -23,6 +23,16 @@ nonisolated enum HelpTopic: String, CaseIterable, Identifiable, Sendable {
 
     var id: String { rawValue }
 
+    /// The chapters this build has. Dubloon the Game has no reverse singing, no home video
+    /// and no Booth Cam, so it leaves their chapters out.
+    static var available: [HelpTopic] {
+        #if DUBLOON_GAME
+        allCases.filter { ![.reverse, .homeVideo, .booth].contains($0) }
+        #else
+        allCases
+        #endif
+    }
+
     var title: String {
         switch self {
         case .gettingStarted: Strings.Help.Section.gettingStarted

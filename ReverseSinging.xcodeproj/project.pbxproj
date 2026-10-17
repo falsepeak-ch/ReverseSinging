@@ -24,6 +24,16 @@
 		DC0AC01920260927000000B9 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = DC0AC02920260927000000C9 /* RevenueCatUI */; };
 		DC0AC01A20260927000000BA /* DubPackKit in Frameworks */ = {isa = PBXBuildFile; productRef = DC0AC02A20260927000000CA /* DubPackKit */; };
 		DC0AC01B20260927000000BB /* DubCompositing in Frameworks */ = {isa = PBXBuildFile; productRef = DC0AC02B20260927000000CB /* DubCompositing */; };
+		DD6A00402026101700000040 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = DD6A00202026101700000020 /* FirebaseCore */; };
+		DD6A00412026101700000041 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = DD6A00212026101700000021 /* FirebaseCrashlytics */; };
+		DD6A00422026101700000042 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = DD6A00222026101700000022 /* FirebaseAnalytics */; };
+		DD6A00432026101700000043 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = DD6A00232026101700000023 /* RevenueCat */; };
+		DD6A00442026101700000044 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = DD6A00242026101700000024 /* RevenueCatUI */; };
+		DD6A00452026101700000045 /* DubPackKit in Frameworks */ = {isa = PBXBuildFile; productRef = DD6A00252026101700000025 /* DubPackKit */; };
+		DD6A00462026101700000046 /* DubAudio in Frameworks */ = {isa = PBXBuildFile; productRef = DD6A00262026101700000026 /* DubAudio */; };
+		DD6A00472026101700000047 /* DubScoring in Frameworks */ = {isa = PBXBuildFile; productRef = DD6A00272026101700000027 /* DubScoring */; };
+		DD6A00482026101700000048 /* DubCompositing in Frameworks */ = {isa = PBXBuildFile; productRef = DD6A00282026101700000028 /* DubCompositing */; };
+		DD6A00492026101700000049 /* DubloonFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = DD6A00292026101700000029 /* DubloonFoundation */; };
 		E2CE0E60FF574C54BA229923 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		FF2EE2D92EAF91B100549684 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = FF3C44EB2EAF8B000055F61C /* FirebaseCore */; };
 		FF2EE3E72EB028B600549684 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = FF2EE3E62EB028B600549684 /* FirebaseCrashlytics */; };
@@ -42,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		DC0AC00220260927000000A2 /* Dubloon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dubloon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD6A00022026101700000002 /* DubloonGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DubloonGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFA267C62EA6B026008518FC /* ReverseSinging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReverseSinging.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFA267D32EA6B028008518FC /* ReverseSingingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReverseSingingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -62,6 +73,17 @@
 			);
 			target = DC0AC00120260927000000A1 /* DubloonMac */;
 		};
+		DD6A000A202610170000000A /* Exceptions for "ReverseSinging" folder in "DubloonGame" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				AppIcon.icon,
+				GoogleService-Info.plist,
+				Info.plist,
+				"/Localized: Resources/InfoPlist.strings",
+				ReverseSingingApp.swift,
+			);
+			target = DD6A00012026101700000001 /* DubloonGame */;
+		};
 		FF2EE3892EB00CD600549684 /* Exceptions for "ReverseSinging" folder in "ReverseSinging" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -80,11 +102,17 @@
 			path = DubloonMac;
 			sourceTree = "<group>";
 		};
+		DD6A00092026101700000009 /* DubloonGame */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = DubloonGame;
+			sourceTree = "<group>";
+		};
 		FFA267C82EA6B026008518FC /* ReverseSinging */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				FF2EE3892EB00CD600549684 /* Exceptions for "ReverseSinging" folder in "ReverseSinging" target */,
 				DC0AC00A20260927000000AA /* Exceptions for "ReverseSinging" folder in "DubloonMac" target */,
+				DD6A000A202610170000000A /* Exceptions for "ReverseSinging" folder in "DubloonGame" target */,
 			);
 			path = ReverseSinging;
 			sourceTree = "<group>";
@@ -111,6 +139,23 @@
 				DC0AC01920260927000000B9 /* RevenueCatUI in Frameworks */,
 				DC0AC01A20260927000000BA /* DubPackKit in Frameworks */,
 				DC0AC01B20260927000000BB /* DubCompositing in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD6A00042026101700000004 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD6A00402026101700000040 /* FirebaseCore in Frameworks */,
+				DD6A00412026101700000041 /* FirebaseCrashlytics in Frameworks */,
+				DD6A00422026101700000042 /* FirebaseAnalytics in Frameworks */,
+				DD6A00432026101700000043 /* RevenueCat in Frameworks */,
+				DD6A00442026101700000044 /* RevenueCatUI in Frameworks */,
+				DD6A00452026101700000045 /* DubPackKit in Frameworks */,
+				DD6A00462026101700000046 /* DubAudio in Frameworks */,
+				DD6A00472026101700000047 /* DubScoring in Frameworks */,
+				DD6A00482026101700000048 /* DubCompositing in Frameworks */,
+				DD6A00492026101700000049 /* DubloonFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +192,7 @@
 				FFA267C82EA6B026008518FC /* ReverseSinging */,
 				FFA267D62EA6B028008518FC /* ReverseSingingTests */,
 				DC0AC00920260927000000A9 /* DubloonMac */,
+				DD6A00092026101700000009 /* DubloonGame */,
 				FFA267C72EA6B026008518FC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -157,6 +203,7 @@
 				FFA267C62EA6B026008518FC /* ReverseSinging.app */,
 				FFA267D32EA6B028008518FC /* ReverseSingingTests.xctest */,
 				DC0AC00220260927000000A2 /* Dubloon.app */,
+				DD6A00022026101700000002 /* DubloonGame.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -195,6 +242,39 @@
 			);
 			productName = Dubloon;
 			productReference = DC0AC00220260927000000A2 /* Dubloon.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DD6A00012026101700000001 /* DubloonGame */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD6A00062026101700000006 /* Build configuration list for PBXNativeTarget "DubloonGame" */;
+			buildPhases = (
+				DD6A00032026101700000003 /* Sources */,
+				DD6A00042026101700000004 /* Frameworks */,
+				DD6A00052026101700000005 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				DD6A00092026101700000009 /* DubloonGame */,
+				FFA267C82EA6B026008518FC /* ReverseSinging */,
+			);
+			name = DubloonGame;
+			packageProductDependencies = (
+				DD6A00202026101700000020 /* FirebaseCore */,
+				DD6A00212026101700000021 /* FirebaseCrashlytics */,
+				DD6A00222026101700000022 /* FirebaseAnalytics */,
+				DD6A00232026101700000023 /* RevenueCat */,
+				DD6A00242026101700000024 /* RevenueCatUI */,
+				DD6A00252026101700000025 /* DubPackKit */,
+				DD6A00262026101700000026 /* DubAudio */,
+				DD6A00272026101700000027 /* DubScoring */,
+				DD6A00282026101700000028 /* DubCompositing */,
+				DD6A00292026101700000029 /* DubloonFoundation */,
+			);
+			productName = DubloonGame;
+			productReference = DD6A00022026101700000002 /* DubloonGame.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FFA267C52EA6B026008518FC /* ReverseSinging */ = {
@@ -265,6 +345,9 @@
 					DC0AC00120260927000000A1 = {
 						CreatedOnToolsVersion = 26.0;
 					};
+					DD6A00012026101700000001 = {
+						CreatedOnToolsVersion = 26.0;
+					};
 					FFA267C52EA6B026008518FC = {
 						CreatedOnToolsVersion = 26.0;
 					};
@@ -317,12 +400,20 @@
 				FFA267C52EA6B026008518FC /* ReverseSinging */,
 				FFA267D22EA6B028008518FC /* ReverseSingingTests */,
 				DC0AC00120260927000000A1 /* DubloonMac */,
+				DD6A00012026101700000001 /* DubloonGame */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		DC0AC00520260927000000A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD6A00052026101700000005 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -348,6 +439,13 @@
 
 /* Begin PBXSourcesBuildPhase section */
 		DC0AC00320260927000000A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD6A00032026101700000003 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -464,6 +562,96 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		DD6A00072026101700000007 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = GameAppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4YGWZWHTHM;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ReverseSinging/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Dubloon Game";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music-games";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Dubloon uses the front camera to film you while you dub, so you can share your reaction alongside the take. Filming stays off until you turn it on.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Dubloon needs the microphone to record your voice while you play: dubbing scenes and imitating sounds.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Dubloon adds your finished dub to Photos when you choose Save Video. It never reads anything already in your library.";
+				INFOPLIST_KEY_UIAppFonts = Eugello.ttf;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LM_SKIP_METADATA_EXTRACTION = YES;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.falsepeak.dubloon-game";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DUBLOON_GAME $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		DD6A00082026101700000008 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = GameAppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4YGWZWHTHM;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ReverseSinging/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Dubloon Game";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music-games";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Dubloon uses the front camera to film you while you dub, so you can share your reaction alongside the take. Filming stays off until you turn it on.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Dubloon needs the microphone to record your voice while you play: dubbing scenes and imitating sounds.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Dubloon adds your finished dub to Photos when you choose Save Video. It never reads anything already in your library.";
+				INFOPLIST_KEY_UIAppFonts = Eugello.ttf;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LM_SKIP_METADATA_EXTRACTION = YES;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.falsepeak.dubloon-game";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DUBLOON_GAME $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -740,6 +928,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		DD6A00062026101700000006 /* Build configuration list for PBXNativeTarget "DubloonGame" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD6A00072026101700000007 /* Debug */,
+				DD6A00082026101700000008 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FFA267C12EA6B026008518FC /* Build configuration list for PBXProject "ReverseSinging" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -884,6 +1081,56 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB7AF60120260911000000F1 /* XCLocalSwiftPackageReference "Packages/DubloonKit" */;
 			productName = DubCompositing;
+		};
+		DD6A00202026101700000020 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		DD6A00212026101700000021 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		DD6A00222026101700000022 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		DD6A00232026101700000023 /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB4AF30120260904000000C1 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCat;
+		};
+		DD6A00242026101700000024 /* RevenueCatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB4AF30120260904000000C1 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCatUI;
+		};
+		DD6A00252026101700000025 /* DubPackKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB6AF50120260910000000E1 /* XCLocalSwiftPackageReference "Packages/DubPackKit" */;
+			productName = DubPackKit;
+		};
+		DD6A00262026101700000026 /* DubAudio */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB7AF60120260911000000F1 /* XCLocalSwiftPackageReference "Packages/DubloonKit" */;
+			productName = DubAudio;
+		};
+		DD6A00272026101700000027 /* DubScoring */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB7AF60120260911000000F1 /* XCLocalSwiftPackageReference "Packages/DubloonKit" */;
+			productName = DubScoring;
+		};
+		DD6A00282026101700000028 /* DubCompositing */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB7AF60120260911000000F1 /* XCLocalSwiftPackageReference "Packages/DubloonKit" */;
+			productName = DubCompositing;
+		};
+		DD6A00292026101700000029 /* DubloonFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB7AF60120260911000000F1 /* XCLocalSwiftPackageReference "Packages/DubloonKit" */;
+			productName = DubloonFoundation;
 		};
 		FF2EE3E62EB028B600549684 /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;

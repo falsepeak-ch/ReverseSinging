@@ -1,0 +1,6 @@
+/* Dubloon the Game: the system's permission prompts. The English microphone text is also
+   INFOPLIST_KEY_NSMicrophoneUsageDescription in the DubloonGame build settings. */
+
+"NSMicrophoneUsageDescription" = "Dubloon braucht das Mikrofon, um deine Stimme beim Spielen aufzunehmen: zum Synchronisieren von Szenen und Nachahmen von Geräuschen.";
+
+"NSCameraUsageDescription" = "Dubloon filmt dich mit der Frontkamera, während du synchronisierst, damit du deine Reaktion zusammen mit der Aufnahme teilen kannst. Die Kamera bleibt aus, bis du sie einschaltest.";

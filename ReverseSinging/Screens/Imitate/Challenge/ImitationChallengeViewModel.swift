@@ -69,6 +69,10 @@ final class ImitationChallengeViewModel: ObservableObject {
     /// Gives the performer room to breathe in and trail off, without making them wait out a
     /// long silence after a half-second bark.
     var maximumTakeDuration: TimeInterval {
+        Self.maximumTakeDuration(for: sound)
+    }
+
+    static func maximumTakeDuration(for sound: ImitationSound) -> TimeInterval {
         max(2, sound.duration * 1.6 + 0.8)
     }
 
@@ -95,6 +99,8 @@ final class ImitationChallengeViewModel: ObservableObject {
     // MARK: - Derived
 
     var level: Float { recorder.recordingLevel }
+    /// Linear peak of the latest meter tick: what a waveform of the take is drawn from.
+    var peak: Float { recorder.recordingPeak }
     var recordingElapsed: TimeInterval { recorder.recordingDuration }
     var playbackProgress: Double {
         player.duration > 0 ? min(1, player.currentTime / player.duration) : 0

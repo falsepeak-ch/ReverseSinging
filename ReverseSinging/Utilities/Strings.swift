@@ -28,7 +28,12 @@ nonisolated enum Strings {
     // MARK: - Microphone explanation
     enum MicrophonePrimer {
         static let title = NSLocalizedString("microphonePrimer.title", comment: "Title strip of the dialog that explains the microphone before the system asks for it")
+        #if DUBLOON_GAME
+        // Dubloon the Game has no reverse singing, so its own copy, from its own table.
+        static let message = NSLocalizedString("game.microphonePrimer.message", tableName: "Game", comment: "Why the games need the microphone, and that recordings stay on the device")
+        #else
         static let message = NSLocalizedString("microphonePrimer.message", comment: "Why the games need the microphone, and that recordings stay on the device")
+        #endif
         static let confirm = NSLocalizedString("microphonePrimer.continue", comment: "The one button of the microphone explanation, which leads to the system prompt")
     }
 

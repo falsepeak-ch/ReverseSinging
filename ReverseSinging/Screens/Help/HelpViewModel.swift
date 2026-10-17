@@ -33,7 +33,7 @@ final class HelpViewModel: ObservableObject {
 
     /// The chapter asked for first, then the rest in their usual order.
     var topics: [HelpTopic] {
-        [initialTopic] + HelpTopic.allCases.filter { $0 != initialTopic }
+        [initialTopic] + HelpTopic.available.filter { $0 != initialTopic }
     }
 
     var isSearching: Bool { !trimmedQuery.isEmpty }
@@ -42,7 +42,7 @@ final class HelpViewModel: ObservableObject {
 
     /// Every answer the search finds, across chapters.
     var searchResults: [HelpArticle] {
-        HelpTopic.allCases.flatMap(\.articles).filter { $0.matches(trimmedQuery) }
+        HelpTopic.available.flatMap(\.articles).filter { $0.matches(trimmedQuery) }
     }
 
     func isExpanded(_ article: HelpArticle) -> Bool {
