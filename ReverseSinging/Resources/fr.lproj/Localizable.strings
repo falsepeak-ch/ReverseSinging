@@ -11,7 +11,7 @@
 "onboarding.dub.title" = "Double une scène de film";
 "onboarding.dub.message" = "Le deuxième jeu : lance une scène, surjoue par-dessus, puis écoute-toi dans le film. Quatre scènes sont fournies. Ensuite, ce sera avec tes propres fichiers.";
 "onboarding.pro.title" = "Pourquoi Dubloon Pro existe";
-"onboarding.pro.message" = "Dubloon n'a ni pub, ni compte, ni pistage, et une seule personne le fabrique à Zurich. Dubloon Pro est ce qui le finance : toutes les scènes, l'imitation de sons, la caméra de cabine et les exports. Le chant inversé et le doublage de tes vidéos restent gratuits.";
+"onboarding.pro.message" = "Dubloon n'a ni pub, ni compte, ni pistage, et une seule personne le fabrique à Zurich. Dubloon Pro est ce qui le finance. Tu peux essayer tous les jeux : tes %d premières prises sont gratuites, et Pro les rend illimitées.";
 "onboarding.pro.buy" = "Prendre Dubloon Pro";
 "onboarding.pro.skip" = "Passer pour l'instant";
 "onboarding.button.continueLowercase" = "continuer";
@@ -228,7 +228,6 @@
 "main.button.back" = "Retour";
 "main.mode.reverse.subtitle" = "Enregistre, retourne, chante le charabia";
 "main.mode.dub.subtitle" = "Mets ta voix dans la bouche d'un autre";
-"main.mode.free" = "Gratuit";
 "dub.speakerAccessibility" = "Dit par %@";
 "dub.cast" = "Distribution";
 "dub.referenceTrack" = "Référence";
@@ -297,10 +296,11 @@
 "dub.videoNeedsReimport" = "La vidéo de cette scène a été convertie par une ancienne version et elle part devant les voix. Réimporte le pack pour remettre ça d'aplomb.";
 
 // MARK: - Pro / Paywall
-"pro.locked.title" = "Prends Dubloon Pro pour doubler";
 "pro.section" = "Dubloon Pro";
+"pro.freeTakes.left" = "Encore %1$d prises gratuites sur %2$d";
+"pro.freeTakes.usedUp" = "Tu as utilisé toutes tes prises gratuites";
 "pro.unlock.title" = "Débloquer Dubloon";
-"pro.unlock.subtitle" = "Toutes les scènes, l'imitation de sons, la caméra de cabine et les exports. Le chant inversé et le doublage de tes vidéos restent gratuits.";
+"pro.unlock.subtitle" = "Tes %d premières prises sont gratuites, dans n'importe quel jeu. Dubloon Pro rend tous les jeux illimités, avec la caméra de cabine et les exports.";
 "pro.owned.title" = "Dubloon est à toi";
 "pro.owned.subtitle" = "Merci. Toutes les scènes, toutes les prises, sans plafond.";
 "pro.manage.title" = "Gérer l'achat";
@@ -317,7 +317,7 @@
 "pro.error.generic" = "La boutique n'a pas répondu. Réessaie dans un instant.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Débloquer Dubloon";
-"pro.fallback.message" = "Débloque Dubloon pour doubler toutes les scènes.";
+"pro.fallback.message" = "Débloque Dubloon pour continuer à enregistrer dans tous les jeux.";
 "pro.fallback.buy" = "Débloquer pour %@";
 "pro.fallback.buyUnpriced" = "Débloquer";
 "pro.fallback.loading" = "On demande à la boutique…";
@@ -627,8 +627,8 @@
 "help.flow.caption" = "Chante une phrase et écoute-la à l'envers. Copie ce charabia du mieux que tu peux, puis retourne ta copie. Si tu vises juste, la chanson ressort.";
 "help.gettingStarted.1.q" = "C'est quoi, Dubloon ?";
 "help.gettingStarted.1.a" = "Quatre jeux de voix qui ne demandent que ton micro. Chant inversé : chante une chanson à l'envers. Doublage de scène : mets ta voix dans une scène de film, réplique par réplique. Doublage de tes vidéos : mets ta voix sur une vidéo que tu as filmée. Imitation de sons : imite un son et reçois un verdict. Choisis-en un dans le menu.";
-"help.gettingStarted.2.q" = "Quels jeux sont gratuits ?";
-"help.gettingStarted.2.a" = "Chant inversé et Doublage de tes vidéos sont gratuits, sans limite. Doublage de scène et Imitation de sons sont inclus dans Dubloon Pro, avec la caméra de cabine.";
+"help.gettingStarted.2.q" = "Dubloon est-il gratuit ?";
+"help.gettingStarted.2.a" = "Tu peux essayer tous les jeux gratuitement. Tes 3 premières prises sont gratuites, tous jeux confondus : doubler deux répliques de film et inverser une chanson suffit à les épuiser. Ensuite, les jeux s'ouvrent toujours, et Dubloon Pro te permet de continuer à enregistrer.";
 "help.gettingStarted.3.q" = "J'ai besoin d'un casque ?";
 "help.gettingStarted.3.a" = "Non, mais ça aide pour doubler. Avec un casque, tu entends la réplique originale pendant l'enregistrement (active Original dans le casque dans les Réglages). Par le haut-parleur, elle finirait dans ta prise, alors Dubloon ne la joue que dans le casque. Un casque filaire garde la synchro la plus serrée : le Bluetooth ajoute un petit décalage.";
 "help.reverse.1.q" = "Comment marche le chant inversé ?";
@@ -674,7 +674,7 @@
 "help.imitate.3.q" = "Je peux partager un essai ?";
 "help.imitate.3.a" = "Oui. Après un verdict, appuie sur Créer la vidéo : le son, ton essai et ton score, prêts à envoyer. Avec la caméra de cabine activée, ton visage y est aussi.";
 "help.pro.1.q" = "Que débloque Dubloon Pro ?";
-"help.pro.1.a" = "Le Doublage de scène avec toutes les scènes et les packs de la communauté, l'Imitation de sons, la caméra de cabine et les exports vidéo. Le Chant inversé et le Doublage de tes vidéos restent gratuits dans tous les cas. Pro est un achat unique ou un abonnement, et il se débloque sur ton iPhone et ton Mac avec le même compte Apple.";
+"help.pro.1.a" = "Des prises illimitées dans tous les jeux : le Doublage de scène avec toutes les scènes et les packs de la communauté, l'Imitation de sons, le Chant inversé et le Doublage de tes vidéos, plus la caméra de cabine et les exports vidéo. Sans Pro, tes 3 premières prises sont gratuites. Pro est un achat unique ou un abonnement, et il se débloque sur ton iPhone et ton Mac avec le même compte Apple.";
 "help.pro.2.q" = "J'ai acheté Pro, mais c'est verrouillé.";
 "help.pro.2.a" = "Ouvre les Réglages et appuie sur Restaurer l'achat. Vérifie que tu es connecté à l'App Store avec le compte Apple qui a servi à l'achat. Sur un nouveau téléphone ou après une réinstallation, la restauration le récupère sans frais.";
 "help.pro.3.q" = "Comment résilier ou changer mon abonnement ?";

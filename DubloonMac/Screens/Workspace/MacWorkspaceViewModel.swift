@@ -112,10 +112,6 @@ final class MacWorkspaceViewModel: ObservableObject {
     /// Packs opened lately, newest first, for File ▸ Open Recent.
     @Published private(set) var recentPackIDs: [UUID]
 
-    /// A pack from Finder or the Dock that arrived while dubbing was locked. The paywall it
-    /// opened decides: bought, and the pack is imported and opened; closed, and it is dropped,
-    /// as on the iPhone.
-    private var importAwaitingUnlock: URL?
 
     private let defaults = UserDefaults.standard
 
@@ -144,26 +140,6 @@ final class MacWorkspaceViewModel: ObservableObject {
                 .store(in: &cancellables)
         }
 
-        // A subscription that runs out with a paid game open closes it, as it does on the iPhone.
-        AccessController.shared.$state
-            .removeDuplicates()
-            .sink { [weak self] state in
-                guard let self, state == .locked, let selection = self.selection else { return }
-                // Read on the next turn: `isLocked` has not changed yet when the sink fires.
-                Task { @MainActor in
-                    if self.home.isLocked(selection.mode) { self.selection = nil }
-                }
-            }
-            .store(in: &cancellables)
-
-        AccessController.shared.$state
-            .removeDuplicates()
-            .filter { $0 != .locked }
-            .sink { [weak self] _ in
-                Task { @MainActor in await self?.resumeImportAwaitingUnlock() }
-            }
-            .store(in: &cancellables)
-
         // The scoring switch sits in four places on the Mac (library, editor toolbar,
         // inspector, Settings); every flip is counted once, here, as the iPhone counts its one.
         DubScoringPreference.shared.$isEnabled
@@ -171,26 +147,6 @@ final class MacWorkspaceViewModel: ObservableObject {
             .removeDuplicates()
             .sink { [weak self] enabled in self?.dubLibrary.scoringDidChange(enabled: enabled) }
             .store(in: &cancellables)
-
-        home.$paywallSource
-            .dropFirst()
-            .filter { $0 == nil }
-            .sink { [weak self] _ in
-                // A moment later: a purchase closes the paywall and unlocks in either order, and the
-                // store can take a beat to say so.
-                Task { @MainActor in
-                    try? await Task.sleep(for: .seconds(2))
-                    guard let self else { return }
-                    if self.home.isLocked(.dub) { self.importAwaitingUnlock = nil }
-                }
-            }
-            .store(in: &cancellables)
-    }
-
-    private func resumeImportAwaitingUnlock() async {
-        guard let url = importAwaitingUnlock, !home.isLocked(.dub) else { return }
-        importAwaitingUnlock = nil
-        await importPack(from: url)
     }
 
     // MARK: - Screen
@@ -207,7 +163,7 @@ final class MacWorkspaceViewModel: ObservableObject {
     // MARK: - Selection
 
     /// Back to where the window was left, once the packs are known; the reverse studio if that
-    /// place has gone, or is behind the paywall now.
+    /// place has gone.
     private func restoreSelection() {
         selection = .reverse
         #if DEBUG
@@ -223,7 +179,7 @@ final class MacWorkspaceViewModel: ObservableObject {
             case .session(let id): session(id: id) != nil
             default: true
             }
-            if exists, !home.isLocked(saved.mode) { selection = saved }
+            if exists { selection = saved }
         }
     }
 
@@ -239,14 +195,13 @@ final class MacWorkspaceViewModel: ObservableObject {
             openInNewWindow(id)
             return
         }
-        guard home.requestEntry(destination.mode) else { return }
         showLibraryWindow()
         // Leaving a take half-recorded behind is not a thing a sidebar click should do.
         game.stopPlayback()
         selection = destination
     }
 
-    /// A binding for the sidebar's `List`, routed through the paywall.
+    /// A binding for the sidebar's `List`.
     var selectionBinding: Binding<MacDestination?> {
         Binding(get: { self.selection }, set: { self.select($0) })
     }
@@ -258,7 +213,6 @@ final class MacWorkspaceViewModel: ObservableObject {
     /// its window to the front.
     func openInNewWindow(_ id: UUID) {
         guard pack(id: id) != nil else { return }
-        guard packsInWindows.contains(id) || home.requestEntry(.dub) else { return }
         if selection == .pack(id) { selection = .dubLibrary }
         noteRecent(id)
         openWindow?(id: MacWindowID.pack, value: id)
@@ -415,7 +369,6 @@ final class MacWorkspaceViewModel: ObservableObject {
     // MARK: - Packs
 
     func requestImport() {
-        guard home.requestEntry(.dub) else { return }
         showLibraryWindow()
         dubLibrary.requestImport()
     }
@@ -426,7 +379,7 @@ final class MacWorkspaceViewModel: ObservableObject {
         dubLibrary.showPackGuide = true
     }
 
-    /// The guide's Import button: through the paywall and the content gate like any import.
+    /// The guide's Import button: through the content gate like any import.
     func packGuideDidRequestImport() {
         dubLibrary.showPackGuide = false
         requestImport()
@@ -442,14 +395,9 @@ final class MacWorkspaceViewModel: ObservableObject {
     /// A pack from Finder, the Dock or a drop onto the sidebar.
     func importPack(from url: URL) async {
         #if DEBUG
-        FileHandle.standardError.write(Data("IMPORT|start \(url.lastPathComponent) allowed=\(!home.isLocked(.dub))\n".utf8))
+        FileHandle.standardError.write(Data("IMPORT|start \(url.lastPathComponent)\n".utf8))
         defer { FileHandle.standardError.write(Data("IMPORT|end error=\(dubLibrary.library.errorMessage ?? "none") packs=\(packs.count)\n".utf8)) }
         #endif
-        guard !home.isLocked(.dub) else {
-            importAwaitingUnlock = url
-            home.showPaywall(from: .lockedImport)
-            return
-        }
         let before = Dictionary(packs.map { ($0.id, $0.importedAt) }, uniquingKeysWith: { first, _ in first })
         await dubLibrary.importPack(from: url)
         await dubLibrary.library.reloadNow()

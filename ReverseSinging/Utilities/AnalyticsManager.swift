@@ -455,6 +455,15 @@ final class AnalyticsManager {
         ])
     }
 
+    /// A take made without Dubloon Pro, counted against the free ones.
+    func trackFreeTakeUsed(kind: String, used: Int) {
+        log("free_take_used", parameters: [
+            "kind": kind,
+            "used": used,
+            "limit": FreeTakes.limit
+        ])
+    }
+
     func trackCustomerCenterOpened() {
         log("customer_center_opened", parameters: nil)
     }

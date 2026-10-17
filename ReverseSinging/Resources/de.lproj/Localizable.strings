@@ -11,7 +11,7 @@
 "onboarding.dub.title" = "Eine Filmszene synchronisieren";
 "onboarding.dub.message" = "Das zweite Spiel: Szene starten, kräftig drüberspielen und dich anschließend im Film hören. Vier Szenen sind dabei. Danach bringst du deine eigenen mit.";
 "onboarding.pro.title" = "Warum es Dubloon Pro gibt";
-"onboarding.pro.message" = "Dubloon hat keine Werbung, kein Konto und kein Tracking, und es wird von einer einzigen Person in Zürich gemacht. Dubloon Pro bezahlt das: jede Szene, Geräusche imitieren, Booth Cam und Exporte. Rückwärtssingen und das Synchronisieren eigener Videos bleiben kostenlos.";
+"onboarding.pro.message" = "Dubloon hat keine Werbung, kein Konto und kein Tracking, und es wird von einer einzigen Person in Zürich gemacht. Dubloon Pro bezahlt das. Du kannst jedes Spiel ausprobieren: Deine ersten %d Takes sind kostenlos, und mit Pro werden sie unbegrenzt.";
 "onboarding.pro.buy" = "Dubloon Pro holen";
 "onboarding.pro.skip" = "Erst mal überspringen";
 "onboarding.button.continueLowercase" = "weiter";
@@ -228,7 +228,6 @@
 "main.button.back" = "Zurück";
 "main.mode.reverse.subtitle" = "Lied aufnehmen, umdrehen, Kauderwelsch singen";
 "main.mode.dub.subtitle" = "Leg deine Stimme in einen fremden Mund";
-"main.mode.free" = "Gratis";
 "dub.speakerAccessibility" = "Gesprochen von %@";
 "dub.cast" = "Besetzung";
 "dub.referenceTrack" = "Referenz";
@@ -297,10 +296,11 @@
 "dub.videoNeedsReimport" = "Das Video dieser Szene wurde von einer älteren Version umgewandelt und läuft den Stimmen jetzt voraus. Importiere das Pack noch einmal, dann passt es wieder.";
 
 // MARK: - Pro / Paywall
-"pro.locked.title" = "Hol dir Dubloon Pro zum Synchronisieren";
 "pro.section" = "Dubloon Pro";
+"pro.freeTakes.left" = "Noch %1$d von %2$d Gratis-Takes";
+"pro.freeTakes.usedUp" = "Deine Gratis-Takes sind aufgebraucht";
 "pro.unlock.title" = "Dubloon freischalten";
-"pro.unlock.subtitle" = "Jede Szene, Geräusche imitieren, Booth Cam und Exporte. Rückwärtssingen und das Synchronisieren eigener Videos bleiben kostenlos.";
+"pro.unlock.subtitle" = "Deine ersten %d Takes sind kostenlos, in jedem Spiel. Mit Dubloon Pro ist jedes Spiel unbegrenzt, mit Booth Cam und Exporten.";
 "pro.owned.title" = "Dubloon gehört dir";
 "pro.owned.subtitle" = "Danke. Jede Szene, jeder Take, keine Grenze.";
 "pro.manage.title" = "Kauf verwalten";
@@ -317,7 +317,7 @@
 "pro.error.generic" = "Der Store hat nicht geantwortet. Versuch es gleich noch mal.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Dubloon freischalten";
-"pro.fallback.message" = "Schalte Dubloon frei, um jede Szene zu synchronisieren.";
+"pro.fallback.message" = "Schalte Dubloon frei, um in jedem Spiel weiter aufzunehmen.";
 "pro.fallback.buy" = "Für %@ freischalten";
 "pro.fallback.buyUnpriced" = "Freischalten";
 "pro.fallback.loading" = "Wir fragen den Store…";
@@ -627,8 +627,8 @@
 "help.flow.caption" = "Sing eine Zeile und hör sie rückwärts. Sing das Kauderwelsch so genau wie möglich nach und dreh deine Version dann um. Triffst du es, kommt das Lied heraus.";
 "help.gettingStarted.1.q" = "Was ist Dubloon?";
 "help.gettingStarted.1.a" = "Vier Stimmspiele, für die du nur dein Mikrofon brauchst. Rückwärtssingen: Sing ein Lied rückwärts. Filmszene synchronisieren: Leg deine Stimme Zeile für Zeile in eine Filmszene. Eigene Videos synchronisieren: Leg deine Stimme über ein Video, das du gefilmt hast. Geräusche imitieren: Mach ein Geräusch nach und hol dir ein Urteil. Wähl eins im Menü.";
-"help.gettingStarted.2.q" = "Welche Spiele sind kostenlos?";
-"help.gettingStarted.2.a" = "Rückwärtssingen und Eigene Videos synchronisieren sind kostenlos, solange du willst. Filmszene synchronisieren und Geräusche imitieren gehören zu Dubloon Pro, zusammen mit Booth Cam.";
+"help.gettingStarted.2.q" = "Ist Dubloon kostenlos?";
+"help.gettingStarted.2.a" = "Jedes Spiel kannst du kostenlos ausprobieren. Deine ersten 3 Takes sind gratis, gezählt über alle vier Spiele: Zwei Filmzeilen synchronisieren und einen Song rückwärts drehen, und sie sind aufgebraucht. Danach öffnen sich die Spiele weiterhin, und mit Dubloon Pro nimmst du weiter auf.";
 "help.gettingStarted.3.q" = "Brauche ich Kopfhörer?";
 "help.gettingStarted.3.a" = "Nein, aber beim Synchronisieren helfen sie. Mit Kopfhörern hörst du die Originalzeile, während du aufnimmst (schalt dafür Original im Kopfhörer in den Einstellungen ein). Über den Lautsprecher würde sie in deinem Take landen, deshalb spielt Dubloon sie nur im Kopfhörer ab. Mit Kabelkopfhörern sitzt das Timing am genauesten: Bluetooth bringt eine kleine Verzögerung mit.";
 "help.reverse.1.q" = "Wie funktioniert Rückwärtssingen?";
@@ -674,7 +674,7 @@
 "help.imitate.3.q" = "Kann ich einen Versuch teilen?";
 "help.imitate.3.a" = "Ja. Tippe nach einem Urteil auf Video erstellen: das Geräusch, dein Versuch und deine Punktzahl, fertig zum Verschicken. Mit eingeschalteter Booth Cam ist auch dein Gesicht drin.";
 "help.pro.1.q" = "Was schaltet Dubloon Pro frei?";
-"help.pro.1.a" = "Filmszene synchronisieren mit jeder Szene und jedem Community-Pack, Geräusche imitieren, Booth Cam und Videoexporte. Rückwärtssingen und Eigene Videos synchronisieren sind so oder so kostenlos. Pro gibt es als Einmalkauf oder als Abo, und es wird mit demselben Apple-Account auf deinem iPhone und deinem Mac freigeschaltet.";
+"help.pro.1.a" = "Unbegrenzte Takes in jedem Spiel: Filmszene synchronisieren mit jeder Szene und jedem Community-Pack, Geräusche imitieren, Rückwärtssingen und Eigene Videos synchronisieren, dazu Booth Cam und Videoexporte. Ohne Pro sind deine ersten 3 Takes kostenlos. Pro gibt es als Einmalkauf oder als Abo, und es wird mit demselben Apple-Account auf deinem iPhone und deinem Mac freigeschaltet.";
 "help.pro.2.q" = "Ich habe Pro gekauft, aber es ist gesperrt.";
 "help.pro.2.a" = "Öffne die Einstellungen und tippe auf Kauf wiederherstellen. Achte darauf, dass du im App Store mit dem Apple-Account angemeldet bist, mit dem du gekauft hast. Auf einem neuen Handy oder nach einer Neuinstallation holt das Wiederherstellen es kostenlos zurück.";
 "help.pro.3.q" = "Wie kündige oder ändere ich mein Abo?";

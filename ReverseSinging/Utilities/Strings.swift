@@ -18,7 +18,7 @@ nonisolated enum Strings {
         static let dubTitle = NSLocalizedString("onboarding.dub.title", comment: "Movie scene dub game title")
         static let dubMessage = NSLocalizedString("onboarding.dub.message", comment: "Movie scene dub game message")
         static let proTitle = NSLocalizedString("onboarding.pro.title", comment: "Title of the onboarding page about Dubloon Pro")
-        static let proMessage = NSLocalizedString("onboarding.pro.message", comment: "Why the app has a paid tier: no ads, no account, no tracking, one developer. Then what Pro unlocks and what stays free")
+        static let proMessage = String(format: NSLocalizedString("onboarding.pro.message", comment: "Why the app has a paid tier: no ads, no account, no tracking, one developer. Then that every game has a few free takes (%d) and Pro makes them unlimited"), FreeTakes.limit)
         static let proBuy = NSLocalizedString("onboarding.pro.buy", comment: "Main button of the onboarding page about Dubloon Pro: opens the purchase screen")
         static let proSkip = NSLocalizedString("onboarding.pro.skip", comment: "Second button of the onboarding page about Dubloon Pro: carry on into the app without buying")
         static let buttonContinueLowercase = NSLocalizedString("onboarding.button.continueLowercase", comment: "Continue button lowercase")
@@ -52,7 +52,6 @@ nonisolated enum Strings {
             static let imitateSubtitle = NSLocalizedString("main.mode.imitate.subtitle", comment: "Sound imitation game description")
             static let homeVideoTitle = NSLocalizedString("main.mode.homeVideo.title", comment: "Game mode: put your own voice over a video from your photo library")
             static let homeVideoSubtitle = NSLocalizedString("main.mode.homeVideo.subtitle", comment: "Home video dub game description")
-            static let free = NSLocalizedString("main.mode.free", comment: "Short pill on a game that stays open without Dubloon Pro. One word")
         }
 
         /// Transport state, shown uppercase in the monitor strip.
@@ -522,10 +521,17 @@ nonisolated enum Strings {
     // MARK: - Pro / Paywall
     enum Pro {
         // Settings
-        static let lockedTitle = NSLocalizedString("pro.locked.title", comment: "Headline of the menu card over the locked games")
+        /// The menu card's headline: free takes left, or none.
+        static let freeTakesLeft = NSLocalizedString("pro.freeTakes.left", comment: "Headline of the menu card offering Pro: free takes left (%1$d) out of all of them (%2$d)")
+        static let freeTakesUsedUp = NSLocalizedString("pro.freeTakes.usedUp", comment: "Headline of the menu card offering Pro once the free takes are used up")
         static let section = NSLocalizedString("pro.section", comment: "Settings section header for the purchase")
         static let unlockTitle = NSLocalizedString("pro.unlock.title", comment: "Settings row that opens the paywall")
-        static let unlockSubtitle = NSLocalizedString("pro.unlock.subtitle", comment: "Explains what unlocking costs and gives")
+        static let unlockSubtitle = String(format: NSLocalizedString("pro.unlock.subtitle", comment: "Explains the free takes (%d) and what unlocking gives"), FreeTakes.limit)
+
+        /// The headline over the offer, for someone with `left` free takes.
+        static func freeTakesTitle(left: Int) -> String {
+            left > 0 ? String(format: freeTakesLeft, left, FreeTakes.limit) : freeTakesUsedUp
+        }
         static let ownedTitle = NSLocalizedString("pro.owned.title", comment: "Settings row shown to someone who has bought the app")
         static let ownedSubtitle = NSLocalizedString("pro.owned.subtitle", comment: "Thank-you line under the owned row")
         static let manageTitle = NSLocalizedString("pro.manage.title", comment: "Opens the RevenueCat Customer Center")

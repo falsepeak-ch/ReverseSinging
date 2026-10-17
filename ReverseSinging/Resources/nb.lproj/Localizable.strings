@@ -11,7 +11,7 @@
 "onboarding.dub.title" = "Dubb en filmscene";
 "onboarding.dub.message" = "Det andre spillet: start en scene, overspill i vei, og hør deg selv i filmen. Fire scener følger med. Etter det tar du med dine egne filer.";
 "onboarding.pro.title" = "Derfor finnes Dubloon Pro";
-"onboarding.pro.message" = "Dubloon har ingen reklame, ingen konto og ingen sporing, og lages av én person i Zürich. Dubloon Pro er det som betaler for det: alle scener, lydimitasjon, Booth Cam og eksport. Baklengssang og dubbing av dine egne videoer er fortsatt gratis.";
+"onboarding.pro.message" = "Dubloon har ingen reklame, ingen konto og ingen sporing, og lages av én person i Zürich. Dubloon Pro er det som betaler for det. Du kan prøve alle spillene: De første %d opptakene er gratis, og Pro gjør dem ubegrensede.";
 "onboarding.pro.buy" = "Skaff deg Dubloon Pro";
 "onboarding.pro.skip" = "Hopp over for nå";
 "onboarding.button.continueLowercase" = "fortsett";
@@ -228,7 +228,6 @@
 "main.button.back" = "Tilbake";
 "main.mode.reverse.subtitle" = "Ta opp, snu på det og syng volapyken";
 "main.mode.dub.subtitle" = "Legg stemmen din i munnen på en annen";
-"main.mode.free" = "Gratis";
 "dub.speakerAccessibility" = "Sies av %@";
 "dub.cast" = "Rolleliste";
 "dub.referenceTrack" = "Referanse";
@@ -297,10 +296,11 @@
 "dub.videoNeedsReimport" = "Videoen til denne scenen ble konvertert av en eldre versjon og ligger nå foran stemmene. Importer pakken på nytt, så sitter det.";
 
 // MARK: - Pro / Paywall
-"pro.locked.title" = "Skaff deg Dubloon Pro for å dubbe";
 "pro.section" = "Dubloon Pro";
+"pro.freeTakes.left" = "%1$d av %2$d gratis opptak igjen";
+"pro.freeTakes.usedUp" = "De gratis opptakene dine er brukt opp";
 "pro.unlock.title" = "Lås opp Dubloon";
-"pro.unlock.subtitle" = "Alle scener, lydimitasjon, Booth Cam og eksport. Baklengssang og dubbing av dine egne videoer er fortsatt gratis.";
+"pro.unlock.subtitle" = "De første %d opptakene er gratis, i alle spill. Dubloon Pro gjør alle spill ubegrensede, med Booth Cam og eksport.";
 "pro.owned.title" = "Du eier Dubloon";
 "pro.owned.subtitle" = "Takk. Hver scene, hvert opptak, uten tak.";
 "pro.manage.title" = "Administrer kjøpet";
@@ -317,7 +317,7 @@
 "pro.error.generic" = "Butikken svarte ikke. Prøv igjen om et øyeblikk.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Lås opp Dubloon";
-"pro.fallback.message" = "Lås opp Dubloon for å dubbe hver eneste scene.";
+"pro.fallback.message" = "Lås opp Dubloon for å fortsette å ta opp i alle spill.";
 "pro.fallback.buy" = "Lås opp for %@";
 "pro.fallback.buyUnpriced" = "Lås opp";
 "pro.fallback.loading" = "Spør butikken…";
@@ -627,8 +627,8 @@
 "help.flow.caption" = "Syng en linje og hør den baklengs. Herm etter volapyken så godt du kan, og snu så kopien din. Treffer du, kommer sangen ut igjen.";
 "help.gettingStarted.1.q" = "Hva er Dubloon?";
 "help.gettingStarted.1.a" = "Fire stemmespill som bare trenger mikrofonen din. Baklengssang: syng en sang baklengs. Dubb filmscene: legg stemmen din i en filmscene, replikk for replikk. Dubb dine egne videoer: legg stemmen din på en video du har filmet. Lydimitasjon: etterlign en lyd og få en dom. Velg ett i menyen.";
-"help.gettingStarted.2.q" = "Hvilke spill er gratis?";
-"help.gettingStarted.2.a" = "Baklengssang og Dubb dine egne videoer er gratis, så lenge du vil. Dubb filmscene og Lydimitasjon følger med Dubloon Pro, sammen med Booth Cam.";
+"help.gettingStarted.2.q" = "Er Dubloon gratis?";
+"help.gettingStarted.2.a" = "Du kan prøve alle spillene gratis. De første 3 opptakene er gratis, talt på tvers av alle fire spillene: Dubb to filmreplikker og snu én sang baklengs, så er de brukt opp. Etterpå kan spillene fortsatt åpnes, og med Dubloon Pro kan du fortsette å ta opp.";
 "help.gettingStarted.3.q" = "Trenger jeg hodetelefoner?";
 "help.gettingStarted.3.a" = "Nei, men de hjelper når du dubber. Med hodetelefoner på kan du høre originalreplikken mens du tar opp (slå på Originalen i hodetelefonene i Innstillinger). Gjennom høyttaleren ville den havnet i opptaket ditt, så Dubloon spiller den bare i hodetelefoner. Kablede hodetelefoner gir den strammeste timingen: Bluetooth legger til en liten forsinkelse.";
 "help.reverse.1.q" = "Hvordan funker baklengssang?";
@@ -674,7 +674,7 @@
 "help.imitate.3.q" = "Kan jeg dele et forsøk?";
 "help.imitate.3.a" = "Ja. Etter en dom trykker du på Lag video: lyden, forsøket ditt og poengsummen, klart til å sendes. Med Booth Cam på er ansiktet ditt også med.";
 "help.pro.1.q" = "Hva låser Dubloon Pro opp?";
-"help.pro.1.a" = "Dubb filmscene med alle scener og fellesskapspakker, Lydimitasjon, Booth Cam og videoeksport. Baklengssang og Dubb dine egne videoer er gratis uansett. Pro er et engangskjøp eller et abonnement, og det låses opp på både iPhone og Mac med samme Apple-konto.";
+"help.pro.1.a" = "Ubegrensede opptak i alle spill: Dubb filmscene med alle scener og fellesskapspakker, Lydimitasjon, Baklengssang og Dubb dine egne videoer, pluss Booth Cam og videoeksport. Uten Pro er de første 3 opptakene gratis. Pro er et engangskjøp eller et abonnement, og det låses opp på både iPhone og Mac med samme Apple-konto.";
 "help.pro.2.q" = "Jeg har kjøpt Pro, men det er låst.";
 "help.pro.2.a" = "Åpne Innstillinger og trykk på Gjenopprett kjøpet. Sjekk at du er logget inn i App Store med Apple-kontoen du kjøpte det med. På en ny telefon eller etter at du har installert på nytt, henter gjenoppretting det tilbake uten at det koster noe.";
 "help.pro.3.q" = "Hvordan avslutter eller endrer jeg abonnementet?";

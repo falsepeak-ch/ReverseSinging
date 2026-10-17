@@ -114,8 +114,10 @@ struct HomeView: View {
                     .onAppear { viewModel.reviewBannerDidAppear() }
                 }
 
-                if viewModel.areGamesLocked {
-                    UnlockProCard { viewModel.showPaywall(from: .unlockCard) }
+                if viewModel.offersPro {
+                    UnlockProCard(freeTakesLeft: viewModel.freeTakesLeft) {
+                        viewModel.showPaywall(from: .unlockCard)
+                    }
                         .padding(.bottom, 10)
                         .transition(.opacity)
                 }
@@ -123,11 +125,7 @@ struct HomeView: View {
                 EditorSectionHeader(title: Strings.Main.Mode.section)
 
                 ForEach(GameMode.allCases) { mode in
-                    GameModeRow(
-                        mode: mode,
-                        isLocked: viewModel.isLocked(mode),
-                        isFree: viewModel.isFree(mode)
-                    ) {
+                    GameModeRow(mode: mode) {
                         viewModel.open(mode)
                     }
                 }
@@ -135,7 +133,7 @@ struct HomeView: View {
             .padding(.horizontal, EditorMetrics.gutter)
             .padding(.top, 20)
             .padding(.bottom, 24)
-            .animation(.rsQuick, value: viewModel.areGamesLocked)
+            .animation(.rsQuick, value: viewModel.offersPro)
             .animation(.rsQuick, value: viewModel.showsReviewBanner)
         }
         .scrollBounceBehavior(.basedOnSize)

@@ -182,6 +182,7 @@ private struct HomeVideoStagePane: View {
             Text(dub.errorMessage ?? "")
         }
         .microphonePrimer()
+        .takePaywall(isPresented: $dub.isTakePaywallPresented, kind: .homeVideo)
         .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: $dub.showPermissionAlert) {
             Button(Strings.Main.Alert.settings, action: AppSettings.open)
             Button(Strings.Main.Alert.cancel, role: .cancel) {}

@@ -15,7 +15,7 @@ struct ReviewPromptPolicyTests {
     /// A private suite per test, so the counters never touch the real app's defaults and two
     /// tests can never see each other's opens.
     private func makePolicy(
-        opensBeforeAsking: Int = 3,
+        opensBeforeAsking: Int = 2,
         sharesBeforeAsking: Int = 1
     ) -> (policy: ReviewPromptPolicy, defaults: UserDefaults) {
         let name = UUID().uuidString
@@ -40,19 +40,17 @@ struct ReviewPromptPolicyTests {
         #expect(policy.isEligible == false)
     }
 
-    @Test func aShareAloneIsNotEnough() {
+    @Test func aShareOnTheFirstOpenWaits() {
         let (policy, _) = makePolicy()
+        policy.registerAppOpen()
         policy.registerShare()
-        policy.registerAppOpen()
-        policy.registerAppOpen()
 
-        // Two opens and a share: the ask belongs on the next open, not this one.
+        // The first visit is for playing; the ask belongs on a return.
         #expect(policy.isEligible == false)
     }
 
-    @Test func theThirdOpenAfterASharedVideoQualifies() {
+    @Test func theSecondOpenAfterASharedVideoQualifies() {
         let (policy, _) = makePolicy()
-        policy.registerAppOpen()
         policy.registerAppOpen()
         policy.registerShare()
         policy.registerAppOpen()
@@ -60,35 +58,35 @@ struct ReviewPromptPolicyTests {
         #expect(policy.isEligible)
     }
 
-    /// Apple would swallow a second ask anyway; waiting keeps the year's quota from going in a week.
-    @Test func afterAskingItWaitsTenOpensBeforeAskingAgain() {
+    /// Apple may swallow an ask without showing anything, so the wait after one is a few
+    /// opens, not weeks of them.
+    @Test func afterAskingItWaitsFiveOpensBeforeAskingAgain() {
         let (policy, _) = makePolicy()
         policy.registerShare()
-        for _ in 0..<3 { policy.registerAppOpen() }
+        for _ in 0..<2 { policy.registerAppOpen() }
         #expect(policy.isEligible)
 
         policy.recordAsked()
         #expect(policy.isEligible == false)
 
-        for _ in 0..<9 { policy.registerAppOpen() }
+        for _ in 0..<4 { policy.registerAppOpen() }
         #expect(policy.isEligible == false)
 
         policy.registerAppOpen()
         #expect(policy.isEligible)
     }
 
-    /// Free players never share a dub, so good scores have to be enough on their own.
-    @Test func twoWinsQualifyWithoutAShare() {
+    /// Free players never share a dub, so one good score on a return visit is enough.
+    @Test func oneWinOnTheSecondOpenQualifiesWithoutAShare() {
         let (policy, _) = makePolicy()
-        for _ in 0..<3 { policy.registerAppOpen() }
-        policy.registerWin()
+        for _ in 0..<2 { policy.registerAppOpen() }
         #expect(policy.isEligible == false)
 
         policy.registerWin()
         #expect(policy.isEligible)
     }
 
-    @Test func winsBeforeTheThirdOpenWait() {
+    @Test func winsOnTheFirstOpenWait() {
         let (policy, _) = makePolicy()
         policy.registerAppOpen()
         for _ in 0..<5 { policy.registerWin() }
@@ -110,22 +108,42 @@ struct ReviewPromptPolicyTests {
         #expect(policy.activeDayCount == 2)
     }
 
-    /// Our own review note is for someone who imported a pack and came back on three days.
-    @Test func theBannerIsForImportersOnTheirThirdDay() {
+    /// Our own review note is for someone who imported a pack and came back on another day.
+    @Test func theBannerIsForImportersOnTheirSecondDay() {
         let (policy, _) = makePolicy()
         policy.registerImportedPack()
         policy.registerAppOpen(now: day(0))
-        policy.registerAppOpen(now: day(1))
+        policy.registerAppOpen(now: day(0))
         #expect(policy.isBannerAudience == false)
 
-        policy.registerAppOpen(now: day(5))
+        policy.registerAppOpen(now: day(3))
         #expect(policy.isBannerAudience)
     }
 
-    /// Days alone are not enough: without a pack of their own, nobody is asked.
-    @Test func threeDaysWithoutAnImportIsNotEnough() {
+    /// A free player who only sings backwards gets there on wins instead of an import.
+    @Test func threeWinsOverTwoDaysAlsoQualifyForTheBanner() {
+        let (policy, _) = makePolicy()
+        policy.registerAppOpen(now: day(0))
+        policy.registerAppOpen(now: day(1))
+        for _ in 0..<2 { policy.registerWin() }
+        #expect(policy.isBannerAudience == false)
+
+        policy.registerWin()
+        #expect(policy.isBannerAudience)
+    }
+
+    /// Days alone are not enough: without a pack of their own or a few wins, nobody is asked.
+    @Test func daysWithoutAnImportOrWinsAreNotEnough() {
         let (policy, _) = makePolicy()
         for offset in 0..<4 { policy.registerAppOpen(now: day(offset)) }
+
+        #expect(policy.isBannerAudience == false)
+    }
+
+    /// Wins on a single day are not enough either.
+    @Test func winsOnOneDayAreNotEnoughForTheBanner() {
+        let (policy, _) = makePolicy()
+        policy.registerAppOpen(now: day(0))
         for _ in 0..<5 { policy.registerWin() }
 
         #expect(policy.isBannerAudience == false)
@@ -159,7 +177,7 @@ struct ReviewPromptPolicyTests {
         let (policy, _) = makePolicy()
         policy.registerShare()
         policy.registerWin()
-        for _ in 0..<3 { policy.registerAppOpen() }
+        for _ in 0..<2 { policy.registerAppOpen() }
         policy.recordAsked()
 
         policy.reset()

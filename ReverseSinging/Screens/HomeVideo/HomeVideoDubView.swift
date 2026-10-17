@@ -66,6 +66,7 @@ struct HomeVideoDubView: View {
             Text(viewModel.errorMessage ?? "")
         }
         .microphonePrimer()
+        .takePaywall(isPresented: $viewModel.isTakePaywallPresented, kind: .homeVideo)
         .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: $viewModel.showPermissionAlert) {
             Button(Strings.Main.Alert.settings, action: AppSettings.open)
             Button(Strings.Main.Alert.cancel, role: .cancel) {}

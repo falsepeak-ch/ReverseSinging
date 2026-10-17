@@ -68,6 +68,7 @@ struct ReverseStudioView: View {
             Text(Strings.Main.Alert.startNewSessionMessage)
         }
         .microphonePrimer()
+        .takePaywall(isPresented: $game.isTakePaywallPresented, kind: .reverse)
         .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: $game.showPermissionAlert) {
             Button(Strings.Main.Alert.settings, action: AppSettings.open)
             Button(Strings.Main.Alert.cancel, role: .cancel) {}

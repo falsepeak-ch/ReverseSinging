@@ -123,6 +123,10 @@ struct DubEditorView: View {
             record.boothPrimerDidEnable()
         }
         .microphonePrimer()
+        .takePaywall(isPresented: Binding(
+            get: { record.isTakePaywallPresented },
+            set: { record.isTakePaywallPresented = $0 }
+        ), kind: .dub)
         .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: Binding(
             get: { record.showPermissionAlert },
             set: { record.showPermissionAlert = $0 }

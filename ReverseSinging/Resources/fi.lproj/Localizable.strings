@@ -11,7 +11,7 @@
 "onboarding.dub.title" = "Dubbaa elokuvakohtaus";
 "onboarding.dub.message" = "Toinen peli: laita kohtaus pyörimään, ylinäyttele kunnolla ja kuule sitten itsesi elokuvassa. Neljä kohtausta tulee mukana. Sen jälkeen tuot omat tiedostosi.";
 "onboarding.pro.title" = "Miksi Dubloon Pro on olemassa";
-"onboarding.pro.message" = "Dubloonissa ei ole mainoksia, tiliä eikä seurantaa, ja sitä tekee yksi ihminen Zürichissä. Dubloon Pro maksaa tämän kaiken: kaikki kohtaukset, äänten matkiminen, Booth Cam ja viennit. Takaperinlaulu ja omien videoiden dubbaus pysyvät ilmaisina.";
+"onboarding.pro.message" = "Dubloonissa ei ole mainoksia, tiliä eikä seurantaa, ja sitä tekee yksi ihminen Zürichissä. Dubloon Pro maksaa tämän kaiken. Voit kokeilla jokaista peliä: ensimmäiset %d otostasi ovat ilmaisia, ja Pro tekee niistä rajattomia.";
 "onboarding.pro.buy" = "Hanki Dubloon Pro";
 "onboarding.pro.skip" = "Ohita toistaiseksi";
 "onboarding.button.continueLowercase" = "jatka";
@@ -228,7 +228,6 @@
 "main.button.back" = "Takaisin";
 "main.mode.reverse.subtitle" = "Äänitä, käännä ja laula siansaksa";
 "main.mode.dub.subtitle" = "Laita oma äänesi toisen suuhun";
-"main.mode.free" = "Ilmainen";
 "dub.speakerAccessibility" = "Sanoo %@";
 "dub.cast" = "Roolit";
 "dub.referenceTrack" = "Referenssi";
@@ -297,10 +296,11 @@
 "dub.videoNeedsReimport" = "Tämän kohtauksen videon muunsi vanhempi versio, ja nyt se kulkee äänten edellä. Tuo paketti uudelleen, niin homma korjaantuu.";
 
 // MARK: - Pro / Paywall
-"pro.locked.title" = "Hanki Dubloon Pro dubataksesi";
 "pro.section" = "Dubloon Pro";
+"pro.freeTakes.left" = "Ilmaisia otoksia jäljellä %1$d/%2$d";
+"pro.freeTakes.usedUp" = "Ilmaiset otoksesi on käytetty";
 "pro.unlock.title" = "Avaa Dubloonin lukitus";
-"pro.unlock.subtitle" = "Kaikki kohtaukset, äänten matkiminen, Booth Cam ja viennit. Takaperinlaulu ja omien videoiden dubbaus pysyvät ilmaisina.";
+"pro.unlock.subtitle" = "Ensimmäiset %d otostasi ovat ilmaisia missä tahansa pelissä. Dubloon Pro tekee jokaisesta pelistä rajattoman, ja mukana ovat Booth Cam ja viennit.";
 "pro.owned.title" = "Dubloon on sinun";
 "pro.owned.subtitle" = "Kiitos. Joka kohtaus, joka otos, ilman kattoa.";
 "pro.manage.title" = "Hallitse ostosta";
@@ -317,7 +317,7 @@
 "pro.error.generic" = "Kauppa ei vastannut. Yritä hetken päästä uudelleen.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Avaa Dubloonin lukitus";
-"pro.fallback.message" = "Avaa Dubloonin lukitus, niin voit dubata jokaisen kohtauksen.";
+"pro.fallback.message" = "Avaa Dubloonin lukitus, niin voit jatkaa äänittämistä jokaisessa pelissä.";
 "pro.fallback.buy" = "Avaa hintaan %@";
 "pro.fallback.buyUnpriced" = "Avaa";
 "pro.fallback.loading" = "Kysytään kaupalta…";
@@ -627,8 +627,8 @@
 "help.flow.caption" = "Laula rivi ja kuule se takaperin. Matki sitä siansaksaa niin tarkasti kuin osaat ja käännä sitten matkimisesi ympäri. Jos osut, sieltä tulee biisi.";
 "help.gettingStarted.1.q" = "Mikä Dubloon on?";
 "help.gettingStarted.1.a" = "Neljä äänipeliä, joihin tarvitset vain mikrofonin. Takaperinlaulu: laula laulu takaperin. Kohtauksen dubbaus: laita äänesi elokuvakohtaukseen repliikki kerrallaan. Omien videoiden dubbaus: laita äänesi kuvaamallesi videolle. Äänten matkiminen: matki ääntä ja saa tuomio. Valitse yksi valikosta.";
-"help.gettingStarted.2.q" = "Mitkä pelit ovat ilmaisia?";
-"help.gettingStarted.2.a" = "Takaperinlaulu ja Omien videoiden dubbaus ovat ilmaisia, niin kauan kuin haluat. Kohtauksen dubbaus ja Äänten matkiminen kuuluvat Dubloon Prohon, samoin Booth Cam.";
+"help.gettingStarted.2.q" = "Onko Dubloon ilmainen?";
+"help.gettingStarted.2.a" = "Jokaista peliä voi kokeilla ilmaiseksi. Ensimmäiset 3 otostasi ovat ilmaisia, ja ne lasketaan yhteen kaikista neljästä pelistä: kahden elokuvarepliikin dubbaus ja yhden kappaleen kääntäminen takaperin käyttävät ne. Sen jälkeen pelit aukeavat yhä, ja Dubloon Prolla voit jatkaa äänittämistä.";
 "help.gettingStarted.3.q" = "Tarvitsenko kuulokkeet?";
 "help.gettingStarted.3.a" = "Et, mutta ne auttavat dubatessa. Kuulokkeilla kuulet alkuperäisen repliikin äänittäessäsi (laita Alkuperäinen kuulokkeisiin päälle Asetuksissa). Kaiuttimesta se päätyisi otokseesi, joten Dubloon soittaa sen vain kuulokkeisiin. Johdolliset kuulokkeet pitävät ajoituksen tarkimpana: Bluetooth lisää pienen viiveen.";
 "help.reverse.1.q" = "Miten takaperinlaulu toimii?";
@@ -674,7 +674,7 @@
 "help.imitate.3.q" = "Voinko jakaa yrityksen?";
 "help.imitate.3.a" = "Voit. Tuomion jälkeen napauta Tee video: ääni, yrityksesi ja pisteesi, valmiina lähetettäväksi. Kun Booth Cam on päällä, mukana ovat myös kasvosi.";
 "help.pro.1.q" = "Mitä Dubloon Pro avaa?";
-"help.pro.1.a" = "Kohtauksen dubbauksen kaikkine kohtauksineen ja yhteisön paketteineen, Äänten matkimisen, Booth Camin ja videoviennit. Takaperinlaulu ja Omien videoiden dubbaus ovat ilmaisia joka tapauksessa. Pro on kertaosto tai tilaus, ja se avautuu iPhonessasi ja Macissasi samalla Apple-tilillä.";
+"help.pro.1.a" = "Rajattomasti otoksia jokaisessa pelissä: Kohtauksen dubbaus kaikkine kohtauksineen ja yhteisön paketteineen, Äänten matkiminen, Takaperinlaulu ja Omien videoiden dubbaus sekä Booth Cam ja videoviennit. Ilman Prota ensimmäiset 3 otostasi ovat ilmaisia. Pro on kertaosto tai tilaus, ja se avautuu iPhonessasi ja Macissasi samalla Apple-tilillä.";
 "help.pro.2.q" = "Ostin Pron, mutta se on lukittu.";
 "help.pro.2.a" = "Avaa Asetukset ja napauta Palauta osto. Varmista, että olet kirjautunut App Storeen sillä Apple-tilillä, jolla ostit sen. Uudessa puhelimessa tai uudelleenasennuksen jälkeen palautus tuo sen takaisin maksutta.";
 "help.pro.3.q" = "Miten peruutan tai vaihdan tilaukseni?";

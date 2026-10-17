@@ -45,6 +45,8 @@ final class DubRecordViewModel: ObservableObject {
 
     /// Shown the first time someone reaches for the camera key, never on arrival.
     @Published var isBoothPrimerPresented = false
+    /// The paywall, once the free takes are used up. See `FreeTakes`.
+    @Published var isTakePaywallPresented = false
 
     // MARK: - Scene Picture
 
@@ -386,6 +388,11 @@ final class DubRecordViewModel: ObservableObject {
     }
 
     private func startRecording() {
+        guard AccessController.shared.canStartTake else {
+            isTakePaywallPresented = true
+            return
+        }
+
         // The backing track is never playing here. Anything through the speaker would
         // bleed straight into the take.
         monitorPlayer.stop()
@@ -602,6 +609,9 @@ final class DubRecordViewModel: ObservableObject {
                 AnalyticsManager.shared.trackDubLineRecorded(lineIndex: line.index, duration: duration)
 
                 await session.scoreTake(for: line)
+
+                // Counted once the score is up, so the last free take is seen before the offer.
+                if AccessController.shared.recordTake(.dub) { isTakePaywallPresented = true }
             } catch {
                 session.errorMessage = error.localizedDescription
             }

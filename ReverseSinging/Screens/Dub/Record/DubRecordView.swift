@@ -52,6 +52,7 @@ struct DubRecordView: View {
         .animation(.easeInOut(duration: 0.2), value: viewModel.isRecording)
         .animation(.rsSpring, value: session.latestScore)
         .microphonePrimer()
+        .takePaywall(isPresented: $viewModel.isTakePaywallPresented, kind: .dub)
         .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: $viewModel.showPermissionAlert) {
             Button(Strings.Main.Alert.settings, action: AppSettings.open)
             Button(Strings.Main.Alert.cancel, role: .cancel) {}

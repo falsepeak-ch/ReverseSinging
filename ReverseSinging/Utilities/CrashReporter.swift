@@ -36,21 +36,12 @@ nonisolated final class CrashReporter: Sendable {
 
     /// The one place that can turn reporting off, mirroring `AnalyticsManager`.
     ///
-    /// A screenshot run drives the app through seven locales from a cold launch and trips
-    /// error paths on purpose. `ReverseSingingApp` already skips `FirebaseApp.configure()`
-    /// in that mode, so this is belt and braces, but it keeps the rule in one readable place.
-    #if DEBUG
-    /// A test run is not a user. Its errors are provoked on purpose, and the feedback notes it
-    /// "sends" would land among the real ones, which a person reads.
-    private static let isRunningTests = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
-    #endif
-
+    /// Off in every Debug build. That covers the screenshot runs and the tests, which trip
+    /// error paths on purpose, and any feedback note sent while trying the banner out, which
+    /// would otherwise land among the real ones a person reads. Off with Share Usage Data off
+    /// too: Firebase stops collecting on its own, and nothing is handed to it.
     private var isEnabled: Bool {
-        #if DEBUG
-        if ScreenshotMode.isActive || Self.isRunningTests { return false }
-        #endif
-        // Share Usage Data off: Firebase stops collecting on its own, and nothing is handed to it.
-        return UsageDataConsent.isGranted
+        UsageDataConsent.sendsCrashReports
     }
 
     // MARK: - Context

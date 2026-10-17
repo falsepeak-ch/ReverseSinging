@@ -105,35 +105,17 @@ struct MacSidebar: View {
 
     // MARK: - Rows
 
-    /// A locked game reads as disabled, as it does on the iPhone's menu, but stays clickable:
-    /// the click is how the paywall is reached.
     private func gameRow(_ mode: GameMode) -> some View {
-        let isLocked = home.isLocked(mode)
-
-        return HStack(spacing: 10) {
+        HStack(spacing: 10) {
             Image(mode.image)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 22, height: 22)
-                .saturation(isLocked ? 0 : 1)
-                .opacity(isLocked ? 0.45 : 1)
 
             Text(mode.title)
                 .lineLimit(1)
-                .foregroundStyle(isLocked ? .tertiary : .primary)
 
             Spacer(minLength: 4)
-
-            if isLocked {
-                Image(systemName: "lock.fill")
-                    .font(.system(size: 10))
-                    .foregroundStyle(.secondary)
-            } else if home.isFree(mode) {
-                Text(Strings.Main.Mode.free)
-                    .font(.system(size: 9, weight: .bold))
-                    .textCase(.uppercase)
-                    .foregroundColor(.rsGood)
-            }
         }
         .padding(.vertical, 2)
     }
@@ -195,11 +177,11 @@ struct MacSidebar: View {
                 reviewNote
             }
 
-            if home.areGamesLocked {
+            if home.offersPro {
                 Button {
                     home.showPaywall(from: .unlockCard)
                 } label: {
-                    Label(Strings.Pro.lockedTitle, systemImage: "sparkles")
+                    Label(Strings.Pro.freeTakesTitle(left: home.freeTakesLeft), systemImage: "sparkles")
                         .font(.rsCaption)
                         .frame(maxWidth: .infinity)
                 }

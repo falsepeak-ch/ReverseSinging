@@ -2,22 +2,23 @@
 //  UnlockProCard.swift
 //  ReverseSinging
 //
-//  The note on the menu that says which games need Dubloon Pro, and offers it.
+//  The note on the menu that counts the free takes left, and offers Dubloon Pro.
 //
 
 import SwiftUI
 
-/// Why some of the games under it are padlocked, and the way to open them.
+/// How many free takes are left across the games under it, and the way to have no limit.
 ///
-/// It sits in the menu rather than over it: the point of showing it here is that nothing is
-/// thrown in front of someone who only opened the app, and the paywall waits until they ask
-/// for it, by tapping this or a locked game.
+/// It sits in the menu rather than over it: nothing is thrown in front of someone who only
+/// opened the app. The paywall waits until they tap this, or until a game runs out of takes.
 ///
 /// The whole card is the button. The pill at the bottom is only there to say so.
 struct UnlockProCard: View {
 
-    var title = Strings.Pro.lockedTitle
+    let freeTakesLeft: Int
     let action: () -> Void
+
+    private var title: String { Strings.Pro.freeTakesTitle(left: freeTakesLeft) }
 
     var body: some View {
         Button {
@@ -26,7 +27,7 @@ struct UnlockProCard: View {
         } label: {
             VStack(alignment: .leading, spacing: 12) {
                 HStack(alignment: .top, spacing: 12) {
-                    Image(systemName: "lock.fill")
+                    Image(systemName: freeTakesLeft > 0 ? "sparkles" : "lock.fill")
                         .font(.system(size: 17, weight: .semibold))
                         .foregroundStyle(Color.rsCaution)
                         .frame(width: 24, height: 22)
@@ -78,7 +79,7 @@ struct UnlockProCard: View {
 #Preview {
     ZStack {
         Color.rsSurface0.ignoresSafeArea()
-        UnlockProCard {}
+        UnlockProCard(freeTakesLeft: 2) {}
             .padding(EditorMetrics.gutter)
     }
     .preferredColorScheme(.dark)
