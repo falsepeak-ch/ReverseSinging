@@ -15,6 +15,8 @@ enum MacDestination: Hashable {
     /// A reverse-singing session from the archive, by id.
     case session(UUID)
     case imitate
+    /// Home Video Dub: a clip of the user's own, voiced over.
+    case homeVideo
     /// Every installed pack, as a browser.
     case dubLibrary
     /// A dub pack, by id.
@@ -24,6 +26,7 @@ enum MacDestination: Hashable {
         switch self {
         case .reverse, .session: .reverse
         case .imitate: .imitate
+        case .homeVideo: .homeVideo
         case .dubLibrary, .pack: .dub
         }
     }
@@ -34,6 +37,7 @@ enum MacDestination: Hashable {
         case .reverse: "reverse"
         case .session(let id): "session:\(id.uuidString)"
         case .imitate: "imitate"
+        case .homeVideo: "homeVideo"
         case .dubLibrary: "dubLibrary"
         case .pack(let id): "pack:\(id.uuidString)"
         }
@@ -44,6 +48,7 @@ enum MacDestination: Hashable {
         switch parts.first {
         case "reverse": self = .reverse
         case "imitate": self = .imitate
+        case "homeVideo": self = .homeVideo
         case "dubLibrary": self = .dubLibrary
         case "session": guard let id = parts.last.flatMap(UUID.init) else { return nil }; self = .session(id)
         case "pack": guard let id = parts.last.flatMap(UUID.init) else { return nil }; self = .pack(id)
@@ -70,7 +75,7 @@ enum MacDeletion: Identifiable {
 /// The Mac has no menu to push games from: the games, the packs and the archive sit side by
 /// side in a sidebar, and picking one swaps the workspace. So this owns what the iPhone's menu
 /// owns, the reverse game (a session survives switching away), the pack library, and the menu's
-/// own model for the trial, the paywall and the one-off notes, and adds the selection and the
+/// own model for the locked games, the paywall and the one-off notes, and adds the selection and the
 /// inspector.
 @MainActor
 final class MacWorkspaceViewModel: ObservableObject {
@@ -107,6 +112,7 @@ final class MacWorkspaceViewModel: ObservableObject {
     /// Packs opened lately, newest first, for File ▸ Open Recent.
     @Published private(set) var recentPackIDs: [UUID]
 
+
     private let defaults = UserDefaults.standard
 
     private enum Key {
@@ -119,7 +125,7 @@ final class MacWorkspaceViewModel: ObservableObject {
     let game = ReverseGameViewModel()
     /// The installed packs, their import, and the content gate in front of it.
     let dubLibrary = DubLibraryViewModel()
-    /// The iPhone menu's model: the trial, the paywall, the review banner and the notes.
+    /// The iPhone menu's model: the locked games, the paywall, the review banner and the notes.
     let home = HomeViewModel()
 
     private var cancellables = Set<AnyCancellable>()
@@ -134,16 +140,12 @@ final class MacWorkspaceViewModel: ObservableObject {
                 .store(in: &cancellables)
         }
 
-        // A trial that runs out with a paid game open closes it, as it does on the iPhone.
-        AccessController.shared.$state
+        // The scoring switch sits in four places on the Mac (library, editor toolbar,
+        // inspector, Settings); every flip is counted once, here, as the iPhone counts its one.
+        DubScoringPreference.shared.$isEnabled
+            .dropFirst()
             .removeDuplicates()
-            .sink { [weak self] state in
-                guard let self, state == .locked, let selection = self.selection else { return }
-                // Read on the next turn: `isLocked` has not changed yet when the sink fires.
-                Task { @MainActor in
-                    if self.home.isLocked(selection.mode) { self.selection = nil }
-                }
-            }
+            .sink { [weak self] enabled in self?.dubLibrary.scoringDidChange(enabled: enabled) }
             .store(in: &cancellables)
     }
 
@@ -161,7 +163,7 @@ final class MacWorkspaceViewModel: ObservableObject {
     // MARK: - Selection
 
     /// Back to where the window was left, once the packs are known; the reverse studio if that
-    /// place has gone, or is behind the paywall now.
+    /// place has gone.
     private func restoreSelection() {
         selection = .reverse
         #if DEBUG
@@ -177,7 +179,7 @@ final class MacWorkspaceViewModel: ObservableObject {
             case .session(let id): session(id: id) != nil
             default: true
             }
-            if exists, !home.isLocked(saved.mode) { selection = saved }
+            if exists { selection = saved }
         }
     }
 
@@ -193,14 +195,13 @@ final class MacWorkspaceViewModel: ObservableObject {
             openInNewWindow(id)
             return
         }
-        guard home.requestEntry(destination.mode) else { return }
         showLibraryWindow()
         // Leaving a take half-recorded behind is not a thing a sidebar click should do.
         game.stopPlayback()
         selection = destination
     }
 
-    /// A binding for the sidebar's `List`, routed through the paywall.
+    /// A binding for the sidebar's `List`.
     var selectionBinding: Binding<MacDestination?> {
         Binding(get: { self.selection }, set: { self.select($0) })
     }
@@ -212,7 +213,6 @@ final class MacWorkspaceViewModel: ObservableObject {
     /// its window to the front.
     func openInNewWindow(_ id: UUID) {
         guard pack(id: id) != nil else { return }
-        guard packsInWindows.contains(id) || home.requestEntry(.dub) else { return }
         if selection == .pack(id) { selection = .dubLibrary }
         noteRecent(id)
         openWindow?(id: MacWindowID.pack, value: id)
@@ -248,6 +248,18 @@ final class MacWorkspaceViewModel: ObservableObject {
             select(.pack(pack.id))
         } else {
             select(.dubLibrary)
+        }
+    }
+
+    /// The Help chapter for what the window shows.
+    var helpTopic: HelpTopic {
+        switch selection {
+        case .reverse, .session: .reverse
+        case .imitate: .imitate
+        case .homeVideo: .homeVideo
+        case .dubLibrary: .packs
+        case .pack: .dub
+        case nil: .gettingStarted
         }
     }
 
@@ -347,6 +359,7 @@ final class MacWorkspaceViewModel: ObservableObject {
         switch selection {
         case .reverse, .session: GameMode.reverse.title
         case .imitate: GameMode.imitate.title
+        case .homeVideo: GameMode.homeVideo.title
         case .dubLibrary: GameMode.dub.title
         case .pack(let id): pack(id: id)?.title ?? GameMode.dub.title
         case nil: "Dubloon"
@@ -356,9 +369,20 @@ final class MacWorkspaceViewModel: ObservableObject {
     // MARK: - Packs
 
     func requestImport() {
-        guard home.requestEntry(.dub) else { return }
         showLibraryWindow()
         dubLibrary.requestImport()
+    }
+
+    /// Help ▸ Where to Find More Scenes, and the row under the pack browser.
+    func showPackGuide() {
+        showLibraryWindow()
+        dubLibrary.showPackGuide = true
+    }
+
+    /// The guide's Import button: through the content gate like any import.
+    func packGuideDidRequestImport() {
+        dubLibrary.showPackGuide = false
+        requestImport()
     }
 
     func delete(_ pack: DubPack) {
@@ -371,10 +395,9 @@ final class MacWorkspaceViewModel: ObservableObject {
     /// A pack from Finder, the Dock or a drop onto the sidebar.
     func importPack(from url: URL) async {
         #if DEBUG
-        FileHandle.standardError.write(Data("IMPORT|start \(url.lastPathComponent) allowed=\(!home.isLocked(.dub))\n".utf8))
+        FileHandle.standardError.write(Data("IMPORT|start \(url.lastPathComponent)\n".utf8))
         defer { FileHandle.standardError.write(Data("IMPORT|end error=\(dubLibrary.library.errorMessage ?? "none") packs=\(packs.count)\n".utf8)) }
         #endif
-        guard home.requestEntry(.dub) else { return }
         let before = Dictionary(packs.map { ($0.id, $0.importedAt) }, uniquingKeysWith: { first, _ in first })
         await dubLibrary.importPack(from: url)
         await dubLibrary.library.reloadNow()

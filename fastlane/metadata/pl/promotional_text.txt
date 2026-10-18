@@ -1,1 +1,1 @@
-Nowość w 1.7.0: Naśladowanie dźwięków, trzecia gra. Skopiuj dźwięk, dostań werdykt, udostępnij wideo. A śpiewanie od tyłu jest teraz za darmo dla wszystkich.
+Nowość w 1.8.0: Dubbing własnych filmów, darmowa czwarta gra. Podłóż swój głos pod dowolny nagrany film. Do tego dziesięć nowych dźwięków i tryb jasny.

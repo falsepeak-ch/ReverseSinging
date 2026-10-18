@@ -5,18 +5,22 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Welcome to Dubloon";
-"onboarding.welcome.message" = "Three games, one microphone. Sing a song backwards, put your voice in a movie scene, or copy a sound until it sounds right. None of them will make you sound normal.";
+"onboarding.welcome.message" = "Four games, one microphone. Sing a song backwards, put your voice in a movie scene or a video of your own, or copy a sound until it sounds right. None of them will make you sound normal.";
 "onboarding.howItWorks.title" = "How it works";
 "onboarding.howItWorks.message" = "Record a song, flip it backwards, then sing along to the nonsense. Flip your take around and find out whether you got close or invented a new language.";
 "onboarding.dub.title" = "Dub a movie scene";
-"onboarding.dub.message" = "The second game: play a scene, act all over it, then hear yourself in the film. Two scenes come in the box. After that, bring your own.";
-"onboarding.microphone.title" = "One last thing";
-"onboarding.microphone.message" = "All three games need to hear you: singing backwards, dubbing a scene, or copying a sound. The mic wakes up only while you record, everything stays on this device, and nothing is ever uploaded. Your worst take stays between the two of you.";
-"onboarding.button.openSettings" = "Open Settings";
-"onboarding.button.letsRecord" = "yes, let's record!";
+"onboarding.dub.message" = "The second game: play a scene, act all over it, then hear yourself in the film. Four scenes come in the box. After that, bring your own.";
+"onboarding.pro.title" = "Why Dubloon Pro exists";
+"onboarding.pro.message" = "Dubloon has no ads, no account and no tracking, and one person in Zürich makes it. Dubloon Pro is what pays for that. Every game is yours to try: your first %d takes are free, and Pro makes them unlimited.";
+"onboarding.pro.buy" = "Get Dubloon Pro";
+"onboarding.pro.skip" = "Skip for now";
 "onboarding.button.continueLowercase" = "continue";
-"onboarding.button.microphoneContinue" = "Continue";
-"onboarding.button.continueWithout" = "carry on without it";
+"onboarding.button.continue" = "Continue";
+
+// MARK: - Microphone explanation
+"microphonePrimer.title" = "Microphone";
+"microphonePrimer.message" = "Every game needs to hear you: singing backwards, dubbing a scene, or copying a sound. The mic wakes up only while you record, everything stays on this device, and nothing is ever uploaded. Your worst take stays between the two of you.";
+"microphonePrimer.continue" = "Continue";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Stop Recording";
@@ -54,7 +58,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Nobody Can Hear You";
-"main.emptyState.message" = "Right now Dubloon is a recording app with nothing to record with. Turn on microphone access in your device settings and all three games come back to life.";
+"main.emptyState.message" = "Right now Dubloon is a recording app with nothing to record with. Turn on microphone access in your device settings and all four games come back to life.";
 "main.emptyState.button" = "Open Settings";
 
 // MARK: - Main View - Processing & Success
@@ -139,10 +143,6 @@
 "settings.about.license.lifetime" = "Dubloon Pro, lifetime";
 "settings.about.license.renews" = "Dubloon Pro, renews %@";
 "settings.about.license.ends" = "Dubloon Pro, ends %@";
-"settings.about.license.earlyAdopter" = "Early adopter, free for life";
-"settings.about.license.trialDays" = "Free trial, %d days left";
-"settings.about.license.trialLastDay" = "Free trial, last day";
-"settings.about.license.trialOver" = "Free trial ended";
 "settings.about.license.free" = "Free";
 
 // Theme descriptions
@@ -228,7 +228,6 @@
 "main.button.back" = "Back";
 "main.mode.reverse.subtitle" = "Record a song, flip it, sing the nonsense";
 "main.mode.dub.subtitle" = "Put your voice in someone else's mouth";
-"main.mode.free" = "Free";
 "dub.speakerAccessibility" = "Spoken by %@";
 "dub.cast" = "Cast";
 "dub.referenceTrack" = "Reference";
@@ -239,7 +238,7 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "Close";
 "dubGate.ask.title" = "Do you already have your movies?";
-"dubGate.ask.message" = "Past the two example scenes, we don't include or host a single film. To dub anything else, the movie file has to be on this device already.";
+"dubGate.ask.message" = "Past the four example scenes, we don't include or host a single film. To dub anything else, the movie file has to be on this device already.";
 "dubGate.ask.confirm" = "Yes, they're on here";
 "dubGate.ask.needDownload" = "No, I need to find them";
 "dubGate.download.title" = "Where to get them";
@@ -248,6 +247,19 @@
 "dubGate.download.back" = "Back";
 "dubGate.disclaimer.notAffiliated" = "%@ is someone else's site. We're not connected to it, and we don't host or share a single file.";
 "dubGate.disclaimer.responsibility" = "Make sure you have the right to use whatever you download, and follow the copyright rules where you live.";
+"dubGuide.row" = "I need help getting more packs";
+"dubGuide.title" = "Getting more packs";
+"dubGuide.intro" = "A dub pack is one scene: the video, its soundtrack and a recording of every line. Here's how to get one into Dubloon.";
+"dubGuide.1.title" = "Find a scene";
+"dubGuide.1.detail" = "Open GameBanana below and browse its movie dub packs. Pick one you like and open its page.";
+"dubGuide.2.title" = "Download it";
+"dubGuide.2.detail" = "Tap Download and choose the file: a .zip, .7z or .rar. Safari saves it to the Files app, in Downloads.";
+"dubGuide.3.title" = "Let it finish";
+"dubGuide.3.detail" = "Wait for the download to complete. If the file is in iCloud Drive, open it once in Files so it's really on this device.";
+"dubGuide.4.title" = "Import it";
+"dubGuide.4.detail" = "Come back here, tap +, confirm the file is on your device and pick it from Downloads. You can also share it to Dubloon from Files or AirDrop.";
+"dubGuide.5.title" = "If it won't import";
+"dubGuide.5.detail" = "Dubloon tells you what went wrong. Re-save a stubborn archive as a .zip, ask the maker for a copy without a password, and check it has a text file and a recording for every line.";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "Before you share";
@@ -257,6 +269,7 @@
 "dubShare.unknownSource" = "You brought this scene in yourself, so you know where it came from and what you can do with it.";
 "dubShare.responsibility" = "Where it goes next is up to you, so follow the copyright rules where you live.";
 "dubShare.confirm" = "Export Video";
+"dubShare.caption" = "I dubbed this scene with Dubloon 🎙️";
 "dubShare.share" = "Share…";
 "dubShare.save" = "Save…";
 
@@ -284,13 +297,11 @@
 "dub.videoNeedsReimport" = "An older version converted this scene's video, and now it runs ahead of the voices. Import the pack again to put it right.";
 
 // MARK: - Pro / Paywall
-"pro.trial.daysLeft" = "%d days left";
-"pro.trial.oneDayLeft" = "Last day";
-"pro.trial.over" = "Your free trial is done";
-"pro.locked.title" = "Get Dubloon Pro to dub";
 "pro.section" = "Dubloon Pro";
+"pro.freeTakes.left" = "%1$d of %2$d free takes left";
+"pro.freeTakes.usedUp" = "Your free takes are used up";
 "pro.unlock.title" = "Unlock Dubloon";
-"pro.unlock.subtitle" = "Every scene, Booth Cam and exports. Reverse singing stays free.";
+"pro.unlock.subtitle" = "Your first %d takes are free, in any game. Dubloon Pro makes every game unlimited, with Booth Cam and exports.";
 "pro.owned.title" = "You own Dubloon";
 "pro.owned.subtitle" = "Thank you. Every scene, every take, no ceiling.";
 "pro.manage.title" = "Manage purchase";
@@ -301,17 +312,13 @@
 "pro.restore.title" = "Restore purchase";
 "pro.restore.subtitle" = "New phone, or reinstalled? Bring it back.";
 "pro.testStore.warning" = "Debug build: connected to the RevenueCat test store. No real money moves.";
-"pro.restored.title" = "Restored";
-"pro.restored.message" = "Your purchase is back on this device.";
 "pro.nothingToRestore.title" = "Nothing to restore";
 "pro.nothingToRestore.message" = "No purchase was found on this Apple Account. If you bought Dubloon with a different one, sign in with that and try again.";
 "pro.error.title" = "Something went wrong";
 "pro.error.generic" = "The store didn't answer. Try again in a moment.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Unlock Dubloon";
-"pro.fallback.message" = "Your free trial has ended. Unlock Dubloon to keep dubbing.";
-"pro.fallback.message.beforeExpiry" = "Unlock Dubloon to keep dubbing.";
-"pro.fallback.message.noTrial" = "Unlock Dubloon to dub every scene.";
+"pro.fallback.message" = "Unlock Dubloon to keep recording in every game.";
 "pro.fallback.buy" = "Unlock for %@";
 "pro.fallback.buyUnpriced" = "Unlock";
 "pro.fallback.loading" = "Asking the store…";
@@ -332,23 +339,19 @@
 "review.banner.message" = "Dubloon is made by one person in Zürich, and reviews are how new players find it. If you're enjoying it, a few words on the App Store would mean a lot.";
 "review.banner.rate" = "Write a review";
 "review.banner.later" = "Not now";
+"review.banner.fan.title" = "Having fun?";
+"review.banner.fan.message" = "You've been on a roll. Dubloon is made by one person in Zürich, and reviews are how new players find it. If it has made you laugh, a few words on the App Store would mean a lot.";
+"review.banner.prompt" = "How many stars would you give Dubloon?";
+"review.banner.star" = "%d out of 5 stars";
+"review.banner.store.title" = "Glad you like it!";
+"review.feedback.slug" = "Feedback";
+"review.feedback.title" = "What went wrong?";
+"review.feedback.message" = "Tell us what let you down. Your note goes straight to the person who makes Dubloon, and it will be read.";
+"review.feedback.placeholder" = "What should be better?";
+"review.feedback.send" = "Send";
 
-// MARK: - Pro / Early adopters
-"pro.earlyAdopter.title" = "Welcome to the club";
-"pro.earlyAdopter.message" = "Dubloon costs money now — but not for you. You were here before the price tag, so all three games stay yours, free, for as long as the app exists. Thank you for the early days.";
-"pro.earlyAdopter.badge" = "Free for life";
-"pro.earlyAdopter.confirm" = "Nice";
-"pro.earlyAdopter.settings.title" = "Free for life";
-"pro.earlyAdopter.settings.subtitle" = "You were here early. All three games are yours, and you owe us nothing.";
+// MARK: - Pro
 "pro.closePaywall" = "Close";
-
-// Early adopter slate rows
-"pro.earlyAdopter.row.access" = "Access";
-"pro.earlyAdopter.row.access.value" = "All three games";
-"pro.earlyAdopter.row.cost" = "Cost";
-"pro.earlyAdopter.row.cost.value" = "Nothing";
-"pro.earlyAdopter.row.expires" = "Expires";
-"pro.earlyAdopter.row.expires.value" = "Never";
 
 /* MARK: - Booth Cam */
 "booth.slug" = "Booth";
@@ -388,6 +391,11 @@
 "booth.frame.stacked" = "Stacked";
 "booth.frame.reaction" = "Reaction";
 "booth.frame.split" = "Split";
+"booth.frame.vertical" = "Vertical";
+"booth.export.pipCorner" = "Booth corner";
+"booth.export.pip.bottomRight" = "Bottom right";
+"booth.export.pip.bottomLeft" = "Bottom left";
+"booth.export.pip.topRight" = "Top right";
 "booth.export.stackedNote" = "Stacked and Reaction render 9:16 with a waveform along the foot: the scene's line above, yours below.";
 "booth.export.noFootage" = "No booth footage in this scene yet. Turn Booth Cam on and dub a line.";
 "booth.export.includeBooth" = "Include booth footage";
@@ -439,6 +447,32 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "Sound Imitation";
 "main.mode.imitate.subtitle" = "Copy a sound, get a verdict";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "Home Video Dub";
+"main.mode.homeVideo.subtitle" = "Put your voice on any video you've filmed";
+"homeVideo.choose" = "Choose a video";
+"homeVideo.change" = "Change video";
+"homeVideo.limit" = "Up to one minute. Your video stays on your phone.";
+"homeVideo.trimmed" = "Only the first minute is used.";
+"homeVideo.importing" = "Opening your video…";
+"homeVideo.mixing" = "Adding your voice…";
+"homeVideo.keepOriginal" = "Keep the original sound";
+"homeVideo.keepOriginal.detail" = "Plays quietly under your voice";
+"homeVideo.keepOriginal.none" = "This video has no sound";
+"homeVideo.hint.ready" = "Press record and the video plays from the start. Follow the wave to land your sounds on time.";
+"homeVideo.hint.empty" = "Choose a video from your library to put your voice on it.";
+"homeVideo.hint.recordingHeadphones" = "Recording. You hear the video in your headphones; the mic only hears you.";
+"homeVideo.hint.recording" = "Recording. The video plays silently so the mic only hears you.";
+"homeVideo.hint.review" = "Here's your version. Share it, or record again.";
+"homeVideo.record" = "Record";
+"homeVideo.stop" = "Stop";
+"homeVideo.retake" = "Record again";
+"homeVideo.share" = "Share";
+"homeVideo.play" = "Play";
+"homeVideo.pause" = "Pause";
+"homeVideo.error.load" = "That video couldn't be opened. Try another one.";
+"homeVideo.error.mix" = "Your voice couldn't be added to the video. Try recording again.";
 "imitate.library.hint" = "Pick a sound, listen, then do your best impression.";
 "imitate.library.best" = "Best";
 "imitate.library.untried" = "New";
@@ -502,6 +536,16 @@
 "imitate.sound.laugh" = "Evil laugh";
 "imitate.sound.yawn" = "Yawn";
 "imitate.sound.hiccup" = "Hiccup";
+"imitate.sound.frog" = "Frog";
+"imitate.sound.horse" = "Horse";
+"imitate.sound.goat" = "Goat";
+"imitate.sound.monkey" = "Monkey";
+"imitate.sound.lion" = "Lion";
+"imitate.sound.squeak" = "Squeaky toy";
+"imitate.sound.fart" = "Fart";
+"imitate.sound.ghost" = "Ghost";
+"imitate.sound.zombie" = "Zombie";
+"imitate.sound.whistle" = "Whistle";
 
 /* Mac */
 "mac.sidebar.games" = "Games";
@@ -532,7 +576,6 @@
 "mac.panel.emptyMessage" = "Choose a game or a dub pack in the sidebar.";
 "mac.settings.general" = "General";
 "mac.settings.recording" = "Recording";
-"mac.welcome.notNow" = "Not Now";
 "mac.booth.primer.message" = "Booth Cam runs your Mac's camera while you perform, so the scene, the line and your face all share one screen. Later you can share the reaction along with the dub.";
 "mac.booth.primer.systemPrompt" = "macOS will ask for camera access next.";
 "mac.menu.openRecent" = "Open Recent";
@@ -562,3 +605,160 @@
 "mac.panel.sound" = "Sound";
 "mac.panel.allSounds" = "All";
 "mac.panel.compare" = "Compare";
+/* Help */
+"help.title" = "Help";
+"help.close" = "Close";
+"help.search.prompt" = "Search help";
+"help.search.clear" = "Clear search";
+"help.search.empty" = "Nothing matches that. Try another word, or write to us below.";
+"help.row.expanded" = "Expanded";
+"help.row.collapsed" = "Collapsed";
+"help.row.expandHint" = "Shows the answer";
+"help.contact.title" = "Still stuck?";
+"help.contact.message" = "Write to us. The person who made Dubloon reads every email and answers it.";
+"help.contact.button" = "Email us";
+"help.mail.subject" = "Dubloon help";
+"help.section.gettingStarted" = "Getting started";
+"help.section.booth" = "Booth Cam & exports";
+"help.section.packs" = "Dub packs";
+"help.section.pro" = "Dubloon Pro & purchases";
+"help.section.privacy" = "Privacy";
+"help.section.troubleshooting" = "Troubleshooting";
+"help.flow.title" = "How reverse singing works";
+"help.flow.sing" = "Sing";
+"help.flow.flip" = "Flip";
+"help.flow.copy" = "Copy";
+"help.flow.flipBack" = "Flip back";
+"help.flow.caption" = "Sing a line and hear it backwards. Copy that nonsense as closely as you can, then flip your copy around. Nail it, and out comes the song.";
+"help.gettingStarted.1.q" = "What is Dubloon?";
+"help.gettingStarted.1.a" = "Four voice games that need nothing but your microphone. Reverse Singing: sing a song backwards. Movie Scene Dub: put your voice into a film scene, line by line. Home Video Dub: put your voice on a video you've filmed. Sound Imitation: copy a sound and get a verdict. Pick one from the menu.";
+"help.gettingStarted.2.q" = "Is Dubloon free?";
+"help.gettingStarted.2.a" = "Every game is free to try. Your first 3 takes are free, counted across all four games: dubbing two movie lines and reversing one song uses them up. After that the games still open, and Dubloon Pro lets you keep recording.";
+"help.gettingStarted.3.q" = "Do I need headphones?";
+"help.gettingStarted.3.a" = "No, but they help when you dub. With headphones on, you can hear the original line while you record (switch on Original in Headphones in Settings). Through the speaker it would end up in your take, so Dubloon only plays it in headphones. Wired headphones keep the timing tightest: Bluetooth adds a small delay.";
+"help.reverse.1.q" = "How does reverse singing work?";
+"help.reverse.1.a" = "Tap Record Audio and sing a line of a song. Play Backwards to hear it reversed. Then tap Sing It Back and copy that backwards sound as closely as you can. Dubloon flips your copy around, and if you got it right you hear the song again, in your voice.";
+"help.reverse.2.q" = "What do the four play buttons do?";
+"help.reverse.2.a" = "Original is the line you sang. Reversed is that line backwards, the sound to copy. Your Take is your copy as you sang it. Your Take, Reversed is your copy flipped back around: the one that should sound like the song.";
+"help.reverse.3.q" = "How is my score worked out?";
+"help.reverse.3.a" = "Dubloon compares your take, flipped back, with your original line: where the sound rises and falls, and how the rhythm lines up. It all happens on your device. Short lines with clear words score best; go for the rhythm first and the vowels second.";
+"help.reverse.4.q" = "Simple or Complex?";
+"help.reverse.4.a" = "Two looks for the same game, switched from the options button at the top of the screen. Simple is big buttons and nothing to trip over. Complex adds the waveform and Audio Controls: loop, speed and pitch. Slowing the reversed line down is the best way to learn it.";
+"help.reverse.5.q" = "Where are my saved sessions?";
+"help.reverse.5.a" = "Tap the archive button at the top of the Reverse Singing screen. Starting a new session puts the current one in the archive, so nothing is thrown away. Swipe a session in the archive to delete it.";
+"help.dub.1.q" = "How do I dub a scene?";
+"help.dub.1.a" = "Open Movie Scene Dub and pick a scene, then tap Start Dubbing. For each line, listen to the original, then press record: you get three beats of count-in, and the mic closes by itself when the line ends. Move on with Next, and come back to any line whenever you like.";
+"help.dub.2.q" = "What does the pacing bar mean?";
+"help.dub.2.a" = "It shows how long the original line runs. It turns amber the moment you run past it, so you know to speed up. Under your take, the original's waveform shows where you came in early, rushed or left a gap.";
+"help.dub.3.q" = "How are dubs scored?";
+"help.dub.3.a" = "Each take is marked on timing (did you start and stop with the original), pacing (did you keep its rhythm) and delivery (did your loud and quiet parts follow it). The scene gets a score too, with your best line and the one worth another go. Don't want to be judged? Turn off Score my takes in the dub options.";
+"help.dub.4.q" = "How do I hear myself in the film?";
+"help.dub.4.a" = "Tap Play My Dub on the scene. Your takes drop into the film in place of the original lines; anything you haven't dubbed yet plays as it was. Watch Original plays the scene untouched.";
+"help.homeVideo.1.q" = "How do I dub my own video?";
+"help.homeVideo.1.a" = "Tap the empty picture and choose a video from your library, up to a minute long. Press record: after the count-in the video plays from the start and your voice goes on top. When it ends your version plays, ready to share or record again.";
+"help.homeVideo.2.q" = "How do I time my sounds?";
+"help.homeVideo.2.a" = "The wave under the picture is the video's own sound, and the line moving across it is where the video is. Watch it to land a bark or a laugh at the right moment. After a take, your voice is drawn over it in red.";
+"help.homeVideo.3.q" = "Can I hear the video while I record?";
+"help.homeVideo.3.a" = "Yes, with headphones on. Through the speaker the video plays silently, so its sound doesn't end up in your take. Keep the original sound puts it back, quietly, under your voice in the finished video.";
+"help.booth.1.q" = "What is Booth Cam?";
+"help.booth.1.a" = "Booth Cam films your face with the front camera while you perform, so the reaction can go into the video with the dub. It's off until you turn it on with the camera key on the recording screen or in Settings. The footage stays on your device.";
+"help.booth.2.q" = "How do I export a video?";
+"help.booth.2.a" = "Tap Export Video on a scene. Choose the cut (the full scene, or a session reel of just the lines you dubbed) and where your booth footage goes: in the corner, stacked for a story, as a reaction, or side by side. Before it renders, Dubloon shows whose scene it is, so you can keep the credit when you share.";
+"help.booth.3.q" = "How do I delete booth footage?";
+"help.booth.3.a" = "Settings shows how much space booth footage uses, with a button to delete all booth takes. Your voice takes and your dubs stay. Deleting a scene also deletes its takes and footage.";
+"help.packs.1.q" = "How do I add more scenes?";
+"help.packs.1.a" = "Scenes come as dub packs: a folder, or a .zip, .7z or .rar archive. Tap + in Movie Scene Dub and pick one from Files, or send it to Dubloon from AirDrop or any share sheet. Dubloon unpacks it and the scene appears in the list.";
+"help.packs.2.q" = "Where do dub packs come from?";
+"help.packs.2.a" = "Four scenes come with the app. Every other pack is made and shared by other players; Dubloon doesn't include, host or sell any films. Only dub what you have the right to use, and follow the copyright rules where you live.";
+"help.packs.3.q" = "A pack won't import. What now?";
+"help.packs.3.a" = "Dubloon says what went wrong. The usual fixes: if the file is in iCloud, open it in Files first so it downloads. If the archive has a password, ask its maker for one without. If it won't unpack, re-save it as a .zip. And if Dubloon says it isn't a dub pack, it needs a text file and a recording for every line.";
+"help.imitate.1.q" = "How does Sound Imitation work?";
+"help.imitate.1.a" = "Pick a sound, tap Hear it, then tap Imitate and make the sound yourself. Dubloon compares your attempt with the real thing and stamps a verdict on it. Your best score for each sound is kept, so you can come back and beat it.";
+"help.imitate.2.q" = "What gets judged?";
+"help.imitate.2.a" = "Four things: rhythm (the rise and fall of the sound over time), pitch, tone (bright or dull) and length. Listen a couple of times first, match the length, then worry about the pitch.";
+"help.imitate.3.q" = "Can I share an attempt?";
+"help.imitate.3.a" = "Yes. After a verdict, tap Make video: the sound, your attempt and your score, ready to send. With Booth Cam on, your face is in it too.";
+"help.pro.1.q" = "What does Dubloon Pro unlock?";
+"help.pro.1.a" = "Unlimited takes in every game: Movie Scene Dub with every scene and community pack, Sound Imitation, Reverse Singing and Home Video Dub, plus Booth Cam and video exports. Without it, your first 3 takes are free. Pro is a one-time purchase or a subscription, and it unlocks on your iPhone and your Mac with the same Apple Account.";
+"help.pro.2.q" = "I bought Pro, but it's locked.";
+"help.pro.2.a" = "Open Settings and tap Restore purchase. Make sure you're signed in to the App Store with the Apple Account you bought it with. On a new phone or after reinstalling, restoring brings it back at no cost.";
+"help.pro.3.q" = "How do I cancel or change my subscription?";
+"help.pro.3.a" = "In Settings, tap Manage subscription. You can also do it in the Settings app: tap your name, then Subscriptions. Cancel at least 24 hours before it renews and you keep Pro until the end of the period you paid for. Refunds are handled by Apple.";
+"help.privacy.1.q" = "Are my recordings uploaded anywhere?";
+"help.privacy.1.a" = "No. Your recordings, takes, booth footage and videos stay on your device until you choose to share them. Scoring happens on your device too. There is no account and nothing to sign up for.";
+"help.privacy.2.q" = "What does Dubloon collect?";
+"help.privacy.2.a" = "Anonymous usage statistics and crash reports, which help find bugs and decide what to build next: things like which game was opened and what score came out, never the sound of a recording. Turn it off in Settings with Share usage data. The Privacy Policy has every detail.";
+"help.troubleshooting.1.q" = "Dubloon can't hear me.";
+"help.troubleshooting.1.a" = "Check that Dubloon may use the microphone: in the Settings app, open Dubloon and switch on Microphone. If another app is using the audio, such as a call, end it and try again.";
+"help.troubleshooting.2.q" = "I can't hear anything.";
+"help.troubleshooting.2.a" = "Turn the volume up, and check whether Bluetooth headphones or a speaker have connected somewhere else. The original line during recording only plays in headphones, on purpose, so it stays out of your take.";
+"help.troubleshooting.3.q" = "My dub is out of sync with the picture.";
+"help.troubleshooting.3.a" = "Bluetooth headphones add a delay, so you hear the original a little late and come in late. Wired headphones, or none, fix it. If Dubloon says a scene's video runs ahead of the voices, import that pack again.";
+"help.troubleshooting.4.q" = "Booth Cam won't turn on.";
+"help.troubleshooting.4.a" = "Dubloon needs the camera for it. In the Settings app, open Dubloon and switch on Camera. Booth Cam is part of Dubloon Pro.";
+/* Help, privacy and appearance in Settings */
+"settings.help" = "Help & Support";
+"settings.help.desc" = "How everything works, and a way to reach us";
+"settings.terms.desc" = "The deal between us, in plain words";
+"settings.privacy.section" = "Privacy";
+"settings.shareUsage" = "Share Usage Data";
+"settings.shareUsage.desc" = "Anonymous statistics and crash reports that help fix bugs. Never your recordings.";
+"settings.appearance" = "Appearance";
+"settings.appearance.system" = "System";
+"settings.appearance.light" = "Light";
+"settings.appearance.dark" = "Dark";
+
+/* Mac: Home Video Dub */
+"mac.homeVideo.fromPhotos" = "Choose from Photos…";
+"mac.homeVideo.fromFile" = "Choose a File…";
+"mac.homeVideo.dropHint" = "Or drop a video file here.";
+"mac.panel.clip" = "Clip";
+"mac.panel.mix" = "Mix";
+"mac.menu.help" = "Dubloon Help";
+"mac.homeVideo.limit" = "Up to one minute. Your video stays on this Mac.";
+"mac.homeVideo.hint.empty" = "Choose a video from Photos or Finder to put your voice on it.";
+
+/* Mac: Help answers worded for the Mac (fall back to the iPhone's where missing) */
+"help.gettingStarted.1.a.mac" = "Four voice games that need nothing but your microphone. Reverse Singing: sing a song backwards. Movie Scene Dub: put your voice into a film scene, line by line. Home Video Dub: put your voice on a video you've filmed. Sound Imitation: copy a sound and get a verdict. Pick one in the sidebar, or press ⌘1 to ⌘4.";
+"help.gettingStarted.3.a.mac" = "No, but they help when you dub. With headphones on, you can hear the original line while you record (switch on Original in Headphones in Dubloon ▸ Settings ▸ Recording). Through the speakers it would end up in your take, so Dubloon only plays it in headphones. Wired headphones keep the timing tightest: Bluetooth adds a small delay.";
+"help.reverse.1.a.mac" = "Click Record Audio (or press R) and sing a line of a song. Play the Reversed track to hear it backwards. Then click Sing It Back and copy that backwards sound as closely as you can. Dubloon flips your copy around, and if you got it right you hear the song again, in your voice.";
+"help.reverse.4.q.mac" = "Can I slow the reversed line down?";
+"help.reverse.4.a.mac" = "Yes. The inspector on the right (⌥⌘I) has Audio Controls: loop, speed and pitch. Slowing the reversed line down is the best way to learn it.";
+"help.reverse.5.a.mac" = "Under Reverse Singing in the sidebar. Starting a new session (⌘N) puts the current one there, so nothing is thrown away. Select a session and press ⌘⌫, or Control-click it, to delete it.";
+"help.dub.1.a.mac" = "Pick a scene under Movie Scene Dub in the sidebar. Select a line, press L to hear the original, then R to record: you get three beats of count-in, and the mic closes by itself when the line ends. Move between lines with ↑ and ↓, and come back to any line whenever you like.";
+"help.dub.3.a.mac" = "Each take is marked on timing (did you start and stop with the original), pacing (did you keep its rhythm) and delivery (did your loud and quiet parts follow it). The scene gets a score too, with your best line and the one worth another go. Don't want to be judged? Turn off Score my takes in the toolbar, the inspector or Settings.";
+"help.dub.4.a.mac" = "Switch the viewer to My Dub (⌃⌘3) and press Space. Your takes drop into the film in place of the original lines; anything you haven't dubbed yet plays as it was. Original (⌃⌘2) plays the scene untouched.";
+"help.homeVideo.1.a.mac" = "Choose a video from Photos or from a file, or drop one on the viewer, up to a minute long. Press R: after the count-in the video plays from the start and your voice goes on top. When it ends your version plays, ready to share (⌘E) or record again.";
+"help.homeVideo.3.a.mac" = "Yes, with headphones on. Through the speakers the video plays silently, so its sound doesn't end up in your take. Keep the original sound, in the inspector, puts it back, quietly, under your voice in the finished video.";
+"help.booth.1.a.mac" = "Booth Cam films your face with your Mac's camera while you perform, so the reaction can go into the video with the dub. It's off until you turn it on with the camera button in the toolbar (⇧⌘C) or in Settings. The footage stays on your Mac.";
+"help.booth.2.a.mac" = "Choose File ▸ Export (⌘E) on a scene. Choose the cut (the full scene, or a session reel of just the lines you dubbed) and where your booth footage goes: in the corner, stacked for a story, as a reaction, or side by side. Before it renders, Dubloon shows whose scene it is, so you can keep the credit when you share.";
+"help.booth.3.a.mac" = "Dubloon ▸ Settings ▸ Recording shows how much space booth footage uses, with a button to delete all booth takes. Your voice takes and your dubs stay. Deleting a scene also deletes its takes and footage.";
+"help.packs.1.a.mac" = "Scenes come as dub packs: a folder, or a .zip, .7z or .rar archive. Choose File ▸ Import Dub Pack (⌘O), drop the file on Movie Scene Dub in the sidebar, or open it with Dubloon from Finder. Dubloon unpacks it and the scene appears in the list.";
+"help.packs.3.a.mac" = "Dubloon says what went wrong. The usual fixes: if the file is in iCloud Drive, download it in Finder first. If the archive has a password, ask its maker for one without. If it won't unpack, re-save it as a .zip. And if Dubloon says it isn't a dub pack, it needs a text file and a recording for every line.";
+"help.imitate.1.a.mac" = "Pick a sound in the browser, press L to hear it, then R to imitate it. Dubloon compares your attempt with the real thing and stamps a verdict on it. Your best score for each sound is kept, so you can come back and beat it.";
+"help.imitate.3.a.mac" = "Yes. After a verdict, click Make video (⌘E): the sound, your attempt and your score, ready to send. With Booth Cam on, your face is in it too.";
+"help.pro.2.a.mac" = "Open Dubloon ▸ Settings ▸ Dubloon Pro and click Restore purchase. Make sure you're signed in to the App Store with the Apple Account you bought it with. On a new Mac or after reinstalling, restoring brings it back at no cost.";
+"help.pro.3.a.mac" = "In Dubloon ▸ Settings ▸ Dubloon Pro, click Manage subscription. You can also do it in the App Store: click your name, then Account Settings, then Subscriptions. Cancel at least 24 hours before it renews and you keep Pro until the end of the period you paid for. Refunds are handled by Apple.";
+"help.privacy.1.a.mac" = "No. Your recordings, takes, booth footage and videos stay on your Mac until you choose to share them. Scoring happens on your Mac too. There is no account and nothing to sign up for.";
+"help.privacy.2.a.mac" = "Anonymous usage statistics and crash reports, which help find bugs and decide what to build next: things like which game was opened and what score came out, never the sound of a recording. Turn it off in Dubloon ▸ Settings ▸ General with Share Usage Data. The Privacy Policy has every detail.";
+"help.troubleshooting.1.a.mac" = "Check that Dubloon may use the microphone: in System Settings ▸ Privacy & Security ▸ Microphone, switch on Dubloon. Also check the input in System Settings ▸ Sound, and that no other app, such as a call, is holding the microphone.";
+"help.troubleshooting.2.a.mac" = "Turn the volume up, and check the output in System Settings ▸ Sound: Bluetooth headphones or a speaker may have connected. The original line during recording only plays in headphones, on purpose, so it stays out of your take.";
+"help.troubleshooting.4.a.mac" = "Dubloon needs the camera for it. In System Settings ▸ Privacy & Security ▸ Camera, switch on Dubloon. Booth Cam is part of Dubloon Pro.";
+"dubGuide.2.detail.mac" = "Click Download and choose the file: a .zip, .7z or .rar. Your browser saves it to the Downloads folder.";
+"dubGuide.3.detail.mac" = "Wait for the download to complete. If the file is in iCloud Drive, download it in Finder first so it's really on this Mac.";
+"dubGuide.4.detail.mac" = "Come back here, click Import a Dub Pack and pick it from Downloads. You can also drop the file on Movie Scene Dub in the sidebar, or open it with Dubloon from Finder.";
+
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Try Dubloon Pro free for %@";
+"offer.intro.paid" = "Your first %2$@ of Dubloon Pro for %1$@";
+"offer.winback.free" = "Come back: %@ of Dubloon Pro free";
+"offer.winback.paid" = "Come back: %2$@ of Dubloon Pro for %1$@";
+"offer.then" = "Then %@. Cancel anytime.";
+"offer.cta" = "Claim offer";
+"offer.dismiss" = "Not now";
+
+/* Spooky Voice Week */
+"halloween.title" = "Spooky Voice Week";
+"halloween.home.message" = "Moan like a ghost, groan like a zombie, howl like a wolf. Then dub Camp Rules, the horror-comedy movie scene.";
+"halloween.home.action" = "Play the spooky sounds";
+"halloween.imitate.message" = "Happy Halloween! Warm up with the ghost, zombie, wolf and owl.";

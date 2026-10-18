@@ -1,4 +1,4 @@
-Dubloon són tres jocs de veu en una sola app, i cap d'ells necessita res més que el teu micròfon.
+Dubloon són quatre jocs de veu en una sola app, i cap d'ells necessita res més que el teu micròfon.
 
 DOBLATGE D'ESCENA
 
@@ -19,11 +19,11 @@ AMB NOTA, SI EN VOLS
 
 Cada presa es puntua per sincronia, ritme i interpretació, amb una nota per a l'escena, la teva millor frase i la que es mereix un altre intent. Apaga-ho i aquí no compta ningú.
 
-DUES ESCENES PER COMENÇAR
+QUATRE ESCENES PER COMENÇAR
 
-Camp Rules està tallada de Sprite Fright, la pel·lícula oberta de Blender Studio, compartida sota Creative Commons Attribution 4.0. Stuck Up ve de The Outsider, un film escolar del 1951 que és de domini públic als Estats Units. Cada escena indica la pel·lícula, l'any i els termes a la seva pròpia pantalla.
+Camp Rules (Sprite Fright, CC BY 4.0), Awesome in Space (Tears of Steel, CC BY 3.0) i A Kindred Spirit (Sintel, CC BY 3.0) surten de les pel·lícules obertes de Blender. Stuck Up ve de The Outsider, un film escolar del 1951 que és de domini públic als Estats Units. Cada escena indica la pel·lícula, l'any i els termes a la seva pròpia pantalla.
 
-A partir d'aquí, la prestatgeria la omples tu. Més enllà d'aquestes dues, Dubloon no inclou ni allotja cap pel·lícula. Els packs de doblatge els fan i els comparteixen altres jugadors: descarregues els que vulguis i importes la carpeta o el .zip des de Fitxers, AirDrop o qualsevol full de compartir. Assegura't de tenir dret a fer servir el que dobles.
+A partir d'aquí, la prestatgeria la omples tu. Més enllà d'aquestes quatre, Dubloon no inclou ni allotja cap pel·lícula. Els packs de doblatge els fan i els comparteixen altres jugadors: descarregues els que vulguis i importes la carpeta o el .zip des de Fitxers, AirDrop o qualsevol full de compartir. Assegura't de tenir dret a fer servir el que dobles.
 
 CANT INVERTIT
 
@@ -39,12 +39,16 @@ Escolta un so i fes-lo tu. Un gos que borda, un gall, un clàxon, un làser. Dub
 • 24 sons: animals, clàxons i alarmes, efectes de dibuixos animats i sorolls humans
 • La càmera de cabina et grava la cara enmig de la imitació, si et ve de gust
 
+DOBLATGE DELS TEUS VÍDEOS
+
+Els teus vídeos, la teva veu. Tria un clip de Fotos i narra'l, canta-hi a sobre o posa-hi efectes de so nous. Deixa el so original fluix per sota o treu-lo, i comparteix el resultat.
+
 PRIVAT DE FÀBRICA
 
 Tot passa en aquest dispositiu. Les teves gravacions, les teves preses, el material de cabina i els doblatges exportats no en surten mai. Sense compte, sense registre, sense anuncis i sense res per pujar. L'app recull estadístiques d'ús anònimes per saber què construir després, mai el contingut d'una gravació.
 
 QUANT COSTA
 
-El cant invertit és gratuït. Dubloon Pro obre el doblatge d'escenes, la imitació de sons, la càmera de cabina i les exportacions, sense retallades, amb una compra única o amb una subscripció.
+El cant invertit i el doblatge dels teus vídeos són gratuïts. Dubloon Pro obre el doblatge d'escenes, la imitació de sons, la càmera de cabina i les exportacions, sense retallades, amb una compra única o amb una subscripció.
 
 Feta a Suïssa. Feta a mà a Zuric.

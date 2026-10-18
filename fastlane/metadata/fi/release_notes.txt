@@ -1,6 +1,12 @@
-Kolmas peli, ja takaperinlaulu on nyt ilmaista.
+Neljäs peli, ja se on ilmainen: dubbaa omat videosi.
 
 UUTTA
-• Äänten matkiminen: kuuntele ääni, matki sitä ja saat leimatun tuomion rytmistäsi, sävelkorkeudestasi ja sointiväristäsi. Tee yrityksestä sitten video
-• Takaperinlaulu on ilmaista kaikille
-• Dubloon Pro avaa nyt myös Mac-sovelluksen samalla Apple-tilillä
+• Omien videoiden dubbaus: valitse kuvaamasi video ja laita oma äänesi sen päälle. Ilmainen kaikille
+• Kymmenen uutta ääntä matkittavaksi Äänten matkimisessa
+• Vaalea tila: valitse Asetuksista Järjestelmä, Vaalea tai Tumma
+• Ohje suoraan apissa, ja vaiheittainen opas lisäkohtausten hankkimiseen
+
+PARANNETTU
+• Taaksepäin pyyhkäisy kelaa näytön takaisin kuin VHS-nauhan
+• Vakaampi tallennus ja toisto puhelun jälkeen tai kun toinen appi on käyttänyt ääntä
+• Dubloon pyytää mikrofonia silloin kun tarvitset sitä, eikä lähetä sinua Asetuksiin

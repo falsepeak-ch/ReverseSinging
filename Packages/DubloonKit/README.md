@@ -34,7 +34,7 @@ The app adds the pack-shaped entry points on top, in `ReverseSinging/Services`:
 - `DubBackingBalance+DubPack.swift`: `bedGain(for:in:)` and `dialogueLevel(of:)`, over a pack's reference files and line timings.
 - `DubAudioCut+Segments.swift`: `cut(_:to:in:)` for the cut planner's segments. It turns an empty plan into `DubExportError.nothingRecorded`.
 
-The app also adds `DubGrade.title` and `color` in `DubScoreViews.swift`, because words and colours belong to the interface. `ReviewPrompt` shows the store prompt and reports it to analytics when `ReviewPromptPolicy` says the moment has come. `EarlyAdopter` and `BoothCamAnnouncement` answer their first-launch questions through `LaunchDecision`.
+The app also adds `DubGrade.title` and `color` in `DubScoreViews.swift`, because words and colours belong to the interface. `ReviewPrompt` shows the store prompt and reports it to analytics when `ReviewPromptPolicy` says the moment has come. `BoothCamAnnouncement` answers its first-launch question through `LaunchDecision`.
 
 Type names are the ones the app always used, so moving them changed no call sites beyond an `import`.
 
@@ -70,4 +70,4 @@ xcodebuild test -scheme DubloonKit-Package -destination 'platform=iOS Simulator,
 Some values are read by installs that already exist, so they stay exactly where earlier versions put them:
 
 - `trial.startedAt` (`TrialClock.defaultStartKey`)
-- `review.appOpenCount`, `review.sharedVideoCount` and `review.lastAskedAtOpenCount` (`ReviewPromptPolicy.Keys.standard`). The open count is also how `EarlyAdopter` recognises an install that predates the paywall.
+- `review.appOpenCount`, `review.sharedVideoCount` and `review.lastAskedAtOpenCount` (`ReviewPromptPolicy.Keys.standard`).

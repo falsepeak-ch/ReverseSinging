@@ -5,38 +5,42 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Benvenuto in Dubloon";
-"onboarding.welcome.message" = "Tre giochi, un microfono. Canta una canzone al contrario, infila la tua voce in una scena di film o imita un suono finché non è perfetto. In nessuno suonerai normale.";
+"onboarding.welcome.message" = "Quattro giochi, un microfono. Canta una canzone al contrario, infila la tua voce in una scena di film o in un tuo video, o imita un suono finché non è perfetto. In nessuno suonerai normale.";
 "onboarding.howItWorks.title" = "Come funziona";
-"onboarding.howItWorks.message" = "Registra una canzone, girala al contrario e canta sopra quel guazzabuglio. Poi rigira la tua presa e scopri se ci sei andato vicino o hai inventato una lingua nuova.";
+"onboarding.howItWorks.message" = "Registra una canzone, girala al contrario e canta sopra quel guazzabuglio. Poi rigira la tua take e scopri se ci sei andato vicino o hai inventato una lingua nuova.";
 "onboarding.dub.title" = "Doppia una scena";
-"onboarding.dub.message" = "Il secondo gioco: fai partire una scena, recitaci sopra alla grande e poi ascoltati dentro il film. Due scene sono incluse. Per il resto, porta i tuoi file.";
-"onboarding.microphone.title" = "Un'ultima cosa";
-"onboarding.microphone.message" = "Tutti e tre i giochi devono sentirti: cantare al contrario, doppiare una scena o imitare un suono. Il microfono si sveglia solo mentre registri, tutto resta su questo dispositivo e non viene mai caricato niente. La tua presa peggiore resta tra voi due.";
-"onboarding.button.openSettings" = "Apri Impostazioni";
-"onboarding.button.letsRecord" = "dai, registriamo!";
+"onboarding.dub.message" = "Il secondo gioco: fai partire una scena, recitaci sopra alla grande e poi ascoltati dentro il film. Quattro scene sono incluse. Per il resto, porta i tuoi file.";
+"onboarding.pro.title" = "Perché esiste Dubloon Pro";
+"onboarding.pro.message" = "Dubloon non ha pubblicità, né account, né tracciamento, e lo fa una sola persona a Zurigo. Dubloon Pro è ciò che lo finanzia. Puoi provare ogni gioco: le tue prime %d take sono gratis, e con Pro diventano illimitate.";
+"onboarding.pro.buy" = "Prendi Dubloon Pro";
+"onboarding.pro.skip" = "Salta per ora";
 "onboarding.button.continueLowercase" = "continua";
-"onboarding.button.microphoneContinue" = "Continua";
-"onboarding.button.continueWithout" = "vai avanti senza";
+"onboarding.button.continue" = "Continua";
+
+// MARK: - Microphone explanation
+"microphonePrimer.title" = "Microfono";
+"microphonePrimer.message" = "Tutti i giochi devono sentirti: cantare al contrario, doppiare una scena o imitare un suono. Il microfono si sveglia solo mentre registri, tutto resta su questo dispositivo e non viene mai caricato niente. La tua take peggiore resta tra voi due.";
+"microphonePrimer.continue" = "Continua";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Ferma la registrazione";
 "main.button.recordAudio" = "Registra audio";
 "main.button.recordAttempt" = "Cantala al contrario";
-"main.button.reRecord" = "Un'altra presa";
+"main.button.reRecord" = "Un'altra take";
 "main.button.newSession" = "Nuova sessione";
 
 // MARK: - Simple Skin (buttons and their subtitles)
-"main.button.playRecorded" = "Riascolta la presa";
+"main.button.playRecorded" = "Riascolta la take";
 "main.button.playReverse" = "Ascolta al contrario";
 "main.subtitle.recordingOriginal" = "Si registra. Questo è l'originale";
-"main.subtitle.recordingAttempt" = "Si registra. Questa è la tua presa";
+"main.subtitle.recordingAttempt" = "Si registra. Questa è la tua take";
 "main.subtitle.tapToRecord" = "Tocca e regalaci una canzone";
 "main.subtitle.recordAttempt" = "Tocca a te: canta la versione al contrario";
 "main.subtitle.reRecordAttempt" = "Rifalla, ci vai più vicino";
-"main.subtitle.playAttempt" = "Ascolta la tua presa";
+"main.subtitle.playAttempt" = "Ascolta la tua take";
 "main.subtitle.playOriginal" = "Ascolta l'originale";
 "main.subtitle.noRecording" = "Qui non c'è ancora niente";
-"main.subtitle.playReversedAttempt" = "La tua presa, al contrario";
+"main.subtitle.playReversedAttempt" = "La tua take, al contrario";
 "main.subtitle.playReversedOriginal" = "L'originale, al contrario";
 "main.subtitle.noReversed" = "Non c'è ancora niente da girare";
 "settings.version" = "Versione %@ (%@)";
@@ -54,7 +58,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Nessuno ti sente";
-"main.emptyState.message" = "Adesso Dubloon è un'app di registrazione senza niente con cui registrare. Attiva il microfono nelle impostazioni del dispositivo e tutti e tre i giochi tornano in vita.";
+"main.emptyState.message" = "Adesso Dubloon è un'app di registrazione senza niente con cui registrare. Attiva il microfono nelle impostazioni del dispositivo e tutti e quattro i giochi tornano in vita.";
 "main.emptyState.button" = "Apri Impostazioni";
 
 // MARK: - Main View - Processing & Success
@@ -66,7 +70,7 @@
 "main.tip.recordSingingAttempt" = "Canta la versione al contrario. E crederci aiuta";
 "main.tip.recordSongToReverse" = "Registra la canzone che vuoi massacrare";
 "main.tip.tapPlayToSwitch" = "Tocca un pulsante qualsiasi per avviare o fermare";
-"main.tip.reRecordOrNewSession" = "Rifai la presa o apri una sessione nuova";
+"main.tip.reRecordOrNewSession" = "Rifai la take o apri una sessione nuova";
 "main.tip.listenAndRecord" = "Ascolta la versione al contrario, poi cantala";
 "main.tip.processingAudio" = "La stiamo girando. Un attimo";
 "main.tip.tapRecordAudio" = "Tocca Registra audio e butta giù una canzone";
@@ -83,8 +87,8 @@
 // MARK: - Recording Type Labels
 "recordingType.original" = "Originale";
 "recordingType.reversed" = "Invertito";
-"recordingType.attempt" = "La tua presa";
-"recordingType.reversedAttempt" = "La tua presa, invertita";
+"recordingType.attempt" = "La tua take";
+"recordingType.reversedAttempt" = "La tua take, invertita";
 "recordingType.imported" = "Importato";
 
 // MARK: - Timer Card
@@ -124,7 +128,7 @@
 "error.cannotStartRecording" = "Il registratore non parte adesso. Riprova.";
 "error.noRecordingInProgress" = "Adesso non si sta registrando niente.";
 "error.failedToStopRecording" = "Il registratore non si è fermato pulito. Riprova.";
-"error.failedToProcessRecording" = "Non è stato possibile elaborare questa presa.";
+"error.failedToProcessRecording" = "Non è stato possibile elaborare questa take.";
 
 // MARK: - Settings
 "settings.title" = "Impostazioni";
@@ -139,10 +143,6 @@
 "settings.about.license.lifetime" = "Dubloon Pro, a vita";
 "settings.about.license.renews" = "Dubloon Pro, si rinnova il %@";
 "settings.about.license.ends" = "Dubloon Pro, scade il %@";
-"settings.about.license.earlyAdopter" = "Pioniere, gratis per sempre";
-"settings.about.license.trialDays" = "Prova gratuita, %d giorni rimasti";
-"settings.about.license.trialLastDay" = "Prova gratuita, ultimo giorno";
-"settings.about.license.trialOver" = "Prova gratuita terminata";
 "settings.about.license.free" = "Gratis";
 
 // Theme descriptions
@@ -195,7 +195,7 @@
 "dub.error.archiveTooLarge" = "L'archivio è troppo grande per essere estratto su questo dispositivo. Prova con uno .zip.";
 "dub.error.nothingRecorded" = "Doppia almeno una battuta prima di esportare.";
 "dub.error.exportFailed" = "Esportazione fallita: %@";
-"dub.playTake" = "Ascolta la tua presa";
+"dub.playTake" = "Ascolta la tua take";
 "dub.loadingScene" = "Prepariamo la scena…";
 
 // MARK: - Editor Chrome
@@ -218,7 +218,7 @@
 
 // Headphone monitoring
 "settings.headphoneMonitor" = "Originale in cuffia";
-"settings.headphoneMonitor.desc" = "Senti la battuta che stai inseguendo mentre registri. Solo in cuffia, perché dall'altoparlante finirebbe dentro la tua presa.";
+"settings.headphoneMonitor.desc" = "Senti la battuta che stai inseguendo mentre registri. Solo in cuffia, perché dall'altoparlante finirebbe dentro la tua take.";
 "settings.headphoneMonitor.unavailable" = "Nessuna cuffia collegata";
 
 // MARK: - Game Modes
@@ -228,18 +228,17 @@
 "main.button.back" = "Indietro";
 "main.mode.reverse.subtitle" = "Registra, gira e canta il guazzabuglio";
 "main.mode.dub.subtitle" = "Metti la tua voce in bocca a un altro";
-"main.mode.free" = "Gratis";
 "dub.speakerAccessibility" = "Detta da %@";
 "dub.cast" = "Cast";
 "dub.referenceTrack" = "Riferimento";
-"dub.yourTake" = "La tua presa";
+"dub.yourTake" = "La tua take";
 "dub.convertingVideo" = "Conversione del video…";
 "dub.importReading" = "Lettura del pack…";
 
 // MARK: - Dub Content Gate
 "dubGate.close" = "Chiudi";
 "dubGate.ask.title" = "Hai già i tuoi film?";
-"dubGate.ask.message" = "Oltre alle due scene di esempio, non includiamo né ospitiamo nessun film. Per doppiare qualsiasi altra cosa, il file deve già essere su questo dispositivo.";
+"dubGate.ask.message" = "Oltre alle quattro scene di esempio, non includiamo né ospitiamo nessun film. Per doppiare qualsiasi altra cosa, il file deve già essere su questo dispositivo.";
 "dubGate.ask.confirm" = "Sì, ce li ho già";
 "dubGate.ask.needDownload" = "No, devo andare a prenderli";
 "dubGate.download.title" = "Dove trovarli";
@@ -248,6 +247,19 @@
 "dubGate.download.back" = "Indietro";
 "dubGate.disclaimer.notAffiliated" = "%@ è il sito di qualcun altro. Non abbiamo nulla a che farci e non ospitiamo né condividiamo un solo file.";
 "dubGate.disclaimer.responsibility" = "Assicurati di avere il diritto di usare quello che scarichi e rispetta le regole sul copyright di casa tua.";
+"dubGuide.row" = "Ho bisogno di aiuto per trovare altri pack";
+"dubGuide.title" = "Trovare altri pack";
+"dubGuide.intro" = "Un pack di doppiaggio è una scena: il video, la sua colonna sonora e una registrazione di ogni battuta. Ecco come aggiungerne uno a Dubloon.";
+"dubGuide.1.title" = "Trova una scena";
+"dubGuide.1.detail" = "Apri GameBanana qui sotto e sfoglia i pack di doppiaggio dei film. Scegline uno e aprine la pagina.";
+"dubGuide.2.title" = "Scaricalo";
+"dubGuide.2.detail" = "Tocca Download e scegli il file: un .zip, .7z o .rar. Safari lo salva nell'app File, in Download.";
+"dubGuide.3.title" = "Aspetta che finisca";
+"dubGuide.3.detail" = "Attendi che il download sia completo. Se il file è su iCloud Drive, aprilo una volta in File così è davvero su questo dispositivo.";
+"dubGuide.4.title" = "Importalo";
+"dubGuide.4.detail" = "Torna qui, tocca +, conferma che il file è sul dispositivo e sceglilo in Download. Puoi anche condividerlo con Dubloon da File o AirDrop.";
+"dubGuide.5.title" = "Se non si importa";
+"dubGuide.5.detail" = "Dubloon ti dice cosa è andato storto. Salva di nuovo l'archivio come .zip, chiedi all'autore una copia senza password e controlla che abbia un file di testo e una registrazione per ogni battuta.";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "Prima di condividerlo";
@@ -257,18 +269,19 @@
 "dubShare.unknownSource" = "Questa scena l'hai portata tu, quindi sai da dove arriva e cosa puoi farci.";
 "dubShare.responsibility" = "Dove finisce dipende da te, quindi rispetta le regole sul copyright di casa tua.";
 "dubShare.confirm" = "Esporta il video";
+"dubShare.caption" = "Ho doppiato questa scena con Dubloon 🎙️";
 "dubShare.share" = "Condividi…";
 "dubShare.save" = "Salva…";
 
 /* MARK: - Dub Scoring */
 "dub.installingStarterPacks" = "Prepariamo le tue prime scene…";
 "dub.options" = "Opzioni doppiaggio";
-"dub.score.setting.title" = "Dai un voto alle mie prese";
+"dub.score.setting.title" = "Dai un voto alle mie take";
 "dub.score.setting.detail" = "Giudica tempi, ritmo e interpretazione. Con garbo.";
 "dub.score.sceneTitle" = "Voto della scena";
 "dub.score.notScoredYet" = "Doppia una battuta e il giudizio può cominciare.";
 "dub.score.slate" = "Voto";
-"dub.score.lineTitle" = "La tua presa";
+"dub.score.lineTitle" = "La tua take";
 "dub.score.timing" = "Tempi";
 "dub.score.pacing" = "Ritmo";
 "dub.score.delivery" = "Interpretazione";
@@ -277,22 +290,20 @@
 "dub.score.progress" = "%d battute su %d valutate";
 "dub.score.grade.perfect" = "In pieno";
 "dub.score.grade.great" = "Perfetta";
-"dub.score.grade.good" = "Buona presa";
+"dub.score.grade.good" = "Buona take";
 "dub.score.grade.close" = "Per un pelo";
 "dub.score.grade.rough" = "Si rifà";
 
 "dub.videoNeedsReimport" = "Il video di questa scena è stato convertito da una versione vecchia e adesso corre davanti alle voci. Reimporta il pack per sistemarlo.";
 
 // MARK: - Pro / Paywall
-"pro.trial.daysLeft" = "%d giorni rimasti";
-"pro.trial.oneDayLeft" = "Ultimo giorno";
-"pro.trial.over" = "La tua prova gratuita è finita";
-"pro.locked.title" = "Prendi Dubloon Pro per doppiare";
 "pro.section" = "Dubloon Pro";
+"pro.freeTakes.left" = "Ti restano %1$d take gratis su %2$d";
+"pro.freeTakes.usedUp" = "Hai finito le take gratis";
 "pro.unlock.title" = "Sblocca Dubloon";
-"pro.unlock.subtitle" = "Tutte le scene, la camera della cabina e le esportazioni. Il canto invertito resta gratis.";
+"pro.unlock.subtitle" = "Le tue prime %d take sono gratis, in qualsiasi gioco. Dubloon Pro rende illimitato ogni gioco, con Booth Cam e le esportazioni.";
 "pro.owned.title" = "Dubloon è tuo";
-"pro.owned.subtitle" = "Grazie. Ogni scena, ogni presa, senza tetto.";
+"pro.owned.subtitle" = "Grazie. Ogni scena, ogni take, senza tetto.";
 "pro.manage.title" = "Gestisci l'acquisto";
 "pro.manage.subtitle" = "Ricevute, rimborsi e aiuto sul tuo acquisto.";
 "pro.subscribed.title" = "Hai Dubloon Pro";
@@ -301,25 +312,21 @@
 "pro.restore.title" = "Ripristina l'acquisto";
 "pro.restore.subtitle" = "Telefono nuovo o app reinstallata? Riprendilo.";
 "pro.testStore.warning" = "Build di debug: collegata allo store di test di RevenueCat. Qui non si muove denaro vero.";
-"pro.restored.title" = "Ripristinato";
-"pro.restored.message" = "Il tuo acquisto è tornato su questo dispositivo.";
 "pro.nothingToRestore.title" = "Niente da ripristinare";
 "pro.nothingToRestore.message" = "Nessun acquisto trovato su questo Apple Account. Se hai comprato Dubloon con un altro, accedi con quello e riprova.";
 "pro.error.title" = "Qualcosa è andato storto";
 "pro.error.generic" = "Lo store non ha risposto. Riprova tra un attimo.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Sblocca Dubloon";
-"pro.fallback.message" = "La tua prova gratuita è finita. Sblocca Dubloon per continuare a doppiare.";
-"pro.fallback.message.beforeExpiry" = "Sblocca Dubloon per continuare a doppiare.";
-"pro.fallback.message.noTrial" = "Sblocca Dubloon per doppiare ogni scena.";
+"pro.fallback.message" = "Sblocca Dubloon per continuare a registrare in ogni gioco.";
 "pro.fallback.buy" = "Sblocca per %@";
 "pro.fallback.buyUnpriced" = "Sblocca";
 "pro.fallback.loading" = "Stiamo chiedendo allo store…";
 "pro.fallback.unavailable" = "Lo store non risponde in questo momento. Controlla la connessione e riprova.";
 "pro.fallback.retry" = "Riprova";
-"pro.fallback.benefit.one" = "Filmati mentre doppi con la camera della cabina";
+"pro.fallback.benefit.one" = "Filmati mentre doppi con Booth Cam";
 "pro.fallback.benefit.two" = "Doppia ogni scena e porta le tue";
-"pro.fallback.benefit.three" = "Esporta le tue prese e condividi i danni";
+"pro.fallback.benefit.three" = "Esporta le tue take e condividi i danni";
 "pro.fallback.oneTime" = "Un pagamento. Non è un abbonamento.";
 "pro.fallback.subscribe.monthly" = "Abbonati a %@/mese";
 "pro.fallback.subscribe.yearly" = "Abbonati a %@/anno";
@@ -332,48 +339,44 @@
 "review.banner.message" = "Dubloon è fatto da una sola persona a Zurigo, e le recensioni sono il modo in cui i nuovi giocatori lo scoprono. Se ti sta piacendo, qualche parola sull'App Store significherebbe molto.";
 "review.banner.rate" = "Scrivi una recensione";
 "review.banner.later" = "Non ora";
+"review.banner.fan.title" = "Ti stai divertendo?";
+"review.banner.fan.message" = "Sei in gran forma. Dubloon è fatto da una sola persona a Zurigo, e le recensioni sono il modo in cui i nuovi giocatori lo scoprono. Se ti ha fatto ridere, qualche parola sull'App Store significherebbe molto.";
+"review.banner.prompt" = "Quante stelle daresti a Dubloon?";
+"review.banner.star" = "%d su 5 stelle";
+"review.banner.store.title" = "Siamo felici che ti piaccia!";
+"review.feedback.slug" = "Feedback";
+"review.feedback.title" = "Cosa non ha funzionato?";
+"review.feedback.message" = "Dicci cosa non ti è piaciuto. Il tuo messaggio arriva direttamente alla persona che fa Dubloon, e verrà letto.";
+"review.feedback.placeholder" = "Cosa dovrebbe migliorare?";
+"review.feedback.send" = "Invia";
 
-// MARK: - Pro / Early adopters
-"pro.earlyAdopter.title" = "Benvenuto nel club";
-"pro.earlyAdopter.message" = "Adesso Dubloon si paga, ma non per te. Eri qui prima che ci fosse un prezzo, quindi tutti e tre i giochi restano tuoi, gratis, finché l'app esisterà. Grazie per i primi giorni.";
-"pro.earlyAdopter.badge" = "Gratis a vita";
-"pro.earlyAdopter.confirm" = "Bello";
-"pro.earlyAdopter.settings.title" = "Gratis a vita";
-"pro.earlyAdopter.settings.subtitle" = "Sei arrivato presto. Tutti e tre i giochi sono tuoi e non ci devi niente.";
+// MARK: - Pro
 "pro.closePaywall" = "Chiudi";
-
-// Early adopter slate rows
-"pro.earlyAdopter.row.access" = "Accesso";
-"pro.earlyAdopter.row.access.value" = "Tutti e tre i giochi";
-"pro.earlyAdopter.row.cost" = "Costo";
-"pro.earlyAdopter.row.cost.value" = "Niente";
-"pro.earlyAdopter.row.expires" = "Scade";
-"pro.earlyAdopter.row.expires.value" = "Mai";
 
 /* MARK: - Booth Cam */
 "booth.slug" = "Cabina";
 "booth.monitorAccessibility" = "Anteprima della fotocamera frontale";
-"booth.turnOn" = "Accendi la camera della cabina";
-"booth.turnOff" = "Spegni la camera della cabina";
+"booth.turnOn" = "Accendi Booth Cam";
+"booth.turnOff" = "Spegni Booth Cam";
 "booth.primer.title" = "Filmati mentre doppi";
-"booth.primer.message" = "La camera della cabina usa la fotocamera frontale mentre reciti, così la scena, la battuta e la tua faccia stanno sullo stesso schermo. Poi puoi condividere la reazione insieme al doppiaggio.";
-"booth.primer.confirm" = "Accendi la cabina";
+"booth.primer.message" = "Booth Cam usa la fotocamera frontale mentre reciti, così la scena, la battuta e la tua faccia stanno sullo stesso schermo. Poi puoi condividere la reazione insieme al doppiaggio.";
+"booth.primer.confirm" = "Accendi Booth Cam";
 "booth.primer.decline" = "Doppia senza";
 "booth.primer.systemPrompt" = "Subito dopo iOS ti chiederà l'accesso alla fotocamera.";
-"booth.fact.onDevice" = "Le prese della cabina restano sul tuo dispositivo, accanto alle prese di voce.";
+"booth.fact.onDevice" = "Le take della cabina restano sul tuo dispositivo, accanto alle take di voce.";
 "booth.fact.nothingLeaves" = "Non esce niente finché non esporti, e ogni esportazione te lo chiede prima.";
 "booth.fact.reversible" = "Spegnila quando vuoi. Il doppiaggio va avanti lo stesso.";
-"booth.settings.section" = "Camera cabina";
-"booth.settings.title" = "Camera cabina";
-"booth.settings.desc" = "Ti riprende con la fotocamera frontale mentre doppi, così la reazione viaggia con la presa.";
+"booth.settings.section" = "Booth Cam";
+"booth.settings.title" = "Booth Cam";
+"booth.settings.desc" = "Ti riprende con la fotocamera frontale mentre doppi, così la reazione viaggia con la take.";
 "booth.settings.denied" = "L'accesso alla fotocamera è disattivato. Riattivalo per Dubloon nell'app Impostazioni.";
 "booth.mirror.title" = "Vedermi allo specchio";
 "booth.mirror.desc" = "Ribalta il monitor mentre reciti. Il file registrato non viene mai ribaltato.";
 "booth.footage" = "Girato della cabina";
 "booth.footage.usage" = "%1$@ · %2$d pack";
-"booth.deleteAll" = "Elimina tutte le prese della cabina";
+"booth.deleteAll" = "Elimina tutte le take della cabina";
 "booth.deleteAll.confirm" = "Elimina";
-"booth.deleteAll.message" = "Questo cancella tutte le clip della cabina. Le prese di voce e i doppiaggi restano dove sono.";
+"booth.deleteAll.message" = "Questo cancella tutte le clip della cabina. Le take di voce e i doppiaggi restano dove sono.";
 
 /* Booth Cam: the export sheet */
 "booth.export.title" = "Esporta";
@@ -388,8 +391,13 @@
 "booth.frame.stacked" = "Una sopra l'altra";
 "booth.frame.reaction" = "Reazione";
 "booth.frame.split" = "Fianco a fianco";
+"booth.frame.vertical" = "Verticale";
+"booth.export.pipCorner" = "Angolo della cabina";
+"booth.export.pip.bottomRight" = "In basso a destra";
+"booth.export.pip.bottomLeft" = "In basso a sinistra";
+"booth.export.pip.topRight" = "In alto a destra";
 "booth.export.stackedNote" = "Una sopra l'altra e Reazione escono in 9:16 con una forma d'onda in basso: la battuta della scena sopra, la tua sotto.";
-"booth.export.noFootage" = "In questa scena non c'è ancora girato di cabina. Accendi la camera e doppia una battuta.";
+"booth.export.noFootage" = "In questa scena non c'è ancora girato di cabina. Accendi Booth Cam e doppia una battuta.";
 "booth.export.includeBooth" = "Includi il girato di cabina";
 "booth.export.includeBooth.detail" = "Spento tieni il formato verticale e la forma d'onda, con la scena da sola.";
 "booth.export.confirm" = "Esporta il video";
@@ -406,14 +414,14 @@
 "dub.tip.record.title" = "Ascolta, poi registra";
 "dub.tip.record.message" = "Fai partire la battuta originale, poi premi registra. Tre battiti di conto alla rovescia, e il microfono si chiude da solo quando la battuta finisce.";
 "dub.tip.booth.title" = "Riprenditi anche tu";
-"dub.tip.booth.message" = "La cabina accende la fotocamera frontale mentre reciti. La tua faccia compare accanto alla scena nel tuo doppiaggio, e può finire nell'esportazione.";
+"dub.tip.booth.message" = "Booth Cam accende la fotocamera frontale mentre reciti. La tua faccia compare accanto alla scena nel tuo doppiaggio, e può finire nell'esportazione.";
 "dub.tip.playDub.title" = "Ascoltati nel film";
-"dub.tip.playDub.message" = "Le tue prese entrano nella scena al posto delle battute originali. Quello che non hai ancora doppiato resta com'era.";
+"dub.tip.playDub.message" = "Le tue take entrano nella scena al posto delle battute originali. Quello che non hai ancora doppiato resta com'era.";
 
 /* What's new: Booth Cam, for the people who updated into it */
 "whatsNew.badge" = "Novità";
 "whatsNew.booth.title" = "Ora puoi riprenderti mentre doppi";
-"whatsNew.booth.message" = "Ecco la cabina. La fotocamera frontale gira mentre dici una battuta, così la tua faccia viene registrata proprio accanto alla scena. Riguardala nel lettore della scena e, quando esporti, mettila in un angolo, impilata o a schermo diviso. Resta spenta finché non la accendi.";
+"whatsNew.booth.message" = "Ecco Booth Cam. La fotocamera frontale gira mentre dici una battuta, così la tua faccia viene registrata proprio accanto alla scena. Riguardala nel lettore della scena e, quando esporti, mettila in un angolo, impilata o a schermo diviso. Resta spenta finché non la accendi.";
 "whatsNew.booth.row.switch" = "Per accenderla";
 "whatsNew.booth.row.switch.value" = "Tasto fotocamera";
 "whatsNew.booth.row.footage" = "Riprese";
@@ -439,6 +447,32 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "Imitazione di suoni";
 "main.mode.imitate.subtitle" = "Imita un suono, ricevi il verdetto";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "Doppiaggio dei tuoi video";
+"main.mode.homeVideo.subtitle" = "Metti la tua voce su qualsiasi video che hai girato";
+"homeVideo.choose" = "Scegli un video";
+"homeVideo.change" = "Cambia video";
+"homeVideo.limit" = "Fino a un minuto. Il tuo video resta sul telefono.";
+"homeVideo.trimmed" = "Viene usato solo il primo minuto.";
+"homeVideo.importing" = "Apertura del video…";
+"homeVideo.mixing" = "Aggiunta della tua voce…";
+"homeVideo.keepOriginal" = "Mantieni l'audio originale";
+"homeVideo.keepOriginal.detail" = "Suona piano sotto la tua voce";
+"homeVideo.keepOriginal.none" = "Questo video non ha audio";
+"homeVideo.hint.ready" = "Tocca registra e il video parte dall'inizio. Segui l'onda per far cadere i tuoi suoni al momento giusto.";
+"homeVideo.hint.empty" = "Scegli un video dalla tua libreria per metterci sopra la tua voce.";
+"homeVideo.hint.recordingHeadphones" = "Registrazione. Senti il video nelle cuffie; il microfono sente solo te.";
+"homeVideo.hint.recording" = "Registrazione. Il video scorre senza audio così il microfono sente solo te.";
+"homeVideo.hint.review" = "Ecco la tua versione. Condividila o registra di nuovo.";
+"homeVideo.record" = "Registra";
+"homeVideo.stop" = "Stop";
+"homeVideo.retake" = "Registra di nuovo";
+"homeVideo.share" = "Condividi";
+"homeVideo.play" = "Riproduci";
+"homeVideo.pause" = "Pausa";
+"homeVideo.error.load" = "Impossibile aprire quel video. Provane un altro.";
+"homeVideo.error.mix" = "Impossibile aggiungere la tua voce al video. Registra di nuovo.";
 "imitate.library.hint" = "Scegli un suono, ascoltalo e fai la tua migliore imitazione.";
 "imitate.library.best" = "Record";
 "imitate.library.untried" = "Nuovo";
@@ -502,6 +536,16 @@
 "imitate.sound.laugh" = "Risata malvagia";
 "imitate.sound.yawn" = "Sbadiglio";
 "imitate.sound.hiccup" = "Singhiozzo";
+"imitate.sound.frog" = "Rana";
+"imitate.sound.horse" = "Cavallo";
+"imitate.sound.goat" = "Capra";
+"imitate.sound.monkey" = "Scimmia";
+"imitate.sound.lion" = "Leone";
+"imitate.sound.squeak" = "Giocattolo che squittisce";
+"imitate.sound.fart" = "Peto";
+"imitate.sound.ghost" = "Fantasma";
+"imitate.sound.zombie" = "Zombie";
+"imitate.sound.whistle" = "Fischio";
 
 /* Mac */
 "mac.sidebar.games" = "Giochi";
@@ -513,7 +557,7 @@
 "mac.menu.playPause" = "Riproduci/Pausa";
 "mac.menu.record" = "Registra";
 "mac.menu.listen" = "Riproduci originale";
-"mac.menu.playTake" = "Riproduci ripresa";
+"mac.menu.playTake" = "Riproduci la take";
 "mac.menu.previousLine" = "Battuta precedente";
 "mac.menu.nextLine" = "Battuta successiva";
 "mac.menu.showInspector" = "Mostra inspector";
@@ -532,8 +576,7 @@
 "mac.panel.emptyMessage" = "Scegli un gioco o un pack di doppiaggio nella barra laterale.";
 "mac.settings.general" = "Generali";
 "mac.settings.recording" = "Registrazione";
-"mac.welcome.notNow" = "Non ora";
-"mac.booth.primer.message" = "La camera della cabina usa la videocamera del Mac mentre reciti, così la scena, la battuta e la tua faccia stanno sullo stesso schermo. Poi puoi condividere la reazione insieme al doppiaggio.";
+"mac.booth.primer.message" = "Booth Cam usa la videocamera del Mac mentre reciti, così la scena, la battuta e la tua faccia stanno sullo stesso schermo. Poi puoi condividere la reazione insieme al doppiaggio.";
 "mac.booth.primer.systemPrompt" = "Subito dopo macOS ti chiederà l'accesso alla videocamera.";
 "mac.menu.openRecent" = "Apri recenti";
 "mac.menu.clearRecent" = "Cancella menu";
@@ -548,7 +591,7 @@
 "mac.menu.shortcuts" = "Abbreviazioni da tastiera";
 "mac.menu.delete" = "Elimina…";
 "mac.confirm.deletePack.title" = "Eliminare “%@”?";
-"mac.confirm.deletePack.message" = "Le tue riprese e i video della cabina di questa scena se ne vanno con lui. Questa azione non può essere annullata.";
+"mac.confirm.deletePack.message" = "Le tue take e i video della cabina di questa scena se ne vanno con lui. Questa azione non può essere annullata.";
 "mac.confirm.deleteSession.title" = "Eliminare questa sessione?";
 "mac.confirm.deleteSession.message" = "Le sue registrazioni se ne vanno con lei. Questa azione non può essere annullata.";
 "mac.shortcuts.file" = "File";
@@ -562,3 +605,159 @@
 "mac.panel.sound" = "Suono";
 "mac.panel.allSounds" = "Tutti";
 "mac.panel.compare" = "Confronta";
+
+/* Help */
+"help.title" = "Aiuto";
+"help.close" = "Chiudi";
+"help.search.prompt" = "Cerca nell'aiuto";
+"help.search.clear" = "Cancella ricerca";
+"help.search.empty" = "Niente corrisponde. Prova un'altra parola, o scrivici qui sotto.";
+"help.row.expanded" = "Espanso";
+"help.row.collapsed" = "Compresso";
+"help.row.expandHint" = "Mostra la risposta";
+"help.contact.title" = "Ancora bloccato?";
+"help.contact.message" = "Scrivici. La persona che ha creato Dubloon legge ogni email e risponde.";
+"help.contact.button" = "Scrivici";
+"help.mail.subject" = "Aiuto con Dubloon";
+"help.section.gettingStarted" = "Per iniziare";
+"help.section.booth" = "Booth Cam ed esportazioni";
+"help.section.packs" = "Pack di doppiaggio";
+"help.section.pro" = "Dubloon Pro e acquisti";
+"help.section.privacy" = "Privacy";
+"help.section.troubleshooting" = "Risoluzione dei problemi";
+"help.flow.title" = "Come funziona il canto invertito";
+"help.flow.sing" = "Canta";
+"help.flow.flip" = "Gira";
+"help.flow.copy" = "Copia";
+"help.flow.flipBack" = "Rigira";
+"help.flow.caption" = "Canta una frase e ascoltala al contrario. Copia quel guazzabuglio il meglio che puoi, poi gira la tua copia. Se la azzecchi, ne esce la canzone.";
+"help.gettingStarted.1.q" = "Cos'è Dubloon?";
+"help.gettingStarted.1.a" = "Quattro giochi vocali che richiedono solo il microfono. Canto invertito: canta una canzone al contrario. Doppiaggio di scene: metti la tua voce in una scena di film, battuta per battuta. Doppiaggio dei tuoi video: metti la tua voce su un video che hai girato. Imitazione di suoni: imita un suono e ricevi un verdetto. Scegline uno dal menu.";
+"help.gettingStarted.2.q" = "Dubloon è gratis?";
+"help.gettingStarted.2.a" = "Puoi provare ogni gioco gratis. Le tue prime 3 take sono gratis, contate su tutti e quattro i giochi: doppiare due battute di un film e invertire una canzone basta a esaurirle. Dopo, i giochi si aprono ancora, e con Dubloon Pro continui a registrare.";
+"help.gettingStarted.3.q" = "Mi servono le cuffie?";
+"help.gettingStarted.3.a" = "No, ma aiutano quando doppi. Con le cuffie senti la battuta originale mentre registri (attiva Originale in cuffia nelle Impostazioni). Dall'altoparlante finirebbe nella tua take, quindi Dubloon la fa sentire solo in cuffia. Le cuffie con il filo tengono i tempi più precisi: il Bluetooth aggiunge un piccolo ritardo.";
+"help.reverse.1.q" = "Come funziona il canto invertito?";
+"help.reverse.1.a" = "Tocca Registra audio e canta una frase di una canzone. Tocca Ascolta al contrario per sentirla girata. Poi tocca Cantala al contrario e copia quel suono al contrario il meglio che puoi. Dubloon gira la tua copia e, se l'hai fatta bene, risenti la canzone, con la tua voce.";
+"help.reverse.2.q" = "A cosa servono i quattro pulsanti di riproduzione?";
+"help.reverse.2.a" = "Originale è la frase che hai cantato. Invertito è quella frase al contrario, il suono da copiare. La tua take è la tua copia come l'hai cantata. La tua take, invertita è la tua copia rigirata: quella che dovrebbe suonare come la canzone.";
+"help.reverse.3.q" = "Come si calcola il mio punteggio?";
+"help.reverse.3.a" = "Dubloon confronta la tua take, rigirata, con la frase originale: dove il suono sale e scende, e come si allinea il ritmo. Succede tutto sul tuo dispositivo. Le frasi brevi con parole chiare vanno meglio; punta prima al ritmo e poi alle vocali.";
+"help.reverse.4.q" = "Semplice o Complessa?";
+"help.reverse.4.a" = "Due aspetti per lo stesso gioco, da cambiare con il pulsante delle opzioni in cima allo schermo. Semplice sono pulsanti grandi e niente su cui inciampare. Complessa aggiunge la forma d'onda e i Controlli audio: loop, velocità e tonalità. Rallentare la frase invertita è il modo migliore per impararla.";
+"help.reverse.5.q" = "Dove sono le mie sessioni salvate?";
+"help.reverse.5.a" = "Tocca il pulsante dell'archivio in cima alla schermata di Canto invertito. Iniziare una nuova sessione mette quella attuale in archivio, quindi non si butta via niente. Scorri su una sessione nell'archivio per eliminarla.";
+"help.dub.1.q" = "Come doppio una scena?";
+"help.dub.1.a" = "Apri Doppiaggio di scene, scegli una scena e tocca Inizia a doppiare. Per ogni battuta, ascolta l'originale e poi premi registra: hai tre battiti di conto alla rovescia, e il microfono si chiude da solo quando la battuta finisce. Vai avanti con Avanti e torna su qualsiasi battuta quando vuoi.";
+"help.dub.2.q" = "Cosa significa la barra del ritmo?";
+"help.dub.2.a" = "Mostra quanto dura la battuta originale. Diventa ambra appena la superi, così sai che devi accelerare. Sotto la tua take, la forma d'onda dell'originale mostra dove sei entrato in anticipo, hai corso o hai lasciato un buco.";
+"help.dub.3.q" = "Come vengono valutati i doppiaggi?";
+"help.dub.3.a" = "Ogni take riceve un voto su tempi (hai iniziato e finito con l'originale?), ritmo (hai tenuto la sua cadenza?) e interpretazione (le tue parti forti e piano lo hanno seguito?). Anche la scena riceve un voto, con la tua battuta migliore e quella che merita un altro giro. Non vuoi essere giudicato? Disattiva Dai un voto alle mie take nelle opzioni doppiaggio.";
+"help.dub.4.q" = "Come faccio a sentire la mia voce nel film?";
+"help.dub.4.a" = "Tocca Guarda il mio doppiaggio nella scena. Le tue take entrano nel film al posto delle battute originali; quello che non hai ancora doppiato resta com'era. Guarda l'originale riproduce la scena intatta.";
+"help.homeVideo.1.q" = "Come doppio un mio video?";
+"help.homeVideo.1.a" = "Tocca l'immagine vuota e scegli un video dalla tua libreria, lungo fino a un minuto. Tocca registra: dopo il conto alla rovescia il video parte dall'inizio e la tua voce va sopra. Alla fine parte la tua versione, pronta da condividere o da rifare.";
+"help.homeVideo.2.q" = "Come vado a tempo con i suoni?";
+"help.homeVideo.2.a" = "L'onda sotto l'immagine è il suono del video, e la linea che la attraversa indica dove si trova il video. Seguila per far cadere un abbaio o una risata al momento giusto. Dopo una registrazione, la tua voce ci viene disegnata sopra in rosso.";
+"help.homeVideo.3.q" = "Posso sentire il video mentre registro?";
+"help.homeVideo.3.a" = "Sì, con le cuffie. Dall'altoparlante il video è muto, così il suo suono non finisce nella registrazione. Mantieni l'audio originale lo rimette, piano, sotto la tua voce nel video finale.";
+"help.booth.1.q" = "Cos'è Booth Cam?";
+"help.booth.1.a" = "Booth Cam riprende la tua faccia con la fotocamera frontale mentre reciti, così la reazione può finire nel video insieme al doppiaggio. È spenta finché non la accendi con il tasto fotocamera nella schermata di registrazione o nelle Impostazioni. Il girato resta sul tuo dispositivo.";
+"help.booth.2.q" = "Come esporto un video?";
+"help.booth.2.a" = "Tocca Esporta il video in una scena. Scegli il montaggio (la scena intera, o una bobina della sessione con solo le battute che hai doppiato) e dove va il girato della cabina: in un angolo, uno sopra l'altro per una storia, come reazione o fianco a fianco. Prima del rendering, Dubloon mostra di chi è la scena, così puoi citare l'autore quando condividi.";
+"help.booth.3.q" = "Come elimino il girato della cabina?";
+"help.booth.3.a" = "Le Impostazioni mostrano quanto spazio occupa il girato della cabina, con un pulsante per eliminare tutte le take della cabina. Le take di voce e i doppiaggi restano. Eliminando una scena si eliminano anche le sue take e il suo girato.";
+"help.packs.1.q" = "Come aggiungo altre scene?";
+"help.packs.1.a" = "Le scene arrivano come pack di doppiaggio: una cartella, o un archivio .zip, .7z o .rar. Tocca + in Doppiaggio di scene e scegline uno da File, oppure mandalo a Dubloon con AirDrop o da qualsiasi menu di condivisione. Dubloon lo estrae e la scena compare nell'elenco.";
+"help.packs.2.q" = "Da dove arrivano i pack di doppiaggio?";
+"help.packs.2.a" = "Quattro scene sono incluse nell'app. Tutti gli altri pack li creano e li condividono altri giocatori; Dubloon non include, ospita né vende nessun film. Doppia solo quello che hai il diritto di usare, e rispetta le regole sul copyright di casa tua.";
+"help.packs.3.q" = "Un pack non si importa. E adesso?";
+"help.packs.3.a" = "Dubloon ti dice cosa è andato storto. I rimedi di sempre: se il file è su iCloud, aprilo prima in File così si scarica. Se l'archivio ha una password, chiedi a chi l'ha creato una copia senza. Se non si estrae, salvalo di nuovo come .zip. E se Dubloon dice che non è un pack di doppiaggio, gli servono un file di testo e una registrazione per ogni battuta.";
+"help.imitate.1.q" = "Come funziona Imitazione di suoni?";
+"help.imitate.1.a" = "Scegli un suono, tocca Ascolta, poi tocca Imita e fai il suono tu. Dubloon confronta il tuo tentativo con quello vero e ci stampa sopra un verdetto. Il tuo miglior punteggio per ogni suono viene conservato, così puoi tornare a batterlo.";
+"help.imitate.2.q" = "Cosa viene giudicato?";
+"help.imitate.2.a" = "Quattro cose: ritmo (come il suono sale e scende nel tempo), intonazione, timbro (brillante o cupo) e durata. Ascolta un paio di volte prima, azzecca la durata e poi pensa all'intonazione.";
+"help.imitate.3.q" = "Posso condividere un tentativo?";
+"help.imitate.3.a" = "Sì. Dopo un verdetto, tocca Crea video: il suono, il tuo tentativo e il tuo punteggio, pronti da mandare. Con Booth Cam accesa, c'è anche la tua faccia.";
+"help.pro.1.q" = "Cosa sblocca Dubloon Pro?";
+"help.pro.1.a" = "Take illimitate in ogni gioco: Doppiaggio di scene con ogni scena e i pack della community, Imitazione di suoni, Canto invertito e Doppiaggio dei tuoi video, più Booth Cam e le esportazioni video. Senza Pro, le tue prime 3 take sono gratis. Pro è un acquisto unico o un abbonamento, e si sblocca sul tuo iPhone e sul tuo Mac con lo stesso Account Apple.";
+"help.pro.2.q" = "Ho comprato Pro, ma è bloccato.";
+"help.pro.2.a" = "Apri le Impostazioni e tocca Ripristina l'acquisto. Assicurati di aver effettuato l'accesso all'App Store con l'Account Apple con cui l'hai comprato. Su un telefono nuovo o dopo una reinstallazione, il ripristino lo riporta indietro senza costi.";
+"help.pro.3.q" = "Come disdico o cambio l'abbonamento?";
+"help.pro.3.a" = "Nelle Impostazioni, tocca Gestisci l'abbonamento. Puoi farlo anche nell'app Impostazioni: tocca il tuo nome, poi Abbonamenti. Disdici almeno 24 ore prima del rinnovo e tieni Pro fino alla fine del periodo pagato. I rimborsi li gestisce Apple.";
+"help.privacy.1.q" = "Le mie registrazioni vengono caricate da qualche parte?";
+"help.privacy.1.a" = "No. Registrazioni, take, girato della cabina e video restano sul tuo dispositivo finché non scegli di condividerli. Anche il punteggio si calcola sul tuo dispositivo. Non c'è nessun account e niente a cui iscriversi.";
+"help.privacy.2.q" = "Cosa raccoglie Dubloon?";
+"help.privacy.2.a" = "Statistiche d'uso anonime e report sui crash, che aiutano a trovare i bug e a decidere cosa fare dopo: cose come quale gioco è stato aperto e che punteggio è uscito, mai il suono di una registrazione. Disattivale nelle Impostazioni con Condividi dati d'uso. L'Informativa sulla privacy ha tutti i dettagli.";
+"help.troubleshooting.1.q" = "Dubloon non mi sente.";
+"help.troubleshooting.1.a" = "Controlla che Dubloon possa usare il microfono: nell'app Impostazioni, apri Dubloon e attiva Microfono. Se un'altra app sta usando l'audio, come una chiamata, chiudila e riprova.";
+"help.troubleshooting.2.q" = "Non sento niente.";
+"help.troubleshooting.2.a" = "Alza il volume e controlla se delle cuffie Bluetooth o un altoparlante si sono collegati da qualche altra parte. Durante la registrazione la battuta originale si sente solo in cuffia, apposta, così resta fuori dalla tua take.";
+"help.troubleshooting.3.q" = "Il mio doppiaggio è fuori sincrono con l'immagine.";
+"help.troubleshooting.3.a" = "Le cuffie Bluetooth aggiungono un ritardo, quindi senti l'originale un po' tardi ed entri tardi. Con le cuffie con il filo, o senza cuffie, si risolve. Se Dubloon dice che il video di una scena corre davanti alle voci, importa di nuovo quel pack.";
+"help.troubleshooting.4.q" = "Booth Cam non si accende.";
+"help.troubleshooting.4.a" = "Dubloon ha bisogno della fotocamera. Nell'app Impostazioni, apri Dubloon e attiva Fotocamera. Booth Cam fa parte di Dubloon Pro.";
+/* Help, privacy and appearance in Settings */
+"settings.help" = "Aiuto e supporto";
+"settings.help.desc" = "Come funziona tutto, e un modo per contattarci";
+"settings.terms.desc" = "L'accordo tra noi, in parole semplici";
+"settings.privacy.section" = "Privacy";
+"settings.shareUsage" = "Condividi dati d'uso";
+"settings.shareUsage.desc" = "Statistiche anonime e report sui crash che aiutano a correggere i bug. Mai le tue registrazioni.";
+"settings.appearance" = "Aspetto";
+"settings.appearance.system" = "Sistema";
+"settings.appearance.light" = "Chiaro";
+"settings.appearance.dark" = "Scuro";
+
+/* Mac: new strings */
+"mac.homeVideo.fromPhotos" = "Scegli da Foto…";
+"mac.homeVideo.fromFile" = "Scegli un file…";
+"mac.homeVideo.dropHint" = "Oppure trascina qui un file video.";
+"mac.panel.clip" = "Clip";
+"mac.panel.mix" = "Mix";
+"mac.menu.help" = "Aiuto Dubloon";
+"mac.homeVideo.limit" = "Fino a un minuto. Il tuo video resta su questo Mac.";
+"mac.homeVideo.hint.empty" = "Scegli un video da Foto o dal Finder per metterci sopra la tua voce.";
+"help.gettingStarted.1.a.mac" = "Quattro giochi vocali che richiedono solo il microfono. Canto invertito: canta una canzone al contrario. Doppiaggio di scene: metti la tua voce in una scena di film, battuta per battuta. Doppiaggio dei tuoi video: metti la tua voce su un video che hai girato. Imitazione di suoni: imita un suono e ricevi un verdetto. Scegline uno nella barra laterale, o premi da ⌘1 a ⌘4.";
+"help.gettingStarted.3.a.mac" = "No, ma aiutano quando doppi. Con le cuffie senti la battuta originale mentre registri (attiva Originale in cuffia in Dubloon ▸ Impostazioni ▸ Registrazione). Dagli altoparlanti finirebbe nella tua take, quindi Dubloon la fa sentire solo in cuffia. Le cuffie con il filo tengono i tempi più precisi: il Bluetooth aggiunge un piccolo ritardo.";
+"help.reverse.1.a.mac" = "Fai clic su Registra audio (o premi R) e canta una frase di una canzone. Riproduci la traccia Invertito per sentirla al contrario. Poi fai clic su Cantala al contrario e copia quel suono al contrario il meglio che puoi. Dubloon gira la tua copia e, se l'hai fatta bene, risenti la canzone, con la tua voce.";
+"help.reverse.4.q.mac" = "Posso rallentare la frase invertita?";
+"help.reverse.4.a.mac" = "Sì. L'inspector a destra (⌥⌘I) ha i Controlli audio: loop, velocità e tonalità. Rallentare la frase invertita è il modo migliore per impararla.";
+"help.reverse.5.a.mac" = "Sotto Canto invertito nella barra laterale. Iniziare una nuova sessione (⌘N) ci mette quella attuale, quindi non si butta via niente. Per eliminare una sessione, selezionala e premi ⌘⌫, oppure fai Controllo-clic su di essa.";
+"help.dub.1.a.mac" = "Scegli una scena sotto Doppiaggio di scene nella barra laterale. Seleziona una battuta, premi L per ascoltare l'originale e poi R per registrare: hai tre battiti di conto alla rovescia, e il microfono si chiude da solo quando la battuta finisce. Passa da una battuta all'altra con ↑ e ↓ e torna su qualsiasi battuta quando vuoi.";
+"help.dub.3.a.mac" = "Ogni take riceve un voto su tempi (hai iniziato e finito con l'originale?), ritmo (hai tenuto la sua cadenza?) e interpretazione (le tue parti forti e piano lo hanno seguito?). Anche la scena riceve un voto, con la tua battuta migliore e quella che merita un altro giro. Non vuoi essere giudicato? Disattiva Dai un voto alle mie take nella barra degli strumenti, nell'inspector o nelle Impostazioni.";
+"help.dub.4.a.mac" = "Passa il visore su Il mio doppiaggio (⌃⌘3) e premi la barra spaziatrice. Le tue take entrano nel film al posto delle battute originali; quello che non hai ancora doppiato resta com'era. Originale (⌃⌘2) riproduce la scena intatta.";
+"help.homeVideo.1.a.mac" = "Scegli un video da Foto o da un file, oppure trascinane uno sul visore, lungo fino a un minuto. Premi R: dopo il conto alla rovescia il video parte dall'inizio e la tua voce va sopra. Alla fine parte la tua versione, pronta da condividere (⌘E) o da rifare.";
+"help.homeVideo.3.a.mac" = "Sì, con le cuffie. Dagli altoparlanti il video è muto, così il suo suono non finisce nella registrazione. Mantieni l'audio originale, nell'inspector, lo rimette, piano, sotto la tua voce nel video finale.";
+"help.booth.1.a.mac" = "Booth Cam riprende la tua faccia con la videocamera del Mac mentre reciti, così la reazione può finire nel video insieme al doppiaggio. È spenta finché non la accendi con il pulsante della videocamera nella barra degli strumenti (⇧⌘C) o nelle Impostazioni. Il girato resta sul tuo Mac.";
+"help.booth.2.a.mac" = "In una scena, scegli File ▸ Esporta (⌘E). Scegli il montaggio (la scena intera, o una bobina della sessione con solo le battute che hai doppiato) e dove va il girato della cabina: in un angolo, uno sopra l'altro per una storia, come reazione o fianco a fianco. Prima del rendering, Dubloon mostra di chi è la scena, così puoi citare l'autore quando condividi.";
+"help.booth.3.a.mac" = "Dubloon ▸ Impostazioni ▸ Registrazione mostra quanto spazio occupa il girato della cabina, con un pulsante per eliminare tutte le take della cabina. Le take di voce e i doppiaggi restano. Eliminando una scena si eliminano anche le sue take e il suo girato.";
+"help.packs.1.a.mac" = "Le scene arrivano come pack di doppiaggio: una cartella, o un archivio .zip, .7z o .rar. Scegli File ▸ Importa pack di doppiaggio (⌘O), trascina il file su Doppiaggio di scene nella barra laterale, oppure aprilo con Dubloon dal Finder. Dubloon lo estrae e la scena compare nell'elenco.";
+"help.packs.3.a.mac" = "Dubloon ti dice cosa è andato storto. I rimedi di sempre: se il file è su iCloud Drive, scaricalo prima nel Finder. Se l'archivio ha una password, chiedi a chi l'ha creato una copia senza. Se non si estrae, salvalo di nuovo come .zip. E se Dubloon dice che non è un pack di doppiaggio, gli servono un file di testo e una registrazione per ogni battuta.";
+"help.imitate.1.a.mac" = "Scegli un suono nell'elenco, premi L per ascoltarlo e poi R per imitarlo. Dubloon confronta il tuo tentativo con quello vero e ci stampa sopra un verdetto. Il tuo miglior punteggio per ogni suono viene conservato, così puoi tornare a batterlo.";
+"help.imitate.3.a.mac" = "Sì. Dopo un verdetto, fai clic su Crea video (⌘E): il suono, il tuo tentativo e il tuo punteggio, pronti da mandare. Con Booth Cam accesa, c'è anche la tua faccia.";
+"help.pro.2.a.mac" = "Apri Dubloon ▸ Impostazioni ▸ Dubloon Pro e fai clic su Ripristina l'acquisto. Assicurati di aver effettuato l'accesso all'App Store con l'Account Apple con cui l'hai comprato. Su un Mac nuovo o dopo una reinstallazione, il ripristino lo riporta indietro senza costi.";
+"help.pro.3.a.mac" = "In Dubloon ▸ Impostazioni ▸ Dubloon Pro, fai clic su Gestisci l'abbonamento. Puoi farlo anche nell'App Store: fai clic sul tuo nome, poi su Impostazioni account, poi su Abbonamenti. Disdici almeno 24 ore prima del rinnovo e tieni Pro fino alla fine del periodo pagato. I rimborsi li gestisce Apple.";
+"help.privacy.1.a.mac" = "No. Registrazioni, take, girato della cabina e video restano sul tuo Mac finché non scegli di condividerli. Anche il punteggio si calcola sul tuo Mac. Non c'è nessun account e niente a cui iscriversi.";
+"help.privacy.2.a.mac" = "Statistiche d'uso anonime e report sui crash, che aiutano a trovare i bug e a decidere cosa fare dopo: cose come quale gioco è stato aperto e che punteggio è uscito, mai il suono di una registrazione. Disattivale in Dubloon ▸ Impostazioni ▸ Generali con Condividi dati d'uso. L'Informativa sulla privacy ha tutti i dettagli.";
+"help.troubleshooting.1.a.mac" = "Controlla che Dubloon possa usare il microfono: in Impostazioni di Sistema ▸ Privacy e sicurezza ▸ Microfono, attiva Dubloon. Controlla anche l'ingresso in Impostazioni di Sistema ▸ Suono, e che nessun'altra app, come una chiamata, stia occupando il microfono.";
+"help.troubleshooting.2.a.mac" = "Alza il volume e controlla l'uscita in Impostazioni di Sistema ▸ Suono: potrebbero essersi collegati delle cuffie Bluetooth o un altoparlante. Durante la registrazione la battuta originale si sente solo in cuffia, apposta, così resta fuori dalla tua take.";
+"help.troubleshooting.4.a.mac" = "Dubloon ha bisogno della videocamera. In Impostazioni di Sistema ▸ Privacy e sicurezza ▸ Videocamera, attiva Dubloon. Booth Cam fa parte di Dubloon Pro.";
+"dubGuide.2.detail.mac" = "Fai clic su Download e scegli il file: un .zip, .7z o .rar. Il browser lo salva nella cartella Download.";
+"dubGuide.3.detail.mac" = "Attendi che il download sia completo. Se il file è su iCloud Drive, scaricalo prima nel Finder così è davvero su questo Mac.";
+"dubGuide.4.detail.mac" = "Torna qui, fai clic su Importa un pack e sceglilo in Download. Puoi anche trascinare il file su Doppiaggio di scene nella barra laterale, o aprirlo con Dubloon dal Finder.";
+
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Prova Dubloon Pro gratis per %@";
+"offer.intro.paid" = "I primi %2$@ di Dubloon Pro a %1$@";
+"offer.winback.free" = "Torna: %@ di Dubloon Pro gratis";
+"offer.winback.paid" = "Torna: %2$@ di Dubloon Pro a %1$@";
+"offer.then" = "Poi %@. Disdici quando vuoi.";
+"offer.cta" = "Approfitta dell'offerta";
+"offer.dismiss" = "Non ora";
+
+/* Spooky Voice Week */
+"halloween.title" = "Settimana delle voci da brivido";
+"halloween.home.message" = "Gemi come un fantasma, ringhia come uno zombie, ulula come un lupo. Poi doppia Camp Rules, la scena horror comica.";
+"halloween.home.action" = "Gioca con i suoni da brivido";
+"halloween.imitate.message" = "Buon Halloween! Scaldati la voce con il fantasma, lo zombie, il lupo e il gufo.";

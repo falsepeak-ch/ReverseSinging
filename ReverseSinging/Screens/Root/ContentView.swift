@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var viewModel: AppViewModel
+    @ObservedObject private var appearance = AppearancePreference.shared
 
     /// - Parameter app: the app-wide state, when something outside this view shares it. The
     ///   Mac's Settings window does; the iPhone's root owns its own.
@@ -27,12 +28,20 @@ struct ContentView: View {
             }
         }
         .preferredColorScheme(preferredColorScheme)
+        .onAppear { appearance.applyToWindows() }
         .appLifecycle(app: viewModel)
     }
 
-    /// The editor interface is dark-only: a light UI washes out the stills and
-    /// waveforms it exists to display, the same reason real editors ship dark.
-    private var preferredColorScheme: ColorScheme? { .dark }
+    /// Light, dark or the device's choice, from Settings. The screens that show a film hold
+    /// themselves dark whichever it is; see `AppearancePreference`.
+    private var preferredColorScheme: ColorScheme? {
+        #if os(iOS)
+        appearance.mode.colorScheme
+        #else
+        // The Mac is an editing suite, dark by design.
+        .dark
+        #endif
+    }
 }
 
 // MARK: - Lifecycle
@@ -54,11 +63,18 @@ private struct AppLifecycleModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            // Above onboarding as well as the games: the free window runs from first
-            // launch, so a user who installs, plays for eight days and only then
-            // finishes onboarding still meets the paywall.
-            .hardPaywall()
             .onOpenURL { url in
+                // A dubloon:// link from a store page or an event. An unknown path just
+                // opens the app.
+                if DeepLink.isDeepLinkURL(url) {
+                    guard let link = DeepLink(url: url) else { return }
+                    AnalyticsManager.shared.trackCustomEvent(
+                        name: "deep_link_opened",
+                        parameters: ["path": url.absoluteString, "mode": link.gameMode.rawValue]
+                    )
+                    app.pendingDeepLink = link
+                    return
+                }
                 // A dub pack arrived from Files, AirDrop or "Open with"
                 app.pendingDubImportURL = url
                 app.showDubLibrary = true
@@ -85,19 +101,14 @@ private struct AppLifecycleModifier: ViewModifier {
         #endif
         guard previousScenePhase == nil || previousScenePhase == .background else { return }
 
-        // A trial that ran out overnight, or a purchase made on another device,
+        // A subscription that lapsed overnight, or a purchase made on another device,
         // is noticed here rather than on the next cold launch.
         AccessController.shared.refreshOnForeground()
 
+        // Only counted. The ask itself waits for a high point: a great score, an approved
+        // impression, a dub sent out. Landing on top of a launch, it interrupted people on
+        // their way into a game.
         ReviewPrompt.shared.registerAppOpen()
-
-        // Onboarding is the wrong moment to ask for anything, and the ask reads better
-        // once the screen has settled rather than on top of the launch animation.
-        guard app.hasCompletedOnboarding else { return }
-        Task {
-            try? await Task.sleep(for: .seconds(2))
-            ReviewPrompt.shared.requestIfAppropriate(trigger: "app_open")
-        }
     }
 }
 

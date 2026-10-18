@@ -44,7 +44,8 @@ struct MacShortcutsView: View {
             Group(title: MacStrings.Shortcuts.view, shortcuts: [
                 Shortcut(title: GameMode.reverse.title, keys: ["⌘", "1"]),
                 Shortcut(title: GameMode.dub.title, keys: ["⌘", "2"]),
-                Shortcut(title: GameMode.imitate.title, keys: ["⌘", "3"]),
+                Shortcut(title: GameMode.homeVideo.title, keys: ["⌘", "3"]),
+                Shortcut(title: GameMode.imitate.title, keys: ["⌘", "4"]),
                 Shortcut(title: "\(MacStrings.Menu.viewer): \(MacStrings.Panel.line)", keys: ["⌃", "⌘", "1"]),
                 Shortcut(title: "\(MacStrings.Menu.viewer): \(Strings.Dub.original)", keys: ["⌃", "⌘", "2"]),
                 Shortcut(title: "\(MacStrings.Menu.viewer): \(Strings.Dub.myDub)", keys: ["⌃", "⌘", "3"]),

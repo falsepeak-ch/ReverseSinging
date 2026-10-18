@@ -5,18 +5,22 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Dubloonへようこそ";
-"onboarding.welcome.message" = "ゲームは3つ、マイクは1本。曲を逆再生で歌うか、映画のシーンに自分の声をねじ込むか、そっくりになるまで音をまねるか。どれにしても、まともな声にはなりません。";
+"onboarding.welcome.message" = "ゲームは4つ、マイクは1本。曲を逆さまに歌うか、映画のシーンや自分で撮った動画に自分の声をねじ込むか、そっくりになるまで音をまねるか。どれにしても、まともな声にはなりません。";
 "onboarding.howItWorks.title" = "遊びかた";
 "onboarding.howItWorks.message" = "曲を録音して、逆さまにして、その意味不明な音に合わせて歌う。歌ったテイクをもう一度ひっくり返せば、近づけたのか、新しい言語を発明しただけなのかが分かります。";
 "onboarding.dub.title" = "映画のシーンをアフレコ";
-"onboarding.dub.message" = "2つめのゲーム。シーンを流し、思いきり大げさに演じて、映画の中の自分を聴く。シーンは2本同梱。その先は自分のファイルを持ち込んでください。";
-"onboarding.microphone.title" = "最後にひとつ";
-"onboarding.microphone.message" = "3つのゲームはどれもあなたの声を聴く必要があります。逆再生で歌うときも、シーンを吹き替えるときも、音をまねるときも。マイクが起きるのは録音中だけ。すべてこの端末に残り、どこにもアップロードされません。いちばんひどいテイクは、あなたとこの端末だけの秘密です。";
-"onboarding.button.openSettings" = "設定を開く";
-"onboarding.button.letsRecord" = "よし、録ろう！";
+"onboarding.dub.message" = "2つめのゲーム。シーンを流し、思いきり大げさに演じて、映画の中の自分を聴く。シーンは4本同梱。その先は自分のファイルを持ち込んでください。";
+"onboarding.pro.title" = "Dubloon Proがある理由";
+"onboarding.pro.message" = "Dubloonには広告もアカウントもトラッキングもありません。チューリッヒでひとりの開発者が作っています。それを支えているのがDubloon Proです。どのゲームも試せます。最初の%dテイクは無料で、Proなら無制限になります。";
+"onboarding.pro.buy" = "Dubloon Proを手に入れる";
+"onboarding.pro.skip" = "今はスキップ";
 "onboarding.button.continueLowercase" = "つづける";
-"onboarding.button.microphoneContinue" = "続ける";
-"onboarding.button.continueWithout" = "マイクなしで進む";
+"onboarding.button.continue" = "続ける";
+
+// MARK: - Microphone explanation
+"microphonePrimer.title" = "マイク";
+"microphonePrimer.message" = "どのゲームもあなたの声を聴く必要があります。逆さまに歌うときも、シーンを吹き替えるときも、音をまねるときも。マイクが起きるのは録音中だけ。すべてこの端末に残り、どこにもアップロードされません。いちばんひどいテイクは、あなたとこの端末だけの秘密です。";
+"microphonePrimer.continue" = "続ける";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "録音を止める";
@@ -54,7 +58,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "誰にも聞こえていません";
-"main.emptyState.message" = "いまのDubloonは、録るものが何もない録音アプリです。端末の設定でマイクを許可すれば、3つのゲームがまた動き出します。";
+"main.emptyState.message" = "いまのDubloonは、録る手段のない録音アプリです。端末の設定でマイクを許可すれば、4つのゲームがまた動き出します。";
 "main.emptyState.button" = "設定を開く";
 
 // MARK: - Main View - Processing & Success
@@ -131,7 +135,7 @@
 "settings.interface" = "インターフェース";
 "uiMode.simple.name" = "シンプル";
 "uiMode.simple.description" = "大きなボタン、つまずくものなし";
-"uiMode.complex.name" = "コンプレックス";
+"uiMode.complex.name" = "フル";
 "uiMode.complex.description" = "つまみ、メーター、波形";
 "settings.preferences" = "環境設定";
 "settings.about" = "このアプリについて";
@@ -139,10 +143,6 @@
 "settings.about.license.lifetime" = "Dubloon Pro(買い切り)";
 "settings.about.license.renews" = "Dubloon Pro(%@に更新)";
 "settings.about.license.ends" = "Dubloon Pro(%@に終了)";
-"settings.about.license.earlyAdopter" = "初期ユーザー・ずっと無料";
-"settings.about.license.trialDays" = "無料トライアル(残り%d日)";
-"settings.about.license.trialLastDay" = "無料トライアル(最終日)";
-"settings.about.license.trialOver" = "無料トライアル終了";
 "settings.about.license.free" = "無料";
 
 // Theme descriptions
@@ -228,7 +228,6 @@
 "main.button.back" = "戻る";
 "main.mode.reverse.subtitle" = "録って、ひっくり返して、意味不明な音を歌う";
 "main.mode.dub.subtitle" = "他人の口に自分の声を入れる";
-"main.mode.free" = "無料";
 "dub.speakerAccessibility" = "話し手: %@";
 "dub.cast" = "キャスト";
 "dub.referenceTrack" = "お手本";
@@ -239,7 +238,7 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "閉じる";
 "dubGate.ask.title" = "映画はもう手元にありますか？";
-"dubGate.ask.message" = "サンプルの2シーン以外、映画は一本も同梱していませんし、配信もしていません。ほかの作品をアフレコするには、その動画ファイルがすでにこの端末にある必要があります。";
+"dubGate.ask.message" = "サンプルの4シーン以外、映画は一本も同梱していませんし、配信もしていません。ほかの作品をアフレコするには、その動画ファイルがすでにこの端末にある必要があります。";
 "dubGate.ask.confirm" = "はい、もうあります";
 "dubGate.ask.needDownload" = "いいえ、これから探します";
 "dubGate.download.title" = "どこで手に入るか";
@@ -248,6 +247,19 @@
 "dubGate.download.back" = "戻る";
 "dubGate.disclaimer.notAffiliated" = "%@ はよそのサイトです。私たちとは無関係で、ファイルの保管も配布もいっさいしていません。";
 "dubGate.disclaimer.responsibility" = "ダウンロードしたものを使う権利があるか確かめて、お住まいの地域の著作権ルールに従ってください。";
+"dubGuide.row" = "パックをもっと手に入れる方法を知りたい";
+"dubGuide.title" = "パックをもっと手に入れる";
+"dubGuide.intro" = "吹き替えパックは1つのシーンです。映像、サウンドトラック、そして各セリフの録音が入っています。Dubloonに追加する手順はこちら。";
+"dubGuide.1.title" = "シーンを探す";
+"dubGuide.1.detail" = "下のボタンでGameBananaを開き、映画の吹き替えパックを探します。気に入ったものを選んでページを開きます。";
+"dubGuide.2.title" = "ダウンロードする";
+"dubGuide.2.detail" = "Downloadをタップしてファイル(.zip、.7z、.rar)を選びます。Safariは「ファイル」アプリの「ダウンロード」に保存します。";
+"dubGuide.3.title" = "完了を待つ";
+"dubGuide.3.detail" = "ダウンロードが終わるまで待ちます。ファイルがiCloud Driveにある場合は、「ファイル」で一度開いて、このデバイスに実際に保存されるようにします。";
+"dubGuide.4.title" = "読み込む";
+"dubGuide.4.detail" = "ここに戻って+をタップし、ファイルがデバイスにあることを確認して「ダウンロード」から選びます。「ファイル」やAirDropからDubloonに共有することもできます。";
+"dubGuide.5.title" = "読み込めないときは";
+"dubGuide.5.detail" = "Dubloonが原因を教えてくれます。アーカイブを.zipで保存し直す、作者にパスワードなしのコピーを頼む、各セリフのテキストファイルと録音が入っているか確かめる、を試してください。";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "共有する前に";
@@ -257,6 +269,7 @@
 "dubShare.unknownSource" = "このシーンはあなたが持ち込んだものなので、出どころも、何をしてよいかも分かっているはずです。";
 "dubShare.responsibility" = "どこに出すかはあなた次第です。お住まいの地域の著作権ルールに従ってください。";
 "dubShare.confirm" = "動画を書き出す";
+"dubShare.caption" = "Dubloonでこのシーンを吹き替えたよ 🎙️";
 "dubShare.share" = "共有…";
 "dubShare.save" = "保存…";
 
@@ -284,13 +297,11 @@
 "dub.videoNeedsReimport" = "このシーンの映像は古いバージョンで変換されていて、声より先に進んでしまいます。パックを読み込み直せば直ります。";
 
 // MARK: - Pro / Paywall
-"pro.trial.daysLeft" = "残り%d日";
-"pro.trial.oneDayLeft" = "最終日";
-"pro.trial.over" = "無料期間が終了しました";
-"pro.locked.title" = "Dubloon Proでアフレコできます";
 "pro.section" = "Dubloon Pro";
+"pro.freeTakes.left" = "無料テイク残り%1$d/%2$d";
+"pro.freeTakes.usedUp" = "無料テイクを使い切りました";
 "pro.unlock.title" = "Dubloonをアンロック";
-"pro.unlock.subtitle" = "すべてのシーン、ブースカメラ、書き出し。逆さ歌はずっと無料です。";
+"pro.unlock.subtitle" = "どのゲームでも、最初の%dテイクは無料。Dubloon Proならすべてのゲームが無制限になり、ブースカメラと書き出しも使えます。";
 "pro.owned.title" = "Dubloonはあなたのものです";
 "pro.owned.subtitle" = "ありがとうございます。どのシーンも、どのテイクも、上限なし。";
 "pro.manage.title" = "購入を管理";
@@ -301,17 +312,13 @@
 "pro.restore.title" = "購入を復元";
 "pro.restore.subtitle" = "機種変更や再インストール？ 取り戻しましょう。";
 "pro.testStore.warning" = "デバッグビルド: RevenueCatのテストストアに接続中。実際のお金は動きません。";
-"pro.restored.title" = "復元しました";
-"pro.restored.message" = "購入がこの端末に戻ってきました。";
 "pro.nothingToRestore.title" = "復元するものがありません";
 "pro.nothingToRestore.message" = "このApple アカウントには購入が見つかりませんでした。別のアカウントで買った場合は、そちらでサインインしてお試しください。";
 "pro.error.title" = "何かがうまくいきませんでした";
 "pro.error.generic" = "ストアから返事がありません。少ししてからもう一度どうぞ。";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Dubloonをアンロック";
-"pro.fallback.message" = "無料期間が終了しました。Dubloonをアンロックすると、アフレコを続けられます。";
-"pro.fallback.message.beforeExpiry" = "Dubloonをアンロックすると、アフレコを続けられます。";
-"pro.fallback.message.noTrial" = "Dubloonをアンロックすると、どのシーンもアフレコできます。";
+"pro.fallback.message" = "Dubloonをアンロックすると、どのゲームでも録音を続けられます。";
 "pro.fallback.buy" = "%@ でアンロック";
 "pro.fallback.buyUnpriced" = "アンロック";
 "pro.fallback.loading" = "ストアに問い合わせ中…";
@@ -332,23 +339,19 @@
 "review.banner.message" = "Dubloonはチューリッヒでひとりで作っています。新しいプレイヤーはレビューを見てDubloonを見つけてくれます。楽しんでいただけているなら、App Storeにひとこと書いていただけるととても励みになります。";
 "review.banner.rate" = "レビューを書く";
 "review.banner.later" = "今はしない";
+"review.banner.fan.title" = "楽しんでますか？";
+"review.banner.fan.message" = "いい調子ですね。Dubloonはチューリッヒでひとりで作っています。新しいプレイヤーはレビューを見てDubloonを見つけてくれます。笑ってもらえたなら、App Storeにひとこと書いていただけるととても励みになります。";
+"review.banner.prompt" = "Dubloonに星をいくつ付けますか？";
+"review.banner.star" = "5つ星のうち%d";
+"review.banner.store.title" = "気に入ってもらえてうれしいです！";
+"review.feedback.slug" = "フィードバック";
+"review.feedback.title" = "何がよくなかったですか？";
+"review.feedback.message" = "がっかりした点を教えてください。メッセージはDubloonを作っている本人に直接届き、必ず読みます。";
+"review.feedback.placeholder" = "どこを良くすべきですか？";
+"review.feedback.send" = "送信";
 
-// MARK: - Pro / Early adopters
-"pro.earlyAdopter.title" = "ようこそクラブへ";
-"pro.earlyAdopter.message" = "Dubloonは有料になりました。ただし、あなたは別です。値札が付く前からいてくれたので、3つのゲームはすべて、このアプリが続くかぎり無料であなたのものです。初期のころをありがとう。";
-"pro.earlyAdopter.badge" = "生涯無料";
-"pro.earlyAdopter.confirm" = "いいね";
-"pro.earlyAdopter.settings.title" = "生涯無料";
-"pro.earlyAdopter.settings.subtitle" = "早くから来てくれた人へ。3つのゲームはすべてあなたのもの、支払いは不要です。";
+// MARK: - Pro
 "pro.closePaywall" = "閉じる";
-
-// Early adopter slate rows
-"pro.earlyAdopter.row.access" = "アクセス";
-"pro.earlyAdopter.row.access.value" = "3つのゲームすべて";
-"pro.earlyAdopter.row.cost" = "料金";
-"pro.earlyAdopter.row.cost.value" = "なし";
-"pro.earlyAdopter.row.expires" = "期限";
-"pro.earlyAdopter.row.expires.value" = "なし";
 
 /* MARK: - Booth Cam */
 "booth.slug" = "ブース";
@@ -388,6 +391,11 @@
 "booth.frame.stacked" = "上下に並べる";
 "booth.frame.reaction" = "リアクション";
 "booth.frame.split" = "左右に並べる";
+"booth.frame.vertical" = "縦型";
+"booth.export.pipCorner" = "ブースの位置";
+"booth.export.pip.bottomRight" = "右下";
+"booth.export.pip.bottomLeft" = "左下";
+"booth.export.pip.topRight" = "右上";
 "booth.export.stackedNote" = "「上下に並べる」と「リアクション」は9:16で書き出され、下部に波形が入ります。上がシーンのセリフ、下があなたの声です。";
 "booth.export.noFootage" = "このシーンにはまだブースの映像がありません。ブースカメラをオンにして1本アフレコしてください。";
 "booth.export.includeBooth" = "ブースの映像を入れる";
@@ -439,6 +447,32 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "サウンドモノマネ";
 "main.mode.imitate.subtitle" = "音をマネして、判定をもらおう";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "自分の動画アフレコ";
+"main.mode.homeVideo.subtitle" = "撮った動画に自分の声をのせよう";
+"homeVideo.choose" = "動画を選ぶ";
+"homeVideo.change" = "動画を変更";
+"homeVideo.limit" = "最長1分。動画はスマホの外に出ません。";
+"homeVideo.trimmed" = "最初の1分だけを使います。";
+"homeVideo.importing" = "動画を開いています…";
+"homeVideo.mixing" = "声を重ねています…";
+"homeVideo.keepOriginal" = "元の音を残す";
+"homeVideo.keepOriginal.detail" = "あなたの声の下で小さく流れます";
+"homeVideo.keepOriginal.none" = "この動画には音がありません";
+"homeVideo.hint.ready" = "録音を押すと動画が最初から再生されます。波形を見ながら、音をぴったりのタイミングで入れましょう。";
+"homeVideo.hint.empty" = "ライブラリから動画を選んで、自分の声を重ねましょう。";
+"homeVideo.hint.recordingHeadphones" = "録音中。動画の音はヘッドホンに流れ、マイクにはあなたの声だけが入ります。";
+"homeVideo.hint.recording" = "録音中。マイクがあなたの声だけを拾うよう、動画は無音で再生されます。";
+"homeVideo.hint.review" = "あなたのバージョンです。シェアするか、もう一度録音しましょう。";
+"homeVideo.record" = "録音";
+"homeVideo.stop" = "停止";
+"homeVideo.retake" = "もう一度録音";
+"homeVideo.share" = "シェア";
+"homeVideo.play" = "再生";
+"homeVideo.pause" = "一時停止";
+"homeVideo.error.load" = "その動画を開けませんでした。別の動画を試してください。";
+"homeVideo.error.mix" = "声を動画に追加できませんでした。もう一度録音してください。";
 "imitate.library.hint" = "音を選んで聞いたら、全力でマネしよう。";
 "imitate.library.best" = "ベスト";
 "imitate.library.untried" = "未挑戦";
@@ -502,6 +536,16 @@
 "imitate.sound.laugh" = "悪役の高笑い";
 "imitate.sound.yawn" = "あくび";
 "imitate.sound.hiccup" = "しゃっくり";
+"imitate.sound.frog" = "カエル";
+"imitate.sound.horse" = "ウマ";
+"imitate.sound.goat" = "ヤギ";
+"imitate.sound.monkey" = "サル";
+"imitate.sound.lion" = "ライオン";
+"imitate.sound.squeak" = "ピコピコおもちゃ";
+"imitate.sound.fart" = "おなら";
+"imitate.sound.ghost" = "おばけ";
+"imitate.sound.zombie" = "ゾンビ";
+"imitate.sound.whistle" = "口笛";
 
 /* Mac */
 "mac.sidebar.games" = "ゲーム";
@@ -532,7 +576,6 @@
 "mac.panel.emptyMessage" = "サイドバーでゲームか吹き替えパックを選んでください。";
 "mac.settings.general" = "一般";
 "mac.settings.recording" = "録音";
-"mac.welcome.notNow" = "今はしない";
 "mac.booth.primer.message" = "ブースカメラは演技中にMacのカメラを回します。シーンとセリフとあなたの顔がひとつの画面に収まり、あとからリアクションごとアフレコを共有できます。";
 "mac.booth.primer.systemPrompt" = "このあとmacOSがカメラの許可を尋ねます。";
 "mac.menu.openRecent" = "最近使った項目を開く";
@@ -562,3 +605,159 @@
 "mac.panel.sound" = "サウンド";
 "mac.panel.allSounds" = "すべて";
 "mac.panel.compare" = "比較";
+
+/* Help */
+"help.title" = "ヘルプ";
+"help.close" = "閉じる";
+"help.search.prompt" = "ヘルプを検索";
+"help.search.clear" = "検索をクリア";
+"help.search.empty" = "当てはまるものがありません。別の言葉で探すか、下からメールでどうぞ。";
+"help.row.expanded" = "展開中";
+"help.row.collapsed" = "折りたたみ中";
+"help.row.expandHint" = "答えを表示します";
+"help.contact.title" = "まだ困っていますか？";
+"help.contact.message" = "メールをください。Dubloonを作った本人がすべてのメールを読んで、返信します。";
+"help.contact.button" = "メールで問い合わせる";
+"help.mail.subject" = "Dubloonのヘルプ";
+"help.section.gettingStarted" = "はじめに";
+"help.section.booth" = "ブースカメラと書き出し";
+"help.section.packs" = "吹き替えパック";
+"help.section.pro" = "Dubloon Proと購入";
+"help.section.privacy" = "プライバシー";
+"help.section.troubleshooting" = "困ったときは";
+"help.flow.title" = "逆さ歌のしくみ";
+"help.flow.sing" = "歌う";
+"help.flow.flip" = "反転";
+"help.flow.copy" = "まねる";
+"help.flow.flipBack" = "再反転";
+"help.flow.caption" = "ワンフレーズ歌って、逆再生で聴く。その意味不明な音をできるだけそっくりにまねて、自分のまねをもう一度ひっくり返す。うまくいけば、元の曲が出てきます。";
+"help.gettingStarted.1.q" = "Dubloonとは？";
+"help.gettingStarted.1.a" = "マイクだけで遊べる4つの声のゲーム。逆さ歌：歌を逆から歌う。映画アフレコ：映画のシーンにセリフごとに声を入れる。自分の動画アフレコ：自分で撮った動画に声を重ねる。サウンドモノマネ：音をマネして判定をもらう。メニューから選んでください。";
+"help.gettingStarted.2.q" = "Dubloonは無料？";
+"help.gettingStarted.2.a" = "どのゲームも無料で試せます。最初の3テイクは無料で、4つのゲーム全体で数えます。映画のセリフを2つアフレコして、曲を1つ逆さにすると使い切ります。その後もゲームは開けますが、録音を続けるにはDubloon Proが必要です。";
+"help.gettingStarted.3.q" = "ヘッドホンは必要？";
+"help.gettingStarted.3.a" = "なくても大丈夫ですが、アフレコのときは役立ちます。ヘッドホンをつければ、録音しながら元のセリフを聴けます（設定で「オリジナルをヘッドホンで」をオンに）。スピーカーから流すとテイクに混ざってしまうので、Dubloonはヘッドホンでしか流しません。タイミングがいちばん正確なのは有線ヘッドホン。Bluetoothだと少し遅れが出ます。";
+"help.reverse.1.q" = "逆さ歌はどう遊ぶの？";
+"help.reverse.1.a" = "「音を録る」をタップして、曲のワンフレーズを歌います。「逆さまで聴く」で逆再生を聴いたら、「逆さまに歌う」をタップして、その逆さまの音をできるだけそっくりにまねます。Dubloonがあなたのまねをひっくり返し、うまくいけば、あなたの声で元の曲がもう一度聞こえます。";
+"help.reverse.2.q" = "4つの再生ボタンの違いは？";
+"help.reverse.2.a" = "「オリジナル」はあなたが歌ったフレーズ。「逆再生」はそれを逆さまにしたもので、まねるべき音です。「あなたのテイク」は、まねして歌ったそのままの音。「あなたのテイク（逆再生）」はそのまねをもう一度ひっくり返したもので、これが元の曲に聞こえれば成功です。";
+"help.reverse.3.q" = "スコアはどう決まるの？";
+"help.reverse.3.a" = "Dubloonは、ひっくり返したあなたのテイクを元のフレーズと比べます。見るのは、音の上がり下がりと、リズムの合い方。すべて端末の中で処理されます。短くて言葉のはっきりしたフレーズほど高得点。まずリズム、母音はその次です。";
+"help.reverse.4.q" = "シンプルとフルの違いは？";
+"help.reverse.4.a" = "同じゲームの2つの見た目で、画面上部のオプションボタンで切り替えます。シンプルは大きなボタンだけで、つまずくものなし。フルには波形と「オーディオ操作」（ループ、速さ、ピッチ）が加わります。逆さまのフレーズを遅くして聴くのが、覚えるいちばんの近道です。";
+"help.reverse.5.q" = "保存したセッションはどこ？";
+"help.reverse.5.a" = "逆さ歌の画面上部にあるアーカイブボタンをタップしてください。新しいセッションを始めると今のセッションはアーカイブに移るので、何も捨てられません。アーカイブのセッションはスワイプで削除できます。";
+"help.dub.1.q" = "シーンのアフレコのしかたは？";
+"help.dub.1.a" = "映画アフレコを開いてシーンを選び、「アフレコを始める」をタップします。セリフごとに元の音を聴いてから録音を押すと、3拍のカウントのあと録音が始まり、セリフが終わるとマイクは自動で閉じます。「次へ」で先に進み、どのセリフにもいつでも戻れます。";
+"help.dub.2.q" = "テンポバーの意味は？";
+"help.dub.2.a" = "元のセリフの長さを示しています。はみ出した瞬間に琥珀色に変わるので、急げばいいと分かります。テイクの下には元のセリフの波形が表示され、入りが早すぎたところ、急ぎすぎたところ、間が空いたところが分かります。";
+"help.dub.3.q" = "アフレコの採点方法は？";
+"help.dub.3.a" = "テイクごとに、タイミング（オリジナルと一緒に始めて終われたか）、テンポ（リズムを保てたか）、演技（大きい声と小さい声がオリジナルに沿っていたか）を採点します。シーン全体にもスコアが付き、ベストなセリフと、もう一度録る価値のあるセリフが分かります。審査されたくないときは、アフレコの設定で「テイクを採点する」をオフにしてください。";
+"help.dub.4.q" = "映画の中の自分を聴くには？";
+"help.dub.4.a" = "シーンで「自分のアフレコを見る」をタップします。あなたのテイクが元のセリフの代わりに映画に入り、まだアフレコしていない部分は元のまま流れます。「オリジナルを見る」なら、手を加えていないシーンが流れます。";
+"help.homeVideo.1.q" = "自分の動画にアフレコするには？";
+"help.homeVideo.1.a" = "空の画面をタップして、ライブラリから1分以内の動画を選びます。録音を押すと、カウントダウンの後に動画が最初から再生され、あなたの声が重なります。終わるとあなたのバージョンが再生され、共有や録り直しができます。";
+"help.homeVideo.2.q" = "音のタイミングを合わせるには？";
+"help.homeVideo.2.a" = "画面の下の波形は動画そのものの音で、その上を動く線が今の再生位置です。これを見ながら、鳴き声や笑い声をぴったりの瞬間に入れましょう。録音後は、あなたの声が赤で重ねて表示されます。";
+"help.homeVideo.3.q" = "録音中に動画の音は聞こえますか？";
+"help.homeVideo.3.a" = "はい、ヘッドホンをつければ聞こえます。スピーカーでは、音が録音に入らないよう動画は無音で再生されます。「元の音を残す」をオンにすると、完成した動画であなたの声の下に小さく戻ります。";
+"help.booth.1.q" = "ブースカメラとは？";
+"help.booth.1.a" = "演じている間、フロントカメラであなたの顔を撮影する機能です。リアクションをアフレコと一緒に動画に入れられます。録音画面のカメラキーか設定でオンにするまではオフのまま。映像は端末の中に残ります。";
+"help.booth.2.q" = "動画を書き出すには？";
+"help.booth.2.a" = "シーンで「動画を書き出す」をタップします。編集（シーン全体か、アフレコしたセリフだけをつないだセッションリール）と、ブースの映像の置き場所（隅に小さく、ストーリー向けに上下に並べる、リアクション、左右に並べる）を選びます。レンダリングの前に、このシーンが誰の作品かを表示するので、共有するときはクレジットを残してください。";
+"help.booth.3.q" = "ブースの映像を削除するには？";
+"help.booth.3.a" = "設定にブースの映像が使っている容量が表示され、「ブースのテイクをすべて削除」ボタンがあります。音声テイクとアフレコは残ります。シーンを削除すると、そのテイクと映像も削除されます。";
+"help.packs.1.q" = "シーンを増やすには？";
+"help.packs.1.a" = "シーンは吹き替えパックとして届きます。フォルダか、.zip、.7z または .rar のアーカイブです。映画アフレコで＋をタップして「ファイル」から選ぶか、AirDropや共有シートからDubloonに送ってください。Dubloonが展開すると、シーンがリストに現れます。";
+"help.packs.2.q" = "吹き替えパックはどこから来るの？";
+"help.packs.2.a" = "アプリには4つのシーンが同梱されています。それ以外のパックはすべて、ほかのプレイヤーが作って共有したものです。Dubloonは映画を同梱も、配信も、販売もしていません。使う権利のあるものだけをアフレコし、お住まいの地域の著作権ルールに従ってください。";
+"help.packs.3.q" = "パックが読み込めない。どうすれば？";
+"help.packs.3.a" = "何がうまくいかなかったかはDubloonが表示します。よくある対処法：ファイルがiCloudにあるなら、先に「ファイル」で開いてダウンロードしてください。アーカイブにパスワードがかかっているなら、作者にパスワードなしの版をもらってください。展開できないなら、.zip で保存し直してください。吹き替えパックではないと表示されたら、セリフごとにテキストファイルと録音が必要です。";
+"help.imitate.1.q" = "サウンドモノマネの遊びかたは？";
+"help.imitate.1.a" = "音を選んで「聞く」をタップし、「マネする」をタップして自分でその音を出します。Dubloonが本物と比べて、判定のスタンプをドンと押します。音ごとにベストスコアが記録されるので、あとで戻ってきて更新できます。";
+"help.imitate.2.q" = "何が判定されるの？";
+"help.imitate.2.a" = "4つです。リズム（時間とともに音がどう上がり下がりするか）、音程、音色（明るいかこもっているか）、長さ。まず何度か聞いて、長さを合わせ、それから音程を気にしましょう。";
+"help.imitate.3.q" = "挑戦を共有できる？";
+"help.imitate.3.a" = "できます。判定のあとで「動画を作る」をタップすれば、お題の音、あなたの挑戦、スコアが入った動画がすぐ送れる状態になります。ブースカメラがオンなら、あなたの顔も入ります。";
+"help.pro.1.q" = "Dubloon Proで何ができる？";
+"help.pro.1.a" = "すべてのゲームでテイク無制限：すべてのシーンとコミュニティパックが使える映画アフレコ、サウンドモノマネ、逆さ歌、自分の動画アフレコに加えて、ブースカメラと動画の書き出し。Proがなくても、最初の3テイクは無料です。Proは買い切りかサブスクリプションで、同じAppleアカウントならiPhoneでもMacでもアンロックされます。";
+"help.pro.2.q" = "Proを買ったのにロックされたまま。";
+"help.pro.2.a" = "設定を開いて「購入を復元」をタップしてください。購入したときのAppleアカウントでApp Storeにサインインしているか確認を。新しいiPhoneや再インストールのあとでも、復元すれば無料で元に戻ります。";
+"help.pro.3.q" = "サブスクリプションの解約や変更は？";
+"help.pro.3.a" = "設定で「サブスクリプションを管理」をタップします。「設定」アプリからもできます。自分の名前をタップして「サブスクリプション」へ。更新の24時間前までに解約すれば、支払い済みの期間が終わるまでProを使えます。返金はAppleが対応します。";
+"help.privacy.1.q" = "録音はどこかにアップロードされる？";
+"help.privacy.1.a" = "いいえ。録音、テイク、ブースの映像、動画は、あなたが共有しないかぎり端末の中に残ります。採点も端末の中で行われます。アカウントはなく、登録するものもありません。";
+"help.privacy.2.q" = "Dubloonは何を収集するの？";
+"help.privacy.2.a" = "匿名の利用統計とクラッシュレポートです。バグを見つけたり、次に何を作るかを決めたりするのに役立ちます。たとえば、どのゲームが開かれたか、どんなスコアが出たか。録音の音そのものは決して含まれません。設定の「使用状況データを共有」でオフにできます。詳しくはプライバシーポリシーにすべて書いてあります。";
+"help.troubleshooting.1.q" = "Dubloonに声が届かない。";
+"help.troubleshooting.1.a" = "Dubloonがマイクを使えるか確認してください。「設定」アプリでDubloonを開き、「マイク」をオンにします。通話など、別のアプリがオーディオを使っている場合は、それを終えてからもう一度お試しください。";
+"help.troubleshooting.2.q" = "何も聞こえない。";
+"help.troubleshooting.2.a" = "音量を上げて、Bluetoothヘッドホンやスピーカーがほかの場所につながっていないか確認してください。録音中の元のセリフは、テイクに混ざらないよう、あえてヘッドホンでしか流れません。";
+"help.troubleshooting.3.q" = "アフレコが映像とずれる。";
+"help.troubleshooting.3.a" = "Bluetoothヘッドホンは遅れが出るので、元の音が少し遅れて聞こえ、入りも遅れます。有線ヘッドホンにするか、ヘッドホンなしにすれば直ります。シーンの映像が声より先に進んでいるとDubloonに表示されたら、そのパックを読み込み直してください。";
+"help.troubleshooting.4.q" = "ブースカメラがオンにならない。";
+"help.troubleshooting.4.a" = "ブースカメラにはカメラへのアクセスが必要です。「設定」アプリでDubloonを開き、「カメラ」をオンにしてください。ブースカメラはDubloon Proの機能です。";
+/* Help, privacy and appearance in Settings */
+"settings.help" = "ヘルプとサポート";
+"settings.help.desc" = "すべての使いかたと、私たちへの連絡方法";
+"settings.terms.desc" = "私たちのあいだの約束を、わかりやすく";
+"settings.privacy.section" = "プライバシー";
+"settings.shareUsage" = "使用状況データを共有";
+"settings.shareUsage.desc" = "バグ修正に役立つ匿名の統計とクラッシュレポート。録音は決して含まれません。";
+"settings.appearance" = "外観";
+"settings.appearance.system" = "システム";
+"settings.appearance.light" = "ライト";
+"settings.appearance.dark" = "ダーク";
+
+/* Mac: new strings */
+"mac.homeVideo.fromPhotos" = "“写真”から選ぶ…";
+"mac.homeVideo.fromFile" = "ファイルを選ぶ…";
+"mac.homeVideo.dropHint" = "または、ここに動画ファイルをドロップしてください。";
+"mac.panel.clip" = "クリップ";
+"mac.panel.mix" = "ミックス";
+"mac.menu.help" = "Dubloonヘルプ";
+"mac.homeVideo.limit" = "最長1分。動画はこのMacの外に出ません。";
+"mac.homeVideo.hint.empty" = "“写真”かFinderから動画を選んで、自分の声を重ねましょう。";
+"help.gettingStarted.1.a.mac" = "マイクだけで遊べる4つの声のゲーム。逆さ歌：歌を逆から歌う。映画アフレコ：映画のシーンにセリフごとに声を入れる。自分の動画アフレコ：自分で撮った動画に声を重ねる。サウンドモノマネ：音をマネして判定をもらう。サイドバーで選ぶか、⌘1〜⌘4を押してください。";
+"help.gettingStarted.3.a.mac" = "なくても大丈夫ですが、アフレコのときは役立ちます。ヘッドホンをつければ、録音しながら元のセリフを聴けます（「Dubloon」▸「設定」▸「録音」で「オリジナルをヘッドホンで」をオンに）。スピーカーから流すとテイクに混ざってしまうので、Dubloonはヘッドホンでしか流しません。タイミングがいちばん正確なのは有線ヘッドホン。Bluetoothだと少し遅れが出ます。";
+"help.reverse.1.a.mac" = "「音を録る」をクリック（またはRキーを押す）して、曲のワンフレーズを歌います。「逆再生」トラックを再生して逆さまの音を聴いたら、「逆さまに歌う」をクリックして、その逆さまの音をできるだけそっくりにまねます。Dubloonがあなたのまねをひっくり返し、うまくいけば、あなたの声で元の曲がもう一度聞こえます。";
+"help.reverse.4.q.mac" = "逆さまのフレーズを遅くできる？";
+"help.reverse.4.a.mac" = "できます。右側のインスペクタ（⌥⌘I）に「オーディオ操作」（ループ、速さ、ピッチ）があります。逆さまのフレーズを遅くして聴くのが、覚えるいちばんの近道です。";
+"help.reverse.5.a.mac" = "サイドバーの逆さ歌の下にあります。新しいセッションを始めると（⌘N）今のセッションはそこに移るので、何も捨てられません。セッションを削除するには、選択して⌘⌫を押すか、Controlキーを押しながらクリックします。";
+"help.dub.1.a.mac" = "サイドバーの映画アフレコの下でシーンを選びます。セリフを選択し、Lキーで元の音を聴いてから、Rキーで録音します。3拍のカウントのあと録音が始まり、セリフが終わるとマイクは自動で閉じます。↑と↓でセリフを移動でき、どのセリフにもいつでも戻れます。";
+"help.dub.3.a.mac" = "テイクごとに、タイミング（オリジナルと一緒に始めて終われたか）、テンポ（リズムを保てたか）、演技（大きい声と小さい声がオリジナルに沿っていたか）を採点します。シーン全体にもスコアが付き、ベストなセリフと、もう一度録る価値のあるセリフが分かります。審査されたくないときは、ツールバー、インスペクタ、または設定で「テイクを採点する」をオフにしてください。";
+"help.dub.4.a.mac" = "ビューアを「自分のアフレコ」（⌃⌘3）に切り替えて、スペースバーを押します。あなたのテイクが元のセリフの代わりに映画に入り、まだアフレコしていない部分は元のまま流れます。「オリジナル」（⌃⌘2）なら、手を加えていないシーンが流れます。";
+"help.homeVideo.1.a.mac" = "“写真”かファイルから1分以内の動画を選ぶか、ビューアに動画をドロップします。Rキーを押すと、カウントダウンの後に動画が最初から再生され、あなたの声が重なります。終わるとあなたのバージョンが再生され、共有（⌘E）や録り直しができます。";
+"help.homeVideo.3.a.mac" = "はい、ヘッドホンをつければ聞こえます。スピーカーでは、音が録音に入らないよう動画は無音で再生されます。インスペクタの「元の音を残す」をオンにすると、完成した動画であなたの声の下に小さく戻ります。";
+"help.booth.1.a.mac" = "演じている間、Macのカメラであなたの顔を撮影する機能です。リアクションをアフレコと一緒に動画に入れられます。ツールバーのカメラボタン（⇧⌘C）か設定でオンにするまではオフのまま。映像はMacの中に残ります。";
+"help.booth.2.a.mac" = "シーンで「ファイル」▸「書き出す」（⌘E）を選びます。編集（シーン全体か、アフレコしたセリフだけをつないだセッションリール）と、ブースの映像の置き場所（隅に小さく、ストーリー向けに上下に並べる、リアクション、左右に並べる）を選びます。レンダリングの前に、このシーンが誰の作品かを表示するので、共有するときはクレジットを残してください。";
+"help.booth.3.a.mac" = "「Dubloon」▸「設定」▸「録音」にブースの映像が使っている容量が表示され、「ブースのテイクをすべて削除」ボタンがあります。音声テイクとアフレコは残ります。シーンを削除すると、そのテイクと映像も削除されます。";
+"help.packs.1.a.mac" = "シーンは吹き替えパックとして届きます。フォルダか、.zip、.7z または .rar のアーカイブです。「ファイル」▸「吹き替えパックを読み込む」（⌘O）を選ぶか、サイドバーの映画アフレコにファイルをドロップするか、FinderからDubloonで開いてください。Dubloonが展開すると、シーンがリストに現れます。";
+"help.packs.3.a.mac" = "何がうまくいかなかったかはDubloonが表示します。よくある対処法：ファイルがiCloud Driveにあるなら、先にFinderでダウンロードしてください。アーカイブにパスワードがかかっているなら、作者にパスワードなしの版をもらってください。展開できないなら、.zip で保存し直してください。吹き替えパックではないと表示されたら、セリフごとにテキストファイルと録音が必要です。";
+"help.imitate.1.a.mac" = "ブラウザで音を選び、Lキーで聞いてから、Rキーでマネします。Dubloonが本物と比べて、判定のスタンプをドンと押します。音ごとにベストスコアが記録されるので、あとで戻ってきて更新できます。";
+"help.imitate.3.a.mac" = "できます。判定のあとで「動画を作る」（⌘E）をクリックすれば、お題の音、あなたの挑戦、スコアが入った動画がすぐ送れる状態になります。ブースカメラがオンなら、あなたの顔も入ります。";
+"help.pro.2.a.mac" = "「Dubloon」▸「設定」▸「Dubloon Pro」を開いて「購入を復元」をクリックしてください。購入したときのAppleアカウントでApp Storeにサインインしているか確認を。新しいMacや再インストールのあとでも、復元すれば無料で元に戻ります。";
+"help.pro.3.a.mac" = "「Dubloon」▸「設定」▸「Dubloon Pro」で「サブスクリプションを管理」をクリックします。App Storeからもできます。自分の名前をクリックし、「アカウント設定」、「サブスクリプション」の順に進みます。更新の24時間前までに解約すれば、支払い済みの期間が終わるまでProを使えます。返金はAppleが対応します。";
+"help.privacy.1.a.mac" = "いいえ。録音、テイク、ブースの映像、動画は、あなたが共有しないかぎりMacの中に残ります。採点もMacの中で行われます。アカウントはなく、登録するものもありません。";
+"help.privacy.2.a.mac" = "匿名の利用統計とクラッシュレポートです。バグを見つけたり、次に何を作るかを決めたりするのに役立ちます。たとえば、どのゲームが開かれたか、どんなスコアが出たか。録音の音そのものは決して含まれません。「Dubloon」▸「設定」▸「一般」の「使用状況データを共有」でオフにできます。詳しくはプライバシーポリシーにすべて書いてあります。";
+"help.troubleshooting.1.a.mac" = "Dubloonがマイクを使えるか確認してください。「システム設定」▸「プライバシーとセキュリティ」▸「マイク」で、Dubloonをオンにします。「システム設定」▸「サウンド」で入力も確認し、通話など、ほかのアプリがマイクを使っていないかも確かめてください。";
+"help.troubleshooting.2.a.mac" = "音量を上げて、「システム設定」▸「サウンド」で出力を確認してください。Bluetoothヘッドホンやスピーカーがつながっているかもしれません。録音中の元のセリフは、テイクに混ざらないよう、あえてヘッドホンでしか流れません。";
+"help.troubleshooting.4.a.mac" = "ブースカメラにはカメラへのアクセスが必要です。「システム設定」▸「プライバシーとセキュリティ」▸「カメラ」で、Dubloonをオンにしてください。ブースカメラはDubloon Proの機能です。";
+"dubGuide.2.detail.mac" = "Downloadをクリックしてファイル(.zip、.7z、.rar)を選びます。ブラウザは「ダウンロード」フォルダに保存します。";
+"dubGuide.3.detail.mac" = "ダウンロードが終わるまで待ちます。ファイルがiCloud Driveにある場合は、先にFinderでダウンロードして、このMacに実際に保存されるようにします。";
+"dubGuide.4.detail.mac" = "ここに戻って「パックを読み込む」をクリックし、「ダウンロード」から選びます。サイドバーの「映画アフレコ」にファイルをドロップするか、FinderからDubloonで開くこともできます。";
+
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Dubloon Proを%@無料でお試し";
+"offer.intro.paid" = "Dubloon Proの最初の%2$@が%1$@";
+"offer.winback.free" = "おかえりなさい：Dubloon Proが%@無料";
+"offer.winback.paid" = "おかえりなさい：Dubloon Proの%2$@が%1$@";
+"offer.then" = "その後は%@。いつでもキャンセル可能。";
+"offer.cta" = "オファーを受け取る";
+"offer.dismiss" = "今はしない";
+
+/* Spooky Voice Week */
+"halloween.title" = "こわい声ウィーク";
+"halloween.home.message" = "おばけみたいにうめいて、ゾンビみたいにうなって、オオカミみたいに遠吠えしよう。そのあとはホラーコメディのシーン「Camp Rules」をアフレコ。";
+"halloween.home.action" = "こわい音で遊ぶ";
+"halloween.imitate.message" = "ハッピーハロウィン！おばけ、ゾンビ、オオカミ、フクロウで声をあたためよう。";

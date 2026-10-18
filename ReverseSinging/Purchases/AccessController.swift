@@ -15,64 +15,36 @@ import DubloonFoundation
 nonisolated enum UnlockReason: Equatable {
     /// They own the entitlement.
     case entitlement
-    /// They were using the app before it started charging, so they never will.
-    /// See `EarlyAdopter`.
-    case earlyAdopter
-    /// Gating is off for this build or this device: no API key, the Remote Config
-    /// kill switch, or a screenshot run. Access is full, but there is still
-    /// something to sell, so the upgrade offer stays visible.
+    /// Gating is off for this build or this run: no API key, or a screenshot run.
+    /// Access is full, but there is still something to sell, so the upgrade offer
+    /// stays visible.
     case gatingDisabled
 }
 
 /// What the app is allowed to do right now.
 nonisolated enum AccessState: Equatable {
-    /// Not enough is known to gate anyone: the first customer info has not
-    /// arrived, or the download date or the console's cutoff is still missing (see
-    /// `PaywallEligibility`). The app is usable and shows no trial and no paywall —
-    /// a cold launch must not flash one while the network is still being asked,
-    /// and nobody is gated on a guess.
-    case unknown
     case unlocked(UnlockReason)
-    /// Inside the free window.
-    case trial(daysRemaining: Int, endsAt: Date)
-    /// The free window closed and nothing was bought. How that is put in front of
-    /// the user is `LockPresentation`'s call, not this one's.
+    /// Nothing was bought. Every game still opens, but only `FreeTakes.limit` takes
+    /// are free, across all of them; after that a new take opens the paywall.
     case locked
 }
 
-/// How a closed free window meets the user.
+/// Owns the store session and turns it into one `AccessState`.
 ///
-/// Separate from `AccessState` because it is not a fact about the person, only
-/// about how insistent the app is being with them, and the console can change
-/// that without anything about their access changing.
-nonisolated enum LockPresentation: Equatable {
-    /// Nothing is locked.
-    case none
-    /// The menu stays open and says the trial is over; both games on it are
-    /// disabled, and they or the note open a paywall that can be closed again.
-    case soft
-    /// The paywall covers the whole app and cannot be closed.
-    case hard
-
-    init(state: AccessState, isHardPaywallEnabled: Bool) {
-        guard state == .locked else {
-            self = .none
-            return
-        }
-        self = isHardPaywallEnabled ? .hard : .soft
-    }
-}
-
-/// Owns the store session and turns it, plus the trial clock, into one `AccessState`.
+/// A singleton because `Purchases` is one too, and because who has paid has to be
+/// decided in exactly one place: two views disagreeing about it is the failure mode
+/// that gets refunds requested.
 ///
-/// A singleton because `Purchases` is one too, and because the hard paywall has to
-/// be decided in exactly one place: two views disagreeing about whether someone has
-/// paid is the failure mode that gets refunds requested.
+/// **The rule is fixed, and it is short.** Someone who owns Dubloon Pro has
+/// everything. Everyone else is `locked` from the first launch, and nothing outside the
+/// binary can change that. What `locked` costs them is a count, not a game: every game
+/// opens, and the first three takes are free across all of them (`FreeTakes`). The games
+/// ask `canStartTake` before a take and report each finished one to `recordTake(_:)`.
 ///
-/// **It fails open.** Every path that cannot get a straight answer — no API key, a
-/// store that will not load, a Remote Config fetch that never lands — leaves the
-/// app usable. A paywall that wrongly locks a paying user out costs more than a
-/// paywall that wrongly lets a free one in.
+/// Nothing waits on the network to say so. A purchase is remembered on the device,
+/// so someone who has paid is never shown a padlock on the way in, online or off;
+/// and a new install that turns out to belong to a buyer unlocks as soon as the
+/// store has been heard from, without a tap on Restore.
 @MainActor
 final class AccessController: ObservableObject {
 
@@ -80,7 +52,7 @@ final class AccessController: ObservableObject {
 
     // MARK: - Published
 
-    @Published private(set) var state: AccessState = .unknown
+    @Published private(set) var state: AccessState = .locked
 
     /// The last customer info seen, for the settings screen and for anything that
     /// wants purchase dates or the management URL.
@@ -118,106 +90,57 @@ final class AccessController: ObservableObject {
     ///
     /// Apple's download date follows the account across reinstalls, so it is usually the
     /// oldest; RevenueCat's first sighting and the app's own first launch stand in when the
-    /// receipt has not reported one. For an early adopter recognised from local traces the
-    /// first launch is that of the build carrying the paywall, so this can be later than the
-    /// day they really arrived — never earlier.
+    /// receipt has not reported one.
     var memberSince: Date? {
         [storeDownloadDate, customerInfo?.firstSeen, firstLaunch.date].compactMap { $0 }.min()
     }
 
-    /// They were here before the paywall and are exempt from it for good.
-    var isEarlyAdopter: Bool { state == .unlocked(.earlyAdopter) }
-
     /// The paid games must not be playable until something is bought.
     var isLocked: Bool { state == .locked }
 
-    /// Whether reverse singing stays open while `isLocked`. Dubbing never does.
-    var isReverseGameFree: Bool { remoteConfig.isReverseGameFree }
+    /// Whether there is still something to sell this person.
+    var canUpgrade: Bool { !isPro }
 
-    /// Whether Sound Imitation stays open while `isLocked`. Paid unless the console says otherwise.
-    var isSoundImitationFree: Bool { remoteConfig.isSoundImitationFree }
+    // MARK: - Free takes
 
-    /// Whether being locked covers the app or only disables the games.
-    var lockPresentation: LockPresentation {
-        var isHardPaywallEnabled = remoteConfig.isHardPaywallEnabled
-        #if DEBUG
-        isHardPaywallEnabled = DebugAccessOverride.isHardPaywallEnabled ?? isHardPaywallEnabled
-        #endif
-        return LockPresentation(state: state, isHardPaywallEnabled: isHardPaywallEnabled)
-    }
+    /// Free takes used so far. Published so the menu can say how many are left.
+    @Published private(set) var freeTakesUsed: Int
 
-    /// Days left, or nil outside the trial. Drives the counter.
-    var trialDaysRemaining: Int? {
-        if case .trial(let days, _) = state { return days }
-        return nil
-    }
+    var freeTakesLeft: Int { max(0, FreeTakes.limit - freeTakesUsed) }
 
-    /// Whether the console gives new users a free window at all. With a length of zero the
-    /// lock arrives on first launch, and nothing may say a trial has ended.
-    var hasTrial: Bool { remoteConfig.trialLengthInDays > 0 }
+    /// Whether a game may start a take now: always with Dubloon Pro, otherwise while a free
+    /// take is left.
+    var canStartTake: Bool { !isLocked || freeTakesLeft > 0 }
 
-    /// Whether there is still something to sell this person. An early adopter
-    /// already has everything, so there is not.
-    var canUpgrade: Bool { !isPro && !isEarlyAdopter }
-
-    /// Whether to show the "welcome to the club" note. Shown once, and only once
-    /// the paywall is actually live: announcing an exemption from a wall nobody
-    /// has met yet would raise a question rather than answer one.
-    var shouldWelcomeEarlyAdopter: Bool {
-        isEarlyAdopter && remoteConfig.isPaywallEnabled && !earlyAdopter.hasSeenWelcome
-    }
-
-    func markEarlyAdopterWelcomed() {
-        earlyAdopter.markWelcomeSeen()
-        objectWillChange.send()
+    /// Counts a finished take. Returns true when that was the last free one, so the game can
+    /// show the paywall now rather than at the next tap. Takes made with Pro are not counted.
+    @discardableResult
+    func recordTake(_ kind: FreeTakeKind) -> Bool {
+        guard isLocked else { return false }
+        freeTakesUsed = freeTakes.recordUse()
+        AnalyticsManager.shared.trackFreeTakeUsed(kind: kind.rawValue, used: freeTakesUsed)
+        return freeTakesLeft == 0
     }
 
     // MARK: - Private
 
-    private let trialClock: TrialClock
     private let firstLaunch = FirstLaunchDate()
-    private let earlyAdopter: EarlyAdopter
-    private let remoteConfig: RemoteConfigService
+    private let freeTakes: FreeTakes
     private var streamTask: Task<Void, Never>?
-    private var configCancellable: AnyCancellable?
     private var isConfigured = false
 
-    /// Entitlement as last reported. Kept separately from `state` so a Remote
-    /// Config change or a day rolling over can recompute without re-asking the store.
+    /// Entitlement as last reported.
     private var hasEntitlement = false
 
-    /// Nil until the first customer info lands; `unknown` holds until then.
+    /// False until the first customer info lands, from the SDK's cache or the store.
     private var hasCustomerInfo = false
 
-    /// One silent receipt sync per foreground, for the download date. See
-    /// `syncReceiptForDownloadDate()`.
+    /// One silent receipt sync per foreground. See `syncReceiptIfNeverPosted()`.
     private var hasRequestedReceiptSync = false
 
-    /// Whether this launch's sync has come back, with or without a date. Until it
-    /// has, the first-launch fallback stays out of it: the store is about to
-    /// answer, and its answer is the better one.
-    private var hasReceiptSyncSettled = false
-
-    private var hasReportedMissingDownloadDate = false
-
-    /// Remembered across launches: the store was reached and had no download date
-    /// for this account. Lets the fallback apply from the first frame of the next
-    /// launch instead of after a second of looking unlocked. Cleared the moment a
-    /// date does turn up.
-    private static let storeHadNoDownloadDateKey = "downloadDate.storeHadNone"
-    private var storeHadNoDownloadDate: Bool {
-        get { UserDefaults.standard.bool(forKey: Self.storeHadNoDownloadDateKey) }
-        set { UserDefaults.standard.set(newValue, forKey: Self.storeHadNoDownloadDateKey) }
-    }
-
-    private init(
-        trialClock: TrialClock = TrialClock(),
-        earlyAdopter: EarlyAdopter = .shared,
-        remoteConfig: RemoteConfigService = .shared
-    ) {
-        self.trialClock = trialClock
-        self.earlyAdopter = earlyAdopter
-        self.remoteConfig = remoteConfig
+    private init(freeTakes: FreeTakes = .shared) {
+        self.freeTakes = freeTakes
+        freeTakesUsed = freeTakes.used
     }
 
     // MARK: - Start
@@ -228,8 +151,7 @@ final class AccessController: ObservableObject {
         isConfigured = true
 
         #if DEBUG
-        // A screenshot run is not a customer. It also has no Firebase, so there is
-        // no Remote Config to ask, and it must never meet a paywall.
+        // A screenshot run is not a customer, and it must never meet a paywall.
         if ScreenshotMode.isActive {
             state = .unlocked(.gatingDisabled)
             return
@@ -241,27 +163,8 @@ final class AccessController: ObservableObject {
 
         firstLaunch.record()
 
-        // Before anything else this launch writes: the traces it reads are the
-        // ones the app left in earlier versions, and the first screen overwrites
-        // some of them.
-        earlyAdopter.resolveFromLocalUsage()
-
-        // Recompute whenever the console changes the length or throws the switch.
-        configCancellable = remoteConfig.objectWillChange
-            .sink { [weak self] _ in
-                Task { @MainActor in
-                    guard let self else { return }
-                    // Not every knob moves `state`: how a lock is presented does
-                    // not, so whoever reads it is told by hand.
-                    self.objectWillChange.send()
-                    self.recompute()
-                }
-            }
-
-        Task { await remoteConfig.start() }
-
         guard let apiKey = PurchaseConfiguration.apiKey else {
-            // A release build with no key. Nothing to check against, so nothing is
+            // A release build with no key. Nothing can be sold, so nothing is
             // gated — but this is a shipping mistake, so it is reported.
             CrashReporter.shared.recordFailure(
                 "purchases_not_configured",
@@ -283,6 +186,16 @@ final class AccessController: ObservableObject {
         // the right identity. A purchase still restores across devices through the
         // Apple Account, which is what `restore()` asks for.
         Purchases.configure(with: Configuration.Builder(withAPIKey: apiKey).build())
+        // Apple Search Ads attribution, so RevenueCat can tie a purchase to the campaign.
+        Purchases.shared.attribution.enableAdServicesAttributionTokenCollection()
+
+        // What the SDK remembers from the last launch, read before the first frame:
+        // someone who has paid opens onto an unlocked menu, with or without a network.
+        if let cached = Purchases.shared.cachedCustomerInfo {
+            apply(cached)
+        } else {
+            recompute()
+        }
 
         observeCustomerInfo()
         Task { await refresh() }
@@ -324,17 +237,28 @@ final class AccessController: ObservableObject {
         }
     }
 
-    /// Called on every foreground so a trial that ran out overnight is noticed.
+    /// Called on every foreground so a purchase made on another device, or a
+    /// subscription that lapsed overnight, is noticed.
     func refreshOnForeground() {
         hasRequestedReceiptSync = false
         recompute()
         Task { await refresh() }
     }
 
-    /// Apple's download date, minus the sandbox's placeholder. See
-    /// `PaywallEligibility.plausibleDownloadDate`.
+    /// The start of the day version 1.0.0 was created in App Store Connect (2025-10-26 UTC).
+    /// Nobody downloaded the app before it.
+    nonisolated static let storeDebut = Date(timeIntervalSince1970: 1_761_436_800)
+
+    /// The store's download date, or nil when it cannot be a real one. Sandbox and
+    /// TestFlight receipts report every download as 2013-08-01, twelve years before the
+    /// app existed, and "Member since 2013" is not something to print.
+    nonisolated static func plausibleDownloadDate(_ date: Date?) -> Date? {
+        guard let date, date >= storeDebut else { return nil }
+        return date
+    }
+
     private var storeDownloadDate: Date? {
-        PaywallEligibility.plausibleDownloadDate(customerInfo?.originalPurchaseDate)
+        Self.plausibleDownloadDate(customerInfo?.originalPurchaseDate)
     }
 
     private func apply(_ info: CustomerInfo) {
@@ -364,144 +288,48 @@ final class AccessController: ObservableObject {
             return
         }
 
-        // A reinstall or a new phone loses the local traces; the receipt does not.
-        // Here rather than in `apply` because it depends on two things that arrive
-        // separately and in either order — the customer info and the Remote Config
-        // cutoff — and this runs when either of them lands.
-        earlyAdopter.considerOriginalPurchaseDate(
-            storeDownloadDate, before: remoteConfig.paywallReleaseDate
-        )
-
-        // Ahead of the kill switch and the trial both, and not conditional on the
-        // store having answered: an exemption decided from local traces needs no
-        // network, so an early adopter never sees a paywall even offline.
-        if earlyAdopter.isEarlyAdopter {
-            set(.unlocked(.earlyAdopter))
-            return
-        }
-
-        guard PurchaseConfiguration.apiKey != nil, remoteConfig.isPaywallEnabled else {
+        guard PurchaseConfiguration.apiKey != nil else {
             set(.unlocked(.gatingDisabled))
             return
         }
 
-        // Hold at `unknown` until the store has answered once. Locking someone out
-        // on the strength of "we have not asked yet" is the one unrecoverable
-        // mistake this class can make.
-        guard hasCustomerInfo else {
-            set(.unknown)
-            return
-        }
-
-        // The trial and the paywall are for people who downloaded the app on or
-        // after the console's date, and for nobody else. Apple's date decides it
-        // when there is one. When the store has been asked and has none, the app's
-        // own first-launch date stands in — see `PaywallEligibility` for how far.
-        let downloadedAt = storeDownloadDate
-        if downloadedAt == nil {
-            syncReceiptForDownloadDate()
-        } else {
-            storeHadNoDownloadDate = false
-        }
-
-        let mayFallBack = hasReceiptSyncSettled || storeHadNoDownloadDate
-        let eligibility = PaywallEligibility(
-            downloadedAt: downloadedAt,
-            firstLaunchedAt: mayFallBack ? firstLaunch.date : nil,
-            cutoff: remoteConfig.paywallReleaseDate
-        )
-        if downloadedAt == nil, mayFallBack {
-            reportMissingDownloadDate(fallbackOutcome: eligibility)
-        }
-
-        guard eligibility == .eligible else {
-            // `.exempt` cannot reach here — it was granted above and returned — so
-            // this is `.undetermined`.
-            set(.unknown)
-            return
-        }
-
-        switch trialClock.state(lengthInDays: remoteConfig.trialLengthInDays) {
-        case .active(let daysRemaining, let endsAt):
-            set(.trial(daysRemaining: daysRemaining, endsAt: endsAt))
-        case .expired:
-            set(.locked)
-        }
+        set(.locked)
+        syncReceiptIfNeverPosted()
     }
 
-    /// Tells Crashlytics that this user is being decided without Apple's date.
+    /// Hands the store this install's receipt, once, so a purchase made before a
+    /// reinstall or on another device comes back by itself.
     ///
-    /// Counted because how often it happens is how much of the gate rests on the
-    /// fallback, and `fallback_outcome` says which way it went: `eligible` is a
-    /// user gated on the first-launch date alone, `undetermined` is one who is not
-    /// gated at all. Once per launch: `recompute` runs many times, and a user in
-    /// this state re-syncs on every foreground, so anything more would count
-    /// foregrounds rather than people.
-    private func reportMissingDownloadDate(fallbackOutcome: PaywallEligibility) {
-        guard !hasReportedMissingDownloadDate else { return }
-        hasReportedMissingDownloadDate = true
-
-        CrashReporter.shared.recordFailure(
-            "download_date_unavailable",
-            reason: "No originalPurchaseDate; deciding from the first-launch date",
-            keys: [
-                "fallback_outcome": fallbackOutcome == .eligible ? "eligible" : "undetermined",
-                // False when the sync itself failed, so a store outage can be told
-                // apart from a store that simply has no date for this account.
-                "store_reached": storeHadNoDownloadDate
-            ]
-        )
-    }
-
-    /// Asks the store to report the receipt, which is where the download date is.
+    /// RevenueCat only knows what an Apple Account owns once a receipt has been
+    /// posted, and nothing posts one for a fresh install. Without this, someone who
+    /// bought Dubloon Pro and then changed phone would meet padlocks until they
+    /// found Restore. `syncPurchases` posts it without the App Store sign-in prompt
+    /// that a restore can raise, so it is safe to do unasked.
     ///
-    /// RevenueCat only learns `originalPurchaseDate` once a receipt has been posted,
-    /// and nothing posts one for someone who has never bought or restored — which
-    /// is every new user, and every early adopter on a new phone. `syncPurchases`
-    /// posts it without the App Store sign-in prompt that a restore can raise, so
-    /// it is safe to do unasked.
-    ///
-    /// Once per foreground rather than once per `recompute`: the answer arrives
-    /// through `apply`, which recomputes, and a store that still has no date must
-    /// not turn that into a loop.
-    private func syncReceiptForDownloadDate() {
-        guard Purchases.isConfigured, !hasRequestedReceiptSync else { return }
+    /// Only while the store has no download date for this install, which is how a
+    /// receipt that was never posted looks, and once per foreground rather than once
+    /// per `recompute`: the answer arrives through `apply`, which recomputes, and a
+    /// store that still has nothing must not turn that into a loop.
+    private func syncReceiptIfNeverPosted() {
+        guard Purchases.isConfigured, hasCustomerInfo, !hasRequestedReceiptSync,
+              customerInfo?.originalPurchaseDate == nil else { return }
         hasRequestedReceiptSync = true
 
         Task { [weak self] in
             do {
-                let info = try await Purchases.shared.syncPurchases()
-                if PaywallEligibility.plausibleDownloadDate(info.originalPurchaseDate) == nil {
-                    // Reachable, and still no date, so the first-launch date is
-                    // what decides from here.
-                    self?.storeHadNoDownloadDate = true
-                }
-                self?.hasReceiptSyncSettled = true
-                self?.apply(info)
+                self?.apply(try await Purchases.shared.syncPurchases())
             } catch {
-                // Not remembered across launches: this says the store could not be
-                // reached, not that it has no date.
-                CrashReporter.shared.record(error, context: "receipt_sync_download_date")
-                self?.hasReceiptSyncSettled = true
-                self?.recompute()
+                CrashReporter.shared.record(error, context: "receipt_sync")
             }
         }
     }
 
     private func set(_ newState: AccessState) {
         guard newState != state else { return }
-        let previous = state
         state = newState
 
-        switch newState {
-        case .locked where previous != .locked:
-            AnalyticsManager.shared.trackTrialExpired(
-                trialLengthInDays: remoteConfig.trialLengthInDays
-            )
-        case .unlocked(.entitlement) where previous != .unlocked(.entitlement):
+        if newState == .unlocked(.entitlement) {
             CrashReporter.shared.log("pro_unlocked")
-        default:
-            break
         }
     }
 
@@ -510,7 +338,7 @@ final class AccessController: ObservableObject {
     /// Brings a purchase back on a new device or after a reinstall.
     ///
     /// The App Store requires this to exist and to be reachable without paying,
-    /// which is why it is on the hard paywall as well as in settings.
+    /// which is why it is on the paywall as well as in settings.
     func restore() async {
         guard Purchases.isConfigured, !isRestoring else { return }
         isRestoring = true
@@ -545,6 +373,16 @@ final class AccessController: ObservableObject {
         }
     }
 
+    /// Buys a subscription with an App Store win-back offer applied: the menu's offer banner,
+    /// for someone whose subscription lapsed.
+    @available(iOS 18.0, macOS 15.0, *)
+    func purchase(_ product: StoreProduct, winBackOffer: WinBackOffer, source: String) async {
+        await runPurchase(productID: product.productIdentifier, source: source) {
+            let params = PurchaseParams.Builder(product: product).with(winBackOffer: winBackOffer).build()
+            return try await Purchases.shared.purchase(params)
+        }
+    }
+
     private func runPurchase(
         productID: String,
         source: String,
@@ -563,8 +401,7 @@ final class AccessController: ObservableObject {
             // A cancel is a decision, not a failure, and gets no alert.
             guard !Self.isCancellation(error) else { return }
             errorMessage = Self.message(for: error)
-            CrashReporter.shared.record(error, context: "purchase")
-            AnalyticsManager.shared.trackPurchaseFailed(reason: Self.reason(for: error))
+            Self.reportPurchaseFailure(error, context: "purchase")
         }
     }
 
@@ -597,6 +434,31 @@ final class AccessController: ObservableObject {
             && error.code == RevenueCat.ErrorCode.purchaseCancelledError.rawValue
     }
 
+    /// Records a failed purchase, in analytics always and in Crashlytics only when the app
+    /// might be to blame.
+    ///
+    /// A payment waiting on a parent or a bank, a device whose Screen Time forbids buying, and
+    /// an App Store that is down were three of the paywall's top non-fatals, and not one of
+    /// them is anything this app can fix.
+    static func reportPurchaseFailure(_ error: Error, context: String) {
+        AnalyticsManager.shared.trackPurchaseFailed(reason: reason(for: error))
+        if isStoreOutcome(error) {
+            CrashReporter.shared.log("\(context): \(reason(for: error))")
+        } else {
+            CrashReporter.shared.record(error, context: context)
+        }
+    }
+
+    private static func isStoreOutcome(_ error: Error) -> Bool {
+        let error = error as NSError
+        guard error.domain == RevenueCat.ErrorCode.errorDomain else { return false }
+        return [
+            RevenueCat.ErrorCode.paymentPendingError,
+            .purchaseNotAllowedError,
+            .storeProblemError
+        ].map(\.rawValue).contains(error.code)
+    }
+
     /// A short, stable string for analytics — never the localized message, which
     /// would split one failure across seven languages.
     private static func reason(for error: Error) -> String {
@@ -609,20 +471,22 @@ final class AccessController: ObservableObject {
     // MARK: - Testing
 
     #if DEBUG
-    /// Drops the app into a given state so the paywall can be looked at without
-    /// waiting seven days for it.
+    /// Drops the app into a given state so the locked menu and the paywall can be
+    /// looked at, or tested, without a store.
     func overrideStateForTesting(_ newState: AccessState) {
         state = newState
+    }
+
+    /// Sets the free-take count without touching the stored one.
+    func overrideFreeTakesUsedForTesting(_ used: Int) {
+        freeTakesUsed = used
     }
     #endif
 }
 
 #if DEBUG
-/// Launch arguments that stand a debug build at the end of the trial.
-///
-/// `-forceAccessState locked` holds the state there whatever the store and the
-/// clock say, and `-forceHardPaywall YES|NO` answers for the console's
-/// `hard_paywall_enabled`, so both presentations can be looked at on demand.
+/// A launch argument that holds a debug build in one state whatever the store says:
+/// `-forceAccessState locked` or `-forceAccessState unlocked`.
 nonisolated enum DebugAccessOverride {
 
     static var state: AccessState? {
@@ -631,11 +495,6 @@ nonisolated enum DebugAccessOverride {
         case "unlocked": .unlocked(.entitlement)
         default: nil
         }
-    }
-
-    static var isHardPaywallEnabled: Bool? {
-        guard UserDefaults.standard.object(forKey: "forceHardPaywall") != nil else { return nil }
-        return UserDefaults.standard.bool(forKey: "forceHardPaywall")
     }
 }
 #endif

@@ -13,6 +13,7 @@ struct MacSettingsView: View {
     @ObservedObject private var headphones = HeadphoneMonitor.shared
     @ObservedObject private var booth = BoothCamPreference.shared
     @ObservedObject private var scoring = DubScoringPreference.shared
+    @Environment(\.openWindow) private var openWindow
 
     init(app: AppViewModel) {
         _viewModel = StateObject(wrappedValue: SettingsViewModel(app: app, scope: .app))
@@ -73,6 +74,15 @@ struct MacSettingsView: View {
             } header: {
                 Text(GameMode.dub.title)
             }
+
+            Section {
+                Toggle(isOn: Binding(get: { viewModel.sharesUsageData }, set: { viewModel.setSharesUsageData($0) })) {
+                    Text(Strings.Settings.shareUsage)
+                    Text(Strings.Settings.shareUsageDesc)
+                }
+            } header: {
+                Text(Strings.Settings.privacySection)
+            }
         }
         .formStyle(.grouped)
         .platformSwitch()
@@ -129,12 +139,7 @@ struct MacSettingsView: View {
     private var account: some View {
         Form {
             Section {
-                if viewModel.isEarlyAdopter {
-                    LabeledContent(Strings.Pro.EarlyAdopter.settingsTitle) {
-                        Image(systemName: "checkmark.seal.fill").foregroundColor(.rsGood)
-                    }
-                    Text(Strings.Pro.EarlyAdopter.settingsSubtitle).foregroundColor(.secondary)
-                } else if viewModel.isPro {
+                if viewModel.isPro {
                     LabeledContent(viewModel.ownedTitle) {
                         Image(systemName: "checkmark.seal.fill").foregroundColor(.rsGood)
                     }
@@ -144,16 +149,14 @@ struct MacSettingsView: View {
                         Button(Strings.Pro.unlockTitle) { viewModel.showPaywall() }
                             .platformProminentButton()
                     }
-                    Text(viewModel.unlockSubtitle).foregroundColor(.secondary)
+                    Text(Strings.Pro.unlockSubtitle).foregroundColor(.secondary)
                 }
             }
 
-            if !viewModel.isEarlyAdopter {
-                Section {
-                    LabeledContent(Strings.Pro.restoreSubtitle) {
-                        Button(Strings.Pro.restoreTitle) { viewModel.restore() }
-                            .disabled(viewModel.isRestoring)
-                    }
+            Section {
+                LabeledContent(Strings.Pro.restoreSubtitle) {
+                    Button(Strings.Pro.restoreTitle) { viewModel.restore() }
+                        .disabled(viewModel.isRestoring)
                 }
             }
         }
@@ -177,10 +180,9 @@ struct MacSettingsView: View {
             }
 
             VStack(spacing: 2) {
-                let hasFullAccess = viewModel.isPro || viewModel.isEarlyAdopter
-                Label(viewModel.licenseText, systemImage: hasFullAccess ? "checkmark.seal.fill" : "person.crop.circle")
+                Label(viewModel.licenseText, systemImage: viewModel.isPro ? "checkmark.seal.fill" : "person.crop.circle")
                     .font(.system(size: 13, weight: .semibold))
-                    .foregroundColor(hasFullAccess ? .rsGood : .primary)
+                    .foregroundColor(viewModel.isPro ? .rsGood : .primary)
 
                 if let memberSince = viewModel.memberSinceText {
                     Text(memberSince)
@@ -195,7 +197,9 @@ struct MacSettingsView: View {
                 .foregroundColor(.secondary)
 
             HStack(spacing: 12) {
+                Button(Strings.Help.title) { MacHelpViewModel.shared.open(.gettingStarted, with: openWindow) }
                 Button(Strings.Settings.privacyPolicy) { viewModel.openPrivacyPolicy() }
+                Button(Strings.Pro.Fallback.terms) { viewModel.openTerms() }
                 Button(Strings.ReviewBanner.rate) { openExternally(ReviewBanner.writeReviewURL) }
             }
             .padding(.top, 6)

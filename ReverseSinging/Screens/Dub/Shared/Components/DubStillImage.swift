@@ -11,6 +11,8 @@ import SwiftUI
 struct DubStillImage: View {
     let url: URL
     var contentMode: ContentMode = .fill
+    /// Which part of an aspect-filled still stays in frame.
+    var alignment: Alignment = .center
 
     @State private var image: PlatformImage?
 
@@ -19,7 +21,7 @@ struct DubStillImage: View {
         // wider than its frame, and as a ZStack child it would size the stack, and anything
         // laid out over it, past the screen edge.
         Color.black
-            .overlay {
+            .overlay(alignment: alignment) {
                 if let image {
                     Image(platformImage: image)
                         .resizable()

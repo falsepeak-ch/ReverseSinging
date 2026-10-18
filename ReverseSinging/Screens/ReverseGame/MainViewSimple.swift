@@ -14,6 +14,10 @@ struct MainViewSimple: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) private var dismiss
     @State private var showNewSessionAlert = false
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+    /// Where the window's middle falls across the content (see `readWindowMiddleRatio`).
+    @State private var seamRatio: CGFloat = 0.5
 
     var body: some View {
 
@@ -56,24 +60,125 @@ struct MainViewSimple: View {
     /// content scrolls instead of being squeezed, which is what `minHeight` buys.
     private var mainContentView: some View {
         GeometryReader { proxy in
-            ScrollView {
-                transportStack
-                    .frame(minHeight: proxy.size.height)
+            if isWide(proxy.size) {
+                besideContent
+            } else {
+                ScrollView {
+                    transportStack(fold: foldForSplit(in: proxy))
+                        .frame(minHeight: proxy.size.height)
+                }
             }
         }
     }
 
-    private var transportStack: some View {
-        VStack(spacing: 0) {
-            // Clears the fixed header bar
-            Spacer().frame(height: EditorMetrics.headerBarHeight)
+    /// iPhone Duo open flat in landscape, iPad landscape: room for two panes side by side.
+    private func isWide(_ size: CGSize) -> Bool {
+        horizontalSizeClass == .regular && verticalSizeClass == .regular
+            && size.width > size.height && size.width >= 800
+    }
 
+    /// The monitor in the leading pane and the transport in the trailing one, divided on the
+    /// seam, rather than one stretched column running across the middle of the open display.
+    @ViewBuilder
+    private var besideContent: some View {
+        #if os(iOS)
+        if #available(iOS 27.1, *) {
+            ArrangementView {
+                monitorPane
+                    .splitArrangementLayoutRatio(seamRatio)
+            } secondary: {
+                transportPane
+            }
+            .arrangementViewStyle(.split.axes(.horizontal))
+            .readWindowMiddleRatio(into: $seamRatio)
+        } else {
+            besideStack
+        }
+        #else
+        besideStack
+        #endif
+    }
+
+    private var besideStack: some View {
+        HStack(spacing: 0) {
+            monitorPane
+            transportPane
+        }
+    }
+
+    private var monitorPane: some View {
+        VStack(spacing: 0) {
+            Spacer().frame(height: EditorMetrics.headerBarHeight)
+            Spacer(minLength: 16)
             monitorPanel
                 .padding(.horizontal, EditorMetrics.gutter)
-                .padding(.top, 20)
+            Spacer(minLength: 16)
+            Color.clear.frame(height: 88)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    private var transportPane: some View {
+        GeometryReader { pane in
+            ScrollView {
+                VStack(spacing: 0) {
+                    Spacer().frame(height: EditorMetrics.headerBarHeight)
+                    Spacer(minLength: 16)
+                    transportSections
+                    Spacer(minLength: 16)
+                    Color.clear.frame(height: 88)
+                }
+                .frame(minHeight: pane.size.height)
+            }
+            .scrollBounceBehavior(.basedOnSize)
+        }
+    }
+
+    /// Half folded as a table, with room for the monitor above the fold: the monitor on the
+    /// upper half, the transport on the half resting on the table.
+    private func foldForSplit(in proxy: GeometryProxy) -> CGRect? {
+        guard let fold = proxy.horizontalFold,
+              fold.minY > EditorMetrics.headerBarHeight + 220,
+              fold.maxY < proxy.size.height - 300
+        else { return nil }
+        return fold
+    }
+
+    private func transportStack(fold: CGRect?) -> some View {
+        VStack(spacing: 0) {
+            if let fold {
+                VStack(spacing: 0) {
+                    Spacer().frame(height: EditorMetrics.headerBarHeight)
+                    Spacer(minLength: 16)
+                    monitorPanel
+                        .padding(.horizontal, EditorMetrics.gutter)
+                    Spacer(minLength: 16)
+                }
+                .frame(height: fold.minY)
+
+                Spacer().frame(height: fold.height + 16)
+            } else {
+                // Clears the fixed header bar
+                Spacer().frame(height: EditorMetrics.headerBarHeight)
+
+                monitorPanel
+                    .padding(.horizontal, EditorMetrics.gutter)
+                    .padding(.top, 20)
+
+                Spacer(minLength: 16)
+            }
+
+            transportSections
 
             Spacer(minLength: 16)
 
+            Color.clear.frame(height: 88)
+        }
+    }
+
+    /// The transport buttons and, once a take exists, the new-session control.
+    private var transportSections: some View {
+        VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 10) {
                 EditorSectionHeader(title: Strings.Main.Section.transport)
                 threeButtonStack
@@ -97,10 +202,6 @@ struct MainViewSimple: View {
                 .padding(.horizontal, EditorMetrics.gutter)
                 .padding(.top, 20)
             }
-
-            Spacer(minLength: 16)
-
-            Color.clear.frame(height: 88)
         }
     }
 

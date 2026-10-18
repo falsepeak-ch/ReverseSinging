@@ -1,4 +1,4 @@
-Dubloon, c'est trois jeux de voix dans une seule app, et aucun d'eux n'a besoin d'autre chose que de ton micro.
+Dubloon, c'est quatre jeux de voix dans une seule app, et aucun d'eux n'a besoin d'autre chose que de ton micro.
 
 DOUBLAGE DE SCÈNE
 
@@ -19,11 +19,11 @@ NOTÉ, SI TU VEUX
 
 Chaque prise est notée sur la synchro, le rythme et le jeu, avec une note pour la scène, ta meilleure réplique et celle qui mérite une autre prise. Coupe-le et plus personne ne compte les points.
 
-DEUX SCÈNES POUR COMMENCER
+QUATRE SCÈNES POUR COMMENCER
 
-Camp Rules est tirée de Sprite Fright, le film ouvert du Blender Studio, partagé sous licence Creative Commons Attribution 4.0. Stuck Up vient de The Outsider, un film scolaire de 1951 tombé dans le domaine public aux États-Unis. Chaque scène indique le film, l'année et les conditions sur son propre écran.
+Camp Rules (Sprite Fright, CC BY 4.0), Awesome in Space (Tears of Steel, CC BY 3.0) et A Kindred Spirit (Sintel, CC BY 3.0) sortent des films ouverts de Blender. Stuck Up vient de The Outsider, un film scolaire de 1951 du domaine public aux États-Unis. Chaque scène affiche film, année et conditions à l'écran.
 
-Ensuite, l'étagère est à toi. Au-delà de ces deux-là, Dubloon n'inclut et n'héberge aucun film. Les packs de doublage sont créés et partagés par les autres joueurs : tu télécharges ceux que tu veux et tu importes le dossier ou le .zip depuis Fichiers, AirDrop ou n'importe quelle feuille de partage. Assure-toi d'avoir le droit d'utiliser ce que tu doubles.
+Ensuite, l'étagère est à toi. Au-delà de ces quatre-là, Dubloon n'inclut et n'héberge aucun film. Les packs de doublage sont créés et partagés par les autres joueurs : tu télécharges ceux que tu veux et tu importes le dossier ou le .zip depuis Fichiers, AirDrop ou n'importe quelle feuille de partage. Assure-toi d'avoir le droit d'utiliser ce que tu doubles.
 
 CHANT INVERSÉ
 
@@ -39,12 +39,16 @@ IMITATION DE SONS
 • 24 sons : animaux, klaxons et alarmes, effets de dessin animé et bruits humains
 • La caméra de cabine filme ton visage en pleine imitation, si tu le veux
 
+DOUBLAGE DE TES VIDÉOS
+
+Tes vidéos, ta voix. Choisis un clip dans Photos, puis commente-le, chante par-dessus ou donne-lui de nouveaux bruitages. Garde le son d'origine, discret sous ta voix, ou coupe-le, puis partage le résultat.
+
 PRIVÉ DÈS LE DÉPART
 
 Tout se passe sur cet appareil. Tes enregistrements, tes prises, tes images de cabine et tes doublages exportés n'en sortent jamais. Pas de compte, pas d'inscription, pas de publicité, rien à téléverser. L'app collecte des statistiques d'usage anonymes pour décider quoi construire ensuite, jamais le contenu d'un enregistrement.
 
 CE QUE ÇA COÛTE
 
-Le chant inversé est gratuit. Dubloon Pro ouvre le doublage de scènes, l'imitation de sons, la caméra de cabine et les exports, rien de bridé, en achat unique ou en abonnement.
+Le chant inversé et le doublage de tes vidéos sont gratuits. Dubloon Pro ouvre le doublage de scènes, l'imitation de sons, la caméra de cabine et les exports, rien de bridé, en achat unique ou en abonnement.
 
 Fait en Suisse. Fait à la main à Zurich.

@@ -2,7 +2,7 @@
 //  OnboardingView.swift
 //  ReverseSinging
 //
-//  Voxxa-inspired onboarding with gradient icons
+//  The first-run pages, and the buttons under them
 //
 
 import SwiftUI
@@ -10,7 +10,6 @@ import SwiftUI
 struct OnboardingView: View {
     @StateObject private var viewModel: OnboardingViewModel
     @Environment(\.colorScheme) var colorScheme
-    @Environment(\.scenePhase) private var scenePhase
 
     init(app: AppViewModel) {
         _viewModel = StateObject(wrappedValue: OnboardingViewModel(app: app))
@@ -21,14 +20,7 @@ struct OnboardingView: View {
             // Adaptive background (dark/light mode)
             Color.rsBackgroundAdaptive(for: colorScheme).ignoresSafeArea()
 
-            VStack(spacing: 32) {
-                // Back button placeholder (like Voxxa has in header)
-                HStack {
-                    Spacer()
-                }
-                .frame(height: 44)
-                .padding(.top, 8)
-
+            VStack(spacing: 24) {
                 #if os(iOS)
                 TabView(selection: $viewModel.currentPage) {
                     ForEach(Array(viewModel.pages.enumerated()), id: \.offset) { index, page in
@@ -58,53 +50,42 @@ struct OnboardingView: View {
                             .animation(.rsSpring, value: viewModel.currentPage)
                     }
                 }
-                .padding(.bottom, 20)
 
                 // Buttons
-                VStack(spacing: 16) {
-                    if viewModel.isOnPermissionPage {
-                        // Last page: the microphone ask, as a single dynamic button
-                        BigButton(
-                            title: viewModel.buttonTitle,
-                            icon: viewModel.buttonIcon,
-                            color: viewModel.buttonColor,
-                            action: viewModel.permissionButtonTapped,
-                            style: .primary
-                        )
+                VStack(spacing: 8) {
+                    BigButton(
+                        title: viewModel.offersPro ? Strings.Onboarding.proBuy : Strings.Onboarding.buttonContinueLowercase,
+                        icon: viewModel.offersPro ? "lock.open.fill" : "arrow.right",
+                        color: .rsTurquoise,
+                        action: viewModel.primaryTapped,
+                        style: .primary
+                    )
 
-                        // A denial shouldn't trap anyone on the last page, the
-                        // games ask again themselves when a recording is due.
-                        if viewModel.isPermissionDenied {
-                            Button(action: viewModel.finishOnboarding) {
-                                Text(Strings.Onboarding.buttonContinueWithout)
-                                    .font(.rsButtonMedium)
-                                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
-                            }
-                        }
-                    } else {
-                        // Every other page: just continue
-                        BigButton(
-                            title: Strings.Onboarding.buttonContinueLowercase,
-                            icon: "arrow.right",
-                            color: .rsTurquoise,
-                            action: viewModel.nextPage,
-                            style: .primary
-                        )
-                        .transition(.asymmetric(
-                            insertion: .scale.combined(with: .opacity),
-                            removal: .scale.combined(with: .opacity)
-                        ))
+                    // Always laid out, so the pages above do not jump when it arrives on the
+                    // last one.
+                    Button(action: viewModel.finishOnboarding) {
+                        Text(Strings.Onboarding.proSkip)
+                            .font(.rsButtonMedium)
+                            .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                            .frame(maxWidth: .infinity, minHeight: 44)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.8)
+                            .contentShape(Rectangle())
                     }
+                    .opacity(viewModel.offersPro ? 1 : 0)
+                    .allowsHitTesting(viewModel.offersPro)
+                    .accessibilityHidden(!viewModel.offersPro)
                 }
                 .padding(.horizontal, 24)
-                .padding(.bottom, 32)
-                .animation(.rsSpring, value: viewModel.currentPage)
+                .padding(.bottom, 8)
+                .animation(.rsSpring, value: viewModel.offersPro)
             }
         }
-        .onAppear { viewModel.onAppear() }
-        .onChange(of: scenePhase) { _, phase in
-            viewModel.scenePhaseDidChange(phase)
+        .sheet(isPresented: $viewModel.isPaywallPresented) {
+            ProPaywallView(source: "onboarding")
+                .paywallAppearance()
         }
+        .onAppear { viewModel.onAppear() }
     }
 }
 

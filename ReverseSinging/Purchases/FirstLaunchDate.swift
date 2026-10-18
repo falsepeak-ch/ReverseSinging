@@ -6,26 +6,24 @@
 //
 
 import Foundation
-import DubloonFoundation
 
 /// The app's own record of when it was first launched on this device.
 ///
-/// It exists for one job: standing in for the App Store's download date when the
-/// store will not report one, so that someone who plainly arrived after the
-/// paywall's cutoff is not let through for good on a technicality. See
-/// `PaywallEligibility` for how little it is trusted.
+/// It is one of the dates the About screen's "Member since" is read from; see
+/// `AccessController.memberSince`.
 ///
-/// Written once and never rewritten. An install that was already counting down a
-/// trial before this existed is dated from that trial's anchor, which is the
-/// earliest moment the app is known to have been open, rather than from the
-/// launch that happened to ship this.
+/// Written once and never rewritten. An install from the days when the app gave a
+/// free trial is dated from that trial's start, which is the earliest moment the
+/// app is known to have been open, rather than from the launch that happened to
+/// ship this.
 ///
-/// It dies with the app container, so a reinstall looks like a first launch. That
-/// is exactly why it is only ever the fallback: the receipt follows the Apple
-/// Account, and this does not.
+/// It dies with the app container, so a reinstall looks like a first launch.
 nonisolated struct FirstLaunchDate {
 
     static let key = "firstLaunch.date"
+
+    /// Where builds that had a free trial recorded its start. Only ever read.
+    static let legacyTrialStartKey = "trial.startedAt"
 
     private let defaults: UserDefaults
 
@@ -43,10 +41,10 @@ nonisolated struct FirstLaunchDate {
     func record(now: Date = Date()) -> Date {
         if let date { return date }
 
-        let trialAnchor = defaults.object(forKey: TrialClock.defaultStartKey) as? Date
-        // Never later than now: an anchor from a clock that has since moved back
+        let trialStart = defaults.object(forKey: Self.legacyTrialStartKey) as? Date
+        // Never later than now: a date left by a clock that has since moved back
         // would otherwise date this install in the future.
-        let recorded = min(trialAnchor ?? now, now)
+        let recorded = min(trialStart ?? now, now)
         defaults.set(recorded, forKey: Self.key)
         return recorded
     }

@@ -11,13 +11,17 @@ import DubAudio
 
 struct DubViewerPanel: View {
     @ObservedObject var viewModel: DubEditorViewModel
+    private let playDubTip = DubPlayDubTip()
 
     var body: some View {
         VStack(spacing: 0) {
             ProPanelHeader(title: MacStrings.Panel.viewer, subtitle: subtitle) {
                 Picker(MacStrings.Panel.viewer, selection: Binding(
                     get: { viewModel.mode },
-                    set: { viewModel.setMode($0) }
+                    set: { mode in
+                        if mode == .myDub { playDubTip.invalidate(reason: .actionPerformed) }
+                        viewModel.setMode(mode)
+                    }
                 )) {
                     ForEach(DubViewerMode.allCases) { mode in
                         Text(mode.title).tag(mode)
@@ -28,6 +32,7 @@ struct DubViewerPanel: View {
                 .controlSize(.small)
                 .fixedSize()
                 .disabled(viewModel.record.isRecording)
+                .popoverTip(playDubTip, arrowEdge: .top)
             }
 
             if let playback = viewModel.playback {

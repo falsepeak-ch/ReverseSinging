@@ -110,6 +110,61 @@
     "license": "CC0-1.0"
   },
   {
+    "id": "frog",
+    "category": "animals",
+    "emoji": "🐸",
+    "difficulty": 1,
+    "file": "imitate-frog.m4a",
+    "duration": 0.325,
+    "freesoundID": 532742,
+    "author": "tristanm22",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "horse",
+    "category": "animals",
+    "emoji": "🐴",
+    "difficulty": 2,
+    "file": "imitate-horse.m4a",
+    "duration": 1.836,
+    "freesoundID": 826753,
+    "author": "Salsero_classic",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "goat",
+    "category": "animals",
+    "emoji": "🐐",
+    "difficulty": 2,
+    "file": "imitate-goat.m4a",
+    "duration": 0.816,
+    "freesoundID": 188182,
+    "author": "Erokia",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "monkey",
+    "category": "animals",
+    "emoji": "🐒",
+    "difficulty": 2,
+    "file": "imitate-monkey.m4a",
+    "duration": 1.992,
+    "freesoundID": 588624,
+    "author": "wilika2",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "lion",
+    "category": "animals",
+    "emoji": "🦁",
+    "difficulty": 1,
+    "file": "imitate-lion.m4a",
+    "duration": 1.387,
+    "freesoundID": 420466,
+    "author": "tahirahg1991",
+    "license": "CC0-1.0"
+  },
+  {
     "id": "horn",
     "category": "vehicles",
     "emoji": "🚗",
@@ -198,6 +253,39 @@
     "license": "CC0-1.0"
   },
   {
+    "id": "squeak",
+    "category": "cartoon",
+    "emoji": "🧸",
+    "difficulty": 1,
+    "file": "imitate-squeak.m4a",
+    "duration": 0.446,
+    "freesoundID": 468443,
+    "author": "Breviceps",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "fart",
+    "category": "cartoon",
+    "emoji": "💨",
+    "difficulty": 1,
+    "file": "imitate-fart.m4a",
+    "duration": 1.651,
+    "freesoundID": 840755,
+    "author": "bassimat",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "ghost",
+    "category": "cartoon",
+    "emoji": "👻",
+    "difficulty": 2,
+    "file": "imitate-ghost.m4a",
+    "duration": 2.956,
+    "freesoundID": 718952,
+    "author": "sierra721",
+    "license": "CC0-1.0"
+  },
+  {
     "id": "burp",
     "category": "human",
     "emoji": "🤢",
@@ -261,6 +349,28 @@
     "duration": 0.708,
     "freesoundID": 508900,
     "author": "NicknameLarry",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "zombie",
+    "category": "human",
+    "emoji": "🧟",
+    "difficulty": 1,
+    "file": "imitate-zombie.m4a",
+    "duration": 0.756,
+    "freesoundID": 754438,
+    "author": "OwNathan",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "whistle",
+    "category": "human",
+    "emoji": "😗",
+    "difficulty": 2,
+    "file": "imitate-whistle.m4a",
+    "duration": 1.167,
+    "freesoundID": 74388,
+    "author": "dland",
     "license": "CC0-1.0"
   }
 ]

@@ -5,18 +5,22 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Dubloon'a hoş geldin";
-"onboarding.welcome.message" = "Üç oyun, tek mikrofon. Bir şarkıyı tersten söyle, sesini bir film sahnesinin içine sok ya da bir sesi tutturana kadar taklit et. Hiçbirinde normal duyulmayacaksın.";
+"onboarding.welcome.message" = "Dört oyun, tek mikrofon. Bir şarkıyı tersten söyle, sesini bir film sahnesinin ya da kendi videonun içine sok ya da bir sesi tutturana kadar taklit et. Hiçbirinde normal duyulmayacaksın.";
 "onboarding.howItWorks.title" = "Nasıl çalışıyor";
 "onboarding.howItWorks.message" = "Bir şarkı kaydet, tersine çevir ve o anlamsız sesin üstüne söyle. Sonra kendi çekimini ters çevir ve yaklaşmış mısın yoksa yeni bir dil mi icat etmişsin, öğren.";
 "onboarding.dub.title" = "Bir film sahnesini seslendir";
-"onboarding.dub.message" = "İkinci oyun: sahneyi başlat, üstüne abartarak oyna ve sonra kendini filmin içinde duy. İki sahne kutudan çıkıyor. Gerisi için kendi dosyalarını getiriyorsun.";
-"onboarding.microphone.title" = "Son bir şey";
-"onboarding.microphone.message" = "Üç oyunun da seni duyması gerek: tersten söylerken, bir sahneyi seslendirirken ve bir sesi taklit ederken. Mikrofon sadece kayıt sırasında uyanır, her şey bu cihazda kalır ve hiçbir şey hiçbir yere yüklenmez. En kötü çekimin ikinizin arasında kalır.";
-"onboarding.button.openSettings" = "Ayarlar'ı aç";
-"onboarding.button.letsRecord" = "hadi, kaydediyoruz!";
+"onboarding.dub.message" = "İkinci oyun: sahneyi başlat, üstüne abartarak oyna ve sonra kendini filmin içinde duy. Dört sahne kutudan çıkıyor. Gerisi için kendi dosyalarını getiriyorsun.";
+"onboarding.pro.title" = "Dubloon Pro neden var";
+"onboarding.pro.message" = "Dubloon'da reklam, hesap ve takip yok; onu Zürih'te tek bir kişi yapıyor. Bunun bedelini Dubloon Pro karşılıyor. Her oyunu deneyebilirsin: ilk %d çekimin ücretsiz, Pro ile sınırsız.";
+"onboarding.pro.buy" = "Dubloon Pro'yu al";
+"onboarding.pro.skip" = "Şimdilik geç";
 "onboarding.button.continueLowercase" = "devam";
-"onboarding.button.microphoneContinue" = "Devam";
-"onboarding.button.continueWithout" = "onsuz devam et";
+"onboarding.button.continue" = "Devam";
+
+// MARK: - Microphone explanation
+"microphonePrimer.title" = "Mikrofon";
+"microphonePrimer.message" = "Bütün oyunların seni duyması gerek: tersten söylerken, bir sahneyi seslendirirken ve bir sesi taklit ederken. Mikrofon sadece kayıt sırasında uyanır, her şey bu cihazda kalır ve hiçbir şey hiçbir yere yüklenmez. En kötü çekimin ikinizin arasında kalır.";
+"microphonePrimer.continue" = "Devam";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Kaydı durdur";
@@ -54,7 +58,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Seni kimse duymuyor";
-"main.emptyState.message" = "Şu anda Dubloon, kaydedecek hiçbir şeyi olmayan bir kayıt uygulaması. Cihaz ayarlarından mikrofon iznini aç, üç oyun da yeniden canlansın.";
+"main.emptyState.message" = "Şu anda Dubloon, kaydedecek hiçbir şeyi olmayan bir kayıt uygulaması. Cihaz ayarlarından mikrofon iznini aç, dört oyun da yeniden canlansın.";
 "main.emptyState.button" = "Ayarlar'ı aç";
 
 // MARK: - Main View - Processing & Success
@@ -139,10 +143,6 @@
 "settings.about.license.lifetime" = "Dubloon Pro, ömür boyu";
 "settings.about.license.renews" = "Dubloon Pro, %@ tarihinde yenilenir";
 "settings.about.license.ends" = "Dubloon Pro, %@ tarihinde sona erer";
-"settings.about.license.earlyAdopter" = "İlk kullanıcı, ömür boyu ücretsiz";
-"settings.about.license.trialDays" = "Ücretsiz deneme, %d gün kaldı";
-"settings.about.license.trialLastDay" = "Ücretsiz deneme, son gün";
-"settings.about.license.trialOver" = "Ücretsiz deneme sona erdi";
 "settings.about.license.free" = "Ücretsiz";
 
 // Theme descriptions
@@ -228,7 +228,6 @@
 "main.button.back" = "Geri";
 "main.mode.reverse.subtitle" = "Kaydet, ters çevir ve o anlamsız şeyi söyle";
 "main.mode.dub.subtitle" = "Sesini başkasının ağzına koy";
-"main.mode.free" = "Ücretsiz";
 "dub.speakerAccessibility" = "Söyleyen: %@";
 "dub.cast" = "Oyuncular";
 "dub.referenceTrack" = "Referans";
@@ -239,7 +238,7 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "Kapat";
 "dubGate.ask.title" = "Filmlerin sende var mı?";
-"dubGate.ask.message" = "İki örnek sahnenin ötesinde tek bir film bile ne veriyoruz ne de barındırıyoruz. Başka bir şeyi seslendirmek için film dosyasının bu cihazda hazır olması gerek.";
+"dubGate.ask.message" = "Dört örnek sahnenin ötesinde tek bir film bile ne veriyoruz ne de barındırıyoruz. Başka bir şeyi seslendirmek için film dosyasının bu cihazda hazır olması gerek.";
 "dubGate.ask.confirm" = "Evet, burada duruyorlar";
 "dubGate.ask.needDownload" = "Hayır, bulmam lazım";
 "dubGate.download.title" = "Nereden bulunur";
@@ -248,6 +247,19 @@
 "dubGate.download.back" = "Geri";
 "dubGate.disclaimer.notAffiliated" = "%@ başkasının sitesi. Onunla hiçbir bağımız yok, tek bir dosya bile barındırmıyor ya da paylaşmıyoruz.";
 "dubGate.disclaimer.responsibility" = "İndirdiğin şeyi kullanma hakkın olduğundan emin ol ve yaşadığın yerin telif kurallarına uy.";
+"dubGuide.row" = "Daha fazla paket bulmak için yardıma ihtiyacım var";
+"dubGuide.title" = "Daha fazla paket edinme";
+"dubGuide.intro" = "Bir dublaj paketi tek bir sahnedir: video, müziği ve her repliğin kaydı. Dubloon'a nasıl ekleyeceğin aşağıda.";
+"dubGuide.1.title" = "Bir sahne bul";
+"dubGuide.1.detail" = "Aşağıdan GameBanana'yı aç ve film dublaj paketlerine göz at. Beğendiğini seçip sayfasını aç.";
+"dubGuide.2.title" = "İndir";
+"dubGuide.2.detail" = "Download'a dokun ve dosyayı seç: .zip, .7z veya .rar. Safari onu Dosyalar uygulamasında İndirilenler'e kaydeder.";
+"dubGuide.3.title" = "Bitmesini bekle";
+"dubGuide.3.detail" = "İndirme tamamlanana kadar bekle. Dosya iCloud Drive'daysa, gerçekten bu cihazda olması için Dosyalar'da bir kez aç.";
+"dubGuide.4.title" = "İçe aktar";
+"dubGuide.4.detail" = "Buraya dön, +'ya dokun, dosyanın cihazında olduğunu onayla ve İndirilenler'den seç. Dosyalar'dan veya AirDrop ile Dubloon'a da paylaşabilirsin.";
+"dubGuide.5.title" = "İçe aktarılmazsa";
+"dubGuide.5.detail" = "Dubloon neyin ters gittiğini söyler. Arşivi .zip olarak yeniden kaydet, yapımcısından parolasız bir kopya iste ve her replik için bir metin dosyası ve bir kayıt içerdiğini kontrol et.";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "Paylaşmadan önce";
@@ -257,6 +269,7 @@
 "dubShare.unknownSource" = "Bu sahneyi kendin getirdin, yani nereden geldiğini ve neler yapabileceğini biliyorsun.";
 "dubShare.responsibility" = "Nereye gideceği sana kalmış, o yüzden yaşadığın yerin telif kurallarına uy.";
 "dubShare.confirm" = "Videoyu dışa aktar";
+"dubShare.caption" = "Bu sahneyi Dubloon ile seslendirdim 🎙️";
 "dubShare.share" = "Paylaş…";
 "dubShare.save" = "Kaydet…";
 
@@ -284,13 +297,11 @@
 "dub.videoNeedsReimport" = "Bu sahnenin videosunu eski bir sürüm dönüştürmüş ve şimdi seslerin önünden gidiyor. Paketi yeniden içe aktarınca düzelir.";
 
 // MARK: - Pro / Paywall
-"pro.trial.daysLeft" = "%d gün kaldı";
-"pro.trial.oneDayLeft" = "Son gün";
-"pro.trial.over" = "Ücretsiz deneme süren bitti";
-"pro.locked.title" = "Seslendirmek için Dubloon Pro'yu al";
 "pro.section" = "Dubloon Pro";
+"pro.freeTakes.left" = "%2$d ücretsiz çekimden %1$d kaldı";
+"pro.freeTakes.usedUp" = "Ücretsiz çekimlerin bitti";
 "pro.unlock.title" = "Dubloon'un kilidini aç";
-"pro.unlock.subtitle" = "Tüm sahneler, Booth Cam ve dışa aktarma. Tersten şarkı ücretsiz kalıyor.";
+"pro.unlock.subtitle" = "İlk %d çekimin ücretsiz, hangi oyunda olursa olsun. Dubloon Pro her oyunu sınırsız yapar, Booth Cam ve dışa aktarma da cabası.";
 "pro.owned.title" = "Dubloon senin";
 "pro.owned.subtitle" = "Teşekkürler. Her sahne, her çekim, tavan yok.";
 "pro.manage.title" = "Satın almayı yönet";
@@ -301,17 +312,13 @@
 "pro.restore.title" = "Satın almayı geri yükle";
 "pro.restore.subtitle" = "Yeni telefon mu, yeniden kurulum mu? Geri getir.";
 "pro.testStore.warning" = "Hata ayıklama derlemesi: RevenueCat test mağazasına bağlı. Gerçek para el değiştirmiyor.";
-"pro.restored.title" = "Geri yüklendi";
-"pro.restored.message" = "Satın alman bu cihaza geri döndü.";
 "pro.nothingToRestore.title" = "Geri yüklenecek bir şey yok";
 "pro.nothingToRestore.message" = "Bu Apple hesabında satın alma bulunamadı. Dubloon'u başka bir hesapla aldıysan onunla giriş yap ve tekrar dene.";
 "pro.error.title" = "Bir şeyler ters gitti";
 "pro.error.generic" = "Mağaza cevap vermedi. Birazdan tekrar dene.";
 "pro.ok" = "Tamam";
 "pro.fallback.title" = "Dubloon'un kilidini aç";
-"pro.fallback.message" = "Ücretsiz deneme süren bitti. Seslendirmeye devam etmek için Dubloon'un kilidini aç.";
-"pro.fallback.message.beforeExpiry" = "Seslendirmeye devam etmek için Dubloon'un kilidini aç.";
-"pro.fallback.message.noTrial" = "Her sahneyi seslendirmek için Dubloon'un kilidini aç.";
+"pro.fallback.message" = "Her oyunda kaydetmeye devam etmek için Dubloon'un kilidini aç.";
 "pro.fallback.buy" = "%@ karşılığında aç";
 "pro.fallback.buyUnpriced" = "Kilidi aç";
 "pro.fallback.loading" = "Mağazaya soruyoruz…";
@@ -332,23 +339,19 @@
 "review.banner.message" = "Dubloon'u Zürih'te tek bir kişi yapıyor ve yeni oyuncular onu yorumlar sayesinde buluyor. Keyif alıyorsan, App Store'da birkaç kelime çok şey ifade eder.";
 "review.banner.rate" = "Yorum yaz";
 "review.banner.later" = "Şimdi değil";
+"review.banner.fan.title" = "Eğleniyor musun?";
+"review.banner.fan.message" = "Harika gidiyorsun. Dubloon'u Zürih'te tek bir kişi yapıyor ve yeni oyuncular onu yorumlar sayesinde buluyor. Seni güldürdüyse, App Store'da birkaç kelime çok şey ifade eder.";
+"review.banner.prompt" = "Dubloon'a kaç yıldız verirsin?";
+"review.banner.star" = "5 üzerinden %d yıldız";
+"review.banner.store.title" = "Beğendiğine sevindik!";
+"review.feedback.slug" = "Geri bildirim";
+"review.feedback.title" = "Ne ters gitti?";
+"review.feedback.message" = "Seni neyin hayal kırıklığına uğrattığını anlat. Mesajın doğrudan Dubloon'u yapan kişiye gider ve okunur.";
+"review.feedback.placeholder" = "Ne daha iyi olmalı?";
+"review.feedback.send" = "Gönder";
 
-// MARK: - Pro / Early adopters
-"pro.earlyAdopter.title" = "Kulübe hoş geldin";
-"pro.earlyAdopter.message" = "Dubloon artık para ediyor — ama senin için değil. Fiyat etiketi gelmeden önce buradaydın, o yüzden üç oyun da uygulama var olduğu sürece ücretsiz senin kalıyor. İlk günler için teşekkürler.";
-"pro.earlyAdopter.badge" = "Ömür boyu ücretsiz";
-"pro.earlyAdopter.confirm" = "Güzel";
-"pro.earlyAdopter.settings.title" = "Ömür boyu ücretsiz";
-"pro.earlyAdopter.settings.subtitle" = "Erken geldin. Üç oyun da senin ve bize hiçbir borcun yok.";
+// MARK: - Pro
 "pro.closePaywall" = "Kapat";
-
-// Early adopter slate rows
-"pro.earlyAdopter.row.access" = "Erişim";
-"pro.earlyAdopter.row.access.value" = "Üç oyun";
-"pro.earlyAdopter.row.cost" = "Bedel";
-"pro.earlyAdopter.row.cost.value" = "Yok";
-"pro.earlyAdopter.row.expires" = "Bitiş";
-"pro.earlyAdopter.row.expires.value" = "Asla";
 
 /* MARK: - Booth Cam */
 "booth.slug" = "Kabin";
@@ -388,6 +391,11 @@
 "booth.frame.stacked" = "Üst üste";
 "booth.frame.reaction" = "Tepki";
 "booth.frame.split" = "Yan yana";
+"booth.frame.vertical" = "Dikey";
+"booth.export.pipCorner" = "Kabin köşesi";
+"booth.export.pip.bottomRight" = "Sağ alt";
+"booth.export.pip.bottomLeft" = "Sol alt";
+"booth.export.pip.topRight" = "Sağ üst";
 "booth.export.stackedNote" = "Üst üste ve Tepki 9:16 çıkar, altta bir dalga formu olur: sahnenin repliği üstte, seninki altta.";
 "booth.export.noFootage" = "Bu sahnede henüz kabin görüntüsü yok. Booth Cam'i aç ve bir repliği seslendir.";
 "booth.export.includeBooth" = "Kabin görüntüsünü ekle";
@@ -439,6 +447,32 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "Ses taklidi";
 "main.mode.imitate.subtitle" = "Bir sesi taklit et, hükmü öğren";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "Kendi videolarını seslendir";
+"main.mode.homeVideo.subtitle" = "Çektiğin herhangi bir videoya kendi sesini koy";
+"homeVideo.choose" = "Video seç";
+"homeVideo.change" = "Videoyu değiştir";
+"homeVideo.limit" = "En fazla bir dakika. Videon telefonunda kalır.";
+"homeVideo.trimmed" = "Yalnızca ilk dakika kullanılır.";
+"homeVideo.importing" = "Videon açılıyor…";
+"homeVideo.mixing" = "Sesin ekleniyor…";
+"homeVideo.keepOriginal" = "Orijinal sesi koru";
+"homeVideo.keepOriginal.detail" = "Sesinin altında kısık çalar";
+"homeVideo.keepOriginal.none" = "Bu videoda ses yok";
+"homeVideo.hint.ready" = "Kayda bas, video baştan başlasın. Seslerini tam zamanında yapmak için dalgayı takip et.";
+"homeVideo.hint.empty" = "Sesini üzerine koymak için arşivinden bir video seç.";
+"homeVideo.hint.recordingHeadphones" = "Kaydediliyor. Videoyu kulaklığında duyuyorsun; mikrofon sadece seni duyuyor.";
+"homeVideo.hint.recording" = "Kaydediliyor. Mikrofon yalnızca seni duysun diye video sessiz oynuyor.";
+"homeVideo.hint.review" = "İşte senin versiyonun. Paylaş ya da yeniden kaydet.";
+"homeVideo.record" = "Kaydet";
+"homeVideo.stop" = "Durdur";
+"homeVideo.retake" = "Yeniden kaydet";
+"homeVideo.share" = "Paylaş";
+"homeVideo.play" = "Oynat";
+"homeVideo.pause" = "Duraklat";
+"homeVideo.error.load" = "Bu video açılamadı. Başka bir tane dene.";
+"homeVideo.error.mix" = "Sesin videoya eklenemedi. Yeniden kaydet.";
 "imitate.library.hint" = "Bir ses seç, dinle ve en iyi taklidini yap.";
 "imitate.library.best" = "Rekor";
 "imitate.library.untried" = "Yeni";
@@ -502,6 +536,16 @@
 "imitate.sound.laugh" = "Kötü kahkaha";
 "imitate.sound.yawn" = "Esneme";
 "imitate.sound.hiccup" = "Hıçkırık";
+"imitate.sound.frog" = "Kurbağa";
+"imitate.sound.horse" = "At";
+"imitate.sound.goat" = "Keçi";
+"imitate.sound.monkey" = "Maymun";
+"imitate.sound.lion" = "Aslan";
+"imitate.sound.squeak" = "Cırlak oyuncak";
+"imitate.sound.fart" = "Osuruk";
+"imitate.sound.ghost" = "Hayalet";
+"imitate.sound.zombie" = "Zombi";
+"imitate.sound.whistle" = "Islık";
 
 /* Mac */
 "mac.sidebar.games" = "Oyunlar";
@@ -532,7 +576,6 @@
 "mac.panel.emptyMessage" = "Kenar çubuğundan bir oyun ya da dublaj paketi seç.";
 "mac.settings.general" = "Genel";
 "mac.settings.recording" = "Kayıt";
-"mac.welcome.notNow" = "Şimdi değil";
 "mac.booth.primer.message" = "Booth Cam sen oynarken Mac'in kamerasını çalıştırır; böylece sahne, replik ve yüzün aynı ekranda olur. Sonrasında tepkini seslendirmeyle birlikte paylaşabilirsin.";
 "mac.booth.primer.systemPrompt" = "Birazdan macOS kamera izni isteyecek.";
 "mac.menu.openRecent" = "Son kullanılanı aç";
@@ -562,3 +605,159 @@
 "mac.panel.sound" = "Ses";
 "mac.panel.allSounds" = "Tümü";
 "mac.panel.compare" = "Karşılaştır";
+
+/* Help */
+"help.title" = "Yardım";
+"help.close" = "Kapat";
+"help.search.prompt" = "Yardımda ara";
+"help.search.clear" = "Aramayı temizle";
+"help.search.empty" = "Eşleşen bir şey yok. Başka bir kelime dene ya da aşağıdan bize yaz.";
+"help.row.expanded" = "Açık";
+"help.row.collapsed" = "Kapalı";
+"help.row.expandHint" = "Cevabı gösterir";
+"help.contact.title" = "Hâlâ çözemedin mi?";
+"help.contact.message" = "Bize yaz. Dubloon'u yapan kişi her e-postayı okur ve cevaplar.";
+"help.contact.button" = "Bize e-posta gönder";
+"help.mail.subject" = "Dubloon yardım";
+"help.section.gettingStarted" = "Başlarken";
+"help.section.booth" = "Booth Cam ve dışa aktarma";
+"help.section.packs" = "Dublaj paketleri";
+"help.section.pro" = "Dubloon Pro ve satın almalar";
+"help.section.privacy" = "Gizlilik";
+"help.section.troubleshooting" = "Sorun giderme";
+"help.flow.title" = "Tersten şarkı nasıl işler";
+"help.flow.sing" = "Söyle";
+"help.flow.flip" = "Çevir";
+"help.flow.copy" = "Taklit et";
+"help.flow.flipBack" = "Geri çevir";
+"help.flow.caption" = "Bir satır söyle ve onu tersten dinle. O anlamsız sesi olabildiğince yakından taklit et, sonra kendi kopyanı ters çevir. Tutturursan şarkı ortaya çıkar.";
+"help.gettingStarted.1.q" = "Dubloon nedir?";
+"help.gettingStarted.1.a" = "Sadece mikrofonuna ihtiyaç duyan dört ses oyunu. Tersten şarkı: bir şarkıyı tersten söyle. Sahne seslendirme: bir film sahnesine replik replik sesini koy. Kendi videolarını seslendir: çektiğin bir videoya sesini koy. Ses taklidi: bir sesi taklit et ve hükmü öğren. Menüden birini seç.";
+"help.gettingStarted.2.q" = "Dubloon ücretsiz mi?";
+"help.gettingStarted.2.a" = "Her oyunu ücretsiz deneyebilirsin. İlk 3 çekimin ücretsiz ve dört oyunun toplamında sayılır: iki film repliği seslendirip bir şarkıyı ters çevirince biter. Sonrasında oyunlar yine açılır, Dubloon Pro ile kaydetmeye devam edersin.";
+"help.gettingStarted.3.q" = "Kulaklık gerekli mi?";
+"help.gettingStarted.3.a" = "Hayır, ama seslendirirken işe yarar. Kulaklık takılıyken, kaydederken orijinal repliği duyabilirsin (Ayarlar'da Kulaklıkta orijinal'i aç). Hoparlörden çalsa senin çekimine karışırdı, bu yüzden Dubloon onu yalnızca kulaklıkta çalar. Zamanlamayı en sıkı kablolu kulaklık tutar: Bluetooth küçük bir gecikme ekler.";
+"help.reverse.1.q" = "Tersten şarkı nasıl işler?";
+"help.reverse.1.a" = "Ses kaydet'e dokun ve bir şarkıdan bir satır söyle. Tersten duymak için Tersten dinle'ye dokun. Sonra Şimdi sen söyle'ye dokun ve o ters sesi olabildiğince yakından taklit et. Dubloon kopyanı ters çevirir; doğru yaptıysan şarkıyı yeniden, kendi sesinle duyarsın.";
+"help.reverse.2.q" = "Dört çalma düğmesi ne işe yarar?";
+"help.reverse.2.a" = "Orijinal, söylediğin satırdır. Ters, o satırın tersidir, yani taklit edeceğin ses. Senin çekimin, kopyanın söylediğin hâlidir. Senin çekimin, tersten ise kopyanın geri çevrilmiş hâlidir: şarkı gibi duyulması gereken odur.";
+"help.reverse.3.q" = "Puanım nasıl hesaplanıyor?";
+"help.reverse.3.a" = "Dubloon, geri çevrilmiş çekimini orijinal satırınla karşılaştırır: sesin nerede yükselip alçaldığına ve ritmin nasıl oturduğuna bakar. Hepsi cihazında olur. En iyi puanı net kelimeli kısa satırlar alır; önce ritmi, sonra ünlüleri tuttur.";
+"help.reverse.4.q" = "Basit mi, Gelişmiş mi?";
+"help.reverse.4.a" = "Aynı oyunun iki görünümü; ekranın üstündeki seçenekler düğmesinden geçiş yapılır. Basit, büyük düğmeler demek ve takılacak hiçbir şey yok. Gelişmiş, dalga formunu ve Ses kontrolleri'ni ekler: döngü, hız ve perde. Ters satırı yavaşlatmak onu öğrenmenin en iyi yolu.";
+"help.reverse.5.q" = "Kayıtlı oturumlarım nerede?";
+"help.reverse.5.a" = "Tersten şarkı ekranının üstündeki arşiv düğmesine dokun. Yeni bir oturum başlatınca mevcut oturum arşive gider, yani hiçbir şey atılmaz. Silmek için arşivdeki oturumu kaydır.";
+"help.dub.1.q" = "Bir sahneyi nasıl seslendiririm?";
+"help.dub.1.a" = "Sahne seslendirme'yi aç, bir sahne seç, sonra Seslendirmeye başla'ya dokun. Her replik için önce orijinali dinle, sonra kayda bas: üç vuruşluk geri sayım gelir ve replik bitince mikrofon kendiliğinden kapanır. Sonraki ile ilerle, istediğin zaman herhangi bir repliğe geri dön.";
+"help.dub.2.q" = "Tempo çubuğu ne anlama geliyor?";
+"help.dub.2.a" = "Orijinal repliğin ne kadar sürdüğünü gösterir. Süreyi aştığın an kehribar rengine döner, böylece hızlanman gerektiğini anlarsın. Çekiminin altında orijinalin dalga formu, nerede erken girdiğini, acele ettiğini ya da boşluk bıraktığını gösterir.";
+"help.dub.3.q" = "Seslendirmeler nasıl puanlanıyor?";
+"help.dub.3.a" = "Her çekim zamanlama (orijinalle birlikte başlayıp bitirdin mi), tempo (ritmini korudun mu) ve oyunculuk (yüksek ve alçak yerlerin onu izledi mi) üzerinden değerlendirilir. Sahne de en iyi repliğin ve bir daha denemeye değer olanla birlikte bir puan alır. Yargılanmak istemiyor musun? Seslendirme seçenekleri'nde Çekimlerimi puanla'yı kapat.";
+"help.dub.4.q" = "Kendimi filmde nasıl duyarım?";
+"help.dub.4.a" = "Sahnede Kendi seslendirmemi izle'ye dokun. Çekimlerin filmde orijinal repliklerin yerine geçer; henüz seslendirmediğin her şey olduğu gibi çalar. Orijinali izle, sahneyi dokunulmamış hâliyle oynatır.";
+"help.homeVideo.1.q" = "Kendi videomu nasıl seslendiririm?";
+"help.homeVideo.1.a" = "Boş görsele dokun ve arşivinden en fazla bir dakikalık bir video seç. Kayda bas: geri sayımdan sonra video baştan oynar ve sesin üstüne eklenir. Sonunda senin versiyonun oynar; paylaşabilir ya da yeniden kaydedebilirsin.";
+"help.homeVideo.2.q" = "Seslerimi nasıl zamanlarım?";
+"help.homeVideo.2.a" = "Görselin altındaki dalga videonun kendi sesidir, üzerinde ilerleyen çizgi de videonun nerede olduğunu gösterir. Bir havlamayı ya da kahkahayı tam zamanında yapmak için onu takip et. Bir çekimden sonra sesin üzerine kırmızıyla çizilir.";
+"help.homeVideo.3.q" = "Kayıt yaparken videoyu duyabilir miyim?";
+"help.homeVideo.3.a" = "Evet, kulaklıkla. Hoparlörde video sessiz oynar, böylece sesi kaydına karışmaz. Orijinal sesi koru, bitmiş videoda onu sesinin altına, kısık olarak geri koyar.";
+"help.booth.1.q" = "Booth Cam nedir?";
+"help.booth.1.a" = "Booth Cam sen oynarken yüzünü ön kamerayla çeker, böylece tepkin seslendirmeyle birlikte videoya girebilir. Kayıt ekranındaki kamera tuşuyla ya da Ayarlar'dan açana kadar kapalıdır. Görüntüler cihazında kalır.";
+"help.booth.2.q" = "Video nasıl dışa aktarılır?";
+"help.booth.2.a" = "Bir sahnede Videoyu dışa aktar'a dokun. Kurguyu seç (sahnenin tamamı ya da yalnızca seslendirdiğin repliklerden oluşan bir oturum makarası) ve kabin görüntülerinin nereye gideceğini belirle: köşede, hikâye için üst üste, tepki olarak ya da yan yana. Dubloon, render almadan önce sahnenin kime ait olduğunu gösterir; böylece paylaşırken künyeyi koruyabilirsin.";
+"help.booth.3.q" = "Kabin görüntülerini nasıl silerim?";
+"help.booth.3.a" = "Ayarlar, kabin görüntülerinin ne kadar yer kapladığını ve tüm kabin çekimlerini silmek için bir düğme gösterir. Ses çekimlerin ve seslendirmelerin kalır. Bir sahneyi silmek onun çekimlerini ve görüntülerini de siler.";
+"help.packs.1.q" = "Nasıl daha fazla sahne eklerim?";
+"help.packs.1.a" = "Sahneler dublaj paketi olarak gelir: bir klasör ya da .zip, .7z veya .rar arşivi. Sahne seslendirme'de +'ya dokun ve Dosyalar'dan birini seç ya da AirDrop veya herhangi bir paylaşım sayfasıyla Dubloon'a gönder. Dubloon paketi açar ve sahne listede belirir.";
+"help.packs.2.q" = "Dublaj paketleri nereden geliyor?";
+"help.packs.2.a" = "Uygulamayla birlikte dört sahne gelir. Diğer tüm paketleri başka oyuncular yapar ve paylaşır; Dubloon hiçbir filmi içermez, barındırmaz ya da satmaz. Yalnızca kullanma hakkın olanı seslendir ve yaşadığın yerin telif kurallarına uy.";
+"help.packs.3.q" = "Paket içe aktarılmıyor. Şimdi ne olacak?";
+"help.packs.3.a" = "Dubloon neyin ters gittiğini söyler. Genelde işe yarayanlar: dosya iCloud'daysa önce Dosyalar'da aç ki insin. Arşivin parolası varsa yapımcısından parolasız bir kopya iste. Açılmıyorsa .zip olarak yeniden kaydet. Dubloon bunun bir dublaj paketi olmadığını söylüyorsa, her replik için bir metin dosyası ve bir kayıt gerekir.";
+"help.imitate.1.q" = "Ses taklidi nasıl işler?";
+"help.imitate.1.a" = "Bir ses seç, Dinle'ye dokun, sonra Taklit et'e dokun ve sesi kendin çıkar. Dubloon denemeni gerçeğiyle karşılaştırır ve üstüne hükmünü basar. Her ses için en iyi puanın saklanır, yani geri dönüp onu geçebilirsin.";
+"help.imitate.2.q" = "Neler değerlendiriliyor?";
+"help.imitate.2.a" = "Dört şey: ritim (sesin zaman içinde yükselip alçalması), perde, tını (parlak mı donuk mu) ve süre. Önce birkaç kez dinle, süreyi tuttur, perdeyi en sona bırak.";
+"help.imitate.3.q" = "Bir denemeyi paylaşabilir miyim?";
+"help.imitate.3.a" = "Evet. Hükümden sonra Video yap'a dokun: ses, denemen ve puanın, göndermeye hazır. Booth Cam açıksa yüzün de içinde olur.";
+"help.pro.1.q" = "Dubloon Pro neleri açar?";
+"help.pro.1.a" = "Her oyunda sınırsız çekim: tüm sahneler ve topluluk paketleriyle Sahne seslendirme, Ses taklidi, Tersten şarkı ve Kendi videolarını seslendir, üstüne Booth Cam ve video dışa aktarma. Pro olmadan ilk 3 çekimin ücretsiz. Pro tek seferlik bir satın alma ya da abonelik olarak gelir ve aynı Apple Hesabı ile iPhone'unda ve Mac'inde açılır.";
+"help.pro.2.q" = "Pro'yu aldım ama hâlâ kilitli.";
+"help.pro.2.a" = "Ayarlar'ı aç ve Satın almayı geri yükle'ye dokun. App Store'a, satın alırken kullandığın Apple Hesabı ile giriş yaptığından emin ol. Yeni bir telefonda ya da yeniden yükledikten sonra geri yükleme onu ücretsiz geri getirir.";
+"help.pro.3.q" = "Aboneliğimi nasıl iptal eder ya da değiştiririm?";
+"help.pro.3.a" = "Ayarlar'da Aboneliği yönet'e dokun. Bunu Ayarlar uygulamasından da yapabilirsin: adına, sonra Abonelikler'e dokun. Yenilenmeden en az 24 saat önce iptal edersen, ödediğin dönemin sonuna kadar Pro sende kalır. İadeleri Apple yönetir.";
+"help.privacy.1.q" = "Kayıtlarım bir yere yükleniyor mu?";
+"help.privacy.1.a" = "Hayır. Kayıtların, çekimlerin, kabin görüntülerin ve videoların, sen paylaşmayı seçene kadar cihazında kalır. Puanlama da cihazında yapılır. Hesap yok, üye olunacak bir şey de yok.";
+"help.privacy.2.q" = "Dubloon neler topluyor?";
+"help.privacy.2.a" = "Hataları bulmaya ve sırada ne yapılacağına karar vermeye yardımcı olan anonim kullanım istatistikleri ve çökme raporları: hangi oyunun açıldığı, hangi puanın çıktığı gibi şeyler, asla bir kaydın sesi değil. Ayarlar'da Kullanım verilerini paylaş ile kapatabilirsin. Tüm ayrıntılar Gizlilik politikası'nda.";
+"help.troubleshooting.1.q" = "Dubloon beni duymuyor.";
+"help.troubleshooting.1.a" = "Dubloon'un mikrofonu kullanabildiğinden emin ol: Ayarlar uygulamasında Dubloon'u aç ve Mikrofon'u aç. Sesi başka bir uygulama kullanıyorsa, örneğin bir arama, onu bitir ve tekrar dene.";
+"help.troubleshooting.2.q" = "Hiçbir şey duymuyorum.";
+"help.troubleshooting.2.a" = "Sesi aç ve Bluetooth kulaklığın ya da bir hoparlörün başka bir yere bağlanıp bağlanmadığına bak. Kayıt sırasında orijinal replik bilerek yalnızca kulaklıkta çalar, böylece çekimine karışmaz.";
+"help.troubleshooting.3.q" = "Seslendirmem görüntüyle senkron değil.";
+"help.troubleshooting.3.a" = "Bluetooth kulaklıklar gecikme ekler, bu yüzden orijinali biraz geç duyar ve geç girersin. Kablolu kulaklık ya da hiç kulaklık kullanmamak bunu çözer. Dubloon bir sahnenin videosunun seslerin önünden gittiğini söylüyorsa, o paketi yeniden içe aktar.";
+"help.troubleshooting.4.q" = "Booth Cam açılmıyor.";
+"help.troubleshooting.4.a" = "Dubloon'un bunun için kameraya ihtiyacı var. Ayarlar uygulamasında Dubloon'u aç ve Kamera'yı aç. Booth Cam, Dubloon Pro'nun bir parçası.";
+/* Help, privacy and appearance in Settings */
+"settings.help" = "Yardım ve Destek";
+"settings.help.desc" = "Her şey nasıl işler ve bize nasıl ulaşırsın";
+"settings.terms.desc" = "Aramızdaki anlaşma, sade bir dille";
+"settings.privacy.section" = "Gizlilik";
+"settings.shareUsage" = "Kullanım verilerini paylaş";
+"settings.shareUsage.desc" = "Hataları düzeltmeye yardımcı olan anonim istatistikler ve çökme raporları. Asla kayıtların değil.";
+"settings.appearance" = "Görünüm";
+"settings.appearance.system" = "Sistem";
+"settings.appearance.light" = "Açık";
+"settings.appearance.dark" = "Koyu";
+
+/* Mac: new strings */
+"mac.homeVideo.fromPhotos" = "Fotoğraflar'dan seç…";
+"mac.homeVideo.fromFile" = "Dosya seç…";
+"mac.homeVideo.dropHint" = "Ya da buraya bir video dosyası bırak.";
+"mac.panel.clip" = "Klip";
+"mac.panel.mix" = "Miks";
+"mac.menu.help" = "Dubloon Yardım";
+"mac.homeVideo.limit" = "En fazla bir dakika. Videon bu Mac'te kalır.";
+"mac.homeVideo.hint.empty" = "Sesini üzerine koymak için Fotoğraflar'dan ya da Finder'dan bir video seç.";
+"help.gettingStarted.1.a.mac" = "Sadece mikrofonuna ihtiyaç duyan dört ses oyunu. Tersten şarkı: bir şarkıyı tersten söyle. Sahne seslendirme: bir film sahnesine replik replik sesini koy. Kendi videolarını seslendir: çektiğin bir videoya sesini koy. Ses taklidi: bir sesi taklit et ve hükmü öğren. Kenar çubuğundan birini seç ya da ⌘1 ile ⌘4 arasına bas.";
+"help.gettingStarted.3.a.mac" = "Hayır, ama seslendirirken işe yarar. Kulaklık takılıyken, kaydederken orijinal repliği duyabilirsin (Dubloon ▸ Ayarlar ▸ Kayıt bölümünde Kulaklıkta orijinal'i aç). Hoparlörlerden çalsa senin çekimine karışırdı, bu yüzden Dubloon onu yalnızca kulaklıkta çalar. Zamanlamayı en sıkı kablolu kulaklık tutar: Bluetooth küçük bir gecikme ekler.";
+"help.reverse.1.a.mac" = "Ses kaydet'i tıkla (ya da R'ye bas) ve bir şarkıdan bir satır söyle. Tersten duymak için Ters parçasını oynat. Sonra Şimdi sen söyle'yi tıkla ve o ters sesi olabildiğince yakından taklit et. Dubloon kopyanı ters çevirir; doğru yaptıysan şarkıyı yeniden, kendi sesinle duyarsın.";
+"help.reverse.4.q.mac" = "Ters satırı yavaşlatabilir miyim?";
+"help.reverse.4.a.mac" = "Evet. Sağdaki denetçide (⌥⌘I) Ses kontrolleri var: döngü, hız ve perde. Ters satırı yavaşlatmak onu öğrenmenin en iyi yolu.";
+"help.reverse.5.a.mac" = "Kenar çubuğunda, Tersten şarkı'nın altında. Yeni bir oturum başlatınca (⌘N) mevcut oturum oraya gider, yani hiçbir şey atılmaz. Silmek için bir oturumu seçip ⌘⌫'ye bas ya da Control tuşuna basarak oturumu tıkla.";
+"help.dub.1.a.mac" = "Kenar çubuğunda Sahne seslendirme'nin altından bir sahne seç. Bir replik seç, orijinali dinlemek için L'ye, sonra kaydetmek için R'ye bas: üç vuruşluk geri sayım gelir ve replik bitince mikrofon kendiliğinden kapanır. Replikler arasında ↑ ve ↓ ile geç, istediğin zaman herhangi bir repliğe geri dön.";
+"help.dub.3.a.mac" = "Her çekim zamanlama (orijinalle birlikte başlayıp bitirdin mi), tempo (ritmini korudun mu) ve oyunculuk (yüksek ve alçak yerlerin onu izledi mi) üzerinden değerlendirilir. Sahne de en iyi repliğin ve bir daha denemeye değer olanla birlikte bir puan alır. Yargılanmak istemiyor musun? Araç çubuğunda, denetçide ya da Ayarlar'da Çekimlerimi puanla'yı kapat.";
+"help.dub.4.a.mac" = "Görüntüleyiciyi Benim seslendirmem'e (⌃⌘3) geçir ve Boşluk çubuğuna bas. Çekimlerin filmde orijinal repliklerin yerine geçer; henüz seslendirmediğin her şey olduğu gibi çalar. Orijinal (⌃⌘2), sahneyi dokunulmamış hâliyle oynatır.";
+"help.homeVideo.1.a.mac" = "Fotoğraflar'dan ya da bir dosyadan en fazla bir dakikalık bir video seç ya da onu görüntüleyiciye bırak. R'ye bas: geri sayımdan sonra video baştan oynar ve sesin üstüne eklenir. Sonunda senin versiyonun oynar; paylaşabilir (⌘E) ya da yeniden kaydedebilirsin.";
+"help.homeVideo.3.a.mac" = "Evet, kulaklıkla. Hoparlörlerde video sessiz oynar, böylece sesi kaydına karışmaz. Denetçideki Orijinal sesi koru, bitmiş videoda onu sesinin altına, kısık olarak geri koyar.";
+"help.booth.1.a.mac" = "Booth Cam sen oynarken yüzünü Mac'inin kamerasıyla çeker, böylece tepkin seslendirmeyle birlikte videoya girebilir. Araç çubuğundaki kamera düğmesiyle (⇧⌘C) ya da Ayarlar'dan açana kadar kapalıdır. Görüntüler Mac'inde kalır.";
+"help.booth.2.a.mac" = "Bir sahnedeyken Dosya ▸ Dışa aktar'ı seç (⌘E). Kurguyu seç (sahnenin tamamı ya da yalnızca seslendirdiğin repliklerden oluşan bir oturum makarası) ve kabin görüntülerinin nereye gideceğini belirle: köşede, hikâye için üst üste, tepki olarak ya da yan yana. Dubloon, render almadan önce sahnenin kime ait olduğunu gösterir; böylece paylaşırken künyeyi koruyabilirsin.";
+"help.booth.3.a.mac" = "Dubloon ▸ Ayarlar ▸ Kayıt, kabin görüntülerinin ne kadar yer kapladığını ve tüm kabin çekimlerini silmek için bir düğme gösterir. Ses çekimlerin ve seslendirmelerin kalır. Bir sahneyi silmek onun çekimlerini ve görüntülerini de siler.";
+"help.packs.1.a.mac" = "Sahneler dublaj paketi olarak gelir: bir klasör ya da .zip, .7z veya .rar arşivi. Dosya ▸ Dublaj paketi içe aktar'ı seç (⌘O), dosyayı kenar çubuğundaki Sahne seslendirme'nin üstüne bırak ya da Finder'dan Dubloon ile aç. Dubloon paketi açar ve sahne listede belirir.";
+"help.packs.3.a.mac" = "Dubloon neyin ters gittiğini söyler. Genelde işe yarayanlar: dosya iCloud Drive'daysa önce Finder'da indir. Arşivin parolası varsa yapımcısından parolasız bir kopya iste. Açılmıyorsa .zip olarak yeniden kaydet. Dubloon bunun bir dublaj paketi olmadığını söylüyorsa, her replik için bir metin dosyası ve bir kayıt gerekir.";
+"help.imitate.1.a.mac" = "Tarayıcıda bir ses seç, dinlemek için L'ye, sonra taklit etmek için R'ye bas. Dubloon denemeni gerçeğiyle karşılaştırır ve üstüne hükmünü basar. Her ses için en iyi puanın saklanır, yani geri dönüp onu geçebilirsin.";
+"help.imitate.3.a.mac" = "Evet. Hükümden sonra Video yap'ı tıkla (⌘E): ses, denemen ve puanın, göndermeye hazır. Booth Cam açıksa yüzün de içinde olur.";
+"help.pro.2.a.mac" = "Dubloon ▸ Ayarlar ▸ Dubloon Pro'yu aç ve Satın almayı geri yükle'yi tıkla. App Store'a, satın alırken kullandığın Apple Hesabı ile giriş yaptığından emin ol. Yeni bir Mac'te ya da yeniden yükledikten sonra geri yükleme onu ücretsiz geri getirir.";
+"help.pro.3.a.mac" = "Dubloon ▸ Ayarlar ▸ Dubloon Pro'da Aboneliği yönet'i tıkla. Bunu App Store'dan da yapabilirsin: adını, sonra Hesap Ayarları'nı, sonra Abonelikler'i tıkla. Yenilenmeden en az 24 saat önce iptal edersen, ödediğin dönemin sonuna kadar Pro sende kalır. İadeleri Apple yönetir.";
+"help.privacy.1.a.mac" = "Hayır. Kayıtların, çekimlerin, kabin görüntülerin ve videoların, sen paylaşmayı seçene kadar Mac'inde kalır. Puanlama da Mac'inde yapılır. Hesap yok, üye olunacak bir şey de yok.";
+"help.privacy.2.a.mac" = "Hataları bulmaya ve sırada ne yapılacağına karar vermeye yardımcı olan anonim kullanım istatistikleri ve çökme raporları: hangi oyunun açıldığı, hangi puanın çıktığı gibi şeyler, asla bir kaydın sesi değil. Dubloon ▸ Ayarlar ▸ Genel'de Kullanım verilerini paylaş ile kapatabilirsin. Tüm ayrıntılar Gizlilik politikası'nda.";
+"help.troubleshooting.1.a.mac" = "Dubloon'un mikrofonu kullanabildiğinden emin ol: Sistem Ayarları ▸ Gizlilik ve Güvenlik ▸ Mikrofon'da Dubloon'u aç. Sistem Ayarları ▸ Ses'teki girişi de denetle ve mikrofonu başka bir uygulamanın, örneğin bir aramanın, kullanmadığından emin ol.";
+"help.troubleshooting.2.a.mac" = "Sesi aç ve Sistem Ayarları ▸ Ses'teki çıkışı denetle: Bluetooth kulaklık ya da bir hoparlör bağlanmış olabilir. Kayıt sırasında orijinal replik bilerek yalnızca kulaklıkta çalar, böylece çekimine karışmaz.";
+"help.troubleshooting.4.a.mac" = "Dubloon'un bunun için kameraya ihtiyacı var. Sistem Ayarları ▸ Gizlilik ve Güvenlik ▸ Kamera'da Dubloon'u aç. Booth Cam, Dubloon Pro'nun bir parçası.";
+"dubGuide.2.detail.mac" = "Download'a tıkla ve dosyayı seç: .zip, .7z veya .rar. Tarayıcın onu İndirilenler klasörüne kaydeder.";
+"dubGuide.3.detail.mac" = "İndirme tamamlanana kadar bekle. Dosya iCloud Drive'daysa, gerçekten bu Mac'te olması için önce Finder'da indir.";
+"dubGuide.4.detail.mac" = "Buraya dön, Paket içe aktar'a tıkla ve İndirilenler'den seç. Dosyayı kenar çubuğundaki Sahne seslendirme'nin üzerine bırakabilir ya da Finder'dan Dubloon ile açabilirsin.";
+
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Dubloon Pro: %@ ücretsiz deneyin";
+"offer.intro.paid" = "Dubloon Pro: ilk %2$@ %1$@";
+"offer.winback.free" = "Geri dönün: %@ Dubloon Pro ücretsiz";
+"offer.winback.paid" = "Geri dönün: %2$@ Dubloon Pro %1$@";
+"offer.then" = "Sonra %@. İstediğiniz zaman iptal edin.";
+"offer.cta" = "Teklifi al";
+"offer.dismiss" = "Şimdi değil";
+
+/* Spooky Voice Week */
+"halloween.title" = "Ürkütücü Sesler Haftası";
+"halloween.home.message" = "Hayalet gibi inle, zombi gibi hırla, kurt gibi ulu. Sonra korku komedisi sahnesi Camp Rules'u seslendir.";
+"halloween.home.action" = "Ürkütücü sesleri oyna";
+"halloween.imitate.message" = "Cadılar Bayramın kutlu olsun! Sesini ısıt: hayalet, zombi, kurt ve baykuş seni bekliyor.";

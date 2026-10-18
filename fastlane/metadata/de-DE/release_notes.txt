@@ -1,6 +1,12 @@
-Ein drittes Spiel, und Rückwärtssingen ist jetzt kostenlos.
+Ein viertes Spiel, und es ist kostenlos: Synchronisiere deine eigenen Videos.
 
 NEU
-• Geräusche imitieren: Hör dir ein Geräusch an, mach es nach und hol dir ein gestempeltes Urteil zu Rhythmus, Tonhöhe und Klangfarbe. Dann mach aus dem Versuch ein Video
-• Rückwärtssingen ist für alle kostenlos
-• Dubloon Pro schaltet jetzt auch die Mac-App frei, mit demselben Apple Account
+• Eigene Videos synchronisieren: Wähle ein Video, das du gefilmt hast, und leg deine Stimme darüber. Kostenlos für alle
+• Zehn neue Geräusche zum Nachmachen in Geräusche imitieren
+• Heller Modus: Wähle in den Einstellungen System, Hell oder Dunkel
+• Hilfe direkt in der App, mit einer Schritt-für-Schritt-Anleitung für weitere Filmszenen
+
+VERBESSERT
+• Beim Zurückwischen spult der Bildschirm zurück wie eine VHS-Kassette
+• Stabilere Aufnahme und Wiedergabe nach einem Anruf oder wenn eine andere App den Ton benutzt hat
+• Dubloon fragt nach dem Mikrofon, wenn du es brauchst, statt dich in die Einstellungen zu schicken

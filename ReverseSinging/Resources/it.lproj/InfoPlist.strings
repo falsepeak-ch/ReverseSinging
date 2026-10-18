@@ -3,6 +3,6 @@
    ReverseSinging
 */
 
-"NSMicrophoneUsageDescription" = "Dubloon ha bisogno del microfono per registrare la tua voce, così puoi cantare le canzoni al contrario e doppiare le scene dei film.";
+"NSMicrophoneUsageDescription" = "Dubloon ha bisogno del microfono per registrare la tua voce mentre giochi: cantare al contrario, doppiare scene e video, e imitare suoni.";
 
 "NSCameraUsageDescription" = "Dubloon usa la fotocamera frontale per riprenderti mentre doppi, così puoi condividere la tua reazione insieme alla ripresa. La ripresa resta disattivata finché non la attivi tu.";

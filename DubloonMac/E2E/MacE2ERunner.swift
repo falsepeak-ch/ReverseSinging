@@ -36,8 +36,10 @@ enum MacE2ERunner {
         await reverse(workspace: workspace)
         await sessions(workspace: workspace)
         await dub(workspace: workspace)
+        await homeVideo(workspace: workspace)
         await imitate(workspace: workspace)
         await menus(workspace: workspace)
+        await helpAndGuide(workspace: workspace)
         await native(workspace: workspace)
         await packWindows(workspace: workspace)
         await settingsWindow()
@@ -62,13 +64,8 @@ enum MacE2ERunner {
         await shot("01-welcome", window: "welcome")
 
         press(.return)
-        let reachedMic = await waitUntil(2) { MacE2EProbe.shared.welcome?.step == .microphone }
-        check("Return moves to the microphone step", reachedMic)
-        await shot("02-welcome-microphone", window: "welcome")
-
-        press(.escape)
         let finished = await waitUntil(3) { app.hasCompletedOnboarding && window(MacWindowID.welcome) == nil }
-        check("Escape (Not Now) finishes onboarding and closes the welcome window", finished)
+        check("Return (Continue) finishes onboarding and closes the welcome window", finished)
         pressTarget = nil
         mainWindow?.makeKeyAndOrderFront(nil)
         check("a workspace is selected after onboarding", workspace.selection != nil)
@@ -155,10 +152,16 @@ enum MacE2ERunner {
 
     // MARK: - Dub
 
+    /// The pack the run dubs, and so the one with takes in it: what Export Video needs.
+    /// Stuck Up by name rather than whichever is first: the shelf's order changes as packs
+    /// are added, and the Finder test re-imports Camp Rules, which moves it to the top.
+    private static func seededPack(in workspace: MacWorkspaceViewModel) -> DubPack? {
+        workspace.packs.first(where: { $0.title == "Stuck Up" }) ?? workspace.packs.first
+    }
+
     private static func dub(workspace: MacWorkspaceViewModel) async {
         section("dub")
-        // Stuck Up by name: the Finder test re-imports Camp Rules, which moves it to the top.
-        guard let pack = workspace.packs.first(where: { $0.title == "Stuck Up" }) ?? workspace.packs.first else {
+        guard let pack = seededPack(in: workspace) else {
             check("a dub pack is installed", false)
             return
         }
@@ -333,13 +336,68 @@ enum MacE2ERunner {
         }
     }
 
+    // MARK: - Home Video
+
+    private static func homeVideo(workspace: MacWorkspaceViewModel) async {
+        section("homeVideo")
+        press(.key("3"), command: true)
+        let opened = await waitUntil(3) { workspace.selection == .homeVideo && MacE2EProbe.shared.homeVideo != nil }
+        check("⌘3 opens Home Video Dub", opened)
+        guard let studio = MacE2EProbe.shared.homeVideo else { return }
+        let dub = studio.dub
+        check("the studio opens empty, on the picker", dub.phase == .empty)
+        await shot("16a-home-video-empty")
+
+        // A scene from a starter pack stands in for a video from Finder.
+        guard let clip = seededPack(in: workspace)?.videoURL else {
+            check("a video to load", false)
+            return
+        }
+        check("a text file dropped on the viewer is turned away", !studio.handleDrop([URL(fileURLWithPath: "/tmp/notes.txt")]))
+        check("a video dropped on the viewer is taken", studio.handleDrop([clip]))
+        let loaded = await waitUntil(15) { dub.phase == .ready }
+        check("the video loads", loaded, dub.errorMessage ?? "")
+        _ = await waitUntil(5) { !dub.originalSamples.isEmpty || dub.source?.hasSound == false }
+        check("the clip's sound is drawn", !dub.originalSamples.isEmpty || dub.source?.hasSound == false)
+        await shot("16b-home-video-loaded")
+
+        press(.space)
+        let playing = await waitUntil(1.5) { dub.isPlaying }
+        check("Space plays the clip", playing)
+        press(.space)
+        _ = await waitUntil(1.5) { !dub.isPlaying }
+
+        press(.key("r"))
+        let recording = await waitUntil(6) { dub.phase == .recording }
+        check("R records a voice over the clip", recording)
+        await sleep(1.5)
+        await shot("16c-home-video-recording")
+        if dub.phase == .recording { press(.key("r")) }
+        let mixed = await waitUntil(60) { dub.phase == .review }
+        check("the voice is mixed onto the video", mixed, dub.errorMessage ?? "")
+        check("the take is drawn over the clip's sound", !dub.takeSamples.isEmpty)
+        await sleep(1.0)
+        await shot("16d-home-video-review")
+
+        press(.key("e"), command: true)
+        let shared = await waitUntil(2) { dub.sharedURL != nil }
+        check("⌘E hands over the finished video", shared)
+        if let url = dub.sharedURL {
+            let tracks = (try? await AVURLAsset(url: url).loadTracks(withMediaType: .video).count) ?? 0
+            check("the finished file has a picture", tracks > 0)
+            await sleep(0.8)
+            await shot("16e-home-video-share")
+            dub.sharedURL = nil
+        }
+    }
+
     // MARK: - Imitate
 
     private static func imitate(workspace: MacWorkspaceViewModel) async {
         section("imitate")
-        press(.key("3"), command: true)
+        press(.key("4"), command: true)
         let opened = await waitUntil(3) { MacE2EProbe.shared.imitate?.challenge != nil }
-        check("⌘3 opens Sound Imitation on a sound", opened)
+        check("⌘4 opens Sound Imitation on a sound", opened)
         guard let studio = MacE2EProbe.shared.imitate, let challenge = studio.challenge else { return }
         let bars = await waitUntil(3) { !challenge.referenceBars.isEmpty }
         check("the sound's waveform loads", bars)
@@ -382,13 +440,46 @@ enum MacE2ERunner {
         studio.category = saved
     }
 
+    // MARK: - Help
+
+    private static func helpAndGuide(workspace: MacWorkspaceViewModel) async {
+        section("help")
+        workspace.select(.reverse)
+        await sleep(0.8)
+        press(.key("?"), command: true, shift: true)
+        let opened = await waitUntil(3) { window(MacWindowID.help) != nil }
+        check("⌘? opens Help in a window of its own", opened)
+        let help = MacHelpViewModel.shared
+        check("Help opens on the chapter for the workspace in front", help.topic == .reverse, "\(String(describing: help.topic))")
+        check("the answers are worded for the Mac", help.articles.first?.answer.contains("Click") == true)
+        check("Help lists every chapter's questions", HelpTopic.allCases.allSatisfy { !$0.articles.isEmpty && !$0.articles[0].question.hasPrefix("help.") })
+        await shot("24-help", window: "help")
+        help.help.query = "microphone"
+        await sleep(0.4)
+        check("Help search finds answers across chapters", Set(help.articles.map(\.topic)).count > 1)
+        await shot("24b-help-search", window: "help")
+        help.help.query = ""
+        window(MacWindowID.help)?.close()
+        mainWindow?.makeKeyAndOrderFront(nil)
+
+        section("packGuide")
+        workspace.select(.dubLibrary)
+        await sleep(0.8)
+        workspace.showPackGuide()
+        let shown = await waitUntil(2) { mainWindow?.attachedSheet != nil }
+        check("the pack guide opens over the library", shown && workspace.dubLibrary.showPackGuide)
+        await shot("25-pack-guide")
+        workspace.dubLibrary.showPackGuide = false
+        _ = await waitUntil(2) { mainWindow?.attachedSheet == nil }
+    }
+
     // MARK: - Menus
 
     private static func menus(workspace: MacWorkspaceViewModel) async {
         section("menus")
         let expectations: [(MacDestination?, [String: Bool])] = [
             (.reverse, [MacStrings.Menu.playPause: true, MacStrings.Menu.nextLine: false, MacStrings.Menu.export: false]),
-            (workspace.packs.first.map { .pack($0.id) }, [MacStrings.Menu.playPause: true, MacStrings.Menu.nextLine: true, MacStrings.Menu.listen: true, MacStrings.Menu.export: true]),
+            (seededPack(in: workspace).map { .pack($0.id) }, [MacStrings.Menu.playPause: true, MacStrings.Menu.nextLine: true, MacStrings.Menu.listen: true, MacStrings.Menu.export: true]),
             (.imitate, [MacStrings.Menu.playPause: true, MacStrings.Menu.nextLine: true, MacStrings.Menu.listen: true])
         ]
         for (destination, expected) in expectations {
@@ -405,7 +496,7 @@ enum MacE2ERunner {
                 check("\(title) is \(enabled ? "on" : "off") in \(destination)", item.isEnabled == enabled)
             }
         }
-        if let pack = workspace.packs.first {
+        if let pack = seededPack(in: workspace) {
             workspace.select(.pack(pack.id))
             await sleep(1.2)
             if let editor = MacE2EProbe.shared.dubEditor, let item = menuItem(MacStrings.Menu.nextLine),
@@ -431,7 +522,7 @@ enum MacE2ERunner {
 
     private static func native(workspace: MacWorkspaceViewModel) async {
         section("native")
-        guard let pack = workspace.packs.first(where: { $0.title == "Stuck Up" }) ?? workspace.packs.first else { return }
+        guard let pack = seededPack(in: workspace) else { return }
 
         // Remembering where the window was, and what was opened lately.
         workspace.select(.pack(pack.id))
@@ -519,7 +610,7 @@ enum MacE2ERunner {
 
     private static func packWindows(workspace: MacWorkspaceViewModel) async {
         section("windows")
-        guard let pack = workspace.packs.first(where: { $0.title == "Stuck Up" }) ?? workspace.packs.first else { return }
+        guard let pack = seededPack(in: workspace) else { return }
         workspace.select(.pack(pack.id))
         _ = await waitUntil(3) { MacE2EProbe.shared.dubEditor?.pack.id == pack.id }
         await sleep(0.6)
@@ -600,7 +691,7 @@ enum MacE2ERunner {
     private static func windowSizes(workspace: MacWorkspaceViewModel) async {
         section("window")
         guard let window = mainWindow else { return }
-        let destinations: [MacDestination] = [.reverse, .imitate] + (workspace.packs.first.map { [.pack($0.id)] } ?? [])
+        let destinations: [MacDestination] = [.reverse, .imitate] + (seededPack(in: workspace).map { [.pack($0.id)] } ?? [])
         for (label, size) in [("min", NSSize(width: 1180, height: 700)), ("large", NSSize(width: 1680, height: 1000))] {
             window.setContentSize(size)
             for destination in destinations {
@@ -639,7 +730,7 @@ enum MacE2ERunner {
             case .delete: 51
             case .key(let c):
                 ["a": 0, "e": 14, "i": 34, "l": 37, "n": 45, "o": 31, "p": 35, "r": 15,
-                 "1": 18, "2": 19, "3": 20, "=": 24, "-": 27, ",": 43, "f": 3, "/": 44][c] ?? 0
+                 "1": 18, "2": 19, "3": 20, "4": 21, "?": 44, "=": 24, "-": 27, ",": 43, "f": 3, "/": 44][c] ?? 0
             }
         }
 
@@ -667,8 +758,9 @@ enum MacE2ERunner {
         }
     }
 
-    private static func press(_ key: Key, command: Bool = false, option: Bool = false, control: Bool = false) {
+    private static func press(_ key: Key, command: Bool = false, option: Bool = false, control: Bool = false, shift: Bool = false) {
         var flags: NSEvent.ModifierFlags = []
+        if shift { flags.insert(.shift) }
         if command { flags.insert(.command) }
         if option { flags.insert(.option) }
         if control { flags.insert(.control) }

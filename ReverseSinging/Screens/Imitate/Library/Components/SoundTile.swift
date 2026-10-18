@@ -63,11 +63,28 @@ struct ImitationSoundArtwork: View {
     let size: CGFloat
 
     var body: some View {
-        Image(sound.artworkName)
-            .resizable()
-            .scaledToFit()
-            .frame(width: size, height: size)
-            .accessibilityHidden(true)
+        Group {
+            if Self.hasImage(named: sound.artworkName) {
+                Image(sound.artworkName)
+                    .resizable()
+                    .scaledToFit()
+            } else {
+                // A sound whose illustration hasn't landed yet shows its emoji instead of a blank.
+                Text(sound.emoji)
+                    .font(.system(size: size * 0.8))
+                    .minimumScaleFactor(0.5)
+            }
+        }
+        .frame(width: size, height: size)
+        .accessibilityHidden(true)
+    }
+
+    private static func hasImage(named name: String) -> Bool {
+        #if os(macOS)
+        NSImage(named: name) != nil
+        #else
+        UIImage(named: name) != nil
+        #endif
     }
 }
 

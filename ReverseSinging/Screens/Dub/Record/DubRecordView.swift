@@ -15,6 +15,13 @@ struct DubRecordView: View {
     @ObservedObject private var scoring = DubScoringPreference.shared
     @ObservedObject private var booth = BoothCamPreference.shared
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    /// Where the window's middle falls across the bay (see `readWindowMiddleRatio`).
+    @State private var seamRatio: CGFloat = 0.5
+    /// The bay is wider than tall: the desk stands beside the picture, full height.
+    @State private var bayIsWide = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Namespace private var bayNamespace
 
     /// The first-run coaching, one at a time. See `DubTips`.
     private let recordTip = DubRecordTip()
@@ -25,32 +32,61 @@ struct DubRecordView: View {
         _viewModel = StateObject(wrappedValue: DubRecordViewModel(session: session))
     }
 
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+
+    /// iPhone Duo open: the booth keeps the system's strip (status and a standard Close),
+    /// its content inside the safe area beside it. Elsewhere the booth is the whole screen
+    /// with its own close key, as it always was.
+    private var usesSystemBar: Bool {
+        EditorBars.useSystemBar(horizontalSizeClass, verticalSizeClass)
+    }
+
+    private func close() {
+        viewModel.stop()
+        dismiss()
+    }
+
     var body: some View {
+        #if os(iOS)
+        if usesSystemBar {
+            NavigationStack {
+                bayScreen
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button(action: close) {
+                                Label(Strings.Help.close, systemImage: "xmark")
+                            }
+                        }
+                    }
+                    .toolbarBackground(.hidden, for: .navigationBar)
+                    .navigationBarTitleDisplayMode(.inline)
+            }
+        } else {
+            bayScreen.hidesStatusBar()
+        }
+        #else
+        bayScreen.hidesStatusBar()
+        #endif
+    }
+
+    private var bayScreen: some View {
         ZStack {
             Color.rsSurface0.ignoresSafeArea()
 
             if let line = session.currentLine {
-                VStack(spacing: 0) {
-                    hud(for: line)
-
-                    picture(for: line)
-
-                    waveformBay(for: line)
-
-                    subtitlePlate(for: line)
-
-                    scoreBay
-
-                    transportBar(for: line)
-                }
+                bay(for: line)
             }
 
             CountdownOverlay(value: viewModel.countdown)
         }
-        .hidesStatusBar()
+        // Opening or closing the device swaps the layout; the take, line and recording
+        // state live in the view models, so only the geometry changes.
+        .animation(reduceMotion ? nil : .rsSmooth, value: horizontalSizeClass)
         .animation(.easeInOut(duration: 0.2), value: session.currentLineIndex)
         .animation(.easeInOut(duration: 0.2), value: viewModel.isRecording)
         .animation(.rsSpring, value: session.latestScore)
+        .microphonePrimer()
+        .takePaywall(isPresented: $viewModel.isTakePaywallPresented, kind: .dub)
         .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: $viewModel.showPermissionAlert) {
             Button(Strings.Main.Alert.settings, action: AppSettings.open)
             Button(Strings.Main.Alert.cancel, role: .cancel) {}
@@ -86,15 +122,161 @@ struct DubRecordView: View {
         }
     }
 
+    // MARK: - Bay
+
+    /// The booth as two panes: the scene (HUD and picture) and the desk (waveform, line,
+    /// score, transport). On a regular width with iOS 27.1 a split arrangement holds them:
+    /// - fully open and wider than tall, a studio: the picture large, the desk beside it;
+    /// - taller than wide, or half folded as a table, the picture above and the desk below,
+    ///   with equal halves so the fold falls between the panes, never through the picture.
+    /// The system places the panes around the fold. Compact widths, older systems and the
+    /// Mac keep the single column.
+    @ViewBuilder
+    private func bay(for line: DubLine) -> some View {
+        #if os(iOS)
+        if #available(iOS 27.1, *), horizontalSizeClass == .regular {
+            ArrangementView {
+                screen(for: line)
+                    .splitArrangementLayoutRatio(idealHorizontal: pictureRatio, idealVertical: 0.5)
+            } secondary: {
+                SplitAxisReader { axis in
+                    controls(for: line, isBeside: axis == .horizontal || bayIsWide)
+                }
+            }
+            .arrangementViewStyle(.split)
+            .readWindowMiddleRatio(into: $seamRatio)
+            .onGeometryChange(for: Bool.self) { $0.size.width > $0.size.height } action: { bayIsWide = $0 }
+        } else {
+            stackedBay(for: line)
+        }
+        #else
+        stackedBay(for: line)
+        #endif
+    }
+
+    /// The picture's share beside the desk: most of an iPad, but on iPhone Duo open flat
+    /// exactly up to the seam, so the picture never runs across the middle of the display.
+    private var pictureRatio: CGFloat {
+        #if os(iOS)
+        if UIDevice.current.userInterfaceIdiom == .phone { return seamRatio }
+        #endif
+        return 0.62
+    }
+
+    private func stackedBay(for line: DubLine) -> some View {
+        VStack(spacing: 0) {
+            screen(for: line)
+            controls(for: line, isBeside: false)
+        }
+    }
+
+    private func screen(for line: DubLine) -> some View {
+        VStack(spacing: 0) {
+            hud(for: line)
+            picture(for: line)
+                // The same picture in every layout, so a pose change moves and resizes it
+                // rather than cutting to a new one.
+                .matchedGeometryEffect(id: "picture", in: bayNamespace)
+        }
+    }
+
+    /// Beside the picture the desk is a full-height column: the waveform at the top, the
+    /// line to read in the middle at eye level, the transport at the bottom in reach.
+    private func controls(for line: DubLine, isBeside: Bool) -> some View {
+        VStack(spacing: 0) {
+            waveformBay(for: line)
+            subtitlePlate(for: line)
+            scoreBay
+            transportBar(for: line)
+            // Beside the picture the desk has the display's height: the scene's script
+            // below the transport, every line in it, rather than a bare foot of the pane.
+            if isBeside {
+                scriptList
+            }
+        }
+        .background(isBeside ? Color.rsSurface1 : Color.clear)
+        .overlay(alignment: .leading) {
+            if isBeside {
+                Rectangle()
+                    .fill(Color.rsStroke)
+                    .frame(width: EditorMetrics.hairline)
+            }
+        }
+    }
+
+    // MARK: - Script
+
+    /// The scene's lines, the one at the desk lit, each with whether it has a take. A tap
+    /// moves the desk to that line, as the transport's arrows do.
+    private var scriptList: some View {
+        ScrollViewReader { reader in
+            ScrollView {
+                LazyVStack(spacing: 0) {
+                    ForEach(session.pack.lines) { line in
+                        scriptRow(line)
+                            .id(line.id)
+                        EditorRule()
+                    }
+                }
+            }
+            .scrollBounceBehavior(.basedOnSize)
+            .frame(maxHeight: .infinity)
+            .overlay(alignment: .top) { EditorRule() }
+            .onChange(of: session.currentLineIndex, initial: true) { _, _ in
+                guard let id = session.currentLine?.id else { return }
+                withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.25)) {
+                    reader.scrollTo(id, anchor: .center)
+                }
+            }
+        }
+    }
+
+    private func scriptRow(_ line: DubLine) -> some View {
+        let isCurrent = line.id == session.currentLine?.id
+        return Button {
+            session.select(line)
+        } label: {
+            HStack(alignment: .firstTextBaseline, spacing: 10) {
+                Text(String(format: "%03d", line.index))
+                    .font(.rsTimecodeSmall)
+                    .foregroundColor(.rsTextTertiary)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(line.character.uppercased())
+                        .font(.rsCaptionSmall)
+                        .foregroundColor(characterColor(for: line))
+                    Text(line.caption)
+                        .font(.rsMeta)
+                        .foregroundColor(isCurrent ? .rsTextPrimary : .rsTextSecondary)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Spacer(minLength: 8)
+                Image(systemName: session.isRecorded(line) ? "checkmark.circle.fill" : "circle")
+                    .font(.system(size: 13))
+                    .foregroundColor(session.isRecorded(line) ? .rsHighlight : .rsTextTertiary)
+                    .accessibilityHidden(true)
+            }
+            .padding(.horizontal, EditorMetrics.gutter)
+            .padding(.vertical, 9)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(isCurrent ? Color.rsSurface2 : Color.clear)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .disabled(viewModel.isRecording)
+        .accessibilityAddTraits(isCurrent ? .isSelected : [])
+    }
+
     // MARK: - HUD
 
     /// Camera-report strip: what is armed, which line, how far through the scene.
     private func hud(for line: DubLine) -> some View {
         VStack(spacing: 0) {
             HStack(spacing: 12) {
+                // The system bar's Close where there is one (`usesSystemBar`).
+                if !usesSystemBar {
                 Button {
-                    viewModel.stop()
-                    dismiss()
+                    close()
                 } label: {
                     Image(systemName: "xmark")
                         .font(.system(size: 13, weight: .semibold))
@@ -108,6 +290,7 @@ struct DubRecordView: View {
                             RoundedRectangle(cornerRadius: 5, style: .continuous)
                                 .strokeBorder(Color.rsStroke, lineWidth: EditorMetrics.hairline)
                         )
+                }
                 }
 
                 HStack(spacing: 7) {
@@ -191,13 +374,18 @@ struct DubRecordView: View {
     private func picture(for line: DubLine) -> some View {
         DubPicture(
             player: viewModel.scenePicture.player,
-            stillURL: session.pack.imageURL(for: line)
+            stillURL: session.pack.imageURL(for: line),
+            // Beside the desk on iPhone Duo open the pane is taller than a scene: filled,
+            // not a strip of film between two black bands.
+            fills: usesSystemBar
         )
             .frame(maxWidth: .infinity)
             .frame(maxHeight: .infinity)
             .id(viewModel.scenePicture.player == nil ? line.slug : "video")
             .cinemaVignette()
             .filmGrain(opacity: 0.06)
+            // The vignette ignores safe areas; keep it inside the picture's own pane.
+            .clipped()
             .overlay(alignment: .topLeading) {
                 DubCharacterPlate(character: line.character, color: characterColor(for: line))
                     .padding(.horizontal, 9)
@@ -462,4 +650,35 @@ struct DubRecordView: View {
         .opacity(isEnabled ? 1 : 0.3)
         .accessibilityLabel(label)
     }
+}
+
+#if os(iOS)
+/// Hands its content the axis the enclosing split arrangement chose, so a pane can lay
+/// itself out for beside or below.
+@available(iOS 27.1, *)
+private struct SplitAxisReader<Content: View>: View {
+    @Environment(\.splitArrangementAxis) private var axis
+    @ViewBuilder let content: (Axis?) -> Content
+
+    var body: some View { content(axis) }
+}
+#endif
+
+#Preview("iPhone") {
+    DubRecordView(session: DubSessionViewModel(pack: .previewLicensed))
+        .cinemaAppearance()
+}
+
+#Preview("Duo open, landscape (studio)", traits: .fixedLayout(width: 1427, height: 1003)) {
+    DubRecordView(session: DubSessionViewModel(pack: .previewLicensed))
+        .cinemaAppearance()
+        .environment(\.horizontalSizeClass, .regular)
+        .environment(\.verticalSizeClass, .regular)
+}
+
+#Preview("Duo open, portrait", traits: .fixedLayout(width: 1003, height: 1427)) {
+    DubRecordView(session: DubSessionViewModel(pack: .previewLicensed))
+        .cinemaAppearance()
+        .environment(\.horizontalSizeClass, .regular)
+        .environment(\.verticalSizeClass, .regular)
 }

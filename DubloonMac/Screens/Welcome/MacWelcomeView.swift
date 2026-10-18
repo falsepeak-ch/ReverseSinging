@@ -10,7 +10,6 @@ import SwiftUI
 
 struct MacWelcomeView: View {
     @StateObject private var viewModel: MacWelcomeViewModel
-    @Environment(\.scenePhase) private var scenePhase
 
     init(app: AppViewModel) {
         _viewModel = StateObject(wrappedValue: MacWelcomeViewModel(app: app))
@@ -18,21 +17,12 @@ struct MacWelcomeView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Group {
-                switch viewModel.step {
-                case .welcome: welcome
-                case .microphone: microphone
-                }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .transition(.asymmetric(
-                insertion: .move(edge: .trailing).combined(with: .opacity),
-                removal: .move(edge: .leading).combined(with: .opacity)
-            ))
+            welcome
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             buttons
         }
-        .frame(width: 620, height: 580)
+        .frame(width: 620, height: 720)
         .background(Color.rsSurface1)
         .onAppear {
             viewModel.onAppear()
@@ -40,8 +30,13 @@ struct MacWelcomeView: View {
             MacE2EProbe.shared.welcome = viewModel
             #endif
         }
-        .onChange(of: scenePhase) { _, phase in viewModel.scenePhaseDidChange(phase) }
         .onDisappear { viewModel.windowDidClose() }
+        .sheet(isPresented: Binding(
+            get: { viewModel.onboarding.isPaywallPresented },
+            set: { viewModel.onboarding.isPaywallPresented = $0 }
+        )) {
+            ProPaywallView(source: "onboarding")
+        }
     }
 
     // MARK: - Welcome
@@ -67,6 +62,10 @@ struct MacWelcomeView: View {
             .frame(maxWidth: 440, alignment: .leading)
             .padding(.top, 34)
 
+            proNote
+                .frame(maxWidth: 440, alignment: .leading)
+                .padding(.top, 26)
+
             Spacer(minLength: 0)
         }
         .padding(.horizontal, 40)
@@ -91,67 +90,40 @@ struct MacWelcomeView: View {
         }
     }
 
-    // MARK: - Microphone
+    /// What Pro is for and how many takes are free, said before anyone meets the paywall, as the iPhone's
+    /// last onboarding page says it.
+    private var proNote: some View {
+        HStack(alignment: .top, spacing: 16) {
+            Image("settings-unlock")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 46, height: 46)
 
-    private var microphone: some View {
-        VStack(spacing: 0) {
-            Spacer(minLength: 0)
-
-            ZStack {
-                Circle()
-                    .fill(Color.rsSurface2)
-                    .frame(width: 120, height: 120)
-                Image("studio-mic-boom")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 84, height: 84)
+            VStack(alignment: .leading, spacing: 3) {
+                Text(Strings.Onboarding.proTitle)
+                    .font(.system(size: 15, weight: .semibold))
+                    .foregroundColor(.rsTextPrimary)
+                Text(Strings.Onboarding.proMessage)
+                    .font(.system(size: 12))
+                    .foregroundColor(.rsTextSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
-
-            Text(Strings.Onboarding.microphoneTitle)
-                .font(.system(size: 26, weight: .bold))
-                .foregroundColor(.rsTextPrimary)
-                .padding(.top, 22)
-
-            Text(Strings.Onboarding.microphoneMessage)
-                .font(.system(size: 13))
-                .foregroundColor(.rsTextSecondary)
-                .multilineTextAlignment(.center)
-                .lineSpacing(3)
-                .frame(maxWidth: 440)
-                .fixedSize(horizontal: false, vertical: true)
-                .padding(.top, 12)
-
-            if viewModel.isDenied {
-                Label(Strings.Main.Alert.microphoneRequiredTitle, systemImage: "mic.slash.fill")
-                    .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(.rsCaution)
-                    .padding(.top, 16)
-            }
-
-            Spacer(minLength: 0)
         }
-        .padding(.horizontal, 40)
+        .padding(14)
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color.rsSurface2))
     }
 
     // MARK: - Buttons
 
     private var buttons: some View {
         HStack(spacing: 12) {
-            if viewModel.step == .microphone {
-                Button(MacStrings.Welcome.notNow) { viewModel.skip() }
+            Spacer()
+
+            if viewModel.offersPro {
+                Button(Strings.Onboarding.proSkip) { viewModel.skip() }
                     .controlSize(.large)
                     .keyboardShortcut(.cancelAction)
             }
-
-            Spacer()
-
-            HStack(spacing: 6) {
-                Circle().fill(viewModel.step == .welcome ? Color.rsTextPrimary : Color.rsSurface3)
-                Circle().fill(viewModel.step == .microphone ? Color.rsTextPrimary : Color.rsSurface3)
-            }
-            .frame(width: 22, height: 7)
-
-            Spacer()
 
             Button(viewModel.primaryTitle) { viewModel.primaryAction() }
                 .controlSize(.large)

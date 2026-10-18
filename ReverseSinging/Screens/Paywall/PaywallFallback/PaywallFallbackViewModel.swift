@@ -32,17 +32,6 @@ final class PaywallFallbackViewModel: ObservableObject {
 
     var isPurchasing: Bool { access.isPurchasing }
 
-    /// Keyed off the access state rather than off how the paywall was presented: the
-    /// presentation is a good proxy for "the trial is over" but not the fact itself, and this
-    /// is the one line on the screen that must not be able to say something the user can see
-    /// is untrue.
-    var headerMessage: String {
-        guard access.isLocked else { return Strings.Pro.Fallback.messageBeforeExpiry }
-        return access.hasTrial
-            ? Strings.Pro.Fallback.messageAfterExpiry
-            : Strings.Pro.Fallback.messageNoTrial
-    }
-
     // MARK: - Loading
 
     func loadProduct(force: Bool = false) async {
@@ -109,17 +98,13 @@ final class PaywallFallbackViewModel: ObservableObject {
         Task { await access.restore() }
     }
 
-    /// Apple's standard licence agreement, which is the one the app ships under. Required on any
-    /// screen that sells an auto-renewable subscription.
+    /// Dubloon's own Terms of Use, which include everything Apple's standard licence requires.
+    /// Required on any screen that sells an auto-renewable subscription.
     func openTermsOfUse() {
-        if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
-            openExternally(url)
-        }
+        openExternally(AppLinks.termsOfUse)
     }
 
     func openPrivacyPolicy() {
-        if let url = URL(string: "https://falsepeak.ch/privacy") {
-            openExternally(url)
-        }
+        openExternally(AppLinks.privacyPolicy)
     }
 }

@@ -14,16 +14,14 @@ import Combine
 /// outside belong to the app rather than to reverse singing, so they live here and
 /// `ReverseGameViewModel` keeps only the game.
 ///
-/// The `UserDefaults` keys are the ones installs already have. `EarlyAdopter` and
-/// `BoothCamAnnouncement` read `hasCompletedOnboarding` and `uiMode` as evidence of earlier
-/// use, so none of them may be renamed.
+/// The `UserDefaults` keys are the ones installs already have. `BoothCamAnnouncement` reads
+/// `hasCompletedOnboarding` as evidence of earlier use, so none of them may be renamed.
 @MainActor
 final class AppViewModel: ObservableObject {
 
     @Published private(set) var hasCompletedOnboarding: Bool
     @Published private(set) var uiMode: UIMode
     @Published private(set) var hapticsEnabled: Bool
-    @Published private(set) var hasRecordingPermission = false
 
     /// The menu's settings sheet. A game presents its own.
     @Published var showSettings = false
@@ -32,6 +30,10 @@ final class AppViewModel: ObservableObject {
     /// Set when the system hands us a pack from AirDrop or "Open with"; the dub library
     /// picks it up and imports it.
     @Published var pendingDubImportURL: URL?
+
+    /// Set when a `dubloon://` link opens the app; the menu pushes the game it names. Kept
+    /// until the menu is on screen, so a link that arrives during onboarding still lands.
+    @Published var pendingDeepLink: DeepLink?
 
     private enum Key {
         static let hasCompletedOnboarding = "hasCompletedOnboarding"
@@ -56,19 +58,6 @@ final class AppViewModel: ObservableObject {
     func completeOnboarding() {
         hasCompletedOnboarding = true
         defaults.set(true, forKey: Key.hasCompletedOnboarding)
-    }
-
-    // MARK: - Permissions
-
-    func checkPermissionStatus() {
-        hasRecordingPermission = AudioSessionManager.shared.hasRecordPermission
-    }
-
-    func requestPermission(completion: ((Bool) -> Void)? = nil) {
-        AudioSessionManager.shared.requestRecordPermission { [weak self] granted in
-            self?.hasRecordingPermission = granted
-            completion?(granted)
-        }
     }
 
     // MARK: - Settings

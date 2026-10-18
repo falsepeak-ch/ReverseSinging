@@ -53,4 +53,27 @@ struct ReviewBannerTests {
         #expect(url.host == "apps.apple.com")
         #expect(url.query == "action=write-review")
     }
+
+    /// Four and five stars are offered the App Store. Anything lower is asked what went wrong.
+    @Test func ratingDecidesWhereItLeads() {
+        #expect(ReviewBanner.destination(forStars: 5) == .store)
+        #expect(ReviewBanner.destination(forStars: 4) == .store)
+        #expect(ReviewBanner.destination(forStars: 3) == .feedback)
+        #expect(ReviewBanner.destination(forStars: 1) == .feedback)
+    }
+
+    /// A note sent is an answer: the banner does not come back to ask again.
+    @Test func sendingFeedbackEndsIt() {
+        let banner = makeBanner()
+        #expect(banner.recordFeedback(stars: 2, message: "The export is too slow"))
+        #expect(!banner.isDue(now: .distantFuture))
+    }
+
+    /// A rating alone, or a note with nothing in it, is not an answer.
+    @Test func anEmptyNoteIsNotSent() {
+        let banner = makeBanner()
+        banner.recordRated(stars: 1)
+        #expect(!banner.recordFeedback(stars: 1, message: "  \n "))
+        #expect(banner.isDue())
+    }
 }

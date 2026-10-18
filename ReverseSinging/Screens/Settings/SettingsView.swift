@@ -13,6 +13,8 @@ struct SettingsView: View {
     @StateObject private var viewModel: SettingsViewModel
 
     @Environment(\.dismiss) var dismiss
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
 
     /// A singleton, so observed rather than owned. The route it reports is the device's,
     /// not this screen's.
@@ -21,6 +23,9 @@ struct SettingsView: View {
     /// The front camera that films a dub take. A singleton like the others, so the switch
     /// here and the key in the record HUD are the same switch.
     @ObservedObject private var booth = BoothCamPreference.shared
+
+    /// Light, dark or the device's choice. App-wide, so observed rather than owned.
+    @ObservedObject private var appearance = AppearancePreference.shared
 
     /// The interface is dark-only; kept as a constant so the many call sites below
     /// don't each need rewriting.
@@ -38,9 +43,8 @@ struct SettingsView: View {
 
                 ScrollView {
                     VStack(spacing: 24) {
-                        // First: it is the only section that can be in a state the
-                        // user needs to act on, and a trial counting down is not
-                        // something to make them scroll for.
+                        // First: it is the only section with something the user may
+                        // want to act on, and that is not something to scroll for.
                         purchaseSection
                             .slideIn(delay: 0.1)
 
@@ -48,6 +52,11 @@ struct SettingsView: View {
                             uiModeSection
                                 .slideIn(delay: 0.15)
                         }
+
+                        #if os(iOS)
+                        appearanceSection
+                            .slideIn(delay: 0.15)
+                        #endif
 
                         // Haptic Feedback
                         hapticsSection
@@ -58,6 +67,9 @@ struct SettingsView: View {
                         // sound, and it is the only thing in here that writes video.
                         boothSection
                             .slideIn(delay: 0.25)
+
+                        privacySection
+                            .slideIn(delay: 0.28)
 
                         // About Section
                         aboutSection
@@ -76,23 +88,28 @@ struct SettingsView: View {
             .navigationTitle(Strings.Settings.title)
             .largeNavigationTitle()
             .toolbar {
-                ToolbarItem(placement: .rsTrailing) {
+                // A standard Close (title and symbol), so the system can place it in a
+                // side panel's bar on iPhone Duo as well as at the top on a phone.
+                ToolbarItem(placement: EditorBars.useSystemBar(horizontalSizeClass, verticalSizeClass) ? .cancellationAction : .rsTrailing) {
                     Button(action: {
                         HapticManager.shared.light()
                         dismiss()
                     }) {
-                        Image(systemName: "xmark")
-                            .font(.system(size: 20, weight: .bold))
-                            .foregroundStyle(Color.rsTextAdaptive(for: effectiveColorScheme))
+                        Label(Strings.Help.close, systemImage: "xmark")
                     }
+                    .tint(Color.rsTextAdaptive(for: effectiveColorScheme))
                 }
             }
             .onAppear { viewModel.onAppear() }
         }
         .purchaseAlerts()
+        .sheet(isPresented: $viewModel.isHelpPresented) {
+            HelpView()
+                .presentationDragIndicator(.visible)
+        }
         .sheet(isPresented: $viewModel.isPaywallPresented) {
             ProPaywallView(source: "settings")
-                .preferredColorScheme(.dark)
+                .paywallAppearance()
         }
         // RevenueCat's own screen: receipts, the App Store subscription page,
         // refund requests and the feedback survey. All of it is configured in the
@@ -107,10 +124,7 @@ struct SettingsView: View {
             onDismiss: { viewModel.isCustomerCenterPresented = false }
         )
         #endif
-        .preferredColorScheme(preferredColorScheme)
     }
-
-    private var preferredColorScheme: ColorScheme? { .dark }
 
     // MARK: - UI Mode Section
 
@@ -252,6 +266,70 @@ struct SettingsView: View {
             .accessibilityHidden(true)
     }
 
+    // MARK: - Appearance Section
+
+    private var appearanceSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            sectionHeader(title: Strings.Settings.appearance, icon: "circle.lefthalf.filled")
+
+            HStack(spacing: 8) {
+                ForEach(AppearanceMode.allCases) { mode in
+                    let isSelected = appearance.mode == mode
+                    Button {
+                        HapticManager.shared.selection()
+                        withAnimation(.rsQuick) { appearance.set(mode) }
+                    } label: {
+                        VStack(spacing: 8) {
+                            Image("settings-appearance-\(mode.rawValue)")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 32, height: 32)
+                                .accessibilityHidden(true)
+                            Text(mode.title)
+                                .font(.rsCaption)
+                                .foregroundColor(isSelected ? .rsTextPrimary : .rsTextSecondary)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.8)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(
+                            RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
+                                .fill(isSelected ? Color.rsSurface3 : Color.clear)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
+                                .strokeBorder(isSelected ? Color.rsStrokeStrong : Color.clear, lineWidth: 1)
+                        )
+                    }
+                    .buttonStyle(ScaleButtonStyle())
+                    .accessibilityAddTraits(isSelected ? .isSelected : [])
+                }
+            }
+            .padding(8)
+            .editorPanel()
+        }
+    }
+
+    // MARK: - Privacy Section
+
+    private var privacySection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            sectionHeader(title: Strings.Settings.privacySection, icon: "hand.raised.fill")
+
+            SettingsToggleRow(
+                title: Strings.Settings.shareUsage,
+                subtitle: Strings.Settings.shareUsageDesc,
+                isOn: Binding(
+                    get: { viewModel.sharesUsageData },
+                    set: { viewModel.setSharesUsageData($0) }
+                )
+            ) {
+                settingsIcon("settings-usage-data", isActive: viewModel.sharesUsageData)
+            }
+        }
+    }
+
     // MARK: - Booth Cam Section
 
     private var boothSection: some View {
@@ -366,15 +444,7 @@ struct SettingsView: View {
             sectionHeader(title: Strings.Pro.section, icon: "sparkles")
 
             VStack(spacing: 8) {
-                if viewModel.isEarlyAdopter {
-                    // Nothing to sell them and nothing to manage: there is no
-                    // transaction behind this, so no Customer Center either.
-                    statusCard(
-                        assetName: "settings-free-for-life",
-                        title: Strings.Pro.EarlyAdopter.settingsTitle,
-                        subtitle: Strings.Pro.EarlyAdopter.settingsSubtitle
-                    )
-                } else if viewModel.isPro {
+                if viewModel.isPro {
                     statusCard(
                         assetName: "settings-owned",
                         title: viewModel.ownedTitle,
@@ -392,22 +462,20 @@ struct SettingsView: View {
                     settingsRow(
                         assetName: "settings-unlock",
                         title: Strings.Pro.unlockTitle,
-                        subtitle: viewModel.unlockSubtitle,
+                        subtitle: Strings.Pro.unlockSubtitle,
                         isProminent: true
                     ) {
                         viewModel.showPaywall()
                     }
                 }
 
-                if !viewModel.isEarlyAdopter {
-                    settingsRow(
-                        assetName: "settings-restore-purchase",
-                        title: Strings.Pro.restoreTitle,
-                        subtitle: Strings.Pro.restoreSubtitle,
-                        isBusy: viewModel.isRestoring
-                    ) {
-                        viewModel.restore()
-                    }
+                settingsRow(
+                    assetName: "settings-restore-purchase",
+                    title: Strings.Pro.restoreTitle,
+                    subtitle: Strings.Pro.restoreSubtitle,
+                    isBusy: viewModel.isRestoring
+                ) {
+                    viewModel.restore()
                 }
 
                 #if DEBUG
@@ -432,12 +500,27 @@ struct SettingsView: View {
         isBusy: Bool = false,
         action: @escaping () -> Void
     ) -> some View {
+        settingsRow(title: title, subtitle: subtitle, isProminent: isProminent, isBusy: isBusy, action: action) {
+            settingsIcon(assetName)
+        }
+    }
+
+    /// The same row with any icon, for the rows the illustrated set has no picture for.
+    private func settingsRow<Icon: View>(
+        title: String,
+        subtitle: String,
+        isProminent: Bool = false,
+        isBusy: Bool = false,
+        opensExternally: Bool = false,
+        action: @escaping () -> Void,
+        @ViewBuilder icon: () -> Icon
+    ) -> some View {
         Button {
             HapticManager.shared.light()
             action()
         } label: {
             HStack(spacing: 14) {
-                settingsIcon(assetName)
+                icon()
 
                 VStack(alignment: .leading, spacing: 3) {
                     Text(title)
@@ -455,6 +538,11 @@ struct SettingsView: View {
 
                 if isBusy {
                     ProgressView().tint(Color.rsTextSecondary)
+                } else if opensExternally {
+                    // The same mark as the Privacy Policy row: this one leaves the app too.
+                    Image(systemName: "arrow.up.right.circle.fill")
+                        .font(.system(size: 22))
+                        .foregroundStyle(Color.rsTurquoise)
                 } else {
                     Image(systemName: "chevron.right")
                         .font(.system(size: 14, weight: .semibold))
@@ -524,12 +612,22 @@ struct SettingsView: View {
 
             VStack(spacing: 8) {
                 statusCard(
-                    assetName: viewModel.isEarlyAdopter ? "settings-free-for-life"
-                        : viewModel.isPro ? "settings-owned" : "settings-unlock",
+                    assetName: viewModel.isPro ? "settings-owned" : "settings-unlock",
                     title: viewModel.licenseText,
                     subtitle: viewModel.memberSinceText ?? ""
                 )
+                settingsRow(title: Strings.Settings.help, subtitle: Strings.Settings.helpDesc, action: viewModel.openHelp) {
+                    settingsIcon("settings-help")
+                }
                 privacyPolicyButton
+                settingsRow(
+                    title: Strings.Pro.Fallback.terms,
+                    subtitle: Strings.Settings.termsDesc,
+                    opensExternally: true,
+                    action: viewModel.openTerms
+                ) {
+                    settingsIcon("settings-terms")
+                }
                 switzerlandCard
             }
         }

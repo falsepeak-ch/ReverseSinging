@@ -38,6 +38,8 @@ final class ReverseGameViewModel: ObservableObject {
     @Published var showSessionList = false
     /// The game's own settings sheet; the menu presents settings through `AppViewModel`.
     @Published var showSettings = false
+    /// The paywall, once the free takes are used up. See `FreeTakes`.
+    @Published var isTakePaywallPresented = false
 
     // MARK: - Services
 
@@ -141,11 +143,14 @@ final class ReverseGameViewModel: ObservableObject {
         isMicrophoneDenied = AudioSessionManager.shared.isRecordPermissionDenied
     }
 
-    private func requestPermissionIfNeeded(completion: @escaping (Bool) -> Void) {
-        recorder.requestPermission { [weak self] granted in
-            self?.hasRecordingPermission = granted
-            self?.isMicrophoneDenied = !granted
-            completion(granted)
+    private func requestPermissionIfNeeded(completion: @escaping (RecordPermissionAnswer) -> Void) {
+        recorder.requestPermission { [weak self] answer in
+            self?.hasRecordingPermission = answer == .granted
+            // A no given to the prompt a moment ago leaves the screen as it was. Swapping in
+            // the "open Settings" state right behind it would be arguing with the answer; it
+            // is there the next time the game opens, see `checkPermissionStatus`.
+            self?.isMicrophoneDenied = answer == .refusedEarlier
+            completion(answer)
         }
     }
 
@@ -161,15 +166,27 @@ final class ReverseGameViewModel: ObservableObject {
             return
         }
 
+        // A new song needs a free take or Dubloon Pro. The attempt at one already reversed
+        // does not: that take was counted when the song was reversed.
+        let startsNewSong = appState.currentSession?.reversedRecording == nil
+        guard !startsNewSong || AccessController.shared.canStartTake else {
+            isTakePaywallPresented = true
+            return
+        }
+
         // Request permission if we haven't asked yet or need to re-check
-        requestPermissionIfNeeded { [weak self] granted in
+        requestPermissionIfNeeded { [weak self] answer in
             guard let self = self else { return }
 
-            guard granted else {
+            guard answer == .granted else {
                 print("⚠️ Microphone permission denied")
-                self.errorMessage = Strings.Error.microphonePermissionRequired
-                self.showPermissionAlert = true
                 AnalyticsManager.shared.trackPermissionDenied()
+                // Only a refusal from before gets the alert with its way to Settings. One
+                // given to the prompt just now is an answer, and nothing follows it.
+                if answer == .refusedEarlier {
+                    self.errorMessage = Strings.Error.microphonePermissionRequired
+                    self.showPermissionAlert = true
+                }
                 return
             }
 
@@ -360,6 +377,10 @@ final class ReverseGameViewModel: ObservableObject {
                             SoundManager.shared.play(.projectorChime)
                             HapticManager.shared.success()
                             self.appState.recordingState = .idle
+
+                            if AccessController.shared.recordTake(.reverse) {
+                                self.isTakePaywallPresented = true
+                            }
                         }
                     } catch {
                         await MainActor.run {
@@ -436,6 +457,7 @@ final class ReverseGameViewModel: ObservableObject {
                             // Celebrate if score is good
                             if score > 70 {
                                 HapticManager.shared.success()
+                                ReviewPrompt.shared.celebrate(trigger: "reverse_great_score")
                             } else {
                                 HapticManager.shared.medium()
                             }
@@ -524,8 +546,8 @@ final class ReverseGameViewModel: ObservableObject {
             AnalyticsManager.shared.trackSessionCompleted(score: score)
         }
 
-        // Same gate as the app-open ask, so the two triggers share one throttle
-        // rather than competing for Apple's three prompts a year.
+        // Saving a session is a keeper, as good a moment as any to ask. The same throttle as
+        // every other trigger, so they never compete for Apple's three prompts a year.
         ReviewPrompt.shared.requestIfAppropriate(trigger: "session_saved")
     }
 

@@ -18,7 +18,7 @@ import DubloonFoundation
 /// of a compositing option does the first time the layout changes.
 struct DubExportOptionsModal: View {
 
-    let onExport: (DubCut, DubBoothFrame, Bool) -> Void
+    let onExport: (DubCut, DubBoothFrame, Bool, DubPipCorner) -> Void
     let onCancel: () -> Void
 
     @StateObject private var viewModel: DubExportOptionsViewModel
@@ -29,7 +29,7 @@ struct DubExportOptionsModal: View {
         line: DubLine? = nil,
         hasBoothFootage: Bool,
         runtime: @escaping (DubCut) -> TimeInterval,
-        onExport: @escaping (DubCut, DubBoothFrame, Bool) -> Void,
+        onExport: @escaping (DubCut, DubBoothFrame, Bool, DubPipCorner) -> Void,
         onCancel: @escaping () -> Void
     ) {
         self.onExport = onExport
@@ -57,6 +57,8 @@ struct DubExportOptionsModal: View {
             if let line = viewModel.line { lineIdentity(line) }
 
             framePicker
+
+            if viewModel.showsCornerPicker { cornerPicker }
 
             advanced
 
@@ -100,18 +102,14 @@ struct DubExportOptionsModal: View {
     }
 
     private func export() {
-        onExport(viewModel.cut, viewModel.frame, viewModel.exportsBooth)
+        onExport(viewModel.cut, viewModel.frame, viewModel.exportsBooth, viewModel.pipCorner)
     }
 
     // MARK: - Preview
 
     /// The output frame, at the shape it will actually be, with each picture in its place.
     private var preview: some View {
-        let layout = DubBoothLayout.make(
-            frame: viewModel.frame,
-            sceneDisplaySize: viewModel.sceneDisplaySize,
-            boothDisplaySize: DubExportOptionsViewModel.boothDisplaySize
-        )
+        let layout = viewModel.layout(for: viewModel.frame)
         // What the scene actually gets: the band it shares with the booth, or the whole
         // picture area when there is no booth in the file.
         let sceneRect = viewModel.showsBooth ? layout.sceneRect : layout.sceneRectAlone
@@ -129,8 +127,9 @@ struct DubExportOptionsModal: View {
                 )
 
                 ZStack(alignment: .topLeading) {
+                    // The vertical post's bars are black in the file, so they are here too.
                     Rectangle()
-                        .fill(Color.rsSurface3)
+                        .fill(viewModel.frame == .vertical ? Color.black : Color.rsSurface3)
                         .frame(width: size.width, height: size.height)
 
                     previewPane(
@@ -162,14 +161,30 @@ struct DubExportOptionsModal: View {
                             fill: Color.rsHighlight.opacity(0.22)
                         )
                         .frame(width: boothRect.width * scale, height: boothRect.height * scale)
+                        .clipShape(RoundedRectangle(cornerRadius: layout.boothCornerRadius * scale, style: .continuous))
                         .overlay(
-                            Rectangle().strokeBorder(
-                                Color.rsHighlight.opacity(0.55),
-                                lineWidth: EditorMetrics.hairline
-                            )
+                            RoundedRectangle(cornerRadius: layout.boothCornerRadius * scale, style: .continuous)
+                                .strokeBorder(
+                                    layout.boothCornerRadius > 0 ? Self.pipBorder : Color.rsHighlight.opacity(0.55),
+                                    lineWidth: layout.boothCornerRadius > 0 ? 1.5 : EditorMetrics.hairline
+                                )
                         )
+                        .shadow(color: .black.opacity(layout.boothCornerRadius > 0 ? 0.5 : 0), radius: 3, y: 1)
                         .offset(x: boothRect.minX * scale, y: boothRect.minY * scale)
                     }
+
+                    // The mark, where and how faint it will be in the file.
+                    Image(DubWatermark.assetName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .environment(\.colorScheme, .dark)
+                        .opacity(DubWatermark.opacity)
+                        .frame(
+                            width: layout.watermarkRect.width * scale,
+                            height: layout.watermarkRect.height * scale
+                        )
+                        .offset(x: layout.watermarkRect.minX * scale, y: layout.watermarkRect.minY * scale)
+                        .accessibilityHidden(true)
                 }
                 // Two frames, each doing one job: the first pins the stack to the render
                 // size with a top-left origin, which is the space the layout's rects are in;
@@ -177,14 +192,19 @@ struct DubExportOptionsModal: View {
                 .frame(width: size.width, height: size.height, alignment: .topLeading)
                 .frame(width: stage.width, height: stage.height, alignment: .center)
             }
-            .frame(height: 168)
+            // Taller for the 9:16 frames, so a corner picture-in-picture is big enough to see.
+            .frame(height: viewModel.frame.isVertical ? 220 : 168)
             .frame(maxWidth: .infinity)
             .background(Color.rsSurface0)
         }
         .editorPanel(.rsSurface0)
         .animation(.easeInOut(duration: 0.18), value: viewModel.frame)
         .animation(.easeInOut(duration: 0.18), value: viewModel.includesBooth)
+        .animation(.easeInOut(duration: 0.18), value: viewModel.pipCorner)
     }
+
+    /// The cream the render draws the picture-in-picture's border in. See `DubFrameDecor`.
+    static let pipBorder = Color(cgColor: DubFrameDecor.borderColor)
 
     /// A token waveform, so the strip in the diagram reads as the strip in the file rather
     /// than as another empty band.
@@ -337,7 +357,9 @@ struct DubExportOptionsModal: View {
         VStack(alignment: .leading, spacing: 8) {
             EditorSectionHeader(title: Strings.Booth.frameSection)
 
-            HStack(spacing: 6) {
+            // Three to a row: six tiles in one row left "REACTION" too narrow to read on a
+            // phone.
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 6), count: 3), spacing: 6) {
                 ForEach(DubBoothFrame.allCases) { option in
                     frameTile(option)
                 }
@@ -479,6 +501,69 @@ struct DubExportOptionsModal: View {
         case .stacked: return Strings.Booth.frameStacked
         case .reaction: return Strings.Booth.frameReaction
         case .split: return Strings.Booth.frameSplit
+        case .vertical: return Strings.Booth.frameVertical
+        }
+    }
+
+    // MARK: - Picture-in-Picture Corner
+
+    /// Where the booth sits in a vertical post. Three small 9:16 diagrams, each with the inset
+    /// in its corner: drawn, not described, like the frame tiles above.
+    private var cornerPicker: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            EditorSectionHeader(title: Strings.Booth.pipCorner)
+
+            HStack(spacing: 6) {
+                ForEach(DubPipCorner.allCases) { corner in
+                    cornerTile(corner)
+                }
+            }
+        }
+        .transition(.opacity)
+    }
+
+    private func cornerTile(_ corner: DubPipCorner) -> some View {
+        let isSelected = viewModel.pipCorner == corner
+
+        return Button {
+            HapticManager.shared.light()
+            viewModel.pipCorner = corner
+        } label: {
+            CornerDiagram(
+                layout: DubBoothLayout.make(
+                    frame: .vertical,
+                    sceneDisplaySize: viewModel.sceneDisplaySize,
+                    boothDisplaySize: DubExportOptionsViewModel.boothDisplaySize,
+                    pipCorner: corner
+                ),
+                isSelected: isSelected
+            )
+            .frame(height: 40)
+            .frame(maxWidth: .infinity)
+            .padding(6)
+            .background(
+                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                    .fill(isSelected ? Color.rsSurface3 : Color.rsSurface2)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                    .strokeBorder(
+                        isSelected ? Color.rsStrokeStrong : Color.rsStroke,
+                        lineWidth: EditorMetrics.hairline
+                    )
+            )
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(cornerName(corner))
+        .accessibilityAddTraits(isSelected ? [.isSelected] : [])
+    }
+
+    private func cornerName(_ corner: DubPipCorner) -> String {
+        switch corner {
+        case .bottomRight: return Strings.Booth.pipBottomRight
+        case .bottomLeft: return Strings.Booth.pipBottomLeft
+        case .topRight: return Strings.Booth.pipTopRight
         }
     }
 
@@ -556,8 +641,47 @@ private struct FrameDiagram: View {
                 }
 
                 if let boothRect = layout.boothRect, showsBooth {
-                    Rectangle()
+                    RoundedRectangle(cornerRadius: layout.boothCornerRadius > 0 ? 1.5 : 0, style: .continuous)
                         .fill(Color.rsTextSecondary)
+                        .frame(width: boothRect.width * scale, height: boothRect.height * scale)
+                        .offset(x: boothRect.minX * scale, y: boothRect.minY * scale)
+                }
+            }
+            .frame(width: size.width, height: size.height, alignment: .topLeading)
+            .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
+        }
+        .accessibilityHidden(true)
+    }
+}
+
+// MARK: - Corner Diagram
+
+/// A 9:16 outline with the picture-in-picture in one corner, for the corner picker.
+private struct CornerDiagram: View {
+    let layout: DubBoothLayout
+    let isSelected: Bool
+
+    var body: some View {
+        GeometryReader { geometry in
+            let scale = min(
+                geometry.size.width / layout.renderSize.width,
+                geometry.size.height / layout.renderSize.height
+            )
+            let size = CGSize(width: layout.renderSize.width * scale, height: layout.renderSize.height * scale)
+
+            ZStack(alignment: .topLeading) {
+                RoundedRectangle(cornerRadius: 2, style: .continuous)
+                    .strokeBorder(Color.rsStroke, lineWidth: EditorMetrics.hairline)
+                    .frame(width: size.width, height: size.height)
+
+                Rectangle()
+                    .fill(Color.rsStrokeStrong)
+                    .frame(width: layout.sceneRect.width * scale, height: layout.sceneRect.height * scale)
+                    .offset(x: layout.sceneRect.minX * scale, y: layout.sceneRect.minY * scale)
+
+                if let boothRect = layout.boothRect {
+                    RoundedRectangle(cornerRadius: 1.5, style: .continuous)
+                        .fill(isSelected ? Color.rsHighlight : Color.rsTextSecondary)
                         .frame(width: boothRect.width * scale, height: boothRect.height * scale)
                         .offset(x: boothRect.minX * scale, y: boothRect.minY * scale)
                 }

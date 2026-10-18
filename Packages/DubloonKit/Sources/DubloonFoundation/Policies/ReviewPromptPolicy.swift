@@ -12,9 +12,12 @@ public import Foundation
 ///
 /// Apple caps the prompt at three appearances a year and silently drops the rest, so the only
 /// thing worth spending is *which* moments get it. By default it asks people who have come back
-/// and shipped something: at least one share, with the ask landing on the third open, before
-/// they are deep in a take and would resent it. After an ask it waits a number of opens before it
-/// will ask again, so the year's quota is not burned in a week.
+/// and are enjoying themselves: from the second open, at a result they were proud of (a win: a
+/// great score, an approved impression) or once they have shipped something (a share). Wins
+/// count for everyone, so a player who only ever sings backwards for free is asked as readily as
+/// one who paid. After an ask it waits a few opens before it will ask again. Apple may have
+/// swallowed that ask without showing anything, and the app cannot tell, so the wait is kept
+/// short rather than spending weeks on a prompt nobody saw.
 ///
 /// Showing the prompt is the caller's job. This only decides, so it runs anywhere, tests included.
 public struct ReviewPromptPolicy {
@@ -23,19 +26,35 @@ public struct ReviewPromptPolicy {
     public struct Keys: Sendable {
         public var openCount: String
         public var shareCount: String
+        public var winCount: String
         public var lastAskedAtOpenCount: String
+        public var activeDayCount: String
+        public var lastActiveDay: String
+        public var hasImportedPack: String
 
-        public init(openCount: String, shareCount: String, lastAskedAtOpenCount: String) {
+        public init(
+            openCount: String,
+            shareCount: String,
+            winCount: String,
+            lastAskedAtOpenCount: String,
+            activeDayCount: String = "review.activeDayCount",
+            lastActiveDay: String = "review.lastActiveDay",
+            hasImportedPack: String = "review.hasImportedPack"
+        ) {
             self.openCount = openCount
             self.shareCount = shareCount
+            self.winCount = winCount
             self.lastAskedAtOpenCount = lastAskedAtOpenCount
+            self.activeDayCount = activeDayCount
+            self.lastActiveDay = lastActiveDay
+            self.hasImportedPack = hasImportedPack
         }
 
-        /// The keys Dubloon has always used. Leave them as they are: the open count doubles as
-        /// evidence that an install was in use before the paywall.
+        /// The keys Dubloon has always used. Leave them as they are: installs already carry them.
         public static let standard = Keys(
             openCount: "review.appOpenCount",
             shareCount: "review.sharedVideoCount",
+            winCount: "review.winCount",
             lastAskedAtOpenCount: "review.lastAskedAtOpenCount"
         )
     }
@@ -43,12 +62,24 @@ public struct ReviewPromptPolicy {
     /// The open the first ask lands on.
     public let opensBeforeAsking: Int
 
-    /// Shares needed before asking. Someone who has never shared has not finished anything yet,
-    /// and has nothing to rate.
+    /// Shares that on their own make someone worth asking. A share is the strongest sign: they
+    /// made something and sent it out.
     public let sharesBeforeAsking: Int
+
+    /// Wins that on their own make someone worth asking. A great score on a return visit is the
+    /// happiest moment the app has; waiting for a second one lost most of the players who would
+    /// have rated it.
+    public let winsBeforeAsking: Int
 
     /// Opens that have to pass after one ask before the next.
     public let opensBetweenAsks: Int
+
+    /// Different days the app has to have been opened on before our own review note is shown.
+    public let activeDaysForBanner: Int
+
+    /// Wins that, like importing a pack, show someone has got into the app far enough for our
+    /// own review note.
+    public let winsForBanner: Int
 
     private let defaults: UserDefaults
     private let keys: Keys
@@ -56,27 +87,50 @@ public struct ReviewPromptPolicy {
     public init(
         defaults: UserDefaults = .standard,
         keys: Keys = .standard,
-        opensBeforeAsking: Int = 3,
+        opensBeforeAsking: Int = 2,
         sharesBeforeAsking: Int = 1,
-        opensBetweenAsks: Int = 10
+        winsBeforeAsking: Int = 1,
+        opensBetweenAsks: Int = 5,
+        activeDaysForBanner: Int = 2,
+        winsForBanner: Int = 3
     ) {
         self.defaults = defaults
         self.keys = keys
         self.opensBeforeAsking = opensBeforeAsking
         self.sharesBeforeAsking = sharesBeforeAsking
+        self.winsBeforeAsking = winsBeforeAsking
         self.opensBetweenAsks = opensBetweenAsks
+        self.activeDaysForBanner = activeDaysForBanner
+        self.winsForBanner = winsForBanner
     }
 
     // MARK: - Signals
 
-    /// A launch, or a return from the background.
-    public func registerAppOpen() {
+    /// A launch, or a return from the background. The first one on a given day also counts
+    /// that day as one the app was used on.
+    public func registerAppOpen(now: Date = .now, calendar: Calendar = .current) {
         defaults.set(openCount + 1, forKey: keys.openCount)
+
+        let day = calendar.startOfDay(for: now)
+        if let lastDay = defaults.object(forKey: keys.lastActiveDay) as? Date, lastDay >= day { return }
+        defaults.set(day, forKey: keys.lastActiveDay)
+        defaults.set(activeDayCount + 1, forKey: keys.activeDayCount)
+    }
+
+    /// The user brought a dub pack of their own into the app, now or at some earlier time.
+    public func registerImportedPack() {
+        guard !hasImportedPack else { return }
+        defaults.set(true, forKey: keys.hasImportedPack)
     }
 
     /// Something the user made actually left the app.
     public func registerShare() {
         defaults.set(shareCount + 1, forKey: keys.shareCount)
+    }
+
+    /// A result the player can be proud of: a great score, an approved impression.
+    public func registerWin() {
+        defaults.set(winCount + 1, forKey: keys.winCount)
     }
 
     /// The prompt was just requested, which starts the wait before the next one.
@@ -88,7 +142,7 @@ public struct ReviewPromptPolicy {
 
     public var isEligible: Bool {
         guard openCount >= opensBeforeAsking else { return false }
-        guard shareCount >= sharesBeforeAsking else { return false }
+        guard shareCount >= sharesBeforeAsking || winCount >= winsBeforeAsking else { return false }
 
         let lastAsked = defaults.integer(forKey: keys.lastAskedAtOpenCount)
         return lastAsked == 0 || openCount - lastAsked >= opensBetweenAsks
@@ -96,10 +150,26 @@ public struct ReviewPromptPolicy {
 
     public var openCount: Int { defaults.integer(forKey: keys.openCount) }
     public var shareCount: Int { defaults.integer(forKey: keys.shareCount) }
+    public var winCount: Int { defaults.integer(forKey: keys.winCount) }
+    /// Different days the app has been opened on. Counted from the version that added it, so
+    /// an install from before starts at zero.
+    public var activeDayCount: Int { defaults.integer(forKey: keys.activeDayCount) }
+    public var hasImportedPack: Bool { defaults.bool(forKey: keys.hasImportedPack) }
+
+    /// Who our own review note on the menu is for: someone who has got into the app, by
+    /// bringing in a dub pack of their own or by a few wins, and has used it on more than one
+    /// day, so their rating is a considered one. Wins count so a free player who only sings
+    /// backwards can be asked too.
+    public var isBannerAudience: Bool {
+        (hasImportedPack || winCount >= winsForBanner) && activeDayCount >= activeDaysForBanner
+    }
 
     /// Clears every counter, as on a fresh install.
     public func reset() {
-        for key in [keys.openCount, keys.shareCount, keys.lastAskedAtOpenCount] {
+        for key in [
+            keys.openCount, keys.shareCount, keys.winCount, keys.lastAskedAtOpenCount,
+            keys.activeDayCount, keys.lastActiveDay, keys.hasImportedPack
+        ] {
             defaults.removeObject(forKey: key)
         }
     }

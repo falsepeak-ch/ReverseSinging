@@ -16,6 +16,7 @@ enum MacWindowID {
     static let pack = "pack"
     static let shortcuts = "shortcuts"
     static let welcome = "welcome"
+    static let help = "help"
 
     /// A window that plays and records, and so answers the transport keys.
     static func isEditing(_ window: NSWindow) -> Bool {

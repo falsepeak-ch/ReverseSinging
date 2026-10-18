@@ -36,15 +36,12 @@ nonisolated final class CrashReporter: Sendable {
 
     /// The one place that can turn reporting off, mirroring `AnalyticsManager`.
     ///
-    /// A screenshot run drives the app through seven locales from a cold launch and trips
-    /// error paths on purpose. `ReverseSingingApp` already skips `FirebaseApp.configure()`
-    /// in that mode, so this is belt and braces, but it keeps the rule in one readable place.
+    /// Off in every Debug build. That covers the screenshot runs and the tests, which trip
+    /// error paths on purpose, and any feedback note sent while trying the banner out, which
+    /// would otherwise land among the real ones a person reads. Off with Share Usage Data off
+    /// too: Firebase stops collecting on its own, and nothing is handed to it.
     private var isEnabled: Bool {
-        #if DEBUG
-        return !ScreenshotMode.isActive
-        #else
-        return true
-        #endif
+        UsageDataConsent.sendsCrashReports
     }
 
     // MARK: - Context
@@ -114,7 +111,7 @@ nonisolated final class CrashReporter: Sendable {
     /// True for a failure of the moment or the device that no change to the app would prevent.
     ///
     /// Judged by domain and code, never by message, which arrives in the user's language.
-    /// Underlying errors are followed, since RevenueCat and Remote Config both wrap the URL
+    /// Underlying errors are followed, since RevenueCat wraps the URL
     /// error that actually happened.
     static func isEnvironmental(_ error: Error) -> Bool {
         if let sessionError = error as? AudioSessionError { return sessionError.isEnvironmental }
@@ -137,10 +134,6 @@ nonisolated final class CrashReporter: Sendable {
         case "RevenueCat.ErrorCode":
             // networkError, offlineConnectionError.
             return [10, 35].contains(nsError.code)
-        case "com.google.remoteconfig.ErrorDomain":
-            // "Failed to get installations token": Firebase Installations could not reach
-            // its backend, which is the network again.
-            return nsError.code == 8003
         case "com.firebase.installations":
             return true
         default:
@@ -151,6 +144,28 @@ nonisolated final class CrashReporter: Sendable {
             return isEnvironmental(underlying)
         }
         return false
+    }
+
+    // MARK: - Feedback
+
+    /// A note the player typed and sent from the menu's review banner.
+    ///
+    /// Not an error, but this is the one channel to Firebase that carries free text and that
+    /// we already read every day: each note arrives as an event under one issue per star
+    /// count, with the note as its description. It is the only thing here a user writes
+    /// themselves, and it is sent because they pressed Send.
+    ///
+    /// Like everything else, it goes nowhere with Share Usage Data off.
+    func recordFeedback(_ message: String, stars: Int) {
+        guard isEnabled else { return }
+
+        Crashlytics.crashlytics().record(
+            error: NSError(domain: "com.falsepeak.dubloon.feedback", code: stars, userInfo: [
+                "context": "review.banner",
+                "stars": stars,
+                NSLocalizedDescriptionKey: message
+            ])
+        )
     }
 
     /// A failure with no `Error` behind it. Guard statements that fall through, and the

@@ -5,18 +5,22 @@
 
 // MARK: - Onboarding
 "onboarding.welcome.title" = "Velkommen til Dubloon";
-"onboarding.welcome.message" = "Tre spil, én mikrofon. Syng en sang baglæns, læg din stemme ind i en filmscene, eller efterlign en lyd, til den sidder. Ingen af delene får dig til at lyde normal.";
+"onboarding.welcome.message" = "Fire spil, én mikrofon. Syng en sang baglæns, læg din stemme ind i en filmscene eller en af dine egne videoer, eller efterlign en lyd, til den sidder. Ingen af delene får dig til at lyde normal.";
 "onboarding.howItWorks.title" = "Sådan virker det";
 "onboarding.howItWorks.message" = "Optag en sang, vend den om, og syng med på volapykken. Vend derefter din egen optagelse og hør, om du ramte plet eller lige har opfundet et nyt sprog.";
 "onboarding.dub.title" = "Dub en filmscene";
-"onboarding.dub.message" = "Det andet spil: sæt en scene i gang, overspil løs, og hør så dig selv i filmen. To scener følger med. Derefter tager du dine egne filer med.";
-"onboarding.microphone.title" = "En sidste ting";
-"onboarding.microphone.message" = "Alle tre spil skal kunne høre dig: baglænssang, dubbing af en scene eller efterligning af en lyd. Mikrofonen vågner kun, mens du optager, alt bliver på denne enhed, og intet bliver nogensinde uploadet. Din værste optagelse bliver mellem jer to.";
-"onboarding.button.openSettings" = "Åbn Indstillinger";
-"onboarding.button.letsRecord" = "kom, lad os optage!";
+"onboarding.dub.message" = "Det andet spil: sæt en scene i gang, overspil løs, og hør så dig selv i filmen. Fire scener følger med. Derefter tager du dine egne filer med.";
+"onboarding.pro.title" = "Derfor findes Dubloon Pro";
+"onboarding.pro.message" = "Dubloon har ingen reklamer, ingen konto og ingen sporing, og det laves af én person i Zürich. Dubloon Pro er det, der betaler for det. Du kan prøve alle spil: Dine første %d optagelser er gratis, og Pro gør dem ubegrænsede.";
+"onboarding.pro.buy" = "Få Dubloon Pro";
+"onboarding.pro.skip" = "Spring over for nu";
 "onboarding.button.continueLowercase" = "fortsæt";
-"onboarding.button.microphoneContinue" = "Fortsæt";
-"onboarding.button.continueWithout" = "fortsæt uden";
+"onboarding.button.continue" = "Fortsæt";
+
+// MARK: - Microphone explanation
+"microphonePrimer.title" = "Mikrofon";
+"microphonePrimer.message" = "Alle spil skal kunne høre dig: baglænssang, dubbing af en scene eller efterligning af en lyd. Mikrofonen vågner kun, mens du optager, alt bliver på denne enhed, og intet bliver nogensinde uploadet. Din værste optagelse bliver mellem jer to.";
+"microphonePrimer.continue" = "Fortsæt";
 
 // MARK: - Main View - Buttons
 "main.button.stopRecording" = "Stop optagelsen";
@@ -54,7 +58,7 @@
 
 // MARK: - Main View - Empty State
 "main.emptyState.title" = "Ingen kan høre dig";
-"main.emptyState.message" = "Lige nu er Dubloon en optageapp uden noget at optage med. Tænd for mikrofonadgang i enhedens indstillinger, så vågner alle tre spil til live igen.";
+"main.emptyState.message" = "Lige nu er Dubloon en optageapp uden noget at optage med. Slå mikrofonadgang til i enhedens indstillinger, så vågner alle fire spil til live igen.";
 "main.emptyState.button" = "Åbn Indstillinger";
 
 // MARK: - Main View - Processing & Success
@@ -139,10 +143,6 @@
 "settings.about.license.lifetime" = "Dubloon Pro, livstid";
 "settings.about.license.renews" = "Dubloon Pro, fornyes %@";
 "settings.about.license.ends" = "Dubloon Pro, udløber %@";
-"settings.about.license.earlyAdopter" = "Tidlig bruger, gratis for livet";
-"settings.about.license.trialDays" = "Gratis prøve, %d dage tilbage";
-"settings.about.license.trialLastDay" = "Gratis prøve, sidste dag";
-"settings.about.license.trialOver" = "Gratis prøve er slut";
 "settings.about.license.free" = "Gratis";
 
 // Theme descriptions
@@ -228,7 +228,6 @@
 "main.button.back" = "Tilbage";
 "main.mode.reverse.subtitle" = "Optag, vend om og syng volapykken";
 "main.mode.dub.subtitle" = "Læg din stemme i en andens mund";
-"main.mode.free" = "Gratis";
 "dub.speakerAccessibility" = "Siges af %@";
 "dub.cast" = "Medvirkende";
 "dub.referenceTrack" = "Reference";
@@ -239,7 +238,7 @@
 // MARK: - Dub Content Gate
 "dubGate.close" = "Luk";
 "dubGate.ask.title" = "Har du allerede dine film?";
-"dubGate.ask.message" = "Ud over de to eksempelscener leverer og hoster vi ikke en eneste film. For at dubbe noget andet skal filmfilen allerede ligge på denne enhed.";
+"dubGate.ask.message" = "Ud over de fire eksempelscener leverer og hoster vi ikke en eneste film. For at dubbe noget andet skal filmfilen allerede ligge på denne enhed.";
 "dubGate.ask.confirm" = "Ja, jeg har dem her";
 "dubGate.ask.needDownload" = "Nej, jeg skal hente dem";
 "dubGate.download.title" = "Hvor du finder dem";
@@ -248,6 +247,19 @@
 "dubGate.download.back" = "Tilbage";
 "dubGate.disclaimer.notAffiliated" = "%@ er en andens side. Vi har intet med den at gøre, og vi hoster eller deler ikke en eneste fil.";
 "dubGate.disclaimer.responsibility" = "Sørg for, at du har ret til at bruge det, du henter, og følg ophavsretsreglerne der, hvor du bor.";
+"dubGuide.row" = "Jeg har brug for hjælp til at få flere pakker";
+"dubGuide.title" = "Få flere pakker";
+"dubGuide.intro" = "En dubpakke er én scene: videoen, dens lydspor og en optagelse af hver replik. Sådan får du en ind i Dubloon.";
+"dubGuide.1.title" = "Find en scene";
+"dubGuide.1.detail" = "Åbn GameBanana nedenfor, og gennemse dubpakkerne til film. Vælg en, og åbn dens side.";
+"dubGuide.2.title" = "Download den";
+"dubGuide.2.detail" = "Tryk på Download, og vælg filen: en .zip, .7z eller .rar. Safari gemmer den i appen Arkiver under Overførsler.";
+"dubGuide.3.title" = "Lad den blive færdig";
+"dubGuide.3.detail" = "Vent, til overførslen er færdig. Hvis filen ligger i iCloud Drive, så åbn den én gang i Arkiver, så den virkelig er på enheden.";
+"dubGuide.4.title" = "Importér den";
+"dubGuide.4.detail" = "Kom tilbage hertil, tryk på +, bekræft at filen er på din enhed, og vælg den under Overførsler. Du kan også dele den til Dubloon fra Arkiver eller AirDrop.";
+"dubGuide.5.title" = "Hvis importen fejler";
+"dubGuide.5.detail" = "Dubloon fortæller, hvad der gik galt. Gem arkivet igen som .zip, bed skaberen om en kopi uden adgangskode, og tjek at den har en tekstfil og en optagelse for hver replik.";
 
 // MARK: - Dub Share Notice
 "dubShare.title" = "Før du deler";
@@ -257,6 +269,7 @@
 "dubShare.unknownSource" = "Den her scene tog du selv med, så du ved, hvor den kommer fra, og hvad du må med den.";
 "dubShare.responsibility" = "Hvor den ender, er op til dig, så følg ophavsretsreglerne der, hvor du bor.";
 "dubShare.confirm" = "Eksportér video";
+"dubShare.caption" = "Jeg dubbede denne scene med Dubloon 🎙️";
 "dubShare.share" = "Del…";
 "dubShare.save" = "Gem…";
 
@@ -284,13 +297,11 @@
 "dub.videoNeedsReimport" = "Scenens video blev konverteret af en ældre version og løber nu foran stemmerne. Importér pakken igen, så sidder det.";
 
 // MARK: - Pro / Paywall
-"pro.trial.daysLeft" = "%d dage tilbage";
-"pro.trial.oneDayLeft" = "Sidste dag";
-"pro.trial.over" = "Din gratis prøveperiode er slut";
-"pro.locked.title" = "Få Dubloon Pro for at dubbe";
 "pro.section" = "Dubloon Pro";
+"pro.freeTakes.left" = "%1$d af %2$d gratis optagelser tilbage";
+"pro.freeTakes.usedUp" = "Dine gratis optagelser er brugt op";
 "pro.unlock.title" = "Lås Dubloon op";
-"pro.unlock.subtitle" = "Alle scener, Booth Cam og eksport. Baglænssang forbliver gratis.";
+"pro.unlock.subtitle" = "Dine første %d optagelser er gratis, i alle spil. Dubloon Pro gør alle spil ubegrænsede, med Booth Cam og eksport.";
 "pro.owned.title" = "Du ejer Dubloon";
 "pro.owned.subtitle" = "Tak. Hver scene, hver optagelse, uden loft.";
 "pro.manage.title" = "Administrér købet";
@@ -301,17 +312,13 @@
 "pro.restore.title" = "Gendan købet";
 "pro.restore.subtitle" = "Ny telefon eller geninstalleret? Hent det tilbage.";
 "pro.testStore.warning" = "Debug-build: forbundet til RevenueCats testbutik. Der flytter sig ingen rigtige penge.";
-"pro.restored.title" = "Gendannet";
-"pro.restored.message" = "Dit køb er tilbage på denne enhed.";
 "pro.nothingToRestore.title" = "Intet at gendanne";
 "pro.nothingToRestore.message" = "Der blev ikke fundet noget køb på denne Apple-konto. Hvis du købte Dubloon med en anden, så log ind med den og prøv igen.";
 "pro.error.title" = "Noget gik galt";
 "pro.error.generic" = "Butikken svarede ikke. Prøv igen om et øjeblik.";
 "pro.ok" = "OK";
 "pro.fallback.title" = "Lås Dubloon op";
-"pro.fallback.message" = "Din gratis prøveperiode er slut. Lås Dubloon op for at blive ved med at dubbe.";
-"pro.fallback.message.beforeExpiry" = "Lås Dubloon op for at blive ved med at dubbe.";
-"pro.fallback.message.noTrial" = "Lås Dubloon op for at dubbe hver eneste scene.";
+"pro.fallback.message" = "Lås Dubloon op for at blive ved med at optage i alle spil.";
 "pro.fallback.buy" = "Lås op for %@";
 "pro.fallback.buyUnpriced" = "Lås op";
 "pro.fallback.loading" = "Spørger butikken…";
@@ -332,23 +339,19 @@
 "review.banner.message" = "Dubloon er lavet af én person i Zürich, og anmeldelser er dér, nye spillere finder det. Hvis du er glad for det, ville et par ord i App Store betyde meget.";
 "review.banner.rate" = "Skriv en anmeldelse";
 "review.banner.later" = "Ikke nu";
+"review.banner.fan.title" = "Har du det sjovt?";
+"review.banner.fan.message" = "Du er godt kørende. Dubloon er lavet af én person i Zürich, og det er gennem anmeldelser, nye spillere finder det. Hvis det har fået dig til at grine, ville et par ord i App Store betyde meget.";
+"review.banner.prompt" = "Hvor mange stjerner vil du give Dubloon?";
+"review.banner.star" = "%d ud af 5 stjerner";
+"review.banner.store.title" = "Dejligt, at du kan lide det!";
+"review.feedback.slug" = "Feedback";
+"review.feedback.title" = "Hvad gik galt?";
+"review.feedback.message" = "Fortæl os, hvad der skuffede dig. Din besked går direkte til den person, der laver Dubloon, og den bliver læst.";
+"review.feedback.placeholder" = "Hvad skal være bedre?";
+"review.feedback.send" = "Send";
 
-// MARK: - Pro / Early adopters
-"pro.earlyAdopter.title" = "Velkommen i klubben";
-"pro.earlyAdopter.message" = "Dubloon koster penge nu — bare ikke for dig. Du var her, før der kom en prismærkat på, så alle tre spil bliver ved med at være dine, gratis, så længe appen findes. Tak for de første dage.";
-"pro.earlyAdopter.badge" = "Gratis for livet";
-"pro.earlyAdopter.confirm" = "Fedt";
-"pro.earlyAdopter.settings.title" = "Gratis for livet";
-"pro.earlyAdopter.settings.subtitle" = "Du var her tidligt. Alle tre spil er dine, og du skylder os ingenting.";
+// MARK: - Pro
 "pro.closePaywall" = "Luk";
-
-// Early adopter slate rows
-"pro.earlyAdopter.row.access" = "Adgang";
-"pro.earlyAdopter.row.access.value" = "Alle tre spil";
-"pro.earlyAdopter.row.cost" = "Pris";
-"pro.earlyAdopter.row.cost.value" = "Ingenting";
-"pro.earlyAdopter.row.expires" = "Udløber";
-"pro.earlyAdopter.row.expires.value" = "Aldrig";
 
 /* MARK: - Booth Cam */
 "booth.slug" = "Boks";
@@ -388,6 +391,11 @@
 "booth.frame.stacked" = "Oven på hinanden";
 "booth.frame.reaction" = "Reaktion";
 "booth.frame.split" = "Side om side";
+"booth.frame.vertical" = "Lodret";
+"booth.export.pipCorner" = "Kabinens hjørne";
+"booth.export.pip.bottomRight" = "Nederst til højre";
+"booth.export.pip.bottomLeft" = "Nederst til venstre";
+"booth.export.pip.topRight" = "Øverst til højre";
 "booth.export.stackedNote" = "Oven på hinanden og Reaktion renderes i 9:16 med en kurve i bunden: scenens replik øverst, din nederst.";
 "booth.export.noFootage" = "Der er ingen boksoptagelser i denne scene endnu. Tænd Booth Cam og dub en replik.";
 "booth.export.includeBooth" = "Tag boksoptagelserne med";
@@ -439,6 +447,32 @@
 /* Sound Imitation */
 "main.mode.imitate.title" = "Lydimitation";
 "main.mode.imitate.subtitle" = "Efterlign en lyd, få en dom";
+
+// Home Video Dub
+"main.mode.homeVideo.title" = "Dub dine egne videoer";
+"main.mode.homeVideo.subtitle" = "Læg din stemme på enhver video, du har filmet";
+"homeVideo.choose" = "Vælg en video";
+"homeVideo.change" = "Skift video";
+"homeVideo.limit" = "Op til ét minut. Din video bliver på din telefon.";
+"homeVideo.trimmed" = "Kun det første minut bruges.";
+"homeVideo.importing" = "Åbner din video…";
+"homeVideo.mixing" = "Lægger din stemme på…";
+"homeVideo.keepOriginal" = "Behold den originale lyd";
+"homeVideo.keepOriginal.detail" = "Spiller svagt under din stemme";
+"homeVideo.keepOriginal.none" = "Denne video har ingen lyd";
+"homeVideo.hint.ready" = "Tryk på optag, så starter videoen fra begyndelsen. Følg bølgen, så dine lyde rammer det rigtige øjeblik.";
+"homeVideo.hint.empty" = "Vælg en video fra dit bibliotek for at lægge din stemme på den.";
+"homeVideo.hint.recordingHeadphones" = "Optager. Du hører videoen i dine hovedtelefoner; mikrofonen hører kun dig.";
+"homeVideo.hint.recording" = "Optager. Videoen spiller uden lyd, så mikrofonen kun hører dig.";
+"homeVideo.hint.review" = "Her er din version. Del den, eller optag igen.";
+"homeVideo.record" = "Optag";
+"homeVideo.stop" = "Stop";
+"homeVideo.retake" = "Optag igen";
+"homeVideo.share" = "Del";
+"homeVideo.play" = "Afspil";
+"homeVideo.pause" = "Pause";
+"homeVideo.error.load" = "Den video kunne ikke åbnes. Prøv en anden.";
+"homeVideo.error.mix" = "Din stemme kunne ikke lægges på videoen. Optag igen.";
 "imitate.library.hint" = "Vælg en lyd, lyt, og giv den din bedste efterligning.";
 "imitate.library.best" = "Rekord";
 "imitate.library.untried" = "Ny";
@@ -502,6 +536,16 @@
 "imitate.sound.laugh" = "Ond latter";
 "imitate.sound.yawn" = "Gab";
 "imitate.sound.hiccup" = "Hikke";
+"imitate.sound.frog" = "Frø";
+"imitate.sound.horse" = "Hest";
+"imitate.sound.goat" = "Ged";
+"imitate.sound.monkey" = "Abe";
+"imitate.sound.lion" = "Løve";
+"imitate.sound.squeak" = "Pibelegetøj";
+"imitate.sound.fart" = "Prut";
+"imitate.sound.ghost" = "Spøgelse";
+"imitate.sound.zombie" = "Zombie";
+"imitate.sound.whistle" = "Fløjt";
 
 /* Mac */
 "mac.sidebar.games" = "Spil";
@@ -532,7 +576,6 @@
 "mac.panel.emptyMessage" = "Vælg et spil eller en dubpakke i sidepanelet.";
 "mac.settings.general" = "Generelt";
 "mac.settings.recording" = "Optagelse";
-"mac.welcome.notNow" = "Ikke nu";
 "mac.booth.primer.message" = "Booth Cam kører Mac'ens kamera, mens du spiller, så scenen, replikken og dit ansigt deler den samme skærm. Bagefter kan du dele reaktionen sammen med dubben.";
 "mac.booth.primer.systemPrompt" = "Om lidt spørger macOS om adgang til kameraet.";
 "mac.menu.openRecent" = "Åbn seneste";
@@ -562,3 +605,159 @@
 "mac.panel.sound" = "Lyd";
 "mac.panel.allSounds" = "Alle";
 "mac.panel.compare" = "Sammenlign";
+
+/* Help */
+"help.title" = "Hjælp";
+"help.close" = "Luk";
+"help.search.prompt" = "Søg i hjælpen";
+"help.search.clear" = "Ryd søgning";
+"help.search.empty" = "Intet matcher det. Prøv et andet ord, eller skriv til os nedenfor.";
+"help.row.expanded" = "Udvidet";
+"help.row.collapsed" = "Skjult";
+"help.row.expandHint" = "Viser svaret";
+"help.contact.title" = "Sidder du stadig fast?";
+"help.contact.message" = "Skriv til os. Personen, der har lavet Dubloon, læser hver eneste mail og svarer på den.";
+"help.contact.button" = "Skriv til os";
+"help.mail.subject" = "Hjælp til Dubloon";
+"help.section.gettingStarted" = "Kom i gang";
+"help.section.booth" = "Booth Cam og eksport";
+"help.section.packs" = "Dubpakker";
+"help.section.pro" = "Dubloon Pro og køb";
+"help.section.privacy" = "Privatliv";
+"help.section.troubleshooting" = "Fejlfinding";
+"help.flow.title" = "Sådan virker baglænssang";
+"help.flow.sing" = "Syng";
+"help.flow.flip" = "Vend";
+"help.flow.copy" = "Efterlign";
+"help.flow.flipBack" = "Vend tilbage";
+"help.flow.caption" = "Syng en linje, og hør den baglæns. Efterlign volapykken så præcist du kan, og vend så din kopi om. Rammer du plet, kommer sangen ud.";
+"help.gettingStarted.1.q" = "Hvad er Dubloon?";
+"help.gettingStarted.1.a" = "Fire stemmespil, der kun kræver din mikrofon. Baglænssang: syng en sang baglæns. Dub en filmscene: læg din stemme i en filmscene, replik for replik. Dub dine egne videoer: læg din stemme på en video, du har filmet. Lydimitation: efterlign en lyd og få en dom. Vælg et i menuen.";
+"help.gettingStarted.2.q" = "Er Dubloon gratis?";
+"help.gettingStarted.2.a" = "Du kan prøve alle spil gratis. Dine første 3 optagelser er gratis, talt på tværs af alle fire spil: Dub to filmreplikker og vend én sang baglæns, så er de brugt. Derefter kan spillene stadig åbnes, og med Dubloon Pro kan du blive ved med at optage.";
+"help.gettingStarted.3.q" = "Skal jeg bruge høretelefoner?";
+"help.gettingStarted.3.a" = "Nej, men de hjælper, når du dubber. Med høretelefoner på kan du høre den originale replik, mens du optager (slå Originalen i høretelefonerne til i Indstillinger). Gennem højttaleren ville den ende i din optagelse, så Dubloon afspiller den kun i høretelefoner. Høretelefoner med ledning giver den skarpeste timing: Bluetooth lægger en lille forsinkelse til.";
+"help.reverse.1.q" = "Hvordan virker baglænssang?";
+"help.reverse.1.a" = "Tryk på Optag lyd, og syng en linje af en sang. Tryk på Afspil baglæns for at høre den vendt om. Tryk så på Syng den tilbage, og efterlign den baglæns lyd så præcist du kan. Dubloon vender din kopi om, og har du ramt rigtigt, hører du sangen igen, med din stemme.";
+"help.reverse.2.q" = "Hvad gør de fire afspilningsknapper?";
+"help.reverse.2.a" = "Original er den linje, du sang. Baglæns er den linje vendt om, altså lyden, du skal efterligne. Din optagelse er din kopi, som du sang den. Din optagelse, baglæns er din kopi vendt tilbage: den, der gerne skulle lyde som sangen.";
+"help.reverse.3.q" = "Hvordan bliver min score regnet ud?";
+"help.reverse.3.a" = "Dubloon sammenligner din optagelse, vendt tilbage, med din originale linje: hvor lyden stiger og falder, og hvordan rytmen passer sammen. Det hele sker på din enhed. Korte linjer med tydelige ord scorer bedst; gå efter rytmen først og vokalerne bagefter.";
+"help.reverse.4.q" = "Enkel eller Avanceret?";
+"help.reverse.4.a" = "To udseender til det samme spil, som du skifter mellem med indstillingsknappen øverst på skærmen. Enkel er store knapper og intet at snuble over. Avanceret tilføjer bølgeformen og Lydkontroller: løkke, hastighed og toneleje. At sætte farten ned på den baglæns linje er den bedste måde at lære den på.";
+"help.reverse.5.q" = "Hvor er mine gemte sessioner?";
+"help.reverse.5.a" = "Tryk på arkivknappen øverst på Baglænssang-skærmen. Når du starter en ny session, ryger den nuværende i arkivet, så intet bliver smidt ud. Swipe en session i arkivet for at slette den.";
+"help.dub.1.q" = "Hvordan dubber jeg en scene?";
+"help.dub.1.a" = "Åbn Dub en filmscene, vælg en scene, og tryk på Begynd at dubbe. Lyt til originalen for hver replik, og tryk så på optag: der tælles tre slag ind, og mikrofonen lukker af sig selv, når replikken slutter. Gå videre med Næste, og vend tilbage til en hvilken som helst replik, når du vil.";
+"help.dub.2.q" = "Hvad betyder tempobjælken?";
+"help.dub.2.a" = "Den viser, hvor lang den originale replik er. Den bliver ravgul, så snart du løber over, så du ved, at du skal skrue op for tempoet. Under din optagelse viser originalens bølgeform, hvor du kom for tidligt ind, jagede af sted eller efterlod et hul.";
+"help.dub.3.q" = "Hvordan bliver dubs bedømt?";
+"help.dub.3.a" = "Hver optagelse bedømmes på timing (startede og stoppede du sammen med originalen), tempo (holdt du dens rytme) og spil (fulgte dine høje og stille steder med). Scenen får også en score, med din bedste replik og den, der er værd at tage om. Vil du ikke bedømmes? Slå Bedøm mine optagelser fra i dubindstillingerne.";
+"help.dub.4.q" = "Hvordan hører jeg mig selv i filmen?";
+"help.dub.4.a" = "Tryk på Se min dub i scenen. Dine optagelser lægges ind i filmen i stedet for de originale replikker; det, du ikke har dubbet endnu, afspilles som det var. Se originalen afspiller scenen uberørt.";
+"help.homeVideo.1.q" = "Hvordan dubber jeg min egen video?";
+"help.homeVideo.1.a" = "Tryk på det tomme billede, og vælg en video fra dit bibliotek, op til et minut lang. Tryk på optag: efter nedtællingen afspilles videoen fra begyndelsen, og din stemme lægges ovenpå. Til sidst afspilles din version, klar til at dele eller optage igen.";
+"help.homeVideo.2.q" = "Hvordan rammer jeg timingen?";
+"help.homeVideo.2.a" = "Bølgen under billedet er videoens egen lyd, og linjen, der bevæger sig hen over den, viser, hvor videoen er. Hold øje med den for at få et gø eller et grin til at ramme det rigtige øjeblik. Efter en optagelse tegnes din stemme ovenpå med rødt.";
+"help.homeVideo.3.q" = "Kan jeg høre videoen, mens jeg optager?";
+"help.homeVideo.3.a" = "Ja, med hovedtelefoner. Gennem højttaleren afspilles videoen uden lyd, så den ikke ender i din optagelse. Behold den originale lyd lægger den tilbage, lavt, under din stemme i den færdige video.";
+"help.booth.1.q" = "Hvad er Booth Cam?";
+"help.booth.1.a" = "Booth Cam filmer dit ansigt med frontkameraet, mens du optræder, så reaktionen kan komme med i videoen sammen med dubben. Det er slået fra, indtil du slår det til med kameraknappen på optageskærmen eller i Indstillinger. Optagelserne bliver på din enhed.";
+"help.booth.2.q" = "Hvordan eksporterer jeg en video?";
+"help.booth.2.a" = "Tryk på Eksportér video i en scene. Vælg klippet (hele scenen eller en sessionsrulle med kun de replikker, du har dubbet), og hvor dine boksoptagelser skal sidde: i hjørnet, oven på hinanden til en story, som reaktion eller side om side. Før videoen renderes, viser Dubloon, hvis scene det er, så du kan give kredit, når du deler.";
+"help.booth.3.q" = "Hvordan sletter jeg boksoptagelser?";
+"help.booth.3.a" = "Indstillinger viser, hvor meget plads boksoptagelserne fylder, med en knap til at slette alle boksoptagelser. Dine stemmeoptagelser og dubs bliver stående. Sletter du en scene, forsvinder dens optagelser og klip også.";
+"help.packs.1.q" = "Hvordan får jeg flere scener?";
+"help.packs.1.a" = "Scener kommer som dubpakker: en mappe eller et .zip-, .7z- eller .rar-arkiv. Tryk på + i Dub en filmscene, og vælg en fra Arkiver, eller send den til Dubloon med AirDrop eller fra et hvilket som helst delingsark. Dubloon pakker den ud, og scenen dukker op på listen.";
+"help.packs.2.q" = "Hvor kommer dubpakker fra?";
+"help.packs.2.a" = "Fire scener følger med appen. Alle andre pakker er lavet og delt af andre spillere; Dubloon indeholder, hoster eller sælger ingen film. Dub kun det, du har ret til at bruge, og følg reglerne for ophavsret dér, hvor du bor.";
+"help.packs.3.q" = "En pakke vil ikke importeres. Hvad nu?";
+"help.packs.3.a" = "Dubloon fortæller, hvad der gik galt. De sædvanlige løsninger: Ligger filen i iCloud, så åbn den i Arkiver først, så den bliver hentet. Har arkivet en adgangskode, så bed skaberen om et uden. Vil det ikke pakkes ud, så gem det igen som .zip. Og siger Dubloon, at det ikke er en dubpakke, skal den have en tekstfil og en optagelse for hver replik.";
+"help.imitate.1.q" = "Hvordan virker Lydimitation?";
+"help.imitate.1.a" = "Vælg en lyd, tryk på Lyt, tryk så på Efterlign, og lav lyden selv. Dubloon sammenligner dit forsøg med den ægte vare og stempler en dom på det. Din bedste score for hver lyd bliver gemt, så du kan komme tilbage og slå den.";
+"help.imitate.2.q" = "Hvad bliver bedømt?";
+"help.imitate.2.a" = "Fire ting: rytme (hvordan lyden stiger og falder over tid), tonehøjde, klang (lys eller mat) og længde. Lyt et par gange først, ram længden, og bekymr dig så om tonehøjden.";
+"help.imitate.3.q" = "Kan jeg dele et forsøg?";
+"help.imitate.3.a" = "Ja. Tryk på Lav video efter en dom: lyden, dit forsøg og din score, klar til at sende. Med Booth Cam slået til er dit ansigt også med.";
+"help.pro.1.q" = "Hvad låser Dubloon Pro op for?";
+"help.pro.1.a" = "Ubegrænsede optagelser i alle spil: Dub en filmscene med alle scener og fællesskabspakker, Lydimitation, Baglænssang og Dub dine egne videoer, plus Booth Cam og videoeksport. Uden Pro er dine første 3 optagelser gratis. Pro er et engangskøb eller et abonnement, og det låses op på din iPhone og din Mac med samme Apple-konto.";
+"help.pro.2.q" = "Jeg har købt Pro, men det er låst.";
+"help.pro.2.a" = "Åbn Indstillinger, og tryk på Gendan købet. Sørg for, at du er logget ind i App Store med den Apple-konto, du købte det med. På en ny telefon eller efter en geninstallation henter gendannelsen det tilbage uden beregning.";
+"help.pro.3.q" = "Hvordan opsiger eller ændrer jeg mit abonnement?";
+"help.pro.3.a" = "Tryk på Administrér abonnement i Indstillinger. Du kan også gøre det i appen Indstillinger: tryk på dit navn og derefter Abonnementer. Opsig mindst 24 timer før fornyelsen, så beholder du Pro til slutningen af den periode, du har betalt for. Refusioner håndteres af Apple.";
+"help.privacy.1.q" = "Bliver mine optagelser uploadet nogen steder?";
+"help.privacy.1.a" = "Nej. Dine optagelser, boksoptagelser og videoer bliver på din enhed, indtil du selv vælger at dele dem. Bedømmelsen sker også på din enhed. Der er ingen konto og intet at tilmelde sig.";
+"help.privacy.2.q" = "Hvad indsamler Dubloon?";
+"help.privacy.2.a" = "Anonym brugsstatistik og nedbrudsrapporter, som hjælper med at finde fejl og beslutte, hvad der skal bygges næste gang: fx hvilket spil der blev åbnet, og hvilken score der kom ud, aldrig lyden af en optagelse. Slå det fra i Indstillinger med Del brugsdata. Privatlivspolitikken har alle detaljer.";
+"help.troubleshooting.1.q" = "Dubloon kan ikke høre mig.";
+"help.troubleshooting.1.a" = "Tjek, at Dubloon må bruge mikrofonen: Åbn Dubloon i appen Indstillinger, og slå Mikrofon til. Bruger en anden app lyden, fx et opkald, så afslut den og prøv igen.";
+"help.troubleshooting.2.q" = "Jeg kan ikke høre noget.";
+"help.troubleshooting.2.a" = "Skru op for lyden, og tjek, om Bluetooth-høretelefoner eller en højttaler har forbundet sig et andet sted. Den originale replik afspilles med vilje kun i høretelefoner under optagelsen, så den holder sig ude af din optagelse.";
+"help.troubleshooting.3.q" = "Min dub er ude af sync med billedet.";
+"help.troubleshooting.3.a" = "Bluetooth-høretelefoner giver en forsinkelse, så du hører originalen lidt for sent og kommer for sent ind. Høretelefoner med ledning, eller slet ingen, løser det. Siger Dubloon, at en scenes video løber foran stemmerne, så importér pakken igen.";
+"help.troubleshooting.4.q" = "Booth Cam vil ikke tænde.";
+"help.troubleshooting.4.a" = "Dubloon skal bruge kameraet til det. Åbn Dubloon i appen Indstillinger, og slå Kamera til. Booth Cam er en del af Dubloon Pro.";
+/* Help, privacy and appearance in Settings */
+"settings.help" = "Hjælp og support";
+"settings.help.desc" = "Sådan virker det hele, og en vej til os";
+"settings.terms.desc" = "Aftalen mellem os, i klart sprog";
+"settings.privacy.section" = "Privatliv";
+"settings.shareUsage" = "Del brugsdata";
+"settings.shareUsage.desc" = "Anonym statistik og nedbrudsrapporter, der hjælper med at rette fejl. Aldrig dine optagelser.";
+"settings.appearance" = "Udseende";
+"settings.appearance.system" = "System";
+"settings.appearance.light" = "Lys";
+"settings.appearance.dark" = "Mørk";
+
+/* Mac: new strings */
+"mac.homeVideo.fromPhotos" = "Vælg fra Fotos…";
+"mac.homeVideo.fromFile" = "Vælg en fil…";
+"mac.homeVideo.dropHint" = "Eller slip en videofil her.";
+"mac.panel.clip" = "Klip";
+"mac.panel.mix" = "Mix";
+"mac.menu.help" = "Dubloon Hjælp";
+"mac.homeVideo.limit" = "Op til ét minut. Din video bliver på denne Mac.";
+"mac.homeVideo.hint.empty" = "Vælg en video fra Fotos eller Finder for at lægge din stemme på den.";
+"help.gettingStarted.1.a.mac" = "Fire stemmespil, der kun kræver din mikrofon. Baglænssang: syng en sang baglæns. Dub en filmscene: læg din stemme i en filmscene, replik for replik. Dub dine egne videoer: læg din stemme på en video, du har filmet. Lydimitation: efterlign en lyd og få en dom. Vælg et i sidepanelet, eller tryk på ⌘1 til ⌘4.";
+"help.gettingStarted.3.a.mac" = "Nej, men de hjælper, når du dubber. Med høretelefoner på kan du høre den originale replik, mens du optager (slå Originalen i høretelefonerne til i Dubloon ▸ Indstillinger ▸ Optagelse). Gennem højttalerne ville den ende i din optagelse, så Dubloon afspiller den kun i høretelefoner. Høretelefoner med ledning giver den skarpeste timing: Bluetooth lægger en lille forsinkelse til.";
+"help.reverse.1.a.mac" = "Klik på Optag lyd (eller tryk på R), og syng en linje af en sang. Afspil sporet Baglæns for at høre den vendt om. Klik så på Syng den tilbage, og efterlign den baglæns lyd så præcist du kan. Dubloon vender din kopi om, og har du ramt rigtigt, hører du sangen igen, med din stemme.";
+"help.reverse.4.q.mac" = "Kan jeg sætte farten ned på den baglæns linje?";
+"help.reverse.4.a.mac" = "Ja. Inspektøren til højre (⌥⌘I) har Lydkontroller: løkke, hastighed og toneleje. At sætte farten ned på den baglæns linje er den bedste måde at lære den på.";
+"help.reverse.5.a.mac" = "Under Baglænssang i sidepanelet. Når du starter en ny session (⌘N), havner den nuværende der, så intet bliver smidt ud. Vælg en session, og tryk på ⌘⌫, eller ctrl-klik på den for at slette den.";
+"help.dub.1.a.mac" = "Vælg en scene under Dub en filmscene i sidepanelet. Vælg en replik, tryk på L for at høre originalen og så på R for at optage: der tælles tre slag ind, og mikrofonen lukker af sig selv, når replikken slutter. Skift mellem replikker med ↑ og ↓, og vend tilbage til en hvilken som helst replik, når du vil.";
+"help.dub.3.a.mac" = "Hver optagelse bedømmes på timing (startede og stoppede du sammen med originalen), tempo (holdt du dens rytme) og spil (fulgte dine høje og stille steder med). Scenen får også en score, med din bedste replik og den, der er værd at tage om. Vil du ikke bedømmes? Slå Bedøm mine optagelser fra i værktøjslinjen, inspektøren eller Indstillinger.";
+"help.dub.4.a.mac" = "Skift fremviseren til Min dub (⌃⌘3), og tryk på mellemrumstasten. Dine optagelser lægges ind i filmen i stedet for de originale replikker; det, du ikke har dubbet endnu, afspilles som det var. Original (⌃⌘2) afspiller scenen uberørt.";
+"help.homeVideo.1.a.mac" = "Vælg en video fra Fotos eller fra en fil, eller slip en på fremviseren, op til et minut lang. Tryk på R: efter nedtællingen afspilles videoen fra begyndelsen, og din stemme lægges ovenpå. Til sidst afspilles din version, klar til at dele (⌘E) eller optage igen.";
+"help.homeVideo.3.a.mac" = "Ja, med hovedtelefoner. Gennem højttalerne afspilles videoen uden lyd, så den ikke ender i din optagelse. Behold den originale lyd i inspektøren lægger den tilbage, lavt, under din stemme i den færdige video.";
+"help.booth.1.a.mac" = "Booth Cam filmer dit ansigt med din Macs kamera, mens du optræder, så reaktionen kan komme med i videoen sammen med dubben. Det er slået fra, indtil du slår det til med kameraknappen i værktøjslinjen (⇧⌘C) eller i Indstillinger. Optagelserne bliver på din Mac.";
+"help.booth.2.a.mac" = "Vælg Arkiv ▸ Eksportér video (⌘E) i en scene. Vælg klippet (hele scenen eller en sessionsrulle med kun de replikker, du har dubbet), og hvor dine boksoptagelser skal sidde: i hjørnet, oven på hinanden til en story, som reaktion eller side om side. Før videoen renderes, viser Dubloon, hvis scene det er, så du kan give kredit, når du deler.";
+"help.booth.3.a.mac" = "Dubloon ▸ Indstillinger ▸ Optagelse viser, hvor meget plads boksoptagelserne fylder, med en knap til at slette alle boksoptagelser. Dine stemmeoptagelser og dubs bliver stående. Sletter du en scene, forsvinder dens optagelser og klip også.";
+"help.packs.1.a.mac" = "Scener kommer som dubpakker: en mappe eller et .zip-, .7z- eller .rar-arkiv. Vælg Arkiv ▸ Importér dubpakke (⌘O), slip filen på Dub en filmscene i sidepanelet, eller åbn den med Dubloon fra Finder. Dubloon pakker den ud, og scenen dukker op på listen.";
+"help.packs.3.a.mac" = "Dubloon fortæller, hvad der gik galt. De sædvanlige løsninger: Ligger filen i iCloud Drive, så hent den i Finder først. Har arkivet en adgangskode, så bed skaberen om et uden. Vil det ikke pakkes ud, så gem det igen som .zip. Og siger Dubloon, at det ikke er en dubpakke, skal den have en tekstfil og en optagelse for hver replik.";
+"help.imitate.1.a.mac" = "Vælg en lyd på listen, tryk på L for at høre den og så på R for at efterligne den. Dubloon sammenligner dit forsøg med den ægte vare og stempler en dom på det. Din bedste score for hver lyd bliver gemt, så du kan komme tilbage og slå den.";
+"help.imitate.3.a.mac" = "Ja. Klik på Lav video (⌘E) efter en dom: lyden, dit forsøg og din score, klar til at sende. Med Booth Cam slået til er dit ansigt også med.";
+"help.pro.2.a.mac" = "Åbn Dubloon ▸ Indstillinger ▸ Dubloon Pro, og klik på Gendan købet. Sørg for, at du er logget ind i App Store med den Apple-konto, du købte det med. På en ny Mac eller efter en geninstallation henter gendannelsen det tilbage uden beregning.";
+"help.pro.3.a.mac" = "Klik på Administrér abonnement i Dubloon ▸ Indstillinger ▸ Dubloon Pro. Du kan også gøre det i App Store: klik på dit navn, derefter Kontoindstillinger og derefter Abonnementer. Opsig mindst 24 timer før fornyelsen, så beholder du Pro til slutningen af den periode, du har betalt for. Refusioner håndteres af Apple.";
+"help.privacy.1.a.mac" = "Nej. Dine optagelser, boksoptagelser og videoer bliver på din Mac, indtil du selv vælger at dele dem. Bedømmelsen sker også på din Mac. Der er ingen konto og intet at tilmelde sig.";
+"help.privacy.2.a.mac" = "Anonym brugsstatistik og nedbrudsrapporter, som hjælper med at finde fejl og beslutte, hvad der skal bygges næste gang: fx hvilket spil der blev åbnet, og hvilken score der kom ud, aldrig lyden af en optagelse. Slå det fra i Dubloon ▸ Indstillinger ▸ Generelt med Del brugsdata. Privatlivspolitikken har alle detaljer.";
+"help.troubleshooting.1.a.mac" = "Tjek, at Dubloon må bruge mikrofonen: Slå Dubloon til i Systemindstillinger ▸ Anonymitet & sikkerhed ▸ Mikrofon. Tjek også input i Systemindstillinger ▸ Lyd, og at ingen anden app, fx et opkald, holder fast i mikrofonen.";
+"help.troubleshooting.2.a.mac" = "Skru op for lyden, og tjek output i Systemindstillinger ▸ Lyd: Bluetooth-høretelefoner eller en højttaler kan have forbundet sig. Den originale replik afspilles med vilje kun i høretelefoner under optagelsen, så den holder sig ude af din optagelse.";
+"help.troubleshooting.4.a.mac" = "Dubloon skal bruge kameraet til det. Slå Dubloon til i Systemindstillinger ▸ Anonymitet & sikkerhed ▸ Kamera. Booth Cam er en del af Dubloon Pro.";
+"dubGuide.2.detail.mac" = "Klik på Download, og vælg filen: en .zip, .7z eller .rar. Din browser gemmer den i mappen Overførsler.";
+"dubGuide.3.detail.mac" = "Vent, til overførslen er færdig. Hvis filen ligger i iCloud Drive, så hent den først i Finder, så den virkelig er på denne Mac.";
+"dubGuide.4.detail.mac" = "Kom tilbage hertil, klik på Importér en dubpakke, og vælg den under Overførsler. Du kan også slippe filen på Dub en filmscene i indholdsoversigten eller åbne den med Dubloon fra Finder.";
+
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Prøv Dubloon Pro gratis i %@";
+"offer.intro.paid" = "Dine første %2$@ med Dubloon Pro for %1$@";
+"offer.winback.free" = "Kom tilbage: %@ Dubloon Pro gratis";
+"offer.winback.paid" = "Kom tilbage: %2$@ Dubloon Pro for %1$@";
+"offer.then" = "Derefter %@. Opsig når som helst.";
+"offer.cta" = "Få tilbuddet";
+"offer.dismiss" = "Ikke nu";
+
+/* Spooky Voice Week */
+"halloween.title" = "Uhyggelig stemmeuge";
+"halloween.home.message" = "Jamr som et spøgelse, knur som en zombie, hyl som en ulv. Dub derefter Camp Rules, scenen fra en gyserkomedie.";
+"halloween.home.action" = "Spil de uhyggelige lyde";
+"halloween.imitate.message" = "Glædelig halloween! Varm stemmen op med spøgelset, zombien, ulven og uglen.";

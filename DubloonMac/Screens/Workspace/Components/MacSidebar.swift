@@ -72,6 +72,8 @@ struct MacSidebar: View {
                     return true
                 } isTargeted: { isDropTargeted = $0 }
 
+                gameRow(.homeVideo).tag(MacDestination.homeVideo)
+
                 gameRow(.imitate).tag(MacDestination.imitate)
             }
         }
@@ -103,35 +105,17 @@ struct MacSidebar: View {
 
     // MARK: - Rows
 
-    /// A locked game reads as disabled, as it does on the iPhone's menu, but stays clickable:
-    /// the click is how the paywall is reached.
     private func gameRow(_ mode: GameMode) -> some View {
-        let isLocked = home.isLocked(mode)
-
-        return HStack(spacing: 10) {
+        HStack(spacing: 10) {
             Image(mode.image)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 22, height: 22)
-                .saturation(isLocked ? 0 : 1)
-                .opacity(isLocked ? 0.45 : 1)
 
             Text(mode.title)
                 .lineLimit(1)
-                .foregroundStyle(isLocked ? .tertiary : .primary)
 
             Spacer(minLength: 4)
-
-            if isLocked {
-                Image(systemName: "lock.fill")
-                    .font(.system(size: 10))
-                    .foregroundStyle(.secondary)
-            } else if home.isFree(mode) {
-                Text(Strings.Main.Mode.free)
-                    .font(.system(size: 9, weight: .bold))
-                    .textCase(.uppercase)
-                    .foregroundColor(.rsGood)
-            }
         }
         .padding(.vertical, 2)
     }
@@ -193,47 +177,31 @@ struct MacSidebar: View {
                 reviewNote
             }
 
-            if home.areGamesLocked {
+            if home.offersPro {
                 Button {
-                    home.showPaywall(from: .trialEndedCard)
+                    home.showPaywall(from: .unlockCard)
                 } label: {
-                    Label(home.lockedCardTitle, systemImage: "sparkles")
+                    Label(Strings.Pro.freeTakesTitle(left: home.freeTakesLeft), systemImage: "sparkles")
                         .font(.rsCaption)
                         .frame(maxWidth: .infinity)
                 }
                 .controlSize(.large)
                 .platformProminentButton()
-            } else if let days = home.trialDaysRemaining {
-                TrialBadge(daysRemaining: days) { home.showPaywall(from: .trialBadge) }
             }
         }
         .padding(12)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
+    /// The iPhone's note, stars and all: four or five offer the App Store, fewer ask what went
+    /// wrong (see `MacWorkspaceView` for the two dialogs).
     private var reviewNote: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(Strings.ReviewBanner.title)
-                .font(.rsCaption)
-                .foregroundColor(.rsTextPrimary)
-
-            HStack(spacing: 8) {
-                Button(Strings.ReviewBanner.rate) {
-                    openURL(home.reviewBannerWentToStore())
-                }
-                .platformProminentButton()
-                .controlSize(.small)
-
-                Button(Strings.ReviewBanner.later) {
-                    home.dismissReviewBanner()
-                }
-                .buttonStyle(.borderless)
-                .controlSize(.small)
-            }
-        }
-        .padding(10)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(RoundedRectangle(cornerRadius: 8).fill(Color.white.opacity(0.05)))
+        ReviewBannerCard(
+            thanksForPro: home.reviewBannerThanksForPro,
+            stars: home.reviewStars,
+            onRate: { home.rateFromReviewBanner(stars: $0) },
+            onDismiss: { home.dismissReviewBanner() }
+        )
         .onAppear { home.reviewBannerDidAppear() }
     }
 }

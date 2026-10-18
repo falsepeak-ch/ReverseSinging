@@ -65,6 +65,10 @@ struct ImitateStudioView: View {
             )
         }
 
+        ToolbarItem(placement: .primaryAction) {
+            MacHelpButton(topic: .imitate)
+        }
+
         ToolbarItemGroup(placement: .primaryAction) {
             Button {
                 viewModel.challenge?.toggleBooth()
@@ -179,6 +183,8 @@ private struct ImitateStagePane: View {
         } message: {
             Text(challenge.errorMessage ?? "")
         }
+        .microphonePrimer()
+        .takePaywall(isPresented: $challenge.isTakePaywallPresented, kind: .imitate)
         .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: $challenge.showPermissionAlert) {
             Button(Strings.Main.Alert.settings, action: AppSettings.open)
             Button(Strings.Main.Alert.cancel, role: .cancel) {}

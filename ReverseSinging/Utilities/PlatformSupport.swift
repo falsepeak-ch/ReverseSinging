@@ -97,6 +97,28 @@ extension Image {
     }
 }
 
+// MARK: - Navigation Bar
+
+/// See `hidesNavigationBar()`. One chain of modifiers whose values change, never two
+/// branches, so opening or closing the device keeps the screen and its state.
+private struct EditorNavigationBar: ViewModifier {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+
+    func body(content: Content) -> some View {
+        #if os(iOS)
+        let usesSystemBar = EditorBars.useSystemBar(horizontalSizeClass, verticalSizeClass)
+        content
+            .toolbar(usesSystemBar ? .visible : .hidden, for: .navigationBar)
+            .toolbarBackground(.hidden, for: .navigationBar)
+            // Back is the header's own square button, placed in the bar (`EditorScreenHeader`).
+            .navigationBarBackButtonHidden(true)
+        #else
+        content.navigationBarBackButtonHidden(true)
+        #endif
+    }
+}
+
 // MARK: - Presentation
 
 /// How big a cover is on the Mac, where there is no screen to cover: a sheet that fills most
@@ -109,12 +131,11 @@ extension View {
     /// The screens draw their own header, so the system bar goes: the navigation bar on iOS.
     /// On the Mac only the back button a pushed view would add to the title bar; hiding the
     /// whole window toolbar takes the close and minimise buttons with it.
+    ///
+    /// iPhone Duo open is the exception: there the header's Back and actions are bar items
+    /// (`EditorBars`), so the bar shows, without a background of its own.
     func hidesNavigationBar() -> some View {
-        #if os(iOS)
-        toolbar(.hidden, for: .navigationBar)
-        #else
-        navigationBarBackButtonHidden(true)
-        #endif
+        modifier(EditorNavigationBar())
     }
 
     /// iOS only; a Mac window has no status bar.
@@ -130,6 +151,26 @@ extension View {
     func largeNavigationTitle() -> some View {
         #if os(iOS)
         navigationBarTitleDisplayMode(.large)
+        #else
+        self
+        #endif
+    }
+
+    /// A sheet's content: on a display with room beside it (iPhone Duo open) the sheet
+    /// stands as a panel in the leading half, clear of the display's middle, instead of
+    /// centred across it, with its own bar and Close. (At the trailing side it ran under the
+    /// system's strip, which hid its Close.) No change on a phone or the Mac.
+    @ViewBuilder
+    func sheetBesideTheSeam() -> some View {
+        #if os(iOS)
+        if #available(iOS 27.0, *) {
+            // A side panel's width, so it stays in its half.
+            frame(idealWidth: 400)
+                .presentationSizing(.form.fitted(horizontal: true, vertical: false))
+                .presentationPlacement(.leading)
+        } else {
+            self
+        }
         #else
         self
         #endif

@@ -1,6 +1,12 @@
-Třetí hra a zpívání pozpátku je teď zdarma.
+Čtvrtá hra, a je zdarma: dabujte vlastní videa.
 
 NOVINKY
-• Napodobování zvuků: poslechni si zvuk, napodob ho a dostaň verdikt s razítkem za rytmus, výšku tónu a barvu. Pak z pokusu udělej video
-• Zpívání pozpátku je zdarma pro všechny
-• Dubloon Pro teď odemyká i aplikaci pro Mac, se stejným účtem Apple
+• Dabing vlastních videí: vyberte video, které jste natočili, a namluvte ho vlastním hlasem. Zdarma pro všechny
+• Deset nových zvuků k napodobení v Napodobování zvuků
+• Světlý režim: v Nastavení zvolte Systém, Světlý nebo Tmavý
+• Nápověda přímo v aplikaci, s návodem krok za krokem, jak získat další filmové scény
+
+VYLEPŠENÍ
+• Přejetím zpět se obrazovka přetočí jako kazeta VHS
+• Stabilnější nahrávání a přehrávání po hovoru nebo když zvuk používala jiná aplikace
+• Dubloon požádá o mikrofon, až ho budete potřebovat, místo aby vás posílal do Nastavení

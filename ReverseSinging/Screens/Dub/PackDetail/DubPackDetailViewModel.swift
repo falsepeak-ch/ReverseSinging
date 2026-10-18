@@ -35,7 +35,7 @@ final class DubPackDetailViewModel: ObservableObject {
     @Published private(set) var exportOptionsLine: DubLine?
     /// The export the user has configured but not yet agreed to send. Held between the
     /// options sheet and the attribution notice, which still has the last word.
-    private var pendingExport: (cut: DubCut, frame: DubBoothFrame, includesBooth: Bool)?
+    private var pendingExport: (cut: DubCut, frame: DubBoothFrame, includesBooth: Bool, pipCorner: DubPipCorner)?
 
     // MARK: - Damaged Video
 
@@ -130,6 +130,11 @@ final class DubPackDetailViewModel: ObservableObject {
     /// presented. See `DubTips.isRecorderOpen`.
     func recorderDidDismiss() {
         DubTips.isRecorderOpen = false
+        // Back from a take that went well: the scene is on screen and they are pleased.
+        if session.winsThisVisit > 0 {
+            session.winsThisVisit = 0
+            ReviewPrompt.shared.requestSoon(trigger: "dub_great_takes")
+        }
     }
 
     // MARK: - Playback
@@ -156,9 +161,9 @@ final class DubPackDetailViewModel: ObservableObject {
         showExportOptions = false
     }
 
-    func configureExport(cut: DubCut, frame: DubBoothFrame, includesBooth: Bool) {
+    func configureExport(cut: DubCut, frame: DubBoothFrame, includesBooth: Bool, pipCorner: DubPipCorner = .bottomRight) {
         showExportOptions = false
-        pendingExport = (cut, frame, includesBooth)
+        pendingExport = (cut, frame, includesBooth, pipCorner)
         showShareNotice = true
     }
 
@@ -169,7 +174,8 @@ final class DubPackDetailViewModel: ObservableObject {
             await export(
                 cut: pending.cut,
                 frame: pending.frame,
-                includesBooth: pending.includesBooth
+                includesBooth: pending.includesBooth,
+                pipCorner: pending.pipCorner
             )
         }
     }
@@ -185,7 +191,8 @@ final class DubPackDetailViewModel: ObservableObject {
     func export(
         cut: DubCut = .fullScene,
         frame: DubBoothFrame = .off,
-        includesBooth: Bool = true
+        includesBooth: Bool = true,
+        pipCorner: DubPipCorner = .bottomRight
     ) async {
         guard session.hasAnyTake else {
             session.errorMessage = Strings.Dub.Error.nothingRecorded
@@ -209,7 +216,8 @@ final class DubPackDetailViewModel: ObservableObject {
                 pack: pack,
                 cut: cut,
                 frame: frame,
-                includesBooth: includesBooth
+                includesBooth: includesBooth,
+                pipCorner: pipCorner
             ) { [weak self] stage, value in
                 Task { @MainActor [weak self] in
                     self?.exportStage = stage

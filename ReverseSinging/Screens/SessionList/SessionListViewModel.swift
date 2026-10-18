@@ -44,17 +44,6 @@ final class SessionListViewModel: ObservableObject {
         }
     }
 
-    var preferredColorScheme: ColorScheme? {
-        switch game.appState.themeMode {
-        case .system:
-            return nil
-        case .light:
-            return .light
-        case .dark:
-            return .dark
-        }
-    }
-
     // MARK: - Screen
 
     func onAppear() {

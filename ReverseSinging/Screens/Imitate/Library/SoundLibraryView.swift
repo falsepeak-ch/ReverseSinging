@@ -21,10 +21,15 @@ struct SoundLibraryView: View {
                 .filmGrain()
 
             VStack(spacing: 0) {
-                EditorScreenHeader(title: GameMode.imitate.title, onBack: { dismiss() })
+                EditorScreenHeader(title: GameMode.imitate.title, onBack: { dismiss() }, help: .imitate)
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 22) {
+                        if viewModel.showsSpookyVoiceWeek {
+                            SpookyVoiceWeekHeader()
+                                .padding(.top, SpookyVoiceWeekHeader.headroom)
+                        }
+
                         Text(Strings.Imitate.libraryHint)
                             .font(.rsBodySmall)
                             .foregroundColor(.rsTextSecondary)

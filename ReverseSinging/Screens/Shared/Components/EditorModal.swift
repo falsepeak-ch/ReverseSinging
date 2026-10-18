@@ -21,10 +21,32 @@ struct EditorModal<Content: View, PhoneActions: View, MacActions: View>: View {
     var width: CGFloat = 460
     /// Where a modal has steps, the way back to the first.
     var onBack: (() -> Void)?
-    let onClose: () -> Void
+    /// Nil for a modal with no way out but its own button: no close key, no tap outside, no
+    /// Cancel. The microphone explanation is one, because App Review requires that it
+    /// always leads to the system prompt.
+    let onClose: (() -> Void)?
     @ViewBuilder var content: () -> Content
     @ViewBuilder var phoneActions: () -> PhoneActions
     @ViewBuilder var macActions: () -> MacActions
+
+    /// How tall the iPhone card's content is when nothing squeezes it.
+    @State private var contentHeight: CGFloat = 0
+    /// The fold while it runs across the screen (iPhone Duo half folded as a table): the card
+    /// then sits on the lower half, in reach, and scrolls its content to fit there.
+    @State private var horizontalFold: CGRect?
+    @State private var containerSize: CGSize = .zero
+    @State private var seamRatio: CGFloat = 0.5
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+
+    /// The trailing half's width where the screen is a wide regular one (iPhone Duo open
+    /// on its side, flat or as a book), nil elsewhere.
+    private var sidePaneWidth: CGFloat? {
+        guard horizontalSizeClass == .regular, verticalSizeClass == .regular,
+              horizontalFold == nil, containerSize.width > containerSize.height,
+              containerSize.width > 0 else { return nil }
+        return containerSize.width * (1 - seamRatio)
+    }
 
     var body: some View {
         #if os(macOS)
@@ -56,10 +78,12 @@ struct EditorModal<Content: View, PhoneActions: View, MacActions: View>: View {
 
                 Spacer(minLength: 8)
 
-                Button(Strings.Main.Alert.cancel, action: onClose)
-                    .keyboardShortcut(.cancelAction)
-                    .platformGlassButton()
-                    .controlSize(.large)
+                if let onClose {
+                    Button(Strings.Main.Alert.cancel, action: onClose)
+                        .keyboardShortcut(.cancelAction)
+                        .platformGlassButton()
+                        .controlSize(.large)
+                }
 
                 macActions()
                     .controlSize(.large)
@@ -82,54 +106,100 @@ struct EditorModal<Content: View, PhoneActions: View, MacActions: View>: View {
                 .opacity(0.88)
                 .ignoresSafeArea()
                 .contentShape(Rectangle())
-                .onTapGesture { onClose() }
+                .onTapGesture { onClose?() }
                 .accessibilityHidden(true)
 
-            ViewThatFits(in: .vertical) {
-                phoneContent
-                ScrollView { phoneContent }
-                    .scrollBounceBehavior(.basedOnSize)
+            phoneContent
+                .editorPanel(.rsSurface1, radius: EditorMetrics.radiusLarge)
+                .frame(maxWidth: 400)
+                .padding(.horizontal, EditorMetrics.gutter)
+                // iPhone Duo open on its side: in the trailing half, clear of the
+                // display's middle, rather than centred across it.
+                .frame(width: sidePaneWidth)
+                .frame(maxWidth: .infinity, alignment: sidePaneWidth == nil ? .center : .trailing)
+                .padding(.vertical, 24)
+                .frame(maxHeight: horizontalFold == nil ? nil : .infinity)
+                .padding(.top, horizontalFold.map { max(0, $0.maxY - 8) } ?? 0)
+                .transition(.opacity)
+        }
+        .onGeometryChange(for: CGRect?.self) { $0.horizontalFold } action: { horizontalFold = $0 }
+        .onGeometryChange(for: CGSize.self) { $0.size } action: { containerSize = $0 }
+        .readWindowMiddleRatio(into: $seamRatio)
+        // A card with no way out but its own button also holds the screen under it in place.
+        .onAppear { if onClose == nil { EditorModalHold.begin() } }
+        .onDisappear { if onClose == nil { EditorModalHold.end() } }
+    }
+
+    /// The card: as tall as what it holds, up to the room there is. With less room than that,
+    /// which the keyboard leaves on a small phone, the content scrolls between the title
+    /// strip and the buttons, and both of those stay where they are.
+    ///
+    /// One layout for both cases, on purpose. Swapping between a plain and a scrolling copy
+    /// of the content rebuilds it, and a text field rebuilt under the keyboard loses focus:
+    /// the keyboard drops, the plain copy fits again, and the field can never be typed in.
+    private var phoneContent: some View {
+        VStack(spacing: 0) {
+            phoneTitleStrip
+
+            ScrollView {
+                VStack(spacing: 20) {
+                    content()
+                }
+                .padding([.horizontal, .top], EditorMetrics.gutter)
+                .padding(.bottom, 12)
+                .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { contentHeight = $0 }
             }
-            .editorPanel(.rsSurface1, radius: EditorMetrics.radiusLarge)
-            .frame(maxWidth: 400)
-            .padding(.horizontal, EditorMetrics.gutter)
-            .padding(.vertical, 24)
-            .transition(.opacity)
+            .scrollBounceBehavior(.basedOnSize)
+            .scrollDismissesKeyboard(.interactively)
+            .frame(maxHeight: contentHeight)
+
+            phoneActions()
+                .padding([.horizontal, .bottom], EditorMetrics.gutter)
+                .padding(.top, 8)
         }
     }
 
-    private var phoneContent: some View {
+    private var phoneTitleStrip: some View {
         VStack(spacing: 0) {
-            VStack(spacing: 0) {
-                HStack(spacing: 10) {
-                    if let onBack {
-                        EditorToolbarButton(icon: "chevron.left", label: Strings.DubGate.downloadBack, action: onBack)
-                    }
+            HStack(spacing: 10) {
+                if let onBack {
+                    EditorToolbarButton(icon: "chevron.left", label: Strings.DubGate.downloadBack, action: onBack)
+                }
 
-                    Text(title)
-                        .editorLabelStyle(.rsTextSecondary)
-                        .lineLimit(1)
+                Text(title)
+                    .editorLabelStyle(.rsTextSecondary)
+                    .lineLimit(1)
 
-                    Spacer(minLength: 8)
+                Spacer(minLength: 8)
 
+                if let onClose {
                     EditorToolbarButton(icon: "xmark", label: Strings.DubGate.close) {
                         HapticManager.shared.light()
                         onClose()
                     }
                 }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 10)
-
-                EditorRule()
             }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 10)
 
-            VStack(spacing: 20) {
-                content()
-                phoneActions()
-            }
-            .padding(EditorMetrics.gutter)
+            EditorRule()
         }
     }
+}
+
+/// Whether a modal with no close key is on screen.
+///
+/// The back swipe reads it (`RewindTransition`): such a modal is an explanation that has to
+/// lead to a system prompt, and swiping the screen away from under it would be the way round
+/// it that the missing close key is there to rule out.
+@MainActor
+enum EditorModalHold {
+    private static var count = 0
+
+    static var isActive: Bool { count > 0 }
+
+    static func begin() { count += 1 }
+    static func end() { count = max(0, count - 1) }
 }
 
 extension View {

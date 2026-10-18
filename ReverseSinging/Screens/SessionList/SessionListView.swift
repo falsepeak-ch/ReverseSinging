@@ -32,7 +32,6 @@ struct SessionListView: View {
                     sessionListView
                 }
             }
-            .id(viewModel.game.appState.themeMode)
             .navigationTitle(viewModel.title)
             .largeNavigationTitle()
             .onAppear { viewModel.onAppear() }
@@ -49,7 +48,6 @@ struct SessionListView: View {
                 }
             }
         }
-        .preferredColorScheme(viewModel.preferredColorScheme)
     }
 
     // MARK: - Empty State

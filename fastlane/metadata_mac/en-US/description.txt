@@ -1,4 +1,4 @@
-Dubloon is three voice games in one app, and none of them needs anything but your microphone.
+Dubloon is four voice games in one app, and none of them needs anything but your microphone.
 
 MADE FOR THE MAC
 
@@ -12,7 +12,6 @@ Load a scene and dub it yourself. Dubloon plays you the original line, shows you
 • The original delivery in your headphones while you record, if you want it
 • Every character colour-coded, so you always know who is speaking
 • A pacing bar that turns amber the moment you run past the original
-• Overlapping dialogue mixed on separate lanes, so two people talking over each other actually sound like it
 • Watch the original, play your dub back, or export the whole scene as a video
 
 BOOTH CAM
@@ -23,11 +22,11 @@ SCORED, IF YOU WANT IT
 
 Every take is marked on timing, pacing and delivery, with a score for the scene, your best line, and the one worth another go. Turn it off and nobody is counting.
 
-TWO SCENES TO START WITH
+FOUR SCENES TO START WITH
 
-Camp Rules is cut from Sprite Fright, the Blender Studio open movie, shared under Creative Commons Attribution 4.0. Stuck Up is cut from The Outsider, a 1951 classroom film that is in the public domain in the United States. Each scene names the film, the year and the terms right there on its own screen.
+Camp Rules (Sprite Fright, CC BY 4.0), Awesome in Space (Tears of Steel, CC BY 3.0) and A Kindred Spirit (Sintel, CC BY 3.0) are cut from Blender's open movies. Stuck Up is cut from The Outsider, a 1951 classroom film that is in the public domain in the United States. Each scene names the film, the year and the terms right there on its own screen.
 
-After that, the shelf is yours to fill. Beyond those two, Dubloon does not include or host any films. Community dub packs are made and shared by other players. You download the ones you want and open the folder or .zip from Finder or AirDrop. Do make sure you have the right to use whatever you dub.
+After that, the shelf is yours to fill. Beyond those four, Dubloon does not include or host any films. Community dub packs are made and shared by other players. You download the ones you want and open the folder or .zip from Finder or AirDrop. Do make sure you have the right to use whatever you dub.
 
 REVERSE SINGING
 
@@ -43,12 +42,16 @@ Hear a sound, then make it yourself. A barking dog, a rooster, a car horn, a las
 • 24 sounds: animals, horns and alarms, cartoon effects and human noises
 • Booth Cam films your face mid-impression, if you want it
 
+HOME VIDEO DUB
+
+Your videos, your voice. Pick a clip from Photos or Finder and narrate it, sing over it or give it new sound effects. Keep the original sound quietly underneath or mute it, then share the result.
+
 PRIVATE BY DESIGN
 
 Everything happens on this Mac. Your recordings, your takes, your booth footage and your exported dubs never leave it. No account, no sign-up, no ads, nothing to upload. The app collects anonymous usage statistics to guide what gets built next, never the contents of a recording.
 
 WHAT IT COSTS
 
-Reverse singing is free. Dubloon Pro opens movie scene dubbing, sound imitation, Booth Cam and exports, nothing held back, as a one-time purchase or a subscription. Already bought it on your iPhone? It unlocks here too, on the same Apple Account.
+Reverse singing and Home Video Dub are free. Dubloon Pro opens movie scene dubbing, sound imitation, Booth Cam and exports, nothing held back, as a one-time purchase or a subscription. Already bought it on your iPhone? It unlocks here too, on the same Apple Account.
 
 Built in Switzerland. Made by hand in Zürich.

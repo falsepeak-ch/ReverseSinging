@@ -35,9 +35,23 @@ struct DubLibraryBrowserView: View {
                     .padding(22)
                 }
             }
+
+            // Pinned under the grid, as on the iPhone: where more scenes come from is a question
+            // that doesn't go away once the first pack is in.
+            DubPackGuideRow { library.showPackGuide = true }
+                .frame(maxWidth: 560)
+                .padding(.horizontal, 22)
+                .padding(.vertical, 14)
+                .frame(maxWidth: .infinity)
+                .background(Color.rsSurface1)
+                .overlay(alignment: .top) { EditorRule() }
         }
         .background(Color.rsSurface0)
         .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                MacHelpButton(topic: .packs)
+            }
+
             ToolbarItemGroup(placement: .primaryAction) {
                 Toggle(isOn: $scoring.isEnabled) {
                     Label(Strings.Dub.Score.settingTitle, systemImage: "chart.bar.fill")

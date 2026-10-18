@@ -3,6 +3,6 @@
    ReverseSinging
 */
 
-"NSMicrophoneUsageDescription" = "Dubloon sesini kaydedebilmek için mikrofon erişimine ihtiyaç duyar; böylece şarkıları tersten söyleyebilir ve film sahnelerini seslendirebilirsin.";
+"NSMicrophoneUsageDescription" = "Dubloon, oynarken sesini kaydetmek için mikrofona ihtiyaç duyar: tersten şarkı söyleme, sahne ve video seslendirme ve ses taklidi.";
 
 "NSCameraUsageDescription" = "Dubloon sen seslendirirken ön kamerayla seni çeker, böylece tepkini çekiminle birlikte paylaşabilirsin. Sen açana kadar kamera kapalı kalır.";

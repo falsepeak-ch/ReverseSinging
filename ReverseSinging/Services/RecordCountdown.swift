@@ -54,7 +54,7 @@ enum RecordCountdown {
 /// Drives one countdown at a time on behalf of a screen: owns the task, reports each beat,
 /// and opens the mic only if the count runs all the way through.
 ///
-/// Both games need exactly this, and the part worth getting right once is the cancel path,
+/// Every game that counts in needs exactly this, and the part worth getting right once is the cancel path,
 /// a slate that is torn down must clear its beat *and* never reach `thenRecord`.
 @MainActor
 final class RecordSlate {

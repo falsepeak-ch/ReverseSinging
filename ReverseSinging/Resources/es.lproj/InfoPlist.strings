@@ -3,6 +3,6 @@
    ReverseSinging
 */
 
-"NSMicrophoneUsageDescription" = "Dubloon necesita acceso al micrófono para grabar tu voz, y así puedas cantar canciones al revés y doblar escenas de películas.";
+"NSMicrophoneUsageDescription" = "Dubloon necesita el micrófono para grabar tu voz mientras juegas: cantar al revés, doblar escenas y vídeos, e imitar sonidos.";
 
 "NSCameraUsageDescription" = "Dubloon usa la cámara frontal para grabarte mientras doblas, y así puedas compartir tu reacción junto con la toma. La grabación está desactivada hasta que tú la actives.";

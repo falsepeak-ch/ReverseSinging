@@ -28,9 +28,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         #endif
 
         FirebaseApp.configure()
+        // Before anything is logged: someone who switched Share Usage Data off sends nothing.
+        UsageDataConsent.apply()
 
-        // Crashlytics is on from here. It catches the crashes by itself; the non-fatals it
-        // cannot see are reported through `CrashReporter` from the paths that swallow them.
+        // Crashlytics is on from here, in a Release build. It catches the crashes by itself; the
+        // non-fatals it cannot see are reported through `CrashReporter` from the paths that
+        // swallow them.
         Crashlytics.crashlytics().setCustomValue(
             Locale.current.identifier, forKey: "locale"
         )
@@ -40,13 +43,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         AnalyticsManager.shared.trackAppLaunch()
 
         // Configures RevenueCat and starts the entitlement stream. Here rather
-        // than in `App.init()`, which SwiftUI runs *before* this method: the
-        // trial length comes from Remote Config, and Remote Config needs the
-        // `FirebaseApp` configured above.
+        // than in `App.init()`, which SwiftUI runs *before* this method: a store
+        // that will not start is reported through the `FirebaseApp` configured above.
         AccessController.shared.start()
 
-        // Whether this launch is an update. Decided here for the same reason the
-        // early-adopter check is: the first screen writes the very marker it reads.
+        // Whether this launch is an update. Decided here, ahead of the first screen,
+        // because the first screen writes the very marker it reads.
         BoothCamAnnouncement.shared.resolveAtLaunch()
 
         return true

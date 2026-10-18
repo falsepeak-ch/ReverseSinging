@@ -17,13 +17,19 @@ nonisolated enum Strings {
         static let howItWorksMessage = NSLocalizedString("onboarding.howItWorks.message", comment: "How it works message")
         static let dubTitle = NSLocalizedString("onboarding.dub.title", comment: "Movie scene dub game title")
         static let dubMessage = NSLocalizedString("onboarding.dub.message", comment: "Movie scene dub game message")
-        static let microphoneTitle = NSLocalizedString("onboarding.microphone.title", comment: "Microphone permission title")
-        static let microphoneMessage = NSLocalizedString("onboarding.microphone.message", comment: "Microphone permission message")
-        static let buttonOpenSettings = NSLocalizedString("onboarding.button.openSettings", comment: "Open settings button")
-        static let buttonLetsRecord = NSLocalizedString("onboarding.button.letsRecord", comment: "Let's record button")
+        static let proTitle = NSLocalizedString("onboarding.pro.title", comment: "Title of the onboarding page about Dubloon Pro")
+        static let proMessage = String(format: NSLocalizedString("onboarding.pro.message", comment: "Why the app has a paid tier: no ads, no account, no tracking, one developer. Then that every game has a few free takes (%d) and Pro makes them unlimited"), FreeTakes.limit)
+        static let proBuy = NSLocalizedString("onboarding.pro.buy", comment: "Main button of the onboarding page about Dubloon Pro: opens the purchase screen")
+        static let proSkip = NSLocalizedString("onboarding.pro.skip", comment: "Second button of the onboarding page about Dubloon Pro: carry on into the app without buying")
         static let buttonContinueLowercase = NSLocalizedString("onboarding.button.continueLowercase", comment: "Continue button lowercase")
-        static let buttonMicrophoneContinue = NSLocalizedString("onboarding.button.microphoneContinue", comment: "Primary button on the microphone step. The ask itself is the system prompt it leads to")
-        static let buttonContinueWithout = NSLocalizedString("onboarding.button.continueWithout", comment: "Finish onboarding without microphone access")
+        static let buttonContinue = NSLocalizedString("onboarding.button.continue", comment: "Continue: the Mac welcome window's button")
+    }
+
+    // MARK: - Microphone explanation
+    enum MicrophonePrimer {
+        static let title = NSLocalizedString("microphonePrimer.title", comment: "Title strip of the dialog that explains the microphone before the system asks for it")
+        static let message = NSLocalizedString("microphonePrimer.message", comment: "Why the games need the microphone, and that recordings stay on the device")
+        static let confirm = NSLocalizedString("microphonePrimer.continue", comment: "The one button of the microphone explanation, which leads to the system prompt")
     }
 
     // MARK: - Main View
@@ -44,7 +50,8 @@ nonisolated enum Strings {
             static let dubSubtitle = NSLocalizedString("main.mode.dub.subtitle", comment: "Movie scene dub game description")
             static let imitateTitle = NSLocalizedString("main.mode.imitate.title", comment: "Sound imitation game mode")
             static let imitateSubtitle = NSLocalizedString("main.mode.imitate.subtitle", comment: "Sound imitation game description")
-            static let free = NSLocalizedString("main.mode.free", comment: "Short pill on a game that stays open without Dubloon Pro. One word")
+            static let homeVideoTitle = NSLocalizedString("main.mode.homeVideo.title", comment: "Game mode: put your own voice over a video from your photo library")
+            static let homeVideoSubtitle = NSLocalizedString("main.mode.homeVideo.subtitle", comment: "Home video dub game description")
         }
 
         /// Transport state, shown uppercase in the monitor strip.
@@ -219,10 +226,6 @@ nonisolated enum Strings {
             static let licenseLifetime = NSLocalizedString("settings.about.license.lifetime", comment: "License status: bought Dubloon Pro outright")
             static let licenseRenews = NSLocalizedString("settings.about.license.renews", comment: "License status: Dubloon Pro subscription that renews, %@ is a long date")
             static let licenseEnds = NSLocalizedString("settings.about.license.ends", comment: "License status: Dubloon Pro subscription that will not renew, %@ is the long date it ends")
-            static let licenseEarlyAdopter = NSLocalizedString("settings.about.license.earlyAdopter", comment: "License status: was here before the app charged, so never pays")
-            static let licenseTrialDays = NSLocalizedString("settings.about.license.trialDays", comment: "License status: in the free trial, %d is the days left, always 2 or more")
-            static let licenseTrialLastDay = NSLocalizedString("settings.about.license.trialLastDay", comment: "License status: last day of the free trial")
-            static let licenseTrialOver = NSLocalizedString("settings.about.license.trialOver", comment: "License status: the free trial has ended and nothing was bought")
             static let licenseFree = NSLocalizedString("settings.about.license.free", comment: "License status: free version, no purchase")
         }
 
@@ -246,6 +249,18 @@ nonisolated enum Strings {
         static let privacyPolicyDesc = NSLocalizedString("settings.privacyPolicy.desc", comment: "Privacy policy description")
         static let builtInSwitzerland = NSLocalizedString("settings.builtInSwitzerland", comment: "Built in Switzerland label")
         static let builtInSwitzerlandDesc = NSLocalizedString("settings.builtInSwitzerland.desc", comment: "Built in Switzerland description")
+
+        // Help, privacy and appearance
+        static let help = NSLocalizedString("settings.help", comment: "Settings row that opens Help")
+        static let helpDesc = NSLocalizedString("settings.help.desc", comment: "Subtitle of the Help row")
+        static let termsDesc = NSLocalizedString("settings.terms.desc", comment: "Subtitle of the Terms of Use row")
+        static let privacySection = NSLocalizedString("settings.privacy.section", comment: "Settings section about privacy")
+        static let shareUsage = NSLocalizedString("settings.shareUsage", comment: "Toggle: send anonymous usage statistics and crash reports")
+        static let shareUsageDesc = NSLocalizedString("settings.shareUsage.desc", comment: "What the usage-data toggle sends, and what it never sends")
+        static let appearance = NSLocalizedString("settings.appearance", comment: "Settings section: light or dark look")
+        static let appearanceSystem = NSLocalizedString("settings.appearance.system", comment: "Appearance option: follow the device's light or dark setting")
+        static let appearanceLight = NSLocalizedString("settings.appearance.light", comment: "Appearance option: always light")
+        static let appearanceDark = NSLocalizedString("settings.appearance.dark", comment: "Appearance option: always dark")
     }
 
     // MARK: - Dub Mode
@@ -298,6 +313,11 @@ nonisolated enum Strings {
         static let frameStacked = NSLocalizedString("booth.frame.stacked", comment: "Booth frame: scene above, booth below")
         static let frameReaction = NSLocalizedString("booth.frame.reaction", comment: "Booth frame: booth above, scene below")
         static let frameSplit = NSLocalizedString("booth.frame.split", comment: "Booth frame: side by side")
+        static let frameVertical = NSLocalizedString("booth.frame.vertical", comment: "Export format: 9:16 portrait post, scene letterboxed, booth as a small picture-in-picture. Short, fits a small uppercase tile")
+        static let pipCorner = NSLocalizedString("booth.export.pipCorner", comment: "Section label: which corner of the vertical export the booth picture-in-picture sits in")
+        static let pipBottomRight = NSLocalizedString("booth.export.pip.bottomRight", comment: "Accessibility: booth picture-in-picture in the bottom-right corner")
+        static let pipBottomLeft = NSLocalizedString("booth.export.pip.bottomLeft", comment: "Accessibility: booth picture-in-picture in the bottom-left corner")
+        static let pipTopRight = NSLocalizedString("booth.export.pip.topRight", comment: "Accessibility: booth picture-in-picture in the top-right corner")
         static let stackedNote = NSLocalizedString("booth.export.stackedNote", comment: "Notes that the stacked frame renders 9:16")
         static let noFootage = NSLocalizedString("booth.export.noFootage", comment: "Shown when a scene has no booth footage to composite")
         static let includeBooth = NSLocalizedString("booth.export.includeBooth", comment: "Toggle: put the performer's own footage in the export")
@@ -446,6 +466,31 @@ nonisolated enum Strings {
         static let disclaimerResponsibility = NSLocalizedString("dubGate.disclaimer.responsibility", comment: "Copyright responsibility disclaimer")
     }
 
+    // MARK: - Dub Pack Guide
+    /// How to find, download and import a pack, opened from the foot of the dub library.
+    enum DubGuide {
+        static let row = NSLocalizedString("dubGuide.row", comment: "Row pinned to the bottom of the dub library that opens the pack guide")
+        static let title = NSLocalizedString("dubGuide.title", comment: "Title of the guide to getting more dub packs")
+        static let intro = NSLocalizedString("dubGuide.intro", comment: "What a dub pack is, above the guide's steps")
+
+        /// Step `number` (1...stepCount) of the guide: a short title and its instructions.
+        static let stepCount = 5
+        static func stepTitle(_ number: Int) -> String {
+            NSLocalizedString("dubGuide.\(number).title", comment: "")
+        }
+        /// The Mac's own wording where it has one (`dubGuide.<n>.detail.mac`: Finder and the
+        /// browser's downloads rather than Safari and the Files app).
+        static func stepDetail(_ number: Int) -> String {
+            let key = "dubGuide.\(number).detail"
+            #if os(macOS)
+            let missing = "\u{0}"
+            let mac = Bundle.main.localizedString(forKey: key + ".mac", value: missing, table: nil)
+            if mac != missing { return mac }
+            #endif
+            return NSLocalizedString(key, comment: "")
+        }
+    }
+
     // MARK: - Dub Share Notice
     enum DubShare {
         static let title = NSLocalizedString("dubShare.title", comment: "Title of the notice shown before exporting a dub")
@@ -456,6 +501,9 @@ nonisolated enum Strings {
         static let responsibility = NSLocalizedString("dubShare.responsibility", comment: "Distributing the export is the user's own act and responsibility")
         static let confirm = NSLocalizedString("dubShare.confirm", comment: "Go ahead and export")
         static let share = NSLocalizedString("dubShare.share", comment: "Mac: button that opens the system share menu for a finished dub")
+        /// The caption that travels with a shared video. The hashtag and the link are added
+        /// in code, untranslated; see `DubShareCaption`.
+        static let caption = NSLocalizedString("dubShare.caption", comment: "One short, playful line posted with a shared dub video, in the first person. The #dubloon hashtag and the App Store link are appended automatically; do not add them")
         static let save = NSLocalizedString("dubShare.save", comment: "Mac: button that saves a finished dub to a folder the user picks")
     }
 
@@ -478,22 +526,31 @@ nonisolated enum Strings {
         }
     }
 
+    // MARK: - Subscription offer banner
+    enum Offer {
+        static let introFree = NSLocalizedString("offer.intro.free", comment: "Menu banner: free trial for a new subscriber. %@ is a duration such as '1 week'")
+        static let introPaid = NSLocalizedString("offer.intro.paid", comment: "Menu banner: discounted first period. %1$@ is the price, %2$@ a duration such as '1 year'")
+        static let winBackFree = NSLocalizedString("offer.winback.free", comment: "Menu banner for a lapsed subscriber: free period. %@ is a duration such as '1 month'")
+        static let winBackPaid = NSLocalizedString("offer.winback.paid", comment: "Menu banner for a lapsed subscriber: discounted period. %1$@ is the price, %2$@ a duration")
+        static let then = NSLocalizedString("offer.then", comment: "Under the offer: the regular price afterwards, such as '$2.99 / 1 month'")
+        static let cta = NSLocalizedString("offer.cta", comment: "Button on the offer banner that opens the offer")
+        static let dismiss = NSLocalizedString("offer.dismiss", comment: "Button that hides the offer banner for a while")
+    }
+
     // MARK: - Pro / Paywall
     enum Pro {
-        /// The counter in the header. Three keys rather than one with `%d`,
-        /// because "1 days left" is wrong in English and worse in the languages
-        /// with real plural rules.
-        enum Trial {
-            static let daysLeft = NSLocalizedString("pro.trial.daysLeft", comment: "Days remaining in the free trial, %d is the count, always 2 or more")
-            static let oneDayLeft = NSLocalizedString("pro.trial.oneDayLeft", comment: "Exactly one day of free trial left")
-            static let over = NSLocalizedString("pro.trial.over", comment: "The free trial has finished")
-        }
-
         // Settings
-        static let lockedTitle = NSLocalizedString("pro.locked.title", comment: "Headline of the menu card over the locked games when there was no free trial, so it must not mention one")
+        /// The menu card's headline: free takes left, or none.
+        static let freeTakesLeft = NSLocalizedString("pro.freeTakes.left", comment: "Headline of the menu card offering Pro: free takes left (%1$d) out of all of them (%2$d)")
+        static let freeTakesUsedUp = NSLocalizedString("pro.freeTakes.usedUp", comment: "Headline of the menu card offering Pro once the free takes are used up")
         static let section = NSLocalizedString("pro.section", comment: "Settings section header for the purchase")
         static let unlockTitle = NSLocalizedString("pro.unlock.title", comment: "Settings row that opens the paywall")
-        static let unlockSubtitle = NSLocalizedString("pro.unlock.subtitle", comment: "Explains what unlocking costs and gives")
+        static let unlockSubtitle = String(format: NSLocalizedString("pro.unlock.subtitle", comment: "Explains the free takes (%d) and what unlocking gives"), FreeTakes.limit)
+
+        /// The headline over the offer, for someone with `left` free takes.
+        static func freeTakesTitle(left: Int) -> String {
+            left > 0 ? String(format: freeTakesLeft, left, FreeTakes.limit) : freeTakesUsedUp
+        }
         static let ownedTitle = NSLocalizedString("pro.owned.title", comment: "Settings row shown to someone who has bought the app")
         static let ownedSubtitle = NSLocalizedString("pro.owned.subtitle", comment: "Thank-you line under the owned row")
         static let manageTitle = NSLocalizedString("pro.manage.title", comment: "Opens the RevenueCat Customer Center")
@@ -506,8 +563,6 @@ nonisolated enum Strings {
         static let testStoreWarning = NSLocalizedString("pro.testStore.warning", comment: "Debug-only banner: this build talks to the RevenueCat test store")
 
         // Results
-        static let restoredTitle = NSLocalizedString("pro.restored.title", comment: "Title of the alert after a successful restore")
-        static let restoredMessage = NSLocalizedString("pro.restored.message", comment: "Body of the alert after a successful restore")
         static let nothingToRestoreTitle = NSLocalizedString("pro.nothingToRestore.title", comment: "Title when a restore found no purchase")
         static let nothingToRestoreMessage = NSLocalizedString("pro.nothingToRestore.message", comment: "Body when a restore found no purchase")
         static let errorTitle = NSLocalizedString("pro.error.title", comment: "Title of the alert after a purchase or restore failed")
@@ -515,38 +570,10 @@ nonisolated enum Strings {
         static let ok = NSLocalizedString("pro.ok", comment: "Dismisses an alert")
         static let closePaywall = NSLocalizedString("pro.closePaywall", comment: "VoiceOver label for the button that closes a dismissible paywall")
 
-        /// The note shown once to people who had the app before it charged.
-        enum EarlyAdopter {
-            static let title = NSLocalizedString("pro.earlyAdopter.title", comment: "Title of the one-time note telling a pre-paywall user they keep the app free")
-            static let message = NSLocalizedString("pro.earlyAdopter.message", comment: "Explains that the app is now paid but stays free for them, for life")
-            static let badge = NSLocalizedString("pro.earlyAdopter.badge", comment: "Short badge naming what they have, e.g. 'Free for life'")
-            static let confirm = NSLocalizedString("pro.earlyAdopter.confirm", comment: "Dismisses the note")
-            static let settingsTitle = NSLocalizedString("pro.earlyAdopter.settings.title", comment: "Settings row shown to an early adopter")
-            static let settingsSubtitle = NSLocalizedString("pro.earlyAdopter.settings.subtitle", comment: "Settings subtitle shown to an early adopter")
-
-            /// The three facts, read off like a slate: label on the left, value on
-            /// the right. Values are set in the timecode face, so keep them short —
-            /// a wrapped monospace value breaks the row's rhythm.
-            enum Row {
-                static let access = NSLocalizedString("pro.earlyAdopter.row.access", comment: "Slate row label: what the early adopter can use")
-                static let accessValue = NSLocalizedString("pro.earlyAdopter.row.access.value", comment: "Slate row value: both games")
-                static let cost = NSLocalizedString("pro.earlyAdopter.row.cost", comment: "Slate row label: what it costs them")
-                static let costValue = NSLocalizedString("pro.earlyAdopter.row.cost.value", comment: "Slate row value: nothing")
-                static let expires = NSLocalizedString("pro.earlyAdopter.row.expires", comment: "Slate row label: when the access runs out")
-                static let expiresValue = NSLocalizedString("pro.earlyAdopter.row.expires.value", comment: "Slate row value: never")
-            }
-        }
-
         /// The paywall the app draws itself when the dashboard's cannot be reached.
         enum Fallback {
             static let title = NSLocalizedString("pro.fallback.title", comment: "Title of the built-in paywall")
-            /// Two bodies, because this screen serves two situations. Saying "your
-            /// trial has ended" to someone who tapped the counter on day three is
-            /// false on its face, and a paywall that opens with something the user
-            /// can see is untrue reads as a trick rather than an offer.
-            static let messageAfterExpiry = NSLocalizedString("pro.fallback.message", comment: "Body of the built-in paywall when the free trial is over")
-            static let messageBeforeExpiry = NSLocalizedString("pro.fallback.message.beforeExpiry", comment: "Body of the built-in paywall when the user still has trial time left, so it must not claim the trial has ended")
-            static let messageNoTrial = NSLocalizedString("pro.fallback.message.noTrial", comment: "Body of the built-in paywall when there was no free trial at all, so it must not mention one")
+            static let message = NSLocalizedString("pro.fallback.message", comment: "Body of the built-in paywall")
             static let buy = NSLocalizedString("pro.fallback.buy", comment: "Buy button with the price, %@ is the localized price")
             static let buyUnpriced = NSLocalizedString("pro.fallback.buyUnpriced", comment: "Buy button before the price is known")
             static let loading = NSLocalizedString("pro.fallback.loading", comment: "Shown while the store is being asked for the price")
@@ -566,6 +593,32 @@ nonisolated enum Strings {
 
     // MARK: - Sound Imitation
     /// The game where you copy a sound (a cat, a siren, a laser) and get a verdict.
+    /// Home Video Dub: a video from the user's own library, with their voice over it.
+    enum HomeVideo {
+        static let choose = NSLocalizedString("homeVideo.choose", comment: "Button that opens the photo library to pick a video")
+        static let change = NSLocalizedString("homeVideo.change", comment: "Accessibility label: pick a different video")
+        static let limit = NSLocalizedString("homeVideo.limit", comment: "Small print under the pick button")
+        static let trimmed = NSLocalizedString("homeVideo.trimmed", comment: "Shown when the picked video is longer than one minute")
+        static let importing = NSLocalizedString("homeVideo.importing", comment: "Progress while the picked video is opened")
+        static let mixing = NSLocalizedString("homeVideo.mixing", comment: "Progress while the voice is laid onto the video")
+        static let keepOriginal = NSLocalizedString("homeVideo.keepOriginal", comment: "Switch: keep the video's own sound under your voice")
+        static let keepOriginalDetail = NSLocalizedString("homeVideo.keepOriginal.detail", comment: "Detail under the keep-original-sound switch")
+        static let noOriginalSound = NSLocalizedString("homeVideo.keepOriginal.none", comment: "Detail under the switch when the video has no sound")
+        static let readyHint = NSLocalizedString("homeVideo.hint.ready", comment: "Hint before recording")
+        static let recordingHint = NSLocalizedString("homeVideo.hint.recording", comment: "Hint while recording")
+        static let recordingHintHeadphones = NSLocalizedString("homeVideo.hint.recordingHeadphones", comment: "Hint while recording with the video playing in headphones")
+        static let emptyHint = NSLocalizedString("homeVideo.hint.empty", comment: "Hint before a video is picked")
+        static let reviewHint = NSLocalizedString("homeVideo.hint.review", comment: "Hint once the finished video is playing")
+        static let record = NSLocalizedString("homeVideo.record", comment: "Record button label. One word")
+        static let stop = NSLocalizedString("homeVideo.stop", comment: "Stop recording button label. One word")
+        static let retake = NSLocalizedString("homeVideo.retake", comment: "Button label: record the voice again")
+        static let share = NSLocalizedString("homeVideo.share", comment: "Button label: share the finished video. One word")
+        static let play = NSLocalizedString("homeVideo.play", comment: "Accessibility label: play the video")
+        static let pause = NSLocalizedString("homeVideo.pause", comment: "Accessibility label: pause the video")
+        static let loadFailed = NSLocalizedString("homeVideo.error.load", comment: "Error when the picked video can't be opened")
+        static let mixFailed = NSLocalizedString("homeVideo.error.mix", comment: "Error when the voice couldn't be added to the video")
+    }
+
     enum Imitate {
         static let libraryHint = NSLocalizedString("imitate.library.hint", comment: "One line at the top of the sound library explaining the game")
         static let best = NSLocalizedString("imitate.library.best", comment: "Short label before a sound's best score on its tile")
@@ -629,12 +682,74 @@ nonisolated enum Strings {
         }
     }
 
+    // MARK: - Help
+    /// The Help screen: its chrome, the reverse-singing diagram and the way to write to us.
+    /// The questions and answers themselves are keyed `help.<topic>.<n>.q` / `.a`, see `HelpTopic`.
+    enum Help {
+        static let title = NSLocalizedString("help.title", comment: "Help screen title, and the label of the question-mark button that opens it")
+        static let close = NSLocalizedString("help.close", comment: "Closes the Help screen")
+        static let searchPrompt = NSLocalizedString("help.search.prompt", comment: "Placeholder of the Help search field")
+        static let clearSearch = NSLocalizedString("help.search.clear", comment: "Accessibility label: clears the Help search")
+        static let searchEmpty = NSLocalizedString("help.search.empty", comment: "Shown when a Help search finds nothing")
+        static let expanded = NSLocalizedString("help.row.expanded", comment: "Accessibility value of an open Help question")
+        static let collapsed = NSLocalizedString("help.row.collapsed", comment: "Accessibility value of a closed Help question")
+        static let expandHint = NSLocalizedString("help.row.expandHint", comment: "Accessibility hint: tapping shows the answer")
+        static let contactTitle = NSLocalizedString("help.contact.title", comment: "Heading of the card at the end of Help that offers email support")
+        static let contactMessage = NSLocalizedString("help.contact.message", comment: "Why to write: a real person, the maker, answers")
+        static let contactButton = NSLocalizedString("help.contact.button", comment: "Button that starts an email to support")
+        static let mailSubject = NSLocalizedString("help.mail.subject", comment: "Subject line of the support email")
+
+        enum Section {
+            static let gettingStarted = NSLocalizedString("help.section.gettingStarted", comment: "Help chapter: the basics")
+            static let booth = NSLocalizedString("help.section.booth", comment: "Help chapter: the front camera and video exports")
+            static let packs = NSLocalizedString("help.section.packs", comment: "Help chapter: importing dub packs")
+            static let pro = NSLocalizedString("help.section.pro", comment: "Help chapter: Dubloon Pro, purchases and subscriptions")
+            static let privacy = NSLocalizedString("help.section.privacy", comment: "Help chapter: privacy")
+            static let troubleshooting = NSLocalizedString("help.section.troubleshooting", comment: "Help chapter: when something doesn't work")
+        }
+
+        /// The four-step diagram of how reverse singing works.
+        enum Flow {
+            static let title = NSLocalizedString("help.flow.title", comment: "Label above the reverse-singing diagram")
+            static let sing = NSLocalizedString("help.flow.sing", comment: "Diagram step 1, one short word: you sing a line")
+            static let flip = NSLocalizedString("help.flow.flip", comment: "Diagram step 2, one short word: the app plays it backwards")
+            static let copy = NSLocalizedString("help.flow.copy", comment: "Diagram step 3, one short word: you imitate the backwards sound")
+            static let flipBack = NSLocalizedString("help.flow.flipBack", comment: "Diagram step 4, one or two short words: your imitation is reversed again")
+            static let caption = NSLocalizedString("help.flow.caption", comment: "Explains the diagram in one or two sentences")
+        }
+    }
+
     // MARK: - Review banner
-    /// The menu note that thanks someone who bought Dubloon Pro and asks for a review.
+    /// The menu note that asks for a review: a thank-you to someone who bought Dubloon Pro, or a
+    /// friendly word to a free player who is clearly enjoying it.
     enum ReviewBanner {
         static let title = NSLocalizedString("review.banner.title", comment: "Headline of the menu note shown after buying Dubloon Pro")
         static let message = NSLocalizedString("review.banner.message", comment: "Why a review matters to a one-person studio. Personal, not pushy")
         static let rate = NSLocalizedString("review.banner.rate", comment: "Button that opens the App Store's write-a-review page")
         static let later = NSLocalizedString("review.banner.later", comment: "Button that puts the review note away for now")
+        static let fanTitle = NSLocalizedString("review.banner.fan.title", comment: "Headline of the menu note shown to a free player who keeps coming back and scoring well")
+        static let fanMessage = NSLocalizedString("review.banner.fan.message", comment: "Asks a player who is enjoying the app for a review. Personal, not pushy, mentions the one-person studio")
+        static let prompt = NSLocalizedString("review.banner.prompt", comment: "Under the headline of the menu note, above five tappable stars. Asks for a rating out of five")
+        static let starLabel = NSLocalizedString("review.banner.star", comment: "VoiceOver label of one of the five stars. %d is the number of stars, 1 to 5")
+        static let storeTitle = NSLocalizedString("review.banner.store.title", comment: "Title of the dialog shown after a high rating, offering to write an App Store review")
+    }
+
+    // MARK: - Review feedback
+    /// The dialog a low rating on the menu note opens: what went wrong, sent to the developer.
+    enum ReviewFeedback {
+        static let slug = NSLocalizedString("review.feedback.slug", comment: "One-word label on the title strip of the feedback dialog")
+        static let title = NSLocalizedString("review.feedback.title", comment: "Headline of the dialog shown after a low rating")
+        static let message = NSLocalizedString("review.feedback.message", comment: "Explains that the note goes to the developer, who is one person, and will be read")
+        static let placeholder = NSLocalizedString("review.feedback.placeholder", comment: "Placeholder in the empty feedback text box")
+        static let send = NSLocalizedString("review.feedback.send", comment: "Button that sends the feedback note")
+    }
+
+    // MARK: - Spooky Voice Week
+    /// The Halloween card on the menu and the header over the sound library, see `SpookyVoiceWeek`.
+    enum Halloween {
+        static let title = NSLocalizedString("halloween.title", comment: "Name of the Halloween event, shown as the headline of the menu card and of the header in Sound Imitation")
+        static let homeMessage = NSLocalizedString("halloween.home.message", comment: "Body of the Halloween card on the menu. Names the spooky sounds already in Sound Imitation (ghost, zombie, wolf) and Camp Rules, a horror-comedy movie scene already in the dub library. Keep 'Camp Rules' untranslated")
+        static let homeAction = NSLocalizedString("halloween.home.action", comment: "Button on the Halloween menu card that opens Sound Imitation")
+        static let imitateMessage = NSLocalizedString("halloween.imitate.message", comment: "One line under the event name at the top of Sound Imitation during Halloween. Names the ghost, zombie, wolf and owl sounds")
     }
 }

@@ -20,6 +20,7 @@ final class AnalyticsManager {
         #if DEBUG
         if ScreenshotMode.isActive { return }
         #endif
+        guard UsageDataConsent.isGranted else { return }
         Analytics.logEvent(name, parameters: parameters)
     }
 
@@ -31,11 +32,12 @@ final class AnalyticsManager {
 
     /// Fired when we hand the review prompt to StoreKit. Apple decides whether it is
     /// actually shown, so this measures our asking, not their seeing.
-    func trackReviewPromptRequested(trigger: String, openCount: Int, sharedVideoCount: Int) {
+    func trackReviewPromptRequested(trigger: String, openCount: Int, sharedVideoCount: Int, winCount: Int) {
         log("review_prompt_requested", parameters: [
             "trigger": trigger,
             "open_count": openCount,
-            "shared_video_count": sharedVideoCount
+            "shared_video_count": sharedVideoCount,
+            "win_count": winCount
         ])
     }
 
@@ -48,12 +50,6 @@ final class AnalyticsManager {
     }
 
     // MARK: - Permission Events
-
-    func trackPermissionRequested() {
-        log("permission_requested", parameters: [
-            "permission_type": "microphone"
-        ])
-    }
 
     func trackPermissionGranted() {
         log("permission_granted", parameters: [
@@ -163,6 +159,13 @@ final class AnalyticsManager {
         log("settings_opened", parameters: nil)
     }
 
+    /// The menu's subscription offer banner: `shown`, `tapped` or `dismissed`.
+    func trackOfferBanner(_ action: String, kind: String, productID: String? = nil) {
+        var parameters: [String: Any] = ["kind": kind]
+        if let productID { parameters["product"] = productID }
+        log("offer_banner_\(action)", parameters: parameters)
+    }
+
     func trackScreenViewed(screenName: String) {
         log(AnalyticsEventScreenView, parameters: [
             AnalyticsParameterScreenName: screenName,
@@ -182,6 +185,10 @@ final class AnalyticsManager {
 
     func trackDubGateDownloadHelpOpened() {
         log("dub_gate_download_help_opened", parameters: nil)
+    }
+
+    func trackDubPackGuideOpened() {
+        log("dub_pack_guide_opened", parameters: nil)
     }
 
     func trackDubGateExternalSourceOpened(source: String) {
@@ -393,17 +400,34 @@ final class AnalyticsManager {
         ])
     }
 
+    // MARK: - Home Video Dub
+
+    func trackHomeVideoPicked(duration: Double, trimmed: Bool, hasSound: Bool) {
+        log("home_video_picked", parameters: [
+            "duration": duration,
+            "trimmed": trimmed,
+            "has_sound": hasSound
+        ])
+    }
+
+    func trackHomeVideoMixed(duration: Double, keptOriginal: Bool) {
+        log("home_video_mixed", parameters: [
+            "duration": duration,
+            "kept_original": keptOriginal
+        ])
+    }
+
+    func trackHomeVideoShared() {
+        log("home_video_shared", parameters: [:])
+    }
+
     // MARK: - Purchases
 
-    /// The paywall reached the screen. `source` says what put it there — the hard
-    /// paywall (`trial_expired`), the settings row, or one of the menu's
-    /// `HomePaywallSource`s: the counter, the trial-ended card, a locked game, a
-    /// pack opened while locked — which is the only way to tell a hard paywall's
-    /// numbers apart from an offer someone chose to look at.
-    func trackPaywallShown(source: String, isHardPaywall: Bool) {
+    /// The paywall reached the screen. `source` says what put it there: onboarding,
+    /// the settings row, or one of the menu's `HomePaywallSource`s.
+    func trackPaywallShown(source: String) {
         log("paywall_shown", parameters: [
-            "source": source,
-            "is_hard_paywall": isHardPaywall
+            "source": source
         ])
     }
 
@@ -438,25 +462,13 @@ final class AnalyticsManager {
         ])
     }
 
-    /// Fired once, on the launch that finds the free window closed.
-    func trackTrialExpired(trialLengthInDays: Int) {
-        log("trial_expired", parameters: [
-            "trial_length_days": trialLengthInDays
+    /// A take made without Dubloon Pro, counted against the free ones.
+    func trackFreeTakeUsed(kind: String, used: Int) {
+        log("free_take_used", parameters: [
+            "kind": kind,
+            "used": used,
+            "limit": FreeTakes.limit
         ])
-    }
-
-    /// Fired once per install, when the grandfather clause is applied. `source`
-    /// says which signal found them — the traces on the device, or the receipt
-    /// after a reinstall — which is the only way to tell whether the receipt
-    /// fallback is earning its keep.
-    func trackEarlyAdopterGranted(source: String) {
-        log("early_adopter_granted", parameters: [
-            "source": source
-        ])
-    }
-
-    func trackEarlyAdopterWelcomeShown() {
-        log("early_adopter_welcome_shown", parameters: nil)
     }
 
     func trackCustomerCenterOpened() {

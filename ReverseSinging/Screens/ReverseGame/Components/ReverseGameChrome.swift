@@ -72,7 +72,7 @@ struct ReverseGameHeader: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            EditorScreenHeader(title: GameMode.reverse.title, onBack: onBack) {
+            EditorScreenHeader(title: GameMode.reverse.title, onBack: onBack, help: .reverse) {
                 EditorToolbarButton(icon: "archivebox", label: Strings.Session.archiveTitle) {
                     viewModel.showSessionList = true
                 }
@@ -147,6 +147,11 @@ extension View {
             )) {
                 SettingsView(app: app, scope: .reverseSinging)
             }
+            .takePaywall(isPresented: Binding(
+                get: { viewModel.isTakePaywallPresented },
+                set: { viewModel.isTakePaywallPresented = $0 }
+            ), kind: .reverse)
+            .microphonePrimer()
             .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: Binding(
                 get: { viewModel.showPermissionAlert },
                 set: { viewModel.showPermissionAlert = $0 }
@@ -173,18 +178,27 @@ extension View {
 // MARK: - Settings
 
 enum AppSettings {
-    /// Opens this app's own page in the system Settings app.
+    /// Opens this app's own page in the system Settings app. On the Mac, which has no such
+    /// page, the list of apps allowed to use the microphone.
     ///
     /// Nonisolated so it can be handed straight to a button as `AppSettings.open`; the hop
     /// to the main actor happens here rather than at every call site.
     nonisolated static func open() {
+        open(macPrivacyPane: "Privacy_Microphone")
+    }
+
+    /// The same, for the camera: on the Mac, the list of apps allowed to use it.
+    nonisolated static func openCamera() {
+        open(macPrivacyPane: "Privacy_Camera")
+    }
+
+    private nonisolated static func open(macPrivacyPane: String) {
         Task { @MainActor in
             #if os(iOS)
             guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
             UIApplication.shared.open(url)
             #else
-            // System Settings, at the list of apps allowed to use the microphone.
-            guard let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone") else { return }
+            guard let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?\(macPrivacyPane)") else { return }
             NSWorkspace.shared.open(url)
             #endif
         }

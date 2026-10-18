@@ -15,6 +15,7 @@ struct DubEditorView: View {
     @Binding private var showsInspector: Bool
     @ObservedObject private var scoring = DubScoringPreference.shared
     @ObservedObject private var booth = BoothCamPreference.shared
+    private let boothTip = DubBoothTip()
 
     @AppStorage("mac.dub.browserWidth") private var browserWidth: Double = 360
     @AppStorage("mac.dub.timelineHeight") private var timelineHeight: Double = 220
@@ -75,6 +76,11 @@ struct DubEditorView: View {
             #endif
         }
         .onDisappear { viewModel.onDisappear() }
+        // The iPhone's three tips in its order: record, the booth, then hearing the dub.
+        .dubTipStyle()
+        .advancesDubTips(past: 0, when: DubRecordTip())
+        .advancesDubTips(past: 1, when: boothTip)
+        .advancesDubTips(past: 2, when: DubPlayDubTip())
         .task { await record.startBoothIfEnabled() }
         .task { await detail.checkVideo() }
         .task(id: scoring.isEnabled) { await detail.scoringDidChange() }
@@ -88,8 +94,8 @@ struct DubEditorView: View {
                 line: detail.exportOptionsLine,
                 hasBoothFootage: session.hasAnyBoothTake,
                 runtime: { detail.runtime(of: $0) },
-                onExport: { cut, frame, includesBooth in
-                    detail.configureExport(cut: cut, frame: frame, includesBooth: includesBooth)
+                onExport: { cut, frame, includesBooth, pipCorner in
+                    detail.configureExport(cut: cut, frame: frame, includesBooth: includesBooth, pipCorner: pipCorner)
                 },
                 onCancel: { detail.cancelExportOptions() }
             )
@@ -108,7 +114,7 @@ struct DubEditorView: View {
             detail.confirmExport()
         }
         .sheet(item: Binding(get: { detail.exportedURL }, set: { detail.exportedURL = $0 })) { url in
-            DubShareSheet(url: url)
+            DubShareSheet(url: url, caption: DubShareCaption.text())
         }
         .boothCamPrimer(isPresented: Binding(
             get: { record.isBoothPrimerPresented },
@@ -116,6 +122,11 @@ struct DubEditorView: View {
         )) {
             record.boothPrimerDidEnable()
         }
+        .microphonePrimer()
+        .takePaywall(isPresented: Binding(
+            get: { record.isTakePaywallPresented },
+            set: { record.isTakePaywallPresented = $0 }
+        ), kind: .dub)
         .alert(Strings.Main.Alert.microphoneRequiredTitle, isPresented: Binding(
             get: { record.showPermissionAlert },
             set: { record.showPermissionAlert = $0 }
@@ -144,14 +155,20 @@ struct DubEditorView: View {
                 .popoverTip(MacShortcutsTip(), arrowEdge: .top)
         }
 
+        ToolbarItem(placement: .primaryAction) {
+            MacHelpButton(topic: .dub)
+        }
+
         ToolbarItemGroup(placement: .primaryAction) {
             Button {
+                boothTip.invalidate(reason: .actionPerformed)
                 record.toggleBooth()
             } label: {
                 Label(Strings.Booth.settingsTitle, systemImage: booth.isEnabled ? "video.fill" : "video.slash")
             }
             .disabled(record.isRecording || viewModel.mode != .line)
             .help(booth.isEnabled ? Strings.Booth.turnOff : Strings.Booth.turnOn)
+            .popoverTip(boothTip, arrowEdge: .top)
 
             Toggle(isOn: $scoring.isEnabled) {
                 Label(Strings.Dub.Score.settingTitle, systemImage: "chart.bar.fill")

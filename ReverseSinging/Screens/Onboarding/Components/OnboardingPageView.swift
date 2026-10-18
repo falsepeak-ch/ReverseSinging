@@ -26,52 +26,21 @@ struct OnboardingPageView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: adaptiveSpacing(for: geometry.size.height)) {
-                    // Top spacing
-                    Spacer()
-                        .frame(height: topSpacing(for: geometry.size.height))
-
-                    // Large illustration with adaptive size
-                    Image(page.imageName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: imageSize(for: geometry.size), height: imageSize(for: geometry.size))
-                        .scaleEffect(iconScale)
-                        .opacity(iconOpacity)
-
-                    VStack(spacing: 16) {
-                        // Title
-                        Text(page.title)
-                            .font(.rsDisplay(titleSize(for: geometry.size.height)))
-                            .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
-                            .multilineTextAlignment(.center)
-                            .lineLimit(3)
-                            .minimumScaleFactor(0.8)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .padding(.horizontal, horizontalPadding(for: geometry.size.width))
-                            .offset(y: titleOffset)
-                            .opacity(titleOpacity)
-
-                        // Description
-                        Text(page.description)
-                            .font(.rsBodyLarge)
-                            .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
-                            .multilineTextAlignment(.center)
-                            .lineSpacing(6)
-                            .lineLimit(nil)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .padding(.horizontal, horizontalPadding(for: geometry.size.width))
-                            .offset(y: descriptionOffset)
-                            .opacity(descriptionOpacity)
-                    }
-
-                    // Bottom spacing
-                    Spacer()
-                        .frame(height: bottomSpacing(for: geometry.size.height))
+            // The illustration gives way before the words do. A page that does not fit, on a
+            // small phone or with large text, is tried again with a smaller picture, and only
+            // scrolls, with its scroll bar showing, once the picture cannot shrink further.
+            // Words cut off mid-sentence with nothing to say there is more read as a bug.
+            ViewThatFits(in: .vertical) {
+                pageContent(in: geometry.size, imageScale: 1)
+                pageContent(in: geometry.size, imageScale: 0.75)
+                pageContent(in: geometry.size, imageScale: 0.5)
+                ScrollView(.vertical) {
+                    pageContent(in: geometry.size, imageScale: 0.5)
+                        .frame(maxWidth: .infinity)
                 }
-                .frame(minHeight: geometry.size.height)
+                .scrollBounceBehavior(.basedOnSize)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .onAppear {
             // Icon animation
@@ -92,6 +61,40 @@ struct OnboardingPageView: View {
                 descriptionOpacity = 1.0
             }
         }
+    }
+
+    private func pageContent(in size: CGSize, imageScale: CGFloat) -> some View {
+        VStack(spacing: adaptiveSpacing(for: size.height)) {
+            Image(page.imageName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: imageSize(for: size) * imageScale, height: imageSize(for: size) * imageScale)
+                .scaleEffect(iconScale)
+                .opacity(iconOpacity)
+                .accessibilityHidden(true)
+
+            VStack(spacing: 16) {
+                Text(page.title)
+                    .font(.rsDisplay(titleSize(for: size.height)))
+                    .foregroundColor(Color.rsTextAdaptive(for: colorScheme))
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.horizontal, horizontalPadding(for: size.width))
+                    .offset(y: titleOffset)
+                    .opacity(titleOpacity)
+
+                Text(page.description)
+                    .font(.rsBodyLarge)
+                    .foregroundColor(Color.rsSecondaryTextAdaptive(for: colorScheme))
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(6)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.horizontal, horizontalPadding(for: size.width))
+                    .offset(y: descriptionOffset)
+                    .opacity(descriptionOpacity)
+            }
+        }
+        .padding(.vertical, 12)
     }
 
     // MARK: - Dynamic Layout Helpers (Percentage-Based)
@@ -121,18 +124,6 @@ struct OnboardingPageView: View {
         // Dynamic: 3% of screen height for content spacing
         let spacing = height * 0.03
         return min(40, max(12, spacing))
-    }
-
-    private func topSpacing(for height: CGFloat) -> CGFloat {
-        // Dynamic: 6-8% of screen height for top padding
-        let spacing = height * 0.07
-        return min(80, max(16, spacing))
-    }
-
-    private func bottomSpacing(for height: CGFloat) -> CGFloat {
-        // Dynamic: 6-8% of screen height for bottom padding
-        let spacing = height * 0.07
-        return min(80, max(16, spacing))
     }
 
     private func horizontalPadding(for width: CGFloat) -> CGFloat {
