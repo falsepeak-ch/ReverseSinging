@@ -1,211 +1,225 @@
-// Composes Dubloon the Game's App Store artwork from the game's own art: the stage scenes, the
-// host and the props. No text, because the App Store lays its own over these.
+// Composes Dubloon the Game's App Store header and search-result artwork for every locale: one
+// stage, the host, the game's logo and the three-line tagline in the game's own lettering.
 //
-//   swift fastlane/screenshots_game/compose_store_art.swift <scenes dir> <out dir>
+//   swift fastlane/screenshots_game/compose_store_art.swift <scenes dir> <out dir> [locale ...]
 //
 // <scenes dir> holds the scene backgrounds from DesignAssets/BackgroundScenes-2026-10-18,
-// enlarged to 3840 on their long side: arena.png, rooftop.png, studio.png, studio-portrait.png.
-// Writes header.png (3840x1646, product page header, a fixed size), search.png (2400x1600),
-// event-card.png (2560x1440) and event-details.png (1440x2560), all opaque. The last three are
-// sized so the host, 1536 px tall in the kit, is drawn at about her own resolution.
+// enlarged to 3840 on their long side: arena.png and rooftop.png. The tagline and subtitle come
+// from hero_lines.json and each locale's Game.strings, as for the screenshot hero. Writes
+// <out>/<locale>/header.png (3840x1646, the product page header's fixed size) and search.png
+// (2400x1600, sized so the host, 1536 px tall in the kit, draws at about her own resolution).
+// Right-to-left locales are laid out mirrored.
 
 import AppKit
-import CoreGraphics
+import CoreText
 
 let scenes = URL(fileURLWithPath: CommandLine.arguments[1])
 let out = URL(fileURLWithPath: CommandLine.arguments[2])
-let repo = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
-let kit = repo.appendingPathComponent("DesignAssets")
+let only = Set(CommandLine.arguments.dropFirst(3))
+let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent()
+let repo = root.deletingLastPathComponent().deletingLastPathComponent()
 
-func load(_ url: URL) -> CGImage {
-    guard let image = NSImage(contentsOf: url), let cg = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
-        fatalError("can't read \(url.path)")
-    }
-    return cg
+let navy = NSColor(srgbRed: 0.047, green: 0.133, blue: 0.200, alpha: 1)
+let ivory = NSColor(srgbRed: 0.984, green: 0.965, blue: 0.918, alpha: 1)
+let cyan = NSColor(srgbRed: 0.373, green: 0.827, blue: 0.953, alpha: 1)
+let gold = NSColor(srgbRed: 1.0, green: 0.784, blue: 0.239, alpha: 1)
+
+for name in ["LilitaOne-Regular", "MPLUSRounded1c-Black"] {
+    CTFontManagerRegisterFontsForURL(repo.appendingPathComponent("DubloonGame/Resources/Fonts/\(name).ttf") as CFURL, .process, nil)
 }
-func host(_ pose: String) -> CGImage { load(kit.appendingPathComponent("voxhop-game-kit/Host.atlas/host_\(pose).png")) }
-func object(_ name: String) -> CGImage { load(kit.appendingPathComponent("voxhop-asset-variations/Objects.atlas/\(name).png")) }
-func original(_ name: String) -> CGImage { load(kit.appendingPathComponent("voxhop-asset-variations/Originals/\(name).png")) }
-func prop(_ name: String) -> CGImage { load(kit.appendingPathComponent("voxhop-animation-kit/Props.atlas/\(name).png")) }
-func scene(_ name: String) -> CGImage { load(scenes.appendingPathComponent("\(name).png")) }
 
-let navy = CGColor(srgbRed: 0.047, green: 0.133, blue: 0.200, alpha: 1)
-let cyan = CGColor(srgbRed: 0.373, green: 0.827, blue: 0.953, alpha: 1)
-let warm = CGColor(srgbRed: 1.0, green: 0.92, blue: 0.75, alpha: 1)
+/// The game's display face for a language, as `GameFont` picks it in the app.
+func font(for lproj: String, size: CGFloat) -> NSFont {
+    let lilita = ["en", "de", "es", "fr", "it", "nl", "da", "sv", "nb", "fi", "pt-PT"]
+    if lilita.contains(lproj) { return NSFont(name: "LilitaOne", size: size)! }
+    if lproj == "ar" { return NSFont(name: ".SFArabicRounded-Bold", size: size) ?? .systemFont(ofSize: size, weight: .black) }
+    if lproj == "th" { return NSFont(name: "Thonburi-Bold", size: size) ?? .systemFont(ofSize: size, weight: .black) }
+    return NSFont(name: "RoundedMplus1c-Black", size: size)!
+}
 
-/// A canvas with a top-left origin, so every position below reads like a layout.
+func subtitle(_ lproj: String) -> String {
+    let path = repo.appendingPathComponent("DubloonGame/Resources/\(lproj).lproj/Game.strings")
+    return (NSDictionary(contentsOf: path) as? [String: String])?["game.subtitle"] ?? "The Game"
+}
+
+func load(_ path: String) -> NSImage {
+    guard let image = NSImage(contentsOf: repo.appendingPathComponent(path)) else { fatalError("can't read \(path)") }
+    return image
+}
+let hostImage = load("DesignAssets/voxhop-game-kit/Host.atlas/host_delight.png")
+let logoImage = load("DesignAssets/game-logo/dubloon-game-logo.png")
+let beam = load("DesignAssets/voxhop-animation-kit/Props.atlas/light_beam.png")
+func scene(_ name: String) -> NSImage { NSImage(contentsOf: scenes.appendingPathComponent("\(name).png"))! }
+
+/// A canvas drawn with AppKit, top-left origin, so positions read like a layout.
 final class Canvas {
     let size: CGSize
     let ctx: CGContext
 
     init(_ width: Int, _ height: Int) {
         size = CGSize(width: width, height: height)
+        // Opaque, because the App Store refuses artwork with an alpha channel.
         ctx = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 0,
-                        space: CGColorSpace(name: CGColorSpace.sRGB)!,
-                        bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue)!
+                        space: CGColorSpace(name: CGColorSpace.sRGB)!, bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue)!
         ctx.interpolationQuality = .high
+        ctx.translateBy(x: 0, y: CGFloat(height))
+        ctx.scaleBy(x: 1, y: -1)
+        NSGraphicsContext.current = NSGraphicsContext(cgContext: ctx, flipped: true)
     }
 
-    /// Top-left rect to Core Graphics' bottom-left one.
-    func cg(_ rect: CGRect) -> CGRect { CGRect(x: rect.minX, y: size.height - rect.maxY, width: rect.width, height: rect.height) }
-
-    /// Fills the canvas with `image`, cropped to its shape. `focusY` is where the crop sits
-    /// vertically, 0 the top and 1 the bottom; `focusX` likewise across.
-    func backdrop(_ image: CGImage, focusX: CGFloat = 0.5, focusY: CGFloat = 0.5, zoom: CGFloat = 1) {
-        let w = CGFloat(image.width), h = CGFloat(image.height)
-        let scale = max(size.width / w, size.height / h) * zoom
-        let drawn = CGSize(width: w * scale, height: h * scale)
-        let rect = CGRect(x: (size.width - drawn.width) * focusX, y: (size.height - drawn.height) * focusY,
-                          width: drawn.width, height: drawn.height)
-        ctx.draw(image, in: cg(rect))
+    func backdrop(_ image: NSImage, focusX: CGFloat = 0.5, focusY: CGFloat = 0.5) {
+        let scale = max(size.width / image.size.width, size.height / image.size.height)
+        let drawn = CGSize(width: image.size.width * scale, height: image.size.height * scale)
+        image.draw(in: CGRect(x: (size.width - drawn.width) * focusX, y: (size.height - drawn.height) * focusY,
+                              width: drawn.width, height: drawn.height),
+                   from: .zero, operation: .copy, fraction: 1, respectFlipped: true, hints: [.interpolation: NSImageInterpolation.high.rawValue])
     }
 
-    /// A soft radial pool of `color`, for light behind or under something.
-    func glow(at center: CGPoint, radius: CGFloat, color: CGColor, alpha: CGFloat, squash: CGFloat = 1) {
+    func radial(at center: CGPoint, radius: CGFloat, color: NSColor, alpha: CGFloat, squash: CGFloat = 1) {
         ctx.saveGState()
-        let p = CGPoint(x: center.x, y: size.height - center.y)
-        ctx.translateBy(x: p.x, y: p.y)
+        ctx.translateBy(x: center.x, y: center.y)
         ctx.scaleBy(x: 1, y: squash)
         let gradient = CGGradient(colorsSpace: CGColorSpace(name: CGColorSpace.sRGB),
-                                  colors: [color.copy(alpha: alpha)!, color.copy(alpha: 0)!] as CFArray, locations: [0, 1])!
+                                  colors: [color.withAlphaComponent(alpha).cgColor, color.withAlphaComponent(0).cgColor] as CFArray,
+                                  locations: [0, 1])!
         ctx.drawRadialGradient(gradient, startCenter: .zero, startRadius: 0, endCenter: .zero, endRadius: radius, options: [])
         ctx.restoreGState()
     }
 
-    /// Darkens toward the edges, so the eye lands in the middle.
-    func vignette(strength: CGFloat) {
-        let center = CGPoint(x: size.width / 2, y: size.height * 0.55)
-        let radius = hypot(size.width, size.height) * 0.62
+    /// Navy rising from one side, so the lettering sits on a calm field: darkest at `from`
+    /// (a fraction of the width), clear by `to`.
+    func sideShade(darkAt from: CGFloat, clearAt to: CGFloat, alpha: CGFloat) {
         let gradient = CGGradient(colorsSpace: CGColorSpace(name: CGColorSpace.sRGB),
-                                  colors: [navy.copy(alpha: 0)!, navy.copy(alpha: 0)!, navy.copy(alpha: strength)!] as CFArray,
-                                  locations: [0, 0.55, 1])!
-        let p = CGPoint(x: center.x, y: size.height - center.y)
-        ctx.drawRadialGradient(gradient, startCenter: p, startRadius: 0, endCenter: p, endRadius: radius, options: [.drawsAfterEndLocation])
+                                  colors: [navy.withAlphaComponent(alpha).cgColor, navy.withAlphaComponent(alpha * 0.75).cgColor,
+                                           navy.withAlphaComponent(0).cgColor] as CFArray,
+                                  locations: [0, 0.45, 1])!
+        ctx.drawLinearGradient(gradient, start: CGPoint(x: size.width * from, y: 0), end: CGPoint(x: size.width * to, y: 0), options: [])
     }
 
-    /// A vertical wash of navy over the bottom `fraction`, for the store's own lettering.
-    func floorShade(fraction: CGFloat, alpha: CGFloat) {
+    func vignette(_ strength: CGFloat) {
+        let center = CGPoint(x: size.width / 2, y: size.height * 0.5)
         let gradient = CGGradient(colorsSpace: CGColorSpace(name: CGColorSpace.sRGB),
-                                  colors: [navy.copy(alpha: 0)!, navy.copy(alpha: alpha)!] as CFArray, locations: [0, 1])!
-        ctx.drawLinearGradient(gradient, start: CGPoint(x: 0, y: size.height * fraction), end: .zero, options: [])
+                                  colors: [navy.withAlphaComponent(0).cgColor, navy.withAlphaComponent(0).cgColor,
+                                           navy.withAlphaComponent(strength).cgColor] as CFArray,
+                                  locations: [0, 0.6, 1])!
+        ctx.drawRadialGradient(gradient, startCenter: center, startRadius: 0, endCenter: center,
+                               endRadius: hypot(size.width, size.height) * 0.6, options: [.drawsAfterEndLocation])
     }
 
-    /// Draws `image` `height` tall, centred on `x`, its bottom at `bottom`, turned `degrees`,
-    /// with the kit's hard navy drop shadow under it.
-    func place(_ image: CGImage, x: CGFloat, bottom: CGFloat, height: CGFloat, degrees: CGFloat = 0,
-               shadow: CGFloat = 0.5, contact: Bool = false, blend: CGBlendMode = .normal, alpha: CGFloat = 1) {
-        let width = height * CGFloat(image.width) / CGFloat(image.height)
-        if contact {
-            // The pool of shade a figure stands in.
-            glow(at: CGPoint(x: x, y: bottom - height * 0.012), radius: width * 0.42, color: navy, alpha: 0.55, squash: 0.16)
+    /// The host standing at `x`, feet on `floor`, `height` tall, in a spotlight, on a pool of shade.
+    func host(x: CGFloat, floor: CGFloat, height: CGFloat) {
+        let width = height * hostImage.size.width / hostImage.size.height
+        radial(at: CGPoint(x: x, y: floor - height * 0.5), radius: height * 0.75, color: cyan, alpha: 0.28)
+        let beamHeight = height * 1.15
+        let beamWidth = beamHeight * beam.size.width / beam.size.height
+        beam.draw(in: CGRect(x: x - beamWidth / 2, y: floor - beamHeight + height * 0.04, width: beamWidth, height: beamHeight),
+                  from: .zero, operation: .screen, fraction: 0.5, respectFlipped: true, hints: nil)
+        radial(at: CGPoint(x: x, y: floor - height * 0.01), radius: width * 0.45, color: navy, alpha: 0.6, squash: 0.15)
+        hostImage.draw(in: CGRect(x: x - width / 2, y: floor - height, width: width, height: height),
+                       from: .zero, operation: .sourceOver, fraction: 1, respectFlipped: true, hints: [.interpolation: NSImageInterpolation.high.rawValue])
+    }
+
+    /// The wordmark, `width` wide, its top at `top`, from `edge` (its right edge when
+    /// `alignRight`). Returns its bottom.
+    func logo(edge: CGFloat, top: CGFloat, width: CGFloat, alignRight: Bool) -> CGFloat {
+        let height = width * logoImage.size.height / logoImage.size.width
+        let x = alignRight ? edge - width : edge
+        logoImage.draw(in: CGRect(x: x, y: top, width: width, height: height), from: .zero, operation: .sourceOver,
+                  fraction: 1, respectFlipped: true, hints: [.interpolation: NSImageInterpolation.high.rawValue])
+        return top + height
+    }
+
+    /// One line in the game's lettering: the fill, a navy outline and a navy lip under it,
+    /// shrunk until it fits `maxWidth`. `top` is the top of the line box. Returns its bottom.
+    @discardableResult
+    func line(_ text: String, lproj: String, size pointSize: CGFloat, color: NSColor,
+              edge: CGFloat, top: CGFloat, maxWidth: CGFloat, alignRight: Bool, kern: CGFloat = 0) -> CGFloat {
+        var points = pointSize
+        while NSAttributedString(string: text, attributes: [.font: font(for: lproj, size: points), .kern: kern * points]).size().width > maxWidth,
+              points > pointSize * 0.5 {
+            points -= 2
         }
-        ctx.saveGState()
-        ctx.setBlendMode(blend)
-        ctx.setAlpha(alpha)
-        let center = CGPoint(x: x, y: size.height - (bottom - height / 2))
-        ctx.translateBy(x: center.x, y: center.y)
-        ctx.rotate(by: -degrees * .pi / 180)
-        if shadow > 0 {
-            ctx.setShadow(offset: CGSize(width: 0, height: -height * 0.025), blur: height * 0.05, color: navy.copy(alpha: shadow))
+        let f = font(for: lproj, size: points)
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = alignRight ? .right : .left
+        paragraph.baseWritingDirection = lproj == "ar" ? .rightToLeft : .leftToRight
+        let base: [NSAttributedString.Key: Any] = [.font: f, .paragraphStyle: paragraph, .kern: kern * points]
+        let measured = NSAttributedString(string: text, attributes: base).size()
+        let rect = CGRect(x: alignRight ? edge - maxWidth : edge, y: top, width: maxWidth, height: measured.height)
+        let stroke = points * 0.16
+        let lip = points * 0.075
+
+        // Round joins, or the outline spikes out at the sharp corners of the letters.
+        ctx.setLineJoin(.round)
+        func draw(_ fill: NSColor, outline: Bool, dy: CGFloat) {
+            var attributes = base
+            attributes[.foregroundColor] = fill
+            if outline {
+                attributes[.strokeColor] = navy
+                attributes[.strokeWidth] = stroke * 2 / points * 100
+            }
+            NSAttributedString(string: text, attributes: attributes).draw(in: rect.offsetBy(dx: 0, dy: dy))
         }
-        ctx.draw(image, in: CGRect(x: -width / 2, y: -height / 2, width: width, height: height))
-        ctx.restoreGState()
+        draw(navy, outline: true, dy: lip)
+        draw(navy, outline: false, dy: lip)
+        draw(navy, outline: true, dy: 0)
+        draw(color, outline: false, dy: 0)
+        return top + measured.height
     }
 
-    func write(_ name: String) {
-        let url = out.appendingPathComponent(name)
-        let rep = NSBitmapImageRep(cgImage: ctx.makeImage()!)
-        try! rep.representation(using: .png, properties: [:])!.write(to: url)
-        print("\(name): \(Int(size.width))x\(Int(size.height))")
+    func write(_ url: URL) {
+        let png = NSBitmapImageRep(cgImage: ctx.makeImage()!).representation(using: .png, properties: [:])!
+        try! png.write(to: url)
     }
 }
 
-try? FileManager.default.createDirectory(at: out, withIntermediateDirectories: true)
-
-// MARK: - Product page header, 3840x1646
-
-// The arena, the host centre stage under a spotlight; the film on her left, the sounds on her
-// right: the two games, without a word.
-do {
-    let c = Canvas(3840, 1646)
-    c.backdrop(scene("arena"), focusY: 0.78)
-    c.glow(at: CGPoint(x: 1920, y: 820), radius: 1100, color: cyan, alpha: 0.30)
-    c.place(prop("light_beam"), x: 1920, bottom: 1600, height: 1650, shadow: 0, blend: .screen, alpha: 0.55)
-    c.glow(at: CGPoint(x: 1920, y: 1540), radius: 760, color: warm, alpha: 0.35, squash: 0.2)
-
-    // The film, stage left.
-    c.place(object("film-reel"), x: 900, bottom: 1500, height: 470, degrees: -8, contact: true)
-    c.place(object("clapperboard"), x: 1220, bottom: 1060, height: 520, degrees: -12)
-
-    // The sounds, stage right.
-    c.place(original("imitate-cat"), x: 2600, bottom: 1080, height: 500, degrees: 8)
-    c.place(original("imitate-duck"), x: 2960, bottom: 1500, height: 470, degrees: 6, contact: true)
-    c.place(prop("music_note"), x: 2320, bottom: 600, height: 260, degrees: 14)
-    c.place(prop("music_note"), x: 3260, bottom: 860, height: 200, degrees: -10)
-
-    c.place(host("delight"), x: 1920, bottom: 1590, height: 1440, shadow: 0.35, contact: true)
-    c.vignette(strength: 0.55)
-    c.write("header.png")
+/// The type block: logo, subtitle, then the three lines. `scale` sizes the whole block.
+func typeBlock(_ c: Canvas, lproj: String, lines: [String], edge: CGFloat, top: CGFloat, width: CGFloat, scale: CGFloat, rtl: Bool) {
+    var y = c.logo(edge: rtl ? edge : edge - width * 0.02, top: top, width: width * 0.86, alignRight: rtl)
+    y += 18 * scale
+    y = c.line(subtitle(lproj).uppercased(with: Locale(identifier: lproj)), lproj: lproj, size: 74 * scale, color: cyan, edge: edge, top: y,
+               maxWidth: width, alignRight: rtl, kern: 0.06)
+    y += 70 * scale
+    let colors = [ivory, cyan, gold]
+    let sizes: [CGFloat] = [138, 138, 156]
+    for (index, text) in lines.enumerated() {
+        y = c.line(text, lproj: lproj, size: sizes[index] * scale, color: colors[index], edge: edge, top: y,
+                   maxWidth: width, alignRight: rtl)
+        y += 6 * scale
+    }
 }
 
-// MARK: - Search results, 3:2
+let data = try! Data(contentsOf: root.appendingPathComponent("hero_lines.json"))
+let locales = try! JSONSerialization.jsonObject(with: data) as! [String: [String: Any]]
+let arena = scene("arena"), rooftop = scene("rooftop")
 
-// The rooftop at night: the host calling it out, the megaphone and the film in the air, a mic
-// and a lion on the floor. Sized so the host draws at her own resolution.
-do {
-    let c = Canvas(2400, 1600)
-    c.backdrop(scene("rooftop"), focusX: 0.5, focusY: 0.6)
-    c.glow(at: CGPoint(x: 1200, y: 850), radius: 850, color: cyan, alpha: 0.28)
-    c.place(prop("light_beam"), x: 1200, bottom: 1560, height: 1500, shadow: 0, blend: .screen, alpha: 0.5)
+for (locale, entry) in locales.sorted(by: { $0.key < $1.key }) where only.isEmpty || only.contains(locale) {
+    let lproj = entry["lproj"] as! String
+    let lines = entry["lines"] as! [String]
+    let rtl = lproj == "ar"
+    let folder = out.appendingPathComponent(locale)
+    try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
 
-    c.place(object("clapperboard"), x: 560, bottom: 820, height: 400, degrees: -12)
-    c.place(original("imitate-lion"), x: 470, bottom: 1500, height: 400, degrees: 4, contact: true)
-    c.place(object("megaphone"), x: 1840, bottom: 760, height: 420, degrees: -14)
-    c.place(object("microphone"), x: 1900, bottom: 1500, height: 500, degrees: 4, contact: true)
-    c.place(prop("music_note"), x: 2150, bottom: 380, height: 170, degrees: 12)
+    // Product page header, 3840x1646: the arena, the lettering on one side, the host on the other.
+    do {
+        let c = Canvas(3840, 1646)
+        c.backdrop(arena, focusX: rtl ? 0.35 : 0.65, focusY: 0.78)
+        c.sideShade(darkAt: rtl ? 1 : 0, clearAt: rtl ? 0.4 : 0.6, alpha: 0.82)
+        c.vignette(0.45)
+        c.host(x: rtl ? 1230 : 2610, floor: 1600, height: 1480)
+        typeBlock(c, lproj: lproj, lines: lines, edge: rtl ? 3840 - 300 : 300, top: 250, width: 1500, scale: 1, rtl: rtl)
+        c.write(folder.appendingPathComponent("header.png"))
+    }
 
-    c.place(host("talk"), x: 1200, bottom: 1560, height: 1440, shadow: 0.35, contact: true)
-    c.vignette(strength: 0.5)
-    c.write("search.png")
-}
-
-// MARK: - In-app event card, 16:9
-
-// The recording studio: the host by the mic, headphones and the reel in, room at the foot for
-// the event's own title.
-do {
-    let c = Canvas(2560, 1440)
-    c.backdrop(scene("studio"), focusY: 0.55)
-    c.glow(at: CGPoint(x: 1280, y: 700), radius: 850, color: cyan, alpha: 0.25)
-    c.place(prop("light_beam"), x: 1280, bottom: 1340, height: 1300, shadow: 0, blend: .screen, alpha: 0.45)
-
-    c.place(object("headphones"), x: 740, bottom: 720, height: 360, degrees: -12)
-    c.place(object("film-reel"), x: 700, bottom: 1250, height: 360, degrees: -6, contact: true)
-    c.place(object("microphone"), x: 1860, bottom: 1250, height: 520, degrees: 5, contact: true)
-    c.place(prop("music_note"), x: 2080, bottom: 520, height: 180, degrees: 12)
-
-    c.place(host("delight"), x: 1280, bottom: 1360, height: 1300, shadow: 0.35, contact: true)
-    c.vignette(strength: 0.5)
-    c.floorShade(fraction: 0.3, alpha: 0.55)
-    c.write("event-card.png")
-}
-
-// MARK: - In-app event details, 9:16
-
-do {
-    let c = Canvas(1440, 2560)
-    c.backdrop(scene("studio-portrait"), focusY: 0.5)
-    c.glow(at: CGPoint(x: 720, y: 1350), radius: 900, color: cyan, alpha: 0.25)
-    c.place(prop("light_beam"), x: 720, bottom: 2250, height: 2100, shadow: 0, blend: .screen, alpha: 0.45)
-
-    c.place(object("clapperboard"), x: 330, bottom: 700, height: 330, degrees: -12)
-    c.place(original("imitate-cat"), x: 1110, bottom: 660, height: 320, degrees: 8)
-    c.place(prop("music_note"), x: 720, bottom: 400, height: 150, degrees: 12)
-    c.place(object("film-reel"), x: 250, bottom: 2230, height: 300, degrees: -6, contact: true)
-    c.place(original("imitate-duck"), x: 1190, bottom: 2230, height: 300, degrees: 6, contact: true)
-
-    c.place(host("delight"), x: 720, bottom: 2260, height: 1500, shadow: 0.35, contact: true)
-    c.vignette(strength: 0.5)
-    c.floorShade(fraction: 0.22, alpha: 0.6)
-    c.write("event-details.png")
+    // Search result, 2400x1600: the rooftop at night, same arrangement.
+    do {
+        let c = Canvas(2400, 1600)
+        c.backdrop(rooftop, focusX: rtl ? 0.4 : 0.6, focusY: 0.6)
+        c.sideShade(darkAt: rtl ? 1 : 0, clearAt: rtl ? 0.35 : 0.65, alpha: 0.8)
+        c.vignette(0.4)
+        c.host(x: rtl ? 600 : 1800, floor: 1570, height: 1440)
+        typeBlock(c, lproj: lproj, lines: lines, edge: rtl ? 2400 - 130 : 130, top: 250, width: 1150, scale: 0.85, rtl: rtl)
+        c.write(folder.appendingPathComponent("search.png"))
+    }
+    print("\(locale): header.png, search.png")
 }
