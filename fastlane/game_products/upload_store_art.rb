@@ -28,7 +28,16 @@ def api(method, path, body = nil, raise_on_error: true)
   request["Authorization"] = "Bearer #{token}"
   request["Content-Type"] = "application/json"
   request.body = body.to_json if body
-  response = Net::HTTP.start(uri.host, uri.port, use_ssl: true) { |http| http.request(request) }
+  # A long run over many images meets the odd connection that never opens; try again.
+  attempts = 0
+  begin
+    response = Net::HTTP.start(uri.host, uri.port, use_ssl: true, open_timeout: 30, read_timeout: 120) { |http| http.request(request) }
+  rescue Net::OpenTimeout, Net::ReadTimeout, Errno::ECONNRESET, OpenSSL::SSL::SSLError
+    attempts += 1
+    raise if attempts > 3
+    sleep 5 * attempts
+    retry
+  end
   json = response.body.to_s.empty? ? {} : JSON.parse(response.body)
   if raise_on_error && !response.code.to_i.between?(200, 299)
     raise "#{method.upcase} #{uri.request_uri} → #{response.code}: #{response.body}"
@@ -61,7 +70,20 @@ V = version["id"]
 puts "version #{version['attributes']['versionString']}"
 KINDS = { "header" => "PRODUCT_PAGE_HEADER_ASSET", "search" => "APP_STORE_SEARCH_RESULTS_ASSET" }
 
+# An older image under the same reference name, from an earlier run, holds the name: delete it,
+# or, if the library keeps it, rename it out of the way and archive it.
+def clear_reference(ref)
+  all("/v1/appAssetLibraries/#{LIB}/images?limit=200").select { |i| i.dig("attributes", "referenceName") == ref }.each do |old|
+    all("/v1/appAssetLibraryImages/#{old['id']}/placements").each { |p| api(:delete, "/v1/appAssetLibraryPlacements/#{p['id']}") } rescue nil
+    code, = api(:delete, "/v1/appAssetLibraryImages/#{old['id']}", raise_on_error: false)
+    next if code.between?(200, 299)
+    api(:patch, "/v1/appAssetLibraryImages/#{old['id']}", { data: { type: "appAssetLibraryImages", id: old["id"],
+      attributes: { referenceName: "#{ref} (replaced #{Time.now.to_i})", archived: true } } }, raise_on_error: false)
+  end
+end
+
 def upload(path, ref)
+  clear_reference(ref)
   bytes = File.binread(path)
   _, img = api(:post, "/v1/appAssetLibraryImages", { data: { type: "appAssetLibraryImages",
     attributes: { category: "CREATIVE_ASSETS", fileName: File.basename(path), fileSize: bytes.bytesize, referenceName: ref },
@@ -72,7 +94,15 @@ def upload(path, ref)
     req = Net::HTTP.const_get(op["method"].capitalize).new(uri)
     (op["requestHeaders"] || []).each { |h| req[h["name"]] = h["value"] }
     req.body = bytes.byteslice(op["offset"], op["length"])
-    res = Net::HTTP.start(uri.host, uri.port, use_ssl: true) { |h| h.request(req) }
+    attempts = 0
+    begin
+      res = Net::HTTP.start(uri.host, uri.port, use_ssl: true, open_timeout: 30, read_timeout: 300) { |h| h.request(req) }
+    rescue Net::OpenTimeout, Net::ReadTimeout, Errno::ECONNRESET, OpenSSL::SSL::SSLError
+      attempts += 1
+      raise if attempts > 3
+      sleep 5 * attempts
+      retry
+    end
     raise "chunk #{res.code}" unless res.code.to_i.between?(200, 299)
   end
   api(:patch, "/v1/appAssetLibraryImages/#{id}", { data: { type: "appAssetLibraryImages", id: id, attributes: { uploaded: true } } })
