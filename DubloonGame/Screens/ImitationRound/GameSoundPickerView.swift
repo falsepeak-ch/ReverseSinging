@@ -108,7 +108,7 @@ private struct SoundCard: View {
     var body: some View {
         Button(action: action) {
             VStack(spacing: 8) {
-                ImitationSoundArtwork(sound: sound, size: 92)
+                GameSoundArt(sound: sound, size: 96)
                     .padding(.top, 14)
 
                 Text(sound.name)

@@ -34,6 +34,33 @@ nonisolated enum GameStrings {
     /// Through the 3-2-1, before the mic opens.
     static let getReady = string("game.getReady", "Big caption on the stage during the 3-2-1 count before recording")
 
+    /// What the host says during a round. See `HostScript`.
+    enum Round {
+        static func imitateReady(_ sound: String) -> String {
+            String(format: string("game.host.imitate.ready", "Instruction before an impression. %@ is the sound's name"), sound)
+        }
+        static func dubReady(_ character: String) -> String {
+            String(format: string("game.host.dub.ready", "Instruction before dubbing a line. %@ is the character's name"), character)
+        }
+        static let countIn = string("game.host.countIn", "Said by the host during the 3-2-1 before recording")
+        static let imitateRecording = string("game.host.imitate.recording", "Encouragement while the player makes the sound")
+        static let dubRecording = string("game.host.dub.recording", "Encouragement while the player dubs a line")
+        static let scoring = string("game.host.scoring", "Said while the take is being judged")
+        static let gradeTop = string("game.host.grade.top", "Reaction to a top score")
+        static let gradeGood = string("game.host.grade.good", "Reaction to a good score")
+        static let gradeClose = string("game.host.grade.close", "Reaction to a near miss")
+        static let gradeRough = string("game.host.grade.rough", "Playful reaction to a poor score")
+        static let tipRhythm = string("game.host.tip.rhythm", "Tip when rhythm was the weakest part of an impression")
+        static let tipPitch = string("game.host.tip.pitch", "Tip when pitch was the weakest part")
+        static let tipTone = string("game.host.tip.tone", "Tip when tone was the weakest part")
+        static let tipLength = string("game.host.tip.length", "Tip when length was the weakest part")
+        static let tipTiming = string("game.host.tip.timing", "Tip when timing was the weakest part of a dub")
+        static let tipPacing = string("game.host.tip.pacing", "Tip when pacing was the weakest part of a dub")
+        static let tipDelivery = string("game.host.tip.delivery", "Tip when delivery was the weakest part of a dub")
+        static let sceneDone = string("game.host.dub.sceneDone", "Said when every line of the scene is dubbed")
+        static let dubAgain = string("game.host.dub.again", "Said on a line that already has a take, inviting another go")
+    }
+
     /// The brand line under "Dubloon" at the top of the stage.
     static let subtitle = string("game.subtitle", "Under the app name on the home stage: 'Dubloon' / 'The Game'")
 }

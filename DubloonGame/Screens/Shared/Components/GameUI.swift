@@ -293,3 +293,24 @@ struct GameDeck<Content: View>: View {
             }
     }
 }
+
+// MARK: - Sound pictures
+
+/// A sound's picture in the game's outlined style (`game-imitate-…`), or the shared
+/// illustration when the game has none for it yet.
+struct GameSoundArt: View {
+    let sound: ImitationSound
+    let size: CGFloat
+
+    var body: some View {
+        if UIImage(named: "game-\(sound.artworkName)") != nil {
+            Image("game-\(sound.artworkName)")
+                .resizable()
+                .scaledToFit()
+                .frame(width: size, height: size)
+                .accessibilityHidden(true)
+        } else {
+            ImitationSoundArtwork(sound: sound, size: size)
+        }
+    }
+}

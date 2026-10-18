@@ -29,3 +29,62 @@
 
 /* Big caption on the stage during the 3-2-1 count before recording */
 "game.getReady" = "Prepara-te…";
+
+/* The host's lines in a round. */
+
+/* Instruction before an impression. %@ is the sound's name, e.g. 'Cat' */
+"game.host.imitate.ready" = "Ouve primeiro o som: %@. Depois faz-me a tua melhor imitação!";
+
+/* Said by the host during the 3-2-1 before recording */
+"game.host.countIn" = "Lá vamos nós… prepara-te!";
+
+/* Encouragement while the player makes the sound */
+"game.host.imitate.recording" = "Vai, vai, vai! Sem medo!";
+
+/* Said while the take is being judged */
+"game.host.scoring" = "Hmm, deixa-me ouvir outra vez…";
+
+/* Reaction to a top score */
+"game.host.grade.top" = "Incrível! Não vos distingo!";
+
+/* Reaction to a good score */
+"game.host.grade.good" = "Muito bem! Já está.";
+
+/* Reaction to a near miss */
+"game.host.grade.close" = "Quase! Mais uma?";
+
+/* Playful reaction to a poor score */
+"game.host.grade.rough" = "Ah! Ousado… tenta outra vez!";
+
+/* Tip when rhythm was the weakest part of an impression */
+"game.host.tip.rhythm" = "Dica: imita onde rebenta e onde pára.";
+
+/* Tip when pitch was the weakest part */
+"game.host.tip.pitch" = "Dica: segue o tom para cima e para baixo.";
+
+/* Tip when tone was the weakest part */
+"game.host.tip.tone" = "Dica: copia a textura, soprada ou vibrante.";
+
+/* Tip when length was the weakest part */
+"game.host.tip.length" = "Dica: faz durar tanto como o original.";
+
+/* Instruction before dubbing a line. %@ is the character's name */
+"game.host.dub.ready" = "Fala de %@! Vê uma vez e entra mesmo quando começa.";
+
+/* Encouragement while the player dubs a line */
+"game.host.dub.recording" = "É a tua vez! Acompanha o ritmo!";
+
+/* Tip when timing was the weakest part of a dub */
+"game.host.tip.timing" = "Dica: entra mesmo quando começa a falar.";
+
+/* Tip when pacing was the weakest part of a dub */
+"game.host.tip.pacing" = "Dica: acompanha o ritmo das sílabas.";
+
+/* Tip when delivery was the weakest part of a dub */
+"game.host.tip.delivery" = "Dica: copia os fortes e os suaves.";
+
+/* Said when every line of the scene is dubbed */
+"game.host.dub.sceneDone" = "Corta! Queres ver a tua dobragem?";
+
+/* Said on a line that already has a take, inviting another go */
+"game.host.dub.again" = "Já está dobrada! Repete ou segue em frente.";

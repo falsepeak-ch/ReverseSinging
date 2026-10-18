@@ -29,3 +29,62 @@
 
 /* Big caption on the stage during the 3-2-1 count before recording */
 "game.getReady" = "Prepárate…";
+
+/* The host's lines in a round. */
+
+/* Instruction before an impression. %@ is the sound's name, e.g. 'Cat' */
+"game.host.imitate.ready" = "Escucha primero el sonido: %@. ¡Luego dame tu mejor imitación!";
+
+/* Said by the host during the 3-2-1 before recording */
+"game.host.countIn" = "Allá vamos… ¡prepárate!";
+
+/* Encouragement while the player makes the sound */
+"game.host.imitate.recording" = "¡Vamos, vamos! ¡Sin miedo!";
+
+/* Said while the take is being judged */
+"game.host.scoring" = "Mmm, déjame escucharlo…";
+
+/* Reaction to a top score */
+"game.host.grade.top" = "¡Increíble! ¡No os distingo!";
+
+/* Reaction to a good score */
+"game.host.grade.good" = "¡Muy bien! Lo tienes.";
+
+/* Reaction to a near miss */
+"game.host.grade.close" = "¡Casi! ¿Otra vez?";
+
+/* Playful reaction to a poor score */
+"game.host.grade.rough" = "¡Ja! Atrevido… ¡inténtalo otra vez!";
+
+/* Tip when rhythm was the weakest part of an impression */
+"game.host.tip.rhythm" = "Truco: imita dónde estalla y dónde se calla.";
+
+/* Tip when pitch was the weakest part */
+"game.host.tip.pitch" = "Truco: sigue su tono hacia arriba y abajo.";
+
+/* Tip when tone was the weakest part */
+"game.host.tip.tone" = "Truco: copia su textura, soplada o vibrante.";
+
+/* Tip when length was the weakest part */
+"game.host.tip.length" = "Truco: haz que dure lo mismo que el original.";
+
+/* Instruction before dubbing a line. %@ is the character's name */
+"game.host.dub.ready" = "¡Frase de %@! Mírala una vez y entra justo cuando empiece.";
+
+/* Encouragement while the player dubs a line */
+"game.host.dub.recording" = "¡Te toca! ¡Sigue su ritmo!";
+
+/* Tip when timing was the weakest part of a dub */
+"game.host.tip.timing" = "Truco: entra justo cuando empieza a hablar.";
+
+/* Tip when pacing was the weakest part of a dub */
+"game.host.tip.pacing" = "Truco: sigue el ritmo de sus sílabas.";
+
+/* Tip when delivery was the weakest part of a dub */
+"game.host.tip.delivery" = "Truco: copia sus fuertes y sus suaves.";
+
+/* Said when every line of the scene is dubbed */
+"game.host.dub.sceneDone" = "¡Y corten! ¿Quieres ver tu doblaje?";
+
+/* Said on a line that already has a take, inviting another go */
+"game.host.dub.again" = "¡Ya está doblada! Repite o sigue.";

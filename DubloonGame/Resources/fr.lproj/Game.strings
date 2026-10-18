@@ -29,3 +29,62 @@
 
 /* Big caption on the stage during the 3-2-1 count before recording */
 "game.getReady" = "Prépare-toi…";
+
+/* The host's lines in a round. */
+
+/* Instruction before an impression. %@ is the sound's name, e.g. 'Cat' */
+"game.host.imitate.ready" = "Écoute d'abord le son : %@. Puis fais-moi ta meilleure imitation !";
+
+/* Said by the host during the 3-2-1 before recording */
+"game.host.countIn" = "C'est parti… prépare-toi !";
+
+/* Encouragement while the player makes the sound */
+"game.host.imitate.recording" = "Vas-y, vas-y ! Lâche-toi !";
+
+/* Said while the take is being judged */
+"game.host.scoring" = "Hmm, laisse-moi réécouter…";
+
+/* Reaction to a top score */
+"game.host.grade.top" = "Incroyable ! Impossible de vous distinguer !";
+
+/* Reaction to a good score */
+"game.host.grade.good" = "Bien joué ! Tu l'as.";
+
+/* Reaction to a near miss */
+"game.host.grade.close" = "Presque ! On réessaie ?";
+
+/* Playful reaction to a poor score */
+"game.host.grade.rough" = "Ha ! Audacieux… réessaie !";
+
+/* Tip when rhythm was the weakest part of an impression */
+"game.host.tip.rhythm" = "Astuce : imite là où ça éclate et là où ça s'arrête.";
+
+/* Tip when pitch was the weakest part */
+"game.host.tip.pitch" = "Astuce : suis la hauteur, en haut et en bas.";
+
+/* Tip when tone was the weakest part */
+"game.host.tip.tone" = "Astuce : copie la texture, soufflée ou vibrante.";
+
+/* Tip when length was the weakest part */
+"game.host.tip.length" = "Astuce : fais-le durer autant que l'original.";
+
+/* Instruction before dubbing a line. %@ is the character's name */
+"game.host.dub.ready" = "Réplique de %@ ! Regarde-la une fois, puis entre pile au début.";
+
+/* Encouragement while the player dubs a line */
+"game.host.dub.recording" = "À toi ! Garde le rythme !";
+
+/* Tip when timing was the weakest part of a dub */
+"game.host.tip.timing" = "Astuce : entre pile quand le personnage commence.";
+
+/* Tip when pacing was the weakest part of a dub */
+"game.host.tip.pacing" = "Astuce : suis le rythme des syllabes.";
+
+/* Tip when delivery was the weakest part of a dub */
+"game.host.tip.delivery" = "Astuce : copie ses forts et ses doux.";
+
+/* Said when every line of the scene is dubbed */
+"game.host.dub.sceneDone" = "Coupez ! Tu veux voir ton doublage ?";
+
+/* Said on a line that already has a take, inviting another go */
+"game.host.dub.again" = "Déjà doublée ! Recommence ou passe à la suite.";

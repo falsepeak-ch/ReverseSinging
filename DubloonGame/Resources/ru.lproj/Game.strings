@@ -29,3 +29,62 @@
 
 /* Big caption on the stage during the 3-2-1 count before recording */
 "game.getReady" = "Приготовься…";
+
+/* The host's lines in a round. */
+
+/* Instruction before an impression. %@ is the sound's name, e.g. 'Cat' */
+"game.host.imitate.ready" = "Сначала послушай звук: %@. А потом покажи лучшую пародию!";
+
+/* Said by the host during the 3-2-1 before recording */
+"game.host.countIn" = "Поехали… приготовься!";
+
+/* Encouragement while the player makes the sound */
+"game.host.imitate.recording" = "Давай, давай! Не стесняйся!";
+
+/* Said while the take is being judged */
+"game.host.scoring" = "Хм, дай-ка переслушаю…";
+
+/* Reaction to a top score */
+"game.host.grade.top" = "Невероятно! Вас не отличить!";
+
+/* Reaction to a good score */
+"game.host.grade.good" = "Отлично! У тебя получается.";
+
+/* Reaction to a near miss */
+"game.host.grade.close" = "Почти! Ещё разок?";
+
+/* Playful reaction to a poor score */
+"game.host.grade.rough" = "Ха! Смело… попробуй ещё!";
+
+/* Tip when rhythm was the weakest part of an impression */
+"game.host.tip.rhythm" = "Совет: повторяй, где звук взрывается и где замолкает.";
+
+/* Tip when pitch was the weakest part */
+"game.host.tip.pitch" = "Совет: следуй за высотой вверх и вниз.";
+
+/* Tip when tone was the weakest part */
+"game.host.tip.tone" = "Совет: передай тембр — с придыханием или с жужжанием.";
+
+/* Tip when length was the weakest part */
+"game.host.tip.length" = "Совет: тяни столько же, сколько оригинал.";
+
+/* Instruction before dubbing a line. %@ is the character's name */
+"game.host.dub.ready" = "Реплика: %@! Посмотри один раз и вступай ровно в начале.";
+
+/* Encouragement while the player dubs a line */
+"game.host.dub.recording" = "Твой выход! Держи темп!";
+
+/* Tip when timing was the weakest part of a dub */
+"game.host.tip.timing" = "Совет: вступай ровно когда персонаж начинает.";
+
+/* Tip when pacing was the weakest part of a dub */
+"game.host.tip.pacing" = "Совет: держи темп слогов.";
+
+/* Tip when delivery was the weakest part of a dub */
+"game.host.tip.delivery" = "Совет: повторяй громкие и тихие места.";
+
+/* Said when every line of the scene is dubbed */
+"game.host.dub.sceneDone" = "Снято! Посмотришь свою озвучку?";
+
+/* Said on a line that already has a take, inviting another go */
+"game.host.dub.again" = "Уже озвучено! Ещё раз или дальше.";

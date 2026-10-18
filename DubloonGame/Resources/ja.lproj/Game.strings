@@ -29,3 +29,62 @@
 
 /* Big caption on the stage during the 3-2-1 count before recording */
 "game.getReady" = "準備して…";
+
+/* The host's lines in a round. */
+
+/* Instruction before an impression. %@ is the sound's name, e.g. 'Cat' */
+"game.host.imitate.ready" = "まずは「%@」を聞いて、それから最高のモノマネを！";
+
+/* Said by the host during the 3-2-1 before recording */
+"game.host.countIn" = "いくよ…準備して！";
+
+/* Encouragement while the player makes the sound */
+"game.host.imitate.recording" = "ほらほら！思いっきり！";
+
+/* Said while the take is being judged */
+"game.host.scoring" = "うーん、聞き返してみるね…";
+
+/* Reaction to a top score */
+"game.host.grade.top" = "すごい！区別がつかない！";
+
+/* Reaction to a good score */
+"game.host.grade.good" = "いいね！バッチリ！";
+
+/* Reaction to a near miss */
+"game.host.grade.close" = "おしい！もう一回？";
+
+/* Playful reaction to a poor score */
+"game.host.grade.rough" = "あはは！大胆だね…もう一回！";
+
+/* Tip when rhythm was the weakest part of an impression */
+"game.host.tip.rhythm" = "コツ：音が弾けるところと止まるところをまねしよう。";
+
+/* Tip when pitch was the weakest part */
+"game.host.tip.pitch" = "コツ：音の高さの上がり下がりについていこう。";
+
+/* Tip when tone was the weakest part */
+"game.host.tip.tone" = "コツ：息っぽさやブザーっぽさをまねしよう。";
+
+/* Tip when length was the weakest part */
+"game.host.tip.length" = "コツ：元の音と同じ長さにしよう。";
+
+/* Instruction before dubbing a line. %@ is the character's name */
+"game.host.dub.ready" = "%@のセリフ！一度見てから、話し始めにぴったり入ろう。";
+
+/* Encouragement while the player dubs a line */
+"game.host.dub.recording" = "出番だよ！ペースを合わせて！";
+
+/* Tip when timing was the weakest part of a dub */
+"game.host.tip.timing" = "コツ：話し始めにぴったり入ろう。";
+
+/* Tip when pacing was the weakest part of a dub */
+"game.host.tip.pacing" = "コツ：音節のペースに合わせよう。";
+
+/* Tip when delivery was the weakest part of a dub */
+"game.host.tip.delivery" = "コツ：強いところと弱いところをまねしよう。";
+
+/* Said when every line of the scene is dubbed */
+"game.host.dub.sceneDone" = "カット！吹き替えを見てみる？";
+
+/* Said on a line that already has a take, inviting another go */
+"game.host.dub.again" = "もう吹き替え済み！もう一回か、次へ。";

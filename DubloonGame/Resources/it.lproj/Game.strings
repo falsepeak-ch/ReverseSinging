@@ -29,3 +29,62 @@
 
 /* Big caption on the stage during the 3-2-1 count before recording */
 "game.getReady" = "Preparati…";
+
+/* The host's lines in a round. */
+
+/* Instruction before an impression. %@ is the sound's name, e.g. 'Cat' */
+"game.host.imitate.ready" = "Ascolta prima il suono: %@. Poi fammi la tua imitazione migliore!";
+
+/* Said by the host during the 3-2-1 before recording */
+"game.host.countIn" = "Ci siamo… preparati!";
+
+/* Encouragement while the player makes the sound */
+"game.host.imitate.recording" = "Vai vai vai! Senza paura!";
+
+/* Said while the take is being judged */
+"game.host.scoring" = "Mmm, fammi riascoltare…";
+
+/* Reaction to a top score */
+"game.host.grade.top" = "Incredibile! Non vi distinguo!";
+
+/* Reaction to a good score */
+"game.host.grade.good" = "Bravo! Ce l'hai.";
+
+/* Reaction to a near miss */
+"game.host.grade.close" = "Quasi! Un altro tentativo?";
+
+/* Playful reaction to a poor score */
+"game.host.grade.rough" = "Ah! Scelta audace… riprova!";
+
+/* Tip when rhythm was the weakest part of an impression */
+"game.host.tip.rhythm" = "Consiglio: imita dove esplode e dove si ferma.";
+
+/* Tip when pitch was the weakest part */
+"game.host.tip.pitch" = "Consiglio: segui il tono su e giù.";
+
+/* Tip when tone was the weakest part */
+"game.host.tip.tone" = "Consiglio: copia la consistenza, soffiata o ronzante.";
+
+/* Tip when length was the weakest part */
+"game.host.tip.length" = "Consiglio: fallo durare quanto l'originale.";
+
+/* Instruction before dubbing a line. %@ is the character's name */
+"game.host.dub.ready" = "Battuta di %@! Guardala una volta, poi entra appena inizia.";
+
+/* Encouragement while the player dubs a line */
+"game.host.dub.recording" = "Tocca a te! Tieni il ritmo!";
+
+/* Tip when timing was the weakest part of a dub */
+"game.host.tip.timing" = "Consiglio: entra appena inizia a parlare.";
+
+/* Tip when pacing was the weakest part of a dub */
+"game.host.tip.pacing" = "Consiglio: segui il ritmo delle sillabe.";
+
+/* Tip when delivery was the weakest part of a dub */
+"game.host.tip.delivery" = "Consiglio: copia forti e piani.";
+
+/* Said when every line of the scene is dubbed */
+"game.host.dub.sceneDone" = "Stop! Vuoi vedere il tuo doppiaggio?";
+
+/* Said on a line that already has a take, inviting another go */
+"game.host.dub.again" = "Già doppiata! Rifalla o vai avanti.";

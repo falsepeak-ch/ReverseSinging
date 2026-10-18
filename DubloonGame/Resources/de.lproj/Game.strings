@@ -29,3 +29,62 @@
 
 /* Big caption on the stage during the 3-2-1 count before recording */
 "game.getReady" = "Mach dich bereit …";
+
+/* The host's lines in a round. */
+
+/* Instruction before an impression. %@ is the sound's name, e.g. 'Cat' */
+"game.host.imitate.ready" = "Hör dir zuerst das Geräusch an: %@. Dann gib mir deine beste Imitation!";
+
+/* Said by the host during the 3-2-1 before recording */
+"game.host.countIn" = "Los geht's … mach dich bereit!";
+
+/* Encouragement while the player makes the sound */
+"game.host.imitate.recording" = "Los, los, los! Gib alles!";
+
+/* Said while the take is being judged */
+"game.host.scoring" = "Hmm, ich hör's mir noch mal an …";
+
+/* Reaction to a top score */
+"game.host.grade.top" = "Unglaublich! Ich kann euch nicht unterscheiden!";
+
+/* Reaction to a good score */
+"game.host.grade.good" = "Stark! Du hast es drauf.";
+
+/* Reaction to a near miss */
+"game.host.grade.close" = "Knapp! Noch ein Versuch?";
+
+/* Playful reaction to a poor score */
+"game.host.grade.rough" = "Ha! Mutig … versuch's noch mal!";
+
+/* Tip when rhythm was the weakest part of an impression */
+"game.host.tip.rhythm" = "Tipp: Triff, wo es loslegt und wo es pausiert.";
+
+/* Tip when pitch was the weakest part */
+"game.host.tip.pitch" = "Tipp: Folge der Tonhöhe rauf und runter.";
+
+/* Tip when tone was the weakest part */
+"game.host.tip.tone" = "Tipp: Kopier den Klang, hauchig oder brummig.";
+
+/* Tip when length was the weakest part */
+"game.host.tip.length" = "Tipp: Lass es so lange dauern wie das Original.";
+
+/* Instruction before dubbing a line. %@ is the character's name */
+"game.host.dub.ready" = "%@ ist dran! Schau's dir einmal an und setz genau beim Start ein.";
+
+/* Encouragement while the player dubs a line */
+"game.host.dub.recording" = "Du bist dran! Halt das Tempo!";
+
+/* Tip when timing was the weakest part of a dub */
+"game.host.tip.timing" = "Tipp: Setz genau ein, wenn die Figur anfängt.";
+
+/* Tip when pacing was the weakest part of a dub */
+"game.host.tip.pacing" = "Tipp: Halt das Tempo der Silben.";
+
+/* Tip when delivery was the weakest part of a dub */
+"game.host.tip.delivery" = "Tipp: Kopier das Laute und das Leise.";
+
+/* Said when every line of the scene is dubbed */
+"game.host.dub.sceneDone" = "Und Schnitt! Willst du deine Synchro sehen?";
+
+/* Said on a line that already has a take, inviting another go */
+"game.host.dub.again" = "Schon synchronisiert! Noch mal oder weiter.";

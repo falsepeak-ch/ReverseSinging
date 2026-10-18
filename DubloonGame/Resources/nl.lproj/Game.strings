@@ -29,3 +29,62 @@
 
 /* Big caption on the stage during the 3-2-1 count before recording */
 "game.getReady" = "Maak je klaar…";
+
+/* The host's lines in a round. */
+
+/* Instruction before an impression. %@ is the sound's name, e.g. 'Cat' */
+"game.host.imitate.ready" = "Luister eerst naar het geluid: %@. Geef me dan je beste imitatie!";
+
+/* Said by the host during the 3-2-1 before recording */
+"game.host.countIn" = "Daar gaan we… maak je klaar!";
+
+/* Encouragement while the player makes the sound */
+"game.host.imitate.recording" = "Ga ga ga! Niet inhouden!";
+
+/* Said while the take is being judged */
+"game.host.scoring" = "Hmm, even terugluisteren…";
+
+/* Reaction to a top score */
+"game.host.grade.top" = "Ongelooflijk! Ik hoor geen verschil!";
+
+/* Reaction to a good score */
+"game.host.grade.good" = "Goed zo! Je hebt het.";
+
+/* Reaction to a near miss */
+"game.host.grade.close" = "Bijna! Nog een keer?";
+
+/* Playful reaction to a poor score */
+"game.host.grade.rough" = "Ha! Gedurfd… probeer opnieuw!";
+
+/* Tip when rhythm was the weakest part of an impression */
+"game.host.tip.rhythm" = "Tip: volg waar het uitbarst en waar het stopt.";
+
+/* Tip when pitch was the weakest part */
+"game.host.tip.pitch" = "Tip: volg de toonhoogte omhoog en omlaag.";
+
+/* Tip when tone was the weakest part */
+"game.host.tip.tone" = "Tip: kopieer de klank, ademend of zoemend.";
+
+/* Tip when length was the weakest part */
+"game.host.tip.length" = "Tip: laat het net zo lang duren als het origineel.";
+
+/* Instruction before dubbing a line. %@ is the character's name */
+"game.host.dub.ready" = "De zin van %@! Kijk één keer en val in zodra die begint.";
+
+/* Encouragement while the player dubs a line */
+"game.host.dub.recording" = "Jij bent! Hou het tempo bij!";
+
+/* Tip when timing was the weakest part of a dub */
+"game.host.tip.timing" = "Tip: val in zodra het personage begint.";
+
+/* Tip when pacing was the weakest part of a dub */
+"game.host.tip.pacing" = "Tip: hou het tempo van de lettergrepen bij.";
+
+/* Tip when delivery was the weakest part of a dub */
+"game.host.tip.delivery" = "Tip: kopieer het harde en het zachte.";
+
+/* Said when every line of the scene is dubbed */
+"game.host.dub.sceneDone" = "En… cut! Wil je je nasynchronisatie zien?";
+
+/* Said on a line that already has a take, inviting another go */
+"game.host.dub.again" = "Al ingesproken! Nog eens of verder.";

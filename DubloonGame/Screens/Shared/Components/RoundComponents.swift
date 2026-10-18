@@ -224,3 +224,176 @@ extension DubGrade {
     /// Whether the host cheers. Matches the imitation verdict's confetti line.
     var celebrates: Bool { self == .perfect || self == .great || self == .good }
 }
+
+// MARK: - Podium
+
+extension ScorePart {
+    /// Stars for a grade: three for great and up, none for a rough take.
+    static func stars(for grade: DubGrade) -> Int {
+        switch grade {
+        case .perfect, .great: 3
+        case .good: 2
+        case .close: 1
+        case .rough: 0
+        }
+    }
+}
+
+/// The light-up display in the podium desk: a question mark while waiting, the count, the
+/// seconds left with the mic open, then the score rolling up.
+struct DeskDisplay: View {
+    let phase: ImitationChallengeViewModel.Phase
+    let countdown: Int?
+    let secondsLeft: Int
+    let score: Double?
+
+    @State private var shown: Double = 0
+    @State private var flip = 0.0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        Text(text)
+            .font(.game(46, weight: .heavy))
+            .monospacedDigit()
+            .foregroundStyle(color)
+            .shadow(color: color.opacity(0.7), radius: 8)
+            .contentTransition(.numericText())
+            .frame(minWidth: 92, minHeight: 66)
+            .padding(.horizontal, 8)
+            .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Color.black))
+            .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(color, lineWidth: 3).padding(3))
+            .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(Color.gameNavy, lineWidth: 3))
+            .shadow(color: color.opacity(0.45), radius: 12)
+            .rotation3DEffect(.degrees(flip), axis: (x: 1, y: 0, z: 0), perspective: 0.5)
+            .onChange(of: countdown) { _, value in
+                guard value != nil, !reduceMotion else { return }
+                flip = -80
+                withAnimation(.spring(response: 0.26, dampingFraction: 0.6)) { flip = 0 }
+            }
+            .task(id: score) { await roll() }
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(text)
+    }
+
+    private var text: String {
+        switch phase {
+        case .ready: "?"
+        case .countingIn: countdown.map(String.init) ?? "…"
+        case .recording: "\(secondsLeft)"
+        case .scoring: "…"
+        case .result: "\(Int(shown.rounded()))"
+        }
+    }
+
+    private var color: Color {
+        switch phase {
+        case .countingIn: countdown == 1 ? .gameRed : .gameGold
+        case .recording: .gameRed
+        default: .gameGold
+        }
+    }
+
+    /// The number counts up over most of a second, ticking.
+    private func roll() async {
+        guard let score else { shown = 0; return }
+        guard !reduceMotion else { shown = score; return }
+        shown = 0
+        for step in 1...24 {
+            try? await Task.sleep(for: .milliseconds(30))
+            withAnimation(.linear(duration: 0.03)) { shown = score * Double(step) / 24 }
+            if step.isMultiple(of: 4) { HapticManager.shared.soft() }
+        }
+    }
+}
+
+/// The three stars on the desk, lit one after another once a result is in.
+struct StarColumn: View {
+    let lit: Int
+    let isRevealed: Bool
+    var onStar: () -> Void = {}
+
+    @State private var shown = 0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        VStack(spacing: 2) {
+            ForEach(0..<3, id: \.self) { index in
+                let on = index < shown
+                Image(systemName: on ? "star.fill" : "star")
+                    .font(.system(size: 22, weight: .black))
+                    .foregroundStyle(on ? Color.gameGold : Color.gameNavy.opacity(0.3))
+                    .shadow(color: on ? .gameNavy : .clear, radius: 0, x: 0, y: 2)
+                    .scaleEffect(on ? 1 : 0.85)
+            }
+        }
+        .task(id: isRevealed ? lit : -1) { await reveal() }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(isRevealed ? lit : 0) / 3")
+    }
+
+    private func reveal() async {
+        guard isRevealed else { shown = 0; return }
+        guard !reduceMotion else { shown = lit; return }
+        shown = 0
+        // After the number has rolled up.
+        try? await Task.sleep(for: .milliseconds(800))
+        for star in 0..<lit {
+            withAnimation(.spring(response: 0.25, dampingFraction: 0.45)) { shown = star + 1 }
+            HapticManager.shared.medium()
+            onStar()
+            try? await Task.sleep(for: .milliseconds(230))
+        }
+    }
+}
+
+/// Stars in a row, for a best score.
+struct StarRow: View {
+    let lit: Int
+    var size: CGFloat = 14
+
+    var body: some View {
+        HStack(spacing: 2) {
+            ForEach(0..<3, id: \.self) { index in
+                Image(systemName: index < lit ? "star.fill" : "star")
+                    .font(.system(size: size, weight: .black))
+                    .foregroundStyle(index < lit ? Color.gameGold : Color.gameNavy.opacity(0.35))
+            }
+        }
+    }
+}
+
+/// One part of a take's score, as a small card with a bar. The weakest is marked in coral:
+/// it is what the host's tip is about.
+struct ScorePartTile: View {
+    let part: ScorePart
+    let isWeakest: Bool
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Text(part.title.uppercased())
+                .font(.game(11, weight: .heavy))
+                .tracking(1)
+                .foregroundStyle(isWeakest ? Color(gameHex: 0xA7451D) : .gamePetrol)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+            Text("\(Int(part.value.rounded()))")
+                .font(.game(24, weight: .heavy))
+                .foregroundStyle(Color.gameNavy)
+                .monospacedDigit()
+            GeometryReader { proxy in
+                ZStack(alignment: .leading) {
+                    Capsule().fill(Color.gameNavy.opacity(0.1))
+                    Capsule()
+                        .fill(isWeakest ? Color.gameCoral : .gameCyan)
+                        .frame(width: proxy.size.width * part.value / 100)
+                }
+            }
+            .frame(height: 8)
+        }
+        .padding(10)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .gameCard(radius: 16, lip: 3)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(part.title), \(Int(part.value.rounded()))")
+    }
+}

@@ -29,3 +29,62 @@
 
 /* Big caption on the stage during the 3-2-1 count before recording */
 "game.getReady" = "Připrav se…";
+
+/* The host's lines in a round. */
+
+/* Instruction before an impression. %@ is the sound's name, e.g. 'Cat' */
+"game.host.imitate.ready" = "Nejdřív si poslechni zvuk: %@. Pak mi předveď svou nejlepší imitaci!";
+
+/* Said by the host during the 3-2-1 before recording */
+"game.host.countIn" = "Jdeme na to… připrav se!";
+
+/* Encouragement while the player makes the sound */
+"game.host.imitate.recording" = "Do toho, do toho! Nestyď se!";
+
+/* Said while the take is being judged */
+"game.host.scoring" = "Hmm, poslechnu si to znovu…";
+
+/* Reaction to a top score */
+"game.host.grade.top" = "Neuvěřitelné! Nerozeznám vás!";
+
+/* Reaction to a good score */
+"game.host.grade.good" = "Paráda! Máš to.";
+
+/* Reaction to a near miss */
+"game.host.grade.close" = "Skoro! Ještě jednou?";
+
+/* Playful reaction to a poor score */
+"game.host.grade.rough" = "Ha! Odvážné… zkus to znovu!";
+
+/* Tip when rhythm was the weakest part of an impression */
+"game.host.tip.rhythm" = "Tip: trefuj, kde zvuk vybuchne a kde se zastaví.";
+
+/* Tip when pitch was the weakest part */
+"game.host.tip.pitch" = "Tip: sleduj výšku nahoru a dolů.";
+
+/* Tip when tone was the weakest part */
+"game.host.tip.tone" = "Tip: napodob barvu, dýchavou nebo bzučivou.";
+
+/* Tip when length was the weakest part */
+"game.host.tip.length" = "Tip: ať to trvá stejně dlouho jako originál.";
+
+/* Instruction before dubbing a line. %@ is the character's name */
+"game.host.dub.ready" = "Replika postavy %@! Podívej se jednou a nastup přesně na začátek.";
+
+/* Encouragement while the player dubs a line */
+"game.host.dub.recording" = "Jsi na řadě! Drž tempo!";
+
+/* Tip when timing was the weakest part of a dub */
+"game.host.tip.timing" = "Tip: nastup přesně, když postava začne.";
+
+/* Tip when pacing was the weakest part of a dub */
+"game.host.tip.pacing" = "Tip: drž tempo slabik.";
+
+/* Tip when delivery was the weakest part of a dub */
+"game.host.tip.delivery" = "Tip: napodob hlasitá a tichá místa.";
+
+/* Said when every line of the scene is dubbed */
+"game.host.dub.sceneDone" = "Stop! Chceš vidět svůj dabing?";
+
+/* Said on a line that already has a take, inviting another go */
+"game.host.dub.again" = "Už nadabováno! Znovu, nebo dál.";

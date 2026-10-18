@@ -29,3 +29,62 @@
 
 /* Big caption on the stage during the 3-2-1 count before recording */
 "game.getReady" = "Gör dig redo …";
+
+/* The host's lines in a round. */
+
+/* Instruction before an impression. %@ is the sound's name, e.g. 'Cat' */
+"game.host.imitate.ready" = "Lyssna först på ljudet: %@. Ge mig sen din bästa imitation!";
+
+/* Said by the host during the 3-2-1 before recording */
+"game.host.countIn" = "Nu kör vi … gör dig redo!";
+
+/* Encouragement while the player makes the sound */
+"game.host.imitate.recording" = "Kör, kör, kör! Håll inte igen!";
+
+/* Said while the take is being judged */
+"game.host.scoring" = "Hmm, jag lyssnar igen …";
+
+/* Reaction to a top score */
+"game.host.grade.top" = "Otroligt! Jag hör ingen skillnad!";
+
+/* Reaction to a good score */
+"game.host.grade.good" = "Snyggt! Du har det.";
+
+/* Reaction to a near miss */
+"game.host.grade.close" = "Nära! En gång till?";
+
+/* Playful reaction to a poor score */
+"game.host.grade.rough" = "Ha! Modigt … försök igen!";
+
+/* Tip when rhythm was the weakest part of an impression */
+"game.host.tip.rhythm" = "Tips: träffa där det smäller och där det tystnar.";
+
+/* Tip when pitch was the weakest part */
+"game.host.tip.pitch" = "Tips: följ tonhöjden upp och ner.";
+
+/* Tip when tone was the weakest part */
+"game.host.tip.tone" = "Tips: härma klangen, luftig eller surrig.";
+
+/* Tip when length was the weakest part */
+"game.host.tip.length" = "Tips: låt det vara lika långt som originalet.";
+
+/* Instruction before dubbing a line. %@ is the character's name */
+"game.host.dub.ready" = "%@ har repliken! Titta en gång och kom in precis i början.";
+
+/* Encouragement while the player dubs a line */
+"game.host.dub.recording" = "Din tur! Håll tempot!";
+
+/* Tip when timing was the weakest part of a dub */
+"game.host.tip.timing" = "Tips: kom in precis när figuren börjar prata.";
+
+/* Tip when pacing was the weakest part of a dub */
+"game.host.tip.pacing" = "Tips: håll tempot i stavelserna.";
+
+/* Tip when delivery was the weakest part of a dub */
+"game.host.tip.delivery" = "Tips: härma det starka och det svaga.";
+
+/* Said when every line of the scene is dubbed */
+"game.host.dub.sceneDone" = "Tagning klar! Vill du se din dubbning?";
+
+/* Said on a line that already has a take, inviting another go */
+"game.host.dub.again" = "Redan dubbad! Igen eller vidare.";

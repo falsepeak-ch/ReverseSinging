@@ -2,7 +2,7 @@
 //  RoundStageScene.swift
 //  DubloonGame
 //
-//  The set behind a round: lights sweeping the stage, and the host watching from her booth.
+//  The set behind a round: lights sweeping the stage, and the host presenting from its side.
 //
 
 import SpriteKit
@@ -22,26 +22,60 @@ enum HostMood: Equatable {
     case wincing
 }
 
+/// Where the host stands, in the screen's top-left points.
+struct HostPlacement: Equatable {
+    /// Her horizontal centre.
+    var centerX: CGFloat
+    /// The top of her hair.
+    var headTop: CGFloat
+    /// Her waist. Whatever covers her below it (the deck, a desk) is SwiftUI on top.
+    var waist: CGFloat
+}
+
 /// The stage behind a round. Everything the player touches is SwiftUI on top of it; this
-/// draws the set, its lights, and the host in a round booth window at the top right.
+/// draws the set, its lights, and the host, who stands wherever the round's layout places
+/// her and glides there when the layout changes.
 final class RoundStageScene: SKScene {
 
-    var safeInsets = EdgeInsets() { didSet { if oldValue != safeInsets { layoutStage() } } }
-    /// The height of the stage area, from the top of the screen. The deck covers the rest.
-    var stageHeight: CGFloat = 400 { didSet { if oldValue != stageHeight { layoutStage() } } }
+    var placement: HostPlacement? { didSet { if oldValue != placement { layoutHost(animated: oldValue != nil) } } }
 
     private let reduceMotion: Bool
     private let backdrop = SKSpriteNode(imageNamed: GameArt.stage)
     private var beams: [SKSpriteNode] = []
-    private let booth = SKNode()
-    private let boothRing = SKShapeNode()
-    private let boothGlass = SKShapeNode()
-    private let crop = SKCropNode()
-    private let mask = SKShapeNode()
+    /// The light on the host: off until she has something to celebrate.
+    private let spot = SKSpriteNode(color: .white, size: CGSize(width: 10, height: 10))
+    /// A coloured wash over the whole set: the red of "on air" while the mic is open.
+    private let wash = SKSpriteNode(color: .red, size: CGSize(width: 10, height: 10))
+    private var lighting: Lighting?
+
+    /// How the set is lit, from the host's mood.
+    private enum Lighting: Equatable {
+        case show, onAir, gold, dim
+
+        /// Left lamp, right lamp: colour and strength.
+        var lamps: [(SKColor, Float)] {
+            switch self {
+            case .show: [(SKColor(Color.gameCyan), 0.45), (SKColor(red: 1, green: 0.86, blue: 0.62, alpha: 1), 0.45)]
+            case .onAir: [(SKColor(red: 1, green: 0.25, blue: 0.22, alpha: 1), 0.6), (SKColor(red: 1, green: 0.35, blue: 0.3, alpha: 1), 0.6)]
+            case .gold: [(SKColor(red: 1, green: 0.8, blue: 0.25, alpha: 1), 0.7), (SKColor(red: 1, green: 0.85, blue: 0.4, alpha: 1), 0.7)]
+            case .dim: [(SKColor(red: 0.35, green: 0.5, blue: 0.8, alpha: 1), 0.18), (SKColor(red: 0.35, green: 0.5, blue: 0.8, alpha: 1), 0.18)]
+            }
+        }
+
+        /// How fast the lamps sweep: a celebration swings them hard.
+        var sweepSpeed: CGFloat {
+            switch self {
+            case .gold: 2.6
+            case .onAir: 1.4
+            default: 1
+            }
+        }
+    }
+    /// Moves and scales with the host's reactions; the sprite inside it swaps expressions.
+    private let host = SKNode()
     private let hostSprite: SKSpriteNode
     private let poses: [GameArt.Host: SKTexture]
     private var mood: HostMood = .idle
-    private var boothDiameter: CGFloat = 130
 
     init(size: CGSize, reduceMotion: Bool) {
         self.reduceMotion = reduceMotion
@@ -50,8 +84,8 @@ final class RoundStageScene: SKScene {
         for pose in GameArt.Host.allCases { poses[pose] = atlas.textureNamed(pose.rawValue) }
         self.poses = poses
         hostSprite = SKSpriteNode(texture: poses[.idle])
-        // Her face, about a sixth of the way down the drawing, sits in the middle of the window.
-        hostSprite.anchorPoint = CGPoint(x: 0.48, y: 0.8)
+        // Feet at the origin, as the kit's guide recommends, so every expression lines up.
+        hostSprite.anchorPoint = CGPoint(x: 0.5, y: 0)
         super.init(size: size)
         scaleMode = .resizeFill
         anchorPoint = .zero
@@ -75,26 +109,22 @@ final class RoundStageScene: SKScene {
             addChild(beam)
         }
 
-        // The booth: a porthole with a navy rim and a pale glass behind the host.
-        boothGlass.fillColor = SKColor(red: 0.62, green: 0.86, blue: 0.97, alpha: 1)
-        boothGlass.strokeColor = .clear
-        mask.fillColor = .white
-        crop.maskNode = mask
-        crop.addChild(boothGlass)
-        crop.addChild(hostSprite)
-        boothRing.fillColor = .clear
-        boothRing.strokeColor = SKColor(Color.gameIvory)
-        boothRing.lineWidth = 9
-        let rimLine = SKShapeNode()
-        rimLine.name = "rim"
-        rimLine.fillColor = .clear
-        rimLine.strokeColor = SKColor(Color.gameNavy)
-        rimLine.lineWidth = 3.5
-        booth.addChild(crop)
-        booth.addChild(boothRing)
-        booth.addChild(rimLine)
-        booth.zPosition = 5
-        addChild(booth)
+        // The host's own spotlight, from straight above, warm.
+        spot.anchorPoint = CGPoint(x: 0.5, y: 1)
+        spot.shader = StageShaders.beam(color: SKColor(red: 1, green: 0.9, blue: 0.55, alpha: 1), strength: 0.75, seed: 0.9)
+        spot.blendMode = .add
+        spot.zPosition = 4
+        spot.alpha = 0
+        addChild(spot)
+
+        host.addChild(hostSprite)
+        host.zPosition = 5
+        addChild(host)
+
+        wash.blendMode = .add
+        wash.zPosition = 6
+        wash.alpha = 0
+        addChild(wash)
     }
 
     // MARK: - Layout
@@ -102,44 +132,112 @@ final class RoundStageScene: SKScene {
     override func didChangeSize(_ oldSize: CGSize) {
         super.didChangeSize(oldSize)
         layoutStage()
+        layoutHost(animated: false)
     }
 
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         layoutStage()
+        layoutHost(animated: false)
         startMotion()
         set(mood, force: true)
     }
 
+    /// The set and its lights, fixed to the screen: the deck growing and shrinking over it
+    /// must not make the room move.
     private func layoutStage() {
         guard size.width > 0 else { return }
         let w = size.width, h = size.height
-        // The set is framed on the stage area, cropped rather than squashed.
         let art = backdrop.texture?.size() ?? size
-        let fill = max(w / art.width, stageHeight / art.height) * 1.08
+        let fill = max(w / art.width, h * 0.72 / art.height) * 1.06
         backdrop.size = CGSize(width: art.width * fill, height: art.height * fill)
-        backdrop.position = CGPoint(x: w / 2, y: h - stageHeight / 2 + stageHeight * 0.1)
+        backdrop.position = CGPoint(x: w / 2, y: h - backdrop.size.height / 2 + 30)
 
         for (index, beam) in beams.enumerated() {
-            beam.size = CGSize(width: w * 0.8, height: stageHeight * 1.1)
+            beam.size = CGSize(width: w * 0.8, height: h * 0.75)
             beam.position = CGPoint(x: index == 0 ? w * 0.22 : w * 0.78, y: h)
         }
+        wash.size = CGSize(width: w, height: h)
+        wash.position = CGPoint(x: w / 2, y: h / 2)
+        layoutSpot()
+    }
 
-        boothDiameter = min(w * 0.34, 150)
-        let r = boothDiameter / 2
-        let circle = CGPath(ellipseIn: CGRect(x: -r, y: -r, width: boothDiameter, height: boothDiameter), transform: nil)
-        mask.path = circle
-        boothGlass.path = circle
-        boothRing.path = circle
-        (booth.childNode(withName: "rim") as? SKShapeNode)?.path = CGPath(
-            ellipseIn: CGRect(x: -r - 4.5, y: -r - 4.5, width: boothDiameter + 9, height: boothDiameter + 9),
-            transform: nil
-        )
-        // Head and shoulders in the window.
+    private func layoutSpot() {
+        guard let placement else { return }
+        let h = size.height
+        spot.size = CGSize(width: size.width * 0.9, height: max(placement.waist + 60, 100))
+        spot.position = CGPoint(x: placement.centerX, y: h + 10)
+    }
+
+    // MARK: - Lighting
+
+    private func light(_ new: Lighting) {
+        guard new != lighting else { return }
+        lighting = new
+        for (beam, lamp) in zip(beams, new.lamps) {
+            fade(beam.shader, to: lamp.0, strength: lamp.1)
+            beam.speed = new.sweepSpeed
+        }
+        spot.removeAction(forKey: "light")
+        spot.run(.fadeAlpha(to: new == .gold ? 1 : 0, duration: 0.35), withKey: "light")
+
+        wash.removeAction(forKey: "light")
+        if new == .onAir, !reduceMotion {
+            wash.color = SKColor(red: 1, green: 0.15, blue: 0.1, alpha: 1)
+            let pulse = SKAction.sequence([.fadeAlpha(to: 0.16, duration: 0.5), .fadeAlpha(to: 0.05, duration: 0.5)])
+            wash.run(.repeatForever(pulse), withKey: "light")
+        } else {
+            wash.run(.fadeAlpha(to: 0, duration: 0.3), withKey: "light")
+        }
+    }
+
+    /// Cross-fades a lamp's colour and strength over a third of a second.
+    private func fade(_ shader: SKShader?, to color: SKColor, strength: Float) {
+        guard let shader,
+              let colorUniform = shader.uniformNamed("u_color"),
+              let strengthUniform = shader.uniformNamed("u_strength") else { return }
+        let fromColor = colorUniform.vectorFloat4Value
+        let fromStrength = strengthUniform.floatValue
+        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        color.getRed(&r, green: &g, blue: &b, alpha: &a)
+        let toColor = vector_float4(Float(r), Float(g), Float(b), 1)
+        guard !reduceMotion else {
+            colorUniform.vectorFloat4Value = toColor
+            strengthUniform.floatValue = strength
+            return
+        }
+        let duration: CGFloat = 0.35
+        run(.customAction(withDuration: duration) { _, elapsed in
+            let t = Float(min(1, elapsed / duration))
+            colorUniform.vectorFloat4Value = fromColor + (toColor - fromColor) * t
+            strengthUniform.floatValue = fromStrength + (strength - fromStrength) * t
+        })
+    }
+
+    /// Puts the host where `placement` says, sized so head-to-waist fills the space between.
+    private func layoutHost(animated: Bool) {
+        guard size.height > 0, let placement else { return }
+        layoutSpot()
+        let h = size.height
         let texture = poses[.idle]?.size() ?? CGSize(width: 1, height: 1)
-        hostSprite.setScale(boothDiameter * 2.6 / texture.height)
-        hostSprite.position = CGPoint(x: 0, y: -r * 0.12)
-        booth.position = CGPoint(x: w - r - 14, y: h - stageHeight + r + 18)
+        // Her waist is a little under half way up the drawing from the top of her hair.
+        let height = max(placement.waist - placement.headTop, 40) / 0.46
+        let scale = height / texture.height
+        let target = CGPoint(x: placement.centerX, y: h - placement.headTop - height)
+
+        hostSprite.removeAction(forKey: "place")
+        host.removeAction(forKey: "place")
+        guard animated, !reduceMotion else {
+            hostSprite.setScale(scale)
+            host.position = target
+            return
+        }
+        let move = SKAction.move(to: target, duration: 0.4)
+        move.timingMode = .easeInEaseOut
+        let grow = SKAction.scale(to: scale, duration: 0.4)
+        grow.timingMode = .easeInEaseOut
+        host.run(move, withKey: "place")
+        hostSprite.run(grow, withKey: "place")
     }
 
     private func startMotion() {
@@ -153,7 +251,8 @@ final class RoundStageScene: SKScene {
             back.timingMode = .easeInEaseOut
             beam.run(.repeatForever(.sequence([out, back])), withKey: "sweep")
         }
-        let bob = SKAction.sequence([.moveBy(x: 0, y: 3, duration: 1.3), .moveBy(x: 0, y: -3, duration: 1.3)])
+        // The kit's idle: a gentle 3.4-second bob.
+        let bob = SKAction.sequence([.moveBy(x: 0, y: 4, duration: 1.7), .moveBy(x: 0, y: -4, duration: 1.7)])
         bob.timingMode = .easeInEaseOut
         hostSprite.run(.repeatForever(bob), withKey: "bob")
     }
@@ -163,13 +262,20 @@ final class RoundStageScene: SKScene {
     func set(_ newMood: HostMood, force: Bool = false) {
         guard force || newMood != mood else { return }
         mood = newMood
+        switch newMood {
+        case .listening: light(.onAir)
+        case .cheering: light(.gold)
+        case .wincing: light(.dim)
+        case .idle, .talking: light(.show)
+        }
         hostSprite.removeAction(forKey: "pose")
-        booth.removeAction(forKey: "react")
+        host.removeAction(forKey: "react")
         guard let idle = poses[.idle] else { return }
 
         switch newMood {
         case .idle:
             hostSprite.texture = idle
+            host.run(.group([.rotate(toAngle: 0, duration: 0.25), .scale(to: 1, duration: 0.25)]), withKey: "react")
             guard !reduceMotion, let blink = poses[.blink] else { return }
             let once = SKAction.sequence([
                 .wait(forDuration: 3, withRange: 2.5),
@@ -186,7 +292,8 @@ final class RoundStageScene: SKScene {
         case .listening:
             hostSprite.texture = idle
             if !reduceMotion {
-                booth.run(.sequence([.scale(to: 1.06, duration: 0.15), .scale(to: 1, duration: 0.2)]), withKey: "react")
+                // Leans in to listen.
+                host.run(.group([.rotate(toAngle: 0.05, duration: 0.2), .scale(to: 1.03, duration: 0.2)]), withKey: "react")
             }
         case .cheering:
             hostSprite.texture = poses[.delight] ?? idle
@@ -194,8 +301,10 @@ final class RoundStageScene: SKScene {
             let hop = SKAction.sequence([
                 .moveBy(x: 0, y: 14, duration: 0.12), .moveBy(x: 0, y: -14, duration: 0.14),
             ])
-            booth.run(.sequence([.scale(to: 1.12, duration: 0.12), .scale(to: 1, duration: 0.2)]), withKey: "react")
-            hostSprite.run(.repeat(hop, count: 3), withKey: "pose")
+            host.run(.group([.rotate(toAngle: 0, duration: 0.12), .scale(to: 1, duration: 0.12)]), withKey: "react")
+            // Delight for about a second, as the kit's guide times it, then back to idle.
+            // Back to her resting face, with the gold lights still up for the result.
+            hostSprite.run(.sequence([.repeat(hop, count: 3), .wait(forDuration: 0.5), .setTexture(idle)]), withKey: "pose")
         case .wincing:
             hostSprite.texture = poses[.blink] ?? idle
             guard !reduceMotion else { return }
@@ -203,7 +312,7 @@ final class RoundStageScene: SKScene {
                 .moveBy(x: -6, y: 0, duration: 0.05), .moveBy(x: 12, y: 0, duration: 0.08),
                 .moveBy(x: -10, y: 0, duration: 0.07), .moveBy(x: 4, y: 0, duration: 0.05),
             ])
-            booth.run(shake, withKey: "react")
+            host.run(.sequence([.group([.rotate(toAngle: 0, duration: 0.1), .scale(to: 1, duration: 0.1)]), shake]), withKey: "react")
             hostSprite.run(.sequence([.wait(forDuration: 0.9), .setTexture(idle)]), withKey: "pose")
         }
     }

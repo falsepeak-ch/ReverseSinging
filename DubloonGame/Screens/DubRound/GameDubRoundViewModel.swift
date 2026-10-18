@@ -64,6 +64,28 @@ final class GameDubRoundViewModel: ObservableObject {
         return Int(ceil(max(0, line.duration - recorder.recordingDuration)))
     }
 
+    /// A take has finished and its score has not come back yet.
+    var isScoring: Bool {
+        takeStartedAt != nil && !recorder.isRecording && recorder.countdown == nil && reveal == nil
+            && session.isScoringEnabled
+    }
+
+    /// Every line has a take.
+    var isSceneDone: Bool { session.recordedCount >= pack.lines.count && !pack.lines.isEmpty }
+
+    /// What the host says now.
+    var hostLine: String {
+        if isCountingIn { return GameStrings.Round.countIn }
+        if isRecording { return GameStrings.Round.dubRecording }
+        if isScoring { return GameStrings.Round.scoring }
+        if let reveal { return HostScript.result(reveal) }
+        if isSceneDone, isOnLastLine { return GameStrings.Round.sceneDone }
+        guard let line else { return "" }
+        return session.isRecorded(line) ? GameStrings.Round.dubAgain : GameStrings.Round.dubReady(line.character)
+    }
+
+    var canPlayTake: Bool { line.map { recorder.canPlayTake(of: $0) } ?? false }
+
     var verdict: ImitationVerdict? {
         reveal.map { ImitationVerdict.forGrade($0.grade, seed: Int($0.measuredAt.timeIntervalSince1970)) }
     }

@@ -29,3 +29,62 @@
 
 /* Big caption on the stage during the 3-2-1 count before recording */
 "game.getReady" = "استعد…";
+
+/* The host's lines in a round. */
+
+/* Instruction before an impression. %@ is the sound's name, e.g. 'Cat' */
+"game.host.imitate.ready" = "استمع أولًا إلى الصوت: %@. ثم قدّم أفضل تقليد لديك!";
+
+/* Said by the host during the 3-2-1 before recording */
+"game.host.countIn" = "هيا بنا… استعد!";
+
+/* Encouragement while the player makes the sound */
+"game.host.imitate.recording" = "هيا هيا! لا تتردد!";
+
+/* Said while the take is being judged */
+"game.host.scoring" = "همم، دعني أستمع مرة أخرى…";
+
+/* Reaction to a top score */
+"game.host.grade.top" = "مذهل! لا أستطيع التفريق بينكما!";
+
+/* Reaction to a good score */
+"game.host.grade.good" = "أحسنت! أتقنتها.";
+
+/* Reaction to a near miss */
+"game.host.grade.close" = "قريب جدًا! مرة أخرى؟";
+
+/* Playful reaction to a poor score */
+"game.host.grade.rough" = "ها! اختيار جريء… حاول مجددًا!";
+
+/* Tip when rhythm was the weakest part of an impression */
+"game.host.tip.rhythm" = "نصيحة: طابِق مواضع الانفجار والتوقف.";
+
+/* Tip when pitch was the weakest part */
+"game.host.tip.pitch" = "نصيحة: اتبع طبقة الصوت صعودًا وهبوطًا.";
+
+/* Tip when tone was the weakest part */
+"game.host.tip.tone" = "نصيحة: قلّد نسيج الصوت، هامسًا أو طنّانًا.";
+
+/* Tip when length was the weakest part */
+"game.host.tip.length" = "نصيحة: اجعله يدوم بطول الأصل.";
+
+/* Instruction before dubbing a line. %@ is the character's name */
+"game.host.dub.ready" = "جملة %@! شاهدها مرة ثم ادخل تمامًا مع بدايتها.";
+
+/* Encouragement while the player dubs a line */
+"game.host.dub.recording" = "دورك! حافظ على الإيقاع!";
+
+/* Tip when timing was the weakest part of a dub */
+"game.host.tip.timing" = "نصيحة: ادخل تمامًا عندما تبدأ الشخصية بالكلام.";
+
+/* Tip when pacing was the weakest part of a dub */
+"game.host.tip.pacing" = "نصيحة: حافظ على إيقاع المقاطع.";
+
+/* Tip when delivery was the weakest part of a dub */
+"game.host.tip.delivery" = "نصيحة: قلّد المواضع العالية والهادئة.";
+
+/* Said when every line of the scene is dubbed */
+"game.host.dub.sceneDone" = "انتهى التصوير! أتريد مشاهدة دبلجتك؟";
+
+/* Said on a line that already has a take, inviting another go */
+"game.host.dub.again" = "مدبلجة بالفعل! أعدها أو انتقل للتالية.";

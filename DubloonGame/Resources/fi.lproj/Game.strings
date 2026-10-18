@@ -29,3 +29,62 @@
 
 /* Big caption on the stage during the 3-2-1 count before recording */
 "game.getReady" = "Valmistaudu…";
+
+/* The host's lines in a round. */
+
+/* Instruction before an impression. %@ is the sound's name, e.g. 'Cat' */
+"game.host.imitate.ready" = "Kuuntele ensin ääni: %@. Anna sitten paras imitaatiosi!";
+
+/* Said by the host during the 3-2-1 before recording */
+"game.host.countIn" = "Nyt mennään… valmistaudu!";
+
+/* Encouragement while the player makes the sound */
+"game.host.imitate.recording" = "Anna mennä! Älä jarruttele!";
+
+/* Said while the take is being judged */
+"game.host.scoring" = "Hmm, kuuntelen uudestaan…";
+
+/* Reaction to a top score */
+"game.host.grade.top" = "Uskomatonta! En erota teitä!";
+
+/* Reaction to a good score */
+"game.host.grade.good" = "Hienoa! Sinä osaat.";
+
+/* Reaction to a near miss */
+"game.host.grade.close" = "Melkein! Vielä kerran?";
+
+/* Playful reaction to a poor score */
+"game.host.grade.rough" = "Hah! Rohkeaa… yritä uudestaan!";
+
+/* Tip when rhythm was the weakest part of an impression */
+"game.host.tip.rhythm" = "Vinkki: osu siihen, missä ääni pamahtaa ja taukoaa.";
+
+/* Tip when pitch was the weakest part */
+"game.host.tip.pitch" = "Vinkki: seuraa sävelkorkeutta ylös ja alas.";
+
+/* Tip when tone was the weakest part */
+"game.host.tip.tone" = "Vinkki: matki sointia, henkäilevää tai surisevaa.";
+
+/* Tip when length was the weakest part */
+"game.host.tip.length" = "Vinkki: anna kestää yhtä kauan kuin alkuperäinen.";
+
+/* Instruction before dubbing a line. %@ is the character's name */
+"game.host.dub.ready" = "Hahmon %@ repliikki! Katso kerran ja tule mukaan heti alussa.";
+
+/* Encouragement while the player dubs a line */
+"game.host.dub.recording" = "Sinun vuorosi! Pysy tahdissa!";
+
+/* Tip when timing was the weakest part of a dub */
+"game.host.tip.timing" = "Vinkki: tule mukaan heti kun hahmo alkaa puhua.";
+
+/* Tip when pacing was the weakest part of a dub */
+"game.host.tip.pacing" = "Vinkki: pysy tavujen tahdissa.";
+
+/* Tip when delivery was the weakest part of a dub */
+"game.host.tip.delivery" = "Vinkki: matki voimakkaat ja hiljaiset kohdat.";
+
+/* Said when every line of the scene is dubbed */
+"game.host.dub.sceneDone" = "Poikki! Haluatko katsoa dubbauksesi?";
+
+/* Said on a line that already has a take, inviting another go */
+"game.host.dub.again" = "Jo dubattu! Uudestaan vai eteenpäin.";

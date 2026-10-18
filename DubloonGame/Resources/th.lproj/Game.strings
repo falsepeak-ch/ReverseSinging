@@ -29,3 +29,62 @@
 
 /* Big caption on the stage during the 3-2-1 count before recording */
 "game.getReady" = "เตรียมตัว…";
+
+/* The host's lines in a round. */
+
+/* Instruction before an impression. %@ is the sound's name, e.g. 'Cat' */
+"game.host.imitate.ready" = "ฟังเสียง %@ ก่อน แล้วเลียนเสียงให้เต็มที่!";
+
+/* Said by the host during the 3-2-1 before recording */
+"game.host.countIn" = "เริ่มแล้วนะ… เตรียมตัว!";
+
+/* Encouragement while the player makes the sound */
+"game.host.imitate.recording" = "ลุยเลย! อย่ายั้ง!";
+
+/* Said while the take is being judged */
+"game.host.scoring" = "อืม ขอฟังอีกที…";
+
+/* Reaction to a top score */
+"game.host.grade.top" = "สุดยอด! แยกไม่ออกเลย!";
+
+/* Reaction to a good score */
+"game.host.grade.good" = "เยี่ยม! ทำได้แล้ว";
+
+/* Reaction to a near miss */
+"game.host.grade.close" = "เกือบแล้ว! อีกรอบไหม?";
+
+/* Playful reaction to a poor score */
+"game.host.grade.rough" = "ฮ่า! กล้ามาก… ลองใหม่นะ!";
+
+/* Tip when rhythm was the weakest part of an impression */
+"game.host.tip.rhythm" = "เคล็ดลับ: ตามจังหวะที่เสียงระเบิดและหยุด";
+
+/* Tip when pitch was the weakest part */
+"game.host.tip.pitch" = "เคล็ดลับ: ไล่ระดับเสียงขึ้นลงตามต้นฉบับ";
+
+/* Tip when tone was the weakest part */
+"game.host.tip.tone" = "เคล็ดลับ: เลียนเนื้อเสียง จะลมๆ หรือหึ่งๆ";
+
+/* Tip when length was the weakest part */
+"game.host.tip.length" = "เคล็ดลับ: ลากยาวให้เท่าต้นฉบับ";
+
+/* Instruction before dubbing a line. %@ is the character's name */
+"game.host.dub.ready" = "บทของ %@! ดูหนึ่งรอบ แล้วเข้าให้ตรงตอนเริ่มพูด";
+
+/* Encouragement while the player dubs a line */
+"game.host.dub.recording" = "ตาคุณแล้ว! ตามจังหวะให้ทัน!";
+
+/* Tip when timing was the weakest part of a dub */
+"game.host.tip.timing" = "เคล็ดลับ: เข้าให้ตรงตอนตัวละครเริ่มพูด";
+
+/* Tip when pacing was the weakest part of a dub */
+"game.host.tip.pacing" = "เคล็ดลับ: ตามจังหวะพยางค์ให้ทัน";
+
+/* Tip when delivery was the weakest part of a dub */
+"game.host.tip.delivery" = "เคล็ดลับ: เลียนช่วงดังและช่วงเบา";
+
+/* Said when every line of the scene is dubbed */
+"game.host.dub.sceneDone" = "คัท! อยากดูพากย์ของคุณไหม?";
+
+/* Said on a line that already has a take, inviting another go */
+"game.host.dub.again" = "พากย์แล้ว! อัดใหม่หรือไปต่อ";

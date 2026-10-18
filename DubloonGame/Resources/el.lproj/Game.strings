@@ -29,3 +29,62 @@
 
 /* Big caption on the stage during the 3-2-1 count before recording */
 "game.getReady" = "Ετοιμάσου…";
+
+/* The host's lines in a round. */
+
+/* Instruction before an impression. %@ is the sound's name, e.g. 'Cat' */
+"game.host.imitate.ready" = "Άκου πρώτα τον ήχο: %@. Μετά κάνε την καλύτερη μίμησή σου!";
+
+/* Said by the host during the 3-2-1 before recording */
+"game.host.countIn" = "Πάμε… ετοιμάσου!";
+
+/* Encouragement while the player makes the sound */
+"game.host.imitate.recording" = "Πάμε, πάμε! Μη διστάζεις!";
+
+/* Said while the take is being judged */
+"game.host.scoring" = "Χμ, ας το ξανακούσω…";
+
+/* Reaction to a top score */
+"game.host.grade.top" = "Απίστευτο! Δεν σας ξεχωρίζω!";
+
+/* Reaction to a good score */
+"game.host.grade.good" = "Μπράβο! Το έχεις.";
+
+/* Reaction to a near miss */
+"game.host.grade.close" = "Παραλίγο! Άλλη μία;";
+
+/* Playful reaction to a poor score */
+"game.host.grade.rough" = "Χα! Τολμηρό… ξαναδοκίμασε!";
+
+/* Tip when rhythm was the weakest part of an impression */
+"game.host.tip.rhythm" = "Συμβουλή: πέτυχε πού ξεσπά και πού σταματά.";
+
+/* Tip when pitch was the weakest part */
+"game.host.tip.pitch" = "Συμβουλή: ακολούθησε τον τόνο πάνω-κάτω.";
+
+/* Tip when tone was the weakest part */
+"game.host.tip.tone" = "Συμβουλή: μιμήσου την υφή, αέρινη ή βουητή.";
+
+/* Tip when length was the weakest part */
+"game.host.tip.length" = "Συμβουλή: κράτησέ το όσο το πρωτότυπο.";
+
+/* Instruction before dubbing a line. %@ is the character's name */
+"game.host.dub.ready" = "Ατάκα: %@! Δες τη μία φορά και μπες ακριβώς στην αρχή.";
+
+/* Encouragement while the player dubs a line */
+"game.host.dub.recording" = "Σειρά σου! Κράτα τον ρυθμό!";
+
+/* Tip when timing was the weakest part of a dub */
+"game.host.tip.timing" = "Συμβουλή: μπες ακριβώς όταν αρχίζει να μιλά.";
+
+/* Tip when pacing was the weakest part of a dub */
+"game.host.tip.pacing" = "Συμβουλή: κράτα τον ρυθμό των συλλαβών.";
+
+/* Tip when delivery was the weakest part of a dub */
+"game.host.tip.delivery" = "Συμβουλή: μιμήσου τα δυνατά και τα σιγανά.";
+
+/* Said when every line of the scene is dubbed */
+"game.host.dub.sceneDone" = "Στοπ! Θες να δεις τη μεταγλώττισή σου;";
+
+/* Said on a line that already has a take, inviting another go */
+"game.host.dub.again" = "Ήδη μεταγλωττισμένη! Ξανά ή επόμενη.";

@@ -29,3 +29,62 @@
 
 /* Big caption on the stage during the 3-2-1 count before recording */
 "game.getReady" = "Prepara't…";
+
+/* The host's lines in a round. */
+
+/* Instruction before an impression. %@ is the sound's name, e.g. 'Cat' */
+"game.host.imitate.ready" = "Escolta primer el so: %@. Després fes-me la teva millor imitació!";
+
+/* Said by the host during the 3-2-1 before recording */
+"game.host.countIn" = "Som-hi… prepara't!";
+
+/* Encouragement while the player makes the sound */
+"game.host.imitate.recording" = "Som-hi, som-hi! Sense por!";
+
+/* Said while the take is being judged */
+"game.host.scoring" = "Mmm, deixa'm escoltar-ho…";
+
+/* Reaction to a top score */
+"game.host.grade.top" = "Increïble! No us distingeixo!";
+
+/* Reaction to a good score */
+"game.host.grade.good" = "Molt bé! Ho tens.";
+
+/* Reaction to a near miss */
+"game.host.grade.close" = "Gairebé! Un altre cop?";
+
+/* Playful reaction to a poor score */
+"game.host.grade.rough" = "Ha! Atrevit… torna-ho a provar!";
+
+/* Tip when rhythm was the weakest part of an impression */
+"game.host.tip.rhythm" = "Truc: imita on esclata i on calla.";
+
+/* Tip when pitch was the weakest part */
+"game.host.tip.pitch" = "Truc: segueix el to amunt i avall.";
+
+/* Tip when tone was the weakest part */
+"game.host.tip.tone" = "Truc: copia'n la textura, bufada o vibrant.";
+
+/* Tip when length was the weakest part */
+"game.host.tip.length" = "Truc: fes que duri tant com l'original.";
+
+/* Instruction before dubbing a line. %@ is the character's name */
+"game.host.dub.ready" = "Frase de %@! Mira-la un cop i entra just quan comenci.";
+
+/* Encouragement while the player dubs a line */
+"game.host.dub.recording" = "Et toca! Segueix-ne el ritme!";
+
+/* Tip when timing was the weakest part of a dub */
+"game.host.tip.timing" = "Truc: entra just quan comença a parlar.";
+
+/* Tip when pacing was the weakest part of a dub */
+"game.host.tip.pacing" = "Truc: segueix el ritme de les síl·labes.";
+
+/* Tip when delivery was the weakest part of a dub */
+"game.host.tip.delivery" = "Truc: copia'n els forts i els suaus.";
+
+/* Said when every line of the scene is dubbed */
+"game.host.dub.sceneDone" = "I tallem! Vols veure el teu doblatge?";
+
+/* Said on a line that already has a take, inviting another go */
+"game.host.dub.again" = "Ja està doblada! Repeteix o continua.";

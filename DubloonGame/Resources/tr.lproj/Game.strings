@@ -29,3 +29,62 @@
 
 /* Big caption on the stage during the 3-2-1 count before recording */
 "game.getReady" = "Hazırlan…";
+
+/* The host's lines in a round. */
+
+/* Instruction before an impression. %@ is the sound's name, e.g. 'Cat' */
+"game.host.imitate.ready" = "Önce sesi dinle: %@. Sonra en iyi taklidini yap!";
+
+/* Said by the host during the 3-2-1 before recording */
+"game.host.countIn" = "Başlıyoruz… hazırlan!";
+
+/* Encouragement while the player makes the sound */
+"game.host.imitate.recording" = "Hadi hadi! Çekinme!";
+
+/* Said while the take is being judged */
+"game.host.scoring" = "Hmm, bir daha dinleyeyim…";
+
+/* Reaction to a top score */
+"game.host.grade.top" = "İnanılmaz! Sizi ayırt edemiyorum!";
+
+/* Reaction to a good score */
+"game.host.grade.good" = "Harika! Bu iş sende.";
+
+/* Reaction to a near miss */
+"game.host.grade.close" = "Az kaldı! Bir daha?";
+
+/* Playful reaction to a poor score */
+"game.host.grade.rough" = "Ha! Cesur seçim… tekrar dene!";
+
+/* Tip when rhythm was the weakest part of an impression */
+"game.host.tip.rhythm" = "İpucu: patladığı ve durduğu yerleri yakala.";
+
+/* Tip when pitch was the weakest part */
+"game.host.tip.pitch" = "İpucu: perdesini aşağı yukarı takip et.";
+
+/* Tip when tone was the weakest part */
+"game.host.tip.tone" = "İpucu: dokusunu taklit et, nefesli ya da vızıltılı.";
+
+/* Tip when length was the weakest part */
+"game.host.tip.length" = "İpucu: orijinali kadar uzat.";
+
+/* Instruction before dubbing a line. %@ is the character's name */
+"game.host.dub.ready" = "Sıra %@ repliğinde! Bir kez izle, tam başladığı anda gir.";
+
+/* Encouragement while the player dubs a line */
+"game.host.dub.recording" = "Sıra sende! Temposunu yakala!";
+
+/* Tip when timing was the weakest part of a dub */
+"game.host.tip.timing" = "İpucu: karakter konuşmaya başladığı anda gir.";
+
+/* Tip when pacing was the weakest part of a dub */
+"game.host.tip.pacing" = "İpucu: hecelerin temposunu yakala.";
+
+/* Tip when delivery was the weakest part of a dub */
+"game.host.tip.delivery" = "İpucu: yüksek ve alçak yerleri taklit et.";
+
+/* Said when every line of the scene is dubbed */
+"game.host.dub.sceneDone" = "Kestik! Seslendirmeni izlemek ister misin?";
+
+/* Said on a line that already has a take, inviting another go */
+"game.host.dub.again" = "Zaten seslendirildi! Tekrar ya da devam.";
