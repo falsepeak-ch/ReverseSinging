@@ -33,6 +33,7 @@ final class GameStageScene: SKScene {
     var onSelectGame: ((GameMode) -> Void)?
     var onPro: (() -> Void)?
     var onSettings: (() -> Void)?
+    var onLeaderboards: (() -> Void)?
 
     /// The view's safe area, which SpriteKit does not know about.
     var safeInsets = EdgeInsets() { didSet { if oldValue != safeInsets { layoutStage() } } }
@@ -135,6 +136,10 @@ final class GameStageScene: SKScene {
         addChild(settingsButton)
 
         starCounter.zPosition = 30
+        starCounter.onTap = { [weak self] in
+            GameSFX.play(.tap)
+            self?.onLeaderboards?()
+        }
         addChild(starCounter)
 
         let name = OutlinedTextNode()

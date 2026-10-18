@@ -88,3 +88,33 @@
 
 /* Said on a line that already has a take, inviting another go */
 "game.host.dub.again" = "Zaten seslendirildi! Tekrar ya da devam.";
+
+/* Accessibility label of the trophy on the home stage that opens the Game Center leaderboards */
+"game.leaderboards" = "Lider tabloları";
+
+/* Title of the card that explains reminders before iOS asks for notification permission */
+"game.reminder.primer.title" = "Şovu kaçırma";
+
+/* Body of that card: what the reminders are and that they can be turned off in Settings */
+"game.reminder.primer.body" = "Akşamları denemen için bir ses ve haftalık yarış bitmeden bir hatırlatma göndereceğim. Bunu istediğin zaman Ayarlar'dan kapatabilirsin.";
+
+/* The card's only button; it opens the iOS notification prompt */
+"game.reminder.primer.continue" = "Devam";
+
+/* Title of the evening reminder notification */
+"game.reminder.show.title" = "Şov zamanı!";
+
+/* Evening reminder naming a sound to imitate. %@ is the sound's name */
+"game.reminder.show.sound" = "Bu akşamın sesi: %@. Becerebilir misin?";
+
+/* Evening reminder inviting the player to dub a movie scene */
+"game.reminder.show.scene" = "Bir film sahnesi sesini bekliyor. Işık, mikrofon, motor!";
+
+/* Evening reminder when there is no particular sound to name */
+"game.reminder.show.stage" = "Sahne hazır, seyirci ısındı. Gel bir tur oyna!";
+
+/* Title of the Sunday reminder that the weekly leaderboard ends tomorrow */
+"game.reminder.race.title" = "Haftalık yarışın son günü";
+
+/* Body of that reminder. %d is the player's points this week */
+"game.reminder.race.body" = "Bu hafta %d puanın var. Bir tur daha seni yukarı taşıyabilir!";

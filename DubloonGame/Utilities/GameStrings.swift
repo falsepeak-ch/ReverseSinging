@@ -30,6 +30,7 @@ nonisolated enum GameStrings {
 
     static let pickSound = string("game.pickSound", "Title of the screen where the player picks a sound to imitate")
     static let pickScene = string("game.pickScene", "Title of the screen where the player picks a movie scene to dub")
+    static let leaderboards = string("game.leaderboards", "Accessibility label of the trophy on the home stage that opens the Game Center leaderboards")
     static let nextSound = string("game.nextSound", "Button after a result: go on to the next sound")
     /// Through the 3-2-1, before the mic opens.
     static let getReady = string("game.getReady", "Big caption on the stage during the 3-2-1 count before recording")
@@ -59,6 +60,23 @@ nonisolated enum GameStrings {
         static let tipDelivery = string("game.host.tip.delivery", "Tip when delivery was the weakest part of a dub")
         static let sceneDone = string("game.host.dub.sceneDone", "Said when every line of the scene is dubbed")
         static let dubAgain = string("game.host.dub.again", "Said on a line that already has a take, inviting another go")
+    }
+
+    /// The reminders and the card that asks for them. See `GameReminders`.
+    enum Reminder {
+        static let primerTitle = string("game.reminder.primer.title", "Title of the card that explains reminders before iOS asks for notification permission")
+        static let primerBody = string("game.reminder.primer.body", "Body of that card: what the reminders are and that they can be turned off in Settings")
+        static let primerContinue = string("game.reminder.primer.continue", "The card's only button; it opens the iOS notification prompt")
+        static let showTitle = string("game.reminder.show.title", "Title of the evening reminder notification")
+        static func showSound(_ sound: String) -> String {
+            String(format: string("game.reminder.show.sound", "Evening reminder naming a sound to imitate. %@ is the sound's name"), sound)
+        }
+        static let showScene = string("game.reminder.show.scene", "Evening reminder inviting the player to dub a movie scene")
+        static let showStage = string("game.reminder.show.stage", "Evening reminder when there is no particular sound to name")
+        static let raceTitle = string("game.reminder.race.title", "Title of the Sunday reminder that the weekly leaderboard ends tomorrow")
+        static func raceBody(_ points: Int) -> String {
+            String(format: string("game.reminder.race.body", "Body of that reminder. %d is the player's points this week"), points)
+        }
     }
 
     /// The brand line under "Dubloon" at the top of the stage.

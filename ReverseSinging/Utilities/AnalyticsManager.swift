@@ -155,6 +155,11 @@ final class AnalyticsManager {
 
     // MARK: - Settings/Navigation Events
 
+    /// Dubloon the Game's reminder permission, answered at its primer.
+    func trackRemindersPermission(granted: Bool) {
+        log("game_reminders_permission", parameters: ["granted": granted])
+    }
+
     func trackSettingsOpened() {
         log("settings_opened", parameters: nil)
     }

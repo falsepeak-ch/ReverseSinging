@@ -88,3 +88,33 @@
 
 /* Said on a line that already has a take, inviting another go */
 "game.host.dub.again" = "Ja està doblada! Repeteix o continua.";
+
+/* Accessibility label of the trophy on the home stage that opens the Game Center leaderboards */
+"game.leaderboards" = "Classificacions";
+
+/* Title of the card that explains reminders before iOS asks for notification permission */
+"game.reminder.primer.title" = "No et perdis el xou";
+
+/* Body of that card: what the reminders are and that they can be turned off in Settings */
+"game.reminder.primer.body" = "T'avisaré al vespre amb un so per provar i abans que acabi la cursa setmanal. Ho pots desactivar a Configuració quan vulguis.";
+
+/* The card's only button; it opens the iOS notification prompt */
+"game.reminder.primer.continue" = "Continuar";
+
+/* Title of the evening reminder notification */
+"game.reminder.show.title" = "Comença el xou!";
+
+/* Evening reminder naming a sound to imitate. %@ is the sound's name */
+"game.reminder.show.sound" = "El so d'aquesta nit és %@. El clavaràs?";
+
+/* Evening reminder inviting the player to dub a movie scene */
+"game.reminder.show.scene" = "Una escena t'espera perquè hi posis la veu. Llums, micro, acció!";
+
+/* Evening reminder when there is no particular sound to name */
+"game.reminder.show.stage" = "L'escenari és a punt i el públic té ganes. Vine a jugar una ronda!";
+
+/* Title of the Sunday reminder that the weekly leaderboard ends tomorrow */
+"game.reminder.race.title" = "Últim dia de la cursa setmanal";
+
+/* Body of that reminder. %d is the player's points this week */
+"game.reminder.race.body" = "Portes %d punts aquesta setmana. Una ronda més et pot fer pujar a la classificació!";

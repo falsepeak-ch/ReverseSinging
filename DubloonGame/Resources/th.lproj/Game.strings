@@ -88,3 +88,33 @@
 
 /* Said on a line that already has a take, inviting another go */
 "game.host.dub.again" = "พากย์แล้ว! อัดใหม่หรือไปต่อ";
+
+/* Accessibility label of the trophy on the home stage that opens the Game Center leaderboards */
+"game.leaderboards" = "ลีดเดอร์บอร์ด";
+
+/* Title of the card that explains reminders before iOS asks for notification permission */
+"game.reminder.primer.title" = "อย่าพลาดโชว์";
+
+/* Body of that card: what the reminders are and that they can be turned off in Settings */
+"game.reminder.primer.body" = "ฉันจะเตือนคุณตอนเย็นพร้อมเสียงให้ลอง และก่อนการแข่งขันประจำสัปดาห์จะจบ ปิดได้ทุกเมื่อในการตั้งค่า";
+
+/* The card's only button; it opens the iOS notification prompt */
+"game.reminder.primer.continue" = "ดำเนินการต่อ";
+
+/* Title of the evening reminder notification */
+"game.reminder.show.title" = "ได้เวลาโชว์!";
+
+/* Evening reminder naming a sound to imitate. %@ is the sound's name */
+"game.reminder.show.sound" = "เสียงของคืนนี้คือ %@ ทำได้ไหม?";
+
+/* Evening reminder inviting the player to dub a movie scene */
+"game.reminder.show.scene" = "ฉากหนังรอเสียงของคุณอยู่ ไฟ ไมค์ แอ็กชัน!";
+
+/* Evening reminder when there is no particular sound to name */
+"game.reminder.show.stage" = "เวทีพร้อมแล้ว ผู้ชมก็รออยู่ มาเล่นสักรอบ!";
+
+/* Title of the Sunday reminder that the weekly leaderboard ends tomorrow */
+"game.reminder.race.title" = "วันสุดท้ายของการแข่งขันประจำสัปดาห์";
+
+/* Body of that reminder. %d is the player's points this week */
+"game.reminder.race.body" = "สัปดาห์นี้คุณมี %d คะแนน อีกรอบเดียวอาจขึ้นอันดับได้!";

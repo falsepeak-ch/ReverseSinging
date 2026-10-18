@@ -344,7 +344,10 @@ struct GameImitationRoundView: View {
         case .result:
             Task { await trace.loadTake(from: viewModel.takeFileURL) }
             // After the score has rolled up and the stars have landed.
-            if let grade = viewModel.score?.grade { fx.finale(for: grade) }
+            if let score = viewModel.score {
+                fx.finale(for: score.grade)
+                GameScorebook.shared.recordImitation(score: score.overall, grade: score.grade)
+            }
         default:
             break
         }

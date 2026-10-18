@@ -88,3 +88,33 @@
 
 /* Said on a line that already has a take, inviting another go */
 "game.host.dub.again" = "Allerede dubbet! Igen eller videre.";
+
+/* Accessibility label of the trophy on the home stage that opens the Game Center leaderboards */
+"game.leaderboards" = "Ranglister";
+
+/* Title of the card that explains reminders before iOS asks for notification permission */
+"game.reminder.primer.title" = "Gå ikke glip af showet";
+
+/* Body of that card: what the reminders are and that they can be turned off in Settings */
+"game.reminder.primer.body" = "Jeg minder dig om en lyd at prøve om aftenen, og inden ugens kapløb slutter. Du kan slå det fra i Indstillinger når som helst.";
+
+/* The card's only button; it opens the iOS notification prompt */
+"game.reminder.primer.continue" = "Fortsæt";
+
+/* Title of the evening reminder notification */
+"game.reminder.show.title" = "Showtime!";
+
+/* Evening reminder naming a sound to imitate. %@ is the sound's name */
+"game.reminder.show.sound" = "Aftenens lyd er %@. Kan du ramme den?";
+
+/* Evening reminder inviting the player to dub a movie scene */
+"game.reminder.show.scene" = "En filmscene venter på din stemme. Lys, mikrofon, action!";
+
+/* Evening reminder when there is no particular sound to name */
+"game.reminder.show.stage" = "Scenen er klar, og publikum er varmt. Kom og spil en runde!";
+
+/* Title of the Sunday reminder that the weekly leaderboard ends tomorrow */
+"game.reminder.race.title" = "Sidste dag af ugens kapløb";
+
+/* Body of that reminder. %d is the player's points this week */
+"game.reminder.race.body" = "Du har %d point i denne uge. En runde mere kan bringe dig op ad listen!";

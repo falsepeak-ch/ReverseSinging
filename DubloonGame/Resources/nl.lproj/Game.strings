@@ -88,3 +88,33 @@
 
 /* Said on a line that already has a take, inviting another go */
 "game.host.dub.again" = "Al ingesproken! Nog eens of verder.";
+
+/* Accessibility label of the trophy on the home stage that opens the Game Center leaderboards */
+"game.leaderboards" = "Ranglijsten";
+
+/* Title of the card that explains reminders before iOS asks for notification permission */
+"game.reminder.primer.title" = "Mis de show niet";
+
+/* Body of that card: what the reminders are and that they can be turned off in Settings */
+"game.reminder.primer.body" = "Ik herinner je 's avonds aan een geluid om te proberen, en voordat de weekrace afloopt. Je kunt dit altijd uitzetten in Instellingen.";
+
+/* The card's only button; it opens the iOS notification prompt */
+"game.reminder.primer.continue" = "Ga door";
+
+/* Title of the evening reminder notification */
+"game.reminder.show.title" = "Showtime!";
+
+/* Evening reminder naming a sound to imitate. %@ is the sound's name */
+"game.reminder.show.sound" = "Het geluid van vanavond is %@. Lukt het jou?";
+
+/* Evening reminder inviting the player to dub a movie scene */
+"game.reminder.show.scene" = "Een filmscène wacht op je stem. Licht, microfoon, actie!";
+
+/* Evening reminder when there is no particular sound to name */
+"game.reminder.show.stage" = "Het podium staat klaar en het publiek is warm. Kom een ronde spelen!";
+
+/* Title of the Sunday reminder that the weekly leaderboard ends tomorrow */
+"game.reminder.race.title" = "Laatste dag van de weekrace";
+
+/* Body of that reminder. %d is the player's points this week */
+"game.reminder.race.body" = "Je hebt deze week %d punten. Nog één ronde kan je hoger op de lijst brengen!";

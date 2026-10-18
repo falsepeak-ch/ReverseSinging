@@ -406,16 +406,25 @@ final class GameTileButton: StageButton {
 // MARK: - HUD
 
 /// The stars won so far, in a navy capsule in the stage's top corner, like a game's coin
-/// counter. It bumps when the count goes up.
-final class StarCounterNode: SKNode {
+/// counter, with a trophy that opens the Game Center leaderboards. It bumps when the count
+/// goes up.
+final class StarCounterNode: StageButton {
     private let capsule = SKShapeNode()
     private let star: SKSpriteNode
     private let label = OutlinedTextNode()
+    private let trophy: SKSpriteNode
     private var shown = -1
     private(set) var width: CGFloat = 96
 
     init(star texture: SKTexture) {
         star = SKSpriteNode(texture: texture)
+        let config = UIImage.SymbolConfiguration(pointSize: 17, weight: .heavy)
+            .applying(UIImage.SymbolConfiguration(paletteColors: [UIColor(Color.gameGold)]))
+        // Drawn into a plain bitmap first: SpriteKit takes a symbol image's mask, not its colour.
+        let symbol = UIImage(systemName: "trophy.fill", withConfiguration: config).map { image in
+            UIGraphicsImageRenderer(size: image.size).image { _ in image.draw(at: .zero) }
+        }
+        trophy = SKSpriteNode(texture: symbol.map { SKTexture(image: $0) })
         super.init()
         capsule.fillColor = SKColor(Color.gameNavy)
         capsule.strokeColor = SKColor(Color.gameGold)
@@ -425,6 +434,8 @@ final class StarCounterNode: SKNode {
         addChild(star)
         label.zPosition = 1
         addChild(label)
+        trophy.zPosition = 1
+        addChild(trophy)
     }
 
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) is not used") }
@@ -436,13 +447,16 @@ final class StarCounterNode: SKNode {
         label.set("\(stars)", size: 22, weight: .black, color: .white)
         let starSide: CGFloat = 38
         star.size = CGSize(width: starSide, height: starSide)
-        width = max(label.size.width + starSide + 26, 92)
+        let trophySide: CGFloat = 22
+        width = max(label.size.width + starSide + trophySide + 32, 112)
         capsule.path = CGPath(
             roundedRect: CGRect(x: -width / 2, y: -24, width: width, height: 48),
             cornerWidth: 24, cornerHeight: 24, transform: nil
         )
         star.position = CGPoint(x: -width / 2 + 8 + starSide / 2, y: 1)
         label.position = CGPoint(x: star.position.x + starSide / 2 + 4 + label.size.width / 2, y: 0)
+        trophy.position = CGPoint(x: width / 2 - 10 - trophySide / 2, y: 0)
+        hitSize = CGSize(width: width + 8, height: 56)
         if grew {
             star.run(.sequence([.scale(to: 1.4, duration: 0.12), .scale(to: 1, duration: 0.2)]))
         }

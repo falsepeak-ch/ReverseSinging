@@ -79,6 +79,13 @@ struct GameDubRoundView: View {
             guard let reveal else { return }
             // After the score has rolled up and the stars have landed.
             fx.finale(for: reveal.grade)
+            GameScorebook.shared.recordDub(
+                score: reveal.overall,
+                grade: reveal.grade,
+                scene: viewModel.pack.id.uuidString,
+                line: reveal.slug,
+                sceneIsWrapped: viewModel.isSceneDone
+            )
         }
         .animation(.spring(response: 0.4, dampingFraction: 0.82), value: viewModel.reveal)
         .animation(.spring(response: 0.4, dampingFraction: 0.82), value: viewModel.isRecording)

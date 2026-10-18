@@ -576,6 +576,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReverseSinging/Info.plist;
+				CODE_SIGN_ENTITLEMENTS = DubloonGame/DubloonGame.entitlements;
 				INFOPLIST_KEY_CFBundleDisplayName = "Dubloon Game";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music-games";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
@@ -621,6 +622,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReverseSinging/Info.plist;
+				CODE_SIGN_ENTITLEMENTS = DubloonGame/DubloonGame.entitlements;
 				INFOPLIST_KEY_CFBundleDisplayName = "Dubloon Game";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music-games";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;

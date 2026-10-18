@@ -20,7 +20,13 @@ nonisolated enum PurchaseConfiguration {
     /// The entitlement that unlocks the app. Configured under
     /// *Product catalog → Entitlements*, and attached to every product that
     /// should grant access.
+    #if DUBLOON_GAME
+    /// Dubloon the Game has its own RevenueCat project ("Dubloon the Game"), so its own
+    /// entitlement: buying in one app never unlocks the other.
+    static let entitlementID = "dubloon_game_pro"
+    #else
     static let entitlementID = "reverso_by_cluso_pro"
+    #endif
 
     /// The one thing on sale: a non-consumable, bought once, kept forever.
     ///
@@ -31,7 +37,11 @@ nonisolated enum PurchaseConfiguration {
     /// Note the underscores: the App Store product identifier is not the bundle
     /// identifier (`com.falsepeak.reverse-singing-ios`, with hyphens). It has to
     /// match App Store Connect byte for byte or the fetch below returns nothing.
+    #if DUBLOON_GAME
+    static let lifetimeProductID = "com.falsepeak.dubloon_game.lifetime"
+    #else
     static let lifetimeProductID = "com.falsepeak.reverse_singing_ios.lifetime"
+    #endif
 
     // MARK: - API keys
 
@@ -41,7 +51,11 @@ nonisolated enum PurchaseConfiguration {
     /// which is what makes the paywall runnable on a simulator before the real
     /// products exist, and it is also why it must never leave a debug build:
     /// RevenueCat rejects App Store submissions configured with one.
+    #if DUBLOON_GAME
+    private static let testStoreAPIKey = "test_GnnysOMGlrBThoLDdtpRuUGbzhF"
+    #else
     private static let testStoreAPIKey = "test_KOOcZkfizJumofnSgaAJRfgMLqM"
+    #endif
 
     /// The public Apple SDK key for App Store builds, from
     /// *Project settings → API keys → Public app-specific key* (`appl_…`).
@@ -50,9 +64,8 @@ nonisolated enum PurchaseConfiguration {
     /// build runs **without any gating at all** rather than locking everyone out
     /// behind a store it cannot reach — see `AccessController`.
     #if DUBLOON_GAME
-    /// Dubloon the Game is its own App Store app, so its own RevenueCat app and key. Empty until
-    /// that app exists; a release build of the game runs ungated until then.
-    private static let appStoreAPIKey = ""
+    /// Dubloon the Game is its own App Store app, so its own RevenueCat project and key.
+    private static let appStoreAPIKey = "appl_rHwNlBKtWilsxeNeasVdLHTxybv"
     #else
     private static let appStoreAPIKey = "appl_aqLqWCwoFekxeQscZrNPuSGmpZp"
     #endif

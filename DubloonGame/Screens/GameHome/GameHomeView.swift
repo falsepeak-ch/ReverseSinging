@@ -24,6 +24,8 @@ struct GameHomeView: View {
     @State private var isStageVisible = true
     /// The star wipe between the stage and a game: 1 open, 0 closed.
     @State private var iris: CGFloat = 1
+    /// The reminders' primer, offered once after the first finished round.
+    @State private var isReminderPrimerShown = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -48,6 +50,7 @@ struct GameHomeView: View {
             .onAppear {
                 isStageVisible = true
                 viewModel.onAppear()
+                offerRemindersIfDue()
             }
             .onDisappear { isStageVisible = false }
         }
@@ -57,6 +60,15 @@ struct GameHomeView: View {
         .sheet(isPresented: $viewModel.isPaywallPresented) {
             ProPaywallView(source: "game_home")
                 .paywallAppearance()
+        }
+        .overlay {
+            if isReminderPrimerShown {
+                ReminderPrimerCard {
+                    isReminderPrimerShown = false
+                    Task { await GameReminders.requestPermission() }
+                }
+                .transition(.opacity)
+            }
         }
         .overlay {
             StarWipe(progress: iris)
@@ -77,7 +89,19 @@ struct GameHomeView: View {
         }
         scene.onPro = { viewModel.showPaywall() }
         scene.onSettings = { app.showSettings = true }
+        scene.onLeaderboards = { GameCenterManager.shared.showLeaderboards() }
         scene.apply(viewModel.stageState)
+    }
+
+    /// Back on the stage after the first finished round: a beat for the host to settle, then
+    /// the reminders' primer, once.
+    private func offerRemindersIfDue() {
+        Task {
+            guard await GameReminders.shouldOfferPrimer() else { return }
+            try? await Task.sleep(for: .seconds(1.2))
+            guard viewModel.path.isEmpty, !app.showSettings else { return }
+            withAnimation { isReminderPrimerShown = true }
+        }
     }
 
     /// Closes a star over the stage, opens the game under it, and opens the star again.
@@ -124,6 +148,7 @@ struct GameHomeView: View {
             if let proTitle = viewModel.stageState.proTitle {
                 Button(proTitle) { viewModel.showPaywall() }
             }
+            Button(GameStrings.leaderboards) { GameCenterManager.shared.showLeaderboards() }
             Button(Strings.Settings.title) { app.showSettings = true }
         }
     }

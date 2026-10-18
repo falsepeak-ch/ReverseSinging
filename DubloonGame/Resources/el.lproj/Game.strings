@@ -88,3 +88,33 @@
 
 /* Said on a line that already has a take, inviting another go */
 "game.host.dub.again" = "Ήδη μεταγλωττισμένη! Ξανά ή επόμενη.";
+
+/* Accessibility label of the trophy on the home stage that opens the Game Center leaderboards */
+"game.leaderboards" = "Πίνακες κατάταξης";
+
+/* Title of the card that explains reminders before iOS asks for notification permission */
+"game.reminder.primer.title" = "Μη χάσεις το σόου";
+
+/* Body of that card: what the reminders are and that they can be turned off in Settings */
+"game.reminder.primer.body" = "Θα σου θυμίζω το βράδυ έναν ήχο να δοκιμάσεις και πριν λήξει ο εβδομαδιαίος αγώνας. Μπορείς να το απενεργοποιήσεις στις Ρυθμίσεις όποτε θέλεις.";
+
+/* The card's only button; it opens the iOS notification prompt */
+"game.reminder.primer.continue" = "Συνέχεια";
+
+/* Title of the evening reminder notification */
+"game.reminder.show.title" = "Ώρα για σόου!";
+
+/* Evening reminder naming a sound to imitate. %@ is the sound's name */
+"game.reminder.show.sound" = "Ο ήχος της βραδιάς είναι: %@. Θα τα καταφέρεις;";
+
+/* Evening reminder inviting the player to dub a movie scene */
+"game.reminder.show.scene" = "Μια κινηματογραφική σκηνή περιμένει τη φωνή σου. Φώτα, μικρόφωνο, πάμε!";
+
+/* Evening reminder when there is no particular sound to name */
+"game.reminder.show.stage" = "Η σκηνή είναι έτοιμη και το κοινό ζεσταμένο. Έλα να παίξεις έναν γύρο!";
+
+/* Title of the Sunday reminder that the weekly leaderboard ends tomorrow */
+"game.reminder.race.title" = "Τελευταία μέρα του εβδομαδιαίου αγώνα";
+
+/* Body of that reminder. %d is the player's points this week */
+"game.reminder.race.body" = "Έχεις %d πόντους αυτή την εβδομάδα. Ένας γύρος ακόμα μπορεί να σε ανεβάσει!";
