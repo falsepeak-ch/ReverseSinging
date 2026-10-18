@@ -76,10 +76,10 @@
 		DD6A000A202610170000000A /* Exceptions for "ReverseSinging" folder in "DubloonGame" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				AppIcon.icon,
-				GoogleService-Info.plist,
-				Info.plist,
 				"/Localized: Resources/InfoPlist.strings",
+				AppIcon.icon,
+				"GoogleService-Info.plist",
+				Info.plist,
 				ReverseSingingApp.swift,
 			);
 			target = DD6A00012026101700000001 /* DubloonGame */;
@@ -570,13 +570,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = GameAppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DubloonGame/DubloonGame.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4YGWZWHTHM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReverseSinging/Info.plist;
-				CODE_SIGN_ENTITLEMENTS = DubloonGame/DubloonGame.entitlements;
 				INFOPLIST_KEY_CFBundleDisplayName = "Dubloon Game";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music-games";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
@@ -616,13 +616,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = GameAppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DubloonGame/DubloonGame.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4YGWZWHTHM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReverseSinging/Info.plist;
-				CODE_SIGN_ENTITLEMENTS = DubloonGame/DubloonGame.entitlements;
 				INFOPLIST_KEY_CFBundleDisplayName = "Dubloon Game";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music-games";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;

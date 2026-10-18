@@ -1,4 +1,6 @@
-Dubloon the Game is a separate app from Dubloon by Cluso (com.falsepeak.reverse-singing-ios): its own bundle, its own purchases and its own Game Center. It contains two of Dubloon's games, presented as a game show.
+DIFFERENT APP, DIFFERENT AUDIENCE
+
+Dubloon the Game is a variant of the original Dubloon app (Dubloon by Cluso, com.falsepeak.reverse-singing-ios), built for a different public. The original Dubloon is a voice-training tool for people who work with their voice: it is about sound training for professionals and serious practice (reverse singing, a full waveform editor with loop, speed and pitch, dubbing with Booth Cam, home-video narration and exports). Dubloon the Game is a gamified, casual version of the dubbing and sound-imitation exercises for players who want a quick, fun game: a host-led game show with stars, sound effects, Game Center leaderboards and achievements, and a weekly race. It has none of the professional tools. The two apps target different people and have separate bundles, purchases and Game Center.
 
 No account is needed. Everything runs on device; nothing is uploaded. Firebase provides anonymous usage statistics and crash reports only, never audio or file contents. Reminders are local notifications scheduled on the device; nothing is sent from a server.
 

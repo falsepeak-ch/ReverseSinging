@@ -93,6 +93,8 @@ enum GameArt {
         static let panel = "game-panel-dialogue"
         static let button = "game-button-primary"
         static let star = "game-fx-star"
+        /// The game's "dubloon" wordmark (DesignAssets/game-logo), the logo used everywhere.
+        static let logo = "game-logo"
     }
 
     /// The animation kit's stage props and effects.

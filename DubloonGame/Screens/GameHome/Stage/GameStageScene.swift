@@ -142,11 +142,13 @@ final class GameStageScene: SKScene {
         }
         addChild(starCounter)
 
-        let name = OutlinedTextNode()
-        name.set("Dubloon", size: 42, weight: .black, color: SKColor(Color.gameIvory))
+        // The game's logo, drawn, rather than set in type.
+        let name = SKSpriteNode(texture: uiAtlas.textureNamed(GameArt.UI.logo))
+        name.size = CGSize(width: 220, height: 220 * name.size.height / max(name.size.width, 1))
+        name.position.y = 6
         let tag = OutlinedTextNode()
         tag.set(GameStrings.subtitle.uppercased(), size: 16, weight: .black, color: SKColor(Color.gameCyan))
-        tag.position.y = -34
+        tag.position.y = -38
         titleWidth = max(name.size.width, tag.size.width)
         titleNode.addChild(name)
         titleNode.addChild(tag)
