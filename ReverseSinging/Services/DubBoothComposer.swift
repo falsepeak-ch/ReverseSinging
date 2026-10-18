@@ -282,6 +282,23 @@ nonisolated struct DubBoothComposer {
             return Composed(composition: composition, videoComposition: nil, duration: cursor)
         }
 
+        #if DUBLOON_GAME
+        // The game's vertical frame is its own: the show's stage, with the film in its monitor.
+        if frame.isVertical, let bedTrack {
+            let videoComposition = gameShowComposition(
+                sceneTrack: sceneTrack,
+                sceneDisplaySize: sceneDisplaySize,
+                boothTrack: hasBooth ? boothTrack : nil,
+                boothDisplaySize: boothDisplaySize,
+                boothRanges: hasBooth ? boothRanges : [],
+                stageTrack: bedTrack,
+                duration: cursor,
+                frameRate: sceneFrameRate ?? 0
+            )
+            return Composed(composition: composition, videoComposition: videoComposition, duration: cursor)
+        }
+        #endif
+
         let layout = DubBoothLayout.make(
             frame: frame,
             sceneDisplaySize: sceneDisplaySize,
@@ -395,6 +412,54 @@ nonisolated struct DubBoothComposer {
         composition.instructions = instructions
         return composition
     }
+
+    #if DUBLOON_GAME
+    /// The game's 9:16 frame: the booth across the top, the film in the monitor, and the stage
+    /// track (see `GameShowReel`) behind both. Each picture is cropped to its rect rather than
+    /// filled past it, because here there is nothing in front to hide a spill: the stage is
+    /// the drawing around them, and it is at the back.
+    private static func gameShowComposition(
+        sceneTrack: AVMutableCompositionTrack,
+        sceneDisplaySize: CGSize,
+        boothTrack: AVMutableCompositionTrack?,
+        boothDisplaySize: CGSize,
+        boothRanges: [CMTimeRange],
+        stageTrack: AVMutableCompositionTrack,
+        duration: CMTime,
+        frameRate: Float
+    ) -> AVVideoComposition {
+        let composition = AVMutableVideoComposition()
+        composition.renderSize = GameShowReel.canvas
+        composition.frameDuration = Self.frameDuration(matching: frameRate)
+
+        let film = GameShowReel.fill(source: sceneDisplaySize, into: GameShowReel.filmRect)
+        // A selfie is framed with the face in its upper half, so the band is cut from there.
+        let booth = GameShowReel.fill(source: boothDisplaySize, into: GameShowReel.boothRect, verticalBias: 0.3)
+
+        composition.instructions = coverage(of: boothRanges, within: duration).map { range in
+            let instruction = AVMutableVideoCompositionInstruction()
+            instruction.timeRange = range.range
+
+            let scene = AVMutableVideoCompositionLayerInstruction(assetTrack: sceneTrack)
+            scene.setCropRectangle(film.crop, at: .zero)
+            scene.setTransform(film.transform, at: .zero)
+
+            let stage = AVMutableVideoCompositionLayerInstruction(assetTrack: stageTrack)
+            stage.setTransform(.identity, at: .zero)
+
+            var layers = [scene, stage]
+            if range.hasBooth, let boothTrack {
+                let layer = AVMutableVideoCompositionLayerInstruction(assetTrack: boothTrack)
+                layer.setCropRectangle(booth.crop, at: .zero)
+                layer.setTransform(booth.transform, at: .zero)
+                layers.insert(layer, at: 0)
+            }
+            instruction.layerInstructions = layers
+            return instruction
+        }
+        return composition
+    }
+    #endif
 
     /// Splits `duration` into consecutive ranges, each marked with whether the booth is in it.
     static func coverage(

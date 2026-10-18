@@ -5,6 +5,8 @@
 //  Movie Scene Dub's level select: a card per scene, with how much of it is dubbed.
 //
 
+import AVFoundation
+import DubCompositing
 import SwiftUI
 import UniformTypeIdentifiers
 
@@ -62,6 +64,37 @@ struct GameScenePickerView: View {
             guard GameShot.current == .dub, viewModel.selectedPack == nil else { return }
             for _ in 0..<40 where library.packs.isEmpty { try? await Task.sleep(for: .milliseconds(100)) }
             if let pack = library.packs.first { viewModel.selectedPack = pack }
+        }
+        .task {
+            // `-gameExportTest seed|render`: seeds takes for the first scene (copies of the
+            // originals) and lists its lines, then renders its vertical video, so the export
+            // can be checked in the Simulator, which has no microphone or camera.
+            guard let mode = UserDefaults.standard.string(forKey: "gameExportTest") else { return }
+            for _ in 0..<40 where library.packs.isEmpty { try? await Task.sleep(for: .milliseconds(100)) }
+            guard let pack = library.packs.first else { return }
+            let documents = URL.documentsDirectory
+            let report = documents.appendingPathComponent("export-test.txt")
+            if mode == "seed" {
+                var lines = ["pack \(pack.id.uuidString)"]
+                for line in pack.lines {
+                    if let source = try? AVAudioFile(forReading: pack.referenceAudioURL(for: line)),
+                       let buffer = AVAudioPCMBuffer(pcmFormat: source.processingFormat,
+                                                     frameCapacity: AVAudioFrameCount(source.length)),
+                       (try? source.read(into: buffer)) != nil,
+                       let take = try? AVAudioFile(forWriting: pack.takeURL(for: line), settings: source.fileFormat.settings) {
+                        try? take.write(from: buffer)
+                    }
+                    lines.append("line \(line.slug) \(line.duration)")
+                }
+                try? lines.joined(separator: "\n").write(to: report, atomically: true, encoding: .utf8)
+            } else {
+                do {
+                    let url = try await DubMixer.shared.export(pack: pack, cut: .fullScene, frame: .stacked, includesBooth: true)
+                    try? "ok \(url.path)".write(to: report, atomically: true, encoding: .utf8)
+                } catch {
+                    try? "error \(error)".write(to: report, atomically: true, encoding: .utf8)
+                }
+            }
         }
         #endif
         .navigationDestination(item: $viewModel.selectedPack) { pack in

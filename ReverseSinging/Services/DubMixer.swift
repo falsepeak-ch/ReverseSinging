@@ -132,6 +132,22 @@ nonisolated struct DubMixer {
         // Only the vertical frames carry a strip, and sampling every take to render one
         // nobody will see is the most expensive no-op in the export.
         var waveURL: URL?
+        var bedURL: URL?
+        #if DUBLOON_GAME
+        // The game draws its whole stage, waveforms included, as one track behind the film
+        // and the booth. See `GameShowReel`.
+        if frame.isVertical {
+            let url = workingDirectory.appendingPathComponent("stage.mp4")
+            try await GameShowReel.render(
+                pack: pack,
+                segments: segments,
+                bars: await DubWaveOverlay.bars(pack: pack, segments: segments),
+                duration: segments.reduce(0) { $0 + $1.duration },
+                to: url
+            )
+            bedURL = url
+        }
+        #else
         if frame.isVertical,
            let band = DubBoothLayout.make(
                frame: frame,
@@ -150,19 +166,6 @@ nonisolated struct DubMixer {
                 to: url
             )
             waveURL = url
-        }
-
-        // The game puts its stage behind a vertical export, so no part of the frame is black.
-        var bedURL: URL?
-        #if DUBLOON_GAME
-        if frame.isVertical {
-            let url = workingDirectory.appendingPathComponent("bed.mp4")
-            try await DubWaveOverlay.renderGameBed(
-                size: CGSize(width: 1080, height: 1920),
-                duration: segments.reduce(0) { $0 + $1.duration },
-                to: url
-            )
-            bedURL = url
         }
         #endif
 

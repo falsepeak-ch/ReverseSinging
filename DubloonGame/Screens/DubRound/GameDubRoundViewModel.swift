@@ -163,8 +163,9 @@ final class GameDubRoundViewModel: ObservableObject {
 
     // MARK: - Video
 
-    /// The scene as a vertical video for sharing: the film on top, the player's booth footage
-    /// under it where there is some, and the game's band at the foot.
+    /// The scene as a vertical video for sharing, drawn like a moment from the show: the
+    /// player's booth footage on top, the film in the show's monitor under it, the line and the
+    /// two waveforms below that. See `GameShowReel`.
     func makeVideo() {
         guard session.hasAnyTake, exportProgress == nil else { return }
         recorder.stop()
