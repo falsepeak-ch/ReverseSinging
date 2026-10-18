@@ -29,6 +29,22 @@ struct BigButton: View {
     @State private var isPressed = false
 
     var body: some View {
+        #if DUBLOON_GAME
+        // In the game every big button is the kit's pill.
+        GameModalButton(
+            title: title,
+            icon: icon,
+            kind: style == .primary ? .primary : (style == .destructive ? .destructive : .secondary),
+            isEnabled: isEnabled,
+            isLoading: isLoading,
+            action: action
+        )
+        #else
+        studioButton
+        #endif
+    }
+
+    private var studioButton: some View {
         Button(action: {
             if isEnabled && !isLoading {
                 HapticManager.shared.medium()

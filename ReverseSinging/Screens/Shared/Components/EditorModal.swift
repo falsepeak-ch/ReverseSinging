@@ -35,6 +35,11 @@ struct EditorModal<Content: View, PhoneActions: View, MacActions: View>: View {
     var body: some View {
         #if os(macOS)
         macSheet
+        #elseif DUBLOON_GAME
+        // The game draws its modals as game cards; see `GameModalFrame`.
+        GameModalFrame(title: title, onBack: onBack, onClose: onClose, content: content, actions: phoneActions)
+            .onAppear { if onClose == nil { EditorModalHold.begin() } }
+            .onDisappear { if onClose == nil { EditorModalHold.end() } }
         #else
         phoneCard
         #endif
@@ -198,21 +203,29 @@ extension View {
     /// The default action's button: Liquid Glass where the system draws it, bordered before.
     @ViewBuilder
     func platformProminentButton() -> some View {
+        #if DUBLOON_GAME
+        buttonStyle(GamePillButtonStyle(height: 54))
+        #else
         if #available(iOS 26, macOS 26, *) {
             buttonStyle(.glassProminent)
         } else {
             buttonStyle(.borderedProminent)
         }
+        #endif
     }
 
     /// Any other button that sits on its own: glass where the system draws it.
     @ViewBuilder
     func platformGlassButton() -> some View {
+        #if DUBLOON_GAME
+        buttonStyle(GamePillButtonStyle(fill: .gameIvory, height: 54))
+        #else
         if #available(iOS 26, macOS 26, *) {
             buttonStyle(.glass)
         } else {
             buttonStyle(.bordered)
         }
+        #endif
     }
 
     /// An on/off switch the way the system draws it: on macOS 26 and later a full-size Liquid

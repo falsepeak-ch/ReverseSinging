@@ -35,6 +35,17 @@ struct SettingsView: View {
     }
 
     var body: some View {
+        #if DUBLOON_GAME
+        // The game draws its own settings over the same view model; see `GameSettingsContent`.
+        GameSettingsContent(viewModel: viewModel) { dismiss() }
+            .modifier(SettingsPresentations(viewModel: viewModel))
+        #else
+        studioSettings
+            .modifier(SettingsPresentations(viewModel: viewModel))
+        #endif
+    }
+
+    private var studioSettings: some View {
         NavigationStack {
             ZStack {
                 Color.rsBackgroundAdaptive(for: effectiveColorScheme).ignoresSafeArea()
@@ -102,6 +113,16 @@ struct SettingsView: View {
             }
             .onAppear { viewModel.onAppear() }
         }
+    }
+}
+
+/// What the settings put on screen over themselves, whichever way they are drawn: purchase
+/// alerts, Help, the paywall and RevenueCat's customer center.
+private struct SettingsPresentations: ViewModifier {
+    @ObservedObject var viewModel: SettingsViewModel
+
+    func body(content: Content) -> some View {
+        content
         .purchaseAlerts()
         .sheet(isPresented: $viewModel.isHelpPresented) {
             HelpView()
@@ -125,6 +146,9 @@ struct SettingsView: View {
         )
         #endif
     }
+}
+
+extension SettingsView {
 
     // MARK: - UI Mode Section
 
@@ -221,6 +245,10 @@ struct SettingsView: View {
 
             soundRow
 
+            #if DUBLOON_GAME
+            fewerSoundsRow
+            #endif
+
             headphoneMonitorRow
         }
     }
@@ -238,6 +266,24 @@ struct SettingsView: View {
             settingsIcon("settings-sound", isActive: viewModel.soundsEnabled)
         }
     }
+
+    #if DUBLOON_GAME
+    /// The game's taps and swooshes off, its stars and fanfares kept.
+    private var fewerSoundsRow: some View {
+        SettingsToggleRow(
+            title: GameStrings.Settings.fewerSounds,
+            subtitle: GameStrings.Settings.fewerSoundsDesc,
+            isOn: Binding(
+                get: { viewModel.fewerSounds },
+                set: { viewModel.setFewerSounds($0) }
+            )
+        ) {
+            settingsIcon("settings-sound", isActive: viewModel.soundsEnabled && !viewModel.fewerSounds)
+        }
+        .disabled(!viewModel.soundsEnabled)
+        .opacity(viewModel.soundsEnabled ? 1 : 0.5)
+    }
+    #endif
 
     /// Whether the original plays to the performer during a take. Only possible on
     /// headphones, so the row says as much when nothing is plugged in rather than offering a

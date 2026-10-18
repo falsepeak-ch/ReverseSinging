@@ -118,3 +118,15 @@
 
 /* Body of that reminder. %d is the player's points this week */
 "game.reminder.race.body" = "Du hast diese Woche %d Punkte. Eine Runde mehr kann dich nach oben bringen!";
+
+/* Settings switch: play fewer of the game's sound effects */
+"game.settings.fewerSounds" = "Weniger Soundeffekte";
+
+/* Under that switch: what it keeps and what it drops */
+"game.settings.fewerSounds.desc" = "Keine Tipp- und Wischgeräusche. Sterne und Fanfaren bleiben.";
+
+/* Under the Sound effects switch: what the game's sounds are */
+"game.settings.soundEffects.desc" = "Klicks, Sterne, Fanfaren und Publikum der Show.";
+
+/* Under Unlock Dubloon Pro in the game's settings: what Pro gives */
+"game.settings.unlock.desc" = "Deine ersten 3 Takes sind gratis. Mit Dubloon Pro ist jede Runde unbegrenzt.";

@@ -31,6 +31,10 @@ final class SettingsViewModel: ObservableObject {
     let scope: SettingsScope
 
     @Published private(set) var soundsEnabled: Bool
+    #if DUBLOON_GAME
+    /// The game's "Fewer sound effects" switch (`GameSFX.isReduced`).
+    @Published private(set) var fewerSounds = GameSFX.isReduced
+    #endif
 
     @Published var isPaywallPresented = false
     @Published var isHelpPresented = false
@@ -94,6 +98,13 @@ final class SettingsViewModel: ObservableObject {
         app.setSoundsEnabled(enabled)
         soundsEnabled = enabled
     }
+
+    #if DUBLOON_GAME
+    func setFewerSounds(_ reduced: Bool) {
+        GameSFX.isReduced = reduced
+        fewerSounds = reduced
+    }
+    #endif
 
     // MARK: - Booth Cam
 

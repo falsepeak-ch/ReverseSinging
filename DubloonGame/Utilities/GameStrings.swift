@@ -62,6 +62,13 @@ nonisolated enum GameStrings {
         static let dubAgain = string("game.host.dub.again", "Said on a line that already has a take, inviting another go")
     }
 
+    enum Settings {
+        static let fewerSounds = string("game.settings.fewerSounds", "Settings switch: play fewer of the game's sound effects")
+        static let fewerSoundsDesc = string("game.settings.fewerSounds.desc", "Under that switch: what it keeps and what it drops")
+        static let soundEffectsDesc = string("game.settings.soundEffects.desc", "Under the Sound effects switch: what the game's sounds are")
+        static let unlockDesc = string("game.settings.unlock.desc", "Under Unlock Dubloon Pro in the game's settings: what Pro gives")
+    }
+
     /// The reminders and the card that asks for them. See `GameReminders`.
     enum Reminder {
         static let primerTitle = string("game.reminder.primer.title", "Title of the card that explains reminders before iOS asks for notification permission")

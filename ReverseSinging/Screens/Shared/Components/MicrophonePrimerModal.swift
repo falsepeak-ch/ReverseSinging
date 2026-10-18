@@ -88,9 +88,16 @@ struct MicrophonePrimerModal: View {
 
     let onContinue: () -> Void
 
+    #if DUBLOON_GAME
+    static let artwork = "game-studio-mic-boom"
+    #else
+    static let artwork = "studio-mic-boom"
+    #endif
+
     var body: some View {
         EditorModal(title: Strings.MicrophonePrimer.title, onClose: nil) {
-            Image("studio-mic-boom")
+            // The game draws the mic in its own outlined style.
+            Image(MicrophonePrimerModal.artwork)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 96, height: 96)

@@ -44,6 +44,21 @@ nonisolated enum GameSFX: String, CaseIterable {
         }
     }
 
+    /// The small sounds a player can turn off with "Fewer sound effects": taps, swooshes and
+    /// ticks. Stars, the finale and the coin still play, because they are the show.
+    var isMinor: Bool {
+        switch self {
+        case .tap, .select, .back, .whoosh, .pop, .tick: true
+        case .coin, .star, .fanfare, .fail, .cheer: false
+        }
+    }
+
+    /// The "Fewer sound effects" setting.
+    static var isReduced: Bool {
+        get { UserDefaults.standard.bool(forKey: "game.sfx.reduced") }
+        set { UserDefaults.standard.set(newValue, forKey: "game.sfx.reduced") }
+    }
+
     /// Plays the sound, unless sounds are off or the mic is open.
     static func play(_ sound: GameSFX, pitch: Float = 1) {
         GameSFXPlayer.shared.play(sound, pitch: pitch)
@@ -88,6 +103,7 @@ nonisolated final class GameSFXPlayer: @unchecked Sendable {
     func play(_ sound: GameSFX, pitch: Float) {
         let manager = SoundManager.shared
         guard manager.isEnabled, !manager.microphoneIsOpen else { return }
+        if sound.isMinor && GameSFX.isReduced { return }
 
         lock.lock()
         let voices = players[sound] ?? []

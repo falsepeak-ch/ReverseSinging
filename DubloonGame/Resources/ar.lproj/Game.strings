@@ -118,3 +118,15 @@
 
 /* Body of that reminder. %d is the player's points this week */
 "game.reminder.race.body" = "لديك %d نقطة هذا الأسبوع. جولة أخرى قد ترفعك في الترتيب!";
+
+/* Settings switch: play fewer of the game's sound effects */
+"game.settings.fewerSounds" = "مؤثرات صوتية أقل";
+
+/* Under that switch: what it keeps and what it drops */
+"game.settings.fewerSounds.desc" = "بلا أصوات اللمس والانتقال. تبقى أصوات النجوم والاحتفال.";
+
+/* Under the Sound effects switch: what the game's sounds are */
+"game.settings.soundEffects.desc" = "نقرات العرض ونجومه وأبواقه وجمهوره.";
+
+/* Under Unlock Dubloon Pro in the game's settings: what Pro gives */
+"game.settings.unlock.desc" = "أول 3 محاولات مجانية. مع Dubloon Pro تصبح كل الجولات بلا حدود.";

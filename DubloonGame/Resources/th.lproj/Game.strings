@@ -118,3 +118,15 @@
 
 /* Body of that reminder. %d is the player's points this week */
 "game.reminder.race.body" = "สัปดาห์นี้คุณมี %d คะแนน อีกรอบเดียวอาจขึ้นอันดับได้!";
+
+/* Settings switch: play fewer of the game's sound effects */
+"game.settings.fewerSounds" = "ลดเสียงเอฟเฟกต์";
+
+/* Under that switch: what it keeps and what it drops */
+"game.settings.fewerSounds.desc" = "ปิดเสียงแตะและเสียงเปลี่ยนหน้า เสียงดาวและแตรยังดังอยู่";
+
+/* Under the Sound effects switch: what the game's sounds are */
+"game.settings.soundEffects.desc" = "เสียงแตะ ดาว แตร และเสียงผู้ชมของโชว์";
+
+/* Under Unlock Dubloon Pro in the game's settings: what Pro gives */
+"game.settings.unlock.desc" = "3 เทคแรกฟรี Dubloon Pro ทำให้ทุกรอบไม่จำกัด";

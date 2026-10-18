@@ -118,3 +118,15 @@
 
 /* Body of that reminder. %d is the player's points this week */
 "game.reminder.race.body" = "Έχεις %d πόντους αυτή την εβδομάδα. Ένας γύρος ακόμα μπορεί να σε ανεβάσει!";
+
+/* Settings switch: play fewer of the game's sound effects */
+"game.settings.fewerSounds" = "Λιγότερα ηχητικά εφέ";
+
+/* Under that switch: what it keeps and what it drops */
+"game.settings.fewerSounds.desc" = "Χωρίς ήχους πατήματος και μετάβασης. Τα αστέρια και οι φανφάρες μένουν.";
+
+/* Under the Sound effects switch: what the game's sounds are */
+"game.settings.soundEffects.desc" = "Πατήματα, αστέρια, φανφάρες και κοινό του σόου.";
+
+/* Under Unlock Dubloon Pro in the game's settings: what Pro gives */
+"game.settings.unlock.desc" = "Οι 3 πρώτες λήψεις είναι δωρεάν. Με το Dubloon Pro κάθε γύρος είναι απεριόριστος.";

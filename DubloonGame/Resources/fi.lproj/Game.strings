@@ -118,3 +118,15 @@
 
 /* Body of that reminder. %d is the player's points this week */
 "game.reminder.race.body" = "Sinulla on tällä viikolla %d pistettä. Yksi kierros lisää voi nostaa sinua listalla!";
+
+/* Settings switch: play fewer of the game's sound effects */
+"game.settings.fewerSounds" = "Vähemmän ääniefektejä";
+
+/* Under that switch: what it keeps and what it drops */
+"game.settings.fewerSounds.desc" = "Ei napautus- eikä suhahdusääniä. Tähdet ja fanfaarit soivat yhä.";
+
+/* Under the Sound effects switch: what the game's sounds are */
+"game.settings.soundEffects.desc" = "Shown napautukset, tähdet, fanfaarit ja yleisö.";
+
+/* Under Unlock Dubloon Pro in the game's settings: what Pro gives */
+"game.settings.unlock.desc" = "3 ensimmäistä ottoa ovat ilmaisia. Dubloon Prolla jokainen kierros on rajaton.";

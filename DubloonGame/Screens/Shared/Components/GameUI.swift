@@ -87,20 +87,27 @@ extension View {
 
 // MARK: - Buttons
 
-/// The kit's cyan pill: navy outline, a petrol lip that the pill sinks into when pressed,
-/// and a highlight along the top.
+/// The kit's cyan pill: navy outline, a navy lip that the pill sinks into when pressed, and a
+/// thin gloss along the top edge.
+///
+/// The label's colour is picked for contrast with the fill unless one is given: navy on the
+/// light fills (cyan, gold, ivory), white on the dark ones (coral, red). The gloss stays above
+/// the label so it never cuts through the letters.
 struct GamePillButtonStyle: ButtonStyle {
     var fill: Color = .gameCyan
     var height: CGFloat = 60
-    var text: Color = .white
+    var text: Color? = nil
+
+    private var label: Color { text ?? (fill.gameIsLight ? .gameNavy : .white) }
 
     func makeBody(configuration: Configuration) -> some View {
         let pressed = configuration.isPressed
         let lip: CGFloat = 6
+        let onDark = label == .white
         configuration.label
             .font(.gameDisplay(22))
-            .foregroundStyle(text)
-            .shadow(color: text == .white ? .gameNavy : .clear, radius: 0, x: 0, y: 2)
+            .foregroundStyle(label)
+            .shadow(color: onDark ? Color.gameNavy.opacity(0.7) : .clear, radius: 0, x: 0, y: 2)
             .lineLimit(1)
             .minimumScaleFactor(0.6)
             .padding(.horizontal, 24)
@@ -110,11 +117,11 @@ struct GamePillButtonStyle: ButtonStyle {
                     Capsule().fill(Color.gameNavy).offset(y: lip)
                     Capsule().fill(fill)
                     Capsule()
-                        .fill(.white.opacity(0.45))
-                        .frame(height: height * 0.18)
-                        .padding(.horizontal, height * 0.4)
+                        .fill(.white.opacity(0.4))
+                        .frame(height: 4)
+                        .padding(.horizontal, height * 0.45)
                         .frame(maxHeight: .infinity, alignment: .top)
-                        .padding(.top, height * 0.14)
+                        .padding(.top, 6)
                     Capsule().strokeBorder(Color.gameNavy, lineWidth: 3.5)
                 }
             }
@@ -137,7 +144,8 @@ struct GameRoundButton: View {
     var body: some View {
         Button {
             HapticManager.shared.light()
-            GameSFX.play(symbol == "chevron.backward" ? .back : .tap)
+            // Back makes no sound: it is pressed too often for one to be welcome.
+            if symbol != "chevron.backward" { GameSFX.play(.tap) }
             action()
         } label: {
             Image(systemName: symbol)
@@ -333,5 +341,14 @@ struct GameStar: View {
             .frame(width: size, height: size)
             .gameFoil(1, isActive: isLit && shines)
             .accessibilityHidden(true)
+    }
+}
+
+extension Color {
+    /// Whether the colour is light enough that navy text reads on it better than white.
+    var gameIsLight: Bool {
+        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        UIColor(self).getRed(&r, green: &g, blue: &b, alpha: &a)
+        return 0.2126 * r + 0.7152 * g + 0.0722 * b > 0.55
     }
 }

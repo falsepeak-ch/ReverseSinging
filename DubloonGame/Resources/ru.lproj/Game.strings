@@ -118,3 +118,15 @@
 
 /* Body of that reminder. %d is the player's points this week */
 "game.reminder.race.body" = "У тебя %d очков на этой неделе. Ещё один раунд может поднять тебя выше!";
+
+/* Settings switch: play fewer of the game's sound effects */
+"game.settings.fewerSounds" = "Меньше звуковых эффектов";
+
+/* Under that switch: what it keeps and what it drops */
+"game.settings.fewerSounds.desc" = "Без щелчков и свистов. Звёзды и фанфары остаются.";
+
+/* Under the Sound effects switch: what the game's sounds are */
+"game.settings.soundEffects.desc" = "Щелчки, звёзды, фанфары и зрители шоу.";
+
+/* Under Unlock Dubloon Pro in the game's settings: what Pro gives */
+"game.settings.unlock.desc" = "Первые 3 дубля бесплатно. С Dubloon Pro каждый раунд без ограничений.";

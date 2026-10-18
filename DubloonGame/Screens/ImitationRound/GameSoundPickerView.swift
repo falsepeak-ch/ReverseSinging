@@ -86,8 +86,7 @@ struct GameSoundPickerView: View {
                     }
                     .buttonStyle(GamePillButtonStyle(
                         fill: item == category ? .gameCyan : .gameIvory,
-                        height: 46,
-                        text: item == category ? .white : .gameNavy
+                        height: 46
                     ))
                     .accessibilityAddTraits(item == category ? .isSelected : [])
                 }
@@ -132,14 +131,12 @@ private struct SoundCard: View {
                 GameSoundArt(sound: sound, size: 96)
                     .padding(.top, 14)
                     .background(alignment: .bottom) {
-                        // The plinth's pool of light.
+                        // A soft contact shadow where the picture stands.
                         Ellipse()
-                            .fill(RadialGradient(
-                                colors: [(stars == 3 ? Color.gameGold : .gameCyan).opacity(0.45), .clear],
-                                center: .center, startRadius: 2, endRadius: 60
-                            ))
-                            .frame(width: 120, height: 34)
-                            .offset(y: 10)
+                            .fill(Color.gameNavy.opacity(0.16))
+                            .frame(width: 64, height: 9)
+                            .blur(radius: 3)
+                            .offset(y: 3)
                     }
 
                 Text(sound.name)
