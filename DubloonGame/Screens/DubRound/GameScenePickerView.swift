@@ -21,6 +21,13 @@ struct GameScenePickerView: View {
 
             ScrollView {
                 LazyVStack(spacing: 20) {
+                    // First, where the next scene would go: the way to bring your own in.
+                    AddSceneCard {
+                        GameSFX.play(.select)
+                        viewModel.requestImport()
+                    }
+                    .disabled(library.isImporting)
+
                     ForEach(library.packs) { pack in
                         SceneCard(pack: pack, recorded: viewModel.recordedCount(for: pack)) {
                             GameSFX.play(.select)
@@ -49,6 +56,14 @@ struct GameScenePickerView: View {
         ) { result in
             viewModel.handleImport(result)
         }
+        #if DEBUG
+        .task {
+            // The screenshot run's dub round: the first scene, opened once its packs are in.
+            guard GameShot.current == .dub, viewModel.selectedPack == nil else { return }
+            for _ in 0..<40 where library.packs.isEmpty { try? await Task.sleep(for: .milliseconds(100)) }
+            if let pack = library.packs.first { viewModel.selectedPack = pack }
+        }
+        #endif
         .navigationDestination(item: $viewModel.selectedPack) { pack in
             GameDubRoundView(pack: pack)
         }
@@ -77,10 +92,6 @@ struct GameScenePickerView: View {
             HStack {
                 GameRoundButton(symbol: "chevron.backward", label: Strings.Main.back, diameter: 50) { dismiss() }
                 Spacer()
-                GameRoundButton(symbol: "plus", label: Strings.Dub.importPack, diameter: 50) {
-                    viewModel.requestImport()
-                }
-                .disabled(library.isImporting)
             }
         }
         .padding(.horizontal, 16)
@@ -165,5 +176,67 @@ private struct SceneCard: View {
         .buttonStyle(CardPressStyle())
         .accessibilityLabel(pack.title)
         .accessibilityValue("\(recorded) / \(pack.lines.count)")
+    }
+}
+
+/// The empty slot at the head of the scenes: a ghost of a scene card, the same size, with a
+/// dashed outline and a plus where the still would be. It opens the import gate, which asks
+/// whether the movie is already on the phone and helps find one if not.
+private struct AddSceneCard: View {
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            VStack(alignment: .leading, spacing: 10) {
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .fill(Color.gameIvory.opacity(0.06))
+                    .aspectRatio(16 / 9, contentMode: .fit)
+                    .frame(maxWidth: .infinity)
+                    .overlay {
+                        Image(systemName: "plus")
+                            .font(.system(size: 30, weight: .heavy))
+                            .foregroundStyle(Color.gameNavy)
+                            .frame(width: 64, height: 64)
+                            .background(Circle().fill(Color.gameCyan))
+                            .overlay(Circle().strokeBorder(Color.gameNavy, lineWidth: 3))
+                            .background(Circle().fill(Color.gameNavy).offset(y: 4))
+                    }
+
+                // The same rows as a scene card, so the two are exactly the same height.
+                HStack(alignment: .center, spacing: 10) {
+                    Text(Strings.Dub.importPack)
+                        .font(.gameDisplay(22))
+                        .foregroundStyle(Color.gameIvory)
+                        .lineLimit(2)
+                    Spacer(minLength: 0)
+                    Text("0:00")
+                        .font(.game(14, weight: .bold))
+                        .hidden()
+                }
+                HStack(spacing: 4) {
+                    Capsule()
+                        .fill(Color.gameIvory.opacity(0.12))
+                        .frame(height: 14)
+                    Text("0/0")
+                        .font(.gameDisplay(15))
+                        .fixedSize()
+                        .padding(.leading, 4)
+                        .hidden()
+                }
+            }
+            .padding(14)
+            .background(
+                RoundedRectangle(cornerRadius: 22, style: .continuous)
+                    .fill(Color.gameNavy.opacity(0.45))
+            )
+            // Where a scene card's lip would be, so the row spacing matches.
+            .padding(.bottom, 5)
+            .overlay(
+                RoundedRectangle(cornerRadius: 22, style: .continuous)
+                    .strokeBorder(Color.gameIvory.opacity(0.7), style: StrokeStyle(lineWidth: 3.5, dash: [14, 10]))
+            )
+        }
+        .buttonStyle(CardPressStyle())
+        .accessibilityLabel(Strings.Dub.importPack)
     }
 }

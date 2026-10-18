@@ -21,7 +21,7 @@ struct DubShareNoticeModal: View {
 
     var body: some View {
         EditorModal(title: pack.title, onClose: cancel) {
-            Image("megaphone")
+            Image(GameArtName.object("megaphone"))
                 .resizable()
                 .scaledToFit()
                 .frame(width: 88, height: 88)

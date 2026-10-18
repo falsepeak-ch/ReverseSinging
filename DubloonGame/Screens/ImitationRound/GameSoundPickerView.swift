@@ -46,7 +46,15 @@ struct GameSoundPickerView: View {
             })
             .id(sound.id)
         }
-        .onAppear { viewModel.onAppear() }
+        .onAppear {
+            viewModel.onAppear()
+            #if DEBUG
+            if GameShot.current == .imitate, viewModel.selectedSound == nil,
+               let cat = ImitationSoundLibrary.all.first(where: { $0.id == "cat" }) ?? ImitationSoundLibrary.all.first {
+                viewModel.selectedSound = cat
+            }
+            #endif
+        }
     }
 
     private var header: some View {

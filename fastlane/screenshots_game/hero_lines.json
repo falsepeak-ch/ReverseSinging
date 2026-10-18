@@ -1,0 +1,23 @@
+{
+  "en-US": { "lproj": "en", "lines": ["Dub the scene.", "Copy the sound.", "Win the show!"] },
+  "es-ES": { "lproj": "es", "lines": ["Dobla la escena.", "Imita el sonido.", "¡Gana el show!"] },
+  "ca": { "lproj": "ca", "lines": ["Dobla l'escena.", "Imita el so.", "Guanya el xou!"] },
+  "fr-FR": { "lproj": "fr", "lines": ["Double la scène.", "Imite le son.", "Gagne le show !"] },
+  "it": { "lproj": "it", "lines": ["Doppia la scena.", "Imita il suono.", "Vinci lo show!"] },
+  "pt-PT": { "lproj": "pt-PT", "lines": ["Dobra a cena.", "Imita o som.", "Ganha o show!"] },
+  "de-DE": { "lproj": "de", "lines": ["Sprich die Szene.", "Mach den Sound nach.", "Gewinn die Show!"] },
+  "nl-NL": { "lproj": "nl", "lines": ["Dub de scène.", "Doe het geluid na.", "Win de show!"] },
+  "da": { "lproj": "da", "lines": ["Dub scenen.", "Efterlign lyden.", "Vind showet!"] },
+  "sv": { "lproj": "sv", "lines": ["Dubba scenen.", "Härma ljudet.", "Vinn showen!"] },
+  "no": { "lproj": "nb", "lines": ["Dubb scenen.", "Herm etter lyden.", "Vinn showet!"] },
+  "fi": { "lproj": "fi", "lines": ["Dubbaa kohtaus.", "Matki ääntä.", "Voita show!"] },
+  "pl": { "lproj": "pl", "lines": ["Zdubbinguj scenę.", "Naśladuj dźwięk.", "Wygraj show!"] },
+  "cs": { "lproj": "cs", "lines": ["Nadabuj scénu.", "Napodob zvuk.", "Vyhraj show!"] },
+  "el": { "lproj": "el", "lines": ["Μεταγλώττισε τη σκηνή.", "Μιμήσου τον ήχο.", "Κέρδισε το σόου!"] },
+  "ru": { "lproj": "ru", "lines": ["Озвучь сцену.", "Повтори звук.", "Выиграй шоу!"] },
+  "uk": { "lproj": "uk", "lines": ["Озвуч сцену.", "Повтори звук.", "Виграй шоу!"] },
+  "tr": { "lproj": "tr", "lines": ["Sahneyi seslendir.", "Sesi taklit et.", "Şovu kazan!"] },
+  "ja": { "lproj": "ja", "lines": ["シーンをアフレコ。", "音をモノマネ。", "ショーで勝て！"] },
+  "ar-SA": { "lproj": "ar", "lines": ["دبلج المشهد.", "قلّد الصوت.", "اربح العرض!"] },
+  "th": { "lproj": "th", "lines": ["พากย์ฉากหนัง", "เลียนเสียง", "ชนะโชว์!"] }
+}

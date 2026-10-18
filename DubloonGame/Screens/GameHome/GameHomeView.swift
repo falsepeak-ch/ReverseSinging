@@ -50,6 +50,13 @@ struct GameHomeView: View {
             .onAppear {
                 isStageVisible = true
                 viewModel.onAppear()
+                #if DEBUG
+                if let shot = GameShot.current {
+                    if shot.opensScenes, viewModel.path.isEmpty { viewModel.open(.dub) }
+                    if shot.opensSounds, viewModel.path.isEmpty { viewModel.open(.imitate) }
+                    return
+                }
+                #endif
                 offerRemindersIfDue()
             }
             .onDisappear { isStageVisible = false }
