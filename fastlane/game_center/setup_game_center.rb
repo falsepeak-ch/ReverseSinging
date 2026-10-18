@@ -39,13 +39,13 @@ LEADERBOARDS = [
     suffix: " points", singular: " point", weekly: true },
 ].freeze
 
-# Points add up to 1000, Game Center's ceiling for an app.
+# 100 points at most each (Game Center caps an achievement at 100 and an app at 1000).
 ACHIEVEMENTS = [
   { id: "dubloon.game.achievement.first_take", ref: "First Take", points: 50, file: "first_take.png",
     name: "On Air", before: "Finish your first take.", after: "You finished your first take. Welcome to the show!" },
   { id: "dubloon.game.achievement.first_three_stars", ref: "First Three Stars", points: 100, file: "first_three_stars.png",
     name: "Star of the Show", before: "Win three stars on a sound.", after: "Three stars on a sound. The crowd goes wild!" },
-  { id: "dubloon.game.achievement.ten_three_stars", ref: "Ten Three Stars", points: 150, file: "ten_three_stars.png",
+  { id: "dubloon.game.achievement.ten_three_stars", ref: "Ten Three Stars", points: 100, file: "ten_three_stars.png",
     name: "Encore x10", before: "Win three stars on ten sounds.", after: "Three stars on ten sounds. Encore!" },
   { id: "dubloon.game.achievement.every_sound", ref: "Every Sound", points: 100, file: "every_sound.png",
     name: "Sound Collector", before: "Try every sound in Sound Imitation.", after: "You tried every sound in the show." },
@@ -55,9 +55,9 @@ ACHIEVEMENTS = [
     name: "Lip Sync Legend", before: "Score 90 or more on a dubbed line.", after: "90 or more on a dubbed line. Spot on!" },
   { id: "dubloon.game.achievement.scene_wrapped", ref: "Scene Wrapped", points: 100, file: "scene_wrapped.png",
     name: "That's a Wrap", before: "Dub every line of a movie scene.", after: "You dubbed a whole scene. That's a wrap!" },
-  { id: "dubloon.game.achievement.perfect_take", ref: "Perfect Take", points: 150, file: "perfect_take.png",
+  { id: "dubloon.game.achievement.perfect_take", ref: "Perfect Take", points: 100, file: "perfect_take.png",
     name: "Perfect Take", before: "Get a perfect grade on any take.", after: "A perfect take. Take a bow!" },
-  { id: "dubloon.game.achievement.hundred_stars", ref: "Hundred Stars", points: 150, file: "hundred_stars.png",
+  { id: "dubloon.game.achievement.hundred_stars", ref: "Hundred Stars", points: 100, file: "hundred_stars.png",
     name: "Superstar", before: "Collect 100 stars in Sound Imitation.", after: "100 stars collected. A true superstar!" },
 ].freeze
 
@@ -97,7 +97,7 @@ rescue RuntimeError => e
   nil
 end
 detail ||= api(:post, "/v1/gameCenterDetails", {
-  data: { type: "gameCenterDetails", attributes: { challengeEnabled: true },
+  data: { type: "gameCenterDetails",
           relationships: { app: relationship("apps", app["id"]) } }
 })["data"]
 puts "game center detail #{detail['id']}"
@@ -113,7 +113,7 @@ LEADERBOARDS.each do |board|
     referenceName: board[:ref], vendorIdentifier: board[:id], defaultFormatter: "INTEGER",
     submissionType: "BEST_SCORE", scoreSortType: "DESC",
   }
-  attributes.merge!(recurrenceStartDate: WEEKLY_START, recurrenceDuration: "P7D") if board[:weekly]
+  attributes.merge!(recurrenceStartDate: WEEKLY_START, recurrenceDuration: "PT168H", recurrenceRule: "FREQ=DAILY;INTERVAL=7") if board[:weekly]
   created = api(:post, "/v1/gameCenterLeaderboards", {
     data: { type: "gameCenterLeaderboards", attributes: attributes,
             relationships: { gameCenterDetail: relationship("gameCenterDetails", detail["id"]) } }
