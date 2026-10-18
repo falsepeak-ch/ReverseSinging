@@ -152,6 +152,20 @@ nonisolated struct DubMixer {
             waveURL = url
         }
 
+        // The game puts its stage behind a vertical export, so no part of the frame is black.
+        var bedURL: URL?
+        #if DUBLOON_GAME
+        if frame.isVertical {
+            let url = workingDirectory.appendingPathComponent("bed.mp4")
+            try await DubWaveOverlay.renderGameBed(
+                size: CGSize(width: 1080, height: 1920),
+                duration: segments.reduce(0) { $0 + $1.duration },
+                to: url
+            )
+            bedURL = url
+        }
+        #endif
+
         let composed = try await DubBoothComposer.compose(
             pack: pack,
             segments: segments,
@@ -160,7 +174,8 @@ nonisolated struct DubMixer {
             sceneVideo: videoURL,
             audio: cutAudioURL,
             boothClips: boothClips(in: pack),
-            waveVideo: waveURL
+            waveVideo: waveURL,
+            bedVideo: bedURL
         )
 
         let finalURL = try await write(composed, pack: pack, progress: progress)

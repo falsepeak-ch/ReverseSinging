@@ -47,7 +47,7 @@ extension Font {
 /// languages it cannot spell (Czech, Polish, Catalan, Turkish, Greek, Cyrillic, Japanese)
 /// get M PLUS Rounded 1c Black, which can. Arabic and Thai, which neither has, keep the
 /// system's rounded heavy weight.
-enum GameFont {
+nonisolated enum GameFont {
     private static let files = ["LilitaOne-Regular", "MPLUSRounded1c-Black"]
     private static let lilitaLanguages: Set<String> = ["en", "de", "es", "fr", "it", "nl", "da", "sv", "nb", "fi", "pt"]
 

@@ -19,6 +19,13 @@ import SwiftUI
 /// the user gives their answer. Once there is an answer, the dialog can be closed like any
 /// other; see `BoothCamPrimerViewModel`.
 struct BoothCamPrimerModal: View {
+    #if DUBLOON_GAME
+    /// The game draws the camera in its own outlined style.
+    static let artwork = "game-settings-booth-cam"
+    #else
+    static let artwork = "settings-booth-cam"
+    #endif
+
 
     @StateObject private var viewModel: BoothCamPrimerViewModel
 
@@ -133,7 +140,7 @@ struct BoothCamPrimerModal: View {
     }
 
     private var illustration: some View {
-        Image("settings-booth-cam")
+        Image(Self.artwork)
             .resizable()
             .scaledToFit()
             .frame(width: 88, height: 88)

@@ -130,3 +130,27 @@
 
 /* Under Unlock Dubloon Pro in the game's settings: what Pro gives */
 "game.settings.unlock.desc" = "Les 3 primeres preses són gratis. Amb Dubloon Pro, totes les rondes són il·limitades.";
+
+/* Help, in the game's words. Same keys as the shared Help; the game reads these first. */
+"help.gettingStarted.1.q" = "Què és Dubloon the Game?";
+"help.gettingStarted.1.a" = "Un concurs de veu amb dos jocs. Doblatge d'escenes: posa la teva veu en una escena de pel·lícula, frase a frase, i rep una puntuació. Imitació de sons: imita un so i guanya fins a tres estrelles. El presentador t'acompanya a cada ronda.";
+"help.gettingStarted.2.q" = "És gratuït?";
+"help.gettingStarted.2.a" = "Els dos jocs són gratuïts. Les teves primeres 3 preses són gratis, comptades entre tots dos jocs. Després, cada escena i cada so continuen oberts, i Dubloon Pro et deixa seguir gravant sense límit.";
+"help.dub.1.q" = "Com doblo una escena?";
+"help.dub.1.a" = "Obre Doblatge d'escenes i tria una escena. A cada frase, toca l'altaveu per sentir l'original i després prem el micro: tens tres tocs de compte enrere, i el micro es tanca sol quan s'acaba la frase. Fes servir les fletxes per moure't entre frases.";
+"help.dub.4.q" = "Com veig o comparteixo el meu doblatge?";
+"help.dub.4.a" = "A l'última frase, toca Veure el meu doblatge per veure les teves preses dins la pel·lícula. Toca Crear vídeo per tenir un vídeo vertical a punt per a TikTok, Reels or Shorts, amb les imatges de la càmera de cabina sota l'escena si en vas gravar.";
+"help.imitate.1.q" = "Com funciona la Imitació de sons?";
+"help.imitate.1.a" = "Tria un so, toca l'altaveu per sentir-lo, prem el micro i fes tu el so. El presentador puntua el ritme, el to, el timbre i la durada, i encén fins a tres estrelles. Es guarda la teva millor puntuació, així que pots tornar i superar-la.";
+"help.imitate.3.q" = "Puc compartir un intent?";
+"help.imitate.3.a" = "Sí. Després d'una puntuació, toca Crear vídeo: un vídeo vertical amb el so, el teu intent i la teva puntuació. Amb la càmera de cabina encesa, també hi surt la teva cara.";
+"help.booth.1.q" = "Què és la càmera de cabina?";
+"help.booth.1.a" = "La càmera de cabina et grava la cara amb la càmera frontal mentre actues, perquè la teva reacció pugui anar al vídeo. Encén-la amb la tecla de càmera de dalt de la ronda o als Ajustos. Les imatges es queden al teu dispositiu.";
+"help.booth.2.q" = "Com creo un vídeo?";
+"help.booth.2.a" = "A Doblatge d'escenes, arriba a l'última frase i toca Crear vídeo. A Imitació de sons, toca Crear vídeo després d'una puntuació. Tots dos fan un vídeo vertical per a TikTok, Reels or Shorts. Abans de renderitzar un doblatge, el joc mostra de qui és l'escena, perquè en conservis el crèdit en compartir.";
+"help.pro.1.q" = "Què desbloqueja Dubloon Pro?";
+"help.pro.1.a" = "Preses il·limitades als dos jocs, Doblatge d'escenes i Imitació de sons. Sense Pro, les teves primeres 3 preses són gratuïtes. Pro és una compra única o una subscripció. Pertany a aquest joc: una compra a l'app Dubloon no hi passa.";
+"help.troubleshooting.1.q" = "El joc no m'escolta.";
+"help.troubleshooting.1.a" = "Comprova que el joc pot fer servir el micròfon: a l'app Configuració, obre Dubloon Game i activa Micròfon. Si una altra app està fent servir l'àudio, com ara una trucada, acaba-la i torna-ho a provar.";
+"help.troubleshooting.4.q" = "La càmera de cabina no s'encén.";
+"help.troubleshooting.4.a" = "El joc necessita la càmera per a això. A l'app Configuració, obre Dubloon Game i activa Càmera.";

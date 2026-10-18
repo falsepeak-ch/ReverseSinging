@@ -130,3 +130,27 @@
 
 /* Under Unlock Dubloon Pro in the game's settings: what Pro gives */
 "game.settings.unlock.desc" = "Le prime 3 take sono gratis. Con Dubloon Pro ogni round è illimitato.";
+
+/* Help, in the game's words. Same keys as the shared Help; the game reads these first. */
+"help.gettingStarted.1.q" = "Che cos'è Dubloon the Game?";
+"help.gettingStarted.1.a" = "Un quiz show di voce con due giochi. Doppiaggio di scene: metti la tua voce in una scena di film, battuta per battuta, e ricevi un punteggio. Imitazione di suoni: imita un suono e vinci fino a tre stelle. Il presentatore ti accompagna in ogni round.";
+"help.gettingStarted.2.q" = "È gratis?";
+"help.gettingStarted.2.a" = "Entrambi i giochi sono gratuiti. Le tue prime 3 take sono gratis, contate su entrambi i giochi. Dopo, ogni scena e ogni suono si aprono comunque, e Dubloon Pro ti lascia registrare senza limiti.";
+"help.dub.1.q" = "Come doppio una scena?";
+"help.dub.1.a" = "Apri Doppiaggio di scene e scegli una scena. Per ogni battuta, tocca l'altoparlante per sentire l'originale e poi premi il microfono: hai tre battiti di conto alla rovescia, e il microfono si chiude da solo quando la battuta finisce. Usa le frecce per spostarti tra le battute.";
+"help.dub.4.q" = "Come guardo o condivido il mio doppiaggio?";
+"help.dub.4.a" = "All'ultima battuta, tocca Guarda il mio doppiaggio per vedere le tue take nel film. Tocca Crea video per un video verticale pronto per TikTok, Reels or Shorts, con il girato di Booth Cam sotto la scena se ne hai ripreso.";
+"help.imitate.1.q" = "Come funziona l'Imitazione di suoni?";
+"help.imitate.1.a" = "Scegli un suono, tocca l'altoparlante per ascoltarlo, poi premi il microfono e fai tu il suono. Il presentatore valuta ritmo, intonazione, timbro e durata e accende fino a tre stelle. Il tuo punteggio migliore viene salvato, così puoi tornare a batterlo.";
+"help.imitate.3.q" = "Posso condividere un tentativo?";
+"help.imitate.3.a" = "Sì. Dopo un punteggio, tocca Crea video: un video verticale con il suono, il tuo tentativo e il tuo punteggio. Con Booth Cam accesa, c'è anche la tua faccia.";
+"help.booth.1.q" = "Che cos'è Booth Cam?";
+"help.booth.1.a" = "Booth Cam riprende la tua faccia con la fotocamera frontale mentre reciti, così la tua reazione può finire nel video. Accendila con il tasto fotocamera in alto in un round o nelle Impostazioni. Il girato resta sul tuo dispositivo.";
+"help.booth.2.q" = "Come creo un video?";
+"help.booth.2.a" = "In Doppiaggio di scene, arriva all'ultima battuta e tocca Crea video. In Imitazione di suoni, tocca Crea video dopo un punteggio. Entrambi fanno un video verticale per TikTok, Reels or Shorts. Prima di elaborare un doppiaggio, il gioco mostra di chi è la scena, così mantieni i crediti quando condividi.";
+"help.pro.1.q" = "Cosa sblocca Dubloon Pro?";
+"help.pro.1.a" = "Take illimitate in entrambi i giochi, Doppiaggio di scene e Imitazione di suoni. Senza Pro, le tue prime 3 take sono gratis. Pro è un acquisto unico o un abbonamento. Appartiene a questo gioco: un acquisto nell'app Dubloon non si trasferisce.";
+"help.troubleshooting.1.q" = "Il gioco non mi sente.";
+"help.troubleshooting.1.a" = "Controlla che il gioco possa usare il microfono: nell'app Impostazioni, apri Dubloon Game e attiva Microfono. Se un'altra app sta usando l'audio, come una chiamata, chiudila e riprova.";
+"help.troubleshooting.4.q" = "Booth Cam non si accende.";
+"help.troubleshooting.4.a" = "Il gioco ha bisogno della fotocamera per questo. Nell'app Impostazioni, apri Dubloon Game e attiva Fotocamera.";

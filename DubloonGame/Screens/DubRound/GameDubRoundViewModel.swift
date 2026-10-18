@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import DubScoring
+import DubCompositing
 
 /// Owns a scene's `DubSessionViewModel` and its `DubRecordViewModel`, the same two the iPhone
 /// app's recorder uses, and adds what the game needs on top: when a score is being revealed,
@@ -21,6 +22,11 @@ final class GameDubRoundViewModel: ObservableObject {
     /// The score being revealed on the monitor, until the line changes or the mic opens again.
     @Published private(set) var reveal: DubLineScore?
     @Published var playbackMode: DubPlaybackMode?
+    /// The "before you share" notice, shown before every export.
+    @Published var isShareNoticePresented = false
+    /// 0...1 while a video renders, nil otherwise.
+    @Published private(set) var exportProgress: Double?
+    @Published var exportedURL: URL?
 
     private var cancellables = Set<AnyCancellable>()
     private var hasStarted = false
@@ -153,6 +159,54 @@ final class GameDubRoundViewModel: ObservableObject {
     func watchDub() {
         recorder.stop()
         playbackMode = .myDub
+    }
+
+    // MARK: - Video
+
+    /// The scene as a vertical video for sharing: the film on top, the player's booth footage
+    /// under it where there is some, and the game's band at the foot.
+    func makeVideo() {
+        guard session.hasAnyTake, exportProgress == nil else { return }
+        recorder.stop()
+        isShareNoticePresented = true
+    }
+
+    func confirmVideo() {
+        Task { await renderVideo() }
+    }
+
+    private func renderVideo() async {
+        session.stopPlayback()
+        exportProgress = 0
+        defer { exportProgress = nil }
+        let work = LongRunningWork(name: "game.dub.export")
+        defer { work.end() }
+        do {
+            let url = try await DubMixer.shared.export(
+                pack: pack,
+                cut: .fullScene,
+                frame: .stacked,
+                includesBooth: true
+            ) { [weak self] stage, value in
+                Task { @MainActor [weak self] in
+                    // The render is nine tenths of the wait; the mix and the picture are quick.
+                    let base: Double = switch stage {
+                    case .mixingAudio: 0
+                    case .renderingVideo: 0.08
+                    case .finishing: 0.95
+                    }
+                    let span: Double = stage == .renderingVideo ? 0.87 : 0.05
+                    self?.exportProgress = min(1, base + span * value)
+                }
+            }
+            exportedURL = url
+            GameSFX.play(.fanfare)
+            HapticManager.shared.success()
+        } catch {
+            session.errorMessage = error.localizedDescription
+            HapticManager.shared.error()
+            CrashReporter.shared.record(error, context: "game.dub.export", keys: ["line_count": pack.lines.count])
+        }
     }
 }
 

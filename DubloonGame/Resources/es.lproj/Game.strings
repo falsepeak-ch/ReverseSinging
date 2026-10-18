@@ -130,3 +130,27 @@
 
 /* Under Unlock Dubloon Pro in the game's settings: what Pro gives */
 "game.settings.unlock.desc" = "Tus 3 primeras tomas son gratis. Con Dubloon Pro, todas las rondas son ilimitadas.";
+
+/* Help, in the game's words. Same keys as the shared Help; the game reads these first. */
+"help.gettingStarted.1.q" = "¿Qué es Dubloon the Game?";
+"help.gettingStarted.1.a" = "Un concurso de voz con dos juegos. Doblaje de escenas: pon tu voz en una escena de película, frase a frase, y recibe una puntuación. Imitación de sonidos: imita un sonido y gana hasta tres estrellas. El presentador te acompaña en cada ronda.";
+"help.gettingStarted.2.q" = "¿Es gratis?";
+"help.gettingStarted.2.a" = "Los dos juegos son gratis. Tus primeras 3 tomas son gratis, contadas entre ambos juegos. Después, cada escena y cada sonido siguen abiertos, y Dubloon Pro te deja seguir grabando sin límite.";
+"help.dub.1.q" = "¿Cómo doblo una escena?";
+"help.dub.1.a" = "Abre Doblaje de escenas y elige una escena. En cada frase, toca el altavoz para oír el original y luego pulsa el micro: tienes tres toques de cuenta atrás, y el micro se cierra solo cuando termina la frase. Usa las flechas para moverte entre frases.";
+"help.dub.4.q" = "¿Cómo veo o comparto mi doblaje?";
+"help.dub.4.a" = "En la última frase, toca Ver mi doblaje para ver tus tomas dentro de la película. Toca Crear vídeo para obtener un vídeo vertical listo para TikTok, Reels or Shorts, con las imágenes de la cámara de cabina bajo la escena si grabaste alguna.";
+"help.imitate.1.q" = "¿Cómo funciona la Imitación de sonidos?";
+"help.imitate.1.a" = "Elige un sonido, toca el altavoz para oírlo, pulsa el micro y haz tú el sonido. El presentador puntúa tu ritmo, tono, timbre y duración, y enciende hasta tres estrellas. Se guarda tu mejor marca, así que puedes volver y superarla.";
+"help.imitate.3.q" = "¿Puedo compartir un intento?";
+"help.imitate.3.a" = "Sí. Después de una puntuación, toca Crear vídeo: un vídeo vertical con el sonido, tu intento y tu puntuación. Con la cámara de cabina encendida, también sale tu cara.";
+"help.booth.1.q" = "¿Qué es la cámara de cabina?";
+"help.booth.1.a" = "La cámara de cabina graba tu cara con la cámara frontal mientras actúas, para que tu reacción pueda ir en el vídeo. Enciéndela con la tecla de cámara de la parte superior de la ronda o en Ajustes. Las imágenes se quedan en tu dispositivo.";
+"help.booth.2.q" = "¿Cómo creo un vídeo?";
+"help.booth.2.a" = "En Doblaje de escenas, llega a la última frase y toca Crear vídeo. En Imitación de sonidos, toca Crear vídeo después de una puntuación. Los dos hacen un vídeo vertical para TikTok, Reels or Shorts. Antes de renderizar un doblaje, el juego muestra de quién es la escena, para que conserves el crédito al compartir.";
+"help.pro.1.q" = "¿Qué desbloquea Dubloon Pro?";
+"help.pro.1.a" = "Tomas ilimitadas en los dos juegos, Doblaje de escenas e Imitación de sonidos. Sin Pro, tus primeras 3 tomas son gratis. Pro es un pago único o una suscripción. Pertenece a este juego: una compra en la app Dubloon no se traspasa.";
+"help.troubleshooting.1.q" = "El juego no me oye.";
+"help.troubleshooting.1.a" = "Comprueba que el juego puede usar el micrófono: en la app Ajustes, abre Dubloon Game y activa Micrófono. Si otra app está usando el audio, como una llamada, termínala y vuelve a intentarlo.";
+"help.troubleshooting.4.q" = "La cámara de cabina no se enciende.";
+"help.troubleshooting.4.a" = "El juego necesita la cámara para eso. En la app Ajustes, abre Dubloon Game y activa Cámara.";

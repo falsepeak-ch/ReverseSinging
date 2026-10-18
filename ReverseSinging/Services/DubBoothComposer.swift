@@ -126,7 +126,8 @@ nonisolated struct DubBoothComposer {
         sceneVideo: URL,
         audio: URL,
         boothClips: [String: URL],
-        waveVideo: URL? = nil
+        waveVideo: URL? = nil,
+        bedVideo: URL? = nil
     ) async throws -> Composed {
         guard !segments.isEmpty else { throw DubExportError.nothingRecorded }
 
@@ -253,6 +254,24 @@ nonisolated struct DubBoothComposer {
             }
         }
 
+        // The backdrop under everything, when there is one: the same running length as the strip.
+        var bedTrack: AVMutableCompositionTrack?
+        if let bedVideo, frame.isVertical {
+            let bedAsset = AVURLAsset(url: bedVideo)
+            if let bedSource = try? await bedAsset.loadTracks(withMediaType: .video).first,
+               let track = composition.addMutableTrack(
+                   withMediaType: .video,
+                   preferredTrackID: kCMPersistentTrackID_Invalid
+               ) {
+                let bedDuration = try await bedAsset.load(.duration)
+                let range = clamp(CMTimeRange(start: .zero, duration: cursor), to: bedDuration)
+                if range.duration.seconds > 0 {
+                    try track.insertTimeRange(range, of: bedSource, at: .zero)
+                    bedTrack = track
+                }
+            }
+        }
+
         let hasBooth = boothTrack != nil && boothSource != nil && !boothRanges.isEmpty
 
         // Nothing to lay over the picture, and no reshaping asked for: hand back a plain
@@ -278,7 +297,8 @@ nonisolated struct DubBoothComposer {
             boothRanges: hasBooth ? boothRanges : [],
             duration: cursor,
             frameRate: sceneFrameRate ?? 0,
-            waveTrack: waveTrack
+            waveTrack: waveTrack,
+            bedTrack: bedTrack
         )
 
         return Composed(composition: composition, videoComposition: videoComposition, duration: cursor)
@@ -302,7 +322,8 @@ nonisolated struct DubBoothComposer {
         boothRanges: [CMTimeRange],
         duration: CMTime,
         frameRate: Float,
-        waveTrack: AVMutableCompositionTrack?
+        waveTrack: AVMutableCompositionTrack?,
+        bedTrack: AVMutableCompositionTrack? = nil
     ) throws -> AVVideoComposition {
         let composition = AVMutableVideoComposition()
         composition.renderSize = layout.renderSize
@@ -343,9 +364,17 @@ nonisolated struct DubBoothComposer {
 
             let scene = AVMutableVideoCompositionLayerInstruction(assetTrack: sceneTrack)
 
+            // Back-most: the backdrop, filling the canvas.
+            var bed: [AVMutableVideoCompositionLayerInstruction] = []
+            if let bedTrack {
+                let layer = AVMutableVideoCompositionLayerInstruction(assetTrack: bedTrack)
+                layer.setTransform(.identity, at: .zero)
+                bed = [layer]
+            }
+
             guard range.hasBooth, let boothTrack, let boothTransform else {
                 scene.setTransform(alone, at: .zero)
-                instruction.layerInstructions = wave + [scene]
+                instruction.layerInstructions = wave + [scene] + bed
                 instructions.append(instruction)
                 continue
             }
@@ -359,7 +388,7 @@ nonisolated struct DubBoothComposer {
             // which is what `DubBoothLayout` arranges its rects around.
             let pictures: [AVMutableVideoCompositionLayerInstruction] =
                 layout.boothIsOnTop ? [booth, scene] : [scene, booth]
-            instruction.layerInstructions = wave + pictures
+            instruction.layerInstructions = wave + pictures + bed
             instructions.append(instruction)
         }
 

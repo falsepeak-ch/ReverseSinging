@@ -23,11 +23,11 @@ nonisolated enum HelpTopic: String, CaseIterable, Identifiable, Sendable {
 
     var id: String { rawValue }
 
-    /// The chapters this build has. Dubloon the Game has no reverse singing, no home video
-    /// and no Booth Cam, so it leaves their chapters out.
+    /// The chapters this build has. Dubloon the Game has no reverse singing and no home
+    /// video, so it leaves their chapters out.
     static var available: [HelpTopic] {
         #if DUBLOON_GAME
-        allCases.filter { ![.reverse, .homeVideo, .booth].contains($0) }
+        allCases.filter { ![.reverse, .homeVideo].contains($0) }
         #else
         allCases
         #endif
@@ -96,8 +96,14 @@ nonisolated struct HelpArticle: Identifiable, Hashable, Sendable {
     var answer: String { Self.text("help.\(id).a") }
 
     /// The Mac's wording where it has one (`….mac`: clicks, menus and System Settings rather
-    /// than taps and the Settings app), and the shared text everywhere else.
+    /// than taps and the Settings app), the game's where it has one (`Game.strings`: two games,
+    /// not four), and the shared text everywhere else.
     private static func text(_ key: String) -> String {
+        #if DUBLOON_GAME
+        let none = "\u{0}"
+        let game = Bundle.main.localizedString(forKey: key, value: none, table: "Game")
+        if game != none { return game }
+        #endif
         #if os(macOS)
         let missing = "\u{0}"
         let mac = Bundle.main.localizedString(forKey: key + ".mac", value: missing, table: nil)

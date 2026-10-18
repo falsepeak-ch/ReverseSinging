@@ -130,3 +130,27 @@
 
 /* Under Unlock Dubloon Pro in the game's settings: what Pro gives */
 "game.settings.unlock.desc" = "Pierwsze 3 podejścia są za darmo. Z Dubloon Pro każda runda jest bez limitu.";
+
+/* Help, in the game's words. Same keys as the shared Help; the game reads these first. */
+"help.gettingStarted.1.q" = "Czym jest Dubloon the Game?";
+"help.gettingStarted.1.a" = "Teleturniej głosowy z dwiema grami. Dubbing sceny: podłóż swój głos pod scenę z filmu, kwestia po kwestii, i zdobądź ocenę. Naśladowanie dźwięków: naśladuj dźwięk i wygraj do trzech gwiazdek. Prowadzący przeprowadzi cię przez każdą rundę.";
+"help.gettingStarted.2.q" = "Czy to jest darmowe?";
+"help.gettingStarted.2.a" = "W obie gry można grać za darmo. Twoje pierwsze 3 podejścia są darmowe, liczone razem w obu grach. Potem każda scena i każdy dźwięk nadal się otwierają, a Dubloon Pro pozwala nagrywać bez limitu.";
+"help.dub.1.q" = "Jak zdubbingować scenę?";
+"help.dub.1.a" = "Otwórz Dubbing sceny i wybierz scenę. Przy każdej kwestii stuknij głośnik, żeby usłyszeć oryginał, a potem naciśnij mikrofon: dostajesz trzy uderzenia odliczania, a mikrofon sam się zamyka, gdy kwestia się kończy. Strzałkami przechodzisz między kwestiami.";
+"help.dub.4.q" = "Jak obejrzeć lub udostępnić swój dubbing?";
+"help.dub.4.a" = "Przy ostatniej kwestii stuknij Obejrzyj mój dubbing, żeby zobaczyć swoje podejścia w filmie. Stuknij Zrób wideo, żeby dostać pionowe wideo gotowe na TikTok, Reels or Shorts, z materiałem z Booth Cam pod sceną, jeśli coś nagrałeś.";
+"help.imitate.1.q" = "Jak działa Naśladowanie dźwięków?";
+"help.imitate.1.a" = "Wybierz dźwięk, stuknij głośnik, żeby go usłyszeć, potem naciśnij mikrofon i sam wydaj ten dźwięk. Prowadzący ocenia twój rytm, wysokość, barwę i długość i zapala do trzech gwiazdek. Twój najlepszy wynik jest zapisywany, więc możesz wrócić i go pobić.";
+"help.imitate.3.q" = "Czy mogę udostępnić swoje podejście?";
+"help.imitate.3.a" = "Tak. Po ocenie stuknij Zrób wideo: pionowe wideo z dźwiękiem, twoim podejściem i wynikiem. Z włączonym Booth Cam jest w nim też twoja twarz.";
+"help.booth.1.q" = "Czym jest Booth Cam?";
+"help.booth.1.a" = "Booth Cam nagrywa twoją twarz przednim aparatem, kiedy grasz, żeby twoja reakcja mogła trafić do wideo. Włączysz go klawiszem kamery u góry rundy albo w Ustawieniach. Materiał zostaje na twoim urządzeniu.";
+"help.booth.2.q" = "Jak zrobić wideo?";
+"help.booth.2.a" = "W Dubbingu sceny dojdź do ostatniej kwestii i stuknij Zrób wideo. W Naśladowaniu dźwięków stuknij Zrób wideo po ocenie. Oba robią pionowe wideo na TikTok, Reels or Shorts. Zanim dubbing się wyrenderuje, gra pokazuje, czyja to scena, żebyś zachował autora przy udostępnianiu.";
+"help.pro.1.q" = "Co odblokowuje Dubloon Pro?";
+"help.pro.1.a" = "Nielimitowane podejścia w obu grach, Dubbingu sceny i Naśladowaniu dźwięków. Bez Pro pierwsze 3 podejścia są darmowe. Pro to jednorazowy zakup albo subskrypcja. Należy do tej gry: zakup w aplikacji Dubloon się nie przenosi.";
+"help.troubleshooting.1.q" = "Gra mnie nie słyszy.";
+"help.troubleshooting.1.a" = "Sprawdź, czy gra może używać mikrofonu: w aplikacji Ustawienia otwórz Dubloon Game i włącz Mikrofon. Jeśli dźwięku używa inna aplikacja, na przykład trwa rozmowa, zakończ ją i spróbuj ponownie.";
+"help.troubleshooting.4.q" = "Booth Cam się nie włącza.";
+"help.troubleshooting.4.a" = "Gra potrzebuje do tego aparatu. W aplikacji Ustawienia otwórz Dubloon Game i włącz Aparat.";

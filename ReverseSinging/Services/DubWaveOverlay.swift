@@ -9,6 +9,9 @@ import AVFoundation
 import CoreGraphics
 import CoreText
 import DubAudio
+#if DUBLOON_GAME
+import UIKit
+#endif
 
 /// Draws the line the film says against the line the user said, along the bottom of a
 /// vertical export.
@@ -112,11 +115,21 @@ nonisolated enum DubWaveOverlay {
     /// Colours lifted from `Colors.swift`. Core Graphics cannot read the SwiftUI palette, and
     /// a strip that drifted from the app's own greys would look like someone else's overlay.
     private enum Ink {
+        #if DUBLOON_GAME
+        // The game show's: a navy band, the original in cyan and the take in magenta, as on
+        // the game's own comparison display.
+        static let panel = CGColor(srgbRed: 0.047, green: 0.133, blue: 0.200, alpha: 1)
+        static let rule = CGColor(srgbRed: 0.373, green: 0.827, blue: 0.953, alpha: 0.35)
+        static let reference = CGColor(srgbRed: 0.373, green: 0.827, blue: 0.953, alpha: 1)
+        static let take = CGColor(srgbRed: 0.949, green: 0.247, blue: 0.816, alpha: 0.95)
+        static let label = CGColor(srgbRed: 0.984, green: 0.965, blue: 0.918, alpha: 0.8)
+        #else
         static let panel = CGColor(srgbRed: 0.086, green: 0.094, blue: 0.106, alpha: 1)
         static let rule = CGColor(srgbRed: 0.180, green: 0.196, blue: 0.216, alpha: 1)
         static let reference = CGColor(srgbRed: 0.604, green: 0.627, blue: 0.651, alpha: 1)
         static let take = CGColor(srgbRed: 0.898, green: 0.282, blue: 0.302, alpha: 0.90)
         static let label = CGColor(srgbRed: 0.420, green: 0.447, blue: 0.471, alpha: 1)
+        #endif
         static let playhead = CGColor(srgbRed: 0.910, green: 0.918, blue: 0.925, alpha: 1)
         /// Wash over the stretch already heard. Alpha, so it dims whatever it covers rather
         /// than needing a second drawing of everything in duller colours.
@@ -138,7 +151,12 @@ nonisolated enum DubWaveOverlay {
             // The names live in their own column rather than over the bars: a label sitting on
             // a waveform is unreadable exactly where the waveform is loudest, which is the
             // part worth looking at.
+            #if DUBLOON_GAME
+            // Room for the game's wordmark beside the bars.
+            let gutter = (size.width * 0.30).rounded()
+            #else
             let gutter = (size.width * 0.16).rounded()
+            #endif
             field = CGRect(
                 x: inset + gutter,
                 y: inset,
@@ -185,11 +203,31 @@ nonisolated enum DubWaveOverlay {
         draw(bars.reference, up: true, in: metrics.field, colour: Ink.reference, into: context)
         draw(bars.take, up: false, in: metrics.field, colour: Ink.take, into: context)
 
+        #if DUBLOON_GAME
+        // A cyan rule along the top, like the rim on the game's deck.
+        context.setFillColor(Ink.reference)
+        context.fill(CGRect(x: 0, y: metrics.size.height - 6, width: metrics.size.width, height: 6))
+        drawLogo(in: metrics.column, into: context)
+        #else
         draw(labels.reference, atTop: true, in: metrics.column, colour: Ink.label, into: context)
         draw(labels.take, atTop: false, in: metrics.column, colour: Ink.label, into: context)
+        #endif
 
         return context.makeImage()
     }
+
+    #if DUBLOON_GAME
+    /// The game's wordmark, fitted into the column beside the bars. The context's origin is
+    /// the bottom left, which is Core Graphics' own, so the image draws the right way up.
+    private static func drawLogo(in column: CGRect, into context: CGContext) {
+        guard let logo = UIImage(named: "game-logo")?.cgImage else { return }
+        let aspect = CGFloat(logo.width) / CGFloat(max(logo.height, 1))
+        var w = column.width
+        var h = w / aspect
+        if h > column.height { h = column.height; w = h * aspect }
+        context.draw(logo, in: CGRect(x: column.minX + (column.width - w) / 2, y: column.midY - h / 2, width: w, height: h))
+    }
+    #endif
 
     /// One waveform, growing from the centre rule.
     private static func draw(
@@ -350,6 +388,75 @@ nonisolated enum DubWaveOverlay {
 
         guard writer.status == .completed else { throw DubExportError.writerFailed(writer.error) }
     }
+
+    #if DUBLOON_GAME
+    /// The game's backdrop for a vertical export: its stage, darkened, filling the canvas.
+    ///
+    /// Laid in as the back-most track, so the parts of the 9:16 frame no picture covers (above
+    /// and below the film on a line with no booth footage) show the set instead of black.
+    /// A still, written at two frames a second: nothing in it moves.
+    static func renderGameBed(size: CGSize, duration: TimeInterval, to url: URL) async throws {
+        let width = Int(size.width), height = Int(size.height)
+        guard let stage = UIImage(named: "game-stage")?.cgImage,
+              let context = CGContext(
+                  data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 0,
+                  space: CGColorSpace(name: CGColorSpace.sRGB) ?? CGColorSpaceCreateDeviceRGB(),
+                  bitmapInfo: CGImageAlphaInfo.premultipliedFirst.rawValue
+              ) else { throw DubExportError.renderSetupFailed }
+        let scale = max(size.width / CGFloat(stage.width), size.height / CGFloat(stage.height))
+        let drawn = CGSize(width: CGFloat(stage.width) * scale, height: CGFloat(stage.height) * scale)
+        context.draw(stage, in: CGRect(x: (size.width - drawn.width) / 2, y: (size.height - drawn.height) / 2,
+                                       width: drawn.width, height: drawn.height))
+        context.setFillColor(Ink.panel.copy(alpha: 0.72) ?? Ink.panel)
+        context.fill(CGRect(origin: .zero, size: size))
+        guard let image = context.makeImage() else { throw DubExportError.renderSetupFailed }
+
+        try? FileManager.default.removeItem(at: url)
+        let writer = try AVAssetWriter(outputURL: url, fileType: .mp4)
+        let input = AVAssetWriterInput(mediaType: .video, outputSettings: [
+            AVVideoCodecKey: AVVideoCodecType.h264,
+            AVVideoWidthKey: width,
+            AVVideoHeightKey: height,
+            AVVideoCompressionPropertiesKey: [AVVideoAverageBitRateKey: 800_000],
+        ])
+        input.expectsMediaDataInRealTime = false
+        let adaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: input, sourcePixelBufferAttributes: [
+            kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_32ARGB),
+            kCVPixelBufferWidthKey as String: width,
+            kCVPixelBufferHeightKey as String: height,
+        ])
+        guard writer.canAdd(input) else { throw DubExportError.writerFailed(nil) }
+        writer.add(input)
+        guard writer.startWriting() else { throw DubExportError.writerFailed(writer.error) }
+        writer.startSession(atSourceTime: .zero)
+
+        var buffer: CVPixelBuffer?
+        CVPixelBufferCreate(kCFAllocatorDefault, width, height, kCVPixelFormatType_32ARGB, nil, &buffer)
+        guard let buffer else { throw DubExportError.renderSetupFailed }
+        CVPixelBufferLockBaseAddress(buffer, [])
+        if let target = CGContext(
+            data: CVPixelBufferGetBaseAddress(buffer), width: width, height: height, bitsPerComponent: 8,
+            bytesPerRow: CVPixelBufferGetBytesPerRow(buffer),
+            space: CGColorSpace(name: CGColorSpace.sRGB) ?? CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: CGImageAlphaInfo.premultipliedFirst.rawValue
+        ) {
+            target.draw(image, in: CGRect(origin: .zero, size: size))
+        }
+        CVPixelBufferUnlockBaseAddress(buffer, [])
+
+        // Two frames a second, and one past the end so the track covers the whole export.
+        let frames = max(2, Int((duration * 2).rounded(.up)) + 1)
+        for frame in 0..<frames {
+            while !input.isReadyForMoreMediaData { try await Task.sleep(nanoseconds: 5_000_000) }
+            if !adaptor.append(buffer, withPresentationTime: CMTime(value: CMTimeValue(frame), timescale: 2)) {
+                throw DubExportError.writerFailed(writer.error)
+            }
+        }
+        input.markAsFinished()
+        await withCheckedContinuation { continuation in writer.finishWriting { continuation.resume() } }
+        guard writer.status == .completed else { throw DubExportError.writerFailed(writer.error) }
+    }
+    #endif
 
     /// One frame: the drawn strip, with the playhead at `progress` and everything behind it
     /// lifted to the played colour.

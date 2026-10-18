@@ -130,3 +130,27 @@
 
 /* Under Unlock Dubloon Pro in the game's settings: what Pro gives */
 "game.settings.unlock.desc" = "Je eerste 3 takes zijn gratis. Met Dubloon Pro is elke ronde onbeperkt.";
+
+/* Help, in the game's words. Same keys as the shared Help; the game reads these first. */
+"help.gettingStarted.1.q" = "Wat is Dubloon the Game?";
+"help.gettingStarted.1.a" = "Een stemgameshow met twee spellen. Filmscène dubben: zet je stem in een filmscène, zin voor zin, en krijg een score. Geluiden nadoen: doe een geluid na en win tot drie sterren. De presentator loodst je door elke ronde.";
+"help.gettingStarted.2.q" = "Is het gratis?";
+"help.gettingStarted.2.a" = "Beide spellen zijn gratis te spelen. Je eerste 3 takes zijn gratis, geteld over beide spellen samen. Daarna kun je nog steeds elke scène en elk geluid openen, en met Dubloon Pro blijf je onbeperkt opnemen.";
+"help.dub.1.q" = "Hoe dub ik een scène?";
+"help.dub.1.a" = "Open Filmscène dubben en kies een scène. Tik bij elke zin op de luidspreker om het origineel te horen en druk dan op de microfoon: je krijgt drie tellen aftellen, en de microfoon sluit vanzelf als de zin afgelopen is. Gebruik de pijlen om tussen zinnen te wisselen.";
+"help.dub.4.q" = "Hoe bekijk of deel ik mijn dub?";
+"help.dub.4.a" = "Tik bij de laatste zin op Mijn versie bekijken om je takes in de film te zien. Tik op Maak video voor een verticale video die klaar is voor TikTok, Reels or Shorts, met je Booth Cam-beelden onder de scène als je die hebt gefilmd.";
+"help.imitate.1.q" = "Hoe werkt Geluiden nadoen?";
+"help.imitate.1.a" = "Kies een geluid, tik op de luidspreker om het te horen, druk dan op de microfoon en maak het geluid zelf. De presentator beoordeelt je ritme, toonhoogte, klank en lengte en laat tot drie sterren oplichten. Je beste score wordt bewaard, dus je kunt terugkomen om hem te verbeteren.";
+"help.imitate.3.q" = "Kan ik een poging delen?";
+"help.imitate.3.a" = "Ja. Tik na een score op Maak video: een verticale video met het geluid, jouw poging en je score. Met Booth Cam aan is ook je gezicht erin te zien.";
+"help.booth.1.q" = "Wat is Booth Cam?";
+"help.booth.1.a" = "Booth Cam filmt je gezicht met de camera aan de voorkant terwijl je speelt, zodat je reactie in de video kan. Zet hem aan met de cameratoets bovenaan een ronde of in Instellingen. De beelden blijven op je apparaat.";
+"help.booth.2.q" = "Hoe maak ik een video?";
+"help.booth.2.a" = "Ga in Filmscène dubben naar de laatste zin en tik op Maak video. Tik in Geluiden nadoen na een score op Maak video. Beide maken een verticale video voor TikTok, Reels or Shorts. Voordat een dub wordt gerenderd, laat het spel zien van wie de scène is, zodat je de credits behoudt als je deelt.";
+"help.pro.1.q" = "Wat ontgrendelt Dubloon Pro?";
+"help.pro.1.a" = "Onbeperkt takes in beide spellen, Filmscène dubben en Geluiden nadoen. Zonder Pro zijn je eerste 3 takes gratis. Pro is een eenmalige aankoop of een abonnement. Het hoort bij dit spel: een aankoop in de Dubloon-app wordt niet overgenomen.";
+"help.troubleshooting.1.q" = "Het spel hoort me niet.";
+"help.troubleshooting.1.a" = "Check of het spel de microfoon mag gebruiken: open Dubloon Game in de Instellingen-app en zet Microfoon aan. Gebruikt een andere app de audio, zoals een gesprek, beëindig dat dan en probeer het opnieuw.";
+"help.troubleshooting.4.q" = "Booth Cam gaat niet aan.";
+"help.troubleshooting.4.a" = "Het spel heeft daarvoor de camera nodig. Open Dubloon Game in de Instellingen-app en zet Camera aan.";

@@ -130,3 +130,27 @@
 
 /* Under Unlock Dubloon Pro in the game's settings: what Pro gives */
 "game.settings.unlock.desc" = "3 ensimmäistä ottoa ovat ilmaisia. Dubloon Prolla jokainen kierros on rajaton.";
+
+/* Help, in the game's words. Same keys as the shared Help; the game reads these first. */
+"help.gettingStarted.1.q" = "Mikä Dubloon the Game on?";
+"help.gettingStarted.1.a" = "Äänipeliesitys, jossa on kaksi peliä. Kohtauksen dubbaus: laita äänesi elokuvakohtaukseen repliikki kerrallaan ja saat pisteet. Äänten matkiminen: matki ääntä ja voita jopa kolme tähteä. Juontaja opastaa sinut jokaisen kierroksen läpi.";
+"help.gettingStarted.2.q" = "Onko se ilmainen?";
+"help.gettingStarted.2.a" = "Molempia pelejä voi pelata ilmaiseksi. Ensimmäiset 3 otostasi ovat ilmaisia, ja ne lasketaan molemmista peleistä yhteensä. Sen jälkeenkin jokainen kohtaus ja ääni aukeaa, ja Dubloon Pro antaa sinun äänittää ilman rajaa.";
+"help.dub.1.q" = "Miten dubbaan kohtauksen?";
+"help.dub.1.a" = "Avaa Kohtauksen dubbaus ja valitse kohtaus. Napauta jokaisessa repliikissä kaiutinta kuullaksesi alkuperäisen ja paina sitten mikrofonia: saat kolmen iskun lähtölaskennan, ja mikki sulkeutuu itsestään, kun repliikki päättyy. Siirry repliikistä toiseen nuolilla.";
+"help.dub.4.q" = "Miten katson tai jaan dubbaukseni?";
+"help.dub.4.a" = "Napauta viimeisessä repliikissä Katso oma dubbaukseni nähdäksesi otoksesi elokuvassa. Napauta Tee video saadaksesi pystyvideon, joka on valmis kanaville TikTok, Reels or Shorts, ja jos kuvasit, Booth Cam -kuva on mukana kohtauksen alla.";
+"help.imitate.1.q" = "Miten Äänten matkiminen toimii?";
+"help.imitate.1.a" = "Valitse ääni, napauta kaiutinta kuullaksesi sen, paina sitten mikrofonia ja tee ääni itse. Juontaja pisteyttää rytmisi, sävelkorkeutesi, sävysi ja kestosi ja sytyttää jopa kolme tähteä. Paras tuloksesi tallentuu, joten voit palata ja ylittää sen.";
+"help.imitate.3.q" = "Voinko jakaa yrityksen?";
+"help.imitate.3.a" = "Voit. Napauta pisteytyksen jälkeen Tee video: pystyvideo, jossa ovat ääni, yrityksesi ja pisteesi. Kun Booth Cam on päällä, myös kasvosi ovat mukana.";
+"help.booth.1.q" = "Mikä Booth Cam on?";
+"help.booth.1.a" = "Booth Cam kuvaa kasvosi etukameralla esityksesi aikana, jotta reaktiosi voi päätyä videoon. Ota se käyttöön kierroksen yläreunan kamerapainikkeesta tai Asetuksista. Kuvamateriaali pysyy laitteellasi.";
+"help.booth.2.q" = "Miten teen videon?";
+"help.booth.2.a" = "Kohtauksen dubbauksessa siirry viimeiseen repliikkiin ja napauta Tee video. Äänten matkimisessa napauta Tee video pisteytyksen jälkeen. Molemmat tekevät pystyvideon kanaville TikTok, Reels or Shorts. Ennen kuin dubbaus renderöidään, peli näyttää, kenen kohtaus se on, jotta kuvauksen tekijä säilyy jaettaessa.";
+"help.pro.1.q" = "Mitä Dubloon Pro avaa?";
+"help.pro.1.a" = "Rajattomasti otoksia molemmissa peleissä, Kohtauksen dubbauksessa ja Äänten matkimisessa. Ilman Prota ensimmäiset 3 otostasi ovat ilmaisia. Pro on kertaosto tai tilaus. Se kuuluu tähän peliin: Dubloon-sovelluksessa tehty osto ei siirry tänne.";
+"help.troubleshooting.1.q" = "Peli ei kuule minua.";
+"help.troubleshooting.1.a" = "Tarkista, että peli saa käyttää mikrofonia: avaa Asetukset-sovelluksessa Dubloon Game ja laita Mikrofoni päälle. Jos jokin muu sovellus käyttää ääntä, esimerkiksi puhelu, lopeta se ja yritä uudelleen.";
+"help.troubleshooting.4.q" = "Booth Cam ei mene päälle.";
+"help.troubleshooting.4.a" = "Peli tarvitsee siihen kameran. Avaa Asetukset-sovelluksessa Dubloon Game ja laita Kamera päälle.";

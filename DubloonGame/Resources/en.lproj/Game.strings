@@ -130,3 +130,27 @@
 
 /* Under Unlock Dubloon Pro in the game's settings: what Pro gives */
 "game.settings.unlock.desc" = "Your first 3 takes are free. Dubloon Pro makes every round unlimited.";
+
+/* Help, in the game's words. Same keys as the shared Help; the game reads these first. */
+"help.gettingStarted.1.q" = "What is Dubloon the Game?";
+"help.gettingStarted.1.a" = "A voice game show with two games. Movie Scene Dub: put your voice into a film scene, line by line, and get scored. Sound Imitation: copy a sound and win up to three stars. The host walks you through every round.";
+"help.gettingStarted.2.q" = "Is it free?";
+"help.gettingStarted.2.a" = "Both games are free to play. Your first 3 takes are free, counted across both games. After that every scene and sound still opens, and Dubloon Pro lets you keep recording without a limit.";
+"help.dub.1.q" = "How do I dub a scene?";
+"help.dub.1.a" = "Open Movie Scene Dub and pick a scene. For each line, tap the speaker to hear the original, then press the mic: you get a three-beat count-in and the mic closes by itself when the line ends. Use the arrows to move between lines.";
+"help.dub.4.q" = "How do I watch or share my dub?";
+"help.dub.4.a" = "On the last line, tap Play My Dub to watch your takes in the film. Tap Make video for a vertical video ready for TikTok, Reels or Shorts, with your Booth Cam footage under the scene if you filmed any.";
+"help.imitate.1.q" = "How does Sound Imitation work?";
+"help.imitate.1.a" = "Pick a sound, tap the speaker to hear it, then press the mic and make the sound yourself. The host scores your rhythm, pitch, tone and length and lights up to three stars. Your best is kept, so you can come back and beat it.";
+"help.imitate.3.q" = "Can I share an attempt?";
+"help.imitate.3.a" = "Yes. After a score, tap Make video: a vertical video with the sound, your attempt and your score. With Booth Cam on, your face is in it too.";
+"help.booth.1.q" = "What is Booth Cam?";
+"help.booth.1.a" = "Booth Cam films your face with the front camera while you perform, so your reaction can go into the video. Turn it on with the camera key at the top of a round, or in Settings. The footage stays on your device.";
+"help.booth.2.q" = "How do I make a video?";
+"help.booth.2.a" = "In Movie Scene Dub, reach the last line and tap Make video. In Sound Imitation, tap Make video after a score. Both make a vertical video for TikTok, Reels or Shorts. Before a dub renders, the game shows whose scene it is, so you can keep the credit when you share.";
+"help.pro.1.q" = "What does Dubloon Pro unlock?";
+"help.pro.1.a" = "Unlimited takes in both games, Movie Scene Dub and Sound Imitation. Without it, your first 3 takes are free. Pro is a one-time purchase or a subscription. It belongs to this game: a purchase in the Dubloon app doesn't carry over.";
+"help.troubleshooting.1.q" = "The game can't hear me.";
+"help.troubleshooting.1.a" = "Check that the game may use the microphone: in the Settings app, open Dubloon Game and switch on Microphone. If another app is using the audio, such as a call, end it and try again.";
+"help.troubleshooting.4.q" = "Booth Cam won't turn on.";
+"help.troubleshooting.4.a" = "The game needs the camera for it. In the Settings app, open Dubloon Game and switch on Camera.";

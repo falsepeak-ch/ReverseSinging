@@ -23,6 +23,14 @@ struct HelpView: View {
     }
 
     var body: some View {
+        #if DUBLOON_GAME
+        GameHelpContent(viewModel: viewModel, onClose: { dismiss() }, openURL: { openURL($0) })
+        #else
+        studioHelp
+        #endif
+    }
+
+    private var studioHelp: some View {
         VStack(spacing: 0) {
             EditorHeaderBar {
                 Text(Strings.Help.title)

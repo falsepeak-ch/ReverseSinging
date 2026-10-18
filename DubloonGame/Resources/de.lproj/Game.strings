@@ -130,3 +130,27 @@
 
 /* Under Unlock Dubloon Pro in the game's settings: what Pro gives */
 "game.settings.unlock.desc" = "Deine ersten 3 Takes sind gratis. Mit Dubloon Pro ist jede Runde unbegrenzt.";
+
+/* Help, in the game's words. Same keys as the shared Help; the game reads these first. */
+"help.gettingStarted.1.q" = "Was ist Dubloon the Game?";
+"help.gettingStarted.1.a" = "Eine Stimm-Gameshow mit zwei Spielen. Filmszene synchronisieren: Leg deine Stimme Zeile für Zeile in eine Filmszene und lass dich bewerten. Geräusche imitieren: Mach ein Geräusch nach und gewinn bis zu drei Sterne. Der Moderator führt dich durch jede Runde.";
+"help.gettingStarted.2.q" = "Ist es kostenlos?";
+"help.gettingStarted.2.a" = "Beide Spiele sind kostenlos spielbar. Deine ersten 3 Takes sind gratis, gezählt über beide Spiele hinweg. Danach lässt sich weiterhin jede Szene und jedes Geräusch öffnen, und mit Dubloon Pro nimmst du ohne Limit weiter auf.";
+"help.dub.1.q" = "Wie synchronisiere ich eine Szene?";
+"help.dub.1.a" = "Öffne Filmszene synchronisieren und wähl eine Szene. Tipp bei jeder Zeile auf den Lautsprecher, um das Original zu hören, und drück dann auf das Mikro: Du bekommst drei Schläge Vorzählen, und das Mikro schließt sich von selbst, wenn die Zeile endet. Mit den Pfeilen wechselst du zwischen den Zeilen.";
+"help.dub.4.q" = "Wie sehe ich meine Fassung an oder teile sie?";
+"help.dub.4.a" = "Tipp bei der letzten Zeile auf Meine Fassung ansehen, um deine Takes im Film zu sehen. Tipp auf Video erstellen für ein Hochformat-Video, bereit für TikTok, Reels or Shorts, mit deinen Booth-Cam-Aufnahmen unter der Szene, falls du welche gefilmt hast.";
+"help.imitate.1.q" = "Wie funktioniert Geräusche imitieren?";
+"help.imitate.1.a" = "Wähl ein Geräusch, tipp auf den Lautsprecher, um es zu hören, drück dann auf das Mikro und mach das Geräusch selbst. Der Moderator bewertet Rhythmus, Tonhöhe, Klang und Länge und lässt bis zu drei Sterne aufleuchten. Dein Bestwert wird gespeichert, du kannst also wiederkommen und ihn übertreffen.";
+"help.imitate.3.q" = "Kann ich einen Versuch teilen?";
+"help.imitate.3.a" = "Ja. Tipp nach einer Wertung auf Video erstellen: ein Hochformat-Video mit dem Geräusch, deinem Versuch und deiner Wertung. Mit eingeschalteter Booth Cam ist auch dein Gesicht dabei.";
+"help.booth.1.q" = "Was ist Booth Cam?";
+"help.booth.1.a" = "Booth Cam filmt dein Gesicht mit der Frontkamera, während du spielst, damit deine Reaktion ins Video kann. Schalt sie mit der Kamerataste oben in einer Runde oder in den Einstellungen ein. Die Aufnahmen bleiben auf deinem Gerät.";
+"help.booth.2.q" = "Wie erstelle ich ein Video?";
+"help.booth.2.a" = "Geh in Filmszene synchronisieren zur letzten Zeile und tipp auf Video erstellen. Tipp in Geräusche imitieren nach einer Wertung auf Video erstellen. Beides ergibt ein Hochformat-Video für TikTok, Reels or Shorts. Bevor eine Fassung gerendert wird, zeigt das Spiel, wessen Szene es ist, damit du beim Teilen den Credit behältst.";
+"help.pro.1.q" = "Was schaltet Dubloon Pro frei?";
+"help.pro.1.a" = "Unbegrenzte Takes in beiden Spielen, Filmszene synchronisieren und Geräusche imitieren. Ohne Pro sind deine ersten 3 Takes kostenlos. Pro gibt es als Einmalkauf oder als Abo. Es gehört zu diesem Spiel: Ein Kauf in der Dubloon-App wird nicht übernommen.";
+"help.troubleshooting.1.q" = "Das Spiel hört mich nicht.";
+"help.troubleshooting.1.a" = "Prüf, ob das Spiel das Mikrofon benutzen darf: Öffne in der Einstellungen-App Dubloon Game und schalt Mikrofon ein. Nutzt eine andere App gerade das Audio, etwa ein Anruf, beende sie und versuch es noch mal.";
+"help.troubleshooting.4.q" = "Booth Cam lässt sich nicht einschalten.";
+"help.troubleshooting.4.a" = "Dafür braucht das Spiel die Kamera. Öffne in der Einstellungen-App Dubloon Game und schalt Kamera ein.";

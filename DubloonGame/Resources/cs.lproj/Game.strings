@@ -130,3 +130,27 @@
 
 /* Under Unlock Dubloon Pro in the game's settings: what Pro gives */
 "game.settings.unlock.desc" = "První 3 pokusy jsou zdarma. S Dubloon Pro je každé kolo neomezené.";
+
+/* Help, in the game's words. Same keys as the shared Help; the game reads these first. */
+"help.gettingStarted.1.q" = "Co je Dubloon the Game?";
+"help.gettingStarted.1.a" = "Hlasová herní show se dvěma hrami. Dabing filmové scény: namluv filmovou scénu repliku po replice a získej hodnocení. Napodobování zvuků: napodob zvuk a vyhraj až tři hvězdy. Moderátor tě provede každým kolem.";
+"help.gettingStarted.2.q" = "Je to zdarma?";
+"help.gettingStarted.2.a" = "Obě hry jsou zdarma. Prvních 3 pokusy jsou zdarma, počítají se v obou hrách dohromady. Pak se každá scéna i každý zvuk pořád otevřou a Dubloon Pro ti umožní nahrávat bez omezení.";
+"help.dub.1.q" = "Jak nadabuju scénu?";
+"help.dub.1.a" = "Otevři Dabing filmové scény a vyber scénu. U každé repliky klepni na reproduktor, abys slyšel originál, a pak stiskni mikrofon: dostaneš tři doby odpočtu a mikrofon se sám zavře, když replika skončí. Mezi replikami se pohybuj šipkami.";
+"help.dub.4.q" = "Jak si dabing přehraju nebo sdílím?";
+"help.dub.4.a" = "U poslední repliky klepni na Pustit můj dabing a uvidíš své záběry ve filmu. Klepnutím na Vytvořit video získáš svislé video připravené pro TikTok, Reels or Shorts, a pokud jsi natáčel, i se záběry z Booth Cam pod scénou.";
+"help.imitate.1.q" = "Jak funguje Napodobování zvuků?";
+"help.imitate.1.a" = "Vyber zvuk, klepnutím na reproduktor si ho poslechni, pak stiskni mikrofon a zvuk sám zahraj. Moderátor ohodnotí tvůj rytmus, výšku, barvu a délku a rozsvítí až tři hvězdy. Tvůj nejlepší výsledek se uloží, takže se můžeš vrátit a překonat ho.";
+"help.imitate.3.q" = "Můžu sdílet svůj pokus?";
+"help.imitate.3.a" = "Ano. Po hodnocení klepni na Vytvořit video: svislé video se zvukem, tvým pokusem a skóre. Když je Booth Cam zapnutá, je v něm i tvůj obličej.";
+"help.booth.1.q" = "Co je Booth Cam?";
+"help.booth.1.a" = "Booth Cam natáčí tvůj obličej přední kamerou, zatímco hraješ, aby se tvá reakce mohla dostat do videa. Zapneš ji klávesou kamery nahoře v kole nebo v Nastavení. Záběry zůstávají v tvém zařízení.";
+"help.booth.2.q" = "Jak vytvořím video?";
+"help.booth.2.a" = "V Dabingu filmové scény dojdi k poslední replice a klepni na Vytvořit video. V Napodobování zvuků klepni na Vytvořit video po hodnocení. Obojí vytvoří svislé video pro TikTok, Reels or Shorts. Než se dabing vykreslí, hra ukáže, čí je scéna, abys při sdílení zachoval autora.";
+"help.pro.1.q" = "Co odemyká Dubloon Pro?";
+"help.pro.1.a" = "Neomezené pokusy v obou hrách, Dabingu filmové scény i Napodobování zvuků. Bez Pro jsou první 3 pokusy zdarma. Pro je jednorázový nákup nebo předplatné. Patří k této hře: nákup v aplikaci Dubloon se sem nepřenáší.";
+"help.troubleshooting.1.q" = "Hra mě neslyší.";
+"help.troubleshooting.1.a" = "Zkontroluj, že hra smí používat mikrofon: v aplikaci Nastavení otevři Dubloon Game a zapni Mikrofon. Pokud zvuk používá jiná aplikace, třeba hovor, ukonči ji a zkus to znovu.";
+"help.troubleshooting.4.q" = "Booth Cam se nezapne.";
+"help.troubleshooting.4.a" = "Hra k tomu potřebuje kameru. V aplikaci Nastavení otevři Dubloon Game a zapni Kamera.";

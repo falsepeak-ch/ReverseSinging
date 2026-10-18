@@ -64,6 +64,15 @@ struct GameDubRoundView: View {
         } message: {
             Text(session.errorMessage ?? "")
         }
+        .task { await recorder.startBoothIfEnabled() }
+        .boothCamPrimer(isPresented: Binding(
+            get: { recorder.isBoothPrimerPresented },
+            set: { recorder.isBoothPrimerPresented = $0 }
+        )) { recorder.boothPrimerDidEnable() }
+        .dubShareNotice(isPresented: $viewModel.isShareNoticePresented, pack: viewModel.pack) {
+            viewModel.confirmVideo()
+        }
+        .sheet(item: $viewModel.exportedURL) { url in DubShareSheet(url: url) }
         .coversScreen(item: $viewModel.playbackMode) { mode in
             DubPlaybackView(session: session, mode: mode)
                 .cinemaAppearance()
@@ -144,6 +153,11 @@ struct GameDubRoundView: View {
         .padding(.horizontal, 74)
         .padding(.top, 2)
         .frame(minHeight: 56)
+        .overlay(alignment: .topTrailing) {
+            GameBoothKey { recorder.toggleBooth() }
+                .disabled(viewModel.isRecording || viewModel.isCountingIn)
+                .padding(.trailing, 16)
+        }
     }
 
     private func segmentColor(index: Int, line: DubLine) -> Color {
@@ -222,6 +236,19 @@ struct GameDubRoundView: View {
         }
         .padding(6)
         .gameCard(fill: .gameNavy, radius: 20, lip: 6)
+        // The player's face, on the monitor's corner, while Booth Cam is on.
+        .overlay(alignment: .bottomTrailing) {
+            if BoothCamPreference.shared.isEnabled, recorder.booth.isUsable {
+                GameBoothMonitor(
+                    recorder: recorder.booth,
+                    isRecording: viewModel.isRecording,
+                    playbackURL: session.boothPlaybackURL,
+                    width: 70
+                )
+                .offset(x: -10, y: 22)
+                .transition(.scale.combined(with: .opacity))
+            }
+        }
     }
 
     // MARK: - Deck
@@ -307,11 +334,23 @@ struct GameDubRoundView: View {
 
             // The end of the scene: the way to watch it, only once there is something to watch.
             if viewModel.isOnLastLine, viewModel.hasAnyTake, !viewModel.isRecording {
-                Button { viewModel.watchDub() } label: {
-                    Label(Strings.Dub.playMyDub, systemImage: "play.rectangle.fill")
+                if let progress = viewModel.exportProgress {
+                    GameExportProgress(progress: progress)
+                        .transition(.opacity)
+                } else {
+                    HStack(spacing: 10) {
+                        Button { viewModel.watchDub() } label: {
+                            Label(Strings.Dub.playMyDub, systemImage: "play.fill").frame(maxWidth: .infinity)
+                        }
+                        .buttonStyle(GamePillButtonStyle(fill: .gameCoral, height: 52))
+
+                        Button { viewModel.makeVideo() } label: {
+                            Label(Strings.Imitate.makeVideo, systemImage: "film.fill").frame(maxWidth: .infinity)
+                        }
+                        .buttonStyle(GamePillButtonStyle(height: 52))
+                    }
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
-                .buttonStyle(GamePillButtonStyle(fill: .gameCoral, height: 52))
-                .transition(.move(edge: .bottom).combined(with: .opacity))
             }
         }
     }

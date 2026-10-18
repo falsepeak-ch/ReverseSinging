@@ -130,3 +130,27 @@
 
 /* Under Unlock Dubloon Pro in the game's settings: what Pro gives */
 "game.settings.unlock.desc" = "İlk 3 çekimin ücretsiz. Dubloon Pro ile her tur sınırsız.";
+
+/* Help, in the game's words. Same keys as the shared Help; the game reads these first. */
+"help.gettingStarted.1.q" = "Dubloon the Game nedir?";
+"help.gettingStarted.1.a" = "İki oyunlu bir ses oyunu şovu. Sahne seslendirme: bir film sahnesine replik replik sesini koy ve puan al. Ses taklidi: bir sesi taklit et ve üç yıldıza kadar kazan. Sunucu seni her turda yönlendirir.";
+"help.gettingStarted.2.q" = "Ücretsiz mi?";
+"help.gettingStarted.2.a" = "İki oyun da ücretsiz oynanır. İlk 3 çekimin ücretsiz ve iki oyun birlikte sayılır. Sonrasında her sahne ve her ses yine açılır, Dubloon Pro ise sınırsız kayıt yapmanı sağlar.";
+"help.dub.1.q" = "Bir sahneyi nasıl seslendiririm?";
+"help.dub.1.a" = "Sahne seslendirme'yi aç ve bir sahne seç. Her replikte orijinali duymak için hoparlöre dokun, sonra mikrofona bas: üç vuruşluk geri sayım gelir ve replik bitince mikrofon kendiliğinden kapanır. Replikler arasında geçmek için oklara dokun.";
+"help.dub.4.q" = "Seslendirmemi nasıl izler veya paylaşırım?";
+"help.dub.4.a" = "Son replikte çekimlerini filmin içinde görmek için Kendi seslendirmemi izle'ye dokun. TikTok, Reels or Shorts için hazır dikey bir video almak için Video yap'a dokun; çektiysen Booth Cam görüntülerin sahnenin altında yer alır.";
+"help.imitate.1.q" = "Ses taklidi nasıl çalışır?";
+"help.imitate.1.a" = "Bir ses seç, duymak için hoparlöre dokun, sonra mikrofona bas ve sesi kendin çıkar. Sunucu ritmini, perdeni, tınını ve süreni puanlar ve üç yıldıza kadar yakar. En iyi sonucun saklanır, böylece dönüp onu geçebilirsin.";
+"help.imitate.3.q" = "Bir denemeyi paylaşabilir miyim?";
+"help.imitate.3.a" = "Evet. Puandan sonra Video yap'a dokun: sesi, denemeni ve puanını içeren dikey bir video. Booth Cam açıksa yüzün de içinde olur.";
+"help.booth.1.q" = "Booth Cam nedir?";
+"help.booth.1.a" = "Booth Cam sen oynarken yüzünü ön kamerayla çeker, böylece tepkin videoya girebilir. Turun üstündeki kamera tuşuyla ya da Ayarlar'dan aç. Görüntüler cihazında kalır.";
+"help.booth.2.q" = "Nasıl video yaparım?";
+"help.booth.2.a" = "Sahne seslendirme'de son repliğe gel ve Video yap'a dokun. Ses taklidi'nde puandan sonra Video yap'a dokun. İkisi de TikTok, Reels or Shorts için dikey bir video yapar. Bir seslendirme işlenmeden önce oyun sahnenin kime ait olduğunu gösterir, böylece paylaşırken emeği korursun.";
+"help.pro.1.q" = "Dubloon Pro neleri açar?";
+"help.pro.1.a" = "İki oyunda da, Sahne seslendirme ve Ses taklidi'nde, sınırsız çekim. Olmadan ilk 3 çekimin ücretsiz. Pro tek seferlik satın alma ya da abonelik olarak gelir. Bu oyuna aittir: Dubloon uygulamasındaki bir satın alma buraya geçmez.";
+"help.troubleshooting.1.q" = "Oyun beni duymuyor.";
+"help.troubleshooting.1.a" = "Oyunun mikrofonu kullanabildiğinden emin ol: Ayarlar uygulamasında Dubloon Game'i aç ve Mikrofon'u aç. Sesi başka bir uygulama kullanıyorsa, örneğin bir arama, onu bitir ve tekrar dene.";
+"help.troubleshooting.4.q" = "Booth Cam açılmıyor.";
+"help.troubleshooting.4.a" = "Oyunun bunun için kameraya ihtiyacı var. Ayarlar uygulamasında Dubloon Game'i aç ve Kamera'yı aç.";

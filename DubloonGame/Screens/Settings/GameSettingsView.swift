@@ -12,11 +12,12 @@ import DubAudio
 /// (`SettingsViewModel`), laid out the way the rest of the game is: each section an ivory
 /// card under a navy plaque, the outlined game icons, and switches drawn like the kit's keys.
 ///
-/// What only the studio has stays out: the interface mode, the appearance (the game's art is
-/// fixed-colour) and Booth Cam (the game has no camera monitor).
+/// What only the studio has stays out: the interface mode and the appearance (the game's art is
+/// fixed-colour).
 struct GameSettingsContent: View {
     @ObservedObject var viewModel: SettingsViewModel
     @ObservedObject private var headphones = HeadphoneMonitor.shared
+    @ObservedObject private var booth = BoothCamPreference.shared
     let onClose: () -> Void
 
     var body: some View {
@@ -25,6 +26,7 @@ struct GameSettingsContent: View {
                 VStack(spacing: 30) {
                     proSection
                     soundSection
+                    boothSection
                     privacySection
                     aboutSection
 
@@ -134,6 +136,45 @@ struct GameSettingsContent: View {
                 isOn: $headphones.isEnabled
             )
             .onAppear { headphones.refresh() }
+        }
+    }
+
+    private var boothSection: some View {
+        GameSettingsSection(title: Strings.Booth.settingsSection) {
+            GameSettingsToggle(
+                icon: "game-settings-booth-cam",
+                title: Strings.Booth.settingsTitle,
+                subtitle: viewModel.isBoothDenied ? Strings.Booth.settingsDenied : Strings.Booth.settingsDesc,
+                isOn: Binding(get: { booth.isEnabled }, set: { viewModel.setBoothEnabled($0) }),
+                isEnabled: !viewModel.isBoothDenied
+            )
+            if booth.isEnabled {
+                GameSettingsToggle(
+                    icon: "game-settings-mirror-preview",
+                    title: Strings.Booth.mirrorTitle,
+                    subtitle: Strings.Booth.mirrorDesc,
+                    isOn: $booth.mirrorsPreview
+                )
+            }
+            if viewModel.boothUsage.bytes > 0 {
+                GameSettingsRow(
+                    icon: "game-settings-privacy",
+                    title: Strings.Booth.deleteAll,
+                    subtitle: String(
+                        format: Strings.Booth.footageUsage,
+                        ByteCountFormatter.string(fromByteCount: viewModel.boothUsage.bytes, countStyle: .file),
+                        viewModel.boothUsage.packs
+                    ),
+                    trailing: .chevron
+                ) { viewModel.isConfirmingBoothDelete = true }
+            }
+        }
+        .onAppear { viewModel.refreshBoothUsage() }
+        .alert(Strings.Booth.deleteAll, isPresented: $viewModel.isConfirmingBoothDelete) {
+            Button(Strings.Booth.deleteAllConfirm, role: .destructive) { viewModel.deleteBoothFootage() }
+            Button(Strings.Main.Alert.cancel, role: .cancel) {}
+        } message: {
+            Text(Strings.Booth.deleteAllMessage)
         }
     }
 

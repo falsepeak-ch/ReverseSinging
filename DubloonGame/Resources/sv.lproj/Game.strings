@@ -130,3 +130,27 @@
 
 /* Under Unlock Dubloon Pro in the game's settings: what Pro gives */
 "game.settings.unlock.desc" = "Dina första 3 tagningar är gratis. Med Dubloon Pro är varje runda obegränsad.";
+
+/* Help, in the game's words. Same keys as the shared Help; the game reads these first. */
+"help.gettingStarted.1.q" = "Vad är Dubloon the Game?";
+"help.gettingStarted.1.a" = "En röstspelshow med två spel. Dubba filmscen: lägg din röst i en filmscen, replik för replik, och få poäng. Ljudimitation: härma ett ljud och vinn upp till tre stjärnor. Programledaren guidar dig genom varje runda.";
+"help.gettingStarted.2.q" = "Är det gratis?";
+"help.gettingStarted.2.a" = "Båda spelen är gratis att spela. Dina första 3 tagningar är gratis, räknade över båda spelen. Efteråt går varje scen och varje ljud fortfarande att öppna, och Dubloon Pro låter dig spela in utan gräns.";
+"help.dub.1.q" = "Hur dubbar jag en scen?";
+"help.dub.1.a" = "Öppna Dubba filmscen och välj en scen. För varje replik trycker du på högtalaren för att höra originalet och sedan på mikrofonen: du får tre slag inräkning, och mikrofonen stänger sig själv när repliken är slut. Använd pilarna för att gå mellan replikerna.";
+"help.dub.4.q" = "Hur ser eller delar jag min dubbning?";
+"help.dub.4.a" = "På sista repliken trycker du på Se min dubbning för att se dina tagningar i filmen. Tryck på Gör video för en stående video redo för TikTok, Reels or Shorts, med dina Booth Cam-bilder under scenen om du har filmat några.";
+"help.imitate.1.q" = "Hur fungerar Ljudimitation?";
+"help.imitate.1.a" = "Välj ett ljud, tryck på högtalaren för att höra det, tryck sedan på mikrofonen och gör ljudet själv. Programledaren bedömer din rytm, tonhöjd, klang och längd och tänder upp till tre stjärnor. Ditt bästa resultat sparas, så du kan komma tillbaka och slå det.";
+"help.imitate.3.q" = "Kan jag dela ett försök?";
+"help.imitate.3.a" = "Ja. Efter ett resultat trycker du på Gör video: en stående video med ljudet, ditt försök och ditt resultat. Med Booth Cam på är ditt ansikte också med.";
+"help.booth.1.q" = "Vad är Booth Cam?";
+"help.booth.1.a" = "Booth Cam filmar ditt ansikte med frontkameran medan du spelar, så att din reaktion kan komma med i videon. Slå på den med kameraknappen högst upp i en runda eller i Inställningar. Materialet stannar på din enhet.";
+"help.booth.2.q" = "Hur gör jag en video?";
+"help.booth.2.a" = "I Dubba filmscen går du till sista repliken och trycker på Gör video. I Ljudimitation trycker du på Gör video efter ett resultat. Båda gör en stående video för TikTok, Reels or Shorts. Innan en dubbning renderas visar spelet vems scen det är, så att du behåller creditet när du delar.";
+"help.pro.1.q" = "Vad låser Dubloon Pro upp?";
+"help.pro.1.a" = "Obegränsade tagningar i båda spelen, Dubba filmscen och Ljudimitation. Utan Pro är dina första 3 tagningar gratis. Pro är ett engångsköp eller en prenumeration. Det hör till det här spelet: ett köp i Dubloon-appen följer inte med.";
+"help.troubleshooting.1.q" = "Spelet hör mig inte.";
+"help.troubleshooting.1.a" = "Kontrollera att spelet får använda mikrofonen: öppna Dubloon Game i appen Inställningar och slå på Mikrofon. Om en annan app använder ljudet, till exempel ett samtal, avsluta det och försök igen.";
+"help.troubleshooting.4.q" = "Booth Cam går inte att slå på.";
+"help.troubleshooting.4.a" = "Spelet behöver kameran för det. Öppna Dubloon Game i appen Inställningar och slå på Kamera.";

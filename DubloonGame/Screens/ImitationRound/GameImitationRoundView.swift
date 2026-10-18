@@ -60,6 +60,7 @@ struct GameImitationRoundView: View {
             deck
         }
         .microphonePrimer()
+        .boothCamPrimer(isPresented: $viewModel.isBoothPrimerPresented) { viewModel.boothPrimerDidEnable() }
         .takePaywall(isPresented: $viewModel.isTakePaywallPresented, kind: .imitate)
         .sheet(item: $viewModel.exportedURL) { url in DubShareSheet(url: url) }
         .alert(Strings.Main.Alert.errorTitle, isPresented: .init(
@@ -126,6 +127,19 @@ struct GameImitationRoundView: View {
             desk
                 .padding(.horizontal, 22)
                 .padding(.bottom, 14)
+                // The player's face, on the podium's corner, while Booth Cam is on.
+                .overlay(alignment: .topTrailing) {
+                    if viewModel.isBoothEnabled, viewModel.booth.isUsable {
+                        GameBoothMonitor(
+                            recorder: viewModel.booth,
+                            isRecording: phase == .recording,
+                            playbackURL: viewModel.boothPlaybackURL,
+                            width: 78
+                        )
+                        .offset(x: -14, y: -120)
+                        .transition(.scale.combined(with: .opacity))
+                    }
+                }
         }
     }
 
@@ -146,8 +160,11 @@ struct GameImitationRoundView: View {
                 .padding(.vertical, 6)
                 .background(Capsule().fill(Color.gameIvory))
                 .overlay(Capsule().strokeBorder(Color.gameNavy, lineWidth: 3))
-                .padding(.trailing, 16)
                 .accessibilityLabel("\(bestStars) / 3")
+            GameBoothKey { viewModel.toggleBooth() }
+                .disabled(phase == .countingIn || phase == .recording)
+                .padding(.leading, 8)
+                .padding(.trailing, 16)
         }
         .frame(height: 52)
     }

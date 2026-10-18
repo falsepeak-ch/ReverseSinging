@@ -360,24 +360,53 @@ nonisolated private struct ReelPainter {
         self.referenceBars = referenceBars
         self.takeBars = takeBars
         confetti = ConfettiSimulation(seed: reel.seed)
+        #if DUBLOON_GAME
+        // The game's outlined art where it has one for the sound.
+        artwork = reel.artworkName.flatMap { UIImage(named: "game-\($0)") ?? UIImage(named: $0) }
+        #else
         artwork = reel.artworkName.flatMap { UIImage(named: $0) }
+        #endif
     }
+
+    #if DUBLOON_GAME
+    /// The game's set behind every act that has no booth footage, and its logo on the intro
+    /// and the sign-off.
+    private let stage = UIImage(named: "game-stage")?.cgImage
+    private let logo = UIImage(named: "game-logo")
+    #endif
 
     private var size: CGSize { ImitationReelRenderer.size }
     private var width: CGFloat { size.width }
     private var height: CGFloat { size.height }
 
     // Ink, the app's palette as CGColors.
+    #if DUBLOON_GAME
+    // The game show's: navy, ivory, cyan for the original, magenta for the take.
+    private static let canvas = UIColor(red: 0.047, green: 0.133, blue: 0.200, alpha: 1)
+    private static let panel = UIColor(red: 0.047, green: 0.133, blue: 0.200, alpha: 0.85)
+    private static let textPrimary = UIColor(red: 0.984, green: 0.965, blue: 0.918, alpha: 1)
+    private static let textSecondary = UIColor(red: 0.373, green: 0.827, blue: 0.953, alpha: 1)
+    private static let record = UIColor(red: 0.949, green: 0.247, blue: 0.816, alpha: 1)
+    private static let highlight = UIColor(red: 0.373, green: 0.827, blue: 0.953, alpha: 1)
+    #else
     private static let canvas = UIColor(red: 0.055, green: 0.059, blue: 0.067, alpha: 1)
     private static let panel = UIColor(red: 0.118, green: 0.129, blue: 0.145, alpha: 1)
     private static let textPrimary = UIColor(red: 0.910, green: 0.918, blue: 0.925, alpha: 1)
     private static let textSecondary = UIColor(red: 0.604, green: 0.627, blue: 0.651, alpha: 1)
     private static let record = UIColor(red: 0.898, green: 0.282, blue: 0.302, alpha: 1)
     private static let highlight = UIColor(red: 0.478, green: 0.573, blue: 0.616, alpha: 1)
+    #endif
 
     func paint(_ context: CGContext, at time: TimeInterval, boothFrame: CGImage?) {
         Self.canvas.setFill()
         context.fill(CGRect(origin: .zero, size: size))
+        #if DUBLOON_GAME
+        if let stage {
+            fill(stage)
+            Self.canvas.withAlphaComponent(0.55).setFill()
+            context.fill(CGRect(origin: .zero, size: size))
+        }
+        #endif
 
         switch timeline.act(at: time) {
         case .intro(let t): paintIntro(context, t)
@@ -390,7 +419,12 @@ nonisolated private struct ReelPainter {
     // MARK: Acts
 
     private func paintIntro(_ context: CGContext, _ t: TimeInterval) {
+        #if DUBLOON_GAME
+        drawLogo(width: 560, centreY: 200, alpha: ease(t / 0.3))
+        kicker(Strings.Imitate.Reel.challenge, at: 360, alpha: ease(t / 0.3))
+        #else
         kicker(Strings.Imitate.Reel.challenge, at: 250, alpha: ease(t / 0.3))
+        #endif
 
         let pop = spring(t / 0.55)
         soundArtwork(size: 380 * pop, centre: CGPoint(x: width / 2, y: height * 0.38))
@@ -480,9 +514,13 @@ nonisolated private struct ReelPainter {
             text(Strings.Imitate.Reel.beatMyScore, size: 50, weight: .semibold,
                  color: Self.textPrimary.withAlphaComponent(outro),
                  centre: CGPoint(x: width / 2, y: height * 0.8))
+            #if DUBLOON_GAME
+            drawLogo(width: 520, centreY: height * 0.885, alpha: outro)
+            #else
             text("Dubloon", size: 64, weight: .black,
                  color: Self.textSecondary.withAlphaComponent(outro),
                  centre: CGPoint(x: width / 2, y: height * 0.87))
+            #endif
         }
     }
 
@@ -505,7 +543,7 @@ nonisolated private struct ReelPainter {
         #else
         let color = UIColor(cgColor: reel.verdict.tint.cgColor) ?? .white
         #endif
-        let font = UIFont.systemFont(ofSize: 124, weight: .black)
+        let font = Self.font(size: 124, weight: .black)
         let attributes: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: color.withAlphaComponent(alpha), .kern: 6]
         let word = NSAttributedString(string: reel.verdict.word, attributes: attributes)
         var textSize = word.size()
@@ -619,7 +657,7 @@ nonisolated private struct ReelPainter {
         centred: Bool, alignRight: Bool = false, dot: Bool = false, icon: UIImage? = nil
     ) {
         let label = NSAttributedString(string: string.uppercased(), attributes: [
-            .font: UIFont.systemFont(ofSize: 38, weight: .bold),
+            .font: Self.font(size: 38, weight: .bold),
             .foregroundColor: Self.textPrimary,
             .kern: 4
         ])
@@ -648,6 +686,27 @@ nonisolated private struct ReelPainter {
         label.draw(at: CGPoint(x: rect.minX + 28 + dotSpace + iconSpace, y: rect.minY + 14))
     }
 
+    #if DUBLOON_GAME
+    /// The game's wordmark, centred.
+    private func drawLogo(width logoWidth: CGFloat, centreY: CGFloat, alpha: CGFloat) {
+        guard let logo, alpha > 0 else { return }
+        let height = logoWidth * logo.size.height / max(logo.size.width, 1)
+        logo.draw(in: CGRect(x: (width - logoWidth) / 2, y: centreY - height / 2, width: logoWidth, height: height),
+                  blendMode: .normal, alpha: alpha)
+    }
+    #endif
+
+    /// The reel's type: in the game, its display face for the big words and rounded for the rest.
+    private static func font(size: CGFloat, weight: UIFont.Weight) -> UIFont {
+        #if DUBLOON_GAME
+        if weight >= .heavy { return GameFont.display(size: size) }
+        let base = UIFont.systemFont(ofSize: size, weight: weight)
+        return base.fontDescriptor.withDesign(.rounded).map { UIFont(descriptor: $0, size: size) } ?? base
+        #else
+        return UIFont.systemFont(ofSize: size, weight: weight)
+        #endif
+    }
+
     private func text(
         _ string: String, size: CGFloat, weight: UIFont.Weight, color: UIColor,
         centre: CGPoint, monospaced: Bool = false, kern: CGFloat = 0
@@ -655,7 +714,7 @@ nonisolated private struct ReelPainter {
         guard color.cgColor.alpha > 0.001 else { return }
         let font = monospaced
             ? UIFont.monospacedDigitSystemFont(ofSize: size, weight: weight)
-            : UIFont.systemFont(ofSize: size, weight: weight)
+            : Self.font(size: size, weight: weight)
         let attributed = NSAttributedString(string: string, attributes: [
             .font: font, .foregroundColor: color, .kern: kern
         ])
