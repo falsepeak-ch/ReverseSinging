@@ -34,9 +34,10 @@ final class GameAppDelegate: NSObject, UIApplicationDelegate {
         AnalyticsManager.shared.trackAppLaunch()
 
         #if DEBUG
-        // `-crashTest YES`: crashes a few seconds in, to check reports reach Crashlytics. Launch
-        // without the debugger, which would catch it, and open the game again to send it.
-        if UserDefaults.standard.bool(forKey: "crashTest") {
+        // `-crashTest crash`: crashes a few seconds in, to check reports reach Crashlytics. Launch
+        // without the debugger, which would catch it, then with `-crashTest send` to send it (a
+        // Debug build otherwise sends nothing, and drops what is waiting).
+        if UserDefaults.standard.string(forKey: "crashTest") == "crash" {
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) { fatalError("Crashlytics test crash") }
         }
         #endif

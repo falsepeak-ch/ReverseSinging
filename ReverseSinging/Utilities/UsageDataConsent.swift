@@ -27,7 +27,8 @@ nonisolated enum UsageDataConsent {
     /// read and a "Missing (required)" row in the console.
     static var sendsCrashReports: Bool {
         #if DEBUG
-        return false
+        // Except a `-crashTest crash|send` run, whose whole point is to see a report arrive.
+        return UserDefaults.standard.string(forKey: "crashTest") != nil
         #else
         return isGranted
         #endif
