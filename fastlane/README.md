@@ -107,6 +107,20 @@ Upload Dubloon the Game's store text, categories, age rating and review notes
 
 into its editable version. Never submits.
 
+### ios game_upload
+
+```sh
+[bundle exec] fastlane ios game_upload
+```
+
+Archive Dubloon the Game and upload the build to App Store Connect. Never submits.
+
+The build number is the game's last one in App Store Connect plus one, passed to this
+
+archive only (agvtool would bump every target in the shared project).
+
+The game's symbols go to its own Crashlytics app.
+
 ### ios game_screenshots
 
 ```sh

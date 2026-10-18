@@ -416,6 +416,37 @@ platform :ios do
     )
   end
 
+  desc "Archive Dubloon the Game and upload the build to App Store Connect. Never submits."
+  desc "The build number is the game's last one in App Store Connect plus one, passed to this"
+  desc "archive only (agvtool would bump every target in the shared project)."
+  desc "The game's symbols go to its own Crashlytics app."
+  lane :game_upload do
+    build_number = latest_testflight_build_number(
+      api_key: @api_key,
+      app_identifier: GAME_APP_IDENTIFIER,
+      version: "1.0.0",
+      initial_build_number: 0
+    ) + 1
+    UI.message("Dubloon the Game build #{build_number}")
+    build_app(
+      scheme: "DubloonGame",
+      output_name: "DubloonGame",
+      derived_data_path: "./build/GameReleaseDD",
+      output_directory: "./build/game",
+      xcargs: "-allowProvisioningUpdates CURRENT_PROJECT_VERSION=#{build_number}"
+    )
+    sh(
+      "../build/GameReleaseDD/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols",
+      "-gsp", File.expand_path("../DubloonGame/GoogleService-Info.plist", __dir__),
+      "-p", "ios", lane_context[SharedValues::DSYM_OUTPUT_PATH]
+    )
+    upload_to_testflight(
+      api_key: @api_key,
+      app_identifier: GAME_APP_IDENTIFIER,
+      skip_waiting_for_build_processing: true
+    )
+  end
+
   desc "Upload Dubloon the Game's screenshots (fastlane/screenshots_game, 1320x2868)"
   lane :game_screenshots do
     ENV["DELIVER_NUMBER_OF_THREADS"] = "1"
