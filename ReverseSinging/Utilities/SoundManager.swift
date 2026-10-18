@@ -116,6 +116,13 @@ nonisolated final class SoundManager: @unchecked Sendable {
         player.play()
     }
 
+    /// Whether the mic is live right now, for other sound players that must keep out of a take.
+    var microphoneIsOpen: Bool {
+        lock.lock()
+        defer { lock.unlock() }
+        return isMicrophoneOpen
+    }
+
     /// Tells the manager the mic is live, so nothing is played into the take.
     func setMicrophoneOpen(_ isOpen: Bool) {
         lock.lock()

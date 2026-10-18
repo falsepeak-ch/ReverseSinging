@@ -43,7 +43,7 @@ struct OutlinedText: View {
     var body: some View {
         let w = lineWidth ?? max(size * 0.09, 2)
         let label = Text(text)
-            .font(.game(size, weight: .black))
+            .font(.gameDisplay(size))
             .multilineTextAlignment(.center)
 
         ZStack {
@@ -98,7 +98,7 @@ struct GamePillButtonStyle: ButtonStyle {
         let pressed = configuration.isPressed
         let lip: CGFloat = 6
         configuration.label
-            .font(.game(21))
+            .font(.gameDisplay(22))
             .foregroundStyle(text)
             .shadow(color: text == .white ? .gameNavy : .clear, radius: 0, x: 0, y: 2)
             .lineLimit(1)
@@ -122,6 +122,7 @@ struct GamePillButtonStyle: ButtonStyle {
             .scaleEffect(pressed ? 0.97 : 1)
             .animation(.spring(response: 0.18, dampingFraction: 0.55), value: pressed)
             .padding(.bottom, lip)
+            .onChange(of: pressed) { _, down in if down { GameSFX.play(.tap) } }
     }
 }
 
@@ -136,6 +137,7 @@ struct GameRoundButton: View {
     var body: some View {
         Button {
             HapticManager.shared.light()
+            GameSFX.play(symbol == "chevron.backward" ? .back : .tap)
             action()
         } label: {
             Image(systemName: symbol)
@@ -312,5 +314,24 @@ struct GameSoundArt: View {
         } else {
             ImitationSoundArtwork(sound: sound, size: size)
         }
+    }
+}
+
+// MARK: - Stars
+
+/// The kit's rating star, lit in foil-gold or empty.
+struct GameStar: View {
+    let isLit: Bool
+    var size: CGFloat = 22
+    /// Lit stars catch the light (`gameFoil`); off in long lists, where it would cost.
+    var shines = true
+
+    var body: some View {
+        Image(isLit ? GameArt.Rating.filled : GameArt.Rating.empty)
+            .resizable()
+            .scaledToFit()
+            .frame(width: size, height: size)
+            .gameFoil(1, isActive: isLit && shines)
+            .accessibilityHidden(true)
     }
 }

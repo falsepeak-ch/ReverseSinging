@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import DubScoring
 
 /// Drives the game's home stage.
 ///
@@ -21,6 +22,8 @@ final class GameHomeViewModel: ObservableObject {
 
     @Published var path: [GameMode] = []
     @Published var isPaywallPresented = false
+    /// Stars won across every sound, recounted whenever the stage comes back.
+    @Published private(set) var starsWon = 0
 
     private let access: AccessController
     private var cancellables = Set<AnyCancellable>()
@@ -44,13 +47,26 @@ final class GameHomeViewModel: ObservableObject {
 
     func onAppear() {
         AnalyticsManager.shared.trackScreenViewed(screenName: "GameHome")
+        starsWon = Self.countStars()
+    }
+
+    /// Three a sound at most, as the round awards them.
+    static var maxStars: Int { ImitationSoundLibrary.all.count * 3 }
+
+    static func countStars(store: ImitationProgressStore = .shared) -> Int {
+        ImitationSoundLibrary.all.reduce(0) { total, sound in
+            total + (store.best(for: sound).map { ScorePart.stars(for: DubGrade.forScore($0)) } ?? 0)
+        }
     }
 
     /// What the SpriteKit stage shows.
     var stageState: StageState {
         StageState(
             hostLine: hostLine,
-            proTitle: offersPro ? Strings.Pro.freeTakesTitle(left: freeTakesLeft) : nil
+            proTitle: offersPro ? Strings.Pro.freeTakesTitle(left: freeTakesLeft) : nil,
+            isOutOfTakes: offersPro && freeTakesLeft == 0,
+            stars: starsWon,
+            maxStars: Self.maxStars
         )
     }
 

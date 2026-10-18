@@ -2,93 +2,84 @@
 //  HostNode.swift
 //  DubloonGame
 //
-//  The game-show host: breathes, blinks, talks and cheers.
+//  The game-show host on the home stage: waves you in, talks, cheers you off to a game.
 //
 
 import SpriteKit
 
-/// The host sprite and her animation.
+/// The host on the home stage, played from the animation kit's clips (`HostSprite`).
 ///
-/// Idle is never still: a slow breath on the body and a blink every few seconds. Talking flips
-/// between the talk and idle frames; cheering swaps to delight with a hop.
+/// The clips carry the face and arms; this node adds what they cannot: a slow sway, a hop
+/// with squash on a cheer, a jolt on a surprise.
 final class HostNode: SKNode {
-    private let body: SKSpriteNode
-    private let textures: [GameArt.Host: SKTexture]
+    private let body: HostSprite
     private let reduceMotion: Bool
 
-    init(atlas: SKTextureAtlas, reduceMotion: Bool) {
-        var textures: [GameArt.Host: SKTexture] = [:]
-        for pose in GameArt.Host.allCases { textures[pose] = atlas.textureNamed(pose.rawValue) }
-        self.textures = textures
+    init(reduceMotion: Bool) {
         self.reduceMotion = reduceMotion
-        body = SKSpriteNode(texture: textures[.idle])
-        // Feet on the floor: everything below scales and hops from there.
-        body.anchorPoint = CGPoint(x: 0.5, y: 0)
+        body = HostSprite(reduceMotion: reduceMotion)
         super.init()
         addChild(body)
     }
 
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) is not used") }
 
-    /// Scales the host to `height` points, feet at this node's origin.
+    /// Scales the host so she stands `height` points from soles to hair, soles at this node's
+    /// origin.
     func layout(height: CGFloat) {
-        let base = textures[.idle]?.size().height ?? 1
-        setScale(height / base)
+        setScale(height / (body.canvasHeight * HostSprite.figureFraction))
     }
 
     // MARK: - Animation
 
-    func startIdle() {
-        guard !reduceMotion else { return }
-        body.removeAction(forKey: "breath")
-        let inhale = SKAction.scaleY(to: 1.015, duration: 1.6)
-        inhale.timingMode = .easeInEaseOut
-        let exhale = SKAction.scaleY(to: 1.0, duration: 1.6)
-        exhale.timingMode = .easeInEaseOut
-        let sway = SKAction.sequence([.rotate(toAngle: 0.012, duration: 2.4), .rotate(toAngle: -0.012, duration: 2.4)])
-        body.run(.group([.repeatForever(.sequence([inhale, exhale])), .repeatForever(sway)]), withKey: "breath")
-        scheduleBlink()
-    }
-
-    private func scheduleBlink() {
-        guard let idle = textures[.idle], let blink = textures[.blink] else { return }
-        let once = SKAction.sequence([
-            .wait(forDuration: 3.2, withRange: 2.8),
-            .run { [weak self] in
-                // Only from the idle face: never in the middle of a line or a cheer.
-                guard let self, self.body.texture == idle else { return }
-                self.body.run(.sequence([.setTexture(blink), .wait(forDuration: 0.12), .setTexture(idle)]))
-            },
+    /// Idle, with a wave hello first.
+    func startIdle(greeting: Bool) {
+        if greeting {
+            body.play(.wave, repeats: 3)
+        } else {
+            body.play(.idle)
+        }
+        guard !reduceMotion, body.action(forKey: "sway") == nil else { return }
+        let sway = SKAction.sequence([
+            .rotate(toAngle: 0.012, duration: 2.4),
+            .rotate(toAngle: -0.012, duration: 2.4),
         ])
-        run(.repeatForever(once), withKey: "blink")
+        sway.timingMode = .easeInEaseOut
+        body.run(.repeatForever(sway), withKey: "sway")
     }
 
     /// Mouths along for about as long as the line takes to appear.
     func talk(for duration: TimeInterval) {
-        guard !reduceMotion, let talk = textures[.talk], let idle = textures[.idle] else { return }
-        body.removeAction(forKey: "pose")
-        let flaps = max(Int(duration / 0.3), 1)
-        let flap = SKAction.sequence([
-            .setTexture(talk), .wait(forDuration: 0.15, withRange: 0.06),
-            .setTexture(idle), .wait(forDuration: 0.15, withRange: 0.06),
-        ])
-        body.run(.repeat(flap, count: flaps), withKey: "pose")
+        body.talk(for: duration)
     }
 
     /// How long `cheer()` takes to land, for whoever waits on it.
-    static let cheerDuration: TimeInterval = 0.42
+    static let cheerDuration: TimeInterval = 0.5
 
-    /// A delighted hop.
+    /// A fist pump and a hop.
     func cheer() {
-        guard let delight = textures[.delight], let idle = textures[.idle] else { return }
-        body.removeAction(forKey: "pose")
-        let jumpHeight = 24 / max(yScale, 0.01)
-        let up = SKAction.moveBy(x: 0, y: jumpHeight, duration: 0.14)
+        body.play(.cheer)
+        guard !reduceMotion else { return }
+        let jumpHeight = 26 / max(yScale, 0.01)
+        let up = SKAction.moveBy(x: 0, y: jumpHeight, duration: 0.16)
         up.timingMode = .easeOut
         let down = up.reversed()
         down.timingMode = .easeIn
-        let squash = SKAction.sequence([.scaleX(to: 1.06, y: 0.94, duration: 0.06), .scaleX(to: 1, y: 1, duration: 0.08)])
-        let hop: SKAction = reduceMotion ? .wait(forDuration: 0.25) : .sequence([up, down, squash])
-        body.run(.sequence([.setTexture(delight), hop, .wait(forDuration: 0.4), .setTexture(idle)]), withKey: "pose")
+        let squash = SKAction.sequence([
+            .scaleX(to: 1.07, y: 0.93, duration: 0.06),
+            .scaleX(to: 1, y: 1, duration: 0.1),
+        ])
+        body.run(.sequence([up, down, squash]), withKey: "hop")
+    }
+
+    /// A start: someone is out of free takes.
+    func surprise() {
+        body.play(.surprise)
+        guard !reduceMotion else { return }
+        let jolt = SKAction.sequence([
+            .scaleX(to: 0.96, y: 1.05, duration: 0.08),
+            .scaleX(to: 1, y: 1, duration: 0.18),
+        ])
+        body.run(jolt, withKey: "hop")
     }
 }

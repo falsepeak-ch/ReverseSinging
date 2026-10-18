@@ -46,6 +46,9 @@ struct DubloonGameApp: App {
     init() {
         AudioSessionManager.shared.configure()
         SoundManager.shared.preload()
+        GameSFXPlayer.shared.preload()
+        GameFont.register()
+        Task { await HostClipLibrary.preload() }
 
         #if DEBUG
         if ScreenshotMode.isActive { Tips.hideAllTipsForTesting() }

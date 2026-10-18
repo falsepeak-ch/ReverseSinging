@@ -13,6 +13,11 @@ struct StageState: Equatable {
     var hostLine: String
     /// Nil when Dubloon Pro is owned: no offer on the stage.
     var proTitle: String?
+    /// The free takes have run out: the host is taken aback.
+    var isOutOfTakes = false
+    /// Stars won across the sound imitation round, and how many there are to win.
+    var stars = 0
+    var maxStars = 0
 }
 
 /// The home stage.
@@ -33,23 +38,34 @@ final class GameStageScene: SKScene {
     var safeInsets = EdgeInsets() { didSet { if oldValue != safeInsets { layoutStage() } } }
 
     private let reduceMotion: Bool
-    private let hostAtlas = SKTextureAtlas(named: GameArt.hostAtlas)
+    private let propsAtlas = SKTextureAtlas(named: GameArt.Props.atlas)
     private let uiAtlas = SKTextureAtlas(named: GameArt.UI.atlas)
     private let gamesAtlas = SKTextureAtlas(named: GameArt.gamesAtlas)
 
     private let backdrop = SKSpriteNode(imageNamed: GameArt.stage)
     private var beams: [SKSpriteNode] = []
     private let floorGlow = SKSpriteNode(color: .white, size: CGSize(width: 10, height: 10))
-    private lazy var host = HostNode(atlas: hostAtlas, reduceMotion: reduceMotion)
+    private lazy var host = HostNode(reduceMotion: reduceMotion)
     private lazy var dialogue = DialogueNode(ui: uiAtlas)
-    private lazy var tiles = GameHomeViewModel.games.map { GameTileButton(mode: $0, games: gamesAtlas, ui: uiAtlas) }
-    private lazy var proPill = PillButton(title: "", ui: uiAtlas, fontSize: 21)
+    private lazy var tiles = GameHomeViewModel.games.enumerated().map { index, mode in
+        GameTileButton(mode: mode, games: gamesAtlas, ui: uiAtlas, seed: Float(index) * 0.5)
+    }
+    private lazy var proPill = PillButton(
+        title: "", ui: uiAtlas, fontSize: 21,
+        tint: SKColor(Color.gameGold),
+        icon: propsAtlas.textureNamed(GameArt.Props.prize)
+    )
+    private lazy var starCounter = StarCounterNode(star: SKTexture(imageNamed: GameArt.Rating.filled))
     private let settingsButton = RoundIconButton(symbol: "gearshape.fill")
     private let titleNode = SKNode()
     private var ambientSparkles: SKEmitterNode?
+    private var notes: SKEmitterNode?
+    private var twinkles: [SKSpriteNode] = []
 
     private var state = StageState(hostLine: "", proTitle: nil)
     private var hasSpoken = false
+    /// She waves the first time the stage is shown, not every time a game is closed.
+    private var hasGreeted = false
     private var lastUpdate: TimeInterval?
     private var isBusy = false
     /// The title's natural width, so it can be scaled down beside the settings key.
@@ -113,10 +129,13 @@ final class GameStageScene: SKScene {
 
         settingsButton.zPosition = 30
         settingsButton.onTap = { [weak self] in
-            SoundManager.shared.play(.mechanicalClick)
+            GameSFX.play(.tap)
             self?.onSettings?()
         }
         addChild(settingsButton)
+
+        starCounter.zPosition = 30
+        addChild(starCounter)
 
         let name = OutlinedTextNode()
         name.set("Dubloon", size: 42, weight: .black, color: SKColor(Color.gameIvory))
@@ -135,6 +154,31 @@ final class GameStageScene: SKScene {
             sparkles.targetNode = self
             ambientSparkles = sparkles
             addChild(sparkles)
+
+            let notes = Self.notes(texture: propsAtlas.textureNamed(GameArt.Props.note))
+            notes.zPosition = -3
+            notes.targetNode = self
+            self.notes = notes
+            addChild(notes)
+
+            // The kit's four-frame sparkle, twinkling at a few points around the set.
+            let frames = (0..<4).map { propsAtlas.textureNamed(GameArt.Props.sparkle($0)) }
+            for index in 0..<5 {
+                let twinkle = SKSpriteNode(texture: frames[0])
+                twinkle.size = CGSize(width: 34, height: 34)
+                twinkle.alpha = 0
+                twinkle.blendMode = .add
+                twinkle.zPosition = 6
+                let animate = SKAction.animate(with: frames + frames.reversed(), timePerFrame: 0.09)
+                twinkle.run(.repeatForever(.sequence([
+                    .wait(forDuration: 1.2 + Double(index) * 0.7, withRange: 1.6),
+                    .fadeIn(withDuration: 0.05),
+                    animate,
+                    .fadeOut(withDuration: 0.1),
+                ])))
+                twinkles.append(twinkle)
+                addChild(twinkle)
+            }
         }
     }
 
@@ -142,7 +186,14 @@ final class GameStageScene: SKScene {
 
     func apply(_ newState: StageState) {
         let lineChanged = newState.hostLine != state.hostLine
+        let ranOut = newState.isOutOfTakes && !state.isOutOfTakes && !state.hostLine.isEmpty
         state = newState
+        starCounter.set(stars: newState.stars, of: newState.maxStars)
+        tiles.first { $0.mode == .imitate }?.setBadge(
+            newState.maxStars > 0 ? "\(newState.stars)/\(newState.maxStars)" : nil,
+            star: SKTexture(imageNamed: GameArt.Rating.filled)
+        )
+        if ranOut { host.surprise() }
         if let proTitle = newState.proTitle {
             proPill.setTitle(proTitle, fontSize: 21)
         }
@@ -160,7 +211,8 @@ final class GameStageScene: SKScene {
 
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        host.startIdle()
+        host.startIdle(greeting: !hasGreeted)
+        hasGreeted = true
         startLights()
         layoutStage()
     }
@@ -185,14 +237,14 @@ final class GameStageScene: SKScene {
         }
 
         let column = min((w - gutter * 3) / 2, 190)
-        let iconSide = column * 0.82
-        let tileCenterY = y + GameTileButton.pillHeight - 4 + iconSide / 2
+        let extent = GameTileButton.extent(width: column)
+        let tileCenterY = y + extent.below
         for (index, tile) in tiles.enumerated() {
             tile.layout(width: column, phase: Double(index) * 0.55)
             let x = w / 2 + (index == 0 ? -1 : 1) * (column / 2 + gutter / 2)
             tile.position = CGPoint(x: x, y: tileCenterY)
         }
-        y = tileCenterY + iconSide / 2 + 14
+        y = tileCenterY + extent.above + 14
 
         let panelWidth = min(w - gutter * 2, 420)
         dialogue.layout(width: panelWidth)
@@ -225,14 +277,30 @@ final class GameStageScene: SKScene {
         titleNode.position = CGPoint(x: w / 2, y: h - safeInsets.top - 34)
         // Room between the settings key and its mirror on the left, so the two never touch on
         // a narrow phone.
-        let titleRoom = w - 2 * (gutter + 56 + 8)
+        starCounter.isHidden = state.maxStars == 0
+        let cornerWidth = max(starCounter.isHidden ? 0 : starCounter.width, 56)
+        let titleRoom = w - 2 * (gutter + cornerWidth + 8)
         titleNode.setScale(min(1, titleRoom / titleWidth))
         settingsButton.position = CGPoint(x: w - gutter - 28, y: h - safeInsets.top - 30)
+        starCounter.position = CGPoint(x: gutter + starCounter.width / 2, y: h - safeInsets.top - 30)
 
         if let sparkles = ambientSparkles {
             sparkles.position = CGPoint(x: w / 2, y: feet)
             sparkles.particlePositionRange = CGVector(dx: w, dy: 40)
         }
+        if let notes {
+            notes.position = CGPoint(x: w / 2, y: feet + hostHeight * 0.3)
+            notes.particlePositionRange = CGVector(dx: w * 0.9, dy: hostHeight * 0.4)
+        }
+        // Around the host and the title, where the light catches.
+        let spots: [CGPoint] = [
+            CGPoint(x: w * 0.2, y: feet + hostHeight * 0.75),
+            CGPoint(x: w * 0.8, y: feet + hostHeight * 0.55),
+            CGPoint(x: w * 0.3, y: h - safeInsets.top - 70),
+            CGPoint(x: w * 0.72, y: h - safeInsets.top - 20),
+            CGPoint(x: w * 0.86, y: feet + hostHeight * 0.95),
+        ]
+        for (twinkle, spot) in zip(twinkles, spots) { twinkle.position = spot }
     }
 
     // MARK: - Motion
@@ -282,7 +350,7 @@ final class GameStageScene: SKScene {
         guard !isBusy else { return }
         isBusy = true
         dialogue.finish()
-        SoundManager.shared.play(.clapperSnap)
+        GameSFX.play(.select)
         HapticManager.shared.medium()
         burst(at: tile.position)
         host.cheer()
@@ -298,7 +366,7 @@ final class GameStageScene: SKScene {
     }
 
     private func tappedPro() {
-        SoundManager.shared.play(.projectorChime)
+        GameSFX.play(.coin)
         burst(at: proPill.position)
         onPro?()
     }
@@ -326,6 +394,29 @@ final class GameStageScene: SKScene {
         e.particleColorBlendFactor = 0.3
         e.particleColor = SKColor(Color.gameCyan)
         e.advanceSimulationTime(4)
+        return e
+    }
+
+    /// Music notes drifting up off the stage, as if the set were playing.
+    private static func notes(texture: SKTexture) -> SKEmitterNode {
+        let e = SKEmitterNode()
+        e.particleTexture = texture
+        e.particleBirthRate = 0.9
+        e.particleLifetime = 5
+        e.particleLifetimeRange = 1.5
+        e.emissionAngle = .pi / 2
+        e.emissionAngleRange = 0.4
+        e.particleSpeed = 28
+        e.particleSpeedRange = 12
+        e.xAcceleration = 3
+        e.particleScale = 0.32
+        e.particleScaleRange = 0.12
+        e.particleRotation = -0.2
+        e.particleRotationRange = 0.6
+        e.particleRotationSpeed = 0.3
+        e.particleAlpha = 0
+        e.particleAlphaSequence = SKKeyframeSequence(keyframeValues: [0, 0.75, 0.75, 0], times: [0, 0.2, 0.7, 1])
+        e.advanceSimulationTime(5)
         return e
     }
 

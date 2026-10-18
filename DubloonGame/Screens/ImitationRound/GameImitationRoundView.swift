@@ -267,7 +267,7 @@ struct GameImitationRoundView: View {
         return VStack(spacing: compact ? 10 : 14) {
             HStack(spacing: 10) {
                 ForEach(parts) { part in
-                    ScorePartTile(part: part, isWeakest: part.id == weakest && part.value < 85)
+                    ScorePartTile(part: part, isWeakest: part.id == weakest && part.value < 85, order: parts.firstIndex(of: part) ?? 0)
                 }
             }
 
@@ -343,12 +343,8 @@ struct GameImitationRoundView: View {
             trace.resetTake()
         case .result:
             Task { await trace.loadTake(from: viewModel.takeFileURL) }
-            if viewModel.verdict?.celebrates == true {
-                SoundManager.shared.play(.projectorChime)
-                fx.confetti()
-            } else {
-                SoundManager.shared.play(.errorThunk)
-            }
+            // After the score has rolled up and the stars have landed.
+            if let grade = viewModel.score?.grade { fx.finale(for: grade) }
         default:
             break
         }

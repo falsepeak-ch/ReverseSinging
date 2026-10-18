@@ -109,6 +109,8 @@ struct ComparisonDisplay: View {
             }
         }
         .background(Color.black)
+        // Light: the bars are thin, and fringing at full strength smears them.
+        .gameCRT(0.4)
         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
         .padding(5)
         .background(
@@ -171,16 +173,15 @@ struct ScoreReveal: View {
             HStack(spacing: 10) {
                 ForEach(0..<3, id: \.self) { index in
                     let lit = index < starsLit
-                    Image(systemName: lit ? "star.fill" : "star")
-                        .font(.system(size: index == 1 ? 40 : 32, weight: .black))
-                        .foregroundStyle(lit ? Color.gameGold : Color.white.opacity(0.85))
-                        .shadow(color: .gameNavy, radius: 0, x: 0, y: 3)
-                        .scaleEffect(index < starsLit ? 1 : 0.8)
+                    GameStar(isLit: lit, size: index == 1 ? 50 : 40)
+                        .scaleEffect(lit ? 1 : 0.8)
+                        .rotationEffect(.degrees(lit ? 0 : -20))
                         .offset(y: index == 1 ? -8 : 0)
                 }
             }
 
             OutlinedText(text: "\(Int(shown.rounded()))", size: 64, color: .white)
+                .gameWobble(verdictIn && stars == 3 ? 2.5 : 0)
 
             OutlinedText(text: verdict.uppercased(), size: 26, color: stars >= 2 ? .gameGold : (stars == 1 ? .gameCyan : .gameCoral))
                 .scaleEffect(verdictIn ? 1 : 2.2)
@@ -207,12 +208,16 @@ struct ScoreReveal: View {
         for step in 1...steps {
             try? await Task.sleep(for: .milliseconds(32))
             withAnimation(.linear(duration: 0.03)) { shown = score * Double(step) / Double(steps) }
-            if step.isMultiple(of: 4) { HapticManager.shared.soft() }
+            if step.isMultiple(of: 4) {
+                HapticManager.shared.soft()
+                GameSFX.play(.tick)
+            }
         }
         for star in 0..<stars {
             try? await Task.sleep(for: .milliseconds(230))
             withAnimation(.spring(response: 0.25, dampingFraction: 0.45)) { starsLit = star + 1 }
             HapticManager.shared.medium()
+            GameSFX.star(star)
             onStar?(star)
         }
         try? await Task.sleep(for: .milliseconds(180))
@@ -301,7 +306,10 @@ struct DeskDisplay: View {
         for step in 1...24 {
             try? await Task.sleep(for: .milliseconds(30))
             withAnimation(.linear(duration: 0.03)) { shown = score * Double(step) / 24 }
-            if step.isMultiple(of: 4) { HapticManager.shared.soft() }
+            if step.isMultiple(of: 4) {
+                HapticManager.shared.soft()
+                GameSFX.play(.tick)
+            }
         }
     }
 }
@@ -319,10 +327,7 @@ struct StarColumn: View {
         VStack(spacing: 2) {
             ForEach(0..<3, id: \.self) { index in
                 let on = index < shown
-                Image(systemName: on ? "star.fill" : "star")
-                    .font(.system(size: 22, weight: .black))
-                    .foregroundStyle(on ? Color.gameGold : Color.gameNavy.opacity(0.3))
-                    .shadow(color: on ? .gameNavy : .clear, radius: 0, x: 0, y: 2)
+                GameStar(isLit: on, size: 30)
                     .scaleEffect(on ? 1 : 0.85)
             }
         }
@@ -340,6 +345,7 @@ struct StarColumn: View {
         for star in 0..<lit {
             withAnimation(.spring(response: 0.25, dampingFraction: 0.45)) { shown = star + 1 }
             HapticManager.shared.medium()
+            GameSFX.star(star)
             onStar()
             try? await Task.sleep(for: .milliseconds(230))
         }
@@ -354,46 +360,113 @@ struct StarRow: View {
     var body: some View {
         HStack(spacing: 2) {
             ForEach(0..<3, id: \.self) { index in
-                Image(systemName: index < lit ? "star.fill" : "star")
-                    .font(.system(size: size, weight: .black))
-                    .foregroundStyle(index < lit ? Color.gameGold : Color.gameNavy.opacity(0.35))
+                GameStar(isLit: index < lit, size: size * 1.5, shines: false)
             }
         }
     }
 }
 
-/// One part of a take's score, as a small card with a bar. The weakest is marked in coral:
-/// it is what the host's tip is about.
+/// One part of a take's score, as a gauge on the console: a ring that fills to the value in
+/// the colour of how well it went (gold, cyan, coral), the number counting up inside it and
+/// the part's name under it. The weakest part, the one the host's tip is about, gets a coral
+/// rim that pulses and a "!" tag. The gauges fill one after another (`order`).
 struct ScorePartTile: View {
     let part: ScorePart
     let isWeakest: Bool
+    var order = 0
+
+    @State private var fill: Double = 0
+    @State private var pulse = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.gameCompactDeck) private var compact
+
+    private var value: Double { min(max(part.value, 0), 100) }
+
+    private var tone: Color {
+        if isWeakest { return .gameCoral }
+        if value >= 85 { return .gameGold }
+        if value >= 60 { return .gameCyan }
+        return Color(gameHex: 0x9CC8E6)
+    }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            Text(part.title.uppercased())
-                .font(.game(11, weight: .heavy))
-                .tracking(1)
-                .foregroundStyle(isWeakest ? Color(gameHex: 0xA7451D) : .gamePetrol)
-                .lineLimit(1)
-                .minimumScaleFactor(0.7)
-            Text("\(Int(part.value.rounded()))")
-                .font(.game(24, weight: .heavy))
-                .foregroundStyle(Color.gameNavy)
-                .monospacedDigit()
-            GeometryReader { proxy in
-                ZStack(alignment: .leading) {
-                    Capsule().fill(Color.gameNavy.opacity(0.1))
-                    Capsule()
-                        .fill(isWeakest ? Color.gameCoral : .gameCyan)
-                        .frame(width: proxy.size.width * part.value / 100)
-                }
+        let ring: CGFloat = compact ? 50 : 60
+        VStack(spacing: 6) {
+            ZStack {
+                Circle()
+                    .stroke(Color.black.opacity(0.35), lineWidth: 8)
+                Circle()
+                    .trim(from: 0, to: fill / 100)
+                    .stroke(
+                        AngularGradient(colors: [tone.opacity(0.55), tone], center: .center,
+                                        startAngle: .degrees(0), endAngle: .degrees(360 * max(fill, 1) / 100)),
+                        style: StrokeStyle(lineWidth: 8, lineCap: .round)
+                    )
+                    .rotationEffect(.degrees(-90))
+                    .shadow(color: tone.opacity(0.7), radius: 5)
+                Text("\(Int(fill.rounded()))")
+                    .font(.gameDisplay(compact ? 20 : 24))
+                    .foregroundStyle(.white)
+                    .monospacedDigit()
+                    .contentTransition(.numericText(value: fill))
+                    .shadow(color: .gameNavy, radius: 0, x: 0, y: 2)
             }
-            .frame(height: 8)
+            .frame(width: ring, height: ring)
+            .padding(.top, 4)
+
+            Text(part.title.uppercased())
+                .font(.gameDisplay(13))
+                .tracking(0.6)
+                .foregroundStyle(tone)
+                .lineLimit(1)
+                .minimumScaleFactor(0.6)
         }
-        .padding(10)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .gameCard(radius: 16, lip: 3)
+        .padding(.vertical, 10)
+        .padding(.horizontal, 6)
+        .frame(maxWidth: .infinity)
+        .background {
+            RoundedRectangle(cornerRadius: 18, style: .continuous)
+                .fill(LinearGradient(
+                    colors: [Color(gameHex: 0x16425E), Color(gameHex: 0x0A1C2A)],
+                    startPoint: .top, endPoint: .bottom
+                ))
+        }
+        .overlay {
+            RoundedRectangle(cornerRadius: 18, style: .continuous)
+                .strokeBorder(tone.opacity(isWeakest ? (pulse ? 1 : 0.45) : 0.5), lineWidth: isWeakest ? 2.5 : 1.5)
+        }
+        .overlay(alignment: .topTrailing) {
+            if isWeakest {
+                Text("!")
+                    .font(.gameDisplay(15))
+                    .foregroundStyle(.white)
+                    .frame(width: 24, height: 24)
+                    .background(Circle().fill(Color.gameCoral))
+                    .overlay(Circle().strokeBorder(Color.gameNavy, lineWidth: 2.5))
+                    .scaleEffect(pulse ? 1.12 : 0.95)
+                    .offset(x: 6, y: -8)
+                    .accessibilityHidden(true)
+            }
+        }
+        .task(id: part.value) { await reveal() }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(part.title), \(Int(part.value.rounded()))")
+    }
+
+    private func reveal() async {
+        guard !reduceMotion else {
+            fill = value
+            pulse = isWeakest
+            return
+        }
+        fill = 0
+        // After the score has rolled up on the display, one gauge after another.
+        try? await Task.sleep(for: .milliseconds(350 + order * 120))
+        GameSFX.play(.tick, pitch: 0.8 + Float(value) / 250)
+        withAnimation(.spring(response: 0.7, dampingFraction: 0.8)) { fill = value }
+        if isWeakest {
+            try? await Task.sleep(for: .milliseconds(700))
+            withAnimation(.easeInOut(duration: 0.6).repeatForever(autoreverses: true)) { pulse = true }
+        }
     }
 }

@@ -7,6 +7,7 @@
 
 import SpriteKit
 import SwiftUI
+import DubScoring
 
 /// How the host is taking the round.
 enum HostMood: Equatable {
@@ -323,6 +324,7 @@ final class RoundStageScene: SKScene {
 final class RoundFXScene: SKScene {
     private let reduceMotion: Bool
     private lazy var star = SKTextureAtlas(named: GameArt.UI.atlas).textureNamed(GameArt.UI.star)
+    private lazy var props = SKTextureAtlas(named: GameArt.Props.atlas)
 
     init(reduceMotion: Bool) {
         self.reduceMotion = reduceMotion
@@ -363,6 +365,55 @@ final class RoundFXScene: SKScene {
         e.run(.sequence([.wait(forDuration: 2), .removeFromParent()]))
     }
 
+    /// The end of a reveal: for a good take a fanfare, the crowd, confetti and ribbons; for a
+    /// great one music notes too; for a poor one the sad trombone. Timed to land once the
+    /// score has rolled up and the stars are in.
+    func finale(for grade: DubGrade) {
+        let stars = ScorePart.stars(for: grade)
+        run(.sequence([
+            .wait(forDuration: 0.9 + Double(stars) * 0.25),
+            .run { [weak self] in
+                guard let self else { return }
+                guard grade.celebrates else {
+                    GameSFX.play(.fail)
+                    return
+                }
+                GameSFX.play(.fanfare)
+                GameSFX.play(.pop)
+                self.confetti()
+                if stars == 3 {
+                    GameSFX.play(.cheer)
+                    self.notesShower()
+                }
+            },
+        ]), withKey: "finale")
+    }
+
+    /// Music notes floating up the screen, for three stars.
+    private func notesShower() {
+        guard !reduceMotion else { return }
+        let e = SKEmitterNode()
+        e.particleTexture = props.textureNamed(GameArt.Props.note)
+        e.numParticlesToEmit = 24
+        e.particleBirthRate = 14
+        e.particleLifetime = 3
+        e.particleLifetimeRange = 0.8
+        e.emissionAngle = .pi / 2
+        e.emissionAngleRange = 0.5
+        e.particleSpeed = 170
+        e.particleSpeedRange = 60
+        e.particleScale = 0.45
+        e.particleScaleRange = 0.15
+        e.particleRotationRange = 0.8
+        e.particleRotationSpeed = 0.6
+        e.particleAlphaSequence = SKKeyframeSequence(keyframeValues: [0, 1, 1, 0], times: [0, 0.1, 0.7, 1])
+        e.particlePositionRange = CGVector(dx: size.width, dy: 0)
+        e.position = CGPoint(x: size.width / 2, y: -20)
+        e.targetNode = self
+        addChild(e)
+        e.run(.sequence([.wait(forDuration: 5), .removeFromParent()]))
+    }
+
     /// Confetti falling from the top of the screen.
     func confetti() {
         guard !reduceMotion else { return }
@@ -392,6 +443,27 @@ final class RoundFXScene: SKScene {
             addChild(e)
             e.run(.sequence([.wait(forDuration: 4.5), .removeFromParent()]))
         }
+
+        // The kit's ribbons tumbling through the chips.
+        let ribbons = SKEmitterNode()
+        ribbons.particleTexture = props.textureNamed(GameArt.Props.ribbon)
+        ribbons.numParticlesToEmit = 18
+        ribbons.particleBirthRate = 9
+        ribbons.particleLifetime = 3.6
+        ribbons.emissionAngle = -.pi / 2
+        ribbons.emissionAngleRange = 0.4
+        ribbons.particleSpeed = 130
+        ribbons.particleSpeedRange = 60
+        ribbons.yAcceleration = -120
+        ribbons.particleRotationRange = .pi * 2
+        ribbons.particleRotationSpeed = 3
+        ribbons.particleScale = 0.4
+        ribbons.particleScaleRange = 0.15
+        ribbons.particlePositionRange = CGVector(dx: size.width, dy: 0)
+        ribbons.position = CGPoint(x: size.width / 2, y: size.height + 20)
+        ribbons.targetNode = self
+        addChild(ribbons)
+        ribbons.run(.sequence([.wait(forDuration: 5), .removeFromParent()]))
     }
 
     private static let chip: UIImage = UIGraphicsImageRenderer(size: CGSize(width: 10, height: 6)).image { context in

@@ -23,7 +23,7 @@ struct GameScenePickerView: View {
                 LazyVStack(spacing: 20) {
                     ForEach(library.packs) { pack in
                         SceneCard(pack: pack, recorded: viewModel.recordedCount(for: pack)) {
-                            SoundManager.shared.play(.clapperSnap)
+                            GameSFX.play(.select)
                             viewModel.open(pack)
                         }
                     }
@@ -103,6 +103,8 @@ private struct SceneCard: View {
                 DubStillImage(url: pack.iconURL)
                     .aspectRatio(16 / 9, contentMode: .fill)
                     .frame(maxWidth: .infinity)
+                    // On the show's monitor.
+                    .gameCRT(0.7)
                     .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
                     .overlay(
                         RoundedRectangle(cornerRadius: 14, style: .continuous)
@@ -110,17 +112,25 @@ private struct SceneCard: View {
                     )
                     .overlay(alignment: .bottomTrailing) {
                         if recorded >= pack.lines.count, !pack.lines.isEmpty {
-                            Image(systemName: "checkmark.seal.fill")
-                                .font(.system(size: 34, weight: .black))
-                                .foregroundStyle(Color.gameGold)
-                                .shadow(color: .gameNavy, radius: 0, x: 0, y: 3)
+                            GameStar(isLit: true, size: 48)
+                                .padding(8)
+                        } else {
+                            Image(systemName: "play.fill")
+                                .font(.system(size: 20, weight: .black))
+                                .foregroundStyle(.white)
+                                .shadow(color: .gameNavy, radius: 0, x: 0, y: 2)
+                                .frame(width: 48, height: 48)
+                                .background(Circle().fill(Color.gameCoral))
+                                .overlay(Circle().strokeBorder(Color.gameNavy, lineWidth: 3))
+                                .gameShine(0.5)
                                 .padding(10)
+                                .accessibilityHidden(true)
                         }
                     }
 
                 HStack(alignment: .center, spacing: 10) {
                     Text(pack.title)
-                        .font(.game(20))
+                        .font(.gameDisplay(22))
                         .foregroundStyle(Color.gameNavy)
                         .lineLimit(2)
                         .multilineTextAlignment(.leading)
@@ -133,23 +143,21 @@ private struct SceneCard: View {
                         .monospacedDigit()
                 }
 
-                // Lines dubbed, as a chunky bar.
-                GeometryReader { proxy in
-                    ZStack(alignment: .leading) {
-                        Capsule().fill(Color.gameNavy.opacity(0.12))
+                // Lines dubbed: a pip per line, lit as each is done, like a level's checkpoints.
+                HStack(spacing: 4) {
+                    ForEach(0..<pack.lines.count, id: \.self) { index in
                         Capsule()
-                            .fill(Color.gameCyan)
-                            .frame(width: max(14, proxy.size.width * CGFloat(recorded) / CGFloat(total)))
-                            .opacity(recorded == 0 ? 0 : 1)
-                        Capsule().strokeBorder(Color.gameNavy, lineWidth: 2.5)
-                        Text("\(recorded) / \(pack.lines.count)")
-                            .font(.game(12))
-                            .foregroundStyle(Color.gameNavy)
-                            .monospacedDigit()
-                            .frame(maxWidth: .infinity)
+                            .fill(index < recorded ? Color.gameCyan : Color.gameNavy.opacity(0.12))
+                            .overlay(Capsule().strokeBorder(Color.gameNavy, lineWidth: 2))
+                            .frame(height: 14)
                     }
+                    Text("\(recorded)/\(pack.lines.count)")
+                        .font(.gameDisplay(15))
+                        .foregroundStyle(Color.gameNavy)
+                        .monospacedDigit()
+                        .fixedSize()
+                        .padding(.leading, 4)
                 }
-                .frame(height: 22)
             }
             .padding(14)
             .gameCard()

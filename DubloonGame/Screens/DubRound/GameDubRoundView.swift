@@ -77,12 +77,8 @@ struct GameDubRoundView: View {
         .onChange(of: recorder.isRecording) { _, recording in recorder.recordingDidChange(isRecording: recording) }
         .onChange(of: viewModel.reveal) { _, reveal in
             guard let reveal else { return }
-            if reveal.grade.celebrates {
-                SoundManager.shared.play(.projectorChime)
-                fx.confetti()
-            } else {
-                SoundManager.shared.play(.errorThunk)
-            }
+            // After the score has rolled up and the stars have landed.
+            fx.finale(for: reveal.grade)
         }
         .animation(.spring(response: 0.4, dampingFraction: 0.82), value: viewModel.reveal)
         .animation(.spring(response: 0.4, dampingFraction: 0.82), value: viewModel.isRecording)
@@ -245,7 +241,7 @@ struct GameDubRoundView: View {
                 let weakest = parts.min(by: { $0.value < $1.value })?.id
                 HStack(spacing: 10) {
                     ForEach(parts) { part in
-                        ScorePartTile(part: part, isWeakest: part.id == weakest && part.value < 85)
+                        ScorePartTile(part: part, isWeakest: part.id == weakest && part.value < 85, order: parts.firstIndex(of: part) ?? 0)
                     }
                 }
                 .transition(.move(edge: .bottom).combined(with: .opacity))

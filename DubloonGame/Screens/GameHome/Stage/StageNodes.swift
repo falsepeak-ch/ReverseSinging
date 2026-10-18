@@ -66,11 +66,11 @@ final class OutlinedTextNode: SKSpriteNode {
         maxWidth: CGFloat = .greatestFiniteMagnitude
     ) {
         var pointSize = size
-        var font = StageText.font(size: pointSize, weight: weight)
+        var font = GameFont.display(size: pointSize)
         var width = (text as NSString).size(withAttributes: [.font: font]).width
         while width > maxWidth, pointSize > size * 0.66 {
             pointSize -= 0.5
-            font = StageText.font(size: pointSize, weight: weight)
+            font = GameFont.display(size: pointSize)
             width = (text as NSString).size(withAttributes: [.font: font]).width
         }
 
@@ -82,7 +82,9 @@ final class OutlinedTextNode: SKSpriteNode {
 
         let format = UIGraphicsImageRendererFormat()
         format.scale = 3
-        let image = UIGraphicsImageRenderer(size: canvas, format: format).image { _ in
+        let image = UIGraphicsImageRenderer(size: canvas, format: format).image { context in
+            // Round joins: the display face's sharp corners would otherwise grow miter spikes.
+            context.cgContext.setLineJoin(.round)
             // The stroke is centred on the glyph edge; drawn first and twice as wide, only its
             // outer half shows once the fill goes on top.
             let stroke: [NSAttributedString.Key: Any] = [
@@ -197,14 +199,16 @@ class StageButton: SKNode {
     }
 }
 
-/// The kit's cyan pill with a label on it.
+/// The kit's cyan pill with a label on it, optionally repainted (`tint`) and led by a small
+/// picture.
 final class PillButton: StageButton {
     private let pill: NineSliceNode
     private let label = OutlinedTextNode()
+    private var icon: SKSpriteNode?
     private var title: String
     private var fontSize: CGFloat
 
-    init(title: String, ui: SKTextureAtlas, fontSize: CGFloat = 18) {
+    init(title: String, ui: SKTextureAtlas, fontSize: CGFloat = 18, tint: SKColor? = nil, icon: SKTexture? = nil) {
         self.title = title
         self.fontSize = fontSize
         pill = NineSliceNode(
@@ -212,11 +216,17 @@ final class PillButton: StageButton {
             centerRect: CGRect(x: 0.34, y: 0.3, width: 0.32, height: 0.4)
         )
         super.init()
-        pill.spriteShader = StageShaders.shine()
+        pill.spriteShader = tint.map(StageShaders.tintedShine) ?? StageShaders.shine()
         addChild(pill)
         label.position.y = 2
         label.zPosition = 1
         addChild(label)
+        if let icon {
+            let sprite = SKSpriteNode(texture: icon)
+            sprite.zPosition = 2
+            self.icon = sprite
+            addChild(sprite)
+        }
     }
 
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) is not used") }
@@ -229,9 +239,25 @@ final class PillButton: StageButton {
     /// The pill's width follows its title unless one is given.
     func layout(width: CGFloat? = nil, height: CGFloat = 56) {
         let w = width ?? 240
-        label.set(title, size: fontSize, color: .white, maxWidth: w - 36)
+        // The picture breaks out of the pill's left end, a little bigger than the pill is tall.
+        let iconSide = height * 1.25
+        let iconRoom = icon == nil ? 0 : iconSide * 0.55
+        label.set(title, size: fontSize, color: .white, maxWidth: w - 36 - iconRoom)
+        label.position.x = iconRoom / 2
         pill.size = CGSize(width: w, height: height)
         hitSize = CGSize(width: w, height: height + 8)
+        if let icon, let base = icon.texture?.size() {
+            icon.setScale(iconSide / max(base.width, base.height))
+            icon.position = CGPoint(x: -w / 2 + iconSide * 0.38, y: 4)
+            if icon.action(forKey: "wiggle") == nil {
+                let wiggle = SKAction.sequence([
+                    .wait(forDuration: 2.4),
+                    .rotate(toAngle: 0.18, duration: 0.08), .rotate(toAngle: -0.14, duration: 0.1),
+                    .rotate(toAngle: 0.08, duration: 0.08), .rotate(toAngle: 0, duration: 0.1),
+                ])
+                icon.run(.repeatForever(wiggle), withKey: "wiggle")
+            }
+        }
     }
 }
 
@@ -263,7 +289,8 @@ final class RoundIconButton: StageButton {
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) is not used") }
 }
 
-/// A game on the stage: its icon bobbing over a pill with its name.
+/// A game on the stage: its icon bobbing in a lit glass cabinet, a pill with its name across
+/// the cabinet's foot, and a badge for how far you have got.
 final class GameTileButton: StageButton {
     /// Big enough for a thumb, as on a game's title screen.
     static let pillHeight: CGFloat = 64
@@ -272,29 +299,95 @@ final class GameTileButton: StageButton {
     let mode: GameMode
     private let icon: SKSpriteNode
     private let pill: PillButton
+    private let cabinet = SKSpriteNode(color: .white, size: CGSize(width: 10, height: 10))
+    private let badge = SKNode()
+    private let seed: Float
 
-    init(mode: GameMode, games: SKTextureAtlas, ui: SKTextureAtlas) {
+    init(mode: GameMode, games: SKTextureAtlas, ui: SKTextureAtlas, seed: Float) {
         self.mode = mode
+        self.seed = seed
         icon = SKSpriteNode(texture: games.textureNamed(GameArt.tile(for: mode)))
         pill = PillButton(title: mode.title, ui: ui, fontSize: GameTileButton.titleSize)
         super.init()
         // The pill is a part of this button, not a button of its own.
         pill.isUserInteractionEnabled = false
+        cabinet.zPosition = -1
+        icon.zPosition = 1
+        pill.zPosition = 2
+        badge.zPosition = 3
+        addChild(cabinet)
         addChild(icon)
         addChild(pill)
+        addChild(badge)
     }
 
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) is not used") }
 
+    /// How tall the tile stands above and below its centre, for the scene's layout.
+    static func extent(width: CGFloat) -> (above: CGFloat, below: CGFloat) {
+        let iconSide = width * 0.74
+        return (iconSide / 2 + 22, iconSide / 2 + pillHeight - 4)
+    }
+
+    /// A small label in the cabinet's corner, such as the stars won; nil clears it.
+    func setBadge(_ text: String?, star: SKTexture?) {
+        badge.removeAllChildren()
+        guard let text else { return }
+        let label = OutlinedTextNode()
+        label.set(text, size: 15, weight: .black, color: SKColor(Color.gameGold))
+        let starSide: CGFloat = star == nil ? 0 : 20
+        let width = label.size.width + starSide + 18
+        let capsule = SKShapeNode(rectOf: CGSize(width: width, height: 30), cornerRadius: 15)
+        capsule.fillColor = SKColor(Color.gameNavy)
+        capsule.strokeColor = SKColor(Color.gameGold)
+        capsule.lineWidth = 2
+        badge.addChild(capsule)
+        label.position.x = starSide / 2
+        label.zPosition = 1
+        badge.addChild(label)
+        if let star {
+            let sprite = SKSpriteNode(texture: star)
+            sprite.size = CGSize(width: starSide, height: starSide * star.size().height / max(star.size().width, 1))
+            sprite.position.x = -width / 2 + 9 + starSide / 2
+            sprite.zPosition = 1
+            badge.addChild(sprite)
+        }
+        badge.userData = ["width": width]
+        layoutBadge()
+    }
+
+    private var lastWidth: CGFloat = 0
+
+    private func layoutBadge() {
+        let badgeWidth = badge.userData?["width"] as? CGFloat ?? 0
+        let iconSide = lastWidth * 0.74
+        badge.position = CGPoint(x: lastWidth / 2 - badgeWidth / 2 - 4, y: iconSide / 2 + 16)
+    }
+
     /// Lays the tile out in a `width`-wide column, its icon centred on this node.
     func layout(width: CGFloat, phase: Double) {
-        let iconSide = width * 0.82
+        lastWidth = width
+        let iconSide = width * 0.74
         let base = icon.texture?.size() ?? CGSize(width: 1, height: 1)
         let scale = iconSide / max(base.width, base.height)
         icon.setScale(scale)
         pill.layout(width: width, height: GameTileButton.pillHeight)
         pill.position.y = -iconSide / 2 - GameTileButton.pillHeight / 2 + 4
-        hitSize = CGSize(width: width, height: iconSide + GameTileButton.pillHeight + 16)
+
+        let cabinetHeight = iconSide + 52
+        cabinet.size = CGSize(width: width, height: cabinetHeight)
+        cabinet.position.y = (iconSide / 2 + 22) - cabinetHeight / 2
+        if cabinet.shader == nil {
+            cabinet.shader = StageShaders.cabinet(
+                rim: SKColor(mode == .imitate ? Color.gameCoral : Color.gameCyan),
+                aspect: Float(width / cabinetHeight),
+                seed: seed
+            )
+        } else {
+            cabinet.shader?.uniformNamed("u_aspect")?.floatValue = Float(width / cabinetHeight)
+        }
+        hitSize = CGSize(width: width, height: iconSide + GameTileButton.pillHeight + 30)
+        layoutBadge()
 
         icon.removeAllActions()
         let bob = SKAction.sequence([
@@ -307,5 +400,51 @@ final class GameTileButton: StageButton {
             .rotate(toAngle: -0.04, duration: 1.6),
         ])
         icon.run(.sequence([.wait(forDuration: phase), .group([.repeatForever(bob), .repeatForever(tilt)])]))
+    }
+}
+
+// MARK: - HUD
+
+/// The stars won so far, in a navy capsule in the stage's top corner, like a game's coin
+/// counter. It bumps when the count goes up.
+final class StarCounterNode: SKNode {
+    private let capsule = SKShapeNode()
+    private let star: SKSpriteNode
+    private let label = OutlinedTextNode()
+    private var shown = -1
+    private(set) var width: CGFloat = 96
+
+    init(star texture: SKTexture) {
+        star = SKSpriteNode(texture: texture)
+        super.init()
+        capsule.fillColor = SKColor(Color.gameNavy)
+        capsule.strokeColor = SKColor(Color.gameGold)
+        capsule.lineWidth = 3
+        addChild(capsule)
+        star.zPosition = 1
+        addChild(star)
+        label.zPosition = 1
+        addChild(label)
+    }
+
+    required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) is not used") }
+
+    func set(stars: Int, of total: Int) {
+        guard stars != shown else { return }
+        let grew = shown >= 0 && stars > shown
+        shown = stars
+        label.set("\(stars)", size: 22, weight: .black, color: .white)
+        let starSide: CGFloat = 38
+        star.size = CGSize(width: starSide, height: starSide)
+        width = max(label.size.width + starSide + 26, 92)
+        capsule.path = CGPath(
+            roundedRect: CGRect(x: -width / 2, y: -24, width: width, height: 48),
+            cornerWidth: 24, cornerHeight: 24, transform: nil
+        )
+        star.position = CGPoint(x: -width / 2 + 8 + starSide / 2, y: 1)
+        label.position = CGPoint(x: star.position.x + starSide / 2 + 4 + label.size.width / 2, y: 0)
+        if grew {
+            star.run(.sequence([.scale(to: 1.4, duration: 0.12), .scale(to: 1, duration: 0.2)]))
+        }
     }
 }

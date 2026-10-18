@@ -22,6 +22,9 @@ struct GameHomeView: View {
     private var scene: GameStageScene { stage.scene }
     /// The stage stops rendering while a game is on top of it.
     @State private var isStageVisible = true
+    /// The star wipe between the stage and a game: 1 open, 0 closed.
+    @State private var iris: CGFloat = 1
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         NavigationStack(path: $viewModel.path) {
@@ -55,6 +58,12 @@ struct GameHomeView: View {
             ProPaywallView(source: "game_home")
                 .paywallAppearance()
         }
+        .overlay {
+            StarWipe(progress: iris)
+                .ignoresSafeArea()
+                .allowsHitTesting(iris < 1)
+                .accessibilityHidden(true)
+        }
         .onAppear(perform: connectScene)
         .onChange(of: viewModel.stageState) { _, state in scene.apply(state) }
         .onChange(of: app.showDubLibrary) { _, wantsLibrary in
@@ -63,10 +72,28 @@ struct GameHomeView: View {
     }
 
     private func connectScene() {
-        scene.onSelectGame = { mode in viewModel.open(mode) }
+        scene.onSelectGame = { mode in
+            Task { await open(mode) }
+        }
         scene.onPro = { viewModel.showPaywall() }
         scene.onSettings = { app.showSettings = true }
         scene.apply(viewModel.stageState)
+    }
+
+    /// Closes a star over the stage, opens the game under it, and opens the star again.
+    private func open(_ mode: GameMode) async {
+        guard !reduceMotion else {
+            viewModel.open(mode)
+            return
+        }
+        GameSFX.play(.whoosh)
+        withAnimation(.easeIn(duration: 0.32)) { iris = 0 }
+        try? await Task.sleep(for: .milliseconds(340))
+        var instant = Transaction()
+        instant.disablesAnimations = true
+        withTransaction(instant) { viewModel.open(mode) }
+        try? await Task.sleep(for: .milliseconds(80))
+        withAnimation(.easeOut(duration: 0.45)) { iris = 1 }
     }
 
     // MARK: - Destinations
@@ -99,5 +126,49 @@ struct GameHomeView: View {
             }
             Button(Strings.Settings.title) { app.showSettings = true }
         }
+    }
+}
+
+/// A navy curtain with a star-shaped hole, as a game show wipes between segments. At 1 the
+/// star is wider than the screen; at 0 it has closed to nothing.
+private struct StarWipe: View, Animatable {
+    var progress: CGFloat
+
+    var animatableData: CGFloat {
+        get { progress }
+        set { progress = newValue }
+    }
+
+    var body: some View {
+        GeometryReader { proxy in
+            let size = proxy.size
+            let reach = hypot(size.width, size.height) * 1.1
+            let radius = reach * max(progress, 0)
+            let center = CGPoint(x: size.width / 2, y: size.height * 0.48)
+            let star = Self.star(center: center, radius: radius, rotation: (1 - progress) * .pi * 0.6)
+            if progress < 1 {
+                ZStack {
+                    Path { path in
+                        path.addRect(CGRect(origin: .zero, size: size))
+                        path.addPath(star)
+                    }
+                    .fill(Color.gameNavy, style: FillStyle(eoFill: true))
+                    star.stroke(Color.gameGold, lineWidth: 8)
+                }
+            }
+        }
+    }
+
+    static func star(center: CGPoint, radius: CGFloat, rotation: CGFloat) -> Path {
+        var path = Path()
+        guard radius > 0 else { return path }
+        for index in 0..<10 {
+            let r = index.isMultiple(of: 2) ? radius : radius * 0.48
+            let angle = -.pi / 2 + rotation + CGFloat(index) * .pi / 5
+            let point = CGPoint(x: center.x + cos(angle) * r, y: center.y + sin(angle) * r)
+            if index == 0 { path.move(to: point) } else { path.addLine(to: point) }
+        }
+        path.closeSubpath()
+        return path
     }
 }
