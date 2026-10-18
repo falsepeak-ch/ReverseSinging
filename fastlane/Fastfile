@@ -392,3 +392,42 @@ platform :mac do
     )
   end
 end
+
+# Dubloon the Game: its own App Store app (com.falsepeak.dubloon-game), so its own store text,
+# screenshots and products. Price, availability and the content-rights declaration are set by
+# fastlane/game_products/setup_game_app.rb; its products by setup_game_products.rb.
+GAME_APP_IDENTIFIER = "com.falsepeak.dubloon-game"
+GAME_METADATA_PATH = File.expand_path("metadata_game", __dir__)
+GAME_SCREENSHOTS_PATH = File.expand_path("screenshots_game", __dir__)
+
+platform :ios do
+  desc "Upload Dubloon the Game's store text, categories, age rating and review notes"
+  desc "into its editable version. Never submits."
+  lane :game_metadata do
+    deliver(
+      api_key: @api_key,
+      app_identifier: GAME_APP_IDENTIFIER,
+      metadata_path: GAME_METADATA_PATH,
+      skip_binary_upload: true,
+      skip_screenshots: true,
+      app_rating_config_path: APP_RATING_CONFIG_PATH,
+      force: true,
+      precheck_include_in_app_purchases: false
+    )
+  end
+
+  desc "Upload Dubloon the Game's screenshots (fastlane/screenshots_game, 1320x2868)"
+  lane :game_screenshots do
+    ENV["DELIVER_NUMBER_OF_THREADS"] = "1"
+    deliver(
+      api_key: @api_key,
+      app_identifier: GAME_APP_IDENTIFIER,
+      screenshots_path: GAME_SCREENSHOTS_PATH,
+      skip_binary_upload: true,
+      skip_metadata: true,
+      force: true,
+      overwrite_screenshots: true,
+      precheck_include_in_app_purchases: false
+    )
+  end
+end

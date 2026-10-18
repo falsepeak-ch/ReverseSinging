@@ -1,0 +1,27 @@
+Dubloon the Game is a separate app from Dubloon by Cluso (com.falsepeak.reverse-singing-ios): its own bundle, its own purchases and its own Game Center. It contains two of Dubloon's games, presented as a game show.
+
+No account is needed. Everything runs on device; nothing is uploaded. Firebase provides anonymous usage statistics and crash reports only, never audio or file contents. Reminders are local notifications scheduled on the device; nothing is sent from a server.
+
+MOVIE SCENE DUB
+
+The app ships with four short example scenes and does not host, provide or distribute any other film, clip or dialogue: no catalogue, no search, no download. Every further scene is a file the user already has and imports.
+
+1. Three are from Blender's open movies under Creative Commons Attribution, which permits adaptation and redistribution with credit: "Camp Rules" ("Sprite Fright", CC BY 4.0), "Awesome in Space" ("Tears of Steel", CC BY 3.0) and "A Kindred Spirit" ("Sintel", CC BY 3.0).
+
+2. "Stuck Up", from "The Outsider" (Centron Productions, 1951), a US classroom film never renewed in its 28th year, so US public domain.
+
+Each states its provenance on the scene screen and before every export.
+
+THE PURCHASE
+
+Free to download, with no account. Both games open for everyone. The first 3 takes are free, counted across both games. After the third, the purchase screen opens, and each new take asks for a purchase, which a sandbox account can make. The gold button on the home stage also opens it.
+
+Any of three products unlocks the same thing (unlimited takes): the non-consumable "com.falsepeak.dubloon_game.lifetime", or the auto-renewable subscriptions "com.falsepeak.dubloon_game.monthly" and "com.falsepeak.dubloon_game.yearly" (3-day free trial on the yearly). The purchase screen has Restore, Terms and Privacy links.
+
+MICROPHONE
+
+The microphone is asked for at the first press of the record button, after a one-button explanation that always leads to the system prompt. Nothing follows a refusal.
+
+GAME CENTER
+
+The player is signed in at launch. Stars and points go to five leaderboards (one weekly, recurring) and nine achievements; the trophy on the home stage opens them.

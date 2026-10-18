@@ -97,6 +97,24 @@ Build and upload a build to TestFlight
 
 Build and upload to App Store with metadata and screenshots (does not submit for review)
 
+### ios game_metadata
+
+```sh
+[bundle exec] fastlane ios game_metadata
+```
+
+Upload Dubloon the Game's store text, categories, age rating and review notes
+
+into its editable version. Never submits.
+
+### ios game_screenshots
+
+```sh
+[bundle exec] fastlane ios game_screenshots
+```
+
+Upload Dubloon the Game's screenshots (fastlane/screenshots_game, 1320x2868)
+
 ----
 
 
