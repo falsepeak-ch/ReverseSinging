@@ -154,3 +154,6 @@
 "help.troubleshooting.1.a" = "Перевір, що грі можна користуватися мікрофоном: у застосунку Налаштування відкрий Dubloon Game і ввімкни «Мікрофон». Якщо звук зайнятий іншою програмою, наприклад дзвінком, заверши його й спробуй знову.";
 "help.troubleshooting.4.q" = "Booth Cam не вмикається.";
 "help.troubleshooting.4.a" = "Для неї грі потрібна камера. У застосунку Налаштування відкрий Dubloon Game і ввімкни «Камера».";
+
+/* The import gate's third answer, which opens the numbered steps for getting a scene */
+"game.dubGate.showSteps" = "Покажи покроково";

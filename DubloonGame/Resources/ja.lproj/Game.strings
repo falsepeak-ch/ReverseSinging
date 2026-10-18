@@ -154,3 +154,6 @@
 "help.troubleshooting.1.a" = "ゲームがマイクを使えるか確認してください。「設定」アプリでDubloon Gameを開き、「マイク」をオンにします。通話など、別のアプリがオーディオを使っている場合は、それを終えてからもう一度お試しください。";
 "help.troubleshooting.4.q" = "ブースカメラがオンになりません。";
 "help.troubleshooting.4.a" = "ブースカメラにはカメラへのアクセスが必要です。「設定」アプリでDubloon Gameを開き、「カメラ」をオンにしてください。";
+
+/* The import gate's third answer, which opens the numbered steps for getting a scene */
+"game.dubGate.showSteps" = "手順を見る";

@@ -154,3 +154,6 @@
 "help.troubleshooting.1.a" = "Kontrollera att spelet får använda mikrofonen: öppna Dubloon Game i appen Inställningar och slå på Mikrofon. Om en annan app använder ljudet, till exempel ett samtal, avsluta det och försök igen.";
 "help.troubleshooting.4.q" = "Booth Cam går inte att slå på.";
 "help.troubleshooting.4.a" = "Spelet behöver kameran för det. Öppna Dubloon Game i appen Inställningar och slå på Kamera.";
+
+/* The import gate's third answer, which opens the numbered steps for getting a scene */
+"game.dubGate.showSteps" = "Visa hur, steg för steg";

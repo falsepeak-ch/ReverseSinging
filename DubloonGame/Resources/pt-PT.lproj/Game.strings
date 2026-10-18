@@ -154,3 +154,6 @@
 "help.troubleshooting.1.a" = "Confirma que o jogo pode usar o microfone: na app Definições, abre o Dubloon Game e liga Microfone. Se outra app estiver a usar o áudio, como uma chamada, termina-a e tenta outra vez.";
 "help.troubleshooting.4.q" = "A câmara da cabine não liga.";
 "help.troubleshooting.4.a" = "O jogo precisa da câmara para isso. Na app Definições, abre o Dubloon Game e liga Câmara.";
+
+/* The import gate's third answer, which opens the numbered steps for getting a scene */
+"game.dubGate.showSteps" = "Mostra-me como, passo a passo";

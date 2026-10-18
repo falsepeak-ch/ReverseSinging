@@ -179,64 +179,173 @@ private struct SceneCard: View {
     }
 }
 
-/// The empty slot at the head of the scenes: a ghost of a scene card, the same size, with a
-/// dashed outline and a plus where the still would be. It opens the import gate, which asks
-/// whether the movie is already on the phone and helps find one if not.
+/// The empty slot at the head of the scenes, the same size as a scene card: a monitor waiting
+/// for its picture, with a spotlight and turning rays behind the clapperboard, a gold plus that
+/// beats like a call to come on stage, sparkles, and a cyan rim of marching lights. It opens the
+/// import gate, which asks whether the movie is already on the phone and helps find one if not.
 private struct AddSceneCard: View {
     let action: () -> Void
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    private let radius: CGFloat = 22
+
     var body: some View {
         Button(action: action) {
-            VStack(alignment: .leading, spacing: 10) {
-                RoundedRectangle(cornerRadius: 14, style: .continuous)
-                    .fill(Color.gameIvory.opacity(0.06))
-                    .aspectRatio(16 / 9, contentMode: .fit)
-                    .frame(maxWidth: .infinity)
-                    .overlay {
-                        Image(systemName: "plus")
-                            .font(.system(size: 30, weight: .heavy))
-                            .foregroundStyle(Color.gameNavy)
-                            .frame(width: 64, height: 64)
-                            .background(Circle().fill(Color.gameCyan))
-                            .overlay(Circle().strokeBorder(Color.gameNavy, lineWidth: 3))
-                            .background(Circle().fill(Color.gameNavy).offset(y: 4))
-                    }
-
-                // The same rows as a scene card, so the two are exactly the same height.
-                HStack(alignment: .center, spacing: 10) {
-                    Text(Strings.Dub.importPack)
-                        .font(.gameDisplay(22))
-                        .foregroundStyle(Color.gameIvory)
-                        .lineLimit(2)
-                    Spacer(minLength: 0)
-                    Text("0:00")
-                        .font(.game(14, weight: .bold))
-                        .hidden()
-                }
-                HStack(spacing: 4) {
-                    Capsule()
-                        .fill(Color.gameIvory.opacity(0.12))
-                        .frame(height: 14)
-                    Text("0/0")
-                        .font(.gameDisplay(15))
-                        .fixedSize()
-                        .padding(.leading, 4)
-                        .hidden()
-                }
+            TimelineView(.animation(paused: reduceMotion)) { timeline in
+                let t = reduceMotion ? 0 : timeline.date.timeIntervalSinceReferenceDate
+                content(t)
+                    .padding(14)
+                    .background(
+                        RoundedRectangle(cornerRadius: radius, style: .continuous)
+                            .fill(Color.gameNavy.opacity(0.78))
+                    )
+                    // Where a scene card's lip would be, so the row spacing matches.
+                    .padding(.bottom, 5)
+                    .overlay { rim(t) }
             }
-            .padding(14)
-            .background(
-                RoundedRectangle(cornerRadius: 22, style: .continuous)
-                    .fill(Color.gameNavy.opacity(0.45))
-            )
-            // Where a scene card's lip would be, so the row spacing matches.
-            .padding(.bottom, 5)
-            .overlay(
-                RoundedRectangle(cornerRadius: 22, style: .continuous)
-                    .strokeBorder(Color.gameIvory.opacity(0.7), style: StrokeStyle(lineWidth: 3.5, dash: [14, 10]))
-            )
         }
         .buttonStyle(CardPressStyle())
         .accessibilityLabel(Strings.Dub.importPack)
+    }
+
+    private func content(_ t: TimeInterval) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            monitor(t)
+
+            // The same rows as a scene card, so the two are exactly the same height.
+            HStack(alignment: .center, spacing: 10) {
+                Text(Strings.Dub.importPack)
+                    .font(.gameDisplay(22))
+                    .foregroundStyle(Color.gameIvory)
+                    .lineLimit(2)
+                Spacer(minLength: 0)
+                Text("0:00")
+                    .font(.game(14, weight: .bold))
+                    .hidden()
+            }
+            // Empty checkpoints, waiting for the lines of whatever comes in.
+            HStack(spacing: 4) {
+                ForEach(0..<6, id: \.self) { index in
+                    let lit = (sin(t * 2.4 - Double(index) * 0.7) + 1) / 2
+                    Capsule()
+                        .fill(Color.gameCyan.opacity(0.08 + lit * 0.22))
+                        .overlay(Capsule().strokeBorder(Color.gameCyan.opacity(0.35 + lit * 0.4), lineWidth: 2))
+                        .frame(height: 14)
+                }
+                Text("0/0")
+                    .font(.gameDisplay(15))
+                    .fixedSize()
+                    .padding(.leading, 4)
+                    .hidden()
+            }
+        }
+    }
+
+    /// The screen where the still would be: dark, lit from above, with the art centre stage.
+    private func monitor(_ t: TimeInterval) -> some View {
+        Color.gameNavy
+            .aspectRatio(16 / 9, contentMode: .fit)
+            .frame(maxWidth: .infinity)
+            .overlay { rays(t) }
+            .overlay {
+                // The spotlight, breathing.
+                RadialGradient(
+                    colors: [Color.gameCyan.opacity(0.42 + 0.08 * sin(t * 1.6)), Color.gameCyan.opacity(0)],
+                    center: UnitPoint(x: 0.5, y: 0.52),
+                    startRadius: 0,
+                    endRadius: 170
+                )
+                .blendMode(.screen)
+            }
+            .overlay { sparkles(t) }
+            .overlay { clapper(t) }
+            .gameCRT(0.55)
+            .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .strokeBorder(Color.gameCyan.opacity(0.55), lineWidth: 3)
+            )
+    }
+
+    /// Slow-turning wedges of light behind the art, like a game-show backdrop.
+    private func rays(_ t: TimeInterval) -> some View {
+        let count = 14
+        let stops: [Gradient.Stop] = (0..<count).flatMap { index -> [Gradient.Stop] in
+            let start = Double(index) / Double(count)
+            let half = 0.5 / Double(count)
+            return [
+                .init(color: Color.gameCyan.opacity(0.16), location: start),
+                .init(color: Color.gameCyan.opacity(0.16), location: start + half),
+                .init(color: .clear, location: start + half),
+                .init(color: .clear, location: start + 2 * half),
+            ]
+        }
+        return AngularGradient(stops: stops, center: UnitPoint(x: 0.5, y: 0.52))
+            .rotationEffect(.degrees(t * 6))
+            .scaleEffect(2.2)
+            .mask(
+                RadialGradient(colors: [.white, .white.opacity(0)], center: UnitPoint(x: 0.5, y: 0.52),
+                               startRadius: 30, endRadius: 190)
+            )
+    }
+
+    /// The clapperboard, bobbing, with the beating gold plus on its corner.
+    private func clapper(_ t: TimeInterval) -> some View {
+        let beat = pow(max(0, sin(t * 3.2)), 6)
+        return Image("game-movies")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 138, height: 138)
+            .rotationEffect(.degrees(sin(t * 1.3) * 3))
+            .offset(y: sin(t * 1.9) * 5)
+            .overlay(alignment: .bottomTrailing) {
+                Image(systemName: "plus")
+                    .font(.system(size: 24, weight: .black))
+                    .foregroundStyle(Color.gameNavy)
+                    .frame(width: 48, height: 48)
+                    .background(Circle().fill(Color.gameGold))
+                    .overlay(Circle().strokeBorder(Color.gameNavy, lineWidth: 3.5))
+                    .gameShine(0.6)
+                    .background(Circle().fill(Color.gameNavy).offset(y: 4))
+                    .shadow(color: Color.gameGold.opacity(0.35 + beat * 0.5), radius: 8 + beat * 10)
+                    .scaleEffect(1 + beat * 0.14)
+                    .offset(x: 26, y: 12)
+            }
+            .accessibilityHidden(true)
+    }
+
+    /// Four-point glints that wink on and off around the art.
+    private func sparkles(_ t: TimeInterval) -> some View {
+        let spots: [(x: CGFloat, y: CGFloat, size: CGFloat, phase: Double)] = [
+            (0.20, 0.26, 26, 0), (0.80, 0.22, 20, 1.7), (0.86, 0.70, 24, 3.1),
+            (0.14, 0.74, 18, 4.4), (0.64, 0.12, 14, 2.4),
+        ]
+        return GeometryReader { proxy in
+            ForEach(spots.indices, id: \.self) { index in
+                let spot = spots[index]
+                let glow = pow(max(0, sin(t * 1.4 + spot.phase)), 3)
+                Image(systemName: "sparkle")
+                    .font(.system(size: spot.size, weight: .bold))
+                    .foregroundStyle(index.isMultiple(of: 2) ? Color.gameGold : Color.gameIvory)
+                    .scaleEffect(0.4 + glow * 0.8)
+                    .rotationEffect(.degrees(glow * 45))
+                    .opacity(reduceMotion ? 0.7 : glow)
+                    .position(x: proxy.size.width * spot.x, y: proxy.size.height * spot.y)
+            }
+        }
+        .accessibilityHidden(true)
+    }
+
+    /// Marching lights round the card's edge, with a soft cyan glow under them.
+    private func rim(_ t: TimeInterval) -> some View {
+        let shape = RoundedRectangle(cornerRadius: radius, style: .continuous)
+        return ZStack {
+            shape.strokeBorder(Color.gameCyan.opacity(0.25), lineWidth: 3.5)
+            shape.strokeBorder(
+                Color.gameCyan,
+                style: StrokeStyle(lineWidth: 3.5, lineCap: .round, dash: [16, 11], dashPhase: -t * 28)
+            )
+            .shadow(color: Color.gameCyan.opacity(0.8), radius: 6)
+        }
     }
 }

@@ -154,3 +154,6 @@
 "help.troubleshooting.1.a" = "Vérifie que le jeu peut utiliser le micro : dans l'app Réglages, ouvre Dubloon Game et active Micro. Si une autre app utilise l'audio, comme un appel, termine-le et réessaie.";
 "help.troubleshooting.4.q" = "La caméra de cabine ne s'active pas.";
 "help.troubleshooting.4.a" = "Le jeu a besoin de l'appareil photo pour ça. Dans l'app Réglages, ouvre Dubloon Game et active Appareil photo.";
+
+/* The import gate's third answer, which opens the numbered steps for getting a scene */
+"game.dubGate.showSteps" = "Montre-moi, étape par étape";

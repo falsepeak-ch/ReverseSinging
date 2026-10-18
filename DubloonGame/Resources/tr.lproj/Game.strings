@@ -154,3 +154,6 @@
 "help.troubleshooting.1.a" = "Oyunun mikrofonu kullanabildiğinden emin ol: Ayarlar uygulamasında Dubloon Game'i aç ve Mikrofon'u aç. Sesi başka bir uygulama kullanıyorsa, örneğin bir arama, onu bitir ve tekrar dene.";
 "help.troubleshooting.4.q" = "Booth Cam açılmıyor.";
 "help.troubleshooting.4.a" = "Oyunun bunun için kameraya ihtiyacı var. Ayarlar uygulamasında Dubloon Game'i aç ve Kamera'yı aç.";
+
+/* The import gate's third answer, which opens the numbered steps for getting a scene */
+"game.dubGate.showSteps" = "Adım adım göster";

@@ -16,6 +16,8 @@ struct DubContentGateModal: View {
     enum Step {
         case ask
         case download
+        /// The numbered steps for getting a pack onto the phone (the game's third answer).
+        case guide
     }
 
     let source: DubContentSource
@@ -49,7 +51,11 @@ struct DubContentGateModal: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
 
-            if step == .download {
+            if step == .guide {
+                guideSteps
+            }
+
+            if step == .download || step == .guide {
                 disclaimer
             }
         } phoneActions: {
@@ -63,9 +69,9 @@ struct DubContentGateModal: View {
         }
     }
 
-    /// Only the download step has a step to go back to.
+    /// Only the download and guide steps have a step to go back to.
     private var backAction: (() -> Void)? {
-        guard step == .download else { return nil }
+        guard step != .ask else { return nil }
         return { goBack() }
     }
 
@@ -80,7 +86,7 @@ struct DubContentGateModal: View {
             Button(Strings.DubGate.askConfirm, action: confirmOwnership)
                 .keyboardShortcut(.defaultAction)
                 .platformProminentButton()
-        case .download:
+        case .download, .guide:
             Button(String(format: Strings.DubGate.downloadOpen, source.name), action: openSource)
                 .keyboardShortcut(.defaultAction)
                 .platformProminentButton()
@@ -101,6 +107,7 @@ struct DubContentGateModal: View {
         switch step {
         case .ask: return Strings.DubGate.askTitle
         case .download: return Strings.DubGate.downloadTitle
+        case .guide: return Strings.DubGuide.title
         }
     }
 
@@ -108,6 +115,7 @@ struct DubContentGateModal: View {
         switch step {
         case .ask: return Strings.DubGate.askMessage
         case .download: return Strings.DubGate.downloadMessage
+        case .guide: return Strings.DubGuide.intro
         }
     }
 
@@ -174,6 +182,37 @@ struct DubContentGateModal: View {
                     style: .secondary,
                     textFont: .rsButtonMedium
                 )
+
+                #if DUBLOON_GAME
+                // The whole way, step by step, for whoever has never got a pack before.
+                BigButton(
+                    title: NSLocalizedString("game.dubGate.showSteps", tableName: "Game", comment: "The import gate's third answer, which opens the numbered steps for getting a scene"),
+                    icon: "list.number",
+                    color: .rsHighlight,
+                    action: showGuideStep,
+                    style: .secondary,
+                    textFont: .rsButtonMedium
+                )
+                #endif
+            }
+        case .guide:
+            VStack(spacing: 10) {
+                BigButton(
+                    title: String(format: Strings.DubGate.downloadOpen, source.name),
+                    icon: "arrow.up.right",
+                    color: .rsHighlight,
+                    action: openSource,
+                    style: .primary,
+                    textFont: .rsButtonMedium
+                )
+                BigButton(
+                    title: Strings.Dub.importPack,
+                    icon: "square.and.arrow.down",
+                    color: .rsHighlight,
+                    action: confirmOwnership,
+                    style: .secondary,
+                    textFont: .rsButtonMedium
+                )
             }
         case .download:
             BigButton(
@@ -197,6 +236,101 @@ struct DubContentGateModal: View {
     private func showDownloadStep() {
         AnalyticsManager.shared.trackDubGateDownloadHelpOpened()
         withAnimation(.rsSpring) { step = .download }
+    }
+
+    private func showGuideStep() {
+        AnalyticsManager.shared.trackDubPackGuideOpened()
+        withAnimation(.rsSpring) { step = .guide }
+    }
+
+    /// The guide's numbered steps, each a badge, a title and what to do. In the game the badges
+    /// are the kit's chunky tokens, strung on a dotted path so the steps read as one way through.
+    private var guideSteps: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            ForEach(1...Strings.DubGuide.stepCount, id: \.self) { number in
+                guideStep(number, isLast: number == Strings.DubGuide.stepCount)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private func guideStep(_ number: Int, isLast: Bool) -> some View {
+        HStack(alignment: .top, spacing: 14) {
+            VStack(spacing: 0) {
+                stepBadge(number)
+                if !isLast {
+                    stepConnector
+                }
+            }
+            VStack(alignment: .leading, spacing: 3) {
+                Text(Strings.DubGuide.stepTitle(number))
+                    #if DUBLOON_GAME
+                    .font(.gameDisplay(19))
+                    .foregroundColor(.gameNavy)
+                    #else
+                    .font(.rsBodyMedium.weight(.bold))
+                    .foregroundColor(.rsTextPrimary)
+                    #endif
+                Text(Strings.DubGuide.stepDetail(number))
+                    .font(.rsBodySmall)
+                    .foregroundColor(.rsTextSecondary)
+                    .lineSpacing(3)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(.top, 4)
+            .padding(.bottom, isLast ? 0 : 16)
+            Spacer(minLength: 0)
+        }
+        .accessibilityElement(children: .combine)
+    }
+
+    @ViewBuilder
+    private func stepBadge(_ number: Int) -> some View {
+        #if DUBLOON_GAME
+        // The last step is the way out when an import fails, so it wears the coral.
+        let fill: Color = number == Strings.DubGuide.stepCount ? .gameCoral : .gameCyan
+        ZStack {
+            Circle().fill(Color.gameNavy).offset(y: 3)
+            Circle().fill(fill)
+                .overlay(Circle().strokeBorder(Color.gameNavy, lineWidth: 3))
+                .overlay(alignment: .top) {
+                    Capsule().fill(Color.white.opacity(0.45))
+                        .frame(width: 14, height: 4)
+                        .padding(.top, 6)
+                }
+            OutlinedText(text: "\(number)", size: 20, color: .white, outline: .gameNavy)
+                .offset(y: 1)
+        }
+        .frame(width: 38, height: 38)
+        .padding(.bottom, 3)
+        .accessibilityHidden(true)
+        #else
+        Text("\(number)")
+            .font(.rsBodySmall.weight(.heavy))
+            .foregroundColor(.white)
+            .frame(width: 28, height: 28)
+            .background(Circle().fill(Color.rsHighlight))
+            .accessibilityHidden(true)
+        #endif
+    }
+
+    /// The dotted path from one badge down to the next.
+    private var stepConnector: some View {
+        Rectangle()
+            .fill(.clear)
+            .frame(width: 3)
+            .frame(maxHeight: .infinity)
+            .overlay {
+                GeometryReader { proxy in
+                    Path { path in
+                        path.move(to: CGPoint(x: 1.5, y: 4))
+                        path.addLine(to: CGPoint(x: 1.5, y: proxy.size.height - 2))
+                    }
+                    .stroke(Color.rsTextTertiary.opacity(0.7),
+                            style: StrokeStyle(lineWidth: 3, lineCap: .round, dash: [0.1, 8]))
+                }
+            }
+            .frame(minHeight: 14)
     }
 
     private func goBack() {
