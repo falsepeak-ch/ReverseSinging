@@ -33,6 +33,14 @@ final class GameAppDelegate: NSObject, UIApplicationDelegate {
         CrashReporter.shared.log("launch")
         AnalyticsManager.shared.trackAppLaunch()
 
+        #if DEBUG
+        // `-crashTest YES`: crashes a few seconds in, to check reports reach Crashlytics. Launch
+        // without the debugger, which would catch it, and open the game again to send it.
+        if UserDefaults.standard.bool(forKey: "crashTest") {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) { fatalError("Crashlytics test crash") }
+        }
+        #endif
+
         // After Firebase, so a store that will not start is reported.
         AccessController.shared.start()
         return true
