@@ -13,8 +13,10 @@ import UIKit
 /// The Booth Cam footage fills the top of the frame. Under it, on the stage, sits the show's
 /// monitor. Its header carries the character's name, the Dubloon wordmark and which line it is.
 /// The film plays inside the monitor. Under that come the line being dubbed, on an ivory card,
-/// and the original against the player's take as two waveforms with a playhead. Where there is
-/// no booth footage the top of the frame shows the wordmark on the stage instead of black.
+/// and the original against the player's take as two waveforms with a playhead. Where a line
+/// in a booth video has no footage, the top of the frame shows the wordmark on the stage instead
+/// of black. A video with no booth footage at all has no top band: the monitor and everything
+/// under it sit in the middle of the frame, under a smaller wordmark.
 ///
 /// **Everything but the two films is one track.** The stage, the monitor, the card and the
 /// waveforms are drawn into a full-canvas video, laid behind the film and the booth. That is the
@@ -27,17 +29,42 @@ nonisolated enum GameShowReel {
 
     /// The frame, top-left origin, the video composition's own space.
     static let canvas = CGSize(width: 1080, height: 1920)
-    /// Where the booth footage plays.
+    /// Where the booth footage plays, when there is any.
     static let boothRect = CGRect(x: 0, y: 0, width: 1080, height: 840)
-    /// Where the film plays, inside the monitor.
-    static let filmRect = CGRect(x: 60, y: 952, width: 960, height: 540)
 
-    private static let monitorRect = CGRect(x: 36, y: 862, width: 1008, height: 652)
-    private static let headerRect = CGRect(x: 60, y: 870, width: 960, height: 82)
-    private static let quoteRect = CGRect(x: 66, y: 1540, width: 948, height: 164)
-    private static let waveRect = CGRect(x: 48, y: 1734, width: 984, height: 138)
-    /// The waveforms' area inside their panel.
-    private static let fieldRect = CGRect(x: 76, y: 1792, width: 928, height: 66)
+    /// Where everything on the stage goes. With the booth, the stage block hangs under the
+    /// booth's band; without it, the same block moves up into the middle of the frame, with
+    /// the wordmark above it.
+    struct Layout: Sendable {
+        let withBooth: Bool
+
+        /// How far the stage block moves up without the booth: centring the wordmark, its gap
+        /// and the block (862...1880) in the frame.
+        private var lift: CGFloat { withBooth ? 0 : 862 - (canvas.height - (Self.logoHeight + 44 + 1018)) / 2 - Self.logoHeight - 44 }
+        static let logoHeight: CGFloat = 112
+
+        private func place(_ rect: CGRect) -> CGRect { rect.offsetBy(dx: 0, dy: -lift) }
+
+        /// Where the film plays, inside the monitor.
+        var film: CGRect { place(CGRect(x: 60, y: 952, width: 960, height: 540)) }
+        var monitor: CGRect { place(CGRect(x: 36, y: 862, width: 1008, height: 652)) }
+        var header: CGRect { place(CGRect(x: 60, y: 870, width: 960, height: 82)) }
+        var quote: CGRect { place(CGRect(x: 66, y: 1540, width: 948, height: 164)) }
+        var wave: CGRect { place(CGRect(x: 48, y: 1734, width: 984, height: 138)) }
+        /// The waveforms' area inside their panel.
+        var field: CGRect { place(CGRect(x: 76, y: 1792, width: 928, height: 66)) }
+        /// The wordmark over the monitor, without the booth.
+        var logo: CGRect { CGRect(x: 0, y: monitor.minY - 44 - Self.logoHeight, width: canvas.width, height: Self.logoHeight) }
+    }
+
+    /// Whether a video gets the booth's band: some line in the cut has footage. Asked by both
+    /// the stage render and the composer, so the film lands in the monitor the stage drew.
+    static func hasBooth(pack: DubPack, segments: [DubExportSegment], clips: [String: URL], includesBooth: Bool) -> Bool {
+        guard includesBooth else { return false }
+        return pack.lines.contains { line in
+            clips[line.slug] != nil && segments.contains { line.startTime < $0.end && line.endTime > $0.start }
+        }
+    }
 
     /// Where `source` has to be cropped and moved so it fills `rect` exactly.
     ///
@@ -126,11 +153,13 @@ nonisolated enum GameShowReel {
         pack: DubPack,
         segments: [DubExportSegment],
         bars: DubWaveOverlay.Bars,
+        withBooth: Bool,
         duration: TimeInterval,
         to url: URL
     ) async throws {
+        let layout = Layout(withBooth: withBooth)
         let beats = beats(pack: pack, segments: segments)
-        let backdrop = try drawBackdrop()
+        let backdrop = try drawBackdrop(layout)
         let width = Int(canvas.width), height = Int(canvas.height)
 
         try? FileManager.default.removeItem(at: url)
@@ -167,10 +196,10 @@ nonisolated enum GameShowReel {
             let current = beat(at: time, in: beats)
             let number = current?.number ?? 0
             if page?.number != number {
-                page = (number, try drawPage(backdrop: backdrop, beat: current, lineCount: pack.lines.count, bars: bars))
+                page = (number, try drawPage(layout, backdrop: backdrop, beat: current, lineCount: pack.lines.count, bars: bars))
             }
             guard let page,
-                  let buffer = frameBuffer(page: page.image, progress: duration > 0 ? time / duration : 0,
+                  let buffer = frameBuffer(layout, page: page.image, progress: duration > 0 ? time / duration : 0,
                                            pool: adaptor.pixelBufferPool) else { continue }
 
             if !adaptor.append(buffer, withPresentationTime: CMTime(value: CMTimeValue(frame), timescale: frameRate)) {
@@ -184,7 +213,7 @@ nonisolated enum GameShowReel {
     }
 
     /// One frame: the line's page, with everything already heard dimmed back and the playhead.
-    private static func frameBuffer(page: CGImage, progress: Double, pool: CVPixelBufferPool?) -> CVPixelBuffer? {
+    private static func frameBuffer(_ layout: Layout, page: CGImage, progress: Double, pool: CVPixelBufferPool?) -> CVPixelBuffer? {
         var pixelBuffer: CVPixelBuffer?
         if let pool {
             CVPixelBufferPoolCreatePixelBuffer(kCFAllocatorDefault, pool, &pixelBuffer)
@@ -210,7 +239,7 @@ nonisolated enum GameShowReel {
         context.translateBy(x: 0, y: canvas.height)
         context.scaleBy(x: 1, y: -1)
 
-        let field = fieldRect
+        let field = layout.field
         let x = field.minX + field.width * CGFloat(min(max(progress, 0), 1))
         context.setFillColor(Ink.navy.withAlphaComponent(0.55).cgColor)
         context.fill(CGRect(x: field.minX, y: field.minY - 4, width: x - field.minX, height: field.height + 8))
@@ -241,7 +270,7 @@ nonisolated enum GameShowReel {
 
     /// What every page shares: the stage, the wordmark in the booth's band, and the empty
     /// monitor and panels.
-    private static func drawBackdrop() throws -> CGImage {
+    private static func drawBackdrop(_ layout: Layout) throws -> CGImage {
         try draw { context in
             let full = CGRect(origin: .zero, size: canvas)
             Ink.navy.setFill()
@@ -252,21 +281,23 @@ nonisolated enum GameShowReel {
             Ink.navy.withAlphaComponent(0.35).setFill()
             context.fill(full)
 
-            // Seen only where there is no booth footage: the wordmark, centre stage.
-            Ink.navy.withAlphaComponent(0.35).setFill()
-            context.fill(boothRect)
-            if let logo = UIImage(named: "game-logo") {
-                let width: CGFloat = 760
-                let height = width * logo.size.height / logo.size.width
-                logo.draw(in: CGRect(x: boothRect.midX - width / 2, y: boothRect.midY - height / 2,
-                                     width: width, height: height))
+            if layout.withBooth {
+                // Seen only on a line with no booth footage: the wordmark, centre stage.
+                Ink.navy.withAlphaComponent(0.35).setFill()
+                context.fill(boothRect)
+                drawLogo(height: 150, centredIn: boothRect)
+
+                // The seam between the booth and the stage.
+                Ink.navy.setFill()
+                context.fill(CGRect(x: 0, y: boothRect.maxY, width: canvas.width, height: 8))
+                Ink.cyan.setFill()
+                context.fill(CGRect(x: 0, y: boothRect.maxY + 8, width: canvas.width, height: 4))
+            } else {
+                drawLogo(height: Layout.logoHeight, centredIn: layout.logo)
             }
 
-            // The seam between the booth and the stage.
-            Ink.navy.setFill()
-            context.fill(CGRect(x: 0, y: boothRect.maxY, width: canvas.width, height: 8))
-            Ink.cyan.setFill()
-            context.fill(CGRect(x: 0, y: boothRect.maxY + 8, width: canvas.width, height: 4))
+            let monitorRect = layout.monitor, filmRect = layout.film
+            let quoteRect = layout.quote, waveRect = layout.wave
 
             // The monitor: a navy bezel with a cyan rim, and a black screen behind the film.
             let monitor = UIBezierPath(roundedRect: monitorRect, cornerRadius: 40)
@@ -312,8 +343,15 @@ nonisolated enum GameShowReel {
         }
     }
 
+    /// The wordmark, `height` tall, centred in `rect`.
+    private static func drawLogo(height: CGFloat, centredIn rect: CGRect) {
+        guard let logo = UIImage(named: "game-logo") else { return }
+        let width = height * logo.size.width / logo.size.height
+        logo.draw(in: CGRect(x: rect.midX - width / 2, y: rect.midY - height / 2, width: width, height: height))
+    }
+
     /// A line's page: the backdrop with its name, number, caption and the waveforms.
-    private static func drawPage(backdrop: CGImage, beat: Beat?, lineCount: Int, bars: DubWaveOverlay.Bars) throws -> CGImage {
+    private static func drawPage(_ layout: Layout, backdrop: CGImage, beat: Beat?, lineCount: Int, bars: DubWaveOverlay.Bars) throws -> CGImage {
         try draw { context in
             // The backdrop is drawn in the flipped space, so it goes in flipped back.
             context.saveGState()
@@ -322,24 +360,22 @@ nonisolated enum GameShowReel {
             context.draw(backdrop, in: CGRect(origin: .zero, size: canvas))
             context.restoreGState()
 
-            if let logo = UIImage(named: "game-logo") {
-                let height: CGFloat = 70
-                let width = height * logo.size.width / logo.size.height
-                logo.draw(in: CGRect(x: headerRect.midX - width / 2, y: headerRect.midY - height / 2,
-                                     width: width, height: height))
+            // In the monitor's header too, unless it is already over the monitor.
+            if layout.withBooth {
+                drawLogo(height: 70, centredIn: layout.header)
             }
 
             if let beat {
-                drawName(beat.line.character, context: context)
-                drawCounter(GameStrings.Dub.lineOf(beat.number, lineCount))
-                drawQuote(beat.line.caption)
+                drawName(beat.line.character, in: layout.header)
+                drawCounter(GameStrings.Dub.lineOf(beat.number, lineCount), in: layout.header)
+                drawQuote(beat.line.caption, on: layout.quote)
             }
-            drawWaves(bars, context: context)
+            drawWaves(bars, in: layout.field)
         }
     }
 
     /// The character, on a petrol tag at the header's left.
-    private static func drawName(_ name: String, context: CGContext) {
+    private static func drawName(_ name: String, in headerRect: CGRect) {
         let text = name.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         guard !text.isEmpty else { return }
         let string = fitted(text, size: 38, maxWidth: 300)
@@ -355,7 +391,7 @@ nonisolated enum GameShowReel {
     }
 
     /// "Line 3 of 4", at the header's right.
-    private static func drawCounter(_ counter: String) {
+    private static func drawCounter(_ counter: String, in headerRect: CGRect) {
         let string = fitted(counter.uppercased(), size: 34, maxWidth: 290)
         let size = string.size()
         string.draw(at: CGPoint(x: headerRect.maxX - size.width - 6, y: headerRect.midY - size.height / 2))
@@ -375,7 +411,7 @@ nonisolated enum GameShowReel {
     }
 
     /// The line, in quotes, centred on the card and shrunk until it fits.
-    private static func drawQuote(_ caption: String) {
+    private static func drawQuote(_ caption: String, on quoteRect: CGRect) {
         let text = caption.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty else { return }
         let quoted = "\u{201C}\(text)\u{201D}"
@@ -405,8 +441,7 @@ nonisolated enum GameShowReel {
     }
 
     /// The original in cyan and the take in coral, one pair of bars per slot about the middle.
-    private static func drawWaves(_ bars: DubWaveOverlay.Bars, context: CGContext) {
-        let field = fieldRect
+    private static func drawWaves(_ bars: DubWaveOverlay.Bars, in field: CGRect) {
         let count = max(bars.reference.count, bars.take.count)
         guard count > 0 else { return }
         let slot = field.width / CGFloat(count)

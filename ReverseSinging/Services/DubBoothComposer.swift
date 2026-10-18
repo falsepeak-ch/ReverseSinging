@@ -286,6 +286,9 @@ nonisolated struct DubBoothComposer {
         // The game's vertical frame is its own: the show's stage, with the film in its monitor.
         if frame.isVertical, let bedTrack {
             let videoComposition = gameShowComposition(
+                layout: GameShowReel.Layout(withBooth: GameShowReel.hasBooth(
+                    pack: pack, segments: segments, clips: boothClips, includesBooth: includesBooth
+                )),
                 sceneTrack: sceneTrack,
                 sceneDisplaySize: sceneDisplaySize,
                 boothTrack: hasBooth ? boothTrack : nil,
@@ -419,6 +422,7 @@ nonisolated struct DubBoothComposer {
     /// filled past it, because here there is nothing in front to hide a spill: the stage is
     /// the drawing around them, and it is at the back.
     private static func gameShowComposition(
+        layout: GameShowReel.Layout,
         sceneTrack: AVMutableCompositionTrack,
         sceneDisplaySize: CGSize,
         boothTrack: AVMutableCompositionTrack?,
@@ -432,7 +436,7 @@ nonisolated struct DubBoothComposer {
         composition.renderSize = GameShowReel.canvas
         composition.frameDuration = Self.frameDuration(matching: frameRate)
 
-        let film = GameShowReel.fill(source: sceneDisplaySize, into: GameShowReel.filmRect)
+        let film = GameShowReel.fill(source: sceneDisplaySize, into: layout.film)
         // A selfie is framed with the face in its upper half, so the band is cut from there.
         let booth = GameShowReel.fill(source: boothDisplaySize, into: GameShowReel.boothRect, verticalBias: 0.3)
 
@@ -448,7 +452,7 @@ nonisolated struct DubBoothComposer {
             stage.setTransform(.identity, at: .zero)
 
             var layers = [scene, stage]
-            if range.hasBooth, let boothTrack {
+            if layout.withBooth, range.hasBooth, let boothTrack {
                 let layer = AVMutableVideoCompositionLayerInstruction(assetTrack: boothTrack)
                 layer.setCropRectangle(booth.crop, at: .zero)
                 layer.setTransform(booth.transform, at: .zero)

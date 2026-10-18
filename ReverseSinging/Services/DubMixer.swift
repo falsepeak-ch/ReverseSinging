@@ -142,6 +142,8 @@ nonisolated struct DubMixer {
                 pack: pack,
                 segments: segments,
                 bars: await DubWaveOverlay.bars(pack: pack, segments: segments),
+                withBooth: GameShowReel.hasBooth(pack: pack, segments: segments,
+                                                 clips: boothClips(in: pack), includesBooth: includesBooth),
                 duration: segments.reduce(0) { $0 + $1.duration },
                 to: url
             )
