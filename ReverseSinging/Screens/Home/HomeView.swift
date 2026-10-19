@@ -99,7 +99,32 @@ struct HomeView: View {
     /// Scrolls, under the header. The four games alone fit any iPhone; with the Pro note or
     /// the review note above them they do not fit a small one, and a menu that cannot be
     /// scrolled pushes its last game, and its own header, off the screen.
+    ///
+    /// The Halloween deal stays pinned above the scrolling part while it runs.
     private var menu: some View {
+        VStack(spacing: 0) {
+            if let deal = viewModel.halloweenDeal {
+                HalloweenOfferBanner(
+                    introPrice: deal.introPrice,
+                    renewalPrice: deal.renewalPrice,
+                    endDate: deal.endDate,
+                    isPurchasing: viewModel.isClaimingHalloweenDeal
+                ) {
+                    viewModel.claimHalloweenDeal()
+                }
+                .padding(.horizontal, EditorMetrics.gutter)
+                .padding(.top, 12)
+                .transition(.move(edge: .top).combined(with: .opacity))
+            }
+
+            games
+        }
+        .animation(.rsQuick, value: viewModel.halloweenDeal != nil)
+        .padding(.top, EditorMetrics.headerBarHeight)
+        .task { await viewModel.loadHalloweenDeal() }
+    }
+
+    private var games: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
                 if viewModel.showsReviewBanner {
@@ -137,7 +162,6 @@ struct HomeView: View {
             .animation(.rsQuick, value: viewModel.showsReviewBanner)
         }
         .scrollBounceBehavior(.basedOnSize)
-        .padding(.top, EditorMetrics.headerBarHeight)
     }
 
     // MARK: - Header

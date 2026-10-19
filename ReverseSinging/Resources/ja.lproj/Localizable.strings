@@ -740,3 +740,14 @@
 "dubGuide.2.detail.mac" = "Downloadをクリックしてファイル(.zip、.7z、.rar)を選びます。ブラウザは「ダウンロード」フォルダに保存します。";
 "dubGuide.3.detail.mac" = "ダウンロードが終わるまで待ちます。ファイルがiCloud Driveにある場合は、先にFinderでダウンロードして、このMacに実際に保存されるようにします。";
 "dubGuide.4.detail.mac" = "ここに戻って「パックを読み込む」をクリックし、「ダウンロード」から選びます。サイドバーの「映画アフレコ」にファイルをドロップするか、FinderからDubloonで開くこともできます。";
+
+/* Halloween deal banner over the games */
+"halloween.badge" = "ハロウィン特典";
+"halloween.title" = "Pro の最初の1年が %@";
+"halloween.renewal" = "その後は年額 %@。いつでも解約できます。";
+"halloween.claim" = "受け取る";
+
+/* App icon picker in Settings */
+"settings.appIcon" = "アプリアイコン";
+"settings.appIcon.classic" = "クラシック";
+"settings.appIcon.halloween" = "ハロウィン";

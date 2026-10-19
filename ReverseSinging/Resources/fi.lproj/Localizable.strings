@@ -740,3 +740,14 @@
 "dubGuide.2.detail.mac" = "Klikkaa Download ja valitse tiedosto: .zip, .7z tai .rar. Selain tallentaa sen Lataukset-kansioon.";
 "dubGuide.3.detail.mac" = "Odota, että lataus valmistuu. Jos tiedosto on iCloud Drivessa, lataa se ensin Finderissa, jotta se on varmasti tällä Macilla.";
 "dubGuide.4.detail.mac" = "Palaa tänne, klikkaa Tuo dubbauspaketti ja valitse se Latauksista. Voit myös pudottaa tiedoston sivupalkin Kohtauksen dubbaus -kohtaan tai avata sen Dubloonilla Finderista.";
+
+/* Halloween deal banner over the games */
+"halloween.badge" = "Halloween-tarjous";
+"halloween.title" = "Ensimmäinen Pro-vuosi hintaan %@";
+"halloween.renewal" = "Sen jälkeen %@ vuodessa. Peru milloin vain.";
+"halloween.claim" = "Ota tarjous";
+
+/* App icon picker in Settings */
+"settings.appIcon" = "Sovelluksen kuvake";
+"settings.appIcon.classic" = "Klassinen";
+"settings.appIcon.halloween" = "Halloween";

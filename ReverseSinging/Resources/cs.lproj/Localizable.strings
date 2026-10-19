@@ -740,3 +740,14 @@
 "dubGuide.2.detail.mac" = "Klikni na Download a vyber soubor: .zip, .7z nebo .rar. Prohlížeč ho uloží do složky Stažené soubory.";
 "dubGuide.3.detail.mac" = "Počkej, až se stahování dokončí. Pokud je soubor na iCloud Drive, nejdřív ho stáhni ve Finderu, aby byl opravdu v tomhle Macu.";
 "dubGuide.4.detail.mac" = "Vrať se sem, klikni na Importovat balíček a vyber ho ve Stažených souborech. Soubor můžeš také přetáhnout na Dabing filmové scény v postranním panelu, nebo ho otevřít v Dubloonu z Finderu.";
+
+/* Halloween deal banner over the games */
+"halloween.badge" = "Halloweenská nabídka";
+"halloween.title" = "První rok Pro za %@";
+"halloween.renewal" = "Poté %@ ročně. Zrušit můžete kdykoli.";
+"halloween.claim" = "Získat";
+
+/* App icon picker in Settings */
+"settings.appIcon" = "Ikona aplikace";
+"settings.appIcon.classic" = "Klasická";
+"settings.appIcon.halloween" = "Halloween";

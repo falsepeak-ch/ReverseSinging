@@ -56,13 +56,25 @@ final class HomeViewModel: ObservableObject {
     private let reviewPrompt: ReviewPrompt
     private var hasReportedReviewBannerShown = false
 
-    init(reviewBanner: ReviewBanner = .shared, reviewPrompt: ReviewPrompt = .shared) {
+    /// The Halloween deal pinned over the games. Its changes, and so the access controller's,
+    /// are passed on as this model's own.
+    private let halloween: HalloweenOffer
+
+    init(
+        reviewBanner: ReviewBanner = .shared,
+        reviewPrompt: ReviewPrompt = .shared,
+        halloween: HalloweenOffer = .shared
+    ) {
         access = AccessController.shared
         self.reviewBanner = reviewBanner
         self.reviewPrompt = reviewPrompt
+        self.halloween = halloween
         isReviewBannerDue = reviewBanner.isDue()
 
         access.objectWillChange
+            .sink { [weak self] _ in self?.objectWillChange.send() }
+            .store(in: &cancellables)
+        halloween.objectWillChange
             .sink { [weak self] _ in self?.objectWillChange.send() }
             .store(in: &cancellables)
     }
@@ -90,6 +102,21 @@ final class HomeViewModel: ObservableObject {
         #if DEBUG
         applyScreenshotDestination(game: game, app: app)
         #endif
+    }
+
+    // MARK: - Halloween deal
+
+    /// What the Halloween banner says, while it is shown. See `HalloweenOffer.isShown`.
+    var halloweenDeal: HalloweenDeal? { halloween.deal() }
+
+    var isClaimingHalloweenDeal: Bool { halloween.isPurchasing }
+
+    func loadHalloweenDeal() async {
+        await halloween.load()
+    }
+
+    func claimHalloweenDeal() {
+        Task { await halloween.purchase(source: "home_halloween_banner") }
     }
 
     // MARK: - Navigation

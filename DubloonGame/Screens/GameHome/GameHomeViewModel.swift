@@ -26,11 +26,17 @@ final class GameHomeViewModel: ObservableObject {
     @Published private(set) var starsWon = 0
 
     private let access: AccessController
+    /// The Halloween deal pinned over the stage.
+    private let halloween: HalloweenOffer
     private var cancellables = Set<AnyCancellable>()
 
-    init(access: AccessController = .shared) {
+    init(access: AccessController = .shared, halloween: HalloweenOffer = .shared) {
         self.access = access
+        self.halloween = halloween
         access.objectWillChange
+            .sink { [weak self] _ in self?.objectWillChange.send() }
+            .store(in: &cancellables)
+        halloween.objectWillChange
             .sink { [weak self] _ in self?.objectWillChange.send() }
             .store(in: &cancellables)
     }
@@ -68,6 +74,22 @@ final class GameHomeViewModel: ObservableObject {
             stars: starsWon,
             maxStars: Self.maxStars
         )
+    }
+
+    // MARK: - Halloween deal
+
+    /// What the Halloween banner says, while it is shown. See `HalloweenOffer.isShown`.
+    var halloweenDeal: HalloweenDeal? { halloween.deal() }
+
+    var isClaimingHalloweenDeal: Bool { halloween.isPurchasing }
+
+    func loadHalloweenDeal() async {
+        await halloween.load()
+    }
+
+    func claimHalloweenDeal() {
+        GameSFX.play(.tap)
+        Task { await halloween.purchase(source: "game_home_halloween_banner") }
     }
 
     // MARK: - Navigation

@@ -263,6 +263,9 @@ nonisolated enum Strings {
         static let shareUsage = NSLocalizedString("settings.shareUsage", comment: "Toggle: send anonymous usage statistics and crash reports")
         static let shareUsageDesc = NSLocalizedString("settings.shareUsage.desc", comment: "What the usage-data toggle sends, and what it never sends")
         static let appearance = NSLocalizedString("settings.appearance", comment: "Settings section: light or dark look")
+        static let appIcon = NSLocalizedString("settings.appIcon", comment: "Settings section: which Home Screen icon the app uses")
+        static let appIconClassic = NSLocalizedString("settings.appIcon.classic", comment: "The app's usual Home Screen icon, under its preview")
+        static let appIconHalloween = NSLocalizedString("settings.appIcon.halloween", comment: "The Halloween Home Screen icon, under its preview")
         static let appearanceSystem = NSLocalizedString("settings.appearance.system", comment: "Appearance option: follow the device's light or dark setting")
         static let appearanceLight = NSLocalizedString("settings.appearance.light", comment: "Appearance option: always light")
         static let appearanceDark = NSLocalizedString("settings.appearance.dark", comment: "Appearance option: always dark")
@@ -524,6 +527,14 @@ nonisolated enum Strings {
     }
 
     // MARK: - Pro / Paywall
+    /// The Halloween deal banner over the games.
+    enum Halloween {
+        static let badge = NSLocalizedString("halloween.badge", comment: "Small label on the Halloween offer banner, shown upper-cased")
+        static let title = NSLocalizedString("halloween.title", comment: "Halloween banner headline: the first year of Dubloon Pro costs %@ (a localized price)")
+        static let renewal = NSLocalizedString("halloween.renewal", comment: "Under the Halloween headline: each later year costs %@ (a localized price)")
+        static let claim = NSLocalizedString("halloween.claim", comment: "Button on the Halloween banner that buys the offer")
+    }
+
     enum Pro {
         // Settings
         /// The menu card's headline: free takes left, or none.

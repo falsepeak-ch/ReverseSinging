@@ -25,6 +25,11 @@ struct SettingsView: View {
     /// Light, dark or the device's choice. App-wide, so observed rather than owned.
     @ObservedObject private var appearance = AppearancePreference.shared
 
+    #if os(iOS)
+    /// The Home Screen icon. App-wide, and remembered by the system.
+    @ObservedObject private var appIcon = AppIconPreference.shared
+    #endif
+
     /// The interface is dark-only; kept as a constant so the many call sites below
     /// don't each need rewriting.
     private var effectiveColorScheme: ColorScheme { .dark }
@@ -65,6 +70,11 @@ struct SettingsView: View {
                         #if os(iOS)
                         appearanceSection
                             .slideIn(delay: 0.15)
+
+                        if appIcon.isSupported {
+                            appIconSection
+                                .slideIn(delay: 0.18)
+                        }
                         #endif
 
                         // Haptic Feedback
@@ -356,6 +366,57 @@ extension SettingsView {
             .editorPanel()
         }
     }
+
+    // MARK: - App Icon Section
+
+    #if os(iOS)
+    /// The Home Screen icon, drawn as the icons themselves, the way the appearance picker
+    /// above is drawn.
+    private var appIconSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            sectionHeader(title: Strings.Settings.appIcon, icon: "app.badge")
+
+            HStack(spacing: 8) {
+                ForEach(AppIconChoice.allCases) { choice in
+                    let isSelected = appIcon.current == choice
+                    Button {
+                        HapticManager.shared.selection()
+                        withAnimation(.rsQuick) { appIcon.set(choice) }
+                    } label: {
+                        VStack(spacing: 8) {
+                            Image(choice.previewAssetName)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 56, height: 56)
+                                .clipShape(RoundedRectangle(cornerRadius: 56 * 0.225, style: .continuous))
+                                .accessibilityHidden(true)
+                            Text(choice.title)
+                                .font(.rsCaption)
+                                .foregroundColor(isSelected ? .rsTextPrimary : .rsTextSecondary)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.8)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(
+                            RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
+                                .fill(isSelected ? Color.rsSurface3 : Color.clear)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
+                                .strokeBorder(isSelected ? Color.rsStrokeStrong : Color.clear, lineWidth: 1)
+                        )
+                    }
+                    .buttonStyle(ScaleButtonStyle())
+                    .accessibilityLabel(choice.title)
+                    .accessibilityAddTraits(isSelected ? .isSelected : [])
+                }
+            }
+            .padding(8)
+            .editorPanel()
+        }
+    }
+    #endif
 
     // MARK: - Privacy Section
 

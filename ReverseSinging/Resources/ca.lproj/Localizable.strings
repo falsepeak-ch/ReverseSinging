@@ -740,3 +740,14 @@
 "dubGuide.2.detail.mac" = "Fes clic a Download i tria el fitxer: un .zip, .7z o .rar. El navegador el desa a la carpeta Baixades.";
 "dubGuide.3.detail.mac" = "Espera que la descàrrega s'acabi. Si el fitxer és a l'iCloud Drive, baixa'l primer al Finder perquè sigui de veritat en aquest Mac.";
 "dubGuide.4.detail.mac" = "Torna aquí, fes clic a Importar un pack i tria'l a Baixades. També pots deixar anar el fitxer a Doblatge d'escenes a la barra lateral, o obrir-lo amb Dubloon des del Finder.";
+
+/* Halloween deal banner over the games */
+"halloween.badge" = "Oferta de Halloween";
+"halloween.title" = "El primer any de Pro per %@";
+"halloween.renewal" = "Després, %@ l'any. Cancel·la quan vulguis.";
+"halloween.claim" = "Aprofita-la";
+
+/* App icon picker in Settings */
+"settings.appIcon" = "Icona de l'app";
+"settings.appIcon.classic" = "Clàssica";
+"settings.appIcon.halloween" = "Halloween";

@@ -33,6 +33,9 @@ final class GameAppDelegate: NSObject, UIApplicationDelegate {
         CrashReporter.shared.log("launch")
         AnalyticsManager.shared.trackAppLaunch()
 
+        // Remote off switches for promotional banners; see `BannerSwitches`.
+        BannerSwitches.shared.start()
+
         #if DEBUG
         // `-crashTest crash`: crashes a few seconds in, to check reports reach Crashlytics. Launch
         // without the debugger, which would catch it, then with `-crashTest send` to send it (a

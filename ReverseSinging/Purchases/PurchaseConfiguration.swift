@@ -43,6 +43,14 @@ nonisolated enum PurchaseConfiguration {
     static let lifetimeProductID = "com.falsepeak.reverse_singing_ios.lifetime"
     #endif
 
+    /// The yearly subscription. Named here for the Halloween banner, which buys it at its
+    /// introductory price without going through an offering.
+    #if DUBLOON_GAME
+    static let yearlyProductID = "com.falsepeak.dubloon_game.yearly"
+    #else
+    static let yearlyProductID = "com.falsepeak.reverse_singing_ios.yearly"
+    #endif
+
     // MARK: - API keys
 
     /// The key a debug build talks to.

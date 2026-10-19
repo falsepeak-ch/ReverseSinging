@@ -740,3 +740,14 @@
 "dubGuide.2.detail.mac" = "Haz clic en Download y elige el archivo: un .zip, .7z o .rar. Tu navegador lo guarda en la carpeta Descargas.";
 "dubGuide.3.detail.mac" = "Espera a que se complete la descarga. Si el archivo está en iCloud Drive, descárgalo primero en el Finder para que esté de verdad en este Mac.";
 "dubGuide.4.detail.mac" = "Vuelve aquí, haz clic en Importar un pack y elígelo en Descargas. También puedes soltar el archivo en Doblaje de escenas en la barra lateral, o abrirlo con Dubloon desde el Finder.";
+
+/* Halloween deal banner over the games */
+"halloween.badge" = "Oferta de Halloween";
+"halloween.title" = "El primer año de Pro por %@";
+"halloween.renewal" = "Después, %@ al año. Cancela cuando quieras.";
+"halloween.claim" = "Aprovechar";
+
+/* App icon picker in Settings */
+"settings.appIcon" = "Icono de la app";
+"settings.appIcon.classic" = "Clásico";
+"settings.appIcon.halloween" = "Halloween";

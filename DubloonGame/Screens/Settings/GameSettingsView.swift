@@ -18,6 +18,7 @@ struct GameSettingsContent: View {
     @ObservedObject var viewModel: SettingsViewModel
     @ObservedObject private var headphones = HeadphoneMonitor.shared
     @ObservedObject private var booth = BoothCamPreference.shared
+    @ObservedObject private var appIcon = AppIconPreference.shared
     let onClose: () -> Void
 
     var body: some View {
@@ -26,6 +27,9 @@ struct GameSettingsContent: View {
                 VStack(spacing: 30) {
                     proSection
                     soundSection
+                    if appIcon.isSupported {
+                        appIconSection
+                    }
                     boothSection
                     privacySection
                     aboutSection
@@ -136,6 +140,50 @@ struct GameSettingsContent: View {
                 isOn: $headphones.isEnabled
             )
             .onAppear { headphones.refresh() }
+        }
+    }
+
+    private var appIconSection: some View {
+        GameSettingsSection(title: Strings.Settings.appIcon) {
+            HStack(spacing: 12) {
+                ForEach(AppIconChoice.allCases) { choice in
+                    let isSelected = appIcon.current == choice
+                    Button {
+                        HapticManager.shared.selection()
+                        GameSFX.play(.tap)
+                        appIcon.set(choice)
+                    } label: {
+                        VStack(spacing: 8) {
+                            Image(choice.previewAssetName)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 72, height: 72)
+                                .clipShape(RoundedRectangle(cornerRadius: 72 * 0.225, style: .continuous))
+                                .accessibilityHidden(true)
+                            Text(choice.title)
+                                .font(.gameDisplay(17))
+                                .foregroundStyle(Color.gameNavy)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.8)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .background {
+                            RoundedRectangle(cornerRadius: 18)
+                                .fill(isSelected ? Color.gameCyan.opacity(0.2) : Color.clear)
+                        }
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 18)
+                                .strokeBorder(isSelected ? Color.gameNavy : Color.clear, lineWidth: 2)
+                        }
+                    }
+                    .buttonStyle(CardPressStyle())
+                    .accessibilityLabel(choice.title)
+                    .accessibilityAddTraits(isSelected ? .isSelected : [])
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.bottom, 12)
         }
     }
 

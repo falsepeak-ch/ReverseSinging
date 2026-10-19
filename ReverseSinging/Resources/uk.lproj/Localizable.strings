@@ -740,3 +740,14 @@
 "dubGuide.2.detail.mac" = "Натисни Download і обери файл: .zip, .7z або .rar. Браузер збереже його в папку «Завантаження».";
 "dubGuide.3.detail.mac" = "Зачекай, доки завантаження завершиться. Якщо файл в iCloud Drive, спершу завантаж його у Finder, щоб він справді був на цьому Mac.";
 "dubGuide.4.detail.mac" = "Повернися сюди, натисни «Імпортувати пак» і обери його в «Завантаженнях». Також можна перетягнути файл на «Озвучення сцени» на бічній панелі або відкрити його в Dubloon із Finder.";
+
+/* Halloween deal banner over the games */
+"halloween.badge" = "Акція на Гелловін";
+"halloween.title" = "Перший рік Pro за %@";
+"halloween.renewal" = "Потім %@ на рік. Скасувати можна будь-коли.";
+"halloween.claim" = "Забрати";
+
+/* App icon picker in Settings */
+"settings.appIcon" = "Значок застосунку";
+"settings.appIcon.classic" = "Класичний";
+"settings.appIcon.halloween" = "Гелловін";

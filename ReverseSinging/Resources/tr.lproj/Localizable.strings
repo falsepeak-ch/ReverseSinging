@@ -740,3 +740,14 @@
 "dubGuide.2.detail.mac" = "Download'a tıkla ve dosyayı seç: .zip, .7z veya .rar. Tarayıcın onu İndirilenler klasörüne kaydeder.";
 "dubGuide.3.detail.mac" = "İndirme tamamlanana kadar bekle. Dosya iCloud Drive'daysa, gerçekten bu Mac'te olması için önce Finder'da indir.";
 "dubGuide.4.detail.mac" = "Buraya dön, Paket içe aktar'a tıkla ve İndirilenler'den seç. Dosyayı kenar çubuğundaki Sahne seslendirme'nin üzerine bırakabilir ya da Finder'dan Dubloon ile açabilirsin.";
+
+/* Halloween deal banner over the games */
+"halloween.badge" = "Cadılar Bayramı fırsatı";
+"halloween.title" = "Pro'nun ilk yılı %@";
+"halloween.renewal" = "Sonrasında yılda %@. İstediğin zaman iptal et.";
+"halloween.claim" = "Yakala";
+
+/* App icon picker in Settings */
+"settings.appIcon" = "Uygulama simgesi";
+"settings.appIcon.classic" = "Klasik";
+"settings.appIcon.halloween" = "Cadılar Bayramı";

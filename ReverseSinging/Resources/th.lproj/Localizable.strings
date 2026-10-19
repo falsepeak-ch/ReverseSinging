@@ -740,3 +740,14 @@
 "dubGuide.2.detail.mac" = "คลิก Download แล้วเลือกไฟล์: .zip, .7z หรือ .rar เบราว์เซอร์จะบันทึกไว้ในโฟลเดอร์ดาวน์โหลด";
 "dubGuide.3.detail.mac" = "รอจนดาวน์โหลดเสร็จ ถ้าไฟล์อยู่ใน iCloud Drive ให้ดาวน์โหลดใน Finder ก่อนเพื่อให้ไฟล์อยู่ใน Mac เครื่องนี้จริงๆ";
 "dubGuide.4.detail.mac" = "กลับมาที่นี่ คลิก นำเข้าแพ็กพากย์ แล้วเลือกจากดาวน์โหลด หรือจะลากไฟล์ไปวางบน พากย์ฉากหนัง ในแถบด้านข้าง หรือเปิดด้วย Dubloon จาก Finder ก็ได้";
+
+/* Halloween deal banner over the games */
+"halloween.badge" = "ข้อเสนอฮาโลวีน";
+"halloween.title" = "ปีแรกของ Pro เพียง %@";
+"halloween.renewal" = "จากนั้น %@ ต่อปี ยกเลิกได้ทุกเมื่อ";
+"halloween.claim" = "รับเลย";
+
+/* App icon picker in Settings */
+"settings.appIcon" = "ไอคอนแอป";
+"settings.appIcon.classic" = "คลาสสิก";
+"settings.appIcon.halloween" = "ฮาโลวีน";

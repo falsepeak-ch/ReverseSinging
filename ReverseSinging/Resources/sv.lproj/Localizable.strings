@@ -740,3 +740,14 @@
 "dubGuide.2.detail.mac" = "Klicka på Download och välj filen: en .zip, .7z eller .rar. Webbläsaren sparar den i mappen Hämtade filer.";
 "dubGuide.3.detail.mac" = "Vänta tills hämtningen är klar. Om filen ligger i iCloud Drive, hämta den först i Finder så att den verkligen finns på den här datorn.";
 "dubGuide.4.detail.mac" = "Kom tillbaka hit, klicka på Importera ett dubbpaket och välj den i Hämtade filer. Du kan också släppa filen på Dubba filmscen i sidofältet, eller öppna den med Dubloon från Finder.";
+
+/* Halloween deal banner over the games */
+"halloween.badge" = "Halloweenerbjudande";
+"halloween.title" = "Första året med Pro för %@";
+"halloween.renewal" = "Sedan %@ per år. Avsluta när du vill.";
+"halloween.claim" = "Ta det";
+
+/* App icon picker in Settings */
+"settings.appIcon" = "Appsymbol";
+"settings.appIcon.classic" = "Klassisk";
+"settings.appIcon.halloween" = "Halloween";

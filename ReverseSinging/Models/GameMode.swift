@@ -7,10 +7,11 @@
 
 import Foundation
 
-/// The games on offer. The home screen lists these; picking one pushes into it.
+/// The games on offer. The home screen lists these, in this order; picking one pushes into
+/// it. Movie scene dub leads: it is the game most people come for.
 enum GameMode: String, CaseIterable, Identifiable, Hashable {
-    case reverse
     case dub
+    case reverse
     /// Home Video Dub: the user's own clip, with their voice laid over it. Free.
     case homeVideo
     case imitate

@@ -41,6 +41,26 @@ struct GameHomeView: View {
                 .onAppear { scene.safeInsets = proxy.safeAreaInsets }
                 .onChange(of: proxy.safeAreaInsets) { _, insets in scene.safeInsets = insets }
             }
+            // The Halloween deal, pinned over the stage. As an inset, the stage reads it as
+            // part of the safe area and lays its title out underneath.
+            .safeAreaInset(edge: .top, spacing: 0) {
+                if let deal = viewModel.halloweenDeal {
+                    HalloweenOfferBanner(
+                        introPrice: deal.introPrice,
+                        renewalPrice: deal.renewalPrice,
+                        endDate: deal.endDate,
+                        isPurchasing: viewModel.isClaimingHalloweenDeal
+                    ) {
+                        viewModel.claimHalloweenDeal()
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.top, 6)
+                    .padding(.bottom, 4)
+                    .transition(.move(edge: .top).combined(with: .opacity))
+                }
+            }
+            .animation(.easeOut(duration: 0.3), value: viewModel.halloweenDeal != nil)
+            .task { await viewModel.loadHalloweenDeal() }
             .background(Color.gameNavy.ignoresSafeArea())
             .accessibilityRepresentation { accessibleStage }
             .hidesNavigationBar()
@@ -151,6 +171,11 @@ struct GameHomeView: View {
             Text(viewModel.hostLine)
             ForEach(GameHomeViewModel.games) { mode in
                 Button("\(mode.title). \(mode.subtitle)") { viewModel.open(mode) }
+            }
+            if let deal = viewModel.halloweenDeal {
+                Button("\(Strings.Halloween.badge). \(String(format: Strings.Halloween.title, deal.introPrice))") {
+                    viewModel.claimHalloweenDeal()
+                }
             }
             if let proTitle = viewModel.stageState.proTitle {
                 Button(proTitle) { viewModel.showPaywall() }

@@ -27,6 +27,7 @@
 		DD6A00402026101700000040 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = DD6A00202026101700000020 /* FirebaseCore */; };
 		DD6A00412026101700000041 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = DD6A00212026101700000021 /* FirebaseCrashlytics */; };
 		DD6A00422026101700000042 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = DD6A00222026101700000022 /* FirebaseAnalytics */; };
+		AA0B0C0D202610190000A001 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = AA0B0C0D202610190000A002 /* FirebaseRemoteConfig */; };
 		DD6A00432026101700000043 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = DD6A00232026101700000023 /* RevenueCat */; };
 		DD6A00442026101700000044 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = DD6A00242026101700000024 /* RevenueCatUI */; };
 		DD6A00452026101700000045 /* DubPackKit in Frameworks */ = {isa = PBXBuildFile; productRef = DD6A00252026101700000025 /* DubPackKit */; };
@@ -38,6 +39,7 @@
 		FF2EE2D92EAF91B100549684 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = FF3C44EB2EAF8B000055F61C /* FirebaseCore */; };
 		FF2EE3E72EB028B600549684 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = FF2EE3E62EB028B600549684 /* FirebaseCrashlytics */; };
 		FF2EE5362EB135D500549684 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FF2EE5352EB135D500549684 /* FirebaseAnalytics */; };
+		AA0B0C0D202610190000A003 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = AA0B0C0D202610190000A004 /* FirebaseRemoteConfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,7 @@
 		DC0AC00A20260927000000AA /* Exceptions for "ReverseSinging" folder in "DubloonMac" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				AppIconHalloween.icon,
 				Info.plist,
 				ReverseSingingApp.swift,
 			);
@@ -78,6 +81,7 @@
 			membershipExceptions = (
 				"/Localized: Resources/InfoPlist.strings",
 				AppIcon.icon,
+				AppIconHalloween.icon,
 				"GoogleService-Info.plist",
 				Info.plist,
 				ReverseSingingApp.swift,
@@ -149,6 +153,7 @@
 				DD6A00402026101700000040 /* FirebaseCore in Frameworks */,
 				DD6A00412026101700000041 /* FirebaseCrashlytics in Frameworks */,
 				DD6A00422026101700000042 /* FirebaseAnalytics in Frameworks */,
+				AA0B0C0D202610190000A001 /* FirebaseRemoteConfig in Frameworks */,
 				DD6A00432026101700000043 /* RevenueCat in Frameworks */,
 				DD6A00442026101700000044 /* RevenueCatUI in Frameworks */,
 				DD6A00452026101700000045 /* DubPackKit in Frameworks */,
@@ -166,6 +171,7 @@
 				FF2EE2D92EAF91B100549684 /* FirebaseCore in Frameworks */,
 				FF2EE3E72EB028B600549684 /* FirebaseCrashlytics in Frameworks */,
 				FF2EE5362EB135D500549684 /* FirebaseAnalytics in Frameworks */,
+				AA0B0C0D202610190000A003 /* FirebaseRemoteConfig in Frameworks */,
 				DB6AF50320260910000000E3 /* DubPackKit in Frameworks */,
 				DB7AF66620260911000000F6 /* DubAudio in Frameworks */,
 				DB7AF67720260911000000F7 /* DubScoring in Frameworks */,
@@ -265,6 +271,7 @@
 				DD6A00202026101700000020 /* FirebaseCore */,
 				DD6A00212026101700000021 /* FirebaseCrashlytics */,
 				DD6A00222026101700000022 /* FirebaseAnalytics */,
+				AA0B0C0D202610190000A002 /* FirebaseRemoteConfig */,
 				DD6A00232026101700000023 /* RevenueCat */,
 				DD6A00242026101700000024 /* RevenueCatUI */,
 				DD6A00252026101700000025 /* DubPackKit */,
@@ -297,6 +304,7 @@
 				FF3C44EB2EAF8B000055F61C /* FirebaseCore */,
 				FF2EE3E62EB028B600549684 /* FirebaseCrashlytics */,
 				FF2EE5352EB135D500549684 /* FirebaseAnalytics */,
+				AA0B0C0D202610190000A004 /* FirebaseRemoteConfig */,
 				DB4AF30220260904000000C2 /* RevenueCat */,
 				DB4AF30320260904000000C3 /* RevenueCatUI */,
 				DB6AF50220260910000000E2 /* DubPackKit */,
@@ -568,7 +576,8 @@
 		DD6A00072026101700000007 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = GameAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = GameAppIconHalloween;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = GameAppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DubloonGame/DubloonGame.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -614,7 +623,8 @@
 		DD6A00082026101700000008 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = GameAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = GameAppIconHalloween;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = GameAppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DubloonGame/DubloonGame.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -785,7 +795,8 @@
 		FFA267E82EA6B028008518FC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconHalloween;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 38;
@@ -830,7 +841,8 @@
 		FFA267E92EA6B028008518FC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconHalloween;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 38;
@@ -1094,6 +1106,11 @@
 			package = FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
 		};
+		AA0B0C0D202610190000A002 /* FirebaseRemoteConfig */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfig;
+		};
 		DD6A00222026101700000022 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
@@ -1138,6 +1155,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		AA0B0C0D202610190000A004 /* FirebaseRemoteConfig */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF3C44EA2EAF8A7F0055F61C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfig;
 		};
 		FF2EE5352EB135D500549684 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;

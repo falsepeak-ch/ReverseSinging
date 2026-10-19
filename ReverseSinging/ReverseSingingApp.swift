@@ -42,6 +42,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         // Track app launch
         AnalyticsManager.shared.trackAppLaunch()
 
+        // Remote off switches for promotional banners; see `BannerSwitches`.
+        BannerSwitches.shared.start()
+
         // Configures RevenueCat and starts the entitlement stream. Here rather
         // than in `App.init()`, which SwiftUI runs *before* this method: a store
         // that will not start is reported through the `FirebaseApp` configured above.

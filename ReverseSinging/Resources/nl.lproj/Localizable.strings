@@ -740,3 +740,14 @@
 "dubGuide.2.detail.mac" = "Klik op Download en kies het bestand: een .zip, .7z of .rar. Je browser bewaart het in de map Downloads.";
 "dubGuide.3.detail.mac" = "Wacht tot de download klaar is. Staat het bestand in iCloud Drive, download het dan eerst in de Finder zodat het echt op deze Mac staat.";
 "dubGuide.4.detail.mac" = "Kom hier terug, klik op Dubpack importeren en kies het bij Downloads. Je kunt het bestand ook op Filmscène dubben in de navigatiekolom slepen, of het vanuit de Finder openen met Dubloon.";
+
+/* Halloween deal banner over the games */
+"halloween.badge" = "Halloweenaanbieding";
+"halloween.title" = "Eerste jaar Pro voor %@";
+"halloween.renewal" = "Daarna %@ per jaar. Altijd opzegbaar.";
+"halloween.claim" = "Pak het";
+
+/* App icon picker in Settings */
+"settings.appIcon" = "App-icoon";
+"settings.appIcon.classic" = "Klassiek";
+"settings.appIcon.halloween" = "Halloween";

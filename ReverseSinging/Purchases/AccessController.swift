@@ -355,9 +355,10 @@ final class AccessController: ObservableObject {
     }
 
     /// Buys a product directly. The fallback paywall uses this when there is no offering to
-    /// buy from; the dashboard paywall does its own buying.
-    func purchase(_ product: StoreProduct) async {
-        await runPurchase(productID: product.productIdentifier, source: "fallback_paywall") {
+    /// buy from, and the Halloween banner to buy the yearly plan at its introductory price;
+    /// the dashboard paywall does its own buying.
+    func purchase(_ product: StoreProduct, source: String = "fallback_paywall") async {
+        await runPurchase(productID: product.productIdentifier, source: source) {
             try await Purchases.shared.purchase(product: product)
         }
     }
