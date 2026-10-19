@@ -9,7 +9,7 @@
 "onboarding.howItWorks.title" = "Comment ça marche";
 "onboarding.howItWorks.message" = "Enregistre une chanson, retourne-la, puis chante par-dessus le charabia. Retourne ta prise et découvre si tu t'en es approché ou si tu viens d'inventer une langue.";
 "onboarding.dub.title" = "Double une scène de film";
-"onboarding.dub.message" = "Le deuxième jeu : lance une scène, surjoue par-dessus, puis écoute-toi dans le film. Quatre scènes sont fournies. Ensuite, ce sera avec tes propres fichiers.";
+"onboarding.dub.message" = "Lance une scène, surjoue par-dessus, puis écoute-toi dans le film. Quatre scènes sont fournies. Ensuite, ce sera avec tes propres fichiers.";
 "onboarding.pro.title" = "Pourquoi Dubloon Pro existe";
 "onboarding.pro.message" = "Dubloon n'a ni pub, ni compte, ni pistage, et une seule personne le fabrique à Zurich. Dubloon Pro est ce qui le finance. Tu peux essayer tous les jeux : tes %d premières prises sont gratuites, et Pro les rend illimitées.";
 "onboarding.pro.buy" = "Prendre Dubloon Pro";

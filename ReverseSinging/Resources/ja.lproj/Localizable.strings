@@ -9,7 +9,7 @@
 "onboarding.howItWorks.title" = "遊びかた";
 "onboarding.howItWorks.message" = "曲を録音して、逆さまにして、その意味不明な音に合わせて歌う。歌ったテイクをもう一度ひっくり返せば、近づけたのか、新しい言語を発明しただけなのかが分かります。";
 "onboarding.dub.title" = "映画のシーンをアフレコ";
-"onboarding.dub.message" = "2つめのゲーム。シーンを流し、思いきり大げさに演じて、映画の中の自分を聴く。シーンは4本同梱。その先は自分のファイルを持ち込んでください。";
+"onboarding.dub.message" = "シーンを流し、思いきり大げさに演じて、映画の中の自分を聴く。シーンは4本同梱。その先は自分のファイルを持ち込んでください。";
 "onboarding.pro.title" = "Dubloon Proがある理由";
 "onboarding.pro.message" = "Dubloonには広告もアカウントもトラッキングもありません。チューリッヒでひとりの開発者が作っています。それを支えているのがDubloon Proです。どのゲームも試せます。最初の%dテイクは無料で、Proなら無制限になります。";
 "onboarding.pro.buy" = "Dubloon Proを手に入れる";

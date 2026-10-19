@@ -9,7 +9,7 @@
 "onboarding.howItWorks.title" = "Näin tämä toimii";
 "onboarding.howItWorks.message" = "Äänitä biisi, käännä se takaperin ja laula siansaksan mukana. Käännä sitten oma otoksesi ja kuule, osuitko lähelle vai keksitkö juuri uuden kielen.";
 "onboarding.dub.title" = "Dubbaa elokuvakohtaus";
-"onboarding.dub.message" = "Toinen peli: laita kohtaus pyörimään, ylinäyttele kunnolla ja kuule sitten itsesi elokuvassa. Neljä kohtausta tulee mukana. Sen jälkeen tuot omat tiedostosi.";
+"onboarding.dub.message" = "Laita kohtaus pyörimään, ylinäyttele kunnolla ja kuule sitten itsesi elokuvassa. Neljä kohtausta tulee mukana. Sen jälkeen tuot omat tiedostosi.";
 "onboarding.pro.title" = "Miksi Dubloon Pro on olemassa";
 "onboarding.pro.message" = "Dubloonissa ei ole mainoksia, tiliä eikä seurantaa, ja sitä tekee yksi ihminen Zürichissä. Dubloon Pro maksaa tämän kaiken. Voit kokeilla jokaista peliä: ensimmäiset %d otostasi ovat ilmaisia, ja Pro tekee niistä rajattomia.";
 "onboarding.pro.buy" = "Hanki Dubloon Pro";

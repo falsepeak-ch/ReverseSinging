@@ -9,7 +9,7 @@
 "onboarding.howItWorks.title" = "Nasıl çalışıyor";
 "onboarding.howItWorks.message" = "Bir şarkı kaydet, tersine çevir ve o anlamsız sesin üstüne söyle. Sonra kendi çekimini ters çevir ve yaklaşmış mısın yoksa yeni bir dil mi icat etmişsin, öğren.";
 "onboarding.dub.title" = "Bir film sahnesini seslendir";
-"onboarding.dub.message" = "İkinci oyun: sahneyi başlat, üstüne abartarak oyna ve sonra kendini filmin içinde duy. Dört sahne kutudan çıkıyor. Gerisi için kendi dosyalarını getiriyorsun.";
+"onboarding.dub.message" = "Sahneyi başlat, üstüne abartarak oyna ve sonra kendini filmin içinde duy. Dört sahne kutudan çıkıyor. Gerisi için kendi dosyalarını getiriyorsun.";
 "onboarding.pro.title" = "Dubloon Pro neden var";
 "onboarding.pro.message" = "Dubloon'da reklam, hesap ve takip yok; onu Zürih'te tek bir kişi yapıyor. Bunun bedelini Dubloon Pro karşılıyor. Her oyunu deneyebilirsin: ilk %d çekimin ücretsiz, Pro ile sınırsız.";
 "onboarding.pro.buy" = "Dubloon Pro'yu al";

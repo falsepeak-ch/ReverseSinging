@@ -36,19 +36,20 @@ final class OnboardingViewModel: ObservableObject {
             description: Strings.Onboarding.welcomeMessage,
             matteColor: Color.rsSurface1
         ),
-        OnboardingPage(
-            imageName: "radio",
-            title: Strings.Onboarding.howItWorksTitle,
-            description: Strings.Onboarding.howItWorksMessage,
-            matteColor: Color.rsSurface1
-        ),
-        // The second game gets its own page: dubbing is nothing like reverse
-        // singing, and the "bring your own files" part is better said here than
-        // discovered at the content gate.
+        // Movie scene dub first, as on the menu: it is the game most people come for, and the
+        // "bring your own files" part is better said here than discovered at the content gate.
         OnboardingPage(
             imageName: "clapperboard",
             title: Strings.Onboarding.dubTitle,
             description: Strings.Onboarding.dubMessage,
+            matteColor: Color.rsSurface1
+        ),
+        // Reverse singing next, under its own name now that it is not the page right after the
+        // welcome.
+        OnboardingPage(
+            imageName: "radio",
+            title: Strings.Main.Mode.reverseTitle,
+            description: Strings.Onboarding.howItWorksMessage,
             matteColor: Color.rsSurface1
         ),
         // What costs money, and why, said before anyone meets a lock: there are no ads, no

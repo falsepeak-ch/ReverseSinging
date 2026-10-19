@@ -9,7 +9,7 @@
 "onboarding.howItWorks.title" = "Så funkar det";
 "onboarding.howItWorks.message" = "Spela in en låt, vänd på den och sjung med i rappakaljan. Vänd sedan på ditt eget försök och hör om du var nära eller just uppfann ett nytt språk.";
 "onboarding.dub.title" = "Dubba en filmscen";
-"onboarding.dub.message" = "Det andra spelet: starta en scen, överspela ordentligt och hör dig själv i filmen. Fyra scener följer med. Sedan tar du med dina egna filer.";
+"onboarding.dub.message" = "Starta en scen, överspela ordentligt och hör dig själv i filmen. Fyra scener följer med. Sedan tar du med dina egna filer.";
 "onboarding.pro.title" = "Därför finns Dubloon Pro";
 "onboarding.pro.message" = "Dubloon har ingen reklam, inget konto och ingen spårning, och görs av en enda person i Zürich. Dubloon Pro är det som betalar för det. Du kan testa alla spel: dina första %d tagningar är gratis, och Pro gör dem obegränsade.";
 "onboarding.pro.buy" = "Skaffa Dubloon Pro";
