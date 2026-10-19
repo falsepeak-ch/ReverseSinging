@@ -269,6 +269,7 @@
 "dubShare.unknownSource" = "هذا المشهد أحضرته بنفسك، فأنت تعرف من أين جاء وما المسموح به.";
 "dubShare.responsibility" = "أين ينتهي به المطاف أمر يخصك، فالتزم بقواعد حقوق النشر في بلدك.";
 "dubShare.confirm" = "تصدير الفيديو";
+"dubShare.caption" = "دبلجت هذا المشهد مع Dubloon 🎙️";
 "dubShare.share" = "مشاركة…";
 "dubShare.save" = "حفظ…";
 
@@ -390,6 +391,11 @@
 "booth.frame.stacked" = "فوق بعضهما";
 "booth.frame.reaction" = "ردّة فعل";
 "booth.frame.split" = "جنباً إلى جنب";
+"booth.frame.vertical" = "عمودي";
+"booth.export.pipCorner" = "زاوية الكابينة";
+"booth.export.pip.bottomRight" = "أسفل اليمين";
+"booth.export.pip.bottomLeft" = "أسفل اليسار";
+"booth.export.pip.topRight" = "أعلى اليمين";
 "booth.export.stackedNote" = "«فوق بعضهما» و«ردّة فعل» يخرجان بنسبة 9:16 مع موجة صوتية في الأسفل: جملة المشهد فوق، وجملتك تحت.";
 "booth.export.noFootage" = "لا توجد لقطات كابينة في هذا المشهد بعد. شغّل كاميرا الكابينة ودبلج جملة.";
 "booth.export.includeBooth" = "تضمين لقطات الكابينة";
@@ -741,11 +747,26 @@
 "dubGuide.3.detail.mac" = "انتظر حتى يكتمل التنزيل. إذا كان الملف في iCloud Drive، فنزّله أولًا في Finder حتى يصبح فعلًا على هذا الـ Mac.";
 "dubGuide.4.detail.mac" = "عد إلى هنا، وانقر «استيراد حزمة دبلجة»، ثم اختره من التنزيلات. يمكنك أيضًا إفلات الملف على «دبلجة مشهد» في الشريط الجانبي، أو فتحه باستخدام Dubloon من Finder.";
 
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "جرّب Dubloon Pro مجانًا لمدة %@";
+"offer.intro.paid" = "أول %2$@ من Dubloon Pro مقابل %1$@";
+"offer.winback.free" = "عُد إلينا: %@ من Dubloon Pro مجانًا";
+"offer.winback.paid" = "عُد إلينا: %2$@ من Dubloon Pro مقابل %1$@";
+"offer.then" = "بعد ذلك %@. يمكنك الإلغاء في أي وقت.";
+"offer.cta" = "احصل على العرض";
+"offer.dismiss" = "ليس الآن";
+
+/* Spooky Voice Week */
+"halloween.title" = "أسبوع الأصوات المخيفة";
+"halloween.home.message" = "قلّد أنين الشبح وزمجرة الزومبي وعواء الذئب. ثم دبلج Camp Rules، مشهد الكوميديا المرعبة.";
+"halloween.home.action" = "العب بالأصوات المخيفة";
+"halloween.imitate.message" = "هالوين سعيد! سخّن صوتك مع الشبح والزومبي والذئب والبومة.";
+
 /* Halloween deal banner over the games */
-"halloween.badge" = "عرض الهالوين";
-"halloween.title" = "السنة الأولى من Pro مقابل %@";
-"halloween.renewal" = "ثم %@ سنويًا. ألغِ في أي وقت.";
-"halloween.claim" = "احصل عليه";
+"halloweenDeal.badge" = "عرض الهالوين";
+"halloweenDeal.title" = "السنة الأولى من Pro مقابل %@";
+"halloweenDeal.renewal" = "ثم %@ سنويًا. ألغِ في أي وقت.";
+"halloweenDeal.claim" = "احصل عليه";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "أيقونة التطبيق";

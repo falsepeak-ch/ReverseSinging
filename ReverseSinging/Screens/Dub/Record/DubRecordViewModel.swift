@@ -116,6 +116,17 @@ final class DubRecordViewModel: ObservableObject {
         recorder.$isRecording
             .assign(to: &$isRecording)
 
+        // The recorder stops itself when the system takes the microphone (a call, Siri, an
+        // alarm), without going through `stopRecording`: that take is gone, so the booth's
+        // must go too. Left running, the camera kept writing a clip for a voice that was
+        // never saved, and the next take found it still in flight.
+        recorder.$isRecording
+            .removeDuplicates()
+            .dropFirst()
+            .filter { !$0 }
+            .sink { [weak self] _ in self?.recorderStoppedByItself() }
+            .store(in: &cancellables)
+
         // Fed from the peak, not the meter level. The meter is average power on a dB curve,
         // right for the pulsing record button, wrong for a waveform, because it lifts every
         // quiet syllable to two thirds height and the trace comes out a flat block. The take
@@ -179,6 +190,17 @@ final class DubRecordViewModel: ObservableObject {
     func recordingDidChange(isRecording: Bool) {
         guard let line = currentLine else { return }
         if !isRecording { scenePicture.stop(returningTo: line) }
+    }
+
+    /// Every stop this screen makes clears `recordingAnchor` before it stops the recorder, so a
+    /// stop that finds it still set came from somewhere else.
+    private func recorderStoppedByItself() {
+        guard recordingAnchor != nil else { return }
+        recordingAnchor = nil
+        cancelAutoStop()
+        booth.cancelTake()
+        monitorPlayer.stop()
+        SoundManager.shared.setMicrophoneOpen(false)
     }
 
     func boothPreferenceDidChange(isOn: Bool) {
@@ -575,8 +597,14 @@ final class DubRecordViewModel: ObservableObject {
         // Closed on its own clock the moment the line ran out; this is what collects the
         // result. A clip that never got a frame leaves no file, so the line simply has no
         // footage rather than an empty one.
+        //
+        // A take with no footage (the camera was off, or never delivered a frame) also clears
+        // the line's old clip: it was filmed against a different take, and exported beside
+        // this one it would be somebody else's lips on this voice.
+        let boothURL = pack.boothTakeURL(for: line)
         Task {
             let clip = await booth.finishTake()
+            if clip == nil { try? FileManager.default.removeItem(at: boothURL) }
             session.setBoothTake(clip != nil, for: line)
         }
 

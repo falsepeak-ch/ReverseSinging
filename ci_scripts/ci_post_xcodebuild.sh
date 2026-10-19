@@ -36,23 +36,41 @@ if [ ! -x "$UPLOAD_SYMBOLS" ]; then
         -name upload-symbols -type f -perm -u+x -print -quit 2>/dev/null || true)
 fi
 
-# Fail the build rather than ship a release whose crashes are unreadable. That is the
-# failure this script exists to prevent, so it must not pass quietly.
-if [ ! -x "$UPLOAD_SYMBOLS" ]; then
-    echo "error: upload-symbols not found under $CI_DERIVED_DATA_PATH/SourcePackages/checkouts."
-    echo "error: it ships inside the firebase-ios-sdk SPM checkout."
-    exit 1
+# Never fail the build from here. A missing dSYM folder usually means the archive itself
+# already failed (then this error only hides the real one), and a Crashlytics hiccup must
+# not block an otherwise good upload. Warn loudly instead; symbols can be re-sent later
+# from the archive Xcode Cloud keeps as an artifact.
+warn() {
+    echo "warning: $1"
+    echo "warning: skipping the Crashlytics dSYM upload; the build is not failed for this."
+    exit 0
+}
+
+if [ -z "$CI_ARCHIVE_PATH" ] || [ ! -d "$CI_ARCHIVE_PATH" ]; then
+    warn "no archive at '$CI_ARCHIVE_PATH' (the archive step probably failed)."
 fi
 
 if [ ! -d "$DSYM_PATH" ]; then
-    echo "error: the archive at $CI_ARCHIVE_PATH has no dSYMs directory."
-    exit 1
+    warn "the archive at $CI_ARCHIVE_PATH has no dSYMs directory."
+fi
+
+if [ ! -x "$UPLOAD_SYMBOLS" ]; then
+    warn "upload-symbols not found under $CI_DERIVED_DATA_PATH/SourcePackages/checkouts (it ships inside the firebase-ios-sdk SPM checkout)."
 fi
 
 if [ ! -f "$GSP_PATH" ]; then
-    echo "error: GoogleService-Info.plist is missing at $GSP_PATH."
-    exit 1
+    warn "GoogleService-Info.plist is missing at $GSP_PATH."
 fi
 
-echo "Uploading dSYMs from $DSYM_PATH to Crashlytics."
-"$UPLOAD_SYMBOLS" -gsp "$GSP_PATH" -p ios "$DSYM_PATH"
+# The Release workflow also archives DubloonMac. Same plist as the Fastfile mac lane, mac platform.
+if [ "$CI_PRODUCT_PLATFORM" = "macOS" ]; then
+    CRASHLYTICS_PLATFORM=mac
+else
+    CRASHLYTICS_PLATFORM=ios
+fi
+
+echo "Uploading dSYMs from $DSYM_PATH to Crashlytics ($CRASHLYTICS_PLATFORM)."
+if ! "$UPLOAD_SYMBOLS" -gsp "$GSP_PATH" -p "$CRASHLYTICS_PLATFORM" "$DSYM_PATH"; then
+    warn "upload-symbols exited with an error."
+fi
+echo "dSYM upload complete."

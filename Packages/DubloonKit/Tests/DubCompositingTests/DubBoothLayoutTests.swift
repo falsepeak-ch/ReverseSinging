@@ -146,16 +146,18 @@ struct DubBoothLayoutTests {
     @Test func onlyTheVerticalFramesAreVerticalOnes() {
         #expect(DubBoothFrame.stacked.isVertical)
         #expect(DubBoothFrame.reaction.isVertical)
+        #expect(DubBoothFrame.vertical.isVertical)
         #expect(!DubBoothFrame.off.isVertical)
         #expect(!DubBoothFrame.corner.isVertical)
         #expect(!DubBoothFrame.split.isVertical)
     }
 
-    /// Only the vertical frames carry a strip; the rest are the shapes they always were.
-    @Test func onlyTheVerticalFramesReserveAWaveformStrip() {
+    /// Only stacked and reaction carry a strip; the rest are the shapes they always were, and
+    /// `vertical` keeps its lower bar for the booth.
+    @Test func onlyTheStripFramesReserveAWaveformStrip() {
         for frame in DubBoothFrame.allCases {
             let layout = DubBoothLayout.make(frame: frame, sceneDisplaySize: scene, boothDisplaySize: booth)
-            #expect((layout.waveRect != nil) == frame.isVertical, "\(frame)")
+            #expect((layout.waveRect != nil) == frame.hasWaveStrip, "\(frame)")
         }
     }
 

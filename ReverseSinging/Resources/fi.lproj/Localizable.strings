@@ -269,6 +269,7 @@
 "dubShare.unknownSource" = "Tämän kohtauksen toit itse, joten tiedät mistä se on peräisin ja mitä sillä saa tehdä.";
 "dubShare.responsibility" = "Minne se päätyy, on sinun asiasi, joten noudata oman maasi tekijänoikeussääntöjä.";
 "dubShare.confirm" = "Vie video";
+"dubShare.caption" = "Dubbasin tämän kohtauksen Dubloonilla 🎙️";
 "dubShare.share" = "Jaa…";
 "dubShare.save" = "Tallenna…";
 
@@ -390,6 +391,11 @@
 "booth.frame.stacked" = "Päällekkäin";
 "booth.frame.reaction" = "Reaktio";
 "booth.frame.split" = "Vierekkäin";
+"booth.frame.vertical" = "Pysty";
+"booth.export.pipCorner" = "Kopin kulma";
+"booth.export.pip.bottomRight" = "Oikealla alhaalla";
+"booth.export.pip.bottomLeft" = "Vasemmalla alhaalla";
+"booth.export.pip.topRight" = "Oikealla ylhäällä";
 "booth.export.stackedNote" = "Päällekkäin ja Reaktio renderöityvät 9:16 ja alareunaan tulee aaltomuoto: kohtauksen repliikki ylhäällä, sinun alhaalla.";
 "booth.export.noFootage" = "Tässä kohtauksessa ei ole vielä koppimateriaalia. Laita Booth Cam päälle ja dubbaa repliikki.";
 "booth.export.includeBooth" = "Ota koppimateriaali mukaan";
@@ -741,11 +747,26 @@
 "dubGuide.3.detail.mac" = "Odota, että lataus valmistuu. Jos tiedosto on iCloud Drivessa, lataa se ensin Finderissa, jotta se on varmasti tällä Macilla.";
 "dubGuide.4.detail.mac" = "Palaa tänne, klikkaa Tuo dubbauspaketti ja valitse se Latauksista. Voit myös pudottaa tiedoston sivupalkin Kohtauksen dubbaus -kohtaan tai avata sen Dubloonilla Finderista.";
 
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Dubloon Pro: kokeile ilmaiseksi %@";
+"offer.intro.paid" = "Ensimmäiset %2$@ Dubloon Pro hintaan %1$@";
+"offer.winback.free" = "Tule takaisin: %@ Dubloon Pro ilmaiseksi";
+"offer.winback.paid" = "Tule takaisin: %2$@ Dubloon Pro hintaan %1$@";
+"offer.then" = "Sen jälkeen %@. Peru milloin tahansa.";
+"offer.cta" = "Lunasta tarjous";
+"offer.dismiss" = "Ei nyt";
+
+/* Spooky Voice Week */
+"halloween.title" = "Kauhuäänten viikko";
+"halloween.home.message" = "Valita kuin kummitus, murise kuin zombi, ulvo kuin susi. Dubbaa sitten Camp Rules, kauhukomedian kohtaus.";
+"halloween.home.action" = "Pelaa kauhuäänillä";
+"halloween.imitate.message" = "Hyvää halloweenia! Lämmittele ääntäsi kummituksen, zombin, suden ja pöllön kanssa.";
+
 /* Halloween deal banner over the games */
-"halloween.badge" = "Halloween-tarjous";
-"halloween.title" = "Ensimmäinen Pro-vuosi hintaan %@";
-"halloween.renewal" = "Sen jälkeen %@ vuodessa. Peru milloin vain.";
-"halloween.claim" = "Ota tarjous";
+"halloweenDeal.badge" = "Halloween-tarjous";
+"halloweenDeal.title" = "Ensimmäinen Pro-vuosi hintaan %@";
+"halloweenDeal.renewal" = "Sen jälkeen %@ vuodessa. Peru milloin vain.";
+"halloweenDeal.claim" = "Ota tarjous";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "Sovelluksen kuvake";

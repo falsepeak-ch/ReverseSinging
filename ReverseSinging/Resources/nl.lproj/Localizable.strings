@@ -269,6 +269,7 @@
 "dubShare.unknownSource" = "Deze scène heb je zelf meegebracht, dus jij weet waar hij vandaan komt en wat je ermee mag.";
 "dubShare.responsibility" = "Waar hij belandt is aan jou, dus volg de auteursrechtregels waar jij woont.";
 "dubShare.confirm" = "Video exporteren";
+"dubShare.caption" = "Ik heb deze scène nagesynchroniseerd met Dubloon 🎙️";
 "dubShare.share" = "Deel…";
 "dubShare.save" = "Bewaar…";
 
@@ -390,6 +391,11 @@
 "booth.frame.stacked" = "Boven elkaar";
 "booth.frame.reaction" = "Reactie";
 "booth.frame.split" = "Naast elkaar";
+"booth.frame.vertical" = "Verticaal";
+"booth.export.pipCorner" = "Hoek van de cabine";
+"booth.export.pip.bottomRight" = "Rechtsonder";
+"booth.export.pip.bottomLeft" = "Linksonder";
+"booth.export.pip.topRight" = "Rechtsboven";
 "booth.export.stackedNote" = "Boven elkaar en Reactie renderen in 9:16 met een golfvorm onderaan: de zin van de scène boven, die van jou eronder.";
 "booth.export.noFootage" = "Nog geen cabinebeelden in deze scène. Zet Booth Cam aan en dub een zin.";
 "booth.export.includeBooth" = "Cabinebeelden meenemen";
@@ -741,11 +747,26 @@
 "dubGuide.3.detail.mac" = "Wacht tot de download klaar is. Staat het bestand in iCloud Drive, download het dan eerst in de Finder zodat het echt op deze Mac staat.";
 "dubGuide.4.detail.mac" = "Kom hier terug, klik op Dubpack importeren en kies het bij Downloads. Je kunt het bestand ook op Filmscène dubben in de navigatiekolom slepen, of het vanuit de Finder openen met Dubloon.";
 
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Probeer Dubloon Pro %@ gratis";
+"offer.intro.paid" = "Je eerste %2$@ Dubloon Pro voor %1$@";
+"offer.winback.free" = "Kom terug: %@ Dubloon Pro gratis";
+"offer.winback.paid" = "Kom terug: %2$@ Dubloon Pro voor %1$@";
+"offer.then" = "Daarna %@. Altijd opzegbaar.";
+"offer.cta" = "Aanbod claimen";
+"offer.dismiss" = "Niet nu";
+
+/* Spooky Voice Week */
+"halloween.title" = "Griezelstemmenweek";
+"halloween.home.message" = "Kreun als een spook, grom als een zombie, huil als een wolf. Dub daarna Camp Rules, de scène uit een horrorkomedie.";
+"halloween.home.action" = "Speel de griezelgeluiden";
+"halloween.imitate.message" = "Fijne Halloween! Warm je stem op met het spook, de zombie, de wolf en de uil.";
+
 /* Halloween deal banner over the games */
-"halloween.badge" = "Halloweenaanbieding";
-"halloween.title" = "Eerste jaar Pro voor %@";
-"halloween.renewal" = "Daarna %@ per jaar. Altijd opzegbaar.";
-"halloween.claim" = "Pak het";
+"halloweenDeal.badge" = "Halloweenaanbieding";
+"halloweenDeal.title" = "Eerste jaar Pro voor %@";
+"halloweenDeal.renewal" = "Daarna %@ per jaar. Altijd opzegbaar.";
+"halloweenDeal.claim" = "Pak het";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "App-icoon";

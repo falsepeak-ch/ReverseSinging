@@ -327,10 +327,7 @@ struct DubBoothCompositingOutputTests {
             boothClips: [line.slug: boothURL]
         )
 
-        let videoComposition = try #require(
-            composed.videoComposition,
-            "a booth frame has to produce a video composition, or nothing is composited"
-        )
+        let videoComposition = composed.videoComposition
 
         let generator = AVAssetImageGenerator(asset: composed.composition)
         generator.videoComposition = videoComposition
@@ -395,7 +392,7 @@ struct DubBoothCompositingOutputTests {
                 "the middle of the frame is the scene")
         #expect(dominant(at: CGPoint(x: inset.midX, y: inset.midY), in: image) == .blue,
                 "the inset is the booth")
-        #expect(dominant(at: CGPoint(x: 20, y: 20), in: image) == .red,
+        #expect(dominant(at: CGPoint(x: 20, y: size.height - 20), in: image) == .red,
                 "the opposite corner is still the scene")
     }
 
@@ -504,7 +501,7 @@ struct DubBoothCompositingOutputTests {
             waveVideo: waveURL
         )
 
-        let videoComposition = try #require(composed.videoComposition)
+        let videoComposition = composed.videoComposition
         let generator = AVAssetImageGenerator(asset: composed.composition)
         generator.videoComposition = videoComposition
         generator.appliesPreferredTrackTransform = false
@@ -567,8 +564,9 @@ struct DubBoothCompositingOutputTests {
                 "the booth fills its half top to bottom")
     }
 
-    /// The whole point of keeping `.off` on the remux path: no composition, no re-encode.
-    @Test func offProducesNoVideoCompositionAtAll() async throws {
+    /// `.off` used to be a remux. Every export now carries the Dubloon mark, so it is drawn
+    /// too, at the scene's own size and with nobody in it.
+    @Test func offIsCompositedForTheMarkButKeepsTheSceneAlone() async throws {
         let directory = FileManager.default.temporaryDirectory
             .appendingPathComponent("booth-off-\(UUID().uuidString)", isDirectory: true)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
@@ -590,7 +588,9 @@ struct DubBoothCompositingOutputTests {
             boothClips: [line.slug: boothURL]
         )
 
-        #expect(composed.videoComposition == nil,
-                "an export with the booth off must stay a passthrough remux")
+        #expect(composed.videoComposition.renderSize == CGSize(width: 640, height: 360),
+                "the scene keeps its own shape")
+        #expect(composed.composition.tracks.filter { $0.mediaType == .video }.count == 1,
+                "and no booth track is opened for it")
     }
 }

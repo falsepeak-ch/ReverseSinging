@@ -94,8 +94,8 @@ struct DubEditorView: View {
                 line: detail.exportOptionsLine,
                 hasBoothFootage: session.hasAnyBoothTake,
                 runtime: { detail.runtime(of: $0) },
-                onExport: { cut, frame, includesBooth in
-                    detail.configureExport(cut: cut, frame: frame, includesBooth: includesBooth)
+                onExport: { cut, frame, includesBooth, pipCorner in
+                    detail.configureExport(cut: cut, frame: frame, includesBooth: includesBooth, pipCorner: pipCorner)
                 },
                 onCancel: { detail.cancelExportOptions() }
             )
@@ -114,7 +114,7 @@ struct DubEditorView: View {
             detail.confirmExport()
         }
         .sheet(item: Binding(get: { detail.exportedURL }, set: { detail.exportedURL = $0 })) { url in
-            DubShareSheet(url: url)
+            DubShareSheet(url: url, caption: DubShareCaption.text())
         }
         .boothCamPrimer(isPresented: Binding(
             get: { record.isBoothPrimerPresented },

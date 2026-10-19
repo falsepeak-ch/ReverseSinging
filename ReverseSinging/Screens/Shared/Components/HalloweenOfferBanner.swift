@@ -11,7 +11,7 @@ import SwiftUI
 ///
 /// It stays put above the games rather than scrolling with them, and it is drawn in its own
 /// night colours in either appearance: it is a poster for two weeks, not part of the editor.
-/// The whole card is the button; it opens the store's own sheet for the yearly plan.
+/// The whole card is the button; it opens the store's own sheet for the Halloween plan.
 struct HalloweenOfferBanner: View {
 
     let introPrice: String
@@ -36,7 +36,7 @@ struct HalloweenOfferBanner: View {
 
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 6) {
-                        Text(Strings.Halloween.badge.uppercased())
+                        Text(Strings.HalloweenDeal.badge.uppercased())
                             .font(.system(size: 11, weight: .heavy, design: Font.rsTextDesign))
                             .tracking(0.8)
                             .foregroundStyle(Night.coral)
@@ -45,14 +45,14 @@ struct HalloweenOfferBanner: View {
                         countdown
                     }
 
-                    Text(String(format: Strings.Halloween.title, introPrice))
+                    Text(String(format: Strings.HalloweenDeal.title, introPrice))
                         .font(.system(size: 18, weight: .heavy, design: Font.rsTextDesign))
                         .foregroundStyle(Night.cream)
                         .lineLimit(2)
                         .minimumScaleFactor(0.8)
                         .fixedSize(horizontal: false, vertical: true)
 
-                    Text(String(format: Strings.Halloween.renewal, renewalPrice))
+                    Text(String(format: Strings.HalloweenDeal.renewal, renewalPrice))
                         .font(.rsMeta)
                         .foregroundStyle(Night.cream.opacity(0.7))
                         .lineLimit(2)
@@ -106,7 +106,7 @@ struct HalloweenOfferBanner: View {
                 ProgressView()
                     .tint(Night.cream)
             } else {
-                Text(Strings.Halloween.claim)
+                Text(Strings.HalloweenDeal.claim)
                     .font(.system(size: 15, weight: .heavy, design: Font.rsTextDesign))
                     .foregroundStyle(Night.cream)
                     .lineLimit(1)
@@ -131,11 +131,11 @@ struct HalloweenOfferBanner: View {
 
     private var accessibilityText: String {
         [
-            Strings.Halloween.badge,
-            String(format: Strings.Halloween.title, introPrice),
-            String(format: Strings.Halloween.renewal, renewalPrice),
+            Strings.HalloweenDeal.badge,
+            String(format: Strings.HalloweenDeal.title, introPrice),
+            String(format: Strings.HalloweenDeal.renewal, renewalPrice),
             Self.remaining(until: endDate, from: Date()),
-            Strings.Halloween.claim,
+            Strings.HalloweenDeal.claim,
         ].joined(separator: ". ")
     }
 

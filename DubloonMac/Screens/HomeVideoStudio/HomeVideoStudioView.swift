@@ -171,7 +171,7 @@ private struct HomeVideoStagePane: View {
             progress: nil
         )
         .sheet(item: $dub.sharedURL) { url in
-            DubShareSheet(url: url)
+            DubShareSheet(url: url, caption: DubShareCaption.text())
         }
         .alert(Strings.Main.Alert.errorTitle, isPresented: .init(
             get: { dub.errorMessage != nil },

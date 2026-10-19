@@ -43,6 +43,13 @@ public struct DubBoothLayout: Equatable, Sendable {
     public let waveRect: CGRect?
     /// Whether the booth is drawn after the scene.
     public let boothIsOnTop: Bool
+    /// Rounds the booth's corners, in render pixels. Zero everywhere but `vertical`, whose
+    /// booth is a picture-in-picture rather than a band.
+    public let boothCornerRadius: CGFloat
+    /// Where the Dubloon mark goes. Every frame has one, in the corner furthest from the
+    /// booth: top-left in `vertical` (the picture-in-picture never takes that corner), and
+    /// opposite the booth everywhere else.
+    public let watermarkRect: CGRect
 
     /// The booth inset's height in `corner`, as a fraction of the frame's.
     ///
@@ -60,15 +67,40 @@ public struct DubBoothLayout: Equatable, Sendable {
     /// - Parameters:
     ///   - sceneDisplaySize: the scene picture's size *after* its preferred transform.
     ///   - boothDisplaySize: the booth clip's, likewise. Portrait in practice.
+    ///   - pipCorner: where the booth goes in `vertical`. Ignored by every other frame.
+    ///   - watermarkAspect: the mark's width over its height, so its rect is the mark's shape.
     public static func make(
         frame: DubBoothFrame,
         sceneDisplaySize: CGSize,
-        boothDisplaySize: CGSize
+        boothDisplaySize: CGSize,
+        pipCorner: DubPipCorner = .bottomRight,
+        watermarkAspect: CGFloat = defaultWatermarkAspect
+    ) -> DubBoothLayout {
+        let base = arrange(
+            frame: frame,
+            sceneDisplaySize: sceneDisplaySize,
+            boothDisplaySize: boothDisplaySize,
+            pipCorner: pipCorner
+        )
+        return base.placingWatermark(frame: frame, aspect: watermarkAspect)
+    }
+
+    /// The width over height of the `icon-lettering` mark the app ships.
+    public static let defaultWatermarkAspect: CGFloat = 2268.0 / 530.0
+
+    private static func arrange(
+        frame: DubBoothFrame,
+        sceneDisplaySize: CGSize,
+        boothDisplaySize: CGSize,
+        pipCorner: DubPipCorner
     ) -> DubBoothLayout {
         let scene = sanitised(sceneDisplaySize, fallback: CGSize(width: 1280, height: 720))
         let booth = sanitised(boothDisplaySize, fallback: CGSize(width: 720, height: 1280))
 
         switch frame {
+        case .vertical:
+            return pictureInPicture(scene: scene, booth: booth, corner: pipCorner)
+
         case .off:
             let full = CGRect(origin: .zero, size: scene)
             return DubBoothLayout(
@@ -181,6 +213,136 @@ public struct DubBoothLayout: Equatable, Sendable {
             waveRect: waveRect,
             boothIsOnTop: false
         )
+    }
+
+    // MARK: - Picture in Picture
+
+    /// The vertical post's proportions, as fractions of the 1080x1920 canvas.
+    ///
+    /// The insets keep the booth and the mark clear of what TikTok, Reels and Shorts draw over
+    /// a video: the status and tab strip along the top, the caption and the action column
+    /// along the bottom and the right.
+    public enum Vertical {
+        public static let sideInset: CGFloat = 0.056
+        public static let topInset: CGFloat = 0.08
+        public static let bottomInset: CGFloat = 0.10
+        /// The picture-in-picture's height. Small enough to be an inset, tall enough to
+        /// read a face in.
+        public static let pipHeight: CGFloat = 0.21
+        /// Its corner radius, as a fraction of its width.
+        public static let pipCornerRadius: CGFloat = 0.12
+        /// The mark's width.
+        public static let watermarkWidth: CGFloat = 0.24
+    }
+
+    /// Scene letterboxed in the middle, booth in a corner.
+    ///
+    /// The booth is anchored to the safe corner rather than to the scene, which is what puts
+    /// it inside the black bar whenever the bar is deep enough (any 16:9 scene) and over the
+    /// scene's corner when it is not (4:3 and squarer). Either way it never moves during the
+    /// export and never reaches the platform's own controls.
+    private static func pictureInPicture(scene: CGSize, booth: CGSize, corner: DubPipCorner) -> DubBoothLayout {
+        let size = verticalSize
+
+        // Fitted, not filled: the whole of the film is in the post, at its own shape.
+        let fit = min(size.width / scene.width, size.height / scene.height)
+        let sceneSize = CGSize(width: even(scene.width * fit), height: even(scene.height * fit))
+        let sceneRect = CGRect(
+            x: even((size.width - sceneSize.width) / 2),
+            y: even((size.height - sceneSize.height) / 2),
+            width: sceneSize.width,
+            height: sceneSize.height
+        )
+
+        let pipHeight = even(size.height * Vertical.pipHeight)
+        let pipWidth = even(pipHeight * booth.width / booth.height)
+        let side = even(size.width * Vertical.sideInset)
+        let top = even(size.height * Vertical.topInset)
+        let bottom = even(size.height * Vertical.bottomInset)
+
+        let x = corner.isLeft ? side : size.width - side - pipWidth
+        let y = corner.isTop ? top : size.height - bottom - pipHeight
+
+        return DubBoothLayout(
+            renderSize: size,
+            sceneRect: sceneRect,
+            // The scene never moves for the booth here: it is the same post with or without
+            // a face in the corner.
+            sceneRectAlone: sceneRect,
+            boothRect: CGRect(x: x, y: y, width: pipWidth, height: pipHeight),
+            waveRect: nil,
+            boothIsOnTop: true,
+            boothCornerRadius: even(pipWidth * Vertical.pipCornerRadius)
+        )
+    }
+
+    /// Whether the picture-in-picture sits wholly inside a black bar rather than over the film.
+    public var boothIsInBar: Bool {
+        guard let boothRect, boothCornerRadius > 0 else { return false }
+        return boothRect.minY >= sceneRect.maxY || boothRect.maxY <= sceneRect.minY
+    }
+
+    // MARK: - Watermark
+
+    /// Puts the mark in its corner, scaled to the output.
+    private func placingWatermark(frame: DubBoothFrame, aspect: CGFloat) -> DubBoothLayout {
+        let aspect = aspect > 0 ? aspect : Self.defaultWatermarkAspect
+        let rect: CGRect
+
+        if frame == .vertical {
+            // Top-left, inside the same safe inset the booth keeps.
+            let width = Self.even(renderSize.width * Vertical.watermarkWidth)
+            rect = CGRect(
+                x: Self.even(renderSize.width * Vertical.sideInset),
+                y: Self.even(renderSize.height * Vertical.topInset),
+                width: width,
+                height: (width / aspect).rounded()
+            )
+        } else {
+            // Sized off the short side, so a landscape scene and a 9:16 frame carry the same
+            // weight of mark for the size they are seen at.
+            let short = min(renderSize.width, renderSize.height)
+            let width = Self.even(short * 0.24)
+            let height = (width / aspect).rounded()
+            let margin = Self.even(short * 0.045)
+
+            // Opposite the booth. Every frame but `reaction` keeps the booth to the bottom or
+            // the right, so the mark takes the top-left; `reaction` has the booth across the
+            // top, so the mark goes to the bottom-left of the scene, clear of the strip.
+            let y = frame == .reaction ? sceneRect.maxY - margin - height : margin
+            rect = CGRect(x: margin, y: y, width: width, height: height)
+        }
+
+        return DubBoothLayout(
+            renderSize: renderSize,
+            sceneRect: sceneRect,
+            sceneRectAlone: sceneRectAlone,
+            boothRect: boothRect,
+            waveRect: waveRect,
+            boothIsOnTop: boothIsOnTop,
+            boothCornerRadius: boothCornerRadius,
+            watermarkRect: rect
+        )
+    }
+
+    private init(
+        renderSize: CGSize,
+        sceneRect: CGRect,
+        sceneRectAlone: CGRect,
+        boothRect: CGRect?,
+        waveRect: CGRect?,
+        boothIsOnTop: Bool,
+        boothCornerRadius: CGFloat = 0,
+        watermarkRect: CGRect = .zero
+    ) {
+        self.renderSize = renderSize
+        self.sceneRect = sceneRect
+        self.sceneRectAlone = sceneRectAlone
+        self.boothRect = boothRect
+        self.waveRect = waveRect
+        self.boothIsOnTop = boothIsOnTop
+        self.boothCornerRadius = boothCornerRadius
+        self.watermarkRect = watermarkRect
     }
 
     /// H.264 wants even dimensions, and a zero anywhere here would divide by it later.

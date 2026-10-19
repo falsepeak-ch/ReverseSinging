@@ -64,6 +64,17 @@ private struct AppLifecycleModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .onOpenURL { url in
+                // A dubloon:// link from a store page or an event. An unknown path just
+                // opens the app.
+                if DeepLink.isDeepLinkURL(url) {
+                    guard let link = DeepLink(url: url) else { return }
+                    AnalyticsManager.shared.trackCustomEvent(
+                        name: "deep_link_opened",
+                        parameters: ["path": url.absoluteString, "mode": link.gameMode.rawValue]
+                    )
+                    app.pendingDeepLink = link
+                    return
+                }
                 // A dub pack arrived from Files, AirDrop or "Open with"
                 app.pendingDubImportURL = url
                 app.showDubLibrary = true

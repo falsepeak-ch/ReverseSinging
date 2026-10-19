@@ -82,12 +82,14 @@ nonisolated struct DubMixer {
     ///     means a re-encode, and takes correspondingly longer.
     ///   - includesBooth: whether the performer's footage goes in. Off still reshapes a
     ///     vertical frame and draws its waveform strip; it only leaves the face out.
+    ///   - pipCorner: where the booth sits in the `vertical` frame.
     @concurrent
     func export(
         pack: DubPack,
         cut: DubCut = .fullScene,
         frame: DubBoothFrame = .off,
         includesBooth: Bool = true,
+        pipCorner: DubPipCorner = .bottomRight,
         progress: ProgressHandler? = nil
     ) async throws -> URL {
         let recorded = recordedLines(in: pack)
@@ -150,7 +152,7 @@ nonisolated struct DubMixer {
             bedURL = url
         }
         #else
-        if frame.isVertical,
+        if frame.hasWaveStrip,
            let band = DubBoothLayout.make(
                frame: frame,
                // The same shape the composer will lay the strip out against, so the clip is
@@ -180,7 +182,8 @@ nonisolated struct DubMixer {
             audio: cutAudioURL,
             boothClips: boothClips(in: pack),
             waveVideo: waveURL,
-            bedVideo: bedURL
+            bedVideo: bedURL,
+            pipCorner: pipCorner
         )
 
         let finalURL = try await write(composed, pack: pack, progress: progress)
@@ -197,7 +200,8 @@ nonisolated struct DubMixer {
                 parameters: [
                     "cut": cut.analyticsName,
                     "booth_frame": frame.rawValue,
-                    "booth_included": includesBooth
+                    "booth_included": includesBooth,
+                    "pip_corner": frame == .vertical ? pipCorner.rawValue : "none"
                 ]
             )
         }
@@ -514,12 +518,10 @@ nonisolated struct DubMixer {
 
     // MARK: - Mux
 
-    /// Combines the silent slideshow and the audio mix into the file the user shares.
     /// Writes the composition out.
     ///
-    /// Passthrough when there is nothing to composite, which is every export that does not use
-    /// the booth: both tracks are already H.264/AAC in MP4, so it is a remux and costs almost
-    /// nothing. A booth frame means a real re-encode, because the picture is being rebuilt.
+    /// Every export is a re-encode: even one with no booth carries the Dubloon mark, and the
+    /// mark is pixels. The audio is still copied across untouched; see `encode`.
     private func write(
         _ composed: DubBoothComposer.Composed,
         pack: DubPack,
@@ -532,31 +534,19 @@ nonisolated struct DubMixer {
             try FileManager.default.removeItem(at: outputURL)
         }
 
-        // Nothing to composite: both tracks are already H.264/AAC in an MP4, so this is a
-        // remux and the export session does it without touching a single pixel.
-        guard let videoComposition = composed.videoComposition else {
-            guard let session = AVAssetExportSession(
-                asset: composed.composition,
-                presetName: AVAssetExportPresetPassthrough
-            ) else { throw DubExportError.exportFailed(nil) }
-
-            session.outputURL = outputURL
-            session.outputFileType = .mp4
-            // `export(to:as:)` is iOS 18+; the app ships to iOS 17. Awaited inline rather than
-            // through an async wrapper method, which Swift 6 treats as a hop off this task and
-            // so as sending the session somewhere else.
-            await withCheckedContinuation { continuation in
-                session.exportAsynchronously { continuation.resume() }
-            }
-
-            guard session.status == .completed else {
-                throw DubExportError.exportFailed(session.error)
-            }
-            return outputURL
-        }
-
-        try await encode(composed.composition, through: videoComposition, to: outputURL, progress: progress)
+        try await render(composed, to: outputURL, progress: progress)
         return outputURL
+    }
+
+    /// Encodes a composed export to `outputURL`: the last step of every export, and the one a
+    /// test drives directly with synthetic footage.
+    func render(
+        _ composed: DubBoothComposer.Composed,
+        to outputURL: URL,
+        progress: ProgressHandler? = nil
+    ) async throws {
+        // Always a re-encode: the Dubloon mark is drawn into every frame of every export.
+        try await encode(composed.composition, through: composed.videoComposition, to: outputURL, progress: progress)
     }
 
     /// Re-encodes a composited export, choosing the encoder's settings rather than inheriting

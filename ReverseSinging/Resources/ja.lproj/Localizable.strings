@@ -269,6 +269,7 @@
 "dubShare.unknownSource" = "このシーンはあなたが持ち込んだものなので、出どころも、何をしてよいかも分かっているはずです。";
 "dubShare.responsibility" = "どこに出すかはあなた次第です。お住まいの地域の著作権ルールに従ってください。";
 "dubShare.confirm" = "動画を書き出す";
+"dubShare.caption" = "Dubloonでこのシーンを吹き替えたよ 🎙️";
 "dubShare.share" = "共有…";
 "dubShare.save" = "保存…";
 
@@ -390,6 +391,11 @@
 "booth.frame.stacked" = "上下に並べる";
 "booth.frame.reaction" = "リアクション";
 "booth.frame.split" = "左右に並べる";
+"booth.frame.vertical" = "縦型";
+"booth.export.pipCorner" = "ブースの位置";
+"booth.export.pip.bottomRight" = "右下";
+"booth.export.pip.bottomLeft" = "左下";
+"booth.export.pip.topRight" = "右上";
 "booth.export.stackedNote" = "「上下に並べる」と「リアクション」は9:16で書き出され、下部に波形が入ります。上がシーンのセリフ、下があなたの声です。";
 "booth.export.noFootage" = "このシーンにはまだブースの映像がありません。ブースカメラをオンにして1本アフレコしてください。";
 "booth.export.includeBooth" = "ブースの映像を入れる";
@@ -741,11 +747,26 @@
 "dubGuide.3.detail.mac" = "ダウンロードが終わるまで待ちます。ファイルがiCloud Driveにある場合は、先にFinderでダウンロードして、このMacに実際に保存されるようにします。";
 "dubGuide.4.detail.mac" = "ここに戻って「パックを読み込む」をクリックし、「ダウンロード」から選びます。サイドバーの「映画アフレコ」にファイルをドロップするか、FinderからDubloonで開くこともできます。";
 
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Dubloon Proを%@無料でお試し";
+"offer.intro.paid" = "Dubloon Proの最初の%2$@が%1$@";
+"offer.winback.free" = "おかえりなさい：Dubloon Proが%@無料";
+"offer.winback.paid" = "おかえりなさい：Dubloon Proの%2$@が%1$@";
+"offer.then" = "その後は%@。いつでもキャンセル可能。";
+"offer.cta" = "オファーを受け取る";
+"offer.dismiss" = "今はしない";
+
+/* Spooky Voice Week */
+"halloween.title" = "こわい声ウィーク";
+"halloween.home.message" = "おばけみたいにうめいて、ゾンビみたいにうなって、オオカミみたいに遠吠えしよう。そのあとはホラーコメディのシーン「Camp Rules」をアフレコ。";
+"halloween.home.action" = "こわい音で遊ぶ";
+"halloween.imitate.message" = "ハッピーハロウィン！おばけ、ゾンビ、オオカミ、フクロウで声をあたためよう。";
+
 /* Halloween deal banner over the games */
-"halloween.badge" = "ハロウィン特典";
-"halloween.title" = "Pro の最初の1年が %@";
-"halloween.renewal" = "その後は年額 %@。いつでも解約できます。";
-"halloween.claim" = "受け取る";
+"halloweenDeal.badge" = "ハロウィン特典";
+"halloweenDeal.title" = "Pro の最初の1年が %@";
+"halloweenDeal.renewal" = "その後は年額 %@。いつでも解約できます。";
+"halloweenDeal.claim" = "受け取る";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "アプリアイコン";

@@ -269,6 +269,7 @@
 "dubShare.unknownSource" = "Den här scenen tog du med själv, så du vet var den kommer ifrån och vad du får göra med den.";
 "dubShare.responsibility" = "Var den hamnar är upp till dig, så följ upphovsrättsreglerna där du bor.";
 "dubShare.confirm" = "Exportera video";
+"dubShare.caption" = "Jag dubbade den här scenen med Dubloon 🎙️";
 "dubShare.share" = "Dela…";
 "dubShare.save" = "Spara…";
 
@@ -390,6 +391,11 @@
 "booth.frame.stacked" = "Ovanpå varandra";
 "booth.frame.reaction" = "Reaktion";
 "booth.frame.split" = "Sida vid sida";
+"booth.frame.vertical" = "Stående";
+"booth.export.pipCorner" = "Bås-hörn";
+"booth.export.pip.bottomRight" = "Nere till höger";
+"booth.export.pip.bottomLeft" = "Nere till vänster";
+"booth.export.pip.topRight" = "Uppe till höger";
 "booth.export.stackedNote" = "Ovanpå varandra och Reaktion renderas i 9:16 med en vågform längst ner: scenens replik överst, din under.";
 "booth.export.noFootage" = "Inget båsmaterial i den här scenen än. Slå på Booth Cam och dubba en replik.";
 "booth.export.includeBooth" = "Ta med båsmaterialet";
@@ -741,11 +747,26 @@
 "dubGuide.3.detail.mac" = "Vänta tills hämtningen är klar. Om filen ligger i iCloud Drive, hämta den först i Finder så att den verkligen finns på den här datorn.";
 "dubGuide.4.detail.mac" = "Kom tillbaka hit, klicka på Importera ett dubbpaket och välj den i Hämtade filer. Du kan också släppa filen på Dubba filmscen i sidofältet, eller öppna den med Dubloon från Finder.";
 
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Prova Dubloon Pro gratis i %@";
+"offer.intro.paid" = "Dina första %2$@ med Dubloon Pro för %1$@";
+"offer.winback.free" = "Kom tillbaka: %@ Dubloon Pro gratis";
+"offer.winback.paid" = "Kom tillbaka: %2$@ Dubloon Pro för %1$@";
+"offer.then" = "Sedan %@. Avsluta när du vill.";
+"offer.cta" = "Ta erbjudandet";
+"offer.dismiss" = "Inte nu";
+
+/* Spooky Voice Week */
+"halloween.title" = "Läskiga röstveckan";
+"halloween.home.message" = "Jämra dig som ett spöke, morra som en zombie, yla som en varg. Dubba sedan Camp Rules, scenen ur en skräckkomedi.";
+"halloween.home.action" = "Spela de läskiga ljuden";
+"halloween.imitate.message" = "Glad halloween! Värm upp rösten med spöket, zombien, vargen och ugglan.";
+
 /* Halloween deal banner over the games */
-"halloween.badge" = "Halloweenerbjudande";
-"halloween.title" = "Första året med Pro för %@";
-"halloween.renewal" = "Sedan %@ per år. Avsluta när du vill.";
-"halloween.claim" = "Ta det";
+"halloweenDeal.badge" = "Halloweenerbjudande";
+"halloweenDeal.title" = "Första året med Pro för %@";
+"halloweenDeal.renewal" = "Sedan %@ per år. Avsluta när du vill.";
+"halloweenDeal.claim" = "Ta det";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "Appsymbol";

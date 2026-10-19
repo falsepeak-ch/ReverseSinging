@@ -269,6 +269,7 @@
 "dubShare.unknownSource" = "Bu sahneyi kendin getirdin, yani nereden geldiğini ve neler yapabileceğini biliyorsun.";
 "dubShare.responsibility" = "Nereye gideceği sana kalmış, o yüzden yaşadığın yerin telif kurallarına uy.";
 "dubShare.confirm" = "Videoyu dışa aktar";
+"dubShare.caption" = "Bu sahneyi Dubloon ile seslendirdim 🎙️";
 "dubShare.share" = "Paylaş…";
 "dubShare.save" = "Kaydet…";
 
@@ -390,6 +391,11 @@
 "booth.frame.stacked" = "Üst üste";
 "booth.frame.reaction" = "Tepki";
 "booth.frame.split" = "Yan yana";
+"booth.frame.vertical" = "Dikey";
+"booth.export.pipCorner" = "Kabin köşesi";
+"booth.export.pip.bottomRight" = "Sağ alt";
+"booth.export.pip.bottomLeft" = "Sol alt";
+"booth.export.pip.topRight" = "Sağ üst";
 "booth.export.stackedNote" = "Üst üste ve Tepki 9:16 çıkar, altta bir dalga formu olur: sahnenin repliği üstte, seninki altta.";
 "booth.export.noFootage" = "Bu sahnede henüz kabin görüntüsü yok. Booth Cam'i aç ve bir repliği seslendir.";
 "booth.export.includeBooth" = "Kabin görüntüsünü ekle";
@@ -741,11 +747,26 @@
 "dubGuide.3.detail.mac" = "İndirme tamamlanana kadar bekle. Dosya iCloud Drive'daysa, gerçekten bu Mac'te olması için önce Finder'da indir.";
 "dubGuide.4.detail.mac" = "Buraya dön, Paket içe aktar'a tıkla ve İndirilenler'den seç. Dosyayı kenar çubuğundaki Sahne seslendirme'nin üzerine bırakabilir ya da Finder'dan Dubloon ile açabilirsin.";
 
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Dubloon Pro: %@ ücretsiz deneyin";
+"offer.intro.paid" = "Dubloon Pro: ilk %2$@ %1$@";
+"offer.winback.free" = "Geri dönün: %@ Dubloon Pro ücretsiz";
+"offer.winback.paid" = "Geri dönün: %2$@ Dubloon Pro %1$@";
+"offer.then" = "Sonra %@. İstediğiniz zaman iptal edin.";
+"offer.cta" = "Teklifi al";
+"offer.dismiss" = "Şimdi değil";
+
+/* Spooky Voice Week */
+"halloween.title" = "Ürkütücü Sesler Haftası";
+"halloween.home.message" = "Hayalet gibi inle, zombi gibi hırla, kurt gibi ulu. Sonra korku komedisi sahnesi Camp Rules'u seslendir.";
+"halloween.home.action" = "Ürkütücü sesleri oyna";
+"halloween.imitate.message" = "Cadılar Bayramın kutlu olsun! Sesini ısıt: hayalet, zombi, kurt ve baykuş seni bekliyor.";
+
 /* Halloween deal banner over the games */
-"halloween.badge" = "Cadılar Bayramı fırsatı";
-"halloween.title" = "Pro'nun ilk yılı %@";
-"halloween.renewal" = "Sonrasında yılda %@. İstediğin zaman iptal et.";
-"halloween.claim" = "Yakala";
+"halloweenDeal.badge" = "Cadılar Bayramı fırsatı";
+"halloweenDeal.title" = "Pro'nun ilk yılı %@";
+"halloweenDeal.renewal" = "Sonrasında yılda %@. İstediğin zaman iptal et.";
+"halloweenDeal.claim" = "Yakala";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "Uygulama simgesi";

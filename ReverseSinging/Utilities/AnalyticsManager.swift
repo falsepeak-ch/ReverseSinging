@@ -164,6 +164,13 @@ final class AnalyticsManager {
         log("settings_opened", parameters: nil)
     }
 
+    /// The menu's subscription offer banner: `shown`, `tapped` or `dismissed`.
+    func trackOfferBanner(_ action: String, kind: String, productID: String? = nil) {
+        var parameters: [String: Any] = ["kind": kind]
+        if let productID { parameters["product"] = productID }
+        log("offer_banner_\(action)", parameters: parameters)
+    }
+
     func trackScreenViewed(screenName: String) {
         log(AnalyticsEventScreenView, parameters: [
             AnalyticsParameterScreenName: screenName,

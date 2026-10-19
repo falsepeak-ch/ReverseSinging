@@ -21,11 +21,22 @@ struct DubPackDetailView: View {
 
     @State private var reelIsBreathing = false
 
+    /// The screen's height, measured, so the hero leaves room for the transport in a short
+    /// pane (the lower half of iPhone Duo half folded as a table).
+    @State private var availableHeight: CGFloat = 0
+
     /// The last of the first-run tips: there is a dub to hear now. See `DubTips`.
     private let playDubTip = DubPlayDubTip()
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
 
-    init(pack: DubPack, library: DubPackLibrary) {
+    /// False when the detail is the second pane of the library's split, where there is
+    /// nothing to go back to: the list is already beside it.
+    private let showsBack: Bool
+
+    init(pack: DubPack, library: DubPackLibrary, showsBack: Bool = true) {
         self.pack = pack
+        self.showsBack = showsBack
         _viewModel = StateObject(wrappedValue: DubPackDetailViewModel(pack: pack, library: library))
     }
 
@@ -38,13 +49,18 @@ struct DubPackDetailView: View {
             Color.rsSurface0
                 .ignoresSafeArea()
                 .filmGrain()
+                .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { availableHeight = $0 }
 
             // The same header the library and the games use, so a push never
             // swaps one kind of chrome for another.
             VStack(spacing: 0) {
-                EditorScreenHeader(title: pack.title, onBack: { dismiss() }) {
-                    HelpButton(topic: .dub)
-                }
+                // Beside the library (no Back), the library's header already offers this
+                // chapter of Help: one question mark per screen.
+                EditorScreenHeader(
+                    title: pack.title,
+                    onBack: showsBack ? { dismiss() } : nil,
+                    help: showsBack ? .dub : nil
+                )
 
                 ScrollView {
                     VStack(spacing: 24) {
@@ -93,8 +109,8 @@ struct DubPackDetailView: View {
                     line: viewModel.exportOptionsLine,
                     hasBoothFootage: session.hasAnyBoothTake,
                     runtime: { viewModel.runtime(of: $0) },
-                    onExport: { cut, frame, includesBooth in
-                        viewModel.configureExport(cut: cut, frame: frame, includesBooth: includesBooth)
+                    onExport: { cut, frame, includesBooth, pipCorner in
+                        viewModel.configureExport(cut: cut, frame: frame, includesBooth: includesBooth, pipCorner: pipCorner)
                     },
                     onCancel: { viewModel.cancelExportOptions() }
                 )
@@ -102,7 +118,7 @@ struct DubPackDetailView: View {
         }
         .animation(.rsSmooth, value: viewModel.showExportOptions)
         .sheet(item: $viewModel.exportedURL) { url in
-            DubShareSheet(url: url)
+            DubShareSheet(url: url, caption: DubShareCaption.text())
         }
         .alert(Strings.Main.Alert.errorTitle, isPresented: .init(
             get: { session.errorMessage != nil },
@@ -159,11 +175,25 @@ struct DubPackDetailView: View {
 
     // MARK: - Hero
 
+    private var isRegular: Bool {
+        horizontalSizeClass == .regular && verticalSizeClass == .regular
+    }
+
+    /// 380 on a full regular screen; in a short pane two fifths of it, so the slate and
+    /// the first transport row are on screen without scrolling.
+    private var heroHeight: CGFloat {
+        guard isRegular else { return 200 }
+        guard availableHeight > 0 else { return 380 }
+        return min(380, max(150, (availableHeight * 0.4).rounded()))
+    }
+
     private var hero: some View {
         VStack(spacing: 0) {
             ZStack(alignment: .bottomLeading) {
-                DubStillImage(url: pack.iconURL)
-                    .frame(height: 200)
+                // Taller on a regular size (iPhone Duo open) so a wide still keeps its
+                // characters' heads; anchored to the top for the same reason.
+                DubStillImage(url: pack.iconURL, alignment: isRegular ? .top : .center)
+                    .frame(height: heroHeight)
                     .frame(maxWidth: .infinity)
                     .clipped()
                     .cinemaVignette(strength: 0.45)
@@ -173,9 +203,12 @@ struct DubPackDetailView: View {
                     startPoint: .center,
                     endPoint: .bottom
                 )
-                .frame(height: 200)
+                .frame(height: heroHeight)
                 .allowsHitTesting(false)
             }
+            // The vignette ignores safe areas; clip so it cannot bleed into the
+            // trailing status strip of a landscape inner display.
+            .clipped()
 
             // Slate: the facts about this scene, set like a camera report
             HStack(spacing: 0) {

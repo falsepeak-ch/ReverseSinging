@@ -53,6 +53,19 @@ extension View {
             .tracking(EditorMetrics.tracking)
             .foregroundColor(color)
             .textCase(.uppercase)
+            // A label is one line. A long word ("ΜΕΤΑΓΛΩΤΤΙΣΜΕΝΕΣ") shrinks to fit rather
+            // than breaking in the middle onto a second line.
+            .lineLimit(1)
+            .minimumScaleFactor(0.6)
+    }
+
+    /// For a title that may be a single long word in some languages (German
+    /// "Rückwärtssingen"): a one-word title stays on one line and shrinks to fit, so it never
+    /// breaks mid-word; a title of several words wraps between them as before.
+    func keepsWordsWhole(_ text: String) -> some View {
+        self
+            .lineLimit(text.contains(where: \.isWhitespace) ? nil : 1)
+            .minimumScaleFactor(0.6)
     }
 
     /// Overlays fine film grain. Subtle by design: visible as texture, never as noise.
@@ -347,10 +360,53 @@ struct EditorHeaderBar<Content: View>: View {
 
         .frame(maxWidth: .infinity)
         .frame(height: EditorMetrics.headerBarHeight)
-        .background(Color.rsSurface1.ignoresSafeArea(edges: .top))
-        .overlay(alignment: .bottom) { EditorRule() }
+        // Full width, under the system's side strip too (iPhone Duo open on its side):
+        // a band that stopped at the safe area left the strip on the bare background.
+        .background {
+            VStack(spacing: 0) {
+                Color.rsSurface1
+                EditorRule()
+            }
+            .ignoresSafeArea(edges: [.top, .horizontal])
+        }
     }
 }
+
+// MARK: - System Bars
+
+/// Whether a screen's header controls go in the system's bars.
+///
+/// iPhone Duo open (regular in both directions): yes. The inner display puts top-bar items in
+/// the trailing strip in landscape and in a bar across the top in portrait, and only system
+/// bars go there; an app-drawn row of buttons stays in the content (HIG, Designing for iPhone
+/// Duo). Every other iPhone, the outer display and the Mac keep the app-drawn header.
+enum EditorBars {
+    static func useSystemBar(
+        _ horizontal: UserInterfaceSizeClass?,
+        _ vertical: UserInterfaceSizeClass?
+    ) -> Bool {
+        #if os(iOS)
+        horizontal == .regular && vertical == .regular
+        #else
+        false
+        #endif
+    }
+}
+
+#if os(iOS)
+extension ToolbarContent {
+    /// The header's own square buttons, placed as bar items: no system glass around them,
+    /// so they look exactly as they do in the header.
+    @ToolbarContentBuilder
+    func editorChromeItems() -> some ToolbarContent {
+        if #available(iOS 26.0, *) {
+            sharedBackgroundVisibility(.hidden)
+        } else {
+            self
+        }
+    }
+}
+#endif
 
 // MARK: - Screen Header
 
@@ -359,15 +415,40 @@ struct EditorHeaderBar<Content: View>: View {
 /// Pushed screens name themselves rather than repeat the app logo, the branding
 /// belongs to the menu the user came from, and a title is what tells them which
 /// game they are in.
+///
+/// On iPhone Duo open the title stays here and Back and the actions move into the system's
+/// bar (`EditorBars`), as the same square buttons.
 struct EditorScreenHeader<Trailing: View>: View {
     let title: String
     /// Nil on a screen with nowhere to go back to, such as the Mac's only game.
     let onBack: (() -> Void)?
-    @ViewBuilder var trailing: Trailing
+    /// The Help chapter for this screen, first among the actions.
+    let help: HelpTopic?
+    let trailing: Trailing
+
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+    @State private var isHelpPresented = false
+
+    init(
+        title: String,
+        onBack: (() -> Void)?,
+        help: HelpTopic? = nil,
+        @ViewBuilder trailing: () -> Trailing
+    ) {
+        self.title = title
+        self.onBack = onBack
+        self.help = help
+        self.trailing = trailing()
+    }
+
+    private var usesSystemBar: Bool {
+        EditorBars.useSystemBar(horizontalSizeClass, verticalSizeClass)
+    }
 
     var body: some View {
         EditorHeaderBar {
-            if let onBack {
+            if let onBack, !usesSystemBar {
                 EditorToolbarButton(
                     icon: "chevron.left",
                     label: Strings.Main.back,
@@ -383,13 +464,52 @@ struct EditorScreenHeader<Trailing: View>: View {
 
             Spacer(minLength: 8)
 
-            trailing
+            if !usesSystemBar {
+                if let help {
+                    HelpButton(topic: help)
+                }
+                trailing
+            }
         }
+        #if os(iOS)
+        .toolbar {
+            if usesSystemBar {
+                if let onBack {
+                    // Back first: the top of the trailing strip in landscape, top leading in
+                    // portrait (HIG, Designing for iPhone Duo).
+                    ToolbarItem(placement: .cancellationAction) {
+                        EditorToolbarButton(
+                            icon: "chevron.left",
+                            label: Strings.Main.back,
+                            action: onBack
+                        )
+                    }
+                    .editorChromeItems()
+                }
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    if help != nil {
+                        EditorToolbarButton(icon: "questionmark", label: Strings.Help.title) {
+                            isHelpPresented = true
+                        }
+                    }
+                    trailing
+                }
+                .editorChromeItems()
+            }
+        }
+        .sheet(isPresented: $isHelpPresented) {
+            if let help {
+                HelpView(topic: help)
+                    .sheetBesideTheSeam()
+                    .presentationDragIndicator(.visible)
+            }
+        }
+        #endif
     }
 }
 
 extension EditorScreenHeader where Trailing == EmptyView {
-    init(title: String, onBack: (() -> Void)?) {
-        self.init(title: title, onBack: onBack) { EmptyView() }
+    init(title: String, onBack: (() -> Void)?, help: HelpTopic? = nil) {
+        self.init(title: title, onBack: onBack, help: help) { EmptyView() }
     }
 }

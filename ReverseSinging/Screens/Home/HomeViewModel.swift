@@ -12,6 +12,8 @@ import Combine
 enum HomePaywallSource: String, Identifiable {
     /// The note over the games that offers Dubloon Pro.
     case unlockCard = "unlock_card"
+    /// The subscription offer banner, for an introductory offer.
+    case offerBanner = "offer_banner"
 
     var id: String { rawValue }
 }
@@ -52,6 +54,9 @@ final class HomeViewModel: ObservableObject {
     private let access: AccessController
     private var cancellables = Set<AnyCancellable>()
 
+    /// The introductory or win-back offer shown over the games, when there is one.
+    let offerBanner: SubscriptionOfferBanner
+
     private let reviewBanner: ReviewBanner
     private let reviewPrompt: ReviewPrompt
     private var hasReportedReviewBannerShown = false
@@ -66,6 +71,7 @@ final class HomeViewModel: ObservableObject {
         halloween: HalloweenOffer = .shared
     ) {
         access = AccessController.shared
+        offerBanner = SubscriptionOfferBanner.shared
         self.reviewBanner = reviewBanner
         self.reviewPrompt = reviewPrompt
         self.halloween = halloween
@@ -77,6 +83,10 @@ final class HomeViewModel: ObservableObject {
         halloween.objectWillChange
             .sink { [weak self] _ in self?.objectWillChange.send() }
             .store(in: &cancellables)
+
+        offerBanner.objectWillChange
+            .sink { [weak self] _ in self?.objectWillChange.send() }
+            .store(in: &cancellables)
     }
 
     /// Nothing was bought: the menu offers Dubloon Pro and counts the free takes left.
@@ -84,6 +94,54 @@ final class HomeViewModel: ObservableObject {
 
     /// Free takes left, across every game.
     var freeTakesLeft: Int { access.freeTakesLeft }
+
+    // MARK: - Offer banner
+
+    /// The offer to put over the games instead of the plain unlock card. Never for someone who
+    /// has the app: an active subscriber is not offered anything.
+    ///
+    /// Gives way to the Halloween deal while it runs: one offer over the games at a time, and
+    /// the deal is the better one.
+    var visibleOffer: SubscriptionOffer? {
+        guard offersPro, offerBanner.isVisible, halloweenDeal == nil else { return nil }
+        return offerBanner.offer
+    }
+
+    func refreshOffer() async {
+        await offerBanner.refresh(access: access)
+        if let offer = visibleOffer {
+            AnalyticsManager.shared.trackOfferBanner("shown", kind: offer.kind.rawValue, productID: offer.productID)
+        }
+    }
+
+    /// An introductory offer opens the paywall, which shows it; a win-back offer goes straight
+    /// to the App Store's purchase sheet with the offer applied.
+    func offerBannerTapped() {
+        guard let offer = visibleOffer else { return }
+        AnalyticsManager.shared.trackOfferBanner("tapped", kind: offer.kind.rawValue, productID: offer.productID)
+        switch offer.kind {
+        case .intro:
+            showPaywall(from: .offerBanner)
+        case .winBack:
+            Task {
+                if await !offerBanner.redeemWinBack(access: access) {
+                    showPaywall(from: .offerBanner)
+                }
+            }
+        }
+    }
+
+    func dismissOfferBanner() {
+        if let offer = visibleOffer {
+            AnalyticsManager.shared.trackOfferBanner("dismissed", kind: offer.kind.rawValue)
+        }
+        offerBanner.dismiss()
+    }
+
+    /// The Halloween card. Read once per menu: a menu left open past midnight on the 1st of
+    /// November keeps it until the next launch, which is better than a card vanishing under a
+    /// finger.
+    let showsSpookyVoiceWeek = SpookyVoiceWeek.isActiveNow
 
     /// The note that asks for a rating. Only for someone who has imported a dub pack or had a
     /// few wins, and used the app on at least two different days, whether or not they have
@@ -127,6 +185,18 @@ final class HomeViewModel: ObservableObject {
 
     func openDub() {
         path = [.dub]
+    }
+
+    /// The Spooky Voice Week card: the same place `dubloon://event/spooky` goes.
+    func openSpookyVoiceWeek() {
+        AnalyticsManager.shared.trackCustomEvent(name: "spooky_card_tapped", parameters: nil)
+        path = [SpookyVoiceWeek.destination]
+    }
+
+    /// A `dubloon://` link: the game it names, on its own rather than on top of whatever was
+    /// open. Every game opens for everyone; Pro is asked for inside, after the free takes.
+    func open(_ link: DeepLink) {
+        path = [link.gameMode]
     }
 
     func showPaywall(from source: HomePaywallSource) {

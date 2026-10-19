@@ -269,6 +269,7 @@
 "dubShare.unknownSource" = "Questa scena l'hai portata tu, quindi sai da dove arriva e cosa puoi farci.";
 "dubShare.responsibility" = "Dove finisce dipende da te, quindi rispetta le regole sul copyright di casa tua.";
 "dubShare.confirm" = "Esporta il video";
+"dubShare.caption" = "Ho doppiato questa scena con Dubloon 🎙️";
 "dubShare.share" = "Condividi…";
 "dubShare.save" = "Salva…";
 
@@ -390,6 +391,11 @@
 "booth.frame.stacked" = "Una sopra l'altra";
 "booth.frame.reaction" = "Reazione";
 "booth.frame.split" = "Fianco a fianco";
+"booth.frame.vertical" = "Verticale";
+"booth.export.pipCorner" = "Angolo della cabina";
+"booth.export.pip.bottomRight" = "In basso a destra";
+"booth.export.pip.bottomLeft" = "In basso a sinistra";
+"booth.export.pip.topRight" = "In alto a destra";
 "booth.export.stackedNote" = "Una sopra l'altra e Reazione escono in 9:16 con una forma d'onda in basso: la battuta della scena sopra, la tua sotto.";
 "booth.export.noFootage" = "In questa scena non c'è ancora girato di cabina. Accendi Booth Cam e doppia una battuta.";
 "booth.export.includeBooth" = "Includi il girato di cabina";
@@ -741,11 +747,26 @@
 "dubGuide.3.detail.mac" = "Attendi che il download sia completo. Se il file è su iCloud Drive, scaricalo prima nel Finder così è davvero su questo Mac.";
 "dubGuide.4.detail.mac" = "Torna qui, fai clic su Importa un pack e sceglilo in Download. Puoi anche trascinare il file su Doppiaggio di scene nella barra laterale, o aprirlo con Dubloon dal Finder.";
 
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Prova Dubloon Pro gratis per %@";
+"offer.intro.paid" = "I primi %2$@ di Dubloon Pro a %1$@";
+"offer.winback.free" = "Torna: %@ di Dubloon Pro gratis";
+"offer.winback.paid" = "Torna: %2$@ di Dubloon Pro a %1$@";
+"offer.then" = "Poi %@. Disdici quando vuoi.";
+"offer.cta" = "Approfitta dell'offerta";
+"offer.dismiss" = "Non ora";
+
+/* Spooky Voice Week */
+"halloween.title" = "Settimana delle voci da brivido";
+"halloween.home.message" = "Gemi come un fantasma, ringhia come uno zombie, ulula come un lupo. Poi doppia Camp Rules, la scena horror comica.";
+"halloween.home.action" = "Gioca con i suoni da brivido";
+"halloween.imitate.message" = "Buon Halloween! Scaldati la voce con il fantasma, lo zombie, il lupo e il gufo.";
+
 /* Halloween deal banner over the games */
-"halloween.badge" = "Offerta di Halloween";
-"halloween.title" = "Il primo anno di Pro a %@";
-"halloween.renewal" = "Poi %@ all'anno. Annulli quando vuoi.";
-"halloween.claim" = "Approfitta";
+"halloweenDeal.badge" = "Offerta di Halloween";
+"halloweenDeal.title" = "Il primo anno di Pro a %@";
+"halloweenDeal.renewal" = "Poi %@ all'anno. Annulli quando vuoi.";
+"halloweenDeal.claim" = "Approfitta";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "Icona dell'app";

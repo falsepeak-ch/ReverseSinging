@@ -13,6 +13,8 @@ struct SettingsView: View {
     @StateObject private var viewModel: SettingsViewModel
 
     @Environment(\.dismiss) var dismiss
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
 
     /// A singleton, so observed rather than owned. The route it reports is the device's,
     /// not this screen's.
@@ -110,15 +112,16 @@ struct SettingsView: View {
             .navigationTitle(Strings.Settings.title)
             .largeNavigationTitle()
             .toolbar {
-                ToolbarItem(placement: .rsTrailing) {
+                // A standard Close (title and symbol), so the system can place it in a
+                // side panel's bar on iPhone Duo as well as at the top on a phone.
+                ToolbarItem(placement: EditorBars.useSystemBar(horizontalSizeClass, verticalSizeClass) ? .cancellationAction : .rsTrailing) {
                     Button(action: {
                         HapticManager.shared.light()
                         dismiss()
                     }) {
-                        Image(systemName: "xmark")
-                            .font(.system(size: 20, weight: .bold))
-                            .foregroundStyle(Color.rsTextAdaptive(for: effectiveColorScheme))
+                        Label(Strings.Help.close, systemImage: "xmark")
                     }
+                    .tint(Color.rsTextAdaptive(for: effectiveColorScheme))
                 }
             }
             .onAppear { viewModel.onAppear() }

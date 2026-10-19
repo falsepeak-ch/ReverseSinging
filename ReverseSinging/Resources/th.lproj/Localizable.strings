@@ -269,6 +269,7 @@
 "dubShare.unknownSource" = "ฉากนี้คุณเอามาเอง คุณจึงรู้ว่ามันมาจากไหนและทำอะไรกับมันได้บ้าง";
 "dubShare.responsibility" = "จะไปลงที่ไหนขึ้นอยู่กับคุณ ทำตามกฎลิขสิทธิ์ของที่ที่คุณอยู่ด้วย";
 "dubShare.confirm" = "ส่งออกวิดีโอ";
+"dubShare.caption" = "ฉันพากย์ฉากนี้ด้วย Dubloon 🎙️";
 "dubShare.share" = "แชร์…";
 "dubShare.save" = "บันทึก…";
 
@@ -390,6 +391,11 @@
 "booth.frame.stacked" = "ซ้อนบนล่าง";
 "booth.frame.reaction" = "รีแอ็กชัน";
 "booth.frame.split" = "วางคู่กัน";
+"booth.frame.vertical" = "แนวตั้ง";
+"booth.export.pipCorner" = "มุมของบูธ";
+"booth.export.pip.bottomRight" = "ขวาล่าง";
+"booth.export.pip.bottomLeft" = "ซ้ายล่าง";
+"booth.export.pip.topRight" = "ขวาบน";
 "booth.export.stackedNote" = "แบบซ้อนบนล่างและรีแอ็กชันจะเรนเดอร์เป็น 9:16 พร้อมคลื่นเสียงด้านล่าง บทของฉากอยู่บน เสียงคุณอยู่ล่าง";
 "booth.export.noFootage" = "ฉากนี้ยังไม่มีฟุตเทจจากบูธ เปิดกล้องบูธแล้วพากย์สักบท";
 "booth.export.includeBooth" = "ใส่ฟุตเทจจากบูธ";
@@ -741,11 +747,26 @@
 "dubGuide.3.detail.mac" = "รอจนดาวน์โหลดเสร็จ ถ้าไฟล์อยู่ใน iCloud Drive ให้ดาวน์โหลดใน Finder ก่อนเพื่อให้ไฟล์อยู่ใน Mac เครื่องนี้จริงๆ";
 "dubGuide.4.detail.mac" = "กลับมาที่นี่ คลิก นำเข้าแพ็กพากย์ แล้วเลือกจากดาวน์โหลด หรือจะลากไฟล์ไปวางบน พากย์ฉากหนัง ในแถบด้านข้าง หรือเปิดด้วย Dubloon จาก Finder ก็ได้";
 
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "ทดลองใช้ Dubloon Pro ฟรี %@";
+"offer.intro.paid" = "Dubloon Pro %2$@แรกเพียง %1$@";
+"offer.winback.free" = "กลับมาเถอะ: Dubloon Pro ฟรี %@";
+"offer.winback.paid" = "กลับมาเถอะ: Dubloon Pro %2$@ เพียง %1$@";
+"offer.then" = "จากนั้น %@ ยกเลิกได้ทุกเมื่อ";
+"offer.cta" = "รับข้อเสนอ";
+"offer.dismiss" = "ไว้ทีหลัง";
+
+/* Spooky Voice Week */
+"halloween.title" = "สัปดาห์เสียงสยองขวัญ";
+"halloween.home.message" = "ครางแบบผี คำรามแบบซอมบี้ หอนแบบหมาป่า แล้วไปพากย์ Camp Rules ฉากจากหนังตลกสยองขวัญ";
+"halloween.home.action" = "เล่นเสียงสยองขวัญ";
+"halloween.imitate.message" = "สุขสันต์วันฮาโลวีน! วอร์มเสียงกับผี ซอมบี้ หมาป่า และนกฮูก";
+
 /* Halloween deal banner over the games */
-"halloween.badge" = "ข้อเสนอฮาโลวีน";
-"halloween.title" = "ปีแรกของ Pro เพียง %@";
-"halloween.renewal" = "จากนั้น %@ ต่อปี ยกเลิกได้ทุกเมื่อ";
-"halloween.claim" = "รับเลย";
+"halloweenDeal.badge" = "ข้อเสนอฮาโลวีน";
+"halloweenDeal.title" = "ปีแรกของ Pro เพียง %@";
+"halloweenDeal.renewal" = "จากนั้น %@ ต่อปี ยกเลิกได้ทุกเมื่อ";
+"halloweenDeal.claim" = "รับเลย";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "ไอคอนแอป";

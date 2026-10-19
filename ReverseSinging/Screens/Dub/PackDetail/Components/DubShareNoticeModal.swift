@@ -183,7 +183,8 @@ extension View {
 
 // MARK: - Previews
 
-private extension DubPack {
+/// Sample scenes for previews, shared with the library and booth previews.
+extension DubPack {
     static func previewScene(source: String?, sourceURL: String?, rights: String?) -> DubPack {
         DubPack(
             title: "Camp Rules",

@@ -2,7 +2,7 @@
 //  HalloweenOffer.swift
 //  ReverseSinging
 //
-//  The Halloween deal: the first year of the yearly plan at its introductory price, for two
+//  The Halloween deal: the first year of the Halloween plan at its introductory price, for two
 //  weeks, offered from a banner over the games.
 //
 
@@ -20,7 +20,8 @@ struct HalloweenDeal: Equatable {
 /// Whether the Halloween deal is on, what it costs, and buying it.
 ///
 /// The price is not written here. App Store Connect holds it, as a pay-up-front introductory
-/// offer on the yearly plan, dated to the same two weeks; this reads it back from the store.
+/// offer on a yearly plan of its own (`PurchaseConfiguration.halloweenProductID`) that only
+/// this banner sells, so the paywall's prices are untouched; this reads it back from the store.
 /// So the banner only appears once the store would really charge what it says, in the
 /// buyer's currency, and only to someone the store still counts as eligible for an
 /// introductory offer (a first subscription in the group).
@@ -85,7 +86,7 @@ final class HalloweenOffer: ObservableObject {
 
     // MARK: - Loading
 
-    /// Asks the store for the yearly plan and its introductory offer, once.
+    /// Asks the store for the Halloween plan and its introductory offer, once.
     func load() async {
         guard introPrice == nil, !isLoading, Self.isRunning() else { return }
         #if DEBUG
@@ -101,7 +102,7 @@ final class HalloweenOffer: ObservableObject {
         isLoading = true
         defer { isLoading = false }
 
-        let products = await Purchases.shared.products([PurchaseConfiguration.yearlyProductID])
+        let products = await Purchases.shared.products([PurchaseConfiguration.halloweenProductID])
         guard let yearly = products.first,
               let intro = yearly.introductoryDiscount,
               intro.paymentMode == .payUpFront else { return }
@@ -120,7 +121,7 @@ final class HalloweenOffer: ObservableObject {
 
     // MARK: - Buying
 
-    /// Opens the store's own sheet for the yearly plan; the introductory price is applied there.
+    /// Opens the store's own sheet for the Halloween plan; the introductory price is applied there.
     func purchase(source: String) async {
         guard let product else { return }
         AnalyticsManager.shared.trackCustomEvent(name: "halloween_offer_tapped", parameters: ["source": source])

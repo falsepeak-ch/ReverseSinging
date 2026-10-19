@@ -269,6 +269,7 @@
 "dubShare.unknownSource" = "Αυτή τη σκηνή την έφερες εσύ, οπότε ξέρεις από πού προέρχεται και τι μπορείς να την κάνεις.";
 "dubShare.responsibility" = "Πού θα καταλήξει εξαρτάται από σένα, γι' αυτό τήρησε τους κανόνες πνευματικών δικαιωμάτων του τόπου σου.";
 "dubShare.confirm" = "Εξαγωγή βίντεο";
+"dubShare.caption" = "Ντούμπλαρα αυτή τη σκηνή με το Dubloon 🎙️";
 "dubShare.share" = "Κοινή χρήση…";
 "dubShare.save" = "Αποθήκευση…";
 
@@ -390,6 +391,11 @@
 "booth.frame.stacked" = "Το ένα πάνω στο άλλο";
 "booth.frame.reaction" = "Αντίδραση";
 "booth.frame.split" = "Δίπλα δίπλα";
+"booth.frame.vertical" = "Κάθετο";
+"booth.export.pipCorner" = "Γωνία καμπίνας";
+"booth.export.pip.bottomRight" = "Κάτω δεξιά";
+"booth.export.pip.bottomLeft" = "Κάτω αριστερά";
+"booth.export.pip.topRight" = "Πάνω δεξιά";
 "booth.export.stackedNote" = "Το ένα πάνω στο άλλο και Αντίδραση βγαίνουν σε 9:16 με κυματομορφή στο κάτω μέρος: η ατάκα της σκηνής πάνω, η δική σου κάτω.";
 "booth.export.noFootage" = "Δεν υπάρχει ακόμα υλικό θαλάμου σε αυτή τη σκηνή. Άνοιξε το Booth Cam και μεταγλώττισε μία ατάκα.";
 "booth.export.includeBooth" = "Να μπει το υλικό θαλάμου";
@@ -741,11 +747,26 @@
 "dubGuide.3.detail.mac" = "Περίμενε να ολοκληρωθεί η λήψη. Αν το αρχείο είναι στο iCloud Drive, κατέβασέ το πρώτα στο Finder ώστε να βρίσκεται πραγματικά σε αυτό το Mac.";
 "dubGuide.4.detail.mac" = "Γύρνα εδώ, κάνε κλικ στο Εισαγωγή πακέτου και επίλεξέ το από τις Λήψεις. Μπορείς επίσης να αφήσεις το αρχείο πάνω στη Μεταγλώττιση σκηνής στην πλαϊνή στήλη ή να το ανοίξεις με το Dubloon από το Finder.";
 
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Δοκιμάστε το Dubloon Pro δωρεάν για %@";
+"offer.intro.paid" = "Οι πρώτοι %2$@ του Dubloon Pro με %1$@";
+"offer.winback.free" = "Επιστρέψτε: %@ Dubloon Pro δωρεάν";
+"offer.winback.paid" = "Επιστρέψτε: %2$@ Dubloon Pro με %1$@";
+"offer.then" = "Μετά %@. Ακύρωση οποτεδήποτε.";
+"offer.cta" = "Αξιοποιήστε την προσφορά";
+"offer.dismiss" = "Όχι τώρα";
+
+/* Spooky Voice Week */
+"halloween.title" = "Εβδομάδα τρομακτικών φωνών";
+"halloween.home.message" = "Βόγκα σαν φάντασμα, γρύλισε σαν ζόμπι, ούρλιαξε σαν λύκος. Μετά μεταγλώττισε το Camp Rules, τη σκηνή από μια κωμωδία τρόμου.";
+"halloween.home.action" = "Παίξε με τους τρομακτικούς ήχους";
+"halloween.imitate.message" = "Καλό Halloween! Ζέστανε τη φωνή σου με το φάντασμα, το ζόμπι, τον λύκο και την κουκουβάγια.";
+
 /* Halloween deal banner over the games */
-"halloween.badge" = "Προσφορά Halloween";
-"halloween.title" = "Ο πρώτος χρόνος Pro με %@";
-"halloween.renewal" = "Έπειτα %@ τον χρόνο. Ακύρωση οποτεδήποτε.";
-"halloween.claim" = "Το θέλω";
+"halloweenDeal.badge" = "Προσφορά Halloween";
+"halloweenDeal.title" = "Ο πρώτος χρόνος Pro με %@";
+"halloweenDeal.renewal" = "Έπειτα %@ τον χρόνο. Ακύρωση οποτεδήποτε.";
+"halloweenDeal.claim" = "Το θέλω";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "Εικονίδιο εφαρμογής";

@@ -11,6 +11,8 @@ import SwiftUI
 /// "this goes somewhere". The home screen picks a game. It does not play one.
 struct GameModeRow: View {
     let mode: GameMode
+    /// Larger row for a regular-width, regular-height window (iPhone Duo open).
+    var prominent = false
     let action: () -> Void
 
     var body: some View {
@@ -18,12 +20,12 @@ struct GameModeRow: View {
             HapticManager.shared.impact(.light)
             action()
         }) {
-            HStack(spacing: 16) {
+            HStack(spacing: prominent ? 22 : 16) {
                 Image(mode.image)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 52, height: 52)
-                    .frame(width: 68, height: 68)
+                    .frame(width: prominent ? 88 : 52, height: prominent ? 88 : 52)
+                    .frame(width: prominent ? 112 : 68, height: prominent ? 112 : 68)
                     .background(
                         RoundedRectangle(cornerRadius: EditorMetrics.radius, style: .continuous)
                             .fill(Color.rsSurface2)
@@ -37,6 +39,7 @@ struct GameModeRow: View {
                     Text(mode.title)
                         .font(.rsButtonMedium)
                         .foregroundColor(.rsTextPrimary)
+                        .keepsWordsWhole(mode.title)
                         .fixedSize(horizontal: false, vertical: true)
 
                     Text(mode.subtitle)
@@ -52,7 +55,7 @@ struct GameModeRow: View {
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundColor(.rsTextTertiary)
             }
-            .padding(14)
+            .padding(prominent ? 24 : 14)
             .frame(maxWidth: .infinity, alignment: .leading)
             .editorPanel()
         }

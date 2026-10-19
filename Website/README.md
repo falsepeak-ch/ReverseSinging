@@ -16,7 +16,12 @@ Add a custom domain under Firebase console → Hosting → Add custom domain.
 
 - `index.html` leads with movie dubbing. The booth in the hero has two tabs: a working dub of two lines from Camp Rules, and the reverse-singing booth. Both use Web Audio and the microphone, so they need HTTPS or localhost, and nothing is uploaded. `/#reverse` opens the reverse tab.
 - `dub-packs.html` (served at `/dub-packs`) is the guide to importing community dub packs, the page meant to be found by people looking for The Choicer Voicer's Dub Mode on iPhone or Mac. Keep it factual and keep the "not affiliated" line.
+- `support.html` (served at `/support`): the contact address and quick answers, for the App Store's Support URL.
 - `privacy.html`, `terms.html`, `404.html`.
+
+## App Store links
+
+Every App Store link carries a campaign token, `?pt=127841352&ct=web-<page>&mt=8` (`mt=12` with `platform=mac`), so App Store Connect's App Analytics shows which page sent the download. Use the page's slug: `home`, `dub-packs`, `privacy`, `terms`, `support`. Each page also has the Smart App Banner, `<meta name="apple-itunes-app" content="app-id=6754534073">`.
 
 ## The dub demo
 

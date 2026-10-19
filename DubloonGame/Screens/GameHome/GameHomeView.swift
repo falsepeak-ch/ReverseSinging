@@ -173,7 +173,7 @@ struct GameHomeView: View {
                 Button("\(mode.title). \(mode.subtitle)") { viewModel.open(mode) }
             }
             if let deal = viewModel.halloweenDeal {
-                Button("\(Strings.Halloween.badge). \(String(format: Strings.Halloween.title, deal.introPrice))") {
+                Button("\(Strings.HalloweenDeal.badge). \(String(format: Strings.HalloweenDeal.title, deal.introPrice))") {
                     viewModel.claimHalloweenDeal()
                 }
             }

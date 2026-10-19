@@ -269,6 +269,7 @@
 "dubShare.unknownSource" = "Эту сцену ты принёс сам, так что знаешь, откуда она и что с ней можно делать.";
 "dubShare.responsibility" = "Куда это отправится, решаешь ты, так что соблюдай авторские правила там, где живёшь.";
 "dubShare.confirm" = "Экспортировать видео";
+"dubShare.caption" = "Я озвучил эту сцену в Dubloon 🎙️";
 "dubShare.share" = "Поделиться…";
 "dubShare.save" = "Сохранить…";
 
@@ -390,6 +391,11 @@
 "booth.frame.stacked" = "Друг над другом";
 "booth.frame.reaction" = "Реакция";
 "booth.frame.split" = "Рядом";
+"booth.frame.vertical" = "Вертикаль";
+"booth.export.pipCorner" = "Угол кабины";
+"booth.export.pip.bottomRight" = "Справа внизу";
+"booth.export.pip.bottomLeft" = "Слева внизу";
+"booth.export.pip.topRight" = "Справа вверху";
 "booth.export.stackedNote" = "«Друг над другом» и «Реакция» рендерятся в 9:16 с осциллограммой внизу: реплика сцены сверху, твоя снизу.";
 "booth.export.noFootage" = "В этой сцене пока нет материала из кабины. Включи Booth Cam и озвучь реплику.";
 "booth.export.includeBooth" = "Включить материал из кабины";
@@ -741,11 +747,26 @@
 "dubGuide.3.detail.mac" = "Подожди, пока загрузка завершится. Если файл в iCloud Drive, сначала загрузи его в Finder, чтобы он действительно был на этом Mac.";
 "dubGuide.4.detail.mac" = "Вернись сюда, нажми «Импортировать пак» и выбери его в «Загрузках». Можно также перетащить файл на «Озвучка сцены» в боковом меню или открыть его в Dubloon из Finder.";
 
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Попробуйте Dubloon Pro бесплатно: %@";
+"offer.intro.paid" = "Первые %2$@ Dubloon Pro за %1$@";
+"offer.winback.free" = "Возвращайтесь: %@ Dubloon Pro бесплатно";
+"offer.winback.paid" = "Возвращайтесь: %2$@ Dubloon Pro за %1$@";
+"offer.then" = "Затем %@. Отмена в любое время.";
+"offer.cta" = "Получить предложение";
+"offer.dismiss" = "Не сейчас";
+
+/* Spooky Voice Week */
+"halloween.title" = "Неделя жутких голосов";
+"halloween.home.message" = "Стони как привидение, хрипи как зомби, вой как волк. А потом озвучь Camp Rules, сцену из комедийного хоррора.";
+"halloween.home.action" = "Играть в жуткие звуки";
+"halloween.imitate.message" = "С Хеллоуином! Разогрей голос: привидение, зомби, волк и сова уже ждут.";
+
 /* Halloween deal banner over the games */
-"halloween.badge" = "Акция на Хеллоуин";
-"halloween.title" = "Первый год Pro за %@";
-"halloween.renewal" = "Затем %@ в год. Отменить можно в любой момент.";
-"halloween.claim" = "Забрать";
+"halloweenDeal.badge" = "Акция на Хеллоуин";
+"halloweenDeal.title" = "Первый год Pro за %@";
+"halloweenDeal.renewal" = "Затем %@ в год. Отменить можно в любой момент.";
+"halloweenDeal.claim" = "Забрать";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "Значок приложения";

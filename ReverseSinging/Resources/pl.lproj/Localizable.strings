@@ -269,6 +269,7 @@
 "dubShare.unknownSource" = "Tę scenę przyniosłeś sam, więc wiesz, skąd pochodzi i co wolno z nią zrobić.";
 "dubShare.responsibility" = "Gdzie to trafi, zależy od ciebie, więc trzymaj się przepisów o prawie autorskim tam, gdzie mieszkasz.";
 "dubShare.confirm" = "Wyeksportuj wideo";
+"dubShare.caption" = "Zdubbingowałem tę scenę w Dubloon 🎙️";
 "dubShare.share" = "Udostępnij…";
 "dubShare.save" = "Zachowaj…";
 
@@ -390,6 +391,11 @@
 "booth.frame.stacked" = "Jeden nad drugim";
 "booth.frame.reaction" = "Reakcja";
 "booth.frame.split" = "Obok siebie";
+"booth.frame.vertical" = "Pionowy";
+"booth.export.pipCorner" = "Róg kabiny";
+"booth.export.pip.bottomRight" = "Prawy dolny";
+"booth.export.pip.bottomLeft" = "Lewy dolny";
+"booth.export.pip.topRight" = "Prawy górny";
 "booth.export.stackedNote" = "Jeden nad drugim i Reakcja renderują się w 9:16 z falą na dole: kwestia sceny u góry, twoja pod nią.";
 "booth.export.noFootage" = "W tej scenie nie ma jeszcze materiału z kabiny. Włącz Booth Cam i zdubbinguj kwestię.";
 "booth.export.includeBooth" = "Dołącz materiał z kabiny";
@@ -741,11 +747,26 @@
 "dubGuide.3.detail.mac" = "Zaczekaj, aż pobieranie się zakończy. Jeśli plik jest na iCloud Drive, najpierw pobierz go w Finderze, żeby naprawdę był na tym Macu.";
 "dubGuide.4.detail.mac" = "Wróć tutaj, kliknij Zaimportuj paczkę i wybierz go z Pobranych rzeczy. Możesz też upuścić plik na Dubbing sceny na pasku bocznym albo otworzyć go w Dubloon z Findera.";
 
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Wypróbuj Dubloon Pro za darmo przez %@";
+"offer.intro.paid" = "Pierwsze %2$@ Dubloon Pro za %1$@";
+"offer.winback.free" = "Wróć: %@ Dubloon Pro za darmo";
+"offer.winback.paid" = "Wróć: %2$@ Dubloon Pro za %1$@";
+"offer.then" = "Potem %@. Anuluj w dowolnej chwili.";
+"offer.cta" = "Skorzystaj z oferty";
+"offer.dismiss" = "Nie teraz";
+
+/* Spooky Voice Week */
+"halloween.title" = "Tydzień strasznych głosów";
+"halloween.home.message" = "Jęcz jak duch, charcz jak zombie, wyj jak wilk. Potem zdubbinguj Camp Rules, scenę z komedii grozy.";
+"halloween.home.action" = "Zagraj w straszne dźwięki";
+"halloween.imitate.message" = "Wesołego Halloween! Rozgrzej głos: duch, zombie, wilk i sowa już czekają.";
+
 /* Halloween deal banner over the games */
-"halloween.badge" = "Oferta na Halloween";
-"halloween.title" = "Pierwszy rok Pro za %@";
-"halloween.renewal" = "Potem %@ rocznie. Anuluj w dowolnej chwili.";
-"halloween.claim" = "Odbierz";
+"halloweenDeal.badge" = "Oferta na Halloween";
+"halloweenDeal.title" = "Pierwszy rok Pro za %@";
+"halloweenDeal.renewal" = "Potem %@ rocznie. Anuluj w dowolnej chwili.";
+"halloweenDeal.claim" = "Odbierz";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "Ikona aplikacji";

@@ -86,8 +86,9 @@ nonisolated struct DubBoothComposer {
     /// What a composed export needs to render.
     struct Composed {
         let composition: AVComposition
-        /// Nil when nothing has to be composited, so the caller can remux instead of re-encode.
-        let videoComposition: AVVideoComposition?
+        /// Always there: every export carries the Dubloon mark, so every export is drawn by
+        /// `DubFrameCompositor`, even one with no booth in it.
+        let videoComposition: AVVideoComposition
         let duration: CMTime
     }
 
@@ -118,6 +119,9 @@ nonisolated struct DubBoothComposer {
     ///   - boothClips: booth footage by line slug. Lines with no entry simply have none.
     ///   - waveVideo: the rendered waveform strip, when the frame carries one. Laid in as a
     ///     third track rather than drawn over the top; see `DubWaveOverlay`.
+    ///   - pipCorner: where the booth goes in the `vertical` frame.
+    ///   - watermark: the mark drawn in the corner. The app's own lettering unless a caller
+    ///     says otherwise; nil only leaves it off when the asset could not be loaded.
     static func compose(
         pack: DubPack,
         segments: [DubExportSegment],
@@ -127,7 +131,9 @@ nonisolated struct DubBoothComposer {
         audio: URL,
         boothClips: [String: URL],
         waveVideo: URL? = nil,
-        bedVideo: URL? = nil
+        bedVideo: URL? = nil,
+        pipCorner: DubPipCorner = .bottomRight,
+        watermark: CGImage? = DubWatermark.image()
     ) async throws -> Composed {
         guard !segments.isEmpty else { throw DubExportError.nothingRecorded }
 
@@ -162,6 +168,8 @@ nonisolated struct DubBoothComposer {
         let sceneFrameRate = try? await sceneSource.load(.nominalFrameRate)
         let audioDuration = try await audioAsset.load(.duration)
         let sceneDisplaySize = try await displaySize(of: sceneSource)
+        let sceneOrientation = await orientation(of: sceneSource)
+        var boothOrientation = CGAffineTransform.identity
 
         var cursor = CMTime.zero
 
@@ -179,20 +187,25 @@ nonisolated struct DubBoothComposer {
 
             if frame.needsCompositing && includesBooth {
                 for line in pack.lines {
-                    guard let clipURL = boothClips[line.slug] else { continue }
-
-                    // The part of this line that falls inside this segment. For a single-line
-                    // or session-reel cut that is the whole line; for the full scene it is
-                    // every line in turn.
-                    let overlapStart = max(line.startTime, segment.start)
-                    let overlapEnd = min(line.endTime, segment.end)
-                    guard overlapEnd > overlapStart else { continue }
+                    guard let clipURL = boothClips[line.slug],
+                          line.endTime > segment.start, line.startTime < segment.end else { continue }
 
                     let clipAsset = AVURLAsset(url: clipURL)
                     guard let clipSource = try await clipAsset.loadTracks(withMediaType: .video).first else {
                         continue
                     }
                     let clipDuration = try await clipAsset.load(.duration)
+
+                    // A clip's zero is its take's zero, which is the line's start: the same
+                    // point the mixer drops the voice at. See `DubBoothPlacement`.
+                    guard let placement = DubBoothPlacement.place(
+                        lineStart: line.startTime,
+                        lineEnd: line.endTime,
+                        segmentStart: segment.start,
+                        segmentEnd: segment.end,
+                        segmentOutputStart: cursor.seconds,
+                        clipDuration: clipDuration.seconds
+                    ) else { continue }
 
                     if boothTrack == nil {
                         boothTrack = composition.addMutableTrack(
@@ -201,21 +214,17 @@ nonisolated struct DubBoothComposer {
                         )
                         boothSource = clipSource
                         boothDisplaySize = try await displaySize(of: clipSource)
+                        boothOrientation = await orientation(of: clipSource)
                     }
                     guard let boothTrack else { continue }
 
-                    // Where in the clip the overlap starts. A clip is written from the
-                    // microphone's own anchor, so its zero is the line's zero.
                     let clipRange = clamp(
-                        CMTimeRange(
-                            start: time(overlapStart - line.startTime),
-                            duration: time(overlapEnd - overlapStart)
-                        ),
+                        CMTimeRange(start: time(placement.clipStart), duration: time(placement.duration)),
                         to: clipDuration
                     )
                     guard clipRange.duration.seconds > 0 else { continue }
 
-                    let at = CMTimeAdd(cursor, time(overlapStart - segment.start))
+                    let at = CMTimeAdd(cursor, time(placement.outputStart - cursor.seconds))
                     try boothTrack.insertTimeRange(clipRange, of: clipSource, at: at)
                     boothRanges.append(CMTimeRange(start: at, duration: clipRange.duration))
                 }
@@ -274,13 +283,8 @@ nonisolated struct DubBoothComposer {
 
         let hasBooth = boothTrack != nil && boothSource != nil && !boothRanges.isEmpty
 
-        // Nothing to lay over the picture, and no reshaping asked for: hand back a plain
-        // composition and let the caller remux it rather than paying for a re-encode nobody
-        // asked for. A vertical frame always earns its re-encode, booth or no booth, because
-        // the 9:16 canvas and the waveform strip are the point of it.
-        guard frame.needsCompositing, hasBooth || frame.isVertical else {
-            return Composed(composition: composition, videoComposition: nil, duration: cursor)
-        }
+        // No remux shortcut any more, even for `off`: the mark has to be drawn into every
+        // export, and drawing means re-encoding.
 
         #if DUBLOON_GAME
         // The game's vertical frame is its own: the show's stage, with the film in its monitor.
@@ -305,7 +309,9 @@ nonisolated struct DubBoothComposer {
         let layout = DubBoothLayout.make(
             frame: frame,
             sceneDisplaySize: sceneDisplaySize,
-            boothDisplaySize: boothDisplaySize
+            boothDisplaySize: boothDisplaySize,
+            pipCorner: pipCorner,
+            watermarkAspect: DubWatermark.aspect(of: watermark)
         )
 
         let videoComposition = try videoComposition(
@@ -318,7 +324,9 @@ nonisolated struct DubBoothComposer {
             duration: cursor,
             frameRate: sceneFrameRate ?? 0,
             waveTrack: waveTrack,
-            bedTrack: bedTrack
+            watermark: watermark,
+            sceneOrientation: sceneOrientation,
+            boothOrientation: boothOrientation
         )
 
         return Composed(composition: composition, videoComposition: videoComposition, duration: cursor)
@@ -343,22 +351,25 @@ nonisolated struct DubBoothComposer {
         duration: CMTime,
         frameRate: Float,
         waveTrack: AVMutableCompositionTrack?,
-        bedTrack: AVMutableCompositionTrack? = nil
+        watermark: CGImage?,
+        sceneOrientation: CGAffineTransform,
+        boothOrientation: CGAffineTransform
     ) throws -> AVVideoComposition {
         let composition = AVMutableVideoComposition()
+        composition.customVideoCompositorClass = DubFrameCompositor.self
         composition.renderSize = layout.renderSize
         composition.frameDuration = Self.frameDuration(matching: frameRate)
 
-        let withBooth = DubBoothLayout.fillTransform(
+        let withBooth = sceneOrientation.concatenating(DubBoothLayout.fillTransform(
             displaySize: sceneDisplaySize,
             into: layout.sceneRect
-        )
-        let alone = DubBoothLayout.fillTransform(
+        ))
+        let alone = sceneOrientation.concatenating(DubBoothLayout.fillTransform(
             displaySize: sceneDisplaySize,
             into: layout.sceneRectAlone
-        )
+        ))
         let boothTransform = layout.boothRect.map {
-            DubBoothLayout.fillTransform(displaySize: boothDisplaySize, into: $0)
+            boothOrientation.concatenating(DubBoothLayout.fillTransform(displaySize: boothDisplaySize, into: $0))
         }
         // The strip clip is rendered at exactly the size of the band it goes in, so this is a
         // translation. Kept going through `fillTransform` anyway, so there is one answer in
@@ -367,49 +378,63 @@ nonisolated struct DubBoothComposer {
             DubBoothLayout.fillTransform(displaySize: $0.size, into: $0)
         }
 
-        var instructions: [AVMutableVideoCompositionInstruction] = []
+        let mark = watermark.map {
+            DubFrameInstruction.Watermark(image: $0, rect: layout.watermarkRect, opacity: DubWatermark.opacity)
+        }
+        // Drawn once for the whole export; only the picture-in-picture has any.
+        let decor: DubFrameDecor? = layout.boothCornerRadius > 0
+            ? layout.boothRect.flatMap {
+                DubFrameDecor(rect: $0, cornerRadius: layout.boothCornerRadius, renderSize: layout.renderSize)
+            }
+            : nil
+
+        var instructions: [DubFrameInstruction] = []
 
         for range in coverage(of: boothRanges, within: duration) {
-            let instruction = AVMutableVideoCompositionInstruction()
-            instruction.timeRange = range.range
+            // Back to front, the same order the layer instructions used: the layer drawn last
+            // hides the other's overflow. The booth over the scene when it is an inset, the
+            // scene over the booth's band otherwise, the strip over both, the mark on top.
+            var layers: [DubFrameInstruction.Layer] = []
 
-            // Front-most of all, over both pictures: the booth is portrait and spills out of
-            // its band, and the strip is what stops that spill reaching the bottom edge.
-            var wave: [AVMutableVideoCompositionLayerInstruction] = []
-            if let waveTrack, let waveTransform {
-                let layer = AVMutableVideoCompositionLayerInstruction(assetTrack: waveTrack)
-                layer.setTransform(waveTransform, at: .zero)
-                wave = [layer]
+            let sceneRect = range.hasBooth && boothTrack != nil ? layout.sceneRect : layout.sceneRectAlone
+            let scene = DubFrameInstruction.Layer(
+                trackID: sceneTrack.trackID,
+                transform: range.hasBooth && boothTrack != nil ? withBooth : alone,
+                clip: sceneRect,
+                cornerRadius: 0
+            )
+
+            if range.hasBooth, let boothTrack, let boothTransform, let boothRect = layout.boothRect {
+                let booth = DubFrameInstruction.Layer(
+                    trackID: boothTrack.trackID,
+                    transform: boothTransform,
+                    clip: boothRect,
+                    cornerRadius: layout.boothCornerRadius,
+                    // Booth clips carry no preferred transform (the rotation is in the
+                    // pixels), so each frame can be fitted by its own size. See the layer.
+                    fillsFromSource: boothOrientation.isIdentity
+                )
+                layers += layout.boothIsOnTop ? [scene, booth] : [booth, scene]
+            } else {
+                layers.append(scene)
             }
 
-            let scene = AVMutableVideoCompositionLayerInstruction(assetTrack: sceneTrack)
-
-            // Back-most: the backdrop, filling the canvas.
-            var bed: [AVMutableVideoCompositionLayerInstruction] = []
-            if let bedTrack {
-                let layer = AVMutableVideoCompositionLayerInstruction(assetTrack: bedTrack)
-                layer.setTransform(.identity, at: .zero)
-                bed = [layer]
+            if let waveTrack, let waveTransform, let waveRect = layout.waveRect {
+                layers.append(DubFrameInstruction.Layer(
+                    trackID: waveTrack.trackID,
+                    transform: waveTransform,
+                    clip: waveRect,
+                    cornerRadius: 0
+                ))
             }
 
-            guard range.hasBooth, let boothTrack, let boothTransform else {
-                scene.setTransform(alone, at: .zero)
-                instruction.layerInstructions = wave + [scene] + bed
-                instructions.append(instruction)
-                continue
-            }
-
-            scene.setTransform(withBooth, at: .zero)
-
-            let booth = AVMutableVideoCompositionLayerInstruction(assetTrack: boothTrack)
-            booth.setTransform(boothTransform, at: .zero)
-
-            // Front-most first. Whichever layer is listed first hides the other's overflow,
-            // which is what `DubBoothLayout` arranges its rects around.
-            let pictures: [AVMutableVideoCompositionLayerInstruction] =
-                layout.boothIsOnTop ? [booth, scene] : [scene, booth]
-            instruction.layerInstructions = wave + pictures + bed
-            instructions.append(instruction)
+            instructions.append(DubFrameInstruction(
+                timeRange: range.range,
+                renderSize: layout.renderSize,
+                layers: layers,
+                watermark: mark,
+                decor: decor
+            ))
         }
 
         composition.instructions = instructions
@@ -530,6 +555,18 @@ nonisolated struct DubBoothComposer {
               let size = try? await displaySize(of: track),
               size.width > 0, size.height > 0 else { return nil }
         return size
+    }
+
+    /// A track's preferred transform, moved so the picture it produces starts at the origin.
+    ///
+    /// The compositor is handed the track's natural, unrotated pixels. A clip filmed sideways
+    /// and tagged to be turned upright on playback (a phone video, say) has to be turned here
+    /// too, before it is fitted into its rect, or it lands on its side.
+    static func orientation(of track: AVAssetTrack) async -> CGAffineTransform {
+        guard let natural = try? await track.load(.naturalSize),
+              let preferred = try? await track.load(.preferredTransform) else { return .identity }
+        let rect = CGRect(origin: .zero, size: natural).applying(preferred)
+        return preferred.concatenating(CGAffineTransform(translationX: -rect.minX, y: -rect.minY))
     }
 
     /// A track's size as it is meant to be *seen*, with its preferred transform applied.

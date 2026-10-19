@@ -269,6 +269,7 @@
 "dubShare.unknownSource" = "Esta cena foste tu que a trouxeste, por isso sabes de onde vem e o que podes fazer com ela.";
 "dubShare.responsibility" = "Onde vai parar é contigo, por isso cumpre as regras de direitos de autor do sítio onde vives.";
 "dubShare.confirm" = "Exportar vídeo";
+"dubShare.caption" = "Dobrei esta cena com o Dubloon 🎙️";
 "dubShare.share" = "Partilhar…";
 "dubShare.save" = "Guardar…";
 
@@ -390,6 +391,11 @@
 "booth.frame.stacked" = "Uma por cima da outra";
 "booth.frame.reaction" = "Reação";
 "booth.frame.split" = "Lado a lado";
+"booth.frame.vertical" = "Vertical";
+"booth.export.pipCorner" = "Canto da cabine";
+"booth.export.pip.bottomRight" = "Em baixo à direita";
+"booth.export.pip.bottomLeft" = "Em baixo à esquerda";
+"booth.export.pip.topRight" = "Em cima à direita";
 "booth.export.stackedNote" = "Uma por cima da outra e Reação saem em 9:16 com uma onda no rodapé: a fala da cena em cima, a tua em baixo.";
 "booth.export.noFootage" = "Ainda não há imagens de cabine nesta cena. Liga a câmara e dobra uma fala.";
 "booth.export.includeBooth" = "Incluir as imagens de cabine";
@@ -741,11 +747,26 @@
 "dubGuide.3.detail.mac" = "Aguarda que a descarga termine. Se o ficheiro estiver no iCloud Drive, descarrega-o primeiro no Finder para que fique mesmo neste Mac.";
 "dubGuide.4.detail.mac" = "Volta aqui, clica em Importar um pack e escolhe-o em Descargas. Também podes largar o ficheiro em Dobragem de cenas na barra lateral, ou abri-lo com o Dubloon a partir do Finder.";
 
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Experimente o Dubloon Pro grátis durante %@";
+"offer.intro.paid" = "Os primeiros %2$@ de Dubloon Pro por %1$@";
+"offer.winback.free" = "Volte: %@ de Dubloon Pro grátis";
+"offer.winback.paid" = "Volte: %2$@ de Dubloon Pro por %1$@";
+"offer.then" = "Depois, %@. Cancele quando quiser.";
+"offer.cta" = "Aproveitar a oferta";
+"offer.dismiss" = "Agora não";
+
+/* Spooky Voice Week */
+"halloween.title" = "Semana das Vozes Assustadoras";
+"halloween.home.message" = "Geme como um fantasma, rosna como um zombie, uiva como um lobo. Depois dobra Camp Rules, a cena de comédia de terror.";
+"halloween.home.action" = "Jogar com os sons assustadores";
+"halloween.imitate.message" = "Feliz Halloween! Aquece a voz com o fantasma, o zombie, o lobo e o mocho.";
+
 /* Halloween deal banner over the games */
-"halloween.badge" = "Oferta de Halloween";
-"halloween.title" = "O primeiro ano de Pro por %@";
-"halloween.renewal" = "Depois, %@ por ano. Cancele quando quiser.";
-"halloween.claim" = "Aproveitar";
+"halloweenDeal.badge" = "Oferta de Halloween";
+"halloweenDeal.title" = "O primeiro ano de Pro por %@";
+"halloweenDeal.renewal" = "Depois, %@ por ano. Cancele quando quiser.";
+"halloweenDeal.claim" = "Aproveitar";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "Ícone da app";

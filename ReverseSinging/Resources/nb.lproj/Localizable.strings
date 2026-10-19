@@ -269,6 +269,7 @@
 "dubShare.unknownSource" = "Denne scenen tok du med selv, så du vet hvor den kommer fra og hva du kan gjøre med den.";
 "dubShare.responsibility" = "Hvor den havner er opp til deg, så følg opphavsrettsreglene der du bor.";
 "dubShare.confirm" = "Eksporter video";
+"dubShare.caption" = "Jeg dubbet denne scenen med Dubloon 🎙️";
 "dubShare.share" = "Del…";
 "dubShare.save" = "Arkiver…";
 
@@ -390,6 +391,11 @@
 "booth.frame.stacked" = "Oppå hverandre";
 "booth.frame.reaction" = "Reaksjon";
 "booth.frame.split" = "Side ved side";
+"booth.frame.vertical" = "Stående";
+"booth.export.pipCorner" = "Bås-hjørne";
+"booth.export.pip.bottomRight" = "Nede til høyre";
+"booth.export.pip.bottomLeft" = "Nede til venstre";
+"booth.export.pip.topRight" = "Oppe til høyre";
 "booth.export.stackedNote" = "Oppå hverandre og Reaksjon rendres i 9:16 med en bølgeform nederst: scenens replikk øverst, din under.";
 "booth.export.noFootage" = "Ingen boksopptak i denne scenen ennå. Slå på Booth Cam og dubb en replikk.";
 "booth.export.includeBooth" = "Ta med boksopptaket";
@@ -741,11 +747,26 @@
 "dubGuide.3.detail.mac" = "Vent til nedlastingen er ferdig. Ligger filen i iCloud Drive, laster du den ned i Finder først så den virkelig er på denne Macen.";
 "dubGuide.4.detail.mac" = "Kom tilbake hit, klikk på Importer en dubbpakke og velg den under Nedlastinger. Du kan også slippe filen på Dubb filmscene i sidepanelet, eller åpne den med Dubloon fra Finder.";
 
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Prøv Dubloon Pro gratis i %@";
+"offer.intro.paid" = "Dine første %2$@ med Dubloon Pro for %1$@";
+"offer.winback.free" = "Kom tilbake: %@ Dubloon Pro gratis";
+"offer.winback.paid" = "Kom tilbake: %2$@ Dubloon Pro for %1$@";
+"offer.then" = "Deretter %@. Avslutt når som helst.";
+"offer.cta" = "Få tilbudet";
+"offer.dismiss" = "Ikke nå";
+
+/* Spooky Voice Week */
+"halloween.title" = "Skummel stemmeuke";
+"halloween.home.message" = "Jamre som et spøkelse, knurr som en zombie, ul som en ulv. Dubb deretter Camp Rules, scenen fra en skrekkomedie.";
+"halloween.home.action" = "Spill de skumle lydene";
+"halloween.imitate.message" = "God halloween! Varm opp stemmen med spøkelset, zombien, ulven og ugla.";
+
 /* Halloween deal banner over the games */
-"halloween.badge" = "Halloween-tilbud";
-"halloween.title" = "Første år med Pro for %@";
-"halloween.renewal" = "Deretter %@ i året. Avslutt når som helst.";
-"halloween.claim" = "Få det";
+"halloweenDeal.badge" = "Halloween-tilbud";
+"halloweenDeal.title" = "Første år med Pro for %@";
+"halloweenDeal.renewal" = "Deretter %@ i året. Avslutt når som helst.";
+"halloweenDeal.claim" = "Få det";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "Appikon";

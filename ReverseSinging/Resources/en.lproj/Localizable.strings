@@ -269,6 +269,7 @@
 "dubShare.unknownSource" = "You brought this scene in yourself, so you know where it came from and what you can do with it.";
 "dubShare.responsibility" = "Where it goes next is up to you, so follow the copyright rules where you live.";
 "dubShare.confirm" = "Export Video";
+"dubShare.caption" = "I dubbed this scene with Dubloon 🎙️";
 "dubShare.share" = "Share…";
 "dubShare.save" = "Save…";
 
@@ -390,6 +391,11 @@
 "booth.frame.stacked" = "Stacked";
 "booth.frame.reaction" = "Reaction";
 "booth.frame.split" = "Split";
+"booth.frame.vertical" = "Vertical";
+"booth.export.pipCorner" = "Booth corner";
+"booth.export.pip.bottomRight" = "Bottom right";
+"booth.export.pip.bottomLeft" = "Bottom left";
+"booth.export.pip.topRight" = "Top right";
 "booth.export.stackedNote" = "Stacked and Reaction render 9:16 with a waveform along the foot: the scene's line above, yours below.";
 "booth.export.noFootage" = "No booth footage in this scene yet. Turn Booth Cam on and dub a line.";
 "booth.export.includeBooth" = "Include booth footage";
@@ -742,11 +748,26 @@
 "dubGuide.3.detail.mac" = "Wait for the download to complete. If the file is in iCloud Drive, download it in Finder first so it's really on this Mac.";
 "dubGuide.4.detail.mac" = "Come back here, click Import a Dub Pack and pick it from Downloads. You can also drop the file on Movie Scene Dub in the sidebar, or open it with Dubloon from Finder.";
 
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Try Dubloon Pro free for %@";
+"offer.intro.paid" = "Your first %2$@ of Dubloon Pro for %1$@";
+"offer.winback.free" = "Come back: %@ of Dubloon Pro free";
+"offer.winback.paid" = "Come back: %2$@ of Dubloon Pro for %1$@";
+"offer.then" = "Then %@. Cancel anytime.";
+"offer.cta" = "Claim offer";
+"offer.dismiss" = "Not now";
+
+/* Spooky Voice Week */
+"halloween.title" = "Spooky Voice Week";
+"halloween.home.message" = "Moan like a ghost, groan like a zombie, howl like a wolf. Then dub Camp Rules, the horror-comedy movie scene.";
+"halloween.home.action" = "Play the spooky sounds";
+"halloween.imitate.message" = "Happy Halloween! Warm up with the ghost, zombie, wolf and owl.";
+
 /* Halloween deal banner over the games */
-"halloween.badge" = "Halloween deal";
-"halloween.title" = "First year of Pro for %@";
-"halloween.renewal" = "Then %@ a year. Cancel anytime.";
-"halloween.claim" = "Claim";
+"halloweenDeal.badge" = "Halloween deal";
+"halloweenDeal.title" = "First year of Pro for %@";
+"halloweenDeal.renewal" = "Then %@ a year. Cancel anytime.";
+"halloweenDeal.claim" = "Claim";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "App Icon";

@@ -21,6 +21,7 @@ struct HelpButton: View {
         }
         .sheet(isPresented: $isPresented) {
             HelpView(topic: topic)
+                .sheetBesideTheSeam()
                 .presentationDragIndicator(.visible)
         }
     }

@@ -269,6 +269,7 @@
 "dubShare.unknownSource" = "Aquesta escena l'has portat tu, així que ja saps d'on surt i què en pots fer.";
 "dubShare.responsibility" = "On acabi és cosa teva, així que respecta les normes de copyright d'on visquis.";
 "dubShare.confirm" = "Exportar el vídeo";
+"dubShare.caption" = "He doblat aquesta escena amb Dubloon 🎙️";
 "dubShare.share" = "Compartir…";
 "dubShare.save" = "Desar…";
 
@@ -390,6 +391,11 @@
 "booth.frame.stacked" = "Una sobre l'altra";
 "booth.frame.reaction" = "Reacció";
 "booth.frame.split" = "Costat a costat";
+"booth.frame.vertical" = "Vertical";
+"booth.export.pipCorner" = "Cantonada de la cabina";
+"booth.export.pip.bottomRight" = "A baix a la dreta";
+"booth.export.pip.bottomLeft" = "A baix a l'esquerra";
+"booth.export.pip.topRight" = "A dalt a la dreta";
 "booth.export.stackedNote" = "Una sobre l'altra i Reacció es renderitzen en 9:16 amb una ona al peu: la frase de l'escena a dalt, la teva a baix.";
 "booth.export.noFootage" = "Encara no hi ha material de cabina en aquesta escena. Encén la càmera i dobla una frase.";
 "booth.export.includeBooth" = "Inclou el material de cabina";
@@ -741,11 +747,26 @@
 "dubGuide.3.detail.mac" = "Espera que la descàrrega s'acabi. Si el fitxer és a l'iCloud Drive, baixa'l primer al Finder perquè sigui de veritat en aquest Mac.";
 "dubGuide.4.detail.mac" = "Torna aquí, fes clic a Importar un pack i tria'l a Baixades. També pots deixar anar el fitxer a Doblatge d'escenes a la barra lateral, o obrir-lo amb Dubloon des del Finder.";
 
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Prova Dubloon Pro gratis durant %@";
+"offer.intro.paid" = "El teu primer període de %2$@ de Dubloon Pro per %1$@";
+"offer.winback.free" = "Torna: %@ de Dubloon Pro gratis";
+"offer.winback.paid" = "Torna: %2$@ de Dubloon Pro per %1$@";
+"offer.then" = "Després, %@. Cancel·la quan vulguis.";
+"offer.cta" = "Aprofitar l'oferta";
+"offer.dismiss" = "Ara no";
+
+/* Spooky Voice Week */
+"halloween.title" = "Setmana de Veus de Por";
+"halloween.home.message" = "Gemega com un fantasma, grunyeix com un zombi, udola com un llop. I després dobla Camp Rules, l'escena de comèdia de terror.";
+"halloween.home.action" = "Juga amb els sons de por";
+"halloween.imitate.message" = "Bon Halloween! Escalfa la veu amb el fantasma, el zombi, el llop i el mussol.";
+
 /* Halloween deal banner over the games */
-"halloween.badge" = "Oferta de Halloween";
-"halloween.title" = "El primer any de Pro per %@";
-"halloween.renewal" = "Després, %@ l'any. Cancel·la quan vulguis.";
-"halloween.claim" = "Aprofita-la";
+"halloweenDeal.badge" = "Oferta de Halloween";
+"halloweenDeal.title" = "El primer any de Pro per %@";
+"halloweenDeal.renewal" = "Després, %@ l'any. Cancel·la quan vulguis.";
+"halloweenDeal.claim" = "Aprofita-la";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "Icona de l'app";

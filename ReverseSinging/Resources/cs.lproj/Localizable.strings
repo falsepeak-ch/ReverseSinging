@@ -269,6 +269,7 @@
 "dubShare.unknownSource" = "Tuhle scénu sis přinesl sám, takže víš, odkud je a co s ní smíš dělat.";
 "dubShare.responsibility" = "Kam to poputuje, je na tobě, tak se drž autorských pravidel tam, kde žiješ.";
 "dubShare.confirm" = "Exportovat video";
+"dubShare.caption" = "Nadaboval jsem tuhle scénu v Dubloonu 🎙️";
 "dubShare.share" = "Sdílet…";
 "dubShare.save" = "Uložit…";
 
@@ -390,6 +391,11 @@
 "booth.frame.stacked" = "Nad sebou";
 "booth.frame.reaction" = "Reakce";
 "booth.frame.split" = "Vedle sebe";
+"booth.frame.vertical" = "Na výšku";
+"booth.export.pipCorner" = "Roh kabiny";
+"booth.export.pip.bottomRight" = "Vpravo dole";
+"booth.export.pip.bottomLeft" = "Vlevo dole";
+"booth.export.pip.topRight" = "Vpravo nahoře";
 "booth.export.stackedNote" = "Nad sebou a Reakce se renderují v 9:16 s křivkou dole: replika scény nahoře, tvoje pod ní.";
 "booth.export.noFootage" = "V téhle scéně zatím nejsou žádné záběry z kabiny. Zapni Booth Cam a nadabuj repliku.";
 "booth.export.includeBooth" = "Zahrnout záběry z kabiny";
@@ -741,11 +747,26 @@
 "dubGuide.3.detail.mac" = "Počkej, až se stahování dokončí. Pokud je soubor na iCloud Drive, nejdřív ho stáhni ve Finderu, aby byl opravdu v tomhle Macu.";
 "dubGuide.4.detail.mac" = "Vrať se sem, klikni na Importovat balíček a vyber ho ve Stažených souborech. Soubor můžeš také přetáhnout na Dabing filmové scény v postranním panelu, nebo ho otevřít v Dubloonu z Finderu.";
 
+/* Subscription offer banner (intro / win-back) */
+"offer.intro.free" = "Vyzkoušejte Dubloon Pro zdarma na %@";
+"offer.intro.paid" = "Prvních %2$@ Dubloon Pro za %1$@";
+"offer.winback.free" = "Vraťte se: %@ Dubloon Pro zdarma";
+"offer.winback.paid" = "Vraťte se: %2$@ Dubloon Pro za %1$@";
+"offer.then" = "Poté %@. Zrušit můžete kdykoli.";
+"offer.cta" = "Využít nabídku";
+"offer.dismiss" = "Teď ne";
+
+/* Spooky Voice Week */
+"halloween.title" = "Strašidelný týden hlasů";
+"halloween.home.message" = "Kvílej jako duch, chrchli jako zombie, vyj jako vlk. Pak nadabuj Camp Rules, scénu z hororové komedie.";
+"halloween.home.action" = "Zahraj si strašidelné zvuky";
+"halloween.imitate.message" = "Veselý Halloween! Rozehřej hlas: duch, zombie, vlk a sova už čekají.";
+
 /* Halloween deal banner over the games */
-"halloween.badge" = "Halloweenská nabídka";
-"halloween.title" = "První rok Pro za %@";
-"halloween.renewal" = "Poté %@ ročně. Zrušit můžete kdykoli.";
-"halloween.claim" = "Získat";
+"halloweenDeal.badge" = "Halloweenská nabídka";
+"halloweenDeal.title" = "První rok Pro za %@";
+"halloweenDeal.renewal" = "Poté %@ ročně. Zrušit můžete kdykoli.";
+"halloweenDeal.claim" = "Získat";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "Ikona aplikace";

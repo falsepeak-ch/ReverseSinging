@@ -186,6 +186,8 @@ final class AccessController: ObservableObject {
         // the right identity. A purchase still restores across devices through the
         // Apple Account, which is what `restore()` asks for.
         Purchases.configure(with: Configuration.Builder(withAPIKey: apiKey).build())
+        // Apple Search Ads attribution, so RevenueCat can tie a purchase to the campaign.
+        Purchases.shared.attribution.enableAdServicesAttributionTokenCollection()
 
         // What the SDK remembers from the last launch, read before the first frame:
         // someone who has paid opens onto an unlocked menu, with or without a network.
@@ -355,7 +357,7 @@ final class AccessController: ObservableObject {
     }
 
     /// Buys a product directly. The fallback paywall uses this when there is no offering to
-    /// buy from, and the Halloween banner to buy the yearly plan at its introductory price;
+    /// buy from, and the Halloween banner to buy the Halloween plan at its introductory price;
     /// the dashboard paywall does its own buying.
     func purchase(_ product: StoreProduct, source: String = "fallback_paywall") async {
         await runPurchase(productID: product.productIdentifier, source: source) {
@@ -369,6 +371,16 @@ final class AccessController: ObservableObject {
     func purchase(_ package: Package, source: String) async {
         await runPurchase(productID: package.storeProduct.productIdentifier, source: source) {
             try await Purchases.shared.purchase(package: package)
+        }
+    }
+
+    /// Buys a subscription with an App Store win-back offer applied: the menu's offer banner,
+    /// for someone whose subscription lapsed.
+    @available(iOS 18.0, macOS 15.0, *)
+    func purchase(_ product: StoreProduct, winBackOffer: WinBackOffer, source: String) async {
+        await runPurchase(productID: product.productIdentifier, source: source) {
+            let params = PurchaseParams.Builder(product: product).with(winBackOffer: winBackOffer).build()
+            return try await Purchases.shared.purchase(params)
         }
     }
 

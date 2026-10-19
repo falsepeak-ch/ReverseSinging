@@ -321,6 +321,11 @@ nonisolated enum Strings {
         static let frameStacked = NSLocalizedString("booth.frame.stacked", comment: "Booth frame: scene above, booth below")
         static let frameReaction = NSLocalizedString("booth.frame.reaction", comment: "Booth frame: booth above, scene below")
         static let frameSplit = NSLocalizedString("booth.frame.split", comment: "Booth frame: side by side")
+        static let frameVertical = NSLocalizedString("booth.frame.vertical", comment: "Export format: 9:16 portrait post, scene letterboxed, booth as a small picture-in-picture. Short, fits a small uppercase tile")
+        static let pipCorner = NSLocalizedString("booth.export.pipCorner", comment: "Section label: which corner of the vertical export the booth picture-in-picture sits in")
+        static let pipBottomRight = NSLocalizedString("booth.export.pip.bottomRight", comment: "Accessibility: booth picture-in-picture in the bottom-right corner")
+        static let pipBottomLeft = NSLocalizedString("booth.export.pip.bottomLeft", comment: "Accessibility: booth picture-in-picture in the bottom-left corner")
+        static let pipTopRight = NSLocalizedString("booth.export.pip.topRight", comment: "Accessibility: booth picture-in-picture in the top-right corner")
         static let stackedNote = NSLocalizedString("booth.export.stackedNote", comment: "Notes that the stacked frame renders 9:16")
         static let noFootage = NSLocalizedString("booth.export.noFootage", comment: "Shown when a scene has no booth footage to composite")
         static let includeBooth = NSLocalizedString("booth.export.includeBooth", comment: "Toggle: put the performer's own footage in the export")
@@ -504,6 +509,9 @@ nonisolated enum Strings {
         static let responsibility = NSLocalizedString("dubShare.responsibility", comment: "Distributing the export is the user's own act and responsibility")
         static let confirm = NSLocalizedString("dubShare.confirm", comment: "Go ahead and export")
         static let share = NSLocalizedString("dubShare.share", comment: "Mac: button that opens the system share menu for a finished dub")
+        /// The caption that travels with a shared video. The hashtag and the link are added
+        /// in code, untranslated; see `DubShareCaption`.
+        static let caption = NSLocalizedString("dubShare.caption", comment: "One short, playful line posted with a shared dub video, in the first person. The #dubloon hashtag and the App Store link are appended automatically; do not add them")
         static let save = NSLocalizedString("dubShare.save", comment: "Mac: button that saves a finished dub to a folder the user picks")
     }
 
@@ -526,13 +534,24 @@ nonisolated enum Strings {
         }
     }
 
+    // MARK: - Subscription offer banner
+    enum Offer {
+        static let introFree = NSLocalizedString("offer.intro.free", comment: "Menu banner: free trial for a new subscriber. %@ is a duration such as '1 week'")
+        static let introPaid = NSLocalizedString("offer.intro.paid", comment: "Menu banner: discounted first period. %1$@ is the price, %2$@ a duration such as '1 year'")
+        static let winBackFree = NSLocalizedString("offer.winback.free", comment: "Menu banner for a lapsed subscriber: free period. %@ is a duration such as '1 month'")
+        static let winBackPaid = NSLocalizedString("offer.winback.paid", comment: "Menu banner for a lapsed subscriber: discounted period. %1$@ is the price, %2$@ a duration")
+        static let then = NSLocalizedString("offer.then", comment: "Under the offer: the regular price afterwards, such as '$2.99 / 1 month'")
+        static let cta = NSLocalizedString("offer.cta", comment: "Button on the offer banner that opens the offer")
+        static let dismiss = NSLocalizedString("offer.dismiss", comment: "Button that hides the offer banner for a while")
+    }
+
     // MARK: - Pro / Paywall
     /// The Halloween deal banner over the games.
-    enum Halloween {
-        static let badge = NSLocalizedString("halloween.badge", comment: "Small label on the Halloween offer banner, shown upper-cased")
-        static let title = NSLocalizedString("halloween.title", comment: "Halloween banner headline: the first year of Dubloon Pro costs %@ (a localized price)")
-        static let renewal = NSLocalizedString("halloween.renewal", comment: "Under the Halloween headline: each later year costs %@ (a localized price)")
-        static let claim = NSLocalizedString("halloween.claim", comment: "Button on the Halloween banner that buys the offer")
+    enum HalloweenDeal {
+        static let badge = NSLocalizedString("halloweenDeal.badge", comment: "Small label on the Halloween offer banner, shown upper-cased")
+        static let title = NSLocalizedString("halloweenDeal.title", comment: "Halloween banner headline: the first year of Dubloon Pro costs %@ (a localized price)")
+        static let renewal = NSLocalizedString("halloweenDeal.renewal", comment: "Under the Halloween headline: each later year costs %@ (a localized price)")
+        static let claim = NSLocalizedString("halloweenDeal.claim", comment: "Button on the Halloween banner that buys the offer")
     }
 
     enum Pro {
@@ -739,5 +758,14 @@ nonisolated enum Strings {
         static let message = NSLocalizedString("review.feedback.message", comment: "Explains that the note goes to the developer, who is one person, and will be read")
         static let placeholder = NSLocalizedString("review.feedback.placeholder", comment: "Placeholder in the empty feedback text box")
         static let send = NSLocalizedString("review.feedback.send", comment: "Button that sends the feedback note")
+    }
+
+    // MARK: - Spooky Voice Week
+    /// The Halloween card on the menu and the header over the sound library, see `SpookyVoiceWeek`.
+    enum Halloween {
+        static let title = NSLocalizedString("halloween.title", comment: "Name of the Halloween event, shown as the headline of the menu card and of the header in Sound Imitation")
+        static let homeMessage = NSLocalizedString("halloween.home.message", comment: "Body of the Halloween card on the menu. Names the spooky sounds already in Sound Imitation (ghost, zombie, wolf) and Camp Rules, a horror-comedy movie scene already in the dub library. Keep 'Camp Rules' untranslated")
+        static let homeAction = NSLocalizedString("halloween.home.action", comment: "Button on the Halloween menu card that opens Sound Imitation")
+        static let imitateMessage = NSLocalizedString("halloween.imitate.message", comment: "One line under the event name at the top of Sound Imitation during Halloween. Names the ghost, zombie, wolf and owl sounds")
     }
 }
