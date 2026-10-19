@@ -40,3 +40,6 @@ VAD DET KOSTAR
 Varje scen och varje ljud är öppet. Dina tre första tagningar är gratis, räknade över båda spelen. Dubloon Pro tar bort gränsen, som engångsköp eller prenumeration.
 
 Byggd i Schweiz. Handgjord i Zürich.
+
+Användarvillkor (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Integritetspolicy: https://reverso-87e1a.web.app/privacy
