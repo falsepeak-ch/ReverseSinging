@@ -772,3 +772,7 @@
 "settings.appIcon" = "Uygulama simgesi";
 "settings.appIcon.classic" = "Klasik";
 "settings.appIcon.halloween" = "Cadılar Bayramı";
+
+/* Scary movie scenes to dub, in the dub library during Halloween */
+"halloweenScenes.title" = "Cadılar Bayramı sahneleri";
+"halloweenScenes.intro" = "Seslendirmeye hazır korku klasikleri. GameBanana'daki sayfasını açmak için birine dokun, dosyayı indir, sonra geri gelip içe aktar.";

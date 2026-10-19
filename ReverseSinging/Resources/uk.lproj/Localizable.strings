@@ -772,3 +772,7 @@
 "settings.appIcon" = "Значок застосунку";
 "settings.appIcon.classic" = "Класичний";
 "settings.appIcon.halloween" = "Гелловін";
+
+/* Scary movie scenes to dub, in the dub library during Halloween */
+"halloweenScenes.title" = "Сцени на Гелловін";
+"halloweenScenes.intro" = "Класика жахів, готова до озвучення. Торкніться сцени, щоб відкрити її сторінку на GameBanana, завантажте файл і поверніться, щоб імпортувати його.";

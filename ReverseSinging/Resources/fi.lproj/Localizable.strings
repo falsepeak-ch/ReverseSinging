@@ -772,3 +772,7 @@
 "settings.appIcon" = "Sovelluksen kuvake";
 "settings.appIcon.classic" = "Klassinen";
 "settings.appIcon.halloween" = "Halloween";
+
+/* Scary movie scenes to dub, in the dub library during Halloween */
+"halloweenScenes.title" = "Halloween-kohtaukset";
+"halloweenScenes.intro" = "Kauhuklassikoita valmiina dubattaviksi. Napauta kohtausta avataksesi sen sivun GameBananassa, lataa tiedosto ja tuo se sitten tänne.";

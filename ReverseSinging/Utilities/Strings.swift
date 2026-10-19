@@ -554,6 +554,12 @@ nonisolated enum Strings {
         static let claim = NSLocalizedString("halloweenDeal.claim", comment: "Button on the Halloween banner that buys the offer")
     }
 
+    /// Scary movie scenes to dub, at the top of the dub library while the Halloween banner is on.
+    enum HalloweenScenes {
+        static let title = NSLocalizedString("halloweenScenes.title", comment: "Banner over the list of scary movie scenes to dub for Halloween, at the top of the dub library")
+        static let intro = NSLocalizedString("halloweenScenes.intro", comment: "In the banner over the list: each scene opens its dub pack's page on GameBanana to download, then the user imports it with +")
+    }
+
     enum Pro {
         // Settings
         /// The menu card's headline: free takes left, or none.

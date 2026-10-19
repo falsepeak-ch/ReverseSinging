@@ -772,3 +772,7 @@
 "settings.appIcon" = "アプリアイコン";
 "settings.appIcon.classic" = "クラシック";
 "settings.appIcon.halloween" = "ハロウィン";
+
+/* Scary movie scenes to dub, in the dub library during Halloween */
+"halloweenScenes.title" = "ハロウィンのシーン";
+"halloweenScenes.intro" = "吹き替え用にまとめられたホラーの名作です。タップしてGameBananaのページを開き、ファイルをダウンロードしたら、ここに戻って読み込んでください。";

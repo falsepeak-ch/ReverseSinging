@@ -772,3 +772,7 @@
 "settings.appIcon" = "Icona dell'app";
 "settings.appIcon.classic" = "Classica";
 "settings.appIcon.halloween" = "Halloween";
+
+/* Scary movie scenes to dub, in the dub library during Halloween */
+"halloweenScenes.title" = "Scene di Halloween";
+"halloweenScenes.intro" = "Classici dell'horror pronti da doppiare. Toccane uno per aprire la sua pagina su GameBanana, scarica il file e torna qui per importarlo.";

@@ -267,6 +267,13 @@ struct DubLibraryView: View {
     private func packScroll(columns: [GridItem], selected: DubPack.ID?) -> some View {
         ScrollView {
             LazyVStack(spacing: 8) {
+                // While the Halloween banner is on, scary scenes to fetch come before the
+                // packs already in.
+                if viewModel.showsHalloweenScenes {
+                    HalloweenScenesSection(scenes: HalloweenScenes.all)
+                        .padding(.bottom, 10)
+                }
+
                 EditorSectionHeader(
                     title: Strings.Dub.packsSection,
                     trailing: String(format: "%02d", library.packs.count)

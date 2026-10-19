@@ -772,3 +772,7 @@
 "settings.appIcon" = "ไอคอนแอป";
 "settings.appIcon.classic" = "คลาสสิก";
 "settings.appIcon.halloween" = "ฮาโลวีน";
+
+/* Scary movie scenes to dub, in the dub library during Halloween */
+"halloweenScenes.title" = "ฉากฮาโลวีน";
+"halloweenScenes.intro" = "หนังสยองขวัญคลาสสิกที่พร้อมให้พากย์ แตะเพื่อเปิดหน้าใน GameBanana ดาวน์โหลดไฟล์ แล้วกลับมานำเข้าที่นี่";
