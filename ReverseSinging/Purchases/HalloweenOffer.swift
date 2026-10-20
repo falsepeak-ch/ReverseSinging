@@ -94,7 +94,11 @@ final class HalloweenOffer: ObservableObject {
         // Store has none), with sample prices. Tapping it does nothing.
         if UserDefaults.standard.bool(forKey: "forceHalloweenOffer") {
             introPrice = "$2.99"
+            #if DUBLOON_GAME
             renewalPrice = "$5.99"
+            #else
+            renewalPrice = "$12.99"
+            #endif
             return
         }
         #endif
