@@ -1,1 +1,1 @@
-choicer,voicer,dubbing,voiceover,podkladanie,nasladowanie,wspak,tyl,spiewanie,karaoke,anime,glos
+choicer,voicer,voiceover,podkladanie,nasladowanie,wspak,tyl,spiewanie,karaoke,anime,glos,cluso

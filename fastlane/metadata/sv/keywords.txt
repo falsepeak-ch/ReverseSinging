@@ -1,1 +1,1 @@
-choicer,voicer,dubbing,voiceover,harma,baklanges,sjunga,karaoke,anime,mikrofon,replik
+choicer,voicer,dubbing,voiceover,harma,baklanges,sjunga,karaoke,anime,mikrofon,replik,cluso

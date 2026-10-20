@@ -1,1 +1,1 @@
-choicer,voicer,dubbing,voiceover,озвучення,дубляж,пародія,навпаки,задом,співати,караоке,аніме
+choicer,voicer,dubbing,voiceover,озвучення,дубляж,пародія,навпаки,задом,співати,караоке,аніме,cluso
