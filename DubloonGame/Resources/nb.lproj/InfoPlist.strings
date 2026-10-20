@@ -4,3 +4,5 @@
 "NSMicrophoneUsageDescription" = "Dubloon trenger mikrofonen for å ta opp stemmen din mens du spiller: dubbe scener og etterligne lyder.";
 
 "NSCameraUsageDescription" = "Dubloon filmer deg med frontkameraet mens du dubber, så du kan dele reaksjonen din sammen med taket. Kameraet er av til du slår det på.";
+
+"NSPhotoLibraryAddUsageDescription" = "Dubloon legger det ferdige dubbeopptaket ditt i Bilder når du velger Lagre video. Den leser aldri noe som allerede ligger i biblioteket ditt.";

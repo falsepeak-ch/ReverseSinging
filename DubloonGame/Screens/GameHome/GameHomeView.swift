@@ -26,6 +26,8 @@ struct GameHomeView: View {
     @State private var iris: CGFloat = 1
     /// The reminders' primer, offered once after the first finished round.
     @State private var isReminderPrimerShown = false
+    /// The Halloween plan's terms, shown before the store's sheet. See `HalloweenDealModal`.
+    @State private var isHalloweenDealPresented = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -51,7 +53,7 @@ struct GameHomeView: View {
                         endDate: deal.endDate,
                         isPurchasing: viewModel.isClaimingHalloweenDeal
                     ) {
-                        viewModel.claimHalloweenDeal()
+                        showHalloweenDeal()
                     }
                     .padding(.horizontal, 16)
                     .padding(.top, 6)
@@ -83,6 +85,16 @@ struct GameHomeView: View {
         }
         .sheet(isPresented: $app.showSettings) {
             SettingsView(app: app)
+        }
+        .editorModal(isPresented: $isHalloweenDealPresented) {
+            if let deal = viewModel.halloweenDeal {
+                HalloweenDealModal(deal: deal) {
+                    isHalloweenDealPresented = false
+                    viewModel.claimHalloweenDeal()
+                } onClose: {
+                    isHalloweenDealPresented = false
+                }
+            }
         }
         .sheet(isPresented: $viewModel.isPaywallPresented) {
             ProPaywallView(source: "game_home")
@@ -162,6 +174,11 @@ struct GameHomeView: View {
         }
     }
 
+    private func showHalloweenDeal() {
+        GameSFX.play(.tap)
+        isHalloweenDealPresented = true
+    }
+
     // MARK: - Accessibility
 
     /// What VoiceOver and Switch Control get in place of the sprites: the host's line and
@@ -174,7 +191,7 @@ struct GameHomeView: View {
             }
             if let deal = viewModel.halloweenDeal {
                 Button("\(Strings.HalloweenDeal.badge). \(String(format: Strings.HalloweenDeal.title, deal.introPrice))") {
-                    viewModel.claimHalloweenDeal()
+                    showHalloweenDeal()
                 }
             }
             if let proTitle = viewModel.stageState.proTitle {

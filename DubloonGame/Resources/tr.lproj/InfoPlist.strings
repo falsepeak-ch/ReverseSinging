@@ -4,3 +4,5 @@
 "NSMicrophoneUsageDescription" = "Dubloon, oynarken sesini kaydetmek için mikrofona ihtiyaç duyar: sahne seslendirme ve ses taklidi.";
 
 "NSCameraUsageDescription" = "Dubloon sen seslendirirken ön kamerayla seni çeker, böylece tepkini çekiminle birlikte paylaşabilirsin. Sen açana kadar kamera kapalı kalır.";
+
+"NSPhotoLibraryAddUsageDescription" = "Videoyu Kaydet'i seçtiğinde Dubloon bitmiş seslendirmeni Fotoğraflar'a ekler. Arşivinde zaten olan hiçbir şeyi okumaz.";

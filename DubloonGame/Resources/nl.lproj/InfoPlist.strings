@@ -4,3 +4,5 @@
 "NSMicrophoneUsageDescription" = "Dubloon heeft de microfoon nodig om je stem op te nemen terwijl je speelt: scènes nasynchroniseren en geluiden nadoen.";
 
 "NSCameraUsageDescription" = "Dubloon filmt je met de camera aan de voorkant terwijl je dubt, zodat je je reactie naast je take kunt delen. De camera blijft uit totdat je hem aanzet.";
+
+"NSPhotoLibraryAddUsageDescription" = "Dubloon zet je afgewerkte dub in Foto's als je Bewaar video kiest. Het leest nooit iets wat al in je bibliotheek staat.";

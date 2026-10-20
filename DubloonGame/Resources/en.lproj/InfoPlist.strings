@@ -4,3 +4,5 @@
 "NSMicrophoneUsageDescription" = "Dubloon needs the microphone to record your voice while you play: dubbing scenes and imitating sounds.";
 
 "NSCameraUsageDescription" = "Dubloon uses the front camera to film you while you dub, so you can share your reaction alongside the take. Filming stays off until you turn it on.";
+
+"NSPhotoLibraryAddUsageDescription" = "Dubloon adds your finished dub to Photos when you choose Save Video. It never reads anything already in your library.";

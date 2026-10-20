@@ -88,7 +88,6 @@ final class GameHomeViewModel: ObservableObject {
     }
 
     func claimHalloweenDeal() {
-        GameSFX.play(.tap)
         Task { await halloween.purchase(source: "game_home_halloween_banner") }
     }
 

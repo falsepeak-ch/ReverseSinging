@@ -767,6 +767,11 @@
 "halloweenDeal.title" = "První rok Pro za %@";
 "halloweenDeal.renewal" = "Poté %@ ročně. Zrušit můžete kdykoli.";
 "halloweenDeal.claim" = "Získat";
+"halloweenDeal.until" = "Do %@";
+"halloweenDeal.planName" = "Dubloon Pro Yearly";
+"halloweenDeal.priceLine" = "%1$@ za první rok, potom %2$@ ročně.";
+"halloweenDeal.terms" = "Platba se strhne z tvého účtu Apple po potvrzení. Předplatné se automaticky obnovuje za %@ ročně, pokud ho nezrušíš alespoň 24 hodin před koncem aktuálního roku. Spravovat nebo zrušit ho můžeš v nastavení účtu Apple.";
+"halloweenDeal.continue" = "Pokračovat";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "Ikona aplikace";

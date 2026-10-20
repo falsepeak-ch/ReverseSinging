@@ -4,3 +4,5 @@
 "NSMicrophoneUsageDescription" = "O Dubloon precisa do microfone para gravar a tua voz enquanto jogas: dobrar cenas e imitar sons.";
 
 "NSCameraUsageDescription" = "O Dubloon usa a câmara frontal para te filmar enquanto dobras, para poderes partilhar a tua reação juntamente com a gravação. A filmagem fica desligada até a ligares.";
+
+"NSPhotoLibraryAddUsageDescription" = "O Dubloon adiciona a tua dobragem terminada às Fotografias quando escolhes Guardar vídeo. Nunca lê nada do que já está na tua fototeca.";

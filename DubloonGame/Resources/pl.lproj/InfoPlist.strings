@@ -4,3 +4,5 @@
 "NSMicrophoneUsageDescription" = "Dubloon potrzebuje mikrofonu, by nagrywać twój głos podczas gry: dubbing scen i naśladowanie dźwięków.";
 
 "NSCameraUsageDescription" = "Dubloon nagrywa cię przednim aparatem podczas dubbingu, żebyś mógł udostępnić swoją reakcję razem z ujęciem. Aparat jest wyłączony, dopóki go nie włączysz.";
+
+"NSPhotoLibraryAddUsageDescription" = "Dubloon dodaje gotowy dubbing do Zdjęć, gdy wybierzesz Zapisz wideo. Nigdy nie odczytuje niczego, co już jest w Twojej bibliotece.";

@@ -767,6 +767,11 @@
 "halloweenDeal.title" = "Pro の最初の1年が %@";
 "halloweenDeal.renewal" = "その後は年額 %@。いつでも解約できます。";
 "halloweenDeal.claim" = "受け取る";
+"halloweenDeal.until" = "%@まで";
+"halloweenDeal.planName" = "Dubloon Pro Yearly";
+"halloweenDeal.priceLine" = "初年度%1$@、その後は年額%2$@。";
+"halloweenDeal.terms" = "お支払いは確定時にApple Accountに請求されます。現在の年の終了の24時間以上前に解約しない限り、サブスクリプションは年額%@で自動更新されます。管理や解約はApple Accountの設定から行えます。";
+"halloweenDeal.continue" = "続ける";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "アプリアイコン";

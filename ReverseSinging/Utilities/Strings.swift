@@ -551,7 +551,12 @@ nonisolated enum Strings {
         static let badge = NSLocalizedString("halloweenDeal.badge", comment: "Small label on the Halloween offer banner, shown upper-cased")
         static let title = NSLocalizedString("halloweenDeal.title", comment: "Halloween banner headline: the first year of Dubloon Pro costs %@ (a localized price)")
         static let renewal = NSLocalizedString("halloweenDeal.renewal", comment: "Under the Halloween headline: each later year costs %@ (a localized price)")
-        static let claim = NSLocalizedString("halloweenDeal.claim", comment: "Button on the Halloween banner that buys the offer")
+        static let claim = NSLocalizedString("halloweenDeal.claim", comment: "Button on the Halloween banner that opens the offer's terms")
+        static let until = NSLocalizedString("halloweenDeal.until", comment: "On the Halloween banner: the deal's last day, %@ is a day and month such as '2 November'")
+        static let planName = NSLocalizedString("halloweenDeal.planName", comment: "Heading of the Halloween offer's terms: the subscription's name")
+        static let priceLine = NSLocalizedString("halloweenDeal.priceLine", comment: "Halloween offer terms: %1$@ is the first year's price, %2$@ the price of each later year (localized prices)")
+        static let terms = NSLocalizedString("halloweenDeal.terms", comment: "Halloween offer terms: how the subscription is charged, renews (at %@ a year) and is cancelled")
+        static let continueTitle = NSLocalizedString("halloweenDeal.continue", comment: "Button under the Halloween offer's terms that opens the App Store purchase sheet")
     }
 
     /// Scary movie scenes to dub, at the top of the dub library while the Halloween banner is on.

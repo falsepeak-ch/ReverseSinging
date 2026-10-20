@@ -4,3 +4,5 @@
 "NSMicrophoneUsageDescription" = "Dubloonはプレイ中にあなたの声を録音するためにマイクを使います：シーンの吹き替えと音マネ。";
 
 "NSCameraUsageDescription" = "アフレコ中のあなたをフロントカメラで撮影し、リアクションと一緒に共有できるようにするために、Dubloonがカメラを使用します。撮影はオンにするまで行われません。";
+
+"NSPhotoLibraryAddUsageDescription" = "「ビデオを保存」を選ぶと、Dubloonは完成したアフレコを写真に追加します。ライブラリにある既存の項目を読み取ることはありません。";

@@ -4,3 +4,5 @@
 "NSMicrophoneUsageDescription" = "Dubloon potřebuje mikrofon, aby při hraní nahrával tvůj hlas: dabing scén a napodobování zvuků.";
 
 "NSCameraUsageDescription" = "Dubloon tě při dabování natáčí přední kamerou, ať můžeš svou reakci sdílet spolu s nahrávkou. Kamera zůstává vypnutá, dokud ji nezapneš.";
+
+"NSPhotoLibraryAddUsageDescription" = "Dubloon přidá hotový dabing do Fotek, když zvolíš Uložit video. Nikdy nečte nic, co už v knihovně máš.";

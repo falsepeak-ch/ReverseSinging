@@ -767,6 +767,11 @@
 "halloweenDeal.title" = "Ensimmäinen Pro-vuosi hintaan %@";
 "halloweenDeal.renewal" = "Sen jälkeen %@ vuodessa. Peru milloin vain.";
 "halloweenDeal.claim" = "Ota tarjous";
+"halloweenDeal.until" = "%@ asti";
+"halloweenDeal.planName" = "Dubloon Pro Yearly";
+"halloweenDeal.priceLine" = "%1$@ ensimmäinen vuosi, sen jälkeen %2$@ vuodessa.";
+"halloweenDeal.terms" = "Maksu veloitetaan Apple-tililtäsi, kun vahvistat. Tilaus uusiutuu automaattisesti hintaan %@ vuodessa, ellet peru sitä vähintään 24 tuntia ennen kuluvan vuoden loppua. Voit hallita tai perua sen Apple-tilisi asetuksissa.";
+"halloweenDeal.continue" = "Jatka";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "Sovelluksen kuvake";

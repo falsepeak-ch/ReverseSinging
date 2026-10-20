@@ -4,3 +4,5 @@
 "NSMicrophoneUsageDescription" = "Dubloon necessita el micròfon per gravar la teva veu mentre jugues: doblar escenes i imitar sons.";
 
 "NSCameraUsageDescription" = "Dubloon fa servir la càmera frontal per gravar-te mentre dobles, i així puguis compartir la teva reacció amb la presa. La gravació està desactivada fins que tu l'activis.";
+
+"NSPhotoLibraryAddUsageDescription" = "Dubloon afegeix el teu doblatge acabat a Fotos quan tries Desa el vídeo. Mai llegeix res del que ja tens a la biblioteca.";

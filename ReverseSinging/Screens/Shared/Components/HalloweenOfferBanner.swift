@@ -2,16 +2,17 @@
 //  HalloweenOfferBanner.swift
 //  ReverseSinging
 //
-//  The Halloween deal, pinned over the games with a countdown to its last day.
+//  The Halloween deal, pinned over the games with its last day.
 //
 
 import SwiftUI
 
-/// The first year of Dubloon Pro at its Halloween price, and how long is left to take it.
+/// The first year of Dubloon Pro at its Halloween price, and its last day.
 ///
 /// It stays put above the games rather than scrolling with them, and it is drawn in its own
 /// night colours in either appearance: it is a poster for two weeks, not part of the editor.
-/// The whole card is the button; it opens the store's own sheet for the Halloween plan.
+/// The whole card is the button; it opens `HalloweenDealModal`, which states the plan's terms
+/// and links before the store's own sheet.
 struct HalloweenOfferBanner: View {
 
     let introPrice: String
@@ -42,7 +43,7 @@ struct HalloweenOfferBanner: View {
                             .foregroundStyle(Night.coral)
                             .lineLimit(1)
 
-                        countdown
+                        lastDay
                     }
 
                     Text(String(format: Strings.HalloweenDeal.title, introPrice))
@@ -85,19 +86,17 @@ struct HalloweenOfferBanner: View {
 
     // MARK: - Parts
 
-    /// Ticks every second, so the last day feels like the last day.
-    private var countdown: some View {
-        TimelineView(.periodic(from: .now, by: 1)) { context in
-            Text(Self.remaining(until: endDate, from: context.date))
-                .font(.system(size: 11, weight: .bold, design: .rounded))
-                .monospacedDigit()
-                .foregroundStyle(Night.night)
-                .padding(.horizontal, 6)
-                .padding(.vertical, 2)
-                .background(Capsule().fill(Night.cream))
-                .lineLimit(1)
-                .fixedSize()
-        }
+    /// The deal's last day, as a date rather than a ticking clock: App Review reads a running
+    /// countdown on a purchase as pressure, and the date says the same thing calmly.
+    private var lastDay: some View {
+        Text(Self.lastDayText(before: endDate))
+            .font(.system(size: 11, weight: .bold, design: .rounded))
+            .foregroundStyle(Night.night)
+            .padding(.horizontal, 6)
+            .padding(.vertical, 2)
+            .background(Capsule().fill(Night.cream))
+            .lineLimit(1)
+            .fixedSize()
     }
 
     private var claim: some View {
@@ -134,20 +133,17 @@ struct HalloweenOfferBanner: View {
             Strings.HalloweenDeal.badge,
             String(format: Strings.HalloweenDeal.title, introPrice),
             String(format: Strings.HalloweenDeal.renewal, renewalPrice),
-            Self.remaining(until: endDate, from: Date()),
+            Self.lastDayText(before: endDate),
             Strings.HalloweenDeal.claim,
         ].joined(separator: ". ")
     }
 
-    /// `13d 4h 12m` while there are days left, then down to the second, in the phone's
-    /// language.
-    static func remaining(until end: Date, from now: Date) -> String {
-        let seconds = max(0, end.timeIntervalSince(now))
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .abbreviated
-        formatter.allowedUnits = seconds >= 86_400 ? [.day, .hour, .minute] : [.hour, .minute, .second]
-        formatter.zeroFormattingBehavior = .dropLeading
-        return formatter.string(from: seconds) ?? ""
+    /// "Until 2 Nov": the last day the banner shows, which is the day before `end`
+    /// (local midnight), in the phone's language.
+    static func lastDayText(before end: Date) -> String {
+        let lastDay = Calendar.current.date(byAdding: .day, value: -1, to: end) ?? end
+        let date = lastDay.formatted(.dateTime.day().month(.abbreviated))
+        return String(format: Strings.HalloweenDeal.until, date)
     }
 }
 

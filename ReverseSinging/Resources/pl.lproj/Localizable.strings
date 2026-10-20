@@ -767,6 +767,11 @@
 "halloweenDeal.title" = "Pierwszy rok Pro za %@";
 "halloweenDeal.renewal" = "Potem %@ rocznie. Anuluj w dowolnej chwili.";
 "halloweenDeal.claim" = "Odbierz";
+"halloweenDeal.until" = "Do %@";
+"halloweenDeal.planName" = "Dubloon Pro Yearly";
+"halloweenDeal.priceLine" = "%1$@ za pierwszy rok, potem %2$@ rocznie.";
+"halloweenDeal.terms" = "Opłata zostanie pobrana z Twojego konta Apple po potwierdzeniu. Subskrypcja odnawia się automatycznie za %@ rocznie, chyba że anulujesz ją co najmniej 24 godziny przed końcem bieżącego roku. Możesz nią zarządzać lub ją anulować w ustawieniach konta Apple.";
+"halloweenDeal.continue" = "Dalej";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "Ikona aplikacji";

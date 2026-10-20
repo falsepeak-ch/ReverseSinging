@@ -767,6 +767,11 @@
 "halloweenDeal.title" = "Ο πρώτος χρόνος Pro με %@";
 "halloweenDeal.renewal" = "Έπειτα %@ τον χρόνο. Ακύρωση οποτεδήποτε.";
 "halloweenDeal.claim" = "Το θέλω";
+"halloweenDeal.until" = "Έως %@";
+"halloweenDeal.planName" = "Dubloon Pro Yearly";
+"halloweenDeal.priceLine" = "%1$@ τον πρώτο χρόνο, μετά %2$@ τον χρόνο.";
+"halloweenDeal.terms" = "Η χρέωση γίνεται στον λογαριασμό Apple σου μόλις επιβεβαιώσεις. Η συνδρομή ανανεώνεται αυτόματα στα %@ τον χρόνο, εκτός αν την ακυρώσεις τουλάχιστον 24 ώρες πριν από το τέλος του τρέχοντος έτους. Διαχειρίσου ή ακύρωσέ τη από τις ρυθμίσεις του λογαριασμού Apple σου.";
+"halloweenDeal.continue" = "Συνέχεια";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "Εικονίδιο εφαρμογής";

@@ -767,6 +767,11 @@
 "halloweenDeal.title" = "ปีแรกของ Pro เพียง %@";
 "halloweenDeal.renewal" = "จากนั้น %@ ต่อปี ยกเลิกได้ทุกเมื่อ";
 "halloweenDeal.claim" = "รับเลย";
+"halloweenDeal.until" = "ถึง %@";
+"halloweenDeal.planName" = "Dubloon Pro Yearly";
+"halloweenDeal.priceLine" = "ปีแรก %1$@ จากนั้นปีละ %2$@";
+"halloweenDeal.terms" = "ระบบจะเรียกเก็บเงินจากบัญชี Apple ของคุณเมื่อคุณยืนยัน การสมัครสมาชิกจะต่ออายุอัตโนมัติในราคาปีละ %@ เว้นแต่คุณจะยกเลิกอย่างน้อย 24 ชั่วโมงก่อนสิ้นปีปัจจุบัน จัดการหรือยกเลิกได้ในการตั้งค่าบัญชี Apple ของคุณ";
+"halloweenDeal.continue" = "ดำเนินการต่อ";
 
 /* App icon picker in Settings */
 "settings.appIcon" = "ไอคอนแอป";

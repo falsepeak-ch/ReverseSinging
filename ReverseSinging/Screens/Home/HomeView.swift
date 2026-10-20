@@ -18,6 +18,8 @@ struct HomeView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @StateObject private var viewModel = HomeViewModel()
     @State private var isHelpPresented = false
+    /// The Halloween plan's terms, shown before the store's sheet. See `HalloweenDealModal`.
+    @State private var isHalloweenDealPresented = false
 
     /// The reverse game's model. Held by the menu rather than by the game screen, so a
     /// session in progress survives going back to the menu and in again.
@@ -133,7 +135,7 @@ struct HomeView: View {
                     endDate: deal.endDate,
                     isPurchasing: viewModel.isClaimingHalloweenDeal
                 ) {
-                    viewModel.claimHalloweenDeal()
+                    isHalloweenDealPresented = true
                 }
                 .padding(.horizontal, EditorMetrics.gutter)
                 .padding(.top, 12)
@@ -143,6 +145,16 @@ struct HomeView: View {
             games
         }
         .animation(.rsQuick, value: viewModel.halloweenDeal != nil)
+        .editorModal(isPresented: $isHalloweenDealPresented) {
+            if let deal = viewModel.halloweenDeal {
+                HalloweenDealModal(deal: deal) {
+                    isHalloweenDealPresented = false
+                    viewModel.claimHalloweenDeal()
+                } onClose: {
+                    isHalloweenDealPresented = false
+                }
+            }
+        }
         .padding(.top, EditorMetrics.headerBarHeight)
         .task { await viewModel.loadHalloweenDeal() }
     }

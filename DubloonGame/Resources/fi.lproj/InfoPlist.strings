@@ -4,3 +4,5 @@
 "NSMicrophoneUsageDescription" = "Dubloon tarvitsee mikrofonia tallentaakseen äänesi pelatessasi: kohtausten dubbaus ja äänten matkiminen.";
 
 "NSCameraUsageDescription" = "Dubloon kuvaa sinua etukameralla dubatessasi, jotta voit jakaa reaktiosi oton ohella. Kuvaus on pois päältä, kunnes otat sen käyttöön.";
+
+"NSPhotoLibraryAddUsageDescription" = "Dubloon lisää valmiin dubbauksesi Kuviin, kun valitset Tallenna video. Se ei koskaan lue mitään, mitä kirjastossasi jo on.";
