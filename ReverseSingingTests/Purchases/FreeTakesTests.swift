@@ -2,7 +2,7 @@
 //  FreeTakesTests.swift
 //  ReverseSinging
 //
-//  Three free takes, counted across every game.
+//  Seven free takes, counted across every game.
 //
 
 import Testing
@@ -49,7 +49,7 @@ struct FreeTakesTests {
 
         let relaunched = FreeTakes(defaults: defaults)
         #expect(relaunched.used == 2)
-        #expect(relaunched.remaining == 1)
+        #expect(relaunched.remaining == FreeTakes.limit - 2)
     }
 
     @Test func theRemainingCountNeverGoesNegative() {
@@ -59,7 +59,7 @@ struct FreeTakesTests {
         #expect(takes.remaining == 0)
     }
 
-    /// Two takes in, a third may still start; three in, it may not.
+    /// One take short of the limit, another may still start; at the limit, it may not.
     @Test func aTakeMayStartWhileOneIsLeft() {
         withAccess(.locked, used: FreeTakes.limit - 1) { access in
             #expect(access.canStartTake)

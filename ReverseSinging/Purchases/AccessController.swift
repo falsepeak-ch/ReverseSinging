@@ -38,7 +38,7 @@ nonisolated enum AccessState: Equatable {
 /// **The rule is fixed, and it is short.** Someone who owns Dubloon Pro has
 /// everything. Everyone else is `locked` from the first launch, and nothing outside the
 /// binary can change that. What `locked` costs them is a count, not a game: every game
-/// opens, and the first three takes are free across all of them (`FreeTakes`). The games
+/// opens, and the first seven takes are free across all of them (`FreeTakes`). The games
 /// ask `canStartTake` before a take and report each finished one to `recordTake(_:)`.
 ///
 /// Nothing waits on the network to say so. A purchase is remembered on the device,

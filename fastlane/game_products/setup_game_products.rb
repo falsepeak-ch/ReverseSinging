@@ -25,7 +25,7 @@ ISSUER = "59e10bb5-bb9e-43ce-b654-26849e933f8c"
 KEY_PATH = File.expand_path("../AuthKey_#{KEY_ID}.p8", __dir__)
 BUNDLE_ID = "com.falsepeak.dubloon-game"
 REVIEW_NOTE = "Dubloon Pro unlocks unlimited takes in both games (Movie Scene Dub and Sound Imitation). " \
-              "Without it, players get three free takes in total; the paywall appears when they run out, " \
+              "Without it, players get seven free takes in total; the paywall appears when they run out, " \
               "and from the gold Pro button on the home stage."
 
 LIFETIME = { id: "com.falsepeak.dubloon_game.lifetime", ref: "Dubloon Game Lifetime", price: "3.99",

@@ -12,7 +12,7 @@ Each states its provenance (film, year, producer, terms, links) on the scene scr
 
 THE PURCHASE
 
-The Mac app shares the iPhone app's record and in-app purchases (universal purchase). Free to download, with no trial. All four games open for everyone. The first 3 takes are free, counted across all games. After the third the purchase screen opens, and each new take asks for a purchase, which a sandbox account can make.
+The Mac app shares the iPhone app's record and in-app purchases (universal purchase). Free to download, with no trial. All four games open for everyone. The first 7 takes are free, counted across all games. After the seventh the purchase screen opens, and each new take asks for a purchase, which a sandbox account can make.
 
 Any of three products unlocks the same content: the non-consumable "com.falsepeak.reverse_singing_ios.lifetime", or the auto-renewable subscriptions "com.falsepeak.reverse_singing_ios.monthly" and "com.falsepeak.reverse_singing_ios.yearly" (7-day free trial on the yearly). The purchase screen shows either the lifetime product alone or the two subscriptions, chosen per install by a remote test.
 

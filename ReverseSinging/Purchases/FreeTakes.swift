@@ -20,14 +20,14 @@ nonisolated enum FreeTakeKind: String {
 }
 
 /// Every game is open to everyone, and the first `limit` takes are free, counted together
-/// across the games: three lines dubbed, or two lines and a reversed song, use them up. After
+/// across the games: seven lines dubbed, or six lines and a reversed song, use them up. After
 /// that the games still open, but a new take asks for Dubloon Pro.
 ///
 /// Counted on the device, like a purchase is remembered there, so the answer needs no network.
 /// A reinstall starts the count again; that is accepted rather than fought.
 struct FreeTakes {
 
-    nonisolated static let limit = 3
+    nonisolated static let limit = 7
 
     static let shared = FreeTakes()
 
