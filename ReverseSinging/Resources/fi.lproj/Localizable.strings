@@ -473,6 +473,8 @@
 "homeVideo.pause" = "Tauko";
 "homeVideo.error.load" = "Videota ei voitu avata. Kokeile toista.";
 "homeVideo.error.mix" = "Ääntäsi ei voitu lisätä videoon. Äänitä uudelleen.";
+"homeVideo.error.tooShort" = "Video on liian lyhyt. Valitse vähintään sekunnin mittainen.";
+"homeVideo.error.sourceGone" = "Video ei ole enää laitteella. Valitse se uudelleen äänittääksesi.";
 "imitate.library.hint" = "Valitse ääni, kuuntele ja tee paras imitaatiosi.";
 "imitate.library.best" = "Ennätys";
 "imitate.library.untried" = "Uusi";

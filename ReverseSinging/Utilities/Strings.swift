@@ -644,6 +644,8 @@ nonisolated enum Strings {
         static let pause = NSLocalizedString("homeVideo.pause", comment: "Accessibility label: pause the video")
         static let loadFailed = NSLocalizedString("homeVideo.error.load", comment: "Error when the picked video can't be opened")
         static let mixFailed = NSLocalizedString("homeVideo.error.mix", comment: "Error when the voice couldn't be added to the video")
+        static let tooShort = NSLocalizedString("homeVideo.error.tooShort", comment: "Error when the picked video is under half a second long")
+        static let sourceGone = NSLocalizedString("homeVideo.error.sourceGone", comment: "Error when the picked video's copy is no longer on the device and must be picked again")
     }
 
     enum Imitate {

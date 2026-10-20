@@ -473,6 +473,8 @@
 "homeVideo.pause" = "إيقاف مؤقت";
 "homeVideo.error.load" = "تعذّر فتح هذا الفيديو. جرّب فيديو آخر.";
 "homeVideo.error.mix" = "تعذّرت إضافة صوتك إلى الفيديو. سجّل من جديد.";
+"homeVideo.error.tooShort" = "هذا الفيديو قصير جدًا. اختر فيديو مدته ثانية واحدة على الأقل.";
+"homeVideo.error.sourceGone" = "لم يعد هذا الفيديو على الجهاز. اختره من جديد لتسجيل صوتك.";
 "imitate.library.hint" = "اختر صوتًا، استمع إليه، ثم قدّم أفضل تقليد لديك.";
 "imitate.library.best" = "الأفضل";
 "imitate.library.untried" = "جديد";

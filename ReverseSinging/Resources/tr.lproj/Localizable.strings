@@ -473,6 +473,8 @@
 "homeVideo.pause" = "Duraklat";
 "homeVideo.error.load" = "Bu video açılamadı. Başka bir tane dene.";
 "homeVideo.error.mix" = "Sesin videoya eklenemedi. Yeniden kaydet.";
+"homeVideo.error.tooShort" = "Bu video çok kısa. En az bir saniyelik bir video seç.";
+"homeVideo.error.sourceGone" = "Bu video artık cihazda değil. Kaydetmek için onu yeniden seç.";
 "imitate.library.hint" = "Bir ses seç, dinle ve en iyi taklidini yap.";
 "imitate.library.best" = "Rekor";
 "imitate.library.untried" = "Yeni";

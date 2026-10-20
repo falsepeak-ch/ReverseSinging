@@ -473,6 +473,8 @@
 "homeVideo.pause" = "Pause";
 "homeVideo.error.load" = "Den videoen kunne ikke åpnes. Prøv en annen.";
 "homeVideo.error.mix" = "Stemmen din kunne ikke legges på videoen. Ta opp på nytt.";
+"homeVideo.error.tooShort" = "Den videoen er for kort. Velg en som er minst ett sekund lang.";
+"homeVideo.error.sourceGone" = "Den videoen er ikke lenger på enheten. Velg den på nytt for å ta opp.";
 "imitate.library.hint" = "Velg en lyd, lytt, og gi den din beste etterligning.";
 "imitate.library.best" = "Rekord";
 "imitate.library.untried" = "Ny";

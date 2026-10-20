@@ -29,11 +29,17 @@ enum AudioSessionError: LocalizedError {
         return false
     }
 
+    /// `'nope'`, `kAudioHardwareIllegalOperationError`: the hardware itself turned the engine
+    /// down, with the session already active. Seen right after a fresh install, before anything
+    /// else in the app had played, so it is the device's moment, not a bad graph.
+    static let hardwareRefusedCode = 1_852_797_029
+
     /// The `AVAudioSession.ErrorCode`s that mean "not now" rather than "never".
     static func classify(_ error: Error) -> AudioSessionError {
         #if os(macOS)
         return .activationFailed(error)
         #else
+        if (error as NSError).code == hardwareRefusedCode { return .inUseElsewhere(error) }
         let code = AVAudioSession.ErrorCode(rawValue: (error as NSError).code)
         switch code {
         case .insufficientPriority, .cannotInterruptOthers, .isBusy, .siriIsRecording,

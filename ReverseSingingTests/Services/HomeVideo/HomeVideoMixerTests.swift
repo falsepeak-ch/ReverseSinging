@@ -71,6 +71,31 @@ struct HomeVideoMixerTests {
         #expect(abs(onset - 0.5) < 0.015, "voice starts at \(onset) s")
     }
 
+    /// What players saw as AVFoundation -11800: a clip measured, then its copy swept away by a
+    /// second import landing after it. The studio now checks the file before recording or mixing.
+    @Test(.timeLimit(.minutes(1)))
+    func mixingAClipWhoseFileIsGoneFailsTheWayPlayersSawIt() async throws {
+        let clip = temporaryURL("mov")
+        let voice = temporaryURL("caf")
+        let output = temporaryURL("mp4")
+        defer {
+            for url in [clip, voice, output] { try? FileManager.default.removeItem(at: url) }
+        }
+        try await writeClip(to: clip, seconds: 1)
+        try writeTone(to: voice, seconds: 1, onset: 0.2)
+        let source = try await HomeVideoMixer.inspect(clip)
+        try FileManager.default.removeItem(at: clip)
+
+        do {
+            _ = try await HomeVideoMixer.render(source: source, voice: voice, keepOriginal: false, to: output)
+            Issue.record("rendered without its clip")
+        } catch {
+            let failed = error as NSError
+            #expect(failed.domain == "AVFoundationErrorDomain")
+            #expect(failed.code == -11800)
+        }
+    }
+
     // MARK: - Fixtures
 
     private func temporaryURL(_ ext: String) -> URL {

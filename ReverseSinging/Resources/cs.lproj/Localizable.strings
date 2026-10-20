@@ -473,6 +473,8 @@
 "homeVideo.pause" = "Pauza";
 "homeVideo.error.load" = "Toto video se nepodařilo otevřít. Zkus jiné.";
 "homeVideo.error.mix" = "Tvůj hlas se nepodařilo přidat do videa. Nahraj znovu.";
+"homeVideo.error.tooShort" = "Toto video je příliš krátké. Vyber takové, které má aspoň sekundu.";
+"homeVideo.error.sourceGone" = "Toto video už v zařízení není. Vyber ho znovu a nahraj svůj záznam.";
 "imitate.library.hint" = "Vyber zvuk, poslechni si ho a předveď svou nejlepší imitaci.";
 "imitate.library.best" = "Rekord";
 "imitate.library.untried" = "Nové";

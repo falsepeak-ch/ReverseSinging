@@ -473,6 +473,8 @@
 "homeVideo.pause" = "Pausa";
 "homeVideo.error.load" = "Impossibile aprire quel video. Provane un altro.";
 "homeVideo.error.mix" = "Impossibile aggiungere la tua voce al video. Registra di nuovo.";
+"homeVideo.error.tooShort" = "Quel video è troppo corto. Scegline uno di almeno un secondo.";
+"homeVideo.error.sourceGone" = "Quel video non è più sul dispositivo. Sceglilo di nuovo per registrare la tua take.";
 "imitate.library.hint" = "Scegli un suono, ascoltalo e fai la tua migliore imitazione.";
 "imitate.library.best" = "Record";
 "imitate.library.untried" = "Nuovo";

@@ -473,6 +473,8 @@
 "homeVideo.pause" = "หยุดชั่วคราว";
 "homeVideo.error.load" = "เปิดวิดีโอนี้ไม่ได้ ลองวิดีโออื่น";
 "homeVideo.error.mix" = "ใส่เสียงของคุณลงในวิดีโอไม่ได้ ลองอัดใหม่";
+"homeVideo.error.tooShort" = "วิดีโอนี้สั้นเกินไป เลือกวิดีโอที่ยาวอย่างน้อยหนึ่งวินาที";
+"homeVideo.error.sourceGone" = "วิดีโอนี้ไม่อยู่ในอุปกรณ์แล้ว เลือกใหม่อีกครั้งเพื่ออัดเสียง";
 "imitate.library.hint" = "เลือกเสียง ฟัง แล้วเลียนให้เหมือนที่สุด";
 "imitate.library.best" = "ดีที่สุด";
 "imitate.library.untried" = "ใหม่";

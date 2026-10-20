@@ -349,12 +349,21 @@ final class DubPlayer: ObservableObject {
         do {
             if !engine.isRunning {
                 engine.prepare()
-                try engine.start()
+                do {
+                    try engine.start()
+                } catch where (error as NSError).code == AudioSessionError.hardwareRefusedCode {
+                    // `'nope'` a moment after the session came up: one more go costs nothing.
+                    CrashReporter.shared.log("dub_player.engine_start retrying after 'nope'")
+                    engine.stop()
+                    engine.prepare()
+                    try engine.start()
+                }
             }
         } catch {
             print("❌ DubPlayer failed to start engine: \(error)")
-            // `!pri`: a call or another app outranks this one for the hardware. The session
-            // activated a moment ago, but the engine is the one told no.
+            // `!pri`: a call or another app outranks this one for the hardware; `'nope'`: the
+            // hardware said no twice. The session activated a moment ago, but the engine is
+            // the one told no.
             if AudioSessionError.classify(error).isEnvironmental {
                 CrashReporter.shared.log("dub_player.engine_start refused: \((error as NSError).code)")
                 playbackErrorMessage = Strings.Error.audioInUse

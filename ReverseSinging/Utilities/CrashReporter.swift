@@ -101,9 +101,26 @@ nonisolated final class CrashReporter: Sendable {
         }
 
         let reported = error as NSError
+        // Only domain and code survive the rebuild below, so the cause underneath is spelled
+        // out: an AVFoundation -11800 says nothing until its -17913 (no such file) is seen.
+        if let chain = Self.underlyingChain(of: reported) {
+            info["underlying"] = chain
+        }
         Crashlytics.crashlytics().record(
             error: NSError(domain: reported.domain, code: reported.code, userInfo: info)
         )
+    }
+
+    /// "NSOSStatusErrorDomain -17913 < NSPOSIXErrorDomain 2", nearest cause first, a few
+    /// levels deep. Nil when nothing is underneath.
+    static func underlyingChain(of error: NSError) -> String? {
+        var links: [String] = []
+        var next = error.userInfo[NSUnderlyingErrorKey] as? NSError
+        while let current = next, links.count < 4 {
+            links.append("\(current.domain) \(current.code)")
+            next = current.userInfo[NSUnderlyingErrorKey] as? NSError
+        }
+        return links.isEmpty ? nil : links.joined(separator: " < ")
     }
 
     // MARK: - Environmental Errors

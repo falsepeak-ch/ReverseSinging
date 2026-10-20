@@ -473,6 +473,8 @@
 "homeVideo.pause" = "Пауза";
 "homeVideo.error.load" = "Не вдалося відкрити це відео. Спробуй інше.";
 "homeVideo.error.mix" = "Не вдалося додати голос до відео. Запиши знову.";
+"homeVideo.error.tooShort" = "Це відео надто коротке. Обери ролик щонайменше на секунду.";
+"homeVideo.error.sourceGone" = "Цього відео більше немає на пристрої. Обери його знову, щоб записати дубль.";
 "imitate.library.hint" = "Обери звук, послухай і зобрази його якнайкраще.";
 "imitate.library.best" = "Рекорд";
 "imitate.library.untried" = "Новий";

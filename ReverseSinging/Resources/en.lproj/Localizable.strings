@@ -473,6 +473,8 @@
 "homeVideo.pause" = "Pause";
 "homeVideo.error.load" = "That video couldn't be opened. Try another one.";
 "homeVideo.error.mix" = "Your voice couldn't be added to the video. Try recording again.";
+"homeVideo.error.tooShort" = "That video is too short. Pick one that's at least a second long.";
+"homeVideo.error.sourceGone" = "That video is no longer on this device. Pick it again to record your take.";
 "imitate.library.hint" = "Pick a sound, listen, then do your best impression.";
 "imitate.library.best" = "Best";
 "imitate.library.untried" = "New";

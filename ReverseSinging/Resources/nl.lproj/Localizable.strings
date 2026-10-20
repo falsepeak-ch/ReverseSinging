@@ -473,6 +473,8 @@
 "homeVideo.pause" = "Pauze";
 "homeVideo.error.load" = "Die video kon niet worden geopend. Probeer een andere.";
 "homeVideo.error.mix" = "Je stem kon niet aan de video worden toegevoegd. Neem opnieuw op.";
+"homeVideo.error.tooShort" = "Die video is te kort. Kies er een van minstens een seconde.";
+"homeVideo.error.sourceGone" = "Die video staat niet meer op dit apparaat. Kies hem opnieuw om je take op te nemen.";
 "imitate.library.hint" = "Kies een geluid, luister en doe je beste imitatie.";
 "imitate.library.best" = "Record";
 "imitate.library.untried" = "Nieuw";

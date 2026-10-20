@@ -33,7 +33,7 @@ nonisolated enum HomeVideoMixer {
 
     private static let sampleRate: Double = 44_100
 
-    enum MixError: LocalizedError {
+    enum MixError: LocalizedError, CustomNSError {
         case noPicture
         case tooShort
         case bufferFailed
@@ -47,6 +47,14 @@ nonisolated enum HomeVideoMixer {
             case .bufferFailed: return "Could not allocate an audio buffer"
             case .readFailed(let error): return "Could not read the video's sound: \(error?.localizedDescription ?? "unknown")"
             case .exportFailed(let error): return "Could not write the video: \(error?.localizedDescription ?? "unknown")"
+            }
+        }
+
+        /// The AVFoundation error behind a read or a write, where a crash report can find it.
+        var errorUserInfo: [String: Any] {
+            switch self {
+            case .readFailed(let error?), .exportFailed(let error?): [NSUnderlyingErrorKey: error]
+            default: [:]
             }
         }
     }

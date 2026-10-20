@@ -473,6 +473,8 @@
 "homeVideo.pause" = "Pausa";
 "homeVideo.error.load" = "No s'ha pogut obrir aquest vídeo. Prova'n un altre.";
 "homeVideo.error.mix" = "No s'ha pogut afegir la teva veu al vídeo. Torna a gravar.";
+"homeVideo.error.tooShort" = "Aquest vídeo és massa curt. Tria'n un d'almenys un segon.";
+"homeVideo.error.sourceGone" = "Aquest vídeo ja no és en aquest dispositiu. Torna'l a triar per gravar la teva presa.";
 "imitate.library.hint" = "Tria un so, escolta'l i fes la teva millor imitació.";
 "imitate.library.best" = "Rècord";
 "imitate.library.untried" = "Nou";

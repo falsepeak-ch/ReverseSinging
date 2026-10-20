@@ -77,6 +77,9 @@ final class HomeVideoDubViewModel: ObservableObject {
     /// A new take whose mix has not landed yet, so it has not been counted as a free take.
     private var isTakeUncounted = false
     private var autoStopTask: Task<Void, Never>?
+    /// Bumped by every import, so only the latest to start lands. Two can overlap: Photos takes
+    /// a while to hand over a long clip, and a second tap in the picker starts another.
+    private var importGeneration = 0
     private var timeObserver: Any?
     private var endObserver: NSObjectProtocol?
     private var cancellables = Set<AnyCancellable>()
@@ -152,12 +155,33 @@ final class HomeVideoDubViewModel: ObservableObject {
 
     private func load(_ item: PhotosPickerItem) {
         importVideo {
-            guard let picked = try await item.loadTransferable(type: HomeVideoPick.self) else {
+            guard let url = try await Self.loadFile(of: item) else {
                 throw HomeVideoMixer.MixError.noPicture
             }
-            return picked.url
+            return url
         }
         pickerItem = nil
+    }
+
+    /// As a movie first; then, when Photos offers nothing that conforms to `.movie` (it answers
+    /// with `TransferableSupportError`), as whatever file it does have, which `inspect` then
+    /// accepts or turns down on what AVFoundation finds in it.
+    private static func loadFile(of item: PhotosPickerItem) async throws -> URL? {
+        do {
+            return try await item.loadTransferable(type: HomeVideoPick.self)?.url
+        } catch where (error as NSError).domain.hasSuffix("TransferableSupportError") {
+            // Logged rather than recorded: the lines ride along on the `home_video.load` report
+            // if the fallback fails too, and say which types the item offered.
+            let types = item.supportedContentTypes.map(\.identifier).joined(separator: ",")
+            CrashReporter.shared.log("home_video.load no movie representation: \(types)")
+            do {
+                return try await item.loadTransferable(type: HomeVideoAnyFile.self)?.url
+            } catch let fallback {
+                let failed = fallback as NSError
+                CrashReporter.shared.log("home_video.load fallback failed: \(failed.domain) \(failed.code)")
+                throw error
+            }
+        }
     }
 
     /// A video file handed over directly rather than through Photos: the Mac's Open panel, or a
@@ -181,11 +205,20 @@ final class HomeVideoDubViewModel: ObservableObject {
         player.pause()
         isPlaying = false
         phase = .importing
+        importGeneration += 1
+        let generation = importGeneration
 
         Task {
             do {
                 let url = try await copy()
                 let measured = try await HomeVideoMixer.inspect(url)
+                // A newer pick started while this one was copying. Both used to land, and the
+                // second to finish swept away the first one's file, leaving a source with no
+                // file behind it: the take recorded, then the mix failed with -11800.
+                guard generation == importGeneration else {
+                    try? FileManager.default.removeItem(at: url)
+                    return
+                }
                 HomeVideoMixer.removeWorkingFiles(except: url)
                 source = measured
                 resultURL = nil
@@ -199,7 +232,14 @@ final class HomeVideoDubViewModel: ObservableObject {
                 )
                 await loadOriginalWaveform(of: measured)
             } catch {
+                // The newer pick owns the screen, and its own copy may be what removed this file.
+                guard generation == importGeneration else { return }
                 phase = source == nil ? .empty : (resultURL == nil ? .ready : .review)
+                if case HomeVideoMixer.MixError.tooShort = error {
+                    // A clip under half a second: the user's pick, not the app's failure.
+                    errorMessage = Strings.HomeVideo.tooShort
+                    return
+                }
                 errorMessage = Strings.HomeVideo.loadFailed
                 CrashReporter.shared.record(error, context: "home_video.load")
             }
@@ -285,6 +325,7 @@ final class HomeVideoDubViewModel: ObservableObject {
 
     private func startRecording() {
         guard let source else { return }
+        guard sourceFileIsThere(source) else { return }
         guard AccessController.shared.canStartTake else {
             isTakePaywallPresented = true
             return
@@ -393,8 +434,27 @@ final class HomeVideoDubViewModel: ObservableObject {
 
     // MARK: - Mixing
 
+    /// The picked clip is a copy in Caches, which iOS may empty while the app is away. Rather
+    /// than a take that can't be mixed, or a mix that fails, the studio goes back to the picker
+    /// and says why.
+    private func sourceFileIsThere(_ source: HomeVideoMixer.Source) -> Bool {
+        guard !FileManager.default.fileExists(atPath: source.url.path) else { return true }
+        CrashReporter.shared.log("home_video.source_gone")
+        player.replaceCurrentItem(with: nil)
+        isPlaying = false
+        self.source = nil
+        resultURL = nil
+        hasTake = false
+        takeSamples = []
+        originalSamples = []
+        phase = .empty
+        errorMessage = Strings.HomeVideo.sourceGone
+        return false
+    }
+
     private func remix() {
         guard let source, hasTake else { return }
+        guard sourceFileIsThere(source) else { return }
         player.pause()
         isPlaying = false
         phase = .mixing
@@ -455,11 +515,28 @@ nonisolated struct HomeVideoPick: Transferable {
         FileRepresentation(contentType: .movie) { pick in
             SentTransferredFile(pick.url)
         } importing: { received in
-            let ext = received.file.pathExtension.isEmpty ? "mov" : received.file.pathExtension
-            let destination = HomeVideoMixer.workingDirectory
-                .appendingPathComponent("source-\(UUID().uuidString).\(ext)")
-            try FileManager.default.copyItem(at: received.file, to: destination)
-            return Self(url: destination)
+            Self(url: try keepCopy(of: received.file))
+        }
+    }
+
+    /// The picker's file, copied into the working folder under a name of its own.
+    static func keepCopy(of file: URL) throws -> URL {
+        let ext = file.pathExtension.isEmpty ? "mov" : file.pathExtension
+        let destination = HomeVideoMixer.workingDirectory
+            .appendingPathComponent("source-\(UUID().uuidString).\(ext)")
+        try FileManager.default.copyItem(at: file, to: destination)
+        return destination
+    }
+}
+
+/// The fallback when an item matched the picker's video filter but offers no type that conforms
+/// to `.movie`: whatever file Photos has, kept the same way.
+nonisolated struct HomeVideoAnyFile: Transferable {
+    let url: URL
+
+    static var transferRepresentation: some TransferRepresentation {
+        FileRepresentation(importedContentType: .data) { received in
+            Self(url: try HomeVideoPick.keepCopy(of: received.file))
         }
     }
 }

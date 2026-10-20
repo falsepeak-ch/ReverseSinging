@@ -473,6 +473,8 @@
 "homeVideo.pause" = "一時停止";
 "homeVideo.error.load" = "その動画を開けませんでした。別の動画を試してください。";
 "homeVideo.error.mix" = "声を動画に追加できませんでした。もう一度録音してください。";
+"homeVideo.error.tooShort" = "その動画は短すぎます。1秒以上の動画を選んでください。";
+"homeVideo.error.sourceGone" = "その動画はこのデバイスにもうありません。もう一度選んで録音してください。";
 "imitate.library.hint" = "音を選んで聞いたら、全力でマネしよう。";
 "imitate.library.best" = "ベスト";
 "imitate.library.untried" = "未挑戦";
