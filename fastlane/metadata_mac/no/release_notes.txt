@@ -1,5 +1,11 @@
-Rettelser for første oppstart på Mac.
+Dubb dine egne videoer kommer til Mac, og alle spillene er åpne.
 
-RETTET
-• Baklengssang ber om tilgang til mikrofonen første gang du tar opp, i stedet for å sende deg til Systeminnstillinger
-• De to filmscenene som følger med appen, er tilbake på hylla etter en reinstallasjon
+NYTT
+• Dubb dine egne videoer: slipp inn en video du har filmet, og legg din egen stemme over den
+• Alle spillene er åpne for alle, og de første sju opptakene dine er gratis, talt samlet på tvers av alle fire
+• Et Hjelp-vindu med svar og en trinnvis guide til flere filmscener. Trykk ⌘? for å åpne det
+• Delte dubbinger får en bildetekst og en lenke til Dubloon
+
+FORBEDRET
+• Velkomstvinduet viser alle fire spillene
+• Gi Dubloon stjerner fra sidepanelet

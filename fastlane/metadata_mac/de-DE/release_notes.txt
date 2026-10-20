@@ -1,5 +1,11 @@
-Korrekturen für den ersten Start auf dem Mac.
+Eigene Videos synchronisieren kommt auf den Mac, und alle Spiele sind offen.
 
-BEHOBEN
-• Rückwärtssingen fragt beim ersten Aufnehmen nach dem Mikrofon, statt dich in die Systemeinstellungen zu schicken
-• Die zwei Filmszenen, die mit der App kommen, sind nach einer Neuinstallation wieder im Regal
+NEU
+• Eigene Videos synchronisieren: Zieh ein selbst gefilmtes Video hinein und leg deine Stimme darüber
+• Alle Spiele sind für alle offen, und deine ersten sieben Takes sind kostenlos, gezählt über alle vier
+• Ein Hilfefenster mit Antworten und einer Schritt-für-Schritt-Anleitung für weitere Filmszenen. Drück ⌘?, um es zu öffnen
+• Geteilte Fassungen haben eine Bildunterschrift und einen Link zu Dubloon
+
+VERBESSERT
+• Das Begrüßungsfenster zeigt alle vier Spiele
+• Bewerte Dubloon mit Sternen in der Seitenleiste

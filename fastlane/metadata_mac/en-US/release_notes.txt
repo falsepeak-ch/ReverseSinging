@@ -1,5 +1,11 @@
-Fixes for the first launch on the Mac.
+Home Video Dub comes to the Mac, and every game is open.
 
-FIXED
-• Reverse singing asks for your microphone the first time you record, instead of sending you to System Settings
-• The two movie scenes that come with the app are back on the shelf after a reinstall
+NEW
+• Home Video Dub: drop in a video you've filmed and put your own voice over it
+• Every game is open to everyone, and your first seven takes are free, counted across all four
+• A Help window with answers and a step-by-step guide to getting more movie scenes. Press ⌘? to open it
+• Shared dubs carry a caption and a link to Dubloon
+
+IMPROVED
+• The welcome window shows all four games
+• Rate Dubloon with stars from the sidebar

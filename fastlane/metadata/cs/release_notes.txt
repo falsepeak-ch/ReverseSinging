@@ -1,12 +1,10 @@
-Čtvrtá hra, a je zdarma: dabujte vlastní videa.
+Sedm pokusů zdarma a halloweenská nabídka.
 
 NOVINKY
-• Dabing vlastních videí: vyberte video, které jste natočili, a namluvte ho vlastním hlasem. Zdarma pro všechny
-• Deset nových zvuků k napodobení v Napodobování zvuků
-• Světlý režim: v Nastavení zvolte Systém, Světlý nebo Tmavý
-• Nápověda přímo v aplikaci, s návodem krok za krokem, jak získat další filmové scény
+• Prvních sedm pokusů máte zdarma místo tří, počítají se napříč všemi čtyřmi hrami
+• Halloweenská nabídka do 3. listopadu: první rok Dubloon Pro za zvláštní cenu, z banneru nad hrami
+• Halloweenská ikona aplikace. Chcete raději klasickou? Vraťte ji v Nastavení
+• Strašidelné filmové scény k dabingu, doporučené nahoře v Dabingu filmové scény, dokud neskončí Halloween
 
 VYLEPŠENÍ
-• Přejetím zpět se obrazovka přetočí jako kazeta VHS
-• Stabilnější nahrávání a přehrávání po hovoru nebo když zvuk používala jiná aplikace
-• Dubloon požádá o mikrofon, až ho budete potřebovat, místo aby vás posílal do Nastavení
+• Uvítací prohlídka začíná Dabingem filmové scény

@@ -1,5 +1,11 @@
-Korjauksia ensimmäiseen käynnistykseen Macilla.
+Omien videoiden dubbaus tulee Macille, ja kaikki pelit ovat auki.
 
-KORJATTU
-• Takaperinlaulu pyytää mikrofonia, kun nauhoitat ensimmäisen kerran, eikä lähetä sinua Järjestelmäasetuksiin
-• Sovelluksen mukana tulevat kaksi elokuvakohtausta ovat taas hyllyssä uudelleenasennuksen jälkeen
+UUTTA
+• Omien videoiden dubbaus: pudota kuvaamasi video ja laita oma äänesi sen päälle
+• Kaikki pelit ovat auki kaikille, ja seitsemän ensimmäistä otostasi ovat ilmaisia, laskettuna kaikista neljästä yhteensä
+• Ohje-ikkuna, jossa on vastauksia ja vaiheittainen opas lisäkohtausten hankkimiseen. Avaa se painamalla ⌘?
+• Jaetuissa dubbauksissa on kuvateksti ja linkki Dubloonille
+
+PARANNETTU
+• Tervetuloikkuna näyttää kaikki neljä peliä
+• Arvioi Dubloon tähdillä sivupalkista

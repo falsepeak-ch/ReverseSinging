@@ -1,12 +1,10 @@
-Un quart joc, i és gratuït: dobla els teus propis vídeos.
+Set preses gratuïtes i una oferta de Halloween.
 
 NOVETATS
-• Doblatge dels teus vídeos: tria qualsevol vídeo que hagis gravat i posa-hi la teva veu. Gratuït per a tothom
-• Deu sons nous per imitar a Imitació de sons
-• Mode clar: tria Sistema, Clar o Fosc a Configuració
-• Ajuda dins l'app, amb una guia pas a pas per aconseguir més escenes de pel·lícules
+• Les teves primeres set preses són gratuïtes en lloc de tres, comptades entre els quatre jocs
+• Oferta de Halloween fins al 3 de novembre: el primer any de Dubloon Pro a un preu especial, des del bàner sobre els jocs
+• Una icona de Halloween per a l'app. Prefereixes la clàssica? Torna-hi a Configuració
+• Escenes de pel·lícules de por per doblar, suggerides a dalt de tot de Doblatge d'escena fins que s'acabi Halloween
 
 MILLORES
-• En lliscar enrere, la pantalla es rebobina com una cinta VHS
-• Gravació i reproducció més estables després d'una trucada o que una altra app faci servir l'àudio
-• Dubloon et demana el micròfon quan el necessites en lloc d'enviar-te a Configuració
+• La visita de benvinguda comença amb Doblatge d'escena

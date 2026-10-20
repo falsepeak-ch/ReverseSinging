@@ -1,5 +1,11 @@
-Verbeteringen voor de eerste keer opstarten op de Mac.
+Je eigen video's dubben komt naar de Mac, en elk spel is open.
 
-OPGELOST
-• Achterstevoren zingen vraagt om je microfoon de eerste keer dat je opneemt, in plaats van je naar Systeeminstellingen te sturen
-• De twee filmscènes die bij de app horen, staan na een herinstallatie weer op de plank
+NIEUW
+• Je eigen video's dubben: sleep een video die je hebt gefilmd erin en zet je eigen stem erover
+• Elk spel is open voor iedereen, en je eerste zeven takes zijn gratis, samen geteld over alle vier
+• Een Help-venster met antwoorden en een stapsgewijze uitleg om meer filmscènes te krijgen. Druk op ⌘? om het te openen
+• Gedeelde dubs krijgen een bijschrift en een link naar Dubloon
+
+VERBETERD
+• Het welkomstvenster toont alle vier de spellen
+• Geef Dubloon sterren vanuit de zijbalk

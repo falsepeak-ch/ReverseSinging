@@ -1,5 +1,11 @@
-Correcciones para el primer arranque en el Mac.
+Doblaje de tus vídeos llega al Mac, y todos los juegos están abiertos.
 
-CORRECCIONES
-• El canto invertido pide acceso al micrófono la primera vez que grabas, en lugar de mandarte a Ajustes del Sistema
-• Las dos escenas de película que incluye la app vuelven a estar en la estantería tras reinstalarla
+NOVEDADES
+• Doblaje de tus vídeos: arrastra un vídeo que hayas grabado y ponle tu propia voz
+• Todos los juegos están abiertos para todos, y tus primeras siete tomas son gratis, contadas entre los cuatro
+• Una ventana de Ayuda con respuestas y una guía paso a paso para conseguir más escenas de películas. Pulsa ⌘? para abrirla
+• Los doblajes que compartes llevan un texto y un enlace a Dubloon
+
+MEJORAS
+• La ventana de bienvenida muestra los cuatro juegos
+• Valora Dubloon con estrellas desde la barra lateral

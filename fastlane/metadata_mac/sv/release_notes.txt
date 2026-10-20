@@ -1,5 +1,11 @@
-Rättningar för första starten på Mac.
+Dubba dina egna videor kommer till Mac, och alla spel är öppna.
 
-ÅTGÄRDAT
-• Baklängessång ber om mikrofonen första gången du spelar in, i stället för att skicka dig till Systeminställningar
-• De två filmscenerna som följer med appen är tillbaka på hyllan efter en ominstallation
+NYTT
+• Dubba dina egna videor: släpp in en video du har filmat och lägg din egen röst över den
+• Alla spel är öppna för alla, och dina första sju tagningar är gratis, räknat över alla fyra
+• Ett hjälpfönster med svar och en steg-för-steg-guide till fler filmscener. Tryck på ⌘? för att öppna det
+• Delade dubbningar får en bildtext och en länk till Dubloon
+
+FÖRBÄTTRAT
+• Välkomstfönstret visar alla fyra spelen
+• Betygsätt Dubloon med stjärnor från sidofältet

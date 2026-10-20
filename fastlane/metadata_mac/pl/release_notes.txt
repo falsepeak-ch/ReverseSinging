@@ -1,5 +1,11 @@
-Poprawki pierwszego uruchomienia na Macu.
+Dubbing własnych filmów trafia na Maca, a każda gra jest otwarta.
 
-POPRAWIONO
-• Śpiewanie od tyłu prosi o dostęp do mikrofonu przy pierwszym nagraniu, zamiast odsyłać cię do Ustawień systemowych
-• Dwie sceny filmowe dołączone do aplikacji wracają na półkę po ponownej instalacji
+NOWOŚCI
+• Dubbing własnych filmów: wrzuć nagrany przez siebie film i podłóż pod niego swój głos
+• Każda gra jest otwarta dla wszystkich, a pierwsze siedem podejść jest za darmo, liczonych łącznie we wszystkich czterech
+• Okno Pomocy z odpowiedziami i przewodnikiem krok po kroku, jak zdobyć więcej scen filmowych. Naciśnij ⌘?, aby je otworzyć
+• Udostępnione dubbingi mają podpis i link do Dubloon
+
+ULEPSZENIA
+• Okno powitalne pokazuje wszystkie cztery gry
+• Oceń Dubloon w gwiazdkach z paska bocznego

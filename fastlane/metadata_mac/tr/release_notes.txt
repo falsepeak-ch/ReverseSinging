@@ -1,5 +1,11 @@
-Mac'te ilk açılış için düzeltmeler.
+Kendi videolarını seslendir Mac'e geldi ve tüm oyunlar açık.
 
-DÜZELTİLDİ
-• Tersten şarkı, ilk kayıtta seni Sistem Ayarları'na göndermek yerine mikrofon izni istiyor
-• Uygulamayla gelen iki film sahnesi, yeniden yüklemeden sonra rafta yerini alıyor
+YENİ
+• Kendi videolarını seslendir: çektiğin bir videoyu sürükleyip bırak ve üzerine kendi sesini koy
+• Tüm oyunlar herkese açık ve ilk yedi çekimin ücretsiz; dört oyunun toplamında sayılır
+• Yanıtlar ve daha fazla film sahnesi edinmek için adım adım rehber içeren bir Yardım penceresi. Açmak için ⌘? tuşlarına bas
+• Paylaşılan seslendirmelerde bir açıklama ve Dubloon bağlantısı yer alıyor
+
+İYİLEŞTİRMELER
+• Karşılama penceresi dört oyunun hepsini gösteriyor
+• Kenar çubuğundan Dubloon'a yıldız ver

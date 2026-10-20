@@ -1,5 +1,11 @@
-Correccions per a la primera obertura al Mac.
+El doblatge dels teus vídeos arriba al Mac, i tots els jocs estan oberts.
 
-CORRECCIONS
-• El cant invertit demana accés al micròfon la primera vegada que graves, en lloc d'enviar-te a Configuració del Sistema
-• Les dues escenes de pel·lícula que inclou l'app tornen a ser al prestatge després de reinstal·lar-la
+NOVETATS
+• Doblatge dels teus vídeos: deixa-hi anar un vídeo que hagis gravat i posa-hi la teva veu
+• Tots els jocs estan oberts per a tothom, i les teves primeres set preses són gratuïtes, comptades entre els quatre
+• Una finestra d'ajuda amb respostes i una guia pas a pas per aconseguir més escenes de pel·lícules. Prem ⌘? per obrir-la
+• Els doblatges compartits porten un text i un enllaç a Dubloon
+
+MILLORES
+• La finestra de benvinguda mostra els quatre jocs
+• Valora Dubloon amb estrelles des de la barra lateral

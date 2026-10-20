@@ -1,5 +1,11 @@
-Correções para o primeiro arranque no Mac.
+A dobragem dos teus vídeos chega ao Mac, e todos os jogos estão abertos.
 
-CORREÇÕES
-• O canto invertido pede acesso ao microfone na primeira vez que gravas, em vez de te mandar para as Definições do Sistema
-• As duas cenas de filme incluídas na app voltam à prateleira depois de uma reinstalação
+NOVIDADES
+• Dobragem dos teus vídeos: larga um vídeo que filmaste e põe-lhe a tua voz
+• Todos os jogos estão abertos a todos, e as tuas primeiras sete takes são grátis, contadas em conjunto nos quatro
+• Uma janela de Ajuda com respostas e um guia passo a passo para obter mais cenas de filmes. Carrega em ⌘? para a abrir
+• As dobragens partilhadas levam uma legenda e uma ligação para o Dubloon
+
+MELHORIAS
+• A janela de boas-vindas mostra os quatro jogos
+• Avalia o Dubloon com estrelas a partir da barra lateral

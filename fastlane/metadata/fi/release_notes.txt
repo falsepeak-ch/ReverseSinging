@@ -1,12 +1,10 @@
-Neljäs peli, ja se on ilmainen: dubbaa omat videosi.
+Seitsemän ilmaista otosta ja Halloween-tarjous.
 
 UUTTA
-• Omien videoiden dubbaus: valitse kuvaamasi video ja laita oma äänesi sen päälle. Ilmainen kaikille
-• Kymmenen uutta ääntä matkittavaksi Äänten matkimisessa
-• Vaalea tila: valitse Asetuksista Järjestelmä, Vaalea tai Tumma
-• Ohje suoraan apissa, ja vaiheittainen opas lisäkohtausten hankkimiseen
+• Seitsemän ensimmäistä otostasi ovat ilmaisia kolmen sijaan, laskettuna kaikista neljästä pelistä yhteensä
+• Halloween-tarjous 3. marraskuuta asti: Dubloon Pron ensimmäinen vuosi erikoishintaan pelien yläpuolella olevasta bannerista
+• Halloween-kuvake. Pidätkö enemmän klassisesta? Vaihda takaisin Asetuksissa
+• Pelottavia elokuvakohtauksia dubattavaksi, ehdotettuina Kohtauksen dubbauksen kärjessä Halloweenin loppuun asti
 
 PARANNETTU
-• Taaksepäin pyyhkäisy kelaa näytön takaisin kuin VHS-nauhan
-• Vakaampi tallennus ja toisto puhelun jälkeen tai kun toinen appi on käyttänyt ääntä
-• Dubloon pyytää mikrofonia silloin kun tarvitset sitä, eikä lähetä sinua Asetuksiin
+• Tervetuliaiskierros alkaa Kohtauksen dubbauksesta
