@@ -170,6 +170,15 @@ nonisolated struct DubBoothComposer {
         let sceneDisplaySize = try await displaySize(of: sceneSource)
         let sceneOrientation = await orientation(of: sceneSource)
         var boothOrientation = CGAffineTransform.identity
+        #if DUBLOON_GAME
+        // The game's booth card never goes dark between lines (see `holdFrame`): where the
+        // booth track has got to, and the clip last laid on it.
+        let holdsBooth = frame.isVertical
+        var boothEnd = CMTime.zero
+        // The asset too: a track only holds its asset weakly, and once the loop moves on the
+        // asset would be gone, and inserting from its track fails with -11800 (-12780).
+        var lastClip: (asset: AVURLAsset, source: AVAssetTrack, range: CMTimeRange)?
+        #endif
 
         var cursor = CMTime.zero
 
@@ -225,8 +234,22 @@ nonisolated struct DubBoothComposer {
                     guard clipRange.duration.seconds > 0 else { continue }
 
                     let at = CMTimeAdd(cursor, time(placement.outputStart - cursor.seconds))
+                    #if DUBLOON_GAME
+                    if holdsBooth, CMTimeCompare(at, boothEnd) > 0 {
+                        // Before the first line, the face that is about to speak; after one,
+                        // the face that just did.
+                        let still = lastClip.map { (source: $0.source, at: lastFrame(of: $0.range)) }
+                            ?? (source: clipSource, at: clipRange.start)
+                        let held = try holdFrame(still.at, of: still.source, on: boothTrack, from: boothEnd, to: at)
+                        if let held { boothRanges.append(held) }
+                    }
+                    #endif
                     try boothTrack.insertTimeRange(clipRange, of: clipSource, at: at)
                     boothRanges.append(CMTimeRange(start: at, duration: clipRange.duration))
+                    #if DUBLOON_GAME
+                    boothEnd = CMTimeMaximum(boothEnd, CMTimeAdd(at, clipRange.duration))
+                    lastClip = (clipAsset, clipSource, clipRange)
+                    #endif
                 }
             }
 
@@ -234,6 +257,15 @@ nonisolated struct DubBoothComposer {
         }
 
         guard cursor.seconds > 0 else { throw DubExportError.nothingRecorded }
+
+        #if DUBLOON_GAME
+        // And after the last line, the last face held to the end.
+        if holdsBooth, let boothTrack, let lastClip, CMTimeCompare(cursor, boothEnd) > 0 {
+            let held = try holdFrame(lastFrame(of: lastClip.range), of: lastClip.source,
+                                     on: boothTrack, from: boothEnd, to: cursor)
+            if let held { boothRanges.append(held) }
+        }
+        #endif
 
         // The audio is already the cut, in output time, so it is laid in once from the top.
         // Clamped to the picture: the mix runs past the scene when a take does.
@@ -442,8 +474,8 @@ nonisolated struct DubBoothComposer {
     }
 
     #if DUBLOON_GAME
-    /// The game's 9:16 frame: the booth across the top, the film in the monitor, and the stage
-    /// track (see `GameShowReel`) behind both. Each picture is cropped to its rect rather than
+    /// The game's 9:16 frame: the film in the monitor, the booth's portrait card over its
+    /// corner, and the stage track (see `GameShowReel`) behind both. Each picture is cropped to its rect rather than
     /// filled past it, because here there is nothing in front to hide a spill: the stage is
     /// the drawing around them, and it is at the back.
     private static func gameShowComposition(
@@ -462,8 +494,8 @@ nonisolated struct DubBoothComposer {
         composition.frameDuration = Self.frameDuration(matching: frameRate)
 
         let film = GameShowReel.fill(source: sceneDisplaySize, into: layout.film)
-        // A selfie is framed with the face in its upper half, so the band is cut from there.
-        let booth = GameShowReel.fill(source: boothDisplaySize, into: GameShowReel.boothRect, verticalBias: 0.3)
+        // A selfie is framed with the face in its upper half, so a sideways one is cut from there.
+        let booth = GameShowReel.fill(source: boothDisplaySize, into: layout.booth, verticalBias: 0.3)
 
         composition.instructions = coverage(of: boothRanges, within: duration).map { range in
             let instruction = AVMutableVideoCompositionInstruction()
@@ -487,6 +519,37 @@ nonisolated struct DubBoothComposer {
             return instruction
         }
         return composition
+    }
+    #endif
+
+    #if DUBLOON_GAME
+    /// Fills `start..<end` of `track` with one frame of `source`, held still.
+    ///
+    /// The game's booth card stays on screen for the whole video. Showing the stage between
+    /// lines and the player during them made every line a hard cut, face, logo, face; a held
+    /// frame keeps the player in their card, and they move again when they next speak.
+    /// Only ever called at the track's end, so nothing already laid is pushed along.
+    private static func holdFrame(
+        _ frameTime: CMTime,
+        of source: AVAssetTrack,
+        on track: AVMutableCompositionTrack,
+        from start: CMTime,
+        to end: CMTime
+    ) throws -> CMTimeRange? {
+        let gap = CMTimeSubtract(end, start)
+        guard gap.seconds > 0.001 else { return nil }
+        let still = CMTimeRange(start: frameTime, duration: heldFrame)
+        try track.insertTimeRange(still, of: source, at: start)
+        track.scaleTimeRange(CMTimeRange(start: start, duration: heldFrame), toDuration: gap)
+        return CMTimeRange(start: start, duration: gap)
+    }
+
+    /// One frame of a 30 fps booth clip, the length a held still is cut at.
+    private static let heldFrame = CMTime(value: 1, timescale: 30)
+
+    /// The start of a clip range's last frame.
+    private static func lastFrame(of range: CMTimeRange) -> CMTime {
+        CMTimeMaximum(range.start, CMTimeSubtract(CMTimeAdd(range.start, range.duration), heldFrame))
     }
     #endif
 

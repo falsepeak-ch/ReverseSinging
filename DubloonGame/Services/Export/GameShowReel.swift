@@ -2,7 +2,7 @@
 //  GameShowReel.swift
 //  DubloonGame
 //
-//  The game's vertical video: the player's booth on top, the show's monitor under it
+//  The game's vertical video: the show's monitor, with the player's booth over its corner
 //
 
 import AVFoundation
@@ -10,13 +10,14 @@ import UIKit
 
 /// Lays out and draws the game's 9:16 export, which looks like a moment from the show.
 ///
-/// The Booth Cam footage fills the top of the frame. Under it, on the stage, sits the show's
-/// monitor. Its header carries the character's name, the Dubloon wordmark and which line it is.
-/// The film plays inside the monitor. Under that come the line being dubbed, on an ivory card,
-/// and the original against the player's take as two waveforms with a playhead. Where a line
-/// in a booth video has no footage, the top of the frame shows the wordmark on the stage instead
-/// of black. A video with no booth footage at all has no top band: the monitor and everything
-/// under it sit in the middle of the frame, under a smaller wordmark.
+/// Under the Dubloon wordmark, on the stage, sits the show's monitor. Its header carries the
+/// character's name and which line it is, and the film plays inside it. The player's Booth Cam
+/// footage plays upright in a portrait card over the monitor's lower-right corner, beside the
+/// line being dubbed on an ivory card, and the original against the player's take run along the
+/// foot as two waveforms with a playhead. The card is on screen from the first frame to the
+/// last: between lines it holds the player's last frame (the composer's `holdFrame`), so the
+/// video never cuts from a face to the stage and back. A video with no booth footage at all has
+/// no card: the monitor and everything under it sit in the middle of the frame.
 ///
 /// **Everything but the two films is one track.** The stage, the monitor, the card and the
 /// waveforms are drawn into a full-canvas video, laid behind the film and the booth. That is the
@@ -29,32 +30,58 @@ nonisolated enum GameShowReel {
 
     /// The frame, top-left origin, the video composition's own space.
     static let canvas = CGSize(width: 1080, height: 1920)
-    /// Where the booth footage plays, when there is any.
-    static let boothRect = CGRect(x: 0, y: 0, width: 1080, height: 840)
 
-    /// Where everything on the stage goes. With the booth, the stage block hangs under the
-    /// booth's band; without it, the same block moves up into the middle of the frame, with
-    /// the wordmark above it.
+    /// Where everything goes.
+    ///
+    /// With the booth: the wordmark, the monitor across the top, and the player's booth as a
+    /// portrait card over the monitor's lower-right corner, the way the show cuts to a
+    /// contestant. The line's card stands beside it and the waveforms run along the foot. The
+    /// booth is 9:16, the shape the camera records in, so a face is never cut down to a band.
+    ///
+    /// Without it, the monitor and everything under it sit in the middle of the frame, under
+    /// a smaller wordmark.
     struct Layout: Sendable {
         let withBooth: Bool
 
-        /// How far the stage block moves up without the booth: centring the wordmark, its gap
-        /// and the block (862...1880) in the frame.
-        private var lift: CGFloat { withBooth ? 0 : 862 - (canvas.height - (Self.logoHeight + 44 + 1018)) / 2 - Self.logoHeight - 44 }
         static let logoHeight: CGFloat = 112
 
-        private func place(_ rect: CGRect) -> CGRect { rect.offsetBy(dx: 0, dy: -lift) }
+        /// How far the stage block moves up without the booth: centring the wordmark, its gap
+        /// and the block (862...1880) in the frame.
+        private var lift: CGFloat { 862 - (canvas.height - (Self.logoHeight + 44 + 1018)) / 2 - Self.logoHeight - 44 }
+        private func centred(_ rect: CGRect) -> CGRect { rect.offsetBy(dx: 0, dy: -lift) }
 
         /// Where the film plays, inside the monitor.
-        var film: CGRect { place(CGRect(x: 60, y: 952, width: 960, height: 540)) }
-        var monitor: CGRect { place(CGRect(x: 36, y: 862, width: 1008, height: 652)) }
-        var header: CGRect { place(CGRect(x: 60, y: 870, width: 960, height: 82)) }
-        var quote: CGRect { place(CGRect(x: 66, y: 1540, width: 948, height: 164)) }
-        var wave: CGRect { place(CGRect(x: 48, y: 1734, width: 984, height: 138)) }
+        var film: CGRect {
+            withBooth ? CGRect(x: 60, y: 302, width: 960, height: 540) : centred(CGRect(x: 60, y: 952, width: 960, height: 540))
+        }
+        var monitor: CGRect {
+            withBooth ? CGRect(x: 36, y: 212, width: 1008, height: 652) : centred(CGRect(x: 36, y: 862, width: 1008, height: 652))
+        }
+        var header: CGRect {
+            withBooth ? CGRect(x: 60, y: 220, width: 960, height: 82) : centred(CGRect(x: 60, y: 870, width: 960, height: 82))
+        }
+        /// Where the booth footage plays: 9:16, its card over the monitor's lower bezel but
+        /// never over the film, which plays on top of the drawing and would cut the card's
+        /// edge off. Empty without it.
+        var booth: CGRect { withBooth ? CGRect(x: 588, y: 868, width: 432, height: 768) : .zero }
+        /// The booth's bezel, around `booth`.
+        var boothCard: CGRect { booth.insetBy(dx: -22, dy: -22) }
+        var quote: CGRect {
+            withBooth ? CGRect(x: 36, y: 900, width: 506, height: 736) : centred(CGRect(x: 66, y: 1540, width: 948, height: 164))
+        }
+        var wave: CGRect {
+            withBooth ? CGRect(x: 36, y: 1690, width: 1008, height: 192) : centred(CGRect(x: 48, y: 1734, width: 984, height: 138))
+        }
         /// The waveforms' area inside their panel.
-        var field: CGRect { place(CGRect(x: 76, y: 1792, width: 928, height: 66)) }
-        /// The wordmark over the monitor, without the booth.
-        var logo: CGRect { CGRect(x: 0, y: monitor.minY - 44 - Self.logoHeight, width: canvas.width, height: Self.logoHeight) }
+        var field: CGRect {
+            withBooth ? CGRect(x: 66, y: 1752, width: 948, height: 100) : centred(CGRect(x: 76, y: 1792, width: 928, height: 66))
+        }
+        /// The wordmark over the monitor.
+        var logo: CGRect {
+            withBooth
+                ? CGRect(x: 0, y: 70, width: canvas.width, height: 120)
+                : CGRect(x: 0, y: monitor.minY - 44 - Self.logoHeight, width: canvas.width, height: Self.logoHeight)
+        }
     }
 
     /// Whether a video gets the booth's band: some line in the cut has footage. Asked by both
@@ -281,20 +308,7 @@ nonisolated enum GameShowReel {
             Ink.navy.withAlphaComponent(0.35).setFill()
             context.fill(full)
 
-            if layout.withBooth {
-                // Seen only on a line with no booth footage: the wordmark, centre stage.
-                Ink.navy.withAlphaComponent(0.35).setFill()
-                context.fill(boothRect)
-                drawLogo(height: 150, centredIn: boothRect)
-
-                // The seam between the booth and the stage.
-                Ink.navy.setFill()
-                context.fill(CGRect(x: 0, y: boothRect.maxY, width: canvas.width, height: 8))
-                Ink.cyan.setFill()
-                context.fill(CGRect(x: 0, y: boothRect.maxY + 8, width: canvas.width, height: 4))
-            } else {
-                drawLogo(height: Layout.logoHeight, centredIn: layout.logo)
-            }
+            drawLogo(height: layout.logo.height, centredIn: layout.logo)
 
             let monitorRect = layout.monitor, filmRect = layout.film
             let quoteRect = layout.quote, waveRect = layout.wave
@@ -310,6 +324,7 @@ nonisolated enum GameShowReel {
             rim.stroke()
             UIColor.black.setFill()
             context.fill(filmRect)
+            drawCornerTicks(in: monitorRect.insetBy(dx: 7, dy: 7), radius: 33)
 
             // The card the line goes on.
             Ink.navy.setFill()
@@ -320,6 +335,22 @@ nonisolated enum GameShowReel {
             Ink.navy.setStroke()
             card.lineWidth = 6
             card.stroke()
+
+            // The booth's card, drawn over the monitor's corner like the show cutting to a
+            // contestant. The footage plays in its screen for the whole video.
+            if layout.withBooth {
+                let cardRect = layout.boothCard
+                Ink.navy.setFill()
+                UIBezierPath(roundedRect: cardRect.offsetBy(dx: 0, dy: 10), cornerRadius: 40).fill()
+                UIBezierPath(roundedRect: cardRect, cornerRadius: 40).fill()
+                Ink.cyan.setStroke()
+                let boothRim = UIBezierPath(roundedRect: cardRect.insetBy(dx: 7, dy: 7), cornerRadius: 33)
+                boothRim.lineWidth = 5
+                boothRim.stroke()
+                UIColor.black.setFill()
+                context.fill(layout.booth)
+                drawCornerTicks(in: cardRect.insetBy(dx: 7, dy: 7), radius: 33)
+            }
 
             // The waveform panel.
             Ink.navy.setFill()
@@ -343,6 +374,30 @@ nonisolated enum GameShowReel {
         }
     }
 
+    /// The coral ticks the frame design puts in a screen's top-left and bottom-right corners,
+    /// following the rim's curve.
+    private static func drawCornerTicks(in rim: CGRect, radius: CGFloat) {
+        Ink.coral.setStroke()
+        let reach: CGFloat = 26
+        let topLeft = UIBezierPath()
+        topLeft.move(to: CGPoint(x: rim.minX, y: rim.minY + radius + reach))
+        topLeft.addLine(to: CGPoint(x: rim.minX, y: rim.minY + radius))
+        topLeft.addArc(withCenter: CGPoint(x: rim.minX + radius, y: rim.minY + radius), radius: radius,
+                       startAngle: .pi, endAngle: .pi * 1.5, clockwise: true)
+        topLeft.addLine(to: CGPoint(x: rim.minX + radius + reach, y: rim.minY))
+        let bottomRight = UIBezierPath()
+        bottomRight.move(to: CGPoint(x: rim.maxX, y: rim.maxY - radius - reach))
+        bottomRight.addLine(to: CGPoint(x: rim.maxX, y: rim.maxY - radius))
+        bottomRight.addArc(withCenter: CGPoint(x: rim.maxX - radius, y: rim.maxY - radius), radius: radius,
+                           startAngle: 0, endAngle: .pi * 0.5, clockwise: true)
+        bottomRight.addLine(to: CGPoint(x: rim.maxX - radius - reach, y: rim.maxY))
+        for tick in [topLeft, bottomRight] {
+            tick.lineWidth = 10
+            tick.lineCapStyle = .round
+            tick.stroke()
+        }
+    }
+
     /// The wordmark, `height` tall, centred in `rect`.
     private static func drawLogo(height: CGFloat, centredIn rect: CGRect) {
         guard let logo = UIImage(named: "game-logo") else { return }
@@ -360,15 +415,10 @@ nonisolated enum GameShowReel {
             context.draw(backdrop, in: CGRect(origin: .zero, size: canvas))
             context.restoreGState()
 
-            // In the monitor's header too, unless it is already over the monitor.
-            if layout.withBooth {
-                drawLogo(height: 70, centredIn: layout.header)
-            }
-
             if let beat {
                 drawName(beat.line.character, in: layout.header)
                 drawCounter(GameStrings.Dub.lineOf(beat.number, lineCount), in: layout.header)
-                drawQuote(beat.line.caption, on: layout.quote)
+                drawQuote(beat.line.caption, on: layout.quote, startingAt: layout.withBooth ? 64 : 46)
             }
             drawWaves(bars, in: layout.field)
         }
@@ -411,7 +461,7 @@ nonisolated enum GameShowReel {
     }
 
     /// The line, in quotes, centred on the card and shrunk until it fits.
-    private static func drawQuote(_ caption: String, on quoteRect: CGRect) {
+    private static func drawQuote(_ caption: String, on quoteRect: CGRect, startingAt startSize: CGFloat) {
         let text = caption.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty else { return }
         let quoted = "\u{201C}\(text)\u{201D}"
@@ -420,7 +470,7 @@ nonisolated enum GameShowReel {
         paragraph.alignment = .center
         paragraph.lineBreakMode = .byWordWrapping
 
-        var points: CGFloat = 46
+        var points = startSize
         var string = NSAttributedString()
         var bounds = CGRect.zero
         repeat {
