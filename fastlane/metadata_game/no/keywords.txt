@@ -1,1 +1,1 @@
-dubbing,stemme,imitere,herme,lyder,fest,karaoke,voiceover,film,morsom,topplist,quiz,skuespill
+dubbing,stemme,imitere,herme,lyder,fest,voiceover,film,morsom,topplist,quiz,skuespill

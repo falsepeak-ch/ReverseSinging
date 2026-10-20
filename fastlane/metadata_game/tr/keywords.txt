@@ -1,1 +1,1 @@
-dublaj,ses,taklit,komik,karaoke,parti,film,yarışma,sıralama,oyun
+dublaj,ses,taklit,komik,parti,film,yarışma,sıralama,oyun

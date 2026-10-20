@@ -1,1 +1,1 @@
-dubbaus,ääni,matkiminen,imitaatio,karaoke,puhe,elokuva,hauska,tulostaulu,juontaja,juhlapeli
+dubbaus,ääni,matkiminen,imitaatio,puhe,elokuva,hauska,tulostaulu,juontaja,juhlapeli

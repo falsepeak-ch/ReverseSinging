@@ -1,29 +1,34 @@
-DIFFERENT APP, DIFFERENT AUDIENCE
+HOW THIS DIFFERS FROM DUBLOON
 
-Dubloon the Game is a variant of the original Dubloon app (Dubloon by Cluso, com.falsepeak.reverse-singing-ios), built for a different public. The original Dubloon is a voice-training tool for people who work with their voice: it is about sound training for professionals and serious practice (reverse singing, a full waveform editor with loop, speed and pitch, dubbing with Booth Cam, home-video narration and exports). Dubloon the Game is a gamified, casual version of the dubbing and sound-imitation exercises for players who want a quick, fun game: a host-led game show with stars, sound effects, Game Center leaderboards and achievements, and a weekly race. It has none of the professional tools. The two apps target different people and have separate bundles, purchases and Game Center.
+Same developer as Dubloon (com.falsepeak.reverse-singing-ios), and both apps share a voice engine, so here is the difference plainly. Dubloon is a four-mode voice studio for iPhone and Mac: reverse singing with a waveform editor (loop, speed, pitch), Movie Scene Dub with a line-by-line editor, Sound Imitation, Home Video Dub over the user's own videos, and Booth Cam exports. Dubloon the Game is a separate, iPhone-only game show built around a host: short rounds she introduces and reacts to, stars per take, Game Center with five leaderboards (one a weekly race) and nine achievements, sound effects and evening reminders. It has two rounds (dub a scene, imitate a sound) and none of the studio: no reverse singing, no Home Video Dub, no waveform editor, no Mac app. Separate bundle, purchases and Game Center.
 
-No account is needed. Everything runs on device; nothing is uploaded. Firebase provides anonymous usage statistics and crash reports only, never audio or file contents. Reminders are local notifications scheduled on the device; nothing is sent from a server.
+No account is needed. Everything runs on device; nothing is uploaded. Firebase provides anonymous usage statistics and crash reports only, never audio or file contents. Reminders are local notifications; nothing is sent from a server.
 
 MOVIE SCENE DUB
 
-The app ships with four short example scenes and does not host, provide or distribute any other film, clip or dialogue: no catalogue, no search, no download. Every further scene is a file the user already has and imports.
+The app ships four short scenes and hosts no other film, clip or dialogue: no catalogue, no search, no in-app download.
 
-1. Three are from Blender's open movies under Creative Commons Attribution, which permits adaptation and redistribution with credit: "Camp Rules" ("Sprite Fright", CC BY 4.0), "Awesome in Space" ("Tears of Steel", CC BY 3.0) and "A Kindred Spirit" ("Sintel", CC BY 3.0).
-
-2. "Stuck Up", from "The Outsider" (Centron Productions, 1951), a US classroom film never renewed in its 28th year, so US public domain.
+1. Three from Blender's open movies under Creative Commons Attribution: "Camp Rules" ("Sprite Fright", CC BY 4.0), "Awesome in Space" ("Tears of Steel", CC BY 3.0), "A Kindred Spirit" ("Sintel", CC BY 3.0).
+2. "Stuck Up", from "The Outsider" (Centron, 1951), a US classroom film never renewed, so US public domain.
 
 Each states its provenance on the scene screen and before every export.
 
+More scenes are files the user imports. Before an import the app asks whether the user has scenes; someone who has none can open GameBanana (gamebanana.com), a community site where people share dub packs, in Safari, with a short guide to downloading a pack there and importing it with Files. The app says the user must have the right to use what they import; it never fetches or plays anything from that site itself.
+
 THE PURCHASE
 
-Free to download, with no account. Both games open for everyone. The first 7 takes are free, counted across both games. After the seventh, the purchase screen opens, and each new take asks for a purchase, which a sandbox account can make. The gold button on the home stage also opens it.
+Free to download. Both rounds open for everyone. The first 7 takes are free, counted across both. After the seventh, the purchase screen opens, and each new take asks for a purchase, which a sandbox account can make. The gold button on the home stage also opens it.
 
-Any of three products unlocks the same thing (unlimited takes): the non-consumable "com.falsepeak.dubloon_game.lifetime", or the auto-renewable subscriptions "com.falsepeak.dubloon_game.monthly" and "com.falsepeak.dubloon_game.yearly" (3-day free trial on the yearly). The purchase screen has Restore, Terms and Privacy links.
+Three products unlock the same thing (unlimited takes): the non-consumable "com.falsepeak.dubloon_game.lifetime" and the auto-renewable "com.falsepeak.dubloon_game.monthly" and "com.falsepeak.dubloon_game.yearly" (3-day free trial on the yearly). The purchase screen shows price, period and renewal terms, with Restore, Terms of Use (Apple's standard EULA) and Privacy Policy links.
+
+HALLOWEEN DEAL (20 OCTOBER TO 2 NOVEMBER 2026)
+
+While the deal runs, a banner over the home stage offers "com.falsepeak.dubloon_game.yearly_halloween": the same Pro access as the yearly plan, its first year at a 2.99 USD pay-up-front introductory offer, then the normal yearly price. The banner shows its last day as a date, not a countdown. Tapping it opens a terms card first: plan name, both prices, auto-renewal and how to cancel, Terms of Use and Privacy Policy links. Only Continue there opens the App Store sheet. The regular purchase screen keeps the regular plans.
 
 MICROPHONE
 
-The microphone is asked for at the first press of the record button, after a one-button explanation that always leads to the system prompt. Nothing follows a refusal.
+Asked at the first press of record, after a one-button explanation that always leads to the system prompt. Nothing follows a refusal.
 
 GAME CENTER
 
-The player is signed in at launch. Stars and points go to five leaderboards (one weekly, recurring) and nine achievements; the trophy on the home stage opens them.
+Authentication starts at launch without blocking play. A player who is not signed in sees Game Center's sign-in only after tapping the trophy, which also opens the leaderboards and achievements.

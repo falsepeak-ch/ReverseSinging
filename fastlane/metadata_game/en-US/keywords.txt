@@ -1,1 +1,1 @@
-dubbing,voice,impression,mimic,sound,party,karaoke,voiceover,movie,funny,acting,leaderboard,host
+dubbing,voice,impression,mimic,sound,party,gameshow,voiceover,movie,funny,acting,leaderboard,host

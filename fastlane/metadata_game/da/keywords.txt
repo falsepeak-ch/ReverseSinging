@@ -1,1 +1,1 @@
-dubbing,stemme,efterligne,lyde,fest,karaoke,voiceover,film,sjov,rangliste,quiz,skuespil
+dubbing,stemme,efterligne,lyde,fest,voiceover,film,sjov,rangliste,quiz,skuespil
