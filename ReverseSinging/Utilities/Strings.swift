@@ -263,9 +263,6 @@ nonisolated enum Strings {
         static let shareUsage = NSLocalizedString("settings.shareUsage", comment: "Toggle: send anonymous usage statistics and crash reports")
         static let shareUsageDesc = NSLocalizedString("settings.shareUsage.desc", comment: "What the usage-data toggle sends, and what it never sends")
         static let appearance = NSLocalizedString("settings.appearance", comment: "Settings section: light or dark look")
-        static let appIcon = NSLocalizedString("settings.appIcon", comment: "Settings section: which Home Screen icon the app uses")
-        static let appIconClassic = NSLocalizedString("settings.appIcon.classic", comment: "The app's usual Home Screen icon, under its preview")
-        static let appIconHalloween = NSLocalizedString("settings.appIcon.halloween", comment: "The Halloween Home Screen icon, under its preview")
         static let appearanceSystem = NSLocalizedString("settings.appearance.system", comment: "Appearance option: follow the device's light or dark setting")
         static let appearanceLight = NSLocalizedString("settings.appearance.light", comment: "Appearance option: always light")
         static let appearanceDark = NSLocalizedString("settings.appearance.dark", comment: "Appearance option: always dark")
@@ -546,25 +543,6 @@ nonisolated enum Strings {
     }
 
     // MARK: - Pro / Paywall
-    /// The Halloween deal banner over the games.
-    enum HalloweenDeal {
-        static let badge = NSLocalizedString("halloweenDeal.badge", comment: "Small label on the Halloween offer banner, shown upper-cased")
-        static let title = NSLocalizedString("halloweenDeal.title", comment: "Halloween banner headline: the first year of Dubloon Pro costs %@ (a localized price)")
-        static let renewal = NSLocalizedString("halloweenDeal.renewal", comment: "Under the Halloween headline: each later year costs %@ (a localized price)")
-        static let claim = NSLocalizedString("halloweenDeal.claim", comment: "Button on the Halloween banner that opens the offer's terms")
-        static let until = NSLocalizedString("halloweenDeal.until", comment: "On the Halloween banner: the deal's last day, %@ is a day and month such as '2 November'")
-        static let planName = NSLocalizedString("halloweenDeal.planName", comment: "Heading of the Halloween offer's terms: the subscription's name")
-        static let priceLine = NSLocalizedString("halloweenDeal.priceLine", comment: "Halloween offer terms: %1$@ is the first year's price, %2$@ the price of each later year (localized prices)")
-        static let terms = NSLocalizedString("halloweenDeal.terms", comment: "Halloween offer terms: how the subscription is charged, renews (at %@ a year) and is cancelled")
-        static let continueTitle = NSLocalizedString("halloweenDeal.continue", comment: "Button under the Halloween offer's terms that opens the App Store purchase sheet")
-    }
-
-    /// Scary movie scenes to dub, at the top of the dub library while the Halloween banner is on.
-    enum HalloweenScenes {
-        static let title = NSLocalizedString("halloweenScenes.title", comment: "Banner over the list of scary movie scenes to dub for Halloween, at the top of the dub library")
-        static let intro = NSLocalizedString("halloweenScenes.intro", comment: "In the banner over the list: each scene opens its dub pack's page on GameBanana to download, then the user imports it with +")
-    }
-
     enum Pro {
         // Settings
         /// The menu card's headline: free takes left, or none.
@@ -771,14 +749,5 @@ nonisolated enum Strings {
         static let message = NSLocalizedString("review.feedback.message", comment: "Explains that the note goes to the developer, who is one person, and will be read")
         static let placeholder = NSLocalizedString("review.feedback.placeholder", comment: "Placeholder in the empty feedback text box")
         static let send = NSLocalizedString("review.feedback.send", comment: "Button that sends the feedback note")
-    }
-
-    // MARK: - Spooky Voice Week
-    /// The Halloween card on the menu and the header over the sound library, see `SpookyVoiceWeek`.
-    enum Halloween {
-        static let title = NSLocalizedString("halloween.title", comment: "Name of the Halloween event, shown as the headline of the menu card and of the header in Sound Imitation")
-        static let homeMessage = NSLocalizedString("halloween.home.message", comment: "Body of the Halloween card on the menu. Names the spooky sounds already in Sound Imitation (ghost, zombie, wolf) and Camp Rules, a horror-comedy movie scene already in the dub library. Keep 'Camp Rules' untranslated")
-        static let homeAction = NSLocalizedString("halloween.home.action", comment: "Button on the Halloween menu card that opens Sound Imitation")
-        static let imitateMessage = NSLocalizedString("halloween.imitate.message", comment: "One line under the event name at the top of Sound Imitation during Halloween. Names the ghost, zombie, wolf and owl sounds")
     }
 }

@@ -758,28 +758,3 @@
 "offer.cta" = "Lunasta tarjous";
 "offer.dismiss" = "Ei nyt";
 
-/* Spooky Voice Week */
-"halloween.title" = "Kauhuäänten viikko";
-"halloween.home.message" = "Valita kuin kummitus, murise kuin zombi, ulvo kuin susi. Dubbaa sitten Camp Rules, kauhukomedian kohtaus.";
-"halloween.home.action" = "Pelaa kauhuäänillä";
-"halloween.imitate.message" = "Hyvää halloweenia! Lämmittele ääntäsi kummituksen, zombin, suden ja pöllön kanssa.";
-
-/* Halloween deal banner over the games */
-"halloweenDeal.badge" = "Halloween-tarjous";
-"halloweenDeal.title" = "Ensimmäinen Pro-vuosi hintaan %@";
-"halloweenDeal.renewal" = "Sen jälkeen %@ vuodessa. Peru milloin vain.";
-"halloweenDeal.claim" = "Ota tarjous";
-"halloweenDeal.until" = "%@ asti";
-"halloweenDeal.planName" = "Dubloon Pro Yearly";
-"halloweenDeal.priceLine" = "%1$@ ensimmäinen vuosi, sen jälkeen %2$@ vuodessa.";
-"halloweenDeal.terms" = "Maksu veloitetaan Apple-tililtäsi, kun vahvistat. Tilaus uusiutuu automaattisesti hintaan %@ vuodessa, ellet peru sitä vähintään 24 tuntia ennen kuluvan vuoden loppua. Voit hallita tai perua sen Apple-tilisi asetuksissa.";
-"halloweenDeal.continue" = "Jatka";
-
-/* App icon picker in Settings */
-"settings.appIcon" = "Sovelluksen kuvake";
-"settings.appIcon.classic" = "Klassinen";
-"settings.appIcon.halloween" = "Halloween";
-
-/* Scary movie scenes to dub, in the dub library during Halloween */
-"halloweenScenes.title" = "Halloween-kohtaukset";
-"halloweenScenes.intro" = "Kauhuklassikoita valmiina dubattaviksi. Napauta kohtausta avataksesi sen sivun GameBananassa, lataa tiedosto ja tuo se sitten tänne.";

@@ -21,10 +21,6 @@ Free to download. Both rounds open for everyone. The first 7 takes are free, cou
 
 Three products unlock the same thing (unlimited takes): the non-consumable "com.falsepeak.dubloon_game.lifetime" and the auto-renewable "com.falsepeak.dubloon_game.monthly" and "com.falsepeak.dubloon_game.yearly" (3-day free trial on the yearly). The purchase screen shows price, period and renewal terms, with Restore, Terms of Use (Apple's standard EULA) and Privacy Policy links.
 
-HALLOWEEN DEAL (20 OCTOBER TO 2 NOVEMBER 2026)
-
-While the deal runs, a banner over the home stage offers "com.falsepeak.dubloon_game.yearly_halloween": the same Pro access as the yearly plan, its first year at a 2.99 USD pay-up-front introductory offer, then the normal yearly price. The banner shows its last day as a date, not a countdown. Tapping it opens a terms card first: plan name, both prices, auto-renewal and how to cancel, Terms of Use and Privacy Policy links. Only Continue there opens the App Store sheet. The regular purchase screen keeps the regular plans.
-
 MICROPHONE
 
 Asked at the first press of record, after a one-button explanation that always leads to the system prompt. Nothing follows a refusal.

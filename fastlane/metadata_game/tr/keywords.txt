@@ -1,1 +1,1 @@
-dublaj,ses,taklit,komik,parti,film,yarışma,sıralama,oyun
+choicer,voicer,dubbing,voiceover,dublaj,taklit,tersten,sarki,karaoke,anime,ses,mikrofon,cluso

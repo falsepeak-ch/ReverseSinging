@@ -18,8 +18,6 @@ struct HomeView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @StateObject private var viewModel = HomeViewModel()
     @State private var isHelpPresented = false
-    /// The Halloween plan's terms, shown before the store's sheet. See `HalloweenDealModal`.
-    @State private var isHalloweenDealPresented = false
 
     /// The reverse game's model. Held by the menu rather than by the game screen, so a
     /// session in progress survives going back to the menu and in again.
@@ -123,40 +121,9 @@ struct HomeView: View {
         sizeClass == .regular && verticalSizeClass == .regular
     }
 
-    ///
-    /// The Halloween deal stays pinned above the scrolling part while it runs, in place of the
-    /// offer card (see `HomeViewModel.visibleOffer`).
     private var menu: some View {
-        VStack(spacing: 0) {
-            if let deal = viewModel.halloweenDeal {
-                HalloweenOfferBanner(
-                    introPrice: deal.introPrice,
-                    renewalPrice: deal.renewalPrice,
-                    endDate: deal.endDate,
-                    isPurchasing: viewModel.isClaimingHalloweenDeal
-                ) {
-                    isHalloweenDealPresented = true
-                }
-                .padding(.horizontal, EditorMetrics.gutter)
-                .padding(.top, 12)
-                .transition(.move(edge: .top).combined(with: .opacity))
-            }
-
-            games
-        }
-        .animation(.rsQuick, value: viewModel.halloweenDeal != nil)
-        .editorModal(isPresented: $isHalloweenDealPresented) {
-            if let deal = viewModel.halloweenDeal {
-                HalloweenDealModal(deal: deal) {
-                    isHalloweenDealPresented = false
-                    viewModel.claimHalloweenDeal()
-                } onClose: {
-                    isHalloweenDealPresented = false
-                }
-            }
-        }
-        .padding(.top, EditorMetrics.headerBarHeight)
-        .task { await viewModel.loadHalloweenDeal() }
+        games
+            .padding(.top, EditorMetrics.headerBarHeight)
     }
 
     private var games: some View {
@@ -182,13 +149,6 @@ struct HomeView: View {
                     .padding(.bottom, 10)
                     .transition(.opacity)
                     .onAppear { viewModel.reviewBannerDidAppear() }
-                }
-
-                if viewModel.showsSpookyVoiceWeek {
-                    SpookyVoiceWeekCard(isLocked: false) {
-                        viewModel.openSpookyVoiceWeek()
-                    }
-                    .padding(.bottom, 10)
                 }
 
                 if let offer = viewModel.visibleOffer {

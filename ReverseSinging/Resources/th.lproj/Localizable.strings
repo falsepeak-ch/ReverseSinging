@@ -758,28 +758,3 @@
 "offer.cta" = "รับข้อเสนอ";
 "offer.dismiss" = "ไว้ทีหลัง";
 
-/* Spooky Voice Week */
-"halloween.title" = "สัปดาห์เสียงสยองขวัญ";
-"halloween.home.message" = "ครางแบบผี คำรามแบบซอมบี้ หอนแบบหมาป่า แล้วไปพากย์ Camp Rules ฉากจากหนังตลกสยองขวัญ";
-"halloween.home.action" = "เล่นเสียงสยองขวัญ";
-"halloween.imitate.message" = "สุขสันต์วันฮาโลวีน! วอร์มเสียงกับผี ซอมบี้ หมาป่า และนกฮูก";
-
-/* Halloween deal banner over the games */
-"halloweenDeal.badge" = "ข้อเสนอฮาโลวีน";
-"halloweenDeal.title" = "ปีแรกของ Pro เพียง %@";
-"halloweenDeal.renewal" = "จากนั้น %@ ต่อปี ยกเลิกได้ทุกเมื่อ";
-"halloweenDeal.claim" = "รับเลย";
-"halloweenDeal.until" = "ถึง %@";
-"halloweenDeal.planName" = "Dubloon Pro Yearly";
-"halloweenDeal.priceLine" = "ปีแรก %1$@ จากนั้นปีละ %2$@";
-"halloweenDeal.terms" = "ระบบจะเรียกเก็บเงินจากบัญชี Apple ของคุณเมื่อคุณยืนยัน การสมัครสมาชิกจะต่ออายุอัตโนมัติในราคาปีละ %@ เว้นแต่คุณจะยกเลิกอย่างน้อย 24 ชั่วโมงก่อนสิ้นปีปัจจุบัน จัดการหรือยกเลิกได้ในการตั้งค่าบัญชี Apple ของคุณ";
-"halloweenDeal.continue" = "ดำเนินการต่อ";
-
-/* App icon picker in Settings */
-"settings.appIcon" = "ไอคอนแอป";
-"settings.appIcon.classic" = "คลาสสิก";
-"settings.appIcon.halloween" = "ฮาโลวีน";
-
-/* Scary movie scenes to dub, in the dub library during Halloween */
-"halloweenScenes.title" = "ฉากฮาโลวีน";
-"halloweenScenes.intro" = "หนังสยองขวัญคลาสสิกที่พร้อมให้พากย์ แตะเพื่อเปิดหน้าใน GameBanana ดาวน์โหลดไฟล์ แล้วกลับมานำเข้าที่นี่";

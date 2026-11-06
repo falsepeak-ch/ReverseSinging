@@ -758,28 +758,3 @@
 "offer.cta" = "Využít nabídku";
 "offer.dismiss" = "Teď ne";
 
-/* Spooky Voice Week */
-"halloween.title" = "Strašidelný týden hlasů";
-"halloween.home.message" = "Kvílej jako duch, chrchli jako zombie, vyj jako vlk. Pak nadabuj Camp Rules, scénu z hororové komedie.";
-"halloween.home.action" = "Zahraj si strašidelné zvuky";
-"halloween.imitate.message" = "Veselý Halloween! Rozehřej hlas: duch, zombie, vlk a sova už čekají.";
-
-/* Halloween deal banner over the games */
-"halloweenDeal.badge" = "Halloweenská nabídka";
-"halloweenDeal.title" = "První rok Pro za %@";
-"halloweenDeal.renewal" = "Poté %@ ročně. Zrušit můžete kdykoli.";
-"halloweenDeal.claim" = "Získat";
-"halloweenDeal.until" = "Do %@";
-"halloweenDeal.planName" = "Dubloon Pro Yearly";
-"halloweenDeal.priceLine" = "%1$@ za první rok, potom %2$@ ročně.";
-"halloweenDeal.terms" = "Platba se strhne z tvého účtu Apple po potvrzení. Předplatné se automaticky obnovuje za %@ ročně, pokud ho nezrušíš alespoň 24 hodin před koncem aktuálního roku. Spravovat nebo zrušit ho můžeš v nastavení účtu Apple.";
-"halloweenDeal.continue" = "Pokračovat";
-
-/* App icon picker in Settings */
-"settings.appIcon" = "Ikona aplikace";
-"settings.appIcon.classic" = "Klasická";
-"settings.appIcon.halloween" = "Halloween";
-
-/* Scary movie scenes to dub, in the dub library during Halloween */
-"halloweenScenes.title" = "Halloweenské scény";
-"halloweenScenes.intro" = "Hororové klasiky připravené k dabingu. Klepnutím otevřete stránku scény na GameBanana, stáhněte soubor a pak se vraťte a importujte ho.";

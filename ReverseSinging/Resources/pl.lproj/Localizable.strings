@@ -758,28 +758,3 @@
 "offer.cta" = "Skorzystaj z oferty";
 "offer.dismiss" = "Nie teraz";
 
-/* Spooky Voice Week */
-"halloween.title" = "Tydzień strasznych głosów";
-"halloween.home.message" = "Jęcz jak duch, charcz jak zombie, wyj jak wilk. Potem zdubbinguj Camp Rules, scenę z komedii grozy.";
-"halloween.home.action" = "Zagraj w straszne dźwięki";
-"halloween.imitate.message" = "Wesołego Halloween! Rozgrzej głos: duch, zombie, wilk i sowa już czekają.";
-
-/* Halloween deal banner over the games */
-"halloweenDeal.badge" = "Oferta na Halloween";
-"halloweenDeal.title" = "Pierwszy rok Pro za %@";
-"halloweenDeal.renewal" = "Potem %@ rocznie. Anuluj w dowolnej chwili.";
-"halloweenDeal.claim" = "Odbierz";
-"halloweenDeal.until" = "Do %@";
-"halloweenDeal.planName" = "Dubloon Pro Yearly";
-"halloweenDeal.priceLine" = "%1$@ za pierwszy rok, potem %2$@ rocznie.";
-"halloweenDeal.terms" = "Opłata zostanie pobrana z Twojego konta Apple po potwierdzeniu. Subskrypcja odnawia się automatycznie za %@ rocznie, chyba że anulujesz ją co najmniej 24 godziny przed końcem bieżącego roku. Możesz nią zarządzać lub ją anulować w ustawieniach konta Apple.";
-"halloweenDeal.continue" = "Dalej";
-
-/* App icon picker in Settings */
-"settings.appIcon" = "Ikona aplikacji";
-"settings.appIcon.classic" = "Klasyczna";
-"settings.appIcon.halloween" = "Halloween";
-
-/* Scary movie scenes to dub, in the dub library during Halloween */
-"halloweenScenes.title" = "Sceny na Halloween";
-"halloweenScenes.intro" = "Klasyki horroru gotowe do dubbingu. Stuknij scenę, by otworzyć jej stronę w GameBanana, pobierz plik, a potem wróć i go zaimportuj.";

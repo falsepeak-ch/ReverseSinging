@@ -758,28 +758,3 @@
 "offer.cta" = "Teklifi al";
 "offer.dismiss" = "Şimdi değil";
 
-/* Spooky Voice Week */
-"halloween.title" = "Ürkütücü Sesler Haftası";
-"halloween.home.message" = "Hayalet gibi inle, zombi gibi hırla, kurt gibi ulu. Sonra korku komedisi sahnesi Camp Rules'u seslendir.";
-"halloween.home.action" = "Ürkütücü sesleri oyna";
-"halloween.imitate.message" = "Cadılar Bayramın kutlu olsun! Sesini ısıt: hayalet, zombi, kurt ve baykuş seni bekliyor.";
-
-/* Halloween deal banner over the games */
-"halloweenDeal.badge" = "Cadılar Bayramı fırsatı";
-"halloweenDeal.title" = "Pro'nun ilk yılı %@";
-"halloweenDeal.renewal" = "Sonrasında yılda %@. İstediğin zaman iptal et.";
-"halloweenDeal.claim" = "Yakala";
-"halloweenDeal.until" = "%@ tarihine kadar";
-"halloweenDeal.planName" = "Dubloon Pro Yearly";
-"halloweenDeal.priceLine" = "İlk yıl %1$@, sonra yılda %2$@.";
-"halloweenDeal.terms" = "Ödeme, onayladığında Apple Hesabından alınır. Abonelik, mevcut yılın bitiminden en az 24 saat önce iptal etmezsen yılda %@ karşılığında otomatik olarak yenilenir. Aboneliği Apple Hesabı ayarlarından yönetebilir veya iptal edebilirsin.";
-"halloweenDeal.continue" = "Devam";
-
-/* App icon picker in Settings */
-"settings.appIcon" = "Uygulama simgesi";
-"settings.appIcon.classic" = "Klasik";
-"settings.appIcon.halloween" = "Cadılar Bayramı";
-
-/* Scary movie scenes to dub, in the dub library during Halloween */
-"halloweenScenes.title" = "Cadılar Bayramı sahneleri";
-"halloweenScenes.intro" = "Seslendirmeye hazır korku klasikleri. GameBanana'daki sayfasını açmak için birine dokun, dosyayı indir, sonra geri gelip içe aktar.";

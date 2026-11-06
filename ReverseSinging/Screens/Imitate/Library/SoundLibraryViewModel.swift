@@ -17,9 +17,6 @@ final class SoundLibraryViewModel: ObservableObject {
 
     let categories: [ImitationCategory] = ImitationCategory.allCases
 
-    /// The Halloween header over the grid, see `SpookyVoiceWeek`.
-    let showsSpookyVoiceWeek = SpookyVoiceWeek.isActiveNow
-
     private let progress: ImitationProgressStore
     private var cancellables = Set<AnyCancellable>()
 

@@ -61,26 +61,17 @@ final class HomeViewModel: ObservableObject {
     private let reviewPrompt: ReviewPrompt
     private var hasReportedReviewBannerShown = false
 
-    /// The Halloween deal pinned over the games. Its changes, and so the access controller's,
-    /// are passed on as this model's own.
-    private let halloween: HalloweenOffer
-
     init(
         reviewBanner: ReviewBanner = .shared,
-        reviewPrompt: ReviewPrompt = .shared,
-        halloween: HalloweenOffer = .shared
+        reviewPrompt: ReviewPrompt = .shared
     ) {
         access = AccessController.shared
         offerBanner = SubscriptionOfferBanner.shared
         self.reviewBanner = reviewBanner
         self.reviewPrompt = reviewPrompt
-        self.halloween = halloween
         isReviewBannerDue = reviewBanner.isDue()
 
         access.objectWillChange
-            .sink { [weak self] _ in self?.objectWillChange.send() }
-            .store(in: &cancellables)
-        halloween.objectWillChange
             .sink { [weak self] _ in self?.objectWillChange.send() }
             .store(in: &cancellables)
 
@@ -99,11 +90,8 @@ final class HomeViewModel: ObservableObject {
 
     /// The offer to put over the games instead of the plain unlock card. Never for someone who
     /// has the app: an active subscriber is not offered anything.
-    ///
-    /// Gives way to the Halloween deal while it runs: one offer over the games at a time, and
-    /// the deal is the better one.
     var visibleOffer: SubscriptionOffer? {
-        guard offersPro, offerBanner.isVisible, halloweenDeal == nil else { return nil }
+        guard offersPro, offerBanner.isVisible else { return nil }
         return offerBanner.offer
     }
 
@@ -138,11 +126,6 @@ final class HomeViewModel: ObservableObject {
         offerBanner.dismiss()
     }
 
-    /// The Halloween card. Read once per menu: a menu left open past midnight on the 1st of
-    /// November keeps it until the next launch, which is better than a card vanishing under a
-    /// finger.
-    let showsSpookyVoiceWeek = SpookyVoiceWeek.isActiveNow
-
     /// The note that asks for a rating. Only for someone who has imported a dub pack or had a
     /// few wins, and used the app on at least two different days, whether or not they have
     /// paid: by then they know the app well enough for the rating to mean something.
@@ -162,21 +145,6 @@ final class HomeViewModel: ObservableObject {
         #endif
     }
 
-    // MARK: - Halloween deal
-
-    /// What the Halloween banner says, while it is shown. See `HalloweenOffer.isShown`.
-    var halloweenDeal: HalloweenDeal? { halloween.deal() }
-
-    var isClaimingHalloweenDeal: Bool { halloween.isPurchasing }
-
-    func loadHalloweenDeal() async {
-        await halloween.load()
-    }
-
-    func claimHalloweenDeal() {
-        Task { await halloween.purchase(source: "home_halloween_banner") }
-    }
-
     // MARK: - Navigation
 
     func open(_ mode: GameMode) {
@@ -185,12 +153,6 @@ final class HomeViewModel: ObservableObject {
 
     func openDub() {
         path = [.dub]
-    }
-
-    /// The Spooky Voice Week card: the same place `dubloon://event/spooky` goes.
-    func openSpookyVoiceWeek() {
-        AnalyticsManager.shared.trackCustomEvent(name: "spooky_card_tapped", parameters: nil)
-        path = [SpookyVoiceWeek.destination]
     }
 
     /// A `dubloon://` link: the game it names, on its own rather than on top of whatever was

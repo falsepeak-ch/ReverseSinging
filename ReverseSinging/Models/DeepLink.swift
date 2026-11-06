@@ -10,7 +10,7 @@ import Foundation
 /// A `dubloon://` link, parsed. Each one names the screen a store page or an event promised:
 ///
 /// - `dubloon://game/movie-dub`, `reverse-singing`, `sound-imitation`, `home-video-dub`
-/// - `dubloon://event/spooky`, Spooky Voice Week, which opens Sound Imitation
+/// - `dubloon://event/<slug>`, an in-app event, which opens the game listed for it in `events`
 ///
 /// Anything else under the scheme parses to nil and the app simply opens. A file URL, a dub
 /// pack handed in from Files or AirDrop, is never a deep link.
@@ -20,9 +20,7 @@ enum DeepLink: Equatable {
     static let scheme = "dubloon"
 
     /// The event slugs, and the game each one opens.
-    private static let events: [String: GameMode] = [
-        "spooky": SpookyVoiceWeek.destination,
-    ]
+    private static let events: [String: GameMode] = [:]
 
     /// The game slugs the store pages use, which are not `GameMode`'s raw values.
     private static let games: [String: GameMode] = [

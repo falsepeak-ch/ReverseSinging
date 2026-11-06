@@ -758,28 +758,3 @@
 "offer.cta" = "Ta erbjudandet";
 "offer.dismiss" = "Inte nu";
 
-/* Spooky Voice Week */
-"halloween.title" = "Läskiga röstveckan";
-"halloween.home.message" = "Jämra dig som ett spöke, morra som en zombie, yla som en varg. Dubba sedan Camp Rules, scenen ur en skräckkomedi.";
-"halloween.home.action" = "Spela de läskiga ljuden";
-"halloween.imitate.message" = "Glad halloween! Värm upp rösten med spöket, zombien, vargen och ugglan.";
-
-/* Halloween deal banner over the games */
-"halloweenDeal.badge" = "Halloweenerbjudande";
-"halloweenDeal.title" = "Första året med Pro för %@";
-"halloweenDeal.renewal" = "Sedan %@ per år. Avsluta när du vill.";
-"halloweenDeal.claim" = "Ta det";
-"halloweenDeal.until" = "Till %@";
-"halloweenDeal.planName" = "Dubloon Pro Yearly";
-"halloweenDeal.priceLine" = "%1$@ första året, sedan %2$@ per år.";
-"halloweenDeal.terms" = "Betalningen dras från ditt Apple-konto när du bekräftar. Prenumerationen förnyas automatiskt för %@ per år om du inte säger upp den minst 24 timmar innan det pågående året tar slut. Hantera eller säg upp den i inställningarna för ditt Apple-konto.";
-"halloweenDeal.continue" = "Fortsätt";
-
-/* App icon picker in Settings */
-"settings.appIcon" = "Appsymbol";
-"settings.appIcon.classic" = "Klassisk";
-"settings.appIcon.halloween" = "Halloween";
-
-/* Scary movie scenes to dub, in the dub library during Halloween */
-"halloweenScenes.title" = "Halloweenscener";
-"halloweenScenes.intro" = "Skräckklassiker redo att dubbas. Tryck på en för att öppna dess sida på GameBanana, ladda ned filen och kom sedan tillbaka och importera den.";

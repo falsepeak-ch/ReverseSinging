@@ -758,28 +758,3 @@
 "offer.cta" = "Отримати пропозицію";
 "offer.dismiss" = "Не зараз";
 
-/* Spooky Voice Week */
-"halloween.title" = "Тиждень моторошних голосів";
-"halloween.home.message" = "Стогни як привид, хрипи як зомбі, вий як вовк. А потім озвуч Camp Rules, сцену з комедійного горору.";
-"halloween.home.action" = "Грати в моторошні звуки";
-"halloween.imitate.message" = "Щасливого Гелловіну! Розігрій голос: привид, зомбі, вовк і сова вже чекають.";
-
-/* Halloween deal banner over the games */
-"halloweenDeal.badge" = "Акція на Гелловін";
-"halloweenDeal.title" = "Перший рік Pro за %@";
-"halloweenDeal.renewal" = "Потім %@ на рік. Скасувати можна будь-коли.";
-"halloweenDeal.claim" = "Забрати";
-"halloweenDeal.until" = "До %@";
-"halloweenDeal.planName" = "Dubloon Pro Yearly";
-"halloweenDeal.priceLine" = "%1$@ за перший рік, далі %2$@ на рік.";
-"halloweenDeal.terms" = "Оплата списується з твого облікового запису Apple після підтвердження. Підписка автоматично поновлюється за %@ на рік, якщо не скасувати її щонайменше за 24 години до кінця поточного року. Керувати підпискою або скасувати її можна в налаштуваннях облікового запису Apple.";
-"halloweenDeal.continue" = "Продовжити";
-
-/* App icon picker in Settings */
-"settings.appIcon" = "Значок застосунку";
-"settings.appIcon.classic" = "Класичний";
-"settings.appIcon.halloween" = "Гелловін";
-
-/* Scary movie scenes to dub, in the dub library during Halloween */
-"halloweenScenes.title" = "Сцени на Гелловін";
-"halloweenScenes.intro" = "Класика жахів, готова до озвучення. Торкніться сцени, щоб відкрити її сторінку на GameBanana, завантажте файл і поверніться, щоб імпортувати його.";

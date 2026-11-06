@@ -25,11 +25,6 @@ struct SoundLibraryView: View {
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 22) {
-                        if viewModel.showsSpookyVoiceWeek {
-                            SpookyVoiceWeekHeader()
-                                .padding(.top, SpookyVoiceWeekHeader.headroom)
-                        }
-
                         Text(Strings.Imitate.libraryHint)
                             .font(.rsBodySmall)
                             .foregroundColor(.rsTextSecondary)

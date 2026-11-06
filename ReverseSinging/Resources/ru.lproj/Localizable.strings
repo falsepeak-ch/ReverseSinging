@@ -758,28 +758,3 @@
 "offer.cta" = "Получить предложение";
 "offer.dismiss" = "Не сейчас";
 
-/* Spooky Voice Week */
-"halloween.title" = "Неделя жутких голосов";
-"halloween.home.message" = "Стони как привидение, хрипи как зомби, вой как волк. А потом озвучь Camp Rules, сцену из комедийного хоррора.";
-"halloween.home.action" = "Играть в жуткие звуки";
-"halloween.imitate.message" = "С Хеллоуином! Разогрей голос: привидение, зомби, волк и сова уже ждут.";
-
-/* Halloween deal banner over the games */
-"halloweenDeal.badge" = "Акция на Хеллоуин";
-"halloweenDeal.title" = "Первый год Pro за %@";
-"halloweenDeal.renewal" = "Затем %@ в год. Отменить можно в любой момент.";
-"halloweenDeal.claim" = "Забрать";
-"halloweenDeal.until" = "До %@";
-"halloweenDeal.planName" = "Dubloon Pro Yearly";
-"halloweenDeal.priceLine" = "%1$@ за первый год, затем %2$@ в год.";
-"halloweenDeal.terms" = "Оплата списывается с твоего Apple Account при подтверждении. Подписка продлевается автоматически за %@ в год, если не отменить её не позднее чем за 24 часа до конца текущего года. Управлять подпиской или отменить её можно в настройках Apple Account.";
-"halloweenDeal.continue" = "Продолжить";
-
-/* App icon picker in Settings */
-"settings.appIcon" = "Значок приложения";
-"settings.appIcon.classic" = "Классический";
-"settings.appIcon.halloween" = "Хеллоуин";
-
-/* Scary movie scenes to dub, in the dub library during Halloween */
-"halloweenScenes.title" = "Сцены на Хэллоуин";
-"halloweenScenes.intro" = "Классика ужасов, готовая к озвучке. Нажмите на сцену, чтобы открыть её страницу на GameBanana, скачайте файл и вернитесь, чтобы импортировать его.";

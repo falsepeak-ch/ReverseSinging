@@ -24,11 +24,6 @@ struct DeepLinkTests {
         #expect(link(url) == .game(mode))
     }
 
-    /// Spooky Voice Week opens Sound Imitation.
-    @Test func spookyEvent() {
-        #expect(link("dubloon://event/spooky") == .game(.imitate))
-    }
-
     @Test func toleratesCaseTrailingSlashAndQuery() {
         #expect(link("DUBLOON://Game/Movie-Dub/") == .game(.dub))
         #expect(link("dubloon://game/movie-dub?ct=cpp") == .game(.dub))

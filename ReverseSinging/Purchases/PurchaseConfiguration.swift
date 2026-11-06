@@ -43,17 +43,6 @@ nonisolated enum PurchaseConfiguration {
     static let lifetimeProductID = "com.falsepeak.reverse_singing_ios.lifetime"
     #endif
 
-    /// The Halloween plan: a yearly subscription whose first year is a 2.99 USD introductory
-    /// offer until 4 Nov 2026, then the normal yearly price. Only the Halloween banner sells
-    /// it, so the paywall keeps its usual prices (an introductory offer on the normal yearly
-    /// plan would show on the paywall too). Created by `fastlane/halloween_offer/setup_halloween_plan.rb`;
-    /// it must be attached to the Pro entitlement in RevenueCat.
-    #if DUBLOON_GAME
-    static let halloweenProductID = "com.falsepeak.dubloon_game.yearly_halloween"
-    #else
-    static let halloweenProductID = "com.falsepeak.reverse_singing_ios.yearly_halloween"
-    #endif
-
     // MARK: - API keys
 
     /// The key a debug build talks to.

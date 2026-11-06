@@ -758,28 +758,3 @@
 "offer.cta" = "Aprofitar l'oferta";
 "offer.dismiss" = "Ara no";
 
-/* Spooky Voice Week */
-"halloween.title" = "Setmana de Veus de Por";
-"halloween.home.message" = "Gemega com un fantasma, grunyeix com un zombi, udola com un llop. I després dobla Camp Rules, l'escena de comèdia de terror.";
-"halloween.home.action" = "Juga amb els sons de por";
-"halloween.imitate.message" = "Bon Halloween! Escalfa la veu amb el fantasma, el zombi, el llop i el mussol.";
-
-/* Halloween deal banner over the games */
-"halloweenDeal.badge" = "Oferta de Halloween";
-"halloweenDeal.title" = "El primer any de Pro per %@";
-"halloweenDeal.renewal" = "Després, %@ l'any. Cancel·la quan vulguis.";
-"halloweenDeal.claim" = "Aprofita-la";
-"halloweenDeal.until" = "Fins al %@";
-"halloweenDeal.planName" = "Dubloon Pro Yearly";
-"halloweenDeal.priceLine" = "%1$@ el primer any i després %2$@ l'any.";
-"halloweenDeal.terms" = "El pagament es carrega al teu compte d'Apple quan confirmes. La subscripció es renova automàticament per %@ l'any si no la cancel·les com a mínim 24 hores abans que acabi l'any en curs. La pots gestionar o cancel·lar a la configuració del teu compte d'Apple.";
-"halloweenDeal.continue" = "Continua";
-
-/* App icon picker in Settings */
-"settings.appIcon" = "Icona de l'app";
-"settings.appIcon.classic" = "Clàssica";
-"settings.appIcon.halloween" = "Halloween";
-
-/* Scary movie scenes to dub, in the dub library during Halloween */
-"halloweenScenes.title" = "Escenes de Halloween";
-"halloweenScenes.intro" = "Clàssics del terror a punt per doblar. Toca'n un per obrir la seva pàgina a GameBanana, baixa el fitxer i torna aquí per importar-lo.";

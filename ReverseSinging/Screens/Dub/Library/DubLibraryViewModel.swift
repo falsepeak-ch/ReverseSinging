@@ -25,17 +25,11 @@ final class DubLibraryViewModel: ObservableObject {
 
     private var cancellables = Set<AnyCancellable>()
 
-    private let switches: BannerSwitches
-
-    /// The library's changes, and the Halloween switch's, are passed on as this model's own.
-    init(switches: BannerSwitches = .shared) {
+    /// The library's changes are passed on as this model's own.
+    init() {
         library = DubPackLibrary()
-        self.switches = switches
 
         library.objectWillChange
-            .sink { [weak self] _ in self?.objectWillChange.send() }
-            .store(in: &cancellables)
-        switches.objectWillChange
             .sink { [weak self] _ in self?.objectWillChange.send() }
             .store(in: &cancellables)
     }
@@ -59,13 +53,6 @@ final class DubLibraryViewModel: ObservableObject {
 
     func recordedCount(for pack: DubPack) -> Int {
         library.recordedCount(for: pack)
-    }
-
-    // MARK: - Halloween scenes
-
-    /// Scary scenes to dub, offered while the Halloween banner is switched on.
-    var showsHalloweenScenes: Bool {
-        HalloweenScenes.isShown(switches: switches)
     }
 
     // MARK: - Import

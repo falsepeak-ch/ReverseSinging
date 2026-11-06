@@ -34,10 +34,6 @@ Tap "Movie Scene Dub". The four bundled scenes install on first open: pick one, 
 
 The library's "I need help getting more packs" row explains importing and repeats both disclaimers.
 
-HALLOWEEN (20 OCTOBER TO 2 NOVEMBER 2026)
-
-A banner over the games offers "com.falsepeak.reverse_singing_ios.yearly_halloween": same access as the yearly plan, first year at a 2.99 USD pay-up-front introductory offer, then the normal yearly price. It shows its last day as a date, not a countdown. Tapping it opens a terms card (plan, both prices, auto-renewal, how to cancel, Terms and Privacy links); only Continue there opens the App Store sheet. Movie Scene Dub also lists a few horror scenes shared on GameBanana; each opens that page in Safari, under the same third-party and rights notice.
-
 SOUND IMITATION
 
 Plays a bundled sound (CC0, Freesound, credited per sound) and scores the user's imitation on the device.

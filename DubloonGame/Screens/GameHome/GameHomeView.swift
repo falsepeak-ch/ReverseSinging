@@ -26,8 +26,6 @@ struct GameHomeView: View {
     @State private var iris: CGFloat = 1
     /// The reminders' primer, offered once after the first finished round.
     @State private var isReminderPrimerShown = false
-    /// The Halloween plan's terms, shown before the store's sheet. See `HalloweenDealModal`.
-    @State private var isHalloweenDealPresented = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -43,26 +41,6 @@ struct GameHomeView: View {
                 .onAppear { scene.safeInsets = proxy.safeAreaInsets }
                 .onChange(of: proxy.safeAreaInsets) { _, insets in scene.safeInsets = insets }
             }
-            // The Halloween deal, pinned over the stage. As an inset, the stage reads it as
-            // part of the safe area and lays its title out underneath.
-            .safeAreaInset(edge: .top, spacing: 0) {
-                if let deal = viewModel.halloweenDeal {
-                    HalloweenOfferBanner(
-                        introPrice: deal.introPrice,
-                        renewalPrice: deal.renewalPrice,
-                        endDate: deal.endDate,
-                        isPurchasing: viewModel.isClaimingHalloweenDeal
-                    ) {
-                        showHalloweenDeal()
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.top, 6)
-                    .padding(.bottom, 4)
-                    .transition(.move(edge: .top).combined(with: .opacity))
-                }
-            }
-            .animation(.easeOut(duration: 0.3), value: viewModel.halloweenDeal != nil)
-            .task { await viewModel.loadHalloweenDeal() }
             .background(Color.gameNavy.ignoresSafeArea())
             .accessibilityRepresentation { accessibleStage }
             .hidesNavigationBar()
@@ -85,16 +63,6 @@ struct GameHomeView: View {
         }
         .sheet(isPresented: $app.showSettings) {
             SettingsView(app: app)
-        }
-        .editorModal(isPresented: $isHalloweenDealPresented) {
-            if let deal = viewModel.halloweenDeal {
-                HalloweenDealModal(deal: deal) {
-                    isHalloweenDealPresented = false
-                    viewModel.claimHalloweenDeal()
-                } onClose: {
-                    isHalloweenDealPresented = false
-                }
-            }
         }
         .sheet(isPresented: $viewModel.isPaywallPresented) {
             ProPaywallView(source: "game_home")
@@ -174,11 +142,6 @@ struct GameHomeView: View {
         }
     }
 
-    private func showHalloweenDeal() {
-        GameSFX.play(.tap)
-        isHalloweenDealPresented = true
-    }
-
     // MARK: - Accessibility
 
     /// What VoiceOver and Switch Control get in place of the sprites: the host's line and
@@ -188,11 +151,6 @@ struct GameHomeView: View {
             Text(viewModel.hostLine)
             ForEach(GameHomeViewModel.games) { mode in
                 Button("\(mode.title). \(mode.subtitle)") { viewModel.open(mode) }
-            }
-            if let deal = viewModel.halloweenDeal {
-                Button("\(Strings.HalloweenDeal.badge). \(String(format: Strings.HalloweenDeal.title, deal.introPrice))") {
-                    showHalloweenDeal()
-                }
             }
             if let proTitle = viewModel.stageState.proTitle {
                 Button(proTitle) { viewModel.showPaywall() }
