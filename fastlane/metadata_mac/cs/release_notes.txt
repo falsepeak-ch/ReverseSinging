@@ -1,11 +1,1 @@
-Dabing vlastních videí přichází na Mac a všechny hry jsou otevřené.
-
-NOVINKY
-• Dabing vlastních videí: přetáhněte sem video, které jste natočili, a namluvte ho vlastním hlasem
-• Všechny hry jsou otevřené pro všechny a prvních sedm pokusů je zdarma, počítají se napříč všemi čtyřmi
-• Okno nápovědy s odpověďmi a návodem krok za krokem, jak získat další filmové scény. Otevřete ho klávesami ⌘?
-• Sdílené dabingy mají popisek a odkaz na Dubloon
-
-VYLEPŠENÍ
-• Uvítací okno ukazuje všechny čtyři hry
-• Ohodnoťte Dubloon hvězdičkami z postranního panelu
+Drobné opravy a vylepšení.

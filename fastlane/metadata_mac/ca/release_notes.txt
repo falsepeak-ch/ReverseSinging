@@ -1,11 +1,1 @@
-El doblatge dels teus vídeos arriba al Mac, i tots els jocs estan oberts.
-
-NOVETATS
-• Doblatge dels teus vídeos: deixa-hi anar un vídeo que hagis gravat i posa-hi la teva veu
-• Tots els jocs estan oberts per a tothom, i les teves primeres set preses són gratuïtes, comptades entre els quatre
-• Una finestra d'ajuda amb respostes i una guia pas a pas per aconseguir més escenes de pel·lícules. Prem ⌘? per obrir-la
-• Els doblatges compartits porten un text i un enllaç a Dubloon
-
-MILLORES
-• La finestra de benvinguda mostra els quatre jocs
-• Valora Dubloon amb estrelles des de la barra lateral
+Petites correccions i millores.

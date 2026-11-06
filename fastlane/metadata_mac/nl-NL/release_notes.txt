@@ -1,11 +1,1 @@
-Je eigen video's dubben komt naar de Mac, en elk spel is open.
-
-NIEUW
-• Je eigen video's dubben: sleep een video die je hebt gefilmd erin en zet je eigen stem erover
-• Elk spel is open voor iedereen, en je eerste zeven takes zijn gratis, samen geteld over alle vier
-• Een Help-venster met antwoorden en een stapsgewijze uitleg om meer filmscènes te krijgen. Druk op ⌘? om het te openen
-• Gedeelde dubs krijgen een bijschrift en een link naar Dubloon
-
-VERBETERD
-• Het welkomstvenster toont alle vier de spellen
-• Geef Dubloon sterren vanuit de zijbalk
+Kleine verbeteringen en oplossingen.

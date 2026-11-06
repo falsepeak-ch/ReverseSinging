@@ -1,11 +1,1 @@
-Dubb dine egne videoer kommer til Mac, og alle spillene er åpne.
-
-NYTT
-• Dubb dine egne videoer: slipp inn en video du har filmet, og legg din egen stemme over den
-• Alle spillene er åpne for alle, og de første sju opptakene dine er gratis, talt samlet på tvers av alle fire
-• Et Hjelp-vindu med svar og en trinnvis guide til flere filmscener. Trykk ⌘? for å åpne det
-• Delte dubbinger får en bildetekst og en lenke til Dubloon
-
-FORBEDRET
-• Velkomstvinduet viser alle fire spillene
-• Gi Dubloon stjerner fra sidepanelet
+Små rettelser og forbedringer.
